@@ -120,6 +120,7 @@ class EsoCharDataParser
 						INDEX index_name(name(32)),
 						INDEX index_class(class(10)),
 						INDEX index_race(race(10)),
+						INDEX index_buildName(buildName(32)),
 						INDEX index_buildType(buildType(10)),
 						INDEX index_wikiUserName(wikiUserName(32)),
 						INDEX index_accountName(accountName(32)),
@@ -696,8 +697,6 @@ class EsoCharDataParser
 
 	public function parseFormInput()
 	{
-		$this->writeHeaders();
-	
 		$this->inputParams = $_REQUEST;
 	
 		if (!array_key_exists('chardata', $this->inputParams)) 
@@ -733,6 +732,8 @@ class EsoCharDataParser
 	
 	public function doParse()
 	{
+		$this->writeHeaders();
+		
 		if (!$this->parseFormInput()) return false;
 		if (!$this->saveAllNewCharacters()) return false;
 		
