@@ -7,15 +7,17 @@ require_once("/home/uesp/secrets/esochardata.secrets");
 class EsoCharDataViewer
 {
 	const ESO_ICON_URL = "http://esoicons.uesp.net";
+	const ESO_HTML_TEMPLATE = "templates/esochardata_embed_template.txt";
 	
 	public $inputParams = array();
 	public $outputHtml = "";
+	public $htmlTemplate = "";
 	
 	public $characterData = array();
 	public $buildData = array();
 	
 	public $characterId = 0;
-	public $viewRawData = true;
+	public $viewRawData = false;
 	
 	public $db = null;
 	private $dbReadInitialized  = false;
@@ -27,6 +29,7 @@ class EsoCharDataViewer
 	public function __construct ()
 	{
 		$this->initDatabase();
+		$this->loadHtmlTemplate();
 	}
 	
 	
@@ -67,6 +70,12 @@ class EsoCharDataViewer
 	}
 	
 	
+	public function loadHtmlTemplate()
+	{
+		$this->htmlTemplate = file_get_contents(self::ESO_HTML_TEMPLATE);
+	}
+	
+	
 	public function getSafeFieldStr(&$arrayData, $field)
 	{
 		if (!array_key_exists($field, $arrayData)) return '';
@@ -83,7 +92,7 @@ class EsoCharDataViewer
 	
 	public function formatCharacterLevel($level)
 	{
-		if ($level < 50) return string($level);
+		if ($level < 50) return strval($level);
 		if ($level == 50) return "v1";
 		return "v" . ($level - 50);
 	}
@@ -130,6 +139,8 @@ class EsoCharDataViewer
 		$result->data_seek(0);
 		$this->characterData = $result->fetch_assoc();
 		
+		$this->characterData['cp'] = $this->characterData['championPoints']; 
+		
 		if (!$this->loadCharacterArrayData("buffs")) return false;
 		if (!$this->loadCharacterArrayData("championPoints")) return false;
 		if (!$this->loadCharacterArrayData("skills")) return false;
@@ -174,17 +185,86 @@ class EsoCharDataViewer
 		if (!$this->loadCharacter()) return false;
 		if ($this->viewRawData) return $this->createCharacterOutputRaw();
 		
-		$this->outputHtml .= "TODO: Normal Character Output";
-		$this->createCharacterOutputRaw();
+		$replacePairs = array(
+					'{buildName}' => $this->getCharField('buildName'),
+					'{buildType}' => $this->getCharField('buildType'),
+					'{charName}' => $this->getCharField('name'),
+					'{race}' => $this->getCharField('race'),
+					'{class}' => $this->getCharField('class'),
+					'{level}' => $this->formatCharacterLevel($this->getCharField('level')),
+					'{levelTitle}' => $this->getCharLevelTitle(),
+					'{championPoints}' => $this->getCharField('cp'),
+					'{rawLevel}' => $this->getCharField('level'),
+					'{action11}' => $this->getCharActionHtml(1, 1),
+					'{action12}' => $this->getCharActionHtml(1, 2),
+					'{action13}' => $this->getCharActionHtml(1, 3),
+					'{action14}' => $this->getCharActionHtml(1, 4),
+					'{action15}' => $this->getCharActionHtml(1, 5),
+					'{action16}' => $this->getCharActionHtml(1, 6),
+					'{action21}' => $this->getCharActionHtml(2, 1),
+					'{action22}' => $this->getCharActionHtml(2, 2),
+					'{action23}' => $this->getCharActionHtml(2, 3),
+					'{action24}' => $this->getCharActionHtml(2, 4),
+					'{action25}' => $this->getCharActionHtml(2, 5),
+					'{action26}' => $this->getCharActionHtml(2, 6),
+			);
+		
+		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
 		
 		return true;
 	}
 	
 	
+	public function getCharField($field)
+	{
+		if (!array_key_exists($field, $this->characterData)) return "";
+		return $this->escape($this->characterData[$field]);
+	}
+	
+	
+	public function getCharActionHtml($barIndex, $skillIndex)
+	{
+		if (!array_key_exists('actionBars', $this->characterData)) return "";
+		$index = ($barIndex - 1) * 100 + $skillIndex + 2;
+		$action = null;
+		
+		foreach ($this->characterData['actionBars'] as $bar)
+		{
+			if ($bar['index'] == $index)
+			{
+				$action = $bar;
+				break;
+			}
+		}
+		
+		if ($action == null) return "";
+		
+		$icon = $action['icon'];
+		$iconUrl = $this->convertIconToImageUrl($icon);
+		$desc = $this->convertDescriptionToHtml($action['description']);
+		$name = $this->escape($action['name']);
+		$abilityId = $action['abilityId'];
+		
+		$output  = "<div class='ecdActionIcon ecdTooltipTrigger'>";
+		$output .= "<img src=\"$iconUrl\" />";
+		$output .= "<div class='ecdTooltip ecdSkillTooltip'>";
+		$output .= "<div class='ecdSkillTooltipTitle'>$name</div> <br /><br /> $desc";
+		$output .= "</div>";
+		$output .= "</div>";
+		
+		return $output;
+	}
+	
+	
+	public function getCharLevelTitle()
+	{
+		if ($this->characterData['level'] >= 50) return 'VETERAN RANK';
+		return 'LEVEL';
+	}
+	
+
 	public function createCharacterOutputRaw()
 	{
-		//links to each array section/table of contents
-		
 		$characterOutput = "<a name='ecd_character'></a>";
 		$arrayOutput = "";
 		$contentsOutput .= "<li><a href=\"#ecd_character\">Character Summary</a></li>";
@@ -233,9 +313,17 @@ class EsoCharDataViewer
 	}
 	
 	
-	public function convertDescriptionToPlainText($description)
+	public function convertDescriptionToText($description)
 	{
 		$newDesc = preg_replace('/\|c[a-fA-F0-9]{6}([a-zA-Z _0-9\.\+\-\:\;\n\r\t]*)\|r/', '$1', $description);
+		return $newDesc;
+	}
+	
+	
+	public function convertDescriptionToHtml($description)
+	{
+		$newDesc = preg_replace('/\|c[a-fA-F0-9]{6}([a-zA-Z _0-9\.\+\-\:\;\n\r\t]*)\|r/', '<div class="ecdWhite">$1</div>', $description);
+		$newDesc = preg_replace('/\n/', '<br />', $newDesc);
 		return $newDesc;
 	}
 	
@@ -244,9 +332,16 @@ class EsoCharDataViewer
 	{
 		$height = "";
 		if ($this->viewRawData) $height = "32";
-		$pngIcon = preg_replace("/\.dds$/", ".png", $icon);
-		$iconLink = "<img src=\"" . self::ESO_ICON_URL . $pngIcon . "\" height='$height' />";
+		$pngIconUrl = $this->convertIconToImageUrl($icon);
+		$iconLink = "<img src=\"$pngIconUrl\" height='$height' title=\"$icon\" />";
 		return $iconLink;
+	}
+	
+	
+	public function convertIconToImageUrl($icon)
+	{
+		$pngIcon = preg_replace("/\.dds$/", ".png", $icon);
+		return self::ESO_ICON_URL . $pngIcon;
 	}
 	
 	
@@ -256,7 +351,6 @@ class EsoCharDataViewer
 		$output .= "<a name='ecd_$name'></a>";
 		$output .= "<h2>$name</h2>";
 		$output .= "<table class='ecdRawCharArrayData'>\n";
-		//$output .= "<th colspan='20'>$name</th>\n";
 		$firstRow = true;
 		
 		foreach ($data as $key => &$arrayData)
@@ -290,7 +384,7 @@ class EsoCharDataViewer
 				
 				if ($rowName == 'description')
 				{
-					$safeValue = $this->escape($this->convertDescriptionToPlainText($value));
+					$safeValue = $this->escape($this->convertDescriptionToText($value));
 				}
 				elseif ($rowName == 'icon')
 				{
