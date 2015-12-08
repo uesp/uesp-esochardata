@@ -6,6 +6,7 @@ require_once("/home/uesp/secrets/esochardata.secrets");
 
 class EsoCharDataViewer
 {
+	const ESO_ICON_URL = "http://esoicons.uesp.net";
 	
 	public $inputParams = array();
 	public $outputHtml = "";
@@ -19,6 +20,8 @@ class EsoCharDataViewer
 	public $db = null;
 	private $dbReadInitialized  = false;
 	public $lastQuery = "";
+	
+	public $baseUrl = "viewCharData.php";
 	
 	
 	public function __construct ()
@@ -155,7 +158,13 @@ class EsoCharDataViewer
 			$this->buildData[] = $row;
 		}
 		
+		if ($table == "equipSlots" || $table == "actionBars")
+			usort($arrayData, charArrayDataCompareByIndex);
+		else
+			usort($arrayData, charArrayDataCompareByName);
+		
 		$this->characterData[$table] = $arrayData;
+		
 		return true;
 	}
 	
@@ -174,45 +183,95 @@ class EsoCharDataViewer
 	
 	public function createCharacterOutputRaw()
 	{
-		$characterOutput = "";
+		//links to each array section/table of contents
+		
+		$characterOutput = "<a name='ecd_character'></a>";
 		$arrayOutput = "";
+		$contentsOutput .= "<li><a href=\"#ecd_character\">Character Summary</a></li>";
 		
 		foreach ($this->characterData as $key => &$data)
 		{
 			if (is_array($data))
+			{
 				$arrayOutput .= $this->getCharacterRawArrayOutput($key, $data);
+				$contentsOutput .= "<li><a href=\"#ecd_$key\">$key</a></li>";
+			}
 			else
+			{
 				$characterOutput .= $this->getCharacterRawOutput($key, $data);
+			}
 				
 		}
 		
+		$this->outputHtml .= "<ul id='ecdTableOfContents'>\n";
+		$this->outputHtml .= $contentsOutput;
+		$this->outputHtml .= "</ul>\n";
 		$this->outputHtml .= "<table class='ecdRawCharData'>\n";
 		$this->outputHtml .= "<th colspan='20'>Character Summary</th>\n";
 		$this->outputHtml .= $characterOutput;
-		$this->outputHtml .= "</table>\n";
+		$this->outputHtml .= "</table> <p />\n";
 		$this->outputHtml .= $arrayOutput;
 	
 		return true;
 	}
 	
 	
+	public function checkCharacterRawColumnName($colName)
+	{
+		if ($colName == 'id') return false;
+		if ($colName == 'characterId') return false;
+		
+		return true;
+	}
+	
+	
+	public function checkCharacterRawKeyName($keyName)
+	{
+		if ($keyName == 'IPAddress') return false;
+	
+		return true;
+	}
+	
+	
+	public function convertDescriptionToPlainText($description)
+	{
+		$newDesc = preg_replace('/\|c[a-fA-F0-9]{6}([a-zA-Z _0-9\.\+\-\:\;\n\r\t]*)\|r/', '$1', $description);
+		return $newDesc;
+	}
+	
+	
+	public function convertIconToImageLink($icon)
+	{
+		$height = "";
+		if ($this->viewRawData) $height = "32";
+		$pngIcon = preg_replace("/\.dds$/", ".png", $icon);
+		$iconLink = "<img src=\"" . self::ESO_ICON_URL . $pngIcon . "\" height='$height' />";
+		return $iconLink;
+	}
+	
+	
 	public function getCharacterRawArrayOutput($name, $data)
 	{
-		$output  = "<table class='ecdRawCharArrayData'>\n";
-		$output .= "<th colspan='20'>$name</th>\n";
+		$output  = "<hr />";
+		$output .= "<a name='ecd_$name'></a>";
+		$output .= "<h2>$name</h2>";
+		$output .= "<table class='ecdRawCharArrayData'>\n";
+		//$output .= "<th colspan='20'>$name</th>\n";
 		$firstRow = true;
 		
 		foreach ($data as $key => &$arrayData)
 		{
+			$skipRow = false;
+			
 			if ($firstRow)
 			{
 				$output .= "<tr>\n";
-				$output .= "<td>ID</td>\n";
 				
 				foreach ($arrayData as $rowName => $value)
 				{
+					if (!$this->checkCharacterRawColumnName($rowName)) continue;
 					$safeRowName = $this->escape($rowName);
-					$output .= "<td>$safeRowName</td>\n";
+					$output .= "<th>$safeRowName</td>\n";
 				}
 				
 				$firstRow = false;
@@ -220,30 +279,54 @@ class EsoCharDataViewer
 			}
 			
 			$safeKey = $this->escape($key);
-			$output .= "<tr>\n";
-			$output .= "<td>$safeKey</td>\n";
+			$rowOutput = "<tr>\n";
 			
 			foreach ($arrayData as $rowName => $value)
 			{
-				$safeValue = $this->escape($value);
-				$output .= "<td>$safeValue</td>\n";
+				if (!$this->checkCharacterRawColumnName($rowName)) continue;
+				if (!$this->checkCharacterRawKeyName($value)) $skipRow = true;
+				
+				$className = "";
+				
+				if ($rowName == 'description')
+				{
+					$safeValue = $this->escape($this->convertDescriptionToPlainText($value));
+				}
+				elseif ($rowName == 'icon')
+				{
+					$safeValue = $this->convertIconToImageLink($value);
+				}
+				elseif ($rowName == 'name') 
+				{
+				 	$className = 'ecdRawCharHeader';
+				 	$safeValue = $this->escape($value);
+				}
+				else
+				{
+					$safeValue = $this->escape($value);
+				}
+				
+				$rowOutput .= "<td class='$className'>$safeValue</td>\n";
 			}
 			
-			$output .= "</tr>\n";
+			$rowOutput .= "</tr>\n";
+			if (!$skipRow) $output .= $rowOutput;
 		}
 		
-		$output .= "</table>\n";
+		$output .= "</table> <p />\n";
 		return $output;
 	}
 	
 	
 	public function getCharacterRawOutput($name, $data)
 	{
+		if (!$this->checkCharacterRawKeyName($name)) return "";
+		
 		$safeName = $this->escape($name);
 		$safeData = $this->escape($data);
 		
 		$output  = "<tr>\n";
-		$output .= "<td>$safeName</td>\n";
+		$output .= "<td class='ecdRawCharHeader'>$safeName</td>\n";
 		$output .= "<td>$safeData</td>\n";
 		$output .= "</tr>\n";
 		
@@ -267,6 +350,15 @@ class EsoCharDataViewer
 		return true;
 	}
 	
+	
+	public function getCharacterLink($charId)
+	{
+		$link  = $this->baseUrl . "?";
+		$link .= "id=$charId&";
+		
+		return $link;
+	}
+	
 		
 	public function createBuildOutput($buildData)
 	{
@@ -278,7 +370,7 @@ class EsoCharDataViewer
 		$level = $this->formatCharacterLevel($this->getSafeFieldInt($buildData, 'level'));
 		$cp = $this->getSafeFieldInt($buildData, 'championPoints');
 		$charId = $this->getSafeFieldInt($buildData, 'id');
-		$linkUrl = "viewCharData.php?id=$charId";
+		$linkUrl = $this->getCharacterLink($charId);
 		
 		if ($buildType == "other") $buildType = "";
 		
@@ -314,5 +406,17 @@ class EsoCharDataViewer
 
 	
 };
+
+
+function charArrayDataCompareByName($a, $b)
+{
+	return strcmp($a["name"], $b["name"]);
+}
+
+
+function charArrayDataCompareByIndex($a, $b)
+{
+	return $a["index"] - $b["index"];
+}
 
 
