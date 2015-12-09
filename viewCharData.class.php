@@ -245,7 +245,7 @@ class EsoCharDataViewer
 					'{skillPointsTotal}' => $this->getCharStatField('SkillPointsTotal'),
 					'{skillContentTitle}' => 'Skill Content Title',
 					'{skillTree}' => $this->getCharSkillTreeHtml(),
-					'{skillContents}' => 'Skill Contents',
+					'{skillContents}' => $this->getCharSkillContentHtml(),
 				
 				
 			);
@@ -253,6 +253,147 @@ class EsoCharDataViewer
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
 		
 		return true;
+	}
+	
+	
+	public function getCharSkillContentHtml()
+	{
+		$output = "";
+		
+		foreach($this->skillData as $name => &$data)
+		{
+			$output .= $this->getCharSkillContentHtml1($name, $data);	
+		}
+		
+		return $output;
+	}
+	
+	
+	public function getCharSkillContentHtml1($skillName, &$skillData)
+	{
+		$output = "";
+	
+		foreach($skillData as $name => &$data)
+		{
+			$output .= $this->getCharSkillContentHtml2($name, $data);
+		}
+	
+		return $output;
+	}
+	
+	
+	public function getCharSkillContentHtml2($skillName, &$skillData)
+	{
+		$safeName = $this->escape($skillName);
+		$idName = str_replace("'", '', str_replace(' ', '', $safeName));
+		$output = "<div id='ecdSkill_$idName' class='ecdSkillData' style='display: none;'>\n";
+		
+		reset($skillData);
+		
+		if (is_numeric(key($skillData)))
+			$output .= $this->getCharSkillContentHtmlSkills($skillData);
+		else
+			$output .= $this->getCharSkillContentHtmlCP($skillData);
+	
+		$output .= "</div>\n";
+		return $output;
+	}
+	
+	
+	public function getCharSkillContentHtmlSkills(&$skillData)
+	{
+		$foundUltimate = false;
+		$foundSkill = false;
+		$foundPassive = false;
+		$output = "";
+		
+		for ($i = 0; $i < 100; ++$i)
+		{
+			if (!array_key_exists($i, $skillData)) continue;
+			
+			if ($skillData[$i]['type'] == 'ultimate' && !$foundUltimate)
+			{
+				$output .= "<div class='ecdSkillDataHeader'>ULTIMATES</div>\n";
+				$foundUltimate = true;
+			}
+			else if ($skillData[$i]['type'] == 'skill' && !$foundSkill)
+			{
+				$output .= "<div class='ecdSkillDataHeader'>SKILLS</div>\n";
+				$foundSkill = true;
+			}
+			else if ($skillData[$i]['type'] == 'passive' && !$foundPassive)
+			{
+				$output .= "<div class='ecdSkillDataHeader'>PASSIVES</div>\n";
+				$foundPassive = true;
+			}
+			
+			$output .= $this->getCharSkillContentHtml3($i, $skillData[$i]);
+		}
+		
+		return $output;
+	}
+	
+	
+	public function getCharSkillContentHtmlCP(&$skillData)
+	{
+		$output = "";
+		
+		foreach ($skillData as $name => &$data)
+		{
+			$output .= $this->getCharSkillContentHtml3CP($name, $data);
+		}
+		
+		return $output;
+	}
+	
+	
+	public function getCharSkillContentHtml3CP($skillName, &$skillData)
+	{
+		$output = "<div class='ecdSkillDataBox'>\n";
+		
+		$safeName = $this->escape($skillName);
+		$points = $skillData['points'];
+		$abilityId = $skillData['abilityId'];
+		$desc = $this->convertDescriptionToHtml($skillData['description']);
+		
+		$output .= "<div class='ecdSkillName'>$points $safeName</div>\n";
+		$output .= "<div class='ecdSkillNameDesc'>$desc</div>\n";
+		$output .= "</div>\n";
+		
+		return $output;
+	}
+	
+	
+	
+	public function getCharSkillContentHtml3($skillName, &$skillData)
+	{
+		$output = "<div class='ecdSkillDataBox'>\n";
+		
+		$safeName = $this->escape($skillData['baseName']);
+		$rawIcon = $skillData['icon'];
+		$iconUrl = $this->convertIconToImageUrl($rawIcon);
+		$desc = $this->convertDescriptionToHtml($skillData['description']);
+		$rank = $skillData['rank'];
+		$outputRank = '';
+		$className = 'ecdSkillIconBox';
+		
+		if ($skillData['type'] == 'passive') 
+		{
+			$className = 'ecdSkillPassiveIconBox';
+			$outputRank = '(' . $rank . ')';
+		}
+		
+		$output .= "<div class='$className ecdTooltipTrigger'>\n";
+		$output .= "<img src='$iconUrl' class='ecdSkillIcon' />\n";
+		$output .= "<div class='ecdTooltip ecdSkillTooltip1'>\n";
+		$output .= "<div class='ecdSkillTooltipTitle'>$safeName</div> <br /> $desc\n";
+		$output .= "</div>";
+		$output .= "</div>\n";			
+		
+		$output .= "<div class='ecdSkillName'>$safeName $outputRank</div>\n";
+		$output .= "</div>\n";
+		
+		return $output;
 	}
 	
 	
@@ -336,8 +477,8 @@ class EsoCharDataViewer
 		if (!array_key_exists($names[0], $this->skillData['ChampionPoints'])) $this->skillData['ChampionPoints'][$names[0]] = array();
 		
 		$newData = $cpData;
-		$newData['baseName'] = $name[1];
-		$this->skillData['ChampionPoints'][$names[0]][] = $newData;
+		$newData['baseName'] = $names[1];
+		$this->skillData['ChampionPoints'][$names[0]][$names[1]] = $newData;
 		
 		return true;
 	}
@@ -346,10 +487,16 @@ class EsoCharDataViewer
 	public function parseCharSkill($skillName, &$skillData)
 	{
 		$names = explode(':', $skillName);
-		$index = $skillData['index'];
+		$index = intval($skillData['index']);
+		
+		if (count($names) == 4)
+		{
+			$names[2] .= ':' . $names[3];
+			unset($names[3]);
+		}
 		
 		if (count($names) != 3) return $this->reportError("Skill name '$skillName' doesn't have 3 parts!");
-		if ($index == null )return $this->reportError("Skill name '$skillName' missing index data!");
+		if ($index == null) return $this->reportError("Skill name '$skillName' missing index data!");
 		
 		if (!array_key_exists($names[0], $this->skillData)) $this->skillData[$names[0]] = array();
 		if (!array_key_exists($names[1], $this->skillData[$names[0]])) $this->skillData[$names[0]][$names[1]] = array();
@@ -526,7 +673,6 @@ class EsoCharDataViewer
 	
 	public function getCharActionHtml($barIndex, $skillIndex)
 	{
-		if (!array_key_exists('actionBars', $this->characterData)) return "";
 		$index = ($barIndex - 1) * 100 + $skillIndex + 2;
 		$action = null;
 		
@@ -539,21 +685,34 @@ class EsoCharDataViewer
 			}
 		}
 		
-		if ($action == null) return "";
-		
-		$icon = $action['icon'];
-		$iconUrl = $this->convertIconToImageUrl($icon);
-		$desc = $this->convertDescriptionToHtml($action['description']);
-		$name = $this->escape($action['name']);
-		$abilityId = $action['abilityId'];
+		if ($action == null)
+		{
+			$icon = '';
+			$iconUrl = '';
+			$desc = '';
+			$name = '';
+			$abilityId = '';
+		}
+		else
+		{
+			$icon = $action['icon'];
+			$iconUrl = $this->convertIconToImageUrl($icon);
+			$desc = $this->convertDescriptionToHtml($action['description']);
+			$name = $this->escape($action['name']);
+			$abilityId = $action['abilityId'];
+		}
 		
 		$output  = "<div class='ecdActionIcon ecdTooltipTrigger'>";
 		$output .= "<img src=\"$iconUrl\" />";
-		$output .= "<div class='ecdTooltip ecdSkillTooltip'>";
-		$output .= "<div class='ecdSkillTooltipTitle'>$name</div> <br /> $desc";
-		$output .= "</div>";
-		$output .= "</div>";
 		
+		if ($name != '')
+		{
+			$output .= "<div class='ecdTooltip ecdSkillTooltip'>";
+			$output .= "<div class='ecdSkillTooltipTitle'>$name</div> <br /> $desc";
+			$output .= "</div>";
+		}
+		
+		$output .= "</div>";
 		return $output;
 	}
 	
@@ -642,6 +801,8 @@ class EsoCharDataViewer
 	
 	public function convertIconToImageUrl($icon)
 	{
+		if ($icon == null || $icon == "") return "";
+		
 		$pngIcon = preg_replace("/\.dds$/", ".png", $icon);
 		return self::ESO_ICON_URL . $pngIcon;
 	}
