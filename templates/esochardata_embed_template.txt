@@ -12,9 +12,11 @@
 		</div>
 		<div class='ecdAttributes'>
 			Attributes
-			<div class='ecdAttributesMag'>{attrMag} Magicka</div>
-			<div class='ecdAttributesHea'>{attrHea} Health</div>
-			<div class='ecdAttributesSta'>{attrSta} Stamina</div>
+			<div class='ecdAttributesBox'>
+				<div class='ecdAttributesMag'>{attrMag} Magicka</div>
+				<div class='ecdAttributesHea'>{attrHea} Health</div>
+				<div class='ecdAttributesSta'>{attrSta} Stamina</div>
+			</div>
 		</div>
 	</div>
 	<div id='ecdEquipSlots'>

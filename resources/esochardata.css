@@ -202,25 +202,27 @@ body {
 	padding-left: 50px;
 }
 
+.ecdAttributesBox {
+	display: inline-block;
+	vertical-align: middle;
+}
+
 .ecdAttributesMag {
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: normal;
 	color: #6666ff;
-	padding-left: 20px;
 }
 
 .ecdAttributesHea {
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: normal;
 	color: #ff6666;
-	padding-left: 20px;	
 }
 
 .ecdAttributesSta {
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: normal;
 	color: #66ff66;
-	padding-left: 20px;
 }
 
 #ecdBasicStats {
