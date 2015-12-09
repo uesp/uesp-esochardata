@@ -247,8 +247,7 @@ class EsoCharDataViewer
 					'{skillContentTitle}' => 'Skill Content Title',
 					'{skillTree}' => $this->getCharSkillTreeHtml(),
 					'{skillContents}' => $this->getCharSkillContentHtml(),
-				
-				
+					'{rawLink}' => $this->getCharacterLink($this->characterId, true),
 			);
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
@@ -746,6 +745,9 @@ class EsoCharDataViewer
 				
 		}
 		
+		$normalLink = $this->getCharacterLink($this->characterId, false);
+		$contentsOutput .= "<li><a href=\"$normalLink\">View Normal Data</a></li>";
+		
 		$this->outputHtml .= "<ul id='ecdTableOfContents'>\n";
 		$this->outputHtml .= $contentsOutput;
 		$this->outputHtml .= "</ul>\n";
@@ -929,10 +931,12 @@ class EsoCharDataViewer
 	}
 	
 	
-	public function getCharacterLink($charId)
+	public function getCharacterLink($charId, $viewRaw = false)
 	{
 		$link  = $this->baseUrl . "?";
 		$link .= "id=$charId&";
+		
+		if ($viewRaw) $link .= "raw&";
 		
 		return $link;
 	}

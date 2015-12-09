@@ -74,6 +74,7 @@ body {
 	color: WHITE;
 	padding: 10px;
 	background-color: BLACK;
+	position: relative;
 }
 
 .ecdBuildName {
@@ -629,4 +630,18 @@ body {
 	font-weight: bold;
 	color: #C5C29E;
 	margin: 5px;
+}
+
+.ecdRawLink {
+	position: absolute;
+    left: 5px;
+    bottom: 5px;
+    font-family: "Arial" sans-serif;
+    font-weight: normal;
+    font-size: 12px;
+    
+}
+
+.ecdRawLink a {
+	color: #9999ff;
 }
