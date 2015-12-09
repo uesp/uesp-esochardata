@@ -461,19 +461,26 @@ body {
 
 #ecdStatsandBuffs {
 	display: inline-block;
-	width: 215px;
+	width: 250px;
 }
 
 .ecdBuff {
 	vertical-align: middle;
 	font-size: 16px;
 	font-weight: normal;
+	padding: 3px;
 }
 
 .ecdBuff img {
 	width: 32px;
 	height: 32px;
 	vertical-align: middle;
+}
+
+.ecdBuffDesc {
+	display: inline-block;
+    width: 205px;
+    vertical-align: middle;
 }
 
 #ecdSkills {
