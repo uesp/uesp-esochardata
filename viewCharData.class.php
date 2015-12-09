@@ -993,7 +993,7 @@ class EsoCharDataViewer
 			$charName = "";
 		}
 		
-		$this->outputHtml .= "<li><A href=\"$linkUrl\">$buildName -- $buildType $className $special ($raceName, $level, $cp CP) $charName</a></li>\n";
+		$this->outputHtml .= "<li><a href=\"$linkUrl\">$buildName <div class='ecdQuietBuildLink'> -- $buildType $className $special ($raceName, $level, $cp CP) $charName</div></a></li>\n";
 		
 		return true;
 	}

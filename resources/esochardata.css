@@ -28,6 +28,18 @@ body {
 	font-size: 13px;
 }
 
+#ecdBuildList {
+	font-size: 14px;
+	font-weight: bold;	
+}
+
+.ecdQuietBuildLink {
+	text-decoration: none !important;
+	font-size: 12px;
+	font-weight: normal;
+	display: inline-block;
+}
+
 .ecdRawCharData {
 	border: solid thin; 
   	border-collapse: collapse; 
