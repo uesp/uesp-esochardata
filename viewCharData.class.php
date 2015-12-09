@@ -248,11 +248,20 @@ class EsoCharDataViewer
 					'{skillTree}' => $this->getCharSkillTreeHtml(),
 					'{skillContents}' => $this->getCharSkillContentHtml(),
 					'{rawLink}' => $this->getCharacterLink($this->characterId, true),
+					'{createDate}' => $this->getCharCreateDate(),
 			);
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
 		
 		return true;
+	}
+	
+	
+	public function getCharCreateDate()
+	{
+		$output = date('Y-m-d H:i:s', $this->getCharField('createTime'));
+		
+		return $output;
 	}
 	
 	
@@ -755,8 +764,9 @@ class EsoCharDataViewer
 		$this->outputHtml .= "<th colspan='20'>Character Summary</th>\n";
 		$this->outputHtml .= $characterOutput;
 		$this->outputHtml .= "</table> <p />\n";
+		$this->outputHtml .= "<small>Character Data Exported on " . $this->getCharCreateDate() . "</small>";
 		$this->outputHtml .= $arrayOutput;
-	
+		
 		return true;
 	}
 	
