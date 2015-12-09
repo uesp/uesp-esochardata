@@ -468,7 +468,7 @@ class EsoCharDataViewer
 			$this->skillTreeFirstName = $skillName;
 		}
 		
-		$output = "<div class='ecdSkillTreeName2 $extraClass'>$safeName<div></div></div>\n";
+		$output = "<div class='ecdSkillTreeName2 $extraClass'>$safeName</div>\n";
 		return $output;
 	}
 	
