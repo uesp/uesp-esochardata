@@ -549,6 +549,14 @@ class EsoCharDataViewer
 	}
 	
 	
+	public function isBuffFoodOrDrink($buffName)
+	{
+		if (preg_match("/ Recovery$/", $buffName)) return true;
+		if (preg_match("/^Increase /", $buffName)) return true;
+		return false;
+	}
+	
+	
 	public function getCharBuffHtml($buff)
 	{
 		$output = "";
@@ -559,8 +567,16 @@ class EsoCharDataViewer
 		
 		if (!$this->checkDisplayBuffName($buffName)) return "";
 		
+		if ($this->isBuffFoodOrDrink($buffName))
+		{
+			$foodDesc = $this->convertDescriptionToHtml($this->getCharStatField('LastFoodEatenDesc'));
+			if ($foodDesc != "") $safeName = $foodDesc;
+		}
+		
 		$iconUrl = $this->convertIconToImageUrl($rawIcon);
-		$output .= "<div class='ecdBuff'><img src=\"$iconUrl\" title=\"$rawIcon\"/> $safeName</div>\n";
+		$output .= "<div class='ecdBuff'><img src=\"$iconUrl\" title=\"$rawIcon\"/>\n";
+		$output .= "<div class='ecdBuffDesc'>$safeName</div>\n";
+		$output .= "</div>\n";
 		
 		return $output;
 	}
