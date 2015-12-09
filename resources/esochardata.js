@@ -139,7 +139,7 @@ function ShowEsoItemLinkPopup(parent, itemId, itemLink, intLevel, intType)
 	
 	var position = $(parent).offset();
 	var width = $(parent).width();
-	EsoItemLinkPopup.css({ top: position.top-50, left: position.left + width });
+	EsoItemLinkPopup.css({ top: position.top - 150, left: position.left + width });
 	
 	EsoItemLinkPopup_Visible = true;
 	
