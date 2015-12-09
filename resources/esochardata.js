@@ -46,7 +46,7 @@ function onDocReady()
 	$('.ecdSkillTreeName1').click(OnEsoSkillTreeName1Click);
 	$('.ecdSkillTreeName2').click(OnEsoSkillTreeName2Click);
 	
-	$('.ecdSkillTreeName1').first().trigger('click');
+	//$('.ecdSkillTreeName1').first().trigger('click');
 	//SelectEsoSkillTreeContents($(".ecdSkillTreeName2").first());
 }
 
