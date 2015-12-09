@@ -412,12 +412,9 @@ class EsoCharDataParser
 			$championPoints = $charData['ChampionPoints']['Total:Spent'];
 		}
 		
-		if (array_key_exists('Stats', $charData))
-		{
-			if ($charData['Stats']['Vampire'] == 1) $special = "Vampire";
-			if ($charData['Stats']['Werewolf'] == 1) $special = "Werewolf";
-		}
-		
+		if ($charData['Vampire'] == 1) $special = "Vampire";
+		if ($charData['Werewolf'] == 1) $special = "Werewolf";
+				
 		$query  = "INSERT INTO characters(name, buildName, accountName, wikiUserName, class, race, buildType, level, createTime, championPoints, special) ";
 		$query .= "VALUES(\"$name\", \"$buildName\", \"$accountName\", \"$wikiUserName\", \"$class\", \"$race\", \"$buildType\", $level, $createTime, $championPoints, \"$special\");";
 		$this->lastQuery = $query;
