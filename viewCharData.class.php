@@ -28,6 +28,9 @@ class EsoCharDataViewer
 	
 	public $baseUrl = "viewCharData.php";
 	
+	public $skillDataDisplay = 'block';
+	public $skillTreeFirstName = '';
+	
 	
 	public function __construct ()
 	{
@@ -244,9 +247,9 @@ class EsoCharDataViewer
 					'{skyshards}' => $this->getCharStatField('SkyShards'),
 					'{skillPointsUnused}' => $this->getCharStatField('SkillPointsUnused'),
 					'{skillPointsTotal}' => $this->getCharStatField('SkillPointsTotal'),
-					'{skillContentTitle}' => 'Skill Content Title',
 					'{skillTree}' => $this->getCharSkillTreeHtml(),
 					'{skillContents}' => $this->getCharSkillContentHtml(),
+					'{skillContentTitle}' => $this->skillTreeFirstName,
 					'{rawLink}' => $this->getCharacterLink($this->characterId, true),
 					'{createDate}' => $this->getCharCreateDate(),
 			);
@@ -268,6 +271,7 @@ class EsoCharDataViewer
 	public function getCharSkillContentHtml()
 	{
 		$output = "";
+		$this->skillDataDisplay = 'block';
 		
 		foreach($this->skillData as $name => &$data)
 		{
@@ -295,7 +299,11 @@ class EsoCharDataViewer
 	{
 		$safeName = $this->escape($skillName);
 		$idName = str_replace("'", '', str_replace(' ', '', $safeName));
-		$output = "<div id='ecdSkill_$idName' class='ecdSkillData' style='display: none;'>\n";
+		
+		$displayType = 'none';
+		if ($skillName == $this->skillTreeFirstName) $displayType = "block";
+				
+		$output = "<div id='ecdSkill_$idName' class='ecdSkillData' style='display: {$displayType};'>\n";
 		
 		reset($skillData);
 		
@@ -409,6 +417,8 @@ class EsoCharDataViewer
 	public function getCharSkillTreeHtml()
 	{
 		$output = "";
+		$this->skillTreeDisplay = 'block';
+		$this->skillTreeFirstName = '';
 
 		$output .= $this->getCharSkillTreeHtml1("CLASS", $this->skillData['Class']);
 		$output .= $this->getCharSkillTreeHtml1("WEAPON", $this->skillData['Weapon']);
@@ -432,7 +442,9 @@ class EsoCharDataViewer
 		
 		$output  = "<div class='ecdSkillTree1'>\n";
 		$output .= "<div class='ecdSkillTreeName1'>$safeName</div>\n";
-		$output .= "<div class='ecdSkillTreeContent1' style='display: none;'>\n";
+		$output .= "<div class='ecdSkillTreeContent1' style='display: {$this->skillTreeDisplay};'>\n";
+		
+		$this->skillTreeDisplay = 'none';
 		
 		foreach ($skillData as $name => &$data)
 		{
@@ -448,7 +460,15 @@ class EsoCharDataViewer
 	public function getCharSkillTreeHtml2($skillName, &$skillData)
 	{
 		$safeName = $this->escape($skillName);
-		$output = "<div class='ecdSkillTreeName2'>$safeName</div>\n";
+		$extraClass = '';
+		
+		if ($this->skillTreeFirstName == '')
+		{
+			$extraClass = 'ecdSkillTreeNameHighlight2';
+			$this->skillTreeFirstName = $skillName;
+		}
+		
+		$output = "<div class='ecdSkillTreeName2 $extraClass'>$safeName</div>\n";
 		return $output;
 	}
 	
