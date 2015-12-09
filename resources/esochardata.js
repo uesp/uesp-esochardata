@@ -46,6 +46,12 @@ function onDocReady()
 	$('.ecdSkillTreeName1').click(OnEsoSkillTreeName1Click);
 	$('.ecdSkillTreeName2').click(OnEsoSkillTreeName2Click);
 	
+	EsoSkillTree_LastOpenTreeName = $('.ecdSkillTreeName1:visible').first();
+	EsoSkillTree_LastOpenTree = $('.ecdSkillTreeContent1:visible').first();
+	
+	EsoSkillTree_LastSkillContentName = $('.ecdSkillTreeNameHighlight2').first();
+	EsoSkillTree_LastSkillContent = $('.ecdSkillData:visible').first();
+	
 	//$('.ecdSkillTreeName1').first().trigger('click');
 	//SelectEsoSkillTreeContents($(".ecdSkillTreeName2").first());
 }
