@@ -16,6 +16,7 @@ class EsoCharDataViewer
 	public $htmlTemplate = "";
 	
 	public $characterData = array();
+	public $skillData = array();
 	public $buildData = array();
 	
 	public $characterId = 0;
@@ -151,6 +152,9 @@ class EsoCharDataViewer
 		if (!$this->loadCharacterArrayData("actionBars")) return false;
 		if (!$this->loadCharacterArrayData("screenshots")) return false;
 		
+		$this->parseCharSkillData();
+		$this->parseCharChampionPointData();
+		
 		return true;
 	}
 	
@@ -235,12 +239,165 @@ class EsoCharDataViewer
 					'{equipWeapon12}' => $this->getCharEquipSlotHtml(5),
 					'{equipWeapon21}' => $this->getCharEquipSlotHtml(20),
 					'{equipWeapon22}' => $this->getCharEquipSlotHtml(21),
+					'{buffs}' => $this->getCharBuffsHtml(),
+					'{skyshards}' => $this->getCharStatField('SkyShards'),
+					'{skillPointsUnused}' => $this->getCharStatField('SkillPointsUnused'),
+					'{skillPointsTotal}' => $this->getCharStatField('SkillPointsTotal'),
+					'{skillContentTitle}' => 'Skill Content Title',
+					'{skillTree}' => $this->getCharSkillTreeHtml(),
+					'{skillContents}' => 'Skill Contents',
+				
 				
 			);
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
 		
 		return true;
+	}
+	
+	
+	public function getCharSkillTreeHtml()
+	{
+		$output = "";
+
+		$output .= $this->getCharSkillTreeHtml1("CLASS", $this->skillData['Class']);
+		$output .= $this->getCharSkillTreeHtml1("WEAPON", $this->skillData['Weapon']);
+		$output .= $this->getCharSkillTreeHtml1("ARMOR", $this->skillData['Armor']);
+		$output .= $this->getCharSkillTreeHtml1("WORLD", $this->skillData['World']);
+		$output .= $this->getCharSkillTreeHtml1("GUILD", $this->skillData['Guild']);
+		$output .= $this->getCharSkillTreeHtml1("ALLIANCE WAR", $this->skillData['Alliance War']);
+		$output .= $this->getCharSkillTreeHtml1("RACIAL", $this->skillData['Racial']);
+		$output .= $this->getCharSkillTreeHtml1("CRAFT", $this->skillData['Craft']);
+		$output .= $this->getCharSkillTreeHtml1("CHAMPION POINTS", $this->skillData['ChampionPoints']);
+		
+		return $output;
+	}
+	
+	
+	public function getCharSkillTreeHtml1($skillName, &$skillData)
+	{
+		if ($skillData == null) return "";
+		
+		$safeName = $this->escape($skillName);
+		
+		$output  = "<div class='ecdSkillTree1'>\n";
+		$output .= "<div class='ecdSkillTreeName1'>$safeName</div>\n";
+		$output .= "<div class='ecdSkillTreeContent1' style='display: none;'>\n";
+		
+		foreach ($skillData as $name => &$data)
+		{
+			$output .= $this->getCharSkillTreeHtml2($name, $data);
+		}		
+		
+		$output .= "</div>\n";
+		$output .= "</div>\n";
+		return $output;		
+	}
+	
+	
+	public function getCharSkillTreeHtml2($skillName, &$skillData)
+	{
+		$safeName = $this->escape($skillName);
+		$output = "<div class='ecdSkillTreeName2'>$safeName</div>\n";
+		return $output;
+	}
+	
+	
+	public function parseCharSkillData()
+	{
+		
+		foreach ($this->characterData['skills'] as $skillName => &$skillData)
+		{
+			$this->parseCharSkill($skillName, $skillData);
+		}
+		
+		return true;
+	}
+	
+	
+	public function parseCharChampionPointData()
+	{
+	
+		foreach ($this->characterData['championPoints'] as $cpName => &$cpData)
+		{
+			$this->parseCharChampionPoint($cpName, $cpData);
+		}
+	
+		return true;
+	}
+	
+	
+	public function parseCharChampionPoint($cpName, &$cpData)
+	{
+		$names = explode(':', $cpName);
+		if (count($names) != 2) return $this->reportError("Champion point '$cpName' doesn't have 2 parts!");
+		
+		if (!array_key_exists('ChampionPoints', $this->skillData)) $this->skillData['ChampionPoints'] = array();
+		if (!array_key_exists($names[0], $this->skillData['ChampionPoints'])) $this->skillData['ChampionPoints'][$names[0]] = array();
+		
+		$newData = $cpData;
+		$newData['baseName'] = $name[1];
+		$this->skillData['ChampionPoints'][$names[0]][] = $newData;
+		
+		return true;
+	}
+	
+	
+	public function parseCharSkill($skillName, &$skillData)
+	{
+		$names = explode(':', $skillName);
+		$index = $skillData['index'];
+		
+		if (count($names) != 3) return $this->reportError("Skill name '$skillName' doesn't have 3 parts!");
+		if ($index == null )return $this->reportError("Skill name '$skillName' missing index data!");
+		
+		if (!array_key_exists($names[0], $this->skillData)) $this->skillData[$names[0]] = array();
+		if (!array_key_exists($names[1], $this->skillData[$names[0]])) $this->skillData[$names[0]][$names[1]] = array();
+		
+		$this->skillData[$names[0]][$names[1]][$index] = $skillData;
+		$this->skillData[$names[0]][$names[1]][$index]['baseName'] = $names[2];
+			
+		return true;
+	}
+	
+	
+	public function getCharBuffsHtml()
+	{
+		
+		foreach ($this->characterData['buffs'] as $buff)
+		{
+			$output .= $this->getCharBuffHtml($buff);
+		}
+		
+		return $output;
+	}
+	
+	
+	public function getCharBuffHtml($buff)
+	{
+		$output = "";
+		$buffName = $buff['name'];
+		$safeName = $this->escape($buffName);
+		$rawIcon = $buff['icon'];
+		$abilityId = $buff['abilityId'];
+		
+		if (!$this->checkDisplayBuffName($buffName)) return "";
+		
+		$iconUrl = $this->convertIconToImageUrl($rawIcon);
+		$output .= "<div class='ecdBuff'><img src=\"$iconUrl\" title=\"$rawIcon\"/> $safeName</div>\n";
+		
+		return $output;
+	}
+	
+	
+	public function checkDisplayBuffName($buffName)
+	{
+		static $IGNORED_BUFFS = array(
+				'ESO Plus Member' => 1,
+		);
+		
+		if ($IGNORED_BUFFS[$buffName] == null) return True;
+		return False;
 	}
 	
 	
@@ -253,6 +410,7 @@ class EsoCharDataViewer
 		$itemIntType = '';
 		$safeItemLink = '';
 		$itemLink = '';
+			
 		$iconUrl = $this->getCharEquipSlotDefaultImage($slotIndex);
 		
 		$equipSlot = $this->characterData['equipSlots'][$slotIndex];
@@ -656,5 +814,6 @@ function charArrayDataCompareByIndex($a, $b)
 {
 	return $a["index"] - $b["index"];
 }
+
 
 
