@@ -83,4 +83,5 @@
 			{action26}
 		</div>
 	</div>
+	<div class='ecdRawLink'><a href="{rawLink}">View Raw Data</a></div>
 </div>
