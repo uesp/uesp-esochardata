@@ -1,0 +1,84 @@
+<div id='ecdRoot'>
+	<div id='ecdTitleBar'>
+		<div class='ecdLevelInfo'>
+				<div class='ecdLevelBar'><div class='ecdLevel'>{level}</div> {levelTitle}</div>
+				<div class='ecdChampionPoint'>{championPoints} CHAMPION POINTS</div>
+		</div>
+		<div class='ecdBuildName'>{buildName}</div>
+		<div class='ecdCharName'>
+			{charName}<br />
+			<div class='ecdClassName'>{race} {class} ({buildType})</div>
+			<div class='ecdClassName'>{special}</div>
+		</div>
+		<div class='ecdAttributes'>
+			Attributes
+			<div class='ecdAttributesMag'>{attrMag} Magicka</div>
+			<div class='ecdAttributesHea'>{attrHea} Health</div>
+			<div class='ecdAttributesSta'>{attrSta} Stamina</div>
+		</div>
+	</div>
+	<div id='ecdEquipSlots'>
+		<div id='ecdEquipSlotTitle'>EQUIPMENT</div>
+		<img id='ecdEquipSlotBar1' src='resources/eso_equip_bar.png' />
+		<div id='ecdEquipSlotSubtitle1'>APPAREL</div>
+		<div id='ecdEquipSlotHead'>{equipHead}</div>
+		<div id='ecdEquipSlotShoulder'>{equipShoulder}</div>
+		<img id='ecdEquipSlotFigure' src='resources/eso_char_male_equipfigure.png' />
+		<div id='ecdEquipSlotChest'>{equipChest}</div>
+		<div id='ecdEquipSlotGlove'>{equipGlove}</div>
+		<div id='ecdEquipSlotBelt'>{equipBelt}</div>
+		<div id='ecdEquipSlotLeg'>{equipLeg}</div>
+		<div id='ecdEquipSlotFeet'>{equipFeet}</div>
+		<img id='ecdEquipSlotBar2' src='resources/eso_equip_bar.png' />
+		<div id='ecdEquipSlotSubtitle2'>ACCESSORIES</div>
+		<div id='ecdEquipSlotCostume'>{equipCostume}</div>
+		<div id='ecdEquipSlotNeck'>{equipNeck}</div>
+		<div id='ecdEquipSlotRing1'>{equipRing1}</div>
+		<div id='ecdEquipSlotRing2'>{equipRing2}</div>
+		<img id='ecdEquipSlotBar3' src='resources/eso_equip_bar.png' />
+		<div id='ecdEquipSlotSubtitle3'>WEAPONS</div>
+		<div id='ecdEquipSlotWeapon11'>{equipWeapon11}</div>
+		<div id='ecdEquipSlotWeapon12'>{equipWeapon12}</div>
+		<div id='ecdEquipSlotWeapon21'>{equipWeapon21}</div>
+		<div id='ecdEquipSlotWeapon22'>{equipWeapon22}</div>
+	</div>
+	<div id='ecdStatsandBuffs'>
+		<div id='ecdBasicStats'>
+			{basicStats}
+		</div>
+		<div id='ecdBuffs'>
+			{buffs}
+		</div>
+	</div>
+	<div id='ecdSkills'>
+		<div class='ecdSkillTitle'>SKILLS & CHAMPION POINTS</div>
+		<img class='ecdImageFlip' src='resources/eso_equip_bar.png' width='290' /><img class='3' src='resources/eso_equip_bar.png' width='290' />
+		<div class='ecdSkillSubTitle'>Skill Points:</div> <div class='ecdSkillSubValue'>{skillPointsUnused} / {skillPointsTotal}</div><br />
+		<div class='ecdSkillSubTitle'>Skyshards:</div> <div class='ecdSkillSubValue'>{skyshards} / 3</div>
+		<div id='ecdSkillContentTitle'>{skillContentTitle}</div><br />
+		<div id='ecdSkillContents'>{skillContents}</div>
+		<div id='ecdSkillTree'>{skillTree}</div>
+	</div>	
+	<div id='ecdActionBar'>
+		<div class='ecdActionBar1'>
+			<div class='ecdActionBarTitle'>Bar 1</div>
+			{action11}
+			{action12}
+			{action13}
+			{action14}
+			{action15}
+			&nbsp; &nbsp; &nbsp; &nbsp;
+			{action16}
+		</div>
+		<div class='ecdActionBar2'>
+			<div class='ecdActionBarTitle'>Bar 2</div>
+			{action21}
+			{action22}
+			{action23}
+			{action24}
+			{action25}
+			&nbsp; &nbsp; &nbsp; &nbsp;
+			{action26}
+		</div>
+	</div>
+</div>

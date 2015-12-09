@@ -204,6 +204,7 @@ class EsoCharDataViewer
 					'{charName}' => $this->getCharField('name'),
 					'{race}' => $this->getCharField('race'),
 					'{class}' => $this->getCharField('class'),
+					'{special}' => $this->getCharField('special'),				
 					'{level}' => $this->formatCharacterLevel($this->getCharField('level')),
 					'{levelTitle}' => $this->getCharLevelTitle(),
 					'{championPoints}' => $this->getCharField('cp'),
@@ -928,6 +929,7 @@ class EsoCharDataViewer
 		$cp = $this->getSafeFieldInt($buildData, 'championPoints');
 		$charId = $this->getSafeFieldInt($buildData, 'id');
 		$linkUrl = $this->getCharacterLink($charId);
+		$special = $this->getSafeFieldStr($buildData, 'special');
 		
 		if ($buildType == "other") $buildType = "";
 		
@@ -937,7 +939,7 @@ class EsoCharDataViewer
 			$charName = "";
 		}
 		
-		$this->outputHtml .= "<li><A href=\"$linkUrl\">$buildName -- $buildType $className ($raceName, $level, $cp CP) $charName</a></li>\n";
+		$this->outputHtml .= "<li><A href=\"$linkUrl\">$buildName -- $buildType $className $special ($raceName, $level, $cp CP) $charName</a></li>\n";
 		
 		return true;
 	}

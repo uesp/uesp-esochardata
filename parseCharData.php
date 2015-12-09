@@ -112,6 +112,7 @@ class EsoCharDataParser
 						class TINYTEXT NOT NULL,
 						race TINYTEXT NOT NULL,
 						buildType TINYTEXT NOT NULL,
+						special TINYTEXT NOT NULL,
 						level INTEGER NOT NULL,
 						championPoints INTEGER NOT NULL,
 						createTime BIGINT NOT NULL,
@@ -120,6 +121,7 @@ class EsoCharDataParser
 						INDEX index_name(name(32)),
 						INDEX index_class(class(10)),
 						INDEX index_race(race(10)),
+						INDEX index_special(special(10)),
 						INDEX index_buildName(buildName(32)),
 						INDEX index_buildType(buildType(10)),
 						INDEX index_wikiUserName(wikiUserName(32)),
@@ -402,7 +404,7 @@ class EsoCharDataParser
 		$buildType = $this->getSafeFieldStr($charData, 'BuildType');
 		$level = $this->getSafeFieldInt($charData, 'EffectiveLevel');
 		$createTime = $this->getSafeFieldInt($charData, 'TimeStamp');
-		
+		$special = '';
 		$championPoints = 0;
 		
 		if (array_key_exists('ChampionPoints', $charData) && array_key_exists('Total:Spent', $charData['ChampionPoints']))
@@ -410,8 +412,14 @@ class EsoCharDataParser
 			$championPoints = $charData['ChampionPoints']['Total:Spent'];
 		}
 		
-		$query  = "INSERT INTO characters(name, buildName, accountName, wikiUserName, class, race, buildType, level, createTime, championPoints) ";
-		$query .= "VALUES(\"$name\", \"$buildName\", \"$accountName\", \"$wikiUserName\", \"$class\", \"$race\", \"$buildType\", $level, $createTime, $championPoints);";
+		if (array_key_exists('Stats', $charData))
+		{
+			if ($charData['Stats']['Vampire'] == 1) $special = "Vampire";
+			if ($charData['Stats']['Werewolf'] == 1) $special = "Werewolf";
+		}
+		
+		$query  = "INSERT INTO characters(name, buildName, accountName, wikiUserName, class, race, buildType, level, createTime, championPoints, special) ";
+		$query .= "VALUES(\"$name\", \"$buildName\", \"$accountName\", \"$wikiUserName\", \"$class\", \"$race\", \"$buildType\", $level, $createTime, $championPoints, \"$special\");";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		
