@@ -8,6 +8,8 @@ class EsoCharDataViewer
 {
 	const ESO_ICON_URL = "http://esoicons.uesp.net";
 	const ESO_HTML_TEMPLATE = "templates/esochardata_embed_template.txt";
+	const ESO_WEAPON_CRITICAL_FACTOR = 0.00597099;
+	const ESO_SPELL_CRITICAL_FACTOR = 0.00563926;
 	
 	public $inputParams = array();
 	public $outputHtml = "";
@@ -165,15 +167,22 @@ class EsoCharDataViewer
 		
 		while (($row = $result->fetch_assoc()))
 		{
-			$arrayData[] = $row;
-			$this->buildData[] = $row;
+			if ($table == "equipSlots" || $table == "actionBars")
+			{
+				$arrayData[$row['index']] = $row;
+			}
+			else
+			{
+				$arrayData[$row['name']] = $row;
+			}
 		}
 		
-		if ($table == "equipSlots" || $table == "actionBars")
+	/*	if ($table == "equipSlots" || $table == "actionBars")
 			usort($arrayData, charArrayDataCompareByIndex);
 		else
-			usort($arrayData, charArrayDataCompareByName);
+			usort($arrayData, charArrayDataCompareByName); */
 		
+		ksort($arrayData);
 		$this->characterData[$table] = $arrayData;
 		
 		return true;
@@ -207,6 +216,26 @@ class EsoCharDataViewer
 					'{action24}' => $this->getCharActionHtml(2, 4),
 					'{action25}' => $this->getCharActionHtml(2, 5),
 					'{action26}' => $this->getCharActionHtml(2, 6),
+					'{attrMag}' => $this->getCharStatField('AttributesMagicka'),
+					'{attrHea}' => $this->getCharStatField('AttributesHealth'),
+					'{attrSta}' => $this->getCharStatField('AttributesStamina'),
+					'{basicStats}' => $this->getCharBasicStatsHtml(),
+					'{equipHead}' => $this->getCharEquipSlotHtml(0),
+					'{equipShoulder}' => $this->getCharEquipSlotHtml(3),
+					'{equipChest}' => $this->getCharEquipSlotHtml(2),
+					'{equipLeg}' => $this->getCharEquipSlotHtml(8),
+					'{equipBelt}' => $this->getCharEquipSlotHtml(6),
+					'{equipGlove}' => $this->getCharEquipSlotHtml(16),
+					'{equipFeet}' => $this->getCharEquipSlotHtml(9),
+					'{equipNeck}' => $this->getCharEquipSlotHtml(1),
+					'{equipCostume}' => $this->getCharEquipSlotHtml(10),
+					'{equipRing1}' => $this->getCharEquipSlotHtml(11),
+					'{equipRing2}' => $this->getCharEquipSlotHtml(12),
+					'{equipWeapon11}' => $this->getCharEquipSlotHtml(4),
+					'{equipWeapon12}' => $this->getCharEquipSlotHtml(5),
+					'{equipWeapon21}' => $this->getCharEquipSlotHtml(20),
+					'{equipWeapon22}' => $this->getCharEquipSlotHtml(21),
+				
 			);
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
@@ -215,10 +244,125 @@ class EsoCharDataViewer
 	}
 	
 	
+	public function getCharEquipSlotHtml($slotIndex)
+	{
+		$output = "";
+		
+		$itemIntLevel = '';
+		$itemIntId = '';
+		$itemIntType = '';
+		$safeItemLink = '';
+		$itemLink = '';
+		$iconUrl = $this->getCharEquipSlotDefaultImage($slotIndex);
+		
+		$equipSlot = $this->characterData['equipSlots'][$slotIndex];
+		
+		if ($equipSlot != null) 
+		{		
+			$rawIcon = $equipSlot['icon'];
+			$iconUrl = $this->convertIconToImageUrl($rawIcon);
+			$itemLink = $equipSlot['itemLink'];
+			$itemName = $equipSlot['name'];
+			
+			//|H0:item:71267:304:50:0:0:0:0:0:0:0:0:0:0:0:0:21:0:1:0:0:0|h|h
+			$matches = array();
+			$result = preg_match('/\|H(?P<color>[A-Za-z0-9]*)\:item\:(?P<itemId>[0-9]*)\:(?P<subtype>[0-9]*)\:(?P<level>[0-9]*)\:/', $itemLink, $matches);
+			
+			if ($result != 0)
+			{
+				$safeItemLink = $this->escape($itemLink);
+				$itemIntLevel = $matches['level'];
+				$itemIntId = $matches['itemId'];
+				$itemIntType = $matches['subtype'];
+			}
+		}
+		
+		$output .= "<img src=\"$iconUrl\" class=\"eso_item_link\" itemlink=\"$safeItemLink\" intlevel=\"$itemIntLevel\" inttype=\"$itemIntType\" itemid=\"$itemIntId\" />";
+		
+		return $output;
+	}
+	
+	
+	public function getCharEquipSlotDefaultImage($slotIndex)
+	{
+		static $IMAGES = array(
+				0 => 'resources/gearslot_head.png',
+				1 => 'resources/gearslot_neck.png',
+				2 => 'resources/gearslot_chest.png',
+				3 => 'resources/gearslot_shoulders.png',
+				4 => 'resources/gearslot_mainhand.png',
+				5 => 'resources/gearslot_offhand.png',
+				6 => 'resources/gearslot_belt.png',
+				8 => 'resources/gearslot_legs.png',
+				9 => 'resources/gearslot_feet.png',
+				10 => 'resources/gearslot_costume.png',
+				11 => 'resources/gearslot_ring.png',
+				12 => 'resources/gearslot_ring.png',
+				16 => 'resources/gearslot_hands.png',
+				20 => 'resources/gearslot_mainhand.png',
+				21 => 'resources/gearslot_offhand.png',
+		);
+		
+		$icon = $IMAGES[$slotIndex];
+		if ($icon == null) return "";
+		return $icon;
+	}
+	
+	
+	public function getCharBasicStatsHtml()
+	{
+		$output  = "";
+		$output .= $this->getCharBasicStatHtml('Magicka', 'Magicka');
+		$output .= $this->getCharBasicStatHtml('Health', 'Health');
+		$output .= $this->getCharBasicStatHtml('Stamina', 'Stamina');
+		$output .= "<br />";
+		$output .= $this->getCharBasicStatHtml('Magicka Recovery', 'MagickaRegenCombat');
+		$output .= $this->getCharBasicStatHtml('Health Recovery', 'HealthRegenCombat');
+		$output .= $this->getCharBasicStatHtml('Stamina Recovery', 'StaminaRegenCombat');
+		$output .= "<br />";
+		$output .= $this->getCharBasicStatHtml('Spell Damage', 'SpellPower');
+		$output .= $this->getCharBasicStatHtml('Spell Critical', 'SpellCritical', self::ESO_SPELL_CRITICAL_FACTOR, '%');
+		$output .= $this->getCharBasicStatHtml('Weapon Damage', 'WeaponPower');
+		$output .= $this->getCharBasicStatHtml('Weapon Critical', 'CriticalStrike', self::ESO_WEAPON_CRITICAL_FACTOR, '%');
+		$output .= "<br />";
+		$output .= $this->getCharBasicStatHtml('Spell Resistance', 'SpellResist');
+		$output .= $this->getCharBasicStatHtml('Physical Resistance', 'PhysicalResist');
+		$output .= $this->getCharBasicStatHtml('Critical Resistance', 'CriticalResist');
+		$output .= "<br />";
+		$output .= $this->getCharBasicStatHtml('Spell Penetration', 'SpellPenetration');
+		$output .= $this->getCharBasicStatHtml('Physical Penetration', 'PhysicalPenetration');
+		$output .= "<br />";
+		
+		return $output;
+	}
+	
+	
+	public function getCharBasicStatHtml($title, $field, $factor = 1, $suffix = '')
+	{
+		$title = $this->escape($title);
+		$rawValue = (intval($this->characterData['stats'][$field]['value'] * $factor * 10)) / 10;
+		$value = $this->escape($rawValue);
+		
+		$output  = "<div class='ecdStat'>"; 
+		$output .= "<div class='ecdStatTitle'>$title</div>";
+		$output .= "<div class='ecdStatValue'>$value$suffix</div>";
+		$output .= "</div>\n";
+		
+		return $output;	
+	}
+	
+	
 	public function getCharField($field)
 	{
 		if (!array_key_exists($field, $this->characterData)) return "";
 		return $this->escape($this->characterData[$field]);
+	}
+	
+	
+	public function getCharStatField($field)
+	{
+		if (!array_key_exists($field, $this->characterData['stats'])) return "";
+		return $this->escape($this->characterData['stats'][$field]['value']);
 	}
 	
 	
@@ -248,7 +392,7 @@ class EsoCharDataViewer
 		$output  = "<div class='ecdActionIcon ecdTooltipTrigger'>";
 		$output .= "<img src=\"$iconUrl\" />";
 		$output .= "<div class='ecdTooltip ecdSkillTooltip'>";
-		$output .= "<div class='ecdSkillTooltipTitle'>$name</div> <br /><br /> $desc";
+		$output .= "<div class='ecdSkillTooltipTitle'>$name</div> <br /> $desc";
 		$output .= "</div>";
 		$output .= "</div>";
 		
