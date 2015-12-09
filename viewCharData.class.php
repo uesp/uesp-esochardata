@@ -736,7 +736,8 @@ class EsoCharDataViewer
 			if (is_array($data))
 			{
 				$arrayOutput .= $this->getCharacterRawArrayOutput($key, $data);
-				$contentsOutput .= "<li><a href=\"#ecd_$key\">$key</a></li>";
+				$sectionTitle = $this->getCharacterRawSectionTitle($key);
+				$contentsOutput .= "<li><a href=\"#ecd_$key\">$sectionTitle</a></li>";
 			}
 			else
 			{
@@ -755,6 +756,24 @@ class EsoCharDataViewer
 		$this->outputHtml .= $arrayOutput;
 	
 		return true;
+	}
+	
+	
+	public function getCharacterRawSectionTitle($section)
+	{
+		static $SECTIONS = array(
+				'championPoints' => 'Champion Points',	
+				'buffs' => 'Buffs',
+				'skills' => 'Skills',
+				'stats' => 'Stats',
+				'equipSlots' => 'Equipment',
+				'actionBars' => 'Action Bars',
+				'screenshots' => 'Screenshots',
+		);
+		
+		$title = $SECTIONS[$section];
+		if ($title == null) return $section;
+		return $title;
 	}
 	
 	
@@ -813,7 +832,8 @@ class EsoCharDataViewer
 	{
 		$output  = "<hr />";
 		$output .= "<a name='ecd_$name'></a>";
-		$output .= "<h2>$name</h2>";
+		$title = $this->getCharacterRawSectionTitle($name);
+		$output .= "<h2>$title</h2>";
 		$output .= "<table class='ecdRawCharArrayData'>\n";
 		$firstRow = true;
 		

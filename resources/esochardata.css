@@ -63,6 +63,8 @@ body {
 #ecdTableOfContents {
 	float: left;
 	padding: 30px;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 #ecdRoot {
