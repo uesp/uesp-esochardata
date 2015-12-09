@@ -536,7 +536,6 @@ body {
 	width: 190px;
 	height: 510px;
     display: inline-block;
-    padding: 3px;
     margin-top: 20px;
 }
 
@@ -672,4 +671,11 @@ body {
     font-weight: normal;
     font-size: 12px;
     color: #aaaaaa;
+}
+
+.ecdSkillTreeNameCp {
+	display: inline-block;
+	font-size: 75%;
+	float: right;
+	margin-top: 3px;
 }

@@ -462,13 +462,24 @@ class EsoCharDataViewer
 		$safeName = $this->escape($skillName);
 		$extraClass = '';
 		
+		$cpPointsId = 'ChampionPoints:' . $skillName . ':Points';
+		$cpPoints = $this->getCharStatField($cpPointsId);
+				
 		if ($this->skillTreeFirstName == '')
 		{
 			$extraClass = 'ecdSkillTreeNameHighlight2';
 			$this->skillTreeFirstName = $skillName;
 		}
 		
-		$output = "<div class='ecdSkillTreeName2 $extraClass'>$safeName</div>\n";
+		if ($cpPoints > 0)
+		{
+			$output = "<div class='ecdSkillTreeName2 $extraClass'>$safeName <div class='ecdSkillTreeNameCp'>$cpPoints</div></div>\n";
+		}
+		else
+		{
+			$output = "<div class='ecdSkillTreeName2 $extraClass'>$safeName</div>\n";
+		}
+		
 		return $output;
 	}
 	
