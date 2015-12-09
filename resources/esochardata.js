@@ -51,9 +51,6 @@ function onDocReady()
 	
 	EsoSkillTree_LastSkillContentName = $('.ecdSkillTreeNameHighlight2').first();
 	EsoSkillTree_LastSkillContent = $('.ecdSkillData:visible').first();
-	
-	//$('.ecdSkillTreeName1').first().trigger('click');
-	//SelectEsoSkillTreeContents($(".ecdSkillTreeName2").first());
 }
 
 
