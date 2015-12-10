@@ -82,6 +82,11 @@
 	padding: 10px;
 	background-color: BLACK;
 	position: relative;
+    line-height: 1.25em;
+}
+
+#ecdRoot img {
+	vertical-align: middle;
 }
 
 .ecdBuildName {
