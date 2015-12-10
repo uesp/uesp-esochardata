@@ -25,7 +25,7 @@
 		<div id='ecdEquipSlotSubtitle1'>APPAREL</div>
 		<div id='ecdEquipSlotHead'>{equipHead}</div>
 		<div id='ecdEquipSlotShoulder'>{equipShoulder}</div>
-		<img id='ecdEquipSlotFigure' src='resources/eso_char_male_equipfigure.png' />
+		<img id='ecdEquipSlotFigure' src='{figureImage}' />
 		<div id='ecdEquipSlotChest'>{equipChest}</div>
 		<div id='ecdEquipSlotGlove'>{equipGlove}</div>
 		<div id='ecdEquipSlotBelt'>{equipBelt}</div>
