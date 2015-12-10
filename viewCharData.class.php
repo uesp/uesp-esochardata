@@ -373,14 +373,15 @@ class EsoCharDataViewer
 		$abilityId = $skillData['abilityId'];
 		$desc = $this->convertDescriptionToHtml($skillData['description']);
 		
+		if ($points <= 0) $points = '';
+		
 		$output .= "<div class='ecdSkillName'>$points $safeName</div>\n";
 		$output .= "<div class='ecdSkillNameDesc'>$desc</div>\n";
 		$output .= "</div>\n";
 		
 		return $output;
 	}
-	
-	
+		
 	
 	public function getCharSkillContentHtml3($skillName, &$skillData)
 	{
