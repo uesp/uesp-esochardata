@@ -172,6 +172,14 @@ class EsoCharDataParser
 						abilityId INTEGER NOT NULL,
 						`index` INTEGER NOT NULL,
 						`rank` INTEGER NOT NULL,
+						area TINYTEXT NOT NULL,
+						cost TINYTEXT NOT NULL,
+						`range` TINYTEXT NOT NULL,
+						radius INTEGER NOT NULL,
+						castTime INTEGER NOT NULL,
+						channelTime INTEGER NOT NULL,
+						duration INTEGER NOT NULL,
+						target TINYTEXT NOT NULL,
 						PRIMARY KEY (id),
 						INDEX index_characterId(characterId)
 					);";
@@ -217,6 +225,14 @@ class EsoCharDataParser
 						`index` INTEGER NOT NULL,
 						abilityId INTEGER NOT NULL,
 						description TEXT NOT NULL,
+						area TINYTEXT NOT NULL,
+						cost TINYTEXT NOT NULL,
+						`range` TINYTEXT NOT NULL,
+						radius INTEGER NOT NULL,
+						castTime INTEGER NOT NULL,
+						channelTime INTEGER NOT NULL,
+						duration INTEGER NOT NULL,
+						target TINYTEXT NOT NULL,
 						PRIMARY KEY (id),
 						INDEX index_characterId(characterId)
 					);";
@@ -566,10 +582,18 @@ class EsoCharDataParser
 		$icon = $this->getSafeFieldStr($arrayData, 'icon');
 		$description = $this->getSafeFieldStr($arrayData, 'desc');
 		$abilityId = $this->getSafeFieldInt($arrayData, 'id');
+		$area = $this->getSafeFieldStr($arrayData, 'area');
+		$cost = $this->getSafeFieldStr($arrayData, 'cost');
+		$range = $this->getSafeFieldStr($arrayData, 'range');
+		$radius = $this->getSafeFieldInt($arrayData, 'radius');
+		$castTime = $this->getSafeFieldInt($arrayData, 'castTime');
+		$channelTime = $this->getSafeFieldInt($arrayData, 'channelTime');
+		$duration = $this->getSafeFieldInt($arrayData, 'duration');
+		$target = $this->getSafeFieldStr($arrayData, 'target');
 		$index = $this->db->real_escape_string($index);
 	
-		$query  = "INSERT INTO actionBars(characterId, name, description, icon, abilityId, `index`) ";
-		$query .= "VALUES($charId, \"$name\", \"$description\", \"$icon\", $abilityId, $index);";
+		$query  = "INSERT INTO actionBars(characterId, name, description, icon, abilityId, `index`, area, cost, `range`, radius, castTime, channelTime, duration, target) ";
+		$query .= "VALUES($charId, \"$name\", \"$description\", \"$icon\", $abilityId, $index, \"$area\", \"$cost\", \"$range\", $radius, $castTime, $channelTime, $duration, \"$target\");";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 	
@@ -601,9 +625,17 @@ class EsoCharDataParser
 		$abilityId = $this->getSafeFieldInt($arrayData, 'id');
 		$index = $this->getSafeFieldInt($arrayData, 'index');
 		$rank = $this->getSafeFieldInt($arrayData, 'rank');
+		$area = $this->getSafeFieldStr($arrayData, 'area');
+		$cost = $this->getSafeFieldStr($arrayData, 'cost');
+		$range = $this->getSafeFieldStr($arrayData, 'range');
+		$radius = $this->getSafeFieldInt($arrayData, 'radius');
+		$castTime = $this->getSafeFieldInt($arrayData, 'castTime');
+		$channelTime = $this->getSafeFieldInt($arrayData, 'channelTime');
+		$duration = $this->getSafeFieldInt($arrayData, 'duration');
+		$target = $this->getSafeFieldStr($arrayData, 'target');
 	
-		$query  = "INSERT INTO skills(characterId, name, type, description, icon, abilityId, `index`, `rank`) ";
-		$query .= "VALUES($charId, \"$name\", \"$type\", \"$description\", \"$icon\", $abilityId, $index, $rank);";
+		$query  = "INSERT INTO skills(characterId, name, type, description, icon, abilityId, `index`, `rank`, area, cost, `range`, radius, castTime, channelTime, duration, target) ";
+		$query .= "VALUES($charId, \"$name\", \"$type\", \"$description\", \"$icon\", $abilityId, $index, $rank, \"$area\", \"$cost\", \"$range\", $radius, $castTime, $channelTime, $duration, \"$target\");";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 	

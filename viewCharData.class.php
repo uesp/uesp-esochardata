@@ -424,7 +424,7 @@ class EsoCharDataViewer
 		$safeName = $this->escape($skillData['baseName']);
 		$rawIcon = $skillData['icon'];
 		$iconUrl = $this->convertIconToImageUrl($rawIcon);
-		$desc = $this->convertDescriptionToHtml($skillData['description']);
+		
 		$rank = $skillData['rank'];
 		$outputRank = '';
 		$className = 'ecdSkillIconBox';
@@ -437,13 +437,99 @@ class EsoCharDataViewer
 		
 		$output .= "<div class='$className ecdTooltipTrigger'>\n";
 		$output .= "<img src='$iconUrl' class='ecdSkillIcon' />\n";
-		$output .= "<div class='ecdTooltip ecdSkillTooltip1'>\n";
-		$output .= "<div class='ecdSkillTooltipTitle'>$safeName</div> <br /> $desc\n";
-		$output .= "</div>";
+		$output .= $this->getCharSkillTooltipHtml($skillData, 'ecdSkillTooltip1');
 		$output .= "</div>\n";			
 		
 		$output .= "<div class='ecdSkillName'>$safeName $outputRank</div>\n";
 		$output .= "</div>\n";
+		
+		return $output;
+	}
+	
+	
+	public function getCharSkillTooltipHtml(&$skillData, $className)
+	{
+		$output = "<div class='ecdTooltip $className'>\n";
+		
+		$safeName = $this->escape($skillData['baseName']);
+		if ($safeName == '') $safeName = $this->escape($skillData['name']);
+		
+		$desc = $this->convertDescriptionToHtml($skillData['description']);
+		$channelTime = intval($skillData['channelTime']) / 1000;
+		$castTime = intval($skillData['castTime']) / 1000;
+		$radius = intval($skillData['radius']) / 100;
+		$duration = intval($skillData['duration']) / 1000;
+		$target = $this->escape($skillData['target']);
+		$area = $this->escape($skillData['area']);
+		$range = $this->escape($skillData['range']);
+		$cost = $this->escape($skillData['cost']);
+		$castTimeStr = $castTime . " seconds";
+		$skillType = $skillData['type'];
+		
+		$output .= "<div class='ecdSkillTooltipTitle'>$safeName</div>\n";
+		$output .= "<img src='resources/skill_divider.png' class='ecdSkillTooltipDivider' />";
+		
+		if ($skillType != 'passive')
+		{
+		
+			if ($channelTime > 0) 
+			{
+				$output .= "<div class='ecdSkillTooltipValue'>$channelTime seconds</div>";
+				$output .= "<div class='ecdSkillTooltipName'>Channel Time</div>";			
+			}
+			else if ($castTime <= 0)
+			{
+				$castTimeStr = "Instant";
+			}
+					
+			if ($castTimeStr != '')
+			{
+				$output .= "<div class='ecdSkillTooltipValue'>$castTimeStr</div>";
+				$output .= "<div class='ecdSkillTooltipName'>Cast Time</div>";			
+			}
+			
+			if ($target != '')
+			{
+				$output .= "<div class='ecdSkillTooltipValue'>$target</div>";
+				$output .= "<div class='ecdSkillTooltipName'>Target</div>";			
+			}
+			
+			if ($area != '')
+			{
+				$output .= "<div class='ecdSkillTooltipValue'>$area</div>";
+				$output .= "<div class='ecdSkillTooltipName'>Area</div>";			
+			}
+			
+			if ($radius > 0)
+			{
+				$output .= "<div class='ecdSkillTooltipValue'>$radius meters</div>";
+				$output .= "<div class='ecdSkillTooltipName'>Radius</div>";			
+			}
+			
+			if ($range > 0)
+			{
+				$output .= "<div class='ecdSkillTooltipValue'>$range</div>";
+				$output .= "<div class='ecdSkillTooltipName'>Range</div>";			
+			}
+			
+			if ($duration > 0)
+			{
+				$output .= "<div class='ecdSkillTooltipValue'>$duration seconds</div>";
+				$output .= "<div class='ecdSkillTooltipName'>Duration</div>";			
+			}
+			
+			if ($cost != '')
+			{
+				$output .= "<div class='ecdSkillTooltipValue'>$cost</div>";
+				$output .= "<div class='ecdSkillTooltipName'>Cost</div>";			
+			}
+			
+			$output .= "<img src='resources/skill_divider.png' class='ecdSkillTooltipDivider' />";
+		}
+		
+		
+		$output .= "<div class='ecdSkillTooltipDesc'>$desc</div>\n";
+		$output .= "</div>";
 		
 		return $output;
 	}
@@ -794,13 +880,11 @@ class EsoCharDataViewer
 		}
 		
 		$output  = "<div class='ecdActionIcon ecdTooltipTrigger'>";
-		$output .= "<img src=\"$iconUrl\" />";
+		$output .= "<img src=\"$iconUrl\" class='ecdActionIconImage' />";
 		
 		if ($name != '')
 		{
-			$output .= "<div class='ecdTooltip ecdSkillTooltip'>";
-			$output .= "<div class='ecdSkillTooltipTitle'>$name</div> <br /> $desc";
-			$output .= "</div>";
+			$output .= $this->getCharSkillTooltipHtml($action, 'ecdSkillTooltip');
 		}
 		
 		$output .= "</div>";
