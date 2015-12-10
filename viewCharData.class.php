@@ -21,6 +21,7 @@ class EsoCharDataViewer
 	
 	public $characterId = 0;
 	public $viewRawData = false;
+	public $useBuildTable = true; 
 	
 	public $db = null;
 	private $dbReadInitialized  = false;
@@ -1090,7 +1091,66 @@ class EsoCharDataViewer
 	}
 	
 	
-	public function createBuildListOutput()
+	public function createBuildTableHtml()
+	{
+		if (!$this->loadBuilds()) return false;
+		
+		$this->outputHtml .= "<table id='ecdBuildTable'>\n";
+		$this->outputHtml .= "<tr class='ecdBuildTableHeader'>\n";
+		$this->outputHtml .= "<th>Build Name</th>\n";
+		$this->outputHtml .= "<th>Class</th>\n";
+		$this->outputHtml .= "<th>Race</th>\n";
+		$this->outputHtml .= "<th>Type</th>\n";
+		$this->outputHtml .= "<th>Special</th>\n";
+		$this->outputHtml .= "<th>Character</th>\n";
+		$this->outputHtml .= "<th>Level</th>\n";
+		$this->outputHtml .= "<th>CPs</th>\n";
+		$this->outputHtml .= "</tr>\n";
+		
+		foreach ($this->buildData as $buildData)
+		{
+			$this->outputHtml .= $this->getBuildTableItemHtml($buildData);
+		}
+		
+		$this->outputHtml .= "</table>\n";		
+		
+		return true;
+	}
+	
+	
+	public function getBuildTableItemHtml($buildData)
+	{
+		$output = "";
+		
+		$buildName = $this->escape($this->getSafeFieldStr($buildData, 'buildName'));
+		$charName = $this->escape($this->getSafeFieldStr($buildData, 'name'));
+		$buildType = $this->escape($this->getSafeFieldStr($buildData, 'buildType'));
+		$className = $this->escape($this->getSafeFieldStr($buildData, 'class'));
+		$raceName = $this->escape($this->getSafeFieldStr($buildData, 'race'));
+		$level = $this->formatCharacterLevel($this->getSafeFieldInt($buildData, 'level'));
+		$cp = $this->getSafeFieldInt($buildData, 'championPoints');
+		$charId = $this->getSafeFieldInt($buildData, 'id');
+		$linkUrl = $this->getCharacterLink($charId);
+		$special = $this->escape($this->getSafeFieldStr($buildData, 'special'));
+		
+		if ($buildName == "") $buildName = $charName;
+				
+		$output .= "<tr>\n";
+		$output .= "<td class='ecdBuildTableName'><a href=\"$linkUrl\">$buildName</a></td>";
+		$output .= "<td>$className</td>";
+		$output .= "<td>$raceName</td>";
+		$output .= "<td>$buildType</td>";
+		$output .= "<td>$special</td>";
+		$output .= "<td>$charName</td>";
+		$output .= "<td>$level</td>";
+		$output .= "<td>$cp</td>";
+		$output .= "</tr>\n";
+		
+		return $output;
+	}
+		
+	
+	public function createBuildListHtml()
 	{
 		if (!$this->loadBuilds()) return false;
 		
@@ -1098,7 +1158,7 @@ class EsoCharDataViewer
 		
 		foreach ($this->buildData as $buildData)
 		{
-			$this->createBuildOutput($buildData);
+			$outputHtml .= $this->getBuildListItemHtml($buildData);
 		}
 		
 		$this->outputHtml .= "</ul>\n";
@@ -1118,18 +1178,20 @@ class EsoCharDataViewer
 	}
 	
 		
-	public function createBuildOutput($buildData)
+	public function getBuildListItemHtml($buildData)
 	{
-		$buildName = $this->getSafeFieldStr($buildData, 'buildName');
-		$charName = $this->getSafeFieldStr($buildData, 'name');
-		$buildType = $this->getSafeFieldStr($buildData, 'buildType');
-		$className = $this->getSafeFieldStr($buildData, 'class');
-		$raceName = $this->getSafeFieldStr($buildData, 'race');
+		$output = "";
+		
+		$buildName = $this->escape($this->getSafeFieldStr($buildData, 'buildName'));
+		$charName = $this->escape($this->getSafeFieldStr($buildData, 'name'));
+		$buildType = $this->escape($this->getSafeFieldStr($buildData, 'buildType'));
+		$className = $this->escape($this->getSafeFieldStr($buildData, 'class'));
+		$raceName = $this->escape($this->getSafeFieldStr($buildData, 'race'));
 		$level = $this->formatCharacterLevel($this->getSafeFieldInt($buildData, 'level'));
 		$cp = $this->getSafeFieldInt($buildData, 'championPoints');
 		$charId = $this->getSafeFieldInt($buildData, 'id');
 		$linkUrl = $this->getCharacterLink($charId);
-		$special = $this->getSafeFieldStr($buildData, 'special');
+		$special = $this->escape($this->getSafeFieldStr($buildData, 'special'));
 		
 		if ($buildType == "other") $buildType = "";
 		
@@ -1139,9 +1201,9 @@ class EsoCharDataViewer
 			$charName = "";
 		}
 		
-		$this->outputHtml .= "<li><a href=\"$linkUrl\">$buildName <div class='ecdQuietBuildLink'> -- $buildType $className $special ($raceName, $level, $cp CP) $charName</div></a></li>\n";
+		$output .= "<li><a href=\"$linkUrl\">$buildName <div class='ecdQuietBuildLink'> -- $buildType $className $special ($raceName, $level, $cp CP) $charName</div></a></li>\n";
 		
-		return true;
+		return $output;
 	}
 	
 		
@@ -1156,8 +1218,10 @@ class EsoCharDataViewer
 		
 		if ($this->characterId > 0)
 			$this->createCharacterOutput();
+		elseif ($this->useBuildTable)
+			$this->createBuildTableHtml();
 		else
-			$this->createBuildListOutput();
+			$this->createBuildListHtml();
 	
 		return $this->outputHtml;
 	}
