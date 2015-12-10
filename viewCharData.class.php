@@ -252,11 +252,45 @@ class EsoCharDataViewer
 					'{skillContentTitle}' => $this->skillTreeFirstName,
 					'{rawLink}' => $this->getCharacterLink($this->characterId, true),
 					'{createDate}' => $this->getCharCreateDate(),
+					'{figureImage}' => $this->getCharFigureImageUrl(),
 			);
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
 		
 		return true;
+	}
+	
+	
+	public function getCharFigureImageUrl()
+	{
+		$gender = intval($this->getCharStatField('Gender'));
+		$race = $this->getCharStatField('Race');
+		$output = "resources/silhouette_human_male.png";
+		
+		if ($race == 'Argonian')
+		{
+			if ($gender == 2)
+				$output = "resources/silhouette_argonian_male.png";
+			else
+				$output = "resources/silhouette_argonian_female.png";
+		}
+		elseif ($race == 'Khajiit')
+		{
+			if ($gender == 2)
+				$output = "resources/silhouette_khajiit_male.png";
+			else
+				$output = "resources/silhouette_khajiit_female.png";
+		}
+		elseif ($gender == 2)
+		{
+			$output = "resources/silhouette_human_male.png";
+		}
+		else
+		{
+			$output = "resources/silhouette_human_female.png";
+		}
+		
+		return $output;
 	}
 	
 	
