@@ -28,6 +28,7 @@ class EsoCharDataViewer
 	public $lastQuery = "";
 	
 	public $baseUrl = "viewCharData.php";
+	public $baseResourceUrl = "";
 	
 	public $skillDataDisplay = 'block';
 	public $skillTreeFirstName = '';
@@ -254,6 +255,7 @@ class EsoCharDataViewer
 					'{rawLink}' => $this->getCharacterLink($this->characterId, true),
 					'{createDate}' => $this->getCharCreateDate(),
 					'{figureImage}' => $this->getCharFigureImageUrl(),
+					'{baseResourceUrl}' => $this->baseResourceUrl,
 			);
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
@@ -291,7 +293,7 @@ class EsoCharDataViewer
 			$output = "resources/silhouette_human_female.png";
 		}
 		
-		return $output;
+		return $this->baseResourceUrl . $output;
 	}
 	
 	
@@ -468,7 +470,7 @@ class EsoCharDataViewer
 		$skillType = $skillData['type'];
 		
 		$output .= "<div class='ecdSkillTooltipTitle'>$safeName</div>\n";
-		$output .= "<img src='resources/skill_divider.png' class='ecdSkillTooltipDivider' />";
+		$output .= "<img src='{$this->baseResourceUrl}resources/skill_divider.png' class='ecdSkillTooltipDivider' />";
 		
 		if ($skillType != 'passive')
 		{
@@ -525,7 +527,7 @@ class EsoCharDataViewer
 				$output .= "<div class='ecdSkillTooltipName'>Cost</div>";			
 			}
 			
-			$output .= "<img src='resources/skill_divider.png' class='ecdSkillTooltipDivider' />";
+			$output .= "<img src='{$this->baseResourceUrl}resources/skill_divider.png' class='ecdSkillTooltipDivider' />";
 		}
 		
 		
@@ -788,7 +790,7 @@ class EsoCharDataViewer
 		
 		$icon = $IMAGES[$slotIndex];
 		if ($icon == null) return "";
-		return $icon;
+		return $this->baseResourceUrl . $icon;
 	}
 	
 	
