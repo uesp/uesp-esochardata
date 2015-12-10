@@ -708,3 +708,24 @@ body {
 	color: WHITE;
 	margin-right: 10px;
 }
+
+#ecdBuildTable {
+	border: solid 1px gray;
+	border-spacing: 3px;
+	border-collapse: collapse;
+}
+
+#ecdBuildTable td,
+#ecdBuildTable th {
+	border: solid 1px gray;
+    padding: 3px;
+}
+
+.ecdBuildTableHeader {
+	background-color: #C5A27E;
+}
+
+.ecdBuildTableName {
+	font-size: 14px;
+	font-weight: bold;	
+}
