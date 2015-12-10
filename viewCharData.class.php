@@ -69,7 +69,7 @@ class EsoCharDataViewer
 		if ($this->dbReadInitialized) return true;
 	
 		$this->db = new mysqli($uespEsoCharDataReadDBHost, $uespEsoCharDataReadUser, $uespEsoCharDataReadPW, $uespEsoCharDataDatabase);
-		if ($db->connect_error) return $this->reportError("Could not connect to mysql database!");
+		if ($this->db == null || $this->db->connect_error) return $this->reportError("Could not connect to mysql database!");
 	
 		$this->dbReadInitialized = true;
 	
@@ -1209,6 +1209,18 @@ class EsoCharDataViewer
 		
 	public function getOutput()
 	{
+		
+		if ($this->db == null || !$this->dbReadInitialized)
+		{
+			$this->reportError("Error initializing database!");
+			return $this->outputHtml;
+		}
+		
+		if ($this->htmlTemplate == "")
+		{
+			$this->reportError("Error loading the HTML template file!");
+			return $this->outputHtml;
+		}
 		
 		if (!$this->parseFormInput()) 
 		{
