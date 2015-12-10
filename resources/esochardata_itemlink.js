@@ -59,13 +59,11 @@ function HideEsoItemLinkPopup()
 
 function OnEsoItemLinkEnter()
 {
-	console.log("Entering Link for ItemId = " + $(this).attr('itemid'));
 	ShowEsoItemLinkPopup(this, $(this).attr('itemid'), $(this).attr('itemlink'), $(this).attr('intlevel'), $(this).attr('inttype'));
 }
 
 
 function OnEsoItemLinkLeave()
 {
-	console.log("Leaving Link for ItemId = " + $(this).attr('itemid'), $(this).attr('intlevel'), $(this).attr('inttype'));
 	HideEsoItemLinkPopup();
 }
