@@ -79,7 +79,7 @@ class EsoCharDataViewer
 	
 	public function loadHtmlTemplate()
 	{
-		$this->htmlTemplate = file_get_contents(self::ESO_HTML_TEMPLATE);
+		$this->htmlTemplate = file_get_contents(__DIR__ . '/' . self::ESO_HTML_TEMPLATE);
 	}
 	
 	
