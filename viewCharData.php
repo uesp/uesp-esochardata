@@ -8,6 +8,7 @@
 		<link rel="stylesheet" href="http://content3.uesp.net/esolog/resources/esoitemlink_embed.css" />
 		<script type="text/javascript" src="resources/jquery-1.10.2.js"></script>
 		<script type="text/javascript" src="resources/esochardata.js"></script>
+		<script type="text/javascript" src="resources/esochardata_itemlink.js"></script>
 	</head>
 <body>
 <?php 
