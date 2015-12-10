@@ -3,6 +3,13 @@
 	<head>
 		<title>UESP:ESO Character Data</title>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<style type="text/css">>
+			body {
+				background-color: #FBEFD5;
+				font-family: sans-serif;
+				font-size: 13px;
+			}
+		</style>
 		<link rel="stylesheet" href="resources/esochardata.css" />
 		<link rel="stylesheet" href="http://content3.uesp.net/esolog/resources/esoitemlink.css" />
 		<link rel="stylesheet" href="http://content3.uesp.net/esolog/resources/esoitemlink_embed.css" />
