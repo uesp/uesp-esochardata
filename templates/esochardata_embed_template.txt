@@ -19,6 +19,15 @@
 			</div>
 		</div>
 	</div>
+	<div id='ecdSkills'>
+		<div class='ecdSkillTitle'>SKILLS & CHAMPION POINTS</div>
+		<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='290' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='290' />
+		<div class='ecdSkillSubTitle'>Skill Points:</div> <div class='ecdSkillSubValue'>{skillPointsUnused} / {skillPointsTotal}</div><br />
+		<div class='ecdSkillSubTitle'>Skyshards:</div> <div class='ecdSkillSubValue'>{skyshards} / 3</div>
+		<div id='ecdSkillContentTitle'>{skillContentTitle}</div><br />
+		<div id='ecdSkillContents'>{skillContents}</div>
+		<div id='ecdSkillTree'>{skillTree}</div>
+	</div>
 	<div id='ecdEquipSlots'>
 		<div id='ecdEquipSlotTitle'>EQUIPMENT</div>
 		<img id='ecdEquipSlotBar1' src='{baseResourceUrl}resources/eso_equip_bar.png' />
@@ -52,15 +61,6 @@
 			{buffs}
 		</div>
 	</div>
-	<div id='ecdSkills'>
-		<div class='ecdSkillTitle'>SKILLS & CHAMPION POINTS</div>
-		<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='290' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='290' />
-		<div class='ecdSkillSubTitle'>Skill Points:</div> <div class='ecdSkillSubValue'>{skillPointsUnused} / {skillPointsTotal}</div><br />
-		<div class='ecdSkillSubTitle'>Skyshards:</div> <div class='ecdSkillSubValue'>{skyshards} / 3</div>
-		<div id='ecdSkillContentTitle'>{skillContentTitle}</div><br />
-		<div id='ecdSkillContents'>{skillContents}</div>
-		<div id='ecdSkillTree'>{skillTree}</div>
-	</div>	
 	<div id='ecdActionBar'>
 		<div class='ecdActionBar1'>
 			<div class='ecdActionBarTitle'>Bar 1</div>
