@@ -21,7 +21,7 @@
 	</div>
 	<div id='ecdEquipSlots'>
 		<div id='ecdEquipSlotTitle'>EQUIPMENT</div>
-		<img id='ecdEquipSlotBar1' src='resources/eso_equip_bar.png' />
+		<img id='ecdEquipSlotBar1' src='{baseResourceUrl}resources/eso_equip_bar.png' />
 		<div id='ecdEquipSlotSubtitle1'>APPAREL</div>
 		<div id='ecdEquipSlotHead'>{equipHead}</div>
 		<div id='ecdEquipSlotShoulder'>{equipShoulder}</div>
@@ -31,13 +31,13 @@
 		<div id='ecdEquipSlotBelt'>{equipBelt}</div>
 		<div id='ecdEquipSlotLeg'>{equipLeg}</div>
 		<div id='ecdEquipSlotFeet'>{equipFeet}</div>
-		<img id='ecdEquipSlotBar2' src='resources/eso_equip_bar.png' />
+		<img id='ecdEquipSlotBar2' src='{baseResourceUrl}resources/eso_equip_bar.png' />
 		<div id='ecdEquipSlotSubtitle2'>ACCESSORIES</div>
 		<div id='ecdEquipSlotCostume'>{equipCostume}</div>
 		<div id='ecdEquipSlotNeck'>{equipNeck}</div>
 		<div id='ecdEquipSlotRing1'>{equipRing1}</div>
 		<div id='ecdEquipSlotRing2'>{equipRing2}</div>
-		<img id='ecdEquipSlotBar3' src='resources/eso_equip_bar.png' />
+		<img id='ecdEquipSlotBar3' src='{baseResourceUrl}resources/eso_equip_bar.png' />
 		<div id='ecdEquipSlotSubtitle3'>WEAPONS</div>
 		<div id='ecdEquipSlotWeapon11'>{equipWeapon11}</div>
 		<div id='ecdEquipSlotWeapon12'>{equipWeapon12}</div>
@@ -54,7 +54,7 @@
 	</div>
 	<div id='ecdSkills'>
 		<div class='ecdSkillTitle'>SKILLS & CHAMPION POINTS</div>
-		<img class='ecdImageFlip' src='resources/eso_equip_bar.png' width='290' /><img class='3' src='resources/eso_equip_bar.png' width='290' />
+		<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='290' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='290' />
 		<div class='ecdSkillSubTitle'>Skill Points:</div> <div class='ecdSkillSubValue'>{skillPointsUnused} / {skillPointsTotal}</div><br />
 		<div class='ecdSkillSubTitle'>Skyshards:</div> <div class='ecdSkillSubValue'>{skyshards} / 3</div>
 		<div id='ecdSkillContentTitle'>{skillContentTitle}</div><br />
