@@ -11,6 +11,24 @@ class EsoCharDataViewer
 	const ESO_WEAPON_CRITICAL_FACTOR = 0.00597099;
 	const ESO_SPELL_CRITICAL_FACTOR = 0.00563926;
 	
+	public $ESO_MOTIF_CHAPTERNAMES = array(
+				"Axes",
+				"Belts",
+				"Boots",
+				"Bows",
+				"Chests",
+				"Daggers",
+				"Gloves",
+				"Helmets",
+				"Legs",
+				"Maces",
+				"Shields",
+				"Shoulders",
+				"Staves",
+				"Swords",
+		);
+	
+	
 	public $inputParams = array();
 	public $outputHtml = "";
 	public $htmlTemplate = "";
@@ -315,6 +333,56 @@ class EsoCharDataViewer
 			$output .= $this->getCharSkillContentHtml1($name, $data);	
 		}
 		
+		$output .= $this->getCharSkillCraftingContentHtml();
+	
+		return $output;
+	}
+	
+	
+	public function getCharSkillCraftingContentHtml()
+	{
+		$output = "<div id='ecdSkill_Motifs' class='ecdSkillData' style='display: none;'>\n";
+		
+		foreach ($this->characterData['stats'] as $key => $value)
+		{
+			$matches = array();
+			$result = preg_match("/Crafting:(.*)/", $key, $matches);
+			
+			if ($result) 
+			{
+				$styleName = $matches[1];
+				$rawData = $value['value'];
+				$rawValues = explode(',', $rawData);
+				$styleData = '';
+				
+				if (count($rawValues) > 1)
+				{
+					$styleArray = array();
+					
+					for ($i = 0; $i < 14; ++$i)
+					{
+						if ($rawValues[$i] == 1) $styleArray[] = $this->ESO_MOTIF_CHAPTERNAMES[$i];
+					}
+					
+					$styleData = implode(', ', $styleArray);
+				}
+				elseif ($rawData == '1')
+				{
+					$styleData = 'All Known';
+				}
+				else
+				{
+					continue;
+				}
+								
+				$output .= "<div class='ecdSkillDataBox'>\n";
+				$output .= "<div class='ecdSkillNameCraft'>$styleName:</div>";
+				$output .= "<div class='ecdSkillValueCraft'>$styleData</div>";
+				$output .= "</div>\n";
+			}
+		}
+		
+		$output .= "</div>\n";
 		return $output;
 	}
 	
@@ -378,7 +446,7 @@ class EsoCharDataViewer
 			else if ($skillData[$i]['type'] == 'passive' && !$foundPassive)
 			{
 				$output .= "<div class='ecdSkillDataHeader'>PASSIVES</div>\n";
-				$foundPassive = true;
+			$foundPassive = true;
 			}
 			
 			$output .= $this->getCharSkillContentHtml3($i, $skillData[$i]);
@@ -573,7 +641,12 @@ class EsoCharDataViewer
 		foreach ($skillData as $name => &$data)
 		{
 			$output .= $this->getCharSkillTreeHtml2($name, $data);
-		}		
+		}
+		
+		if ($skillName == "CRAFT") 
+		{
+			$output .= "<div class='ecdSkillTreeName2'>Motifs</div>\n";
+		}
 		
 		$output .= "</div>\n";
 		$output .= "</div>\n";
