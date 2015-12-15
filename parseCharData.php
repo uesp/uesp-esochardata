@@ -505,7 +505,7 @@ class EsoCharDataParser
 		$this->currentCharacterStats[$name] = $data;
 		return true;
 	}
-	
+		
 	
 	public function saveCharacterArrayData(&$charData, $name, &$arrayData)
 	{
@@ -513,6 +513,8 @@ class EsoCharDataParser
 		{
 			case "ChampionPoints":
 				return $this->saveCharacterChampionPoints($charData, $name, $arrayData);
+			case "Crafting":
+				return $this->saveCharacterCrafting($charData, $name, $arrayData);
 			case "Stats":
 			case "Power":
 				return $this->saveCharacterArrayStats($charData, $name, $arrayData);
@@ -721,6 +723,30 @@ class EsoCharDataParser
 			$result &= $this->saveCharacterStatData($charData, $key, $value);
 		}
 		
+		return $result;
+	}
+	
+	
+	public function saveCharacterCrafting($charData, $name, $arrayData)
+	{
+		$result = True;
+	
+		foreach ($arrayData as $styleName => $value)
+		{
+			$key = "Crafting:" . $styleName;
+			
+			if (is_array($value))
+			{
+				$newValue = implode(',', $value);
+				$result &= $this->saveCharacterStatData($charData, $key, $newValue);
+			}
+			else
+			{
+				$result &= $this->saveCharacterStatData($charData, $key, $value);
+			}
+		
+		}
+	
 		return $result;
 	}
 	
