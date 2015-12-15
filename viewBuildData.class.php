@@ -1290,8 +1290,7 @@ class EsoBuildDataViewer
 	
 	public function getBuildLink($charId, $viewRaw = false)
 	{
-		$link  = $this->baseUrl . "?";
-		
+		$link  = $this->baseUrl;
 		return $link;
 	}
 	
