@@ -1,3 +1,4 @@
+<div id='ecdTrail'>{trail}</div>
 <div id='ecdRoot'>
 	<div id='ecdTitleBar'>
 		<div class='ecdLevelInfo'>
@@ -18,6 +19,7 @@
 				<div class='ecdAttributesSta'>{attrSta} Stamina</div>
 			</div>
 		</div>
+		<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' height='5' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' height='5'/>
 	</div>
 	<div id='ecdSkills'>
 		<div class='ecdSkillTitle'>SKILLS & CHAMPION POINTS</div>

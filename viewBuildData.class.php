@@ -276,11 +276,34 @@ class EsoBuildDataViewer
 					'{baseResourceUrl}' => $this->baseResourceUrl,
 					'{activeBarClass1}' => $this->getActiveWeaponBarClass(1),
 					'{activeBarClass2}' => $this->getActiveWeaponBarClass(2),
+					'{trail}' => $this->getBreadcrumbTrailHtml(),
 			);
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
 		
 		return true;
+	}
+	
+	
+	public function getBreadcrumbTrailHtml()
+	{
+		$output = "";
+		
+		if ($this->characterId > 0)
+		{
+			$baseLink = $this->getBuildLink();
+			
+			if ($this->viewRawData)
+				$output .= "<a href='$baseLink'>&laquo; View All Builds</a>";
+			else
+				$output .= "<a href='$baseLink'>&laquo; View All Builds</a>";
+		}
+		else
+		{
+			$output .= "Viewing all character builds.";
+		}
+		
+		return $output;
 	}
 	
 	
@@ -1180,6 +1203,8 @@ class EsoBuildDataViewer
 	{
 		if (!$this->loadBuilds()) return false;
 		
+		$this->outputHtml .= $this->getBreadcrumbTrailHtml() . "<p />\n";
+		
 		$this->outputHtml .= "<table id='ecdBuildTable'>\n";
 		$this->outputHtml .= "<tr class='ecdBuildTableHeader'>\n";
 		$this->outputHtml .= "<th>Build Name</th>\n";
@@ -1258,6 +1283,14 @@ class EsoBuildDataViewer
 		$link .= "id=$charId&";
 		
 		if ($viewRaw) $link .= "raw&";
+		
+		return $link;
+	}
+	
+	
+	public function getBuildLink($charId, $viewRaw = false)
+	{
+		$link  = $this->baseUrl . "?";
 		
 		return $link;
 	}
