@@ -728,3 +728,18 @@
 	font-size: 14px;
 	font-weight: bold;	
 }
+
+.ecdSkillNameCraft {
+	font-size: 18px;
+	font-weight: bold;
+	color: #C5C29E;
+	display: inline-block;
+}
+
+.ecdSkillValueCraft {
+	font-size: 16px;
+	font-weight: normal;
+	color: WHITE;
+	display: inline-block;
+	margin-left: 10px;
+}
