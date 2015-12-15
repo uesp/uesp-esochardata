@@ -59,11 +59,11 @@ class EsoBuildDataParser
 	
 	private function initDatabase ()
 	{
-		global $uespEsoBuildDataReadDBHost, $uespEsoBuildDataReadUser, $uespEsoBuildDataReadPW, $uespEsoBuildDataDatabase;
+		global $uespEsoCharDataReadDBHost, $uespEsoCharDataReadUser, $uespEsoCharDataReadPW, $uespEsoCharDataDatabase;
 	
 		if ($this->dbReadInitialized || $this->dbWriteInitialized) return true;
 	
-		$this->db = new mysqli($uespEsoBuildDataReadDBHost, $uespEsoBuildDataReadUser, $uespEsoBuildDataReadPW, $uespEsoBuildDataDatabase);
+		$this->db = new mysqli($uespEsoCharDataReadDBHost, $uespEsoCharDataReadUser, $uespEsoCharDataReadPW, $uespEsoCharDataDatabase);
 		if ($db->connect_error) return $this->reportError("Could not connect to mysql database!");
 	
 		$this->dbReadInitialized = true;
@@ -75,7 +75,7 @@ class EsoBuildDataParser
 	
 	private function initDatabaseWrite ()
 	{
-		global $uespEsoBuildDataWriteDBHost, $uespEsoBuildDataWriteUser, $uespEsoBuildDataWritePW, $uespEsoBuildDataDatabase;
+		global $uespEsoCharDataWriteDBHost, $uespEsoCharDataWriteUser, $uespEsoCharDataWritePW, $uespEsoCharDataDatabase;
 	
 		if ($this->dbWriteInitialized) return true;
 	
@@ -87,7 +87,7 @@ class EsoBuildDataParser
 			$this->dbReadInitialized = false;
 		}
 	
-		$this->db = new mysqli($uespEsoBuildDataWriteDBHost, $uespEsoBuildDataWriteUser, $uespEsoBuildDataWritePW, $uespEsoBuildDataDatabase);
+		$this->db = new mysqli($uespEsoCharDataWriteDBHost, $uespEsoCharDataWriteUser, $uespEsoCharDataWritePW, $uespEsoCharDataDatabase);
 		if ($db->connect_error) return $this->reportError("Could not connect to mysql database!");
 	
 		$this->dbReadInitialized = true;
