@@ -48,10 +48,10 @@
 		<div id='ecdEquipSlotRing2'>{equipRing2}</div>
 		<img id='ecdEquipSlotBar3' src='{baseResourceUrl}resources/eso_equip_bar.png' />
 		<div id='ecdEquipSlotSubtitle3'>WEAPONS</div>
-		<div id='ecdEquipSlotWeapon11'>{equipWeapon11}</div>
-		<div id='ecdEquipSlotWeapon12'>{equipWeapon12}</div>
-		<div id='ecdEquipSlotWeapon21'>{equipWeapon21}</div>
-		<div id='ecdEquipSlotWeapon22'>{equipWeapon22}</div>
+		<div id='ecdEquipSlotWeapon11' class='{activeBarClass1}'>{equipWeapon11}</div>
+		<div id='ecdEquipSlotWeapon12' class='{activeBarClass1}'>{equipWeapon12}</div>
+		<div id='ecdEquipSlotWeapon21' class='{activeBarClass2}'>{equipWeapon21}</div>
+		<div id='ecdEquipSlotWeapon22' class='{activeBarClass2}'>{equipWeapon22}</div>
 	</div>
 	<div id='ecdStatsandBuffs'>
 		<div id='ecdBasicStats'>
@@ -62,7 +62,7 @@
 		</div>
 	</div>
 	<div id='ecdActionBar'>
-		<div class='ecdActionBar1'>
+		<div class='ecdActionBar1 {activeBarClass1}'>
 			<div class='ecdActionBarTitle'>Bar 1</div>
 			{action11}
 			{action12}
@@ -72,7 +72,7 @@
 			&nbsp; &nbsp; &nbsp; &nbsp;
 			{action16}
 		</div>
-		<div class='ecdActionBar2'>
+		<div class='ecdActionBar2 {activeBarClass2}'>
 			<div class='ecdActionBarTitle'>Bar 2</div>
 			{action21}
 			{action22}

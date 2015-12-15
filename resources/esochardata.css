@@ -743,3 +743,7 @@
 	display: inline-block;
 	margin-left: 10px;
 }
+
+.ecdActiveAbilityBar {
+	border: solid 2px yellow;
+}
