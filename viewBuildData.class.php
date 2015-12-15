@@ -4,10 +4,10 @@
 require_once("/home/uesp/secrets/esochardata.secrets");
 
 
-class EsoCharDataViewer
+class EsoBuildDataViewer
 {
 	const ESO_ICON_URL = "http://esoicons.uesp.net";
-	const ESO_HTML_TEMPLATE = "templates/esochardata_embed_template.txt";
+	const ESO_HTML_TEMPLATE = "templates/esobuilddata_embed_template.txt";
 	const ESO_WEAPON_CRITICAL_FACTOR = 0.00597099;
 	const ESO_SPELL_CRITICAL_FACTOR = 0.00563926;
 	
@@ -45,7 +45,7 @@ class EsoCharDataViewer
 	private $dbReadInitialized  = false;
 	public $lastQuery = "";
 	
-	public $baseUrl = "viewCharData.php";
+	public $baseUrl = "viewBuildData.php";
 	public $baseResourceUrl = "";
 	
 	public $skillDataDisplay = 'block';
@@ -1012,7 +1012,7 @@ class EsoCharDataViewer
 		$this->outputHtml .= "<ul id='ecdTableOfContents'>\n";
 		$this->outputHtml .= $contentsOutput;
 		$this->outputHtml .= "</ul>\n";
-		$this->outputHtml .= "<table class='ecdRawCharData'>\n";
+		$this->outputHtml .= "<table class='ecdRawBuildData'>\n";
 		$this->outputHtml .= "<th colspan='20'>Character Summary</th>\n";
 		$this->outputHtml .= $characterOutput;
 		$this->outputHtml .= "</table> <p />\n";

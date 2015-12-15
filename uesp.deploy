@@ -1,5 +1,5 @@
 #
-# Deployment file for the UESP ESO character data parser/viewer.
+# Deployment file for the UESP ESO character/build data parser/viewer.
 #
 
 name = uesp.esochardata
@@ -11,6 +11,6 @@ ignore = *.sh
 ignore = *.sql
 ignore = *.log
 
-dest = content3.uesp.net:/home/uesp/www/esochardata/
+dest = content3.uesp.net:/home/uesp/www/esobuilddata/
 
 chmod_dest = g+rw -R {dest}
