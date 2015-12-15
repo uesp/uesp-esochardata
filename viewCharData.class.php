@@ -274,11 +274,21 @@ class EsoCharDataViewer
 					'{createDate}' => $this->getCharCreateDate(),
 					'{figureImage}' => $this->getCharFigureImageUrl(),
 					'{baseResourceUrl}' => $this->baseResourceUrl,
+					'{activeBarClass1}' => $this->getActiveWeaponBarClass(1),
+					'{activeBarClass2}' => $this->getActiveWeaponBarClass(2),
 			);
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
 		
 		return true;
+	}
+	
+	
+	public function getActiveWeaponBarClass($barIndex)
+	{
+		$activeBarIndex = intval($this->getCharStatField('ActiveAbilityBar'));
+		if ($activeBarIndex == $barIndex) return "ecdActiveAbilityBar";
+		return "";
 	}
 	
 	
