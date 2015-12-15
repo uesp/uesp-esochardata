@@ -4,17 +4,17 @@
 require_once("/home/uesp/secrets/esochardata.secrets");
 
 
-class EsoCharDataParser
+class EsoBuildDataParser
 {
-	const ECD_OUTPUTLOG_FILENAME = "/home/uesp/esochardata/chardata.log";
-	const ECD_OUTPUT_CHARDATA_PATH = "/home/uesp/esochardata/";
-	const ECD_MINIMUM_CHARDATA_SIZE = 24;
+	const ECD_OUTPUTLOG_FILENAME = "/home/uesp/esobuilddata/builddata.log";
+	const ECD_OUTPUT_BUILDDATA_PATH = "/home/uesp/esobuilddata/";
+	const ECD_MINIMUM_BUILDDATA_SIZE = 24;
 	
 	public $inputParams = array();
-	public $rawCharData = array();
+	public $rawBuildData = array();
 	public $Lua = null;
 	public $fileLuaResult = false;
-	public $parsedCharData = array();
+	public $parsedBuildData = array();
 	public $parsedCommonData = array();
 	
 	public $currentCharacterStats = array();
@@ -59,11 +59,11 @@ class EsoCharDataParser
 	
 	private function initDatabase ()
 	{
-		global $uespEsoCharDataReadDBHost, $uespEsoCharDataReadUser, $uespEsoCharDataReadPW, $uespEsoCharDataDatabase;
+		global $uespEsoBuildDataReadDBHost, $uespEsoBuildDataReadUser, $uespEsoBuildDataReadPW, $uespEsoBuildDataDatabase;
 	
 		if ($this->dbReadInitialized || $this->dbWriteInitialized) return true;
 	
-		$this->db = new mysqli($uespEsoCharDataReadDBHost, $uespEsoCharDataReadUser, $uespEsoCharDataReadPW, $uespEsoCharDataDatabase);
+		$this->db = new mysqli($uespEsoBuildDataReadDBHost, $uespEsoBuildDataReadUser, $uespEsoBuildDataReadPW, $uespEsoBuildDataDatabase);
 		if ($db->connect_error) return $this->reportError("Could not connect to mysql database!");
 	
 		$this->dbReadInitialized = true;
@@ -75,7 +75,7 @@ class EsoCharDataParser
 	
 	private function initDatabaseWrite ()
 	{
-		global $uespEsoCharDataWriteDBHost, $uespEsoCharDataWriteUser, $uespEsoCharDataWritePW, $uespEsoCharDataDatabase;
+		global $uespEsoBuildDataWriteDBHost, $uespEsoBuildDataWriteUser, $uespEsoBuildDataWritePW, $uespEsoBuildDataDatabase;
 	
 		if ($this->dbWriteInitialized) return true;
 	
@@ -87,7 +87,7 @@ class EsoCharDataParser
 			$this->dbReadInitialized = false;
 		}
 	
-		$this->db = new mysqli($uespEsoCharDataWriteDBHost, $uespEsoCharDataWriteUser, $uespEsoCharDataWritePW, $uespEsoCharDataDatabase);
+		$this->db = new mysqli($uespEsoBuildDataWriteDBHost, $uespEsoBuildDataWriteUser, $uespEsoBuildDataWritePW, $uespEsoBuildDataDatabase);
 		if ($db->connect_error) return $this->reportError("Could not connect to mysql database!");
 	
 		$this->dbReadInitialized = true;
@@ -260,7 +260,7 @@ class EsoCharDataParser
 	}
 	
 	
-	public function createCharDataLogFilename()
+	public function createBuildDataLogFilename()
 	{
 		$index = 0;
 		
@@ -274,12 +274,12 @@ class EsoCharDataParser
 			
 			$date = new DateTime();
 			$dateStr = $date->format('Y-m-d-His');
-			$filename = self::ECD_OUTPUT_CHARDATA_PATH;
+			$filename = self::ECD_OUTPUT_BUILDDATA_PATH;
 			
 			if ($index > 0)
-				$filename .= "charData-" . $dateStr . "-" . $index . ".txt";
+				$filename .= "buildData-" . $dateStr . "-" . $index . ".txt";
 			else
-				$filename .= "charData-" . $dateStr . ".txt";
+				$filename .= "buildData-" . $dateStr . ".txt";
 			
 			$index += 1;
 		} while (file_exists($filename));
@@ -288,12 +288,12 @@ class EsoCharDataParser
 	}
 
 	
-	public function saveCharData()
+	public function saveBuildData()
 	{
-		$filename = $this->createCharDataLogFilename();
+		$filename = $this->createBuildDataLogFilename();
 		if ($filename == "") return false;
 		
-		if (file_put_contents($filename, $this->rawCharData) === False)
+		if (file_put_contents($filename, $this->rawBuildData) === False)
 		{
 			return $this->reportError("Failed to write character data to file '$filename'!");
 		}
@@ -302,30 +302,30 @@ class EsoCharDataParser
 	}
 	
 	
-	public function parseRawCharData($rawCharData)
+	public function parseRawBuildData($rawBuildData)
 	{
-		$charData = base64_decode(str_replace(' ', '+', $rawCharData));
+		$buildData = base64_decode(str_replace(' ', '+', $rawBuildData));
 		
-		$charData .= "\n";
-		$charData .= "uespCharData.IPAddress = '" . $_SERVER["REMOTE_ADDR"] . "'\n";
-		$charData .= "uespCharData.UploadTimestamp = " . time() . "\n";
+		$buildData .= "\n";
+		$buildData .= "uespBuildData.IPAddress = '" . $_SERVER["REMOTE_ADDR"] . "'\n";
+		$buildData .= "uespBuildData.UploadTimestamp = " . time() . "\n";
 		
-		return $charData;
+		return $buildData;
 	}
 	
 	
-	public function parseCharData()
+	public function parseBuildData()
 	{
-		$this->fileLuaResult = $this->Lua->eval($this->rawCharData);
-		return $this->parseCharDataRoot($this->Lua->uespCharData);
+		$this->fileLuaResult = $this->Lua->eval($this->rawBuildData);
+		return $this->parseBuildDataRoot($this->Lua->uespBuildData);
 	}
 	
 	
-	public function parseCharDataRoot($uespCharData)
+	public function parseBuildDataRoot($uespBuildData)
 	{
-		if ($uespCharData == null) return $this->reportError("Null character data object received!");
+		if ($uespBuildData == null) return $this->reportError("Null character data object received!");
 		
-		foreach ($uespCharData as $key => $value) 
+		foreach ($uespBuildData as $key => $value) 
 		{
 			if (is_numeric($key))
 			{
@@ -345,11 +345,11 @@ class EsoCharDataParser
 	
 	public function mergeCommonData ()
 	{
-		foreach ($this->parsedCharData as $key => &$charData)
+		foreach ($this->parsedBuildData as $key => &$buildData)
 		{
 			foreach ($this->parsedCommonData as $comKey => $comValue)
 			{
-				$charData[$comKey] = $comValue;
+				$buildData[$comKey] = $comValue;
 			}
 		}
 		
@@ -357,19 +357,19 @@ class EsoCharDataParser
 	}
 	
 	
-	public function parseSingleCharacter ($index, $charData)
+	public function parseSingleCharacter ($index, $buildData)
 	{
 		$this->log("Parsing character with key $index...");
-		$this->parsedCharData[$index] = $charData;
+		$this->parsedBuildData[$index] = $buildData;
 		return true;
 	}
 	
 	
 	public function saveAllNewCharacters()
 	{
-		foreach ($this->parsedCharData as $key => &$charData)
+		foreach ($this->parsedBuildData as $key => &$buildData)
 		{
-			$this->saveNewCharacter($charData);
+			$this->saveNewCharacter($buildData);
 		}
 		
 		return true;
@@ -409,27 +409,27 @@ class EsoCharDataParser
 	}
 	
 	
-	public function createNewCharacter(&$charData)
+	public function createNewCharacter(&$buildData)
 	{
-		$name = $this->getSafeFieldStr($charData, 'CharName');
-		$buildName = $this->getSafeFieldStr($charData, 'Note');
-		$accountName = $this->getSafeFieldStr($charData, 'AccountName');
-		$wikiUserName = $this->getSafeFieldStr($charData, 'WikiUser');
-		$class = $this->getSafeFieldStr($charData, 'Class');
-		$race = $this->getSafeFieldStr($charData, 'Race');
-		$buildType = $this->getSafeFieldStr($charData, 'BuildType');
-		$level = $this->getSafeFieldInt($charData, 'EffectiveLevel');
-		$createTime = $this->getSafeFieldInt($charData, 'TimeStamp');
+		$name = $this->getSafeFieldStr($buildData, 'CharName');
+		$buildName = $this->getSafeFieldStr($buildData, 'Note');
+		$accountName = $this->getSafeFieldStr($buildData, 'AccountName');
+		$wikiUserName = $this->getSafeFieldStr($buildData, 'WikiUser');
+		$class = $this->getSafeFieldStr($buildData, 'Class');
+		$race = $this->getSafeFieldStr($buildData, 'Race');
+		$buildType = $this->getSafeFieldStr($buildData, 'BuildType');
+		$level = $this->getSafeFieldInt($buildData, 'EffectiveLevel');
+		$createTime = $this->getSafeFieldInt($buildData, 'TimeStamp');
 		$special = '';
 		$championPoints = 0;
 		
-		if (array_key_exists('ChampionPoints', $charData) && array_key_exists('Total:Spent', $charData['ChampionPoints']))
+		if (array_key_exists('ChampionPoints', $buildData) && array_key_exists('Total:Spent', $buildData['ChampionPoints']))
 		{
-			$championPoints = $charData['ChampionPoints']['Total:Spent'];
+			$championPoints = $buildData['ChampionPoints']['Total:Spent'];
 		}
 		
-		if ($charData['Vampire'] == 1) $special = "Vampire";
-		if ($charData['Werewolf'] == 1) $special = "Werewolf";
+		if ($buildData['Vampire'] == 1) $special = "Vampire";
+		if ($buildData['Werewolf'] == 1) $special = "Werewolf";
 				
 		$query  = "INSERT INTO characters(name, buildName, accountName, wikiUserName, class, race, buildType, level, createTime, championPoints, special) ";
 		$query .= "VALUES(\"$name\", \"$buildName\", \"$accountName\", \"$wikiUserName\", \"$class\", \"$race\", \"$buildType\", $level, $createTime, $championPoints, \"$special\");";
@@ -442,19 +442,19 @@ class EsoCharDataParser
 			return -1;
 		}
 		
-		$charData['id'] = $this->db->insert_id;
-		$this->log("Created new character '$name' with ID {$charData['id']}.");
+		$buildData['id'] = $this->db->insert_id;
+		$this->log("Created new character '$name' with ID {$buildData['id']}.");
 		return $this->db->insert_id;
 	}
 	
 	
-	public function isNewCharacter(&$charData)
+	public function isNewCharacter(&$buildData)
 	{
-		if (!array_key_exists('CharName',  $charData)) return $this->reportError("Invalid character data received! Missing CharName field.");
-		if (!array_key_exists('TimeStamp', $charData)) return $this->reportError("Invalid character data received! Missing TimeStamp field.");
+		if (!array_key_exists('CharName',  $buildData)) return $this->reportError("Invalid character data received! Missing CharName field.");
+		if (!array_key_exists('TimeStamp', $buildData)) return $this->reportError("Invalid character data received! Missing TimeStamp field.");
 		
-		$charName = $charData['CharName'];
-		$createTime = $charData['TimeStamp'];
+		$charName = $buildData['CharName'];
+		$createTime = $buildData['TimeStamp'];
 		
 		$loadChar = $this->loadCharacterByCreateTime($charName, $createTime);
 		if ($loadChar == null) return true;
@@ -464,34 +464,34 @@ class EsoCharDataParser
 	}
 	
 	
-	public function saveNewCharacter(&$charData)
+	public function saveNewCharacter(&$buildData)
 	{
-		if (!$this->isNewCharacter($charData)) return true;
+		if (!$this->isNewCharacter($buildData)) return true;
 		
-		$charId = $this->createNewCharacter($charData);
+		$charId = $this->createNewCharacter($buildData);
 		if ($charId < 0) return false;
 		
 		$this->currentCharacterStats = array();
 		$result = True;
 		
-		foreach ($charData as $key => &$value)
+		foreach ($buildData as $key => &$value)
 		{
 			if (is_array($value))
-				$result &= $this->saveCharacterArrayData($charData, $key, $value);
+				$result &= $this->saveCharacterArrayData($buildData, $key, $value);
 			else
-				$result &= $this->saveCharacterStatData($charData, $key, $value);
+				$result &= $this->saveCharacterStatData($buildData, $key, $value);
 		}
 		
 		return $result;
 	}
 	
 	
-	public function saveCharacterStatData(&$charData, $name, $data)
+	public function saveCharacterStatData(&$buildData, $name, $data)
 	{
 			// Ensure stat name fields are unique for this character
 		if (array_key_exists($name, $this->currentCharacterStats)) return true;
 		
-		$charId = $charData['id'];
+		$charId = $buildData['id'];
 		$safeName = $this->db->real_escape_string($name);
 		$safeData = $this->db->real_escape_string($data);
 		
@@ -507,25 +507,25 @@ class EsoCharDataParser
 	}
 		
 	
-	public function saveCharacterArrayData(&$charData, $name, &$arrayData)
+	public function saveCharacterArrayData(&$buildData, $name, &$arrayData)
 	{
 		switch ($name)
 		{
 			case "ChampionPoints":
-				return $this->saveCharacterChampionPoints($charData, $name, $arrayData);
+				return $this->saveCharacterChampionPoints($buildData, $name, $arrayData);
 			case "Crafting":
-				return $this->saveCharacterCrafting($charData, $name, $arrayData);
+				return $this->saveCharacterCrafting($buildData, $name, $arrayData);
 			case "Stats":
 			case "Power":
-				return $this->saveCharacterArrayStats($charData, $name, $arrayData);
+				return $this->saveCharacterArrayStats($buildData, $name, $arrayData);
 			case "Buffs":
-				return $this->saveCharacterBuffs($charData, $name, $arrayData);
+				return $this->saveCharacterBuffs($buildData, $name, $arrayData);
 			case "Skills":
-				return $this->saveCharacterSkills($charData, $name, $arrayData);
+				return $this->saveCharacterSkills($buildData, $name, $arrayData);
 			case "ActionBar":
-				return $this->saveCharacterActionBars($charData, $name, $arrayData);
+				return $this->saveCharacterActionBars($buildData, $name, $arrayData);
 			case "EquipSlots":
-				return $this->saveCharacterEquipSlots($charData, $name, $arrayData);
+				return $this->saveCharacterEquipSlots($buildData, $name, $arrayData);
 			default:
 				return $this->reportError("Unknown array '$name' found in character data!");
 		}
@@ -533,22 +533,22 @@ class EsoCharDataParser
 		return true;
 	}
 	
-	public function saveCharacterEquipSlots($charData, $name, $arrayData)
+	public function saveCharacterEquipSlots($buildData, $name, $arrayData)
 	{
 		$result = True;
 	
 		foreach ($arrayData as $key => &$value)
 		{
-			$result &= $this->saveCharacterEquipSlot($charData, $key, $value);
+			$result &= $this->saveCharacterEquipSlot($buildData, $key, $value);
 		}
 	
 		return $result;
 	}
 	
 	
-	public function saveCharacterEquipSlot($charData, $index, $arrayData)
+	public function saveCharacterEquipSlot($buildData, $index, $arrayData)
 	{
-		$charId = $charData['id'];
+		$charId = $buildData['id'];
 		$name = $this->getSafeFieldStr($arrayData, 'name');
 		$icon = $this->getSafeFieldStr($arrayData, 'icon');
 		$itemLink = $this->getSafeFieldStr($arrayData, 'link');
@@ -564,22 +564,22 @@ class EsoCharDataParser
 	}
 	
 	
-	public function saveCharacterActionBars($charData, $name, $arrayData)
+	public function saveCharacterActionBars($buildData, $name, $arrayData)
 	{
 		$result = True;
 	
 		foreach ($arrayData as $key => &$value)
 		{
-			$result &= $this->saveCharacterActionBar($charData, $key, $value);
+			$result &= $this->saveCharacterActionBar($buildData, $key, $value);
 		}
 	
 		return $result;
 	}
 	
 	
-	public function saveCharacterActionBar($charData, $index, $arrayData)
+	public function saveCharacterActionBar($buildData, $index, $arrayData)
 	{
-		$charId = $charData['id'];
+		$charId = $buildData['id'];
 		$name = $this->getSafeFieldStr($arrayData, 'name');
 		$icon = $this->getSafeFieldStr($arrayData, 'icon');
 		$description = $this->getSafeFieldStr($arrayData, 'desc');
@@ -604,22 +604,22 @@ class EsoCharDataParser
 	}
 
 	
-	public function saveCharacterSkills($charData, $name, $arrayData)
+	public function saveCharacterSkills($buildData, $name, $arrayData)
 	{
 		$result = True;
 	
 		foreach ($arrayData as $key => &$value)
 		{
-			$result &= $this->saveCharacterSkill($charData, $key, $value);
+			$result &= $this->saveCharacterSkill($buildData, $key, $value);
 		}
 	
 		return $result;
 	}
 	
 	
-	public function saveCharacterSkill($charData, $name, $arrayData)
+	public function saveCharacterSkill($buildData, $name, $arrayData)
 	{
-		$charId = $charData['id'];
+		$charId = $buildData['id'];
 		$safeName = $this->db->real_escape_string($name);
 		$icon = $this->getSafeFieldStr($arrayData, 'icon');
 		$type = $this->getSafeFieldStr($arrayData, 'type');
@@ -646,22 +646,22 @@ class EsoCharDataParser
 	}
 	
 	
-	public function saveCharacterBuffs($charData, $name, $arrayData)
+	public function saveCharacterBuffs($buildData, $name, $arrayData)
 	{
 		$result = True;
 	
 		foreach ($arrayData as $key => &$value)
 		{
-			$result &= $this->saveCharacterBuff($charData, $key, $value);
+			$result &= $this->saveCharacterBuff($buildData, $key, $value);
 		}
 	
 		return $result;
 	}
 	
 	
-	public function saveCharacterBuff($charData, $index, $arrayData)
+	public function saveCharacterBuff($buildData, $index, $arrayData)
 	{
-		$charId = $charData['id'];
+		$charId = $buildData['id'];
 		$name = $this->getSafeFieldStr($arrayData, 'name');
 		$icon = $this->getSafeFieldStr($arrayData, 'icon');
 		$description = $this->getSafeFieldStr($arrayData, 'desc');
@@ -677,18 +677,18 @@ class EsoCharDataParser
 	}
 	
 	
-	public function saveCharacterChampionPoints($charData, $name, $arrayData)
+	public function saveCharacterChampionPoints($buildData, $name, $arrayData)
 	{
 		$result = True;
 		
 		foreach ($arrayData as $key => &$value)
 		{
 			if (is_array($value))
-				$result &= $this->saveCharacterChampionPoint($charData, $key, $value);
+				$result &= $this->saveCharacterChampionPoint($buildData, $key, $value);
 			else
 			{
 				$newKey = "ChampionPoints:" . $key;
-				$result &= $this->saveCharacterStatData($charData, $newKey, $value);
+				$result &= $this->saveCharacterStatData($buildData, $newKey, $value);
 			}
 		}
 		
@@ -696,9 +696,9 @@ class EsoCharDataParser
 	}
 	
 	
-	public function saveCharacterChampionPoint($charData, $name, $arrayData)
+	public function saveCharacterChampionPoint($buildData, $name, $arrayData)
 	{
-		$charId = $charData['id'];
+		$charId = $buildData['id'];
 		$safeName = $this->db->real_escape_string($name);
 		$points = $this->getSafeFieldInt($arrayData, 'points');
 		$description = $this->getSafeFieldStr($arrayData, 'desc');
@@ -714,20 +714,20 @@ class EsoCharDataParser
 	}
 	
 	
-	public function saveCharacterArrayStats($charData, $name, $arrayData)
+	public function saveCharacterArrayStats($buildData, $name, $arrayData)
 	{
 		$result = True;
 		
 		foreach ($arrayData as $key => $value)
 		{
-			$result &= $this->saveCharacterStatData($charData, $key, $value);
+			$result &= $this->saveCharacterStatData($buildData, $key, $value);
 		}
 		
 		return $result;
 	}
 	
 	
-	public function saveCharacterCrafting($charData, $name, $arrayData)
+	public function saveCharacterCrafting($buildData, $name, $arrayData)
 	{
 		$result = True;
 	
@@ -738,11 +738,11 @@ class EsoCharDataParser
 			if (is_array($value))
 			{
 				$newValue = implode(',', $value);
-				$result &= $this->saveCharacterStatData($charData, $key, $newValue);
+				$result &= $this->saveCharacterStatData($buildData, $key, $newValue);
 			}
 			else
 			{
-				$result &= $this->saveCharacterStatData($charData, $key, $value);
+				$result &= $this->saveCharacterStatData($buildData, $key, $value);
 			}
 		
 		}
@@ -768,22 +768,22 @@ class EsoCharDataParser
 			return $this->reportError("Failed to find any character data form input to parse!");
 		}
 		
-		$this->rawCharData = $this->parseRawCharData($this->inputParams['chardata']); 
-		print("Found character data " . strlen($this->rawCharData) . " bytes in size.");
+		$this->rawBuildData = $this->parseRawBuildData($this->inputParams['chardata']); 
+		print("Found character data " . strlen($this->rawBuildData) . " bytes in size.");
 		
-		if (strlen($this->rawCharData) < self::ECD_MINIMUM_CHARDATA_SIZE)
+		if (strlen($this->rawBuildData) < self::ECD_MINIMUM_BUILDDATA_SIZE)
 		{
 			print("Ignoring empty char data.");
 			return true;
 		}
 		
-		if (!$this->saveCharData()) 
+		if (!$this->saveBuildData()) 
 		{
 			header('X-PHP-Response-Code: 500', true, 500);
 			return false;
 		}
 	
-		if (!$this->parseCharData())
+		if (!$this->parseBuildData())
 		{
 			header('X-PHP-Response-Code: 500', true, 500);
 			return false;
@@ -817,7 +817,7 @@ class EsoCharDataParser
 };
 
 
-$tmp = new EsoCharDataParser();
+$tmp = new EsoBuildDataParser();
 $tmp->doParse();
 
 

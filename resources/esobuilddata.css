@@ -35,18 +35,18 @@
 	color: black;
 }
 
-.ecdRawCharData {
+.ecdRawBuildData {
 	border: solid thin; 
   	border-collapse: collapse; 
 }
 
-.ecdRawCharData th, 
-.ecdRawCharData td {
+.ecdRawBuildData th, 
+.ecdRawBuildData td {
 	border: solid thin;
 	padding: 2px;
 }
 
-.ecdRawCharData th,
+.ecdRawBuildData th,
 .ecdRawCharArrayData th {
 	font-size: 15px;
 	background-color: #CBAFB5;
@@ -79,7 +79,7 @@
 	font-size: 16px;
 	font-weight: normal;	
 	color: WHITE;
-	padding: 10px;
+	padding: 20px;
 	background-color: BLACK;
 	position: relative;
     line-height: 1.25em;
