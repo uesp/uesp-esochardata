@@ -112,6 +112,7 @@
 	font-weight: bold;
 	color: #C5C29E;
 	vertical-align: top;
+    padding-top: 4px;
 }
 
 .ecdLevelInfo {
@@ -285,6 +286,7 @@
 	width: 310px;
 	height: 630px;	
 	vertical-align: top;
+	padding-top: 8px;
 }
 
 #ecdEquipSlotTitle {
