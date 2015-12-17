@@ -12,5 +12,7 @@ ignore = *.sql
 ignore = *.log
 
 dest = content3.uesp.net:/home/uesp/www/esobuilddata/
+dest = content1.uesp.net:/home/uesp/www/esobuilddata/
+dest = content2.uesp.net:/home/uesp/www/esobuildata/
 
 chmod_dest = g+rw -R {dest}
