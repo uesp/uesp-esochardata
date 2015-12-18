@@ -184,7 +184,7 @@ class EsoCharDataSubmitter
 			<b>or</b></li>
 		<li>Choose a backup build data file created by uespLogMonitor (ex: if there were errors uploading the data with the program).</li>
 		<li>Submit file.</li>
-		<li>After submitting you can run the command <em>"/uespreset builddata"</em> (or <em>"/uesb clear"</em>) in ESO to clear the build data.</li>
+		<li>After submitting you can run the command <em>"/uespreset builddata"</em> (or <em>"/uespsavebuild clear"</em>) in ESO to clear the build data.</li>
 		<li>It is safe to submit duplicate files or build entries...the parser detects and ignore duplicate build submissions.</li>
 		</ul>
 		<p />
