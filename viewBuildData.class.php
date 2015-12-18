@@ -27,7 +27,9 @@ class EsoBuildDataViewer
 				"Staves",
 				"Swords",
 		);
+
 	
+	public $wikiContext = null;
 	
 	public $inputParams = array();
 	public $outputHtml = "";
@@ -121,6 +123,45 @@ class EsoBuildDataViewer
 		if ($level < 50) return strval($level);
 		if ($level == 50) return "v1";
 		return "v" . ($level - 50);
+	}
+	
+	
+	public function isWikiLoggedIn()
+	{
+		if ($this->wikiContext == null) return false;
+		
+		$user = $this->wikiContext->getUser();
+		if ($user == null) return false;
+		
+		return $user->isLoggedIn();
+	}
+	
+	
+	public function canWikiUserEdit()
+	{
+		if ($this->wikiContext == null) return false;
+	
+		$user = $this->wikiContext->getUser();
+		if ($user == null) return false;
+		
+		if (!$user->isLoggedIn()) return false;
+		if ($user->getName() == $this->characterData['wikiUserName']) return true;
+	
+		return $user->isAllowedAny('esochardata_edit');
+	}
+	
+	
+	public function canWikiUserDelete()
+	{
+		if ($this->wikiContext == null) return false;
+	
+		$user = $this->wikiContext->getUser();
+		if ($user == null) return false;
+		
+		if (!$user->isLoggedIn()) return false;
+		if ($user->getName() == $this->characterData['wikiUserName']) return true;
+	
+		return $user->isAllowedAny('esochardata_delete');
 	}
 	
 	
@@ -1037,6 +1078,9 @@ class EsoBuildDataViewer
 			}
 				
 		}
+		
+		$characterOutput .= $this->getCharacterRawOutput('canEdit', $this->canWikiUserEdit() ? 'true' : 'false');
+		$characterOutput .= $this->getCharacterRawOutput('canDelete', $this->canWikiUserDelete() ? 'true' : 'false');
 		
 		$normalLink = $this->getCharacterLink($this->characterId, false);
 		$contentsOutput .= "<li><a href=\"$normalLink\">View Normal Data</a></li>";
