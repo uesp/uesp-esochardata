@@ -21,6 +21,7 @@ class EsoCharDataSubmitter
 	public $accountName = "Anonymous";
 	public $uploadedBuilds = 0;
 	public $parsedBuilds = 0;
+	public $wikiUserName = '';
 	
 	public $currentLogIndex = 1;
 	
@@ -30,11 +31,17 @@ class EsoCharDataSubmitter
 		$this->parseBuildData = new EsoBuildDataParser();
 	}
 	
+	
 	public function parseFormInput()
 	{
 		$this->writeHeaders();
 		
 		$this->inputParams = $_REQUEST;
+		
+		if (array_key_exists("wikiUserName", $this->inputParams))
+		{
+			$this->wikiUserName = $this->inputParams['wikiUserName'];
+		}
 		
 		if (array_key_exists("logfile", $_FILES))
 		{
@@ -183,6 +190,7 @@ class EsoCharDataSubmitter
 			<br/>
 			<b>or</b></li>
 		<li>Choose a backup build data file created by uespLogMonitor (ex: if there were errors uploading the data with the program).</li>
+		<li>(Optional) Enter your UESP wiki username to associate your wiki account with the build.</li>
 		<li>Submit file.</li>
 		<li>After submitting you can run the command <em>"/uespreset builddata"</em> (or <em>"/uespsavebuild clear"</em>) in ESO to clear the build data.</li>
 		<li>It is safe to submit duplicate files or build entries...the parser detects and ignore duplicate build submissions.</li>
@@ -193,8 +201,12 @@ class EsoCharDataSubmitter
 	</td>
 </tr><tr>
 	<td>
-		<input type="hidden" name="MAX_FILE_SIZE" value="41000000" />
+		UESP Wiki Username: <input type="text" name="wikiUserName" value="<?= $_COOKIE['uesp_net_wiki5UserName']?>" size="24" /> (optional)
+		<br />
+		<br />
+		<br />
 		<input type="file" name="logfile" value="Choose File..." />
+		<input type="hidden" name="MAX_FILE_SIZE" value="41000000" />
 		<br /> &nbsp;
 	</td>
 </tr><tr>
@@ -211,6 +223,7 @@ class EsoCharDataSubmitter
 <?php
 		return true;
 	}
+	
 	
 	public function output ()
 	{
@@ -320,6 +333,7 @@ class EsoCharDataSubmitter
 		
 		$data['IPAddress'] = $_SERVER["REMOTE_ADDR"];
 		$data['UploadTimestamp'] = time();
+		$data['WikiUser'] = $this->wikiUserName;
 		
 		if (!$this->parseBuildData->doParse($data)) 
 		{
