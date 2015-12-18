@@ -8,6 +8,7 @@ class EsoBuildDataViewer
 {
 	const ESO_ICON_URL = "http://esoicons.uesp.net";
 	const ESO_HTML_TEMPLATE = "templates/esobuilddata_embed_template.txt";
+	const ESO_SHORT_LINK_URL = "http://esobuilds.uesp.net/";
 	const ESO_WEAPON_CRITICAL_FACTOR = 0.00597099;
 	const ESO_SPELL_CRITICAL_FACTOR = 0.00563926;
 	
@@ -377,11 +378,24 @@ class EsoBuildDataViewer
 					'{activeBarClass1}' => $this->getActiveWeaponBarClass(1),
 					'{activeBarClass2}' => $this->getActiveWeaponBarClass(2),
 					'{trail}' => $this->getBreadcrumbTrailHtml(),
+					'{characterLink}' => $this->getShortCharacterLinkHtml(),
 			);
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
 		
 		return true;
+	}
+	
+	
+	public function getShortCharacterLinkHtml()
+	{
+		$output = "";
+		if ($this->characterId <= 0) return $output;
+		
+		$charLink = self::ESO_SHORT_LINK_URL . "b/" . $this->characterId;
+		$output .= "<a href='$charLink' class='ecdShortCharLink'>Link to Build</a>";
+		
+		return $output;
 	}
 	
 	
@@ -1505,10 +1519,12 @@ class EsoBuildDataViewer
 	
 	public function getCharacterLink($charId, $viewRaw = false)
 	{
-		$link  = $this->baseUrl . "?";
-		$link .= "id=$charId&";
+		if ($charId == null) $charId = $this->characterId;
 		
-		if ($viewRaw) $link .= "raw&";
+		$link  = $this->baseUrl . "?";
+		$link .= "id=$charId";
+		
+		if ($viewRaw) $link .= "&raw";
 		
 		return $link;
 	}

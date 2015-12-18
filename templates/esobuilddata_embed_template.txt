@@ -1,4 +1,7 @@
-{trail}
+<div class='ecdHeader'>
+	{characterLink}
+	{trail}
+</div>
 <div id='ecdRoot'>
 	<div id='ecdTitleBar'>
 		<div class='ecdLevelInfo'>
