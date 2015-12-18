@@ -287,22 +287,29 @@ class EsoBuildDataViewer
 	
 	public function getBreadcrumbTrailHtml()
 	{
-		$output = "";
+		$output = "<div id='ecdTrail'>";
 		
 		if ($this->characterId > 0)
 		{
 			$baseLink = $this->getBuildLink();
+			$charLink = $this->getCharacterLink($this->characterId);
 			
 			if ($this->viewRawData)
-				$output .= "<a href='$baseLink'>&laquo; View All Builds</a>";
+			{
+				$output .= "<a href='$baseLink'>&laquo; View All Builds</a> : ";
+				$output .= "<a href='$charLink'>View Normal Build</a>";
+			}
 			else
+			{
 				$output .= "<a href='$baseLink'>&laquo; View All Builds</a>";
+			}
 		}
 		else
 		{
 			$output .= "Viewing all character builds.";
 		}
 		
+		$output .= "</div>";
 		return $output;
 	}
 	
@@ -1010,6 +1017,8 @@ class EsoBuildDataViewer
 
 	public function createCharacterOutputRaw()
 	{
+		$this->outputHtml .= $this->getBreadcrumbTrailHtml();
+		
 		$characterOutput = "<a name='ecd_character'></a>";
 		$arrayOutput = "";
 		$contentsOutput .= "<li><a href=\"#ecd_character\">Character Summary</a></li>";
