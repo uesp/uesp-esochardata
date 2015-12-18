@@ -41,10 +41,14 @@ class EsoBuildDataViewer
 	
 	public $characterId = 0;
 	public $viewRawData = false;
-	public $useBuildTable = true; 
+	public $useBuildTable = true;
+	public $action = '';
+	public $confirm = '';
+	public $nonConfirm = '';
 	
 	public $db = null;
 	private $dbReadInitialized  = false;
+	private $dbWriteInitialized = false;
 	public $lastQuery = "";
 	
 	public $baseUrl = "viewBuildData.php";
@@ -71,12 +75,12 @@ class EsoBuildDataViewer
 	{
 		error_log("Error: " . $msg);
 		
-		$outputHtml .= "Error: " . $msg;
+		$this->outputHtml .= "Error: " . $msg . "<br />";
 		
 		if ($this->db != null && $this->db->error)
 		{
-			$outputHtml .= "\tDB Error:" . $this->db->error;
-			$outputHtml .= "\tLast Query:" . $this->lastQuery;
+			$this->outputHtml .= "\tDB Error:" . $this->db->error;
+			$this->outputHtml .= "\tLast Query:" . $this->lastQuery;
 		}
 		
 		return false;
@@ -87,13 +91,37 @@ class EsoBuildDataViewer
 	{
 		global $uespEsoCharDataReadDBHost, $uespEsoCharDataReadUser, $uespEsoCharDataReadPW, $uespEsoCharDataDatabase;
 	
-		if ($this->dbReadInitialized) return true;
+		if ($this->dbReadInitialized || $this->dbWriteInitialize) return true;
 	
 		$this->db = new mysqli($uespEsoCharDataReadDBHost, $uespEsoCharDataReadUser, $uespEsoCharDataReadPW, $uespEsoCharDataDatabase);
 		if ($this->db == null || $this->db->connect_error) return $this->reportError("Could not connect to mysql database!");
 	
 		$this->dbReadInitialized = true;
 	
+		return true;
+	}
+	
+	
+	private function initDatabaseWrite ()
+	{
+		global $uespEsoCharDataWriteDBHost, $uespEsoCharDataWriteUser, $uespEsoCharDataWritePW, $uespEsoCharDataDatabase;
+	
+		if ($this->dbWriteInitialized) return true;
+	
+		if ($this->dbReadInitialized)
+		{
+			$this->db->close();
+			unset($this->db);
+			$this->db = null;
+			$this->dbReadInitialized = false;
+		}
+	
+		$this->db = new mysqli($uespEsoCharDataWriteDBHost, $uespEsoCharDataWriteUser, $uespEsoCharDataWritePW, $uespEsoCharDataDatabase);
+		if ($db->connect_error) return $this->reportError("Could not connect to mysql database!");
+	
+		$this->dbReadInitialized = true;
+		$this->dbWriteInitialized = true;
+
 		return true;
 	}
 	
@@ -165,12 +193,43 @@ class EsoBuildDataViewer
 	}
 	
 	
+	public function canWikiUserEditBuild($buildData)
+	{
+		if ($this->wikiContext == null) return false;
+	
+		$user = $this->wikiContext->getUser();
+		if ($user == null) return false;
+	
+		if (!$user->isLoggedIn()) return false;
+		if ($user->getName() == $buildData['wikiUserName']) return true;
+	
+		return $user->isAllowedAny('esochardata_edit');
+	}
+	
+	
+	public function canWikiUserDeleteBuild($buildData)
+	{
+		if ($this->wikiContext == null) return false;
+	
+		$user = $this->wikiContext->getUser();
+		if ($user == null) return false;
+	
+		if (!$user->isLoggedIn()) return false;
+		if ($user->getName() == $buildData['wikiUserName']) return true;
+	
+		return $user->isAllowedAny('esochardata_delete');
+	}
+	
+	
 	public function parseFormInput()
 	{
 		$this->inputParams = $_REQUEST;
 		
 		if (array_key_exists('id', $this->inputParams)) $this->characterId = intval($this->inputParams['id']);
 		if (array_key_exists('raw', $this->inputParams)) $this->viewRawData = true;
+		if (array_key_exists('action', $this->inputParams)) $this->action = $this->inputParams['action'];
+		if (array_key_exists('confirm', $this->inputParams)) $this->confirm = $this->inputParams['confirm'];
+		if (array_key_exists('nonconfirm', $this->inputParams)) $this->nonConfirm = $this->inputParams['nonconfirm'];
 	
 		return true;
 	}
@@ -1281,6 +1340,98 @@ class EsoBuildDataViewer
 	}
 	
 	
+	public function deleteBuild()
+	{
+		if ($this->characterId <= 0) return $this->reportError("Missing valid character ID!");
+		if (!$this->initDatabaseWrite()) return $this->reportError("Database error!");
+		
+		$id = $this->characterId;
+		
+		$this->lastQuery = "DELETE FROM characters WHERE id=$id;";
+		$result = $this->db->query($this->lastQuery);
+		if ($result === false) return $this->reportError("Database error trying to delete character record!");
+		
+		$this->lastQuery = "DELETE FROM stats WHERE characterId=$id;";
+		$result = $this->db->query($this->lastQuery);
+		if ($result === false) return $this->reportError("Database error trying to delete character stats records!");
+		
+		$this->lastQuery = "DELETE FROM screenshots WHERE characterId=$id;";
+		$result = $this->db->query($this->lastQuery);
+		if ($result === false) return $this->reportError("Database error trying to delete character screenshots records!");
+		
+		$this->lastQuery = "DELETE FROM buffs WHERE characterId=$id;";
+		$result = $this->db->query($this->lastQuery);
+		if ($result === false) return $this->reportError("Database error trying to delete character buffs records!");
+		
+		$this->lastQuery = "DELETE FROM actionBars WHERE characterId=$id;";
+		$result = $this->db->query($this->lastQuery);
+		if ($result === false) return $this->reportError("Database error trying to delete character actionBars records!");
+		
+		$this->lastQuery = "DELETE FROM championPoints WHERE characterId=$id;";
+		$result = $this->db->query($this->lastQuery);
+		if ($result === false) return $this->reportError("Database error trying to delete character championPoints records!");
+		
+		$this->lastQuery = "DELETE FROM skills WHERE characterId=$id;";
+		$result = $this->db->query($this->lastQuery);
+		if ($result === false) return $this->reportError("Database error trying to delete character skills records!");
+		
+		$this->lastQuery = "DELETE FROM equipSlots WHERE characterId=$id;";
+		$result = $this->db->query($this->lastQuery);
+		if ($result === false) return $this->reportError("Database error trying to delete character equipSlots records!");				
+		
+		return true;
+	}
+		
+	
+	public function doBuildDelete()
+	{
+		if ($this->characterId <= 0) return $this->reportError("Missing valid character ID!");
+		
+		if (!$this->loadCharacter()) return false;
+		if (!$this->canWikiUserDelete()) return $this->reportError("Permission denied!");
+		
+		$buildName = $this->getCharField('name');
+		
+		if (!$this->deleteBuild())
+		{
+			$this->reportError("Failed to delete character build '$buildName' (id #{$this->characterId})!");
+			return false;
+		}
+				
+		$this->outputHtml .= $this->getBreadcrumbTrailHtml();
+		$this->outputHtml .= "<p />\n";
+		$this->outputHtml .= "Successfully deleted character build '$buildName' (id #{$this->characterId})! <br/>";
+		
+		return true;
+	}
+	
+	
+	public function createDeleteOutput()
+	{
+		if ($this->characterId <= 0) return $this->reportError("Missing valid character ID!");
+		
+		if ($this->nonConfirm != '') return $this->createBuildTableHtml();
+		if ($this->confirm != '') return $this->doBuildDelete();
+		
+		if (!$this->loadCharacter()) return false;
+		if (!$this->canWikiUserDelete()) return $this->reportError("Permission denied!");
+		
+		$buildName = $this->getCharField('name');
+		$id = $this->CharacterId;
+		
+		$this->outputHtml .= "<form method='post' action=''>";
+		$this->outputHtml .= "<b>Warning:</b> Once a build is deleted it cannot be restored. It can be re-uploaded again if desired.<p />";
+		$this->outputHtml .= "Are you sure you wish to delete character build '$buildName' (id #$id)? <p />";
+		$this->outputHtml .= "<button type='submit' name='confirm' value='1'>Yes, Delete this Build</button> &nbsp; &nbsp; ";
+		$this->outputHtml .= "<button type='submit' name='nonconfirm' value='1'>Cancel</button>";
+		$this->outputHtml .= "<input type='hidden' name='id' value='{$this->characterId}'>";
+		$this->outputHtml .= "<input type='hidden' name='action' value='delete'>";
+		$this->outputHtml .= "</form>";
+		
+		return true;
+	}
+	
+	
 	public function getBuildTableItemHtml($buildData)
 	{
 		$output = "";
@@ -1307,6 +1458,28 @@ class EsoBuildDataViewer
 		$output .= "<td>$charName</td>";
 		$output .= "<td>$level</td>";
 		$output .= "<td>$cp</td>";
+		
+		if ($this->canWikiUserEditBuild($buildData))
+		{
+			$output .= "<td>";
+			
+			if ($this->canWikiUserDeleteBuild($buildData))
+			{
+				//$output .= "Delete Build";
+				$output .= "<form method='post' action=''>";
+				$output .= "<input type='hidden' name='id' value ='{$buildData['id']}'>";
+				$output .= "<input type='hidden' name='action' value ='delete'>";
+				$output .= "<input type='submit' value ='Delete Build'>";
+				$output .= "</form>\n";				
+			}
+			
+			$output .= "</td>";
+		}
+		else
+		{
+			$output .= "<td></td>";
+		}
+		
 		$output .= "</tr>\n";
 		
 		return $output;
@@ -1398,7 +1571,9 @@ class EsoBuildDataViewer
 			return $this->outputHtml;
 		}
 		
-		if ($this->characterId > 0)
+		if ($this->action == 'delete')
+			$this->createDeleteOutput();
+		elseif ($this->characterId > 0)
 			$this->createCharacterOutput();
 		elseif ($this->useBuildTable)
 			$this->createBuildTableHtml();
@@ -1423,6 +1598,4 @@ function charArrayDataCompareByIndex($a, $b)
 {
 	return $a["index"] - $b["index"];
 }
-
-
 
