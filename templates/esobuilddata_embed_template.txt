@@ -1,4 +1,4 @@
-<div id='ecdTrail'>{trail}</div>
+{trail}
 <div id='ecdRoot'>
 	<div id='ecdTitleBar'>
 		<div class='ecdLevelInfo'>
