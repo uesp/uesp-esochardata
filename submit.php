@@ -180,19 +180,21 @@ class EsoCharDataSubmitter
 <tr>
 	<td>
 		<h1>UESP -- Submit ESO Character Build Data</h1>
-		Use this page to manually submit a log file created by uespLog containing characeter build data saved from ESO. Note that if you are playing on the
-		Windows PC version you can use uespLogMonitor (included with the addon) to automatically upload all logged data.
+		Use this page to manually submit a log file created by uespLog containing characeter build data saved from ESO. 
+		<p />
+		If you are playing on the Windows/PC version you can use uespLogMonitor program included with the addon to automatically upload the build data.
+		<p />
+		Only character build data is parsed and saved with this form. To parse/save all uespLog data use the <a href='http://esolog.uesp.net/submit.php'>http://esolog.uesp.net/submit.php</a> form.
 		<p />
 		<ul>
-		<li>Only character build data is parsed and saved with this form. To parse/save all logged data use the <a href='http://esolog.uesp.net/submit.php'>http://esolog.uesp.net/submit.php</a> form.</li>
-		<li>Choose your uespLog saved variable file (usually under your <em>"\Documents\Elder Scrolls Online\live\SavedVariables\uespLog.lua"</em> or
+		<li>Choose your uespLog saved variable file. This is usually found under your <em>"\Documents\Elder Scrolls Online\live\SavedVariables\uespLog.lua"</em> or
 			similar directory.
 			<br/>
-			<b>or</b></li>
+			<b>&nbsp; &nbsp; or</b></li>
 		<li>Choose a backup build data file created by uespLogMonitor (ex: if there were errors uploading the data with the program).</li>
 		<li>(Optional) Enter your UESP wiki username to associate your wiki account with the build.</li>
 		<li>Submit file.</li>
-		<li>After submitting you can run the command <em>"/uespreset builddata"</em> (or <em>"/uespsavebuild clear"</em>) in ESO to clear the build data.</li>
+		<li>After submitting you can run the game command <em>"/uespreset builddata"</em> (or <em>"/uespsavebuild clear"</em>) in ESO to clear the build data.</li>
 		<li>It is safe to submit duplicate files or build entries...the parser detects and ignore duplicate build submissions.</li>
 		</ul>
 		<p />
