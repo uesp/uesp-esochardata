@@ -1243,7 +1243,6 @@ class EsoBuildDataViewer
 	
 	public function getCharacterRawArrayOutput($name, $data)
 	{
-		$output  = "<hr />";
 		$output .= "<a name='ecd_$name'></a>";
 		$title = $this->getCharacterRawSectionTitle($name);
 		$output .= "<h2>$title</h2>";
