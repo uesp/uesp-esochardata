@@ -105,7 +105,7 @@ class EsoCharDataSubmitter
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<title>uespLog -- Submit ESO Character Build Data</title>
+	<title>UESP -- Submit ESO Character Build Data</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<link rel="stylesheet" href="submit.css" />
 </head>
@@ -114,7 +114,7 @@ class EsoCharDataSubmitter
 <table border="0" cellpadding="2" cellspacing="0" id="maintable">
 <tr>
 	<td>
-		<h1>uespLog -- Submitted ESO Character Build Data...</h1>
+		<h1>UESP -- Submitted ESO Character Build Data...</h1>
 		<br /> &nbsp;
 	</td>
 </tr><tr>
@@ -161,7 +161,7 @@ class EsoCharDataSubmitter
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<title>uespLog -- Submit ESO Character Build Data</title>
+	<title>UESP -- Submit ESO Character Build Data</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<link rel="stylesheet" href="submit.css" />
 </head>
@@ -172,7 +172,7 @@ class EsoCharDataSubmitter
 <table border="0" cellpadding="2" cellspacing="0" id="maintable">
 <tr>
 	<td>
-		<h1>uespLog -- Submit ESO Character Build Data</h1>
+		<h1>UESP -- Submit ESO Character Build Data</h1>
 		Use this page to manually submit a log file created by uespLog containing characeter build data saved from ESO. Note that if you are playing on the
 		Windows PC version you can use uespLogMonitor (included with the addon) to automatically upload all logged data.
 		<p />
