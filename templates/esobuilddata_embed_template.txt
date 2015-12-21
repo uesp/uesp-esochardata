@@ -15,7 +15,6 @@
 			<div class='ecdClassName'>{special}</div>
 		</div>
 		<div class='ecdAttributes'>
-			Attributes
 			<div class='ecdAttributesBox'>
 				<div class='ecdAttributesMag'>{attrMag} Magicka</div>
 				<div class='ecdAttributesHea'>{attrHea} Health</div>

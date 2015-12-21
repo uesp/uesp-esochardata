@@ -83,6 +83,7 @@
 	background-color: BLACK;
 	position: relative;
     line-height: 1.25em;
+    min-width: 975px;
 }
 
 #ecdRoot img {
@@ -97,6 +98,7 @@
 	padding-left: 70px;
 	padding-right: 70px;
 	color: YELLOW;
+	vertical-align: middle;
 }
 
 .ecdCharName {
@@ -654,7 +656,7 @@
 	font-size: 14px;
 	font-weight: normal;
 	color: #C5C29E;
-	margin-left: 65px;
+	margin-left: 25px;
 	margin-bottom: 7px;
 }
 
