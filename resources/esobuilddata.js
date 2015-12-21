@@ -15,10 +15,6 @@ function onTooltipHoverShow()
 
 function adjustSkillTooltipPosition(tooltip, parent)
 {
-	 var offsetWidth = -185;
-     var offsetHeight = -100;
-	 var documentWidth = $(document).width();
-     var documentHeight = $(document).height();
      var windowWidth = $(window).width();
      var windowHeight = $(window).height();
      var toolTipWidth = tooltip.width();
@@ -26,12 +22,10 @@ function adjustSkillTooltipPosition(tooltip, parent)
      var elementHeight = parent.height();
      var elementWidth = parent.width();
      
-     offsetWidth += elementWidth;
-     if (tooltip.hasClass('ecdSkillTooltip1')) offsetWidth -= 30;
+     var top = parent.offset().top - 50;
+     var left = parent.offset().left + parent.outerWidth() + 3;
      
-     var top = parent.offset().top + offsetHeight;
-     var left = parent.offset().left + offsetWidth;
-     tooltip.css({ 'top': top, 'left': left });
+     tooltip.offset({ top: top, left: left });
      
      var viewportTooltip = tooltip[0].getBoundingClientRect();
      
@@ -51,7 +45,7 @@ function adjustSkillTooltipPosition(tooltip, parent)
          left = left - toolTipWidth - parent.width() - 28;
      }
      
-     tooltip.css({ 'top': top, 'left': left });
+     tooltip.offset({ top: top, left: left });
 }
 
 
