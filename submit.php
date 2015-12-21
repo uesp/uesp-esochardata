@@ -187,9 +187,10 @@ class EsoCharDataSubmitter
 		Only character build data is parsed and saved with this form. To parse/save all uespLog data use the <a href='http://esolog.uesp.net/submit.php'>http://esolog.uesp.net/submit.php</a> form.
 		<p />
 		<ul>
-		<li>Choose your uespLog saved variable file. This is usually found under your <em>"\Documents\Elder Scrolls Online\live\SavedVariables\uespLog.lua"</em> or
-			similar directory.
-			<br/>
+		<li>Choose your uespLog saved variable file. This is usually in your <em>"Documents"</em> folder as one of the following:<br />
+			<em style="margin-left: 52px;">Documents\Elder Scrolls Online\live\SavedVariables\uespLog.lua</em><br /> 
+			<em style="margin-left: 52px;">Documents\Elder Scrolls Online\liveeu\SavedVariables\uespLog.lua</em>
+			<br/>	
 			<b>&nbsp; &nbsp; or</b></li>
 		<li>Choose a backup build data file created by uespLogMonitor (ex: if there were errors uploading the data with the program).</li>
 		<li>(Optional) Enter your UESP wiki username to associate your wiki account with the build.</li>
