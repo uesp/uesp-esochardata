@@ -1,9 +1,57 @@
 var ecdLastTooltip = null;
 
+
 function onTooltipHoverShow()
 {
 	ecdLastTooltip = $(this).find('.ecdTooltip');
-	if (ecdLastTooltip) ecdLastTooltip.css('display', 'inline-block');
+	
+	if (ecdLastTooltip) 
+	{
+		ecdLastTooltip.css('display', 'inline-block');
+		adjustSkillTooltipPosition(ecdLastTooltip, $(this));
+	}
+}
+
+
+function adjustSkillTooltipPosition(tooltip, parent)
+{
+	 var offsetWidth = -185;
+     var offsetHeight = -100;
+	 var documentWidth = $(document).width();
+     var documentHeight = $(document).height();
+     var windowWidth = $(window).width();
+     var windowHeight = $(window).height();
+     var toolTipWidth = tooltip.width();
+     var toolTipHeight = tooltip.height();
+     var elementHeight = parent.height();
+     var elementWidth = parent.width();
+     
+     offsetWidth += elementWidth;
+     if (tooltip.hasClass('ecdSkillTooltip1')) offsetWidth -= 30;
+     
+     var top = parent.offset().top + offsetHeight;
+     var left = parent.offset().left + offsetWidth;
+     tooltip.css({ 'top': top, 'left': left });
+     
+     var viewportTooltip = tooltip[0].getBoundingClientRect();
+     
+     if (viewportTooltip.bottom > windowHeight) 
+     {
+    	 var deltaHeight = viewportTooltip.bottom - windowHeight + 10;
+         top = top - deltaHeight
+     }
+     else if (viewportTooltip.top < 0)
+     {
+    	 var deltaHeight = viewportTooltip.top - 10;
+         top = top - deltaHeight
+     }
+         
+     if (viewportTooltip.right > windowWidth) 
+     {
+         left = left - toolTipWidth - parent.width() - 28;
+     }
+     
+     tooltip.css({ 'top': top, 'left': left });
 }
 
 
