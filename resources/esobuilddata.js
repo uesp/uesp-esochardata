@@ -45,7 +45,7 @@ function adjustSkillTooltipPosition(tooltip, parent)
          left = left - toolTipWidth - parent.width() - 28;
      }
      
-     tooltip.offset({ top: top, left: left });
+     tooltip.offset({ top: top, left: left });    
 }
 
 

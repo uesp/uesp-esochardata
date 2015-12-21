@@ -34,6 +34,7 @@ function ShowEsoItemLinkPopup(parent, itemId, itemLink, intLevel, intType)
 	if (EsoItemLinkPopup_LastItemId == itemId && EsoItemLinkPopup_LastIntLevel == intLevel && EsoItemLinkPopup_LastIntType == intType)
 	{
 		EsoItemLinkPopup.show();
+		AdjustEsoItemLinkTooltipPosition(EsoItemLinkPopup, $(parent));
 	}
 	else
 	{
@@ -42,10 +43,47 @@ function ShowEsoItemLinkPopup(parent, itemId, itemLink, intLevel, intType)
 			EsoItemLinkPopup_LastIntLevel = intLevel;
 			EsoItemLinkPopup_LastIntType = intType;
 			EsoItemLinkPopup_LastItemLink = itemLink;
-			if (EsoItemLinkPopup_Visible) EsoItemLinkPopup.show(); 
+			if (EsoItemLinkPopup_Visible) EsoItemLinkPopup.show();
+			AdjustEsoItemLinkTooltipPosition(EsoItemLinkPopup, $(parent));
 		});
 	}
 	
+}
+
+
+function AdjustEsoItemLinkTooltipPosition(tooltip, parent)
+{
+     var windowWidth = $(window).width();
+     var windowHeight = $(window).height();
+     var toolTipWidth = tooltip.width();
+     var toolTipHeight = tooltip.height();
+     var elementHeight = parent.height();
+     var elementWidth = parent.width();
+     
+     var top = parent.offset().top - 150;
+     var left = parent.offset().left + parent.outerWidth() + 3;
+     
+     tooltip.offset({ top: top, left: left });
+     
+     var viewportTooltip = tooltip[0].getBoundingClientRect();
+     
+     if (viewportTooltip.bottom > windowHeight) 
+     {
+    	 var deltaHeight = viewportTooltip.bottom - windowHeight + 10;
+         top = top - deltaHeight
+     }
+     else if (viewportTooltip.top < 0)
+     {
+    	 var deltaHeight = viewportTooltip.top - 10;
+         top = top - deltaHeight
+     }
+         
+     if (viewportTooltip.right > windowWidth) 
+     {
+         left = left - toolTipWidth - parent.width() - 28;
+     }
+     
+     tooltip.offset({ top: top, left: left });
 }
 
 
