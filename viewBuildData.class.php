@@ -174,7 +174,7 @@ class EsoBuildDataViewer
 		if ($user == null) return false;
 		
 		if (!$user->isLoggedIn()) return false;
-		if ($user->getName() == $this->characterData['wikiUserName']) return true;
+		if (strcasecmp($user->getName(), $this->characterData['wikiUserName']) == 0) return true;
 	
 		return $user->isAllowedAny('esochardata_edit');
 	}
@@ -188,7 +188,7 @@ class EsoBuildDataViewer
 		if ($user == null) return false;
 		
 		if (!$user->isLoggedIn()) return false;
-		if ($user->getName() == $this->characterData['wikiUserName']) return true;
+		if (strcasecmp($user->getName(), $this->characterData['wikiUserName']) == 0) return true;
 	
 		return $user->isAllowedAny('esochardata_delete');
 	}
@@ -202,7 +202,7 @@ class EsoBuildDataViewer
 		if ($user == null) return false;
 	
 		if (!$user->isLoggedIn()) return false;
-		if ($user->getName() == $buildData['wikiUserName']) return true;
+		if (strcasecmp($user->getName(), $buildData['wikiUserName']) == 0) return true;
 	
 		return $user->isAllowedAny('esochardata_edit');
 	}
@@ -216,7 +216,7 @@ class EsoBuildDataViewer
 		if ($user == null) return false;
 	
 		if (!$user->isLoggedIn()) return false;
-		if ($user->getName() == $buildData['wikiUserName']) return true;
+		if (strcasecmp($user->getName(), $buildData['wikiUserName']) == 0) return true;
 	
 		return $user->isAllowedAny('esochardata_delete');
 	}
