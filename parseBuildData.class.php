@@ -157,6 +157,7 @@ class EsoBuildDataParser
 						itemLink TINYTEXT NOT NULL,
 						icon TINYTEXT NOT NULL,
 						`index` INTEGER NOT NULL,
+						setCount INTEGER NOT NULL,
 						PRIMARY KEY (id),
 						INDEX index_characterId(characterId)
 					);";
@@ -575,9 +576,10 @@ class EsoBuildDataParser
 		$icon = $this->getSafeFieldStr($arrayData, 'icon');
 		$itemLink = $this->getSafeFieldStr($arrayData, 'link');
 		$condition = $this->getSafeFieldInt($arrayData, 'condition');
+		$setCount = $this->getSafeFieldInt($arrayData, 'setcount');
 	
-		$query  = "INSERT INTO equipSlots(characterId, name, itemLink, icon, `condition`, `index`) ";
-		$query .= "VALUES($charId, \"$name\", \"$itemLink\", \"$icon\", $condition, $index);";
+		$query  = "INSERT INTO equipSlots(characterId, name, itemLink, icon, `condition`, `index`, setCount) ";
+		$query .= "VALUES($charId, \"$name\", \"$itemLink\", \"$icon\", $condition, $index, $setCount);";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 	
