@@ -975,6 +975,7 @@ class EsoBuildDataViewer
 			$iconUrl = $this->convertIconToImageUrl($rawIcon);
 			$itemLink = $equipSlot['itemLink'];
 			$itemName = $equipSlot['name'];
+			$setCount = $equipSlot['setCount'];
 			
 			//|H0:item:71267:304:50:0:0:0:0:0:0:0:0:0:0:0:0:21:0:1:0:0:0|h|h
 			$matches = array();
@@ -989,7 +990,7 @@ class EsoBuildDataViewer
 			}
 		}
 		
-		$output .= "<img src=\"$iconUrl\" class=\"eso_item_link\" itemlink=\"$safeItemLink\" intlevel=\"$itemIntLevel\" inttype=\"$itemIntType\" itemid=\"$itemIntId\" />";
+		$output .= "<img src=\"$iconUrl\" class=\"eso_item_link\" itemlink=\"$safeItemLink\" intlevel=\"$itemIntLevel\" inttype=\"$itemIntType\" itemid=\"$itemIntId\" setcount=\"$setCount\"/>";
 		
 		return $output;
 	}
