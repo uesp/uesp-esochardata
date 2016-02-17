@@ -669,7 +669,7 @@ class EsoBuildDataParser
 		$itemName = "";
 		
 		$matches = array();
-		$result = preg_match("/(.*)|h\[(.*)\]|h/", $fullItemLink, $matches);
+		$result = preg_match("/(.*)\|h\[(.*)\]\|h/", $fullItemLink, $matches);
 		
 		if ($result === 1) 
 		{
