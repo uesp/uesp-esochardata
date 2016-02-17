@@ -5,12 +5,13 @@ require_once('parseBuildData.class.php');
 require_once("/home/uesp/secrets/esochardata.secrets");
 
 
-class EsoCharDataSubmitter extends EsoBuildDataParser 
+class EsoCharDataParser extends EsoBuildDataParser 
 {
-
 	
 	public function __construct ()
 	{
+		parent::__construct();
+		
 		$this->ECD_OUTPUTLOG_FILENAME = "/home/uesp/esochardata/chardata.log";
 		$this->ECD_OUTPUT_BUILDDATA_PATH = "/home/uesp/esochardata/";
 		$this->ECD_OUTPUT_BUILDDATA_PREFIX = "chardata-";
@@ -73,12 +74,12 @@ class EsoCharDataSubmitter extends EsoBuildDataParser
 				 		account TINYTEXT NOT NULL,
 						qnt INTEGER NOT NULL,
 						name TINYTEXT NOT NULL,
-						link TINYTEXT NOT NULL,
+						itemLink TINYTEXT NOT NULL,
 						PRIMARY KEY (id),
 						INDEX index_name(name(32)),
-						INDEX index_link(link(64)),
+						INDEX index_itemLink(itemLink(64)),
 						INDEX index_account(account(48)),
-						INDEX index_characterID(characterId)
+						INDEX index_characterId(characterId)
 					);";
 	
 		$this->lastQuery = $query;
@@ -129,8 +130,10 @@ class EsoCharDataSubmitter extends EsoBuildDataParser
 	
 	public function deleteExistingCharData($charData)
 	{
-		$charId = inval($charData['id']);
+		$charId = intval($charData['id']);
 		$accountName = $this->getSafeFieldStr($charData, 'UniqueAccountName');
+		
+		$this->log("Deleting character data for characterId #$charId ($accountName)...");
 		
 		$query = "DELETE FROM inventory WHERE characterId=$charId;";
 		$this->lastQuery = $query;
@@ -141,11 +144,6 @@ class EsoCharDataSubmitter extends EsoBuildDataParser
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		if ($result === FALSE) $this->reportError("Failed to clear previous character championPoints data!");
-		
-		$query = "DELETE FROM crafting WHERE characterId=$charId;";
-		$this->lastQuery = $query;
-		$result = $this->db->query($query);
-		if ($result === FALSE) $this->reportError("Failed to clear previous character crafting data!");
 		
 		$query = "DELETE FROM stats WHERE characterId=$charId;";
 		$this->lastQuery = $query;
@@ -180,6 +178,8 @@ class EsoCharDataSubmitter extends EsoBuildDataParser
 	{
 		$accountName = $this->getSafeFieldStr($charData, 'UniqueAccountName');
 		
+		$this->log("Deleting bank inventory for $accountName...");
+		
 		$query = "DELETE FROM inventory WHERE characterId=-1 AND account=\"$accountName\";";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
@@ -194,17 +194,19 @@ class EsoCharDataSubmitter extends EsoBuildDataParser
 		$charData = $this->loadCharacterByAccountName($newCharData['CharName'], $newCharData['UniqueAccountName']);
 		if ($charData == null) return $this->saveNewCharData($newCharData);
 		
+		$newCharData['id'] = $charData['id'];
+		
 		$this->deleteExistingCharData($charData);
 		
 		$this->currentCharacterStats = array();
 		$result = True;
 		
-		foreach ($charData as $key => &$value)
+		foreach ($newCharData as $key => &$value)
 		{
 			if (is_array($value))
-				$result &= $this->saveCharacterArrayData($charData, $key, $value);
+				$result &= $this->saveCharacterArrayData($newCharData, $key, $value);
 			else
-				$result &= $this->saveCharacterStatData($charData, $key, $value);
+				$result &= $this->saveCharacterStatData($newCharData, $key, $value);
 		}
 		
 		return $result;
@@ -249,12 +251,13 @@ class EsoCharDataSubmitter extends EsoBuildDataParser
 	
 	public function doFormParse()
 	{
+		$this->log("Started parsing " . $_SERVER['CONTENT_LENGTH'] . " bytes of character data from " . $_SERVER["REMOTE_ADDR"] . " at " . date("Y-m-d H:i:s"));
+		
 		$this->writeHeaders();
 	
 		if (!$this->parseFormInput()) return false;
 		if (!$this->saveAllCharData()) return false;
-		if (!$this->saveBankData()) return false;
-	
+		
 		return True;
 	}
 	
