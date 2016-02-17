@@ -20,8 +20,7 @@ class EsoBuildDataParser
 	public $fileLuaResult = false;
 	public $parsedBuildData = array();
 	public $parsedCommonData = array();
-	public $parsedBankData = array();
-	
+		
 	public $currentCharacterStats = array();
 	
 	public $newCharacterCount = 0;
@@ -36,8 +35,6 @@ class EsoBuildDataParser
 	
 	public function __construct ()
 	{
-		$this->log("Started parsing " . $_SERVER['CONTENT_LENGTH'] . " bytes of character data from " . $_SERVER["REMOTE_ADDR"] . " at " . date("Y-m-d H:i:s"));
-		
 		$this->Lua = new Lua();
 		$this->initDatabaseWrite();
 	}
@@ -46,7 +43,7 @@ class EsoBuildDataParser
 	public function log ($msg)
 	{
 		//print($msg . "\n");
-		$result = file_put_contents($this->logFilePath . $this->ECD_OUTPUTLOG_FILENAME, $msg . "\n", FILE_APPEND | LOCK_EX);
+		$result = file_put_contents($this->ECD_OUTPUTLOG_FILENAME, $msg . "\n", FILE_APPEND | LOCK_EX);
 		return TRUE;
 	}
 	
@@ -388,7 +385,7 @@ class EsoBuildDataParser
 		if ($buildData["IsBank"] != 0)
 		{
 			$this->log("Parsing bank data with key $index...");
-			$this->parsedBankData = $buildData;
+			$this->parsedBuildData[$index] = $buildData;
 		}
 		else
 		{
@@ -428,6 +425,8 @@ class EsoBuildDataParser
 			return null;
 		}
 		
+		if ($result->num_rows == 0) return null;
+		
 		$result->data_seek(0);
 		$data = $result->fetch_assoc();
 		$data['UniqueAccountName'] = $data['uniqueAccountName'];
@@ -440,7 +439,7 @@ class EsoBuildDataParser
 		$safeCharName = $this->db->real_escape_string($charName);
 		$safeAccount  = $this->db->real_escape_string($accountName);
 	
-		$query = "SELECT * from characters WHERE name=\"$safeCharName\" AND account=$accountName;";
+		$query = "SELECT * from characters WHERE name=\"$safeCharName\" AND uniqueAccountName=\"$accountName\";";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 	
@@ -449,6 +448,8 @@ class EsoBuildDataParser
 			$this->reportError("Failed to load character \"{$charName}\" from account '{$accountName}'!");
 			return null;
 		}
+		
+		if ($result->num_rows == 0) return null;
 	
 		$result->data_seek(0);
 		$data = $result->fetch_assoc();
@@ -952,6 +953,8 @@ class EsoBuildDataParser
 	
 	public function doFormParse()
 	{
+		$this->log("Started parsing " . $_SERVER['CONTENT_LENGTH'] . " bytes of build data from " . $_SERVER["REMOTE_ADDR"] . " at " . date("Y-m-d H:i:s"));
+		
 		$this->writeHeaders();
 		
 		if (!$this->parseFormInput()) return false;
@@ -963,7 +966,6 @@ class EsoBuildDataParser
 	
 	public function doParse($buildData)
 	{
-	
 		if (!$this->parseBuildDataRoot($buildData)) return false;
 		if (!$this->savePhpBuildData()) return false;
 		if (!$this->saveAllNewCharacters()) return false;
