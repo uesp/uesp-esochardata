@@ -452,6 +452,8 @@ class EsoBuildDataParser
 		
 		if ($buildData['Vampire'] == 1) $special = "Vampire";
 		if ($buildData['Werewolf'] == 1) $special = "Werewolf";
+		
+		if ($this->checkBuffWerewolf($buildData)) $special = "Werewolf";
 				
 		$query  = "INSERT INTO characters(name, buildName, accountName, wikiUserName, class, race, buildType, level, createTime, championPoints, special) ";
 		$query .= "VALUES(\"$name\", \"$buildName\", \"$accountName\", \"$wikiUserName\", \"$class\", \"$race\", \"$buildType\", $level, $createTime, $championPoints, \"$special\");";
@@ -467,6 +469,19 @@ class EsoBuildDataParser
 		$buildData['id'] = $this->db->insert_id;
 		$this->log("Created new character '$name' with ID {$buildData['id']}.");
 		return $this->db->insert_id;
+	}
+	
+	
+	public function checkBuffWerewolf(&$buildData)
+	{
+		$buffs = &$buildData['Buffs'];
+		
+		foreach ($buffs as $buff)
+		{
+			if ($buff['name'] == 'Lycanthropy') return true;
+		}
+		
+		return false;
 	}
 	
 	

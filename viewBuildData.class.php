@@ -1404,7 +1404,8 @@ class EsoBuildDataViewer
 		if (!$this->loadCharacter()) return false;
 		if (!$this->canWikiUserDelete()) return $this->reportError("Permission denied!");
 		
-		$buildName = $this->getCharField('name');
+		$buildName = $this->getCharField('buildName');
+		$charName = $this->getCharField('name');
 		
 		if (!$this->deleteBuild())
 		{
@@ -1430,12 +1431,13 @@ class EsoBuildDataViewer
 		if (!$this->loadCharacter()) return false;
 		if (!$this->canWikiUserDelete()) return $this->reportError("Permission denied!");
 		
-		$buildName = $this->getCharField('name');
-		$id = $this->CharacterId;
+		$buildName = $this->getCharField('buildName');
+		$charName = $this->getCharField('name');
+		$id = $this->characterId;
 		
 		$this->outputHtml .= "<form method='post' action=''>";
 		$this->outputHtml .= "<b>Warning:</b> Once a build is deleted it cannot be restored. It can be re-uploaded again if desired.<p />";
-		$this->outputHtml .= "Are you sure you wish to delete character build '$buildName' (id #$id)? <p />";
+		$this->outputHtml .= "Are you sure you wish to delete character build <b>'$buildName'</b> (id #$id)? <p />";
 		$this->outputHtml .= "<button type='submit' name='confirm' value='1'>Yes, Delete this Build</button> &nbsp; &nbsp; ";
 		$this->outputHtml .= "<button type='submit' name='nonconfirm' value='1'>Cancel</button>";
 		$this->outputHtml .= "<input type='hidden' name='id' value='{$this->characterId}'>";
