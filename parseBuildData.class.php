@@ -1,14 +1,18 @@
 <?php
 
 
-require_once("/home/uesp/secrets/esochardata.secrets");
+require_once("/home/uesp/secrets/esobuilddata.secrets");
 
 
 class EsoBuildDataParser
 {
-	const ECD_OUTPUTLOG_FILENAME = "/home/uesp/esobuilddata/builddata.log";
-	const ECD_OUTPUT_BUILDDATA_PATH = "/home/uesp/esobuilddata/";
-	const ECD_MINIMUM_BUILDDATA_SIZE = 24;
+	public $ECD_OUTPUTLOG_FILENAME = "/home/uesp/esobuilddata/builddata.log";
+	public $ECD_OUTPUT_BUILDDATA_PATH = "/home/uesp/esobuilddata/";
+	public $ECD_OUTPUT_BUILDDATA_PREFIX = "builddata-";
+	public $ECD_MINIMUM_BUILDDATA_SIZE = 24;
+	
+	public $hasCharacterInventory = false;
+	public $hasCharacterBank      = false;
 	
 	public $inputParams = array();
 	public $rawBuildData = array();
@@ -16,6 +20,7 @@ class EsoBuildDataParser
 	public $fileLuaResult = false;
 	public $parsedBuildData = array();
 	public $parsedCommonData = array();
+	public $parsedBankData = array();
 	
 	public $currentCharacterStats = array();
 	
@@ -23,8 +28,8 @@ class EsoBuildDataParser
 	public $characterCount = 0;
 	
 	public $db = null;
-	private $dbReadInitialized  = false;
-	private $dbWriteInitialized = false;
+	public $dbReadInitialized  = false;
+	public $dbWriteInitialized = false;
 	public $lastQuery = "";
 	public $skipCreateTables = false;
 	
@@ -41,7 +46,7 @@ class EsoBuildDataParser
 	public function log ($msg)
 	{
 		//print($msg . "\n");
-		$result = file_put_contents($this->logFilePath . self::ECD_OUTPUTLOG_FILENAME, $msg . "\n", FILE_APPEND | LOCK_EX);
+		$result = file_put_contents($this->logFilePath . $this->ECD_OUTPUTLOG_FILENAME, $msg . "\n", FILE_APPEND | LOCK_EX);
 		return TRUE;
 	}
 	
@@ -60,13 +65,13 @@ class EsoBuildDataParser
 	}
 	
 	
-	private function initDatabase ()
+	public function initDatabase ()
 	{
-		global $uespEsoCharDataReadDBHost, $uespEsoCharDataReadUser, $uespEsoCharDataReadPW, $uespEsoCharDataDatabase;
+		global $uespEsoBuildDataReadDBHost, $uespEsoBuildDataReadUser, $uespEsoBuildDataReadPW, $uespEsoBuildDataDatabase;
 	
 		if ($this->dbReadInitialized || $this->dbWriteInitialized) return true;
 	
-		$this->db = new mysqli($uespEsoCharDataReadDBHost, $uespEsoCharDataReadUser, $uespEsoCharDataReadPW, $uespEsoCharDataDatabase);
+		$this->db = new mysqli($uespEsoBuildDataReadDBHost, $uespEsoBuildDataReadUser, $uespEsoBuildDataReadPW, $uespEsoBuildDataDatabase);
 		if ($db->connect_error) return $this->reportError("Could not connect to mysql database!");
 	
 		$this->dbReadInitialized = true;
@@ -76,9 +81,9 @@ class EsoBuildDataParser
 	}
 	
 	
-	private function initDatabaseWrite ()
+	public function initDatabaseWrite ()
 	{
-		global $uespEsoCharDataWriteDBHost, $uespEsoCharDataWriteUser, $uespEsoCharDataWritePW, $uespEsoCharDataDatabase;
+		global $uespEsoBuildDataWriteDBHost, $uespEsoBuildDataWriteUser, $uespEsoBuildDataWritePW, $uespEsoBuildDataDatabase;
 	
 		if ($this->dbWriteInitialized) return true;
 	
@@ -90,7 +95,7 @@ class EsoBuildDataParser
 			$this->dbReadInitialized = false;
 		}
 	
-		$this->db = new mysqli($uespEsoCharDataWriteDBHost, $uespEsoCharDataWriteUser, $uespEsoCharDataWritePW, $uespEsoCharDataDatabase);
+		$this->db = new mysqli($uespEsoBuildDataWriteDBHost, $uespEsoBuildDataWriteUser, $uespEsoBuildDataWritePW, $uespEsoBuildDataDatabase);
 		if ($db->connect_error) return $this->reportError("Could not connect to mysql database!");
 	
 		$this->dbReadInitialized = true;
@@ -111,6 +116,7 @@ class EsoBuildDataParser
 						name TINYTEXT NOT NULL,
 						buildName TINYTEXT NOT NULL,
 						accountName TINYTEXT NOT NULL,
+						uniqueAccountName TINYTEXT NOT NULL,
 						wikiUserName TINYTEXT NOT NULL,
 						class TINYTEXT NOT NULL,
 						race TINYTEXT NOT NULL,
@@ -129,6 +135,7 @@ class EsoBuildDataParser
 						INDEX index_buildType(buildType(10)),
 						INDEX index_wikiUserName(wikiUserName(32)),
 						INDEX index_accountName(accountName(32)),
+						INDEX index_uniqueAccountName(uniqueAccountName(48)),
 						INDEX index_createTime(createTime)
 					);";
 		
@@ -278,12 +285,12 @@ class EsoBuildDataParser
 			
 			$date = new DateTime();
 			$dateStr = $date->format('Y-m-d-His');
-			$filename = self::ECD_OUTPUT_BUILDDATA_PATH;
+			$filename = $this->ECD_OUTPUT_BUILDDATA_PATH;
 			
 			if ($index > 0)
-				$filename .= "buildData-" . $dateStr . "-" . $index . ".txt";
+				$filename .= $this->ECD_OUTPUT_BUILDDATA_PREFIX . $dateStr . "-" . $index . ".txt";
 			else
-				$filename .= "buildData-" . $dateStr . ".txt";
+				$filename .= $this->ECD_OUTPUT_BUILDDATA_PREFIX . $dateStr . ".txt";
 			
 			$index += 1;
 		} while (file_exists($filename));
@@ -350,7 +357,7 @@ class EsoBuildDataParser
 			{
 				$this->parseSingleCharacter(intval($key), $value);
 			}
-			else 
+			else
 			{
 				$this->parseCommonData($key, $value);
 			}
@@ -378,8 +385,17 @@ class EsoBuildDataParser
 	
 	public function parseSingleCharacter ($index, $buildData)
 	{
-		$this->log("Parsing character with key $index...");
-		$this->parsedBuildData[$index] = $buildData;
+		if ($buildData["IsBank"] != 0)
+		{
+			$this->log("Parsing bank data with key $index...");
+			$this->parsedBankData = $buildData;
+		}
+		else
+		{
+			$this->log("Parsing character with key $index...");
+			$this->parsedBuildData[$index] = $buildData;
+		}
+		
 		return true;
 	}
 	
@@ -408,12 +424,36 @@ class EsoBuildDataParser
 		
 		if ($result === FALSE)
 		{
-			$this->reportError("Failed to load character v{$charName}\" with creation time '{$createTime}'!");
+			$this->reportError("Failed to load character \"{$charName}\" with creation time '{$createTime}'!");
 			return null;
 		}
 		
 		$result->data_seek(0);
-		return $result->fetch_assoc();
+		$data = $result->fetch_assoc();
+		$data['UniqueAccountName'] = $data['uniqueAccountName'];
+		return $data;
+	}
+	
+	
+	public function loadCharacterByAccountName($charName, $accountName)
+	{
+		$safeCharName = $this->db->real_escape_string($charName);
+		$safeAccount  = $this->db->real_escape_string($accountName);
+	
+		$query = "SELECT * from characters WHERE name=\"$safeCharName\" AND account=$accountName;";
+		$this->lastQuery = $query;
+		$result = $this->db->query($query);
+	
+		if ($result === FALSE)
+		{
+			$this->reportError("Failed to load character \"{$charName}\" from account '{$accountName}'!");
+			return null;
+		}
+	
+		$result->data_seek(0);
+		$data = $result->fetch_assoc();
+		$data['UniqueAccountName'] = $data['uniqueAccountName'];
+		return $data;
 	}
 	
 	
@@ -436,6 +476,7 @@ class EsoBuildDataParser
 		$name = $this->getSafeFieldStr($buildData, 'CharName');
 		$buildName = $this->getSafeFieldStr($buildData, 'Note');
 		$accountName = $this->getSafeFieldStr($buildData, 'AccountName');
+		$uniqueAccountName = $this->getSafeFieldStr($buildData, 'UniqueAccountName');
 		$wikiUserName = $this->getSafeFieldStr($buildData, 'WikiUser');
 		$class = $this->getSafeFieldStr($buildData, 'Class');
 		$race = $this->getSafeFieldStr($buildData, 'Race');
@@ -455,8 +496,8 @@ class EsoBuildDataParser
 		
 		if ($this->checkBuffWerewolf($buildData)) $special = "Werewolf";
 				
-		$query  = "INSERT INTO characters(name, buildName, accountName, wikiUserName, class, race, buildType, level, createTime, championPoints, special) ";
-		$query .= "VALUES(\"$name\", \"$buildName\", \"$accountName\", \"$wikiUserName\", \"$class\", \"$race\", \"$buildType\", $level, $createTime, $championPoints, \"$special\");";
+		$query  = "INSERT INTO characters(name, buildName, accountName, uniqueAccountName, wikiUserName, class, race, buildType, level, createTime, championPoints, special) ";
+		$query .= "VALUES(\"$name\", \"$buildName\", \"$accountName\", \"$uniqueAccountName\", \"$wikiUserName\", \"$class\", \"$race\", \"$buildType\", $level, $createTime, $championPoints, \"$special\");";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		
@@ -514,7 +555,7 @@ class EsoBuildDataParser
 		foreach ($buildData as $key => &$value)
 		{
 			if (is_array($value))
-				$result &= $this->saveCharacterArrayData($buildData, $key, $value);
+				$result &= $this->saveCharacterArrayData($buildData, $key, $value, false);
 			else
 				$result &= $this->saveCharacterStatData($buildData, $key, $value);
 		}
@@ -564,12 +605,89 @@ class EsoBuildDataParser
 				return $this->saveCharacterActionBars($buildData, $name, $arrayData);
 			case "EquipSlots":
 				return $this->saveCharacterEquipSlots($buildData, $name, $arrayData);
+			case "Inventory":
+			case "inventory":
+				return $this->saveCharacterInventory($buildData, $name, $arrayData);
 			default:
 				return $this->reportError("Unknown array '$name' found in character data!");
 		}
 		
 		return true;
 	}
+	
+	
+	public function saveCharacterBank($buildData, $name, $arrayData)
+	{
+		if (!$this->hasCharacterBank) return true;
+		
+		$charId = -1;
+		$accountName = $this->getSafeFieldStr($buildData, 'UniqueAccountName');
+		$result = True;
+			
+		foreach ($arrayData as $key => &$value)
+		{
+			$result &= $this->saveCharacterInventoryItem($charId, $accountName, $key, $value);
+		}
+	
+		return $result;
+	}
+	
+	
+	public function saveCharacterInventory($buildData, $name, $arrayData)
+	{
+		if (!$this->hasCharacterInventory) return true;
+		
+		$charId = intval($buildData['id']);
+		$accountName = $this->getSafeFieldStr($buildData, 'UniqueAccountName');
+		
+		$result = True;
+			
+		foreach ($arrayData as $key => &$value)
+		{
+			$result &= $this->saveCharacterInventoryItem($charId, $accountName, $key, $value);
+		}
+	
+		return $result;
+	}
+	
+	
+	public function saveCharacterInventoryItem($charId, $accountName, $index, $itemData)
+	{
+		
+			/* Ignore non-numeric indexes */
+		if (!is_numeric($index)) return true;
+		
+			//"200 |H0:item:33753:25:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h[Fish]|h"
+		$matches = array();
+		$result = preg_match("/([0-9]+) (.*)/", $itemData, $matches);
+		if ($result !== 1) return false;
+		
+		$qnt = intval($matches[1]);
+		$fullItemLink = $matches[2];
+		$itemLink = $fullItemLink;
+		$itemName = "";
+		
+		$matches = array();
+		$result = preg_match("/(.*)|h\[(.*)\]|h/", $fullItemLink, $matches);
+		
+		if ($result === 1) 
+		{
+			$itemLink = $matches[1] . "|h|h";
+			$itemName = $matches[2];
+		}
+		
+		$safeLink = $this->db->real_escape_string($itemLink);
+		$safeName = $this->db->real_escape_string($itemName);
+
+		$query  = "INSERT INTO inventory(characterId, account, name, itemLink, qnt) ";
+		$query .= "VALUES($charId, \"$accountName\", \"$safeName\", \"$safeLink\", $qnt);";
+		$this->lastQuery = $query;
+		$result = $this->db->query($query);
+		if ($result === FALSE) return $this->reportError("Failed to save character inventory slot data!");
+			
+		return true;
+	}
+	
 	
 	public function saveCharacterEquipSlots($buildData, $name, $arrayData)
 	{
@@ -597,8 +715,8 @@ class EsoBuildDataParser
 		$query .= "VALUES($charId, \"$name\", \"$itemLink\", \"$icon\", $condition, $index, $setCount);";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
-	
 		if ($result === FALSE) return $this->reportError("Failed to save character equip slot data!");
+		
 		return true;
 	}
 	
@@ -810,7 +928,7 @@ class EsoBuildDataParser
 		$this->rawBuildData = $this->parseRawBuildData($this->inputParams['chardata']); 
 		print("Found character data " . strlen($this->rawBuildData) . " bytes in size.");
 		
-		if (strlen($this->rawBuildData) < self::ECD_MINIMUM_BUILDDATA_SIZE)
+		if (strlen($this->rawBuildData) < $this->ECD_MINIMUM_BUILDDATA_SIZE)
 		{
 			print("Ignoring empty char data.");
 			return true;

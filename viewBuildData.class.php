@@ -1,7 +1,7 @@
 <?php 
 
 
-require_once("/home/uesp/secrets/esochardata.secrets");
+require_once("/home/uesp/secrets/esobuilddata.secrets");
 
 
 class EsoBuildDataViewer
@@ -48,8 +48,8 @@ class EsoBuildDataViewer
 	public $nonConfirm = '';
 	
 	public $db = null;
-	private $dbReadInitialized  = false;
-	private $dbWriteInitialized = false;
+	public $dbReadInitialized  = false;
+	public $dbWriteInitialized = false;
 	public $lastQuery = "";
 	
 	public $baseUrl = "viewBuildData.php";
@@ -88,13 +88,13 @@ class EsoBuildDataViewer
 	}
 	
 	
-	private function initDatabase ()
+	public function initDatabase ()
 	{
-		global $uespEsoCharDataReadDBHost, $uespEsoCharDataReadUser, $uespEsoCharDataReadPW, $uespEsoCharDataDatabase;
+		global $uespEsoBuildDataReadDBHost, $uespEsoBuildDataReadUser, $uespEsoBuildDataReadPW, $uespEsoBuildDataDatabase;
 	
 		if ($this->dbReadInitialized || $this->dbWriteInitialize) return true;
 	
-		$this->db = new mysqli($uespEsoCharDataReadDBHost, $uespEsoCharDataReadUser, $uespEsoCharDataReadPW, $uespEsoCharDataDatabase);
+		$this->db = new mysqli($uespEsoBuildDataReadDBHost, $uespEsoBuildDataReadUser, $uespEsoBuildDataReadPW, $uespEsoBuildDataDatabase);
 		if ($this->db == null || $this->db->connect_error) return $this->reportError("Could not connect to mysql database!");
 	
 		$this->dbReadInitialized = true;
@@ -103,9 +103,9 @@ class EsoBuildDataViewer
 	}
 	
 	
-	private function initDatabaseWrite ()
+	public function initDatabaseWrite ()
 	{
-		global $uespEsoCharDataWriteDBHost, $uespEsoCharDataWriteUser, $uespEsoCharDataWritePW, $uespEsoCharDataDatabase;
+		global $uespEsoBuildDataWriteDBHost, $uespEsoBuildDataWriteUser, $uespEsoBuildDataWritePW, $uespEsoBuildDataDatabase;
 	
 		if ($this->dbWriteInitialized) return true;
 	
@@ -117,7 +117,7 @@ class EsoBuildDataViewer
 			$this->dbReadInitialized = false;
 		}
 	
-		$this->db = new mysqli($uespEsoCharDataWriteDBHost, $uespEsoCharDataWriteUser, $uespEsoCharDataWritePW, $uespEsoCharDataDatabase);
+		$this->db = new mysqli($uespEsoBuildDataWriteDBHost, $uespEsoBuildDataWriteUser, $uespEsoBuildDataWritePW, $uespEsoBuildDataDatabase);
 		if ($db->connect_error) return $this->reportError("Could not connect to mysql database!");
 	
 		$this->dbReadInitialized = true;
