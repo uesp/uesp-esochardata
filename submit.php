@@ -1,7 +1,7 @@
 <?php
 
 
-require_once('/home/uesp/www/esobuilddata/parseBuildData.class.php');
+require_once('parseBuildData.class.php');
 
 
 class EsoCharDataSubmitter
