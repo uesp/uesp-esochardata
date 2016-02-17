@@ -6,9 +6,13 @@ require_once("/home/uesp/secrets/esobuilddata.secrets");
 
 class EsoBuildDataViewer
 {
+	public $ESO_HTML_TEMPLATE = "templates/esobuilddata_embed_template.txt";
+	public $ESO_SHORT_LINK_URL = "http://esobuilds.uesp.net/";
+	
+	public $hasCharacterInventory = false;
+	public $hasCharacterBank      = false;
+	
 	const ESO_ICON_URL = "http://esoicons.uesp.net";
-	const ESO_HTML_TEMPLATE = "templates/esobuilddata_embed_template.txt";
-	const ESO_SHORT_LINK_URL = "http://esobuilds.uesp.net/";
 	const ESO_WEAPON_CRITICAL_FACTOR = 0.00597099;
 	const ESO_SPELL_CRITICAL_FACTOR = 0.00563926;
 	
@@ -129,7 +133,7 @@ class EsoBuildDataViewer
 	
 	public function loadHtmlTemplate()
 	{
-		$this->htmlTemplate = file_get_contents(__DIR__ . '/' . self::ESO_HTML_TEMPLATE);
+		$this->htmlTemplate = file_get_contents(__DIR__ . '/' . $this->ESO_HTML_TEMPLATE);
 	}
 	
 	
@@ -275,10 +279,68 @@ class EsoBuildDataViewer
 		if (!$this->loadCharacterArrayData("equipSlots")) return false;
 		if (!$this->loadCharacterArrayData("actionBars")) return false;
 		if (!$this->loadCharacterArrayData("screenshots")) return false;
+				
+		if ($this->hasCharacterInventory) 
+		{
+			if (!$this->loadCharacterArrayData("inventory")) return false;
+			if (!$this->loadAccountInventory()) return false;
+		}
+		
+		if ($this->hasCharacterBank) 
+		{
+			if (!$this->loadCharacterBankData()) return false;
+		}
 		
 		$this->parseCharSkillData();
 		$this->parseCharChampionPointData();
 		
+		return true;
+	}
+	
+	
+	public function loadCharacterBankData()
+	{
+		$accountName = $this->db->real_escape_string($this->characterData['uniqueAccountName']);
+		 
+		$query = "SELECT * FROM inventory WHERE characterId=-1 AND account=\"$accountName\";";
+		$this->lastQuery = $query;
+		$result = $this->db->query($query);
+		if ($result === FALSE) return $this->reportError("Failed to load inventory bank data for account $accountName!");
+		
+		$result->data_seek(0);
+		$arrayData = array();
+		
+		while (($row = $result->fetch_assoc()))
+		{
+			$arrayData[] = $row;
+		}
+		
+		//ksort($arrayData);
+		$this->characterData['bank'] = $arrayData;
+		
+		return true;
+	}
+	
+	
+	public function loadAccountInventory()
+	{
+		$accountName = $this->db->real_escape_string($this->characterData['uniqueAccountName']);
+		
+		$query = "SELECT * FROM inventory WHERE account=\"$accountName\";";
+		$this->lastQuery = $query;
+		$result = $this->db->query($query);
+		if ($result === FALSE) return $this->reportError("Failed to load inventory bank data for account $accountName!");
+	
+		$result->data_seek(0);
+		$arrayData = array();
+	
+		while (($row = $result->fetch_assoc()))
+		{
+			$arrayData[] = $row;
+		}
+	
+		$this->characterData['accountInventory'] = $arrayData;
+	
 		return true;
 	}
 	
@@ -298,6 +360,10 @@ class EsoBuildDataViewer
 			if ($table == "equipSlots" || $table == "actionBars")
 			{
 				$arrayData[$row['index']] = $row;
+			}
+			else if ($table == "inventory")
+			{
+				$arrayData[] = $row;
 			}
 			else
 			{
@@ -392,7 +458,7 @@ class EsoBuildDataViewer
 		$output = "";
 		if ($this->characterId <= 0) return $output;
 		
-		$charLink = self::ESO_SHORT_LINK_URL . "b/" . $this->characterId;
+		$charLink = $this->ESO_SHORT_LINK_URL . "b/" . $this->characterId;
 		$output .= "<a href='$charLink' class='ecdShortCharLink'>Link to Build</a>";
 		
 		return $output;
@@ -1183,6 +1249,9 @@ class EsoBuildDataViewer
 				'equipSlots' => 'Equipment',
 				'actionBars' => 'Action Bars',
 				'screenshots' => 'Screenshots',
+				'bank' => 'Bank',
+				'inventory' => 'Inventory',
+				'accountInventory' => 'Account Inventory',
 		);
 		
 		$title = $SECTIONS[$section];
@@ -1195,6 +1264,7 @@ class EsoBuildDataViewer
 	{
 		if ($colName == 'id') return false;
 		if ($colName == 'characterId') return false;
+		if ($colName == 'account') return false;
 		
 		return true;
 	}
