@@ -32,19 +32,22 @@
 			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdAccountInvButton' onclick="OnEsoRightTitleClick('AccountInv');">ACCOUNT INV</div>
 		</div>
 		<div id='ecdSkills' class='ecdRightDataArea'>
-			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='290' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='290' />
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			<div class='ecdSkillSubTitle'>Skill Points:</div> <div class='ecdSkillSubValue'>{skillPointsUnused} / {skillPointsTotal}</div><br />
 			<div class='ecdSkillSubTitle'>Skyshards:</div> <div class='ecdSkillSubValue'>{skyshards} / 3</div>
 			<div id='ecdSkillContents'>{skillContents}</div>
 			<div id='ecdSkillTree'>{skillTree}</div>
 		</div>
 		<div id='ecdInventory' class='ecdRightDataArea' style="display: none;">
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			{inventoryContents}
 		</div>
 		<div id='ecdBank' class='ecdRightDataArea' style="display: none;">
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			{bankContents}
 		</div>
 		<div id='ecdAccountInv' class='ecdRightDataArea' style="display: none;">
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			{accountInvContents}
 		</div>
 	</div>
