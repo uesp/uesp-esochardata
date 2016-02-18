@@ -64,7 +64,8 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 	
 	public function getInventoryContentHtml()
 	{
-		$output = $this->getItemHeaderHtml();
+		$output  = $this->getItemFilterHtml();
+		$output .= $this->getItemHeaderHtml();
 				
 		foreach($this->characterData['inventory'] as $key => $item)
 		{
@@ -145,9 +146,34 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 	}
 	
 	
+	public function getItemFilterHtml()
+	{
+		$output = <<<EOT
+		
+			<div id='ecdItemFilters'>
+				<div class='ecdItemFilterTextBox'>
+				</div>
+				<div id='ecdItemFilterTextLabel'>ALL</div>
+				<div class='ecdItemFilterContainer' style="background-image: url('resources/allfilter.png');" id="ecdItemFilterAll" /></div> 
+				<div class='ecdItemFilterContainer' style="background-image: url('resources/weaponfilter.png');" id="ecdItemFilterWeapon" /></div>
+				<div class='ecdItemFilterContainer' style="background-image: url('resources/armorfilter.png');" id="ecdItemFilterArmor" /></div>
+				<div class='ecdItemFilterContainer' style="background-image: url('resources/consumablefilter.png');" id="ecdItemFilterConsumable" /></div>
+				<div class='ecdItemFilterContainer' style="background-image: url('resources/materialfilter.png');" id="ecdItemFilterMaterial" /></div>
+				<div class='ecdItemFilterContainer' style="background-image: url('resources/miscfilter.png');" id="ecdItemFilterMisc" /></div>
+				<div class='ecdItemFilterContainer' style="background-image: url('resources/questfilter.png');" id="ecdItemFilterQuest" /></div>
+				<div class='ecdItemFilterContainer' style="background-image: url('resources/junkfilter.png');" id="ecdItemFilterJunk" /></div>
+			</div>
+			<img class='ecdImageFlip' src='resources/eso_equip_bar.png' width='49%' /><img class='3' src='resources/eso_equip_bar.png' width='49%' />
+EOT;
+
+		return $output;
+	}
+	
+	
 	public function getBankContentHtml()
 	{
-		$output = $this->getItemHeaderHtml();
+		$output  = $this->getItemFilterHtml();
+		$output .= $this->getItemHeaderHtml();
 				
 		foreach($this->characterData['bank'] as $key => $item)
 		{
@@ -161,7 +187,8 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 	
 	public function getAccountInvContentHtml()
 	{
-		$output = $this->getItemHeaderHtml();
+		$output  = $this->getItemFilterHtml();
+		$output .= $this->getItemHeaderHtml();
 				
 		foreach($this->characterData['accountInventory'] as $key => $item)
 		{
