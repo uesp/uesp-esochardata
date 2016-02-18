@@ -465,11 +465,9 @@
 	position: absolute;
 }
 	
-.eso_item_link {
-	font-family: "Arial", sans-serif;
-	font-weight: bold;
-	text-decoration: none;
-	text-shadow: 0px 0px 2 #000000;
+tr.eso_item_link {
+	font-family: "EsoFontStyle", "Arial", sans-serif;
+    font-weight: bold;
 }
 
 #ecdStatsandBuffs {
@@ -934,6 +932,7 @@ tbody.ecdScrollContent td + td {
 tbody.ecdScrollContent td + td + td {
 	width: 400px;
 	text-align: left;
+	padding-left: 10px;
 }
 
 tbody.ecdScrollContent td + td + td + td {
@@ -965,3 +964,4 @@ thead.ecdFixedHeader tr {
 .ecdItemQuality3 { color: #3A92FF !important; }
 .ecdItemQuality4 { color: #A02EF7 !important; }
 .ecdItemQuality5 { color: #CCAA1A !important; }
+
