@@ -889,6 +889,11 @@ thead.ecdFixedHeader th {
 	width: 50px;
 }
 
+thead.ecdFixedHeader th:hover {
+	background-color: #777;
+	cursor: pointer;
+}
+
 thead.ecdFixedHeader th + th {
 	width: 50px;
 }
@@ -906,8 +911,9 @@ thead.ecdFixedHeader th + th + th + th {
 	width: 50px;
 }
 
-thead.ecdFixedHeader th + th + th + th + th{
+thead.ecdFixedHeader th + th + th + th + th {
 	width: 75px;
+	text-align: left;
 }
 
 thead.ecdFixedHeader th + th + th + th + th:hover {
@@ -976,3 +982,19 @@ thead.ecdFixedHeader tr {
 	text-align: center;
 	verticle-align: middle;
 }
+
+table.tablesorter thead tr .header {
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
+}
+
+table.tablesorter thead tr .headerSortUp {
+    background-image: url(arrow_down.png);
+    background-size: 16px;
+ }
+ 
+ table.tablesorter thead tr .headerSortDown {
+    background-image: url(arrow_up.png);
+    background-size: 16px;
+ }

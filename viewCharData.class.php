@@ -78,7 +78,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 	
 	public function getItemHeaderHtml()
 	{
-		$output = "<table id='ecdInventoryTable' class='ecdItemTable'>\n";
+		$output = "<table id='ecdInventoryTable' class='ecdItemTable tablesorter'>\n";
 		$output .= "<thead class='ecdFixedHeader'><tr>";
 		$output .= "<th></th>"; //Stolen
 		$output .= "<th></th>"; //Icon/Qnt
@@ -130,7 +130,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		
 		if ($stolen > 0)
 		{
-			$stolenIcon = "<img src='resources/stolenitem.png' class='ecdStolenItemIcon' />";
+			$stolenIcon = "<img src='resources/stolenitem.png' class='ecdStolenItemIcon' /><div style='display:none;'>1</div>";
 		}
 			
 		$output .= "<tr class='eso_item_link' itemlink='$itemLink' itemid='$itemId' intype='$itemIntSubType' intlevel='$itemIntLevel'>";
