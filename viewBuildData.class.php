@@ -64,6 +64,8 @@ class EsoBuildDataViewer
 	public $skillDataDisplay = 'block';
 	public $skillTreeFirstName = '';
 	
+	public $nextLocalItemID = 1;
+	
 	
 	public function __construct ()
 	{
@@ -313,13 +315,17 @@ class EsoBuildDataViewer
 		
 		while (($row = $result->fetch_assoc()))
 		{
+			$row['invType'] = "Bank";
+			$row['nameLC'] = strtolower($row['name']);
+			$row['localId'] = $this->nextLocalItemID;
+			++$this->nextLocalItemID;
+			
 			$arrayData[] = $row;
 		}
 		
 		if ($this->combineBankItems) $arrayData = $this->combineInventory($arrayData);
 		usort($arrayData, compareInventoryByName);
 		$this->characterData['bank'] = $arrayData;
-		
 		return true;
 	}
 	
@@ -338,13 +344,17 @@ class EsoBuildDataViewer
 	
 		while (($row = $result->fetch_assoc()))
 		{
+			$row['invType'] = "Account";
+			$row['nameLC'] = strtolower($row['name']);
+			$row['localId'] = $this->nextLocalItemID;
+			++$this->nextLocalItemID;
+			
 			$arrayData[] = $row;
 		}
 	
 		$arrayData = $this->combineInventory($arrayData);
 		usort($arrayData, compareInventoryByName);
 		$this->characterData['accountInventory'] = $arrayData;
-	
 		return true;
 	}
 	
@@ -367,6 +377,10 @@ class EsoBuildDataViewer
 			}
 			else if ($table == "inventory")
 			{
+				$row['invType'] = "Inventory";
+				$row['localId'] = $this->nextLocalItemID;
+				$row['nameLC'] = strtolower($row['name']);
+				++$this->nextLocalItemID;
 				$arrayData[] = $row;
 			}
 			else
@@ -484,11 +498,34 @@ class EsoBuildDataViewer
 					'{inventoryContents}' => $this->getInventoryContentHtml(),
 					'{bankContents}' => $this->getBankContentHtml(),
 					'{accountInvContents}' => $this->getAccountInvContentHtml(),
+					'{allInventoryJS}' => $this->getAllInventoryJS(),
+					//'{inventoryJS}' => $this->getInventoryJS(),
+					//'{bankJS}' => $this->getBankJS(),
+					//'{accountInvJS}' => $this->getAccountInvJS(),
+				
 			);
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
 		
 		return true;
+	}
+	
+	
+	public function getInventoryJS()
+	{
+		return "";
+	}
+	
+	
+	public function getBankJS()
+	{
+		return "";
+	}
+	
+	
+	public function getAccountInvJS()
+	{
+		return "";
 	}
 	
 	
