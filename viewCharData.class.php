@@ -105,14 +105,18 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		
 		$qnt = intval($item['qnt']);
 		$name = $this->escape($item['name']);
-		$value = 0;
+		$value = intval($item['value']) * $qnt;
+		$quality = intval($item['quality']);
+		$qualityClass = "ecdItemQuality" . $quality;
+		
+		$iconUrl = $this->convertIconToImageUrl($item['icon']);
 		
 		if ($qnt == 1) $qnt = "";
 			
 		$output .= "<tr>";
 		$output .= "<td></td>";
-		$output .= "<td>$qnt</td>";
-		$output .= "<td>$name</td>";
+		$output .= "<td style=\"background-image: url($iconUrl);\">$qnt</td>";
+		$output .= "<td class='$qualityClass'>$name</td>";
 		$output .= "<td></td>";
 		$output .= "<td>$value</td>";
 		$output .= "</tr>\n";

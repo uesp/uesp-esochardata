@@ -11,8 +11,11 @@ class EsoBuildDataViewer
 	
 	public $hasCharacterInventory = false;
 	public $hasCharacterBank      = false;
+	public $combineInventoryItems = true;
+	public $combineBankItems      = true;
 	
 	const ESO_ICON_URL = "http://esoicons.uesp.net";
+	
 	const ESO_WEAPON_CRITICAL_FACTOR = 0.00597099;
 	const ESO_SPELL_CRITICAL_FACTOR = 0.00563926;
 	
@@ -32,7 +35,6 @@ class EsoBuildDataViewer
 				"Staves",
 				"Swords",
 		);
-
 	
 	public $wikiContext = null;
 	
@@ -314,7 +316,8 @@ class EsoBuildDataViewer
 			$arrayData[] = $row;
 		}
 		
-		//ksort($arrayData);
+		if ($this->combineBankItems) $arrayData = $this->combineInventory($arrayData);
+		usort($arrayData, compareInventoryByName);
 		$this->characterData['bank'] = $arrayData;
 		
 		return true;
@@ -338,6 +341,8 @@ class EsoBuildDataViewer
 			$arrayData[] = $row;
 		}
 	
+		$arrayData = $this->combineInventory($arrayData);
+		usort($arrayData, compareInventoryByName);
 		$this->characterData['accountInventory'] = $arrayData;
 	
 		return true;
@@ -370,15 +375,47 @@ class EsoBuildDataViewer
 			}
 		}
 		
-	/*	if ($table == "equipSlots" || $table == "actionBars")
-			usort($arrayData, charArrayDataCompareByIndex);
+		if ($table == "inventory")
+		{
+			if ($this->combineInventoryItems) $arrayData = $this->combineInventory($arrayData);
+			usort($arrayData, compareInventoryByName);
+		}
 		else
-			usort($arrayData, charArrayDataCompareByName); */
+		{
+			ksort($arrayData);
+		}
 		
-		ksort($arrayData);
 		$this->characterData[$table] = $arrayData;
 		
 		return true;
+	}
+	
+	
+	public function combineInventory($itemData)
+	{
+		$newItemData = array();
+		
+		usort($itemData, compareInventoryByItemLink);
+		$lastItemLink = "";
+		
+		foreach ($itemData as $key => $item)
+		{
+			$itemLink = $item['itemLink'];
+			
+			if ($itemLink == $lastItemLink)
+			{
+				$lastIndex = count($newItemData) - 1;
+				$newItemData[$lastIndex]['qnt'] += intval($item['qnt']);
+			}
+			else
+			{
+				$newItemData[] = $item;
+			}
+			
+			$lastItemLink = $itemLink;
+		}		
+		
+		return $newItemData;
 	}
 	
 	
@@ -1720,9 +1757,7 @@ class EsoBuildDataViewer
 	
 		return $this->outputHtml;
 	}
-	
-
-	
+		
 };
 
 
@@ -1735,5 +1770,16 @@ function charArrayDataCompareByName($a, $b)
 function charArrayDataCompareByIndex($a, $b)
 {
 	return $a["index"] - $b["index"];
+}
+
+
+function compareInventoryByName($a, $b)
+{
+	return strcmp($a["name"], $b["name"]);
+}
+
+function compareInventoryByItemLink($a, $b)
+{
+	return strcmp($a["itemLink"], $b["itemLink"]);
 }
 

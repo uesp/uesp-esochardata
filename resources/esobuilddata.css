@@ -539,14 +539,17 @@
 
 .ecdRightTitleButtonEnabled {
 	color: #ff9;
+	text-shadow: 2px 2px 3px black;
 }
 
 .ecdRightTitleButtonDisabled {
 	color: #aaa;
+	text-shadow: 2px 2px 3px black;
 }
 
 .ecdRightTitleButtonDisabled:hover {
-	color: #333;	
+	color: #333;
+	text-shadow: 2px 2px 3px #ccc;
 }
 
 .ecdSkillTitle {
@@ -916,12 +919,16 @@ tbody.ecdScrollContent td {
 	width: 50px;
     height: 32px;
     text-align: left;
+    text-shadow: 1px 1px 2px black;
 }
 
 tbody.ecdScrollContent td + td {
 	width: 50px;
 	text-align: right;
 	padding-right: 10px;
+	background-repeat: no-repeat;
+    background-size: 32px;
+	background-position: center;
 }
 
 tbody.ecdScrollContent td + td + td {
@@ -951,3 +958,10 @@ thead.ecdFixedHeader tr {
 .ecdItemTable {
 	border-collapse: collapse;
 }
+
+.ecdItemQuality0 { color: #888 !important; }
+.ecdItemQuality1 { color: #FFF !important; }
+.ecdItemQuality2 { color: #2DC50E !important; }
+.ecdItemQuality3 { color: #3A92FF !important; }
+.ecdItemQuality4 { color: #A02EF7 !important; }
+.ecdItemQuality5 { color: #CCAA1A !important; }

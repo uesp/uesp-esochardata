@@ -32,6 +32,8 @@ class EsoBuildDataParser
 	public $lastQuery = "";
 	public $skipCreateTables = false;
 	
+	public $itemDataDB = array();
+	
 	
 	public function __construct ()
 	{
@@ -642,12 +644,17 @@ class EsoBuildDataParser
 		$accountName = $this->getSafeFieldStr($buildData, 'UniqueAccountName');
 		
 		$result = True;
+		$startTime = microtime(True);
 			
 		foreach ($arrayData as $key => &$value)
 		{
 			$result &= $this->saveCharacterInventoryItem($charId, $accountName, $key, $value);
 		}
-	
+		
+		$deltaTime = (microtime(True) - $startTime) * 1000;
+		$count = count($arrayData);
+		$this->log("Parsed and saved $count inventory items in $deltaTime ms.");
+			
 		return $result;
 	}
 	
@@ -674,19 +681,98 @@ class EsoBuildDataParser
 		if ($result === 1) 
 		{
 			$itemLink = $matches[1] . "|h|h";
-			$itemName = $matches[2];
+			$itemName = ucwords($matches[2]);
+			$itemName = preg_replace("/ Of /", " of ", $itemName);
+			$itemName = preg_replace("/ The /", " the ", $itemName);
+			$itemName = preg_replace("/ And /", " and ", $itemName);
+		}
+		
+		$style = 0;
+		$stolen = 0;
+		$value = 0;
+		$quality = 0;
+		$level = 0;
+		$type = 0;
+		$equipType = 0;
+		$weaponType = 0;
+		$craftType = 0;
+		$armorType = 0;
+		$icon = "";
+				
+		$matches = array();
+		$result = preg_match('/\|H(?P<color>[A-Za-z0-9]*)\:item\:(?P<itemId>[0-9]*)\:(?P<subtype>[0-9]*)\:(?P<level>[0-9]*)\:(?P<enchantId>[0-9]*)\:(?P<enchantSubtype>[0-9]*)\:(?P<enchantLevel>[0-9]*)\:(.*?)\:(?P<style>[0-9]*)\:(?P<crafted>[0-9]*)\:(?P<bound>[0-9]*)\:(?P<stolen>[0-9]*)\:(?P<charges>[0-9]*)\:(?P<potionData>[0-9]*)\|h(?P<name>[^|\^]*)(?P<nameCode>.*?)\|h/', $itemLink, $matches);
+		
+		if ($result === 1)
+		{
+			$style = intval($matches['style']);	
+			$stolen = intval($matches['stolen']);
+			
+			$itemData = $this->loadItemData($matches['itemId'], $matches['subtype'], $matches['level']);
+			
+			if ($itemData !== False)
+			{
+				$value = $itemData['value'];
+				$quality = $itemData['quality'];
+				$level = $itemData['level'];
+				$type = $itemData['type'];
+				$equipType = $itemData['equipType'];
+				$weaponType = $itemData['weaponType'];
+				$armorType = $itemData['armorType'];
+				$craftType = $itemData['craftType'];
+				$icon = $this->db->real_escape_string($itemData['icon']);
+			}
 		}
 		
 		$safeLink = $this->db->real_escape_string($itemLink);
 		$safeName = $this->db->real_escape_string($itemName);
 
-		$query  = "INSERT INTO inventory(characterId, account, name, itemLink, qnt) ";
-		$query .= "VALUES($charId, \"$accountName\", \"$safeName\", \"$safeLink\", $qnt);";
+		$query  = "INSERT INTO inventory(characterId, account, name, itemLink, qnt, style, stolen, value, quality, level, type, equipType, weaponType, armorType, craftType, icon) ";
+		$query .= "VALUES($charId, \"$accountName\", \"$safeName\", \"$safeLink\", $qnt, $style, $stolen, $value, $quality, $level, $type, $equipType, $weaponType, $armorType, $craftType, \"$icon\");";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		if ($result === FALSE) return $this->reportError("Failed to save character inventory slot data!");
 			
 		return true;
+	}
+	
+	
+	public function loadItemData($itemId, $subtype, $level)
+	{
+		$itemId  = intval($itemId);
+		$subtype = intval($subtype);
+		$level   = intval($level);
+				
+		if (isset($this->itemDataDB[$itemId][$subtype][$level])) return $this->itemDataDB[$itemId][$subtype][$level]; 
+		if (isset($this->itemDataDB[$itemId][1][1])) return $this->itemDataDB[$itemId][1][1];
+		
+		$itemData = array();		
+				
+		$query = "SELECT * from uesp_esolog.minedItem WHERE itemId=$itemId AND internalSubType=$subtype AND internalLevel=$level LIMIT 1;";
+		$this->lastQuery = $query;
+		$result = $this->db->query($query);
+		if ($result === False) return $this->reportError("Failed to load item data for $itemId::$subtype::$level");
+		
+		if ($result->num_rows == 0) 
+		{
+			$query = "SELECT * from uesp_esolog.minedItem WHERE itemId=$itemId AND internalSubType=1 AND internalLevel=1 LIMIT 1;";
+			$this->lastQuery = $query;
+			$result = $this->db->query($query);
+			if ($result === False) return $this->reportError("Failed to load item data for $itemId::$subtype::$level");
+			if ($result->num_rows == 0) return False;
+			
+			$subtype = 1;
+			$level = 1;
+		}
+		
+		$result->data_seek(0);
+		$itemData = $result->fetch_assoc();
+		
+		if ($this->itemDataDB[$itemId] == null) $this->itemDataDB[$itemId] = array();
+		if ($this->itemDataDB[$itemId][$subtype] == null) $this->itemDataDB[$itemId][$subtype] = array();
+		$this->itemDataDB[$itemId][$subtype][$level] = $itemData;
+		
+		//$this->log("Loaded item $itemId::$subtype::$level, {$itemData['quality']}, {$itemData['icon']}");
+		return $itemData;
 	}
 	
 	
