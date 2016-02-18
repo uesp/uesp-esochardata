@@ -496,17 +496,63 @@
     vertical-align: middle;
 }
 
-#ecdSkills {
-	padding-top: 10px;
+.ecdRightDataArea {
 	float: right;
 	display: inline-block;
 	width: 650px;
 	height: 620px;
 }
 
+#ecdSkills {
+	float: right;
+	display: inline-block;
+	width: 650px;
+	height: 620px;
+}
+
+#ecdRightData {
+	float: right;
+	display: inline-block;
+	width: 660px;
+	height: 720px;
+}
+
+#ecdRightTitleBar {
+	float: right;
+	display: inline-block;
+	width: 650px;
+}
+
+.ecdSkillTitleButton {
+	font-size: 24px;
+	font-weight: bold;
+	display: inline-block;
+	padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    cursor: pointer;
+}
+
+.ecdSkillTitleButton:hover {
+	background-color: #999;
+}
+
+.ecdRightTitleButtonEnabled {
+	color: #ff9;
+}
+
+.ecdRightTitleButtonDisabled {
+	color: #aaa;
+}
+
+.ecdRightTitleButtonDisabled:hover {
+	color: #333;	
+}
+
 .ecdSkillTitle {
 	font-size: 24px;
 	font-weight: bold;
+	padding: 5px;
 }
 
 .ecdImageFlip {
@@ -765,4 +811,59 @@
 }
 
 .ecdTooltipTrigger {
+}
+
+tbody.ecdScrollContent {
+	display: block;
+	height: 500px;
+	overflow: auto;
+	width: 100%
+}
+
+thead.ecdFixedHeader th {
+	width: 50px
+}
+
+thead.ecdFixedHeader th + th {
+	width: 50px
+}
+
+thead.ecdFixedHeader th + th + th {
+	width: 300px
+}
+
+thead.ecdFixedHeader th + th + th + th{
+	width: 50px
+}
+
+thead.ecdFixedHeader th + th + th + th + th{
+	width: 100px
+}
+
+tbody.ecdScrollContent td {
+	width: 50px
+}
+
+tbody.ecdScrollContent td + td {
+	width: 50px
+}
+
+tbody.ecdScrollContent td + td + td {
+	width: 300px
+}
+
+tbody.ecdScrollContent td + td + td + td {
+	width: 50px
+}
+
+tbody.ecdScrollContent td + td + td + td + td {
+	width: 100px
+}
+
+thead.ecdFixedHeader tr {
+	position: relative
+}
+
+thead.ecdFixedHeader tr {
+	display: block
 }

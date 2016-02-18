@@ -155,4 +155,21 @@ function SelectEsoSkillTreeContents(object)
 }
 
 
+function OnEsoRightTitleClick(name)
+{
+	$('.ecdRightTitleButtonEnabled').addClass("ecdRightTitleButtonDisabled").removeClass("ecdRightTitleButtonEnabled");
+	
+	var idName = "#ecd" + name;
+	var idButtonName = "#ecd" + name + "Button";
+	$(idButtonName).removeClass("ecdRightTitleButtonDisabled").addClass("ecdRightTitleButtonEnabled");
+	
+	$("#ecdSkills").hide();
+	$("#ecdInventory").hide();
+	$("#ecdBank").hide();
+	$("#ecdAccountInv").hide();
+	
+	$(idName).show();
+}
+
+
 $(document).ready(onDocReady);
