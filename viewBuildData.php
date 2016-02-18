@@ -14,12 +14,12 @@
 		<link rel="stylesheet" href="http://content3.uesp.net/esolog/resources/esoitemlink.css" />
 		<link rel="stylesheet" href="http://content3.uesp.net/esolog/resources/esoitemlink_embed.css" />
 		<script type="text/javascript" src="resources/jquery-1.10.2.js"></script>
+		<script type="text/javascript" src="resources/jquery.tablesorter.min.js"></script>
 		<script type="text/javascript" src="resources/esobuilddata.js"></script>
 		<script type="text/javascript" src="resources/esobuilddata_itemlink.js"></script>
 	</head>
 <body>
-<?php 
-
+<?php
 
 require_once("viewBuildData.class.php");
 
