@@ -108,12 +108,26 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		$value = intval($item['value']) * $qnt;
 		$quality = intval($item['quality']);
 		$qualityClass = "ecdItemQuality" . $quality;
+		$itemLink = $this->escape($item['itemLink']);
+		$itemId = 0;
+		$itemIntSubType = 0;
+		$itemIntLevel = 0;
+		
+		$matches = array();
+		$result = preg_match("/\|H0\:item\:([0-9]+)\:([0-9]+)\:([0-9]+)\:.*/", $item['itemLink'], $matches);
+		
+		if ($result == 1)
+		{
+			$itemId = intval($matches[1]);
+			$itemIntSubType = intval($matches[2]);
+			$itemIntLevel = intval($matches[3]);
+		}
 		
 		$iconUrl = $this->convertIconToImageUrl($item['icon']);
 		
 		if ($qnt == 1) $qnt = "";
 			
-		$output .= "<tr>";
+		$output .= "<tr class='eso_item_link' itemlink='$itemLink' itemid='$itemId' intype='$itemIntSubType' intlevel='$itemIntLevel'>";
 		$output .= "<td></td>";
 		$output .= "<td style=\"background-image: url($iconUrl);\">$qnt</td>";
 		$output .= "<td class='$qualityClass'>$name</td>";
