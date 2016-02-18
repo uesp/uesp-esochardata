@@ -528,16 +528,22 @@ tr.eso_item_link {
 	padding: 5px;
     padding-left: 20px;
     padding-right: 20px;
+	padding-top: 7px;
     cursor: pointer;
 }
 
 .ecdSkillTitleButton:hover {
 	background-color: #999;
+	box-shadow: inset 0 0 20px black;
+    border-radius: 15px;
 }
 
 .ecdRightTitleButtonEnabled {
 	color: #ff9;
 	text-shadow: 2px 2px 3px black;
+	background-color: #666;
+	box-shadow: inset 0 0 20px black;
+    border-radius: 15px;
 }
 
 .ecdRightTitleButtonDisabled {
@@ -546,8 +552,8 @@ tr.eso_item_link {
 }
 
 .ecdRightTitleButtonDisabled:hover {
-	color: #333;
-	text-shadow: 2px 2px 3px #ccc;
+	color: #fff;
+	text-shadow: 2px 2px 3px #000;
 }
 
 .ecdSkillTitle {
