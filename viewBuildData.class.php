@@ -66,7 +66,6 @@ class EsoBuildDataViewer
 	public function __construct ()
 	{
 		$this->initDatabase();
-		$this->loadHtmlTemplate();
 	}
 	
 	
@@ -445,11 +444,32 @@ class EsoBuildDataViewer
 					'{activeBarClass2}' => $this->getActiveWeaponBarClass(2),
 					'{trail}' => $this->getBreadcrumbTrailHtml(),
 					'{characterLink}' => $this->getShortCharacterLinkHtml(),
+					'{inventoryContents}' => $this->getInventoryContentHtml(),
+					'{bankContents}' => $this->getBankContentHtml(),
+					'{accountInvContents}' => $this->getAccountInvContentHtml(),
 			);
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
 		
 		return true;
+	}
+	
+	
+	public function getInventoryContentHtml()
+	{
+		return "";
+	}
+	
+	
+	public function getBankContentHtml()
+	{
+		return "";
+	}
+	
+	
+	public function getAccountInvContentHtml()
+	{
+		return "";
 	}
 	
 	
@@ -1669,6 +1689,7 @@ class EsoBuildDataViewer
 		
 	public function getOutput()
 	{
+		$this->loadHtmlTemplate();
 		
 		if ($this->db == null || !$this->dbReadInitialized)
 		{

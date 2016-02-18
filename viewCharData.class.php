@@ -62,6 +62,91 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 	}
 	
 	
+	public function getInventoryContentHtml()
+	{
+		$output = $this->getItemHeaderHtml();
+				
+		foreach($this->characterData['inventory'] as $key => $item)
+		{
+			$output .= $this->getItemRowHtml($item);
+		}
+		
+		$output .= $this->getItemFooterHtml();
+		return $output;
+	}
+	
+	
+	public function getItemHeaderHtml()
+	{
+		$output = "<table id='ecdInventoryTable'>\n";
+		$output .= "<thead class='ecdFixedHeader'><tr>";
+		$output .= "<th></th>"; //Stolen
+		$output .= "<th></th>"; //Icon/Qnt
+		$output .= "<th>NAME</th>";
+		$output .= "<th></th>";	//Extra?
+		$output .= "<th>VALUE</th>";
+		$output .= "</tr></thead>\n";
+		$output .= "<tbody class='ecdScrollContent'>\n";
+		
+		return $output;
+	}
+	
+	
+	public function getItemFooterHtml()
+	{
+		$output = "</thead></table>\n";
+		return $output;
+	}
+	
+	
+	public function getItemRowHtml($item)
+	{
+		$output = "";
+		
+		$qnt = intval($item['qnt']);
+		$name = $this->escape($item['name']);
+		$value = 0;
+			
+		$output .= "<tr>";
+		$output .= "<td></td>";
+		$output .= "<td>$qnt</td>";
+		$output .= "<td>$name</td>";
+		$output .= "<td></td>";
+		$output .= "<td>$value</td>";
+		$output .= "</tr>\n";
+		
+		return $output;
+	}
+	
+	
+	public function getBankContentHtml()
+	{
+		$output = $this->getItemHeaderHtml();
+				
+		foreach($this->characterData['bank'] as $key => $item)
+		{
+			$output .= $this->getItemRowHtml($item);
+		}
+		
+		$output .= $this->getItemFooterHtml();
+		return $output;
+	}
+	
+	
+	public function getAccountInvContentHtml()
+	{
+		$output = $this->getItemHeaderHtml();
+				
+		foreach($this->characterData['accountInventory'] as $key => $item)
+		{
+			$output .= $this->getItemRowHtml($item);
+		}
+		
+		$output .= $this->getItemFooterHtml();
+		return $output;
+	}
+	
+	
 	public function createBuildTableHtml()
 	{
 		if (!$this->loadBuilds()) return false;
