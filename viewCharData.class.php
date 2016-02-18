@@ -79,7 +79,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 	
 	public function getItemHeaderHtml()
 	{
-		$output = "<table id='ecdInventoryTable' class='ecdItemTable tablesorter'>\n";
+		$output = "<table class='ecdItemTable tablesorter'>\n";
 		$output .= "<thead class='ecdFixedHeader'><tr>";
 		$output .= "<th></th>"; //Stolen
 		$output .= "<th></th>"; //Icon/Qnt
@@ -115,6 +115,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		$itemIntSubType = 0;
 		$itemIntLevel = 0;
 		$stolenIcon = "";
+		$localId = $item['localId'];
 		
 		$matches = array();
 		$result = preg_match("/\|H0\:item\:([0-9]+)\:([0-9]+)\:([0-9]+)\:.*/", $item['itemLink'], $matches);
@@ -134,7 +135,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 			$stolenIcon = "<img src='resources/stolenitem.png' class='ecdStolenItemIcon' /><div style='display:none;'>1</div>";
 		}
 			
-		$output .= "<tr class='eso_item_link' itemlink='$itemLink' itemid='$itemId' intype='$itemIntSubType' intlevel='$itemIntLevel'>";
+		$output .= "<tr class='eso_item_link' itemlink='$itemLink' itemid='$itemId' inttype='$itemIntSubType' intlevel='$itemIntLevel' localid='$localId'>";
 		$output .= "<td>$stolenIcon</td>";
 		$output .= "<td style=\"background-image: url($iconUrl);\">$qnt</td>";
 		$output .= "<td class='$qualityClass'>$name</td>";
@@ -149,19 +150,19 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 	public function getItemFilterHtml()
 	{
 		$output = <<<EOT
-		
-			<div id='ecdItemFilters'>
+			<div class='ecdItemFilters'>
 				<div class='ecdItemFilterTextBox'>
+					<input type="text" size="16" maxsize="32" value="" placeholder="Filter Text" class="ecdItemFilterTextInput" /> 
 				</div>
-				<div id='ecdItemFilterTextLabel'>ALL</div>
-				<div class='ecdItemFilterContainer' style="background-image: url('resources/allfilter.png');" id="ecdItemFilterAll" /></div> 
-				<div class='ecdItemFilterContainer' style="background-image: url('resources/weaponfilter.png');" id="ecdItemFilterWeapon" /></div>
-				<div class='ecdItemFilterContainer' style="background-image: url('resources/armorfilter.png');" id="ecdItemFilterArmor" /></div>
-				<div class='ecdItemFilterContainer' style="background-image: url('resources/consumablefilter.png');" id="ecdItemFilterConsumable" /></div>
-				<div class='ecdItemFilterContainer' style="background-image: url('resources/materialfilter.png');" id="ecdItemFilterMaterial" /></div>
-				<div class='ecdItemFilterContainer' style="background-image: url('resources/miscfilter.png');" id="ecdItemFilterMisc" /></div>
-				<div class='ecdItemFilterContainer' style="background-image: url('resources/questfilter.png');" id="ecdItemFilterQuest" /></div>
-				<div class='ecdItemFilterContainer' style="background-image: url('resources/junkfilter.png');" id="ecdItemFilterJunk" /></div>
+				<div class='ecdItemFilterTextLabel'>ALL</div>
+				<div class='ecdItemFilterContainer ecdItemFilterAll selected' style="background-image: url('resources/allfilter.png');" onclick="OnItemFilter('All');" itemfilter="all" /></div> 
+				<div class='ecdItemFilterContainer ecdItemFilterWeapon' style="background-image: url('resources/weaponfilter.png');" onclick="OnItemFilter('Weapon');"  itemfilter="weapon" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterArmor' style="background-image: url('resources/armorfilter.png');" onclick="OnItemFilter('Armor');"  itemfilter="armor" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterConsumable' style="background-image: url('resources/consumablefilter.png');" onclick="OnItemFilter('Consumable');"  itemfilter="consumable" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterMaterial' style="background-image: url('resources/materialfilter.png');" onclick="OnItemFilter('Material');"  itemfilter="material" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterMisc' style="background-image: url('resources/miscfilter.png');" onclick="OnItemFilter('Misc');"  itemfilter="misc" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterQuest' style="background-image: url('resources/questfilter.png');" onclick="OnItemFilter('Quest');"  itemfilter="quest" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterJunk' style="background-image: url('resources/junkfilter.png');" onclick="OnItemFilter('Junk');"  itemfilter="junk" /></div>
 			</div>
 			<img class='ecdImageFlip' src='resources/eso_equip_bar.png' width='49%' /><img class='3' src='resources/eso_equip_bar.png' width='49%' />
 EOT;
@@ -170,6 +171,62 @@ EOT;
 	}
 	
 	
+	public function getInventoryJS()
+	{
+		return $this->getGeneralInventoryJS($this->characterData['inventory']);
+	}
+	
+	
+	public function getBankJS()
+	{
+		return $this->getGeneralInventoryJS($this->characterData['bank']);
+	}
+	
+	
+	public function getAccountInvJS()
+	{
+		return $this->getGeneralInventoryJS($this->characterData['accountInventory']);
+	}
+	
+	
+	public function getGeneralInventoryJS($itemData)
+	{
+		$newItemData = array();
+		
+		foreach ($itemData as $item)
+		{
+			$newItemData[$item['localId']] = $item;
+		}
+		
+		$output = json_encode($newItemData);
+		return $output;
+	}
+	
+	
+	public function getAllInventoryJS()
+	{
+		$newItemData = array();
+	
+		foreach ($this->characterData['inventory'] as $item)
+		{
+			$newItemData[$item['localId']] = $item;
+		}
+		
+		foreach ($this->characterData['bank'] as $item)
+		{
+			$newItemData[$item['localId']] = $item;
+		}
+		
+		foreach ($this->characterData['accountInventory'] as $item)
+		{
+			$newItemData[$item['localId']] = $item;
+		}
+	
+		$output = json_encode($newItemData);
+		return $output;
+	}
+		
+		
 	public function getBankContentHtml()
 	{
 		$output  = $this->getItemFilterHtml();

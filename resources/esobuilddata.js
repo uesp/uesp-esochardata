@@ -95,8 +95,17 @@ function onDocReady()
 	EsoSkillTree_LastSkillContent = $('.ecdSkillData:visible').first();
 	
 	$(".tablesorter").tablesorter({
-		 sortList: [[2,0]] 
-	});
+			sortList: [[2,0]] 
+		});
+	
+	$(".ecdItemFilterTextInput").keyup(function() {
+			$(".ecdItemFilterTextInput").val(this.value);
+			DoItemFilter();
+		});
+	
+	$(".ecdItemFilterTextInput").blur(function() {
+			$(".ecdItemFilterTextInput").val(this.value);
+		});
 }
 
 
@@ -173,6 +182,123 @@ function OnEsoRightTitleClick(name)
 	$("#ecdAccountInv").hide();
 	
 	$(idName).show();
+}
+
+
+function OnItemFilter(name)
+{
+	$('.ecdItemFilterContainer').removeClass("selected");
+	
+	var idName = ".ecdItemFilter" + name;
+	$(idName).addClass("selected");
+	
+	var displayName = name.toUpperCase();
+	
+	if (displayName == "ARMOR")
+		displayName = "APPAREL";
+	else if (displayName == "MATERIAL")
+		displayName = "MATERIALS";	
+	else if (displayName == "MISC")
+		displayName = "MISC";
+	
+	$(".ecdItemFilterTextLabel").text(displayName);
+	
+	DoItemFilter();
+}
+
+
+function ItemFilter_All(item)
+{
+	return true;
+}
+
+
+function ItemFilter_Armor(item)
+{
+	return item.type == 2;
+}
+
+
+function ItemFilter_Weapon(item)
+{
+	return item.type == 1;
+}
+
+
+function ItemFilter_Consumable(item)
+{
+	return true;
+}
+
+
+function ItemFilter_Material(item)
+{
+	return true;
+}
+
+
+function ItemFilter_Misc(item)
+{
+	return true;
+}
+
+
+function ItemFilter_Quest(item)
+{
+	return true;
+}
+
+
+function ItemFilter_Junk(item)
+{
+	return true;
+}
+
+
+var ITEM_FILTER_FUNCTIONS = {
+		"ALL" 			: ItemFilter_All,
+		"WEAPON" 		: ItemFilter_Weapon,
+		"ARMOR" 		: ItemFilter_Armor,
+		"CONSUMABLE" 	: ItemFilter_Consumable,
+		"MATERIAL" 		: ItemFilter_Material,
+		"MISC" 			: ItemFilter_Misc,
+		"QUEST" 		: ItemFilter_Quest,
+		"JUNK" 			: ItemFilter_Junk,
+}
+
+
+function DoItemFilter()
+{
+	var filterName = $(".ecdItemFilterContainer.selected").attr('itemfilter').toUpperCase();
+	var filterText = $(".ecdItemFilterTextInput").val().toLowerCase();
+	var filterFunc = ITEM_FILTER_FUNCTIONS[filterName];
+	
+	if (filterFunc == null) filterFunc = ItemFilter_All;
+	
+	$(".ecdScrollContent tr").each(function() {
+			var localId = $(this).attr('localid');
+			var item = ecdAllInventory[localId];
+			
+			if (item == null)
+			{
+				$(this).show();
+				return;
+			}
+			
+			if (!filterFunc(item)) {
+				$(this).hide();
+				return;
+			}
+			
+			if (filterText != "" && item.nameLC.indexOf(filterText) == -1)
+			{
+				$(this).hide();
+				return;
+			}
+				
+			$(this).show();
+		});	
+	
 }
 
 
