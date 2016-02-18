@@ -78,7 +78,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 	
 	public function getItemHeaderHtml()
 	{
-		$output = "<table id='ecdInventoryTable'>\n";
+		$output = "<table id='ecdInventoryTable' class='ecdItemTable'>\n";
 		$output .= "<thead class='ecdFixedHeader'><tr>";
 		$output .= "<th></th>"; //Stolen
 		$output .= "<th></th>"; //Icon/Qnt
@@ -106,6 +106,8 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		$qnt = intval($item['qnt']);
 		$name = $this->escape($item['name']);
 		$value = 0;
+		
+		if ($qnt == 1) $qnt = "";
 			
 		$output .= "<tr>";
 		$output .= "<td></td>";
