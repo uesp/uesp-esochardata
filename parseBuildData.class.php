@@ -768,7 +768,15 @@ class EsoBuildDataParser
 	
 		foreach ($arrayData as $key => &$value)
 		{
-			$result &= $this->saveCharacterSkill($buildData, $key, $value);
+			if (is_array($value))
+			{
+				$result &= $this->saveCharacterSkill($buildData, $key, $value);
+			}
+			else
+			{
+				$newKey = "SkillRank:" . $key;
+				$result &= $this->saveCharacterStatData($buildData, $newKey, $value);
+			}			
 		}
 	
 		return $result;
@@ -842,7 +850,9 @@ class EsoBuildDataParser
 		foreach ($arrayData as $key => &$value)
 		{
 			if (is_array($value))
+			{
 				$result &= $this->saveCharacterChampionPoint($buildData, $key, $value);
+			}
 			else
 			{
 				$newKey = "ChampionPoints:" . $key;
