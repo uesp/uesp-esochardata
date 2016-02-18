@@ -971,3 +971,8 @@ thead.ecdFixedHeader tr {
 .ecdItemQuality4 { color: #A02EF7 !important; }
 .ecdItemQuality5 { color: #CCAA1A !important; }
 
+.ecdStolenItemIcon {
+	width: 32px;
+	text-align: center;
+	verticle-align: middle;
+}
