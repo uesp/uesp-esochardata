@@ -550,7 +550,10 @@ class EsoBuildDataViewer
 		
 		foreach($this->skillData as $name => &$data)
 		{
-			$output .= $this->getCharSkillContentHtml1($name, $data);	
+			if ($name[0] != "_")
+			{
+				$output .= $this->getCharSkillContentHtml1($name, $data);
+			}	
 		}
 		
 		$output .= $this->getCharSkillCraftingContentHtml();
@@ -613,7 +616,10 @@ class EsoBuildDataViewer
 	
 		foreach($skillData as $name => &$data)
 		{
-			$output .= $this->getCharSkillContentHtml2($name, $data);
+			if ($name[0] != "_")
+			{
+				$output .= $this->getCharSkillContentHtml2($name, $data);
+			}
 		}
 	
 		return $output;
@@ -629,7 +635,7 @@ class EsoBuildDataViewer
 		if ($skillName == $this->skillTreeFirstName) $displayType = "block";
 				
 		$output = "<div id='ecdSkill_$idName' class='ecdSkillData' style='display: {$displayType};'>\n";
-		
+				
 		reset($skillData);
 		
 		if (is_numeric(key($skillData)))
@@ -648,6 +654,11 @@ class EsoBuildDataViewer
 		$foundSkill = false;
 		$foundPassive = false;
 		$output = "";
+		
+		$skillLine = $this->escape($skillData['_skillLine']);
+		$skillLineName = "SkillRank:" . $skillData['_skillType'] . ":" . $skillData['_skillLine'];
+		$skillRank = $this->getCharStatField($skillLineName);
+		$output .= "<div id='ecdSkillContentTitle'><div class='ecdSkillRank'>$skillRank</div> $skillLine</div><br />";
 		
 		for ($i = 0; $i < 100; ++$i)
 		{
@@ -680,9 +691,17 @@ class EsoBuildDataViewer
 	{
 		$output = "";
 		
+		$skillLine = $this->escape($skillData['_skillLine']);
+		$skillLineName = "ChampionPoints:" . $skillData['_skillLine'] . ":Points";
+		$skillRank = $this->getCharStatField($skillLineName);
+		$output .= "<div id='ecdSkillContentTitle'><div class='ecdSkillRank'>$skillRank&nbsp;</div> $skillLine</div><br />";
+		
 		foreach ($skillData as $name => &$data)
 		{
-			$output .= $this->getCharSkillContentHtml3CP($name, $data);
+			if ($name[0] != "_")
+			{
+				$output .= $this->getCharSkillContentHtml3CP($name, $data);
+			}
 		}
 		
 		return $output;
@@ -712,7 +731,7 @@ class EsoBuildDataViewer
 	{
 		$output = "<div class='ecdSkillDataBox'>\n";
 		
-		$safeName = $this->escape($skillData['baseName']);
+		$safeName = $this->escape($skillData['_baseName']);
 		$rawIcon = $skillData['icon'];
 		$iconUrl = $this->convertIconToImageUrl($rawIcon);
 		
@@ -742,7 +761,7 @@ class EsoBuildDataViewer
 	{
 		$output = "<div class='ecdTooltip $className'>\n";
 		
-		$safeName = $this->escape($skillData['baseName']);
+		$safeName = $this->escape($skillData['_baseName']);
 		if ($safeName == '') $safeName = $this->escape($skillData['name']);
 		
 		$desc = $this->convertDescriptionToHtml($skillData['description']);
@@ -860,7 +879,10 @@ class EsoBuildDataViewer
 		
 		foreach ($skillData as $name => &$data)
 		{
-			$output .= $this->getCharSkillTreeHtml2($name, $data);
+			if ($name[0] != "_")
+			{
+				$output .= $this->getCharSkillTreeHtml2($name, $data);
+			}
 		}
 		
 		if ($skillName == "CRAFT") 
@@ -934,8 +956,10 @@ class EsoBuildDataViewer
 		if (!array_key_exists($names[0], $this->skillData['ChampionPoints'])) $this->skillData['ChampionPoints'][$names[0]] = array();
 		
 		$newData = $cpData;
-		$newData['baseName'] = $names[1];
+		$newData['_baseName'] = $names[1];
 		$this->skillData['ChampionPoints'][$names[0]][$names[1]] = $newData;
+		$this->skillData['ChampionPoints'][$names[0]][$names[1]]['_skillLine'] = $names[0];
+		$this->skillData['ChampionPoints'][$names[0]]['_skillLine'] = $names[0];
 		
 		return true;
 	}
@@ -959,7 +983,12 @@ class EsoBuildDataViewer
 		if (!array_key_exists($names[1], $this->skillData[$names[0]])) $this->skillData[$names[0]][$names[1]] = array();
 		
 		$this->skillData[$names[0]][$names[1]][$index] = $skillData;
-		$this->skillData[$names[0]][$names[1]][$index]['baseName'] = $names[2];
+		$this->skillData[$names[0]][$names[1]][$index]['_baseName']  = $names[2];
+		$this->skillData[$names[0]][$names[1]][$index]['_skillLine'] = $names[1];
+		$this->skillData[$names[0]][$names[1]][$index]['_skillType'] = $names[0];
+		$this->skillData[$names[0]][$names[1]]['_skillLine'] = $names[1];
+		$this->skillData[$names[0]][$names[1]]['_skillType'] = $names[0];
+		$this->skillData[$names[0]]['_skillType'] = $names[0];
 			
 		return true;
 	}

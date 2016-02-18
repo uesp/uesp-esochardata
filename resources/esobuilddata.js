@@ -142,15 +142,12 @@ function SelectEsoSkillTreeContents(object)
 	{
 		EsoSkillTree_LastSkillContent.hide();
 		EsoSkillTree_LastSkillContent = null;
-		$('#ecdSkillContentTitle').text('');
 	}
 	
 	EsoSkillTree_LastSkillContentName = object;
 	object.addClass('ecdSkillTreeNameHighlight2');
 	
 	var objText = object.contents().filter(function(){ return this.nodeType == 3;})[0].nodeValue;
-	
-	$('#ecdSkillContentTitle').text(object.text());
 	
 	var idName = 'ecdSkill_' + objText.replace(" ", "").replace("'", "");
 	EsoSkillTree_LastSkillContent = $('#'+idName); 
