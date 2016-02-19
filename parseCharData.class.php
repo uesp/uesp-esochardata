@@ -244,6 +244,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		}
 		
 		$result &= $this->saveCharacterCurrency();
+		$result &= $this->saveCharacterInventorySpace();
 	
 		return $result;
 	}
@@ -294,18 +295,40 @@ class EsoCharDataParser extends EsoBuildDataParser
 		
 		$result = True;
 		
-		$result &= $this->saveCharacterCurrencyRawData($charId, $account, "__Gold",   $invGold);
-		$result &= $this->saveCharacterCurrencyRawData($charId, $account, "__Telvar", $invTelvar);
-		$result &= $this->saveCharacterCurrencyRawData($charId, $account, "__AP",     $invAP);
+		$result &= $this->saveCharacterInventoryExtraRawData($charId, $account, "__Gold",   $invGold);
+		$result &= $this->saveCharacterInventoryExtraRawData($charId, $account, "__Telvar", $invTelvar);
+		$result &= $this->saveCharacterInventoryExtraRawData($charId, $account, "__AP",     $invAP);
 		
-		$result &= $this->saveCharacterCurrencyRawData(-1, $account, "__Gold",   $bankGold);
-		$result &= $this->saveCharacterCurrencyRawData(-1, $account, "__Telvar", $bankTelvar);		
+		$result &= $this->saveCharacterInventoryExtraRawData(-1, $account, "__Gold",   $bankGold);
+		$result &= $this->saveCharacterInventoryExtraRawData(-1, $account, "__Telvar", $bankTelvar);		
 		
 		return $result;
 	}
 	
 	
-	public function saveCharacterCurrencyRawData($charId, $account, $name, $value)
+	public function saveCharacterInventorySpace()
+	{
+		$charId = $this->characterId;
+		$account = $this->db->real_escape_string($this->uniqueAccountName);
+		
+		$invUsedSpace = $this->getSafeFieldInt($this->currentCharacterStats, 'InventoryUsedSize');
+		$invTotalSpace = $this->getSafeFieldInt($this->currentCharacterStats, 'InventorySize');
+		$bankUsedSpace = $this->getSafeFieldInt($this->currentCharacterStats, 'BankUsedSize');
+		$bankTotalSpace = $this->getSafeFieldInt($this->currentCharacterStats, 'BankSize');
+
+		$result = True;
+		
+		$result &= $this->saveCharacterInventoryExtraRawData($charId, $account, "__UsedSpace", $invUsedSpace);
+		$result &= $this->saveCharacterInventoryExtraRawData($charId, $account, "__TotalSpace", $invTotalSpace);
+		
+		$result &= $this->saveCharacterInventoryExtraRawData(-1, $account, "__UsedSpace", $bankUsedSpace);
+		$result &= $this->saveCharacterInventoryExtraRawData(-1, $account, "__TotalSpace", $bankTotalSpace);
+		
+		return $result;
+	}
+	
+	
+	public function saveCharacterInventoryExtraRawData($charId, $account, $name, $value)
 	{
 		$query = "INSERT INTO inventory(characterId, account, name, qnt) VALUES($charId, \"$account\", \"$name\", $value);";
 		$this->lastQuery = $query;
