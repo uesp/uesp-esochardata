@@ -442,6 +442,47 @@ EOT;
 	}
 	
 	
+	public function loadAccountCharacters()
+	{
+		$account = $this->db->real_escape_string($this->characterData['uniqueAccountName']);
+		
+		$query = "SELECT * FROM characters WHERE uniqueAccountName=\"$account\";";
+		$this->lastQuery = $query;
+		$result = $this->db->query($query);
+		if ($result === False) return $this->reportError("Error loading account character data!");
+		
+		$result->data_seek(0);
+		$arrayData = array();
+		
+		while (($row = $result->fetch_assoc()))
+		{
+				$arrayData[$row['id']] = $row;
+		}
+		
+		$this->accountCharacters = $arrayData;
+		return True;
+	}
+	
+	
+	public function getAccountCharacterListHtml()
+	{
+		$output  = "<form method='get' id='ecdAccountCharForm'>\n";
+		$output .= "<select name='id' class='ecdAccountCharList' onchange='this.form.submit();' >\n";
+		
+		foreach ($this->accountCharacters as $charId => $charData)
+		{
+			$selected = "";
+			$charName = $charData['name'];
+			if ($charId == $this->characterData['id']) $selected = "selected";
+			
+			$output .= "<option value='$charId' $selected>$charName</option>";	
+		}
+		
+		$output .= "</select></form>\n";
+		return $output;
+	}
+	
+	
 	public function getBreadcrumbTrailHtml()
 	{
 		$output = "<div id='ecdTrail'>";
@@ -460,6 +501,9 @@ EOT;
 			{
 				$output .= "<a href='$baseLink'>&laquo; View All Characters</a>";
 			}
+			
+			$output .= " : Account Characters ";
+			$output .= $this->getAccountCharacterListHtml();
 		}
 		else
 		{

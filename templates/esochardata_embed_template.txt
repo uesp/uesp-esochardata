@@ -8,9 +8,8 @@
 				<div class='ecdLevelBar'><div class='ecdLevel'>{level}</div> {levelTitle}</div>
 				<div class='ecdChampionPoint'>{championPoints} CHAMPION POINTS</div>
 		</div>
-		<div class='ecdBuildName'>{buildName}</div>
-		<div class='ecdCharName'>
-			{charName}<br />
+		<div class='ecdCharDataName'>
+			<div class='ecdCharDataNameTitle'>{charName}</div>
 			<div class='ecdClassName'>{race} {class} ({buildType})</div>
 			<div class='ecdClassName'>{special}</div>
 		</div>

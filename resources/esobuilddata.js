@@ -106,6 +106,7 @@ function onDocReady()
 	$(".ecdItemFilterTextInput").blur(function() {
 			$(".ecdItemFilterTextInput").val(this.value);
 		});
+		
 }
 
 

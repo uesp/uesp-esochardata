@@ -37,6 +37,8 @@ class EsoBuildDataParser
 	
 	public $itemDataDB = array();
 	
+	public $accountCharacters = array();
+	
 	public $startTime;
 	public $endTime;
 	
