@@ -174,14 +174,14 @@ EOT;
 	public function getInventoryGold()
 	{ 
 		$gold = $this->getCharStatField('Money');
-		return $gold; 
+		return number_format($gold); 
 	}
 	
 	
 	public function getBankGold() 
 	{ 
 		$gold = $this->getCharStatField('BankedMoney');
-		return $gold;
+		return number_format($gold);
 	}
 	
 	
@@ -194,7 +194,7 @@ EOT;
 	public function getInventoryAP() 
 	{ 
 		$ap = $this->getCharStatField('AlliancePoints');
-		return $ap; 
+		return number_format($ap); 
 	}
 	
 	
@@ -215,14 +215,14 @@ EOT;
 	public function getInventoryTelvar() 
 	{ 
 		$telvar = $this->getCharStatField('TelvarStones');
-		return $telvar; 
+		return number_format($telvar); 
 	}
 	
 	
 	public function getBankTelvar() 
 	{ 
 		$telvar = $this->getCharStatField('BankedTelvarStones');
-		return $telvar;
+		return number_format($telvar);
 	}
 	
 	
