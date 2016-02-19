@@ -34,11 +34,15 @@ class EsoBuildDataParser
 	
 	public $itemDataDB = array();
 	
+	public $startTime;
+	public $endTime;
+	
 	
 	public function __construct ()
 	{
 		$this->Lua = new Lua();
 		$this->initDatabaseWrite();
+		$this->startTime = microtime(True);
 	}
 	
 	
@@ -1048,6 +1052,10 @@ class EsoBuildDataParser
 		
 		if (!$this->parseFormInput()) return false;
 		if (!$this->saveAllNewCharacters()) return false;
+		
+		$this->endTime = microtime(True);
+		$deltaTime = ($this->endTime - $this->startTime) * 1000;
+		$this->log("Total Parsing Time = $deltaTime ms");
 		
 		return true;
 	}
