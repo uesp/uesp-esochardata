@@ -41,14 +41,26 @@
 		<div id='ecdInventory' class='ecdRightDataArea' style="display: none;">
 			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			{inventoryContents}
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
+			<div class='ecdCurrencyAP'>{invAP}</div>
+			<div class='ecdCurrencyTelvar'>{invTelvar}</div>
+			<div class='ecdCurrencyGold'>{invGold}</div>
 		</div>
 		<div id='ecdBank' class='ecdRightDataArea' style="display: none;">
 			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			{bankContents}
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
+			<div class='ecdCurrencyAP'>{bankAP}</div>
+			<div class='ecdCurrencyTelvar'>{bankTelvar}</div>
+			<div class='ecdCurrencyGold'>{bankGold}</div>
 		</div>
 		<div id='ecdAccountInv' class='ecdRightDataArea' style="display: none;">
 			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			{accountInvContents}
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
+			<div class='ecdCurrencyAP'>{accInvAP}</div>
+			<div class='ecdCurrencyTelvar'>{accInvTelvar}</div>
+			<div class='ecdCurrencyGold'>{accInvGold}</div>
 		</div>
 	</div>
 	<div id='ecdEquipSlots'>

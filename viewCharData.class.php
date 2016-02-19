@@ -171,6 +171,67 @@ EOT;
 	}
 	
 	
+	public function getInventoryGold()
+	{ 
+		$gold = $this->getCharStatField('Money');
+		return $gold; 
+	}
+	
+	
+	public function getBankGold() 
+	{ 
+		$gold = $this->getCharStatField('BankedMoney');
+		return $gold;
+	}
+	
+	
+	public function getAccountInventoryGold() 
+	{ 
+		return "";
+	}
+	
+	
+	public function getInventoryAP() 
+	{ 
+		$ap = $this->getCharStatField('AlliancePoints');
+		return $ap; 
+	}
+	
+	
+	public function getBankAP() 
+	{ 
+		return $this->getInventoryAP();
+	}
+	
+	
+	public function getAccountInventoryAP() 
+	{ 
+		//$account = $this->db->real_escape_string($this->characterData['uniqueAccountName']);
+		//$query = "SELECT * FROM stats WHERE account";
+		return ""; 
+	}
+	
+	
+	public function getInventoryTelvar() 
+	{ 
+		$telvar = $this->getCharStatField('TelvarStones');
+		return $telvar; 
+	}
+	
+	
+	public function getBankTelvar() 
+	{ 
+		$telvar = $this->getCharStatField('BankedTelvarStones');
+		return $telvar;
+	}
+	
+	
+	public function getAccountInventoryTelvar() 
+	{ 
+		return ""; 
+	}
+	
+	
 	public function getInventoryJS()
 	{
 		return $this->getGeneralInventoryJS($this->characterData['inventory']);
