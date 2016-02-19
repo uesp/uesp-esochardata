@@ -1078,3 +1078,9 @@ table.tablesorter thead tr .headerSortUp {
     text-align: right;
 	
 }
+
+.ecdCurrencyAP img,
+.ecdCurrencyGold img, 
+.ecdCurrencyTelvar img {
+	width: 16px;
+}  
