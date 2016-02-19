@@ -499,9 +499,15 @@ class EsoBuildDataViewer
 					'{bankContents}' => $this->getBankContentHtml(),
 					'{accountInvContents}' => $this->getAccountInvContentHtml(),
 					'{allInventoryJS}' => $this->getAllInventoryJS(),
-					//'{inventoryJS}' => $this->getInventoryJS(),
-					//'{bankJS}' => $this->getBankJS(),
-					//'{accountInvJS}' => $this->getAccountInvJS(),
+					'{invGold}' => $this->getInventoryGold(),
+					'{bankGold}' => $this->getBankGold(),
+					'{accInvGold}' => $this->getAccountInventoryGold(),
+					'{invAP}' => $this->getInventoryAP(),
+					'{bankAP}' => $this->getBankAP(),
+					'{accInvAP}' => $this->getAccountInventoryAP(),
+					'{invTelvar}' => $this->getInventoryTelvar(),
+					'{bankTelvar}' => $this->getBankTelvar(),
+					'{accInvTelvar}' => $this->getAccountInventoryTelvar(),
 				
 			);
 		
@@ -511,19 +517,18 @@ class EsoBuildDataViewer
 	}
 	
 	
-	public function getInventoryJS()
-	{
-		return "";
-	}
+	public function getInventoryGold() { return ""; }
+	public function getBankGold() { return ""; }
+	public function getAccountInventoryGold() { return ""; }
+	public function getInventoryAP() { return ""; }
+	public function getBankAP() { return ""; }
+	public function getAccountInventoryAP() { return ""; }
+	public function getInventoryTelvar() { return ""; }
+	public function getBankTelvar() { return ""; }
+	public function getAccountInventoryTelvar() { return ""; }
 	
-	
-	public function getBankJS()
-	{
-		return "";
-	}
-	
-	
-	public function getAccountInvJS()
+
+	public function getAllInventoryJS()
 	{
 		return "";
 	}

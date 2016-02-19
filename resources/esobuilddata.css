@@ -822,7 +822,7 @@ tr.eso_item_link {
 
 tbody.ecdScrollContent {
 	display: block;
-	height: 500px;
+	height: 440px;
 	overflow: auto;
 	width: 100%;
 	font-size: 18px;
@@ -1052,4 +1052,29 @@ table.tablesorter thead tr .headerSortUp {
  
  .ecdItemFilterContainer.selected {
 	opacity: 1;
+}
+
+.ecdCurrencyGold {
+	display: inline-block;
+	width: 200px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.ecdCurrencyAP {
+	display: inline-block;
+	width: 200px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.ecdCurrencyTelvar {
+	display: inline-block;
+	width: 200px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+	
 }
