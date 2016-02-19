@@ -288,6 +288,10 @@ class EsoCharDataParser extends EsoBuildDataParser
 		if (!$this->parseFormInput()) return false;
 		if (!$this->saveAllCharData()) return false;
 		
+		$this->endTime = microtime(True);
+		$deltaTime = ($this->endTime - $this->startTime) * 1000;
+		$this->log("Total Parsing Time = $deltaTime ms");
+		
 		return True;
 	}
 	
