@@ -255,14 +255,14 @@ class EsoCharDataParser extends EsoBuildDataParser
 		
 		foreach ($bankData as $key => &$value)
 		{
-			if ($key == "Inventory") $result = $this->saveCharacterBankItem($bankData, $key, $value);
+			if ($key == "Inventory") $result = $this->saveCharacterBank($bankData, $key, $value);
 		}
 	
 		return $result;
 	}
 
 	
-	public function saveCharacterBankItem($buildData, $name, $arrayData)
+	public function saveCharacterBank($buildData, $name, $arrayData)
 	{
 		if (!$this->hasCharacterBank) return true;
 	
