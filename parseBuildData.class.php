@@ -165,6 +165,7 @@ class EsoBuildDataParser
 		$query = "CREATE TABLE IF NOT EXISTS equipSlots (
 						id INTEGER NOT NULL AUTO_INCREMENT,
 						characterId INTEGER NOT NULL,
+						account TINYTEXT NOT NULL,
 						name TINYTEXT NOT NULL,
 						`condition` INTEGER NOT NULL,
 						itemLink TINYTEXT NOT NULL,
@@ -182,7 +183,8 @@ class EsoBuildDataParser
 						stolen TINYINT NOT NULL,
 						style TINYINT NOT NULL,
 						PRIMARY KEY (id),
-						INDEX index_characterId(characterId)
+						INDEX index_characterId(characterId),
+						INDEX index_account(account(48))
 					);";
 		
 		$this->lastQuery = $query;
@@ -801,17 +803,18 @@ class EsoBuildDataParser
 	public function saveCharacterEquipSlots($buildData, $name, $arrayData)
 	{
 		$result = True;
+		$accountName = $this->getSafeFieldStr($buildData, 'UniqueAccountName');
 	
 		foreach ($arrayData as $key => &$value)
 		{
-			$result &= $this->saveCharacterEquipSlot($buildData, $key, $value);
+			$result &= $this->saveCharacterEquipSlot($buildData, $key, $value, $accountName);
 		}
 	
 		return $result;
 	}
 	
 	
-	public function saveCharacterEquipSlot($buildData, $index, $arrayData)
+	public function saveCharacterEquipSlot($buildData, $index, $arrayData, $accountName)
 	{
 		$charId = $buildData['id'];
 		$name = $this->getSafeFieldStr($arrayData, 'name');
@@ -854,8 +857,8 @@ class EsoBuildDataParser
 			}
 		}
 		
-		$query  = "INSERT INTO equipSlots(characterId, name, itemLink, icon, `condition`, `index`, setCount, style, stolen, value, quality, level, type, equipType, weaponType, armorType, craftType) ";
-		$query .= "VALUES($charId, \"$name\", \"$itemLink\", \"$icon\", $condition, $index, $setCount, $style, $stolen, $value, $quality, $level, $type, $equipType, $weaponType, $armorType, $craftType);";
+		$query  = "INSERT INTO equipSlots(characterId, account, name, itemLink, icon, `condition`, `index`, setCount, style, stolen, value, quality, level, type, equipType, weaponType, armorType, craftType) ";
+		$query .= "VALUES($charId, \"$accountName\", \"$name\", \"$itemLink\", \"$icon\", $condition, $index, $setCount, $style, $stolen, $value, $quality, $level, $type, $equipType, $weaponType, $armorType, $craftType);";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		if ($result === FALSE) return $this->reportError("Failed to save character equip slot data!");
