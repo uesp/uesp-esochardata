@@ -617,24 +617,7 @@ class EsoBuildDataParser
 		
 		return true;
 	}
-	
-	
-	public function saveCharacterBank($buildData, $name, $arrayData)
-	{
-		if (!$this->hasCharacterBank) return true;
 		
-		$charId = -1;
-		$accountName = $this->getSafeFieldStr($buildData, 'UniqueAccountName');
-		$result = True;
-			
-		foreach ($arrayData as $key => &$value)
-		{
-			$result &= $this->saveCharacterInventoryItem($charId, $accountName, $key, $value);
-		}
-	
-		return $result;
-	}
-	
 	
 	public function saveCharacterInventory($buildData, $name, $arrayData)
 	{
