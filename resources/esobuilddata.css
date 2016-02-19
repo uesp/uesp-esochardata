@@ -109,6 +109,20 @@
 	text-align: left;
 }
 
+.ecdCharDataName {
+	font-size: 32px;
+	font-weight: bold;
+	display: inline-block;
+	vertical-align: top;
+	text-align: center;
+    padding-left: 40px;
+    color: yellow;
+}
+
+.ecdCharDataNameTitle {
+	padding-bottom: 5px;
+}
+
 .ecdClassName {
 	font-size: 20px;
 	font-weight: bold;
@@ -807,6 +821,7 @@ tr.eso_item_link {
 }
 
 #ecdTrail {
+	padding-bottom: 5px;
 }
 
 .ecdShortCharLink {
@@ -1103,4 +1118,8 @@ table.tablesorter thead tr .headerSortUp {
 .ecdCurrencyGold img, 
 .ecdCurrencyTelvar img {
 	width: 16px;
-}  
+}
+
+#ecdAccountCharForm {
+	display: inline-block;
+}

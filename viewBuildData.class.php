@@ -300,6 +300,8 @@ class EsoBuildDataViewer
 		if (!$this->loadCharacterArrayData("actionBars")) return false;
 		if (!$this->loadCharacterArrayData("screenshots")) return false;
 		
+		if (!$this->loadAccountCharacters()) return false;
+		
 		$this->parseCharSkillData();
 		$this->parseCharChampionPointData();
 		
@@ -434,6 +436,12 @@ class EsoBuildDataViewer
 		return true;
 	}
 	
+	
+	public function loadAccountCharacters()
+	{
+		return True;
+	}
+		
 	
 	public function loadCharacterAccountCurrency(&$arrayData)
 	{
