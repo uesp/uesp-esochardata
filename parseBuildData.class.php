@@ -25,6 +25,8 @@ class EsoBuildDataParser
 	
 	public $newCharacterCount = 0;
 	public $characterCount = 0;
+	public $characterId = -1;
+	public $uniqueAccountName = "";
 	
 	public $db = null;
 	public $dbReadInitialized  = false;
@@ -436,6 +438,8 @@ class EsoBuildDataParser
 		$result->data_seek(0);
 		$data = $result->fetch_assoc();
 		$data['UniqueAccountName'] = $data['uniqueAccountName'];
+		$this->uniqueAccountName = $data['UniqueAccountName'];
+		$this->characterId = $data['id'];
 		return $data;
 	}
 	
@@ -460,6 +464,8 @@ class EsoBuildDataParser
 		$result->data_seek(0);
 		$data = $result->fetch_assoc();
 		$data['UniqueAccountName'] = $data['uniqueAccountName'];
+		$this->uniqueAccountName = $data['UniqueAccountName'];
+		$this->characterId = $data['id'];
 		return $data;
 	}
 	
@@ -515,6 +521,8 @@ class EsoBuildDataParser
 		}
 		
 		$buildData['id'] = $this->db->insert_id;
+		$this->characterId = $buildData['id'];
+		$this->uniqueAccountName = $uniqueAccountName;
 		$this->log("Created new character '$name' with ID {$buildData['id']}.");
 		return $this->db->insert_id;
 	}
