@@ -344,7 +344,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		$this->log("Started parsing " . $_SERVER['CONTENT_LENGTH'] . " bytes of character data from " . $_SERVER["REMOTE_ADDR"] . " at " . date("Y-m-d H:i:s"));
 		
 		$this->writeHeaders();
-	
+		
 		if (!$this->parseFormInput()) return false;
 		if (!$this->saveAllCharData()) return false;
 		
