@@ -697,6 +697,7 @@ class EsoBuildDataParser
 		$weaponType = 0;
 		$craftType = 0;
 		$armorType = 0;
+		$consumable = 0;
 		$icon = "";
 				
 		$matches = array();
@@ -719,6 +720,7 @@ class EsoBuildDataParser
 				$weaponType = $itemData['weaponType'];
 				$armorType = $itemData['armorType'];
 				$craftType = $itemData['craftType'];
+				$consumable = $itemData['isConsumable'];
 				$icon = $this->db->real_escape_string($itemData['icon']);
 			}
 		}
@@ -726,8 +728,8 @@ class EsoBuildDataParser
 		$safeLink = $this->db->real_escape_string($itemLink);
 		$safeName = $this->db->real_escape_string($itemName);
 
-		$query  = "INSERT INTO inventory(characterId, account, name, itemLink, qnt, style, stolen, value, quality, level, type, equipType, weaponType, armorType, craftType, icon) ";
-		$query .= "VALUES($charId, \"$accountName\", \"$safeName\", \"$safeLink\", $qnt, $style, $stolen, $value, $quality, $level, $type, $equipType, $weaponType, $armorType, $craftType, \"$icon\");";
+		$query  = "INSERT INTO inventory(characterId, account, name, itemLink, qnt, style, stolen, value, quality, level, type, equipType, weaponType, armorType, craftType, icon, consumable) ";
+		$query .= "VALUES($charId, \"$accountName\", \"$safeName\", \"$safeLink\", $qnt, $style, $stolen, $value, $quality, $level, $type, $equipType, $weaponType, $armorType, $craftType, \"$icon\", $consumable);";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		if ($result === FALSE) return $this->reportError("Failed to save character inventory slot data!");
