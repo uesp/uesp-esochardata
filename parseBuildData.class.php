@@ -674,9 +674,10 @@ class EsoBuildDataParser
 		$fullItemLink = $matches[2];
 		$itemLink = $fullItemLink;
 		$itemName = "";
+		$extraData = "";
 		
 		$matches = array();
-		$result = preg_match("/(.*)\|h\[(.*)\]\|h/", $fullItemLink, $matches);
+		$result = preg_match("/(.*)\|h\[(.*)\]\|h(.*)/", $fullItemLink, $matches);
 		
 		if ($result === 1) 
 		{
@@ -685,6 +686,7 @@ class EsoBuildDataParser
 			$itemName = preg_replace("/ Of /", " of ", $itemName);
 			$itemName = preg_replace("/ The /", " the ", $itemName);
 			$itemName = preg_replace("/ And /", " and ", $itemName);
+			$extraData = $matches[3];
 		}
 		
 		$style = 0;
@@ -698,7 +700,13 @@ class EsoBuildDataParser
 		$craftType = 0;
 		$armorType = 0;
 		$consumable = 0;
+		$isJunk = 0;
 		$icon = "";
+		
+		if (strpos($extraData, 'Junk') !== false) 
+		{
+			$isJunk = 1;
+		}
 				
 		$matches = array();
 		$result = preg_match('/\|H(?P<color>[A-Za-z0-9]*)\:item\:(?P<itemId>[0-9]*)\:(?P<subtype>[0-9]*)\:(?P<level>[0-9]*)\:(?P<enchantId>[0-9]*)\:(?P<enchantSubtype>[0-9]*)\:(?P<enchantLevel>[0-9]*)\:(.*?)\:(?P<style>[0-9]*)\:(?P<crafted>[0-9]*)\:(?P<bound>[0-9]*)\:(?P<stolen>[0-9]*)\:(?P<charges>[0-9]*)\:(?P<potionData>[0-9]*)\|h(?P<name>[^|\^]*)(?P<nameCode>.*?)\|h/', $itemLink, $matches);
@@ -728,8 +736,8 @@ class EsoBuildDataParser
 		$safeLink = $this->db->real_escape_string($itemLink);
 		$safeName = $this->db->real_escape_string($itemName);
 
-		$query  = "INSERT INTO inventory(characterId, account, name, itemLink, qnt, style, stolen, value, quality, level, type, equipType, weaponType, armorType, craftType, icon, consumable) ";
-		$query .= "VALUES($charId, \"$accountName\", \"$safeName\", \"$safeLink\", $qnt, $style, $stolen, $value, $quality, $level, $type, $equipType, $weaponType, $armorType, $craftType, \"$icon\", $consumable);";
+		$query  = "INSERT INTO inventory(characterId, account, name, itemLink, qnt, style, stolen, value, quality, level, type, equipType, weaponType, armorType, craftType, icon, consumable, junk) ";
+		$query .= "VALUES($charId, \"$accountName\", \"$safeName\", \"$safeLink\", $qnt, $style, $stolen, $value, $quality, $level, $type, $equipType, $weaponType, $armorType, $craftType, \"$icon\", $consumable, $isJunk);";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		if ($result === FALSE) return $this->reportError("Failed to save character inventory slot data!");
