@@ -33,6 +33,7 @@ class EsoBuildDataParser
 	public $dbWriteInitialized = false;
 	public $lastQuery = "";
 	public $skipCreateTables = false;
+	public $formResponseErrorMsg = "";
 	
 	public $itemDataDB = array();
 	
@@ -311,6 +312,7 @@ class EsoBuildDataParser
 		
 		if (file_put_contents($filename, $this->rawBuildData) === False)
 		{
+			$this->formResponseErrorMsg = "Failed writing character data to file!";
 			return $this->reportError("Failed to write character data to file '$filename'!");
 		}
 		
@@ -326,6 +328,7 @@ class EsoBuildDataParser
 	
 		if (file_put_contents($filename, $outputData) === False)
 		{
+			$this->formResponseErrorMsg = "Failed writing character data to file!";
 			return $this->reportError("Failed to write character data to file '$filename'!");
 		}
 	
@@ -354,7 +357,11 @@ class EsoBuildDataParser
 	
 	public function parseBuildDataRoot($uespBuildData)
 	{
-		if ($uespBuildData == null) return $this->reportError("Null character data object received!");
+		if ($uespBuildData == null)
+		{
+			$this->formResponseErrorMsg = "Error parsing Lua data object!";
+			return $this->reportError("Null character data object received!");
+		}
 		
 		foreach ($uespBuildData as $key => $value) 
 		{
@@ -1023,8 +1030,10 @@ class EsoBuildDataParser
 	
 		if (!array_key_exists('chardata', $this->inputParams)) 
 		{
+			$this->formResponseErrorMsg = "Failed to find any character data form input to parse!"; 
 			header('X-PHP-Response-Code: 500', true, 500);
-			return $this->reportError("Failed to find any character data form input to parse!");
+			header('X-Uesp-Error: ' . $this->formResponseErrorMsg, false);
+			return $this->reportError($this->formResponseErrorMsg);
 		}
 		
 		$this->rawBuildData = $this->parseRawBuildData($this->inputParams['chardata']); 
@@ -1039,12 +1048,14 @@ class EsoBuildDataParser
 		if (!$this->saveBuildData()) 
 		{
 			header('X-PHP-Response-Code: 500', true, 500);
+			header('X-Uesp-Error: ' . $this->formResponseErrorMsg, false);
 			return false;
 		}
 	
 		if (!$this->parseBuildData())
 		{
 			header('X-PHP-Response-Code: 500', true, 500);
+			header('X-Uesp-Error: ' . $this->formResponseErrorMsg, false);
 			return false;
 		}
 		
