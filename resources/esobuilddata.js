@@ -215,43 +215,50 @@ function ItemFilter_All(item)
 
 function ItemFilter_Armor(item)
 {
-	return item.type == 2;
+	return item.type == 2 || (item.type == 1 && item.weaponType == 14);
 }
 
 
 function ItemFilter_Weapon(item)
 {
-	return item.type == 1;
+	return item.type == 1 && item.weaponType != 14;
 }
 
 
 function ItemFilter_Consumable(item)
 {
-	return true;
+	return item.consumable != 0 && (
+		item.type ==  7 || item.type ==  4 || item.type ==  9 || item.type == 12 || item.type == 29 || item.type == 55 || 
+		item.type == 57 || item.type == 30 || item.type == 18 || item.type ==  5 || item.type == 47 || item.type ==  6);
 }
 
 
 function ItemFilter_Material(item)
 {
-	return true;
+	return item.type == 10 || item.type == 44 || item.type == 53 || item.type == 45 || item.type == 33 || item.type == 31 || 
+           item.type == 39 || item.type == 37 || item.type == 35 || item.type == 38 || item.type == 40 || item.type == 52 ||
+           item.type == 36 || item.type == 51 || item.type == 17;
 }
 
 
 function ItemFilter_Misc(item)
 {
-	return true;
+	return item.type == 56 || item.type == 48 || item.type == 19 || item.type == 9 || item.type == 29 || item.type == 55 || 
+           item.type == 57 || item.type == 30 || item.type == 18 || item.type == 5 || item.type == 47 || item.type == 6;
 }
 
 
 function ItemFilter_Quest(item)
 {
-	return true;
+	//TODO
+	return false;
 }
 
 
 function ItemFilter_Junk(item)
 {
-	return true;
+	//TODO
+	return false;
 }
 
 
