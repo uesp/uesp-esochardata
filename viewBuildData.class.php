@@ -350,7 +350,7 @@ class EsoBuildDataViewer
 		$query = "SELECT * FROM inventory WHERE account=\"$accountName\";";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
-		if ($result === FALSE) return $this->reportError("Failed to load inventory bank data for account $accountName!");
+		if ($result === FALSE) return $this->reportError("Failed to load inventory data for account $accountName!");
 	
 		$result->data_seek(0);
 		$arrayData = array();
@@ -390,10 +390,47 @@ class EsoBuildDataViewer
 				$arrayData[] = $row;
 			}
 		}
+		
+		if ($this->loadAccountEquipSlots())
+		{
+			$arrayData = array_merge($arrayData, $this->characterData['accountEquipSlots']);	
+		}
 	
 		$arrayData = $this->combineInventory($arrayData);
 		usort($arrayData, compareInventoryByName);
 		$this->characterData['accountInventory'] = $arrayData;
+		return true;
+	}
+	
+	
+	public function loadAccountEquipSlots()
+	{
+		$accountName = $this->db->real_escape_string($this->characterData['uniqueAccountName']);
+		
+		$query = "SELECT * FROM equipSlots WHERE account=\"$accountName\";";
+		$this->lastQuery = $query;
+		$result = $this->db->query($query);
+		if ($result === FALSE) return $this->reportError("Failed to load equipSlots data for account $accountName!");
+		
+		$result->data_seek(0);
+		$arrayData = array();
+		
+		while (($row = $result->fetch_assoc()))
+		{
+			if ($row['itemLink'] != "")
+			{
+				$row['qnt'] = 1;
+				$row['invType'] = "AccountEquipSlot";
+				$row['nameLC'] = strtolower($row['name']);
+				$row['localId'] = $this->nextLocalItemID;
+				++$this->nextLocalItemID;
+				
+				$arrayData[] = $row;
+			}
+		}
+		
+		$this->characterData['accountEquipSlots'] = $arrayData;
+		
 		return true;
 	}
 	
@@ -1494,6 +1531,7 @@ class EsoBuildDataViewer
 				'bank' => 'Bank',
 				'inventory' => 'Inventory',
 				'accountInventory' => 'Account Inventory',
+				'accountEquipSlots' => 'Account Equipment',
 		);
 		
 		$title = $SECTIONS[$section];
