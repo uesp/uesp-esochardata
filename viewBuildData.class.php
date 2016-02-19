@@ -1507,6 +1507,9 @@ class EsoBuildDataViewer
 		if ($colName == 'id') return false;
 		if ($colName == 'characterId') return false;
 		if ($colName == 'account') return false;
+		if ($colName == 'invType') return false;
+		if ($colName == 'localId') return false;
+		if ($colName == 'nameLC') return false;
 		
 		return true;
 	}

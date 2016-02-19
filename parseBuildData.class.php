@@ -171,6 +171,16 @@ class EsoBuildDataParser
 						icon TINYTEXT NOT NULL,
 						`index` INTEGER NOT NULL,
 						setCount INTEGER NOT NULL,
+						value INTEGER NOT NULL,
+						level TINYINT NOT NULL,
+						quality TINYINT NOT NULL,
+						type TINYINT NOT NULL,
+						equipType TINYINT NOT NULL,
+						weaponType TINYINT NOT NULL,
+						armorType TINYINT NOT NULL,
+						craftType TINYINT NOT NULL,
+						stolen TINYINT NOT NULL,
+						style TINYINT NOT NULL,
 						PRIMARY KEY (id),
 						INDEX index_characterId(characterId)
 					);";
@@ -809,9 +819,43 @@ class EsoBuildDataParser
 		$itemLink = $this->getSafeFieldStr($arrayData, 'link');
 		$condition = $this->getSafeFieldInt($arrayData, 'condition');
 		$setCount = $this->getSafeFieldInt($arrayData, 'setcount');
-	
-		$query  = "INSERT INTO equipSlots(characterId, name, itemLink, icon, `condition`, `index`, setCount) ";
-		$query .= "VALUES($charId, \"$name\", \"$itemLink\", \"$icon\", $condition, $index, $setCount);";
+		
+		$style = 0;
+		$stolen = 0;
+		$value = 0;
+		$quality = 0;
+		$level = 0;
+		$type = 0;
+		$equipType = 0;
+		$weaponType = 0;
+		$craftType = 0;
+		$armorType = 0;
+		
+		$matches = array();
+		$result = preg_match('/\|H(?P<color>[A-Za-z0-9]*)\:item\:(?P<itemId>[0-9]*)\:(?P<subtype>[0-9]*)\:(?P<level>[0-9]*)\:(?P<enchantId>[0-9]*)\:(?P<enchantSubtype>[0-9]*)\:(?P<enchantLevel>[0-9]*)\:(.*?)\:(?P<style>[0-9]*)\:(?P<crafted>[0-9]*)\:(?P<bound>[0-9]*)\:(?P<stolen>[0-9]*)\:(?P<charges>[0-9]*)\:(?P<potionData>[0-9]*)\|h(?P<name>[^|\^]*)(?P<nameCode>.*?)\|h/', $itemLink, $matches);
+		
+		if ($result === 1)
+		{
+			$style = intval($matches['style']);
+			$stolen = intval($matches['stolen']);
+				
+			$itemData = $this->loadItemData($matches['itemId'], $matches['subtype'], $matches['level']);
+				
+			if ($itemData !== False)
+			{
+				$value = $itemData['value'];
+				$quality = $itemData['quality'];
+				$level = $itemData['level'];
+				$type = $itemData['type'];
+				$equipType = $itemData['equipType'];
+				$weaponType = $itemData['weaponType'];
+				$armorType = $itemData['armorType'];
+				$craftType = $itemData['craftType'];
+			}
+		}
+		
+		$query  = "INSERT INTO equipSlots(characterId, name, itemLink, icon, `condition`, `index`, setCount, style, stolen, value, quality, level, type, equipType, weaponType, armorType, craftType) ";
+		$query .= "VALUES($charId, \"$name\", \"$itemLink\", \"$icon\", $condition, $index, $setCount, $style, $stolen, $value, $quality, $level, $type, $equipType, $weaponType, $armorType, $craftType);";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		if ($result === FALSE) return $this->reportError("Failed to save character equip slot data!");
