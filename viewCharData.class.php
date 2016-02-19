@@ -187,7 +187,8 @@ EOT;
 	
 	public function getAccountInventoryGold() 
 	{ 
-		return "";
+		$ap = $this->getCharStatField('AccountGold');
+		return number_format($ap);
 	}
 	
 	
@@ -206,9 +207,8 @@ EOT;
 	
 	public function getAccountInventoryAP() 
 	{ 
-		//$account = $this->db->real_escape_string($this->characterData['uniqueAccountName']);
-		//$query = "SELECT * FROM stats WHERE account";
-		return ""; 
+		$ap = $this->getCharStatField('AccountAlliancePoints');
+		return number_format($ap); 
 	}
 	
 	
@@ -228,7 +228,8 @@ EOT;
 	
 	public function getAccountInventoryTelvar() 
 	{ 
-		return ""; 
+		$ap = $this->getCharStatField('AccountTelvarStones');
+		return number_format($ap); 
 	}
 	
 	

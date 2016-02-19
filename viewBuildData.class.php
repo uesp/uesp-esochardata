@@ -66,6 +66,10 @@ class EsoBuildDataViewer
 	
 	public $nextLocalItemID = 1;
 	
+	public $accountGold = 0;
+	public $accountTelvar = 0;
+	public $accountAP = 0;
+	
 	
 	public function __construct ()
 	{
@@ -273,7 +277,18 @@ class EsoBuildDataViewer
 		$result->data_seek(0);
 		$this->characterData = $result->fetch_assoc();
 		
-		$this->characterData['cp'] = $this->characterData['championPoints']; 
+		$this->characterData['cp'] = $this->characterData['championPoints'];
+
+		if ($this->hasCharacterInventory)
+		{
+			if (!$this->loadCharacterArrayData("inventory")) return false;
+			if (!$this->loadAccountInventory()) return false;
+		}
+		
+		if ($this->hasCharacterBank)
+		{
+			if (!$this->loadCharacterBankData()) return false;
+		}
 		
 		if (!$this->loadCharacterArrayData("buffs")) return false;
 		if (!$this->loadCharacterArrayData("championPoints")) return false;
@@ -282,17 +297,6 @@ class EsoBuildDataViewer
 		if (!$this->loadCharacterArrayData("equipSlots")) return false;
 		if (!$this->loadCharacterArrayData("actionBars")) return false;
 		if (!$this->loadCharacterArrayData("screenshots")) return false;
-				
-		if ($this->hasCharacterInventory) 
-		{
-			if (!$this->loadCharacterArrayData("inventory")) return false;
-			if (!$this->loadAccountInventory()) return false;
-		}
-		
-		if ($this->hasCharacterBank) 
-		{
-			if (!$this->loadCharacterBankData()) return false;
-		}
 		
 		$this->parseCharSkillData();
 		$this->parseCharChampionPointData();
@@ -315,12 +319,19 @@ class EsoBuildDataViewer
 		
 		while (($row = $result->fetch_assoc()))
 		{
-			$row['invType'] = "Bank";
-			$row['nameLC'] = strtolower($row['name']);
-			$row['localId'] = $this->nextLocalItemID;
-			++$this->nextLocalItemID;
-			
-			$arrayData[] = $row;
+			if ($row['itemLink'] == "")
+			{
+					/* Skip Data */
+			}
+			else 
+			{
+				$row['invType'] = "Bank";
+				$row['nameLC'] = strtolower($row['name']);
+				$row['localId'] = $this->nextLocalItemID;
+				++$this->nextLocalItemID;
+				
+				$arrayData[] = $row;
+			}
 		}
 		
 		if ($this->combineBankItems) $arrayData = $this->combineInventory($arrayData);
@@ -344,18 +355,64 @@ class EsoBuildDataViewer
 	
 		while (($row = $result->fetch_assoc()))
 		{
-			$row['invType'] = "Account";
-			$row['nameLC'] = strtolower($row['name']);
-			$row['localId'] = $this->nextLocalItemID;
-			++$this->nextLocalItemID;
-			
-			$arrayData[] = $row;
+			if ($row['itemLink'] == "")
+			{
+				if ($row['name'] == "__Gold")
+				{
+					$this->accountGold += intval($row['qnt']);
+				}
+				else if ($row['name'] == "__Telvar")
+				{
+					$this->accountTelvar += intval($row['qnt']);
+				}
+				else if ($row['name'] == "__AP")
+				{
+					$this->accountAP += intval($row['qnt']);
+				}
+			}
+			else 
+			{
+				$row['invType'] = "Account";
+				$row['nameLC'] = strtolower($row['name']);
+				$row['localId'] = $this->nextLocalItemID;
+				++$this->nextLocalItemID;
+				
+				$arrayData[] = $row;
+			}
 		}
 	
 		$arrayData = $this->combineInventory($arrayData);
 		usort($arrayData, compareInventoryByName);
 		$this->characterData['accountInventory'] = $arrayData;
 		return true;
+	}
+	
+	
+	public function loadCharacterAccountCurrency(&$arrayData)
+	{
+		
+		$arrayData['AccountGold'] = array(
+				"id" => -1,
+				"characterId" => $this->characterId,
+				"name" => "AccountGold",
+				"value" => (string) $this->accountGold,
+		);
+		
+		$arrayData['AccountTelvarStones'] = array(
+				"id" => -1,
+				"characterId" => $this->characterId,
+				"name" => "AccountTelvarStones",
+				"value" => (string) $this->accountTelvar,
+		);
+		
+		$arrayData['AccountAlliancePoints'] = array(
+				"id" => -1,
+				"characterId" => $this->characterId,
+				"name" => "AccountAlliancePoints",
+				"value" => (string) $this->accountAP,
+		);
+		
+		return True;
 	}
 	
 	
@@ -377,11 +434,18 @@ class EsoBuildDataViewer
 			}
 			else if ($table == "inventory")
 			{
-				$row['invType'] = "Inventory";
-				$row['localId'] = $this->nextLocalItemID;
-				$row['nameLC'] = strtolower($row['name']);
-				++$this->nextLocalItemID;
-				$arrayData[] = $row;
+				if ($row['itemLink'] == "")
+				{
+						/* Skip data */
+				}
+				else
+				{
+					$row['invType'] = "Inventory";
+					$row['localId'] = $this->nextLocalItemID;
+					$row['nameLC'] = strtolower($row['name']);
+					++$this->nextLocalItemID;
+					$arrayData[] = $row;
+				}
 			}
 			else
 			{
@@ -393,6 +457,11 @@ class EsoBuildDataViewer
 		{
 			if ($this->combineInventoryItems) $arrayData = $this->combineInventory($arrayData);
 			usort($arrayData, compareInventoryByName);
+		}
+		else if ($table == "stats")
+		{
+			$this->loadCharacterAccountCurrency($arrayData);
+			ksort($arrayData);
 		}
 		else
 		{
