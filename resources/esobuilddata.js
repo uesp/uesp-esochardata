@@ -257,8 +257,7 @@ function ItemFilter_Quest(item)
 
 function ItemFilter_Junk(item)
 {
-	//TODO
-	return false;
+	return item.junk != 0;
 }
 
 
