@@ -208,6 +208,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		if ($charData == null) return $this->saveNewCharData($newCharData);
 		
 		$newCharData['id'] = $charData['id'];
+		if (!$this->updateCharacter($newCharData)) return false;
 		
 		$this->deleteExistingCharData($charData);
 		
@@ -225,6 +226,48 @@ class EsoCharDataParser extends EsoBuildDataParser
 		return $result;
 	}
 	
+	
+	public function updateCharacter($charData)
+	{
+		$charId = $this->characterId;
+		$name = $this->getSafeFieldStr($charData, 'CharName');
+		$buildName = $this->getSafeFieldStr($charData, 'Note');
+		$accountName = $this->getSafeFieldStr($charData, 'AccountName');
+		$uniqueAccountName = $this->getSafeFieldStr($charData, 'UniqueAccountName');
+		$wikiUserName = $this->getSafeFieldStr($charData, 'WikiUser');
+		$class = $this->getSafeFieldStr($charData, 'Class');
+		$race = $this->getSafeFieldStr($charData, 'Race');
+		$buildType = $this->getSafeFieldStr($charData, 'BuildType');
+		$level = $this->getSafeFieldInt($charData, 'EffectiveLevel');
+		$createTime = $this->getSafeFieldInt($charData, 'TimeStamp');
+		$special = '';
+		$championPoints = 0;
+		
+		if (array_key_exists('ChampionPoints', $charData) && array_key_exists('Total:Spent', $charData['ChampionPoints']))
+		{
+			$championPoints = $charData['ChampionPoints']['Total:Spent'];
+		}
+		
+		if ($charData['Vampire'] == 1) $special = "Vampire";
+		if ($charData['Werewolf'] == 1) $special = "Werewolf";
+		
+		if ($this->checkBuffWerewolf($charData)) $special = "Werewolf";
+		
+		$query  = "UPDATE characters SET ";
+		$query .= "name=\"$name\", buildName=\"$buildName\", wikiUserName=\"$wikiUserName\", class=\"$class\", race=\"$race\", buildType=\"$buildType\", level=$level, ";
+		$query .= "createTime=$createTime, championPoints=$championPoints, special=\"$special\", uploadTimestamp=now() ";
+		$query .= "WHERE id=$charId;";
+		$this->lastQuery = $query;
+		$result = $this->db->query($query);
+		
+		if ($result === FALSE)
+		{
+			$this->reportError("Failed to update character record!");
+			return -1;
+		}
+		
+		return true;
+	}
 	
 	public function saveAllCharData()
 	{

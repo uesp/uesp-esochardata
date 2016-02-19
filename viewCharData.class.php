@@ -467,6 +467,7 @@ EOT;
 	public function getAccountCharacterListHtml()
 	{
 		$output  = "<form method='get' id='ecdAccountCharForm'>\n";
+		if ($this->viewRawData) $output .= "<input type='hidden' name='raw' value='' />\n";
 		$output .= "<select name='id' class='ecdAccountCharList' onchange='this.form.submit();' >\n";
 		
 		foreach ($this->accountCharacters as $charId => $charData)
