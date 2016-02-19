@@ -171,6 +171,48 @@ EOT;
 	}
 	
 	
+	public function getInventoryUsedSpace() 
+	{ 
+		$space = $this->getCharStatField('InventoryUsedSize');
+		return $space; 
+	}
+	
+	
+	public function getInventoryTotalSpace() 
+	{ 
+		$space = $this->getCharStatField('InventorySize');
+		return $space; 
+	}
+	
+	
+	public function getBankUsedSpace() 
+	{
+		$space = $this->getCharStatField('BankUsedSize');
+		return $space;
+	}
+	
+	
+	public function getBankTotalSpace() 
+	{ 
+		$space = $this->getCharStatField('BankSize');
+		return $space;
+	}
+	
+	
+	public function getAccountInventoryUsedSpace() 
+	{
+		$space = $this->getCharStatField('AccountUsedSpace');
+		return $space; 
+	}
+	
+	
+	public function getAccountInventoryTotalSpace() 
+	{ 
+		$space = $this->getCharStatField('AccountTotalSpace');
+		return $space; 
+	}
+	
+	
 	public function getInventoryGold()
 	{ 
 		$gold = $this->getCharStatField('Money');

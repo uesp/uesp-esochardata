@@ -1056,27 +1056,47 @@ table.tablesorter thead tr .headerSortUp {
 
 .ecdCurrencyGold {
 	display: inline-block;
-	width: 200px;
+	width: 125px;
     font-size: 18px;
     font-weight: bold;
     text-align: right;
+    float: right;
+    text-shadow: 1px 1px 2px black;
 }
 
 .ecdCurrencyAP {
 	display: inline-block;
-	width: 200px;
+	width: 125px;
     font-size: 18px;
     font-weight: bold;
     text-align: right;
+    float: right;
+    text-shadow: 1px 1px 2px black;
 }
 
 .ecdCurrencyTelvar {
 	display: inline-block;
-	width: 200px;
+	width: 125px;
     font-size: 18px;
     font-weight: bold;
     text-align: right;
-	
+    float: right;
+	text-shadow: 1px 1px 2px black;
+}
+
+.ecdInventorySpace {
+	display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+    float: left;	
+    text-shadow: 1px 1px 2px black;
+}
+
+.ecdInvSpaceLabel {
+	display: inline-block;
+	color: #C5C29E;
+	text-shadow: 1px 1px 2px black;
 }
 
 .ecdCurrencyAP img,

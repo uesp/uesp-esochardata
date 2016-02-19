@@ -69,6 +69,8 @@ class EsoBuildDataViewer
 	public $accountGold = 0;
 	public $accountTelvar = 0;
 	public $accountAP = 0;
+	public $accountUsedSpace = 0;
+	public $accountTotalSpace = 0;
 	
 	
 	public function __construct ()
@@ -369,6 +371,14 @@ class EsoBuildDataViewer
 				{
 					$this->accountAP += intval($row['qnt']);
 				}
+				else if ($row['name'] == "__TotalSpace")
+				{
+					$this->accountTotalSpace += intval($row['qnt']);
+				}
+				else if ($row['name'] == "__UsedSpace")
+				{
+					$this->accountUsedSpace += intval($row['qnt']);
+				}
 			}
 			else 
 			{
@@ -412,6 +422,27 @@ class EsoBuildDataViewer
 				"value" => (string) $this->accountAP,
 		);
 		
+		return True;
+	}
+	
+	
+	public function loadCharacterAccountInventorySpace(&$arrayData)
+	{
+	
+		$arrayData['AccountUsedSpace'] = array(
+				"id" => -1,
+				"characterId" => $this->characterId,
+				"name" => "AccountUsedSpace",
+				"value" => (string) $this->accountUsedSpace,
+		);
+	
+		$arrayData['AccountTotalSpace'] = array(
+				"id" => -1,
+				"characterId" => $this->characterId,
+				"name" => "AccountTotalSpace",
+				"value" => (string) $this->accountTotalSpace,
+		);
+	
 		return True;
 	}
 	
@@ -461,6 +492,7 @@ class EsoBuildDataViewer
 		else if ($table == "stats")
 		{
 			$this->loadCharacterAccountCurrency($arrayData);
+			$this->loadCharacterAccountInventorySpace($arrayData);
 			ksort($arrayData);
 		}
 		else
@@ -577,6 +609,12 @@ class EsoBuildDataViewer
 					'{invTelvar}' => $this->getInventoryTelvar(),
 					'{bankTelvar}' => $this->getBankTelvar(),
 					'{accInvTelvar}' => $this->getAccountInventoryTelvar(),
+					'{invUsedSpace}' => $this->getInventoryUsedSpace(),
+					'{invTotalSpace}' => $this->getInventoryTotalSpace(),
+					'{bankUsedSpace}' => $this->getBankUsedSpace(),
+					'{bankTotalSpace}' => $this->getBankTotalSpace(),
+					'{accInvUsedSpace}' => $this->getAccountInventoryUsedSpace(),
+					'{accInvTotalSpace}' => $this->getAccountInventoryTotalSpace(),
 				
 			);
 		
@@ -585,6 +623,13 @@ class EsoBuildDataViewer
 		return true;
 	}
 	
+	
+	public function getInventoryUsedSpace() { return ""; }
+	public function getInventoryTotalSpace() { return ""; }
+	public function getBankUsedSpace() { return ""; }
+	public function getBankTotalSpace() { return ""; }
+	public function getAccountInventoryUsedSpace() { return ""; }
+	public function getAccountInventoryTotalSpace() { return ""; }
 	
 	public function getInventoryGold() { return ""; }
 	public function getBankGold() { return ""; }
