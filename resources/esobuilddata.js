@@ -94,9 +94,14 @@ function onDocReady()
 	EsoSkillTree_LastSkillContentName = $('.ecdSkillTreeNameHighlight2').first();
 	EsoSkillTree_LastSkillContent = $('.ecdSkillData:visible').first();
 	
-	$(".tablesorter").tablesorter({
-			sortList: [[2,0]] 
-		});
+	var tables = $(".tablesorter");
+	
+	if (tables.tablesorter)
+	{
+		$(".tablesorter").tablesorter({
+				sortList: [[2,0]] 
+			});
+	}
 	
 	$(".ecdItemFilterTextInput").keyup(function() {
 			$(".ecdItemFilterTextInput").val(this.value);
