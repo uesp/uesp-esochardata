@@ -1285,7 +1285,7 @@ class EsoBuildDataViewer
 		
 		if ($this->isBuffFoodOrDrink($buffName))
 		{
-			$foodDesc = $this->convertFoodDrinkDescription($this->getCharStatField('LastFoodEatenDesc'));
+			$foodDesc = $this->convertFoodDrinkDescription($this->getCharStatField('LastFoodEatenDesc'), $this->getCharStatField('LastFoodEatenType'), $this->getCharStatField('LastFoodEatenName'));
 			if ($foodDesc != "") $safeName = $foodDesc;
 		}
 		
@@ -1298,7 +1298,7 @@ class EsoBuildDataViewer
 	}
 	
 	
-	public function convertFoodDrinkDescription($desc, $useShort = true)
+	public function convertFoodDrinkDescription($desc, $foodType, $foodName, $useShort = true)
 	{
 		//Increase Max Magicka by 6048 for 35 minutes.
 		//Increase Max Health by 5395 and Max Magicka by 4936 for 1 hour.
@@ -1342,7 +1342,10 @@ class EsoBuildDataViewer
 			$buffData[] = $buffValue . " " . $buffName;
 		}
 		
-		$newDesc = implode(", ", $buffData);
+		$newDesc = "";
+		if ($foodType != null && $foodType != "") $newDesc = ucwords($foodType) . ": ";
+		$newDesc .= implode(", ", $buffData);
+
 		return $newDesc;
 	}
 	
