@@ -871,8 +871,9 @@ class EsoBuildDataViewer
 	public function getCharSkillContentHtml1($skillName, &$skillData)
 	{
 		$output = "";
+		if ($skillData == null || !is_array($skillData)) return $output;
 	
-		foreach($skillData as $name => &$data)
+		foreach ($skillData as $name => &$data)
 		{
 			if ($name[0] != "_")
 			{
