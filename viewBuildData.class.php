@@ -1284,7 +1284,7 @@ class EsoBuildDataViewer
 		
 		if ($this->isBuffFoodOrDrink($buffName))
 		{
-			$foodDesc = $this->convertDescriptionToHtml($this->getCharStatField('LastFoodEatenDesc'));
+			$foodDesc = $this->convertFoodDrinkDescription($this->getCharStatField('LastFoodEatenDesc'));
 			if ($foodDesc != "") $safeName = $foodDesc;
 		}
 		
@@ -1294,6 +1294,55 @@ class EsoBuildDataViewer
 		$output .= "</div>\n";
 		
 		return $output;
+	}
+	
+	
+	public function convertFoodDrinkDescription($desc, $useShort = true)
+	{
+		//Increase Max Magicka by 6048 for 35 minutes.
+		//Increase Max Health by 5395 and Max Magicka by 4936 for 1 hour.
+		//Increase Max Health by 3936, Max Magicka by 3617, and Max Stamina by 3617 for 2 hours.
+		//Increase Health Recovery by 660 for 35 minutes.
+		//Increase Health Recovery by 420 and Magicka and Stamina Recovery by 386 for 2 hours.
+		//Increase Max Health by 5000 and Stamina Recovery by 457 for 2 hours.
+		//Increase Max Health by 3724, Health Recovery by 351 and Stamina and Magicka Recovery by 319 for 2 hours.
+			// 3724 Max Health, 351 Health Recovery, 319 Stamina and Magicka Recovery
+			// 3724 Health, 351 HR, 319 SR and MR
+		
+		$newDesc = $this->convertDescriptionToText($this->getCharStatField('LastFoodEatenDesc'));
+		
+		$buffData = array();
+		$matches = array();
+		$result = preg_match_all("/([\w ]*?) by ([0-9]*)/", $newDesc, $matches);
+		if ($result == 0) return $newDesc;
+		
+		foreach ($matches[1] as $index => $buffName)
+		{
+			$buffValue = $matches[2][$index];
+	
+			$buffName = trim($buffName);
+			$buffName = str_replace("Increase ", "", $buffName);
+			
+			$buffName = preg_replace("/^and /", "", $buffName);
+			
+			if ($useShort)
+			{
+				$buffName = str_replace("Max ", "", $buffName);
+				
+				$nameMatches = array();
+				$nameResult = preg_match("/([\w]*) and ([\w]*) Recovery/i", $buffName, $nameMatches);
+				if ($nameResult === 1) $buffName = strtoupper($nameMatches[1][0]) . "R and " . strtoupper($nameMatches[2][0]) . "R";
+	
+				$nameMatches = array();
+				$nameResult = preg_match("/([\w*]) Recovery/i", $buffName, $nameMatches);
+				if ($nameResult === 1) $buffName = strtoupper($nameMatches[1][0]) . "R";
+			}
+				
+			$buffData[] = $buffValue . " " . $buffName;
+		}
+		
+		$newDesc = implode(", ", $buffData);
+		return $newDesc;
 	}
 	
 	
@@ -1893,7 +1942,7 @@ class EsoBuildDataViewer
 	}
 	
 	
-	public function getBuildLink($charId, $viewRaw = false)
+	public function getBuildLink($charId = -1, $viewRaw = false)
 	{
 		$link  = $this->baseUrl;
 		return $link;
