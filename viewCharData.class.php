@@ -456,7 +456,7 @@ EOT;
 		
 		while (($row = $result->fetch_assoc()))
 		{
-				$arrayData[$row['id']] = $row;
+			$arrayData[$row['id']] = $row;
 		}
 		
 		$this->accountCharacters = $arrayData;
@@ -470,10 +470,18 @@ EOT;
 		if ($this->viewRawData) $output .= "<input type='hidden' name='raw' value='' />\n";
 		$output .= "<select name='id' class='ecdAccountCharList' onchange='this.form.submit();' >\n";
 		
+		$sortedCharNames = array();
+		
 		foreach ($this->accountCharacters as $charId => $charData)
 		{
+			$sortedCharNames[$charData['name']] = $charId;
+		}
+		
+		ksort($sortedCharNames);
+		
+		foreach ($sortedCharNames as $charName => $charId)
+		{
 			$selected = "";
-			$charName = $charData['name'];
 			if ($charId == $this->characterData['id']) $selected = "selected";
 			
 			$output .= "<option value='$charId' $selected>$charName</option>";	
