@@ -152,12 +152,20 @@
     white-space: nowrap;
 }
 
+.ecdActionBar1, .ecdActionBar2 {
+	border: solid 2px rgba(0,0,0,0);
+    padding: 2px;
+}
+
+.ecdActionBar1 {
+	padding-left: 9px;
+}
+
 #ecdTitleBar {
 	text-align: center;
 }
 
 .ecdActionBar1 {
-	padding-bottom: 10px;
 }
 
 .ecdActionIcon {
