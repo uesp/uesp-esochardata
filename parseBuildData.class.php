@@ -630,6 +630,8 @@ class EsoBuildDataParser
 				return $this->saveCharacterChampionPoints($buildData, $name, $arrayData);
 			case "Crafting":
 				return $this->saveCharacterCrafting($buildData, $name, $arrayData);
+			case "Research":
+				return $this->saveCharacterResearch($buildData, $name, $arrayData);
 			case "Stats":
 			case "Power":
 				return $this->saveCharacterArrayStats($buildData, $name, $arrayData);
@@ -1060,6 +1062,20 @@ class EsoBuildDataParser
 				$result &= $this->saveCharacterStatData($buildData, $key, $value);
 			}
 		
+		}
+	
+		return $result;
+	}
+	
+	
+	public function saveCharacterResearch($buildData, $name, $arrayData)
+	{
+		$result = True;
+	
+		foreach ($arrayData as $styleName => $value)
+		{
+			$key = "Research:" . $styleName;
+			$result &= $this->saveCharacterStatData($buildData, $key, $value);
 		}
 	
 		return $result;

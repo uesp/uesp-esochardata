@@ -819,7 +819,7 @@ tr.eso_item_link {
 	font-size: 16px;
 	font-weight: normal;
 	color: WHITE;
-	display: inline-block;
+	display: inline;
 	margin-left: 10px;
 }
 
