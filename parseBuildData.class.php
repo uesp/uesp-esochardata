@@ -725,6 +725,11 @@ class EsoBuildDataParser
 		{
 			$isJunk = 1;
 		}
+		
+		if (strpos($extraData, 'Cons') !== false)
+		{
+			$consumable = 1;
+		}
 				
 		$matches = array();
 		$result = preg_match('/\|H(?P<color>[A-Za-z0-9]*)\:item\:(?P<itemId>[0-9]*)\:(?P<subtype>[0-9]*)\:(?P<level>[0-9]*)\:(?P<enchantId>[0-9]*)\:(?P<enchantSubtype>[0-9]*)\:(?P<enchantLevel>[0-9]*)\:(.*?)\:(?P<style>[0-9]*)\:(?P<crafted>[0-9]*)\:(?P<bound>[0-9]*)\:(?P<stolen>[0-9]*)\:(?P<charges>[0-9]*)\:(?P<potionData>[0-9]*)\|h(?P<name>[^|\^]*)(?P<nameCode>.*?)\|h/', $itemLink, $matches);
@@ -746,7 +751,10 @@ class EsoBuildDataParser
 				$weaponType = $itemData['weaponType'];
 				$armorType = $itemData['armorType'];
 				$craftType = $itemData['craftType'];
-				$consumable = $itemData['isConsumable'];
+				
+					//TODO: Consumable column in mined item data is currently wrong a lot of the time
+				//$consumable = $itemData['isConsumable'];
+				
 				$icon = $this->db->real_escape_string($itemData['icon']);
 			}
 		}
