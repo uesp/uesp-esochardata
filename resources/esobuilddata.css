@@ -681,6 +681,8 @@ tr.eso_item_link {
 }
 
 .ecdSkillData {
+	height: 550px;
+    overflow-y: auto;
 }
 
 .ecdSkillIconBox {
@@ -1130,4 +1132,24 @@ table.tablesorter thead tr .headerSortUp {
 
 #ecdAccountCharForm {
 	display: inline-block;
+}
+
+.ecdResearchTitle {
+	font-size: 18px;
+    font-weight: bold;
+    color: #C5C29E;
+    display: block;
+    padding-top: 10px;
+}
+
+.ecdResearchBlock {
+	font-size: 16px;
+    font-weight: normal;
+    color: WHITE;
+    display: block;
+    margin-left: 40px;
+}
+
+.ecdResearchItem {
+	display: block;
 }
