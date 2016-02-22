@@ -866,12 +866,25 @@ class EsoBuildDataViewer
 			$timeLeft   = intval($time) + intval($timeStamp) - time();
 			$formatDate = date('M j \a\t H:i:s', $finishTime);
 			
+			$days = floor($timeLeft / 3600 / 24);
+			$hours = floor($timeLeft / 3600) % 24;
+			$minutes = floor($timeLeft / 60) % 60;
+			$seconds = $timeLeft % 60;
+			$timeFmt = "";
+				
+			if ($days > 1)
+				$timeFmt = sprintf("%d days %02d:%02d:%02d", $days, $hours, $minutes, $seconds);
+			else if ($days > 0)
+				$timeFmt = sprintf("%d day %02d:%02d:%02d", $days, $hours, minutes, $seconds);
+			else
+				$timeFmt = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
+			
 			$output .= "<div class='ecdResearchItem'>\n";
 			
 			if ($timeLeft <= 0)
 				$output .= "$trait $item research is finished!";
 			else
-				$output .= "$trait $item finishes on $formatDate";
+				$output .= "$trait $item finishes in $timeFmt";
 			
 			$output .= "</div>\n";
 		}
