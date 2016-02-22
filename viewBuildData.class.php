@@ -814,15 +814,84 @@ class EsoBuildDataViewer
 			}	
 		}
 		
-		$output .= $this->getCharSkillCraftingContentHtml();
+		$output .= $this->getCharSkillMotifContentHtml();
+		$output .= $this->getCharSkillResearchContentHtml();
 	
 		return $output;
 	}
 	
 	
-	public function getCharSkillCraftingContentHtml()
+	public function getCharSkillResearchContentHtml()
 	{
-		$output = "<div id='ecdSkill_Motifs' class='ecdSkillData' style='display: none;'>\n";
+		$output  = "<div id='ecdSkill_Research' class='ecdSkillData' style='display: none;'>\n";
+		$output .= "<div id='ecdSkillContentTitle'>Crafting Research</div>";
+		
+		$output .= $this->getResearchContentHtml("Blacksmithing");
+		$output .= $this->getResearchContentHtml("Clothier");
+		$output .= $this->getResearchContentHtml("Woodworking");
+		
+		$output .= "</div>\n";
+		return $output;
+	}
+	
+	
+	public function getResearchContentHtml($craftType)
+	{
+		$output  = "<div class='ecdResearchTitle'>$craftType:</div>";
+		$output .= "<div class='ecdResearchBlock'>";
+		
+		$prefix = "Research:$craftType";
+		$openSlots = $this->getCharStatField("$prefix:Open");
+		$timeStamp = $this->getCharStatField("Research:Timestamp");
+		
+		$researchTimes = array();
+		$researchTraits = array();
+		$researchItems = array();
+		
+		for ($i = 1; $i <= 3; ++$i)
+		{
+			$researchTraits[] = $this->getCharStatField("$prefix:Trait$i");
+			$researchTimes[]  = $this->getCharStatField("$prefix:Time$i");
+			$researchItems[]  = $this->getCharStatField("$prefix:Item$i");
+		}
+		
+		foreach ($researchTimes as $i => $time)
+		{
+			$trait = $researchTraits[$i];
+			$item  = $researchItems[$i];
+			
+			if ($time == "" || $trait == "" || $item == "") continue;
+			
+			$finishTime = intval($time) + intval($timeStamp);
+			$timeLeft   = intval($time) + intval($timeStamp) - time();
+			$formatDate = date('M j \a\t H:i:s', $finishTime);
+			
+			$output .= "<div class='ecdResearchItem'>\n";
+			
+			if ($timeLeft <= 0)
+				$output .= "$trait $item research is finished!";
+			else
+				$output .= "$trait $item finishes on $formatDate";
+			
+			$output .= "</div>\n";
+		}
+		
+		if ($openSlots > 0)
+		{
+			$output .= "<div class='ecdResearchItem'>\n";
+			$output .= "$openSlots research slots available";
+			$output .= "</div>\n";
+		}
+		
+		$output .= "</div>\n";
+		return $output;
+	}
+	
+	
+	public function getCharSkillMotifContentHtml()
+	{
+		$output  = "<div id='ecdSkill_Motifs' class='ecdSkillData' style='display: none;'>\n";
+		$output .= "<div id='ecdSkillContentTitle'>Crafting Motifs</div>";
 		
 		foreach ($this->characterData['stats'] as $key => $value)
 		{
@@ -1147,6 +1216,7 @@ class EsoBuildDataViewer
 		if ($skillName == "CRAFT") 
 		{
 			$output .= "<div class='ecdSkillTreeName2'>Motifs</div>\n";
+			$output .= "<div class='ecdSkillTreeName2'>Research</div>\n";
 		}
 		
 		$output .= "</div>\n";
