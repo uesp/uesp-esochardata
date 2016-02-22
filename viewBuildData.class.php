@@ -422,6 +422,7 @@ class EsoBuildDataViewer
 			if ($row['itemLink'] != "")
 			{
 				$row['qnt'] = 1;
+				$row['junk'] = 0;
 				$row['invType'] = "AccountEquipSlot";
 				$row['nameLC'] = strtolower($row['name']);
 				$row['localId'] = $this->nextLocalItemID;
