@@ -18,6 +18,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		
 		$this->hasCharacterInventory = true;
 		$this->hasCharacterBank      = true;
+		$this->hasResearchOutput     = true;
 	}
 	
 	
