@@ -155,10 +155,10 @@
 .ecdActionBar1, .ecdActionBar2 {
 	border: solid 2px rgba(0,0,0,0);
     padding: 2px;
+    text-align: left;
 }
 
 .ecdActionBar1 {
-	padding-left: 9px;
 }
 
 #ecdTitleBar {
@@ -175,6 +175,7 @@
 	background-image: url(eso_ability_frame.png);
 	background-size: 100% 100%;
 	vertical-align: middle;
+	text-align: center;
 }
 
 .ecdActionIconImage {
@@ -190,6 +191,8 @@
 	display: inline-block;
 	vertical-align: middle;
 	padding-right: 10px;
+	width: 50px;
+    text-align: right;
 }
 
 .ecdTooltip {
@@ -993,6 +996,7 @@ thead.ecdFixedHeader tr {
 
 .ecdItemTable {
 	border-collapse: collapse;
+	background: none;
 }
 
 .ecdItemQuality0 { color: #888 !important; }

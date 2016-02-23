@@ -133,7 +133,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		
 		if ($stolen > 0)
 		{
-			$stolenIcon = "<img src='resources/stolenitem.png' class='ecdStolenItemIcon' /><div style='display:none;'>1</div>";
+			$stolenIcon = "<img src='{$this->baseResourceUrl}resources/stolenitem.png' class='ecdStolenItemIcon' /><div style='display:none;'>1</div>";
 		}
 			
 		$output .= "<tr class='eso_item_link' itemlink='$itemLink' itemid='$itemId' inttype='$itemIntSubType' intlevel='$itemIntLevel' localid='$localId'>";
@@ -156,16 +156,16 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 					<input type="text" size="16" maxsize="32" value="" placeholder="Filter Text" class="ecdItemFilterTextInput" /> 
 				</div>
 				<div class='ecdItemFilterTextLabel'>ALL</div>
-				<div class='ecdItemFilterContainer ecdItemFilterAll selected' style="background-image: url('resources/allfilter.png');" onclick="OnItemFilter('All');" itemfilter="all" /></div> 
-				<div class='ecdItemFilterContainer ecdItemFilterWeapon' style="background-image: url('resources/weaponfilter.png');" onclick="OnItemFilter('Weapon');"  itemfilter="weapon" /></div>
-				<div class='ecdItemFilterContainer ecdItemFilterArmor' style="background-image: url('resources/armorfilter.png');" onclick="OnItemFilter('Armor');"  itemfilter="armor" /></div>
-				<div class='ecdItemFilterContainer ecdItemFilterConsumable' style="background-image: url('resources/consumablefilter.png');" onclick="OnItemFilter('Consumable');"  itemfilter="consumable" /></div>
-				<div class='ecdItemFilterContainer ecdItemFilterMaterial' style="background-image: url('resources/materialfilter.png');" onclick="OnItemFilter('Material');"  itemfilter="material" /></div>
-				<div class='ecdItemFilterContainer ecdItemFilterMisc' style="background-image: url('resources/miscfilter.png');" onclick="OnItemFilter('Misc');"  itemfilter="misc" /></div>
-				<div class='ecdItemFilterContainer ecdItemFilterQuest' style="background-image: url('resources/questfilter.png');" onclick="OnItemFilter('Quest');"  itemfilter="quest" /></div>
-				<div class='ecdItemFilterContainer ecdItemFilterJunk' style="background-image: url('resources/junkfilter.png');" onclick="OnItemFilter('Junk');"  itemfilter="junk" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterAll selected' style="background-image: url('{$this->baseResourceUrl}resources/allfilter.png');" onclick="OnItemFilter('All');" itemfilter="all" /></div> 
+				<div class='ecdItemFilterContainer ecdItemFilterWeapon' style="background-image: url('{$this->baseResourceUrl}resources/weaponfilter.png');" onclick="OnItemFilter('Weapon');"  itemfilter="weapon" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterArmor' style="background-image: url('{$this->baseResourceUrl}resources/armorfilter.png');" onclick="OnItemFilter('Armor');"  itemfilter="armor" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterConsumable' style="background-image: url('{$this->baseResourceUrl}resources/consumablefilter.png');" onclick="OnItemFilter('Consumable');"  itemfilter="consumable" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterMaterial' style="background-image: url('{$this->baseResourceUrl}resources/materialfilter.png');" onclick="OnItemFilter('Material');"  itemfilter="material" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterMisc' style="background-image: url('{$this->baseResourceUrl}resources/miscfilter.png');" onclick="OnItemFilter('Misc');"  itemfilter="misc" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterQuest' style="background-image: url('{$this->baseResourceUrl}resources/questfilter.png');" onclick="OnItemFilter('Quest');"  itemfilter="quest" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterJunk' style="background-image: url('{$this->baseResourceUrl}resources/junkfilter.png');" onclick="OnItemFilter('Junk');"  itemfilter="junk" /></div>
 			</div>
-			<img class='ecdImageFlip' src='resources/eso_equip_bar.png' width='49%' /><img class='3' src='resources/eso_equip_bar.png' width='49%' />
+			<img class='ecdImageFlip' src='{$this->baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{$this->baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 EOT;
 
 		return $output;
@@ -521,6 +521,18 @@ EOT;
 		}
 	
 		$output .= "</div>";
+		return $output;
+	}
+	
+	
+	public function getShortCharacterLinkHtml()
+	{
+		$output = "";
+		if ($this->characterId <= 0) return $output;
+	
+		$charLink = $this->ESO_SHORT_LINK_URL . "b/" . $this->characterId;
+		$output .= "<a href='$charLink' class='ecdShortCharLink'>Link to Character</a>";
+	
 		return $output;
 	}
 	
