@@ -978,6 +978,10 @@ class EsoBuildDataViewer
 			{
 				$styleData = 'All Known';
 			}
+			elseif ($rawData == '0')
+			{
+				$styleData = 'None Known';
+			}
 			else
 			{
 				continue;
