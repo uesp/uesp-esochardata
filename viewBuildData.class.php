@@ -11,6 +11,7 @@ class EsoBuildDataViewer
 	
 	public $hasCharacterInventory = false;
 	public $hasCharacterBank      = false;
+	public $hasResearchOutput     = false;
 	public $combineInventoryItems = true;
 	public $combineBankItems      = true;
 	
@@ -817,7 +818,11 @@ class EsoBuildDataViewer
 		}
 		
 		$output .= $this->getCharSkillMotifContentHtml();
-		$output .= $this->getCharSkillResearchContentHtml();
+		
+		if ($this->hasResearchOutput)
+		{
+			$output .= $this->getCharSkillResearchContentHtml();
+		}
 	
 		return $output;
 	}
