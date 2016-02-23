@@ -203,7 +203,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		if ($result->num_rows == 0) return $this->reportError("Failed to load account record '$account'!");;
 		
 		$result->data_seek(0);
-		$this->accountData = $result->fetch_assoc();
+		$this->accountData = array_merge($this->accountData, $result->fetch_assoc());
 		
 		//$this->log("Loaded account '$account' with password hash '".$this->accountData['passwordHash']."'!");
 		return true;
@@ -382,23 +382,36 @@ class EsoCharDataParser extends EsoBuildDataParser
 	
 	public function findAccountFromRawData()
 	{
+		$this->accountData['passwords'] = array();
+		$this->accountData['oldPasswords'] = array();
+		$this->accountData['wikiUserNames'] = array();
+		
+		$goodAccount = "";
+		
 		foreach ($this->parsedBuildData as $key => &$charData)
 		{
 			if ($charData["IsBank"] == 0)
 			{
 				$account = $charData['UniqueAccountName'];
-				if ($account != null && $account != "") return $account;
+				if ($account != null && $account != "") $goodAccount = $account;
+				
+				$password = $charData['Password'];
+				if ($password != null && $password != "") $this->accountData['passwords'][] = $password;
+				
+				$password = $charData['OldPassword'];
+				if ($password != null && $password != "") $this->accountData['oldPasswords'][] = $password;
+				
+				$name = $charData['WikiUser'];
+				if ($name != null && $name != "") $this->accountData['wikiUserNames'][] = $name;
 			}
 		}
 		
-		return "";
+		return $goodAccount;
 	}
 	
 	
 	public function canUpdateAccountData()
 	{
-		$passwords = array();
-		
 		$passwordHash = $this->accountData['passwordHash'];
 		
 		if ($passwordHash == null || $passwordHash == "0") 
@@ -406,27 +419,25 @@ class EsoCharDataParser extends EsoBuildDataParser
 			$this->log("Access Granted...no password on account!");
 			return true;
 		}
-				
-		foreach ($this->parsedBuildData as $key => &$charData)
+		
+		foreach ($this->accountData['passwords'] as $password)
 		{
-			if ($charData["IsBank"] == 0)
+			$this->log("Checking password '$password'!");
+			
+			if (crypt($password, $passwordHash) == $passwordHash) 
 			{
-				$password = $charData['Password'];
-				if ($password != null && $password != "") $passwords[] = $password;
+				$this->log("Access Granted...password match!");
+				return true;
 			}
 		}
 		
-		if (count($passwords) == 0) 
+		foreach ($this->accountData['oldPasswords'] as $password)
 		{
-			$this->log("Access Denied...no passwords found in uploaded data!");
-			return false;
-		}
-		
-		foreach ($passwords as $password)
-		{
-			if (crypt($password, $passwordHash) == $passwordHash) 
+			$this->log("Checking old password '$password'!");
+			
+			if (crypt($password, $passwordHash) == $passwordHash)
 			{
-				$this->log("Access Granted...passwords match!");
+				$this->log("Access Granted...old password match!");
 				return true;
 			}
 		}
@@ -596,5 +607,6 @@ class EsoCharDataParser extends EsoBuildDataParser
 	
 	
 };
+
 
 
