@@ -1749,6 +1749,7 @@ class EsoBuildDataViewer
 		if ($colName == 'invType') return false;
 		if ($colName == 'localId') return false;
 		if ($colName == 'nameLC') return false;
+		if ($colName == 'password') return false;
 		
 		return true;
 	}
