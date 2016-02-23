@@ -423,8 +423,9 @@ EOT;
 			{
 				$output .= "<form method='post' action=''>";
 				$output .= "<input type='hidden' name='id' value ='{$buildData['id']}'>";
-				$output .= "<input type='hidden' name='action' value ='delete'>";
-				$output .= "<input type='submit' value ='Delete Character'>";
+				$output .= "<input type='hidden' name='account' value ='{$buildData['uniqueAccountName']}'>";
+				$output .= "<button type='submit' name='action' value='delete'>Delete Character</button> ";
+				$output .= "<button type='submit' name='action' value='changePassword'>Change Password</button> ";
 				$output .= "</form>\n";
 			}
 				

@@ -424,7 +424,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		{
 			$this->log("Checking password '$password'!");
 			
-			if (crypt($password, $passwordHash) == $passwordHash) 
+			if (crypt($password, $passwordHash) == $passwordHash)
 			{
 				$this->log("Access Granted...password match!");
 				return true;

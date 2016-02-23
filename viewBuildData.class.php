@@ -46,6 +46,8 @@ class EsoBuildDataViewer
 	public $characterData = array();
 	public $skillData = array();
 	public $buildData = array();
+	public $accountData = array();
+	public $accountCharacters = array();
 	
 	public $characterId = 0;
 	public $viewRawData = false;
@@ -72,6 +74,11 @@ class EsoBuildDataViewer
 	public $accountAP = 0;
 	public $accountUsedSpace = 0;
 	public $accountTotalSpace = 0;
+	
+	public $formOldPassword = "";
+	public $formNewPassword1 = "";
+	public $formNewPassword2 = "";
+	public $formAccount = "";
 	
 	
 	public function __construct ()
@@ -180,6 +187,17 @@ class EsoBuildDataViewer
 	}
 	
 	
+	public function isWikiUserAdmin()
+	{
+		if ($this->wikiContext == null) return false;
+	
+		$user = $this->wikiContext->getUser();
+		if ($user == null) return false;
+	
+		return in_array("sysop", $user->getEffectiveGroups());
+	}
+	
+	
 	public function canWikiUserEdit()
 	{
 		if ($this->wikiContext == null) return false;
@@ -245,6 +263,10 @@ class EsoBuildDataViewer
 		if (array_key_exists('action', $this->inputParams)) $this->action = $this->inputParams['action'];
 		if (array_key_exists('confirm', $this->inputParams)) $this->confirm = $this->inputParams['confirm'];
 		if (array_key_exists('nonconfirm', $this->inputParams)) $this->nonConfirm = $this->inputParams['nonconfirm'];
+		if (array_key_exists('oldPassword', $this->inputParams)) $this->formOldPassword = $this->inputParams['oldPassword'];
+		if (array_key_exists('password1', $this->inputParams)) $this->formNewPassword1 = $this->inputParams['password1'];
+		if (array_key_exists('password2', $this->inputParams)) $this->formNewPassword2 = $this->inputParams['password2'];
+		if (array_key_exists('account', $this->inputParams)) $this->formAccount = $this->inputParams['account'];
 	
 		return true;
 	}
@@ -1955,7 +1977,6 @@ class EsoBuildDataViewer
 	public function doBuildDelete()
 	{
 		if ($this->characterId <= 0) return $this->reportError("Missing valid character ID!");
-		
 		if (!$this->loadCharacter()) return false;
 		if (!$this->canWikiUserDelete()) return $this->reportError("Permission denied!");
 		
@@ -1976,7 +1997,7 @@ class EsoBuildDataViewer
 	
 	public function getDeleteFailureOutput($buildName, $charName, $id)
 	{
-		return "Failed to delete character build '$buildName' (id #$id)!";
+		return "Failed to delete build '$buildName' (id #$id)!";
 	}
 	
 	
@@ -1985,16 +2006,160 @@ class EsoBuildDataViewer
 		$output = "";
 		$output .= $this->getBreadcrumbTrailHtml();
 		$output  .= "<p />\n";
-		$output  .= "Successfully deleted character build '$buildName' (id #$id)! <br/>";
+		$output  .= "Successfully deleted build '$buildName' (id #$id)! <br/>";
 		
 		return $output;
-	}	
+	}
+
+	
+	public function createChangePasswordOutput()
+	{
+		if ($this->characterId <= 0) return $this->reportError("Missing valid character ID 1!");
+		if ($this->formAccount == "")  return $this->reportError("Missing valid account ID!");
+		if ($this->nonConfirm != '') return $this->createBuildTableHtml();
+		if ($this->confirm != '') return $this->doBuildChangePassword();
+		
+		if (!$this->loadCharacter()) return false;
+		if (!$this->canWikiUserEdit()) return $this->reportError("Permission denied!");
+		
+		$buildName = $this->getCharField('buildName');
+		$charName = $this->getCharField('name');
+		$id = $this->characterId;
+		
+		$this->outputHtml .= $this->getChangePasswordConfirmOutput($buildName, $charName, $id);
+		
+		return true;
+	}
+	
+	
+	public function getChangePasswordConfirmOutput($buildName, $charName, $id)
+	{
+		$account = $this->formAccount;
+		
+		$output = <<<EOT
+		<form method='post' action=''>
+			Changing password for character <b>'$charName'</b> (id #$id) and all other characters on the same account.
+			<p />
+			Enter the desired new password below. A blank password means "no password".
+			Remember to change your character data password in the game using "/uespchardata password [newpassword]" 
+			to match the changed password or you will not be able to upload new character data.
+			<p />
+EOT;
+		
+		if (!$this->isWikiUserAdmin())
+		{
+			$output .= "<label>Current Password:</label> <input type='password' name='oldPassword' value='' size='24' maxsize='64'><br />";
+		}
+			
+		$output .= <<<EOT
+			<label>New Password:</label> <input type='password' name='password1' value='' size='24' maxsize='64'><br />
+			<label>Confirm Password:</label> <input type='password' name='password2' value='' size='24' maxsize='64'>
+			<p />
+			<button type='submit' name='confirm' value='1'>Change Password</button> &nbsp; &nbsp;
+			<button type='submit' name='nonconfirm' value='1'>Cancel</button>
+			<input type='hidden' name='id' value='$id'>
+			<input type='hidden' name='account' value='$account'>
+			<input type='hidden' name='action' value='changePassword'>
+		</form>
+EOT;
+		
+		return $output;
+	}
+	
+	
+	public function loadAccount($account)
+	{
+		$safeAccount = $this->db->real_escape_string($account);
+			
+		$query  = "SELECT * FROM account WHERE account=\"$safeAccount\" LIMIT 1;";
+		$this->lastQuery = $query;
+		$result = $this->db->query($query);
+		if ($result === False) return $this->reportError("Failed to load account record for '$account'!");
+		if ($result->num_rows == 0) return $this->reportError("Failed to load account record '$account'!");;
+	
+		$result->data_seek(0);
+		$this->accountData = array_merge($this->accountData, $result->fetch_assoc());
+		return true;
+	}
+	
+	
+	public function doBuildChangePassword()
+	{
+		if ($this->characterId <= 0) return $this->reportError("Missing valid character ID 4!");
+		if ($this->formAccount == "")  return $this->reportError("Missing valid account ID!");
+		
+		if (!$this->initDatabaseWrite()) return false;
+		
+		if (!$this->loadCharacter()) return false;
+		if (!$this->loadAccount($this->formAccount)) return false;
+		if (!$this->canWikiUserDelete()) return $this->reportError("Permission denied!");
+			
+		$buildName = $this->getCharField('buildName');
+		$charName = $this->getCharField('name');
+		
+		if ($this->formNewPassword1 != $this->formNewPassword2)
+		{
+			$this->outputHtml .= "<div class='ecdFormSubmitError'>New passwords do not match!</div>";
+			$this->outputHtml .= $this->getChangePasswordConfirmOutput($buildName, $charName, $this->characterId);
+			return true;
+		}
+		
+		if (!$this->isWikiUserAdmin())
+		{
+			if (!$this->checkAccountPassword($this->formOldPassword))
+			{
+				$this->outputHtml .= "<div class='ecdFormSubmitError'>Permission Denied!</div>";
+				$this->outputHtml .= $this->getChangePasswordConfirmOutput($buildName, $charName, $this->characterId);
+				return false;
+			}
+		}
+		
+		if (!$this->changePassword($this->formNewPassword1))
+		{
+			$this->reportError("Failed to change password for account with character '$charName' (id #$id)!");
+			return false;
+		}
+		
+		$this->outputHtml .= $this->getBreadcrumbTrailHtml();
+		$this->outputHtml .= "<p />\n";
+		$this->outputHtml .= "Successfully changed the password for account with character '$charName' (id #$id)! <br/>";
+		
+		return true;
+	}
+	
+	
+	public function checkAccountPassword($password)
+	{
+		$passwordHash = $this->accountData['passwordHash'];
+		if ($passwordHash == null || $passwordHash == '0') return true;
+		
+		return (crypt($password, $passwordHash) == $passwordHash);
+	}
+	
+	
+	public function changePassword($newPassword)
+	{
+		$salt = uniqid('', true);
+		$passwordHash = "0";
+		if ($newPassword == null) $newPassword = "";
+		if ($newPassword != "")	$passwordHash = crypt($newPassword, '$5$'.$salt);
+		
+		$account = $this->accountData['account'];
+		$this->accountData['passwordHash'] = $passwordHash;
+		$this->accountData['salt'] = $salt;
+		
+		$query = "UPDATE account SET passwordHash=\"$passwordHash\", salt=\"$salt\" WHERE account=\"$account\";";
+		$this->lastQuery = $query;
+		$result = $this->db->query($query);
+		if ($result == 0) return $this->reportError("Failed to save account data!");
+		
+		return true;
+	}
 	
 	
 	public function createDeleteOutput()
 	{
 		if ($this->characterId <= 0) return $this->reportError("Missing valid character ID!");
-		
 		if ($this->nonConfirm != '') return $this->createBuildTableHtml();
 		if ($this->confirm != '') return $this->doBuildDelete();
 		
@@ -2171,9 +2336,11 @@ class EsoBuildDataViewer
 		
 		if ($this->action == 'delete')
 			$this->createDeleteOutput();
-		elseif ($this->characterId > 0)
+		else if ($this->action == 'changePassword')
+			$this->createChangePasswordOutput();
+		else if ($this->characterId > 0)
 			$this->createCharacterOutput();
-		elseif ($this->useBuildTable)
+		else if ($this->useBuildTable)
 			$this->createBuildTableHtml();
 		else
 			$this->createBuildListHtml();

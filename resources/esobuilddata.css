@@ -1168,3 +1168,10 @@ table.tablesorter thead tr .headerSortUp {
     font-weight: bold;
     color: gray;
 }
+
+.ecdFormSubmitError {
+	background-color: #ff9999;
+	font-weight: bold;
+	display: inline-block;
+	padding: 4px;
+}
