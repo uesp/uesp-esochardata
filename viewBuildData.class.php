@@ -1475,7 +1475,7 @@ class EsoBuildDataViewer
 				if ($nameResult === 1) $buffName = strtoupper($nameMatches[1][0]) . "R and " . strtoupper($nameMatches[2][0]) . "R";
 	
 				$nameMatches = array();
-				$nameResult = preg_match("/([\w*]) Recovery/i", $buffName, $nameMatches);
+				$nameResult = preg_match("/([\w]*) Recovery/i", $buffName, $nameMatches);
 				if ($nameResult === 1) $buffName = strtoupper($nameMatches[1][0]) . "R";
 			}
 				
