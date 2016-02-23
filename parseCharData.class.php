@@ -7,7 +7,7 @@ require_once("/home/uesp/secrets/esochardata.secrets");
 
 class EsoCharDataParser extends EsoBuildDataParser 
 {
-	
+		
 	public function __construct ()
 	{
 		parent::__construct();
@@ -86,7 +86,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 						craftType TINYINT NOT NULL,
 						stolen TINYINT NOT NULL,
 						style TINYINT NOT NULL,
-						consumable TINYTINT NOT NULL,
+						consumable TINYINT NOT NULL,
 						junk TINYINT NOT NULL,
 						PRIMARY KEY (id),
 						INDEX index_name(name(32)),
@@ -98,6 +98,115 @@ class EsoCharDataParser extends EsoBuildDataParser
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		if ($result === FALSE) return $this->reportError("Failed to create inventory table!");
+		
+		$query = "CREATE TABLE IF NOT EXISTS account (
+						id INTEGER NOT NULL AUTO_INCREMENT,
+						account TINYTEXT NOT NULL,
+						passwordHash CHAR(64) NOT NULL,
+						salt CHAR(16) NOT NULL,
+						wikiUserName TINYTEXT NOT NULL,
+						PRIMARY KEY (id),
+						INDEX index_account(account(48))
+					);";
+		
+		$this->lastQuery = $query;
+		$result = $this->db->query($query);
+		if ($result === FALSE) return $this->reportError("Failed to create account table!");
+
+		return true;
+	}
+	
+	
+	public function saveAccount()
+	{
+		$id = $this->accountData['id'];
+		if ($id == null || $id <= 0) return $this->createNewAccount();
+		
+		$account = $this->getSafeFieldStr($this->accountData, 'account');
+		$wikiUserName = $this->getSafeFieldStr($this->accountData, 'wikiUserName');
+		$salt = $this->getSafeFieldStr($this->accountData, 'salt');
+		$passwordHash = $this->getSafeFieldStr($this->accountData, 'passwordHash');
+		
+		$query  = "UPDATE account SET passwordHash=\"$passwordHash\", salt=\"$salt\", wikiUserName=\"$wikiUserName\" ";
+		$query .= "WHERE account=\"$account\";";
+		$this->lastQuery = $query;
+		$result = $this->db->query($query);
+		if ($result === False) return $this->reportError("Failed to update existing account record!");
+		
+		return true;
+	}
+	
+	
+	public function updateAccountData($newCharData)
+	{
+		$wikiUserName = $this->getSafeFieldStr($newCharData, 'WikiUser');
+		$this->accountData['wikiUserName'] = $wikiUserName;
+		if ($this->uniqueAccountName != "") $this->accountData['account'] = $this->uniqueAccountName;
+
+		return $this->updateAccountPassword($newCharData['Password']);
+	}
+	
+	
+	public function updateAccountPassword($newPassword)
+	{
+		$salt = $this->accountData['salt'];
+		$newSalt = uniqid('', true);
+		$passwordHash = "0";
+		if ($newPassword == null) $newPassword = "";
+		if ($newPassword != "")	$passwordHash = crypt($newPassword, '$5$'.$salt);
+		
+			/* Don't update if nothing has changed */
+		if ($this->accountData['passwordHash'] == $passwordHash) return true;
+		
+		$passwordHash = "0";
+		if ($newPassword != "")	$passwordHash = crypt($newPassword, '$5$'.$newSalt);
+		
+		$this->accountData['salt'] = $newSalt;
+		$this->accountData['passwordHash'] = $passwordHash;
+		
+		return true;
+	}
+	
+	
+	public function createNewAccount($rawCharData)
+	{
+		$account = $this->getSafeFieldStr($this->accountData, 'account');
+		$wikiUserName = $this->getSafeFieldStr($this->accountData, 'wikiUserName'); 
+		$salt = uniqid('', true);
+		$password = $rawCharData['Password'];
+		if ($password == null) $password = "";
+		$passwordHash = "0";
+		
+		if ($password != "")
+		{
+			$passwordHash = crypt($password, '$5$'.$salt);
+		}
+		
+		$query  = "INSERT INTO account(account, passwordHash, salt, wikiUserName)";
+		$query .= "VALUES(\"$account\", \"$passwordHash\", \"$salt\", \"$wikiUserName\");";
+		$this->lastQuery = $query;
+		$result = $this->db->query($query);
+		if ($result === False) return $this->reportError("Failed to create new account record!");
+		
+		return true;
+	}
+	
+	
+	public function loadAccount($account)
+	{
+		$safeAccount = $this->db->real_escape_string($account);
+			
+		$query  = "SELECT * FROM account WHERE account=\"$safeAccount\" LIMIT 1;";
+		$this->lastQuery = $query;
+		$result = $this->db->query($query);
+		if ($result === False) return $this->reportError("Failed to load account record for '$account'!");
+		if ($result->num_rows == 0) return $this->reportError("Failed to load account record '$account'!");;
+		
+		$result->data_seek(0);
+		$this->accountData = $result->fetch_assoc();
+		
+		//$this->log("Loaded account '$account' with password hash '".$this->accountData['passwordHash']."'!");
+		return true;
 	}
 	
 	
@@ -223,6 +332,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 				$result &= $this->saveCharacterStatData($newCharData, $key, $value);
 		}
 		
+		$result &= $this->updateAccountData($newCharData);
 		return $result;
 	}
 	
@@ -269,9 +379,78 @@ class EsoCharDataParser extends EsoBuildDataParser
 		return true;
 	}
 	
+	
+	public function findAccountFromRawData()
+	{
+		foreach ($this->parsedBuildData as $key => &$charData)
+		{
+			if ($charData["IsBank"] == 0)
+			{
+				$account = $charData['UniqueAccountName'];
+				if ($account != null && $account != "") return $account;
+			}
+		}
+		
+		return "";
+	}
+	
+	
+	public function canUpdateAccountData()
+	{
+		$passwords = array();
+		
+		$passwordHash = $this->accountData['passwordHash'];
+		
+		if ($passwordHash == null || $passwordHash == "0") 
+		{
+			$this->log("Access Granted...no password on account!");
+			return true;
+		}
+				
+		foreach ($this->parsedBuildData as $key => &$charData)
+		{
+			if ($charData["IsBank"] == 0)
+			{
+				$password = $charData['Password'];
+				if ($password != null && $password != "") $passwords[] = $password;
+			}
+		}
+		
+		if (count($passwords) == 0) 
+		{
+			$this->log("Access Denied...no passwords found in uploaded data!");
+			return false;
+		}
+		
+		foreach ($passwords as $password)
+		{
+			if (crypt($password, $passwordHash) == $passwordHash) 
+			{
+				$this->log("Access Granted...passwords match!");
+				return true;
+			}
+		}
+		
+		$this->log("Access Denied...no password found to match!");
+		return false;
+	}
+	
+	
 	public function saveAllCharData()
 	{
 		$result = True;
+		
+		$account = $this->findAccountFromRawData();
+		$this->loadAccount($account);
+		
+		if (!$this->canUpdateAccountData())
+		{
+			$this->formResponseErrorMsg = "Access Denied!";
+			header('X-PHP-Response-Code: 500', true, 500);
+			header('X-Uesp-Error: ' . $this->formResponseErrorMsg, false);
+			$this->log("Access denied for character data upload on account '$account'!");
+			return false;
+		}
 	
 		foreach ($this->parsedBuildData as $key => &$charData)
 		{
@@ -288,6 +467,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		
 		$result &= $this->saveCharacterCurrency();
 		$result &= $this->saveCharacterInventorySpace();
+		$result &= $this->saveAccount();
 	
 		return $result;
 	}
@@ -384,8 +564,8 @@ class EsoCharDataParser extends EsoBuildDataParser
 	
 	public function doFormParse()
 	{
+		$this->initDatabaseWrite();
 		$this->log("Started parsing " . $_SERVER['CONTENT_LENGTH'] . " bytes of character data from " . $_SERVER["REMOTE_ADDR"] . " at " . date("Y-m-d H:i:s"));
-		
 		$this->writeHeaders();
 		
 		if (!$this->parseFormInput()) return false;
@@ -397,6 +577,23 @@ class EsoCharDataParser extends EsoBuildDataParser
 		
 		return True;
 	}
+	
+	
+	public function doParse($buildData)
+	{
+		$this->initDatabaseWrite();
+	
+		if (!$this->parseBuildDataRoot($buildData)) return false;
+		if (!$this->savePhpBuildData()) return false;
+		if (!$this->saveAllCharData()) return false;
+		
+		$this->endTime = microtime(True);
+		$deltaTime = ($this->endTime - $this->startTime) * 1000;
+		$this->log("Total Parsing Time = $deltaTime ms");
+	
+		return true;
+	}
+	
 	
 };
 

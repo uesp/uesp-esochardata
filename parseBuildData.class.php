@@ -38,6 +38,7 @@ class EsoBuildDataParser
 	public $itemDataDB = array();
 	
 	public $accountCharacters = array();
+	public $accountData = array();
 	
 	public $startTime;
 	public $endTime;
@@ -46,7 +47,6 @@ class EsoBuildDataParser
 	public function __construct ()
 	{
 		$this->Lua = new Lua();
-		$this->initDatabaseWrite();
 		$this->startTime = microtime(True);
 	}
 	
@@ -291,6 +291,36 @@ class EsoBuildDataParser
 	}
 	
 	
+	public function saveAccount()
+	{
+		return true;
+	}
+	
+	
+	public function updateAccountData($newCharData)
+	{
+		return true;
+	}
+	
+	
+	public function updateAccountPassword($newPassword)
+	{
+		return true;
+	}
+	
+	
+	public function loadAccount($account)
+	{
+		return true;
+	}
+	
+	
+	public function createNewAccount($rawCharData)
+	{
+		return true;
+	}
+	
+	
 	public function createBuildDataLogFilename()
 	{
 		$index = 0;
@@ -493,6 +523,7 @@ class EsoBuildDataParser
 	
 	public function getSafeFieldStr(&$arrayData, $field)
 	{
+		if ($arrayData == null) return "";
 		if (!array_key_exists($field, $arrayData)) return '';
 		return $this->db->real_escape_string($arrayData[$field]);
 	}
@@ -1138,6 +1169,7 @@ class EsoBuildDataParser
 	
 	public function doFormParse()
 	{
+		$this->initDatabaseWrite();
 		$this->log("Started parsing " . $_SERVER['CONTENT_LENGTH'] . " bytes of build data from " . $_SERVER["REMOTE_ADDR"] . " at " . date("Y-m-d H:i:s"));
 		
 		$this->writeHeaders();
@@ -1155,9 +1187,15 @@ class EsoBuildDataParser
 	
 	public function doParse($buildData)
 	{
+		$this->initDatabaseWrite();
+		
 		if (!$this->parseBuildDataRoot($buildData)) return false;
 		if (!$this->savePhpBuildData()) return false;
 		if (!$this->saveAllNewCharacters()) return false;
+		
+		$this->endTime = microtime(True);
+		$deltaTime = ($this->endTime - $this->startTime) * 1000;
+		$this->log("Total Parsing Time = $deltaTime ms");
 	
 		return true;
 	}
