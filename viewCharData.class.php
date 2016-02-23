@@ -1,7 +1,7 @@
 <?php 
 
 
-require("viewBuildData.class.php");
+require_once("viewBuildData.class.php");
 require_once("/home/uesp/secrets/esochardata.secrets");
 
 
