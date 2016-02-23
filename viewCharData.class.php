@@ -58,8 +58,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		$this->dbReadInitialized = true;
 		$this->dbWriteInitialized = true;
 	
-		if ($this->skipCreateTables) return true;
-		return $this->createTables();
+		return true;
 	}
 	
 	
@@ -217,28 +216,28 @@ EOT;
 	public function getInventoryGold()
 	{ 
 		$gold = $this->getCharStatField('Money');
-		return number_format($gold); 
+		return number_format(intval($gold)); 
 	}
 	
 	
 	public function getBankGold() 
 	{ 
 		$gold = $this->getCharStatField('BankedMoney');
-		return number_format($gold);
+		return number_format(intval($gold));
 	}
 	
 	
 	public function getAccountInventoryGold() 
 	{ 
 		$ap = $this->getCharStatField('AccountGold');
-		return number_format($ap);
+		return number_format(intval($ap));
 	}
 	
 	
 	public function getInventoryAP() 
 	{ 
 		$ap = $this->getCharStatField('AlliancePoints');
-		return number_format($ap); 
+		return number_format(intval($ap)); 
 	}
 	
 	
@@ -251,28 +250,28 @@ EOT;
 	public function getAccountInventoryAP() 
 	{ 
 		$ap = $this->getCharStatField('AccountAlliancePoints');
-		return number_format($ap); 
+		return number_format(intval($ap)); 
 	}
 	
 	
 	public function getInventoryTelvar() 
 	{ 
 		$telvar = $this->getCharStatField('TelvarStones');
-		return number_format($telvar); 
+		return number_format(intval($telvar)); 
 	}
 	
 	
 	public function getBankTelvar() 
 	{ 
 		$telvar = $this->getCharStatField('BankedTelvarStones');
-		return number_format($telvar);
+		return number_format(intval($telvar));
 	}
 	
 	
 	public function getAccountInventoryTelvar() 
 	{ 
 		$ap = $this->getCharStatField('AccountTelvarStones');
-		return number_format($ap); 
+		return number_format(intval($ap)); 
 	}
 	
 	
@@ -422,11 +421,10 @@ EOT;
 				
 			if ($this->canWikiUserDeleteBuild($buildData))
 			{
-				//$output .= "Delete Build";
 				$output .= "<form method='post' action=''>";
 				$output .= "<input type='hidden' name='id' value ='{$buildData['id']}'>";
 				$output .= "<input type='hidden' name='action' value ='delete'>";
-				$output .= "<input type='submit' value ='Delete Build'>";
+				$output .= "<input type='submit' value ='Delete Character'>";
 				$output .= "</form>\n";
 			}
 				
@@ -534,6 +532,54 @@ EOT;
 		$output .= "<a href='$charLink' class='ecdShortCharLink'>Link to Character</a>";
 	
 		return $output;
+	}
+	
+	
+	public function deleteBuild()
+	{
+		if (!parent::deleteBuild()) return false;
+		
+		$id = $this->characterId;
+	
+		$this->lastQuery = "DELETE FROM inventory WHERE characterId=$id;";
+		$result = $this->db->query($this->lastQuery);
+		if ($result === false) return $this->reportError("Database error trying to delete character inventory records!");
+	
+		return true;
+	}
+	
+	
+	public function getDeleteConfirmOutput($buildName, $charName, $id)
+	{
+		$output = "";
+	
+		$output .= "<form method='post' action=''>";
+		$output .= "<b>Warning:</b> Once a character is deleted it cannot be restored. It can be re-uploaded again if desired.<p />";
+		$output .= "Are you sure you wish to delete character <b>'$charName'</b> (id #$id)? <p />";
+		$output .= "<button type='submit' name='confirm' value='1'>Yes, Delete this Character</button> &nbsp; &nbsp; ";
+		$output .= "<button type='submit' name='nonconfirm' value='1'>Cancel</button>";
+		$output .= "<input type='hidden' name='id' value='$id'>";
+		$output .= "<input type='hidden' name='action' value='delete'>";
+		$output .= "</form>";
+	
+		return $output;
+	}
+	
+	
+	public function getDeleteFailureOutput($buildName, $charName, $id)
+	{
+		return "Failed to delete character '$buildName' (id #$id)!";
+	}
+	
+	
+	public function getDeleteSuccessHtmlOutput($buildName, $charName, $id)
+	{
+	$output = "";
+	$output .= $this->getBreadcrumbTrailHtml();
+	$output  .= "<p />\n";
+	$output  .= "Successfully deleted character '$charName' (id #$id)! <br/>";
+	
+	return $output;
 	}
 	
 };

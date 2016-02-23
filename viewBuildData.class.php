@@ -1963,16 +1963,31 @@ class EsoBuildDataViewer
 		
 		if (!$this->deleteBuild())
 		{
-			$this->reportError("Failed to delete character build '$buildName' (id #{$this->characterId})!");
+			$this->reportError($this->getDeleteFailureOutput($buildName, $charName, $this->characterId));
 			return false;
 		}
 				
-		$this->outputHtml .= $this->getBreadcrumbTrailHtml();
-		$this->outputHtml .= "<p />\n";
-		$this->outputHtml .= "Successfully deleted character build '$buildName' (id #{$this->characterId})! <br/>";
+		$this->outputHtml .= $this->getDeleteSuccessHtmlOutput($buildName, $charName, $this->characterId);
 		
 		return true;
 	}
+	
+	
+	public function getDeleteFailureOutput($buildName, $charName, $id)
+	{
+		return "Failed to delete character build '$buildName' (id #$id)!";
+	}
+	
+	
+	public function getDeleteSuccessHtmlOutput($buildName, $charName, $id)
+	{
+		$output = "";
+		$output .= $this->getBreadcrumbTrailHtml();
+		$output  .= "<p />\n";
+		$output  .= "Successfully deleted character build '$buildName' (id #$id)! <br/>";
+		
+		return $output;
+	}	
 	
 	
 	public function createDeleteOutput()
@@ -1989,16 +2004,26 @@ class EsoBuildDataViewer
 		$charName = $this->getCharField('name');
 		$id = $this->characterId;
 		
-		$this->outputHtml .= "<form method='post' action=''>";
-		$this->outputHtml .= "<b>Warning:</b> Once a build is deleted it cannot be restored. It can be re-uploaded again if desired.<p />";
-		$this->outputHtml .= "Are you sure you wish to delete character build <b>'$buildName'</b> (id #$id)? <p />";
-		$this->outputHtml .= "<button type='submit' name='confirm' value='1'>Yes, Delete this Build</button> &nbsp; &nbsp; ";
-		$this->outputHtml .= "<button type='submit' name='nonconfirm' value='1'>Cancel</button>";
-		$this->outputHtml .= "<input type='hidden' name='id' value='{$this->characterId}'>";
-		$this->outputHtml .= "<input type='hidden' name='action' value='delete'>";
-		$this->outputHtml .= "</form>";
+		$this->outputHtml .= $this->getDeleteConfirmOutput($buildName, $charName, $id); 
 		
 		return true;
+	}
+	
+	
+	public function getDeleteConfirmOutput($buildName, $charName, $id)
+	{
+		$output = "";
+		
+		$output .= "<form method='post' action=''>";
+		$output .= "<b>Warning:</b> Once a build is deleted it cannot be restored. It can be re-uploaded again if desired.<p />";
+		$output .= "Are you sure you wish to delete build <b>'$buildName'</b> (id #$id)? <p />";
+		$output .= "<button type='submit' name='confirm' value='1'>Yes, Delete this Build</button> &nbsp; &nbsp; ";
+		$output .= "<button type='submit' name='nonconfirm' value='1'>Cancel</button>";
+		$output .= "<input type='hidden' name='id' value='$id'>";
+		$output .= "<input type='hidden' name='action' value='delete'>";
+		$output .= "</form>";
+				
+		return $output;
 	}
 	
 	
@@ -2035,7 +2060,6 @@ class EsoBuildDataViewer
 			
 			if ($this->canWikiUserDeleteBuild($buildData))
 			{
-				//$output .= "Delete Build";
 				$output .= "<form method='post' action=''>";
 				$output .= "<input type='hidden' name='id' value ='{$buildData['id']}'>";
 				$output .= "<input type='hidden' name='action' value ='delete'>";
