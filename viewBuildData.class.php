@@ -839,7 +839,10 @@ class EsoBuildDataViewer
 	
 	public function getResearchContentHtml($craftType)
 	{
-		$output  = "<div class='ecdResearchTitle'>$craftType:</div>";
+		$knownCount = $this->getCharStatField("Research:$craftType:Trait:Known");
+		$totalCount = $this->getCharStatField("Research:$craftType:Trait:Total");
+				
+		$output  = "<div class='ecdResearchTitle'>$craftType ($knownCount / $totalCount Traits)</div>";
 		$output .= "<div class='ecdResearchBlock'>";
 		
 		$prefix = "Research:$craftType";
@@ -898,7 +901,48 @@ class EsoBuildDataViewer
 			$output .= "</div>\n";
 		}
 		
+		$output .= "<hr width='95%' />";
+		$output .= $this->getResearchTraitContentHtml($craftType);
 		$output .= "</div>\n";
+		return $output;
+	}
+	
+	
+	public function getResearchTraitContentHtml($craftType)
+	{
+		$output = "";
+		$totalCount = 0;
+		$knownCount = 0;
+		
+		foreach ($this->characterData['stats'] as $key => $value)
+		{
+			$matches = array();
+			$result = preg_match("/^Research:$craftType:Trait:([a-zA-Z\ _0-9]*)$/", $key, $matches);
+			if ($result == 0) continue;
+			
+			$slotName = $matches[1];
+			$rawData = $value['value'];
+			
+			if ($slotName == "Known")
+			{
+				$knownCount = intval($rawData);
+				continue;
+			}
+			else if ($slotName == "Total") 
+			{
+				$totalCount = intval($rawData);
+				continue;
+			}
+			
+			$output .= "<div class='ecdResearchTraitItem'>";
+			$output .= "<div class='ecdTraitTitle'>$slotName: </div> ";
+			$output .= "$rawData</div>";
+		}
+		
+		//$output .= "<div class='ecdResearchTraitItem'><div class='ecdTraitTitle'>";
+		//$output .= "$knownCount of $totalCount traits known";
+		//$output .= "</div></div>";
+		
 		return $output;
 	}
 	
@@ -912,39 +956,37 @@ class EsoBuildDataViewer
 		{
 			$matches = array();
 			$result = preg_match("/Crafting:(.*)/", $key, $matches);
+			if ($result == 0) continue; 
+
+			$styleName = $matches[1];
+			$rawData = $value['value'];
+			$rawValues = explode(',', $rawData);
+			$styleData = '';
 			
-			if ($result) 
+			if (count($rawValues) > 1)
 			{
-				$styleName = $matches[1];
-				$rawData = $value['value'];
-				$rawValues = explode(',', $rawData);
-				$styleData = '';
+				$styleArray = array();
 				
-				if (count($rawValues) > 1)
+				for ($i = 0; $i < 14; ++$i)
 				{
-					$styleArray = array();
-					
-					for ($i = 0; $i < 14; ++$i)
-					{
-						if ($rawValues[$i] == 1) $styleArray[] = $this->ESO_MOTIF_CHAPTERNAMES[$i];
-					}
-					
-					$styleData = implode(', ', $styleArray);
+					if ($rawValues[$i] == 1) $styleArray[] = $this->ESO_MOTIF_CHAPTERNAMES[$i];
 				}
-				elseif ($rawData == '1')
-				{
-					$styleData = 'All Known';
-				}
-				else
-				{
-					continue;
-				}
-								
-				$output .= "<div class='ecdSkillDataBox'>\n";
-				$output .= "<div class='ecdSkillNameCraft'>$styleName:</div>";
-				$output .= "<div class='ecdSkillValueCraft'>$styleData</div>";
-				$output .= "</div>\n";
+				
+				$styleData = implode(', ', $styleArray);
 			}
+			elseif ($rawData == '1')
+			{
+				$styleData = 'All Known';
+			}
+			else
+			{
+				continue;
+			}
+							
+			$output .= "<div class='ecdSkillDataBox'>\n";
+			$output .= "<div class='ecdSkillNameCraft'>$styleName:</div>";
+			$output .= "<div class='ecdSkillValueCraft'>$styleData</div>";
+			$output .= "</div>\n";
 		}
 		
 		$output .= "</div>\n";

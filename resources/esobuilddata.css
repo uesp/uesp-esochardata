@@ -622,7 +622,7 @@ tr.eso_item_link {
 	width: 190px;
 	height: 510px;
     display: inline-block;
-    margin-top: 20px;
+    margin-top: 5px;
 }
 
 .ecdSkillRank {
@@ -1152,4 +1152,15 @@ table.tablesorter thead tr .headerSortUp {
 
 .ecdResearchItem {
 	display: block;
+}
+
+.ecdResearchTraitItem {
+	display: block;	
+}
+
+.ecdTraitTitle {
+	display: inline-block;
+	font-size: 16px;
+    font-weight: bold;
+    color: gray;
 }
