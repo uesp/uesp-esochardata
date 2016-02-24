@@ -2038,28 +2038,30 @@ class EsoBuildDataViewer
 		
 		$output = <<<EOT
 		<form method='post' action=''>
-			Changing password for character <b>'$charName'</b> (id #$id) and all other characters on the same account.
-			<p />
-			Enter the desired new password below. A blank password means "no password".
-			Remember to change your character data password in the game using "/uespchardata password [newpassword]" 
-			to match the changed password or you will not be able to upload new character data.
-			<p />
+			Changing password for the character <b>'$charName'</b> (id #$id) and all other characters on the same account.
+			A blank password means "no password".
+			<p/>
+			Remember to change your character data password in the game using <em>"/uespchardata password [newpassword]"</em> 
+			to match the new password entered below or you will not be able to upload new character data.
+			<p />&nbsp;<br />
+			<div class='ecdPasswordBox'>
 EOT;
 		
 		if (!$this->isWikiUserAdmin())
 		{
-			$output .= "<label>Current Password:</label> <input type='password' name='oldPassword' value='' size='24' maxsize='64'><br />";
+			$output .= "<label class='ecdPasswordLabel'>Current Password:</label> <input type='password' name='oldPassword' value='' size='24' maxsize='64'><p />&nbsp;<br />";
 		}
 			
 		$output .= <<<EOT
-			<label>New Password:</label> <input type='password' name='password1' value='' size='24' maxsize='64'><br />
-			<label>Confirm Password:</label> <input type='password' name='password2' value='' size='24' maxsize='64'>
-			<p />
-			<button type='submit' name='confirm' value='1'>Change Password</button> &nbsp; &nbsp;
-			<button type='submit' name='nonconfirm' value='1'>Cancel</button>
-			<input type='hidden' name='id' value='$id'>
-			<input type='hidden' name='account' value='$account'>
-			<input type='hidden' name='action' value='changePassword'>
+				<label class='ecdPasswordLabel'>New Password:</label> <input type='password' name='password1' value='' size='24' maxsize='64'><p />
+				<label class='ecdPasswordLabel'>Confirm Password:</label> <input type='password' name='password2' value='' size='24' maxsize='64'>
+				<p />&nbsp;<br />
+				<button type='submit' name='confirm' value='1' class='ecdChangePasswordButton'>Change Password</button> &nbsp; &nbsp;
+				<button type='submit' name='nonconfirm' value='1' class='ecdCancelPasswordButton'>Cancel</button>
+				<input type='hidden' name='id' value='$id'>
+				<input type='hidden' name='account' value='$account'>
+				<input type='hidden' name='action' value='changePassword'>
+			</div>
 		</form>
 EOT;
 		
@@ -2096,6 +2098,7 @@ EOT;
 			
 		$buildName = $this->getCharField('buildName');
 		$charName = $this->getCharField('name');
+		$id = $this->characterId;
 		
 		if ($this->formNewPassword1 != $this->formNewPassword2)
 		{
@@ -2183,7 +2186,7 @@ EOT;
 		$output .= "<form method='post' action=''>";
 		$output .= "<b>Warning:</b> Once a build is deleted it cannot be restored. It can be re-uploaded again if desired.<p />";
 		$output .= "Are you sure you wish to delete build <b>'$buildName'</b> (id #$id)? <p />";
-		$output .= "<button type='submit' name='confirm' value='1'>Yes, Delete this Build</button> &nbsp; &nbsp; ";
+		$output .= "<button type='submit' name='confirm' value='1' class='ecdDeleteButton'>Yes, Delete this Build</button> &nbsp; &nbsp; ";
 		$output .= "<button type='submit' name='nonconfirm' value='1'>Cancel</button>";
 		$output .= "<input type='hidden' name='id' value='$id'>";
 		$output .= "<input type='hidden' name='action' value='delete'>";
