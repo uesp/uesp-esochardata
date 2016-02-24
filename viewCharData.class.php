@@ -557,7 +557,7 @@ EOT;
 		$output .= "<form method='post' action=''>";
 		$output .= "<b>Warning:</b> Once a character is deleted it cannot be restored. It can be re-uploaded again if desired.<p />";
 		$output .= "Are you sure you wish to delete character <b>'$charName'</b> (id #$id)? <p />";
-		$output .= "<button type='submit' name='confirm' value='1'>Yes, Delete this Character</button> &nbsp; &nbsp; ";
+		$output .= "<button type='submit' name='confirm' value='1' class='ecdDeleteButton'>Yes, Delete this Character</button> &nbsp; &nbsp; ";
 		$output .= "<button type='submit' name='nonconfirm' value='1'>Cancel</button>";
 		$output .= "<input type='hidden' name='id' value='$id'>";
 		$output .= "<input type='hidden' name='action' value='delete'>";
