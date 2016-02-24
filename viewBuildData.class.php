@@ -820,7 +820,11 @@ class EsoBuildDataViewer
 	
 	public function getCharCreateDate()
 	{
-		$output = date('Y-m-d H:i:s', $this->getCharField('createTime'));
+		$tz = 'America/Montreal';
+		$timestamp = $this->getCharField('createTime');
+		$dt = new DateTime("now", new DateTimeZone($tz));
+		$dt->setTimestamp($timestamp);
+		$output = $dt->format('Y-m-d H:i:s');
 		
 		return $output;
 	}
@@ -896,7 +900,7 @@ class EsoBuildDataViewer
 			
 			$finishTime = intval($time) + intval($timeStamp);
 			$timeLeft   = intval($time) + intval($timeStamp) - time();
-			$formatDate = date('M j \a\t H:i:s', $finishTime);
+			//$formatDate = date('M j \a\t H:i:s', $finishTime);  // Will output in UTC 
 			
 			$days = floor($timeLeft / 3600 / 24);
 			$hours = floor($timeLeft / 3600) % 24;
