@@ -422,8 +422,6 @@ class EsoCharDataParser extends EsoBuildDataParser
 		
 		foreach ($this->accountData['passwords'] as $password)
 		{
-			$this->log("Checking password '$password'!");
-			
 			if (crypt($password, $passwordHash) == $passwordHash)
 			{
 				$this->log("Access Granted...password match!");
@@ -433,8 +431,6 @@ class EsoCharDataParser extends EsoBuildDataParser
 		
 		foreach ($this->accountData['oldPasswords'] as $password)
 		{
-			$this->log("Checking old password '$password'!");
-			
 			if (crypt($password, $passwordHash) == $passwordHash)
 			{
 				$this->log("Access Granted...old password match!");
