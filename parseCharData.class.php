@@ -292,7 +292,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		$result = $this->db->query($query);
 		if ($result === FALSE) $this->reportError("Failed to clear previous character actionBars data!");
 
-		return True;
+		return $this->deleteExistingBankData($charData);
 	}
 	
 	
@@ -469,11 +469,11 @@ class EsoCharDataParser extends EsoBuildDataParser
 			{
 				$this->characterCount += 1;
 				$result &= $this->saveCharData($charData);
+				$result &= $this->saveCharacterCurrency();
+				$result &= $this->saveCharacterInventorySpace();
 			}
 		}
 		
-		$result &= $this->saveCharacterCurrency();
-		$result &= $this->saveCharacterInventorySpace();
 		$result &= $this->saveAccount();
 	
 		return $result;
@@ -483,8 +483,6 @@ class EsoCharDataParser extends EsoBuildDataParser
 	public function saveBankData($bankData)
 	{
 		$result = True;
-		
-		$this->deleteExistingBankData($bankData);
 		
 		foreach ($bankData as $key => &$value)
 		{
@@ -516,6 +514,8 @@ class EsoCharDataParser extends EsoBuildDataParser
 	{
 		$charId = $this->characterId;
 		$account = $this->db->real_escape_string($this->uniqueAccountName);
+		
+		$this->log("Saving character $charId currency for account $account...");
 		
 		$invGold = $this->getSafeFieldInt($this->currentCharacterStats, 'Money');
 		$invTelvar = $this->getSafeFieldInt($this->currentCharacterStats, 'TelvarStones');
