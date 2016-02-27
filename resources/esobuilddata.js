@@ -99,8 +99,8 @@ function onDocReady()
 	if (tables.tablesorter)
 	{
 		$(".tablesorter").tablesorter({
-				sortList: [[2,0]] 
-			});
+			sortList: [[2,0]] 
+		});
 	}
 	
 	$(".ecdItemFilterTextInput").keyup(function() {
