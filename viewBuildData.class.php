@@ -418,7 +418,8 @@ class EsoBuildDataViewer
 		
 		if ($this->loadAccountEquipSlots())
 		{
-			$arrayData = array_merge($arrayData, $this->characterData['accountEquipSlots']);	
+			$arrayCopy = $this->characterData['accountEquipSlots'];
+			$arrayData = array_merge($arrayData, $arrayCopy);	
 		}
 	
 		$arrayData = $this->combineInventory($arrayData);
@@ -1769,21 +1770,24 @@ class EsoBuildDataViewer
 	
 	public function checkCharacterRawColumnName($colName)
 	{
-		if ($colName == 'id') return false;
-		if ($colName == 'characterId') return false;
-		if ($colName == 'account') return false;
-		if ($colName == 'invType') return false;
-		if ($colName == 'localId') return false;
-		if ($colName == 'nameLC') return false;
-		if ($colName == 'password') return false;
-		
+		if ($colName === 'id') return false;
+		if ($colName === 'characterId') return false;
+		if ($colName === 'account') return false;
+		if ($colName === 'invType') return false;
+		if ($colName === 'localId') return false;
+		if ($colName === 'nameLC') return false;
+				
 		return true;
 	}
 	
 	
 	public function checkCharacterRawKeyName($keyName)
 	{
-		if ($keyName == 'IPAddress') return false;
+		if ($keyName === 'IPAddress') return false;
+		if ($keyName === 'password') return false;
+		if ($keyName === 'uniqueAccountName') return false;
+		if ($keyName === 'account') return false;
+		if ($keyName === 'accountName') return false;
 	
 		return true;
 	}
@@ -1831,7 +1835,7 @@ class EsoBuildDataViewer
 		$output .= "<table class='ecdRawCharArrayData'>\n";
 		$firstRow = true;
 		
-		foreach ($data as $key => &$arrayData)
+		foreach ($data as $key => $arrayData)
 		{
 			$skipRow = false;
 			
