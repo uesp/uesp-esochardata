@@ -292,7 +292,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		$result = $this->db->query($query);
 		if ($result === FALSE) $this->reportError("Failed to clear previous character actionBars data!");
 
-		return $this->deleteExistingBankData($charData);
+		return True;
 	}
 	
 	
@@ -483,6 +483,8 @@ class EsoCharDataParser extends EsoBuildDataParser
 	public function saveBankData($bankData)
 	{
 		$result = True;
+		
+		$this->deleteExistingBankData($charData);
 		
 		foreach ($bankData as $key => &$value)
 		{
