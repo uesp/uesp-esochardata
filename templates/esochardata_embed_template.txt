@@ -25,19 +25,19 @@
 	</div>
 	<div id='ecdRightData'>
 		<div id='ecdRightTitleBar'>
-			<div class='ecdSkillTitleButton ecdRightTitleButtonEnabled'  id='ecdSkillsButton' onclick="OnEsoRightTitleClick('Skills');">SKILLS & CP</div>
-			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdInventoryButton' onclick="OnEsoRightTitleClick('Inventory');">INVENTORY</div>
+			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdSkillsButton' onclick="OnEsoRightTitleClick('Skills');">SKILLS & CP</div>
+			<div class='ecdSkillTitleButton ecdRightTitleButtonEnabled'  id='ecdInventoryButton' onclick="OnEsoRightTitleClick('Inventory');">INVENTORY</div>
 			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdBankButton' onclick="OnEsoRightTitleClick('Bank');">BANK</div>
 			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdAccountInvButton' onclick="OnEsoRightTitleClick('AccountInv');">ACCOUNT INV</div>
 		</div>
-		<div id='ecdSkills' class='ecdRightDataArea'>
+		<div id='ecdSkills' class='ecdRightDataArea' style="display: none;">
 			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			<div class='ecdSkillSubTitle'>Skill Points:</div> <div class='ecdSkillSubValue'>{skillPointsUnused} / {skillPointsTotal}</div><br />
 			<div class='ecdSkillSubTitle'>Skyshards:</div> <div class='ecdSkillSubValue'>{skyshards} / 3</div>
 			<div id='ecdSkillContents'>{skillContents}</div>
 			<div id='ecdSkillTree'>{skillTree}</div>
 		</div>
-		<div id='ecdInventory' class='ecdRightDataArea' style="display: none;">
+		<div id='ecdInventory' class='ecdRightDataArea' style="display: block;">
 			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			{inventoryContents}
 			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
