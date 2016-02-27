@@ -300,6 +300,9 @@ class EsoCharDataParser extends EsoBuildDataParser
 	{
 		$accountName = $this->getSafeFieldStr($charData, 'UniqueAccountName');
 		
+		//$test = $charData['UniqueAccountName'];
+		//$test1 = $this->db->real_escape_string($charData['UniqueAccountName']);
+		//$this->log("Deleting bank inventory for $test / $test1 / $accountName...");
 		$this->log("Deleting bank inventory for $accountName...");
 		
 		$query = "DELETE FROM inventory WHERE characterId=-1 AND account=\"$accountName\";";
@@ -484,11 +487,31 @@ class EsoCharDataParser extends EsoBuildDataParser
 	{
 		$result = True;
 		
-		$this->deleteExistingBankData($charData);
+		$this->deleteExistingBankData($bankData);
+		$account = $this->getSafeFieldStr($bankData, "UniqueAccountName");
 		
 		foreach ($bankData as $key => &$value)
 		{
-			if ($key == "Inventory") $result = $this->saveCharacterBank($bankData, $key, $value);
+			if ($key == "Inventory") 
+			{
+				$result &= $this->saveCharacterBank($bankData, $key, $value);
+			}
+			else if ($key == "Gold")
+			{
+				$result &= $this->saveCharacterInventoryExtraRawData(-1, $account, "__Gold", $value);
+			}
+			else if ($key == "Telvar")
+			{
+				$result &= $this->saveCharacterInventoryExtraRawData(-1, $account, "__Telvar", $value);
+			}
+			else if ($key == "Size")
+			{
+				$result &= $this->saveCharacterInventoryExtraRawData(-1, $account, "__TotalSpace", $value);
+			}
+			else if ($key == "UsedSize")
+			{
+				$result &= $this->saveCharacterInventoryExtraRawData(-1, $account, "__UsedSpace", $value);					
+			}
 		}
 	
 		return $result;
@@ -522,17 +545,12 @@ class EsoCharDataParser extends EsoBuildDataParser
 		$invGold = $this->getSafeFieldInt($this->currentCharacterStats, 'Money');
 		$invTelvar = $this->getSafeFieldInt($this->currentCharacterStats, 'TelvarStones');
 		$invAP = $this->getSafeFieldInt($this->currentCharacterStats, 'AlliancePoints');
-		$bankGold = $this->getSafeFieldInt($this->currentCharacterStats, 'BankedMoney');
-		$bankTelvar = $this->getSafeFieldInt($this->currentCharacterStats, 'BankedTelvarStones');
 		
 		$result = True;
 		
 		$result &= $this->saveCharacterInventoryExtraRawData($charId, $account, "__Gold",   $invGold);
 		$result &= $this->saveCharacterInventoryExtraRawData($charId, $account, "__Telvar", $invTelvar);
 		$result &= $this->saveCharacterInventoryExtraRawData($charId, $account, "__AP",     $invAP);
-		
-		$result &= $this->saveCharacterInventoryExtraRawData(-1, $account, "__Gold",   $bankGold);
-		$result &= $this->saveCharacterInventoryExtraRawData(-1, $account, "__Telvar", $bankTelvar);		
 		
 		return $result;
 	}
@@ -545,16 +563,11 @@ class EsoCharDataParser extends EsoBuildDataParser
 		
 		$invUsedSpace = $this->getSafeFieldInt($this->currentCharacterStats, 'InventoryUsedSize');
 		$invTotalSpace = $this->getSafeFieldInt($this->currentCharacterStats, 'InventorySize');
-		$bankUsedSpace = $this->getSafeFieldInt($this->currentCharacterStats, 'BankUsedSize');
-		$bankTotalSpace = $this->getSafeFieldInt($this->currentCharacterStats, 'BankSize');
 
 		$result = True;
 		
 		$result &= $this->saveCharacterInventoryExtraRawData($charId, $account, "__UsedSpace", $invUsedSpace);
 		$result &= $this->saveCharacterInventoryExtraRawData($charId, $account, "__TotalSpace", $invTotalSpace);
-		
-		$result &= $this->saveCharacterInventoryExtraRawData(-1, $account, "__UsedSpace", $bankUsedSpace);
-		$result &= $this->saveCharacterInventoryExtraRawData(-1, $account, "__TotalSpace", $bankTotalSpace);
 		
 		return $result;
 	}
