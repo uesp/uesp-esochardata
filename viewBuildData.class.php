@@ -1834,6 +1834,7 @@ class EsoBuildDataViewer
 		$output .= "<h2>$title</h2>";
 		$output .= "<table class='ecdRawCharArrayData'>\n";
 		$firstRow = true;
+		$colNames = array();
 		
 		foreach ($data as $key => $arrayData)
 		{
@@ -1848,6 +1849,7 @@ class EsoBuildDataViewer
 					if (!$this->checkCharacterRawColumnName($rowName)) continue;
 					$safeRowName = $this->escape($rowName);
 					$output .= "<th>$safeRowName</td>\n";
+					$colNames[] = $rowName;
 				}
 				
 				$firstRow = false;
@@ -1857,22 +1859,24 @@ class EsoBuildDataViewer
 			$safeKey = $this->escape($key);
 			$rowOutput = "<tr>\n";
 			
-			foreach ($arrayData as $rowName => $value)
+			foreach ($colNames as $col)
 			{
-				if (!$this->checkCharacterRawColumnName($rowName)) continue;
-				if (!$this->checkCharacterRawKeyName($value)) $skipRow = true;
+				if (!$this->checkCharacterRawColumnName($col)) continue;
+
+				$value = $arrayData[$col];
+				//if (!$this->checkCharacterRawKeyName($value)) $skipRow = true;
 				
 				$className = "";
 				
-				if ($rowName == 'description')
+				if ($col == 'description')
 				{
 					$safeValue = $this->escape($this->convertDescriptionToText($value));
 				}
-				elseif ($rowName == 'icon')
+				elseif ($col == 'icon')
 				{
 					$safeValue = $this->convertIconToImageLink($value);
 				}
-				elseif ($rowName == 'name') 
+				elseif ($col == 'name') 
 				{
 				 	$className = 'ecdRawCharHeader';
 				 	$safeValue = $this->escape($value);
