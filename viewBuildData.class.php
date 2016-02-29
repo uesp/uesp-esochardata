@@ -805,6 +805,7 @@ class EsoBuildDataViewer
 	public function getActiveWeaponBarClass($barIndex)
 	{
 		$activeBarIndex = intval($this->getCharStatField('ActiveWeaponBar'));
+		if ($activeBarIndex == 0) $activeBarIndex = intval($this->getCharStatField('ActiveAbilityBar'));
 		if ($activeBarIndex == $barIndex) return "ecdActiveAbilityBar";
 		return "";
 	}
