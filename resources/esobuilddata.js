@@ -89,7 +89,7 @@ function onDocReady()
 	$('.ecdSkillTreeName2').click(OnEsoSkillTreeName2Click);
 	
 	EsoSkillTree_LastOpenTreeName = $('.ecdSkillTreeName1:visible').first();
-	EsoSkillTree_LastOpenTree = $('.ecdSkillTreeContent1:visible').first();
+	EsoSkillTree_LastOpenTree = EsoSkillTree_LastOpenTreeName.next(".ecdSkillTreeContent1");
 	
 	EsoSkillTree_LastSkillContentName = $('.ecdSkillTreeNameHighlight2').first();
 	EsoSkillTree_LastSkillContent = $('.ecdSkillData:visible').first();
@@ -123,16 +123,18 @@ var EsoSkillTree_LastSkillContent = null;
 
 function OnEsoSkillTreeName1Click(e)
 {
+	EsoSkillTree_LastOpenTreeName = $('.ecdSkillTreeName1.ecdSkillTreeNameHighlight').first();
+	EsoSkillTree_LastOpenTree = EsoSkillTree_LastOpenTreeName.next(".ecdSkillTreeContent1");
 	
-	if (EsoSkillTree_LastOpenTree != null)
-	{
-		if (EsoSkillTree_LastOpenTree.is($(this).next(".ecdSkillTreeContent1"))) return;
-		EsoSkillTree_LastOpenTree.slideUp();
-		EsoSkillTree_LastOpenTreeName.removeClass('ecdSkillTreeNameHighlight');
-		EsoSkillTree_LastOpenTree = null;
-		EsoSkillTree_LastOpenTreeName = null;
-	}
-	
+	if (EsoSkillTree_LastOpenTree.is($(this).next(".ecdSkillTreeContent1"))) return;
+	EsoSkillTree_LastOpenTree.slideUp();
+	EsoSkillTree_LastOpenTreeName.removeClass('ecdSkillTreeNameHighlight');
+		
+	EsoSkillTree_LastSkillContentName = $('.ecdSkillTreeNameHighlight2').first();
+	EsoSkillTree_LastSkillContent = $('.ecdSkillData:visible').first();
+	EsoSkillTree_LastSkillContentName.removeClass('ecdSkillTreeNameHighlight2');
+	EsoSkillTree_LastSkillContent.hide();
+		
 	EsoSkillTree_LastOpenTreeName = $(this);
 	EsoSkillTree_LastOpenTree = EsoSkillTree_LastOpenTreeName.next(".ecdSkillTreeContent1");
 	
@@ -151,17 +153,11 @@ function OnEsoSkillTreeName2Click(e)
 
 function SelectEsoSkillTreeContents(object)
 {
-	if (EsoSkillTree_LastSkillContentName != null)
-	{
-		EsoSkillTree_LastSkillContentName.removeClass('ecdSkillTreeNameHighlight2');
-		EsoSkillTree_LastSkillContentName = null;
-	}
+	EsoSkillTree_LastSkillContentName = $('.ecdSkillTreeNameHighlight2').first();
+	EsoSkillTree_LastSkillContent = $('.ecdSkillData:visible').first();
 	
-	if (EsoSkillTree_LastSkillContent != null)
-	{
-		EsoSkillTree_LastSkillContent.hide();
-		EsoSkillTree_LastSkillContent = null;
-	}
+	EsoSkillTree_LastSkillContentName.removeClass('ecdSkillTreeNameHighlight2');
+	EsoSkillTree_LastSkillContent.hide();
 	
 	EsoSkillTree_LastSkillContentName = object;
 	object.addClass('ecdSkillTreeNameHighlight2');

@@ -1054,7 +1054,6 @@ class EsoBuildDataViewer
 		
 		$displayType = 'none';
 		if ($skillName == $this->skillTreeFirstName) $displayType = "block";
-				
 		$output = "<div id='ecdSkill_$idName' class='ecdSkillData' style='display: {$displayType};'>\n";
 				
 		reset($skillData);
@@ -1292,8 +1291,11 @@ class EsoBuildDataViewer
 		
 		$safeName = $this->escape($skillName);
 		
+		$extraClass = "";
+		if ($this->skillTreeDisplay == 'block') $extraClass = " ecdSkillTreeNameHighlight";
+		
 		$output  = "<div class='ecdSkillTree1'>\n";
-		$output .= "<div class='ecdSkillTreeName1'>$safeName</div>\n";
+		$output .= "<div class='ecdSkillTreeName1$extraClass'>$safeName</div>\n";
 		$output .= "<div class='ecdSkillTreeContent1' style='display: {$this->skillTreeDisplay};'>\n";
 		
 		$this->skillTreeDisplay = 'none';
