@@ -7,6 +7,7 @@
 		<div class='ecdLevelInfo'>
 				<div class='ecdLevelBar'><div class='ecdLevel'>{level}</div> {levelTitle}</div>
 				<div class='ecdChampionPoint'>{championPoints} CHAMPION POINTS</div>
+				<div class='ecdAlliance'>{alliance} RANK {allianceRank}</div>
 		</div>
 		<div class='ecdBuildName'>{buildName}</div>
 		<div class='ecdCharName'>
