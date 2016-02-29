@@ -616,6 +616,8 @@ class EsoBuildDataViewer
 					'{class}' => $this->getCharField('class'),
 					'{special}' => $this->getCharField('special'),				
 					'{level}' => $this->formatCharacterLevel($this->getCharField('level')),
+					'{alliance}' => strtoupper($this->getCharStatField('Alliance')),
+					'{allianceRank}' => $this->getCharStatField('AllianceRank'),
 					'{levelTitle}' => $this->getCharLevelTitle(),
 					'{championPoints}' => $this->getCharField('cp'),
 					'{rawLevel}' => $this->getCharField('level'),
