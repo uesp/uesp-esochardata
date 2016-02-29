@@ -152,13 +152,10 @@
     white-space: nowrap;
 }
 
-.ecdActionBar1, .ecdActionBar2 {
+.ecdActionBar1, .ecdActionBar2, .ecdActionBar3 {
 	border: solid 2px rgba(0,0,0,0);
     padding: 2px;
     text-align: left;
-}
-
-.ecdActionBar1 {
 }
 
 #ecdTitleBar {
@@ -831,6 +828,10 @@ tr.eso_item_link {
 .ecdActiveAbilityBar {
 	border: solid 2px yellow;
 	padding: 2px;
+}
+
+.ecdHiddenAbilityBar {
+	display: none;
 }
 
 #ecdTrail {
