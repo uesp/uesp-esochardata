@@ -86,10 +86,10 @@
 		<div id='ecdEquipSlotRing2'>{equipRing2}</div>
 		<img id='ecdEquipSlotBar3' src='{baseResourceUrl}resources/eso_equip_bar.png' />
 		<div id='ecdEquipSlotSubtitle3'>WEAPONS</div>
-		<div id='ecdEquipSlotWeapon11' class='{activeBarClass1}'>{equipWeapon11}</div>
-		<div id='ecdEquipSlotWeapon12' class='{activeBarClass1}'>{equipWeapon12}</div>
-		<div id='ecdEquipSlotWeapon21' class='{activeBarClass2}'>{equipWeapon21}</div>
-		<div id='ecdEquipSlotWeapon22' class='{activeBarClass2}'>{equipWeapon22}</div>
+		<div id='ecdEquipSlotWeapon11' class='{activeWeaponClass1}'>{equipWeapon11}</div>
+		<div id='ecdEquipSlotWeapon12' class='{activeWeaponClass1}'>{equipWeapon12}</div>
+		<div id='ecdEquipSlotWeapon21' class='{activeWeaponClass2}'>{equipWeapon21}</div>
+		<div id='ecdEquipSlotWeapon22' class='{activeWeaponClass2}'>{equipWeapon22}</div>
 	</div>
 	<div id='ecdStatsandBuffs'>
 		<div id='ecdBasicStats'>
@@ -119,6 +119,16 @@
 			{action25}
 			&nbsp; &nbsp; &nbsp; &nbsp;
 			{action26}
+		</div>
+		<div class='ecdActionBar3 {activeBarClass3}'>
+			<div class='ecdActionBarTitle'>Bar 3</div>
+			{action31}
+			{action32}
+			{action33}
+			{action34}
+			{action35}
+			&nbsp; &nbsp; &nbsp; &nbsp;
+			{action36}
 		</div>
 	</div>
 	<div class='ecdRawLink'><a href="{rawLink}">View Raw Data</a></div>

@@ -633,6 +633,12 @@ class EsoBuildDataViewer
 					'{action24}' => $this->getCharActionHtml(2, 4),
 					'{action25}' => $this->getCharActionHtml(2, 5),
 					'{action26}' => $this->getCharActionHtml(2, 6),
+					'{action31}' => $this->getCharActionHtml(3, 1),
+					'{action32}' => $this->getCharActionHtml(3, 2),
+					'{action33}' => $this->getCharActionHtml(3, 3),
+					'{action34}' => $this->getCharActionHtml(3, 4),
+					'{action35}' => $this->getCharActionHtml(3, 5),
+					'{action36}' => $this->getCharActionHtml(3, 6),
 					'{attrMag}' => $this->getCharStatField('AttributesMagicka'),
 					'{attrHea}' => $this->getCharStatField('AttributesHealth'),
 					'{attrSta}' => $this->getCharStatField('AttributesStamina'),
@@ -663,8 +669,11 @@ class EsoBuildDataViewer
 					'{createDate}' => $this->getCharCreateDate(),
 					'{figureImage}' => $this->getCharFigureImageUrl(),
 					'{baseResourceUrl}' => $this->baseResourceUrl,
-					'{activeBarClass1}' => $this->getActiveWeaponBarClass(1),
-					'{activeBarClass2}' => $this->getActiveWeaponBarClass(2),
+					'{activeWeaponClass1}' => $this->getActiveWeaponBarClass(1),
+					'{activeWeaponClass2}' => $this->getActiveWeaponBarClass(2),
+					'{activeBarClass1}' => $this->getActiveAbilityBarClass(1),
+					'{activeBarClass2}' => $this->getActiveAbilityBarClass(2),
+					'{activeBarClass3}' => $this->getActiveAbilityBarClass(3),
 					'{trail}' => $this->getBreadcrumbTrailHtml(),
 					'{characterLink}' => $this->getShortCharacterLinkHtml(),
 					'{inventoryContents}' => $this->getInventoryContentHtml(),
@@ -778,9 +787,24 @@ class EsoBuildDataViewer
 	}
 	
 	
-	public function getActiveWeaponBarClass($barIndex)
+	public function getActiveAbilityBarClass($barIndex)
 	{
 		$activeBarIndex = intval($this->getCharStatField('ActiveAbilityBar'));
+		if ($activeBarIndex == $barIndex) return "ecdActiveAbilityBar";
+		
+		if ($barIndex == 3)	
+		{
+			if ($this->characterData['class'] != "Sorcerer") return "ecdHiddenAbilityBar";
+			return "";
+		}
+		
+		return "";
+	}
+	
+	
+	public function getActiveWeaponBarClass($barIndex)
+	{
+		$activeBarIndex = intval($this->getCharStatField('ActiveWeaponBar'));
 		if ($activeBarIndex == $barIndex) return "ecdActiveAbilityBar";
 		return "";
 	}
