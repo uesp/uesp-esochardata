@@ -16,9 +16,7 @@ class EsoBuildDataViewer
 	public $combineBankItems      = true;
 	
 	const ESO_ICON_URL = "http://esoicons.uesp.net";
-	
-	const ESO_WEAPON_CRITICAL_FACTOR = 0.00597099;
-	const ESO_SPELL_CRITICAL_FACTOR = 0.00563926;
+
 	
 	public $ESO_MOTIF_CHAPTERNAMES = array(
 				"Axes",
@@ -1595,6 +1593,15 @@ class EsoBuildDataViewer
 	}
 	
 	
+	public function getCharCriticalFactor()
+	{
+		$level = $this->characterData['level'];
+		if ($level <= 0) return 1;
+		
+		return 100.0 / (2 * $level * (100 + $level));
+	}
+	
+	
 	public function getCharBasicStatsHtml()
 	{
 		$output  = "";
@@ -1607,9 +1614,9 @@ class EsoBuildDataViewer
 		$output .= $this->getCharBasicStatHtml('Stamina Recovery', 'StaminaRegenCombat');
 		$output .= "<br />";
 		$output .= $this->getCharBasicStatHtml('Spell Damage', 'SpellPower');
-		$output .= $this->getCharBasicStatHtml('Spell Critical', 'SpellCritical', self::ESO_SPELL_CRITICAL_FACTOR, '%');
+		$output .= $this->getCharBasicStatHtml('Spell Critical', 'SpellCritical', $this->getCharCriticalFactor(), '%', 10.0);
 		$output .= $this->getCharBasicStatHtml('Weapon Damage', 'WeaponPower');
-		$output .= $this->getCharBasicStatHtml('Weapon Critical', 'CriticalStrike', self::ESO_WEAPON_CRITICAL_FACTOR, '%');
+		$output .= $this->getCharBasicStatHtml('Weapon Critical', 'CriticalStrike', $this->getCharCriticalFactor(), '%', 10.0);
 		$output .= "<br />";
 		$output .= $this->getCharBasicStatHtml('Spell Resistance', 'SpellResist');
 		$output .= $this->getCharBasicStatHtml('Physical Resistance', 'PhysicalResist');
@@ -1623,10 +1630,10 @@ class EsoBuildDataViewer
 	}
 	
 	
-	public function getCharBasicStatHtml($title, $field, $factor = 1, $suffix = '')
+	public function getCharBasicStatHtml($title, $field, $factor = 1, $suffix = '', $offset = 0)
 	{
 		$title = $this->escape($title);
-		$rawValue = (intval($this->characterData['stats'][$field]['value'] * $factor * 10)) / 10;
+		$rawValue = (intval(($this->characterData['stats'][$field]['value'] * $factor + $offset) * 10)) / 10;
 		$value = $this->escape($rawValue);
 		
 		$output  = "<div class='ecdStat'>"; 
