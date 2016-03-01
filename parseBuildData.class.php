@@ -583,6 +583,7 @@ class EsoBuildDataParser
 	public function checkBuffWerewolf(&$buildData)
 	{
 		$buffs = &$buildData['Buffs'];
+		if ($buffs == null) return false;
 		
 		foreach ($buffs as $buff)
 		{

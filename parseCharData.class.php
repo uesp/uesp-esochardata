@@ -7,6 +7,9 @@ require_once("/home/uesp/secrets/esochardata.secrets");
 
 class EsoCharDataParser extends EsoBuildDataParser 
 {
+	
+	public $savedCharacters = 0;
+	
 		
 	public function __construct ()
 	{
@@ -168,20 +171,13 @@ class EsoCharDataParser extends EsoBuildDataParser
 	}
 	
 	
-	public function createNewAccount($rawCharData)
+	public function createNewAccount()
 	{
 		$account = $this->getSafeFieldStr($this->accountData, 'account');
 		$wikiUserName = $this->getSafeFieldStr($this->accountData, 'wikiUserName'); 
-		$salt = uniqid('', true);
-		$password = $rawCharData['Password'];
-		if ($password == null) $password = "";
-		$passwordHash = "0";
-		
-		if ($password != "")
-		{
-			$passwordHash = crypt($password, '$5$'.$salt);
-		}
-		
+		$salt = $this->accountData['salt'];
+		$passwordHash = $this->accountData['passwordHash'];
+
 		$query  = "INSERT INTO account(account, passwordHash, salt, wikiUserName)";
 		$query .= "VALUES(\"$account\", \"$passwordHash\", \"$salt\", \"$wikiUserName\");";
 		$this->lastQuery = $query;
@@ -466,14 +462,18 @@ class EsoCharDataParser extends EsoBuildDataParser
 		{
 			if ($charData["IsBank"] != 0)
 			{
-				$result &= $this->saveBankData($charData);
+				$thisResult = $this->saveBankData($charData);
+				$result &= $thisResult;
+				//if ($thisResult) $this->savedCharacters += 1;
 			}
 			else 
 			{
 				$this->characterCount += 1;
-				$result &= $this->saveCharData($charData);
-				$result &= $this->saveCharacterCurrency();
-				$result &= $this->saveCharacterInventorySpace();
+				$thisResult  = $this->saveCharData($charData);
+				$thisResult &= $this->saveCharacterCurrency();
+				$thisResult &= $this->saveCharacterInventorySpace();
+				$thisResult &= $thisResult;
+				if ($thisResult) $this->savedCharacters += 1;
 			}
 		}
 		
@@ -601,14 +601,34 @@ class EsoCharDataParser extends EsoBuildDataParser
 	}
 	
 	
+	public function parseCharDataRoot($uespCharData)
+	{
+		if ($uespCharData == null)
+		{
+			$this->formResponseErrorMsg = "Error parsing Lua data object!";
+			return $this->reportError("Null character data object received!");
+		}
+	
+		$index = count($this->parsedBuildData) + 1;
+		return $this->parseSingleCharacter($index, $uespCharData);
+	}
+	
+	
 	public function doParse($buildData)
 	{
 		$this->initDatabaseWrite();
 	
-		if (!$this->parseBuildDataRoot($buildData)) return false;
+		if (!$this->parseCharDataRoot($buildData)) return false;
+	
+		return true;
+	}
+	
+	
+	public function saveParsedCharacters()
+	{
 		if (!$this->savePhpBuildData()) return false;
 		if (!$this->saveAllCharData()) return false;
-		
+	
 		$this->endTime = microtime(True);
 		$deltaTime = ($this->endTime - $this->startTime) * 1000;
 		$this->log("Total Parsing Time = $deltaTime ms");
