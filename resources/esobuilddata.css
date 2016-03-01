@@ -494,7 +494,9 @@ tr.eso_item_link {
 
 #ecdStatsandBuffs {
 	display: inline-block;
-	width: 250px;
+	width: 266px;
+    max-height: 630px;
+    overflow-y: auto;
 }
 
 .ecdBuff {
