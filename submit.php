@@ -2,14 +2,13 @@
 
 
 require_once('parseBuildData.class.php');
+require_once('parseCharData.class.php');
 
 
 class EsoCharDataSubmitter
 {
-	
-	const ESOBUILDDATA_UPLOAD_PATH = "/home/uesp/esobuilddata/";
-	
 	public $parseBuildData = null;
+	public $parseCharData = null;
 	public $fileData = "";
 	public $fileError = 0;
 	public $fileErrorMsg = "";
@@ -21,6 +20,8 @@ class EsoCharDataSubmitter
 	public $accountName = "Anonymous";
 	public $uploadedBuilds = 0;
 	public $parsedBuilds = 0;
+	public $uploadedCharacters = 0;
+	public $parsedCharacters = 0;
 	public $wikiUserName = '';
 	
 	public $currentLogIndex = 1;
@@ -29,6 +30,7 @@ class EsoCharDataSubmitter
 	public function __construct ()
 	{
 		$this->parseBuildData = new EsoBuildDataParser();
+		$this->parseCharData  = new EsoCharDataParser();
 	}
 	
 	
@@ -112,7 +114,7 @@ class EsoCharDataSubmitter
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<title>UESP -- Submit ESO Character Build Data</title>
+	<title>UESP -- Submit ESO Character & Build Data</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<link rel="stylesheet" href="submit.css" />
 </head>
@@ -121,7 +123,7 @@ class EsoCharDataSubmitter
 <table border="0" cellpadding="2" cellspacing="0" id="maintable">
 <tr>
 	<td>
-		<h1>UESP -- Submitted ESO Character Build Data...</h1>
+		<h1>UESP -- Submitted ESO Character & Build Data...</h1>
 		<br /> &nbsp;
 	</td>
 </tr><tr>
@@ -142,9 +144,10 @@ class EsoCharDataSubmitter
 		$output .= "File Size: {$this->fileSize} bytes<br />";
 		$output .= "Local Filename: {$this->fileMoveName}<br />";
 		$output .= "Lua Result: {$this->fileLuaResult}<br />";
-		$output .= "Uploaded Character Builds: {$this->uploadedBuilds}<br />";
-		$output .= "Parsed Character Builds: {$this->parsedBuilds}<br />";
-		
+		$output .= "Uploaded Builds: {$this->uploadedBuilds}<br />";
+		$output .= "Parsed Builds: {$this->parsedBuilds}<br />";
+		$output .= "Uploaded Characters: {$this->uploadedCharacters}<br />";
+		$output .= "Parsed Characters: {$this->parsedCharacters}<br />";
 	}
 	
 	print($output);
@@ -168,7 +171,7 @@ class EsoCharDataSubmitter
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<title>UESP -- Submit ESO Character Build Data</title>
+	<title>UESP -- Submit ESO Character & Build Data</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<link rel="stylesheet" href="submit.css" />
 </head>
@@ -179,12 +182,12 @@ class EsoCharDataSubmitter
 <table border="0" cellpadding="2" cellspacing="0" id="maintable">
 <tr>
 	<td>
-		<h1>UESP -- Submit ESO Character Build Data</h1>
-		Use this page to manually submit a log file created by uespLog containing characeter build data saved from ESO. 
+		<h1>UESP -- Submit ESO Character & Build Data</h1>
+		Use this page to manually submit a log file created by uespLog containing character and build data saved from ESO. 
 		<p />
 		If you are playing on the Windows/PC version you can use uespLogMonitor program included with the addon to automatically upload the build data.
 		<p />
-		Only character build data is parsed and saved with this form. To parse/save all uespLog data use the <a href='http://esolog.uesp.net/submit.php'>http://esolog.uesp.net/submit.php</a> form.
+		Only character and build data is parsed and saved with this form. To parse/save all uespLog data use the <a href='http://esolog.uesp.net/submit.php'>http://esolog.uesp.net/submit.php</a> form.
 		<p />
 		<ul>
 		<li>Choose your uespLog saved variable file. This is usually in your <em>"Documents"</em> folder as one of the following:<br />
@@ -195,7 +198,7 @@ class EsoCharDataSubmitter
 		<li>Choose a backup build data file created by uespLogMonitor (ex: if there were errors uploading the data with the program).</li>
 		<li>(Optional) Enter your UESP wiki username to associate your wiki account with the build.</li>
 		<li>Submit file.</li>
-		<li>After submitting you can run the game command <em>"/uespreset builddata"</em> (or <em>"/uespsavebuild clear"</em>) in ESO to clear the build data.</li>
+		<li>After submitting you can run the game command em>"/uespreset builddata"</em> (or <em>"/uespsavebuild clear"</em> in ESO to clear the build data. Character is always overwritten so there is no need to reset/clear it.</li>
 		<li>It is safe to submit duplicate files or build entries...the parser detects and ignore duplicate build submissions.</li>
 		</ul>
 		<p />
@@ -264,13 +267,16 @@ class EsoCharDataSubmitter
 		$this->fileLuaResult = $result;
 		
 		if ($this->Lua->uespLogSavedVars != null) return $this->parseVarRootLevel($this->Lua->uespLogSavedVars);
-		if ($this->Lua->uespBuildData != null)	return $this->parseCharacterBuildData($this->Lua->uespBuildData);
+		if ($this->Lua->uespBuildData    != null) return $this->parseCharacterBuildData($this->Lua->uespBuildData);
+		if ($this->Lua->uespCharData     != null) return $this->parseCharacterData($this->Lua->uespCharData);
 		return $this->reportError('No recognized UESP Lua data found in uploaded file!');
 	}
 	
 	
 	public function parseVarRootLevel ($object)
 	{
+		//$this->reportWarning("Parsing Root level");
+		
 		if ($object == null) return $this->reportError("Could not find the root object in the saved LUA variable file!");
 		
 		foreach ($object as $key => $value)
@@ -278,12 +284,18 @@ class EsoCharDataSubmitter
 			$this->parseVarAccountLevel($key, $value);
 		}
 		
+		$this->parseCharData->saveParsedCharacters();
+		$this->uploadedCharacters = $this->parseCharData->characterCount;
+		$this->parsedCharacters = $this->parseCharData->savedCharacters;
+		
 		return TRUE;
 	}
 	
 	
 	public function parseVarAccountLevel ($parentName, $object)
 	{
+		//$this->reportWarning("Parsing Account level '$parentName'");
+		
 		if ($object == null) return $this->reportError("NULL object found in the {$parentName} section (account level) of the saved variable file!");
 		
 		foreach ($object as $key => $value)
@@ -297,6 +309,8 @@ class EsoCharDataSubmitter
 	
 	public function parseVarAccountWideLevel ($parentName, $object)
 	{
+		//$this->reportWarning("Parsing AccountWide level '$parentName'");
+		
 		if ($object == null) return $this->reportError("NULL object found in the {$parentName} section (account wide leve) of the saved variable file!");
 		$this->accountName = ltrim($parentName, '@');
 		
@@ -311,12 +325,26 @@ class EsoCharDataSubmitter
 	
 	public function parseVarSectionLevel ($parentName, $object)
 	{
-			/* Only parse the account wide section */
-		if ($parentName != '$AccountWide') return TRUE;
+		$result = True;
 		
-		if ($object == null) return $this->reportError("NULL object found in the {$parentName} section (section level) of the saved variable file!");
+		//$this->reportWarning("Parsing section level '$parentName'");
 		
-		return $this->parseCharacterBuild($object["buildData"]);
+		if ($parentName == '$AccountWide')
+		{
+			if ($object == null) return $this->reportError("NULL object found in the {$parentName} section (section level) of the saved variable file!");
+			$result &= $this->parseCharacterBuild($object["buildData"]);
+			$result &= $this->parseCharacter($object["bankData"]);
+			
+			$this->uploadedBuilds = $this->parseBuildData->characterCount;
+			$this->parsedBuilds = $this->parseBuildData->newCharacterCount;
+		}
+		else
+		{
+			if ($object == null) return $this->reportError("NULL object found in the {$parentName} section (section level) of the saved variable file!");
+			$result &= $this->parseCharacter($object["charData"]);
+		}
+		
+		return $result;
 	}
 	
 	
@@ -330,9 +358,19 @@ class EsoCharDataSubmitter
 	}
 	
 	
+	public function parseCharacter ($charData)
+	{
+		if ($charData == null) return TRUE;
+	
+		$data = $charData['data'];
+		return $this->parseCharacterData($data);
+	}
+	
+	
 	public function parseCharacterBuildData ($data)
 	{
-		if ($data == null) return $this->reportError("Missing 'data' section in the {buildData} section of the saved variable file!");
+			// Empty data sections are removed by the Lua/PHP parser
+		if ($data == null) return True; 
 		
 		$data['IPAddress'] = $_SERVER["REMOTE_ADDR"];
 		$data['UploadTimestamp'] = time();
@@ -340,11 +378,27 @@ class EsoCharDataSubmitter
 		
 		if (!$this->parseBuildData->doParse($data)) 
 		{
-			return $this->reportError("Failed to parse/save the saved character data!");
+			return $this->reportError("Failed to parse and save the build data!");
 		}
 		
-		$this->uploadedBuilds = $this->parseBuildData->characterCount;
-		$this->parsedBuilds = $this->parseBuildData->newCharacterCount;
+		return TRUE;
+	}
+	
+	
+	public function parseCharacterData ($data)
+	{
+			// Empty data sections are removed by the Lua/PHP parser
+		if ($data == null) return True;
+	
+		$data['IPAddress'] = $_SERVER["REMOTE_ADDR"];
+		$data['UploadTimestamp'] = time();
+		$data['WikiUser'] = $this->wikiUserName;
+	
+		if (!$this->parseCharData->doParse($data))
+		{
+			return $this->reportError("Failed to parse and save the character data!");
+		}
+	
 		return TRUE;
 	}
 	
