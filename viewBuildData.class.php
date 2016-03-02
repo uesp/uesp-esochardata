@@ -991,7 +991,17 @@ class EsoBuildDataViewer
 				continue;
 			}
 			
-			$output .= "<div class='ecdResearchTraitItem'>";
+			$tooltip = "";
+			$extraClass = "";
+			$unknownTraits = $this->characterData['stats']["Research:$craftType:Trait:$slotName:Unknown"];
+			
+			if ($unknownTraits != null) 
+			{
+				$tooltip = " tooltip='Unknown Traits: " . $unknownTraits['value'] . "'";
+				$extraClass = "ecdTraitTooltip";
+			}
+			
+			$output .= "<div class='ecdResearchTraitItem $extraClass' $tooltip>";
 			$output .= "<div class='ecdTraitTitle'>$slotName: </div> ";
 			$output .= "$rawData</div>";
 		}

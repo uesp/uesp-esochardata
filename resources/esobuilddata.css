@@ -1206,3 +1206,30 @@ table.tablesorter thead tr .headerSortUp {
 .ecdDeleteButton {
 	font-weight: bold;
 }
+
+.ecdTraitTooltip {
+	position: relative;
+}
+
+.ecdTraitTooltip:hover {
+	background: #007;
+	cursor: pointer;
+}
+
+.ecdTraitTooltip:hover:after {
+    background: #222;
+    border-radius: 1px;
+    border: solid 1px gray;
+    bottom: 20px;
+    color: #f99;
+    content: attr(tooltip);
+    left: 10%;
+    padding: 3px;
+    position: absolute;
+    z-index: 98;
+    width: 300px;
+    font-size: 16px;
+    font-weight: normal;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
