@@ -647,15 +647,15 @@ tr.eso_item_link {
 }
 
 .ecdSkillTreeContent1 {
-	margin-left: 50px;
+	margin-left: 25px;
 }
 
 .ecdSkillTreeName1 {
 	font-size: 20px;
     font-weight: bold;
     color: #C5C29E;
-    padding: 5px;
-    margin: 5px;
+    padding: 8px;
+    padding-left: 0px;
 }
 
 .ecdSkillTreeName2 {
