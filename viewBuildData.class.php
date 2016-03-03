@@ -1032,17 +1032,23 @@ class EsoBuildDataViewer
 			$rawData = $value['value'];
 			$rawValues = explode(',', $rawData);
 			$styleData = '';
+			$unknownChapters = "";
 			
 			if (count($rawValues) > 1)
 			{
 				$styleArray = array();
+				$unknownArray = array();
 				
 				for ($i = 0; $i < 14; ++$i)
 				{
-					if ($rawValues[$i] == 1) $styleArray[] = $this->ESO_MOTIF_CHAPTERNAMES[$i];
+					if ($rawValues[$i] == 1) 
+						$styleArray[] = $this->ESO_MOTIF_CHAPTERNAMES[$i];
+					else
+						$unknownArray[] = $this->ESO_MOTIF_CHAPTERNAMES[$i];
 				}
 				
 				$styleData = implode(', ', $styleArray);
+				$unknownChapters = implode(', ', $unknownArray);
 			}
 			elseif ($rawData == '1')
 			{
@@ -1051,13 +1057,23 @@ class EsoBuildDataViewer
 			elseif ($rawData == '0')
 			{
 				$styleData = 'None Known';
+				$unknownChapters =  implode(', ', $this->ESO_MOTIF_CHAPTERNAMES);
 			}
 			else
 			{
 				continue;
 			}
+			
+			$extraClass = "";
+			$tooltip = "";
+				
+			if ($unknownChapters != "")
+			{
+				$tooltip = " tooltip='Unknown Chapters: " . $unknownChapters . "'";
+				$extraClass = "ecdTraitTooltip";
+			}
 							
-			$output .= "<div class='ecdSkillDataBox'>\n";
+			$output .= "<div class='ecdSkillDataBox $extraClass' $tooltip>\n";
 			$output .= "<div class='ecdSkillNameCraft'>$styleName:</div>";
 			$output .= "<div class='ecdSkillValueCraft'>$styleData</div>";
 			$output .= "</div>\n";
