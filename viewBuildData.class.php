@@ -749,6 +749,7 @@ class EsoBuildDataViewer
 	public function getShortCharacterLinkHtml()
 	{
 		$output = "";
+		$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
 		
 		if ($this->characterId <= 0)
 		{
@@ -782,7 +783,9 @@ class EsoBuildDataViewer
 		}
 		else
 		{
-			$output .= "Viewing all character builds.";
+			$output .= "Viewing all builds. ";
+			$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
+			$output .= "<a href='http://esobuilds.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
 		}
 		
 		$output .= "</div>";
