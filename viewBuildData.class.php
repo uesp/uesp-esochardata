@@ -749,11 +749,14 @@ class EsoBuildDataViewer
 	public function getShortCharacterLinkHtml()
 	{
 		$output = "";
-		if ($this->characterId <= 0) return $output;
 		
-		$charLink = $this->ESO_SHORT_LINK_URL . "b/" . $this->characterId;
-		$output .= "<a href='$charLink' class='ecdShortCharLink'>Link to Build</a>";
+		if ($this->characterId <= 0)
+		{
+			$charLink = $this->ESO_SHORT_LINK_URL . "b/" . $this->characterId;
+			$output .= " <a href='$charLink' class='ecdShortCharLink'>Link to Build</a>";
+		}
 		
+		$output .= "<a href='http://esobuilds.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
 		return $output;
 	}
 	
