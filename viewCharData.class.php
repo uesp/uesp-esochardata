@@ -527,11 +527,14 @@ EOT;
 	public function getShortCharacterLinkHtml()
 	{
 		$output = "";
-		if ($this->characterId <= 0) return $output;
+		
+		if ($this->characterId > 0) 
+		{
+			$charLink = $this->ESO_SHORT_LINK_URL . "b/" . $this->characterId;
+			$output .= "<a href='$charLink' class='ecdShortCharLink'>Link to Character</a>";
+		}
 	
-		$charLink = $this->ESO_SHORT_LINK_URL . "b/" . $this->characterId;
-		$output .= "<a href='$charLink' class='ecdShortCharLink'>Link to Character</a>";
-	
+		$output .= "<a href='http://esochars.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
 		return $output;
 	}
 	

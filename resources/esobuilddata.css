@@ -841,6 +841,7 @@ tr.eso_item_link {
 
 .ecdShortCharLink {
 	float: right;
+    padding-left: 20px;
 }
 
 .ecdHeader {
