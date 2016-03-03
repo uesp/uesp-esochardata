@@ -516,7 +516,10 @@ EOT;
 		}
 		else
 		{
-			$output .= "Viewing all characters.";
+			$output .= "Viewing all characters. ";
+			$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
+			$output .= "<a href='http://esochars.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
+			
 		}
 	
 		$output .= "</div>";
@@ -527,6 +530,7 @@ EOT;
 	public function getShortCharacterLinkHtml()
 	{
 		$output = "";
+		$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
 		
 		if ($this->characterId > 0) 
 		{
