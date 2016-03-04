@@ -534,7 +534,7 @@ EOT;
 		
 		if ($this->characterId > 0) 
 		{
-			$charLink = $this->ESO_SHORT_LINK_URL . "b/" . $this->characterId;
+			$charLink = $this->ESO_SHORT_LINK_URL . "c/" . $this->characterId;
 			$output .= "<a href='$charLink' class='ecdShortCharLink'>Link to Character</a>";
 		}
 	

@@ -239,6 +239,7 @@ class EsoBuildDataParser
 						characterId INTEGER NOT NULL,
 						name TINYTEXT NOT NULL,
 						icon TINYTEXT NOT NULL,
+						description TEXT NOT NULL,
 						abilityId INTEGER NOT NULL,
 						PRIMARY KEY (id),
 						INDEX index_characterId(characterId)
@@ -1022,8 +1023,8 @@ class EsoBuildDataParser
 		$description = $this->getSafeFieldStr($arrayData, 'desc');
 		$abilityId = $this->getSafeFieldInt($arrayData, 'id');
 	
-		$query  = "INSERT INTO buffs(characterId, name, icon, abilityId) ";
-		$query .= "VALUES($charId, \"$name\", \"$icon\", $abilityId);";
+		$query  = "INSERT INTO buffs(characterId, name, icon, abilityId, description) ";
+		$query .= "VALUES($charId, \"$name\", \"$icon\", $abilityId, \"$description\");";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 	
