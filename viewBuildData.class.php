@@ -1506,17 +1506,33 @@ class EsoBuildDataViewer
 		$safeName = $this->escape($buffName);
 		$rawIcon = $buff['icon'];
 		$abilityId = $buff['abilityId'];
+		$desc = $buff['description'];
 		
 		if (!$this->checkDisplayBuffName($buffName)) return "";
 		
 		if ($this->isBuffFoodOrDrink($buffName))
 		{
 			$foodDesc = $this->convertFoodDrinkDescription($this->getCharStatField('LastFoodEatenDesc'), $this->getCharStatField('LastFoodEatenType'), $this->getCharStatField('LastFoodEatenName'));
-			if ($foodDesc != "") $safeName = $foodDesc;
+			
+			if ($foodDesc != "") 
+			{
+				$safeName = $foodDesc;
+				$desc = $this->getCharStatField('LastFoodEatenDesc');
+			}
+		}
+				
+		$extraClass = "";
+		$tooltip = "";
+		
+		if ($desc != "")
+		{
+			$desc = $this->convertDescriptionToText($desc);
+			$extraClass = "ecdBuffTooltip";
+			$tooltip = " tooltip='$desc'";
 		}
 		
 		$iconUrl = $this->convertIconToImageUrl($rawIcon);
-		$output .= "<div class='ecdBuff'><img src=\"$iconUrl\" title=\"$rawIcon\"/>\n";
+		$output .= "<div class='ecdBuff $extraClass' $tooltip><img src=\"$iconUrl\" title=\"$rawIcon\"/>\n";
 		$output .= "<div class='ecdBuffDesc'>$safeName</div>\n";
 		$output .= "</div>\n";
 		
@@ -1864,6 +1880,7 @@ class EsoBuildDataViewer
 	public function convertDescriptionToText($description)
 	{
 		$newDesc = preg_replace('/\|c[a-fA-F0-9]{6}([a-zA-Z _0-9\.\+\-\:\;\n\r\t]*)\|r/', '$1', $description);
+		$newDesc = $this->escape($newDesc);
 		return $newDesc;
 	}
 	
@@ -1872,6 +1889,7 @@ class EsoBuildDataViewer
 	{
 		$newDesc = preg_replace('/\|c[a-fA-F0-9]{6}([a-zA-Z _0-9\.\+\-\:\;\n\r\t]*)\|r/', '<div class="ecdWhite">$1</div>', $description);
 		$newDesc = preg_replace('/\n/', '<br />', $newDesc);
+		$newDesc = $this->escape($newDesc);
 		return $newDesc;
 	}
 	
