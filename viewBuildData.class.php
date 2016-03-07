@@ -1889,7 +1889,6 @@ class EsoBuildDataViewer
 	{
 		$newDesc = preg_replace('/\|c[a-fA-F0-9]{6}([a-zA-Z _0-9\.\+\-\:\;\n\r\t]*)\|r/', '<div class="ecdWhite">$1</div>', $description);
 		$newDesc = preg_replace('/\n/', '<br />', $newDesc);
-		$newDesc = $this->escape($newDesc);
 		return $newDesc;
 	}
 	
