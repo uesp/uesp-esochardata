@@ -1254,7 +1254,7 @@ table.tablesorter thead tr .headerSortUp {
     padding: 3px;
     position: absolute;
     z-index: 98;
-    width: 220px;
+    width: 200px;
     font-size: 14px;
     font-weight: normal;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
