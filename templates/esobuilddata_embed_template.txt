@@ -64,7 +64,7 @@
 		<div id='ecdBasicStats'>
 			{basicStats}
 		</div>
-		<div id='ecdBuffs'>
+		<div id='ecdBuffs' class='ecdScrollContent'>
 			{buffs}
 		</div>
 	</div>
