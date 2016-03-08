@@ -888,7 +888,7 @@ class EsoBuildDataViewer
 	
 	public function getCharSkillResearchContentHtml()
 	{
-		$output  = "<div id='ecdSkill_Research' class='ecdSkillData' style='display: none;'>\n";
+		$output  = "<div id='ecdSkill_Research' class='ecdSkillData ecdScrollContent' style='display: none;'>\n";
 		$output .= "<div id='ecdSkillContentTitle'>Crafting Research</div>";
 		
 		$output .= $this->getResearchContentHtml("Blacksmithing");
@@ -1022,7 +1022,7 @@ class EsoBuildDataViewer
 	
 	public function getCharSkillMotifContentHtml()
 	{
-		$output  = "<div id='ecdSkill_Motifs' class='ecdSkillData' style='display: none;'>\n";
+		$output  = "<div id='ecdSkill_Motifs' class='ecdSkillData ecdScrollContent' style='display: none;'>\n";
 		$output .= "<div id='ecdSkillContentTitle'>Crafting Motifs</div>";
 		
 		foreach ($this->characterData['stats'] as $key => $value)
@@ -1111,7 +1111,7 @@ class EsoBuildDataViewer
 		
 		$displayType = 'none';
 		if ($skillName == $this->skillTreeFirstName) $displayType = "block";
-		$output = "<div id='ecdSkill_$idName' class='ecdSkillData' style='display: {$displayType};'>\n";
+		$output = "<div id='ecdSkill_$idName' class='ecdSkillData ecdScrollContent' style='display: {$displayType};'>\n";
 				
 		reset($skillData);
 		
