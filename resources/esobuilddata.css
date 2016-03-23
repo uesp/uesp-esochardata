@@ -1171,6 +1171,7 @@ table.tablesorter thead tr .headerSortUp {
 .ecdResearchTraitItem {
 	display: block;
 	color: #999;
+    padding: 1px;
 }
 
 .ecdTraitTitle {
@@ -1245,7 +1246,7 @@ table.tablesorter thead tr .headerSortUp {
 }
 
 .ecdMotifTooltip:hover:after {
-	left: 100px !important;
+	left: 50px !important;
 }
 
 .ecdBuffTooltip {
