@@ -871,6 +871,8 @@ tr.eso_item_link {
 	font-weight: bold;
 	color: #C5C29E;
 	display: inline-block;
+    position: relative;
+    left: -10px;
 }
 
 .ecdSkillValueCraft {
@@ -878,7 +880,6 @@ tr.eso_item_link {
 	font-weight: normal;
 	color: WHITE;
 	display: inline;
-	margin-left: 10px;
 }
 
 .ecdActiveAbilityBar {
@@ -1177,6 +1178,8 @@ table.tablesorter thead tr .headerSortUp {
 	font-size: 16px;
     font-weight: bold;
     color: white;
+    position: relative;
+    left: -10px;
 }
 
 .ecdFormSubmitError {
