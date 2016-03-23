@@ -1254,7 +1254,7 @@ table.tablesorter thead tr .headerSortUp {
     background: #222;
     border-radius: 1px;
     border: solid 1px gray;
-    bottom: 30px;
+    top: 0px;
     color: #fff;
     content: attr(tooltip);
     left: 34px;
