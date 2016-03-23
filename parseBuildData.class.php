@@ -1089,12 +1089,13 @@ class EsoBuildDataParser
 	{
 		$result = True;
 	
-		foreach ($arrayData as $styleName => $value)
+		foreach ($arrayData as $styleName => &$value)
 		{
 			$key = "Crafting:" . $styleName;
 			
 			if (is_array($value))
 			{
+				ksort($value);
 				$newValue = implode(',', $value);
 				$result &= $this->saveCharacterStatData($buildData, $key, $newValue);
 			}
