@@ -1008,7 +1008,7 @@ class EsoBuildDataViewer
 			}
 			
 			$output .= "<div class='ecdResearchTraitItem $extraClass' $tooltip>";
-			$output .= "<div class='ecdTraitTitle'>$slotName: </div> ";
+			$output .= "<div class='ecdTraitTitle'>$slotName:</div>";
 			$output .= "$rawData</div>";
 		}
 		
