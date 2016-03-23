@@ -111,6 +111,15 @@ function onDocReady()
 	$(".ecdItemFilterTextInput").blur(function() {
 			$(".ecdItemFilterTextInput").val(this.value);
 		});
+	
+	$('.ecdClickToCopy').click(function() {
+    		copyToClipboard(this);
+		});
+	
+	$('.ecdClickToCopyTooltip').click(function() {
+			var text = $(this).attr('tooltip');
+			copyTextToClipboard(text);
+		});
 		
 }
 
@@ -309,6 +318,35 @@ function DoItemFilter()
 			$(this).show();
 		});	
 	
+}
+
+
+function copyToClipboard(self)
+{
+	var textToCopy = $(self).text();
+	copyTextToClipboard(textToCopy);
+}
+
+
+function copyTextToClipboard(textToCopy)
+{
+	$("body")
+		.append($('<input type="text" name="fname" class="textToCopyInput" style="opacity: 0; position: absolute;" />' )
+				.val(textToCopy))
+		.find(".textToCopyInput")
+		.select();
+	
+	try 
+	{
+		var successful = document.execCommand('copy');
+		var msg = successful ? 'successful' : 'unsuccessful';
+    }
+	catch (err) 
+    {
+    	window.prompt("To copy the text to clipboard: Ctrl+C, Enter", textToCopy);
+    }
+	
+	$(".textToCopyInput").remove();
 }
 
 
