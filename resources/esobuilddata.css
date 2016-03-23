@@ -1148,7 +1148,7 @@ table.tablesorter thead tr .headerSortUp {
 }
 
 .ecdResearchTitle {
-	font-size: 18px;
+	font-size: 20px;
     font-weight: bold;
     color: #C5C29E;
     display: block;
@@ -1168,7 +1168,8 @@ table.tablesorter thead tr .headerSortUp {
 }
 
 .ecdResearchTraitItem {
-	display: block;	
+	display: block;
+	color: #999;
 }
 
 .ecdTraitTitle {
