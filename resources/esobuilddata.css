@@ -1231,10 +1231,10 @@ table.tablesorter thead tr .headerSortUp {
     background: #222;
     border-radius: 1px;
     border: solid 1px gray;
-    bottom: 20px;
+    top: -30px;
     color: #f99;
     content: attr(tooltip);
-    left: 10%;
+    left: 50px;
     padding: 3px;
     position: absolute;
     z-index: 98;
@@ -1242,6 +1242,10 @@ table.tablesorter thead tr .headerSortUp {
     font-size: 16px;
     font-weight: normal;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.ecdMotifTooltip:hover:after {
+	left: 100px !important;
 }
 
 .ecdBuffTooltip {
@@ -1270,3 +1274,18 @@ table.tablesorter thead tr .headerSortUp {
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
+.ecdClickToCopy {
+	cursor: pointer;
+}
+
+.ecdClickToCopy:hover {
+	background-color: #009;
+}
+
+.ecdClickToCopyTooltip {
+	cursor: pointer;
+}
+
+.ecdClickToCopyTooltip:hover {
+	background-color: #009;
+}

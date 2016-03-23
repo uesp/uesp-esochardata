@@ -1003,11 +1003,11 @@ class EsoBuildDataViewer
 			
 			if ($unknownTraits != null) 
 			{
-				$tooltip = " tooltip='Unknown Traits: " . $unknownTraits['value'] . "'";
+				$tooltip = " tooltip='" . $unknownTraits['value'] . "'";
 				$extraClass = "ecdTraitTooltip";
 			}
 			
-			$output .= "<div class='ecdResearchTraitItem $extraClass' $tooltip>";
+			$output .= "<div class='ecdResearchTraitItem ecdClickToCopyTooltip $extraClass' $tooltip>";
 			$output .= "<div class='ecdTraitTitle'>$slotName:</div>";
 			$output .= "$rawData</div>";
 		}
@@ -1072,11 +1072,11 @@ class EsoBuildDataViewer
 				
 			if ($unknownChapters != "")
 			{
-				$tooltip = " tooltip='Unknown Chapters: " . $unknownChapters . "'";
-				$extraClass = "ecdTraitTooltip";
+				$tooltip = " tooltip='" . $unknownChapters . "'";
+				$extraClass = "ecdTraitTooltip ecdMotifTooltip";
 			}
 							
-			$output .= "<div class='ecdSkillDataBox $extraClass' $tooltip>\n";
+			$output .= "<div class='ecdSkillDataBox ecdClickToCopyTooltip $extraClass' $tooltip>\n";
 			$output .= "<div class='ecdSkillNameCraft'>$styleName:</div>";
 			$output .= "<div class='ecdSkillValueCraft'>$styleData</div>";
 			$output .= "</div>\n";
