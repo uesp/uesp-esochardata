@@ -1416,6 +1416,11 @@ class EsoBuildDataViewer
 			$this->parseCharSkill($skillName, $skillData);
 		}
 		
+		foreach ($this->skillData as $skillName => &$skillLineData)
+		{
+			uksort($skillLineData, 'CompareEsoSkillTypeName');
+		}
+		
 		return true;
 	}
 	
@@ -2468,8 +2473,32 @@ function compareInventoryByName($a, $b)
 	return strcmp($a["name"], $b["name"]);
 }
 
+
 function compareInventoryByItemLink($a, $b)
 {
 	return strcmp($a["itemLink"], $b["itemLink"]);
 }
 
+
+function CompareEsoSkillTypeName($a, $b)
+{
+	static $SKILLTYPES = array(
+			"Light Armor" => 1,
+			"Medium Armor" => 2,
+			"Heavy Armor" => 3,
+				
+			"Two Handed" => 1,
+			"One Hand and Shield" => 2,
+			"Dual Wield" => 3,
+			"Bow" => 4,
+			"Destruction Staff" => 5,
+			"Restoration Staff" => 6,
+	);
+
+	if (!array_key_exists($a, $SKILLTYPES) || !array_key_exists($b, $SKILLTYPES))
+	{
+		return strcmp($a, $b);
+	}
+
+	return $SKILLTYPES[$a] - $SKILLTYPES[$b];
+}
