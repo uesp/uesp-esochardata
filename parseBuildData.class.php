@@ -733,10 +733,7 @@ class EsoBuildDataParser
 		if ($result === 1) 
 		{
 			$itemLink = $matches[1] . "|h|h";
-			$itemName = ucwords($matches[2]);
-			$itemName = preg_replace("/ Of /", " of ", $itemName);
-			$itemName = preg_replace("/ The /", " the ", $itemName);
-			$itemName = preg_replace("/ And /", " and ", $itemName);
+			$itemName = $this->MakeNiceItemName($matches[2]);
 			$extraData = $matches[3];
 		}
 		
@@ -859,14 +856,31 @@ class EsoBuildDataParser
 	}
 	
 	
+	public function MakeNiceItemName($name)
+	{
+		if ($name == null) $name = "";
+		
+		$name = preg_replace("/(.*?)(\^.*)?/", "$1", $name);
+		$name = ucwords($name);
+		
+		$name = preg_replace("/ Of /", " of ", $name);
+		$name = preg_replace("/ The /", " the ", $name);
+		$name = preg_replace("/ And /", " and ", $name);
+		
+		return $name;
+	}
+	
+	
 	public function saveCharacterEquipSlot($buildData, $index, $arrayData, $accountName)
 	{
 		$charId = $buildData['id'];
-		$name = $this->getSafeFieldStr($arrayData, 'name');
+		$name = $arrayData['name'];
 		$icon = $this->getSafeFieldStr($arrayData, 'icon');
 		$itemLink = $this->getSafeFieldStr($arrayData, 'link');
 		$condition = $this->getSafeFieldInt($arrayData, 'condition');
 		$setCount = $this->getSafeFieldInt($arrayData, 'setcount');
+		
+		$name = $this->MakeNiceItemName($name);
 		
 		$style = 0;
 		$stolen = 0;
@@ -902,8 +916,10 @@ class EsoBuildDataParser
 			}
 		}
 		
+		$safeName = $this->db->real_escape_string($name);
+		
 		$query  = "INSERT INTO equipSlots(characterId, account, name, itemLink, icon, `condition`, `index`, setCount, style, stolen, value, quality, level, type, equipType, weaponType, armorType, craftType) ";
-		$query .= "VALUES($charId, \"$accountName\", \"$name\", \"$itemLink\", \"$icon\", $condition, $index, $setCount, $style, $stolen, $value, $quality, $level, $type, $equipType, $weaponType, $armorType, $craftType);";
+		$query .= "VALUES($charId, \"$accountName\", \"$safeName\", \"$itemLink\", \"$icon\", $condition, $index, $setCount, $style, $stolen, $value, $quality, $level, $type, $equipType, $weaponType, $armorType, $craftType);";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		if ($result === FALSE) return $this->reportError("Failed to save character equip slot data!");
