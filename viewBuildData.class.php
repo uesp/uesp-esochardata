@@ -1262,7 +1262,8 @@ class EsoBuildDataViewer
 			if ($channelTime > 0) 
 			{
 				$output .= "<div class='ecdSkillTooltipValue'>$channelTime seconds</div>";
-				$output .= "<div class='ecdSkillTooltipName'>Channel Time</div>";			
+				$output .= "<div class='ecdSkillTooltipName'>Channel Time</div>";
+				$castTimeStr = "";
 			}
 			else if ($castTime <= 0)
 			{
@@ -1702,7 +1703,7 @@ class EsoBuildDataViewer
 		$output .= "<br />";
 		$output .= $this->getCharBasicStatHtml('Spell Resistance', 'SpellResist');
 		$output .= $this->getCharBasicStatHtml('Physical Resistance', 'PhysicalResist');
-		$output .= $this->getCharBasicStatHtml('Critical Resistance', 'CriticalResist');
+		$output .= $this->getCharBasicStatHtml('Critical Resistance', 'CriticalResistance');
 		$output .= "<br />";
 		$output .= $this->getCharBasicStatHtml('Spell Penetration', 'SpellPenetration');
 		$output .= $this->getCharBasicStatHtml('Physical Penetration', 'PhysicalPenetration');
@@ -1860,7 +1861,7 @@ class EsoBuildDataViewer
 	public function checkCharacterRawColumnName($colName)
 	{
 		if ($colName === 'id') return false;
-		if ($colName === 'characterId') return false;
+		//if ($colName === 'characterId') return false;
 		if ($colName === 'account') return false;
 		if ($colName === 'invType') return false;
 		if ($colName === 'localId') return false;
