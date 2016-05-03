@@ -334,6 +334,7 @@ class EsoCharDataSubmitter
 			if ($object == null) return $this->reportError("NULL object found in the {$parentName} section (section level) of the saved variable file!");
 			$result &= $this->parseCharacterBuild($object["buildData"]);
 			$result &= $this->parseCharacter($object["bankData"]);
+			$result &= $this->parseCharacter($object["craftBagData"]);
 			
 			$this->uploadedBuilds = $this->parseBuildData->characterCount;
 			$this->parsedBuilds = $this->parseBuildData->newCharacterCount;
