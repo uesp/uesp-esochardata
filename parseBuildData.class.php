@@ -13,6 +13,7 @@ class EsoBuildDataParser
 	
 	public $hasCharacterInventory = false;
 	public $hasCharacterBank      = false;
+	public $hasCharacterCraftBag  = false;
 	
 	public $inputParams = array();
 	public $rawBuildData = array();
@@ -445,14 +446,17 @@ class EsoBuildDataParser
 		if ($buildData["IsBank"] != 0)
 		{
 			$this->log("Parsing bank data with key $index...");
-			$this->parsedBuildData[$index] = $buildData;
+		}
+		else if ($buildData["IsCraftBag"] != 0)
+		{
+			$this->log("Parsing craft bag data with key $index...");
 		}
 		else
 		{
 			$this->log("Parsing character with key $index...");
-			$this->parsedBuildData[$index] = $buildData;
 		}
 		
+		$this->parsedBuildData[$index] = $buildData;
 		return true;
 	}
 	

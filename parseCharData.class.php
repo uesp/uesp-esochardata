@@ -22,6 +22,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		
 		$this->hasCharacterInventory = true;
 		$this->hasCharacterBank      = true;
+		$this->hasCharacterCraftBag  = true;
 	}
 	
 	
@@ -296,9 +297,6 @@ class EsoCharDataParser extends EsoBuildDataParser
 	{
 		$accountName = $this->getSafeFieldStr($charData, 'UniqueAccountName');
 		
-		//$test = $charData['UniqueAccountName'];
-		//$test1 = $this->db->real_escape_string($charData['UniqueAccountName']);
-		//$this->log("Deleting bank inventory for $test / $test1 / $accountName...");
 		$this->log("Deleting bank inventory for $accountName...");
 		
 		$query = "DELETE FROM inventory WHERE characterId=-1 AND account=\"$accountName\";";
@@ -306,6 +304,21 @@ class EsoCharDataParser extends EsoBuildDataParser
 		$result = $this->db->query($query);
 		if ($result === FALSE) $this->reportError("Failed to clear previous character bank data!");
 		
+		return True;
+	}
+	
+	
+	public function deleteExistingCraftBagData($charData)
+	{
+		$accountName = $this->getSafeFieldStr($charData, 'UniqueAccountName');
+	
+		$this->log("Deleting craft bag inventory for $accountName...");
+	
+		$query = "DELETE FROM inventory WHERE characterId=-2 AND account=\"$accountName\";";
+		$this->lastQuery = $query;
+		$result = $this->db->query($query);
+		if ($result === FALSE) $this->reportError("Failed to clear previous character craft bag data!");
+	
 		return True;
 	}
 	
@@ -389,7 +402,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		
 		foreach ($this->parsedBuildData as $key => &$charData)
 		{
-			if ($charData["IsBank"] == 0)
+			if ($charData["IsBank"] == 0 && $charData["IsCraftBag"] == 0)
 			{
 				$account = $charData['UniqueAccountName'];
 				if ($account != null && $account != "") $goodAccount = $account;
@@ -464,7 +477,11 @@ class EsoCharDataParser extends EsoBuildDataParser
 			{
 				$thisResult = $this->saveBankData($charData);
 				$result &= $thisResult;
-				//if ($thisResult) $this->savedCharacters += 1;
+			}
+			else if ($charData["IsCraftBag"] != 0)
+			{
+				$thisResult = $this->saveCraftBagData($charData);
+				$result &= $thisResult;
 			}
 			else 
 			{
@@ -516,6 +533,29 @@ class EsoCharDataParser extends EsoBuildDataParser
 	
 		return $result;
 	}
+	
+	
+	public function saveCraftBagData($craftBagData)
+	{
+		$result = True;
+	
+		$this->deleteExistingCraftBagData($craftBagData);
+		$account = $this->getSafeFieldStr($craftBagData, "UniqueAccountName");
+	
+		foreach ($craftBagData as $key => &$value)
+		{
+			if ($key == "Inventory")
+			{
+				$result &= $this->saveCharacterCraftBag($craftBagData, $key, $value);
+			}
+			else if ($key == "UsedSize")
+			{
+				$result &= $this->saveCharacterInventoryExtraRawData(-2, $account, "__UsedSpace", $value);
+			}
+		}
+	
+		return $result;
+	}
 
 	
 	public function saveCharacterBank($buildData, $name, $arrayData)
@@ -523,6 +563,23 @@ class EsoCharDataParser extends EsoBuildDataParser
 		if (!$this->hasCharacterBank) return true;
 	
 		$charId = -1;
+		$accountName = $this->getSafeFieldStr($buildData, 'UniqueAccountName');
+		$result = True;
+			
+		foreach ($arrayData as $key => &$value)
+		{
+			$result &= $this->saveCharacterInventoryItem($charId, $accountName, $key, $value);
+		}
+	
+		return $result;
+	}
+	
+	
+	public function saveCharacterCraftBag($buildData, $name, $arrayData)
+	{
+		if (!$this->hasCharacterCraftBag) return true;
+	
+		$charId = -2;
 		$accountName = $this->getSafeFieldStr($buildData, 'UniqueAccountName');
 		$result = True;
 			

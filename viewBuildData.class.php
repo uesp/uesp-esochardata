@@ -1861,7 +1861,7 @@ class EsoBuildDataViewer
 	public function checkCharacterRawColumnName($colName)
 	{
 		if ($colName === 'id') return false;
-		//if ($colName === 'characterId') return false;
+		if ($colName === 'characterId') return false;
 		if ($colName === 'account') return false;
 		if ($colName === 'invType') return false;
 		if ($colName === 'localId') return false;
