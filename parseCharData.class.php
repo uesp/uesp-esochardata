@@ -359,6 +359,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		$wikiUserName = $this->getSafeFieldStr($charData, 'WikiUser');
 		$class = $this->getSafeFieldStr($charData, 'Class');
 		$race = $this->getSafeFieldStr($charData, 'Race');
+		$alliance = $this->getSafeFieldStr($charData, 'Alliance');
 		$buildType = $this->getSafeFieldStr($charData, 'BuildType');
 		$level = $this->getSafeFieldInt($charData, 'EffectiveLevel');
 		$createTime = $this->getSafeFieldInt($charData, 'TimeStamp');
@@ -377,7 +378,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		
 		$query  = "UPDATE characters SET ";
 		$query .= "name=\"$name\", buildName=\"$buildName\", wikiUserName=\"$wikiUserName\", class=\"$class\", race=\"$race\", buildType=\"$buildType\", level=$level, ";
-		$query .= "createTime=$createTime, championPoints=$championPoints, special=\"$special\", uploadTimestamp=now() ";
+		$query .= "createTime=$createTime, championPoints=$championPoints, special=\"$special\", uploadTimestamp=now(), alliance=\"$alliance\" ";
 		$query .= "WHERE id=$charId;";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
