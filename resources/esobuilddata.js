@@ -241,7 +241,7 @@ function ItemFilter_Consumable(item)
 	return item.consumable != 0 && (
 		item.type ==  7 || item.type ==  4 || item.type ==  9 || item.type == 12 || item.type == 29 || item.type == 55 || 
 		item.type == 57 || item.type == 30 || item.type == 18 || item.type ==  5 || item.type == 47 || item.type ==  6 ||
-		item.type == 18 || item.type ==  8 || item.type == 54);
+		item.type == 18 || item.type ==  8 || item.type == 54 || item.type == 58);
 }
 
 
