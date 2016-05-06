@@ -5,8 +5,8 @@
 <div id='ecdRoot'>
 	<div id='ecdTitleBar'>
 		<div class='ecdLevelInfo'>
-				<div class='ecdLevelBar'><div class='ecdLevel'>{level}</div> {levelTitle}</div>
-				<div class='ecdChampionPoint'>{championPoints} CHAMPION POINTS</div>
+				<div class='ecdLevelBar'>{levelTitle} <div class='ecdLevel'>{level}</div></div>
+				<div class='ecdChampionPoint'>CHAMPION POINTS <img src="http://esolog.uesp.net/resources/champion_icon.png" width="24" height="24"> {championPoints}</div>
 				<div class='ecdAlliance'>{alliance} RANK {allianceRank}</div>
 		</div>
 		<div class='ecdBuildName'>{buildName}</div>

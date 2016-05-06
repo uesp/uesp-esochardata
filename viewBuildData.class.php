@@ -14,6 +14,8 @@ class EsoBuildDataViewer
 	public $hasResearchOutput     = false;
 	public $combineInventoryItems = true;
 	public $combineBankItems      = true;
+	public $showCPLevel           = false;		// TODO: Switch to true when DB goes live
+	
 	
 	const ESO_ICON_URL = "http://esoicons.uesp.net";
 
@@ -168,6 +170,12 @@ class EsoBuildDataViewer
 	
 	public function formatCharacterLevel($level)
 	{
+		if ($this->showCPLevel) 
+		{
+			if ($level > 50) return "50";
+			return strval($level);
+		}
+		
 		if ($level < 50) return strval($level);
 		if ($level == 50) return "v1";
 		return "v" . ($level - 50);
@@ -1788,6 +1796,8 @@ class EsoBuildDataViewer
 	
 	public function getCharLevelTitle()
 	{
+		if ($this->showCPLevel) return 'LEVEL';
+		
 		if ($this->characterData['level'] >= 50) return 'VETERAN RANK';
 		return 'LEVEL';
 	}
