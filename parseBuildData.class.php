@@ -129,6 +129,7 @@ class EsoBuildDataParser
 						wikiUserName TINYTEXT NOT NULL,
 						class TINYTEXT NOT NULL,
 						race TINYTEXT NOT NULL,
+						alliance TINYTEXT NOT NULL,
 						buildType TINYTEXT NOT NULL,
 						special TINYTEXT NOT NULL,
 						level INTEGER NOT NULL,
@@ -551,6 +552,7 @@ class EsoBuildDataParser
 		$class = $this->getSafeFieldStr($buildData, 'Class');
 		$race = $this->getSafeFieldStr($buildData, 'Race');
 		$buildType = $this->getSafeFieldStr($buildData, 'BuildType');
+		$alliance = $this->getSafeFieldStr($buildData, 'Alliance');
 		$level = $this->getSafeFieldInt($buildData, 'EffectiveLevel');
 		$createTime = $this->getSafeFieldInt($buildData, 'TimeStamp');
 		$special = '';
@@ -566,8 +568,8 @@ class EsoBuildDataParser
 		
 		if ($this->checkBuffWerewolf($buildData)) $special = "Werewolf";
 				
-		$query  = "INSERT INTO characters(name, buildName, accountName, uniqueAccountName, wikiUserName, class, race, buildType, level, createTime, championPoints, special) ";
-		$query .= "VALUES(\"$name\", \"$buildName\", \"$accountName\", \"$uniqueAccountName\", \"$wikiUserName\", \"$class\", \"$race\", \"$buildType\", $level, $createTime, $championPoints, \"$special\");";
+		$query  = "INSERT INTO characters(name, buildName, accountName, uniqueAccountName, wikiUserName, class, race, buildType, level, createTime, championPoints, special, alliance) ";
+		$query .= "VALUES(\"$name\", \"$buildName\", \"$accountName\", \"$uniqueAccountName\", \"$wikiUserName\", \"$class\", \"$race\", \"$buildType\", $level, $createTime, $championPoints, \"$special\", \"$alliance\");";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		
