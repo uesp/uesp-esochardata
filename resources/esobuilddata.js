@@ -257,7 +257,8 @@ function ItemFilter_Material(item)
 function ItemFilter_Misc(item)
 {
 	return item.type == 56 || item.type == 48 || item.type == 19 || item.type == 9 || item.type == 29 || item.type == 55 || 
-           item.type == 57 || item.type == 30 || item.type == 18 || item.type == 5 || item.type == 47 || item.type == 6;
+           item.type == 57 || item.type == 30 || item.type == 18 || item.type == 5 || item.type == 47 || item.type ==  6 ||
+           item.type == 26 || item.type == 21 || item.type == 20;
 }
 
 
