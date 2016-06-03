@@ -154,6 +154,20 @@ class EsoBuildDataViewer
 	}
 	
 	
+	public function getFieldStr(&$arrayData, $field)
+	{
+		if (!array_key_exists($field, $arrayData)) return '';
+		return $arrayData[$field];
+	}
+	
+	
+	public function getFieldInt(&$arrayData, $field)
+	{
+		if (!array_key_exists($field, $arrayData)) return 0;
+		return intval($arrayData[$field]);
+	}	
+	
+	
 	public function getSafeFieldStr(&$arrayData, $field)
 	{
 		if (!array_key_exists($field, $arrayData)) return '';
@@ -2319,17 +2333,17 @@ EOT;
 	{
 		$output = "";
 		
-		$buildName = $this->escape($this->getSafeFieldStr($buildData, 'buildName'));
-		$charName = $this->escape($this->getSafeFieldStr($buildData, 'name'));
-		$buildType = $this->escape($this->getSafeFieldStr($buildData, 'buildType'));
-		$allianceName = $this->escape($this->getSafeFieldStr($buildData, 'alliance'));
-		$className = $this->escape($this->getSafeFieldStr($buildData, 'class'));
-		$raceName = $this->escape($this->getSafeFieldStr($buildData, 'race'));
-		$level = $this->formatCharacterLevel($this->getSafeFieldInt($buildData, 'level'));
-		$cp = $this->getSafeFieldInt($buildData, 'championPoints');
-		$charId = $this->getSafeFieldInt($buildData, 'id');
+		$buildName = $this->escape($this->getFieldStr($buildData, 'buildName'));
+		$charName = $this->escape($this->getFieldStr($buildData, 'name'));
+		$buildType = $this->escape($this->getFieldStr($buildData, 'buildType'));
+		$allianceName = $this->escape($this->getFieldStr($buildData, 'alliance'));
+		$className = $this->escape($this->getFieldStr($buildData, 'class'));
+		$raceName = $this->escape($this->getFieldStr($buildData, 'race'));
+		$level = $this->formatCharacterLevel($this->getFieldInt($buildData, 'level'));
+		$cp = $this->getFieldInt($buildData, 'championPoints');
+		$charId = $this->getFieldInt($buildData, 'id');
 		$linkUrl = $this->getCharacterLink($charId);
-		$special = $this->escape($this->getSafeFieldStr($buildData, 'special'));
+		$special = $this->escape($this->getFieldStr($buildData, 'special'));
 		
 		if ($buildName == "") $buildName = $charName;
 				
@@ -2411,16 +2425,16 @@ EOT;
 	{
 		$output = "";
 		
-		$buildName = $this->escape($this->getSafeFieldStr($buildData, 'buildName'));
-		$charName = $this->escape($this->getSafeFieldStr($buildData, 'name'));
-		$buildType = $this->escape($this->getSafeFieldStr($buildData, 'buildType'));
-		$className = $this->escape($this->getSafeFieldStr($buildData, 'class'));
-		$raceName = $this->escape($this->getSafeFieldStr($buildData, 'race'));
-		$level = $this->formatCharacterLevel($this->getSafeFieldInt($buildData, 'level'));
-		$cp = $this->getSafeFieldInt($buildData, 'championPoints');
-		$charId = $this->getSafeFieldInt($buildData, 'id');
+		$buildName = $this->escape($this->getFieldStr($buildData, 'buildName'));
+		$charName = $this->escape($this->getFieldStr($buildData, 'name'));
+		$buildType = $this->escape($this->getFieldStr($buildData, 'buildType'));
+		$className = $this->escape($this->getFieldStr($buildData, 'class'));
+		$raceName = $this->escape($this->getFieldStr($buildData, 'race'));
+		$level = $this->formatCharacterLevel($this->getFieldInt($buildData, 'level'));
+		$cp = $this->getFieldInt($buildData, 'championPoints');
+		$charId = $this->getFieldInt($buildData, 'id');
 		$linkUrl = $this->getCharacterLink($charId);
-		$special = $this->escape($this->getSafeFieldStr($buildData, 'special'));
+		$special = $this->escape($this->getFieldStr($buildData, 'special'));
 		
 		if ($buildType == "other") $buildType = "";
 		
