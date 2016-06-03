@@ -227,7 +227,7 @@ class EsoBuildDataViewer
 		
 		if (!$user->isLoggedIn()) return false;
 		if (strcasecmp($user->getName(), $this->characterData['wikiUserName']) == 0) return true;
-	
+		
 		return $user->isAllowedAny('esochardata_delete');
 	}
 	
@@ -241,7 +241,7 @@ class EsoBuildDataViewer
 	
 		if (!$user->isLoggedIn()) return false;
 		if (strcasecmp($user->getName(), $buildData['wikiUserName']) == 0) return true;
-	
+		
 		return $user->isAllowedAny('esochardata_edit');
 	}
 	
@@ -252,10 +252,15 @@ class EsoBuildDataViewer
 	
 		$user = $this->wikiContext->getUser();
 		if ($user == null) return false;
-	
+		
+		$logIn = $user->isLoggedIn();
+		$username1 = $user->getName();
+		$username2 = $buildData['wikiUserName'];
+		error_log("BUILDNAME: '$username1' '$username2' $logIn");
+			
 		if (!$user->isLoggedIn()) return false;
 		if (strcasecmp($user->getName(), $buildData['wikiUserName']) == 0) return true;
-	
+		
 		return $user->isAllowedAny('esochardata_delete');
 	}
 	
