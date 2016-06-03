@@ -531,7 +531,17 @@ class EsoBuildDataParser
 	{
 		if ($arrayData == null) return "";
 		if (!array_key_exists($field, $arrayData)) return '';
-		return $this->db->real_escape_string($arrayData[$field]);
+		
+		if ($field == "name")
+		{
+			$name = $arrayData[$field];
+			$name = preg_replace("#\^[a-zA-Z]*#", "", $name);
+			return $this->db->real_escape_string($name);
+		}
+		else
+		{
+			return $this->db->real_escape_string($arrayData[$field]);
+		}
 	}
 	
 	
@@ -557,6 +567,11 @@ class EsoBuildDataParser
 		$createTime = $this->getSafeFieldInt($buildData, 'TimeStamp');
 		$special = '';
 		$championPoints = 0;
+		
+		$name = preg_replace("#\^[a-zA-Z]*#", "", $name);
+		$alliance = preg_replace("#\^[a-zA-Z]*#", "", $alliance);
+		$class = preg_replace("#\^[a-zA-Z]*#", "", $class);
+		$race = preg_replace("#\^[a-zA-Z]*#", "", $race);
 		
 		if (array_key_exists('ChampionPoints', $buildData) && array_key_exists('Total:Spent', $buildData['ChampionPoints']))
 		{
@@ -646,6 +661,7 @@ class EsoBuildDataParser
 		if (array_key_exists($name, $this->currentCharacterStats)) return true;
 		
 		$charId = $buildData['id'];
+		$name = preg_replace("#\^[a-zA-Z]*#", "", $name);
 		$safeName = $this->db->real_escape_string($name);
 		$safeData = $this->db->real_escape_string($data);
 		
@@ -873,6 +889,8 @@ class EsoBuildDataParser
 		$name = preg_replace("/ The /", " the ", $name);
 		$name = preg_replace("/ And /", " and ", $name);
 		
+		$name = preg_replace("#\^[a-zA-Z]*#", "", $name);
+		
 		return $name;
 	}
 	
@@ -963,7 +981,7 @@ class EsoBuildDataParser
 		$duration = $this->getSafeFieldInt($arrayData, 'duration');
 		$target = $this->getSafeFieldStr($arrayData, 'target');
 		$index = $this->db->real_escape_string($index);
-	
+		
 		$query  = "INSERT INTO actionBars(characterId, name, description, icon, abilityId, `index`, area, cost, `range`, radius, castTime, channelTime, duration, target) ";
 		$query .= "VALUES($charId, \"$name\", \"$description\", \"$icon\", $abilityId, $index, \"$area\", \"$cost\", \"$range\", $radius, $castTime, $channelTime, $duration, \"$target\");";
 		$this->lastQuery = $query;
@@ -998,6 +1016,7 @@ class EsoBuildDataParser
 	public function saveCharacterSkill($buildData, $name, $arrayData)
 	{
 		$charId = $buildData['id'];
+		$name = preg_replace("#\^[a-zA-Z]*#", "", $name);
 		$safeName = $this->db->real_escape_string($name);
 		$icon = $this->getSafeFieldStr($arrayData, 'icon');
 		$type = $this->getSafeFieldStr($arrayData, 'type');
@@ -1079,6 +1098,7 @@ class EsoBuildDataParser
 	public function saveCharacterChampionPoint($buildData, $name, $arrayData)
 	{
 		$charId = $buildData['id'];
+		$name = preg_replace("#\^[a-zA-Z]*#", "", $name);
 		$safeName = $this->db->real_escape_string($name);
 		$points = $this->getSafeFieldInt($arrayData, 'points');
 		$description = $this->getSafeFieldStr($arrayData, 'desc');
