@@ -578,6 +578,8 @@ class EsoBuildDataParser
 			$championPoints = $buildData['ChampionPoints']['Total:Spent'];
 		}
 		
+		$championPoints = $buildData['ChampionPointsEarned'];
+		
 		if ($buildData['Vampire'] == 1) $special = "Vampire";
 		if ($buildData['Werewolf'] == 1) $special = "Werewolf";
 		
