@@ -371,6 +371,8 @@ class EsoCharDataParser extends EsoBuildDataParser
 			$championPoints = $charData['ChampionPoints']['Total:Spent'];
 		}
 		
+		$championPoints = $charData['ChampionPointsEarned'];
+		
 		if ($charData['Vampire'] == 1) $special = "Vampire";
 		if ($charData['Werewolf'] == 1) $special = "Werewolf";
 		
