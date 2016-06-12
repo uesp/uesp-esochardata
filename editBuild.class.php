@@ -19,24 +19,24 @@ class EsoBuildDataEditor
 	
 	
 	public $GEARSLOT_BASEICONS = array(
-			"Head" 		=> "resources/gearslot_head.png",
-			"Shoulders" => "resources/gearslot_shoulders.png",
-			"Chest" 	=> "resources/gearslot_chest.png",
-			"Hands" 	=> "resources/gearslot_hands.png",
-			"Waist" 	=> "resources/gearslot_belt.png",
-			"Legs" 		=> "resources/gearslot_legs.png",
-			"Feet" 		=> "resources/gearslot_feet.png",
-			"Neck"		=> "resources/gearslot_neck.png",
-			"Ring1"		=> "resources/gearslot_ring.png",
-			"Ring2"		=> "resources/gearslot_ring.png",
-			"MainHand1" => "resources/gearslot_mainhand.png",
-			"MainHand2" => "resources/gearslot_mainhand.png",
-			"OffHand1" 	=> "resources/gearslot_offhand.png",
-			"OffHand2" 	=> "resources/gearslot_offhand.png",
-			"Poison1" 	=> "resources/gearslot_poison.png",
-			"Poison2"	=> "resources/gearslot_poison.png",
-			"Food"		=> "resources/gearslot_quickslot.png",
-			"Potion"	=> "resources/gearslot_quickslot.png",
+			"Head" 		=> "http://esobuilds.uesp.net/resources/gearslot_head.png",
+			"Shoulders" => "http://esobuilds.uesp.net/resources/gearslot_shoulders.png",
+			"Chest" 	=> "http://esobuilds.uesp.net/resources/gearslot_chest.png",
+			"Hands" 	=> "http://esobuilds.uesp.net/resources/gearslot_hands.png",
+			"Waist" 	=> "http://esobuilds.uesp.net/resources/gearslot_belt.png",
+			"Legs" 		=> "http://esobuilds.uesp.net/resources/gearslot_legs.png",
+			"Feet" 		=> "http://esobuilds.uesp.net/resources/gearslot_feet.png",
+			"Neck"		=> "http://esobuilds.uesp.net/resources/gearslot_neck.png",
+			"Ring1"		=> "http://esobuilds.uesp.net/resources/gearslot_ring.png",
+			"Ring2"		=> "http://esobuilds.uesp.net/resources/gearslot_ring.png",
+			"MainHand1" => "http://esobuilds.uesp.net/resources/gearslot_mainhand.png",
+			"MainHand2" => "http://esobuilds.uesp.net/resources/gearslot_mainhand.png",
+			"OffHand1" 	=> "http://esobuilds.uesp.net/resources/gearslot_offhand.png",
+			"OffHand2" 	=> "http://esobuilds.uesp.net/resources/gearslot_offhand.png",
+			"Poison1" 	=> "http://esobuilds.uesp.net/resources/gearslot_poison.png",
+			"Poison2"	=> "http://esobuilds.uesp.net/resources/gearslot_poison.png",
+			"Food"		=> "http://esobuilds.uesp.net/resources/gearslot_quickslot.png",
+			"Potion"	=> "http://esobuilds.uesp.net/resources/gearslot_quickslot.png",
 	);
 	
 	public $STATS_UNIQUE_LIST = array(
@@ -2311,8 +2311,4 @@ class EsoBuildDataEditor
 	
 };
 
-
-
-$g_EsoTestBuild = new EsoBuildDataEditor();
-$g_EsoTestBuild->Render();
 

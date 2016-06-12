@@ -420,7 +420,6 @@ displayed statistics is unknown.
 	<div id="esotbItemDetailsText"></div>
 </div>
 
-<div id="esotbClickWall" style="display: none;">
-</div>
+
 </body>
 </html>
