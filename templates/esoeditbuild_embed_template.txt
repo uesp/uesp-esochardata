@@ -344,6 +344,11 @@ displayed statistics is unknown.
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>12 June 2016</b>
+			<ul>
+				<li>Integrated builder into the UESP wiki.</li>
+			</ul>
+			<p>
 			<b>11 June 2016</b>
 			<ul>
 				<li>Added damage and healing scaling to most skill tooltips.</li>
