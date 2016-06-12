@@ -9,7 +9,6 @@
 		<link rel="stylesheet" href="http://esolog.uesp.net/resources/esoitemlink_embed.css" />
 		<link rel="stylesheet" href="resources/esoEditBuild.css" />
 		<script type="text/javascript" src="http://esolog.uesp.net/resources/jquery-1.10.2.js"></script>
-		<script type="text/javascript" src="http://esolog.uesp.net/resources/jquery.transit.min.js"></script>
 		<script type="text/javascript" src="http://esolog.uesp.net/resources/esocp_simple.js"></script>
 		<script type="text/javascript" src="http://esolog.uesp.net/resources/esoskills.js"></script>
 		<script type="text/javascript" src="http://esolog.uesp.net/resources/esoItemSearchPopup.js"></script>
