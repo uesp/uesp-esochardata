@@ -1,22 +1,3 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>UESP:ESO Character Build Editor</title>
-		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-		<link rel="stylesheet" href="http://esolog.uesp.net/resources/esocp_simple_embed.css" />
-		<link rel="stylesheet" href="http://esolog.uesp.net/resources/esoskills_embed.css" />
-		<link rel="stylesheet" href="http://esolog.uesp.net/resources/esoItemSearchPopup.css" />
-		<link rel="stylesheet" href="http://esolog.uesp.net/resources/esoitemlink_embed.css" />
-		<link rel="stylesheet" href="resources/esoEditBuild.css" />
-		<script type="text/javascript" src="http://esolog.uesp.net/resources/jquery-1.10.2.js"></script>
-		<script type="text/javascript" src="http://esolog.uesp.net/resources/esocp_simple.js"></script>
-		<script type="text/javascript" src="http://esolog.uesp.net/resources/esoskills.js"></script>
-		<script type="text/javascript" src="http://esolog.uesp.net/resources/esoItemSearchPopup.js"></script>
-		<script type="text/javascript" src="http://content3.uesp.net/w/extensions/UespEsoItemLink/uespitemlink.js"></script>
-		<script type="text/javascript" src="resources/esoEditBuild.js"></script>
-	</head>
-<body>
-<h1>ESO Character Build Editor</h1>
 Note that this character builder is for test purposes and is currently undergoing active development. Accuracy of the 
 displayed statistics is unknown.
 <p/>
@@ -387,14 +368,7 @@ displayed statistics is unknown.
 		<div class="esotbStatTitle">Computed Character Statistics</div>
 	</div>
 </div>
-
-<script type="text/javascript">
-	g_EsoComputedStats = {esoComputedStatsJson};
-	g_EsoInputStats = {esoInputStatsJson};
-	g_EsoInputStatDetails = {esoInputStatDetailsJson};
-	g_EsoGearIcons = {gearIconJson}; 
-</script>
-    
+   
 <div class="esotbBlockClear"></div>
 <hr>
 <div id="esotbFooter">
@@ -422,5 +396,11 @@ displayed statistics is unknown.
 
 <div id="esotbClickWall" style="display: none;">
 </div>
-</body>
-</html>
+
+<script type="text/javascript">
+	g_EsoComputedStats = {esoComputedStatsJson};
+	g_EsoInputStats = {esoInputStatsJson};
+	g_EsoInputStatDetails = {esoInputStatDetailsJson};
+	g_EsoGearIcons = {gearIconJson}; 
+</script>
+
