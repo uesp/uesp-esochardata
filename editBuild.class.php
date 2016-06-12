@@ -6,7 +6,7 @@ require_once("/home/uesp/esolog.static/viewCps.class.php");
 require_once("/home/uesp/esolog.static/viewSkills.class.php");
 
 
-class CEsoTestBuild 
+class EsoBuildDataEditor 
 {
 	public $TEMPLATE_FILE = "";
 	
@@ -2053,7 +2053,7 @@ class CEsoTestBuild
 	
 	public function __construct()
 	{
-		$this->TEMPLATE_FILE = __DIR__."/templates/esoeditbuild_template.txt";
+		$this->TEMPLATE_FILE = __DIR__."/templates/esoeditbuild_embed_template.txt";
 		
 		$this->viewCps = new CEsoViewCP(true);
 		$this->viewCps->hideTopBar = true;
@@ -2313,6 +2313,6 @@ class CEsoTestBuild
 
 
 
-$g_EsoTestBuild = new CEsoTestBuild();
+$g_EsoTestBuild = new EsoBuildDataEditor();
 $g_EsoTestBuild->Render();
 
