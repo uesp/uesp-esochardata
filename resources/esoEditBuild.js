@@ -6031,12 +6031,49 @@ function AddEsoBuildSkillDetailsButtons()
 }
 
 
+function CreateEsoBuildClickWall()
+{
+	$("<div/>").attr("id", "esotbClickWall")
+		.attr("style", "display:none;")
+		.html("")
+		.appendTo("body");
+}
+
+
+function CreateEsoBuildItemDetailsPopup()
+{
+	$("<div/>").attr("id", "esotbItemDetailsPopup")
+		.attr("style", "display:none;")
+		.html("<div id=\"esotbItemDetailsCloseButton\">x</div><div id=\"esotbItemDetailsTitle\"></div><div id=\"esotbItemDetailsText\"></div>")
+		.appendTo("body");
+}
+
+
+function CreateEsoBuildFormulaPopup()
+{
+	$("<div/>").attr("id", "esotbFormulaPopup")
+		.attr("style", "display:none;")
+		.html('<div id="esotbFormulaCloseButton">x</div>' +
+					'<div id="esotbFormulaTitle"></div>' + 
+					'<div id="esotbFormulaNote"></div>' + 
+					'<div id="esotbFormulaName"></div>' + 
+					'<div id="esotbFormula"></div><p>' + 
+					'Changing the below input values will only change them inside of this window.' + 
+					'<div id="esotbFormulaInputs"></div>' + 
+					'<div id="esotbFormulaBottomNote">Note that formulas are estimates and may not be completely accurate for all inputs.</div>')
+		.appendTo("body");
+}
+
+
 function esotbOnDocReady()
 {
 	GetEsoSkillInputValues = GetEsoTestBuildSkillInputValues;
+
+	CreateEsoBuildItemDetailsPopup();
+	CreateEsoBuildFormulaPopup();
+	CreateEsoBuildClickWall();
 	
 	CreateEsoComputedStats();
-	UpdateEsoComputedStatsList();
 	CreateEsoBuildToggledSetData();
 	CreateEsoBuildToggledSkillData();
 	CreateEsoBuildBuffElements();
@@ -6086,6 +6123,8 @@ function esotbOnDocReady()
 	$(document).keyup(function(e) {
 	    if (e.keyCode == 27) OnEsoBuildEscapeKey(e);
 	});
+	
+	//UpdateEsoComputedStatsList();
 }
 
 
