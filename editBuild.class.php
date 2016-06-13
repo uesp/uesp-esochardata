@@ -33,6 +33,8 @@ class EsoBuildDataEditor
 	public $initialPassiveSkillData = array();
 	public $initialActiveSkillData = array();
 	public $initialSkillBarData = array();
+	public $initialToggleSkillData = array();
+	public $initialToggleSetData = array();
 	
 	public $wikiContext = null;
 	
@@ -2292,7 +2294,7 @@ class EsoBuildDataEditor
 			else if ($count == 2)
 			{
 				$statBase = $statList[0];
-				if ($this->INPUT_STATS_LIST[$statBase] == null) $this->INPUT_STATS_LIST[$statBase] = array();
+				if ($this->INPUT_STATS_LIST[$statBase] === null) $this->INPUT_STATS_LIST[$statBase] = array();
 				$this->INPUT_STATS_LIST[$statBase][$statList[1]] = 0;
 			}			
 		}
@@ -2304,7 +2306,7 @@ class EsoBuildDataEditor
 		
 		foreach ($this->STATS_TYPE_LIST as $statBase)
 		{
-			if ($this->INPUT_STATS_LIST[$statBase] == null) $this->INPUT_STATS_LIST[$statBase] = array();
+			if ($this->INPUT_STATS_LIST[$statBase] === null) $this->INPUT_STATS_LIST[$statBase] = array();
 			
 			foreach ($this->STATS_BASE_LIST as $stat)
 			{
@@ -2340,17 +2342,17 @@ class EsoBuildDataEditor
 	
 	public function getCharField($field, $default = "")
 	{
-		if ($this->buildDataViewer->characterData == null) return $default;
-		if (!array_key_exists($field, $this->buildDataViewer->characterData)) return $default;
+		if ($this->buildDataViewer->characterData === null) return $default;
+		if ($this->buildDataViewer->characterData[$field] === null) return $default;
 		return $this->buildDataViewer->escape($this->buildDataViewer->characterData[$field]);
 	}
 	
 	
 	public function getCharStatField($field, $default = "")
 	{
-		if ($this->buildDataViewer->characterData == null) return $default;
-		if ($this->buildDataViewer->characterData['stats'] == null)  return $default;
-		if (!array_key_exists($field, $this->buildDataViewer->characterData['stats'])) return $default;
+		if ($this->buildDataViewer->characterData === null) return $default;
+		if ($this->buildDataViewer->characterData['stats'] === null)  return $default;
+		if ($this->buildDataViewer->characterData['stats'][$field]['value'] === null) return $default;
 		return $this->buildDataViewer->escape($this->buildDataViewer->characterData['stats'][$field]['value']);
 	}
 	
@@ -2374,6 +2376,8 @@ class EsoBuildDataEditor
 	
 	public function GetCharVampireStage()
 	{
+		$stage = (int) $this->getCharStatField("VampireStage", -1);
+		if ($stage >= 0) return (int) $stage;
 
 		foreach ($this->buildDataViewer->characterData['buffs'] as $buff)
 		{
@@ -2389,6 +2393,9 @@ class EsoBuildDataEditor
 	
 	public function GetCharWerewolfStage()
 	{
+		$stage = (int) $this->getCharStatField("WerewolfStage", -1);
+		if ($stage >= 0) return (int) $stage;
+		
 		$stage = 0;
 		
 		foreach ($this->buildDataViewer->characterData['buffs'] as $buff)
@@ -2556,7 +2563,7 @@ class EsoBuildDataEditor
 		$intLevel = (int) $linkData['itemIntLevel'];
 		$intType = (int) $linkData['itemIntType'];
 		
-		if ($itemId == null || $intLevel == null || $intType == null || $itemId <= 0) return false;
+		if ($itemId === null || $intLevel === null || $intType === null || $itemId <= 0) return false;
 		
 		$query = "SELECT * FROM minedItem WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
 		$result = $this->db->query($query);
@@ -2587,7 +2594,7 @@ class EsoBuildDataEditor
 		$intLevel = (int) $linkData['enchantIntLevel1'];
 		$intType = (int) $linkData['enchantIntType1'];
 	
-		if ($itemId == null || $intLevel == null || $intType == null || $itemId <= 0) return false;
+		if ($itemId === null || $intLevel === null || $intType === null || $itemId <= 0) return false;
 	
 		$query = "SELECT * FROM minedItem WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
 		$result = $this->db->query($query);
@@ -2609,7 +2616,7 @@ class EsoBuildDataEditor
 		$intLevel = 50;
 		$intType = 370;
 	
-		if ($itemId == null || $intLevel == null || $intType == null || $itemId <= 0) return false;
+		if ($itemId === null || $intLevel === null || $intType === null || $itemId <= 0) return false;
 	
 		$query = "SELECT * FROM minedItem WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
 		$result = $this->db->query($query);
@@ -2631,7 +2638,7 @@ class EsoBuildDataEditor
 		$equipSlot = $this->SLOTID_TO_EQUIPSLOT[$slotId];
 		$item = $this->GetCharacterEquippedItem($equipSlot);
 		
-		if ($item == null || $item['itemLink'] == "")
+		if ($item === null || $item['itemLink'] == "")
 		{
 			$imageSrc = $this->GEARSLOT_BASEICONS[$slotId];
 			$output .= "src=\"$imageSrc\"";
@@ -2664,7 +2671,7 @@ class EsoBuildDataEditor
 		
 		$equipSlot = $this->SLOTID_TO_EQUIPSLOT[$slotId];
 		$item = $this->GetCharacterEquippedItem($equipSlot);
-		if ($item == null) return "";
+		if ($item === null) return "";
 		
 		return $item['name'];
 	}
@@ -2762,7 +2769,7 @@ class EsoBuildDataEditor
 			$cpSkill = $names[1];
 			$points = $cp['points'];
 			
-			if ($this->initialCpData[$cpLine] == null)
+			if ($this->initialCpData[$cpLine] === null)
 			{
 				 $this->initialCpData[$cpLine] = array();
 				 $this->initialCpData[$cpLine]['points'] = 0;
@@ -2778,6 +2785,47 @@ class EsoBuildDataEditor
 		}
 		
 		$this->viewCps->initialData = $this->initialCpData;
+	}
+	
+	
+	public function CreateInitialToggleSkillData()
+	{
+		$this->initialToggleSkillData = array();
+		
+		foreach ($this->buildDataViewer->characterData['Stats'] as $name => $value)
+		{
+			$result = preg_match("/^ToggleSkill:(.*)$/", $name);
+			if (!$result) continue;
+			
+			$names = explode(":", $name);
+			$skillName = $names[1];
+			$count = $names[2];
+			
+			if ($this->initialToggleSkillData[$skillName] == null) $this->initialToggleSkillData[$skillName] = array();
+			
+			if ($count !== null)
+				$this->initialToggleSkillData[$skillName]['count'] = $value;
+			else
+				$this->initialToggleSkillData[$skillName]['enabled'] = $value;			
+		}
+	}
+	
+	
+	public function CreateInitialToggleSetData()
+	{
+		$this->initialSetToggleData = array();
+		
+		foreach ($this->buildDataViewer->characterData['Stats'] as $name => $value)
+		{
+			$result = preg_match("/^ToogleSet:(.*)$/", $name);
+			if (!$result) continue;
+				
+			$names = explode(":", $name);
+			$setName = $names[1];
+				
+			if ($this->initialToggleSetData[$setName] == null) $this->initialToggleSetData[$setName] = array();
+			$this->initialToggleSetData[$setName]['enabled'] = $value;
+		}
 	}
 	
 	
@@ -2806,7 +2854,7 @@ class EsoBuildDataEditor
 			$skillType = $names[0];
 			$skillLine = $names[1];
 			$skillName = $names[2];
-			if ($skillName == null || $skillLine == null) continue;
+			if ($skillName === null || $skillLine === null) continue;
 			
 			$type = $skillData['type'];
 			$desc = $skillData['description'];
@@ -2904,7 +2952,7 @@ class EsoBuildDataEditor
 	
 	public function LoadBuild()
 	{
-		if ($this->buildId == null) return true;
+		if ($this->buildId === null) return true;
 		$this->buildDataViewer->characterId = $this->buildId;
 		
 		if (!$this->buildDataViewer->loadCharacter()) return false;
@@ -2916,6 +2964,8 @@ class EsoBuildDataEditor
 		$this->CreateInitialCPData();
 		$this->CreateInitialSkillData();
 		$this->CreateInitialSkillBarData();
+		$this->CreateInitialToggleSkillData();
+		$this->CreateInitialToggleSetData();
 		
 		return true;
 	}
@@ -2929,7 +2979,7 @@ class EsoBuildDataEditor
 		
 		if ($this->buildDataViewer->characterData != null)
 		{
-			foreach ($this->characterData as $key => $value)
+			foreach ($this->buildDataViewer->characterData as $key => $value)
 			{
 				if (is_array($value)) continue;
 				$buildData[$key] = $value;
@@ -2948,6 +2998,37 @@ class EsoBuildDataEditor
 	public function GetWikiUserName()
 	{
 		return $this->buildDataViewer->getWikiUserName();
+	}
+	
+	
+	public function GetSaveButtonDisabled()
+	{
+		$canEdit = $this->buildDataViewer->canWikiUserEdit();
+		if (!$canEdit) return "disabled";
+		return "";
+	}
+	
+	
+	public function GetCreateCopyButtonDisabled()
+	{
+		$canCreate = $this->buildDataViewer->canWikiUserCreate();
+		
+		if (!$canCreate) return "disabled";
+		return "";
+	}
+	
+	
+	public function GetSaveNote()
+	{
+		$canEdit = $this->buildDataViewer->canWikiUserEdit();
+		$canDelete = $this->buildDataViewer->canWikiUserDelete();
+		$canCreate = $this->buildDataViewer->canWikiUserCreate();
+		
+		if (!$canCreate) return "You can change this build data but you will not be able to save or create a new copy of the build. Login or create a Wiki account in order to save and create new builds.";
+		if (!$canEdit) return "You can change this build data but you will not be able to save it. You can, however, save a new copy of the build if desired.";
+		
+		return "You are able to save this build data or create a new copy of it.";
+				
 	}
 	
 	
@@ -2988,7 +3069,7 @@ class EsoBuildDataEditor
 				'{gearIconFood}' => $this->GEARSLOT_BASEICONS['Food'],
 				'{gearIconPotion}' => $this->GEARSLOT_BASEICONS['Potion'],
 				'{buildName}' => $this->getCharField('buildName'),
-				'{charName}'  => $this->getCharField('characterName'),
+				'{charName}'  => $this->getCharField('name'),
 				'{level}' => $this->getCharStatField('Level', '50'),
 				'{effectiveLevel}' => $this->getCharStatField('EffectiveLevel', '66'),
 				'{CPTotalPoints}' => $this->getCharField('cp', '160'),
@@ -2998,8 +3079,8 @@ class EsoBuildDataEditor
 				'{attributeHealth}' => $this->getCharStatField("AttributesHealth", "0"),
 				'{attributeMagicka}' => $this->getCharStatField("AttributesMagicka", "0"),
 				'{attributeStamina}' => $this->getCharStatField("AttributesStamina", "0"),
-				'{targetFlatPene}' => $this->getCharStatField("Target::FlatPenetration", "0"),
-				'{targetFactPene}' => $this->getCharStatField("Target::PenetrationBonus", "0"),
+				'{targetFlatPene}' => $this->getCharStatField("Target:PenetrationFlat", "0"),
+				'{targetFactPene}' => $this->getCharStatField("Target:PenetrationFactor", "0"),
 				'{targetFactDefense}' => $this->getCharStatField("Target:DefenseBonus", "0"),
 				'{targetFactAttack}' => $this->getCharStatField("Target:AttackBonus", "0"),
 				'{targetResist}' => $this->getCharStatField("Target:Resistance", "0"),
@@ -3044,23 +3125,38 @@ class EsoBuildDataEditor
 				'{initialBuffDataJson}' => json_encode($this->initialBuffData),
 				'{initialCpDataJson}' => json_encode($this->initialCpData),
 				'{initialSkillDataJson}' => json_encode($this->initialSkillData),
+				'{initialToggleSkillDataJson}' => json_encode($this->initialToggleSkillData),
+				'{initialToggleSetDataJson}' => json_encode($this->initialToggleSetData),
 				'{weaponBarClass1}' => $this->GetClassWeaponBar(1),
 				'{weaponBarClass2}' => $this->GetClassWeaponBar(2),
 				'{activeBar}' => $this->GetActiveWeaponBar(),
+				'{saveButtonDisabled}' => $this->GetSaveButtonDisabled(),
+				'{createCopyButtonDisabled}' => $this->GetCreateCopyButtonDisabled(),
+				'{saveNote}' => $this->GetSaveNote(),
 		);
 		
 		$output = strtr($this->htmlTemplate, $replacePairs);
 		return $output;
 	}
 	
+	
+	public function SetSessionData()
+	{
+		$_SESSION['UESP_ESO_canEditBuild'] = $this->buildDataViewer->canWikiUserEdit();
+		$_SESSION['UESP_ESO_canDeleteBuild'] = $this->buildDataViewer->canWikiUserDelete();
+		$_SESSION['UESP_ESO_canCreateBuild'] = $this->buildDataViewer->canWikiUserCreate();
+	}
+	
 		
 	public function GetOutputHtml()
 	{
+		
 		if (!$this->LoadBuild())
 		{
 			return $this->OutputError("Failed to load build!");
 		}
-
+		
+		$this->SetSessionData();
 		
 		return $this->CreateOutputHtml();
 	}
