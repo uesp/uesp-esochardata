@@ -3723,7 +3723,20 @@ function UpdateEsoComputedStat(statId, stat, inputValues, saveResult)
 		var display = stat.display;
 		var displayResult = result;
 		
-		if (display == "%") displayResult = Math.round(result*1000)/10 + "%";
+		if (display == "%") 
+			displayResult = "" + (Math.round(result*1000)/10) + "%";
+		else if (display == "resist")
+		{
+			displayResult = "" + result + " (" + ConvertEsoFlatResistToPercent(result, inputValues) + "%)";
+		}
+		else if (display == "elementresist")
+		{
+			displayResult = "" + result + " (" + ConvertEsoElementResistToPercent(result, inputValues) + "%)";
+		}
+		else if (display == "critresist")
+		{
+			displayResult = "" + result + " (" + ConvertEsoCritResistToPercent(result, inputValues) + "%)";
+		}
 		
 		if (saveResult === true)
 		{
@@ -3743,6 +3756,42 @@ function UpdateEsoComputedStat(statId, stat, inputValues, saveResult)
 	}
 	
 	return error;
+}
+
+
+function ConvertEsoFlatResistToPercent(flatResist, inputValues)
+{
+	var level = parseInt($("#esotbEffectiveLevel").text());
+	if (inputValues != null) level = inputValues.EffectiveLevel;
+	
+	if (level <= 0) return 0;
+	
+	var result = (flatResist - 100)/(level*10);
+	return Math.round(result);
+}
+
+
+function ConvertEsoElementResistToPercent(flatResist, inputValues)
+{
+	var level = parseInt($("#esotbEffectiveLevel").text());
+	if (inputValues != null) level = inputValues.EffectiveLevel;
+	
+	if (level <= 0) return 0;
+	
+	var result = flatResist/(level*10);
+	return Math.round(result);
+}
+
+
+function ConvertEsoCritResistToPercent(flatResist, inputValues)
+{
+	var level = parseInt($("#esotbEffectiveLevel").text());
+	if (inputValues != null) level = inputValues.EffectiveLevel;
+	
+	if (level <= 0) return 0;
+	
+	var result = flatResist/level;
+	return Math.round(result);
 }
 
 
