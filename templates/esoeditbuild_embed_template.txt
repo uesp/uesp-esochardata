@@ -335,6 +335,8 @@ displayed statistics is unknown.
 			<b>12 June 2016</b>
 			<ul>
 				<li>Integrated builder into the UESP wiki.</li>
+				<li>Added basic loading from existing build data.</li>
+				<li>Added display conversion from flat spell/weapon critical and resistances to %.</li>
 			</ul>
 			<p>
 			<b>11 June 2016</b>
