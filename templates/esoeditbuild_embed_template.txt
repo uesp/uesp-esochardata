@@ -1,5 +1,12 @@
 Note that this character builder is for test purposes and is currently undergoing active development. Accuracy of the 
-displayed statistics is unknown.
+displayed statistics is unknown. {saveNote}
+
+<div id="esotbButtons">
+	<button id="esotbSaveButton" {saveButtonDisabled}>Save Build</button>
+	<button id="esotbCreateCopyButton" {createCopyButtonDisabled}>Create Copy</button>
+	<div id="esotbSaveResults"></div>
+</div>
+
 <p/>
 <div id="esotbRoot">
 	<div id="esotbStatInputs">
@@ -378,6 +385,8 @@ displayed statistics is unknown.
 	g_EsoInitialBuffData = {initialBuffDataJson};
 	g_EsoInitialCpData = {initialCpDataJson};
 	g_EsoInitialSkillData = {initialSkillDataJson};
-	g_EsoBuildActiveWeapon = {activeBar};
+	g_EsoInitialToggleSkillData = {initialToggleSkillDataJson};
+	g_EsoInitialToggleSetData = {initialToggleSetDataJson};
+	g_EsoBuildActiveWeapon = {activeBar};	
 </script>
 

@@ -959,3 +959,21 @@ button.esotbWeaponSelect {
     padding-top: 1px;
     padding-bottom: 1px;
 }
+
+#esotbButtons {
+	float: right;
+}
+
+#esotbSaveButton,
+#esotbCreateCopyButton {
+	margin-left: 15px;
+	width: 100px;
+}
+
+#esotbSaveResults {
+	margin-left: 15px;
+	padding: 3px;
+	width: 200px;
+	height: 20px;
+	overflow: hidden;
+}

@@ -12,17 +12,16 @@ ESO_MAX_LEVEL = 50;
 ESO_MAX_CPLEVEL = 16;
 ESO_MAX_EFFECTIVELEVEL = 66;
 
-g_EsoBuildLastInputValues = {};
-
 g_EsoBuildEnableUpdates = true;
-
 g_EsoBuildClickWallLinkElement = null;
+
 g_EsoBuildItemData = {};
 g_EsoBuildEnchantData = {};
 g_EsoBuildSetData = {};
 g_EsoBuildSetMaxData = {};
 g_EsoBuildToggledSetData = {};
 g_EsoBuildToggledSkillData = {};
+g_EsoBuildLastInputValues = {};
 
 g_EsoBuildItemData.Head = {};
 g_EsoBuildItemData.Shoulders = {};
@@ -61,6 +60,75 @@ g_EsoBuildEnchantData.OffHand2 = {};
 g_EsoFormulaInputValues = {};
 g_EsoInputStatSources = {};
 
+
+ESO_MUNDUS_BUFF_DATA = 
+{
+	"The Apprentice" : {
+		abilityId: 13979,
+		icon : "/esoui/art/icons/ability_mundusstones_008.png",
+		description: "Increases your Spell Damage.",
+	},
+	"The Atronach" : {
+		abilityId: 13982,
+		icon : "/esoui/art/icons/ability_mundusstones_009.png",
+		description: "Increases your Magicka Recovery.",
+	},
+	"The Lady" : {
+		abilityId: 13976,
+		icon : "/esoui/art/icons/ability_mundusstones_005.png",
+		description: "Increases your Physical Resistance.",
+	},
+	"The Lover" : {
+		abilityId: 13981,
+		icon : "/esoui/art/icons/ability_mundusstones_011.png",
+		description: "Increases your Spell Resistance.",
+	},
+	"The Lord" : {
+		abilityId: 13978,
+		icon : "/esoui/art/icons/ability_mundusstones_007.png",
+		description: "Increases your Maximum Health.",
+	},
+	"The Mage" : {
+		abilityId: 13943,
+		icon : "/esoui/art/icons/ability_mundusstones_002.png",
+		description: "Increases your Maximum Magicka.",
+	},
+	"The Ritual" : {
+		abilityId: 13980,
+		icon : "/esoui/art/icons/ability_mundusstones_010.png",
+		description: "Increases your Healing Done.",
+	},
+	"The Serpent" : {
+		abilityId: 13974,
+		icon : "/esoui/art/icons/ability_mundusstones_004.png",
+		description: "Increases your Stamina Recovery.",
+	},
+	"The Shadow" : {
+		abilityId: 13984,
+		icon : "/esoui/art/icons/ability_mundusstones_012.png",
+		description: "Increases your Critical Strike Damage.",
+	},
+	"The Steed" : {
+		abilityId: 13977,
+		icon : "/esoui/art/icons/ability_mundusstones_006.png",
+		description: "Increases your Movement Speed and Health Recovery.",
+	},
+	"The Thief" : {
+		abilityId: 13975,
+		icon : "/esoui/art/icons/ability_mundusstones_003.png",
+		description: "Increases your Critical Strike Chance.",
+	},
+	"The Tower" : {
+		abilityId: 13985,
+		icon : "/esoui/art/icons/ability_mundusstones_013.png",
+		description: "Increases your Maximum Stamina.",
+	},
+	"The Warrior" : {
+		abilityId: 13985,
+		icon : "/esoui/art/icons/ability_mundusstones_001.png",
+		description: "Increases your Weapon Damage.",
+	},
+};
 
 ESOBUILD_SLOTID_TO_EQUIPSLOT = 
 {
@@ -2842,6 +2910,7 @@ function UpdateEsoBuffSkillEnabled()
 			element.text("");
 		}
 	}
+	
 }
 
 
@@ -3381,6 +3450,11 @@ function GetEsoInputMundusValues(inputValues)
 		inputValues.Mundus.Name2 = $("#esotbMundus2").val();
 		GetEsoInputMundusNameValues(inputValues, inputValues.Mundus.Name2);
 	}
+	else
+	{
+		inputValues.Mundus.Name2 = ""; 
+	}
+	
 }
 
 
@@ -3625,6 +3699,7 @@ function AddEsoInputStatSource(statId, data)
 function UpdateEsoComputedStatsList()
 {
 	if (!g_EsoBuildEnableUpdates) return;
+	SetEsoBuildSaveResults("");
 	
 	var inputValues = GetEsoInputValues();
 	var deferredStats = [];
@@ -5975,7 +6050,7 @@ function UpdateEsoBuildRawInputOtherEffects()
 		
 		if (data.active  != null) skillData = data.active;
 		if (data.passive != null) skillData = data.passive;
-		if (skillData == null || skillData.id == null) continue;
+		if (skillData == null || skillData.abilityId == null) continue;
 		
 		data.value = GetEsoSkillDescription(skillData.abilityId, null, false, true);
 		
@@ -6236,9 +6311,39 @@ function UpdateEsoInitialBuffData()
 		var buffData = g_EsoBuildBuffData[buffName];
 		if (buffData == null) continue;
 		
-		buffData.enabled      = ((enabled & 1) != 0); 
-		buffData.skillEnabled = ((enabled & 2) != 0);
+		buffData.enabled      = ((parseInt(enabled) & 1) != 0); 
+		buffData.skillEnabled = ((parseInt(enabled) & 2) != 0);
 	}
+	
+}
+
+
+function UpdateEsoInitialToggleSetData()
+{
+	for (var setName in g_EsoInitialToggleSetData)
+	{
+		var initData = g_EsoInitialToggleSetData[setName];
+		var setData = g_EsoBuildToggledSetData[setName];
+		if (setData == null) continue;
+		
+		setData.enabled = initData.enabled;
+	}
+
+}
+
+
+function UpdateEsoInitialToggleSkillData()
+{
+	for (var skillName in g_EsoInitialToggleSkillData)
+	{
+		var initData = g_EsoInitialToggleSkillData[setName];
+		var skillData = g_EsoBuildToggledSkillData[setName];
+		if (skillData == null) continue;
+		
+		skillData.enabled = initData.enabled;
+		if (initData.count != null) skillData.count = initData.count;
+	}
+
 }
 
 
@@ -6259,6 +6364,33 @@ function OnEsoBuildAbilityBlockClick(e)
 	e.preventDefault();
 	e.stopPropagation();
 	return false;
+}
+
+
+function RequestEsoBuildSave()
+{
+	var saveData = CreateEsoBuildSaveData();
+	
+	$.ajax("http://esobuilds.uesp.net/saveBuild.php", {
+				type: "POST",
+				data: { savedata: JSON.stringify(saveData), id: g_EsoBuildData.id },
+			})
+		.done(function(data, status, xhr) { OnEsoBuildSaved(data, status, xhr); })
+		.fail(function(xhr, status, errorMsg) { OnEsoBuildSaveError(xhr, status, errorMsg); });
+}
+
+
+function OnEsoBuildSaved(data, status, xhr)
+{
+	SetEsoBuildSaveResults("Build successfully saved!");
+	//console.log("OnEsoBuildSaved", data);
+}
+
+
+function OnEsoBuildSaveError(xhr, status, errorMsg)
+{
+	SetEsoBuildSaveResults("ERROR saving build!");
+	//console.log("OnEsoBuildSaveError", errorMsg);
 }
 
 
@@ -6288,19 +6420,15 @@ function CreateEsoBuildSaveData()
 
 function CreateEsoBuildSetToggleSaveData(saveData, inputValues)
 {
-	saveData.ToggledSets = {};
 	
 	for (var name in g_EsoBuildToggledSetData)
 	{
 		var toggleData = g_EsoBuildToggledSetData[name];
-		var data = {};
+		var outName = "ToggleSet:" + name;
 		
-		data.enabled = ConvertBoolToInt(toggleData.enabled);
-		
-		saveData.ToggledSets[name] = data;
+		saveData.Stats[outName] = "" + ConvertBoolToInt(toggleData.enabled);
 	}
 	
-	return saveData;
 	return saveData;
 }
 
@@ -6314,17 +6442,18 @@ function ConvertBoolToInt(value)
 
 function CreateEsoBuildSkillToggleSaveData(saveData, inputValues)
 {
-	saveData.ToggledSkills = {};
-	
+
 	for (var name in g_EsoBuildToggledSkillData)
 	{
 		var toggleData = g_EsoBuildToggledSkillData[name];
-		var data = {};
+		var outName = "ToggleSkill:" + name;
 		
-		data.enabled = ConvertBoolToInt(toggleData.enabled);
-		if (toggleData.maxTimes != null) data.maxTimes = toggleData.maxTimes;
+		saveData.Stats[outName] = "" + ConvertBoolToInt(toggleData.enabled);
 		
-		saveData.ToggledSkills[name] = data;
+		if (toggleData.maxTimes != null) 
+		{
+			saveData.Stats[outName + ":Count"] = "" + toggleData.count;
+		}
 	}
 	
 	return saveData;
@@ -6452,6 +6581,7 @@ function CreateEsoBuildCPSaveData(saveData, inputValues)
 
 function CreateEsoBuildBuffSaveData(saveData, inputValues)
 {
+	var data = {};
 	saveData.Buffs = {};
 	
 	for (var buffName in g_EsoBuildBuffData)
@@ -6459,7 +6589,7 @@ function CreateEsoBuildBuffSaveData(saveData, inputValues)
 		var buffData = g_EsoBuildBuffData[buffName];
 		if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled)) continue;
 		
-		var data = {};
+		data = {};
 		
 		data.name = buffName;
 		data.icon = buffData.icon;
@@ -6471,6 +6601,96 @@ function CreateEsoBuildBuffSaveData(saveData, inputValues)
 		if (buffData.skillEnabled) data.enabled += 2;
 		
 		saveData.Buffs[buffName] = data;
+	}
+	
+	if (inputValues.VampireStage > 0)
+	{
+		data = {};
+		
+		if (inputValues.VampireStage == 1)
+		{
+			data.abilityId = 35771;
+		}
+		else if (inputValues.VampireStage == 2)
+		{
+			data.abilityId = 35776;
+		}
+		else if (inputValues.VampireStage == 3)
+		{
+			data.abilityId = 35783;
+		}
+		else if (inputValues.VampireStage == 4)
+		{
+			data.abilityId = 35792;
+		}
+		
+		data.icon = "/esoui/art/icons/ability_vampire_007.dds";
+		data.description = "";
+		data.name = "Stage " + inputValues.VampireStage + " Vampirism";
+		saveData.Buffs[data.name] = data;
+	}
+	
+	if (inputValues.WerewolfStage > 0)
+	{
+		data = {};
+		data.abilityId = 35658;
+		data.icon = "/esoui/art/icons/ability_werewolf_010.dds";
+		data.description = "You can transform into a savage beast. Take 25% more damage from Poison Attacks while in werewolf form. Increased Stamina, Armor, and Sprinting Speed while in werewolf form.";
+		data.name = "Lycanthropy";
+		saveData.Buffs[data.name] = data;
+	}
+		
+	if (inputValues.Mundus.Name != "")
+	{
+		data = {};
+		data.abilityId = 0;
+		data.icon = "";
+		data.description = "";
+		data.name = "Boon: " + inputValues.Mundus.Name;
+		
+		var mundusData = ESO_MUNDUS_BUFF_DATA[inputValues.Mundus.Name];
+		
+		if (mundusData != null)
+		{
+			data.abilityId = mundusData.abilityId;
+			data.icon = mundusData.icon;
+			data.description = mundusData.description;
+		}
+		
+		saveData.Buffs[data.name] = data;		
+	}
+	
+	if (inputValues.Mundus.Name2 != "")
+	{
+		data = {};
+		data.abilityId = 0;
+		data.icon = "";
+		data.description = "";
+		data.name = "Boon: " + inputValues.Mundus.Name2;
+		
+		var mundusData = ESO_MUNDUS_BUFF_DATA[inputValues.Mundus.Name2];
+		
+		if (mundusData != null)
+		{
+			data.abilityId = mundusData.abilityId;
+			data.icon = mundusData.icon;
+			data.description = mundusData.description;
+		}
+		
+		saveData.Buffs[data.name] = data;
+	}
+	
+	var foodData = g_EsoBuildItemData.Food; 
+	
+	if (foodData.itemId > 0)
+	{
+		data = {};
+		data.abilityId = foodData.itemId;	// TODO ?
+		data.icon = foodData.icon;
+		data.description = foodData.abilityDesc;
+		data.name = foodData.name;		// TODO ?
+		
+		saveData.Buffs[data.name] = data;
 	}
 	
 	return saveData;
@@ -6490,6 +6710,15 @@ function CreateEsoBuildSkillSaveData(saveData, inputValues)
 		CreateEsoBuildSaveDataForSkill(saveData, abilityData, skillData);
 	}
 	
+	for (var baseId in g_EsoSkillPassiveData)
+	{
+		var skillData = g_EsoSkillPassiveData[baseId];
+		var abilityData = g_SkillsData[skillData.abilityId];
+		if (abilityData == null) continue;
+		
+		CreateEsoBuildSaveDataForSkill(saveData, abilityData, skillData);
+	}
+	
 	return saveData;
 }
 
@@ -6497,15 +6726,14 @@ function CreateEsoBuildSkillSaveData(saveData, inputValues)
 function CreateEsoBuildSaveDataForSkill(saveData, abilityData, skillData)
 {
 	var data = {};
-	var abilityId = abilityData.id;
+	var abilityId = abilityData.abilityId;
 	
 	var skillType = ESOBUILD_SKILLTYPES[abilityData.skillType];
 	if (skillType == null) skillType = abilityData.skillType;
 	
 	data.name = skillType + ":" + abilityData.skillLine + ":" + abilityData.name;
-	data.type = "skill";
-	if (abilityData.isPassive) data.type = "passive";
-	if (abilityData.isUltimate) data.type = "ultimate";
+	data.type = abilityData.type.toLowerCase();
+	if (data.type == "active") data.type = "skill";
 	data.icon = abilityData.texture;
 	data.abilityId = abilityId;
 	data.rank = skillData.rank + skillData.morph * 4;
@@ -6527,7 +6755,7 @@ function CreateEsoBuildSaveDataForSkill(saveData, abilityData, skillData)
 
 function CreateEsoBuildItemSaveData(saveData, inputValues)
 {
-	saveData.Equipment = {};
+	saveData.EquipSlots = {};
 	
 	for (var slotId in g_EsoBuildItemData) 
 	{
@@ -6555,23 +6783,23 @@ function CreateEsoBuildItemSaveData(saveData, inputValues)
 		data.stolen = itemData.stolen;
 		data.style = itemData.style;
 		
-		saveData.Equipment[slotId] = data;
+		saveData.EquipSlots[slotId] = data;
 	}
 	
-	saveData.Stats["AxeWeaponCount"] = inputValues.WeaponAxe;
-	saveData.Stats["DaggerWeaponCount"] = inputValues.WeaponDagger;
-	saveData.Stats["MaceWeaponCount"] = inputValues.WeaponMace;
-	saveData.Stats["SwordWeaponCount"] = inputValues.WeaponSword;
-	saveData.Stats["BowWeaponCount"] = inputValues.WeaponBow;
-	saveData.Stats["1HWeaponCount"] = inputValues.Weapon1H;
-	saveData.Stats["2HWeaponCount"] = inputValues.Weapon2H;
-	saveData.Stats["RestStaffWeaponCount"] = inputValues.WeaponRestStaff;
-	saveData.Stats["DestStaffWeaponCount"] = inputValues.WeaponDestStaff;
-	saveData.Stats["1HShieldWeaponCount"] = inputValues.Weapon1HShield;
-	saveData.Stats["LightArmorCount"] = inputValues.ArmorLight;
-	saveData.Stats["MediumArmorCount"] = inputValues.ArmorMedium;
-	saveData.Stats["HeavyArmorCount"] = inputValues.ArmorHeavy;
-	saveData.Stats["ArmorTypeCount"] = inputValues.ArmorTypes;	
+	saveData.Stats["AxeWeaponCount"] = "" + inputValues.WeaponAxe;
+	saveData.Stats["DaggerWeaponCount"] = "" + inputValues.WeaponDagger;
+	saveData.Stats["MaceWeaponCount"] = "" + inputValues.WeaponMace;
+	saveData.Stats["SwordWeaponCount"] = "" + inputValues.WeaponSword;
+	saveData.Stats["BowWeaponCount"] = "" + inputValues.WeaponBow;
+	saveData.Stats["1HWeaponCount"] = "" + inputValues.Weapon1H;
+	saveData.Stats["2HWeaponCount"] = "" + inputValues.Weapon2H;
+	saveData.Stats["RestStaffWeaponCount"] = "" + inputValues.WeaponRestStaff;
+	saveData.Stats["DestStaffWeaponCount"] = "" + inputValues.WeaponDestStaff;
+	saveData.Stats["1HShieldWeaponCount"] = "" + inputValues.Weapon1HShield;
+	saveData.Stats["LightArmorCount"] = "" + inputValues.ArmorLight;
+	saveData.Stats["MediumArmorCount"] = "" + inputValues.ArmorMedium;
+	saveData.Stats["HeavyArmorCount"] = "" + inputValues.ArmorHeavy;
+	saveData.Stats["ArmorTypeCount"] = "" + inputValues.ArmorTypes;	
 	
 	return saveData;
 }
@@ -6580,28 +6808,28 @@ function CreateEsoBuildItemSaveData(saveData, inputValues)
 function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 {
 	saveData.Build = g_EsoBuildData;
-	saveData.Build.buildName = $("#esotbBuildName").text().trim();
-	saveData.Build.name = $("#esotbCharName").text().trim();
+	saveData.Build.buildName = $("#esotbBuildName").val().trim();
+	saveData.Build.name = $("#esotbCharName").val();
 	saveData.Build['class'] = inputValues.Class;
 	saveData.Build['race'] = inputValues.Race;
 	saveData.Build['special'] = "";
 	saveData.Build['buildType'] = "Other";
-	saveData.Build['level'] = inputValues.EffectiveLevel;
+	saveData.Build['level'] = "" + inputValues.EffectiveLevel;
 	saveData.Build['alliance'] = $("#esotbAlliance").val();
-	saveData.Build['cp'] = inputValues.CP.TotalPoints;
+	saveData.Build['championPoints'] = "" + inputValues.CP.TotalPoints;
 	
-	saveData.Stats['EffectiveLevel'] = inputValues.EffectiveLevel;
-	saveData.Stats['Level'] = inputValues.Level;
+	saveData.Stats['EffectiveLevel'] = "" + inputValues.EffectiveLevel;
+	saveData.Stats['Level'] = "" + inputValues.Level;
 	saveData.Stats['Race'] = inputValues.Race;
 	saveData.Stats['Class'] = inputValues.Class;
-	saveData.Stats['Vampire'] = inputValues.VampireStage > 0 ? 1 : 0;
-	saveData.Stats['VampireStage'] = inputValues.VampireStage;
-	saveData.Stats['Werewolf'] = inputValues.WerewolfStage > 0 ? 1 : 0;
-	saveData.Stats['WerewolfStage'] = inputValues.WerewolfStage;
+	saveData.Stats['Vampire'] = "" + (inputValues.VampireStage > 0 ? 1 : 0);
+	saveData.Stats['VampireStage'] = "" + (inputValues.VampireStage);
+	saveData.Stats['Werewolf'] = "" + (inputValues.WerewolfStage > 0 ? 1 : 0);
+	saveData.Stats['WerewolfStage'] = "" + inputValues.WerewolfStage;
 	saveData.Stats['Alliance'] = saveData.Build['alliance'];
 	
-	saveData.Stats['ActiveAbilityBar'] = inputValues.ActiveBar;
-	saveData.Stats['ActiveWeaponBar'] = inputValues.ActiveBar;
+	saveData.Stats['ActiveAbilityBar'] = "" + inputValues.ActiveBar;
+	saveData.Stats['ActiveWeaponBar'] = "" + inputValues.ActiveBar;
 	
 	if (inputValues.Attribute.Magicka > 32)	saveData.Build['buildType'] = "Magicka";
 	if (inputValues.Attribute.Stamina > 32)	saveData.Build['buildType'] = "Stamina";
@@ -6611,17 +6839,17 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 	
 	saveData.Stats['BuildType'] = saveData.Build['buildType'];	
 
-	saveData.Stats['Target:FlatPenetration'] = inputValues.Target.PenetrationFlat;
-	saveData.Stats['Target:PenetrationBonus'] = inputValues.Target.PenetrationFlat;
-	saveData.Stats['Target:DefenseBonus'] = inputValues.Target.DefenseBonus;
-	saveData.Stats['Target:AttackBonus'] = inputValues.Target.AttackBonus;
-	saveData.Stats['Target:Resistance'] = inputValues.Target.SpellResist;
-	saveData.Stats['Misc:SpellCost'] = inputValues.Misc.SpellCost;
+	saveData.Stats['Target:FlatPenetration'] = "" + inputValues.Target.PenetrationFlat;
+	saveData.Stats['Target:PenetrationBonus'] = "" + inputValues.Target.PenetrationFactor;
+	saveData.Stats['Target:DefenseBonus'] = "" + inputValues.Target.DefenseBonus;
+	saveData.Stats['Target:AttackBonus'] = "" + inputValues.Target.AttackBonus;
+	saveData.Stats['Target:Resistance'] = "" + inputValues.Target.SpellResist;
+	saveData.Stats['Misc:SpellCost'] = "" + inputValues.Misc.SpellCost;
 	
-	saveData.Stats['AttributesTotal'] = inputValues.Attribute.TotalPoints;
-	saveData.Stats['AttributesHealth'] = inputValues.Attribute.Health;
-	saveData.Stats['AttributesMagicka'] = inputValues.Attribute.Magicka;
-	saveData.Stats['AttributesStamina'] = inputValues.Attribute.Stamina;
+	saveData.Stats['AttributesTotal'] = "" + inputValues.Attribute.TotalPoints;
+	saveData.Stats['AttributesHealth'] = "" + inputValues.Attribute.Health;
+	saveData.Stats['AttributesMagicka'] = "" + inputValues.Attribute.Magicka;
+	saveData.Stats['AttributesStamina'] = "" + inputValues.Attribute.Stamina;
 	
 	saveData.Stats['Mundus'] = inputValues.Mundus.Name;
 	saveData.Stats['Mundus2'] = inputValues.Mundus.Name2;
@@ -6692,7 +6920,26 @@ function AddEsoBuildComputedStatToSaveData(saveData, name, outName, addComputed)
 	var statId = outName;
 	if (addComputed === true) statId = "Computed:" + outName;
 	
-	saveData.Stats[statId] = value;
+	saveData.Stats[statId] = "" + value;
+}
+
+
+function SetEsoBuildSaveResults(text)
+{
+	$("#esotbSaveResults").html(text);
+}
+
+
+function OnEsoBuildSave(e)
+{
+	RequestEsoBuildSave();
+	SetEsoBuildSaveResults("Saving build...");
+}
+
+
+function OnEsoBuildCreateCopy(e)
+{
+	SetEsoBuildSaveResults("Copy is not yet implemented!");
 }
 
 
@@ -6706,7 +6953,9 @@ function esotbOnDocReady()
 	UpdateEsoSetMaxData();
 	
 	UpdateEsoInitialBuffData();
-
+	UpdateEsoInitialToggleSetData();
+	UpdateEsoInitialToggleSkillData();
+	
 	CreateEsoBuildItemDetailsPopup();
 	CreateEsoBuildFormulaPopup();
 	CreateEsoBuildClickWall();
@@ -6759,6 +7008,9 @@ function esotbOnDocReady()
 	$(".esotbBuffItem").click(OnEsoBuildBuffClick);
 	
 	$(".esovsSkillContentBlock").children(".esovsAbilityBlock").click(OnEsoBuildAbilityBlockClick); 
+	
+	$("#esotbSaveButton").click(OnEsoBuildSave);
+	$("#esotbCreateCopyButton").click(OnEsoBuildCreateCopy);
 	
 	$(document).keyup(function(e) {
 	    if (e.keyCode == 27) OnEsoBuildEscapeKey(e);
