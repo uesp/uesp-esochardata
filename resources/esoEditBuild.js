@@ -2506,7 +2506,7 @@ function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData)
 			
 			if (matchData.round == "floor") statValue = Math.floor(statValue);
 			if (matchData.display == "%") statValue = statValue/100;
-			
+						
 			var category = matchData.category || "Set";
 			
 			inputValues[category][matchData.statId] += statValue;
@@ -3512,6 +3512,16 @@ function GetEsoInputCPValues(inputValues)
 }
 
 
+function ConvertEsoFlatCritToPercent(flatCrit, inputValues)
+{
+	var effectiveLevel = parseInt($("#esotbEffectiveLevel").text());
+	if (inputValues != null) effectiveLevel = parseInt(inputValues.EffectiveLevel);
+
+	var result = flatCrit / (2 * effectiveLevel * (100 + effectiveLevel));
+	return Math.round(result * 1000) / 10;
+}
+
+
 function ParseEsoCPValue(inputValues, statIds, abilityId, discId, unlockLevel, statFactor = 1)
 {
 	var cpDesc = $("#descskill_" + abilityId);
@@ -4377,6 +4387,10 @@ function MakeEsoFormulaInputs(statId)
 			suffixText = '%';
 			value = Math.round(value*1000)/10;
 		}
+		else if (statDetails.display == "flatcrit")
+		{
+			suffixText = " = " + ConvertEsoFlatCritToPercent(value) + "%";
+		}
 			
 		output += "<div class='esotbFormulaInput'>";
 		output += "<div class='esotbFormInputName'>" + name + "</div>";
@@ -4543,6 +4557,11 @@ function ShowEsoSkillDetailsPopup(abilityId)
 			suffix = "%";
 			value = value * 100;
 		}
+		else if (statDetails.display == "flatcrit")
+		{
+			value = ConvertEsoFlatCritToPercent(value);
+			suffix = "%";
+		}
 		
 		detailsHtml += key + " = " + value + suffix + "<br/>";
 	}
@@ -4615,6 +4634,11 @@ function ShowEsoItemDetailsPopup(slotId)
 		{
 			suffix = "%";
 			value = Math.round(value * 1000)/10;
+		}
+		else if (statDetails.display == "flatcrit")
+		{
+			value = ConvertEsoFlatCritToPercent(value);
+			suffix = "%";
 		}
 		
 		detailsHtml += key + " = " + value + suffix + "<br/>";
@@ -4855,7 +4879,11 @@ function GetEsoBuildRawInputSourceItemHtml(sourceItem)
 	var suffix = " (" + sourceItem.origStatId + ")";
 	
 	if (value == 0) return "";
-	if (statDetails.display == '%') value = "" + (Math.round(value * 1000)/10) + "%";
+	
+	if (statDetails.display == '%') 
+		value = "" + (Math.round(value * 1000)/10) + "%";
+	else if (statDetails.display == "flatcrit")
+		value = "" + ConvertEsoFlatCritToPercent(value) + "%";
 		
 	if (sourceItem.slotId != null && sourceItem.item != null && sourceItem.enchant != null)
 	{
@@ -5133,7 +5161,10 @@ function GetEsoBuildSetInfoHtml()
 			var statDetails = g_EsoInputStatDetails[name] || {};
 			var value = setData.rawOutput[name];
 			
-			if (statDetails.display == '%') value = "" + Math.floor(value * 1000)/10 + "%";
+			if (statDetails.display == '%') 
+				value = "" + Math.floor(value * 1000)/10 + "%";
+			else if (statDetails.display == '%')
+				value = "" + ConvertEsoFlatCritToPercent(value) + "%";
 			
 			output += "<div class='esotbSetInfoRow'>" + name + " = " + value + "</div>";
 		}

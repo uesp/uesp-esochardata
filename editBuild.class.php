@@ -957,10 +957,30 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Skill2.SpellCrit" => array(
+					"display" => "flatcrit",
+			),
 			
+			"Skill2.WeaponCrit" => array(
+					"display" => "flatcrit",
+			),
 			
+			"Set.SpellCrit" => array(
+					"display" => "flatcrit",
+			),
+				
+			"Set.WeaponCrit" => array(
+					"display" => "flatcrit",
+			),
 			
+			"Buff.SpellCrit" => array(
+					"display" => "flatcrit",
+			),
 			
+			"Buff.WeaponCrit" => array(
+					"display" => "flatcrit",
+			),
+		
 			
 	);
 	
@@ -1156,7 +1176,7 @@ class EsoBuildDataEditor
 							"+",
 							"Buff.SpellCrit",
 							"+",
-							"1/219/100",
+							"1/(2*EffectiveLevel*(100 + EffectiveLevel))",
 							"*",
 							"0.10",
 							"+",
@@ -1182,7 +1202,7 @@ class EsoBuildDataEditor
 							"+",
 							"Buff.WeaponCrit",
 							"+",
-							"1/219/100",
+							"1/(2*EffectiveLevel*(100 + EffectiveLevel))",
 							"*",
 							"0.10",
 							"+",
@@ -2133,6 +2153,7 @@ class EsoBuildDataEditor
 			//Physical/spell mitigation = (resistance - 100) / (level*10)
 			//Mitigation = [Resist ÷ (Level × 1,000)] or  = (resistance-100)/(level+VR)*10
 			// 50% cap on element + spell resistance
+			//Flat Crit = 2 * (effectiveLevel) * (100 + effectiveLevel)
 
 	); 
 	
