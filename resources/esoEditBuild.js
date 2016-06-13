@@ -12,6 +12,11 @@ ESO_MAX_LEVEL = 50;
 ESO_MAX_CPLEVEL = 16;
 ESO_MAX_EFFECTIVELEVEL = 66;
 
+ 	// Time between an input change and a stat update
+ESO_BUILD_UPDATE_MINTIME = 1;	 
+
+g_EsoBuildLastUpdateRequest = 0;
+g_EsoBuildRebuildStatFlag = false;
 g_EsoBuildEnableUpdates = true;
 g_EsoBuildClickWallLinkElement = null;
 
@@ -3699,6 +3704,35 @@ function AddEsoInputStatSource(statId, data)
 function UpdateEsoComputedStatsList()
 {
 	if (!g_EsoBuildEnableUpdates) return;
+	
+	g_EsoBuildRebuildStatFlag = true;
+	g_EsoBuildLastUpdateRequest = (new Date().getTime())/1000;
+	
+	setTimeout(CheckEsoComputeStatUpdate, ESO_BUILD_UPDATE_MINTIME*501);
+}
+
+
+function CheckEsoComputeStatUpdate()
+{
+	if (!g_EsoBuildRebuildStatFlag) return;
+	
+	var currentTime = (new Date().getTime())/1000;
+	
+	if (currentTime - g_EsoBuildLastUpdateRequest > ESO_BUILD_UPDATE_MINTIME)
+	{
+		g_EsoBuildRebuildStatFlag = false;
+		UpdateEsoComputedStatsList_Real();
+	}
+	else
+	{
+		setTimeout(CheckEsoComputeStatUpdate, ESO_BUILD_UPDATE_MINTIME*501);
+	}
+}
+
+
+function UpdateEsoComputedStatsList_Real()
+{
+	g_EsoBuildRebuildStatFlag = false;
 	SetEsoBuildSaveResults("");
 	
 	var inputValues = GetEsoInputValues();
