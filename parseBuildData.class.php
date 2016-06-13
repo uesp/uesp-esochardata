@@ -242,6 +242,7 @@ class EsoBuildDataParser
 						name TINYTEXT NOT NULL,
 						icon TINYTEXT NOT NULL,
 						description TEXT NOT NULL,
+						enabled TINYINT NOT NULL,
 						abilityId INTEGER NOT NULL,
 						PRIMARY KEY (id),
 						INDEX index_characterId(characterId)

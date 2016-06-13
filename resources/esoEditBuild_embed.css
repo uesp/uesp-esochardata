@@ -315,6 +315,9 @@
 
 #esotbRace, #esotbClass, #esotbMundus, #esotbMundus2 {
 	width: 210px;
+	margin-top: 3px;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 
 .esotbStatTab {
@@ -758,13 +761,29 @@ button.esotbWeaponSelect {
 }
 
 /* Skills override */
+#esotbRoot .esovsAbilityBlockIconLevel {
+    font-size: 13px;
+	line-height: 13px;
+	bottom: 1px;
+    right: 1px;
+}
+
+#esotbRoot .esovsAbilityBlockIcon {
+    border: solid 2px transparent;	
+}
+
+#esotbRoot .esovsAbilityBlockIcon:hover {
+	border: solid 2px yellow;
+} 
+
 #esotbRoot #esovsSkillContent {
-	width: 500px;
+	width: 550px;
 }
 
 #esotbRoot .esovsSkillContentBlock {
 	height: 600px;
 	overflow: auto;
+	padding-left: 20px;
 }
 
 #esotbRoot .esovsAbilityBlock  {
@@ -931,4 +950,12 @@ button.esotbWeaponSelect {
 	padding: 5px;
 	background-color: rgba(150,150,150,0.3);
 	border-radius: 5px;
+}
+
+#esotbVampireStage,
+#esotbWerewolfStage, 
+#esotbAlliance {
+	margin-top: 3px;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }

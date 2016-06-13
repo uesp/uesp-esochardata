@@ -4,6 +4,7 @@ require_once("/home/uesp/secrets/esolog.secrets");
 require_once("/home/uesp/esolog.static/esoCommon.php");
 require_once("/home/uesp/esolog.static/viewCps.class.php");
 require_once("/home/uesp/esolog.static/viewSkills.class.php");
+require_once(__DIR__."/viewBuildData.class.php");
 
 
 class EsoBuildDataEditor 
@@ -16,6 +17,22 @@ class EsoBuildDataEditor
 	
 	public $viewCps = null;
 	public $viewSkills = null;
+	
+	public $buildDataViewer = null;
+	
+	public $buildId = null;
+	
+	public $errorMessages = array();
+	
+	public $initialItemData = array();
+	public $initialEnchantData = array();
+	public $initialSetMaxData = array();
+	public $initialBuffData = array();
+	public $initialCPData = array();
+	public $initialSkillData = array();
+	public $initialPassiveSkillData = array();
+	public $initialActiveSkillData = array();
+	public $initialSkillBarData = array();
 	
 	
 	public $GEARSLOT_BASEICONS = array(
@@ -234,6 +251,53 @@ class EsoBuildDataEditor
 	);
 	
 	
+	public $ALLIANCE_TYPES = array(
+			"Aldmeri Dominion",
+			"Ebonheart Pack",
+			"Daggerfall Covenant",
+	);
+	
+	
+	public $EQUIPSLOT_TO_SLOTID = array(
+			0 => "Head",
+			3 => "Shoulders",
+			2 => "Chest",
+			16 => "Hands",
+			6 => "Waist",
+			8 => "Legs",
+			9 => "Feet",
+			1 => "Neck",
+			11 => "Ring1",
+			12 => "Ring2",
+			4 => "MainHand1",
+			5 => "OffHand1",
+			13 => "Poison1",
+			20 => "MainHand2",
+			21 => "OffHand2",
+			14 => "Poison2",
+	);
+	
+	
+	public $SLOTID_TO_EQUIPSLOT = array(
+			"Head" => 0,
+			"Shoulders" => 3,
+			"Chest" => 2,
+			"Hands" => 16,
+			"Waist" => 6,
+			"Legs" => 8,
+			"Feet" => 9,
+			"Neck" => 1,
+			"Ring1" => 11,
+			"Ring2" => 12,
+			"MainHand1" => 4,
+			"OffHand1" => 5,
+			"Poison1" => 13,
+			"MainHand2" => 20,
+			"OffHand2" => 21,
+			"Poison2" => 14,
+	);
+	
+	
 	public $RACE_TYPES = array(
 			"Argonian" => "",
 			"Breton" => "",
@@ -253,6 +317,22 @@ class EsoBuildDataEditor
 			"Nightblade",
 			"Sorcerer",
 			"Templar",
+	);
+	
+	
+	public $VAMPIRESTAGE_TYPES = array(
+			0 => "none",
+			1 => "Stage 1",
+			2 => "Stage 2",
+			3 => "Stage 3",
+			4 => "Stage 4",
+	);
+	
+	
+	public $WEREWOLFSTAGE_TYPES = array(
+			0 => "none",
+			1 => "Werewolf in Human Form",
+			2 => "Werewolf Form",
 	);
 	
 	
@@ -872,6 +952,12 @@ class EsoBuildDataEditor
 			"CP.DiseaseDamageTaken" => array(
 					"display" => "%",
 			),
+			
+			"CP.DotDamageTaken" => array(
+					"display" => "%",
+			),
+			
+			
 			
 			
 			
@@ -2055,11 +2141,18 @@ class EsoBuildDataEditor
 	{
 		$this->TEMPLATE_FILE = __DIR__."/templates/esoeditbuild_embed_template.txt";
 		
-		$this->viewCps = new CEsoViewCP(true);
+		$this->buildDataViewer = new EsoBuildDataViewer(true, true);
+		
+		$this->viewCps = new CEsoViewCP(true, false);
 		$this->viewCps->hideTopBar = true;
 		$this->viewCps->shortDiscDisplay = true;
 		
-		$this->viewSkills = new CEsoViewSkills(true, "select");
+		$this->viewSkills = new CEsoViewSkills(true, "select", false);
+		$this->viewSkills->showLeftDetails = false;
+		$this->viewSkills->displayClass = "Dragonknight";
+		$this->viewSkills->displayRace = "Argonian";
+		$this->viewSkills->displayMenuBar = false;
+		$this->viewSkills->displaySkillBar = true;
 		
 		$this->MakeInputStatsList();
 		$this->SetInputParams();
@@ -2071,7 +2164,7 @@ class EsoBuildDataEditor
 	
 	public function ReportError($errorMsg)
 	{
-		print($errorMsg);
+		$this->errorMessages[] = $errorMsg;
 		error_log($errorMsg);
 		return false;
 	}
@@ -2079,7 +2172,8 @@ class EsoBuildDataEditor
 	
 	public function ParseInputParams ()
 	{
-		//if (array_key_exists('output', $this->inputParams)) $this->rawOutput = strtoupper($this->inputParams['output']);
+		if (array_key_exists('id', $this->inputParams)) $this->buildId = (int) ($this->inputParams['id']);
+		if (array_key_exists('buildid', $this->inputParams)) $this->buildId = (int) ($this->inputParams['buildid']);
 	}
 	
 	
@@ -2211,15 +2305,103 @@ class EsoBuildDataEditor
 	}
 	
 	
-	public function GetMundusListHtml()
+	public function getCharField($field, $default = "")
+	{
+		if ($this->buildDataViewer->characterData == null) return $default;
+		if (!array_key_exists($field, $this->buildDataViewer->characterData)) return $default;
+		return $this->buildDataViewer->escape($this->buildDataViewer->characterData[$field]);
+	}
+	
+	
+	public function getCharStatField($field, $default = "")
+	{
+		if ($this->buildDataViewer->characterData == null) return $default;
+		if ($this->buildDataViewer->characterData['stats'] == null)  return $default;
+		if (!array_key_exists($field, $this->buildDataViewer->characterData['stats'])) return $default;
+		return $this->buildDataViewer->escape($this->buildDataViewer->characterData['stats'][$field]['value']);
+	}
+	
+	
+	public function GetCharMundus($mundusIndex)
+	{
+		$foundIndex = 0;
+		
+		foreach ($this->buildDataViewer->characterData['buffs'] as $buff)
+		{
+			if (preg_match("#Boon\: (.*)#", $buff['name'], $matches))
+			{
+				++$foundIndex;
+				if ($foundIndex >= $mundusIndex) return $matches[1];
+			}
+		}
+		
+		return "";
+	}
+	
+	
+	public function GetCharVampireStage()
+	{
+
+		foreach ($this->buildDataViewer->characterData['buffs'] as $buff)
+		{
+			if (preg_match("#Stage ([0-9]+) Vampirism#", $buff['name'], $matches))
+			{
+				return (int) $matches[1];
+			}
+		}
+	
+		return 0;
+	}
+	
+	
+	public function GetCharWerewolfStage()
+	{
+		$stage = 0;
+		
+		foreach ($this->buildDataViewer->characterData['buffs'] as $buff)
+		{
+			if ($buff['name'] == "Lycanthropy" && $stage == 0)
+			{
+				$stage = 1;
+			}
+			else if ($buff['name'] == "Lycanthropy")
+			{
+				$stage = 2;
+			}
+		}
+	
+		return $stage;
+	}
+	
+		
+	public function GetMundusListHtml($mundusIndex)
 	{
 		$output = "";
-		$output .= "<option value='none'>(none)</option>";
+		$currentMundus = $this->GetCharMundus($mundusIndex);
+		
+		$selected = ($currentMundus == "") ? "selected" : "";
+		$output .= "<option value='none' $selected>(none)</option>";
 		
 		foreach ($this->MUNDUS_TYPES as $name => $type)
 		{
-			$output .= "<option value='$name'>$name <small>($type)</small></option>";
+			$selected = ($name == $currentMundus) ? "selected" : "";
+			$output .= "<option value='$name' $selected>$name <small>($type)</small></option>";
 		}
+		
+		return $output;
+	}
+	
+	
+	public function GetAllianceListHtml()
+	{
+		$output = "";
+		$currentAlliance = $this->getCharField("alliance");
+	
+		foreach ($this->ALLIANCE_TYPES as $name)
+		{
+			$selected = ($name == $currentAlliance) ? "selected" : "";
+			$output .= "<option value='$name' $selected>$name</option>";
+		}	
 		
 		return $output;
 	}
@@ -2228,10 +2410,14 @@ class EsoBuildDataEditor
 	public function GetClassListHtml()
 	{
 		$output = "";
+		
+		$currentClass = $this->getCharField('class');
+		if ($currentClass == "") $currentClass = "Dragonknight";
 	
 		foreach ($this->CLASS_TYPES as $class)
 		{
-			$output .= "<option value='$class'>$class</option>";
+			$selected = ($currentClass == $class) ? "selected" : "";
+			$output .= "<option value='$class' $selected>$class</option>";
 		}
 	
 		return $output;
@@ -2241,16 +2427,248 @@ class EsoBuildDataEditor
 	public function GetRaceListHtml()
 	{
 		$output = "";
+		
+		$currentRace = $this->getCharField('race');
+		if ($currentRace == "") $currentRace = "Argonian";
 	
 		foreach ($this->RACE_TYPES as $name => $extra)
 		{
 			$extraDesc = "";
 			if ($extra != "") $extraDesc = " ($extra)";
-			$output .= "<option value='$name'>$name$extraDesc</option>";
+			$selected = ($currentRace == $name) ? "selected" : "";
+			$output .= "<option value='$name' $selected>$name$extraDesc</option>";
 		}
 	
 		return $output;
 	}
+	
+	
+	public function GetVampireListHtml()
+	{
+		$output = "";
+	
+		$currentStage = $this->GetCharVampireStage();
+	
+		foreach ($this->VAMPIRESTAGE_TYPES as $stage => $display)
+		{
+			$selected = ($currentStage == $stage) ? "selected" : "";
+			$output .= "<option value='$stage' $selected>$display</option>";
+		}
+	
+		return $output;
+	}
+	
+	
+	public function GetWerewolfListHtml()
+	{
+		$output = "";
+	
+		$currentStage = $this->GetCharWerewolfStage();
+	
+		foreach ($this->WEREWOLFSTAGE_TYPES as $stage => $display)
+		{
+			$selected = ($currentStage == $stage) ? "selected" : "";
+			$output .= "<option value='$stage' $selected>$display</option>";
+		}
+	
+		return $output;
+	}
+	
+	
+	public function GetCharacterEquippedItem($slotIndex) 
+	{
+		if ($slotIndex === null) return null;
+		return $this->buildDataViewer->characterData['equipSlots'][$slotIndex];
+	}
+	
+	
+	public function ParseItemLink($itemLink)
+	{
+		$linkData = array();
+		
+		$result = preg_match('/\|H(?P<color>[A-Za-z0-9]*)\:item\:(?P<itemId>[0-9]*)\:(?P<subtype>[0-9]*)\:(?P<level>[0-9]*)\:(?P<enchantId1>[0-9]*)\:(?P<enchantSubtype1>[0-9]*)\:(?P<enchantLevel1>[0-9]*)\:(?P<enchantId2>[0-9]*)\:(?P<enchantSubtype2>[0-9]*)\:(?P<enchantLevel2>[0-9]*)\:(.*?)\:(?P<style>[0-9]*)\:(?P<crafted>[0-9]*)\:(?P<bound>[0-9]*)\:(?P<stolen>[0-9]*)\:(?P<charges>[0-9]*)\:(?P<potionData>[0-9]*)\|h\[?(?P<name>[a-zA-Z0-9 %_\(\)\'\-]*)(?P<nameCode>.*?)\]?\|h/', $itemLink, $matches);
+		
+		if (!$result) 
+		{
+			$result = preg_match('/\|H(?P<color>[A-Za-z0-9]*)\:item\:(?P<itemId>[0-9]*)\:(?P<subtype>[0-9]*)\:(?P<level>[0-9]*)\:(?P<enchantId1>[0-9]*)\:(?P<enchantSubtype1>[0-9]*)\:(?P<enchantLevel1>[0-9]*)\:(?P<enchantId2>[0-9]*)\:(?P<enchantSubtype2>[0-9]*)\:(?P<enchantLevel2>[0-9]*)\:(.*?)\:(?P<style>[0-9]*)\:(?P<crafted>[0-9]*)\:(?P<bound>[0-9]*)\:(?P<charges>[0-9]*)\:(?P<potionData>[0-9]*)\|h\[?(?P<name>[a-zA-Z0-9 %_\(\)\'\-]*)(?P<nameCode>.*?)\]?\|h/', $itemLink, $matches);
+			if (!$result) return $linkData;
+		}
+		
+		$linkData['itemId'] = $matches['itemId'];
+		$linkData['itemIntLevel'] = $matches['level'];
+		$linkData['itemIntType'] = $matches['subtype'];
+		
+		$linkData['itemStyle'] = $matches['style'];
+		$linkData['itemBound'] = $matches['bound'];
+		$linkData['itemCrafted'] = $matches['crafted'];
+		$linkData['itemCharges'] = $matches['charges'];
+		$linkData['itemPotionData'] = $matches['potionData'];
+		$linkData['itemStolen'] = $matches['stolen'];
+		
+		$linkData['enchantId1'] = $matches['enchantId1'];
+		$linkData['enchantIntLevel1'] = $matches['enchantLevel1'];
+		$linkData['enchantIntType1'] = $matches['enchantSubtype1'];
+		
+		$linkData['enchantId2'] = $matches['enchantId2'];
+		$linkData['enchantIntLevel2'] = $matches['enchantLevel2'];
+		$linkData['enchantIntType2'] = $matches['enchantSubtype2'];
+		
+		return $linkData;
+	}
+	
+	
+	public function LoadInitialItemData($slotId, $linkData)
+	{
+		$itemId = (int) $linkData['itemId'];
+		$intLevel = (int) $linkData['itemIntLevel'];
+		$intType = (int) $linkData['itemIntType'];
+		
+		if ($itemId == null || $intLevel == null || $intType == null || $itemId <= 0) return false;
+		
+		$query = "SELECT * FROM minedItem WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
+		$result = $this->db->query($query);
+		if (!$result) return $this->ReportError("Failed to load item data for $slotId!");
+		
+		if ($result->num_rows == 0)
+		{
+			$intLevel = 1;
+			$intType = 1;
+			$query = "SELECT * FROM minedItem WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
+			$result = $this->db->query($query);
+			if (!$result) return $this->ReportError("Failed to load item data for $slotId!");
+			if ($result->num_rows == 0) return false;
+		}
+		
+		$this->initialItemData[$slotId] = $result->fetch_assoc();
+		
+		$setName = $this->initialItemData[$slotId]['setName'];
+		if ($setName != "") return $this->LoadInitialSetMaxData($setName, $linkData);
+		
+		return true;
+	}
+	
+	
+	public function LoadInitialEnchantData($slotId, $linkData)
+	{
+		$itemId = (int) $linkData['enchantId1'];
+		$intLevel = (int) $linkData['enchantIntLevel1'];
+		$intType = (int) $linkData['enchantIntType1'];
+	
+		if ($itemId == null || $intLevel == null || $intType == null || $itemId <= 0) return false;
+	
+		$query = "SELECT * FROM minedItem WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
+		$result = $this->db->query($query);
+		if (!$result) return $this->ReportError("Failed to load enchantment data for $slotId!");
+		if ($result->num_rows == 0) return false;
+	
+		$this->initialEnchantData[$slotId] = $result->fetch_assoc();
+	
+		return true;
+	}
+	
+	
+	public function LoadInitialSetMaxData($setName, $linkData)
+	{
+				/* Only load it once */
+		if ($this->initialSetMaxData[$setName] != null) return true;
+		
+		$itemId = (int) $linkData['itemId'];
+		$intLevel = 50;
+		$intType = 370;
+	
+		if ($itemId == null || $intLevel == null || $intType == null || $itemId <= 0) return false;
+	
+		$query = "SELECT * FROM minedItem WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
+		$result = $this->db->query($query);
+		if (!$result) return $this->ReportError("Failed to load set max data for $setName!");
+		if ($result->num_rows == 0) return false;
+		
+		$this->initialSetMaxData[$setName] = $result->fetch_assoc();
+		return true;
+	}
+	
+	
+	public function GetEquippedItemData($slotId, $load = false)
+	{
+			// TODO: Disabled items
+		
+		if ($slotId == "Food") return $this->GetFoodItemData();
+			
+		$output = "";
+		$equipSlot = $this->SLOTID_TO_EQUIPSLOT[$slotId];
+		$item = $this->GetCharacterEquippedItem($equipSlot);
+		
+		if ($item == null || $item['itemLink'] == "")
+		{
+			$imageSrc = $this->GEARSLOT_BASEICONS[$slotId];
+			$output .= "src=\"$imageSrc\"";
+			return $output;
+		}
+		
+		$imageSrc = $this->buildDataViewer->convertIconToImageUrl($item['icon']);
+		$output .= " src=\"$imageSrc\"";
+		
+		$linkData = $this->ParseItemLink($item['itemLink']);
+		$setCount = $item['setCount'];
+		
+		$output .= " setcount=\"$setCount\"";
+		$output .= " itemid=\"{$linkData['itemId']}\"";
+		$output .= " intlevel=\"{$linkData['itemIntLevel']}\"";
+		$output .= " inttype=\"{$linkData['itemIntType']}\"";
+		$output .= " enchantid=\"{$linkData['enchantId1']}\"";
+		$output .= " enchantintlevel=\"{$linkData['enchantIntLevel1']}\"";
+		$output .= " enchantinttype=\"{$linkData['enchantIntType1']}\"";
+		
+		$this->LoadInitialItemData($slotId, $linkData);
+		$this->LoadInitialEnchantData($slotId, $linkData);
+		return $output;
+	}
+	
+	
+	public function GetEquippedItemName($slotId)
+	{
+		if ($slotId == "Food") return $this->GetFoodItemName();
+		
+		$equipSlot = $this->SLOTID_TO_EQUIPSLOT[$slotId];
+		$item = $this->GetCharacterEquippedItem($equipSlot);
+		if ($item == null) return "";
+		
+		return $item['name'];
+	}
+	
+	
+	public function GetFoodItemData()
+	{
+		$itemLink = $this->getCharStatField("LastFoodEatenLink", "");
+		$output = "";
+		$imageSrc = $this->GEARSLOT_BASEICONS[$slotId];
+		
+		if ($itemLink == "")
+		{
+			return "src=\"$imageSrc\"";
+		}
+				
+		$linkData = $this->ParseItemLink($itemLink);
+		
+		$output .= " itemid=\"{$linkData['itemId']}\"";
+		$output .= " intlevel=\"{$linkData['itemIntLevel']}\"";
+		$output .= " inttype=\"{$linkData['itemIntType']}\"";
+		
+		if ($this->LoadInitialItemData("Food", $linkData))
+		{
+			$icon = $this->initialItemData['Food']['icon'];
+			$imageSrc = $this->buildDataViewer->convertIconToImageUrl($icon);
+		}
+		
+		$output .= " src=\"$imageSrc\"";
+		return $output;
+	}
+	
+	
+	public function GetFoodItemName()
+	{
+		return $this->getCharStatField("LastFoodEatenName", "");
+	}	
 	
 	
 	public function GetCPHtml()
@@ -2265,7 +2683,212 @@ class EsoBuildDataEditor
 	}
 	
 	
-	public function GetOutputHtml()
+	public function OutputError($errorMsg)
+	{
+		return $errorMsg . "<br/>" . implode("<br/>", $this->errorMessages) . implode("<br>/", $this->buildDataViewer->errorMessages);	
+	}
+	
+	
+	public function CreateInitialItemData()
+	{
+		foreach ($this->EQUIPSLOT_TO_SLOTID as $equipSlot => $slotId)
+		{
+			$this->GetEquippedItemData($slotId, true);
+		}
+	}
+	
+	
+	public function CreateInitialBuffData()
+	{
+		static $IGNORED_BUFFS = array(
+				'ESO Plus Member' => 1,
+		);
+		
+		foreach ($this->buildDataViewer->characterData['buffs'] as $buff)
+		{
+			$buffName = $buff['name'];
+			$enabled = $buff['enabled'];
+			if ($enabled == 0) $enabled = 1;
+			
+			$this->initialBuffData[$buffName] = $enabled;	
+		}
+	}
+	
+	
+	public function CreateInitialCPData()
+	{
+		$cpData = $this->buildDataViewer->characterData['championPoints'];
+		
+		$this->initialCpData = array();
+		$this->initialCpData['points'] = 0;
+		
+		foreach ($cpData as $cp)
+		{
+			$names = explode(":", $cp['name']);
+			$cpLine = $names[0];
+			$cpSkill = $names[1];
+			$points = $cp['points'];
+			
+			if ($this->initialCpData[$cpLine] == null)
+			{
+				 $this->initialCpData[$cpLine] = array();
+				 $this->initialCpData[$cpLine]['points'] = 0;
+			}
+			
+			$this->initialCpData[$cpLine][$cpSkill] = $points;
+			
+			if ($points > 0) 
+			{
+				$this->initialCpData[$cpLine]['points'] += $points;
+				$this->initialCpData['points'] += $points;
+			}
+		}
+		
+		$this->viewCps->initialData = $this->initialCpData;
+	}
+	
+	
+	public function CreateInitialSkillData()
+	{
+		$this->viewSkills->displayClass = $this->getCharField('class');
+		$this->viewSkills->displayRace = $this->getCharField('race');
+		
+		if ($this->viewSkills->displayClass == "Dragonknight")
+			$this->viewSkills->highlightSkillId = 33963;
+		else if ($this->viewSkills->displayClass == "Nightblade")
+			$this->viewSkills->highlightSkillId = 37518;
+		else if ($this->viewSkills->displayClass == "Sorcerer")
+			$this->viewSkills->highlightSkillId = 30538;
+		else if ($this->viewSkills->displayClass == "Templar")
+			$this->viewSkills->highlightSkillId = 23784;		
+		
+		$this->initialSkillData = array();
+		$this->initialSkillData['UsedPoints'] = $this->getCharStatField("SkillPointsUsed", 0);
+		$this->initialSkillData['UnusedPoints'] = $this->getCharStatField("SkillPointsUnused", 0);;
+		$this->initialSkillData['TotalPoints'] = $this->getCharStatField("SkillPointsTotal", 0);;
+		
+		foreach ($this->buildDataViewer->characterData['skills'] as $skillName => $skillData)
+		{
+			$names = explode(":", $skillName);
+			$skillType = $names[0];
+			$skillLine = $names[1];
+			$skillName = $names[2];
+			if ($skillName == null || $skillLine == null) continue;
+			
+			$type = $skillData['type'];
+			$desc = $skillData['description'];
+			$abilityId = $skillData['abilityId'];
+			$rank = $skillData['rank'];
+			$morph = 0;
+			
+			$this->initialSkillData[$abilityId] = $rank;
+			
+			if ($type != "passive")
+			{
+				if ($rank > 8)
+				{
+					$morph = 2;
+					$rank -= 8;
+				}
+				else if ($rank > 4)
+				{
+					$morph = 1;
+					$rank -= 4;
+				}
+			}
+			
+			$data = array();
+			$baseAbilityId = $this->viewSkills->FindBaseAbilityForActiveData($abilityId);
+			$data['abilityId'] = $abilityId;
+			$data['baseAbilityId'] = $baseAbilityId;
+			$data['morph'] = $morph;
+			$data['rank'] = $rank;
+			$data['skillDesc'] = $skillData['description'];
+			
+			if ($type == "passive")
+				$data['abilityType'] = "Passive";
+			else if ($type == "skill")
+				$data['abilityType'] = "Active";
+			else if ($type == "ultimate")
+				$data['abilityType'] = "Ultimate";
+			
+			if ($type == "passive")
+				$this->initialPassiveSkillData[$baseAbilityId] = $data;
+			else
+				$this->initialActiveSkillData[$baseAbilityId] = $data;
+		}
+	
+		$this->viewSkills->initialData = $this->initialSkillData;
+		$this->viewSkills->activeData = $this->initialActiveSkillData;
+		$this->viewSkills->passiveData = $this->initialPassiveSkillData;
+	}
+	
+	
+	public function CreateInitialSkillBarData()
+	{
+		$this->initialSkillBarData = array();
+		$this->initialSkillBarData[0] = array( array(), array(), array(), array(), array(), array() );
+		$this->initialSkillBarData[1] = array( array(), array(), array(), array(), array(), array() );
+		
+		$actionBars = $this->buildDataViewer->characterData['actionBars'];
+		
+		foreach ($actionBars as $barSlot)
+		{
+			$index = $barSlot['index'];
+			$abilityId = $barSlot['abilityId'];
+			
+			$barIndex = 0;
+			if ($index > 100) $barIndex = 1;
+			$slotIndex = ($index % 100) - 3;
+			
+			$barData = array();
+			$barData['skillId'] = $abilityId;
+			$barData['origSkillId'] = $this->viewSkills->FindBaseAbilityForActiveData($abilityId);
+			$barData['skillDesc'] = $barSlot['description'];
+			$barData['skillType'] = (($slotIndex < 5) ? "Active" : "Ultimate");
+			
+			$this->initialSkillBarData[$barIndex][$slotIndex] = $barData;
+		}
+		
+		$this->viewSkills->initialSkillBarData = $this->initialSkillBarData;
+		$this->viewSkills->activeSkillBar = $this->getCharStatField("ActiveAbilityBar", 1);
+	}
+
+	
+	public function GetClassWeaponBar($weaponBar)
+	{
+		$activeBar = $this->getCharStatField("ActiveAbilityBar", 1);
+		if ($activeBar == $weaponBar) return "esotbWeaponSelect";
+		return "";
+	}
+	
+	
+	public function GetActiveWeaponBar()
+	{
+		return $this->getCharStatField("ActiveAbilityBar", 1);
+	}
+	
+	
+	public function LoadBuild()
+	{
+		if ($this->buildId == null) return true;
+		$this->buildDataViewer->characterId = $this->buildId;
+		
+		if (!$this->buildDataViewer->loadCharacter()) return false;
+		
+		$this->viewSkills->LoadData();
+	
+		$this->CreateInitialItemData();
+		$this->CreateInitialBuffData();
+		$this->CreateInitialCPData();
+		$this->CreateInitialSkillData();
+		$this->CreateInitialSkillBarData();
+		
+		return true;
+	}
+	
+	
+	public function CreateOutputHtml()
 	{
 		$replacePairs = array(
 				'{version}' => $this->version,
@@ -2275,7 +2898,11 @@ class EsoBuildDataEditor
 				'{gearIconJson}' => $this->GetGearIconJson(),
 				'{raceList}' => $this->GetRaceListHtml(),
 				'{classList}' => $this->GetClassListHtml(),
-				'{mundusList}' => $this->GetMundusListHtml(),
+				'{mundusList}' => $this->GetMundusListHtml(1),
+				'{mundusList2}' => $this->GetMundusListHtml(2),
+				'{vampireList}' => $this->GetVampireListHtml(),
+				'{werewolfList}' => $this->GetWerewolfListHtml(),
+				'{allianceList}' => $this->GetAllianceListHtml(),
 				'{cpHtml}' => $this->GetCPHtml(),
 				'{skillHtml}' => $this->GetSkillHtml(), 
 				'{gearIconHead}' => $this->GEARSLOT_BASEICONS['Head'],
@@ -2296,10 +2923,82 @@ class EsoBuildDataEditor
 				'{gearIconPoison2}' => $this->GEARSLOT_BASEICONS['Poison2'],
 				'{gearIconFood}' => $this->GEARSLOT_BASEICONS['Food'],
 				'{gearIconPotion}' => $this->GEARSLOT_BASEICONS['Potion'],
+				'{buildName}' => $this->getCharField('buildName'),
+				'{charName}'  => $this->getCharField('characterName'),
+				'{level}' => $this->getCharStatField('Level', '50'),
+				'{effectiveLevel}' => $this->getCharStatField('EffectiveLevel', '66'),
+				'{CPTotalPoints}' => $this->getCharField('cp', '160'),
+				'{vampireStage}' => $this->GetCharVampireStage(),
+				'{werewolfStage}' => $this->GetCharWerewolfStage(),
+				'{attributeTotal}' => $this->getCharStatField("AttributesTotal", "0"),
+				'{attributeHealth}' => $this->getCharStatField("AttributesHealth", "0"),
+				'{attributeMagicka}' => $this->getCharStatField("AttributesMagicka", "0"),
+				'{attributeStamina}' => $this->getCharStatField("AttributesStamina", "0"),
+				'{targetFlatPene}' => $this->getCharStatField("Target::FlatPenetration", "0"),
+				'{targetFactPene}' => $this->getCharStatField("Target::PenetrationBonus", "0"),
+				'{targetFactDefense}' => $this->getCharStatField("Target:DefenseBonus", "0"),
+				'{targetFactAttack}' => $this->getCharStatField("Target:AttackBonus", "0"),
+				'{targetResist}' => $this->getCharStatField("Target:Resistance", "0"),
+				'{miscSpellCost}' => $this->getCharStatField("Misc:SpellCost", "3000"),
+				'{itemDataHead}' => $this->GetEquippedItemData('Head'),
+				'{itemDataShoulders}' => $this->GetEquippedItemData('Shoulders'),
+				'{itemDataChest}' => $this->GetEquippedItemData('Chest'),
+				'{itemDataHands}' => $this->GetEquippedItemData('Hands'),
+				'{itemDataWaist}' => $this->GetEquippedItemData('Waist'),
+				'{itemDataLegs}' => $this->GetEquippedItemData('Legs'),
+				'{itemDataFeet}' => $this->GetEquippedItemData('Feet'),
+				'{itemDataNeck}' => $this->GetEquippedItemData('Neck'),
+				'{itemDataRing1}' => $this->GetEquippedItemData('Ring1'),
+				'{itemDataRing2}' => $this->GetEquippedItemData('Ring2'),
+				'{itemDataMainHand1}' => $this->GetEquippedItemData('MainHand1'),
+				'{itemDataOffHand1}' => $this->GetEquippedItemData('OffHand1'),
+				'{itemDataPoison1}' => $this->GetEquippedItemData('Poison1'),
+				'{itemDataMainHand2}' => $this->GetEquippedItemData('MainHand2'),
+				'{itemDataOffHand2}' => $this->GetEquippedItemData('OffHand2'),
+				'{itemDataPoison2}' => $this->GetEquippedItemData('Poison2'),
+				'{itemDataFood}' => $this->GetEquippedItemData('Food'),
+				'{itemNameHead}' => $this->GetEquippedItemName('Head'),
+				'{itemNameShoulders}' => $this->GetEquippedItemName('Shoulders'),
+				'{itemNameChest}' => $this->GetEquippedItemName('Chest'),
+				'{itemNameHands}' => $this->GetEquippedItemName('Hands'),
+				'{itemNameWaist}' => $this->GetEquippedItemName('Waist'),
+				'{itemNameLegs}' => $this->GetEquippedItemName('Legs'),
+				'{itemNameFeet}' => $this->GetEquippedItemName('Feet'),
+				'{itemNameNeck}' => $this->GetEquippedItemName('Neck'),
+				'{itemNameRing1}' => $this->GetEquippedItemName('Ring1'),
+				'{itemNameRing2}' => $this->GetEquippedItemName('Ring2'),
+				'{itemNameMainHand1}' => $this->GetEquippedItemName('MainHand1'),
+				'{itemNameOffHand1}' => $this->GetEquippedItemName('OffHand1'),
+				'{itemNamePoison1}' => $this->GetEquippedItemName('Poison1'),
+				'{itemNameMainHand2}' => $this->GetEquippedItemName('MainHand2'),
+				'{itemNameOffHand2}' => $this->GetEquippedItemName('OffHand2'),
+				'{itemNamePoison2}' => $this->GetEquippedItemName('Poison2'),
+				'{itemNameFood}' => $this->GetEquippedItemName('Food'),
+				'{initialItemDataJson}' => json_encode($this->initialItemData),
+				'{initialEnchantDataJson}' => json_encode($this->initialEnchantData),
+				'{initialSetMaxDataJson}' => json_encode($this->initialSetMaxData),
+				'{initialBuffDataJson}' => json_encode($this->initialBuffData),
+				'{initialCpDataJson}' => json_encode($this->initialCpData),
+				'{initialSkillDataJson}' => json_encode($this->initialSkillData),
+				'{weaponBarClass1}' => $this->GetClassWeaponBar(1),
+				'{weaponBarClass2}' => $this->GetClassWeaponBar(2),
+				'{activeBar}' => $this->GetActiveWeaponBar(),
 		);
 		
 		$output = strtr($this->htmlTemplate, $replacePairs);
 		return $output;
+	}
+	
+		
+	public function GetOutputHtml()
+	{
+		if (!$this->LoadBuild())
+		{
+			return $this->OutputError("Failed to load build!");
+		}
+
+		
+		return $this->CreateOutputHtml();
 	}
 	
 	
