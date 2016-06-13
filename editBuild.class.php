@@ -2908,8 +2908,17 @@ class EsoBuildDataEditor
 	public function CreateInitialSkillBarData()
 	{
 		$this->initialSkillBarData = array();
-		$this->initialSkillBarData[0] = array( array(), array(), array(), array(), array(), array() );
-		$this->initialSkillBarData[1] = array( array(), array(), array(), array(), array(), array() );
+		$this->initialSkillBarData[0] = array();
+		$this->initialSkillBarData[1] = array();
+		
+		for ($i = 0; $i < 2; ++$i)
+		{
+			for ($j = 0; $j < 6; ++$j)
+			{
+				$this->initialSkillBarData[$i][$j] = array();
+				$this->initialSkillBarData[$i][$j]['skillId'] = 0;
+			}
+		}
 		
 		$actionBars = $this->buildDataViewer->characterData['actionBars'];
 		

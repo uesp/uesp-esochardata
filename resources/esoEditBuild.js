@@ -4375,8 +4375,6 @@ function OnEsoSetMaxDataReceive(data, status, xhr)
 		g_EsoBuildSetMaxData[itemData.setName].setData = setData;
 		
 		ComputeEsoBuildSetDataItem(setData, itemData);
-		
-		//UpdateEsoComputedStatsList();
 	}
 }
 
@@ -6416,23 +6414,39 @@ function RequestEsoBuildSave()
 
 function OnEsoBuildSaved(data, status, xhr)
 {
-	SetEsoBuildSaveResults("Build successfully saved!");
-	//console.log("OnEsoBuildSaved", data);
+	
+	if (data.isnew)
+	{
+		UpdateEsoBuildNewId(data.id);
+		SetEsoBuildSaveResults("Successfully created new build!");
+	}
+	else
+	{
+		SetEsoBuildSaveResults("Successfully saved build!");	
+	}
+	
+	console.log("Eso Build Saved", data);
 }
 
 
 function OnEsoBuildSaveError(xhr, status, errorMsg)
 {
 	SetEsoBuildSaveResults("ERROR saving build!");
-	//console.log("OnEsoBuildSaveError", errorMsg);
+	console.log("Eso Build Save Error", errorMsg);
+}
+
+
+function UpdateEsoBuildNewId(newId)
+{
+	g_EsoBuildData.id = newId;
 }
 
 
 function CreateEsoBuildSaveData()
 {
 	var saveData = {};
-	
-	UpdateEsoComputedStatsList();
+
+	UpdateEsoComputedStatsList_Real();
 	
 	var inputValues = g_EsoBuildLastInputValues;
 	
@@ -6989,7 +7003,7 @@ function esotbOnDocReady()
 	UpdateEsoInitialBuffData();
 	UpdateEsoInitialToggleSetData();
 	UpdateEsoInitialToggleSkillData();
-	
+		
 	CreateEsoBuildItemDetailsPopup();
 	CreateEsoBuildFormulaPopup();
 	CreateEsoBuildClickWall();

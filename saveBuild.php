@@ -19,6 +19,7 @@ class EsoBuildDataSaver
 	public $buildId = -1;
 	public $buildData = null;
 	public $statsData = null;
+	public $isNew = false;
 	
 	public $errorMessages = array();
 	
@@ -266,6 +267,8 @@ class EsoBuildDataSaver
 		$output['success'] = true;
 		$output['inputLength'] = strlen($this->inputData);
 		$output['errors'] = $this->errorMessages;
+		$output['id'] = $this->buildId;
+		$output['isnew'] = $this->isNew;
 		
 		print (json_encode($output));
 		
@@ -458,7 +461,8 @@ class EsoBuildDataSaver
 		
 		if ($this->buildId <= 0)
 		{
-			$this->buildId = $result->insert_id;
+			$this->buildId = $this->db->insert_id;
+			$this->isNew = true;
 		}
 		
 		return true;
@@ -481,7 +485,7 @@ class EsoBuildDataSaver
 		$result &= $this->SaveTable("skills", $this->parsedBuildData['Skills'], $this->SKILL_FIELDS);
 		$result &= $this->SaveTable("equipSlots", $this->parsedBuildData['EquipSlots'], $this->EQUIPSLOT_FIELDS);
 				
-		if (!$result) return $this->OutputSuccessJson();
+		if (!$result) return $this->OutputErrorJson();
 		
 		$this->OutputSuccessJson();
 		return true;
