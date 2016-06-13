@@ -1261,6 +1261,7 @@ class EsoBuildDataEditor
 			
 			"SpellResist" => array(
 					"title" => "Spell Resistance",
+					"display" => "resist",
 					"compute" => array(
 							"Item.SpellResist",
 							"Skill2.SpellResist",
@@ -1278,6 +1279,7 @@ class EsoBuildDataEditor
 			
 			"PhysicalResist" => array(
 					"title" => "Physical Resistance",
+					"display" => "resist",
 					"compute" => array(
 							"Item.PhysicalResist",
 							"Skill2.PhysicalResist",
@@ -1295,6 +1297,7 @@ class EsoBuildDataEditor
 			
 			"CritResist" => array(
 					"title" => "Critical Resistance",
+					"display" => "critresist",
 					"compute" => array(
 							"Item.CritResist",
 							"Set.CritResist",
@@ -1306,6 +1309,7 @@ class EsoBuildDataEditor
 			
 			"ColdResist" => array(
 					"title" => "Cold Resistance",
+					"display" => "elementresist",
 					"compute" => array(
 							"Item.ColdResist",
 							"Set.ColdResist",
@@ -1321,6 +1325,7 @@ class EsoBuildDataEditor
 			
 			"FireResist" => array(
 					"title" => "Fire Resistance",
+					"display" => "elementresist",
 					"compute" => array(
 							"Item.FireResist",
 							"Set.FireResist",
@@ -1336,6 +1341,7 @@ class EsoBuildDataEditor
 			
 			"ShockResist" => array(
 					"title" => "Shock Resistance",
+					"display" => "elementresist",
 					"compute" => array(
 							"Item.ShockResist",
 							"Set.ShockResist",
@@ -1351,6 +1357,7 @@ class EsoBuildDataEditor
 			
 			"PoisonResist" => array(
 					"title" => "Poison Resistance",
+					"display" => "elementresist",
 					"compute" => array(
 							"Item.PoisonResist",
 							"Set.PoisonResist",
@@ -1366,6 +1373,7 @@ class EsoBuildDataEditor
 			
 			"DiseaseResist" => array(
 					"title" => "Disease Resistance",
+					"display" => "elementresist",
 					"compute" => array(
 							"Item.DiseaseResist",
 							"Set.DiseaseResist",
