@@ -34,6 +34,8 @@ class EsoBuildDataEditor
 	public $initialActiveSkillData = array();
 	public $initialSkillBarData = array();
 	
+	public $wikiContext = null;
+	
 	
 	public $GEARSLOT_BASEICONS = array(
 			"Head" 		=> "http://esobuilds.uesp.net/resources/gearslot_head.png",
@@ -83,12 +85,15 @@ class EsoBuildDataEditor
 			"CP.TotalPoints",
 			"CP.UsedPoints",
 			"Attribute.TotalPoints",
+			"Attribute.Health",
+			"Attribute.Magicka",
+			"Attribute.Stamina",
 			"Mundus.Name",
 			"Mundus.Name2",
 			"Race",
 			"Class",
-			"Target.SpellResistance",
-			"Target.PhysicalResistance",
+			"Target.SpellResist",
+			"Target.PhysicalResist",
 			"Target.PenetrationFactor",
 			"Target.PenetrationFlat",
 			"Target.DefenseBonus",
@@ -126,7 +131,6 @@ class EsoBuildDataEditor
 	
 	
 	public $STATS_TYPE_LIST = array(
-			"Attribute",
 			"Item",
 			"Set",
 			"Skill",
@@ -2917,6 +2921,36 @@ class EsoBuildDataEditor
 	}
 	
 	
+	public function GetBuildDataJson()
+	{
+		$buildData = array();
+		
+		$buildData['id'] = -1;
+		
+		if ($this->buildDataViewer->characterData != null)
+		{
+			foreach ($this->characterData as $key => $value)
+			{
+				if (is_array($value)) continue;
+				$buildData[$key] = $value;
+			}
+		}
+		
+		$buildData['wikiUserName'] = $this->GetWikiUserName();
+		$buildData['canEdit'] = $this->buildDataViewer->canWikiUserEdit();
+		$buildData['canDelete'] = $this->buildDataViewer->canWikiUserDelete();
+		$buildData['canCreate'] = $this->buildDataViewer->canWikiUserCreate();
+		
+		return json_encode($buildData);
+	}
+	
+	
+	public function GetWikiUserName()
+	{
+		return $this->buildDataViewer->getWikiUserName();
+	}
+	
+	
 	public function CreateOutputHtml()
 	{
 		$replacePairs = array(
@@ -2925,6 +2959,7 @@ class EsoBuildDataEditor
 				'{esoInputStatsJson}' => $this->GetInputStatsJson(),
 				'{esoInputStatDetailsJson}' => $this->GetInputStatDetailsJson(),
 				'{gearIconJson}' => $this->GetGearIconJson(),
+				'{buildDataJson}' => $this->GetBuildDataJson(),
 				'{raceList}' => $this->GetRaceListHtml(),
 				'{classList}' => $this->GetClassListHtml(),
 				'{mundusList}' => $this->GetMundusListHtml(1),

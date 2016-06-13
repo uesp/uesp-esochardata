@@ -62,6 +62,42 @@ g_EsoFormulaInputValues = {};
 g_EsoInputStatSources = {};
 
 
+ESOBUILD_SLOTID_TO_EQUIPSLOT = 
+{
+		"Head" : 0,
+		"Shoulders" : 3,
+		"Chest" : 2,
+		"Hands" : 16,
+		"Waist" : 6,
+		"Legs" : 8,
+		"Feet" : 9,
+		"Neck" : 1,
+		"Ring1" : 11,
+		"Ring2" : 12,
+		"MainHand1" : 4,
+		"OffHand1" : 5,
+		"Poison1" : 13,
+		"MainHand2" : 20,
+		"OffHand2" : 21,
+		"Poison2" : 14,
+};
+
+
+ESOBUILD_SKILLTYPES = 
+{
+		0 : "",
+		1 : "Class",
+		2 : "Weapon",
+		3 : "Armor",
+		4 : "World",
+		5 : "Guild",
+		6 : "Alliance War",
+		7 : "Racial",
+		8 : "Craft",
+		9 : "Champion",
+};
+
+
 g_EsoBuildBuffData =
 {
 		"Major Mending" : 
@@ -2273,6 +2309,8 @@ function GetEsoInputValues(mergeComputedStats)
 	
 	GetEsoInputGeneralValues(inputValues, "Food", "Food");
 	GetEsoInputGeneralValues(inputValues, "Buff", "Potion");
+	
+	inputValues.ActiveBar = g_EsoBuildActiveWeapon;
 	
 	if (g_EsoBuildActiveWeapon == 1)
 	{
@@ -6223,6 +6261,360 @@ function OnEsoBuildAbilityBlockClick(e)
 }
 
 
+function CreateEsoBuildSaveData()
+{
+	var saveData = {};
+	
+	UpdateEsoComputedStatsList();
+	
+	var inputValues = g_EsoBuildLastInputValues;
+	
+	saveData.Stats = {};
+	
+	CreateEsoBuildGeneralSaveData(saveData, inputValues);
+	CreateEsoBuildComputedSaveData(saveData, inputValues);
+	CreateEsoBuildItemSaveData(saveData, inputValues);
+	CreateEsoBuildSkillSaveData(saveData, inputValues);
+	CreateEsoBuildBuffSaveData(saveData, inputValues);
+	CreateEsoBuildCPSaveData(saveData, inputValues);
+	CreateEsoBuildActionBarSaveData(saveData, inputValues);
+		
+	return saveData;
+}
+
+
+function CreateEsoBuildActionBarSaveData(saveData, inputValues)
+{
+	saveData.ActionBars = {};
+	
+	for (var barIndex = 0; barIndex < 2; ++barIndex)
+	{
+		for (var slotIndex = 0; slotIndex < 6; ++slotIndex)
+		{
+			var slotData = g_EsoSkillBarData[barIndex][slotIndex];
+			var index = barIndex*100 + slotIndex + 3;
+			var data = {};
+			var abilityData = g_SkillsData[slotData.skillId];
+			
+			data.index = index;
+			
+			if (slotData.skillId > 0 && abilityData != null)
+			{
+				data.name = abilityData.name;
+				data.icon = abilityData.texture;
+				data.abilityId = slotData.skillId;
+				data.area = abilityData.area;
+				data.range = abilityData.range;
+				data.radius = abilityData.radius;
+				data.castTime = abilityData.castTime;
+				data.channelTime = abilityData.channelTime;
+				data.duration = abilityData.duration;
+				data.target = abilityData.target;
+				
+				data.description = GetEsoSkillDescription(slotData.skillId, null, false, true, true);
+				data.cost = GetEsoSkillCost(slotData.skillId);
+			}
+			else
+			{
+				data.name = "";
+				data.icon = "";
+				data.abilityId = 0;
+				data.description = "";
+				data.area = "";
+				data.cost = "";
+				data.range = "";
+				data.radius = "";
+				data.castTime = "";
+				data.channelTime = "";
+				data.duration = "";
+				data.target = "";
+			}
+			
+			saveData.ActionBars[index] = data;
+		}
+	}
+	
+	return saveData;
+}
+
+
+function CreateEsoBuildCPSaveData(saveData, inputValues)
+{
+	saveData.ChampionPoints = {};
+	
+	for (var id in g_EsoCpData)
+	{
+		var cpData = g_EsoCpData[id];
+		if (isNaN(parseInt(id))) continue;
+		if (cpData.type != "skill") continue;
+		
+		if (cpData.points == null && !cpData.isUnlocked) continue;
+		if (cpData.points == 0) continue;
+		
+		var data = {};
+		var discName = cpData.discipline.replace("_", " ");
+		discName = discName.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+		
+		data.name = discName + ":" + cpData.name;
+		data.description = cpData.description;
+		data.abilityId = cpData.id;
+		data.points = 0;
+		
+		if (cpData.points != null)
+			data.points = cpData.points;
+		else if (cpData.isUnlocked)
+			data.points = -1;
+		
+		saveData.ChampionPoints[id] = data;		
+	}
+	
+	
+	return saveData;
+}
+
+
+function CreateEsoBuildBuffSaveData(saveData, inputValues)
+{
+	saveData.Buffs = {};
+	
+	for (var buffName in g_EsoBuildBuffData)
+	{
+		var buffData = g_EsoBuildBuffData[buffName];
+		if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled)) continue;
+		
+		var data = {};
+		
+		data.name = buffName;
+		data.icon = buffData.icon;
+		data.description = buffData.desc.replace("<br/>", "");
+		data.abilityId = 0;
+		
+		saveData.Buffs[buffName] = data;
+	}
+	
+	return saveData;
+}
+
+
+function CreateEsoBuildSkillSaveData(saveData, inputValues)
+{
+	saveData.Skills = {};
+	
+	for (var baseId in g_EsoSkillActiveData)
+	{
+		var skillData = g_EsoSkillActiveData[baseId];
+		var abilityData = g_SkillsData[skillData.abilityId];
+		if (abilityData == null) continue;
+		
+		CreateEsoBuildSaveDataForSkill(saveData, abilityData, skillData);
+	}
+	
+	return saveData;
+}
+
+
+function CreateEsoBuildSaveDataForSkill(saveData, abilityData, skillData)
+{
+	var data = {};
+	var abilityId = abilityData.id;
+	
+	var skillType = ESOBUILD_SKILLTYPES[abilityData.skillType];
+	if (skillType == null) skillType = abilityData.skillType;
+	
+	data.name = skillType + ":" + abilityData.skillLine + ":" + abilityData.name;
+	data.type = "skill";
+	if (abilityData.isPassive) data.type = "passive";
+	if (abilityData.isUltimate) data.type = "ultimate";
+	data.icon = abilityData.texture;
+	data.abilityId = abilityId;
+	data.rank = skillData.rank + skillData.morph * 4;
+	data.index = abilityData.skillIndex;
+	data.area = abilityData.area;	//?
+	data.range = abilityData.range; //?
+	data.radius = abilityData.radius;
+	data.castTime = abilityData.castTime;
+	data.channelTime = abilityData.channelTime;
+	data.duration = abilityData.duration;
+	data.target = abilityData.target;
+	
+	data.description = GetEsoSkillDescription(abilityId, null, false, true, true);
+	data.cost = GetEsoSkillCost(abilityId);
+	
+	saveData.Skills[abilityId] = data;
+}
+
+
+function CreateEsoBuildItemSaveData(saveData, inputValues)
+{
+	saveData.Equipment = {};
+	
+	for (var slotId in g_EsoBuildItemData) 
+	{
+		var itemData = g_EsoBuildItemData[slotId];
+		if (itemData.itemId == null) continue;
+		
+		var data = {};
+		
+		data.index = ESOBUILD_SLOTID_TO_EQUIPSLOT[slotId];
+		if (data.index == null) data.index = -1;
+		
+		data.name = itemData.name;
+		data.condition = 100;
+		data.itemLink = MakeEsoBuildItemLink(slotId);
+		data.icon = itemData.icon;
+		data.setCount = GetEsoBuildSetCount(itemData.setName);
+		data.value = itemData.value;
+		data.level = itemData.level;
+		data.quality = itemData.quality;
+		data.type = itemData.type;
+		data.equipType = itemData.equipType;
+		data.armorType = itemData.armorType;
+		data.weaponType = itemData.weaponType;
+		data.craftType = itemData.craftType;
+		data.stolen = itemData.stolen; //?
+		data.style = itemData.style;
+		
+		saveData.Equipment[slotId] = data;
+	}
+	
+	saveData.Stats["AxeWeaponCount"] = inputValues.WeaponAxe;
+	saveData.Stats["DaggerWeaponCount"] = inputValues.WeaponDagger;
+	saveData.Stats["MaceWeaponCount"] = inputValues.WeaponMace;
+	saveData.Stats["SwordWeaponCount"] = inputValues.WeaponSword;
+	saveData.Stats["BowWeaponCount"] = inputValues.WeaponBow;
+	saveData.Stats["1HWeaponCount"] = inputValues.Weapon1H;
+	saveData.Stats["2HWeaponCount"] = inputValues.Weapon2H;
+	saveData.Stats["RestStaffWeaponCount"] = inputValues.WeaponRestStaff;
+	saveData.Stats["DestStaffWeaponCount"] = inputValues.WeaponDestStaff;
+	saveData.Stats["1HShieldWeaponCount"] = inputValues.Weapon1HShield;
+	saveData.Stats["LightArmorCount"] = inputValues.ArmorLight;
+	saveData.Stats["MediumArmorCount"] = inputValues.ArmorMedium;
+	saveData.Stats["HeavyArmorCount"] = inputValues.ArmorHeavy;
+	saveData.Stats["ArmorTypeCount"] = inputValues.ArmorTypes;	
+	
+	return saveData;
+}
+
+
+function CreateEsoBuildGeneralSaveData(saveData, inputValues)
+{
+	saveData.Build = g_EsoBuildData;
+	saveData.Build.buildName = $("#esotbBuildName").text().trim();
+	saveData.Build.name = $("#esotbCharName").text().trim();
+	saveData.Build['class'] = inputValues.Class;
+	saveData.Build['race'] = inputValues.Race;
+	saveData.Build['special'] = "";
+	saveData.Build['buildType'] = "Other";
+	saveData.Build['level'] = inputValues.EffectiveLevel;
+	saveData.Build['alliance'] = $("#esotbAlliance").val();
+	saveData.Build['cp'] = inputValues.CP.TotalPoints;
+	
+	saveData.Stats['EffectiveLevel'] = inputValues.EffectiveLevel;
+	saveData.Stats['Level'] = inputValues.Level;
+	saveData.Stats['Race'] = inputValues.Race;
+	saveData.Stats['Class'] = inputValues.Class;
+	saveData.Stats['Vampire'] = inputValues.VampireStage > 0 ? 1 : 0;
+	saveData.Stats['VampireStage'] = inputValues.VampireStage;
+	saveData.Stats['Werewolf'] = inputValues.WerewolfStage > 0 ? 1 : 0;
+	saveData.Stats['WerewolfStage'] = inputValues.WerewolfStage;
+	saveData.Stats['Alliance'] = saveData.Build['alliance'];
+	
+	saveData.Stats['ActiveAbilityBar'] = inputValues.ActiveBar;
+	saveData.Stats['ActiveWeaponBar'] = inputValues.ActiveBar;
+	
+	if (inputValues.Attribute.Magicka > 32)	saveData.Build['buildType'] = "Magicka";
+	if (inputValues.Attribute.Stamina > 32)	saveData.Build['buildType'] = "Stamina";
+	if (inputValues.Attribute.Health > 32)	saveData.Build['buildType'] = "Health";
+	if (inputValues.WerewolfStage > 0) saveData.Build['special'] = "Werewolf";
+	if (inputValues.VampireStage > 0) saveData.Build['special'] = "Vampire";
+	
+	saveData.Stats['BuildType'] = saveData.Build['buildType'];	
+
+	saveData.Stats['Target:FlatPenetration'] = inputValues.Target.PenetrationFlat;
+	saveData.Stats['Target:PenetrationBonus'] = inputValues.Target.PenetrationFlat;
+	saveData.Stats['Target:DefenseBonus'] = inputValues.Target.DefenseBonus;
+	saveData.Stats['Target:AttackBonus'] = inputValues.Target.AttackBonus;
+	saveData.Stats['Target:Resistance'] = inputValues.Target.SpellResist;
+	saveData.Stats['Misc:SpellCost'] = inputValues.Misc.SpellCost;
+	
+	saveData.Stats['AttributesTotal'] = inputValues.Attribute.TotalPoints;
+	saveData.Stats['AttributesHealth'] = inputValues.Attribute.Health;
+	saveData.Stats['AttributesMagicka'] = inputValues.Attribute.Magicka;
+	saveData.Stats['AttributesStamina'] = inputValues.Attribute.Stamina;
+	
+	saveData.Stats['Mundus'] = inputValues.Mundus.Name;
+	saveData.Stats['Mundus2'] = inputValues.Mundus.Name2;
+	
+	return saveData;
+}
+
+
+function CreateEsoBuildComputedSaveData(saveData, inputValues)
+{
+	
+	for (var name in g_EsoComputedStats)
+	{
+		AddEsoBuildComputedStatToSaveData(saveData, name, name, true);
+	}
+	
+	AddEsoBuildComputedStatToSaveData(saveData, "Health");
+	AddEsoBuildComputedStatToSaveData(saveData, "Magicka");
+	AddEsoBuildComputedStatToSaveData(saveData, "Stamina");
+	
+	AddEsoBuildComputedStatToSaveData(saveData, "HealthRegen", "HealthRegenCombat");
+	AddEsoBuildComputedStatToSaveData(saveData, "MagickaRegen", "MagickaRegenCombat");
+	AddEsoBuildComputedStatToSaveData(saveData, "StaminaRegen", "StaminaRegenCombat");
+	
+	AddEsoBuildComputedStatToSaveData(saveData, "SpellDamage", "SpellPower");
+	AddEsoBuildComputedStatToSaveData(saveData, "WeaponDamage", "WeaponPower");
+	AddEsoBuildComputedStatToSaveData(saveData, "WeaponDamage", "Power");
+	
+	AddEsoBuildComputedStatToSaveData(saveData, "SpellCrit", "SpellCritical");
+	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", "WeaponCritical");
+	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", "CriticalStrike");
+	
+	AddEsoBuildComputedStatToSaveData(saveData, "SpellResist", "SpellResist");
+	AddEsoBuildComputedStatToSaveData(saveData, "PhysicalResist", "PhysicalResist");
+	AddEsoBuildComputedStatToSaveData(saveData, "CritResist", "CriticalResistance");
+	AddEsoBuildComputedStatToSaveData(saveData, "ColdResist", "DamageResistCold");
+	AddEsoBuildComputedStatToSaveData(saveData, "DiseaseResist", "DamageResistDisease");
+	AddEsoBuildComputedStatToSaveData(saveData, "FireResist", "DamageResistFire");
+	AddEsoBuildComputedStatToSaveData(saveData, "SpellResist", "DamageResistMagic");
+	AddEsoBuildComputedStatToSaveData(saveData, "PhysicalResist", "DamageResistPhysical");
+	AddEsoBuildComputedStatToSaveData(saveData, "PoisonResist", "DamageResistPoison");
+	AddEsoBuildComputedStatToSaveData(saveData, "ShockResist", "DamageResistShock");
+	
+	AddEsoBuildComputedStatToSaveData(saveData, "SpellPenetration", "SpellPenetration");
+	AddEsoBuildComputedStatToSaveData(saveData, "PhysicalPenetration", "PhysicalPenetration");
+	
+	return saveData;
+}
+
+
+function GetEsoBuildSetCount(setName)
+{
+	if (setName == null || setName == "") return 0;
+	if (g_EsoBuildSetData[setName] == null) return 0;
+	return g_EsoBuildSetData[setName].count;
+}
+
+
+function AddEsoBuildComputedStatToSaveData(saveData, name, outName, addComputed)
+{
+	var statData = g_EsoComputedStats[name];
+	if (statData == null) return;
+	
+	var value = statData.value;
+	if (statData.display == "%") value = Math.round(value * 1000)/10;
+	
+	if (outName == null) outName = name;
+	var statId = outName;
+	if (addComputed === true) statId = "Computed:" + outName;
+	
+	saveData.Stats[statId] = value;
+}
+
+
 function esotbOnDocReady()
 {
 	GetEsoSkillInputValues = GetEsoTestBuildSkillInputValues;
@@ -6296,3 +6688,4 @@ function esotbOnDocReady()
 
 
 $( document ).ready(esotbOnDocReady);
+
