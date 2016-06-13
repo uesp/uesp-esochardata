@@ -135,6 +135,7 @@ class EsoBuildDataParser
 						level INTEGER NOT NULL,
 						championPoints INTEGER NOT NULL,
 						createTime BIGINT NOT NULL,
+						editTimestamp TIMESTAMP NOT NULL,
 						uploadTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 						PRIMARY KEY (id),
 						INDEX index_name(name(32)),

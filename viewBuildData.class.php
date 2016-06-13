@@ -255,6 +255,19 @@ class EsoBuildDataViewer
 	}
 	
 	
+	public function canWikiUserCreate()
+	{
+		if ($this->wikiContext == null) return false;
+	
+		$user = $this->wikiContext->getUser();
+		if ($user == null) return false;
+	
+		if (!$user->isLoggedIn()) return false;
+		
+		return true;
+	}
+	
+	
 	public function canWikiUserEditBuild($buildData)
 	{
 		if ($this->wikiContext == null) return false;
@@ -266,6 +279,17 @@ class EsoBuildDataViewer
 		if (strcasecmp($user->getName(), $buildData['wikiUserName']) == 0) return true;
 		
 		return $user->isAllowedAny('esochardata_edit');
+	}
+	
+	
+	public function getWikiUserName()
+	{
+		if ($this->wikiContext == null) return "";
+	
+		$user = $this->wikiContext->getUser();
+		if ($user == null) return "";
+	
+		return $user->getName();
 	}
 	
 	
@@ -1993,7 +2017,7 @@ class EsoBuildDataViewer
 				if (!$this->checkCharacterRawColumnName($col)) continue;
 
 				$value = $arrayData[$col];
-				//if (!$this->checkCharacterRawKeyName($value)) $skipRow = true;
+				if (!$this->checkCharacterRawKeyName($value)) $skipRow = true;
 				
 				$className = "";
 				
