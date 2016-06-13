@@ -620,7 +620,7 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 37977,
 		statId: "OtherEffects",
 		toggle: true,
-		enable: false,
+		enabled: false,
 		rawInputMatch: /(Imbue your weapons with soul-stealing power, causing your Light and Heavy Attacks to restore [0-9]+ Magicka, [0-9]+ Stamina, and [0-9]+\.?[0-9]*% of your Max Health while toggled\.)/i,
 		match: /Imbue your weapons with soul-stealing power, causing your Light and Heavy Attacks to restore [0-9]+ Magicka, [0-9]+ Stamina, and ([0-9]+\.?[0-9]*)% of your Max Health while toggled/i
 	},
@@ -630,7 +630,7 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 37977,
 		statId: "WeaponDamage",
 		toggle: true,
-		enable: false,
+		enabled: false,
 		factorValue: -1,
 		display: "%",
 		match: /Leeching Strikes also reduces your Weapon Power and Spell Power by ([0-9]+\.?[0-9]*)% while toggled/i
@@ -641,7 +641,7 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 37977,
 		statId: "SpellDamage",
 		toggle: true,
-		enable: false,
+		enabled: false,
 		factorValue: -1,
 		display: "%",
 		match: /Leeching Strikes also reduces your Weapon Power and Spell Power by ([0-9]+\.?[0-9]*)% while toggled/i
@@ -651,7 +651,7 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 30418,
 		statId: "Magicka",
 		toggle: true,
-		enable: false,
+		enabled: false,
 		display: "%",
 		match: /The armor also increases your Max Magicka by ([0-9]+\.?[0-9]*)%/i
 	},
@@ -661,7 +661,7 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 30418,
 		statId: "HADamage",
 		toggle: true,
-		enable: false,
+		enabled: false,
 		display: "%",
 		match: /The armor also increases your damage with Heavy Attacks by ([0-9]+\.?[0-9]*)% and increases your Max Stamina by [0-9]+\.?[0-9]*%/i
 	},
@@ -671,7 +671,7 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 30418,
 		statId: "Stamina",
 		toggle: true,
-		enable: false,
+		enabled: false,
 		display: "%",
 		match: /The armor also increases your damage with Heavy Attacks by [0-9]+\.?[0-9]*% and increases your Max Stamina by ([0-9]+\.?[0-9]*)%/i
 	},
@@ -680,7 +680,7 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 30418,
 		buffId : "Minor Resolve",
 		toggle: true,
-		enable: false,
+		enabled: false,
 		match: /Protect yourself with the power of Oblivion, creating a suit of Daedric mail that grants Minor Resolve/i,
 	},
 	{
@@ -688,7 +688,7 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 30418,
 		buffId : "Minor Ward",
 		toggle: true,
-		enable: false,
+		enabled: false,
 		match: /Protect yourself with the power of Oblivion, creating a suit of Daedric mail that grants Minor Resolve and Minor Ward/i,
 	},
 	{
@@ -704,7 +704,7 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 30235,
 		buffId : "Major Resolve",
 		toggle: true,
-		enable: false,
+		enabled: false,
 		match: /While in this form you also gain Major Resolve and Major Ward/i,
 	},
 	{
@@ -713,7 +713,7 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 30244,
 		buffId : "Minor Expedition",
 		toggle: true,
-		enable: false,
+		enabled: false,
 		match: /While in this form you gain Major Resolve, Major Ward, and Minor Expedition/i,
 	},
 	{
@@ -722,7 +722,7 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 30255,
 		buffId : "Major Expedition",
 		toggle: true,
-		enable: false,
+		enabled: false,
 		match: /Activating this grants Major Expedition for a brief period/i,
 	},
 		/* End Toggled Abilities */
@@ -5274,6 +5274,7 @@ function AddEsoBuildToggledSkillData(skillEffectData, isPassive)
 		g_EsoBuildToggledSkillData[id].matchData = skillEffectData;
 		g_EsoBuildToggledSkillData[id].baseSkillId = skillEffectData.baseSkillId;
 		g_EsoBuildToggledSkillData[id].statIds = [];
+		
 	}
 	
 	g_EsoBuildToggledSkillData[id].id = id;
@@ -6278,8 +6279,85 @@ function CreateEsoBuildSaveData()
 	CreateEsoBuildBuffSaveData(saveData, inputValues);
 	CreateEsoBuildCPSaveData(saveData, inputValues);
 	CreateEsoBuildActionBarSaveData(saveData, inputValues);
+	CreateEsoBuildSkillToggleSaveData(saveData, inputValues);
+	CreateEsoBuildSetToggleSaveData(saveData, inputValues);
 		
 	return saveData;
+}
+
+
+function CreateEsoBuildSetToggleSaveData(saveData, inputValues)
+{
+	saveData.ToggledSets = {};
+	
+	for (var name in g_EsoBuildToggledSetData)
+	{
+		var toggleData = g_EsoBuildToggledSetData[name];
+		var data = {};
+		
+		data.enabled = ConvertBoolToInt(toggleData.enabled);
+		
+		saveData.ToggledSets[name] = data;
+	}
+	
+	return saveData;
+	return saveData;
+}
+
+
+function ConvertBoolToInt(value)
+{
+	if (value == null) return 0;
+	return value ? 1 : 0;
+}
+
+
+function CreateEsoBuildSkillToggleSaveData(saveData, inputValues)
+{
+	saveData.ToggledSkills = {};
+	
+	for (var name in g_EsoBuildToggledSkillData)
+	{
+		var toggleData = g_EsoBuildToggledSkillData[name];
+		var data = {};
+		
+		data.enabled = ConvertBoolToInt(toggleData.enabled);
+		if (toggleData.maxTimes != null) data.maxTimes = toggleData.maxTimes;
+		
+		saveData.ToggledSkills[name] = data;
+	}
+	
+	return saveData;
+}
+
+
+function CreateEsoAbilityRangeString(abilityData)
+{
+	if (abilityData == null) return "";
+	var rangeStr = "";
+	
+	if (abilityData.minRange > 0 && abilityData.maxRange > 0)
+		rangeStr = "" + (abilityData.minRange/100) + " - " + (abilityData.maxRange/100) + " meters";
+	else if (abilityData.minRange <= 0 && abilityData.maxRange > 0)
+		rangeStr = "" + (abilityData.maxRange/100) + " meters";
+	else if (abilityData.minRange > 0 && abilityData.maxRange <= 0)
+		rangeStr = "Under " + (abilityData.minRange/100) + " meters";
+	
+	return rangeStr;
+}
+
+
+function CreateEsoAbilityAreaString(abilityData)
+{
+	if (abilityData == null) return "";
+	var areaStr = "";
+	
+	if (abilityData.angleDistance > 0)
+	{
+		areaStr = "" + (abilityData.radius/100) + " x " + (abilityData.angleDistance/50) + " meters";
+	}
+	
+	return areaStr;
 }
 
 
@@ -6303,8 +6381,8 @@ function CreateEsoBuildActionBarSaveData(saveData, inputValues)
 				data.name = abilityData.name;
 				data.icon = abilityData.texture;
 				data.abilityId = slotData.skillId;
-				data.area = abilityData.area;
-				data.range = abilityData.range;
+				data.area = CreateEsoAbilityAreaString(abilityData);
+				data.range = CreateEsoAbilityRangeString(abilityData);
 				data.radius = abilityData.radius;
 				data.castTime = abilityData.castTime;
 				data.channelTime = abilityData.channelTime;
@@ -6368,7 +6446,6 @@ function CreateEsoBuildCPSaveData(saveData, inputValues)
 		saveData.ChampionPoints[id] = data;		
 	}
 	
-	
 	return saveData;
 }
 
@@ -6388,6 +6465,10 @@ function CreateEsoBuildBuffSaveData(saveData, inputValues)
 		data.icon = buffData.icon;
 		data.description = buffData.desc.replace("<br/>", "");
 		data.abilityId = 0;
+		
+		data.enabled = 0;
+		if (buffData.enabled) data.enabled += 1;
+		if (buffData.skillEnabled) data.enabled += 2;
 		
 		saveData.Buffs[buffName] = data;
 	}
@@ -6429,8 +6510,8 @@ function CreateEsoBuildSaveDataForSkill(saveData, abilityData, skillData)
 	data.abilityId = abilityId;
 	data.rank = skillData.rank + skillData.morph * 4;
 	data.index = abilityData.skillIndex;
-	data.area = abilityData.area;	//?
-	data.range = abilityData.range; //?
+	data.area = CreateEsoAbilityAreaString(abilityData);
+	data.range = CreateEsoAbilityRangeString(abilityData);
 	data.radius = abilityData.radius;
 	data.castTime = abilityData.castTime;
 	data.channelTime = abilityData.channelTime;
@@ -6471,7 +6552,7 @@ function CreateEsoBuildItemSaveData(saveData, inputValues)
 		data.armorType = itemData.armorType;
 		data.weaponType = itemData.weaponType;
 		data.craftType = itemData.craftType;
-		data.stolen = itemData.stolen; //?
+		data.stolen = itemData.stolen;
 		data.style = itemData.style;
 		
 		saveData.Equipment[slotId] = data;
