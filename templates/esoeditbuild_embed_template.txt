@@ -1,11 +1,11 @@
-Note that this character builder is for test purposes and is currently undergoing active development. Accuracy of the 
-displayed statistics is unknown. {saveNote}
-
 <div id="esotbButtons">
 	<button id="esotbSaveButton" {saveButtonDisabled}>Save Build</button>
 	<button id="esotbCreateCopyButton" {createCopyButtonDisabled}>Create Copy</button>
 	<div id="esotbSaveResults"></div>
 </div>
+
+{saveNote}
+Note that this character builder is for test purposes and is currently undergoing active development. Accuracy of the displayed statistics is unknown. 
 
 <p/>
 <div id="esotbRoot">

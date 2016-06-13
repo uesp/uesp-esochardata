@@ -3029,14 +3029,18 @@ class EsoBuildDataEditor
 	
 	public function GetSaveNote()
 	{
+		$isNew = !($this->buildId > 0);
 		$canEdit = $this->buildDataViewer->canWikiUserEdit();
 		$canDelete = $this->buildDataViewer->canWikiUserDelete();
 		$canCreate = $this->buildDataViewer->canWikiUserCreate();
 		
-		if (!$canCreate) return "You can change this build data but you will not be able to save or create a new copy of the build. Login or create a Wiki account in order to save and create new builds.";
-		if (!$canEdit) return "You can change this build data but you will not be able to save it. You can, however, save a new copy of the build if desired.";
+		$label = "existing";
+		if ($isNew) $label = "new";
 		
-		return "You are able to save this build data or create a new copy of it.";
+		if (!$canCreate) return "You can modify this $label build data but you will not be able to save it or create a new copy of it. Login or create a Wiki account in order to save and create new builds.";
+		if (!$canEdit) return "You can modify this $label build data but you will not be able to save it. You can, however, create a new copy of the build data you will can save.";
+		
+		return "You are able to save this $label build data or create a new copy of it.";
 				
 	}
 	
