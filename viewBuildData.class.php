@@ -80,10 +80,18 @@ class EsoBuildDataViewer
 	public $formNewPassword2 = "";
 	public $formAccount = "";
 	
+	public $isEmbedded = false;
+	public $errorMessages = array();
 	
-	public function __construct ()
+	
+	public function __construct ($isEmbedded = false, $initDbWrite = false)
 	{
-		$this->initDatabase();
+		$this->isEmbedded = $isEmbedded;
+		
+		if ($initDbWrite)
+			$this->initDatabaseWrite();
+		else
+			$this->initDatabase();
 	}
 	
 	
@@ -97,6 +105,7 @@ class EsoBuildDataViewer
 	{
 		error_log("Error: " . $msg);
 		
+		$this->errorMessages[] = $msg;
 		$this->outputHtml .= "Error: " . $msg . "<br />";
 		
 		if ($this->db != null && $this->db->error)
@@ -1725,7 +1734,7 @@ class EsoBuildDataViewer
 		$output .= "<br />";
 		$output .= $this->getCharBasicStatHtml('Spell Damage', 'SpellPower');
 		$output .= $this->getCharBasicStatHtml('Spell Critical', 'SpellCritical', $this->getCharCriticalFactor(), '%', 10.0);
-		$output .= $this->getCharBasicStatHtml('Weapon Damage', 'Power');
+		$output .= $this->getCharBasicStatHtml('Weapon Damage', 'WeaponPower');
 		$output .= $this->getCharBasicStatHtml('Weapon Critical', 'CriticalStrike', $this->getCharCriticalFactor(), '%', 10.0);
 		$output .= "<br />";
 		$output .= $this->getCharBasicStatHtml('Spell Resistance', 'SpellResist');

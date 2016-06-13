@@ -58,12 +58,11 @@ g_EsoBuildEnchantData.OffHand1 = {};
 g_EsoBuildEnchantData.MainHand2 = {};
 g_EsoBuildEnchantData.OffHand2 = {};
 
-g_EsoBuildActiveWeapon = 1;
 g_EsoFormulaInputValues = {};
 g_EsoInputStatSources = {};
 
 
-g_EsoBuildBuffData =			// TODO: Icons? 
+g_EsoBuildBuffData =
 {
 		"Major Mending" : 
 		{
@@ -2395,19 +2394,19 @@ function GetEsoInputSpecialValues(inputValues)
 		else if (inputValues.VampireStage == 2)
 		{
 			healthRegenValue = -0.25;
-			flameDamageValue = -0.15;
+			flameDamageValue = 0.15;
 			costReduction = 0.07;
 		}
 		else if (inputValues.VampireStage == 3)
 		{
 			healthRegenValue = -0.50;
-			flameDamageValue = -0.20;
+			flameDamageValue = 0.20;
 			costReduction = 0.14;
 		}
 		else if (inputValues.VampireStage == 4)
 		{
 			healthRegenValue = -0.75;
-			flameDamageValue = -0.25;
+			flameDamageValue = 0.25;
 			costReduction = 0.21;
 		}
 		
@@ -2431,6 +2430,15 @@ function GetEsoInputSpecialValues(inputValues)
 	}
 	
 	inputValues.WerewolfStage = parseInt($("#esotbWerewolfStage").val());
+	
+	if (inputValues.WerewolfStage > 0)
+	{
+		inputValues.Skill.PoisonDamageTaken += 0.25;
+		AddEsoInputStatSource("Skill.PoisonDamageTaken", { source: "Werewolf", value: 0.25 });
+	}
+	
+	
+	//25% more damage from Poison Attacks when in werewolf form
 }
 
 
@@ -3441,8 +3449,8 @@ function GetEsoInputCPValues(inputValues)
 		/* Lady */
 	if (inputValues.ArmorLight >= 5) ParseEsoCPValue(inputValues, "PhysicalResist", 60502);
 	ParseEsoCPValue(inputValues, "DotDamageTaken", 63850);
-	ParseEsoCPValue(inputValues, ["PhysicalDamageTaken", "PoisonDamageTaken", "DiseaseDamageTaken"], 63844, null, -1);
-	ParseEsoCPValue(inputValues, ["MagicDamageTaken", "FlameDamageTaken", "ColdDamageTaken", "ShockDamageTaken"], 63843, null, -1);
+	ParseEsoCPValue(inputValues, ["PhysicalDamageTaken", "PoisonDamageTaken", "DiseaseDamageTaken"], 63844, null, null, -1);
+	ParseEsoCPValue(inputValues, ["MagicDamageTaken", "FlameDamageTaken", "ColdDamageTaken", "ShockDamageTaken"], 63843, null, null, -1);
 	
 		/* Steed */
 	if (inputValues.ArmorMedium >= 5) ParseEsoCPValue(inputValues, "PhysicalResist", 59120);
@@ -3504,7 +3512,7 @@ function GetEsoInputCPValues(inputValues)
 }
 
 
-function ParseEsoCPValue(inputValues, statIds, abilityId, discId, unlockLevel, statFactor)
+function ParseEsoCPValue(inputValues, statIds, abilityId, discId, unlockLevel, statFactor = 1)
 {
 	var cpDesc = $("#descskill_" + abilityId);
 	if (cpDesc.length == 0) return false;
@@ -4478,6 +4486,10 @@ function OnEsoSkillDetailsClick(e)
 	if (skillId == null || skillId == "") return;
 	
 	ShowEsoSkillDetailsPopup(skillId);
+	
+	e.preventDefault();
+	e.stopPropagation();
+	return false;
 }
 
 
@@ -4602,7 +4614,7 @@ function ShowEsoItemDetailsPopup(slotId)
 		if (statDetails.display == '%') 
 		{
 			suffix = "%";
-			value = value * 100;
+			value = Math.round(value * 1000)/10;
 		}
 		
 		detailsHtml += key + " = " + value + suffix + "<br/>";
@@ -6065,9 +6077,82 @@ function CreateEsoBuildFormulaPopup()
 }
 
 
+function SetEsoInitialData(destData, srcData)
+{
+	
+	for (var key in srcData)
+	{
+		var value = srcData[key];
+		if (value != null) destData[key] = value;
+	}
+	
+}
+
+
+function UpdateEsoSetMaxData()
+{
+	
+	for (var setName in g_EsoBuildSetMaxData)
+	{
+		var setData = g_EsoBuildSetMaxData[setName];
+		
+		if (setData.setData == null)
+		{
+			setData.setData = {};
+			setData.setData.parsedNumbers = [];
+			setData.setData.averageNumbers = [];
+			setData.setData.averageDesc = [];
+		}
+		
+		ComputeEsoBuildSetDataItem(setData.setData, setData);
+	}
+}
+
+
+function UpdateEsoInitialBuffData()
+{
+	for (var buffName in g_EsoInitialBuffData)
+	{
+		var enabled = g_EsoInitialBuffData[buffName];
+		var buffData = g_EsoBuildBuffData[buffName];
+		if (buffData == null) continue;
+		
+		buffData.enabled      = ((enabled & 1) != 0); 
+		buffData.skillEnabled = ((enabled & 2) != 0);
+	}
+}
+
+
+function OnEsoBuildAbilityBlockClick(e)
+{
+	var $openList = $('.esovsAbilityBlockList:visible');
+	var $element = $(this).next('.esovsAbilityBlockList');
+		
+	if ($openList[0] == $element[0])
+	{
+		$element.slideUp();
+		return false;
+	}
+	
+	$openList.slideUp();
+	$element.slideToggle();
+	
+	e.preventDefault();
+	e.stopPropagation();
+	return false;
+}
+
+
 function esotbOnDocReady()
 {
 	GetEsoSkillInputValues = GetEsoTestBuildSkillInputValues;
+	
+	SetEsoInitialData(g_EsoBuildItemData, g_EsoInitialItemData);
+	SetEsoInitialData(g_EsoBuildEnchantData, g_EsoInitialEnchantData);
+	SetEsoInitialData(g_EsoBuildSetMaxData, g_EsoInitialSetMaxData);
+	UpdateEsoSetMaxData();
+	
+	UpdateEsoInitialBuffData();
 
 	CreateEsoBuildItemDetailsPopup();
 	CreateEsoBuildFormulaPopup();
@@ -6119,6 +6204,8 @@ function esotbOnDocReady()
 	
 	$(".esotbBuffCheck").click(OnEsoBuildBuffCheckClick);
 	$(".esotbBuffItem").click(OnEsoBuildBuffClick);
+	
+	$(".esovsSkillContentBlock").children(".esovsAbilityBlock").click(OnEsoBuildAbilityBlockClick); 
 	
 	$(document).keyup(function(e) {
 	    if (e.keyCode == 27) OnEsoBuildEscapeKey(e);
