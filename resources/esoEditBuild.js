@@ -6459,6 +6459,11 @@ function OnEsoBuildSaved(data, status, xhr)
 	{
 		UpdateEsoBuildNewId(data.id);
 		SetEsoBuildSaveResults("Successfully created new build!");
+		
+		var currentUrl = window.location.href.split('?')[0];
+		var newUrl = currentUrl + "?id=" + data.id;
+		
+		window.location.href = newUrl;
 	}
 	else
 	{
