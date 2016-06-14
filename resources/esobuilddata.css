@@ -49,7 +49,7 @@
 .ecdRawBuildData th,
 .ecdRawCharArrayData th {
 	font-size: 15px;
-	background-color: #CBAFB5;
+	background-color: #f5deb3;
 }
 
 .ecdRawCharArrayData {
@@ -858,7 +858,7 @@ tr.eso_item_link {
 }
 
 .ecdBuildTableHeader {
-	background-color: #C5A27E;
+	background-color: #f5deb3;
 }
 
 .ecdBuildTableName {
@@ -1022,18 +1022,18 @@ thead.ecdFixedHeader tr {
 	verticle-align: middle;
 }
 
-table.tablesorter thead tr .header {
+#ecdRoot table.tablesorter thead tr .header {
     background-repeat: no-repeat;
     background-position: center right;
     cursor: pointer;
 }
 
-table.tablesorter thead tr .headerSortUp {
+#ecdRoot table.tablesorter thead tr .headerSortUp {
     background-image: url(arrow_down.png);
     background-size: 16px;
  }
  
- table.tablesorter thead tr .headerSortDown {
+ #ecdRoot table.tablesorter thead tr .headerSortDown {
     background-image: url(arrow_up.png);
     background-size: 16px;
  }
@@ -1323,3 +1323,6 @@ table.tablesorter thead tr .headerSortUp {
 #ecdSearchButton {
 }
 
+#ecdBuildTable th {
+	padding-right: 20px;
+	

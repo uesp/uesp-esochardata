@@ -2128,17 +2128,17 @@ class EsoBuildDataViewer
 		
 		$this->outputHtml .= $this->getBreadcrumbTrailHtml() . "<p />\n";
 		
-		$this->outputHtml .= "<table id='ecdBuildTable'>\n";
-		$this->outputHtml .= "<tr class='ecdBuildTableHeader'>\n";
-		$this->outputHtml .= "<th>Build Name</th>\n";
-		$this->outputHtml .= "<th>Class</th>\n";
-		$this->outputHtml .= "<th>Race</th>\n";
-		$this->outputHtml .= "<th>Alliance</th>\n";
-		$this->outputHtml .= "<th>Type</th>\n";
-		$this->outputHtml .= "<th>Special</th>\n";
-		$this->outputHtml .= "<th>Character</th>\n";
-		$this->outputHtml .= "<th>Level</th>\n";
-		$this->outputHtml .= "<th>CPs</th>\n";
+		$this->outputHtml .= "<table id='ecdBuildTable' class='sortable jquery-tablesorter'>\n";
+		$this->outputHtml .= "<thead><tr class='ecdBuildTableHeader'>\n";
+		$this->outputHtml .= "<th class='headerSort headerSortDown'>Build Name</th>\n";
+		$this->outputHtml .= "<th class='headerSort'>Class</th>\n";
+		$this->outputHtml .= "<th class='headerSort'>Race</th>\n";
+		$this->outputHtml .= "<th class='headerSort'>Alliance</th>\n";
+		$this->outputHtml .= "<th class='headerSort'>Type</th>\n";
+		$this->outputHtml .= "<th class='headerSort'>Special</th>\n";
+		$this->outputHtml .= "<th class='headerSort'>Character</th>\n";
+		$this->outputHtml .= "<th class='headerSort'>Level</th>\n";
+		$this->outputHtml .= "<th class='headerSort'>CPs</th>\n";
 		$this->outputHtml .= "</tr>\n";
 		
 		if ($this->canWikiUserCreate())
@@ -2152,6 +2152,8 @@ class EsoBuildDataViewer
 			$this->outputHtml .= "</td></tr>";
 		}
 		
+		$this->outputHtml .= "</thead><tbody>\n";
+		
 		foreach ($this->buildData as $buildData)
 		{
 			if (!$this->doesBuildMatchFilter($buildData)) continue;
@@ -2159,7 +2161,7 @@ class EsoBuildDataViewer
 			$this->outputHtml .= $this->getBuildTableItemHtml($buildData);
 		}
 		
-		$this->outputHtml .= "</table>\n";		
+		$this->outputHtml .= "</tbody></table>\n";		
 		
 		return true;
 	}
