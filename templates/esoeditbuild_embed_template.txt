@@ -1,3 +1,4 @@
+{trail}
 <div id="esotbButtons">
 	<button id="esotbSaveButton" {saveButtonDisabled}>Save Build</button>
 	<button id="esotbCreateCopyButton" {createCopyButtonDisabled}>Create Copy</button>

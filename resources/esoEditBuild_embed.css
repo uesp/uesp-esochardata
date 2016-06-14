@@ -977,3 +977,9 @@ button.esotbWeaponSelect {
 	height: 20px;
 	overflow: hidden;
 }
+
+#esotbTrail {
+	position: absolute;
+	top: 4px;
+	left: 0px;	
+}
