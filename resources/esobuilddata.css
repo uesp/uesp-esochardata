@@ -1290,3 +1290,7 @@ table.tablesorter thead tr .headerSortUp {
 .ecdClickToCopyTooltip:hover {
 	background-color: #009;
 }
+
+#ecdBuildTable form {
+	display: inline-block;
+}

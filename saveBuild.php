@@ -15,7 +15,9 @@ class EsoBuildDataSaver
 	public $inputData = null;
 	public $parsedBuildData = null;
 	public $inputId = null;
+	public $createCopy = false;
 	
+	public $origBuildId = -1;
 	public $buildId = -1;
 	public $buildData = null;
 	public $statsData = null;
@@ -241,7 +243,14 @@ class EsoBuildDataSaver
 		if (array_key_exists('id', $_REQUEST)) 
 		{
 			$this->inputId = (int) $_REQUEST['id'];
-			$this->buildId = $this->inputId; 
+			$this->buildId = $this->inputId;
+			$this->origBuildId = $this->buildId;
+		}
+		
+		if (array_key_exists('copy', $_REQUEST))
+		{
+			$flag = (int) $_REQUEST['copy'];
+			if ($flag != 0) $this->createCopy = true;
 		}
 		
 		return true;
@@ -397,7 +406,7 @@ class EsoBuildDataSaver
 	
 	public function CreateQuery($table, $data, $FIELDS)
 	{
-		if ($this->inputId <= 0) return $this->CreateInsertQuery($table, $data, $FIELDS);
+		if ($this->buildId <= 0) return $this->CreateInsertQuery($table, $data, $FIELDS);
 		return $this->CreateUpdateQuery($table, $data, $FIELDS);
 	}
 	
@@ -475,6 +484,11 @@ class EsoBuildDataSaver
 		if (!$this->Load()) return $this->OutputErrorJson();
 		
 		$this->MergeStats();
+		
+		if ($this->createCopy)
+		{
+			$this->buildId = -1;
+		}
 		
 		if (!$this->SaveBuild()) return $this->OutputErrorJson();
 		

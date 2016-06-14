@@ -3022,7 +3022,7 @@ class EsoBuildDataEditor
 	{
 		$canCreate = $this->buildDataViewer->canWikiUserCreate();
 		
-		if (!$canCreate) return "disabled";
+		if (!$canCreate || $this->buildId <= 0) return "disabled";
 		return "";
 	}
 	
@@ -3041,7 +3041,6 @@ class EsoBuildDataEditor
 		if (!$canEdit) return "You can modify this $label build data but you will not be able to save it. You can, however, create a new copy of the build data you will can save.";
 		
 		return "You are able to save this $label build data or create a new copy of it.";
-				
 	}
 	
 	
