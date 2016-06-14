@@ -340,6 +340,15 @@ Note that this character builder is for test purposes and is currently undergoin
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>14 June 2016</b>
+			<ul>
+				<li>Implemented saving and copying of most build features (needs further testing).</li>
+				<li>Editing/creating/saving permission based off of logged in wiki user.</li>
+				<li>Added viewing of owned builds.</li>
+				<li>Added searching of builds.</li>
+				<li>Added trail to build editor.</li>
+			</ul>
+			<p>
 			<b>12 June 2016</b>
 			<ul>
 				<li>Integrated builder into the UESP wiki.</li>
