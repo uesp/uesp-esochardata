@@ -2391,7 +2391,6 @@ EOT;
 		$output .= "<td>$level</td>";
 		$output .= "<td>$cp</td>";
 		
-		
 		if ($this->canWikiUserCreate())
 		{
 			$output .= "<td>";
@@ -2409,7 +2408,7 @@ EOT;
 			if ($this->canWikiUserEditBuild($buildData))
 				$output .= "<input type='submit' value='Edit'>";
 			else
-				$output .= "<input type='submit' value='Edit (Read Only)'>";
+				$output .= "<input type='submit' value='Create Copy'>";
 			
 			$output .= "</form>\n &nbsp &nbsp";
 							
