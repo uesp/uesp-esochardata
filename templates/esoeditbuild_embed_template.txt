@@ -347,6 +347,7 @@ Note that this character builder is for test purposes and is currently undergoin
 				<li>Added viewing of owned builds.</li>
 				<li>Added searching of builds.</li>
 				<li>Added trail to build editor.</li>
+				<li>Migrated databases from utility server to primary servers.</li>
 			</ul>
 			<p>
 			<b>12 June 2016</b>
@@ -399,4 +400,5 @@ Note that this character builder is for test purposes and is currently undergoin
 	g_EsoInitialToggleSetData = {initialToggleSetDataJson};
 	g_EsoBuildActiveWeapon = {activeBar};	
 </script>
+
 

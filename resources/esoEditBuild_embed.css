@@ -430,7 +430,8 @@
 	display: inline-block;
 	border: solid 1px gray;
 	background-color: lightgray;
-	padding: 2px;
+    padding: 1px;
+    padding-bottom: 0px;
 	margin-top: 3px;
 	min-width: 50px;
 }

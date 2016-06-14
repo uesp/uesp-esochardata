@@ -3052,13 +3052,21 @@ class EsoBuildDataEditor
 		$baseLink = "/wiki/Special:EsoBuildData";
 		$myLink = $baseLink . "?filter=mine";
 		$thisLink = $baseLink . "?id=" . $this->buildId;
+		$buildName = $this->getCharField("buildName");
 		
 		$output  = "<div id='esotbTrail'>";
 		$output .= "	<a href='$baseLink'>&laquo; View All Builds</a> : ";
 		$output .= "	<a href='$myLink'>View My Builds</a>";
 		if ($this->buildId > 0) $output .= " : <a href='$thisLink'>View This Build</a>";
-		$output .= "</div>";
 		
+		if ($this->buildId <= 0) 
+			$output .= " : <b>Editing New Build</b>";
+		elseif ($this->buildDataViewer->canWikiUserEdit())
+			$output .= " : <b>Editing Build $buildName</b>";
+		else
+			$output .= " : <b>Viewing Build $buildName</b>";
+			
+		$output .= "</div>";
 		return $output;
 	}
 	
