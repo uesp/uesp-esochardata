@@ -1294,3 +1294,11 @@ table.tablesorter thead tr .headerSortUp {
 #ecdBuildTable form {
 	display: inline-block;
 }
+
+.ecdBuildOwned {
+	background-color: #ffff99;
+}
+
+#ecdBuildTable tr:hover {
+	background-color: #ccc;
+}
