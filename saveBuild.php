@@ -456,8 +456,14 @@ class EsoBuildDataSaver
 		
 		if ($this->buildId <= 0)
 		{
+			if (!$this->canCreateBuilds) return $this->ReportError("Permission Denied!");
+						
 			$this->parsedBuildData['Build']['createTime'] = time();
 			$this->parsedBuildData['Build']['uploadTimestamp'] = date('Y-m-d G:i:s');
+		}
+		else
+		{
+			if (!$this->canEditBuilds) return $this->ReportError("Permission Denied!");
 		}
 		
 		$this->parsedBuildData['Build']['editTimestamp'] = date('Y-m-d G:i:s');
