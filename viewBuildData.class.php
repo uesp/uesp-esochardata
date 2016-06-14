@@ -2391,16 +2391,34 @@ EOT;
 		$output .= "<td>$level</td>";
 		$output .= "<td>$cp</td>";
 		
-		if ($this->canWikiUserEditBuild($buildData))
+		
+		if ($this->canWikiUserCreate())
 		{
 			$output .= "<td>";
 			
+			/*
+			$output .= "<form method='get' action='/wiki/Special:EsoBuildEditor'>";
+			$output .= "<input type='hidden' name='id' value ='{$buildData['id']}'>";
+			$output .= "<input type='submit' value='Create Copy'>";
+			$output .= "</form>\n &nbsp &nbsp"; 
+			*/
+			
+			$output .= "<form method='get' action='/wiki/Special:EsoBuildEditor'>";
+			$output .= "<input type='hidden' name='id' value ='{$buildData['id']}'>";
+			
+			if ($this->canWikiUserEditBuild($buildData))
+				$output .= "<input type='submit' value='Edit'>";
+			else
+				$output .= "<input type='submit' value='Edit (Read Only)'>";
+			
+			$output .= "</form>\n &nbsp &nbsp";
+							
 			if ($this->canWikiUserDeleteBuild($buildData))
 			{
-				$output .= "<form method='post' action=''>";
+				$output .= " &nbsp &nbsp <form method='post' action=''>";
 				$output .= "<input type='hidden' name='id' value ='{$buildData['id']}'>";
 				$output .= "<input type='hidden' name='action' value ='delete'>";
-				$output .= "<input type='submit' value ='Delete Build'>";
+				$output .= "<input type='submit' value='Delete'>";
 				$output .= "</form>\n";				
 			}
 			

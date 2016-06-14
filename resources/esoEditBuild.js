@@ -2313,8 +2313,6 @@ ESO_ABILITYDESC_MATCHES = [
 
 function GetEsoInputValues(mergeComputedStats)
 {
-	console.log("GetEsoInputValues");
-	
 	ResetEsoBuffSkillEnabled();
 	
 	var inputValues = {};
@@ -2736,26 +2734,18 @@ function ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData,
 	var statValue = 0;
 	var statFactor = 1;
 	var matches = null;
-	
-	if (matchData.showLog === true) console.log("Matching RawDesc", rawDesc, abilityData);
-	
+
 	if (matchData.statValue != null) statValue = matchData.statValue;
 	
 	if (matchData.match != null) 
 	{
-		if (matchData.showLog === true) console.log("Matching", matchData.match, rawDesc);
-		
 		matches = rawDesc.match(matchData.match);
-		
-		if (matchData.showLog === true) console.log("Match results", matches);
-		
 		if (matches == null) return false;
 		if (matches[1] != null) statValue = parseFloat(matches[1]);
 	}
 	
 	if (matchData.skillName != null)
 	{
-		if (matchData.showLog === true) console.log("Checking Skill Name ", abilityData.name, matchData.skillName);
 		if (abilityData.name.toUpperCase() != matchData.skillName.toUpperCase()) return false;
 	}
 	
@@ -2766,7 +2756,6 @@ function ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData,
 			
 	if (matchData.toggle === true && matchData.id != null)
 	{
-		if (matchData.showLog === true) console.log("is toggled", matchData.id);
 		if (!IsEsoBuildToggledSkillEnabled(matchData.id)) return false;
 	}
 	
@@ -2822,12 +2811,8 @@ function ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData,
 	var category = "Skill";
 	if (matchData.category != null) category = matchData.category;
 	
-	if (matchData.showLog === true) console.log("Matching Skill", matchData, rawDesc);
-	
 	if (matchData.buffId != null)
 	{
-		if (matchData.showLog === true) console.log("Matching Buff", matchData.buffId, g_EsoBuildBuffData[matchData.buffId]);
-		
 		var buffData = g_EsoBuildBuffData[matchData.buffId];
 		if (buffData == null) return false;
 		
@@ -2842,7 +2827,6 @@ function ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData,
 		if (matchData.rawInputMatch != null)
 		{
 			var rawInputMatches = rawDesc.match(matchData.rawInputMatch);
-			if (matchData.showLog === true) console.log("rawInputMatches", rawInputMatches);
 			if (rawInputMatches != null) rawInputDesc = rawInputMatches[1];
 			if (rawInputDesc == null) rawInputDesc = rawDesc;
 		}
@@ -6412,6 +6396,19 @@ function RequestEsoBuildSave()
 }
 
 
+function RequestEsoBuildCreateCopy()
+{
+	var saveData = CreateEsoBuildSaveData();
+	
+	$.ajax("http://esobuilds.uesp.net/saveBuild.php", {
+				type: "POST",
+				data: { savedata: JSON.stringify(saveData), id: g_EsoBuildData.id, copy: 1 },
+			})
+		.done(function(data, status, xhr) { OnEsoBuildCopy (data, status, xhr); })
+		.fail(function(xhr, status, errorMsg) { OnEsoBuildCopyError(xhr, status, errorMsg); });
+}
+
+
 function OnEsoBuildSaved(data, status, xhr)
 {
 	
@@ -6424,15 +6421,31 @@ function OnEsoBuildSaved(data, status, xhr)
 	{
 		SetEsoBuildSaveResults("Successfully saved build!");	
 	}
+
+}
+
+
+function OnEsoBuildCopy(data, status, xhr)
+{
+	UpdateEsoBuildNewId(data.id);
+	SetEsoBuildSaveResults("Successfully created new build!");
 	
-	console.log("Eso Build Saved", data);
+	var currentUrl = window.location.href.split('?')[0];
+	var newUrl = currentUrl + "?id=" + data.id;
+	
+	window.location.href = newUrl;
+}
+
+
+function OnEsoBuildCopyError(xhr, status, errorMsg)
+{
+	SetEsoBuildSaveResults("ERROR copying build!");
 }
 
 
 function OnEsoBuildSaveError(xhr, status, errorMsg)
 {
 	SetEsoBuildSaveResults("ERROR saving build!");
-	console.log("Eso Build Save Error", errorMsg);
 }
 
 
@@ -6987,7 +7000,11 @@ function OnEsoBuildSave(e)
 
 function OnEsoBuildCreateCopy(e)
 {
-	SetEsoBuildSaveResults("Copy is not yet implemented!");
+	var buildName = $("#esotbBuildName").val().trim();
+	if (!buildName.endsWith(" (Copy)")) $("#esotbBuildName").val(buildName + " (Copy)");
+	
+	RequestEsoBuildCreateCopy();
+	SetEsoBuildSaveResults("Saving new build...");
 }
 
 
