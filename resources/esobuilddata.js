@@ -98,9 +98,11 @@ function onDocReady()
 	
 	if (tables.tablesorter)
 	{
-		$(".tablesorter").tablesorter({
+		$("#ecdRoot .tablesorter").tablesorter({
 			sortList: [[2,0]] 
 		});
+		
+		//$("#ecdBuildTable").tablesorter();
 	}
 	
 	$(".ecdItemFilterTextInput").keyup(function() {
