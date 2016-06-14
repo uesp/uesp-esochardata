@@ -14,7 +14,7 @@ class EsoBuildDataViewer
 	public $hasResearchOutput     = false;
 	public $combineInventoryItems = true;
 	public $combineBankItems      = true;
-	public $showCPLevel           = false;		// TODO: Switch to true when DB goes live
+	public $showCPLevel           = true;
 	
 	
 	const ESO_ICON_URL = "http://esoicons.uesp.net";
