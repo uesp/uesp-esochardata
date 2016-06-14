@@ -255,6 +255,19 @@ class EsoBuildDataViewer
 	}
 	
 	
+	public function doesOwnBuild($buildData)
+	{
+		if ($this->wikiContext == null) return false;
+		
+		$user = $this->wikiContext->getUser();
+		if ($user == null) return false;
+		
+		if (strcasecmp($user->getName(), $buildData['wikiUserName']) == 0) return true;
+		
+		return false;
+	}
+	
+	
 	public function canWikiUserCreate()
 	{
 		if ($this->wikiContext == null) return false;
@@ -2379,8 +2392,11 @@ EOT;
 		$special = $this->escape($this->getFieldStr($buildData, 'special'));
 		
 		if ($buildName == "") $buildName = $charName;
+		
+		$rowClass = "";
+		if ($this->doesOwnBuild($buildData)) $rowClass = "ecdBuildOwned";
 				
-		$output .= "<tr>\n";
+		$output .= "<tr class='$rowClass'>\n";
 		$output .= "<td class='ecdBuildTableName'><a href=\"$linkUrl\">$buildName</a></td>";
 		$output .= "<td>$className</td>";
 		$output .= "<td>$raceName</td>";
