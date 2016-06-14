@@ -2866,6 +2866,7 @@ function ResetEsoBuffSkillEnabled()
 	}
 }
 
+
 function UpdateEsoBuffSkillEnabled()
 {
 	
@@ -2891,10 +2892,17 @@ function UpdateEsoBuffSkillEnabled()
 			}
 			
 			parent.addClass("esotbBuffDisable");
+			parent.removeClass("esotbBuffItemSelect");
 			element.text(" (Enabled by " + abilityDesc + ")");
+		}
+		else if (buffData.enabled)
+		{
+			parent.addClass("esotbBuffItemSelect");
+			parent.removeClass("esotbBuffDisable");
 		}
 		else
 		{
+			parent.removeClass("esotbBuffItemSelect");
 			parent.removeClass("esotbBuffDisable");
 			element.text("");
 		}
@@ -3633,11 +3641,11 @@ function ConvertEsoPercentCritToFlat(percentCrit, inputValues)
 }
 
 
-function ParseEsoCPValue(inputValues, statIds, abilityId, discId, unlockLevel, statFactor = 1)
+function ParseEsoCPValue(inputValues, statIds, abilityId, discId, unlockLevel, statFactor)
 {
 	var cpDesc = $("#descskill_" + abilityId);
 	if (cpDesc.length == 0) return false;
-	
+
 	var cpName = cpDesc.prev().text();
 	
 	var text = RemoveEsoDescriptionFormats(cpDesc.text());
@@ -6218,6 +6226,18 @@ function UpdateEsoBuildVisibleBuffs()
 }
 
 
+function UpdateEsoBuffItem(element)
+{
+	if (element.hasClass("esotbBuffDisable")) return;
+	var checked = element.find(".esotbBuffCheck").prop("checked");
+	
+	if (checked)
+		element.addClass("esotbBuffItemSelect");
+	else
+		element.removeClass("esotbBuffItemSelect");
+}
+
+
 function OnEsoBuildBuffClick(e)
 {
 	var checkElement = $(this).find(".esotbBuffCheck");
@@ -6231,6 +6251,7 @@ function OnEsoBuildBuffClick(e)
 		buffData.enabled = checkElement.prop("checked");
 	}
 	
+	UpdateEsoBuffItem($(this));
 	UpdateEsoComputedStatsList();
 	
 	return false;
@@ -6246,9 +6267,9 @@ function OnEsoBuildBuffCheckClick(e)
 	if (buffData != null)
 	{
 		buffData.enabled = $(this).prop("checked");
-		//$(this).prop("checked", buffData.enabled);
 	}
 	
+	UpdateEsoBuffItem(parent);
 	UpdateEsoComputedStatsList();
 
 	e.stopPropagation();

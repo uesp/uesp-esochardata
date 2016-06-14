@@ -884,11 +884,16 @@ button.esotbWeaponSelect {
 	cursor: pointer;
 }
 
-.esotbBuffDisable {
-	pointer-events: none;
-	background-color: #ddd;
-    border-radius: 15px;
-    color: #777;
+.esotbBuffDisable,
+.esotbBuffDisable:hover {
+	background-color: #ddd !important;
+    border-radius: 15px !important;
+    color: #777 !important;
+}
+
+.esotbBuffItemSelect {
+	background-color: #f5deb3;
+	border-radius: 15px;
 }
 
 .esotbBuffSkillEnable {
