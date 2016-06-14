@@ -3623,6 +3623,16 @@ function ConvertEsoFlatCritToPercent(flatCrit, inputValues)
 }
 
 
+function ConvertEsoPercentCritToFlat(percentCrit, inputValues)
+{
+	var effectiveLevel = parseInt($("#esotbEffectiveLevel").text());
+	if (inputValues != null) effectiveLevel = parseInt(inputValues.EffectiveLevel);
+
+	var result = percentCrit * 2 * effectiveLevel * (100 + effectiveLevel);
+	return Math.round(result);
+}
+
+
 function ParseEsoCPValue(inputValues, statIds, abilityId, discId, unlockLevel, statFactor = 1)
 {
 	var cpDesc = $("#descskill_" + abilityId);
@@ -6815,8 +6825,8 @@ function CreateEsoBuildSaveDataForSkill(saveData, abilityData, skillData)
 	if (data.type == "active") data.type = "skill";
 	data.icon = abilityData.texture;
 	data.abilityId = abilityId;
-	data.rank = skillData.rank + skillData.morph * 4;
-	data.index = abilityData.skillIndex;
+	data.rank = +skillData.rank + +skillData.morph * 4;
+	data.index = +abilityData.skillIndex;
 	data.area = CreateEsoAbilityAreaString(abilityData);
 	data.range = CreateEsoAbilityRangeString(abilityData);
 	data.radius = abilityData.radius;
@@ -6957,9 +6967,13 @@ function CreateEsoBuildComputedSaveData(saveData, inputValues)
 	AddEsoBuildComputedStatToSaveData(saveData, "WeaponDamage", "WeaponPower");
 	AddEsoBuildComputedStatToSaveData(saveData, "WeaponDamage", "Power");
 	
-	AddEsoBuildComputedStatToSaveData(saveData, "SpellCrit", "SpellCritical");
-	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", "WeaponCritical");
-	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", "CriticalStrike");
+	AddEsoBuildComputedStatToSaveData(saveData, "SpellCrit", "SpellCritical", null, "critical");
+	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", "WeaponCritical", null, "critical");
+	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", "CriticalStrike", null, "critical");
+	
+	AddEsoBuildComputedStatToSaveData(saveData, "SpellCrit", "SpellCritPercent");
+	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", "WeaponCritPerecent");
+	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", "WeaponCritPerecent");
 	
 	AddEsoBuildComputedStatToSaveData(saveData, "SpellResist", "SpellResist");
 	AddEsoBuildComputedStatToSaveData(saveData, "PhysicalResist", "PhysicalResist");
@@ -6987,13 +7001,17 @@ function GetEsoBuildSetCount(setName)
 }
 
 
-function AddEsoBuildComputedStatToSaveData(saveData, name, outName, addComputed)
+function AddEsoBuildComputedStatToSaveData(saveData, name, outName, addComputed, type)
 {
 	var statData = g_EsoComputedStats[name];
 	if (statData == null) return;
 	
 	var value = statData.value;
-	if (statData.display == "%") value = Math.round(value * 1000)/10;
+	
+	if (type == "critical")
+		value = ConvertEsoPercentCritToFlat(value - 0.1);
+	else if (statData.display == "%" || type == "%") 
+		value = Math.round(value * 1000)/10;
 	
 	if (outName == null) outName = name;
 	var statId = outName;
