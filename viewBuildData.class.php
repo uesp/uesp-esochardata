@@ -754,6 +754,7 @@ class EsoBuildDataViewer
 					'{skillContentTitle}' => $this->skillTreeFirstName,
 					'{rawLink}' => $this->getCharacterLink($this->characterId, true),
 					'{createDate}' => $this->getCharCreateDate(),
+					'{editDateNote}' => $this->getCharEditDateNote(),
 					'{figureImage}' => $this->getCharFigureImageUrl(),
 					'{baseResourceUrl}' => $this->baseResourceUrl,
 					'{activeWeaponClass1}' => $this->getActiveWeaponBarClass(1),
@@ -965,6 +966,17 @@ class EsoBuildDataViewer
 	}
 	
 	
+	public function getCharEditDateNote()
+	{
+		if ($this->isEditted())
+			$output = "Character data Edited on " . $this->getCharEditDate();
+		else 
+			$output = "Character data Exported on " . $this->getCharCreateDate();
+		
+		return $output;
+	}
+	
+	
 	public function getCharCreateDate()
 	{
 		$tz = 'America/Montreal';
@@ -974,6 +986,20 @@ class EsoBuildDataViewer
 		$output = $dt->format('Y-m-d H:i:s');
 		
 		return $output;
+	}
+	
+	
+	public function getCharEditDate()
+	{
+		return $this->getCharField('editTimestamp');
+	}
+	
+	
+	public function isEditted()
+	{
+		return true;
+		$time = strtotime($this->getCharField('editTimestamp'));
+		return ($time > 0);
 	}
 	
 	
@@ -1946,7 +1972,12 @@ class EsoBuildDataViewer
 		$this->outputHtml .= "<th colspan='20'>Character Summary</th>\n";
 		$this->outputHtml .= $characterOutput;
 		$this->outputHtml .= "</table> <p />\n";
-		$this->outputHtml .= "<small>Character Data Exported on " . $this->getCharCreateDate() . "</small>";
+		
+		if ($this->isEditted())
+			$this->outputHtml .= "<small>Character Data Edited on " . $this->getCharEditDate() . "</small>";
+		else
+			$this->outputHtml .= "<small>Character Data Exported on " . $this->getCharCreateDate() . "</small>";
+		
 		$this->outputHtml .= $arrayOutput;
 		
 		return true;

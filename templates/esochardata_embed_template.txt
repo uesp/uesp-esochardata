@@ -132,7 +132,7 @@
 		</div>
 	</div>
 	<div class='ecdRawLink'><a href="{rawLink}">View Raw Data</a></div>
-	<div class='ecdCreateDate'>Character Data Exported on {createDate}</div>
+	<div class='ecdCreateDate'>{editDateNote}</div>
 </div>
 <script type="text/javascript">
 	var ecdAllInventory = {allInventoryJS};
