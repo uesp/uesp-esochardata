@@ -14,5 +14,6 @@ ignore = *.log
 dest = content1.uesp.net:/home/uesp/www/esobuilddata/
 dest = content2.uesp.net:/home/uesp/www/esobuilddata/
 dest = content3.uesp.net:/home/uesp/www/esobuilddata/
+dest = files1.uesp.net:/home/uesp/esochardata.static/
 
 chmod_dest = g+rw -R {dest}

@@ -2121,9 +2121,10 @@ class EsoBuildDataViewer
 		return $output;
 	}
 	
-	
+
 	public function createBuildTableHtml()
 	{
+		// Fuzzfoot Pouchfiller, Level 50 CP160 Stamina Nightblade Woodelf, AD, Vampire
 		if (!$this->loadBuilds()) return false;
 		
 		$this->outputHtml .= $this->getBreadcrumbTrailHtml() . "<p />\n";
