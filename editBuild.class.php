@@ -3047,6 +3047,22 @@ class EsoBuildDataEditor
 	}
 	
 	
+	public function GetBreadcrumbTrailHtml()
+	{
+		$baseLink = "/wiki/Special:EsoBuildData";
+		$myLink = $baseLink . "?filter=mine";
+		$thisLink = $baseLink . "?id=" . $this->buildId;
+		
+		$output  = "<div id='esotbTrail'>";
+		$output .= "	<a href='$baseLink'>&laquo; View All Builds</a> : ";
+		$output .= "	<a href='$myLink'>View My Builds</a>";
+		if ($this->buildId > 0) $output .= " : <a href='$thisLink'>View This Build</a>";
+		$output .= "</div>";
+		
+		return $output;
+	}
+	
+	
 	public function CreateOutputHtml()
 	{
 		$replacePairs = array(
@@ -3148,6 +3164,7 @@ class EsoBuildDataEditor
 				'{saveButtonDisabled}' => $this->GetSaveButtonDisabled(),
 				'{createCopyButtonDisabled}' => $this->GetCreateCopyButtonDisabled(),
 				'{saveNote}' => $this->GetSaveNote(),
+				'{trail}' => $this->GetBreadcrumbTrailHtml(),
 		);
 		
 		$output = strtr($this->htmlTemplate, $replacePairs);

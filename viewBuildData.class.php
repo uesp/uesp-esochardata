@@ -42,6 +42,9 @@ class EsoBuildDataViewer
 	public $inputParams = array();
 	public $outputHtml = "";
 	public $htmlTemplate = "";
+	public $inputFilter = "";
+	public $myMyBuilds = false;
+	public $inputSearch = "";
 	
 	public $characterData = array();
 	public $skillData = array();
@@ -337,6 +340,17 @@ class EsoBuildDataViewer
 		if (array_key_exists('password1', $this->inputParams)) $this->formNewPassword1 = $this->inputParams['password1'];
 		if (array_key_exists('password2', $this->inputParams)) $this->formNewPassword2 = $this->inputParams['password2'];
 		if (array_key_exists('account', $this->inputParams)) $this->formAccount = $this->inputParams['account'];
+		if (array_key_exists('filter', $this->inputParams)) $this->inputFilter = $this->inputParams['filter'];
+		
+		if (array_key_exists('findbuild', $this->inputParams)) 
+		{
+			$this->inputSearch = trim($this->inputParams['findbuild']);
+		}
+		
+		if ($this->inputFilter == "mine" || $this->inputFilter == "my")
+		{
+			$this->viewMyBuilds = true;
+		}
 	
 		return true;
 	}
@@ -839,24 +853,52 @@ class EsoBuildDataViewer
 	{
 		$output = "<div id='ecdTrail'>";
 		
+		$baseLink = $this->getBuildLink();
+		$myLink = $baseLink . "?filter=mine";
+		$charLink = $this->getCharacterLink($this->characterId);
+		$canViewMyBuilds = $this->wikiContext != null;
+		$searchText = $this->escape($this->inputSearch);
+		
+		$search  = "<form method='GET' action='' id='ecdSearchForm'>";
+		$search .= "	<input name='findbuild' id='ecdSearchText' type='text' size='10' value='$searchText'>";
+		$search .= "	<input type='submit' id='ecdSearchButton' value='Find Builds'>";
+		$search .= "</form>";
+		
 		if ($this->characterId > 0)
 		{
-			$baseLink = $this->getBuildLink();
-			$charLink = $this->getCharacterLink($this->characterId);
-			
 			if ($this->viewRawData)
 			{
-				$output .= "<a href='$baseLink'>&laquo; View All Builds</a> : ";
-				$output .= "<a href='$charLink'>View Normal Build</a>";
+				$output .= "<a href='$baseLink'>&laquo; View All Builds</a>";
+				if ($canViewMyBuilds) $output .= " : <a href='$myLink'>View My Builds</a>";
+				$output .= " : <a href='$charLink'>View Normal Build</a>";
 			}
 			else
 			{
 				$output .= "<a href='$baseLink'>&laquo; View All Builds</a>";
+				if ($canViewMyBuilds) $output .= " : <a href='$myLink'>View My Builds</a>";
 			}
+		}
+		else if ($searchText != "")
+		{
+			$output .= "<a href='$baseLink'>&laquo; View All Builds</a>";
+			if ($canViewMyBuilds) $output .= " : <a href='$myLink'>View My Builds</a>";
+			$output .= " : $search";
+			$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
+			$output .= "<a href='http://esobuilds.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
+		}
+		else if ($this->viewMyBuilds && $canViewMyBuilds)
+		{
+			$output .= "<a href='$baseLink'>&laquo; View All Builds</a>";
+			$output .= " : Viewing my builds";
+			$output .= " : $search";
+			$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
+			$output .= "<a href='http://esobuilds.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
 		}
 		else
 		{
-			$output .= "Viewing all builds. ";
+			$output .= "Viewing all builds";
+			if ($canViewMyBuilds) $output .= " : <a href='$myLink'>View My Builds</a>";
+			$output .= " : $search";
 			$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
 			$output .= "<a href='http://esobuilds.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
 		}
@@ -1057,7 +1099,7 @@ class EsoBuildDataViewer
 			if ($result == 0) continue;
 			
 			$slotName = $matches[1];
-			$rawData = $value['value'];
+			$rawData = $value["value"];
 			
 			if ($slotName == "Known")
 			{
@@ -2099,14 +2141,64 @@ class EsoBuildDataViewer
 		$this->outputHtml .= "<th>CPs</th>\n";
 		$this->outputHtml .= "</tr>\n";
 		
+		if ($this->canWikiUserCreate())
+		{
+			$editLink = $this->getEditLink();
+			
+			$this->outputHtml .= "<tr class='ecdBuildCreateNewRow'><td colspan='9' align='center'>";
+			$this->outputHtml .= "	<form method='get' action='$editLink'>";
+			$this->outputHtml .= "		<input type='submit' value='Create New Build'>";
+			$this->outputHtml .= "	</form>";
+			$this->outputHtml .= "</td></tr>";
+		}
+		
 		foreach ($this->buildData as $buildData)
 		{
+			if (!$this->doesBuildMatchFilter($buildData)) continue;
+			
 			$this->outputHtml .= $this->getBuildTableItemHtml($buildData);
 		}
 		
 		$this->outputHtml .= "</table>\n";		
 		
 		return true;
+	}
+	
+	
+	public function doesBuildMatchFilter($buildData)
+	{
+		if ($this->viewMyBuilds && !$this->doesOwnBuild($buildData)) return false;
+		
+		if ($this->inputSearch != "" && !$this->doesBuildMatchSearch($buildData)) return false;
+		
+		return true;
+	}
+	
+	
+	public function doesBuildMatchSearch($buildData)
+	{
+		static $MATCH_FIELDS = array(
+				"name",
+				"buildName",
+				"class",
+				"race",
+				"alliance",
+				"buildType",
+				"special",
+		);
+		
+		$searchText = strtolower($this->inputSearch);
+		
+		foreach ($MATCH_FIELDS as $field)
+		{
+			$value = $buildData[$field];
+			if ($value == null || $value == "") continue;
+			$value = strtolower($value);
+			
+			if (strpos($value, $searchText) !== false) return true;
+		}
+		
+		return false;
 	}
 	
 	
@@ -2393,11 +2485,11 @@ EOT;
 		
 		if ($buildName == "") $buildName = $charName;
 		
-		$rowClass = "";
-		if ($this->doesOwnBuild($buildData)) $rowClass = "ecdBuildOwned";
+		$rowClass = "ecdBuildRowHover";
+		if ($this->doesOwnBuild($buildData)) $rowClass .= " ecdBuildOwned";
 				
 		$output .= "<tr class='$rowClass'>\n";
-		$output .= "<td class='ecdBuildTableName'><a href=\"$linkUrl\">$buildName</a></td>";
+		$output .= "<td class='ecdBuildTableName'><a class='ecdBuildLink' href=\"$linkUrl\">$buildName</a></td>";
 		$output .= "<td>$className</td>";
 		$output .= "<td>$raceName</td>";
 		$output .= "<td>$allianceName</td>";
@@ -2409,7 +2501,7 @@ EOT;
 		
 		if ($this->canWikiUserCreate())
 		{
-			$output .= "<td>";
+			$output .= "<td class='ecdBuildTableButtons'>";
 			
 			/*
 			$output .= "<form method='get' action='/wiki/Special:EsoBuildEditor'>";
@@ -2480,10 +2572,16 @@ EOT;
 	}
 	
 	
-	public function getBuildLink($charId = -1, $viewRaw = false)
+	public function getBuildLink()
 	{
 		$link  = $this->baseUrl;
 		return $link;
+	}
+	
+	
+	public function getEditLink()
+	{
+		return "/wiki/Special:EsoBuildEditor";
 	}
 	
 		

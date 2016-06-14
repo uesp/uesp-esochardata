@@ -120,7 +120,10 @@ function onDocReady()
 			var text = $(this).attr('tooltip');
 			copyTextToClipboard(text);
 		});
-		
+	
+	
+	$("#ecdBuildTable a").click(OnBuildTableAnchorClick);
+	$(".ecdBuildRowHover td").not(".ecdBuildTableButtons").click(OnBuildTableRowClick);
 }
 
 
@@ -326,6 +329,21 @@ function copyToClipboard(self)
 {
 	var textToCopy = $(self).text();
 	copyTextToClipboard(textToCopy);
+}
+
+
+function OnBuildTableAnchorClick(e)
+{
+	e.stopPropagation();
+}
+
+
+function OnBuildTableRowClick(e)
+{
+	var anchor = $(this).parent().find(".ecdBuildLink");
+	if (anchor.length == 0) return;
+	
+	window.location.href = anchor.attr("href");
 }
 
 

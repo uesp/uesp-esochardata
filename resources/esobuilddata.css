@@ -1299,6 +1299,27 @@ table.tablesorter thead tr .headerSortUp {
 	background-color: #ffff99;
 }
 
-#ecdBuildTable tr:hover {
+.ecdBuildRowHover:hover {
 	background-color: #ccc;
+	cursor: pointer;
 }
+
+.ecdBuildOwned:hover {
+	background-color: #cccc55;
+}
+
+.ecdBuildTableButtons,
+.ecdBuildCreateNewRow {
+	cursor: default;
+}
+
+#ecdSearchForm {
+	display: inline-block
+}
+
+#ecdSearchText {
+}
+
+#ecdSearchButton {
+}
+
