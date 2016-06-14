@@ -1327,4 +1327,12 @@ thead.ecdFixedHeader tr {
 
 #ecdBuildTable th {
 	padding-right: 20px;
-	
+}
+
+#ecdMenuEditForm {
+	display: inline-block;
+	float: right;
+	position: relative;
+    top: -2px;
+    margin-right: 10px;
+}
