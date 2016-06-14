@@ -912,14 +912,14 @@ class EsoBuildDataViewer
 		else if ($this->viewMyBuilds && $canViewMyBuilds)
 		{
 			$output .= "<a href='$baseLink'>&laquo; View All Builds</a>";
-			$output .= " : Viewing my builds";
+			$output .= " : Viewing My builds";
 			$output .= " : $search";
 			$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
 			$output .= "<a href='http://esobuilds.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
 		}
 		else
 		{
-			$output .= "Viewing all builds";
+			$output .= "Viewing All builds";
 			if ($canViewMyBuilds) $output .= " : <a href='$myLink'>View My Builds</a>";
 			$output .= " : $search";
 			$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
@@ -2181,6 +2181,11 @@ class EsoBuildDataViewer
 		if (!$this->loadBuilds()) return false;
 		
 		$this->outputHtml .= $this->getBreadcrumbTrailHtml() . "<p />\n";
+		
+		if (!$this->canWikiUserCreate())
+		{
+			$this->outputHtml .= "If you wish to create, edit, or copy the builds listed below you must login or create a Wiki account.";
+		}
 		
 		$this->outputHtml .= "<table id='ecdBuildTable' class='sortable jquery-tablesorter'>\n";
 		$this->outputHtml .= "<thead><tr class='ecdBuildTableHeader'>\n";
