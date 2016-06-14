@@ -291,16 +291,15 @@ Note that this character builder is for test purposes and is currently undergoin
 				<ul>
 					<li>Skill tooltip cost, damage and healing updates</li>
 					<li>All secondary computed stats</li>
-					<li>Base stat values and calculations for less than max level (CP160)</li>
+					<li>Base stat values and calculations for less than max level (CP160)</li><li>Saving and loading of builds</li>
+					<li>Integration into the UESP wiki</li>
+					<li>Combining into the existing build data on UESP</li>
 				</ul>
 			</div>
 			<div class='esotbHelpWorkBlock'>
 				<h4>"Not Yet" Working</h4>
 				<ul>
 					<li>More complex set, skill, and buff effects</li>
-					<li>Saving and loading of builds</li>
-					<li>Integration into the UESP wiki</li>
-					<li>Combining into the existing build data on UESP</li> 
 				</ul>
 			</div><br/>
 			
