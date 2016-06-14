@@ -264,13 +264,12 @@ Note that this character builder is for test purposes and is currently undergoin
 			
 			<div class="esotbHelpWarning">
 				<b>Warning:</b> This ESO character builder is currently undergoing construction and is not 100% completed. There are bugs and 
-				missing features as detailed below.				
+				missing features as detailed below.	Bug reports and feedback can be made on the editor's <b><a href="http://en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor">talk page</a></b>.
 			</div>
 			<p>
 			This is a yet another character builder/planner for Elder Scrolls Online. The design goal behind the builder is to be able to see 
 			all the various calculations and stat sources to be able to better understand how one thing or another affects your character's
-			final stats. If you notice any bugs, errors, calculation discrepancies or just would like to suggest a feature just leave a note on
-			<a href="http://en.uesp.net/wiki/User_talk:Daveh">Daveh's talk page</a>.
+			final stats. More help on this editor can be found on its <b><a href="http://en.uesp.net/wiki/UESPWiki:EsoBuildEditor">wiki page</a></b>.
 			<p>
 			A for a brief description as to what is and isn't working here yet:
 			

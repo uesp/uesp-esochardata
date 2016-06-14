@@ -2363,6 +2363,7 @@ class EsoBuildDataEditor
 	public function GetCharMundus($mundusIndex)
 	{
 		$foundIndex = 0;
+		if ($this->buildDataViewer->characterData == null) return "";
 		
 		foreach ($this->buildDataViewer->characterData['buffs'] as $buff)
 		{
@@ -2381,6 +2382,8 @@ class EsoBuildDataEditor
 	{
 		$stage = (int) $this->getCharStatField("VampireStage", -1);
 		if ($stage >= 0) return (int) $stage;
+		
+		if ($this->buildDataViewer->characterData == null) return 0;
 
 		foreach ($this->buildDataViewer->characterData['buffs'] as $buff)
 		{
@@ -2398,6 +2401,8 @@ class EsoBuildDataEditor
 	{
 		$stage = (int) $this->getCharStatField("WerewolfStage", -1);
 		if ($stage >= 0) return (int) $stage;
+		
+		if ($this->buildDataViewer->characterData == null) return 0;
 		
 		$stage = 0;
 		
@@ -3015,7 +3020,11 @@ class EsoBuildDataEditor
 	
 	public function GetSaveButtonDisabled()
 	{
-		$canEdit = $this->buildDataViewer->canWikiUserEdit();
+		if ($this->buildId <= 0)
+			$canEdit = $this->buildDataViewer->canWikiUserCreate();
+		else
+			$canEdit = $this->buildDataViewer->canWikiUserEdit();
+		
 		if (!$canEdit) return "disabled";
 		return "";
 	}
@@ -3023,7 +3032,10 @@ class EsoBuildDataEditor
 	
 	public function GetCreateCopyButtonDisabled()
 	{
-		$canCreate = $this->buildDataViewer->canWikiUserCreate();
+		if ($this->buildId < 0)
+			$canCreate = false;
+		else
+			$canCreate = $this->buildDataViewer->canWikiUserCreate();
 		
 		if (!$canCreate || $this->buildId <= 0) return "disabled";
 		return "";
@@ -3032,18 +3044,26 @@ class EsoBuildDataEditor
 	
 	public function GetSaveNote()
 	{
-		$isNew = !($this->buildId > 0);
-		$canEdit = $this->buildDataViewer->canWikiUserEdit();
+		$isNew = ($this->buildId <= 0);
+		
 		$canDelete = $this->buildDataViewer->canWikiUserDelete();
 		$canCreate = $this->buildDataViewer->canWikiUserCreate();
 		
-		$label = "existing";
-		if ($isNew) $label = "new";
+		if ($isNew)
+			$canEdit = $canCreate;
+		else
+			$canEdit = $this->buildDataViewer->canWikiUserEdit();
 		
-		if (!$canCreate) return "You can modify this $label build data but you will not be able to save it or create a new copy of it. Login or create a Wiki account in order to save and create new builds.";
-		if (!$canEdit) return "You can modify this $label build data but you will not be able to save it. You can, however, create a new copy of the build data you will can save.";
+		if ($isNew)
+		{
+			if (!$canCreate) return "You can modify this new build data but you will not be able to save it. Login or create a Wiki account in order to save and create new builds.";
+			if (!$canEdit) return "You can modify this new build data but you will not be able to save it.  Login or create a Wiki account in order to save and create new builds.";
+			return "You can save this new build data.";
+		}
 		
-		return "You are able to save this $label build data or create a new copy of it.";
+		if (!$canCreate) return "You can modify this existing build data but you will not be able to save it or create a new copy of it. Login or create a Wiki account in order to save and create new builds.";
+		if (!$canEdit) return "You can modify this existing build data but you will not be able to save it. You can, however, create a new copy of the build data you will can save.";
+		return "You can save this existing build data or create a new copy of it.";
 	}
 	
 	
