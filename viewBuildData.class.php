@@ -690,6 +690,27 @@ class EsoBuildDataViewer
 	}
 	
 	
+	public function getEditButtonsHtml()
+	{
+		if (!$this->canWikiUserCreate()) return ""; 
+
+		$buildId = $this->characterId;
+		
+		$output = "";
+		$output .= "<form method='get' id='ecdMenuEditForm' action='/wiki/Special:EsoBuildEditor'>";
+		$output .= "<input type='hidden' name='id' value ='$buildId'>";
+				
+		if ($this->canWikiUserEdit())
+			$output .= "<input type='submit' value='Edit Build'>";
+		else
+			$output .= "<input type='submit' value='Create Copy'>";
+					
+		$output .= "</form>";
+						
+		return $output;
+	}
+	
+	
 	public function createCharacterOutput()
 	{
 		if (!$this->loadCharacter()) return false;
@@ -783,6 +804,7 @@ class EsoBuildDataViewer
 					'{bankTotalSpace}' => $this->getBankTotalSpace(),
 					'{accInvUsedSpace}' => $this->getAccountInventoryUsedSpace(),
 					'{accInvTotalSpace}' => $this->getAccountInventoryTotalSpace(),
+					'{editButtons}' => $this->getEditButtonsHtml(),
 				
 			);
 		
