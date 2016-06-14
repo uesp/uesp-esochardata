@@ -355,6 +355,7 @@ class EsoBuildDataViewer
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		if ($result === FALSE) return $this->reportError("Failed to load character {$this->characterId}!");
+		if ($result->num_rows == 0) return $this->reportError("Failed to load character {$this->characterId}!");
 		
 		$result->data_seek(0);
 		$this->characterData = $result->fetch_assoc();

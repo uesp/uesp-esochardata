@@ -5,6 +5,7 @@ require_once("/home/uesp/esolog.static/esoCommon.php");
 require_once("/home/uesp/esolog.static/viewCps.class.php");
 require_once("/home/uesp/esolog.static/viewSkills.class.php");
 require_once(__DIR__."/viewBuildData.class.php");
+require_once("/home/uesp/www/esomap/UespMemcachedSession.php");
 
 
 class EsoBuildDataEditor 
@@ -2174,6 +2175,8 @@ class EsoBuildDataEditor
 	
 	public function __construct()
 	{
+		UespMemcachedSession::install();
+		
 		$this->TEMPLATE_FILE = __DIR__."/templates/esoeditbuild_embed_template.txt";
 		
 		$this->buildDataViewer = new EsoBuildDataViewer(true, true);
@@ -2792,7 +2795,7 @@ class EsoBuildDataEditor
 	{
 		$this->initialToggleSkillData = array();
 		
-		foreach ($this->buildDataViewer->characterData['Stats'] as $name => $value)
+		foreach ($this->buildDataViewer->characterData['stats'] as $name => $value)
 		{
 			$result = preg_match("/^ToggleSkill:(.*)$/", $name);
 			if (!$result) continue;
@@ -2815,7 +2818,7 @@ class EsoBuildDataEditor
 	{
 		$this->initialSetToggleData = array();
 		
-		foreach ($this->buildDataViewer->characterData['Stats'] as $name => $value)
+		foreach ($this->buildDataViewer->characterData['stats'] as $name => $value)
 		{
 			$result = preg_match("/^ToogleSet:(.*)$/", $name);
 			if (!$result) continue;
@@ -3154,9 +3157,14 @@ class EsoBuildDataEditor
 	
 	public function SetSessionData()
 	{
-		$_SESSION['UESP_ESO_canEditBuild'] = $this->buildDataViewer->canWikiUserEdit();
-		$_SESSION['UESP_ESO_canDeleteBuild'] = $this->buildDataViewer->canWikiUserDelete();
-		$_SESSION['UESP_ESO_canCreateBuild'] = $this->buildDataViewer->canWikiUserCreate();
+		if ($this->wikiContext == null) return $this->ReportError("Failed to setup session data!");
+		
+		$request = $this->wikiContext->getRequest();
+		if ($request == null) return $this->ReportError("Failed to setup session data!");
+		
+		$request->setSessionData( 'UESP_ESO_canEditBuild', $this->buildDataViewer->canWikiUserEdit() );
+		$request->setSessionData( 'UESP_ESO_canDeleteBuild', $this->buildDataViewer->canWikiUserDelete() );
+		$request->setSessionData( 'UESP_ESO_canCreateBuild', $this->buildDataViewer->canWikiUserCreate() );
 	}
 	
 		
@@ -3165,7 +3173,7 @@ class EsoBuildDataEditor
 		
 		if (!$this->LoadBuild())
 		{
-			return $this->OutputError("Failed to load build!");
+			return $this->OutputError("Could not find the specified character build!");
 		}
 		
 		$this->SetSessionData();

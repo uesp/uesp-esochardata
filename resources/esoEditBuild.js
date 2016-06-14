@@ -6352,8 +6352,8 @@ function UpdateEsoInitialToggleSkillData()
 {
 	for (var skillName in g_EsoInitialToggleSkillData)
 	{
-		var initData = g_EsoInitialToggleSkillData[setName];
-		var skillData = g_EsoBuildToggledSkillData[setName];
+		var initData = g_EsoInitialToggleSkillData[skillName];
+		var skillData = g_EsoBuildToggledSkillData[skillName];
 		if (skillData == null) continue;
 		
 		skillData.enabled = initData.enabled;
@@ -6389,7 +6389,11 @@ function RequestEsoBuildSave()
 	
 	$.ajax("http://esobuilds.uesp.net/saveBuild.php", {
 				type: "POST",
-				data: { savedata: JSON.stringify(saveData), id: g_EsoBuildData.id },
+				data: { 
+					savedata: JSON.stringify(saveData), 
+					id: g_EsoBuildData.id,
+				},
+				xhrFields: { withCredentials: true },
 			})
 		.done(function(data, status, xhr) { OnEsoBuildSaved(data, status, xhr); })
 		.fail(function(xhr, status, errorMsg) { OnEsoBuildSaveError(xhr, status, errorMsg); });
@@ -6402,7 +6406,12 @@ function RequestEsoBuildCreateCopy()
 	
 	$.ajax("http://esobuilds.uesp.net/saveBuild.php", {
 				type: "POST",
-				data: { savedata: JSON.stringify(saveData), id: g_EsoBuildData.id, copy: 1 },
+				data: { 
+					savedata: JSON.stringify(saveData), 
+					id: g_EsoBuildData.id, 
+					copy: 1,
+				},
+				xhrFields: { withCredentials: true },
 			})
 		.done(function(data, status, xhr) { OnEsoBuildCopy (data, status, xhr); })
 		.fail(function(xhr, status, errorMsg) { OnEsoBuildCopyError(xhr, status, errorMsg); });

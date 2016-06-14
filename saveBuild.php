@@ -137,7 +137,9 @@ class EsoBuildDataSaver
 	public function __construct()
 	{
 		UespMemcachedSession::install();
-		$this->OutputHeaders();
+		
+		session_name('uesp_net_wiki5_session');
+		session_start();
 	}
 	
 	
@@ -165,10 +167,6 @@ class EsoBuildDataSaver
 	
 	public function GetSessionData()
 	{
-		session_name('uesp_net_wiki5_session');
-		
-		if (!session_start()) return $this->ReportError("Failed to start session!");
-		
 		$this->canEditBuilds   = $_SESSION['UESP_ESO_canEditBuild'];
 		$this->canDeleteBuilds = $_SESSION['UESP_ESO_canDeleteBuild'];
 		$this->canCreateBuilds = $_SESSION['UESP_ESO_canCreateBuild'];
@@ -196,15 +194,23 @@ class EsoBuildDataSaver
 			header("Access-Control-Allow-Origin: $origin");
 		}
 		
+		header("Access-Control-Allow-Credentials: true");
 		header("content-type: application/json");
 	}
 	
 	
 	public function Initialize()
 	{
-		if (!$this->GetSessionData()) return false;
-		if (!$this->InitDatabaseWrite()) return false;
 		
+		if (!$this->GetSessionData()) 
+		{
+			$this->OutputHeaders();
+			return false;
+		}
+		
+		$this->OutputHeaders();
+		
+		if (!$this->InitDatabaseWrite()) return false;
 		if (!$this->ParseInputParams()) return false;
 		
 		if ($this->inputData === null || $this->inputId === null) return $this->ReportError("No input data received!");
@@ -327,6 +333,8 @@ class EsoBuildDataSaver
 	
 	public function MergeStats()
 	{
+		if ($this->parsedBuildData == null) return true;
+		if ($this->statsData == null) return true;
 		if ($this->parsedBuildData['Stats'] === null) $this->parsedBuildData['Stats'] = array();
 		
 		foreach ($this->statsData as $name => $value)
