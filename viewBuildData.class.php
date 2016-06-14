@@ -303,7 +303,6 @@ class EsoBuildDataViewer
 		$logIn = $user->isLoggedIn();
 		$username1 = $user->getName();
 		$username2 = $buildData['wikiUserName'];
-		error_log("BUILDNAME: '$username1' '$username2' $logIn");
 			
 		if (!$user->isLoggedIn()) return false;
 		if (strcasecmp($user->getName(), $buildData['wikiUserName']) == 0) return true;

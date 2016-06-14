@@ -6411,8 +6411,11 @@ function RequestEsoBuildCreateCopy()
 
 function OnEsoBuildSaved(data, status, xhr)
 {
-	
-	if (data.isnew)
+	if (!data.success)
+	{
+		SetEsoBuildSaveResults("ERROR saving build!");
+	}
+	else if (data.isnew)
 	{
 		UpdateEsoBuildNewId(data.id);
 		SetEsoBuildSaveResults("Successfully created new build!");
@@ -6427,6 +6430,12 @@ function OnEsoBuildSaved(data, status, xhr)
 
 function OnEsoBuildCopy(data, status, xhr)
 {
+	if (!data.success)
+	{
+		SetEsoBuildSaveResults("ERROR copying build!");
+		return;
+	}
+	
 	UpdateEsoBuildNewId(data.id);
 	SetEsoBuildSaveResults("Successfully created new build!");
 	
