@@ -2015,6 +2015,16 @@ ESO_SETEFFECT_MATCHES = [
 		display: '%',
 		match: /Increase all recovery in combat by ([0-9]+\.?[0-9]*)%/i,
 	},
+	{
+		id: "Necropotence",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		category: "Skill",
+		statId: "Magicka",
+		display: '%',
+		match: /While you have pets active, increase max magicka by ([0-9]+\.?[0-9]*)%/i,
+	},
 	
 		// Other Effects
 	{
@@ -2925,6 +2935,8 @@ function GetEsoInputSkillPassiveValues(inputValues, skillInputValues, skillData)
 	var skillDesc = GetEsoSkillDescription(skillData.abilityId, skillInputValues, false, true);
 	var rawDesc = RemoveEsoDescriptionFormats(skillDesc);
 	if (rawDesc == "" || abilityData == null) return;
+	
+	abilityData.rawOutput = {};
 	
 	for (var i = 0; i < ESO_PASSIVEEFFECT_MATCHES.length; ++i)
 	{
@@ -5922,7 +5934,7 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
 			HeavyArmor		: parseInt(inputValues.ArmorHeavy),
 			ArmorTypes		: parseInt(inputValues.ArmorTypes),
 			DaggerWeapon	: parseInt(inputValues.WeaponDagger),
-			//Damage Modifiers
+			AssassinSkills	: CountEsoBarSkillsWithSkillLine("Assassination"),
 	};
 	
 	g_LastSkillInputValues.SkillLineCost = inputValues.SkillCost;
