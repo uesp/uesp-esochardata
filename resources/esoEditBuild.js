@@ -4409,6 +4409,7 @@ function SelectEsoItem(element)
 	var data = {
 		onSelectItem: OnEsoSelectItem,
 		itemType: itemType,
+		xoffset: -190,
 	};
 	
 	if (equipType  != null) data.equipType  = equipType;
@@ -4928,6 +4929,7 @@ function SelectEsoItemEnchant(element)
 	var data = {
 		onSelectItem: OnEsoSelectItemEnchant,
 		itemType: enchantType,
+		xoffset: -190,
 	};
 	
 	var rootSearchPopup = UESP.showEsoItemSearchPopup(element, data);
