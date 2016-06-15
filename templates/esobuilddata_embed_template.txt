@@ -38,7 +38,7 @@
 	</div>
 	<div id='ecdEquipSlots'>
 		<div id='ecdEquipSlotTitle'>EQUIPMENT</div>
-		<img id='ecdEquipSlotBar1' src='{baseResourceUrl}resources/eso_equip_bar.png' />
+		<img id='ecdEquipSlotBar1' alt='' src='{baseResourceUrl}resources/eso_equip_bar.png' />
 		<div id='ecdEquipSlotSubtitle1'>APPAREL</div>
 		<div id='ecdEquipSlotHead'>{equipHead}</div>
 		<div id='ecdEquipSlotShoulder'>{equipShoulder}</div>
@@ -48,13 +48,13 @@
 		<div id='ecdEquipSlotBelt'>{equipBelt}</div>
 		<div id='ecdEquipSlotLeg'>{equipLeg}</div>
 		<div id='ecdEquipSlotFeet'>{equipFeet}</div>
-		<img id='ecdEquipSlotBar2' src='{baseResourceUrl}resources/eso_equip_bar.png' />
+		<img id='ecdEquipSlotBar2' alt='' src='{baseResourceUrl}resources/eso_equip_bar.png' />
 		<div id='ecdEquipSlotSubtitle2'>ACCESSORIES</div>
 		<div id='ecdEquipSlotCostume'>{equipCostume}</div>
 		<div id='ecdEquipSlotNeck'>{equipNeck}</div>
 		<div id='ecdEquipSlotRing1'>{equipRing1}</div>
 		<div id='ecdEquipSlotRing2'>{equipRing2}</div>
-		<img id='ecdEquipSlotBar3' src='{baseResourceUrl}resources/eso_equip_bar.png' />
+		<img id='ecdEquipSlotBar3' alt='' src='{baseResourceUrl}resources/eso_equip_bar.png' />
 		<div id='ecdEquipSlotSubtitle3'>WEAPONS</div>
 		<div id='ecdEquipSlotWeapon11' class='{activeWeaponClass1}'>{equipWeapon11}</div>
 		<div id='ecdEquipSlotWeapon12' class='{activeWeaponClass1}'>{equipWeapon12}</div>
