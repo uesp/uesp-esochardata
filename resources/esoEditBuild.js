@@ -6134,6 +6134,7 @@ function CreateEsoBuildBuffHtml(buffName, buffData)
 {
 	var icon = buffData.icon;
 	var extraAttributes = "";
+	var checked = "";
 	
 	buffData.name = buffName;
 	
@@ -6141,10 +6142,11 @@ function CreateEsoBuildBuffHtml(buffName, buffData)
 	icon = ESO_ICON_URL + icon;
 	
 	if (buffData.visible === false) extraAttributes = "style='display: none;'";
+	if (buffData.enabled) checked = "checked";
 	
 	var output = "<div class='esotbBuffItem' " + extraAttributes + " buffid='" + buffName + "'>";
 	
-	output += "<input class='esotbBuffCheck' type='checkbox' buffid='" + buffName + "'> ";
+	output += "<input class='esotbBuffCheck' type='checkbox' buffid='" + buffName + "' " + checked + "> ";
 	output += "<img class='esotbBuffIcon' src='" + icon + "'>";
 	output += "<div class='esotbBuffTitle'>" + buffName + "</div>";
 	
