@@ -37,6 +37,7 @@ class EsoBuildDataViewer
 				"Swords",
 		);
 	
+	
 	public $wikiContext = null;
 	
 	public $inputParams = array();
@@ -1024,6 +1025,39 @@ class EsoBuildDataViewer
 	}
 	
 	
+	public function getBuildCreateDate($buildData)
+	{
+		$timestamp = $buildData['createTime'];
+		if ($timestamp == null) return "";
+		
+		$tz = 'America/Montreal';
+		$dt = new DateTime("now", new DateTimeZone($tz));
+		$dt->setTimestamp($timestamp);
+		$output = $dt->format('Y-m-d H:i:s');
+	
+		return $output;
+	}
+	
+	
+	public function getBuildEditDate($buildData)
+	{
+		$editTime = $buildData['editStamp'];
+		if ($editTime == null) return "";
+		
+		return $editTime;
+	}
+	
+	
+	public function isBuildEditted($buildData)
+	{
+		$editTime = $buildData['editStamp'];
+		if ($editTime == null) return false;
+		
+		$time = strtotime($editTime);
+		return ($time > 0);
+	}
+	
+	
 	public function getCharSkillContentHtml()
 	{
 		$output = "";
@@ -1394,6 +1428,7 @@ class EsoBuildDataViewer
 		
 		return $output;
 	}
+	
 	
 	
 	public function getCharSkillTooltipHtml(&$skillData, $className)
@@ -2197,21 +2232,22 @@ class EsoBuildDataViewer
 		$this->outputHtml .= "<table id='ecdBuildTable' class='sortable jquery-tablesorter'>\n";
 		$this->outputHtml .= "<thead><tr class='ecdBuildTableHeader'>\n";
 		$this->outputHtml .= "<th class='headerSort headerSortDown'>Build Name</th>\n";
+		$this->outputHtml .= "<th class='headerSort'>Character</th>\n";
 		$this->outputHtml .= "<th class='headerSort'>Class</th>\n";
 		$this->outputHtml .= "<th class='headerSort'>Race</th>\n";
 		$this->outputHtml .= "<th class='headerSort'>Alliance</th>\n";
 		$this->outputHtml .= "<th class='headerSort'>Type</th>\n";
 		$this->outputHtml .= "<th class='headerSort'>Special</th>\n";
-		$this->outputHtml .= "<th class='headerSort'>Character</th>\n";
 		$this->outputHtml .= "<th class='headerSort'>Level</th>\n";
 		$this->outputHtml .= "<th class='headerSort'>CPs</th>\n";
+		$this->outputHtml .= "<th class='headerSort'>Last Updated</th>\n";
 		$this->outputHtml .= "</tr>\n";
 		
 		if ($this->canWikiUserCreate())
 		{
 			$editLink = $this->getEditLink();
 			
-			$this->outputHtml .= "<tr class='ecdBuildCreateNewRow'><td colspan='9' align='center'>";
+			$this->outputHtml .= "<tr class='ecdBuildCreateNewRow'><td colspan='10' align='center'>";
 			$this->outputHtml .= "	<form method='get' action='$editLink'>";
 			$this->outputHtml .= "		<input type='submit' value='Create New Build'>";
 			$this->outputHtml .= "	</form>";
@@ -2551,6 +2587,11 @@ EOT;
 		$linkUrl = $this->getCharacterLink($charId);
 		$special = $this->escape($this->getFieldStr($buildData, 'special'));
 		
+		if ($this->isBuildEditted($buildData))
+			$lastUpdate = $this->getBuildEditDate($buildData);
+		else
+			$lastUpdate = $this->getBuildCreateDate($buildData);
+				
 		if ($buildName == "") $buildName = $charName;
 		
 		$rowClass = "ecdBuildRowHover";
@@ -2558,14 +2599,15 @@ EOT;
 				
 		$output .= "<tr class='$rowClass'>\n";
 		$output .= "<td class='ecdBuildTableName'><a class='ecdBuildLink' href=\"$linkUrl\">$buildName</a></td>";
+		$output .= "<td>$charName</td>";
 		$output .= "<td>$className</td>";
 		$output .= "<td>$raceName</td>";
 		$output .= "<td>$allianceName</td>";
 		$output .= "<td>$buildType</td>";
 		$output .= "<td>$special</td>";
-		$output .= "<td>$charName</td>";
 		$output .= "<td>$level</td>";
 		$output .= "<td>$cp</td>";
+		$output .= "<td>$lastUpdate</td>";
 		
 		if ($this->canWikiUserCreate())
 		{
