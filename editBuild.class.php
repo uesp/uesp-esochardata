@@ -1010,6 +1010,8 @@ class EsoBuildDataEditor
 							"*",
 							"Food.Health",
 							"+",
+							"Skill2.Health",
+							"+",
 							"Mundus.Health",
 							"+",
 							"floor(Mundus.Health * Item.Divines)",
