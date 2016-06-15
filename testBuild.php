@@ -3,7 +3,7 @@
 	<head>
 		<title>UESP:ESO Character Build Editor</title>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-		<style type="text/css">>
+		<style type="text/css">
 			body {
 				background-color: #FBEFD5;
 				font-family: sans-serif;

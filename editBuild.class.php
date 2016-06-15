@@ -455,7 +455,6 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
-				//Set raw critical values?
 			"Item.WeaponCrit" => array(
 					"display" => "%",
 			),
@@ -2166,7 +2165,11 @@ class EsoBuildDataEditor
 					),
 			),
 			
-			//SprintSpeed
+			// SprintSpeed
+			// Sneak Attack Melee Damage
+			//		= Base * (SneakBonus + CritMod)
+			//			SneakBonus = 3.75 melee, 1.46 Ranged (PVE Only?)
+			
 			//Physical/spell mitigation = (resistance - 100) / (level*10)
 			//Mitigation = [Resist ÷ (Level × 1,000)] or  = (resistance-100)/(level+VR)*10
 			// 50% cap on element + spell resistance
