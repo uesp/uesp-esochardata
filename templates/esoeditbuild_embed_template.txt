@@ -7,9 +7,11 @@
 
 {saveNote}
 Note that this character builder is for test purposes and is currently undergoing active development. Accuracy of the displayed statistics is unknown. 
-
-<p/>
+<div class='esotbBlockClear'></div>
 <div id="esotbRoot">
+	<div id="esotbStatList">
+		<div class="esotbStatTitle">Computed Character Statistics</div>
+	</div>
 	<div id="esotbStatInputs">
 		<div class="esotbStatTabList">
 			<div class="esotbStatTabSpacer"></div>
@@ -24,31 +26,29 @@ Note that this character builder is for test purposes and is currently undergoin
 			<div class="esotbStatTabSpacer"></div>
 		</div>
 		<div id="esotbStatBlockGeneral" class="esotbStatBlock">
-			<div class="esotbStatLabel">Build Name</div> <input id="esotbBuildName" class="esotbBuildName" statid="BuildName" type="text" size="25" value="{buildName}">
-			<div class="esotbStatLabel">Character Name</div> <input id="esotbCharName" class="esotbCharName" statid="CharName" type="text" size="25" value="{charName}"><br/>
+			<div class="esotbStatLabel">Build Name</div> <input id="esotbBuildName" class="esotbBuildName esotbInputSize2" statid="BuildName" type="text" size="25" value="{buildName}">
+			<div class="esotbStatLabel">Character Name</div> <input id="esotbCharName" class="esotbCharName esotbInputSize2" statid="CharName" type="text" size="25" value="{charName}"><br/>
 			<p>
 			<div id="esotbRaceList">
-				<div class="esotbStatLabel">Race</div> <select id="esotbRace" name="esotbRace" statid="Race">{raceList}</select>
+				<div class="esotbStatLabel">Race</div> <select id="esotbRace" name="esotbRace" class="esotbInputSize1" statid="Race">{raceList}</select>
 			</div>
 			<div id="esotbClassList">
-				<div class="esotbStatLabel">Class</div> <select id="esotbClass" name="esotbClass" statid="Class">{classList}</select>
+				<div class="esotbStatLabel">Class</div> <select id="esotbClass" name="esotbClass"  class="esotbInputSize1" statid="Class">{classList}</select>
 			</div><br/>
 			<div id="esotbMundusList">
-				<div class="esotbStatLabel">Mundus</div> <select id="esotbMundus" name="esotbMundus" statid="Mundus.Name">{mundusList}</select>
-				<div class="esotbStatLabel">Mundus #2</div> <select id="esotbMundus2" name="esotbMundus2" statid="Mundus.Name2" disabled>{mundusList2}</select>
-				For Twice-Born Star builds
+				<div class="esotbStatLabel">Mundus</div> <select id="esotbMundus" name="esotbMundus"  class="esotbInputSize1" statid="Mundus.Name">{mundusList}</select>
+				<div class="esotbStatLabel">Mundus #2</div> <select id="esotbMundus2" name="esotbMundus2"  class="esotbInputSize1" statid="Mundus.Name2" disabled>{mundusList2}</select>
 			</div>
 			<p>
-			<div class="esotbStatLabel">Level</div> <input id="esotbLevel" class="esotbLevelInput esotbInputValue" statid="Level" type="number" size="2" value="{level}">
-			<div class="esotbStatLabel">Total CPs</div> <input id="esotbCPTotalPoints" class="esotbLevelInput esotbInputValue" statid="CP.TotalPoints" type="number" size="2" value="{CPTotalPoints}">
-			<div class="esotbStatLabel">Effective Level</div> <div id="esotbEffectiveLevel" class="esotbInputValueRO" statid="EffectiveLevel">{effectiveLevel}</div>
-			<br/>
-			<div class="esotbStatLabel">Vampire Stage</div> <select id="esotbVampireStage" name="esotbVampireStage" statid="VampireStage">{vampireList}</select>
-			<div class="esotbStatLabel">Werewolf Stage</div> <select id="esotbWerewolfStage" name="esotbWerewolfStage" statid="Werewolf">{werewolfList}</select>
+			<div class="esotbStatLabel">Level</div> <input id="esotbLevel" class="esotbLevelInput esotbInputValue esotbInputSize3" statid="Level" type="number" size="2" value="{level}">
+			<div class="esotbStatLabel">Total CPs</div> <input id="esotbCPTotalPoints" class="esotbLevelInput esotbInputValue esotbInputSize3" statid="CP.TotalPoints" type="number" size="2" value="{CPTotalPoints}">
+			<div class="esotbStatLabel">Effective Level</div> <div id="esotbEffectiveLevel" class="esotbInputValueRO esotbInputSize3" statid="EffectiveLevel">{effectiveLevel}</div>
+			<p/>
+			<div class="esotbStatLabel">Vampire Stage</div> <select id="esotbVampireStage" class="esotbInputSize1" name="esotbVampireStage" statid="VampireStage">{vampireList}</select>
+			<div class="esotbStatLabel">Werewolf Stage</div> <select id="esotbWerewolfStage" class="esotbInputSize1" name="esotbWerewolfStage" statid="Werewolf">{werewolfList}</select>
 			<br/> 
 			<div class="esotbStatLabel">Stealthed</div> <input type="checkbox" id="esotbStealth" name="esotbStealth" statid="Stealth" {stealth}>
-			<br/> 
-			<div class="esotbStatLabel">Alliance</div> <select id="esotbAlliance" name="esotbAlliance" statid="Alliance">{allianceList}</select>
+			<div class="esotbStatLabel">Alliance</div> <select id="esotbAlliance" class="esotbInputSize1" name="esotbAlliance" statid="Alliance">{allianceList}</select>
 			<p>
 			<div id="esotbAttributes">
 				<div class="esotbAttrTitle">Attributes <div id="esotbAttrTotal" statid="AttributeTotal" class="esotbAttributeInput">{attributeTotal} / 64</div></div>
@@ -388,9 +388,6 @@ Note that this character builder is for test purposes and is currently undergoin
 				<li>All the numerous people who have tested and posted various ESO game details they've figured out.</li> 
 			</ul>
 		</div>
-	</div>
-	<div id="esotbStatList">
-		<div class="esotbStatTitle">Computed Character Statistics</div>
 	</div>
 </div>
    
