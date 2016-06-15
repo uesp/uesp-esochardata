@@ -345,6 +345,15 @@ Note that this character builder is for test purposes and is currently undergoin
 			<hr>
 			<b>14 June 2016</b>
 			<ul>
+				<li>Fixed a few broken effects and added some missing ones.</li>
+				<li>Fixed dragging/dropping in IE and FF.</li>
+				<li>Added the Stealth effect.</li>
+			</ul>
+			<p>
+			<h3>Recent Work</h3>
+			<hr>
+			<b>14 June 2016</b>
+			<ul>
 				<li>Implemented saving and copying of most build features (needs further testing).</li>
 				<li>Editing/creating/saving permission based off of logged in wiki user.</li>
 				<li>Added viewing of owned builds.</li>
