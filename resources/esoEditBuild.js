@@ -3723,9 +3723,16 @@ function AddEsoInputStatSource(statId, data)
 }
 
 
-function UpdateEsoComputedStatsList()
+function UpdateEsoComputedStatsList(realUpdate)
 {
 	if (!g_EsoBuildEnableUpdates) return;
+	
+	if (realUpdate === true)
+	{
+		g_EsoBuildRebuildStatFlag = false;
+		UpdateEsoComputedStatsList_Real();
+		return;
+	}
 	
 	g_EsoBuildRebuildStatFlag = true;
 	g_EsoBuildLastUpdateRequest = (new Date().getTime())/1000;
@@ -4162,7 +4169,7 @@ function OnEsoRaceChange(e)
 	EnableEsoRaceSkills(newRace);
 	g_EsoBuildEnableUpdates = true;
 	
-	UpdateEsoComputedStatsList();
+	UpdateEsoComputedStatsList(true);
 }
 
 
@@ -4174,7 +4181,7 @@ function OnEsoClassChange(e)
 	EnableEsoClassSkills(newClass);
 	g_EsoBuildEnableUpdates = true;
 		
-	UpdateEsoComputedStatsList();
+	UpdateEsoComputedStatsList(true);
 }
 
 
@@ -4185,7 +4192,7 @@ function OnEsoVampireChange(e)
 		$("#esotbWerewolfStage").val("0");
 	}
 	
-	UpdateEsoComputedStatsList();
+	UpdateEsoComputedStatsList(true);
 }
 
 
@@ -4196,13 +4203,13 @@ function OnEsoWerewolfChange(e)
 		$("#esotbVampireStage").val("0");
 	}
 	
-	UpdateEsoComputedStatsList();
+	UpdateEsoComputedStatsList(true);
 }
 
 
 function OnEsoMundusChange(e)
 {
-	UpdateEsoComputedStatsList();
+	UpdateEsoComputedStatsList(true);
 }
 
 
@@ -4242,7 +4249,7 @@ function UnequipEsoItemSlot(slotId, update)
 	
 	UnequipEsoEnchantSlot(slotId, false);
 	
-	if (update == null || update === true) UpdateEsoComputedStatsList();
+	if (update == null || update === true) UpdateEsoComputedStatsList(true);
 	return true;
 }
 
@@ -4261,7 +4268,7 @@ function UnequipEsoEnchantSlot(slotId, update)
 
 	g_EsoBuildEnchantData[slotId] = {};
 	
-	if (update == null || update === true) UpdateEsoComputedStatsList();
+	if (update == null || update === true) UpdateEsoComputedStatsList(true);
 	return true;
 }
 
@@ -4355,7 +4362,7 @@ function OnEsoItemDataReceive(data, status, xhr, element, origItemData)
 	if (data.minedItem != null && data.minedItem[0] != null)
 	{
 		g_EsoBuildItemData[slotId] = data.minedItem[0];
-		UpdateEsoComputedStatsList();
+		UpdateEsoComputedStatsList(true);
 		
 		GetEsoSetMaxData(g_EsoBuildItemData[slotId]);
 	}
@@ -4905,7 +4912,7 @@ function OnEsoItemDisableClick(e)
 		itemData.enabled = !parent.hasClass("esotbItemDisabled");
 	}
 
-	UpdateEsoComputedStatsList();
+	UpdateEsoComputedStatsList(true);
 }
 
 
@@ -4966,7 +4973,7 @@ function OnEsoSelectItemEnchant(itemData, element)
 		iconElement.attr("enchantinttype", "");
 		g_EsoBuildEnchantData[slotId] = {};
 		
-		UpdateEsoComputedStatsList();
+		UpdateEsoComputedStatsList(true);
 		return;
 	}
 		
@@ -5014,7 +5021,7 @@ function OnEsoEnchantDataReceive(data, status, xhr, element, origItemData)
 		iconElement.attr("enchantintlevel", data.minedItem[0].internalLevel);
 		iconElement.attr("enchantinttype", data.minedItem[0].internalSubtype);
 		
-		UpdateEsoComputedStatsList();
+		UpdateEsoComputedStatsList(true);
 	}
 	
 }
@@ -5029,7 +5036,7 @@ function OnEsoWeaponBarSelect1()
 {
 	SetEsoBuildActiveWeaponBar(1);
 	SetEsoBuildActiveSkillBar(1);
-	UpdateEsoComputedStatsList();
+	UpdateEsoComputedStatsList(true);
 }
 
 
@@ -5037,7 +5044,7 @@ function OnEsoWeaponBarSelect2()
 {
 	SetEsoBuildActiveWeaponBar(2);
 	SetEsoBuildActiveSkillBar(2);
-	UpdateEsoComputedStatsList();
+	UpdateEsoComputedStatsList(true);
 }
 
 
@@ -5709,7 +5716,7 @@ function OnEsoBuildToggleSet(e)
 	var setId = $(this).parent().attr("setid");
 	if (setId == null || setId == "") return;
 	
-	UpdateEsoComputedStatsList();
+	UpdateEsoComputedStatsList(true);
 	
 	e.stopPropagation();
 	return true;
@@ -5726,7 +5733,7 @@ function OnEsoBuildToggleSetClick(e)
 	else
 		$(this).removeClass("esotbToggledSetSelect");
 	
-	UpdateEsoComputedStatsList();
+	UpdateEsoComputedStatsList(true);
 	
 	return false;
 }
@@ -5754,7 +5761,7 @@ function OnEsoBuildToggleSkill(e)
 	var skillId = $(this).parent().attr("skillId");
 	if (skillId == null || skillId == "") return;
 	
-	UpdateEsoComputedStatsList();
+	UpdateEsoComputedStatsList(true);
 	
 	e.stopPropagation();
 	return true;
@@ -5771,7 +5778,7 @@ function OnEsoBuildToggleSkillClick(e)
 	else
 		$(this).removeClass("esotbToggledSkillSelect");
 	
-	UpdateEsoComputedStatsList();
+	UpdateEsoComputedStatsList(true);
 	
 	return false;
 }
@@ -6023,19 +6030,19 @@ function SetEsoBuildActiveSkillBar(skillBarIndex)
 function OnEsoBuildSkillBarSwap(e, skillBarIndex)
 {
 	SetEsoBuildActiveWeaponBar(skillBarIndex);	
-	UpdateEsoComputedStatsList();
+	UpdateEsoComputedStatsList(true);
 }
 
 
 function OnEsoBuildSkillUpdate(e)
 {
-	UpdateEsoComputedStatsList();
+	UpdateEsoComputedStatsList(true);
 }
 
 
 function OnEsoBuildSkillBarUpdate(e)
 {
-	UpdateEsoComputedStatsList();
+	UpdateEsoComputedStatsList(true);
 }
 
 
@@ -6298,7 +6305,7 @@ function OnEsoBuildBuffClick(e)
 	}
 	
 	UpdateEsoBuffItem($(this));
-	UpdateEsoComputedStatsList();
+	UpdateEsoComputedStatsList(true);
 	
 	return false;
 }
@@ -6316,7 +6323,7 @@ function OnEsoBuildBuffCheckClick(e)
 	}
 	
 	UpdateEsoBuffItem(parent);
-	UpdateEsoComputedStatsList();
+	UpdateEsoComputedStatsList(true);
 
 	e.stopPropagation();
 	return true;
@@ -7190,7 +7197,7 @@ function esotbOnDocReady()
 	    if (e.keyCode == 27) OnEsoBuildEscapeKey(e);
 	});
 	
-	//UpdateEsoComputedStatsList();
+	//UpdateEsoComputedStatsList(true);
 }
 
 
