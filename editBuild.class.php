@@ -3095,6 +3095,14 @@ class EsoBuildDataEditor
 	}
 	
 	
+	public function GetStealthCheckState()
+	{
+		$stealth = $this->getCharStatField("Stealth", "0");
+		if ($stealth > 0) return "checked";
+		return "";
+	}
+	
+	
 	public function CreateOutputHtml()
 	{
 		$replacePairs = array(
@@ -3197,6 +3205,7 @@ class EsoBuildDataEditor
 				'{createCopyButtonDisabled}' => $this->GetCreateCopyButtonDisabled(),
 				'{saveNote}' => $this->GetSaveNote(),
 				'{trail}' => $this->GetBreadcrumbTrailHtml(),
+				'{stealth}' => $this->GetStealthCheckState(),
 		);
 		
 		$output = strtr($this->htmlTemplate, $replacePairs);

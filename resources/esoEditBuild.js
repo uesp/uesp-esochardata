@@ -1347,6 +1347,20 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		//match: /WITH AN ASSASSINATION ABILITY SLOTTED[.\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
 	},
 	{
+		statRequireId: "Stealthed",
+		statRequireValue: 1,
+		statId: "SpellDamage",
+		display: "%",
+		match: /Increases Weapon and Spell Damage while invisible or stealthed by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		statRequireId: "Stealthed",
+		statRequireValue: 1,
+		statId: "WeaponDamage",
+		display: "%",
+		match: /Increases Weapon and Spell Damage while invisible or stealthed by ([0-9]+\.?[0-9]*)%/i
+	},	 
+	{
 		factorSkillLine: "Shadow",
 		statId: "Health",
 		display: "%",
@@ -1541,33 +1555,6 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		enabled: false,
 		display: "%",
 		match: /WHILE USING DRACONIC POWER ABILITIES[\s]*Increases healing received by ([0-9]+\.?[0-9]*)% while a Draconic Power ability is active/i
-	},
-	{
-		id: "Master Assassin",
-		baseSkillId: 36616,
-		statId: "WeaponDamage",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		match: /Increases Weapon and Spell Damage while invisible or stealthed by ([0-9]+\.?[0-9]*)%/i
-	},
-	{
-		id: "Master Assassin",
-		baseSkillId: 36616,
-		statId: "SpellDamage",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		match: /Increases Weapon and Spell Damage while invisible or stealthed by ([0-9]+\.?[0-9]*)%/i
-	},
-	{
-		id: "Master Assassin",
-		baseSkillId: 36616,
-		statId: "OtherEffects",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		match: /while invisible or stealthed[.\s\S]*?The stun from the Crouch ability stuns for ([0-9]+\.?[0-9]*)% longer/i
 	},
 	{
 		id: "Expert Summoner",
@@ -2382,6 +2369,9 @@ function GetEsoInputValues(mergeComputedStats)
 	if (isNaN(inputValues.Attribute.Magicka)) inputValues.Attribute.Magicka = 0;
 	if (isNaN(inputValues.Attribute.Stamina)) inputValues.Attribute.Stamina = 0;
 	inputValues.Attribute.TotalPoints = inputValues.Attribute.Health + inputValues.Attribute.Magicka + inputValues.Attribute.Stamina;
+	
+	inputValues.Stealthed = 0;
+	if ($("#esotbStealth").prop("checked")) inputValues.Stealthed = 1;		
 		
 	GetEsoInputSpecialValues(inputValues);
 	
@@ -2849,7 +2839,7 @@ function ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData,
 			if (rawInputDesc == null) rawInputDesc = rawDesc;
 		}
 		
-		AddEsoItemRawOutput(abilityData, "PassiveEffect", rawInputDesc);
+		AddEsoItemRawOutputString(abilityData, "PassiveEffect", rawInputDesc);
 		
 		if (isPassive)
 			AddEsoInputStatSource("OtherEffects", { other: true, passive: abilityData, value: rawInputDesc, rawInputMatch: matchData.rawInputMatch });
@@ -4203,6 +4193,12 @@ function OnEsoWerewolfChange(e)
 		$("#esotbVampireStage").val("0");
 	}
 	
+	UpdateEsoComputedStatsList(true);
+}
+
+
+function OnEsoClickStealth(e)
+{
 	UpdateEsoComputedStatsList(true);
 }
 
@@ -6995,6 +6991,7 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 	saveData.Stats['Werewolf'] = "" + (inputValues.WerewolfStage > 0 ? 1 : 0);
 	saveData.Stats['WerewolfStage'] = "" + inputValues.WerewolfStage;
 	saveData.Stats['Alliance'] = saveData.Build['alliance'];
+	saveData.Stats['Stealth'] = inputValues.Stealthed;
 	
 	saveData.Stats['ActiveAbilityBar'] = "" + inputValues.ActiveBar;
 	saveData.Stats['ActiveWeaponBar'] = "" + inputValues.ActiveBar;
@@ -7156,6 +7153,7 @@ function esotbOnDocReady()
 	$("#esotbCPTotalPoints").change(OnEsoCPTotalPointsChange);
 	$(".esotbStatComputeButton").click(OnEsoToggleStatComputeItems);
 	$(".esotbStatWarningButton").click(OnEsoClickStatWarningButton);
+	$("#esotbStealth").click(OnEsoClickStealth);	
 	
 	$(".esotbInputValue").on('input', function(e) { OnEsoInputChange.call(this, e); });
 	
