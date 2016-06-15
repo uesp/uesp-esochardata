@@ -1860,7 +1860,15 @@ class EsoBuildDataViewer
 		$output .= "<br />";
 		$output .= $this->getCharBasicStatHtml('Spell Damage', 'SpellPower');
 		$output .= $this->getCharBasicStatHtml('Spell Critical', 'SpellCritical', $this->getCharCriticalFactor(), '%', 10.0);
-		$output .= $this->getCharBasicStatHtml('Weapon Damage', 'Power'); //WeaponPower?
+		
+		$weaponPower = $this->getCharStatField("WeaponPower");
+		$power = $this->getCharStatField("Power");
+		
+		if ($power == 0)
+			$output .= $this->getCharBasicStatHtml('Weapon Damage', 'WeaponPower');
+		else
+			$output .= $this->getCharBasicStatHtml('Weapon Damage', 'Power');
+		
 		$output .= $this->getCharBasicStatHtml('Weapon Critical', 'CriticalStrike', $this->getCharCriticalFactor(), '%', 10.0);
 		$output .= "<br />";
 		$output .= $this->getCharBasicStatHtml('Spell Resistance', 'SpellResist');
