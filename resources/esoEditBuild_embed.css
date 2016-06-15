@@ -95,6 +95,7 @@
 	display: inline-block;
 	padding: 7px;
 	width: calc(100% - 330px);
+	min-width: 750px;
 }
 
 #esotbStatList {
