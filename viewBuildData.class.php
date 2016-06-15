@@ -1979,7 +1979,7 @@ class EsoBuildDataViewer
 		}
 		
 		$output  = "<div class='ecdActionIcon ecdTooltipTrigger'>";
-		$output .= "<img src=\"$iconUrl\" class='ecdActionIconImage' />";
+		$output .= "<img alt='' src=\"$iconUrl\" class='ecdActionIconImage' />";
 		
 		if ($name != '')
 		{

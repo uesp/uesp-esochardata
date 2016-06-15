@@ -46,7 +46,7 @@ Note that this character builder is for test purposes and is currently undergoin
 			<div class="esotbStatLabel">Vampire Stage</div> <select id="esotbVampireStage" name="esotbVampireStage" statid="VampireStage">{vampireList}</select>
 			<div class="esotbStatLabel">Werewolf Stage</div> <select id="esotbWerewolfStage" name="esotbWerewolfStage" statid="Werewolf">{werewolfList}</select>
 			<br/> 
-			<div class="esotbStatLabel">Stealth</div> <input type="checkbox" id="esotbStealth" name="esotbStealth" statid="Stealth" {stealth}>
+			<div class="esotbStatLabel">Stealthed</div> <input type="checkbox" id="esotbStealth" name="esotbStealth" statid="Stealth" {stealth}>
 			<br/> 
 			<div class="esotbStatLabel">Alliance</div> <select id="esotbAlliance" name="esotbAlliance" statid="Alliance">{allianceList}</select>
 			<p>
@@ -79,7 +79,7 @@ Note that this character builder is for test purposes and is currently undergoin
 				<div class="esotbItemSlotLabel"></div>
 				<div class="esotbItemSlotLabel">Head</div>
 				<div class="esotbItem" id="esotbItemHead" slotid="Head" equiptype="1" itemtype="2">
-					<img class="esotbItemIcon eso_item_link" {itemDataHead}>
+					<img class="esotbItemIcon eso_item_link" {itemDataHead} alt="">
 					<div class="esotbItemLabel">{itemNameHead}</div>
 					<div class="esotbItemDisableButton esotbItemButton">-</div>
 					<div class="esotbItemDetailsButton esotbItemButton">...</div>
@@ -87,7 +87,7 @@ Note that this character builder is for test purposes and is currently undergoin
 				</div><br/>
 				<div class="esotbItemSlotLabel">Shoulders</div>
 				<div class="esotbItem " id="esotbItemShoulders" slotid="Shoulders" equiptype="4" itemtype="2">
-					<img class="esotbItemIcon eso_item_link" {itemDataShoulders}>
+					<img class="esotbItemIcon eso_item_link" {itemDataShoulders} alt="">
 					<div class="esotbItemLabel">{itemNameShoulders}</div>
 					<div class="esotbItemDisableButton esotbItemButton">-</div>
 					<div class="esotbItemDetailsButton esotbItemButton">...</div>
@@ -95,7 +95,7 @@ Note that this character builder is for test purposes and is currently undergoin
 				</div>
 				<div class="esotbItemSlotLabel">Chest</div>
 				<div class="esotbItem" id="esotbItemChest" slotid="Chest" equiptype="3" itemtype="2">
-					<img class="esotbItemIcon eso_item_link" {itemDataChest}>
+					<img class="esotbItemIcon eso_item_link" {itemDataChest} alt="">
 					<div class="esotbItemLabel">{itemNameChest}</div>
 					<div class="esotbItemDisableButton esotbItemButton">-</div>
 					<div class="esotbItemDetailsButton esotbItemButton">...</div>
@@ -103,7 +103,7 @@ Note that this character builder is for test purposes and is currently undergoin
 				</div><br/>
 				<div class="esotbItemSlotLabel">Hands</div>
 				<div class="esotbItem " id="esotbItemHands" slotid="Hands" equiptype="13" itemtype="2">
-					<img class="esotbItemIcon eso_item_link" {itemDataHands}>
+					<img class="esotbItemIcon eso_item_link" {itemDataHands} alt="">
 					<div class="esotbItemLabel">{itemNameHands}</div>
 					<div class="esotbItemDisableButton esotbItemButton">-</div>
 					<div class="esotbItemDetailsButton esotbItemButton">...</div>
@@ -111,7 +111,7 @@ Note that this character builder is for test purposes and is currently undergoin
 				</div>
 				<div class="esotbItemSlotLabel">Waist</div>
 				<div class="esotbItem " id="esotbItemWaist" slotid="Waist" equiptype="8" itemtype="2">
-					<img class="esotbItemIcon eso_item_link" {itemDataWaist}>
+					<img class="esotbItemIcon eso_item_link" {itemDataWaist} alt="">
 					<div class="esotbItemLabel">{itemNameWaist}</div>
 					<div class="esotbItemDisableButton esotbItemButton">-</div>
 					<div class="esotbItemDetailsButton esotbItemButton">...</div>
@@ -119,7 +119,7 @@ Note that this character builder is for test purposes and is currently undergoin
 				</div><br/>
 				<div class="esotbItemSlotLabel">Legs</div>
 				<div class="esotbItem " id="esotbItemLegs" slotid="Legs" equiptype="9" itemtype="2">
-					<img class="esotbItemIcon eso_item_link" {itemDataLegs}>
+					<img class="esotbItemIcon eso_item_link" {itemDataLegs} alt="">
 					<div class="esotbItemLabel">{itemNameLegs}</div>
 					<div class="esotbItemDisableButton esotbItemButton">-</div>
 					<div class="esotbItemDetailsButton esotbItemButton">...</div>
@@ -127,7 +127,7 @@ Note that this character builder is for test purposes and is currently undergoin
 				</div>
 				<div class="esotbItemSlotLabel">Feet</div>
 				<div class="esotbItem " id="esotbItemFeet" slotid="Feet" equiptype="10" itemtype="2">
-					<img class="esotbItemIcon eso_item_link" {itemDataFeet}>
+					<img class="esotbItemIcon eso_item_link" {itemDataFeet} alt="">
 					<div class="esotbItemLabel">{itemNameFeet}</div>
 					<div class="esotbItemDisableButton esotbItemButton">-</div>
 					<div class="esotbItemDetailsButton esotbItemButton">...</div>
@@ -136,7 +136,7 @@ Note that this character builder is for test purposes and is currently undergoin
 				<hr>
 				<div class="esotbItemSlotLabel">Neck</div>
 				<div class="esotbItem " id="esotbItemNeck" slotid="Neck" equiptype="2" itemtype="2">
-					<img class="esotbItemIcon eso_item_link" {itemDataNeck}>
+					<img class="esotbItemIcon eso_item_link" {itemDataNeck} alt="">
 					<div class="esotbItemLabel">{itemNameNeck}</div>
 					<div class="esotbItemDisableButton esotbItemButton">-</div>
 					<div class="esotbItemDetailsButton esotbItemButton">...</div>
@@ -144,14 +144,14 @@ Note that this character builder is for test purposes and is currently undergoin
 				</div>
 				<div class="esotbItemSlotLabel">Rings</div>
 				<div class="esotbItem " id="esotbItemRing1" slotid="Ring1" equiptype="12" itemtype="2">
-					<img class="esotbItemIcon eso_item_link" {itemDataRing1}>
+					<img class="esotbItemIcon eso_item_link" {itemDataRing1} alt="">
 					<div class="esotbItemLabel">{itemNameRing1}</div>
 					<div class="esotbItemDisableButton esotbItemButton">-</div>
 					<div class="esotbItemDetailsButton esotbItemButton">...</div>
 					<div class="esotbItemEnchantButton esotbItemButton">*</div>
 				</div>
 				<div class="esotbItem " id="esotbItemRing2" slotid="Ring2" equiptype="12" itemtype="2">
-					<img class="esotbItemIcon eso_item_link" {itemDataRing2}>
+					<img class="esotbItemIcon eso_item_link" {itemDataRing2} alt="">
 					<div class="esotbItemLabel">{itemNameRing2}</div>
 					<div class="esotbItemDisableButton esotbItemButton">-</div>
 					<div class="esotbItemDetailsButton esotbItemButton">...</div>
@@ -161,21 +161,21 @@ Note that this character builder is for test purposes and is currently undergoin
 				<div id="esotbWeaponBar1" class="{weaponBarClass1}">
 					<div class="esotbItemSlotLabel">Weapon 1</div>
 					<div class="esotbItem" id="esotbItemMainHand1" slotid="MainHand1" equiptype="5,6" itemtype="1">
-						<img class="esotbItemIcon eso_item_link" {itemDataMainHand1}>
+						<img class="esotbItemIcon eso_item_link" {itemDataMainHand1} alt="">
 						<div class="esotbItemLabel">{itemNameMainHand1}</div>
 						<div class="esotbItemDisableButton esotbItemButton">-</div>
 						<div class="esotbItemDetailsButton esotbItemButton">...</div>
 						<div class="esotbItemEnchantButton esotbItemButton">*</div>
 					</div>
 					<div class="esotbItem" id="esotbItemOffHand1" slotid="OffHand1" equiptype="5,7" itemtype="1">
-						<img class="esotbItemIcon eso_item_link" {itemDataOffHand1}>
+						<img class="esotbItemIcon eso_item_link" {itemDataOffHand1} alt="">
 						<div class="esotbItemLabel">{itemNameOffHand1}</div>
 						<div class="esotbItemDisableButton esotbItemButton">-</div>
 						<div class="esotbItemDetailsButton esotbItemButton">...</div>
 						<div class="esotbItemEnchantButton esotbItemButton">*</div>
 					</div>
 					<div class="esotbItem" id="esotbItemPoison1" slotid="Poison1" equiptype="15" itemtype="30">
-						<img class="esotbItemIcon eso_item_link" {itemDataPoison1}>
+						<img class="esotbItemIcon eso_item_link" {itemDataPoison1} alt="">
 						<div class="esotbItemLabel">{itemNamePoison1}</div>
 						<div class="esotbItemDisableButton esotbItemButton">-</div>
 						<div class="esotbItemDetailsButton esotbItemButton">...</div>
@@ -186,21 +186,21 @@ Note that this character builder is for test purposes and is currently undergoin
 				<div id="esotbWeaponBar2" class="{weaponBarClass2}">
 					<div class="esotbItemSlotLabel">Weapon 2</div>
 					<div class="esotbItem " id="esotbItemMainHand2" slotid="MainHand2" equiptype="5,6" itemtype="1">
-						<img class="esotbItemIcon eso_item_link" {itemDataMainHand2}>
+						<img class="esotbItemIcon eso_item_link" {itemDataMainHand2} alt="">
 						<div class="esotbItemLabel">{itemNameMainHand2}</div>
 						<div class="esotbItemDisableButton esotbItemButton">-</div>
 						<div class="esotbItemDetailsButton esotbItemButton">...</div>
 						<div class="esotbItemEnchantButton esotbItemButton">*</div>
 					</div>
 					<div class="esotbItem " id="esotbItemOffHand2" slotid="OffHand2" equiptype="5,7" itemtype="1">
-						<img class="esotbItemIcon eso_item_link" {itemDataOffHand2}>
+						<img class="esotbItemIcon eso_item_link" {itemDataOffHand2} alt="">
 						<div class="esotbItemLabel">{itemNameOffHand2}</div>
 						<div class="esotbItemDisableButton esotbItemButton">-</div>
 						<div class="esotbItemDetailsButton esotbItemButton">...</div>
 						<div class="esotbItemEnchantButton esotbItemButton">*</div>
 					</div>
 					<div class="esotbItem " id="esotbItemPoison2" slotid="Poison2" equiptype="15" itemtype="30">
-						<img class="esotbItemIcon eso_item_link" {itemDataPoison2}>
+						<img class="esotbItemIcon eso_item_link" {itemDataPoison2} alt="">
 						<div class="esotbItemLabel">{itemNamePoison2}</div>
 						<div class="esotbItemDisableButton esotbItemButton">-</div>
 						<div class="esotbItemDetailsButton esotbItemButton">...</div>
@@ -209,7 +209,7 @@ Note that this character builder is for test purposes and is currently undergoin
 				<hr>				
 				<div class="esotbItemSlotLabel" style="display: inline-block">Food/Drink</div>
 				<div class="esotbItem " id="esotbItemFood" slotid="Food" itemtype="4,12">
-					<img class="esotbItemIcon eso_item_link" {itemDataFood}>
+					<img class="esotbItemIcon eso_item_link" {itemDataFood} alt="">
 					<div class="esotbItemLabel">{itemNameFood}</div>
 					<div class="esotbItemDisableButton esotbItemButton">-</div>
 					<div class="esotbItemDetailsButton esotbItemButton">...</div>

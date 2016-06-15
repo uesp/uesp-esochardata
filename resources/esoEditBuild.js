@@ -6038,7 +6038,7 @@ function OnEsoBuildSkillUpdate(e)
 
 function OnEsoBuildSkillBarUpdate(e)
 {
-	UpdateEsoComputedStatsList(true);
+	UpdateEsoComputedStatsList();
 }
 
 
