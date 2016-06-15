@@ -2800,7 +2800,7 @@ class EsoBuildDataEditor
 	{
 		$this->initialToggleSkillData = array();
 		
-		foreach ($this->buildDataViewer->characterData['stats'] as $name => $value)
+		foreach ($this->buildDataViewer->characterData['stats'] as $name => $record)
 		{
 			$result = preg_match("/^ToggleSkill:(.*)$/", $name);
 			if (!$result) continue;
@@ -2808,6 +2808,7 @@ class EsoBuildDataEditor
 			$names = explode(":", $name);
 			$skillName = $names[1];
 			$count = $names[2];
+			$value = $record['value'];
 			
 			if ($this->initialToggleSkillData[$skillName] == null) $this->initialToggleSkillData[$skillName] = array();
 			
@@ -2823,13 +2824,14 @@ class EsoBuildDataEditor
 	{
 		$this->initialSetToggleData = array();
 		
-		foreach ($this->buildDataViewer->characterData['stats'] as $name => $value)
+		foreach ($this->buildDataViewer->characterData['stats'] as $name => $record)
 		{
 			$result = preg_match("/^ToogleSet:(.*)$/", $name);
 			if (!$result) continue;
 				
 			$names = explode(":", $name);
 			$setName = $names[1];
+			$value = $record['value'];
 				
 			if ($this->initialToggleSetData[$setName] == null) $this->initialToggleSetData[$setName] = array();
 			$this->initialToggleSetData[$setName]['enabled'] = $value;

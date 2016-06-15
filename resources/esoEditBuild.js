@@ -769,7 +769,7 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 30235,
 		buffId : "Major Ward",
 		toggle: true,
-		enable: false,
+		enabled: false,
 		match: /While in this form you also gain Major Resolve and Major Ward/i,
 	},
 	{
@@ -1516,7 +1516,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		category: "Item",
 		statId: "WeaponDamage",
 		toggle: true,
-		enable: false,
+		enabled: false,
 		maxTimes: 10,
 		match: /WHEN 5 OR MORE PIECES OF HEAVY ARMOR ARE EQUIPPED[\s]*Gain ([0-9]+) Weapon and Spell Damage for [0-9]+ seconds when you take damage, stacking up to 10 times/i
 	},
@@ -1528,7 +1528,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		category: "Item",
 		statId: "SpellDamage",
 		toggle: true,
-		enable: false,
+		enabled: false,
 		maxTimes: 10,
 		match: /WHEN 5 OR MORE PIECES OF HEAVY ARMOR ARE EQUIPPED[\s]*Gain ([0-9]+) Weapon and Spell Damage for [0-9]+ seconds when you take damage, stacking up to 10 times/i
 	},
@@ -1538,7 +1538,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		baseSkillId: 29457,
 		statId: "HealingReceived",
 		toggle: true,
-		enable: false,
+		enabled: false,
 		display: "%",
 		match: /WHILE USING DRACONIC POWER ABILITIES[\s]*Increases healing received by ([0-9]+\.?[0-9]*)% while a Draconic Power ability is active/i
 	},
@@ -1547,7 +1547,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		baseSkillId: 36616,
 		statId: "WeaponDamage",
 		toggle: true,
-		enable: false,
+		enabled: false,
 		display: "%",
 		match: /Increases Weapon and Spell Damage while invisible or stealthed by ([0-9]+\.?[0-9]*)%/i
 	},
@@ -1556,7 +1556,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		baseSkillId: 36616,
 		statId: "SpellDamage",
 		toggle: true,
-		enable: false,
+		enabled: false,
 		display: "%",
 		match: /Increases Weapon and Spell Damage while invisible or stealthed by ([0-9]+\.?[0-9]*)%/i
 	},
@@ -1565,7 +1565,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		baseSkillId: 36616,
 		statId: "OtherEffects",
 		toggle: true,
-		enable: false,
+		enabled: false,
 		display: "%",
 		match: /while invisible or stealthed[.\s\S]*?The stun from the Crouch ability stuns for ([0-9]+\.?[0-9]*)% longer/i
 	},
@@ -1574,7 +1574,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		baseSkillId: 31412,
 		statId: "Health",
 		toggle: true,
-		enable: false,
+		enabled: false,
 		display: "%",
 		match: /Increases your Max Health by ([0-9]+\.?[0-9]*)% if you have a Daedric Summoning pet active/i
 	},
@@ -5693,6 +5693,11 @@ function OnEsoBuildToggleSetClick(e)
 	var checkbox = $(this).find(".esotbToggleSetCheck");
 	checkbox.prop("checked", !checkbox.prop("checked"));
 	
+	if (checkbox.prop("checked"))
+		$(this).addClass("esotbToggledSetSelect");
+	else
+		$(this).removeClass("esotbToggledSetSelect");
+	
 	UpdateEsoComputedStatsList();
 	
 	return false;
@@ -5701,8 +5706,11 @@ function OnEsoBuildToggleSetClick(e)
 
 function CreateEsoBuildToggleSetHtml(setData)
 {
-	var output = "<div class='esotbToggledSetItem' setid=\"" + setData.id + "\">";
 	var checked = setData.enabled ? "checked" : "";
+	var extraClass = "";
+	if (checked) extraClass = 'esotbToggledSetSelect';
+	
+	var output = "<div class='esotbToggledSetItem " + extraClass + "' setid=\"" + setData.id + "\">";
 	
 	output += "<input type='checkbox' class='esotbToggleSetCheck'  " + checked + " >";
 	output += "<div class='esotbToggleSetTitle'>" + setData.id + ":</div> ";
@@ -5729,6 +5737,11 @@ function OnEsoBuildToggleSkillClick(e)
 {
 	var checkbox = $(this).find(".esotbToggleSkillCheck");
 	checkbox.prop("checked", !checkbox.prop("checked"));
+	
+	if (checkbox.prop("checked"))
+		$(this).addClass("esotbToggledSkillSelect");
+	else
+		$(this).removeClass("esotbToggledSkillSelect");
 	
 	UpdateEsoComputedStatsList();
 	
@@ -5774,8 +5787,11 @@ function UpdateEsoBuildToggleSkills()
 
 function CreateEsoBuildToggleSkillHtml(skillData)
 {
-	var output = "<div class='esotbToggledSkillItem' skillid=\"" + skillData.id + "\">";
 	var checked = skillData.enabled ? "checked" : "";
+	var extraClass = "";
+	if (checked) extraClass = 'esotbToggledSkillSelect';
+	
+	var output = "<div class='esotbToggledSkillItem " + extraClass + "' skillid=\"" + skillData.id + "\">";
 	
 	var displayName = skillData.id;
 	var activeData = g_EsoSkillActiveData[skillData.baseSkillId];
@@ -7080,16 +7096,17 @@ function esotbOnDocReady()
 	UpdateEsoSetMaxData();
 	
 	UpdateEsoInitialBuffData();
+	
+	CreateEsoBuildToggledSetData();
+	CreateEsoBuildToggledSkillData();
 	UpdateEsoInitialToggleSetData();
 	UpdateEsoInitialToggleSkillData();
 		
 	CreateEsoBuildItemDetailsPopup();
 	CreateEsoBuildFormulaPopup();
 	CreateEsoBuildClickWall();
-	
 	CreateEsoComputedStats();
-	CreateEsoBuildToggledSetData();
-	CreateEsoBuildToggledSkillData();
+	
 	CreateEsoBuildBuffElements();
 	AddEsoBuildSkillDetailsButtons();
 		
