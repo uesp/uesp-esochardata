@@ -46,6 +46,8 @@ Note that this character builder is for test purposes and is currently undergoin
 			<div class="esotbStatLabel">Vampire Stage</div> <select id="esotbVampireStage" name="esotbVampireStage" statid="VampireStage">{vampireList}</select>
 			<div class="esotbStatLabel">Werewolf Stage</div> <select id="esotbWerewolfStage" name="esotbWerewolfStage" statid="Werewolf">{werewolfList}</select>
 			<br/> 
+			<div class="esotbStatLabel">Stealth</div> <input type="checkbox" id="esotbStealth" name="esotbStealth" statid="Stealth" {stealth}>
+			<br/> 
 			<div class="esotbStatLabel">Alliance</div> <select id="esotbAlliance" name="esotbAlliance" statid="Alliance">{allianceList}</select>
 			<p>
 			<div id="esotbAttributes">
