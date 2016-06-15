@@ -324,7 +324,7 @@ Note that this character builder is for test purposes and is currently undergoin
 					your <em>"Total CPs"</em> value in the general tab which governs your character level.</li>
 				<li>The <em>"Raw Data"</em> tab shows all the contributors to each statistic.</li>
 				<li>The <em>"Computed Character Statistics"</em> list on the right shows all the computed stastic values obtained from all the enter 
-					input character data. A <div class='esotbStatWarningButton'>?</div> button means there may be issues calculating that particular stat (click to see details).
+					input character data. A red "?" button means there may be issues calculating that particular stat (click to see details).
 					You can click on the <em>"+"</em> button to the right to view details on the inputs and calculation for each tab. More information can be
 					seen by clicking on this list.</li>
 			</ul>
