@@ -2430,7 +2430,7 @@ class EsoBuildDataEditor
 		$currentMundus = $this->GetCharMundus($mundusIndex);
 		
 		$selected = ($currentMundus == "") ? "selected" : "";
-		$output .= "<option value='none' $selected>(none)</option>";
+		$output .= "<option value='' $selected>(none)</option>";
 		
 		foreach ($this->MUNDUS_TYPES as $name => $type)
 		{
