@@ -1019,7 +1019,6 @@ class EsoBuildDataViewer
 	
 	public function isEditted()
 	{
-		return true;
 		$time = strtotime($this->getCharField('editTimestamp'));
 		return ($time > 0);
 	}
@@ -1861,7 +1860,7 @@ class EsoBuildDataViewer
 		$output .= "<br />";
 		$output .= $this->getCharBasicStatHtml('Spell Damage', 'SpellPower');
 		$output .= $this->getCharBasicStatHtml('Spell Critical', 'SpellCritical', $this->getCharCriticalFactor(), '%', 10.0);
-		$output .= $this->getCharBasicStatHtml('Weapon Damage', 'WeaponPower');
+		$output .= $this->getCharBasicStatHtml('Weapon Damage', 'Power'); //WeaponPower?
 		$output .= $this->getCharBasicStatHtml('Weapon Critical', 'CriticalStrike', $this->getCharCriticalFactor(), '%', 10.0);
 		$output .= "<br />";
 		$output .= $this->getCharBasicStatHtml('Spell Resistance', 'SpellResist');

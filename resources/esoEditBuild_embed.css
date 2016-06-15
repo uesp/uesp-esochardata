@@ -727,8 +727,20 @@ button.esotbWeaponSelect {
 
 .esotbToggledSetItem,
 .esotbToggledSkillItem {
+	margin: 4px;
 	margin-left: 20px;
     padding: 5px;
+    border-radius: 15px;
+}
+
+.esotbToggledSkillSelect {
+	background-color: #f5deb3;
+	border-radius: 15px;
+}
+
+.esotbToggledSetSelect {
+	background-color: #f5deb3;
+	border-radius: 15px;
 }
 
 .esotbToggledSetItem:hover,
