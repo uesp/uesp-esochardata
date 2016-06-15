@@ -1230,7 +1230,7 @@ class EsoBuildDataEditor
 			
 			"SpellCritDamage" => array(
 					"title" => "Spell Critical Damage",
-					"display" => "%",
+					"display" => "%2",
 					"compute" => array(
 							"CP.SpellCritDamage",
 							"Skill.CritDamage",
@@ -1250,7 +1250,7 @@ class EsoBuildDataEditor
 			
 			"WeaponCritDamage" => array(
 					"title" => "Weapon Critical Damage",
-					"display" => "%",
+					"display" => "%2",
 					"compute" => array(
 							"CP.WeaponCritDamage",
 							"Skill.CritDamage",

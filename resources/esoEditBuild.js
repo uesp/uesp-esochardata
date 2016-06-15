@@ -2129,10 +2129,18 @@ ESO_ENCHANT_ARMOR_MATCHES = [
 
 ESO_ENCHANT_WEAPON_MATCHES = [
 	{
+		statId: "SpellDamage",
+		match: /Adds ([0-9]+) Spell Damage/i,
+	},
+	{
+		statId: "WeaponDamage",
+		match: /Adds ([0-9]+) Weapon Damage/i,
+	},
+	/*{			// Unused?
 		modValue: 0.5,
 		statId: "WeaponDamage",
 		match: /grants ([0-9]+) additional Weapon Damage/i,
-	},
+	}, //*/
 	{
 		statId: "WeaponDamage",
 		match: /increases Weapon Damage by ([0-9]+)/i,
@@ -3190,12 +3198,12 @@ function GetEsoInputItemValues(inputValues, slotId)
 	}
 	else if (itemData.trait == 7) //Sharpened
 	{
-		inputValues.Item.SpellPenetration += traitValue/100;
-		inputValues.Item.PhysicalPenetration += traitValue/100;
-		AddEsoItemRawOutput(itemData, "Item.SpellPenetration", traitValue/100);
-		AddEsoItemRawOutput(itemData, "Item.PhysicalPenetration", traitValue/100);
-		AddEsoInputStatSource("Item.SpellPenetration", { item: itemData, value: traitValue/100, slotId:slotId });
-		AddEsoInputStatSource("Item.PhysicalPenetration", { item: itemData, value: traitValue/100, slotId:slotId });
+		inputValues.Item.SpellPenetration += traitValue;
+		inputValues.Item.PhysicalPenetration += traitValue;
+		AddEsoItemRawOutput(itemData, "Item.SpellPenetration", traitValue);
+		AddEsoItemRawOutput(itemData, "Item.PhysicalPenetration", traitValue);
+		AddEsoInputStatSource("Item.SpellPenetration", { item: itemData, value: traitValue, slotId:slotId });
+		AddEsoInputStatSource("Item.PhysicalPenetration", { item: itemData, value: traitValue, slotId:slotId });
 	}
 	else if (itemData.trait == 3) //Precise
 	{
@@ -3872,8 +3880,14 @@ function UpdateEsoComputedStat(statId, stat, inputValues, saveResult)
 		var display = stat.display;
 		var displayResult = result;
 		
-		if (display == "%") 
+		if (display == "%")
+		{
 			displayResult = "" + (Math.round(result*1000)/10) + "%";
+		}
+		else if (display == "%2")
+		{
+			displayResult = "" + Math.round(result*100) + "%";
+		}
 		else if (display == "resist")
 		{
 			displayResult = "" + result + " (" + ConvertEsoFlatResistToPercent(result, inputValues) + "%)";
