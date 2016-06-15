@@ -912,14 +912,14 @@ class EsoBuildDataViewer
 		else if ($this->viewMyBuilds && $canViewMyBuilds)
 		{
 			$output .= "<a href='$baseLink'>&laquo; View All Builds</a>";
-			$output .= " : Viewing My builds";
+			$output .= " : Viewing My Builds";
 			$output .= " : $search";
 			$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
 			$output .= "<a href='http://esobuilds.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
 		}
 		else
 		{
-			$output .= "Viewing All builds";
+			$output .= "Viewing All Builds";
 			if ($canViewMyBuilds) $output .= " : <a href='$myLink'>View My Builds</a>";
 			$output .= " : $search";
 			$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
