@@ -894,6 +894,14 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"CP.HAMagRestore" => array(
+					"display" => "%",
+			),
+				
+			"CP.HAStaRestore" => array(
+					"display" => "%",
+			),
+			
 			"Skill.HAMagRestoreRestStaff" => array(
 					"display" => "%",
 			),
@@ -1021,9 +1029,6 @@ class EsoBuildDataEditor
 			"Buff.HealingDone" => array(
 					"display" => "%",
 			),
-			
-			
-		
 			
 	);
 	
@@ -2066,7 +2071,7 @@ class EsoBuildDataEditor
 			),
 			
 			"HARestoreDestStaff" => array(
-					"title" => "Destruction HA Magicka Restore",
+					"title" => "Destruct HA Magicka Restore",
 					"round" => "floor",
 					"compute" => array(
 							"round(EffectiveLevel * 37.52)",
@@ -2080,7 +2085,7 @@ class EsoBuildDataEditor
 			),
 			
 			"HARestoreRestStaff" => array(
-					"title" => "Restoration HA Magicka Restore",
+					"title" => "Restore HA Magicka Restore",
 					"round" => "floor",
 					"compute" => array(
 							"round(EffectiveLevel * 37.52)",
