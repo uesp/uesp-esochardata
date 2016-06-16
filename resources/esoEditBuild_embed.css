@@ -768,8 +768,7 @@ button.esotbWeaponSelect {
 
 .esotbToggleSetDesc,
 .esotbToggleSkillDesc {
-	display: inline-block;
-	width: calc(100% - 200px);
+	display: inline;
 	vertical-align: middle;
 }
 
@@ -888,7 +887,8 @@ button.esotbWeaponSelect {
 	display: inline-block;
 }
 
-.esotbToggleSkillNumber {
+.esotbToggleSkillNumber,
+.esotbToggleSetNumber {
 	width: 50px;
 	margin-right: 10px;
 }

@@ -185,6 +185,7 @@ class EsoBuildDataEditor
 			"SprintSpeed",
 			"SneakCost",
 			"BreakFreeCost",
+			"BreakFreeDuration",
 			"HARestore",
 			"Constitution",
 			"DamageShield",
@@ -205,7 +206,6 @@ class EsoBuildDataEditor
 			"ColdDamageTaken",
 			"PoisonDamageTaken",
 			"DiseaseDamageTaken",
-			"LAHADamage",
 			"HADamage",
 			"LADamage",
 			"HAWeaponDamage",
@@ -221,12 +221,11 @@ class EsoBuildDataEditor
 			"PotionCooldown",
 			"AttackSpeed",
 			"TrapResist",
-			"PlayerDamageResist",
+			"PlayerDamageTaken",
 			"NegativeEffectDuration",
 			"BowRange",
 			"FireEffectDuration",
-			"BowAbilityCost",
-			"BowAbilityDamage",
+			"BowDamageDone",
 			"ResurrectSpeed",
 			"BossDamageResist",
 			"SneakRange",
@@ -986,6 +985,10 @@ class EsoBuildDataEditor
 			"Buff.WeaponCrit" => array(
 					"display" => "flatcrit",
 			),
+			
+			"Set.CritDamage" => array(
+					"display" => "%",
+			),
 		
 			
 	);
@@ -1238,6 +1241,10 @@ class EsoBuildDataEditor
 							"+",
 							"Mundus.CritDamage * Item.Divines",
 							"+",
+							"Set.CritDamage",
+							"+",
+							"Item.CritDamage",
+							"+",
 							"Buff.CritDamage",
 							"+",
 							"0.5",
@@ -1257,6 +1264,10 @@ class EsoBuildDataEditor
 							"Mundus.CritDamage",
 							"+",
 							"Mundus.CritDamage * Item.Divines",
+							"+",
+							"Set.CritDamage",
+							"+",
+							"Item.CritDamage",
 							"+",
 							"Buff.CritDamage",
 							"+",
@@ -2836,10 +2847,17 @@ class EsoBuildDataEditor
 				
 			$names = explode(":", $name);
 			$setName = $names[1];
+			$count = $names[2];
 			$value = $record['value'];
 				
 			if ($this->initialToggleSetData[$setName] == null) $this->initialToggleSetData[$setName] = array();
 			$this->initialToggleSetData[$setName]['enabled'] = $value;
+			
+
+			if ($count !== null)
+				$this->initialToggleSetData[$setName]['count'] = $value;
+			else
+				$this->initialToggleSetData[$setName]['enabled'] = $value;
 		}
 	}
 	
