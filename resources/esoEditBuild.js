@@ -418,6 +418,7 @@ g_EsoBuildBuffData =
 			value : 0.30,
 			display: "%",
 			statId : "DamageTaken",
+			factorValue: -1,
 			icon : "/esoui/art/icons/ability_templar_sun_shield.png",
 		},
 		"Minor Protection" : 
@@ -427,6 +428,7 @@ g_EsoBuildBuffData =
 			value : 0.08,
 			display: "%",
 			statId : "DamageTaken",
+			factorValue: -1,
 			icon : "/esoui/art/icons/ability_templar_radiant_ward.png",
 		},
 		"Major Defile" : 
@@ -585,11 +587,13 @@ ESO_ACTIVEEFFECT_MATCHES = [
 	{
 		statId: "BlockCost",
 		display: "%",
+		factorValue: -1,
 		match: /the cost of blocking is reduced by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		statId: "BreakFreeCost",
 		display: "%",
+		factorValue: -1,
 		match: /While slotted, the Stamina cost of breaking free from a disabling effect is reduced for each piece of Heavy Armor equipped.[\s]*Current Bonus: ([0-9]+\.?[0-9]*)%/i
 	},
 	{
@@ -812,6 +816,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		factorStatId: "ArmorLight",
 		statId: "MagickaCost",
 		display: "%",
+		factorValue: -1,
 		match: /Reduces the Magicka cost of spells by ([0-9]+\.?[0-9]*)% per piece of Light Armor/i,
 	},
 	{
@@ -852,18 +857,21 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		factorStatId: "ArmorMedium",
 		statId: "StaminaCost",
 		display: '%',
+		factorValue: -1,
 		match: /Reduces the Stamina cost of abilities by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
 	},
 	{
 		factorStatId: "ArmorMedium",
 		statId: "SneakCost",
 		display: '%',
+		factorValue: -1,
 		match: /Reduces the cost of sneaking by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
 	},
 	{
 		factorStatId: "ArmorMedium",
 		statId: "SneakRange",
 		display: '%',
+		factorValue: -1,
 		match: /Reduces the size of your detection area by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
 	},
 	{
@@ -883,6 +891,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		factorStatId: "ArmorMedium",
 		statId: "RollDodgeCost",
 		display: '%',
+		factorValue: -1,
 		match: /Reduces the cost of Roll Dodge by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
 	},
 	{
@@ -919,6 +928,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "SneakCost",
 		display: '%',
+		factorValue: -1,
 		match: /Reduces the Stamina cost of sneaking by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -994,6 +1004,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "MagickaCost",
 		display: "%",
+		factorValue: -1,
 		match: /Reduces the Magicka cost of spells by ([0-9]+\.?[0-9]*)%\./i,
 	},
 	{
@@ -1044,6 +1055,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		category: "Skill2",
 		statId: "SneakRange",
+		factorValue: -1,
 		match: /Reduces your detection radius in stealth by ([0-9]+\.?[0-9]*) meters/i,
 	},
 	{
@@ -1063,16 +1075,19 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "MagicDamageTaken",
 		display: "%",
+		factorValue: -1,
 		match: /Reduces incoming damage by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "PhysicalDamageTaken",
 		display: "%",
+		factorValue: -1,
 		match: /Reduces incoming damage by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "SprintCost",
 		display: "%",
+		factorValue: -1,
 		match: /Reduces Sprint cost by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -1085,6 +1100,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireValue: 1,
 		statId: "BlockCost",
 		display: "%",
+		factorValue: -1,
 		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Reduces the cost of blocking by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -1092,6 +1108,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireValue: 1,
 		statId: "BlockCost",
 		display: "%",
+		factorValue: -1,
 		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Reduces the cost of blocking by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -1120,6 +1137,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireValue: 1,
 		statId: "BashCost",
 		display: "%",
+		factorValue: -1,
 		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[.\s\S]*?Bashing deals [0-9]+\.?[0-9]*% additional damage and costs ([0-9]+\.?[0-9]*)% less Stamina/i,
 	},
 	{
@@ -1199,6 +1217,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		category: "SkillCost",
 		statId: "Two_Handed_Cost",
 		display: "%",
+		factorValue: -1,
 		match: /WITH TWO-HANDED WEAPON EQUIPPED[\s]*Reduces the cost of Two-Handed abilities by ([0-9]+\.?[0-9]*)%/i,
 	},	
 	{
@@ -1207,6 +1226,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		category: "SkillCost",
 		statId: "One_Hand_and_Shield_Cost",
 		display: "%",
+		factorValue: -1,
 		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Reduces the cost of One Hand and Shield abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -1215,6 +1235,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		category: "SkillCost",
 		statId: "Dual_Wield_Cost",
 		display: "%",
+		factorValue: -1,
 		match: /WHILE DUAL WIELDING[\s]*Reduces the cost of Dual Wield abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -1223,6 +1244,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		category: "SkillCost",
 		statId: "Bow_Cost",
 		display: "%",
+		factorValue: -1,
 		match: /WITH BOW EQUIPPED[\s]*Reduces the Stamina cost of Bow abilities by ([0-9]+\.?[0-9]*)%/i,
 	},	 
 	{
@@ -1237,31 +1259,37 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "MagickaCost",
 		display: "%",
+		factorValue: -1,
 		match: /Reduces Magicka, Stamina, and Ultimate ability costs by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "StaminaCost",
 		display: "%",
+		factorValue: -1,
 		match: /Reduces Magicka, Stamina, and Ultimate ability costs by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "StaminaCost",
 		display: "%",
+		factorValue: -1,
 		match: /Reduces Magicka and Stamina costs for all abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "MagickaCost",
 		display: "%",
+		factorValue: -1,
 		match: /Reduces Magicka and Stamina costs for all abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "UltimateCost",
 		display: "%",
+		factorValue: -1,
 		match: /Reduces Magicka, Stamina, and Ultimate ability costs by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "UltimateCost",
 		display: "%",
+		factorValue: -1,
 		match: /Reduces the cost of Ultimate abilities by ([0-9]+\.?[0-9]*)%/i,
 	},	
 	{
@@ -1733,36 +1761,43 @@ ESO_SETEFFECT_MATCHES = [
 	{
 		statId: "MagickaCost",
 		display: '%',
+		factorValue: -1,
 		match: /Reduce the Magicka cost of abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "MagickaCost",
 		display: '%',
+		factorValue: -1,
 		match: /Reduce all costs by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "MagickaCost",
 		display: '%',
+		factorValue: -1,
 		match: /Reduce Magicka costs for up to [0-9]+ group members by ([0-9]+\.?[0-9]*)%/i,
 	},	
 	{
 		statId: "StaminaCost",
 		display: '%',
+		factorValue: -1,
 		match: /Reduce the Stamina cost of abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "StaminaCost",
 		display: '%',
+		factorValue: -1,
 		match: /Reduces the costs of Stamina abilities by ([0-9]+\.?[0-9]*)%/i,
 	},	
 	{
 		statId: "StaminaCost",
 		display: '%',
+		factorValue: -1,
 		match: /Reduce all costs by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "UltimateCost",
 		display: '%',
+		factorValue: -1,
 		match: /Reduce cost of Ultimate abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -1776,6 +1811,7 @@ ESO_SETEFFECT_MATCHES = [
 	{
 		statId: "SnareDuration",
 		display: '%',
+		factorValue: -1,
 		match: /Snares on you have ([0-9]+)% shorter duration/i,
 	},
 	{
@@ -1801,31 +1837,37 @@ ESO_SETEFFECT_MATCHES = [
 	{
 		statId: "SprintCost",
 		display: '%',
+		factorValue: -1,
 		match: /Reduces Stamina cost for sprinting and crouching by ([0-9]+)%/i,
 	},
 	{
 		statId: "SprintCost",
 		display: '%',
+		factorValue: -1,
 		match: /Sprint cost reduced by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "SprintCost",
 		display: '%',
+		factorValue: -1,
 		match: /Sprint costs ([0-9]+\.?[0-9]*)% less/i,
 	},	
 	{
 		statId: "SneakCost",
 		display: '%',
+		factorValue: -1,
 		match: /Reduces Stamina cost for sprinting and crouching by ([0-9]+)%/i,
 	},
 	{
 		statId: "SneakCost",
 		display: '%',
+		factorValue: -1,
 		match: /Reduces crouch cost by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "SneakCost",
 		display: '%',
+		factorValue: -1,
 		match: /Reduce Sneak cost by ([0-9]+\.?[0-9]*)%/i,
 	},	
 	{
@@ -1883,6 +1925,7 @@ ESO_SETEFFECT_MATCHES = [
 		category: "SkillCost",
 		statId: "Bow_Cost",
 		display: '%',
+		factorValue: -1,
 		match: /Reduce cost of bow abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -1927,11 +1970,15 @@ ESO_SETEFFECT_MATCHES = [
 		match: /you to take ([0-9]+\.?[0-9]*)% less damage from Boss/i,
 	},
 	{
+		category: "Skill2",
 		statId: "SneakRange",
+		factorValue: -1,
 		match: /Reduce the range you can be detected while hidden by ([0-9]+\.?[0-9]*) meters/i,
 	},
 	{
+		category: "Skill2",
 		statId: "SneakRange",
+		factorValue: -1,
 		match: /Decrease detection radius by ([0-9]+\.?[0-9]*) meters/i,
 	},
 	{
@@ -1947,6 +1994,7 @@ ESO_SETEFFECT_MATCHES = [
 	{
 		statId: "BreakFreeCost",
 		display: '%',
+		factorValue: -1,
 		match: /Reduce the cost of Break Free by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -1992,6 +2040,7 @@ ESO_SETEFFECT_MATCHES = [
 		category: "SkillCost",
 		statId: "Restoration_Staff_Cost",
 		display: "%",
+		factorValue: -1,
 		match: /Reduce the Magicka cost of restoration staff abilities by ([0-9]+\.?[0-9]*)/i,
 	},
 	{
@@ -2242,7 +2291,6 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "MagickaCost",
 		display: "%",
-		factorValue: -1,
 		match: /triggers Overkill, which increases the cost of all abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -2252,7 +2300,6 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "StaminaCost",
 		display: "%",
-		factorValue: -1,
 		match: /triggers Overkill, which increases the cost of all abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -2362,22 +2409,27 @@ ESO_ENCHANT_ARMOR_MATCHES = [
 	},
 	{
 		statId: "StaminaCost",
+		factorValue: -1,
 		match: /Reduce Stamina cost of abilities by ([0-9]+\.?[0-9]*)/i,
 	},
 	{
 		statId: "MagickaCost",
+		factorValue: -1,
 		match: /Reduce Magicka cost of abilities by ([0-9]+\.?[0-9]*)/i,
 	},
 	{
 		statId: "MagickaCost",
+		factorValue: -1,
 		match: /Reduce Magicka cost of spells by ([0-9]+\.?[0-9]*)/i,
 	},
 	{
 		statId: "BashCost",
+		factorValue: -1,
 		match: /Reduce cost of bash by ([0-9]+\.?[0-9]*)/i,
 	},
 	{
 		statId: "BlockCost",
+		factorValue: -1,
 		match: /Reduce cost of blocking by ([0-9]+\.?[0-9]*)/i,
 	},
 	
@@ -2772,19 +2824,19 @@ function GetEsoInputSpecialValues(inputValues)
 		{
 			healthRegenValue = -0.25;
 			flameDamageValue = 0.15;
-			costReduction = 0.07;
+			costReduction = -0.07;
 		}
 		else if (inputValues.VampireStage == 3)
 		{
 			healthRegenValue = -0.50;
 			flameDamageValue = 0.20;
-			costReduction = 0.14;
+			costReduction = -0.14;
 		}
 		else if (inputValues.VampireStage == 4)
 		{
 			healthRegenValue = -0.75;
 			flameDamageValue = 0.25;
-			costReduction = 0.21;
+			costReduction = -0.21;
 		}
 		
 		if (healthRegenValue != 0)
@@ -2896,14 +2948,15 @@ function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData)
 		var statFactor = 1;
 		if (isNaN(statValue)) statValue = 1;
 		
-		if (matchData.factorValue != null)
-		{
-			statFactor = matchData.factorValue;
-		}
-		else if (matchData.maxTimes != null)
+		if (matchData.maxTimes != null)
 		{
 			var toggleData = g_EsoBuildToggledSetData[matchData.id];
 			if (toggleData != null && toggleData.count != null) statFactor = toggleData.count;
+		}
+		
+		if (matchData.factorValue != null)
+		{
+			statFactor = statFactor * matchData.factorValue;
 		}
 		
 		statValue = statValue * statFactor;
@@ -3092,9 +3145,10 @@ function ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData,
 		var toggleData = g_EsoBuildToggledSkillData[matchData.id];
 		if (toggleData != null && toggleData.count != null) statFactor = toggleData.count;
 	}
-	else if (matchData.factorValue != null)
+	
+	if (matchData.factorValue != null)
 	{
-		statFactor = matchData.factorValue;
+		statFactor = statFactor * matchData.factorValue;
 	}
 	
 	statValue = statValue * statFactor;
@@ -3477,12 +3531,12 @@ function GetEsoInputItemValues(inputValues, slotId)
 	}	
 	else if (itemData.trait == 14) //Well Fitted
 	{
-		inputValues.Item.SprintCost += traitValue/100;
-		inputValues.Item.RollDodgeCost += traitValue/100;
-		AddEsoItemRawOutput(itemData, "Item.SprintCost", traitValue/100);
-		AddEsoItemRawOutput(itemData, "Item.RollDodgeCost", traitValue/100);
-		AddEsoInputStatSource("Item.SprintCost", { item: itemData, value: traitValue/100, slotId:slotId });
-		AddEsoInputStatSource("Item.RollDodgeCost", { item: itemData, value: traitValue/100, slotId:slotId });
+		inputValues.Item.SprintCost -= traitValue/100;
+		inputValues.Item.RollDodgeCost -= traitValue/100;
+		AddEsoItemRawOutput(itemData, "Item.SprintCost", -traitValue/100);
+		AddEsoItemRawOutput(itemData, "Item.RollDodgeCost", -traitValue/100);
+		AddEsoInputStatSource("Item.SprintCost", { item: itemData, value: -traitValue/100, slotId:slotId });
+		AddEsoInputStatSource("Item.RollDodgeCost", { item: itemData, value: -traitValue/100, slotId:slotId });
 	}
 	else if (itemData.trait == 7) //Sharpened
 	{
@@ -3853,13 +3907,13 @@ function GetEsoInputCPValues(inputValues)
 	
 		/* Lady */
 	if (inputValues.ArmorLight >= 5) ParseEsoCPValue(inputValues, "PhysicalResist", 60502);
-	ParseEsoCPValue(inputValues, "DotDamageTaken", 63850);
+	ParseEsoCPValue(inputValues, "DotDamageTaken", 63850, null, null, -1);
 	ParseEsoCPValue(inputValues, ["PhysicalDamageTaken", "PoisonDamageTaken", "DiseaseDamageTaken"], 63844, null, null, -1);
 	ParseEsoCPValue(inputValues, ["MagicDamageTaken", "FlameDamageTaken", "ColdDamageTaken", "ShockDamageTaken"], 63843, null, null, -1);
 	
 		/* Steed */
 	if (inputValues.ArmorMedium >= 5) ParseEsoCPValue(inputValues, "PhysicalResist", 59120);
-	ParseEsoCPValue(inputValues, "BlockCost", 60649); // TODO: Move?
+	ParseEsoCPValue(inputValues, "BlockCost", 60649, null, null, -1);
 	ParseEsoCPValue(inputValues, "SpellResist", 62760);
 	ParseEsoCPValue(inputValues, "CritResist", 60384);
 	
@@ -3884,10 +3938,10 @@ function GetEsoInputCPValues(inputValues)
 	ParseEsoCPValue(inputValues, "SpellCrit", 59626, "the_apprentice", 30);
 	
 		/* Shadow */
-	ParseEsoCPValue(inputValues, "HealingReduction", 59298);
-	ParseEsoCPValue(inputValues, "SneakCost", 61548);
-	ParseEsoCPValue(inputValues, "FearDuration", 59353);
-	ParseEsoCPValue(inputValues, ["RollDodgeCost", "BreakFreeCost"], 63863);
+	ParseEsoCPValue(inputValues, "HealingReceived", 59298, null, null, null, "Target");
+	ParseEsoCPValue(inputValues, "SneakCost", 61548, null, null, -1);
+	ParseEsoCPValue(inputValues, "FearDuration", 59353, null, null, -1);
+	ParseEsoCPValue(inputValues, ["RollDodgeCost", "BreakFreeCost"], 63863, null, null, -1);
 	
 		/* Lover */
 	ParseEsoCPValue(inputValues, "StaminaRegen", 59346);
@@ -3896,10 +3950,10 @@ function GetEsoInputCPValues(inputValues)
 	ParseEsoCPValue(inputValues, "HARestore", 63854);
 	
 		/* Tower */
-	ParseEsoCPValue(inputValues, "BashCost", 58899);
-	ParseEsoCPValue(inputValues, "SprintCost", 64077);
-	ParseEsoCPValue(inputValues, "MagickaCost", 63861);
-	ParseEsoCPValue(inputValues, "StaminaCost", 63862);
+	ParseEsoCPValue(inputValues, "BashCost", 58899, null, null, -1);
+	ParseEsoCPValue(inputValues, "SprintCost", 64077, null, null, -1);
+	ParseEsoCPValue(inputValues, "MagickaCost", 63861, null, null, -1);
+	ParseEsoCPValue(inputValues, "StaminaCost", 63862, null, null, -1);
 	
 	var itemData = g_EsoBuildItemData.OffHand1;
 	if (g_EsoBuildActiveWeapon == 2) itemData = g_EsoBuildItemData.OffHand2;
@@ -3937,7 +3991,7 @@ function ConvertEsoPercentCritToFlat(percentCrit, inputValues)
 }
 
 
-function ParseEsoCPValue(inputValues, statIds, abilityId, discId, unlockLevel, statFactor)
+function ParseEsoCPValue(inputValues, statIds, abilityId, discId, unlockLevel, statFactor, category)
 {
 	var cpDesc = $("#descskill_" + abilityId);
 	if (cpDesc.length == 0) return false;
