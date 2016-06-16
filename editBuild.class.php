@@ -102,6 +102,7 @@ class EsoBuildDataEditor
 			"Target.DefenseBonus",
 			"Target.AttackBonus",
 			"Target.HealingReceived",
+			"Target.DamageTaken",
 			"Misc.SpellCost",
 			"VampireStage",
 			"WerewolfStage",
@@ -241,6 +242,9 @@ class EsoBuildDataEditor
 			"StunDuration",
 			"DisorientDuration",
 			"WerewolfTransformCost",
+			"EnchantCooldown",
+			"EnchantPotency",
+			"MountSpeed",
 	);
 	
 	
