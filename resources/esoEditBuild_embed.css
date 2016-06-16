@@ -267,6 +267,7 @@
 	padding: 7px;
 	text-align: center;
     font-size: 13px;
+	box-shadow: rgba(0,0,0,0.5) 4px 4px 5px 2px;
 }
 
 #esotbFormulaTitle {
@@ -468,6 +469,7 @@
 	padding: 7px;
 	text-align: center;
 	font-size: 13px;
+	box-shadow: rgba(0,0,0,0.5) 4px 4px 5px 2px;	
 }
 
 .esotbSkillDetailsCoef {

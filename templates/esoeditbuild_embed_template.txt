@@ -62,10 +62,11 @@ Note that this character builder is for test purposes and is currently undergoin
 				These statistics are to simulate attacking/defending a NPC/player with the given resistances and penetrations.
 				<p>
 				<div class="esotbStatLabel">Flat Penetration</div> <input id="esotbTargetPenetrationFlat" class="esotbInputValue esotbTargetInput" statid="Target.PenetrationFlat" type="number" size="2" value="{targetFlatPene}">
-				<div class="esotbStatLabel">% Penetration</div> <input id="esotbTargetPenetrationFactor" class="esotbInputValue esotbTargetInput" statid="Target.PenetrationFactor" type="number" size="2" value="{targetFactPene}"><br/>
-				<div class="esotbStatLabel">% Defense Bonus</div> <input id="esotbTargetDefenseBonus" class="esotbInputValue esotbTargetInput" statid="Target.DefenseBonus" type="number" size="2" value="{targetFactDefense}">
-				<div class="esotbStatLabel">% Attack Bonus</div> <input id="esotbTargetAttackBonus" class="esotbInputValue esotbTargetInput" statid="Target.AttackBonus" type="number" size="2" value="{targetFactAttack}"><br/>
-				<div class="esotbStatLabel">Resistance</div> <input id="esotbTargetResistance" class="esotbInputValue esotbTargetInput" statid="Target.Resistance" type="number" size="2" value="{targetResist}"><br/>
+				<div class="esotbStatLabel">% Penetration</div> <input id="esotbTargetPenetrationFactor" class="esotbInputValue esotbTargetInput" statid="Target.PenetrationFactor" type="text" size="2" value="{targetFactPene}"><br/>
+				<div class="esotbStatLabel">% Defense Bonus</div> <input id="esotbTargetDefenseBonus" class="esotbInputValue esotbTargetInput" statid="Target.DefenseBonus" type="text" size="2" value="{targetFactDefense}">
+				<div class="esotbStatLabel">% Attack Bonus</div> <input id="esotbTargetAttackBonus" class="esotbInputValue esotbTargetInput" statid="Target.AttackBonus" type="text" size="2" value="{targetFactAttack}"><br/>
+				<div class="esotbStatLabel">Resistance</div> <input id="esotbTargetResistance" class="esotbInputValue esotbTargetInput" statid="Target.Resistance" type="number" size="2" value="{targetResist}">
+				<div class="esotbStatLabel">% Critical Damage</div> <input id="esotbTargetCritDamage" class="esotbInputValue esotbTargetInput" statid="Target.CritDamage" type="text" size="2" value="{targetCritDamage}"><br/>
 			</div>
 			<div id="esotbMisc">
 				<div class="esotbAttrTitle">Miscellaneous Stats</div>
@@ -295,12 +296,13 @@ Note that this character builder is for test purposes and is currently undergoin
 					<li>Base stat values and calculations for less than max level (CP160)</li><li>Saving and loading of builds</li>
 					<li>Integration into the UESP wiki</li>
 					<li>Combining into the existing build data on UESP</li>
+					<li>More complex set, skill, and buff effects</li>
 				</ul>
 			</div>
 			<div class='esotbHelpWorkBlock'>
 				<h4>"Not Yet" Working</h4>
 				<ul>
-					<li>More complex set, skill, and buff effects</li>
+					<li>Full testing of all secondary computed effects.</li>
 				</ul>
 			</div><br/>
 			

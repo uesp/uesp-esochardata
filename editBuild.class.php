@@ -101,6 +101,7 @@ class EsoBuildDataEditor
 			"Target.PenetrationFlat",
 			"Target.DefenseBonus",
 			"Target.AttackBonus",
+			"Target.CritDamage",
 			"Target.HealingReceived",
 			"Target.DamageTaken",
 			"Misc.SpellCost",
@@ -132,6 +133,8 @@ class EsoBuildDataEditor
 			"SkillCost.Assault_Cost",
 			"SkillCost.Support_Cost",
 			"Stealthed",
+			"Skill.HAMagRestoreRestStaff",
+			"Skill.HAStaRestoreWerewolf",
 	);
 	
 	
@@ -188,7 +191,6 @@ class EsoBuildDataEditor
 			"SneakCost",
 			"BreakFreeCost",
 			"BreakFreeDuration",
-			"HARestore",
 			"Constitution",
 			"DamageShield",
 			"HADamageResist",
@@ -213,7 +215,7 @@ class EsoBuildDataEditor
 			"HAWeaponDamage",
 			"HABowDamage",
 			"HAStaffDamage",
-			"ShieldDamage",
+			"ShieldDamageDone",
 			"FearDuration",
 			"SnareDuration",
 			"SnareEffect",
@@ -245,6 +247,8 @@ class EsoBuildDataEditor
 			"EnchantCooldown",
 			"EnchantPotency",
 			"MountSpeed",
+			"HAMagRestore",
+			"HAStaRestore",
 	);
 	
 	
@@ -882,7 +886,19 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
-			"Skill.HARestore" => array(
+			"Skill.HAMagRestore" => array(
+					"display" => "%",
+			),
+			
+			"Skill.HAStaRestore" => array(
+					"display" => "%",
+			),
+			
+			"Skill.HAMagRestoreRestStaff" => array(
+					"display" => "%",
+			),
+			
+			"Skill.HAStaRestoreWerewolf" => array(
 					"display" => "%",
 			),
 			
@@ -997,6 +1013,16 @@ class EsoBuildDataEditor
 			"Set.CritDamage" => array(
 					"display" => "%",
 			),
+			
+			"CP.SneakCost" => array(
+					"display" => "%",
+			),
+			
+			"Buff.HealingDone" => array(
+					"display" => "%",
+			),
+			
+			
 		
 			
 	);
@@ -1004,6 +1030,10 @@ class EsoBuildDataEditor
 	
 	public $COMPUTED_STATS_LIST = array(
 			
+			/* 
+			 * Health Confirmed:
+			 * Note that there is a bug with Undaunted Mettle on live which messes up the in-game value sometimes.
+			 */
 			"Health" => array(
 					"title" => "Health",
 					"round" => "floor",
@@ -1031,6 +1061,10 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			/* 
+			 * Magicka Confirmed:
+			 * Note that there is a bug with Undaunted Mettle on live which messes up the in-game value sometimes.
+			 */
 			"Magicka" => array(
 					"title" => "Magicka",
 					"round" => "floor",
@@ -1056,6 +1090,10 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			/* 
+			 * Stamina Confirmed:
+			 * Note that there is a bug with Undaunted Mettle on live which messes up the in-game value sometimes.
+			 */
 			"Stamina" => array(
 					"title" => "Stamina",
 					"round" => "floor",
@@ -1081,6 +1119,9 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			/* 
+			 * HealthRegen Confirmed:
+			 */
 			"HealthRegen" => array(
 					"title" => "Health Recovery",
 					"round" => "floor",
@@ -1105,6 +1146,9 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			/*
+			 * MagickaRegen Confirmed:
+			 */
 			"MagickaRegen" => array(
 					"title" => "Magicka Recovery",
 					"round" => "floor",
@@ -1129,6 +1173,9 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			/*
+			 * StaminaRegen Confirmed:
+			 */
 			"StaminaRegen" => array(
 					"title" => "Stamina Recovery",
 					"round" => "floor",
@@ -1153,6 +1200,9 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			/*
+			 * SpellDamage Confirmed:
+			 */
 			"SpellDamage" => array(
 					"title" => "Spell Damage",
 					"round" => "floor",
@@ -1169,6 +1219,9 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			/*
+			 * WeaponDamage Confirmed:
+			 */
 			"WeaponDamage" => array(
 					"title" => "Weapon Damage",
 					"round" => "floor",
@@ -1185,7 +1238,9 @@ class EsoBuildDataEditor
 					),
 			),
 			
-			
+			/*
+			 * SpellCrit Confirmed:
+			 */
 			"SpellCrit" => array(
 					"title" => "Spell Critical",
 					"display" => "%",
@@ -1212,6 +1267,9 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			/*
+			 * WeaponCrit Confirmed:
+			 */
 			"WeaponCrit" => array(
 					"title" => "Weapon Critical",
 					"display" => "%",
@@ -1238,6 +1296,9 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			/*
+			 * SpellCritDamage Confirmed:
+			 */
 			"SpellCritDamage" => array(
 					"title" => "Spell Critical Damage",
 					"display" => "%2",
@@ -1262,6 +1323,9 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			/*
+			 * WeaponCritDamage Confirmed:
+			 */
 			"WeaponCritDamage" => array(
 					"title" => "Weapon Critical Damage",
 					"display" => "%2",
@@ -1286,6 +1350,9 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			/*
+			 * SpellResist Confirmed:
+			 */
 			"SpellResist" => array(
 					"title" => "Spell Resistance",
 					"display" => "resist",
@@ -1304,6 +1371,9 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			/*
+			 * PhysicalResist Confirmed:
+			 */
 			"PhysicalResist" => array(
 					"title" => "Physical Resistance",
 					"display" => "resist",
@@ -1322,6 +1392,9 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			/*
+			 * CP.CritResist is applied against the target
+			 */
 			"CritResist" => array(
 					"title" => "Critical Resistance",
 					"display" => "critresist",
@@ -1339,13 +1412,7 @@ class EsoBuildDataEditor
 					"display" => "elementresist",
 					"compute" => array(
 							"Item.ColdResist",
-							"Set.ColdResist",
-							"+",
 							"Skill.ColdResist",
-							"+",
-							"CP.ColdResist",
-							"+",
-							"Buff.ColdResist",
 							"+",
 					),
 			),
@@ -1355,13 +1422,7 @@ class EsoBuildDataEditor
 					"display" => "elementresist",
 					"compute" => array(
 							"Item.FlameResist",
-							"Set.FlameResist",
-							"+",
 							"Skill.FlameResist",
-							"+",
-							"CP.FlameResist",
-							"+",
-							"Buff.FlameResist",
 							"+",
 					),
 			),
@@ -1371,13 +1432,7 @@ class EsoBuildDataEditor
 					"display" => "elementresist",
 					"compute" => array(
 							"Item.ShockResist",
-							"Set.ShockResist",
-							"+",
 							"Skill.ShockResist",
-							"+",
-							"CP.ShockResist",
-							"+",
-							"Buff.ShockResist",
 							"+",
 					),
 			),
@@ -1387,13 +1442,7 @@ class EsoBuildDataEditor
 					"display" => "elementresist",
 					"compute" => array(
 							"Item.PoisonResist",
-							"Set.PoisonResist",
-							"+",
 							"Skill.PoisonResist",
-							"+",
-							"CP.PoisonResist",
-							"+",
-							"Buff.PoisonResist",
 							"+",
 					),
 			),
@@ -1403,17 +1452,14 @@ class EsoBuildDataEditor
 					"display" => "elementresist",
 					"compute" => array(
 							"Item.DiseaseResist",
-							"Set.DiseaseResist",
-							"+",
 							"Skill.DiseaseResist",
-							"+",
-							"CP.DiseaseResist",
-							"+",
-							"Buff.DiseaseResist",
 							"+",
 					),
 			),
 			
+			/*
+			 * SpellPenetration Confirmed
+			 */
 			"SpellPenetration" => array(				
 					"title" => "Spell Penetration",
 					"compute" => array(
@@ -1431,6 +1477,9 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			/*
+			 * PhysicalPenetration Confirmed
+			 */
 			"PhysicalPenetration" => array(
 					"title" => "Physical Penetration",
 					"compute" => array(
@@ -1447,7 +1496,10 @@ class EsoBuildDataEditor
 							"+",
 					),
 			),
-						
+			
+			/*
+			 * HealingDone Confirmed
+			 */
 			"HealingDone" => array(
 					"title" => "Healing Done",
 					"display" => "%",
@@ -1466,6 +1518,9 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			/*
+			 * HealingTaken Confirmed
+			 */
 			"HealingTaken" => array(
 					"title" => "Healing Taken",
 					"display" => "%",
@@ -1482,6 +1537,9 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			/*
+			 * HealingReceived Confirmed
+			 */
 			"HealingReceived" => array(
 					"title" => "Healing Received",
 					"display" => "%",
@@ -1498,6 +1556,9 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			/*
+			 * Healing Confirmed
+			 */
 			"Healing" => array(
 					"title" => "Healing Total",
 					"display" => "%",
@@ -1511,99 +1572,131 @@ class EsoBuildDataEditor
 					),
 			),
 			
-			"HealingReduction" => array(
-					"title" => "Healing Reduction",
-					"display" => "%",
-					"compute" => array(
-							"1 + CP.HealingReduction",
-					),
-			),
-			
+			/* 
+			 * Sneak Cost Confirmed: 
+			 * Note that all effects seem to multiplicative, even within a category.
+			 * So if you had:
+			 * 					Skill.SneakCost = -7% (Medium Armor Passive)
+			 * 					Skill.SneakCost = -40% (Ledgerdemain Passive)
+			 * The results would be:
+			 * 					Skill.SneakCost = (1 - 0.07) * (1 - 0.40) = 0.558
+			 */
 			"SneakCost" => array(
 					"title" => "Sneak Cost",
-					"round" => "floor",
-					"compute" => array(				// TODO: Check?
+					"round" => "ceil",
+					"compute" => array(				 
 							"1 + 2 * EffectiveLevel",
 							"1 + CP.SneakCost",
 							"*",
-							"Skill.SneakCost",
-							"Item.SneakCost",
-							"+",
-							"Set.SneakCost",
-							"+",
-							"Buff.SneakCost",
-							"+",
-							"1",
-							"+",
+							"1 + Skill.SneakCost",
+							"*",
+							"1 + Item.SneakCost",
+							"*",
+							"1 + Set.SneakCost",
+							"*",
+							"1 + Buff.SneakCost",
 							"*",
 					),
 			),
 			
-			"SneakRange" => array(					// TODO: Check?
+			/*
+			 * SneakRange Confirmed:
+			 */
+			"SneakRange" => array(
 					"title" => "Sneak Range",
-					"round" => "floor",
+					"round" => "floor2",
+					"suffix" => " meters",
 					"compute" => array(
-							"21",
+							"6.5",
 							"Skill2.SneakRange",
 							"+",
 							"Skill.SneakRange",
 							"Set.SneakRange",
+							"+",
 							"1",
 							"+",
 							"*",
 					),
 			),
 			
-			"SneakDetectRange" => array(			// TODO: Check?
+			/*
+			 * SneakDetectRange Confirmed (mostly):
+			 */
+			"SneakDetectRange" => array(
 					"title" => "Sneak Detection Range",
-					"round" => "floor",
+					"round" => "floor2",
+					"suffix" => " meters",
 					"compute" => array(
-							"21",
-							"Item.SneakDetectRange",
+							"6.5",
+							"Skill2.SneakDetectRange",
 							"+",
-							"1 + Skill.SneakDetectRange",
+							"Item.SneakDetectRange",
+							"Skill.SneakDetectRange",
+							"+",
+							"1",
+							"+",
 							"*",
 					),
 			),
 			
-			"SprintCost" => array( 					// TODO: Check?
+			/*
+			 * SprintCost: TODO needs checking
+			 */
+			"SprintCost" => array(
 					"title" => "Sprint Cost",
 					"round" => "floor",
 					"compute" => array(
 							"floor(38.46 + 7.69*EffectiveLevel)",
-							"CP.SprintCost",
-							"Buff.SprintCost",
-							"+",
-							"Set.SprintCost",
-							"+",
-							"Item.SprintCost",
-							"+",
-							"1",
-							"+",
+							"1 + CP.SprintCost",
+							"*",
+							"1 + Buff.SprintCost",
+							"*",
+							"1 + Set.SprintCost",
+							"*",
+							"1 + Item.SprintCost",
 							"*",
 					),
 			),
 			
-			"BashCost" => array(  					// TODO: Check?
+			"SprintSpeed" => array(
+					"title" => "Sprint Speed",
+					"round" => "floor",
+					"display" => "%",
+					"compute" => array(
+							"Buff.SprintSpeed",
+							"Set.SprintSpeed",
+							"+",
+							"Item.SprintSpeed",
+							"+",
+							"Skill.SprintSpeed",
+							"+",
+							"Buff.SprintSpeed",
+							"+",
+					),
+			),
+			
+			/*
+			 * BashCost: TODO needs checking
+			 */
+			"BashCost" => array(
 					"title" => "Bash Cost",
 					"round" => "floor",
 					"compute" => array(
 							"floor(157 + 26.25*EffectiveLevel)",
 							"Item.BashCost",
-							"+",
-							"CP.BashCost",
-							"Skill.BashCost",
-							"+",
-							"Item.BashCost",
-							"+",
-							"Set.BashCost",
-							"+",
-							"1",
-							"+",
+							"-",
+							"1 + CP.BashCost",
+							"*",
+							"1 + Skill.BashCost",
+							"*",
+							"1 + Set.BashCost",
 							"*",
 					),
 			),
 			
+			/*
+			 * BlockCost Confirmed
+			 */
 			"BlockCost" => array(
 					"title" => "Block Cost",
 					"round" => "floor",
@@ -1626,13 +1719,22 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			/*
+			 * BlockMitigation: ToDo needs checking
+			 */
 			"BlockMitigation" => array(
 					"title" => "Block Mitigation",
 					"display" => "%",
 					"compute" => array(
 							"0.5",
-							"1 - Skill.BlockMitigation",
-							"*",
+							"Skill.BlockMitigation",
+							"+",
+							"Item.BlockMitigation",
+							"+",
+							"Set.BlockMitigation",
+							"+",
+							"Buff.BlockMitigation",
+							"+",
 					),
 			),
 			
@@ -1664,6 +1766,7 @@ class EsoBuildDataEditor
 							"1 - CP.BreakFreeCost",
 							"*",
 							"Skill.BreakFreeCost",
+							"+",
 							"Buff.BreakFreeCost",
 							"+",
 							"Item.BreakFreeCost",
@@ -1675,105 +1778,39 @@ class EsoBuildDataEditor
 					),
 			),
 			
-			"FearDuration" => array(
+			"FearDuration" => array(				// TODO: Check?
 					"title" => "Fear Duration",
-					"display" => "%",
-					"round" => "floor",
+					"round" => "floor10",
+					"suffix" => " secs",
 					"compute" => array(
+							"4",
 							"1 + CP.FearDuration",
-					),
-			),
-				
-			"HARestore" => array(
-					"title" => "Heavy Attack Restore",
-					"round" => "floor",
-					"compute" => array(
-							"floor(1 + Level * 28.25)",
-							"floor(CPLevel * 30.625)",
-							"+",
-							"1 + CP.HARestore",
-							"*",
-							"1 + Skill.HARestore",
-							"*",
-							"1 + Set.HARestore",	// TODO: Check?
 							"*",
 					),
 			),
-			
-			"Constitution" => array(				// TODO: Check?
-					"title" => "Constitution",
-					"round" => "floor",
-					"compute" => array(
-							"floor(2.82 * EffectiveLevel)",
-							"ArmorHeavy",
-							"*",
-							"1 + Set.Constitution",
-							"*",
-					),
-			),
-			
-			"MagickaCost" => array(
-					"title" => "Magicka Ability Cost",
-					"round" => "floor",
-					"warning" => "Note: Currently there is a bug on Live that randomly results in ability costs 0-2% higher than normal. ",
-					"compute" => array(
-							"Misc.SpellCost",
-							"1 + CP.MagickaCost",
-							"*",
-							"Item.MagickaCost",
-							"Skill.MagickaCost",
-							"+",
-							"Set.MagickaCost",
-							"+",
-							"Buff.MagickaCost",
-							"+",
-							"1",
-							"+",
-							"*",
-					),
-			),
-			
-			"StaminaCost" => array(
-					"title" => "Stamina Ability Cost",
-					"round" => "floor",
-					"warning" => "Note: Currently there is a bug on Live that randomly results in ability costs 0-2% higher than normal. ",
-					"compute" => array(
-							"Misc.SpellCost",
-							"1 - CP.StaminaCost",
-							"*",
-							"Item.StaminaCost",
-							"Skill.StaminaCost",
-							"+",
-							"Set.StaminaCost",
-							"+",
-							"Buff.StaminaCost",
-							"+",
-							"1",
-							"+",
-							"*",
-					),
-			),
-			
+						
 			"DamageShield" => array(
 					"title" => "Damage Shield",
 					"display" => "%",
 					"round" => "floor",
 					"compute" => array(
-							"1 + CP.DamageShield",
+							"CP.DamageShield",
+							"Buff.DamageShield",
+							"+",
 					),
 			),
 			
-			"ShieldDamage" => array(
-					"title" => "Shield Damage",
+			"ShieldDamageDone" => array(
+					"title" => "Shield Damage Done",
 					"display" => "%",
 					"round" => "floor",
 					"compute" => array(
-							"1 + CP.ShieldDamage",
+							"CP.ShieldDamageDone",
 					),
 			),
 			
 			"DotDamageTaken" => array(
-					"title" => "DOT Damge Taken",
+					"title" => "DOT Damage Taken",
 					"display" => "%",
 					"round" => "floor",
 					"compute" => array(
@@ -1798,10 +1835,6 @@ class EsoBuildDataEditor
 							"CP.MagicDamageTaken",
 							"Skill.MagicDamageTaken",
 							"+",
-							"Buff.MagicDamageTaken",
-							"+",
-							"Item.MagicDamageTaken",
-							"+",
 					),
 			),
 			
@@ -1812,10 +1845,6 @@ class EsoBuildDataEditor
 					"compute" => array(
 							"CP.PhysicalDamageTaken",
 							"Skill.PhysicalDamageTaken",
-							"+",
-							"Buff.PhysicalDamageTaken",
-							"+",
-							"Item.PhysicalDamageTaken",
 							"+",
 					),
 			),
@@ -1833,6 +1862,8 @@ class EsoBuildDataEditor
 							"+",
 							"Item.DamageDone",
 							"+",
+							"Set.DamageDone",
+							"+",
 					),
 			),
 			
@@ -1847,6 +1878,8 @@ class EsoBuildDataEditor
 							"Buff.DamageTaken",
 							"+",
 							"Item.DamageTaken",
+							"+",
+							"Set.DamageTaken",
 							"+",
 					),
 			),
@@ -1863,6 +1896,8 @@ class EsoBuildDataEditor
 							"+",
 							"Item.MagicDamageDone",
 							"+",
+							"Set.MagicDamageDone",
+							"+",
 					),
 			),
 			
@@ -1877,6 +1912,8 @@ class EsoBuildDataEditor
 							"Buff.PhysicalDamageDone",
 							"+",
 							"Item.PhysicalDamageDone",
+							"+",
+							"Set.PhysicalDamageDone",
 							"+",
 					),
 			),
@@ -1893,6 +1930,8 @@ class EsoBuildDataEditor
 							"+",
 							"Item.ShockDamageDone",
 							"+",
+							"Set.ShockDamageDone",
+							"+",
 					),
 			),
 			
@@ -1907,6 +1946,8 @@ class EsoBuildDataEditor
 							"Buff.FlameDamageDone",
 							"+",
 							"Item.FlameDamageDone",
+							"+",
+							"Set.FlameDamageDone",
 							"+",
 					),
 			),
@@ -1923,6 +1964,8 @@ class EsoBuildDataEditor
 							"+",
 							"Item.ColdDamageDone",
 							"+",
+							"Set.ColdDamageDone",
+							"+",
 					),
 			),
 			
@@ -1937,6 +1980,8 @@ class EsoBuildDataEditor
 							"Buff.PoisonDamageDone",
 							"+",
 							"Item.PoisonDamageDone",
+							"+",
+							"Set.PoisonDamageDone",
 							"+",
 					),
 			),
@@ -1953,6 +1998,127 @@ class EsoBuildDataEditor
 							"+",
 							"Item.DiseaseDamageDone",
 							"+",
+							"Set.DiseaseDamageDone",
+							"+",
+					),
+			),
+			
+			/*
+			 * HARestore:
+			 *    2H Base = round(28.26 * EffectiveLevel)
+			 *    DW Base = round(21.00 * EffectiveLevel)
+			 *   Bow Base = round(35.26 * EffectiveLevel)
+			 * Staff Base = round(37.52 * EffectiveLevel)
+			 *  1H+S Base = round(23.50 * EffectiveLevel)
+			 *   Werewolf = round(18.76 * EffectiveLevel)
+			 * 
+			 * Final = Base * CP * Skill
+			 *
+			 * All Heavy Attack Restore skills confirmed (mostly)
+			 * 
+			 */
+			"HARestoreBow" => array(
+					"title" => "Bow HA Stamina Restore",
+					"round" => "floor",
+					"compute" => array(
+							"round(EffectiveLevel * 35.26)",
+							"1 + CP.HAStaRestore",
+							"*",
+							"1 + Skill.HAStaRestore",
+							"*",
+					),
+			),
+			
+			"HARestoreDW" => array(
+					"title" => "Dual Wield HA Stamina Restore",
+					"round" => "floor",
+					"compute" => array(
+							"round(EffectiveLevel * 21.00)",
+							"1 + CP.HAStaRestore",
+							"*",
+							"1 + Skill.HAStaRestore",
+							"*",
+					),
+			),
+			
+			"HARestore2H" => array(
+					"title" => "2H HA Stamina Restore",
+					"round" => "floor",
+					"compute" => array(
+							"round(EffectiveLevel * 28.26)",
+							"1 + CP.HAStaRestore",
+							"*",
+							"1 + Skill.HAStaRestore",
+							"*",
+					),
+			),
+			
+			"HARestore1HS" => array(
+					"title" => "1H+Shield HA Stamina Restore",
+					"round" => "floor",
+					"compute" => array(
+							"round(EffectiveLevel * 23.50)",
+							"1 + CP.HAStaRestore",
+							"*",
+							"1 + Skill.HAStaRestore",
+							"*",
+					),
+			),
+			
+			"HARestoreDestStaff" => array(
+					"title" => "Destruction HA Magicka Restore",
+					"round" => "floor",
+					"compute" => array(
+							"round(EffectiveLevel * 37.52)",
+							"Skill2.HAMagRestore",
+							"+",
+							"1 + CP.HAMagRestore",
+							"*",
+							"1 + Skill.HAMagRestore",
+							"*",
+					),
+			),
+			
+			"HARestoreRestStaff" => array(
+					"title" => "Restoration HA Magicka Restore",
+					"round" => "floor",
+					"compute" => array(
+							"round(EffectiveLevel * 37.52)",
+							"Skill2.HAMagRestore",
+							"+",
+							"1 + CP.HAMagRestore",
+							"*",
+							"1 + Skill.HAMagRestore",
+							"*",
+							"1 + Skill.HAMagRestoreRestStaff",
+							"*",
+					),
+			),
+			
+			
+			"HARestoreWerewolf" => array(
+					"title" => "Werewolf HA Stamina Restore",
+					"round" => "floor",
+					"compute" => array(
+							"round(EffectiveLevel * 18.76)",
+							"1 + CP.HAStaRestore",
+							"*",
+							"1 + Skill.HAStaRestore",
+							"*",
+							"1 + Skill.HAStaRestoreWerewolf",
+							"*",
+					),
+			),
+				
+			"Constitution" => array(				// TODO: Check?
+					"title" => "Constitution",
+					"round" => "floor",
+					"compute" => array(
+							"floor(2.82 * EffectiveLevel)",
+							"ArmorHeavy",
+							"*",
+							"1 + Set.Constitution",
+							"*",
 					),
 			),
 			
@@ -1973,7 +2139,11 @@ class EsoBuildDataEditor
 							"0.055*Magicka",
 							"2.20*SpellDamage - 0.67",
 							"+",
+							"Skill2.HADamage",
+							"+",
 							"1 + CP.HAStaffDamage",
+							"*",
+							"1 + Skill.HADamage",
 							"*",
 					),
 			),
@@ -1986,7 +2156,11 @@ class EsoBuildDataEditor
 							"0.055*Magicka",
 							"2.20*SpellDamage - 0.67",
 							"+",
+							"Skill2.HADamage",
+							"+",
 							"1 + CP.HAStaffDamage",
+							"*",
+							"1 + Skill.HADamage",
 							"*",
 					),
 			),
@@ -2005,7 +2179,11 @@ class EsoBuildDataEditor
 							"0.728*SpellDamage - 0.03",
 							"+",
 							"+",
+							"Skill2.HADamage",
+							"+",
 							"1 + CP.HAStaffDamage",
+							"*",
+							"1 + Skill.HADamage",
 							"*",
 					),
 			),
@@ -2024,7 +2202,11 @@ class EsoBuildDataEditor
 							"1.055*SpellDamage - 0.62",
 							"+",
 							"+",
+							"Skill2.HADamage",
+							"+",
 							"1 + CP.HAStaffDamage",
+							"*",
+							"1 + Skill.HADamage",
 							"*",
 					),
 			),
@@ -2037,7 +2219,11 @@ class EsoBuildDataEditor
 							"0.03852*Stamina",
 							"1.5436*WeaponDamage - 0.33",
 							"+",
+							"Skill2.HADamage",
+							"+",
 							"1 + CP.HAWeaponDamage",
+							"*",
+							"1 + Skill.HADamage",
 							"*",
 					),
 			),
@@ -2050,7 +2236,11 @@ class EsoBuildDataEditor
 							"0.123*Stamina",
 							"1.283*WeaponDamage - 0.94",
 							"+",
+							"Skill2.HADamage",
+							"+",
 							"1 + CP.HAWeaponDamage",
+							"*",
+							"1 + Skill.HADamage",
 							"*",
 					),
 			),
@@ -2063,7 +2253,11 @@ class EsoBuildDataEditor
 							"0.0550*Stamina",
 							"2.20*WeaponDamage - 0.95",
 							"+",
+							"Skill2.HADamage",
+							"+",
 							"1 + CP.HABowDamage",
+							"*",
+							"1 + Skill.HADamage",
 							"*",
 					),
 			),
@@ -2080,7 +2274,11 @@ class EsoBuildDataEditor
 							"0.800*WeaponDamage + 3.82",
 							"+",
 							"+",
+							"Skill2.HADamage",
+							"+",
 							"1 + CP.HAWeaponDamage",
+							"*",
+							"1 + Skill.HADamage",
 							"*",
 					),
 			),
@@ -2093,7 +2291,11 @@ class EsoBuildDataEditor
 							"0.0440*Stamina",
 							"1.76*WeaponDamage + 0.74",
 							"+",
+							"Skill2.HADamage",
+							"+",
 							"1 + CP.HAWeaponDamage", // TODO: Check?
+							"*",
+							"1 + Skill.HADamage",
 							"*",
 					),
 			),
@@ -2224,7 +2426,7 @@ class EsoBuildDataEditor
 							"Target.PenetrationFlat",
 							"-",
 							"-1/(Level * 1000)",
-							"*",
+-							"*",
 							"1",
 							"+",
 							"1 + Target.AttackBonus",
@@ -2234,10 +2436,105 @@ class EsoBuildDataEditor
 					),
 			),
 			
-			// SprintSpeed
+			
+			/*
+			 * MagickaCost Confirmed
+			 */
+			"MagickaCost" => array(
+					"title" => "Magicka Ability Cost",
+					"round" => "floor",
+					"warning" => "Note: Currently there is a bug on Live that randomly results in ability costs 0-2% higher than normal. ",
+					"compute" => array(
+							"Misc.SpellCost",
+							"1 + CP.MagickaCost",
+							"*",
+							"Item.MagickaCost",
+							"Skill.MagickaCost",
+							"+",
+							"Set.MagickaCost",
+							"+",
+							"Buff.MagickaCost",
+							"+",
+							"1",
+							"+",
+							"*",
+					),
+			),
+				
+			/*
+			 * StaminaCost Confirmed
+			*/
+			"StaminaCost" => array(
+					"title" => "Stamina Ability Cost",
+					"round" => "floor",
+					"warning" => "Note: Currently there is a bug on Live that randomly results in ability costs 0-2% higher than normal. ",
+					"compute" => array(
+							"Misc.SpellCost",
+							"1 - CP.StaminaCost",
+							"*",
+							"Item.StaminaCost",
+							"Skill.StaminaCost",
+							"+",
+							"Set.StaminaCost",
+							"+",
+							"Buff.StaminaCost",
+							"+",
+							"1",
+							"+",
+							"*",
+					),
+			),
+			
+			
+			/*
+			 * Divines Confirmed
+			 */
+			"Divines" => array(
+					"title" => "Divines Trait",
+					"display" => "%",
+					"compute" => array(
+							"Item.Divines",
+					),
+			),
+			
+			/*
+			 * Prosperous Confirmed
+			 */
+			"Prosperous" => array(
+					"title" => "Prosperous Trait",
+					"display" => "%",
+					"compute" => array(
+							"Item.Prosperous",
+					),
+			),
+			
+			/*
+			 * Sturdy Confirmed
+			 */
+			"Sturdy" => array(
+					"title" => "Sturdy Trait",
+					"display" => "%",
+					"compute" => array(
+							"Item.Sturdy",
+					),
+			),
+			
+			/*
+			 * Training Confirmed
+			 */
+			"Training" => array(
+					"title" => "Training Trait",
+					"display" => "%",
+					"compute" => array(
+							"Item.Training",
+					),
+			),
+			
+			
 			// Sneak Attack Melee Damage
 			//		= Base * (SneakBonus + CritMod)
 			//			SneakBonus = 3.75 melee, 1.46 Ranged (PVE Only?)
+			// MountSpeed
 			
 			//Physical/spell mitigation = (resistance - 100) / (level*10)
 			//Mitigation = [Resist ÷ (Level × 1,000)] or  = (resistance-100)/(level+VR)*10
@@ -3234,6 +3531,7 @@ class EsoBuildDataEditor
 				'{targetFactDefense}' => $this->getCharStatField("Target:DefenseBonus", "0"),
 				'{targetFactAttack}' => $this->getCharStatField("Target:AttackBonus", "0"),
 				'{targetResist}' => $this->getCharStatField("Target:Resistance", "0"),
+				'{targetCritDamage}' => $this->getCharStatField("Target:CritDamage", "50%"),
 				'{miscSpellCost}' => $this->getCharStatField("Misc:SpellCost", "3000"),
 				'{itemDataHead}' => $this->GetEquippedItemData('Head'),
 				'{itemDataShoulders}' => $this->GetEquippedItemData('Shoulders'),

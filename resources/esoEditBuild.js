@@ -844,6 +844,14 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		enabled: false,
 		match: /Activating this grants Major Expedition for a brief period/i,
 	},
+	{
+		id: "Molten Armaments",
+		baseSkillId: 32173,
+		toggle: true,
+		enabled: false,
+		statId: "HADamage",
+		match: /Your own damage with fully-charged Heavy Attacks is increased by ([0-9]+\.?[0-9]*)% while active/i,
+	},
 		/* End Toggled Abilities */
 	
 	
@@ -905,6 +913,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "SneakCost",
 		display: '%',
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the cost of sneaking by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
 	},
 	{
@@ -950,7 +959,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		statId: "Constitution",
-		match: /Also restores Magicka and Stamina each time you are hit[.\s\S]*?Current bonus\: ([0-9]+)/i,
+		match: /Also restores Magicka and Stamina each time you are hit[\s\S]*?Current bonus\: ([0-9]+)/i,
 	},
 	{
 		factorStatId: "ArmorHeavy",
@@ -963,12 +972,13 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireValue: 5,
 		statId: "HealingReceived",
 		display: "%",
-		match: /WITH 5 OR MORE PIECES OF HEAVY ARMOR EQUIPPED[.\s\S]*?Increases your healing received by ([0-9]+\.?[0-9]*)%/i,
+		match: /WITH 5 OR MORE PIECES OF HEAVY ARMOR EQUIPPED[\s\S]*?Increases your healing received by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "SneakCost",
 		display: '%',
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the Stamina cost of sneaking by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -1059,7 +1069,6 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		statId: "FlameResist",
-		display: "%",
 		match: /Increases Flame Resistance by ([0-9]+)/i,
 	},
 	{
@@ -1178,7 +1187,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "BashCost",
 		display: "%",
 		factorValue: -1,
-		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[.\s\S]*?Bashing deals [0-9]+\.?[0-9]*% additional damage and costs ([0-9]+\.?[0-9]*)% less Stamina/i,
+		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s\S]*?Bashing deals [0-9]+\.?[0-9]*% additional damage and costs ([0-9]+\.?[0-9]*)% less Stamina/i,
 	},
 	{
 		statRequireId: "Weapon1H",
@@ -1227,7 +1236,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireValue: 1,
 		category: "Skill2",
 		statId: "WeaponCrit",
-		match: /WITH BOW EQUIPPED[.\s\S]*?Increases Weapon Critical rating by ([0-9]+)/i,
+		match: /WITH BOW EQUIPPED[\s\S]*?Increases Weapon Critical rating by ([0-9]+)/i,
 	},
 	{
 		statRequireId: "WeaponDestStaff",
@@ -1242,7 +1251,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireValue: 1,
 		statId: "HAChargeTime",
 		display: "%",
-		match: /WITH DESTRUCTION STAFF EQUIPPED[.\s\S]*?Reduces the time it takes to charge a heavy attack by ([0-9]+\.?[0-9]*)%/i,
+		match: /WITH DESTRUCTION STAFF EQUIPPED[\s\S]*?Reduces the time it takes to charge a heavy attack by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statRequireId: "WeaponDestStaff",
@@ -1364,21 +1373,28 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statRequireId: "ArmorHeavy",
 		statRequireValue: 5,
-		statId: "HARestore",
+		statId: "HAStaRestore",
 		display: "%",
-		match: /WITH 5 OR MORE PIECES OF HEAVY ARMOR EQUIPPED[.\s\S]*?increases the Magicka or Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)%/i
+		match: /WITH 5 OR MORE PIECES OF HEAVY ARMOR EQUIPPED[\s\S]*?increases the Magicka or Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		statRequireId: "ArmorHeavy",
+		statRequireValue: 5,
+		statId: "HAMagRestore",
+		display: "%",
+		match: /WITH 5 OR MORE PIECES OF HEAVY ARMOR EQUIPPED[\s\S]*?increases the Magicka or Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		factorSkillLine: "Draconic Power",
 		statId: "HealthRegen",
 		display: "%",
-		match: /WITH DRACONIC POWER ABILITIES SLOTTED[.\s\S]*?Increases Health Recovery by ([0-9]+\.?[0-9]*)% for each Draconic Power ability slotted/i
+		match: /WITH DRACONIC POWER ABILITIES SLOTTED[\s\S]*?Increases Health Recovery by ([0-9]+\.?[0-9]*)% for each Draconic Power ability slotted/i
 	},
 	{
 		factorSkillLine: "Assassination",
 		statId: "CritDamage",
 		display: "%",
-		match: /WITH AN ASSASSINATION ABILITY SLOTTED[.\s\S]*?Increases damage dealt by Critical Strikes by ([0-9]+\.?[0-9]*)%/i
+		match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases damage dealt by Critical Strikes by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		factorSkillLine: "Assassination",
@@ -1387,7 +1403,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statValue: 219,
 		skillName: "Pressure Points",
 		skillRank: 1,
-		//match: /WITH AN ASSASSINATION ABILITY SLOTTED[.\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
+		//match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
 	},
 	{
 		factorSkillLine: "Assassination",
@@ -1396,7 +1412,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statValue: 219,
 		skillName: "Pressure Points",
 		skillRank: 1,
-		//match: /WITH AN ASSASSINATION ABILITY SLOTTED[.\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
+		//match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
 	},
 	{
 		factorSkillLine: "Assassination",
@@ -1405,7 +1421,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statValue: 438,
 		skillName: "Pressure Points",
 		skillRank: 2,
-		//match: /WITH AN ASSASSINATION ABILITY SLOTTED[.\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
+		//match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
 	},
 	{
 		factorSkillLine: "Assassination",
@@ -1414,7 +1430,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statValue: 438,
 		skillName: "Pressure Points",
 		skillRank: 2,
-		//match: /WITH AN ASSASSINATION ABILITY SLOTTED[.\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
+		//match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
 	},
 	{
 		statRequireId: "Stealthed",
@@ -1434,31 +1450,31 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		factorSkillLine: "Shadow",
 		statId: "Health",
 		display: "%",
-		match: /WITH A SHADOW ABILITY SLOTTED[.\s\S]*?Each Shadow Ability slotted increases your Max Health by ([0-9]+\.?[0-9]*)%/i
+		match: /WITH A SHADOW ABILITY SLOTTED[\s\S]*?Each Shadow Ability slotted increases your Max Health by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		requireSkillLine: "SIPHONING",
 		statId: "Magicka",
 		display: "%",
-		match: /WITH SIPHONING ABILITY SLOTTED[.\s\S]*?Increases Max Magicka ([0-9]+\.?[0-9]*)% while a Siphoning ability is slotted/i
+		match: /WITH SIPHONING ABILITY SLOTTED[\s\S]*?Increases Max Magicka ([0-9]+\.?[0-9]*)% while a Siphoning ability is slotted/i
 	},
 	{
 		requireSkillLine: "SIPHONING",
 		statId: "HealingDone",
 		display: "%",
-		match: /WHILE USING SIPHONING ABILITIES[.\s\S]*?Increases the effectiveness of your Healing done by ([0-9]+\.?[0-9]*)% for each Siphoning ability slotted/i
+		match: /WHILE USING SIPHONING ABILITIES[\s\S]*?Increases the effectiveness of your Healing done by ([0-9]+\.?[0-9]*)% for each Siphoning ability slotted/i
 	},
 	{
 		requireSkillLine: "DAEDRIC SUMMONING",
 		statId: "HealthRegen",
 		display: "%",
-		match: /WHILE A DAEDRIC SUMMONING ABILITY IS SLOTTED[.\s\S]*?Increases your Health and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i
+		match: /WHILE A DAEDRIC SUMMONING ABILITY IS SLOTTED[\s\S]*?Increases your Health and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		requireSkillLine: "DAEDRIC SUMMONING",
 		statId: "StaminaRegen",
 		display: "%",
-		match: /WHILE A DAEDRIC SUMMONING ABILITY IS SLOTTED[.\s\S]*?Increases your Health and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i
+		match: /WHILE A DAEDRIC SUMMONING ABILITY IS SLOTTED[\s\S]*?Increases your Health and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		factorSkillType: "Sorcerer",
@@ -1517,56 +1533,56 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "HealthRegen",
 		display: "%",
-		match: /WHILE EMPEROR[.\s\S]*?Increases Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		match: /WHILE EMPEROR[\s\S]*?Increases Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
 		statId: "MagickaRegen",
 		display: "%",
-		match: /WHILE EMPEROR[.\s\S]*?Increases Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		match: /WHILE EMPEROR[\s\S]*?Increases Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
 		statId: "StaminaRegen",
 		display: "%",
-		match: /WHILE EMPEROR[.\s\S]*?Increases Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		match: /WHILE EMPEROR[\s\S]*?Increases Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
 		statId: "OtherEffect",
 		display: "%",
-		match: /WHILE EMPEROR[.\s\S]*?Increases Ultimate gains by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		match: /WHILE EMPEROR[\s\S]*?Increases Ultimate gains by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
 		statId: "HealingReceived",
 		display: "%",
-		match: /WHILE EMPEROR[.\s\S]*?Increases the magnitude of healing effects on Emperors by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		match: /WHILE EMPEROR[\s\S]*?Increases the magnitude of healing effects on Emperors by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
 		statId: "Health",
 		display: "%",
-		match: /WHILE EMPEROR[.\s\S]*?Increases Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		match: /WHILE EMPEROR[\s\S]*?Increases Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
 		statId: "Magicka",
 		display: "%",
-		match: /WHILE EMPEROR[.\s\S]*?Increases Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		match: /WHILE EMPEROR[\s\S]*?Increases Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
 		statId: "Stamina",
 		display: "%",
-		match: /WHILE EMPEROR[.\s\S]*?Increases Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		match: /WHILE EMPEROR[\s\S]*?Increases Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
 		statRequireId: "VampireStage",
 		statRequireValue: 2,
 		statId: "StaminaRegen",
 		display: "%",
-		match: /WHILE YOU HAVE VAMPIRISM STAGE 2 OR HIGHER[.\s\S]*?Increases your Magicka and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i
+		match: /WHILE YOU HAVE VAMPIRISM STAGE 2 OR HIGHER[\s\S]*?Increases your Magicka and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		statRequireId: "VampireStage",
 		statRequireValue: 2,
 		statId: "MagickaRegen",
 		display: "%",
-		match: /WHILE YOU HAVE VAMPIRISM STAGE 2 OR HIGHER[.\s\S]*?Increases your Magicka and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i
+		match: /WHILE YOU HAVE VAMPIRISM STAGE 2 OR HIGHER[\s\S]*?Increases your Magicka and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		statRequireId: "VampireStage",
@@ -1579,16 +1595,16 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statRequireId: "WerewolfStage",
 		statRequireValue: 1,
-		statId: "OtherEffects",
+		statId: "HAStaRestoreWerewolf",
 		display: "%",
-		match: /WHILE IN WEREWOLF FORM[.\s\S]*?Increases the amount of Stamina your heavy attacks restore by ([0-9]+\.?[0-9]*)%/i
+		match: /WHILE IN WEREWOLF FORM[\s\S]*?Increases the amount of Stamina your heavy attacks restore by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		statRequireId: "Werewolf",
 		statRequireValue: 1,
 		statId: "WeaponDamage",
 		display: "%",
-		match: /WHILE IN WEREWOLF FORM[.\s\S]*?Increases Weapon Damage by ([0-9]+\.?[0-9]*)%/i
+		match: /WHILE IN WEREWOLF FORM[\s\S]*?Increases Weapon Damage by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		statId: "PhysicalDamageDone",
@@ -1661,7 +1677,14 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		match: /Increases your damage with melee weapon attacks by ([0-9]+\.?[0-9]*)%/i,
 	},
-
+	{
+		statRequireId: "WeaponRestStaff",
+		statRequireValue: 1,
+		statId: "HAMagRestoreRestStaff",
+		display: "%",
+		match: /WITH RESTORATION STAFF EQUIPPED[\s\S]*?Restores an additional ([0-9]+\.?[0-9]*)% Magicka when you complete a heavy attack/i,
+	},
+	
 	
 		/* Begin Toggled Passives */
 	{
@@ -1736,7 +1759,6 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	
 		// Restoration Staff
 	//WITH RESTORATION STAFF EQUIPPED Increases your healing by 15% on allies under 30% Health.
-	//WITH RESTORATION STAFF EQUIPPED Restores an additional 30% Magicka when you complete a heavy attack.
 	//WITH RESTORATION STAFF EQUIPPED Restores 540 Magicka when you block a spell.
 	//WITH RESTORATION STAFF EQUIPPED Increases healing with Restoration Staff spells by 5%.
 	
@@ -1961,18 +1983,21 @@ ESO_SETEFFECT_MATCHES = [
 		statId: "SneakCost",
 		display: '%',
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces Stamina cost for sprinting and crouching by ([0-9]+)%/i,
 	},
 	{
 		statId: "SneakCost",
 		display: '%',
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces crouch cost by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "SneakCost",
 		display: '%',
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduce Sneak cost by ([0-9]+\.?[0-9]*)%/i,
 	},	
 	{
@@ -2094,7 +2119,8 @@ ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		statId: "SneakDetectRange",
-		match: /Increases stealth detection radius by 2 meters/i,
+		category: "Skill2",
+		match: /Increases stealth detection radius by ([0-9]+) meters/i,
 	},	
 	{
 		statId: "BreakFreeCost",
@@ -2263,7 +2289,24 @@ ESO_SETEFFECT_MATCHES = [
 		ignore: true,
 		match: /Law of Julianos/i,
 	},
-	 	
+	{
+		setBonusCount: 4,
+		ignore: true,
+		match: /Law of Julianos/i,
+	},
+	{
+		setBonusCount: 4,
+		category: "Skill2",
+		statId: "HAMagRestore",
+		match: /Fully charged heavy attacks restore ([0-9]+) Magicka/i,
+	},
+	{
+		setBonusCount: 4,
+		category: "Skill2",
+		statId: "HADamage",
+		match: / Your fully charged Heavy Attacks do an additional ([0-9]+) damage/i,
+	},	
+	
 	
 		// Optionally toggled set effects
 	{
@@ -2785,7 +2828,6 @@ ESO_SETEFFECT_MATCHES = [
 	//Pelinal's Aptitude: Your Weapon Damage and Spell Damage both become the highest of the two values.
 	//Spell Power Cure: Healing an ally at 100% Health has a 50% chance of granting them 6-258 increased Weapon and Spell Damage for 10 seconds.
 	//Syvarra's Scales: Take 20% less damage from guards
-	//The Arch-Mage: Fully charged heavy attacks restore 19-834 Magicka
 	//Trial by Fire: When you take elemental damage, gain 179-7727 Resistance to that element for 4 seconds. You can only be resistant to one element at a time.
 	//Varen's Legacy: 10% chance on block that the next Area of Effect Attack you use will deal an additional 300-3450 Damage.
 ];
@@ -3087,6 +3129,8 @@ ESO_ABILITYDESC_MATCHES = [
 
 function GetEsoInputValues(mergeComputedStats)
 {
+	console.log("GetEsoInputValues");
+	
 	ResetEsoBuffSkillEnabled();
 	
 	var inputValues = {};
@@ -3429,7 +3473,11 @@ function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData)
 					
 		var category = matchData.category || "Set";
 		
-		inputValues[category][matchData.statId] += statValue;
+		if (matchData.combineAs == "*%")
+			inputValues[category][matchData.statId] = (1 + inputValues[category][matchData.statId]) * (1 + statValue) - 1;
+		else
+			inputValues[category][matchData.statId] += statValue;
+		
 		AddEsoItemRawOutput(setData, category + "." + matchData.statId, statValue);
 		AddEsoInputStatSource(category + "." + matchData.statId, { set: setData, setBonusCount: setBonusCount, value: statValue });
 	}
@@ -3651,7 +3699,11 @@ function ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData,
 	}
 	else 
 	{
-		inputValues[category][matchData.statId] += statValue;
+		if (matchData.combineAs == "*%")
+			inputValues[category][matchData.statId] = (1 + inputValues[category][matchData.statId]) * (1 + statValue) - 1;
+		else
+			inputValues[category][matchData.statId] += statValue;
+		
 		AddEsoItemRawOutput(abilityData, category + "." + matchData.statId, statValue);
 		
 		if (isPassive)
@@ -4241,6 +4293,7 @@ function GetEsoInputTargetValues(inputValues)
 	inputValues.Target.PenetrationFactor = parseFloat($("#esotbTargetPenetrationFactor").val()) / 100;
 	inputValues.Target.DefenseBonus = parseFloat($("#esotbTargetDefenseBonus").val()) / 100;
 	inputValues.Target.AttackBonus = parseFloat($("#esotbTargetAttackBonus").val()) / 100;
+	inputValues.Target.CritDamage = parseFloat($("#esotbTargetCritDamage").val()) / 100;
 }
 
 
@@ -4389,7 +4442,7 @@ function GetEsoInputCPValues(inputValues)
 	
 		/* Atronach */
 	ParseEsoCPValue(inputValues, "HAWeaponDamage", 60565);
-	ParseEsoCPValue(inputValues, "ShieldDamage", 60662);
+	ParseEsoCPValue(inputValues, "ShieldDamageDone", 60662);
 	ParseEsoCPValue(inputValues, "HABowDamage", 60546);
 	ParseEsoCPValue(inputValues, "HAStaffDamage", 60503);
 	
@@ -4403,14 +4456,14 @@ function GetEsoInputCPValues(inputValues)
 		/* Shadow */
 	ParseEsoCPValue(inputValues, "HealingReceived", 59298, null, null, null, "Target");
 	ParseEsoCPValue(inputValues, "SneakCost", 61548, null, null, -1);
-	ParseEsoCPValue(inputValues, "FearDuration", 59353, null, null, -1);
+	ParseEsoCPValue(inputValues, ["FearDuration", "StunDuration", "DisorientDuration", "SnareDuration"], 59353, null, null, -1);
 	ParseEsoCPValue(inputValues, ["RollDodgeCost", "BreakFreeCost"], 63863, null, null, -1);
 	
 		/* Lover */
 	ParseEsoCPValue(inputValues, "StaminaRegen", 59346);
 	ParseEsoCPValue(inputValues, "MagickaRegen", 59577);
 	ParseEsoCPValue(inputValues, "HealthRegen", 60374);
-	ParseEsoCPValue(inputValues, "HARestore", 63854);
+	ParseEsoCPValue(inputValues, ["HAMagRestore", "HAStaRestore"], 63854);
 	
 		/* Tower */
 	ParseEsoCPValue(inputValues, "BashCost", 58899, null, null, -1);
@@ -4638,7 +4691,17 @@ function UpdateEsoComputedStat(statId, stat, inputValues, saveResult)
 			else
 				error = "ERR";
 
-			if (round == "floor") stack.push(Math.floor(stack.pop()));
+			if (round == "floor") 
+				stack.push(Math.floor(stack.pop()));
+			else if (round == "round")
+				stack.push(Math.round(stack.pop()));
+			else if (round == "ceil")
+				stack.push(Math.ceil(stack.pop()));
+			else if (round == "floor2")
+				stack.push(Math.floor(stack.pop()*2)/2);
+			else if (round == "floor10")
+				stack.push(Math.floor(stack.pop()*10)/10);
+			
 			continue;
 		}
 		else if (computeItem == "+")
@@ -4696,6 +4759,9 @@ function UpdateEsoComputedStat(statId, stat, inputValues, saveResult)
 		var result = stack.pop();
 		var display = stat.display;
 		var displayResult = result;
+		var suffix = "";
+		
+		if (stat.suffix != null) suffix = stat.suffix;
 		
 		if (display == "%")
 		{
@@ -4722,7 +4788,7 @@ function UpdateEsoComputedStat(statId, stat, inputValues, saveResult)
 		{
 			inputValues[statId] = result;
 			stat.value = result;
-			valueElement.text(displayResult);
+			valueElement.text(displayResult + suffix);
 		}
 		
 		return result;
@@ -7928,6 +7994,7 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 	saveData.Stats['Target:DefenseBonus'] = "" + inputValues.Target.DefenseBonus;
 	saveData.Stats['Target:AttackBonus'] = "" + inputValues.Target.AttackBonus;
 	saveData.Stats['Target:Resistance'] = "" + inputValues.Target.SpellResist;
+	saveData.Stats['Target:CritDamage'] = "" + (inputValues.Target.CritDamage * 100) + "%";
 	saveData.Stats['Misc:SpellCost'] = "" + inputValues.Misc.SpellCost;
 	
 	saveData.Stats['AttributesTotal'] = "" + inputValues.Attribute.TotalPoints;
