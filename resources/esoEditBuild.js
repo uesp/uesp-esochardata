@@ -12,8 +12,8 @@ ESO_MAX_LEVEL = 50;
 ESO_MAX_CPLEVEL = 16;
 ESO_MAX_EFFECTIVELEVEL = 66;
 
- 	// Time between an input change and a stat update
-ESO_BUILD_UPDATE_MINTIME = 1;	 
+ 	// Time between an input change and a stat update in seconds
+ESO_BUILD_UPDATE_MINTIME = 0.5;	 
 
 g_EsoBuildLastUpdateRequest = 0;
 g_EsoBuildRebuildStatFlag = false;
@@ -569,6 +569,8 @@ g_EsoBuildBuffData =
 			statId : "AttackBonus",
 			icon : "/esoui/art/icons/ability_fightersguild_004.png",
 		},
+		
+		//Minor Aegis: 5% less damage from Boss Monsters
 
 };
 
@@ -1717,6 +1719,13 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Critical Damage increases by ([0-9]+\.?[0-9]*)%/i,
 	},	
 	{
+		statId: "CritDamage",
+		statRequireId: "Stealthed",
+		statRequireValue: 1,
+		display: '%',
+		match: /Attacking from stealth increases Critical Damage by an additional ([0-9]+\.?[0-9]*)%/i,
+	},	
+	{
 		statId: "CritResist",
 		display: '%',
 		match: /Reduces damage from Critical Hits by ([0-9]+\.?[0-9]*)%/i,
@@ -1770,7 +1779,8 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Snares on you have ([0-9]+)% shorter duration/i,
 	},
 	{
-		statId: "PlayerDamageResist",
+		statId: "PlayerDamageTaken",
+		factorValue: -1,
 		display: '%',
 		match: /Reduce damage taken from players by ([0-9]+)%/i,
 	},
@@ -1823,7 +1833,13 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Increase range of bow attacks by ([0-9]+) meters/i,
 	},
 	{
-		statId: "LAHADamage",
+		statId: "LADamage",
+		display: '%',
+		category: "Skill",
+		match: /Light attack and heavy attack damage increased by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "HADamage",
 		display: '%',
 		category: "Skill",
 		match: /Light attack and heavy attack damage increased by ([0-9]+\.?[0-9]*)%/i,
@@ -1864,12 +1880,13 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Increase Maximum Magicka by ([0-9]+\.?[0-9]*)%./i,
 	},
 	{
-		statId: "BowAbilityCost",
+		category: "SkillCost",
+		statId: "Bow_Cost",
 		display: '%',
 		match: /Reduce cost of bow abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		statId: "BowAbilityDamage",
+		statId: "BowDamageDone",
 		display: '%',
 		match: /Reduce cost of bow abilities by [0-9]+\.?[0-9]*% and increase their damage by ([0-9]+\.?[0-9]*)%/i,
 	},
@@ -1938,7 +1955,7 @@ ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		statId: "SpellResist",
-		factorValue: 0.2304,
+		factorValue: 0.2309,
 		round: "floor",
 		match: /Mark of the Pariah[\s]*Increase your Physical and Spell Resistance by up to ([0-9]+) based on your missing Health/i,
 	},
@@ -1952,6 +1969,38 @@ ESO_SETEFFECT_MATCHES = [
 		statId: "OtherEffects",
 		match: /Mark of the Pariah[\s]*Increase your Physical and Spell Resistance by up to ([0-9]+) based on your missing Health/i,
 	},
+	{
+		statId: "BreakFreeDuration",
+		match: /Immunity duration after using Break Free increased by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		requireSkillType: "Armor",
+		category: "Skill",
+		statId: "Health",
+		display: "%",
+		match: /While you have an Armor Ability slotted, increase your Maximum Health by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "RollDodgeDuration",
+		match: /After using Roll Dodge, continue to dodge attacks for an additional ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		statId: "Health",
+		match: /Increase Max Health for up to [0-9]+ group members by ([0-9]+)/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Restoration_Staff_Cost",
+		display: "%",
+		match: /Reduce the Magicka cost of restoration staff abilities by ([0-9]+\.?[0-9]*)/i,
+	},
+	{
+		statId: "StaminaRegen",
+		display: "%",
+		match: /Increase Stamina Recovery for up to [0-9]+ group members by ([0-9]+\.?[0-9]*)%/i,
+	},
+	
+
 	
 		// Optionally toggled effects
 	{
@@ -2012,12 +2061,142 @@ ESO_SETEFFECT_MATCHES = [
 		display: '%',
 		match: /While you have pets active, increase max magicka by ([0-9]+\.?[0-9]*)%/i,
 	},
+	{
+		id: "Armor Master",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "PhysicalResist",
+		match: /When you activate an Armor Ability you gain ([0-9]+) Physical and Spell Resistance/i,
+	},
+	{
+		id: "Armor Master",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "SpellResist",
+		match: /When you activate an Armor Ability you gain ([0-9]+) Physical and Spell Resistance/i,
+	},
+	{
+		id: "Armor of Rage",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: /chance to increase Weapon Damage by ([0-9]+) for [0-9]+ seconds after dealing damage/i,
+	},
+	{
+		id: "Berserking Warrior",
+		setBonusCount: 2,
+		toggle: true,
+		enabled: false,
+		maxTimes: 5,
+		statId: "WeaponCrit",
+		match: /critical strike chance is increased by ([0-9]+) for [0-9]+ seconds\. Stacks five times/i,
+	},
+	{
+		id: "Blood Spawn",
+		setBonusCount: 2,
+		toggle: true,
+		enabled: false,
+		statId: "PhysicalResist",
+		match: /chance when hit to gain ([0-9]+) Physical Resistance and Spell Resistance/i,
+	},
+	{
+		id: "Blood Spawn",
+		setBonusCount: 2,
+		toggle: true,
+		enabled: false,
+		statId: "SpellResist",
+		match: /chance when hit to gain ([0-9]+) Physical Resistance and Spell Resistance/i,
+	},
+	{
+		id: "Briarheart",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: /chance when you deal Critical Damage to create Briarthorns which increases your Weapon Damage by ([0-9]+)/i,
+	},
+	{
+		id: "Burning Spellweave",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "SpellDamage",
+		match: /chance when dealing Flame damage to inflict the burning status effect on enemy and gain ([0-9]+) Spell Damage/i,
+	},
+	{
+		id: "Clever Alchemist",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "SpellDamage",
+		match: /When you drink a potion you feel a rush of energy, gaining ([0-9]+) Weapon and Spell Damage/i,
+	},
+	{
+		id: "Clever Alchemist",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: /When you drink a potion you feel a rush of energy, gaining ([0-9]+) Weapon and Spell Damage/i,
+	},
+	{
+		id: "Embershield",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "SpellResist",
+		match: /chance to gain ([0-9]+) Spell Resistance/i,
+	},
+	{
+		id: "Essence Thief",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "DamageDone",
+		display: "%",
+		match: /increases your damage by ([0-9]+\.?[0-9]*)% for/i,
+	},
+	{
+		id: "Essence Thief",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: /Attacks from behind an enemy gain an additional ([0-9]+) Weapon Damage/i,
+	},
+	{
+		id: "Imperial Physique",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		statId: "Health",
+		factorValue: 7,
+		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka and Stamina by ([0-9]+)/i,
+	},
+	{
+		id: "Imperial Physique",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		statId: "Magicka",
+		factorValue: 7,
+		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka and Stamina by ([0-9]+)/i,
+	},
+	{
+		id: "Imperial Physique",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		statId: "Stamina",
+		factorValue: 7,
+		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka and Stamina by ([0-9]+)/i,
+	},
+		// End of Toggled Sets
 	
 		// Other Effects
-	{
-		statId: "OtherEffects",
-		match: /Increase Max Health for up to 12 group members by ([0-9]+\.?[0-9]*)/i,
-	},
 	{
 		statId: "OtherEffects",
 		display: '%',
@@ -2268,7 +2447,7 @@ ESO_ENCHANT_WEAPON_MATCHES = [
 		match: /Reduce target Weapon Damage and Spell Damage by ([0-9]+) for [0-9]+ seconds/i,
 	},
 	{
-		statId: "OtherEffects",		// Added to buffs
+		statId: "OtherEffects",
 		match: /Increase your Weapon Damage and Spell Damage by ([0-9]+) for [0-9]+ seconds/i,
 		buffId : "Weapon Damage Enchantment",
 		updateBuffValue : true,
@@ -2605,31 +2784,57 @@ function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData)
 			if (!IsEsoBuildToggledSetEnabled(matchData.id)) continue;
 		}
 		
+		if (matchData.statRequireId != null)
+		{
+			var requiredStat = inputValues[matchData.statRequireId];
+			if (requiredStat == null) continue;
+			if (parseFloat(requiredStat) < parseFloat(matchData.statRequireValue)) continue;
+		}
+		
+		if (matchData.requireSkillLine != null)
+		{
+			var count = CountEsoBarSkillsWithSkillLine(matchData.requireSkillLine);
+			if (count == 0) continue;
+		}
+		
+		if (matchData.requireSkillType != null)
+		{
+			var count = CountEsoBarSkillsWithSkillType(matchData.requireSkillType);
+			if (count == 0) continue;
+		}
+		
 		foundMatch = true;
 		
 		if (matchData.statId == "OtherEffects")
 		{
 			addFinalEffect = true;
+			continue;
 		}
-		else
+		
+		var statValue = parseFloat(matches[1]);
+		var statFactor = 1;
+		if (isNaN(statValue)) statValue = 1;
+		
+		if (matchData.factorValue != null)
 		{
-			var statValue = parseFloat(matches[1]);
-			if (isNaN(statValue)) statValue = 1;
-			
-			if (matchData.factorValue != null)
-			{
-				statValue = statValue * matchData.factorValue;
-			}
-			
-			if (matchData.round == "floor") statValue = Math.floor(statValue);
-			if (matchData.display == "%") statValue = statValue/100;
-						
-			var category = matchData.category || "Set";
-			
-			inputValues[category][matchData.statId] += statValue;
-			AddEsoItemRawOutput(setData, category + "." + matchData.statId, statValue);
-			AddEsoInputStatSource(category + "." + matchData.statId, { set: setData, setBonusCount: setBonusCount, value: statValue });
+			statFactor = matchData.factorValue;
 		}
+		else if (matchData.maxTimes != null)
+		{
+			var toggleData = g_EsoBuildToggledSetData[matchData.id];
+			if (toggleData != null && toggleData.count != null) statFactor = toggleData.count;
+		}
+		
+		statValue = statValue * statFactor;
+	
+		if (matchData.round == "floor") statValue = Math.floor(statValue);
+		if (matchData.display == "%") statValue = statValue/100;
+					
+		var category = matchData.category || "Set";
+		
+		inputValues[category][matchData.statId] += statValue;
+		AddEsoItemRawOutput(setData, category + "." + matchData.statId, statValue);
+		AddEsoInputStatSource(category + "." + matchData.statId, { set: setData, setBonusCount: setBonusCount, value: statValue });
 	}
 	
 	if (!foundMatch || addFinalEffect)
@@ -3704,7 +3909,6 @@ function AddEsoInputStatSource(statId, data)
 	if (statIds.length > 1)
 	{
 		var firstStatId = statIds.shift();
-		//if (firstStatId == "Armor") return;
 		
 		var newStatId = statIds.join(".");
 		if (g_EsoInputStatSources[newStatId] == null) g_EsoInputStatSources[newStatId] = [];
@@ -3721,6 +3925,12 @@ function UpdateEsoComputedStatsList(realUpdate)
 	{
 		g_EsoBuildRebuildStatFlag = false;
 		UpdateEsoComputedStatsList_Real();
+		return;
+	}
+	else if (realUpdate == "async")
+	{
+		g_EsoBuildRebuildStatFlag = false;
+		setTimeout(UpdateEsoComputedStatsList_Real, 100);
 		return;
 	}
 	
@@ -4159,7 +4369,7 @@ function OnEsoRaceChange(e)
 	EnableEsoRaceSkills(newRace);
 	g_EsoBuildEnableUpdates = true;
 	
-	UpdateEsoComputedStatsList(true);
+	UpdateEsoComputedStatsList("async");
 }
 
 
@@ -4171,7 +4381,7 @@ function OnEsoClassChange(e)
 	EnableEsoClassSkills(newClass);
 	g_EsoBuildEnableUpdates = true;
 		
-	UpdateEsoComputedStatsList(true);
+	UpdateEsoComputedStatsList("async");
 }
 
 
@@ -4182,7 +4392,7 @@ function OnEsoVampireChange(e)
 		$("#esotbWerewolfStage").val("0");
 	}
 	
-	UpdateEsoComputedStatsList(true);
+	UpdateEsoComputedStatsList("async");
 }
 
 
@@ -4193,19 +4403,19 @@ function OnEsoWerewolfChange(e)
 		$("#esotbVampireStage").val("0");
 	}
 	
-	UpdateEsoComputedStatsList(true);
+	UpdateEsoComputedStatsList("async");
 }
 
 
 function OnEsoClickStealth(e)
 {
-	UpdateEsoComputedStatsList(true);
+	UpdateEsoComputedStatsList("async");
 }
 
 
 function OnEsoMundusChange(e)
 {
-	UpdateEsoComputedStatsList(true);
+	UpdateEsoComputedStatsList("async");
 }
 
 
@@ -4245,7 +4455,7 @@ function UnequipEsoItemSlot(slotId, update)
 	
 	UnequipEsoEnchantSlot(slotId, false);
 	
-	if (update == null || update === true) UpdateEsoComputedStatsList(true);
+	if (update == null || update === true) UpdateEsoComputedStatsList("async");
 	return true;
 }
 
@@ -4264,7 +4474,7 @@ function UnequipEsoEnchantSlot(slotId, update)
 
 	g_EsoBuildEnchantData[slotId] = {};
 	
-	if (update == null || update === true) UpdateEsoComputedStatsList(true);
+	if (update == null || update === true) UpdateEsoComputedStatsList("async");
 	return true;
 }
 
@@ -5468,6 +5678,7 @@ function CreateEsoBuildToggledSetData()
 		{
 			g_EsoBuildToggledSetData[id] = {};
 			g_EsoBuildToggledSetData[id].statIds = [];
+			g_EsoBuildToggledSetData[id].matchData = setEffectData;
 		}
 		
 		g_EsoBuildToggledSetData[id].id = id;
@@ -5476,7 +5687,9 @@ function CreateEsoBuildToggledSetData()
 		g_EsoBuildToggledSetData[id].valid = false;
 		g_EsoBuildToggledSetData[id].enabled = setEffectData.enabled;
 		g_EsoBuildToggledSetData[id].statIds.push(setEffectData.statId);
-		
+		g_EsoBuildToggledSetData[id].maxTimes = setEffectData.maxTimes;
+		g_EsoBuildToggledSetData[id].count = 0;		
+				
 		if (g_EsoBuildSetData[id] != null && g_EsoBuildSetData[id].averageDesc != null &&
 				g_EsoBuildSetData[id].averageDesc[setEffectData.setBonusCount] != null)
 		{
@@ -5517,6 +5730,13 @@ function SetEsoBuildToggledSkillCount(skillId, value)
 {
 	if (g_EsoBuildToggledSkillData[skillId] == null) return false;
 	g_EsoBuildToggledSkillData[skillId].count = parseInt(value);
+}
+
+
+function SetEsoBuildToggledSetCount(skillId, value)
+{
+	if (g_EsoBuildToggledSetData[skillId] == null) return false;
+	g_EsoBuildToggledSetData[skillId].count = parseInt(value);
 }
 
 
@@ -5653,10 +5873,27 @@ function UpdateEsoBuildToggledSetData()
 		var toggleData = g_EsoBuildToggledSetData[setName];
 		if (toggleData == null) continue;
 		
-		if (setData.averageDesc == null || setData.items[0] == null)
+		SetEsoBuildToggledSetValid(setName, false);
+		
+		if (setData.averageDesc == null || setData.items[0] == null) continue;
+		
+		if (toggleData.matchData.statRequireId != null)
 		{
-			SetEsoBuildToggledSetValid(setName, false);
-			continue;
+			var requiredStat = inputValues[toggleData.matchData.statRequireId];
+			if (requiredStat == null) continue;
+			if (parseFloat(requiredStat) < parseFloat(toggleData.matchData.statRequireValue)) continue;
+		}
+		
+		if (toggleData.matchData.requireSkillLine != null)
+		{
+			var count = CountEsoBarSkillsWithSkillLine(toggleData.matchData.requireSkillLine);
+			if (count == 0) continue;
+		}
+		
+		if (toggleData.matchData.requireSkillType != null)
+		{
+			var count = CountEsoBarSkillsWithSkillType(toggleData.matchData.requireSkillType);
+			if (count == 0) continue;
 		}
 		
 		var setDesc = setData.averageDesc[toggleData.setBonusCount - 1];
@@ -5683,6 +5920,9 @@ function UpdateEsoBuildToggledSetData()
 		if (checkElement.length > 0)
 		{
 			SetEsoBuildToggledSetEnable(setName, checkElement.is(":checked"));
+			
+			var countElement = checkElement.next(".esotbToggleSetNumber");
+			if (countElement.length > 0) SetEsoBuildToggledSetCount(setName, countElement.val());
 		}
 	}
 }
@@ -5702,8 +5942,17 @@ function UpdateEsoBuildToggleSets()
 	
 	element.html(output);
 	
+	$(".esotbToggleSetNumber").on("input", OnEsoBuildToggleSetNumber);
+	$(".esotbToggleSetNumber").click(OnEsoBuildToggleSetNumberClick);
 	$(".esotbToggleSetCheck").click(OnEsoBuildToggleSet);
 	$(".esotbToggledSetItem").click(OnEsoBuildToggleSetClick);
+}
+
+
+function OnEsoBuildToggleSetNumberClick(e)
+{
+	e.stopPropagation();
+	return false;
 }
 
 
@@ -5712,7 +5961,7 @@ function OnEsoBuildToggleSet(e)
 	var setId = $(this).parent().attr("setid");
 	if (setId == null || setId == "") return;
 	
-	UpdateEsoComputedStatsList(true);
+	UpdateEsoComputedStatsList("async");
 	
 	e.stopPropagation();
 	return true;
@@ -5729,7 +5978,7 @@ function OnEsoBuildToggleSetClick(e)
 	else
 		$(this).removeClass("esotbToggledSetSelect");
 	
-	UpdateEsoComputedStatsList(true);
+	UpdateEsoComputedStatsList("async");
 	
 	return false;
 }
@@ -5744,6 +5993,12 @@ function CreateEsoBuildToggleSetHtml(setData)
 	var output = "<div class='esotbToggledSetItem " + extraClass + "' setid=\"" + setData.id + "\">";
 	
 	output += "<input type='checkbox' class='esotbToggleSetCheck'  " + checked + " >";
+	
+	if (setData.maxTimes != null) 
+	{
+		output += "<input type='number' class='esotbToggleSetNumber'  value='" + setData.count + "' >";
+	}
+	
 	output += "<div class='esotbToggleSetTitle'>" + setData.id + ":</div> ";
 	output += "<div class='esotbToggleSetDesc'>" + setData.desc + "</div>";
 	
@@ -5757,7 +6012,7 @@ function OnEsoBuildToggleSkill(e)
 	var skillId = $(this).parent().attr("skillId");
 	if (skillId == null || skillId == "") return;
 	
-	UpdateEsoComputedStatsList(true);
+	UpdateEsoComputedStatsList("async");
 	
 	e.stopPropagation();
 	return true;
@@ -5774,7 +6029,7 @@ function OnEsoBuildToggleSkillClick(e)
 	else
 		$(this).removeClass("esotbToggledSkillSelect");
 	
-	UpdateEsoComputedStatsList(true);
+	UpdateEsoComputedStatsList("async");
 	
 	return false;
 }
@@ -5786,6 +6041,23 @@ function OnEsoBuildToggleSkillNumber(e)
 	if (skillId == null || skillId == "") return;
 	
 	var toggleData = g_EsoBuildToggledSkillData[skillId];
+	if (toggleData == null) return;
+	
+	var value = $(this).val();
+	
+	if (value < 0) $(this).val("0");
+	if (toggleData.maxTimes != null && value > toggleData.maxTimes)  $(this).val(toggleData.maxTimes);
+	
+	UpdateEsoComputedStatsList();
+}
+
+
+function OnEsoBuildToggleSetNumber(e)
+{
+	var setName = $(this).parent().attr("setid");
+	if (setName == null || setName == "") return;
+	
+	var toggleData = g_EsoBuildToggledSetData[setName];
 	if (toggleData == null) return;
 	
 	var value = $(this).val();
@@ -5810,9 +6082,17 @@ function UpdateEsoBuildToggleSkills()
 	}
 	
 	element.html(output);
-	$(".esotbToggleSkillCheck").click(OnEsoBuildToggleSkill);
 	$(".esotbToggleSkillNumber").on("input", OnEsoBuildToggleSkillNumber);
+	$(".esotbToggleSkillNumber").click(OnEsoBuildToggleSkillNumberClick);
+	$(".esotbToggleSkillCheck").click(OnEsoBuildToggleSkill);
 	$(".esotbToggledSkillItem").click(OnEsoBuildToggleSkillClick);
+}
+
+
+function OnEsoBuildToggleSkillNumberClick(e)
+{
+	e.stopPropagation();
+	return false;
 }
 
 
@@ -6026,13 +6306,13 @@ function SetEsoBuildActiveSkillBar(skillBarIndex)
 function OnEsoBuildSkillBarSwap(e, skillBarIndex)
 {
 	SetEsoBuildActiveWeaponBar(skillBarIndex);	
-	UpdateEsoComputedStatsList(true);
+	UpdateEsoComputedStatsList("async");
 }
 
 
 function OnEsoBuildSkillUpdate(e)
 {
-	UpdateEsoComputedStatsList(true);
+	UpdateEsoComputedStatsList("async");
 }
 
 
@@ -6301,7 +6581,7 @@ function OnEsoBuildBuffClick(e)
 	}
 	
 	UpdateEsoBuffItem($(this));
-	UpdateEsoComputedStatsList(true);
+	UpdateEsoComputedStatsList("async");
 	
 	return false;
 }
@@ -6319,7 +6599,7 @@ function OnEsoBuildBuffCheckClick(e)
 	}
 	
 	UpdateEsoBuffItem(parent);
-	UpdateEsoComputedStatsList(true);
+	UpdateEsoComputedStatsList("async");
 
 	e.stopPropagation();
 	return true;
@@ -6423,6 +6703,7 @@ function UpdateEsoInitialToggleSetData()
 		if (setData == null) continue;
 		
 		setData.enabled = initData.enabled;
+		if (initData.count != null) setData.count = initData.count;
 	}
 
 }
@@ -6589,6 +6870,11 @@ function CreateEsoBuildSetToggleSaveData(saveData, inputValues)
 	{
 		var toggleData = g_EsoBuildToggledSetData[name];
 		var outName = "ToggleSet:" + name;
+		
+		if (toggleData.maxTimes != null) 
+		{
+			saveData.Stats[outName + ":Count"] = "" + toggleData.count;
+		}
 		
 		saveData.Stats[outName] = "" + ConvertBoolToInt(toggleData.enabled);
 	}
@@ -7200,4 +7486,5 @@ function esotbOnDocReady()
 
 
 $( document ).ready(esotbOnDocReady);
+
 
