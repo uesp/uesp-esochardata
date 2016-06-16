@@ -383,6 +383,16 @@ g_EsoBuildBuffData =
 			statDesc : "Increases the power of your next attack by ",
 			icon : "/esoui/art/icons/ability_warrior_012.png",
 		},
+		"Spell Power Cure" :			//TODO: Check how its added 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 258,
+			category: "Set",
+			statIds : [ "WeaponDamage", "SpellDamage" ],
+			statDesc : "Increases your Weapon and Spell Damage by ",
+			icon : "/esoui/art/icons/ability_mage_045.png",
+		},
 		"Major Evasion" : 
 		{
 			enabled: false,
@@ -502,6 +512,15 @@ g_EsoBuildBuffData =
 			statId : "DamageDone",
 			icon : "/esoui/art/icons/ability_fightersguild_004.png",
 		},
+		"Minor Vulnerability" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 0.08,
+			display: "%",
+			statId : "DamageTaken",
+			icon : "/esoui/art/icons/death_recap_poison_ranged.png",
+		},
 		"Weapon Damage Enchantment" : // TODO: Variable values?
 		{
 			enabled: false,
@@ -522,6 +541,15 @@ g_EsoBuildBuffData =
 			values : [ 5000, -0.50, -0.50, -0.50 ],
 			statIds : [ "Health", "HealingReceived", "DamageTaken", "DamageShield" ],
 			icon: "/esoui/art/icons/ability_templar_002.png",
+		},
+		"Minor Force" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 0.12,
+			display: "%",
+			statId : "CritDamage",
+			icon : "/esoui/art/icons/ability_nightblade_003_a.png",
 		},
 		
 			/* Target Buffs */
@@ -571,6 +599,17 @@ g_EsoBuildBuffData =
 			statId : "AttackBonus",
 			icon : "/esoui/art/icons/ability_fightersguild_004.png",
 		},
+		"Minor Vulnerability (Target)" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			category: "Target",
+			value : 0.08,
+			display: "%",
+			statId : "DamageTaken",
+			icon : "/esoui/art/icons/death_recap_poison_ranged.png",
+		},
+		
 		
 		//Minor Aegis: 5% less damage from Boss Monsters
 		//Minor Slayer: 5% more damage to Boss Monsters.
@@ -658,7 +697,7 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		match: /While slotted, blocking any attack increases the damage of your next Power Slam by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds/i
 	},
 	{
-		statId: "OtherEffects",
+		statId: "OtherEffects",		//TODO?
 		rawInputMatch: /(While slotted, your Spell and Weapon Damage is increased by [0-9]+ for Ardent Flame abilities)/i,
 		match: /While slotted, your Spell and Weapon Damage is increased by ([0-9]+) for Ardent Flame abilities/i
 	},
@@ -1551,6 +1590,78 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		match: /WHILE IN WEREWOLF FORM[.\s\S]*?Increases Weapon Damage by ([0-9]+\.?[0-9]*)%/i
 	},
+	{
+		statId: "PhysicalDamageDone",
+		display: "%",
+		match: /Increases your Physical and Shock Damage by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		statId: "ShockDamageDone",
+		display: "%",
+		match: /Increases your Physical and Shock Damage by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		statId: "ShockDamageDone",
+		display: "%",
+		match: /Increases your Physical and Shock Damage by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		statRequireId: "Weapon2H",
+		statRequireValue: 1,
+		factorStatId: "WeaponSword",
+		statId: "DamageDone",
+		display: "%",
+		match: /Swords increase your damage done by  ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statRequireId: "Weapon2H",
+		statRequireValue: 1,
+		factorStatId: "WeaponMace",
+		category: "Skill2",
+		statId: "PhysicalPenetration",
+		display: "%",
+		match: /Maces cause your attacks to ignore ([0-9]+\.?[0-9]*)% of your target's Physical Resistance/i,
+	},
+	{
+		statId: "FlameDamageDone",
+		display: "%",
+		match: /Increases your Damage with Flame effects by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "ColdDamageDone",
+		display: "%",
+		match: /Increases your Damage with Frost, Fire, and Shock effects by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "FlameDamageDone",
+		display: "%",
+		match: /Increases your Damage with Frost, Fire, and Shock effects by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "ShockDamageDone",
+		display: "%",
+		match: /Increases your Damage with Frost, Fire, and Shock effects by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statRequireId: "Stealthed",
+		statRequireValue: 1,
+		statId: "DamageDone",
+		display: "%",
+		match: /Increases damage done while in stealth by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "Skill2",
+		statId: "LADamage",
+		display: "%",
+		match: /Increases your damage with melee weapon attacks by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "Skill2",
+		statId: "HADamage",
+		display: "%",
+		match: /Increases your damage with melee weapon attacks by ([0-9]+\.?[0-9]*)%/i,
+	},
+
 	
 		/* Begin Toggled Passives */
 	{
@@ -1575,7 +1686,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		maxTimes: 10,
-		match: /WHEN 5 OR MORE PIECES OF HEAVY ARMOR ARE EQUIPPED[\s]*Gain ([0-9]+) Weapon and Spell Damage for [0-9]+ seconds when you take damage, stacking up to 10 times/i
+		match: /WHEN 5 OR MORE PIECES OF HEAVY ARMOR ARE EQUIPPED[\s\S]*?Gain ([0-9]+) Weapon and Spell Damage for [0-9]+ seconds when you take damage, stacking up to 10 times/i
 	},
 	{
 		id: "Burning Heart",
@@ -1585,7 +1696,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		display: "%",
-		match: /WHILE USING DRACONIC POWER ABILITIES[\s]*Increases healing received by ([0-9]+\.?[0-9]*)% while a Draconic Power ability is active/i
+		match: /WHILE USING DRACONIC POWER ABILITIES[\s\S]*?Increases healing received by ([0-9]+\.?[0-9]*)% while a Draconic Power ability is active/i
 	},
 	{
 		id: "Expert Summoner",
@@ -1596,6 +1707,19 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		match: /Increases your Max Health by ([0-9]+\.?[0-9]*)% if you have a Daedric Summoning pet active/i
 	},
+	{
+		statRequireId: "WeaponBow",
+		statRequireValue: 1,
+		id: "Hawk Eye",
+		baseSkillId: 31412,
+		statId: "Health",
+		toggle: true,
+		enabled: false,
+		display: "%",
+		maxTimes: 3,
+		match: /WITH BOW EQUIPPED[\s\S]*?Your successful Light and Heavy Attacks increase the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i
+	},
+	//.
 		/* End Toggled Passives */
 	
 
@@ -1603,17 +1727,9 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		/* End Other Effects */
 	
 	
-	
 		// Dragonknight
 	//Increases the damage of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by 3% and the duration by 2 seconds.
 	//Increases the damage of Flame and Poison area of effect abilities by 6%.
-	
-		// Nightblade
-	//
-	
-		// Sorcerer
-	//
-	//Increases your Physical and Shock Damage by 5%.		
 	
 		// Templar
 	//Gives you a 25% chance to cause an extra 1803 Damage any time you hit with an Aedric Spear ability. Deals Physical Damage and scales with Weapon Damage, or deals Magic Damage and scales with Spell Damage, based on whichever is higher.
@@ -1625,16 +1741,13 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	//WITH RESTORATION STAFF EQUIPPED Increases healing with Restoration Staff spells by 5%.
 	
 		// Destruction Staff
-	//Grants bonus effects based on the element used: 
+	//Grants bonus effects based on the element used:
 		//Fully charged heavy fire attacks deal 12% additional damage.
 		//Fully charged heavy frost attacks grant a damage shield that absorbs 1809 damage.
 		//Fully charged heavy shock attacks damage nearby enemies for 100% of the damage done.
-	//WITH DESTRUCTION STAFF EQUIPPED Reduces the time it takes to charge a heavy attack by 10%.
 	
 		// Bow
 	//WITH BOW ABILITIES Gives you a damage bonus of up to 12% against enemies at longer range.
-	//WITH BOW EQUIPPED Reduces the Stamina cost of Bow abilities by 20%.
-	//WITH BOW EQUIPPED Your successful Light and Heavy Attacks increase the damage of your Bow abilities by 5% for 4 seconds, stacking up to 3 times.
 	
 		// Dual Wield
 	//WHILE DUAL WIELDING Increases damage with Dual Wield abilities by 20% against enemies with under 25% Health.
@@ -1644,21 +1757,12 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	//WITH ONE HAND WEAPON AND SHIELD EQUIPPED Increases your Movement Speed while blocking by 60%
 	
 		// Two Handed
-	//Grants a bonus based on the type of weapon equipped: 
-		//Swords increase your damage done by 5%.
+	//Grants a bonus based on the type of weapon equipped:
 		//Axes grant your melee attacks 16% chance to apply a bleed dealing 5635 Physical Damage over 6 seconds.
-		//Maces cause your attacks to ignore 20% of your target's Physical Resistance.
 	
 		// Racial
-	//Increases your Damage with Flame effects by 7%
-	//Increases your Damage with Frost, Fire, and Shock effects by 4%
 	//Gives your melee attacks a 10% chance to restore 854 Health.
-	//Increases damage done while in stealth by 10%.
-	//Increases your damage with melee weapon attacks by 4%.
 	//Restores 361 Stamina whenever you damage an enemy with a melee attack. This can happen no more than once every 3 seconds.
-	
-	
-
 ];
 
 
@@ -2103,9 +2207,63 @@ ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		match: /Flame Damage dealt increased by ([0-9]+\.?[0-9]*)%/i,
 	},
-	
-	
-	
+	{
+		statRequireId: "Stealthed",
+		statRequireValue: 1,
+		setBonusCount: 4,
+		statId: "DamageDone",
+		display: "%",
+		match: /While sneaking or invisible, Spells do an additional ([0-9]+\.?[0-9]*)% damage/i,
+	},	
+	{
+		setBonusCount: 4,
+		statId: "PoisonDamageDone",
+		display: "%",
+		match: /Your attacks cause targets to take ([0-9]+\.?[0-9]*)% more damage from Poison/i,
+	},
+	{
+		setBonusCount: 4,
+		statId: "MagickaCost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduce Magicka costs for up to [0-9]+ group members by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		setBonusCount: 4,
+		statId: "EnchantCooldown",
+		factorValue: -1,
+		match: /Reduce weapon enchantment's internal cooldown by ([0-9]+) second/i,
+	},
+	{
+		setBonusCount: 4,			//TODO: Add to item tooltip?
+		statId: "EnchantPotency",
+		display: "%",
+		match: /Increases enchantment potency by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		setBonusCount: 2,
+		statId: "MountSpeed",
+		display: "%",
+		match: /Movement speed while mounted increased by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		setBonusCount: 4,
+		statId: "MountSpeed",
+		display: "%",
+		match: /Increase block mitigation by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		setBonusCount: 4,
+		statId: "BreakFreeCost",
+		display: "%",
+		match: /Reduce cost of Break Free by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		setBonusCount: 4,
+		ignore: true,
+		match: /Law of Julianos/i,
+	},
+	 	
 	
 		// Optionally toggled set effects
 	{
@@ -2474,6 +2632,120 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Using Roll Dodge increases your Weapon Damage by [0-9]+ and Weapon Critical by ([0-9]+)/i,
 	},
 	{
+		id: "Soulshine",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "SpellDamage",
+		match: /While casting or channeling a spell, your spell power is increased by ([0-9]+)/i,
+	},
+	{
+		id: "The Brute",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: /chance when hit to increase Weapon Damage by ([0-9]+)/i,
+	},
+	{
+		id: "Tormentor",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "PhysicalResist",
+		match: /Causing damage with a Charge ability applies Taunt for [0-9]+ seconds and increases your Physical and Spell Resistance by ([0-9]+)/i,
+	},
+	{
+		id: "Tormentor",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "SpellResist",
+		match: /Causing damage with a Charge ability applies Taunt for [0-9]+ seconds and increases your Physical and Spell Resistance by ([0-9]+)/i,
+	},
+	{
+		id: "Twice-Fanged Serpent",
+		setBonusCount: 3,
+		toggle: true,
+		enabled: false,
+		statId: "PhysicalPenetration",
+		maxTimes: 3,
+		match: /Attacking an enemy increases Physical Penetration by ([0-9]+)/i,
+	},
+	{
+		id: "Unassailable",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "PhysicalResist",
+		match: /While blocking, increase Physical Resistance and Spell Resistance by ([0-9]+)/i,
+	},
+	{
+		id: "Unassailable",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "SpellResist",
+		match: /While blocking, increase Physical Resistance and Spell Resistance by ([0-9]+)/i,
+	},
+	{
+		id: "Undaunted Infiltrator",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "LADamage",
+		match: /After casting an ability that costs Magicka, Light Attacks deal ([0-9]+) additional damage and Heavy Attacks deal [0-9]+ additional damage/i,
+	},
+	{
+		id: "Undaunted Infiltrator",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "HADamage",
+		match: /After casting an ability that costs Magicka, Light Attacks deal [0-9]+ additional damage and Heavy Attacks deal ([0-9]+) additional damage/i,
+	},
+	{
+		id: "Undaunted Unweaver",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "LADamage",
+		match: /After casting an ability that costs Magicka, Light Attacks deal ([0-9]+) additional damage and Heavy Attacks deal [0-9]+ additional damage/i,
+	},
+	{
+		id: "Undaunted Unweaver",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "HADamage",
+		match: /After casting an ability that costs Magicka, Light Attacks deal [0-9]+ additional damage and Heavy Attacks deal ([0-9]+) additional damage/i,
+	},
+	{
+		id: "Warrior's Fury",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "HADamage",
+		maxTimes: 25,
+		match: /When you take critical damage, your Weapon Damage is increased by ([0-9]+)/i,
+	},
+	{
+		id: "Way of Air",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: /After activating Roll Dodge, Weapon Damage is increased by ([0-9]+) and Spell Damage is increased by [0-9]+/i,
+	},
+	{
+		id: "Way of Air",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "SpellDamage",
+		match: /After activating Roll Dodge, Weapon Damage is increased by [0-9]+ and Spell Damage is increased by ([0-9]+)/i,
+	},	
+	{
 		id: "Willow's Path",
 		setBonusCount: 4,
 		toggle: true,
@@ -2508,8 +2780,14 @@ ESO_SETEFFECT_MATCHES = [
 
 	
 		// Other Effects
-	//(5 items) Oblivion's Foe	Increase the damage of your Soul Trap abilities by 100%.
-	//Your Weapon Damage and Spell Damage both become the highest of the two values.
+	//Elemental Succession: While in combat, you gain a rotating bonus to either Flame, Shock, or Frost damage. The active element changes every 4 seconds. Your attacks dealing damage with the active element gain 44-515 Spell Damage.
+	//Oblivion's Foe: Increase the damage of your Soul Trap abilities by 100%.
+	//Pelinal's Aptitude: Your Weapon Damage and Spell Damage both become the highest of the two values.
+	//Spell Power Cure: Healing an ally at 100% Health has a 50% chance of granting them 6-258 increased Weapon and Spell Damage for 10 seconds.
+	//Syvarra's Scales: Take 20% less damage from guards
+	//The Arch-Mage: Fully charged heavy attacks restore 19-834 Magicka
+	//Trial by Fire: When you take elemental damage, gain 179-7727 Resistance to that element for 4 seconds. You can only be resistant to one element at a time.
+	//Varen's Legacy: 10% chance on block that the next Area of Effect Attack you use will deal an additional 300-3450 Damage.
 ];
 
 	
@@ -3089,6 +3367,12 @@ function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData)
 		var matchData = ESO_SETEFFECT_MATCHES[i];
 		var matches = setDesc.match(matchData.match);
 		if (matches == null) continue;
+		
+		if (matchData.ignore === true) 
+		{
+			foundMatch = true;
+			continue;
+		}
 		
 			/* Ignore toggled effects that aren't on */
 		if (matchData.toggle === true)
@@ -4729,6 +5013,14 @@ function OnEsoClickStealth(e)
 
 function OnEsoMundusChange(e)
 {
+	var mundus1 = $("#esotbMundus").val();
+	var mundus2 = $("#esotbMundus2").val();
+	
+	if (mundus1 == mundus2 && mundus1 != "")
+	{
+		$("#esotbMundus2").val("");
+	}
+	
 	UpdateEsoComputedStatsList("async");
 }
 

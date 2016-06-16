@@ -345,7 +345,7 @@ Note that this character builder is for test purposes and is currently undergoin
 			<hr>
 			<b>16 June 2016</b>
 			<ul>
-				<li>Continue to add more set effects.</li>
+				<li>Most of the set, active, and passive effects have been added</li>
 				<li>Made effect values more consistent. ex: +10% MagickaCost increases spell cost by 10%, -5% MagickaCost decreases it.</li>
 			</ul>
 			<p>
