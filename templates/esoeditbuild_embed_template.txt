@@ -343,6 +343,12 @@ Note that this character builder is for test purposes and is currently undergoin
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>16 June 2016</b>
+			<ul>
+				<li>Continue to add more set effects.</li>
+				<li>Made effect values more consistent. ex: +10% MagickaCost increases spell cost by 10%, -5% MagickaCost decreases it.</li>
+			</ul>
+			<p>
 			<b>14 June 2016</b>
 			<ul>
 				<li>Fixed a few broken effects and added some missing ones.</li>
@@ -350,8 +356,6 @@ Note that this character builder is for test purposes and is currently undergoin
 				<li>Added the Stealth effect.</li>
 			</ul>
 			<p>
-			<h3>Recent Work</h3>
-			<hr>
 			<b>14 June 2016</b>
 			<ul>
 				<li>Implemented saving and copying of most build features (needs further testing).</li>
