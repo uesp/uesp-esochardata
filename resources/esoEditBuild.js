@@ -573,6 +573,7 @@ g_EsoBuildBuffData =
 		},
 		
 		//Minor Aegis: 5% less damage from Boss Monsters
+		//Minor Slayer: 5% more damage to Boss Monsters.
 
 };
 
@@ -1018,7 +1019,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases Max Magicka and Max Stamina by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		statId: "FireResist",
+		statId: "FlameResist",
 		display: "%",
 		match: /Increases Flame Resistance by ([0-9]+)/i,
 	},
@@ -1897,7 +1898,7 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Your fully charged heavy attacks deal ([0-9]+\.?[0-9]*)% additional damage/i,
 	},
 	{
-		statId: "FireEffectDuration",
+		statId: "FlameEffectDuration",
 		match: /Increases duration of your damaging fire effects by ([0-9]+\.?[0-9]*) seconds/i,
 	},
 	{
@@ -2048,68 +2049,65 @@ ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		match: /Increase Stamina Recovery for up to [0-9]+ group members by ([0-9]+\.?[0-9]*)%/i,
 	},
-	
-
-	
-		// Optionally toggled effects
 	{
-		id: "Orgnum's Scales",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		category: "Skill",
-		statId: "HealthRegen",
-		display: '%',		
-		match: /If below 60% Health, increase Health Recovery by ([0-9]+\.?[0-9]*)%/i,
+		statId: "SnareEffect",
+		display: "%",
+		factorValue: -1,
+		match: /Reduce the effectiveness of incoming snares by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		id: "Permafrost",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		statId: "HealthRegen",
-		match: /Gain ([0-9]+\.?[0-9]*) Health Recovery while you have a Damage Shield/i,
-	},
-	{
-		id: "Willow's Path",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		category: "Skill",
-		statId: "HealthRegen",
-		display: '%',
-		match: /Increase all recovery in combat by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		id: "Willow's Path",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		category: "Skill",
-		statId: "MagickaRegen",
-		display: '%',
-		match: /Increase all recovery in combat by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		id: "Willow's Path",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		category: "Skill",
-		statId: "StaminaRegen",
-		display: '%',
-		match: /Increase all recovery in combat by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		id: "Necropotence",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		category: "Skill",
+		statRequireId: "WeaponDestStaff",
+		statRequireValue: 1,
 		statId: "Magicka",
-		display: '%',
-		match: /While you have pets active, increase max magicka by ([0-9]+\.?[0-9]*)%/i,
+		display: "%",
+		match: /Increase Maximum Magicka by ([0-9]+\.?[0-9]*)% while you have a destruction staff equipped/i,
 	},
+	{
+		statRequireId: "WeaponDestStaff",
+		statRequireValue: 1,
+		statId: "Magicka",
+		display: "%",
+		match: /Increase Maximum Magicka by ([0-9]+\.?[0-9]*)% while you have a destruction staff equipped/i,
+	},
+	{
+		statId: "SnareDuration",
+		display: "%",
+		factorValue: -1,
+		match: /Duration of snare, stun, and disorient effects are reduced by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "StunDuration",
+		display: "%",
+		factorValue: -1,
+		match: /Duration of snare, stun, and disorient effects are reduced by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "DisorientDuration",
+		display: "%",
+		factorValue: -1,
+		match: /Duration of snare, stun, and disorient effects are reduced by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "WerewolfTransformCost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduce cost of Werewolf Transformation by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "HealingReceived",
+		display: "%",
+		match: /Group members within [0-9]+\.?[0-9]*m gain ([0-9]+\.?[0-9]*)% increased effect from heals/i,
+	},
+	{
+		statId: "FlameDamageDone",
+		display: "%",
+		match: /Flame Damage dealt increased by ([0-9]+\.?[0-9]*)%/i,
+	},
+	
+	
+	
+	
+		// Optionally toggled set effects
 	{
 		id: "Armor Master",
 		setBonusCount: 4,
@@ -2222,7 +2220,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "Health",
-		factorValue: 7,
+		disableSetId: "Imperial Physique +600%",
 		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka and Stamina by ([0-9]+)/i,
 	},
 	{
@@ -2231,7 +2229,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "Magicka",
-		factorValue: 7,
+		disableSetId: "Imperial Physique +600%",
 		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka and Stamina by ([0-9]+)/i,
 	},
 	{
@@ -2240,7 +2238,40 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "Stamina",
+		disableSetId: "Imperial Physique +600%",
+		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka and Stamina by ([0-9]+)/i,
+	},
+	{
+		id: "Imperial Physique +600%",
+		setId: "Imperial Physique",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		statId: "Health",
 		factorValue: 7,
+		disableSetId: "Imperial Physique",
+		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka and Stamina by ([0-9]+)/i,
+	},
+	{
+		id: "Imperial Physique +600%",
+		setId: "Imperial Physique",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		statId: "Magicka",
+		factorValue: 7,
+		disableSetId: "Imperial Physique",
+		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka and Stamina by ([0-9]+)/i,
+	},
+	{
+		id: "Imperial Physique +600%",
+		setId: "Imperial Physique",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		statId: "Stamina",
+		factorValue: 7,
+		disableSetId: "Imperial Physique",
 		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka and Stamina by ([0-9]+)/i,
 	},
 	{
@@ -2318,19 +2349,167 @@ ESO_SETEFFECT_MATCHES = [
 		statId: "WeaponDamage",
 		match: /and increases Spell and Weapon Damage by ([0-9]+)/i,
 	},
-	
-	 
+	{
+		id: "Moondancer",
+		displayName: "MoonDancer Spell Damage",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		disableSetId: "Moondancer2",
+		statId: "SpellDamage",
+		match: /When you activate a synergy gain either a shadow blessing that increases Spell Damage by ([0-9]+), or a lunar blessing that increases Magicka Recovery by [0-9]+/i,
+	},
+	{
+		id: "Moondancer2",
+		displayName: "MoonDancer Magicka Regen",
+		setId: "Moondancer",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "MagickaRegen",
+		disableSetId: "Moondancer",
+		match: /When you activate a synergy gain either a shadow blessing that increases Spell Damage by [0-9]+, or a lunar blessing that increases Magicka Recovery by ([0-9]+)/i,
+	},
+	{
+		id: "Necropotence",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		category: "Skill",
+		statId: "Magicka",
+		display: '%',
+		match: /While you have pets active, increase max magicka by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		id: "Noble Duelist's Silks",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		category: "Skill",
+		statId: "LADamage",
+		match: /After dodging an attack, light and heavy attacks deal ([0-9]+)increased damage for [0-9]+ seconds./i,
+	},
+	{
+		id: "Noble Duelist's Silks",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		category: "Skill",
+		statId: "HADamage",
+		match: /After dodging an attack, light and heavy attacks deal ([0-9]+)increased damage for [0-9]+ seconds./i,
+	},
+	{
+		id: "Orgnum's Scales",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		category: "Skill",
+		statId: "HealthRegen",
+		display: '%',		
+		match: /If below 60% Health, increase Health Recovery by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		id: "Permafrost",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "HealthRegen",
+		match: /Gain ([0-9]+\.?[0-9]*) Health Recovery while you have a Damage Shield/i,
+	},
+	{
+		id: "Ravager",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: /Your melee attacks have an [0-9]+\.?[0-9]*% chance to increase Weapon Damage by ([0-9]+) for [0-9]+ seconds/i,
+	},	
+	{
+		id: "Ravager",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "DamageTaken",
+		factorValue: -1,
+		match: /While affected by Stun, Immobilize, Fear, Knockdown or Disorient effects, damage you take is reduced by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		id: "Scathing Mage",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "SpellDamage",
+		match: /chance when causing Critical Damage to increase your Spell Damage by ([0-9]+)/i,
+	},	
+	{
+		id: "Scourge Harvester",
+		setBonusCount: 2,
+		toggle: true,
+		enabled: false,
+		statId: "HealingReceived",
+		match: /While beam holds gain ([0-9]+\.?[0-9]*)% increased healing from all sources/i,
+	},
+	{
+		id: "Shroud of the Lich",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "MagickaRegen",
+		match: /Once per minute, when below [0-9]+\.?[0-9]*% Magicka, gain ([0-9]+) Magicka Recovery/i,
+	},
+	{
+		id: "Skirmisher's Bite",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: /Using Roll Dodge increases your Weapon Damage by ([0-9]+) and Weapon Critical by [0-9]+/i,
+	},
+	{
+		id: "Skirmisher's Bite",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponCrit",
+		match: /Using Roll Dodge increases your Weapon Damage by [0-9]+ and Weapon Critical by ([0-9]+)/i,
+	},
+	{
+		id: "Willow's Path",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		category: "Skill",
+		statId: "HealthRegen",
+		display: '%',
+		match: /Increase all recovery in combat by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		id: "Willow's Path",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		category: "Skill",
+		statId: "MagickaRegen",
+		display: '%',
+		match: /Increase all recovery in combat by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		id: "Willow's Path",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		category: "Skill",
+		statId: "StaminaRegen",
+		display: '%',
+		match: /Increase all recovery in combat by ([0-9]+\.?[0-9]*)%/i,
+	},
+
 		// End of Toggled Sets
-	
-	
+
 	
 		// Other Effects
-	{
-		statId: "OtherEffects",
-		display: '%',
-		match: /increase the damage of your bow abilities against players by ([0-9]+\.?[0-9]*)%/i,
-	},
-	
+	//(5 items) Oblivion's Foe	Increase the damage of your Soul Trap abilities by 100%.
+	//Your Weapon Damage and Spell Damage both become the highest of the two values.
 ];
 
 	
@@ -2368,7 +2547,7 @@ ESO_ENCHANT_ARMOR_MATCHES = [
 		match: /Adds ([0-9]+) Poison Resistance/i,
 	},
 	{
-		statId: "FireResist",
+		statId: "FlameResist",
 		match: /Adds ([0-9]+) Flame Resistance/i,
 	},
 	{
@@ -5814,6 +5993,9 @@ function CreateEsoBuildToggledSetData()
 			g_EsoBuildToggledSetData[id] = {};
 			g_EsoBuildToggledSetData[id].statIds = [];
 			g_EsoBuildToggledSetData[id].matchData = setEffectData;
+			g_EsoBuildToggledSetData[id].setId = id;
+			g_EsoBuildToggledSetData[id].displayName = setEffectData.displayName;
+			g_EsoBuildToggledSetData[id].disableSetId = setEffectData.disableSetId;
 		}
 		
 		g_EsoBuildToggledSetData[id].id = id;
@@ -5824,6 +6006,8 @@ function CreateEsoBuildToggledSetData()
 		g_EsoBuildToggledSetData[id].statIds.push(setEffectData.statId);
 		g_EsoBuildToggledSetData[id].maxTimes = setEffectData.maxTimes;
 		g_EsoBuildToggledSetData[id].count = 0;		
+		
+		if (setEffectData.setId != null) g_EsoBuildToggledSetData[id].setId = setEffectData.setId;
 				
 		if (g_EsoBuildSetData[id] != null && g_EsoBuildSetData[id].averageDesc != null &&
 				g_EsoBuildSetData[id].averageDesc[setEffectData.setBonusCount] != null)
@@ -5878,13 +6062,16 @@ function SetEsoBuildToggledSetCount(skillId, value)
 function IsEsoBuildToggledSetEnabled(setId)
 {
 	if (g_EsoBuildToggledSetData[setId] == null) return false;
-	return g_EsoBuildToggledSetData[setId].valid && g_EsoBuildToggledSetData[setId].enabled;
+	var isEnabled = g_EsoBuildToggledSetData[setId].valid && g_EsoBuildToggledSetData[setId].enabled;
+	if (isEnabled) return true;
+	return false;
 }
 
 
 function SetEsoBuildToggledSetValid(setId, valid)
 {
 	if (g_EsoBuildToggledSetData[setId] != null) g_EsoBuildToggledSetData[setId].valid = valid;
+	//if (g_EsoBuildToggledSetData[setId+"2"] != null) g_EsoBuildToggledSetData[setId+"2"].valid = valid;
 }
 
 
@@ -6002,13 +6189,20 @@ function FindMatchingEsoPassiveSkillDescription(matchData)
 function UpdateEsoBuildToggledSetData()
 {
 	
-	for (var setName in g_EsoBuildSetData)
+	for (var setId in g_EsoBuildToggledSetData)
 	{
-		var setData = g_EsoBuildSetData[setName];
-		var toggleData = g_EsoBuildToggledSetData[setName];
+		var toggleData = g_EsoBuildToggledSetData[setId];
 		if (toggleData == null) continue;
 		
-		SetEsoBuildToggledSetValid(setName, false);
+		var setName = setId;
+		if (toggleData.setId != null) setName = toggleData.setId;
+		
+		//console.log("SetData", setId, setName);
+		
+		var setData = g_EsoBuildSetData[setName];
+		if (setData == null) continue;
+		
+		SetEsoBuildToggledSetValid(setId, false);
 		
 		if (setData.averageDesc == null || setData.items[0] == null) continue;
 		
@@ -6034,30 +6228,20 @@ function UpdateEsoBuildToggledSetData()
 		var setDesc = setData.averageDesc[toggleData.setBonusCount - 1];
 		var setCount = setData.items[0]['setBonusCount' + toggleData.setBonusCount];
 		
-		if (setDesc == null || setCount == null) 
-		{
-			SetEsoBuildToggledSetValid(setName, false);
-			continue;
-		}
-		
+		if (setDesc == null || setCount == null) continue;
 		toggleData.desc = setDesc;
+		if (setCount > setData.count) continue;
 		
-		if (setCount > setData.count) 
-		{
-			SetEsoBuildToggledSetValid(setName, false);
-			continue;
-		}
+		SetEsoBuildToggledSetValid(setId, true);
 		
-		SetEsoBuildToggledSetValid(setName, true);
-		
-		var checkElement = $(".esotbToggledSetItem[setid=\"" + setName + "\"]").find(".esotbToggleSetCheck");
+		var checkElement = $(".esotbToggledSetItem[setid=\"" + setId + "\"]").find(".esotbToggleSetCheck");
 		
 		if (checkElement.length > 0)
 		{
-			SetEsoBuildToggledSetEnable(setName, checkElement.is(":checked"));
+			SetEsoBuildToggledSetEnable(setId, checkElement.is(":checked"));
 			
 			var countElement = checkElement.next(".esotbToggleSetNumber");
-			if (countElement.length > 0) SetEsoBuildToggledSetCount(setName, countElement.val());
+			if (countElement.length > 0) SetEsoBuildToggledSetCount(setId, countElement.val());
 		}
 	}
 }
@@ -6093,8 +6277,7 @@ function OnEsoBuildToggleSetNumberClick(e)
 
 function OnEsoBuildToggleSet(e)
 {
-	var setId = $(this).parent().attr("setid");
-	if (setId == null || setId == "") return;
+	OnEsoBuildToggleSetChanged($(this));
 	
 	UpdateEsoComputedStatsList("async");
 	
@@ -6105,17 +6288,35 @@ function OnEsoBuildToggleSet(e)
 
 function OnEsoBuildToggleSetClick(e)
 {
-	var checkbox = $(this).find(".esotbToggleSetCheck");
-	checkbox.prop("checked", !checkbox.prop("checked"));
+	var checkBox = $(this).find(".esotbToggleSetCheck");
+	checkBox.prop("checked", !checkBox.prop("checked"));
 	
-	if (checkbox.prop("checked"))
-		$(this).addClass("esotbToggledSetSelect");
-	else
-		$(this).removeClass("esotbToggledSetSelect");
+	OnEsoBuildToggleSetChanged(checkBox);
 	
 	UpdateEsoComputedStatsList("async");
 	
 	return false;
+}
+
+
+function OnEsoBuildToggleSetChanged(checkBox)
+{
+	var parent = checkBox.parent();
+	var setId = parent.attr("setid");
+	var toggleData = g_EsoBuildToggledSetData[setId];
+	
+	if (checkBox.prop("checked"))
+		parent.addClass("esotbToggledSetSelect");
+	else
+		parent.removeClass("esotbToggledSetSelect");
+	
+	if (toggleData == null) return;
+	
+	if (toggleData.disableSetId != null)
+	{
+		$(".esotbToggledSetItem[setid='" + toggleData.disableSetId + "']").find(".esotbToggleSetCheck").prop("checked", false);
+	}
+	
 }
 
 
@@ -6124,6 +6325,9 @@ function CreateEsoBuildToggleSetHtml(setData)
 	var checked = setData.enabled ? "checked" : "";
 	var extraClass = "";
 	if (checked) extraClass = 'esotbToggledSetSelect';
+	
+	var displayName = setData.id;
+	if (setData.displayName != null) displayName = setData.displayName;
 	
 	var output = "<div class='esotbToggledSetItem " + extraClass + "' setid=\"" + setData.id + "\">";
 	
@@ -6134,7 +6338,7 @@ function CreateEsoBuildToggleSetHtml(setData)
 		output += "<input type='number' class='esotbToggleSetNumber'  value='" + setData.count + "' >";
 	}
 	
-	output += "<div class='esotbToggleSetTitle'>" + setData.id + ":</div> ";
+	output += "<div class='esotbToggleSetTitle'>" + displayName + ":</div> ";
 	output += "<div class='esotbToggleSetDesc'>" + setData.desc + "</div>";
 	
 	output += "</div>";
@@ -6241,6 +6445,8 @@ function CreateEsoBuildToggleSkillHtml(skillData)
 	
 	var displayName = skillData.id;
 	var activeData = g_EsoSkillActiveData[skillData.baseSkillId];
+	
+	if (skillData.displayName != null) displayName = skillData.displayName;
 	
 	if (activeData != null && activeData.abilityId != null)
 	{
@@ -7477,7 +7683,7 @@ function CreateEsoBuildComputedSaveData(saveData, inputValues)
 	AddEsoBuildComputedStatToSaveData(saveData, "CritResist", "CriticalResistance");
 	AddEsoBuildComputedStatToSaveData(saveData, "ColdResist", "DamageResistCold");
 	AddEsoBuildComputedStatToSaveData(saveData, "DiseaseResist", "DamageResistDisease");
-	AddEsoBuildComputedStatToSaveData(saveData, "FireResist", "DamageResistFire");
+	AddEsoBuildComputedStatToSaveData(saveData, "FlameResist", "DamageResistFire");
 	AddEsoBuildComputedStatToSaveData(saveData, "SpellResist", "DamageResistMagic");
 	AddEsoBuildComputedStatToSaveData(saveData, "PhysicalResist", "DamageResistPhysical");
 	AddEsoBuildComputedStatToSaveData(saveData, "PoisonResist", "DamageResistPoison");

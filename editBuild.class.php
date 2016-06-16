@@ -162,7 +162,7 @@ class EsoBuildDataEditor
 			"WeaponCritDamage",
 			"SpellResist",
 			"PhysicalResist",
-			"FireResist",
+			"FlameResist",
 			"ColdResist",
 			"PoisonResist",
 			"DiseaseResist",
@@ -215,6 +215,7 @@ class EsoBuildDataEditor
 			"ShieldDamage",
 			"FearDuration",
 			"SnareDuration",
+			"SnareEffect",
 			"MagickaCost",
 			"StaminaCost",
 			"UltimateCost",
@@ -225,7 +226,7 @@ class EsoBuildDataEditor
 			"PlayerDamageTaken",
 			"NegativeEffectDuration",
 			"BowRange",
-			"FireEffectDuration",
+			"FlameEffectDuration",
 			"BowDamageDone",
 			"ResurrectSpeed",
 			"BossDamageResist",
@@ -233,11 +234,13 @@ class EsoBuildDataEditor
 			"SneakDetectRange",
 			"TwiceBornStar",
 			"HAChargeTime",
-			"FireDamageResist",
 			"DodgeChance",
 			"DamageTaken",
 			"DamageDone",
 			"Empower",
+			"StunDuration",
+			"DisorientDuration",
+			"WerewolfTransformCost",
 	);
 	
 	
@@ -639,7 +642,7 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),		
 			
-			"Skill.FireDamageResist" => array(
+			"Skill.FlameDamageTaken" => array(
 					"display" => "%",
 			),
 			
@@ -1343,18 +1346,18 @@ class EsoBuildDataEditor
 					),
 			),
 			
-			"FireResist" => array(
+			"FlameResist" => array(
 					"title" => "Fire Resistance",
 					"display" => "elementresist",
 					"compute" => array(
-							"Item.FireResist",
-							"Set.FireResist",
+							"Item.FlameResist",
+							"Set.FlameResist",
 							"+",
-							"Skill.FireResist",
+							"Skill.FlameResist",
 							"+",
-							"CP.FireResist",
+							"CP.FlameResist",
 							"+",
-							"Buff.FireResist",
+							"Buff.FlameResist",
 							"+",
 					),
 			),
@@ -2756,7 +2759,7 @@ class EsoBuildDataEditor
 	{
 		$itemLink = $this->getCharStatField("LastFoodEatenLink", "");
 		$output = "";
-		$imageSrc = $this->GEARSLOT_BASEICONS[$slotId];
+		$imageSrc = $this->GEARSLOT_BASEICONS["Food"];
 		
 		if ($itemLink == "")
 		{
