@@ -2194,7 +2194,88 @@ ESO_SETEFFECT_MATCHES = [
 		factorValue: 7,
 		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka and Stamina by ([0-9]+)/i,
 	},
+	{
+		id: "Jolting Arms",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "SpellResist",
+		match: /as well as granting yourself ([0-9]+) Spell Resistance/i,
+	},
+	{
+		id: "Light of Cyrodiil",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "DamageTaken",
+		factorValue: -1,
+		match: /While casting or channeling a spell, incoming damage is reduced by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		id: "Lord Warden",
+		setBonusCount: 2,
+		toggle: true,
+		enabled: false,
+		statId: "SpellResist",
+		match: /chance when you take damage to summon a shadow orb that adds ([0-9]+) Physical and Spell Resistance to nearby allies/i,
+	},
+	{
+		id: "Lord Warden",
+		setBonusCount: 2,
+		toggle: true,
+		enabled: false,
+		statId: "PhysicalResist",
+		match: /chance when you take damage to summon a shadow orb that adds ([0-9]+) Physical and Spell Resistance to nearby allies/i,
+	},
+	{
+		id: "Marksman's Crest",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "DamageDone",
+		match: /increase the damage of your bow abilities against players by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		id: "Molag Kena",
+		setBonusCount: 3,
+		toggle: true,
+		enabled: false,
+		statId: "MagickaCost",
+		display: "%",
+		factorValue: -1,
+		match: /triggers Overkill, which increases the cost of all abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		id: "Molag Kena",
+		setBonusCount: 3,
+		toggle: true,
+		enabled: false,
+		statId: "StaminaCost",
+		display: "%",
+		factorValue: -1,
+		match: /triggers Overkill, which increases the cost of all abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		id: "Molag Kena",
+		setBonusCount: 3,
+		toggle: true,
+		enabled: false,
+		statId: "SpellDamage",
+		match: /and increases Spell and Weapon Damage by ([0-9]+)/i,
+	},
+	{
+		id: "Molag Kena",
+		setBonusCount: 3,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: /and increases Spell and Weapon Damage by ([0-9]+)/i,
+	},
+	
+	 
 		// End of Toggled Sets
+	
+	
 	
 		// Other Effects
 	{
