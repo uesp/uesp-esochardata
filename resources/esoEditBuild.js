@@ -3129,8 +3129,6 @@ ESO_ABILITYDESC_MATCHES = [
 
 function GetEsoInputValues(mergeComputedStats)
 {
-	console.log("GetEsoInputValues");
-	
 	ResetEsoBuffSkillEnabled();
 	
 	var inputValues = {};
@@ -7914,7 +7912,7 @@ function CreateEsoBuildItemSaveData(saveData, inputValues)
 		var data = {};
 		
 		data.index = ESOBUILD_SLOTID_TO_EQUIPSLOT[slotId];
-		if (data.index == null) data.index = -1;
+		if (data.index == null) continue;
 		
 		data.name = itemData.name;
 		data.condition = 100;
@@ -7948,7 +7946,32 @@ function CreateEsoBuildItemSaveData(saveData, inputValues)
 	saveData.Stats["LightArmorCount"] = "" + inputValues.ArmorLight;
 	saveData.Stats["MediumArmorCount"] = "" + inputValues.ArmorMedium;
 	saveData.Stats["HeavyArmorCount"] = "" + inputValues.ArmorHeavy;
-	saveData.Stats["ArmorTypeCount"] = "" + inputValues.ArmorTypes;	
+	saveData.Stats["ArmorTypeCount"] = "" + inputValues.ArmorTypes;
+	
+	if (g_EsoBuildItemData.Food.link == null)
+	{
+		saveData.Stats["LastFoodEatenCP"] = "";
+		saveData.Stats["LastFoodEatenDesc"] = "";
+		saveData.Stats["LastFoodEatenLevel"] = "";
+		saveData.Stats["LastFoodEatenLink"] = "";
+		saveData.Stats["LastFoodEatenName"] = "";
+		saveData.Stats["LastFoodEatenType"] = "";
+	}
+	else
+	{
+		if (g_EsoBuildItemData.Food.level <= 50)
+			saveData.Stats["LastFoodEatenCP"] = "0";
+		else
+			saveData.Stats["LastFoodEatenCP"] = "" + (parseInt(g_EsoBuildItemData.Food.level) - 50) * 10;
+		
+		saveData.Stats["LastFoodEatenLevel"] = g_EsoBuildItemData.Food.level;
+		if (saveData.Stats["LastFoodEatenLevel"] > 50) saveData.Stats["LastFoodEatenLevel"] = "50";
+		
+		saveData.Stats["LastFoodEatenDesc"] = g_EsoBuildItemData.Food.abilityDesc;
+		saveData.Stats["LastFoodEatenLink"] = g_EsoBuildItemData.Food.link;
+		saveData.Stats["LastFoodEatenName"] = g_EsoBuildItemData.Food.name;
+		saveData.Stats["LastFoodEatenType"] = g_EsoBuildItemData.Food.type == 4 ? "Food" : "Drink";
+	}
 	
 	return saveData;
 }

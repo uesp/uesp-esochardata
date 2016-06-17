@@ -3198,11 +3198,11 @@ class EsoBuildDataEditor
 	
 	public function CreateInitialToggleSetData()
 	{
-		$this->initialSetToggleData = array();
+		$this->initialToggleSetData = array();
 		
 		foreach ($this->buildDataViewer->characterData['stats'] as $name => $record)
 		{
-			$result = preg_match("/^ToogleSet:(.*)$/", $name);
+			$result = preg_match("/^ToggleSet:(.*)$/", $name);
 			if (!$result) continue;
 				
 			$names = explode(":", $name);
@@ -3213,7 +3213,6 @@ class EsoBuildDataEditor
 			if ($this->initialToggleSetData[$setName] == null) $this->initialToggleSetData[$setName] = array();
 			$this->initialToggleSetData[$setName]['enabled'] = $value;
 			
-
 			if ($count !== null)
 				$this->initialToggleSetData[$setName]['count'] = $value;
 			else
