@@ -1261,6 +1261,13 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /WITH DESTRUCTION STAFF EQUIPPED[\s]*Restores ([0-9]+) Magicka when you kill a target with a Destruction Staff spell or weapon attack/i,
 	},
 	{
+		statRequireId: "WeaponFlameStaff",
+		statRequireValue: 1,
+		statId: "HAFlameStaffDamage",
+		display: "%",
+		match: /Fully charged heavy fire attacks deal ([0-9]+\.?[0-9]*)% additional damage/i,
+	},
+	{
 		statRequireId: "Weapon2H",
 		statRequireValue: 1,
 		category: "SkillCost",
@@ -2288,6 +2295,11 @@ ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 4,
 		ignore: true,
 		match: /Law of Julianos/i,
+	},
+	{
+		setBonusCount: 4,
+		ignore: true,
+		match: /Your Weapon Damage and Spell Damage both become the highest of the two values/i,
 	},
 	{
 		setBonusCount: 4,
@@ -3365,8 +3377,6 @@ function GetEsoInputSpecialValues(inputValues)
 		AddEsoInputStatSource("Skill.PoisonDamageTaken", { source: "Werewolf", value: 0.25 });
 	}
 	
-	
-	//25% more damage from Poison Attacks when in werewolf form
 }
 
 
@@ -3377,6 +3387,7 @@ function GetEsoInputSetValues(inputValues)
 		var setData = g_EsoBuildSetData[setName];
 		GetEsoInputSetDataValues(inputValues, setData);
 	}
+	
 }
 
 
@@ -3927,11 +3938,31 @@ function GetEsoInputItemValues(inputValues, slotId)
 		AddEsoInputStatSource("WeaponDagger", { item: itemData, value: 1, slotId: slotId });
 		break;
 	case 12:
+		++inputValues.WeaponDestStaff;
+		AddEsoItemRawOutput(itemData, "WeaponDestStaff", 1);
+		AddEsoInputStatSource("WeaponDestStaff", { item: itemData, value: 1, slotId: slotId });
+		
+		++inputValues.WeaponFlameStaff;
+		AddEsoItemRawOutput(itemData, "WeaponFlameStaff", 1);
+		AddEsoInputStatSource("WeaponFlameStaff", { item: itemData, value: 1, slotId: slotId });
+		break;
 	case 13:
+		++inputValues.WeaponDestStaff;
+		AddEsoItemRawOutput(itemData, "WeaponDestStaff", 1);
+		AddEsoInputStatSource("WeaponDestStaff", { item: itemData, value: 1, slotId: slotId });
+		
+		++inputValues.WeaponColdStaff;
+		AddEsoItemRawOutput(itemData, "WeaponColdStaff", 1);
+		AddEsoInputStatSource("WeaponColdStaff", { item: itemData, value: 1, slotId: slotId });
+		break;
 	case 15:
 		++inputValues.WeaponDestStaff;
 		AddEsoItemRawOutput(itemData, "WeaponDestStaff", 1);
 		AddEsoInputStatSource("WeaponDestStaff", { item: itemData, value: 1, slotId: slotId });
+		
+		++inputValues.WeaponShockStaff;
+		AddEsoItemRawOutput(itemData, "WeaponShockStaff", 1);
+		AddEsoInputStatSource("WeaponShockStaff", { item: itemData, value: 1, slotId: slotId });
 		break;
 	}
 	
@@ -4416,7 +4447,7 @@ function GetEsoInputCPValues(inputValues)
 		/* Lord */
 	if (inputValues.ArmorHeavy >= 5) ParseEsoCPValue(inputValues, "PhysicalResist", 60624);
 	ParseEsoCPValue(inputValues, "DamageShield", 59948);
-	ParseEsoCPValue(inputValues, "HADamageResist", 59953);
+	ParseEsoCPValue(inputValues, ["HADamageTaken", "LADamageTaken"], 59953, null, null, -1);
 	ParseEsoCPValue(inputValues, "HealingReceived", 63851);
 	
 		/* Lady */
@@ -4439,10 +4470,10 @@ function GetEsoInputCPValues(inputValues)
 	ParseEsoCPValue(inputValues, "WeaponCrit", 59418, "the_ritual", 30);
 	
 		/* Atronach */
-	ParseEsoCPValue(inputValues, "HAWeaponDamage", 60565);
+	ParseEsoCPValue(inputValues, ["HAWeaponDamage", "LAWeaponDamage"], 60565);
 	ParseEsoCPValue(inputValues, "ShieldDamageDone", 60662);
-	ParseEsoCPValue(inputValues, "HABowDamage", 60546);
-	ParseEsoCPValue(inputValues, "HAStaffDamage", 60503);
+	ParseEsoCPValue(inputValues, ["HABowDamage", "LABowDamage"], 60546);
+	ParseEsoCPValue(inputValues, ["HAStaffDamage", "LAStaffDamage"], 60503);
 	
 		/* Apprentice */
 	ParseEsoCPValue(inputValues, ["MagicDamageDone", "FlameDamageDone", "ColdDamageDone", "ShockDamageDone"], 63848);
@@ -4633,7 +4664,8 @@ function UpdateEsoComputedStatsList_Real()
 		var statId = deferredStats[i];
 		UpdateEsoComputedStat(statId, g_EsoComputedStats[statId], inputValues);
 	}
-	
+
+	UpdateEsoComputedStatsSpecial();
 	
 	UpdateEsoTestBuildSkillInputValues(inputValues);
 	UpdateEsoBuildRawInputOtherEffects();
@@ -4647,8 +4679,37 @@ function UpdateEsoComputedStatsList_Real()
 	
 	UpdateEsoBuildVisibleBuffs();
 	UpdateEsoBuffSkillEnabled();
-	//UpdateEsoAllSkillDescription(); // Currently all hidden
 	UpdateEsoAllSkillCost(false);
+}
+
+
+function UpdateEsoComputedStatsSpecial()
+{
+	
+	if (g_EsoBuildSetData["Pelinal's Aptitude"] != null && g_EsoBuildSetData["Pelinal's Aptitude"].count >= 5)
+	{
+		var weaponDamage = g_EsoComputedStats.WeaponDamage.value;
+		var spellDamage = g_EsoComputedStats.SpellDamage.value;
+		var setBonusCount = g_EsoBuildSetData["Pelinal's Aptitude"].count;
+		
+		if (weaponDamage > spellDamage)
+		{
+			g_EsoComputedStats.SpellDamage.value = weaponDamage;
+			
+			AddEsoItemRawOutputString(g_EsoBuildSetData["Pelinal's Aptitude"], "OtherEffects", "Set Spell Damage to Weapon Damage");
+			AddEsoInputStatSource(category + "." + statId, { set: g_EsoBuildSetData["Pelinal's Aptitude"], setBonusCount: setBonusCount, value: "Set Spell Damage to Weapon Damage" });
+		}
+		else
+		{
+			g_EsoComputedStats.WeaponDamage.value = spellDamage;
+			
+			AddEsoItemRawOutputString(g_EsoBuildSetData["Pelinal's Aptitude"], "OtherEffects", "Set Weapon Damage to Spell Damage");
+			AddEsoInputStatSource("OtherEffects", { set: g_EsoBuildSetData["Pelinal's Aptitude"],  setBonusCount: setBonusCount, value: "Set Weapon Damage to Spell Damage" });
+		}
+		
+		DisplayEsoComputedStat("WeaponDamage");
+		DisplayEsoComputedStat("SpellDamage");
+	}
 }
 
 
@@ -4752,54 +4813,76 @@ function UpdateEsoComputedStat(statId, stat, inputValues, saveResult)
 	
 	if (stack.length <= 0) error = "ERR";
 	
-	if (error === "")
+	if (error !== "")
 	{
-		var result = stack.pop();
-		var display = stat.display;
-		var displayResult = result;
-		var suffix = "";
-		
-		if (stat.suffix != null) suffix = stat.suffix;
-		
-		if (display == "%")
-		{
-			displayResult = "" + (Math.round(result*1000)/10) + "%";
-		}
-		else if (display == "%2")
-		{
-			displayResult = "" + Math.round(result*100) + "%";
-		}
-		else if (display == "resist")
-		{
-			displayResult = "" + result + " (" + ConvertEsoFlatResistToPercent(result, inputValues) + "%)";
-		}
-		else if (display == "elementresist")
-		{
-			displayResult = "" + result + " (" + ConvertEsoElementResistToPercent(result, inputValues) + "%)";
-		}
-		else if (display == "critresist")
-		{
-			displayResult = "" + result + " (" + ConvertEsoCritResistToPercent(result, inputValues) + "%)";
-		}
-		
 		if (saveResult === true)
 		{
-			inputValues[statId] = result;
-			stat.value = result;
-			valueElement.text(displayResult + suffix);
+			inputValues[statId] = error;
+			stat.value = error;
+			DisplayEsoComputedStat(statId, inputValues);
 		}
 		
-		return result;
+		return error;
 	}
 	
-	if (saveResult === true)
+	var result = stack.pop();
+	if (saveResult !== true) return result;
+
+	inputValues[statId] = result;
+	stat.value = result;
+	DisplayEsoComputedStat(statId, inputValues);
+	
+	return result;
+}
+
+
+function DisplayEsoComputedStat(statId, inputValues)
+{
+	var stat = g_EsoComputedStats[statId];
+	if (stat == null) return false;
+	
+	if (inputValues == null) inputValues = g_EsoBuildLastInputValues;
+	
+	var element = $("#esoidStat_" + statId);
+	if (element.length == 0) return false;
+	var valueElement = element.children(".esotbStatValue");
+	
+	var result = stat.value;
+	var display = stat.display;
+	var displayResult = result;
+	var suffix = "";
+	
+	if (isNaN(result))
 	{
-		inputValues[statId] = error;
-		stat.value = error;
-		valueElement.text(error);
+		valueElement.text(result);
+		return true;
 	}
 	
-	return error;
+	if (stat.suffix != null) suffix = stat.suffix;
+	
+	if (display == "%")
+	{
+		displayResult = "" + (Math.round(result*1000)/10) + "%";
+	}
+	else if (display == "%2")
+	{
+		displayResult = "" + Math.round(result*100) + "%";
+	}
+	else if (display == "resist")
+	{
+		displayResult = "" + result + " (" + ConvertEsoFlatResistToPercent(result, inputValues) + "%)";
+	}
+	else if (display == "elementresist")
+	{
+		displayResult = "" + result + " (" + ConvertEsoElementResistToPercent(result, inputValues) + "%)";
+	}
+	else if (display == "critresist")
+	{
+		displayResult = "" + result + " (" + ConvertEsoCritResistToPercent(result, inputValues) + "%)";
+	}
+	
+	valueElement.text(displayResult + suffix);
+	return true;
 }
 
 
@@ -7942,6 +8025,9 @@ function CreateEsoBuildItemSaveData(saveData, inputValues)
 	saveData.Stats["2HWeaponCount"] = "" + inputValues.Weapon2H;
 	saveData.Stats["RestStaffWeaponCount"] = "" + inputValues.WeaponRestStaff;
 	saveData.Stats["DestStaffWeaponCount"] = "" + inputValues.WeaponDestStaff;
+	saveData.Stats["FlameStaffWeaponCount"] = "" + inputValues.WeaponFlameStaff;
+	saveData.Stats["ShockStaffWeaponCount"] = "" + inputValues.WeaponShockStaff;
+	saveData.Stats["ColdStaffWeaponCount"] = "" + inputValues.WeaponColdStaff;
 	saveData.Stats["1HShieldWeaponCount"] = "" + inputValues.Weapon1HShield;
 	saveData.Stats["LightArmorCount"] = "" + inputValues.ArmorLight;
 	saveData.Stats["MediumArmorCount"] = "" + inputValues.ArmorMedium;
