@@ -342,11 +342,16 @@ Note that this character builder is for test purposes and is currently undergoin
 				<li>Live In-Game Issue: The Templar skill Radiant Destruction and morphs do not update their tooltip based on +Magic/DoT damage buffs from CP or skills.</li>
 				<li>There a many skills and effects that have not been tested and may not be working perfectly.</li>
 				<li>Trying doing a forced reload of the page in your browser to ensure you have the latest JavaScript files.</li>
-				<li>Some DOTs extended in duration by passives will have incorrect tooltip values.</li>
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>17 June 2016</b>
+			<ul>
+				<li>A few more effects have been added</li>
+				<li>Ability tooltips now include duration altering effects in both duration and DOT magnitude effects.</li>
+			</ul>
+			<p>
 			<b>16 June 2016</b>
 			<ul>
 				<li>Most of the set, active, and passive effects have been added</li>
