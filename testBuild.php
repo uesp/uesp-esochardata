@@ -41,6 +41,14 @@ $buildDataEditor = new EsoBuildDataEditor();
 print($buildDataEditor->GetOutputHtml());
 
 ?>
+
+<script type="text/javascript">
+	$(document).ready(window.setTimeout(function() { 
+		UpdateEsoCpData(); 
+		UpdateEsoComputedStatsList(true); 
+	}), 1000);
+</script>
+
 <hr />
 <div id='ecdFooter'>
 Created and hosted by the <a href="http://www.uesp.net">UESP</a>.

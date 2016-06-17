@@ -379,11 +379,11 @@ g_EsoBuildBuffData =
 			skillEnabled : false,
 			value : 0.20,
 			display : "%",
-			statId : "Empower",
+			statId : "DamageDone",
 			statDesc : "Increases the power of your next attack by ",
 			icon : "/esoui/art/icons/ability_warrior_012.png",
 		},
-		"Spell Power Cure" :			//TODO: Check how its added 
+		"Spell Power Cure" :			//TODO: Check how its added to other SD/WD stats 
 		{
 			enabled: false,
 			skillEnabled : false,
@@ -1348,6 +1348,114 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		factorValue: -1,
 		match: /Reduces the cost of Ultimate abilities by ([0-9]+\.?[0-9]*)%/i,
 	},	
+	{
+		category: "SkillDuration",
+		statId: "Fiery Breath",
+		match: /Increases the duration of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Searing Strike",
+		match: /Increases the duration of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Dragonknight Standard",
+		match: /Increases the duration of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Fiery Breath",
+		match: /Increases the damage of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Searing Strike",
+		match: /Increases the damage of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Dragonknight Standard",
+		match: /Increases the damage of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		category: "SkillDamage",
+		statId: "Fiery Breath",
+		display: "%",
+		match: /Increases the damage of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDamage",
+		statId: "Searing Strike",
+		display: "%",
+		match: /Increases the damage of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDamage",
+		statId: "Dragonknight Standard",
+		display: "%",
+		match: /Increases the damage of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Sun Fire",
+		display: "%",
+		match: /Increases the duration of your Sun Fire, Eclipse, and Nova abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Nova",
+		display: "%",
+		match: /Increases the duration of your Sun Fire, Eclipse, and Nova abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Eclipse",
+		display: "%",
+		match: /Increases the duration of your Sun Fire, Eclipse, and Nova abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Negate",
+		display: "%",
+		match: /Increases the duration of Dark Magic abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Encase",
+		display: "%",
+		match: /Increases the duration of Dark Magic abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Rune Prison",
+		display: "%",
+		match: /Increases the duration of Dark Magic abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Daedric Mines",
+		display: "%",
+		match: /Increases the duration of Dark Magic abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Magelight",
+		display: "%",
+		match: /Increases the duration of Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Entropy",
+		display: "%",
+		match: /Increases the duration of Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Fire Rune",
+		display: "%",
+		match: /Increases the duration of Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
 	{
 		statId: "ResurrectSpeed",
 		display: "%",
@@ -3686,7 +3794,8 @@ function ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData,
 		
 		buffData.skillEnabled = true;
 		buffData.skillAbilities.push(abilityData);
-		AddEsoItemRawOutput(abilityData, (isPassive ? "Passive Skill" : "Active Skill"), abilityData.name);
+		AddEsoItemRawOutputString(abilityData, "Adds Buff", buffData.buffId);
+		AddEsoItemRawOutputString(buffData, (isPassive ? "Passive Skill" : "Active Skill"), abilityData.name);
 	}
 	else if (matchData.statId == "OtherEffects")
 	{
@@ -3708,6 +3817,8 @@ function ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData,
 	}
 	else 
 	{
+		if (inputValues[category][matchData.statId] == null) inputValues[category][matchData.statId] = 0;
+		
 		if (matchData.combineAs == "*%")
 			inputValues[category][matchData.statId] = (1 + inputValues[category][matchData.statId]) * (1 + statValue) - 1;
 		else
@@ -3807,6 +3918,8 @@ function GetEsoInputSkillActiveValues(inputValues, skillInputValues, skillData)
 	var skillDesc = GetEsoSkillDescription(skillData.abilityId, skillInputValues, false, true);
 	var rawDesc = RemoveEsoDescriptionFormats(skillDesc);
 	if (rawDesc == "" || abilityData == null) return;
+	
+	abilityData.rawOutput = {};
 	
 	for (var i = 0; i < ESO_ACTIVEEFFECT_MATCHES.length; ++i)
 	{
@@ -5778,7 +5891,7 @@ function ShowEsoSkillDetailsPopup(abilityId)
 	detailsHtml += "rank = " + skillData.rank + "<br/>";
 	detailsHtml += "learnedLevel = " + skillData.learnedLevel + "<br/>";
 	detailsHtml += "target = " + skillData.target + "<br/>";
-	detailsHtml += "cost = " + skillData.cost + "<br/>";
+	detailsHtml += "maxCost = " + skillData.cost + "<br/>";
 	detailsHtml += "</div>";
 	detailsHtml += "<div class='esotbSkillDetailsOther'>";
 	detailsHtml += "duration = " + skillData.duration + "<br/>";
@@ -7043,7 +7156,6 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
 		Disease		: inputValues.DiseaseDamageDone,
 		Dot			: inputValues.DotDamageDone,
 		All			: inputValues.DamageDone,
-		Empower		: inputValues.Empower,
 	};
 	
 	g_LastSkillInputValues.Healing =
@@ -7052,6 +7164,9 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
 		Taken		: inputValues.HealingTaken,
 		Received	: inputValues.HealingReceived,	
 	};
+	
+	g_LastSkillInputValues.SkillDuration = inputValues.SkillDuration;
+ 	g_LastSkillInputValues.SkillDamage = inputValues.SkillDamage;
 	
 	return g_LastSkillInputValues; 
 }
@@ -8291,6 +8406,7 @@ function esotbOnDocReady()
 	});
 	
 	//UpdateEsoComputedStatsList(true);
+	UpdateEsoCpData();
 }
 
 
