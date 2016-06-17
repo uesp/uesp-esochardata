@@ -139,6 +139,8 @@ class EsoBuildDataEditor
 			"Skill.HAMagRestoreRestStaff",
 			"Skill.HAStaRestoreWerewolf",
 			"Skill.HAFlameStaffDamage",
+			"SkillDuration.Placeholder",
+			"SkillDamage.Placeholder",
 	);
 	
 	
@@ -248,7 +250,6 @@ class EsoBuildDataEditor
 			"DodgeChance",
 			"DamageTaken",
 			"DamageDone",
-			"Empower",
 			"StunDuration",
 			"DisorientDuration",
 			"WerewolfTransformCost",
@@ -1419,6 +1420,46 @@ class EsoBuildDataEditor
 							"+",
 					),
 			),
+
+			/*
+			 * SpellPenetration Confirmed
+			 */
+			"SpellPenetration" => array(
+					"title" => "Spell Penetration",
+					"compute" => array(
+							"100",
+							"Item.SpellPenetration",
+							"+",
+							"Set.SpellPenetration",
+							"+",
+							"Skill.SpellPenetration",
+							"+",
+							"CP.SpellPenetration",
+							"+",
+							"Buff.SpellPenetration",
+							"+",
+					),
+			),
+				
+			/*
+			 * PhysicalPenetration Confirmed
+			*/
+			"PhysicalPenetration" => array(
+					"title" => "Physical Penetration",
+					"compute" => array(
+							"100",
+							"Item.PhysicalPenetration",
+							"+",
+							"Set.PhysicalPenetration",
+							"+",
+							"Skill.PhysicalPenetration",
+							"+",
+							"CP.PhysicalPenetration",
+							"+",
+							"Buff.PhysicalPenetration",
+							"+",
+					),
+			),
 			
 			"ColdResist" => array(
 					"title" => "Cold Resistance",
@@ -1469,47 +1510,7 @@ class EsoBuildDataEditor
 							"+",
 					),
 			),
-			
-			/*
-			 * SpellPenetration Confirmed
-			 */
-			"SpellPenetration" => array(				
-					"title" => "Spell Penetration",
-					"compute" => array(
-							"100",
-							"Item.SpellPenetration",
-							"+",
-							"Set.SpellPenetration",
-							"+",
-							"Skill.SpellPenetration",
-							"+",
-							"CP.SpellPenetration",
-							"+",
-							"Buff.SpellPenetration",
-							"+",
-					),
-			),
-			
-			/*
-			 * PhysicalPenetration Confirmed
-			 */
-			"PhysicalPenetration" => array(
-					"title" => "Physical Penetration",
-					"compute" => array(
-							"100",
-							"Item.PhysicalPenetration",
-							"+",
-							"Set.PhysicalPenetration",
-							"+",
-							"Skill.PhysicalPenetration",
-							"+",
-							"CP.PhysicalPenetration",
-							"+",
-							"Buff.PhysicalPenetration",
-							"+",
-					),
-			),
-			
+		
 			/*
 			 * HealingDone Confirmed
 			 */
