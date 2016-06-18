@@ -939,7 +939,7 @@ class EsoBuildDataViewer
 		
 		if ($barIndex == 3)	
 		{
-			if ($this->characterData['class'] != "Sorcerer") return "ecdHiddenAbilityBar";
+			if ($this->characterData['class'] != "Sorcerer" && $this->characterData['special'] != "Werewolf") return "ecdHiddenAbilityBar";
 			return "";
 		}
 		
@@ -2586,6 +2586,8 @@ EOT;
 		$charId = $this->getFieldInt($buildData, 'id');
 		$linkUrl = $this->getCharacterLink($charId);
 		$special = $this->escape($this->getFieldStr($buildData, 'special'));
+		
+		if ($buildName == "") $buildName = "(none)";
 		
 		if ($this->isBuildEditted($buildData))
 			$lastUpdate = $this->getBuildEditDate($buildData);
