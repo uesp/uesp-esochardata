@@ -15,6 +15,8 @@ function onTooltipHoverShow()
 
 function adjustSkillTooltipPosition(tooltip, parent)
 {
+	if (tooltip == null || tooltip[0] == null) return;
+	
      var windowWidth = $(window).width();
      var windowHeight = $(window).height();
      var toolTipWidth = tooltip.width();
