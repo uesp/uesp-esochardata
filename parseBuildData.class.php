@@ -2,6 +2,7 @@
 
 
 require_once("/home/uesp/secrets/esobuilddata.secrets");
+require_once("/home/uesp/secrets/esolog.secrets");
 
 
 class EsoBuildDataParser
@@ -30,6 +31,7 @@ class EsoBuildDataParser
 	public $uniqueAccountName = "";
 	
 	public $db = null;
+	public $dbLog = null;
 	public $dbReadInitialized  = false;
 	public $dbWriteInitialized = false;
 	public $lastQuery = "";
@@ -49,6 +51,7 @@ class EsoBuildDataParser
 	{
 		$this->Lua = new Lua();
 		$this->startTime = microtime(True);
+		$this->initLogDatabase();
 	}
 	
 	
@@ -69,9 +72,26 @@ class EsoBuildDataParser
 			$this->log("\tDB Error:" . $this->db->error);
 			$this->log("\tLast Query:" . $this->lastQuery);
 		}
+		else if ($this->dbLog != null && $this->dbLog->error)
+		{
+			$this->log("\tDBLog Error:" . $this->dbLog->error);
+			$this->log("\tLast Query:" . $this->lastQuery);
+		}
 	
 		return false;
 	}
+	
+	
+	private function initLogDatabase ()
+	{
+		global $uespEsoLogReadDBHost, $uespEsoLogReadUser, $uespEsoLogReadPW, $uespEsoLogDatabase;
+	
+		$this->dbLog = new mysqli($uespEsoLogReadDBHost, $uespEsoLogReadUser, $uespEsoLogReadPW, $uespEsoLogDatabase);
+		if ($db->connect_error) return $this->ReportError("Could not connect to mysql database!");
+		
+		return true;
+	}
+	
 	
 	
 	public function initDatabase ()
@@ -841,14 +861,14 @@ class EsoBuildDataParser
 				
 		$query = "SELECT * from uesp_esolog.minedItem WHERE itemId=$itemId AND internalSubType=$subtype AND internalLevel=$level LIMIT 1;";
 		$this->lastQuery = $query;
-		$result = $this->db->query($query);
+		$result = $this->dbLog->query($query);
 		if ($result === False) return $this->reportError("Failed to load item data for $itemId::$subtype::$level");
 		
 		if ($result->num_rows == 0) 
 		{
 			$query = "SELECT * from uesp_esolog.minedItem WHERE itemId=$itemId AND internalSubType=1 AND internalLevel=1 LIMIT 1;";
 			$this->lastQuery = $query;
-			$result = $this->db->query($query);
+			$result = $this->dbLog->query($query);
 			if ($result === False) return $this->reportError("Failed to load item data for $itemId::$subtype::$level");
 			if ($result->num_rows == 0) return False;
 			
