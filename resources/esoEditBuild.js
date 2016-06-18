@@ -8229,6 +8229,8 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 	saveData.Stats['Mundus'] = inputValues.Mundus.Name;
 	saveData.Stats['Mundus2'] = inputValues.Mundus.Name2;
 	
+	saveData.Stats['SkillPointsTotal'] = g_EsoSkillPointsUsed;
+	
 	return saveData;
 }
 

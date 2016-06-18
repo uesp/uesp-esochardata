@@ -29,8 +29,8 @@
 	<div id='ecdSkills'>
 		<div class='ecdSkillTitle'>SKILLS & CHAMPION POINTS</div>
 		<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='290' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='290' />
-		<div class='ecdSkillSubTitle'>Skill Points:</div> <div class='ecdSkillSubValue'>{skillPointsUnused} / {skillPointsTotal}</div><br />
-		<div class='ecdSkillSubTitle'>Skyshards:</div> <div class='ecdSkillSubValue'>{skyshards} / 3</div>
+		<div class='ecdSkillSubTitle' style="display:{skillPointDisplay};">Skill Points:</div> <div class='ecdSkillSubValue' style="display:{skillPointDisplay};">{skillPointsUnused} / {skillPointsTotal}</div><br />
+		<div class='ecdSkillSubTitle' style="display:{skyshardDisplay};">Skyshards:</div> <div class='ecdSkillSubValue' style="display:{skyshardDisplay};">{skyshards} / 3</div>
 		<div id='ecdSkillContents'>
 			{skillContents}
 		</div>
