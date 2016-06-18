@@ -712,6 +712,20 @@ class EsoBuildDataViewer
 	}
 	
 	
+	public function getSkillPointDisplay()
+	{
+		//if ($this->getCharStatField('SkillPointsUnused') == "" || $this->getCharStatField('SkillPointsTotal') == "") return "none";
+		return "inline-block";
+	}
+
+	
+	public function getSkyshardDisplay()
+	{
+		//if ($this->getCharStatField('SkyShards') == "") return "none";
+		return "inline-block";
+	}
+		
+	
 	public function createCharacterOutput()
 	{
 		if (!$this->loadCharacter()) return false;
@@ -768,9 +782,11 @@ class EsoBuildDataViewer
 					'{equipWeapon21}' => $this->getCharEquipSlotHtml(20),
 					'{equipWeapon22}' => $this->getCharEquipSlotHtml(21),
 					'{buffs}' => $this->getCharBuffsHtml(),
-					'{skyshards}' => $this->getCharStatField('SkyShards'),
-					'{skillPointsUnused}' => $this->getCharStatField('SkillPointsUnused'),
-					'{skillPointsTotal}' => $this->getCharStatField('SkillPointsTotal'),
+					'{skyshards}' => $this->getCharStatField('SkyShards', 0),
+					'{skillPointDisplay}' => $this->getSkillPointDisplay(),
+					'{skyshardDisplay}' => $this->getSkyshardDisplay(),
+					'{skillPointsUnused}' => $this->getCharStatField('SkillPointsUnused', 0),
+					'{skillPointsTotal}' => $this->getCharStatField('SkillPointsTotal', 0),
 					'{skillTree}' => $this->getCharSkillTreeHtml(),
 					'{skillContents}' => $this->getCharSkillContentHtml(),
 					'{skillContentTitle}' => $this->skillTreeFirstName,
@@ -1933,16 +1949,16 @@ class EsoBuildDataViewer
 	}
 	
 	
-	public function getCharField($field)
+	public function getCharField($field, $default = "")
 	{
-		if (!array_key_exists($field, $this->characterData)) return "";
+		if (!array_key_exists($field, $this->characterData)) return $default;
 		return $this->escape($this->characterData[$field]);
 	}
 	
 	
-	public function getCharStatField($field)
+	public function getCharStatField($field, $default = "")
 	{
-		if (!array_key_exists($field, $this->characterData['stats'])) return "";
+		if (!array_key_exists($field, $this->characterData['stats'])) return $default;
 		return $this->escape($this->characterData['stats'][$field]['value']);
 	}
 	
