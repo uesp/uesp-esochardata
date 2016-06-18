@@ -702,7 +702,7 @@ tr.eso_item_link {
 }
 
 .ecdSkillTreeContent1 {
-	margin-left: 25px;
+	margin-left: 15px;
 }
 
 .ecdSkillTreeName1 {
@@ -710,8 +710,10 @@ tr.eso_item_link {
     font-weight: bold;
     color: #C5C29E;
     padding: 8px;
-    padding-left: 0px;
+    padding-left: 10px;
+    margin-left: -10px;
     cursor: pointer;
+    border-radius: 15px;
 }
 
 .ecdSkillTreeName2 {
@@ -720,6 +722,7 @@ tr.eso_item_link {
     color: #C5C29E;
     padding: 2px;
 	cursor: pointer;
+	padding-left: 10px;
 }
 
 .ecdSkillTreeName1:hover,
@@ -736,6 +739,7 @@ tr.eso_item_link {
 .ecdSkillTreeNameHighlight2 {
 	color: WHITE;
 	background-color: #444;
+	border-radius: 10px;
 }
 
 .ecdSkillData {

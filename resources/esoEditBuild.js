@@ -7753,6 +7753,8 @@ function CreateEsoBuildSaveData()
 	CreateEsoBuildActionBarSaveData(saveData, inputValues);
 	CreateEsoBuildSkillToggleSaveData(saveData, inputValues);
 	CreateEsoBuildSetToggleSaveData(saveData, inputValues);
+	
+	CreateEsoBuildOffBarSaveData(saveData, inputValues);
 		
 	return saveData;
 }
@@ -8235,47 +8237,95 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 }
 
 
-function CreateEsoBuildComputedSaveData(saveData, inputValues)
+function HasEsoBuildThirdSkillBar()
 {
+		// TODO: Add third skill bar
+	return false;
+}
+
+
+function CreateEsoBuildOffBarSaveData(saveData, inputValues)
+{
+	var CurrentActiveBar = g_EsoBuildActiveWeapon;
+	
+	CreateEsoBuildComputedSaveData(saveData, inputValues, CurrentActiveBar);
+	
+	if (HasEsoBuildThirdSkillBar() && CurrentActiveBar != 3)
+	{
+		SetEsoBuildActiveSkillBar(3);
+		UpdateEsoComputedStatsList(true);
+		CreateEsoBuildComputedSaveData(saveData, inputValues, 3);
+	}
+	
+	if (CurrentActiveBar != 1)
+	{
+		SetEsoBuildActiveWeaponBar(1);
+		SetEsoBuildActiveSkillBar(1);
+		UpdateEsoComputedStatsList(true);
+		CreateEsoBuildComputedSaveData(saveData, inputValues, 1);
+	}
+	
+	if (CurrentActiveBar != 2)
+	{
+		SetEsoBuildActiveWeaponBar(2);
+		SetEsoBuildActiveSkillBar(2);
+		UpdateEsoComputedStatsList(true);
+		CreateEsoBuildComputedSaveData(saveData, inputValues, 2);
+	}
+	
+	SetEsoBuildActiveWeaponBar(CurrentActiveBar);
+	SetEsoBuildActiveSkillBar(CurrentActiveBar);
+	UpdateEsoComputedStatsList(true);
+}
+
+
+function CreateEsoBuildComputedSaveData(saveData, inputValues, barIndex)
+{
+	var prefix = "";
+	
+	if (barIndex != null)
+	{
+		prefix = "Bar" + barIndex + ":";
+	}
 	
 	for (var name in g_EsoComputedStats)
 	{
-		AddEsoBuildComputedStatToSaveData(saveData, name, name, true);
+		AddEsoBuildComputedStatToSaveData(saveData, name, prefix + name, true);
 	}
 	
-	AddEsoBuildComputedStatToSaveData(saveData, "Health");
-	AddEsoBuildComputedStatToSaveData(saveData, "Magicka");
-	AddEsoBuildComputedStatToSaveData(saveData, "Stamina");
+	AddEsoBuildComputedStatToSaveData(saveData, "Health", prefix + "Health");
+	AddEsoBuildComputedStatToSaveData(saveData, "Magicka", prefix + "Magicka");
+	AddEsoBuildComputedStatToSaveData(saveData, "Stamina", prefix + "Stamina");
 	
-	AddEsoBuildComputedStatToSaveData(saveData, "HealthRegen", "HealthRegenCombat");
-	AddEsoBuildComputedStatToSaveData(saveData, "MagickaRegen", "MagickaRegenCombat");
-	AddEsoBuildComputedStatToSaveData(saveData, "StaminaRegen", "StaminaRegenCombat");
+	AddEsoBuildComputedStatToSaveData(saveData, "HealthRegen", prefix + "HealthRegenCombat");
+	AddEsoBuildComputedStatToSaveData(saveData, "MagickaRegen", prefix + "MagickaRegenCombat");
+	AddEsoBuildComputedStatToSaveData(saveData, "StaminaRegen", prefix + "StaminaRegenCombat");
 	
-	AddEsoBuildComputedStatToSaveData(saveData, "SpellDamage", "SpellPower");
-	AddEsoBuildComputedStatToSaveData(saveData, "WeaponDamage", "WeaponPower");
-	AddEsoBuildComputedStatToSaveData(saveData, "WeaponDamage", "Power");
+	AddEsoBuildComputedStatToSaveData(saveData, "SpellDamage", prefix + "SpellPower");
+	AddEsoBuildComputedStatToSaveData(saveData, "WeaponDamage", prefix + "WeaponPower");
+	AddEsoBuildComputedStatToSaveData(saveData, "WeaponDamage", prefix + "Power");
 	
-	AddEsoBuildComputedStatToSaveData(saveData, "SpellCrit", "SpellCritical", null, "critical");
-	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", "WeaponCritical", null, "critical");
-	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", "CriticalStrike", null, "critical");
+	AddEsoBuildComputedStatToSaveData(saveData, "SpellCrit", prefix + "SpellCritical", null, "critical");
+	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", prefix + "WeaponCritical", null, "critical");
+	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", prefix + "CriticalStrike", null, "critical");
 	
-	AddEsoBuildComputedStatToSaveData(saveData, "SpellCrit", "SpellCritPercent");
-	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", "WeaponCritPerecent");
-	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", "WeaponCritPerecent");
+	AddEsoBuildComputedStatToSaveData(saveData, "SpellCrit", prefix + "SpellCritPercent");
+	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", prefix + "WeaponCritPerecent");
+	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", prefix + "WeaponCritPerecent");
 	
-	AddEsoBuildComputedStatToSaveData(saveData, "SpellResist", "SpellResist");
-	AddEsoBuildComputedStatToSaveData(saveData, "PhysicalResist", "PhysicalResist");
-	AddEsoBuildComputedStatToSaveData(saveData, "CritResist", "CriticalResistance");
-	AddEsoBuildComputedStatToSaveData(saveData, "ColdResist", "DamageResistCold");
-	AddEsoBuildComputedStatToSaveData(saveData, "DiseaseResist", "DamageResistDisease");
-	AddEsoBuildComputedStatToSaveData(saveData, "FlameResist", "DamageResistFire");
-	AddEsoBuildComputedStatToSaveData(saveData, "SpellResist", "DamageResistMagic");
-	AddEsoBuildComputedStatToSaveData(saveData, "PhysicalResist", "DamageResistPhysical");
-	AddEsoBuildComputedStatToSaveData(saveData, "PoisonResist", "DamageResistPoison");
-	AddEsoBuildComputedStatToSaveData(saveData, "ShockResist", "DamageResistShock");
+	AddEsoBuildComputedStatToSaveData(saveData, "SpellResist", prefix + "SpellResist");
+	AddEsoBuildComputedStatToSaveData(saveData, "PhysicalResist", prefix + "PhysicalResist");
+	AddEsoBuildComputedStatToSaveData(saveData, "CritResist", prefix + "CriticalResistance");
+	AddEsoBuildComputedStatToSaveData(saveData, "ColdResist", prefix + "DamageResistCold");
+	AddEsoBuildComputedStatToSaveData(saveData, "DiseaseResist", prefix + "DamageResistDisease");
+	AddEsoBuildComputedStatToSaveData(saveData, "FlameResist", prefix + "DamageResistFire");
+	AddEsoBuildComputedStatToSaveData(saveData, "SpellResist", prefix + "DamageResistMagic");
+	AddEsoBuildComputedStatToSaveData(saveData, "PhysicalResist", prefix + "DamageResistPhysical");
+	AddEsoBuildComputedStatToSaveData(saveData, "PoisonResist", prefix + "DamageResistPoison");
+	AddEsoBuildComputedStatToSaveData(saveData, "ShockResist", prefix + "DamageResistShock");
 	
-	AddEsoBuildComputedStatToSaveData(saveData, "SpellPenetration", "SpellPenetration");
-	AddEsoBuildComputedStatToSaveData(saveData, "PhysicalPenetration", "PhysicalPenetration");
+	AddEsoBuildComputedStatToSaveData(saveData, "SpellPenetration", prefix + "SpellPenetration");
+	AddEsoBuildComputedStatToSaveData(saveData, "PhysicalPenetration", prefix + "PhysicalPenetration");
 	
 	return saveData;
 }
@@ -8317,8 +8367,8 @@ function SetEsoBuildSaveResults(text)
 
 function OnEsoBuildSave(e)
 {
-	RequestEsoBuildSave();
 	SetEsoBuildSaveResults("Saving build...");
+	RequestEsoBuildSave();	
 }
 
 
@@ -8390,6 +8440,7 @@ function esotbOnDocReady()
 	
 	$("#esotbWeaponBar1").click(OnEsoWeaponBarSelect1);
 	$("#esotbWeaponBar2").click(OnEsoWeaponBarSelect2);
+	// TODO: 3rd Bar
 	
 	$(document).on("EsoSkillBarSwap", OnEsoBuildSkillBarSwap);
 	$(document).on("EsoSkillUpdate", OnEsoBuildSkillUpdate);

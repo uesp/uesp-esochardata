@@ -1900,36 +1900,63 @@ class EsoBuildDataViewer
 	
 	public function getCharBasicStatsHtml()
 	{
-		$output  = "";
-		$output .= $this->getCharBasicStatHtml('Magicka', 'Magicka');
-		$output .= $this->getCharBasicStatHtml('Health', 'Health');
-		$output .= $this->getCharBasicStatHtml('Stamina', 'Stamina');
-		$output .= "<br />";
-		$output .= $this->getCharBasicStatHtml('Magicka Recovery', 'MagickaRegenCombat');
-		$output .= $this->getCharBasicStatHtml('Health Recovery', 'HealthRegenCombat');
-		$output .= $this->getCharBasicStatHtml('Stamina Recovery', 'StaminaRegenCombat');
-		$output .= "<br />";
-		$output .= $this->getCharBasicStatHtml('Spell Damage', 'SpellPower');
-		$output .= $this->getCharBasicStatHtml('Spell Critical', 'SpellCritical', $this->getCharCriticalFactor(), '%', 10.0);
+		$output  = $this->getCharBasicStatsBarHtml(null);
+		$output .= $this->getCharBasicStatsBarHtml(1);
+		$output .= $this->getCharBasicStatsBarHtml(2);
+		$output .= $this->getCharBasicStatsBarHtml(3);
 		
-		$weaponPower = $this->getCharStatField("WeaponPower");
-		$power = $this->getCharStatField("Power");
+		return $output;
+	}
+	
+	
+	public function getCharBasicStatsBarHtml($barIndex)
+	{
+		$prefix = "";
+		$display = "block";
+		
+		if ($barIndex == null)
+		{
+			$barIndex = "";
+		}
+		else
+		{
+			$display = "none";
+			$prefix = "Bar$barIndex:";
+			if ($this->getCharStatField($prefix."Health") == "") return "";
+		}
+		
+		$output  = "<div class='ecdStatBar$barIndex' style='display: $display;'>";
+		
+		$output .= $this->getCharBasicStatHtml('Magicka', $prefix.'Magicka');
+		$output .= $this->getCharBasicStatHtml('Health', $prefix.'Health');
+		$output .= $this->getCharBasicStatHtml('Stamina', $prefix.'Stamina');
+		$output .= "<br />";
+		$output .= $this->getCharBasicStatHtml('Magicka Recovery', $prefix.'MagickaRegenCombat');
+		$output .= $this->getCharBasicStatHtml('Health Recovery', $prefix.'HealthRegenCombat');
+		$output .= $this->getCharBasicStatHtml('Stamina Recovery', $prefix.'StaminaRegenCombat');
+		$output .= "<br />";
+		$output .= $this->getCharBasicStatHtml('Spell Damage', $prefix.'SpellPower');
+		$output .= $this->getCharBasicStatHtml('Spell Critical', $prefix.'SpellCritical', $this->getCharCriticalFactor(), '%', 10.0);
+		
+		$weaponPower = $this->getCharStatField($prefix."WeaponPower");
+		$power = $this->getCharStatField($prefix."Power");
 		
 		if ($power == 0)
-			$output .= $this->getCharBasicStatHtml('Weapon Damage', 'WeaponPower');
+			$output .= $this->getCharBasicStatHtml('Weapon Damage', $prefix.'WeaponPower');
 		else
-			$output .= $this->getCharBasicStatHtml('Weapon Damage', 'Power');
+			$output .= $this->getCharBasicStatHtml('Weapon Damage', $prefix.'Power');
 		
-		$output .= $this->getCharBasicStatHtml('Weapon Critical', 'CriticalStrike', $this->getCharCriticalFactor(), '%', 10.0);
+		$output .= $this->getCharBasicStatHtml('Weapon Critical', $prefix.'CriticalStrike', $this->getCharCriticalFactor(), '%', 10.0);
 		$output .= "<br />";
-		$output .= $this->getCharBasicStatHtml('Spell Resistance', 'SpellResist');
-		$output .= $this->getCharBasicStatHtml('Physical Resistance', 'PhysicalResist');
-		$output .= $this->getCharBasicStatHtml('Critical Resistance', 'CriticalResistance');
+		$output .= $this->getCharBasicStatHtml('Spell Resistance', $prefix.'SpellResist');
+		$output .= $this->getCharBasicStatHtml('Physical Resistance', $prefix.'PhysicalResist');
+		$output .= $this->getCharBasicStatHtml('Critical Resistance', $prefix.'CriticalResistance');
 		$output .= "<br />";
-		$output .= $this->getCharBasicStatHtml('Spell Penetration', 'SpellPenetration');
-		$output .= $this->getCharBasicStatHtml('Physical Penetration', 'PhysicalPenetration');
+		$output .= $this->getCharBasicStatHtml('Spell Penetration', $prefix.'SpellPenetration');
+		$output .= $this->getCharBasicStatHtml('Physical Penetration', $prefix.'PhysicalPenetration');
 		$output .= "<br />";
 		
+		$output .= "</div>";
 		return $output;
 	}
 	
