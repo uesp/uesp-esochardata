@@ -1551,7 +1551,7 @@ class EsoBuildDataEditor
 					"deferLevel" => 2,
 					"depends" => array("AttackSpellMitigation", "SpellDamage", "Magicka", "AttackSpellCrit", "SpellCritDamage"),
 					"round" => "round",
-					"note" => "Effective Spell Power is a custom stat that represents your overall power in spell/magicka attacks and can be used to compare different build setups. A higher number is better.",
+					"note" => "Effective Spell Power is a custom stat that represents your overall power with spell/magicka attacks and can be used to compare different build setups. A higher number is better.",
 					"compute" => array(
 							"round(Magicka/10.5)",
 							"SpellDamage",
@@ -1568,7 +1568,7 @@ class EsoBuildDataEditor
 					"deferLevel" => 2,
 					"depends" => array("AttackPhysicalMitigation", "WeaponDamage", "Stamina", "AttackWeaponCrit", "WeaponCritDamage"),
 					"round" => "round",
-					"note" => "Effective Weapon Power is a custom stat that represents your overall power in weapon/stamina attacks and can be used to compare different build setups. A higher number is better.",
+					"note" => "Effective Weapon Power is a custom stat that represents your overall power with weapon/stamina attacks and can be used to compare different build setups. A higher number is better.",
 					"compute" => array(
 							"round(Stamina/10.5)",
 							"WeaponDamage",
@@ -1756,7 +1756,7 @@ class EsoBuildDataEditor
 			 * SneakDetectRange Confirmed (mostly):
 			 */
 			"SneakDetectRange" => array(
-					"title" => "Sneak Detection Range",
+					"title" => "Detection Range",
 					"round" => "floor2",
 					"suffix" => " meters",
 					"compute" => array(
