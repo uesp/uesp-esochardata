@@ -5095,8 +5095,8 @@ function CreateEsoComputedStat(statId, stat)
 		appendTo(element);
 
 	
-	$("<div/>").addClass("esotbStatComputeButton").
-		html("+").
+	$("<div/>").addClass("esotbStatDetailsButton").
+		html("...").
 		appendTo(element);
 	
 	var computeElement = $("<div/>").addClass("esotbComputeItems").
@@ -5204,15 +5204,9 @@ function OnEsoCPTotalPointsChange(e)
 }
 
 
-function OnEsoToggleStatComputeItems(e)
+function OnEsoClickStatRow(e)
 {
-	var computeItems = $(this).nextAll(".esotbComputeItems");
-	
-	if (computeItems.is(":visible"))
-		$(this).text("+");
-	else
-		$(this).text("-");
-		
+	var computeItems = $(this).find(".esotbComputeItems");
 	computeItems.slideToggle();
 }
 
@@ -5224,7 +5218,9 @@ function OnEsoClickStatWarningButton(e)
 	
 	if (statId == null || statId == "") return false;
 	
-	return ShowEsoFormulaPopup(statId);
+	ShowEsoFormulaPopup(statId);
+	
+	return false;
 }
 
 
@@ -5567,8 +5563,22 @@ function OnEsoClickComputeItems(e)
 	
 	if (statId == null || statId == "") return false;
 	
-	return ShowEsoFormulaPopup(statId);
+	ShowEsoFormulaPopup(statId);
+	return false;
 }
+
+
+function OnEsoClickStatDetails(e)
+{
+	var parent = $(this).parent(".esotbStatRow");
+	var statId = parent.attr("statid");
+	
+	if (statId == null || statId == "") return false;
+	
+	ShowEsoFormulaPopup(statId);
+	return false;
+}
+
 
 
 function ConvertEsoFormulaToPrefix(computeItems)
@@ -8510,7 +8520,8 @@ function esotbOnDocReady()
 	$("#esotbMundus").change(OnEsoMundusChange)
 	$("#esotbMundus2").change(OnEsoMundusChange)
 	$("#esotbCPTotalPoints").change(OnEsoCPTotalPointsChange);
-	$(".esotbStatComputeButton").click(OnEsoToggleStatComputeItems);
+	$(".esotbStatRow").click(OnEsoClickStatRow);
+	$(".esotbStatDetailsButton").click(OnEsoClickStatDetails);
 	$(".esotbStatWarningButton").click(OnEsoClickStatWarningButton);
 	$(".esotbStatNoteButton").click(OnEsoClickStatWarningButton);
 	$("#esotbStealth").click(OnEsoClickStealth);	

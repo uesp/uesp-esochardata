@@ -132,7 +132,8 @@
 }
 
 .esotbStatRow:hover {
-	background-color: #FFF5E0;
+	background-color: #FFFFF0;
+	cursor: pointer;
 }
 
 .esotbStatName {
@@ -170,7 +171,8 @@
 	display: inline-block;
 }
 
-.esotbStatComputeButton {
+.esotbStatComputeButton,
+.esotbStatDetailsButton {
 	width: 16px;
 	height: 16px;
 	background-color: #DBBFA5;
@@ -208,7 +210,8 @@
 	background-color: #cc3333;
 }
 
-.esotbStatComputeButton:hover {
+.esotbStatComputeButton:hover,
+.esotbStatDetailsButton:hover {
 	cursor: pointer;
 	background-color: #777;
 }
