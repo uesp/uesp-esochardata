@@ -1196,6 +1196,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		category: "Skill2",
 		statId: "PhysicalPenetration",
 		display: "%",
+		rawInputMatch: /(Each mace causes your attacks to ignore [0-9]+\.?[0-9]*% of an enemy's Physical Resistance)/i,
 		match: /Each mace causes your attacks to ignore ([0-9]+\.?[0-9]*)% of an enemy's Physical Resistance/i,
 	},
 	{
@@ -1204,6 +1205,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		factorStatId: "WeaponSword",
 		statId: "DamageDone",
 		display: "%",
+		rawInputMatch: /(Each sword increases your damage done by [0-9]+\.?[0-9]*%)/i,
 		match: /Each sword increases your damage done by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -1212,11 +1214,13 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		factorStatId: "WeaponDagger",
 		category: "Skill2",
 		statId: "WeaponCrit",
+		rawInputMatch: /(Each dagger increases your Weapon Critical rating[\s\S]*?Current bonus\: [0-9]+)/i,
 		match: /Each dagger increases your Weapon Critical rating[\s\S]*?Current bonus\: ([0-9]+)/i,
 	},
 	{
 		statRequireId: "Weapon1H",
 		statRequireValue: 2,
+		factorStatId: "WeaponAxe",
 		statId: "OtherEffects",
 		rawInputMatch: /(Each axe gives your melee attacks a [0-9]+\.?[0-9]*% chance to bleed enemies for [0-9]+ Physical Damage over 6 seconds\.)/i,
 		match: /Each axe gives your melee attacks a [0-9]+\.?[0-9]*% chance to bleed enemies for ([0-9]+) Physical Damage over 6 seconds/i,
@@ -3766,7 +3770,13 @@ function ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData,
 	else if (matchData.factorStatId != null)
 	{
 		var factorStat = inputValues[matchData.factorStatId];
-		if (factorStat != null) statFactor = parseFloat(factorStat);
+		
+		if (factorStat == null)
+			statFactor = 0;
+		else
+			statFactor = parseFloat(factorStat);
+		
+		if (statFactor == 0) return false;
 	}
 	else if (matchData.maxTimes != null)
 	{
@@ -3808,7 +3818,7 @@ function ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData,
 			if (rawInputDesc == null) rawInputDesc = rawDesc;
 		}
 		
-		AddEsoItemRawOutputString(abilityData, "PassiveEffect", rawInputDesc);
+		AddEsoItemRawOutputData(abilityData, "PassiveEffect", { abilityData: abilityData, rawInputMatch: matchData.rawInputMatch, value: rawInputDesc });
 		
 		if (isPassive)
 			AddEsoInputStatSource("OtherEffects", { other: true, passive: abilityData, value: rawInputDesc, rawInputMatch: matchData.rawInputMatch });
@@ -3943,6 +3953,13 @@ function AddEsoItemRawOutputString(itemData, statId, value)
 	if (itemData.rawOutput == null) itemData.rawOutput = {};
 	if (itemData.rawOutput[statId] == null)	itemData.rawOutput[statId] = "";
 	itemData.rawOutput[statId] += "" + value;
+}
+
+
+function AddEsoItemRawOutputData(itemData, statId, data)
+{
+	if (itemData.rawOutput == null) itemData.rawOutput = {};
+	itemData.rawOutput[statId] = data;
 }
 
 
@@ -5957,7 +5974,31 @@ function ShowEsoSkillDetailsPopup(abilityId)
 		var value = skillData.rawOutput[key];
 		var suffix = "";
 		
-		if (statDetails.display == '%') 
+		if (typeof(value) == "object")
+		{
+			var abilityData = value.abilityData;
+			var rawInputMatch = value.rawInputMatch;
+			var desc = value.value;
+			
+			if (abilityData != null && abilityData.lastDesc != null)
+			{
+				value = abilityData.lastDesc;
+			}
+			else if (abilityData != null && abilityData.description != null)
+				value = abilityData.lastDesc;
+			else if (desc != null)
+				value = desc;
+			else
+				value = "Unknown Skill Data";
+			
+			if (rawInputMatch != null)
+			{
+				var rawInputMatches = value.match(rawInputMatch);
+				if (rawInputMatches != null) value = rawInputMatches[1];
+			}
+
+		}
+		else if (statDetails.display == '%') 
 		{
 			suffix = "%";
 			value = value * 100;
