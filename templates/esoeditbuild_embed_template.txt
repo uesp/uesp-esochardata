@@ -356,6 +356,7 @@ Note that this character builder is for test purposes and is currently undergoin
 			<ul>
 				<li>Added the Effective Spell and Weapon Power stats to help better gauge the result of build tweaks.</li>
 				<li>Fixed the attacker/defending computed stats and added stats for attack spell/weapon crit.</li>
+				<li>Damage shield effects in skill tooltips now scale.</li>
 			</ul>
 			<p>
 			<b>18 June 2016</b>
