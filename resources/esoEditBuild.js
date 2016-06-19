@@ -4516,7 +4516,7 @@ function GetEsoInputMundusNameValues(inputValues, mundusName)
 	}
 	else if (mundusName == "The Thief")
 	{
-		inputValues.Mundus.SpellCrit = 0.11;	//TODO: Absolute values?
+		inputValues.Mundus.SpellCrit = 0.11;
 		inputValues.Mundus.WeaponCrit = 0.11;
 		AddEsoInputStatSource("Mundus.SpellCrit", { mundus: mundusName, value: inputValues.Mundus.SpellCrit });
 		AddEsoInputStatSource("Mundus.WeaponCrit", { mundus: mundusName, value: inputValues.Mundus.WeaponCrit });
