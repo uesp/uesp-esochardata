@@ -66,6 +66,7 @@ class EsoBuildDataEditor
 			"Item.Sturdy",
 			"Item.Prosperous",
 			"Item.Training",
+			"Item.MaelstromDamage",
 			"ArmorLight",
 			"ArmorMedium",
 			"ArmorHeavy",

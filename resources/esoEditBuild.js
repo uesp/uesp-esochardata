@@ -522,7 +522,7 @@ g_EsoBuildBuffData =
 			statId : "DamageTaken",
 			icon : "/esoui/art/icons/death_recap_poison_ranged.png",
 		},
-		"Weapon Damage Enchantment" : // TODO: Variable values?
+		"Weapon Damage Enchantment" :
 		{
 			enabled: false,
 			skillEnabled : false,
@@ -531,6 +531,18 @@ g_EsoBuildBuffData =
 			value : 348,
 			category: "Item",
 			statIds : [ "WeaponDamage", "SpellDamage" ],
+			icon : "/esoui/art/icons/enchantment_weapon_berserking.png",
+		},
+		"Maelstrom DW Enchantment" :
+		{
+			enabled: false,
+			skillEnabled : false,
+			visible : false,
+			toggleVisible : true,
+			value : 3096,
+			statDesc : "Increases the Spell and Weapon Damage of your next non-AoE DoT attack by ",
+			category: "Item",
+			statIds : [ "MaelstromDamage" ],
 			icon : "/esoui/art/icons/enchantment_weapon_berserking.png",
 		},
 		"Battle Spirit" :
@@ -3209,6 +3221,12 @@ ESO_ENCHANT_WEAPON_MATCHES = [
 		buffId : "Weapon Damage Enchantment",
 		updateBuffValue : true,
 	},
+	{
+		statId: "OtherEffects",
+		match: /Your Flurry grants ([0-9]+) additional Weapon and Spell Damage/i,
+		buffId : "Maelstrom DW Enchantment",
+		updateBuffValue : true,
+	},
 ];
 
 
@@ -3255,6 +3273,7 @@ ESO_ABILITYDESC_MATCHES = [
 function GetEsoInputValues(mergeComputedStats)
 {
 	ResetEsoBuffSkillEnabled();
+	ResetEsoAllSkillRawOutputs();
 	
 	var inputValues = {};
 	if (mergeComputedStats == null) mergeComputedStats = false;
@@ -3941,6 +3960,17 @@ function GetEsoInputSkillActiveValues(inputValues, skillInputValues, skillData)
 }
 
 
+function ResetEsoAllSkillRawOutputs()
+{
+	
+	for (var skillId in g_SkillsData)
+	{
+		g_SkillsData[skillId].rawOutput = {};	
+	}
+
+}
+
+
 function AddEsoItemRawOutput(itemData, statId, value)
 {
 	if (itemData.rawOutput == null) itemData.rawOutput = {};
@@ -4359,6 +4389,8 @@ function GetEsoInputItemEnchantWeaponValues(inputValues, slotId, itemData, encha
 {
 	var rawDesc = RemoveEsoDescriptionFormats(enchantData.enchantDesc);
 	var addFinalEffect = false;
+	
+	if (enchantData.isDefaultEnchant) enchantFactor = 1;
 	
 	for (var i = 0; i < ESO_ENCHANT_WEAPON_MATCHES.length; ++i)
 	{
@@ -7293,16 +7325,17 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
 	
 	g_LastSkillInputValues.Damage =
 	{
-		Physical	: inputValues.PhysicalDamageDone,
-		Magic		: inputValues.MagicDamageDone,
-		Shock		: inputValues.ShockDamageDone,
-		Flame		: inputValues.FlameDamageDone,
-		Cold		: inputValues.ColdDamageDone,
-		Poison		: inputValues.PoisonDamageDone,
-		Disease		: inputValues.DiseaseDamageDone,
-		Dot			: inputValues.DotDamageDone,
-		All			: inputValues.DamageDone,
-		Empower		: inputValues.Buff.Empower,
+		Physical		: inputValues.PhysicalDamageDone,
+		Magic			: inputValues.MagicDamageDone,
+		Shock			: inputValues.ShockDamageDone,
+		Flame			: inputValues.FlameDamageDone,
+		Cold			: inputValues.ColdDamageDone,
+		Poison			: inputValues.PoisonDamageDone,
+		Disease			: inputValues.DiseaseDamageDone,
+		Dot				: inputValues.DotDamageDone,
+		All				: inputValues.DamageDone,
+		Empower			: inputValues.Buff.Empower,
+		MaelstromDamage : inputValues.Item.MaelstromDamage,
 	};
 	
 	g_LastSkillInputValues.Healing =
@@ -7314,6 +7347,7 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
 	
 	g_LastSkillInputValues.SkillDuration = inputValues.SkillDuration;
  	g_LastSkillInputValues.SkillDamage = inputValues.SkillDamage;
+ 	g_LastSkillInputValues.useMaelstromDamage = false;
 	
 	return g_LastSkillInputValues; 
 }
@@ -7589,7 +7623,7 @@ function UpdateEsoBuildVisibleBuffs()
 			element.show();
 			element.find(".esotbBuffDesc").html(CreateEsoBuildBuffDescHtml(buffData));
 		}
-		else if (buffData.toggleVisible === false)
+		else if (buffData.toggleVisible === true && !buffData.visible)
 		{
 			element.hide();
 		}
