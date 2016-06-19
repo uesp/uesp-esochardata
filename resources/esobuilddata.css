@@ -435,7 +435,7 @@
     left: 20px;
     top: 470px;
     height: 66px;
-    width: 138px;
+    width: 216px;
     border: solid 2px transparent;
 }
 
@@ -455,12 +455,20 @@
 	width: 64px;
 }
 
+#ecdEquipSlotPoison1 {
+	position: absolute;
+	left: 151px;
+	top: 1px;
+	height: 64px;
+	width: 64px;
+}
+
 #ecdWeaponBar2 {
 	position: absolute;
     left: 20px;
     top: 544px;
     height: 66px;
-    width: 138px;
+    width: 216px;
     border: solid 2px transparent;
 }
 
@@ -475,6 +483,14 @@
 #ecdEquipSlotWeapon22 {
 	position: absolute;
 	left: 76px;
+	top: 1px;
+	height: 64px;
+	width: 64px;
+}
+
+#ecdEquipSlotPoison2 {
+	position: absolute;
+	left: 151px;
 	top: 1px;
 	height: 64px;
 	width: 64px;
