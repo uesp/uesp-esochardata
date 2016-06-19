@@ -80,57 +80,6 @@ function onTooltipMouseMove(e)
 }
 
 
-function onDocReady() 
-{  
-	$(".ecdTooltipTrigger").hover(onTooltipHoverShow, onTooltipHoverHide, onTooltipMouseMove);
-	$(".ecdTooltip").hover(onTooltipHoverHide, onTooltipHoverHide, onTooltipHoverHide);
-	
-	$('.eso_item_link').hover(OnEsoItemLinkEnter, OnEsoItemLinkLeave);
-	
-	$('.ecdSkillTreeName1').click(OnEsoSkillTreeName1Click);
-	$('.ecdSkillTreeName2').click(OnEsoSkillTreeName2Click);
-	
-	EsoSkillTree_LastOpenTreeName = $('.ecdSkillTreeName1:visible').first();
-	EsoSkillTree_LastOpenTree = EsoSkillTree_LastOpenTreeName.next(".ecdSkillTreeContent1");
-	
-	EsoSkillTree_LastSkillContentName = $('.ecdSkillTreeNameHighlight2').first();
-	EsoSkillTree_LastSkillContent = $('.ecdSkillData:visible').first();
-	
-	var tables = $(".tablesorter");
-	
-	if (tables.tablesorter)
-	{
-		$("#ecdRoot .tablesorter").tablesorter({
-			sortList: [[2,0]] 
-		});
-		
-		//$("#ecdBuildTable").tablesorter();
-	}
-	
-	$(".ecdItemFilterTextInput").keyup(function() {
-			$(".ecdItemFilterTextInput").val(this.value);
-			DoItemFilter();
-		});
-	
-	$(".ecdItemFilterTextInput").blur(function() {
-			$(".ecdItemFilterTextInput").val(this.value);
-		});
-	
-	$('.ecdClickToCopy').click(function() {
-    		copyToClipboard(this);
-		});
-	
-	$('.ecdClickToCopyTooltip').click(function() {
-			var text = $(this).attr('tooltip');
-			copyTextToClipboard(text);
-		});
-	
-	
-	$("#ecdBuildTable a").click(OnBuildTableAnchorClick);
-	$(".ecdBuildRowHover td").not(".ecdBuildTableButtons").click(OnBuildTableRowClick);
-}
-
-
 var EsoSkillTree_LastOpenTree = null;
 var EsoSkillTree_LastOpenTreeName = null;
 var EsoSkillTree_LastSkillContentName = null;
@@ -373,4 +322,118 @@ function copyTextToClipboard(textToCopy)
 }
 
 
+function ActivateBuildActionBar(barIndex)
+{
+	
+	if (barIndex >= 1 && barIndex <= 3)
+	{
+		$(".ecdActiveAbilityBar").removeClass("ecdActiveAbilityBar");
+		$(".ecdActionBar" + barIndex).addClass("ecdActiveAbilityBar");
+		
+		$(".ecdStatBar").hide();
+		$(".ecdStatBar1").hide();
+		$(".ecdStatBar2").hide();
+		$(".ecdStatBar3").hide();
+		
+		$(".ecdStatBar" + barIndex).show();
+	}
+	
+	if (barIndex >= 1 && barIndex <= 2)
+	{
+		$("#ecdWeaponBar" + barIndex).addClass("ecdActiveAbilityBar");
+	}
+	
+}
+
+
+function OnBuildWeaponBar1Click(e)
+{
+	ActivateBuildActionBar(1);
+}
+
+
+function OnBuildWeaponBar2Click(e)
+{
+	ActivateBuildActionBar(2);
+}
+
+
+function OnBuildActionBar1Click(e)
+{
+	ActivateBuildActionBar(1);
+}
+
+
+function OnBuildActionBar2Click(e)
+{
+	ActivateBuildActionBar(2);
+}
+
+
+function OnBuildActionBar3Click(e)
+{
+	ActivateBuildActionBar(3);
+}
+
+
+function onDocReady() 
+{  
+	$(".ecdTooltipTrigger").hover(onTooltipHoverShow, onTooltipHoverHide, onTooltipMouseMove);
+	$(".ecdTooltip").hover(onTooltipHoverHide, onTooltipHoverHide, onTooltipHoverHide);
+	
+	$('.eso_item_link').hover(OnEsoItemLinkEnter, OnEsoItemLinkLeave);
+	
+	$('.ecdSkillTreeName1').click(OnEsoSkillTreeName1Click);
+	$('.ecdSkillTreeName2').click(OnEsoSkillTreeName2Click);
+	
+	EsoSkillTree_LastOpenTreeName = $('.ecdSkillTreeName1:visible').first();
+	EsoSkillTree_LastOpenTree = EsoSkillTree_LastOpenTreeName.next(".ecdSkillTreeContent1");
+	
+	EsoSkillTree_LastSkillContentName = $('.ecdSkillTreeNameHighlight2').first();
+	EsoSkillTree_LastSkillContent = $('.ecdSkillData:visible').first();
+	
+	var tables = $(".tablesorter");
+	
+	if (tables.tablesorter)
+	{
+		$("#ecdRoot .tablesorter").tablesorter({
+			sortList: [[2,0]] 
+		});
+		
+		//$("#ecdBuildTable").tablesorter();
+	}
+	
+	$(".ecdItemFilterTextInput").keyup(function() {
+			$(".ecdItemFilterTextInput").val(this.value);
+			DoItemFilter();
+		});
+	
+	$(".ecdItemFilterTextInput").blur(function() {
+			$(".ecdItemFilterTextInput").val(this.value);
+		});
+	
+	$('.ecdClickToCopy').click(function() {
+    		copyToClipboard(this);
+		});
+	
+	$('.ecdClickToCopyTooltip').click(function() {
+			var text = $(this).attr('tooltip');
+			copyTextToClipboard(text);
+		});
+	
+	
+	$("#ecdBuildTable a").click(OnBuildTableAnchorClick);
+	$(".ecdBuildRowHover td").not(".ecdBuildTableButtons").click(OnBuildTableRowClick);
+	
+	$("#ecdWeaponBar1").click(OnBuildWeaponBar1Click);
+	$("#ecdWeaponBar2").click(OnBuildWeaponBar2Click);
+	
+	$(".ecdActionBar1").click(OnBuildActionBar1Click);
+	$(".ecdActionBar2").click(OnBuildActionBar2Click);
+	$(".ecdActionBar3").click(OnBuildActionBar3Click);
+}
+
+
 $(document).ready(onDocReady);
+
+
