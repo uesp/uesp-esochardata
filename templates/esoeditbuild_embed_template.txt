@@ -342,13 +342,21 @@ Note that this character builder is for test purposes and is currently undergoin
 				<li>Live In-Game Issue: The Templar skill Radiant Destruction and morphs do not update their tooltip based on +Magic/DoT damage buffs from CP or skills.</li>
 				<li>There a many skills and effects that have not been tested and may not be working perfectly.</li>
 				<li>Trying doing a forced reload of the page in your browser to ensure you have the latest JavaScript files.</li>
+				<li>Empower may affect the tooltip of more skills than it actually does in-game.</li>
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>18 June 2016</b>
+			<ul>
+				<li>Added poison slots to the build viewer.</li>
+				<li>Empower has been moved back to its own unique effect. It may affect different skills in the builder than it actually does on live. Currently it
+					has been set to not affect any DoTs or Ultimates.</li>
+			</ul>
+			<p>
 			<b>17 June 2016</b>
 			<ul>
-				<li>A few more effects have been added</li>
+				<li>A few more effects have been added.</li>
 				<li>Ability tooltips now include duration altering effects in both duration and DOT magnitude effects.</li>
 			</ul>
 			<p>

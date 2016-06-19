@@ -379,7 +379,7 @@ g_EsoBuildBuffData =
 			skillEnabled : false,
 			value : 0.20,
 			display : "%",
-			statId : "DamageDone",
+			statId : "Empower",
 			statDesc : "Increases the power of your next attack by ",
 			icon : "/esoui/art/icons/ability_warrior_012.png",
 		},
@@ -7156,6 +7156,7 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
 		Disease		: inputValues.DiseaseDamageDone,
 		Dot			: inputValues.DotDamageDone,
 		All			: inputValues.DamageDone,
+		Empower		: inputValues.Buff.Empower,
 	};
 	
 	g_LastSkillInputValues.Healing =

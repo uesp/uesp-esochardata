@@ -141,6 +141,7 @@ class EsoBuildDataEditor
 			"Skill.HAFlameStaffDamage",
 			"SkillDuration.Placeholder",
 			"SkillDamage.Placeholder",
+			"Buff.Empower",
 	);
 	
 	
@@ -1036,6 +1037,34 @@ class EsoBuildDataEditor
 			),
 			
 			"Buff.HealingDone" => array(
+					"display" => "%",
+			),
+			
+			"Buff.Empower" => array(
+					"display" => "%",
+			),
+			
+			"SkillDuration.Eclipse" => array(
+					"display" => "%",
+			),
+			
+			"SkillDuration.Entropy" => array(
+					"display" => "%",
+			),
+			
+			"SkillDuration.Fire Rune" => array(
+					"display" => "%",
+			),
+			
+			"SkillDuration.Magelight" => array(
+					"display" => "%",
+			),
+			
+			"SkillDuration.Nova" => array(
+					"display" => "%",
+			),
+			
+			"SkillDuration.Sun Fire" => array(
 					"display" => "%",
 			),
 			
