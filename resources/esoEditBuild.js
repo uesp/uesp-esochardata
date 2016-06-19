@@ -4481,17 +4481,17 @@ function GetEsoInputMundusNameValues(inputValues, mundusName)
 	}
 	else if (mundusName == "The Lord")
 	{
-		inputValues.Mundus.Health = 1280;
+		inputValues.Mundus.Health = 1452;
 		AddEsoInputStatSource("Mundus.Health", { mundus: mundusName, value: inputValues.Mundus.Health });
 	}
 	else if (mundusName == "The Mage")
 	{
-		inputValues.Mundus.Magicka = 1280;
+		inputValues.Mundus.Magicka = 1320;
 		AddEsoInputStatSource("Mundus.Magicka", { mundus: mundusName, value: inputValues.Mundus.Magicka });
 	}
 	else if (mundusName == "The Tower")
 	{
-		inputValues.Mundus.Stamina = 1280;
+		inputValues.Mundus.Stamina = 1320;
 		AddEsoInputStatSource("Mundus.Stamina", { mundus: mundusName, value: inputValues.Mundus.Stamina });
 	}
 	else if (mundusName == "The Atronach")
