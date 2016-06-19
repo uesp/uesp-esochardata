@@ -327,7 +327,7 @@ function ActivateBuildActionBar(barIndex)
 	
 	if (barIndex >= 1 && barIndex <= 3)
 	{
-		$(".ecdActiveAbilityBar").removeClass("ecdActiveAbilityBar");
+		$("#ecdActionBar .ecdActiveAbilityBar").removeClass("ecdActiveAbilityBar");
 		$(".ecdActionBar" + barIndex).addClass("ecdActiveAbilityBar");
 		
 		$(".ecdStatBar").hide();
@@ -340,6 +340,7 @@ function ActivateBuildActionBar(barIndex)
 	
 	if (barIndex >= 1 && barIndex <= 2)
 	{
+		$("#ecdEquipSlots .ecdActiveAbilityBar").removeClass("ecdActiveAbilityBar");
 		$("#ecdWeaponBar" + barIndex).addClass("ecdActiveAbilityBar");
 	}
 	
