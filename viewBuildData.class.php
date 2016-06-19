@@ -1911,8 +1911,10 @@ class EsoBuildDataViewer
 	
 	public function getCharBasicStatsBarHtml($barIndex)
 	{
+		$activeBarIndex = intval($this->getCharStatField('ActiveWeaponBar'));
 		$prefix = "";
 		$display = "block";
+		$note = "";
 		
 		if ($barIndex == null)
 		{
@@ -1922,7 +1924,12 @@ class EsoBuildDataViewer
 		{
 			$display = "none";
 			$prefix = "Bar$barIndex:";
-			if ($this->getCharStatField($prefix."Health") == "") return "";
+			
+			if ($this->getCharStatField($prefix."Health") == "") 
+			{
+				$prefix = "";
+				if ($barIndex != $activeBarIndex) $note = "Stats are only correct for bar #$activeBarIndex.";
+			}
 		}
 		
 		$output  = "<div class='ecdStatBar$barIndex' style='display: $display;'>";
@@ -1954,7 +1961,8 @@ class EsoBuildDataViewer
 		$output .= "<br />";
 		$output .= $this->getCharBasicStatHtml('Spell Penetration', $prefix.'SpellPenetration');
 		$output .= $this->getCharBasicStatHtml('Physical Penetration', $prefix.'PhysicalPenetration');
-		$output .= "<br />";
+			
+		$output .= "<div class='ecdStatBarNote'>$note</div>";
 		
 		$output .= "</div>";
 		return $output;

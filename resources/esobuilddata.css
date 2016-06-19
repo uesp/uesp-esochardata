@@ -430,34 +430,52 @@
 	width: 64px;
 }
 
+#ecdWeaponBar1 {
+	position: absolute;
+    left: 20px;
+    top: 470px;
+    height: 66px;
+    width: 138px;
+    border: solid 2px transparent;
+}
+
 #ecdEquipSlotWeapon11 {
 	position: absolute;
-	left: 20px;
-	top: 470px;
+	left: 1px;
+	top: 1px;
 	height: 64px;
 	width: 64px;
 }
 
 #ecdEquipSlotWeapon12 {
 	position: absolute;
-	left: 90px;
-	top: 470px;
+	left: 76px;
+	top: 1px;
 	height: 64px;
 	width: 64px;
 }
 
+#ecdWeaponBar2 {
+	position: absolute;
+    left: 20px;
+    top: 544px;
+    height: 66px;
+    width: 138px;
+    border: solid 2px transparent;
+}
+
 #ecdEquipSlotWeapon21 {
 	position: absolute;
-	left: 20px;
-	top: 540px;
+	left: 1px;
+	top: 1px;
 	height: 64px;
 	width: 64px;
 }
 
 #ecdEquipSlotWeapon22 {
 	position: absolute;
-	left: 90px;
-	top: 540px;
+	left: 76px;
+	top: 1px;
 	height: 64px;
 	width: 64px;
 }
@@ -889,7 +907,7 @@ tr.eso_item_link {
 }
 
 .ecdActiveAbilityBar {
-	border: solid 2px yellow;
+	border: solid 2px yellow !important;
 	padding: 2px;
 }
 
@@ -1261,7 +1279,6 @@ thead.ecdFixedHeader tr {
 
 .ecdBuffTooltip:hover {
 	background: #007;
-	cursor: pointer;
 }
 
 .ecdBuffTooltip:hover:after {
@@ -1339,4 +1356,26 @@ thead.ecdFixedHeader tr {
 	position: relative;
     top: -2px;
     margin-right: 10px;
+}
+
+.ecdStatBarNote {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-weight: normal;
+	font-size: 16px;
+	color: #ff9999;
+	height: 16px;
+}
+
+#ecdWeaponBar1:hover,
+#ecdWeaponBar2:hover {
+	cursor: pointer;
+	background-color: #999;
+}
+
+.ecdActionBar1:hover,
+.ecdActionBar2:hover,
+.ecdActionBar3:hover {
+	cursor: pointer;
+	background-color: #999;
 }
