@@ -87,7 +87,6 @@ class EsoBuildDataEditor
 			"Level",
 			"CPLevel",
 			"EffectiveLevel",
-			"EffectiveLevel",
 			"CP.TotalPoints",
 			"CP.UsedPoints",
 			"Attribute.TotalPoints",
@@ -105,6 +104,9 @@ class EsoBuildDataEditor
 			"Target.DefenseBonus",
 			"Target.AttackBonus",
 			"Target.CritDamage",
+			"Target.CritChance",
+			"Target.CritResistFlat",
+			"Target.CritResistFactor",
 			"Target.HealingReceived",
 			"Target.DamageTaken",
 			"Misc.SpellCost",
@@ -1068,6 +1070,54 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"SpellCrit" => array(
+					"display" => "%",
+			),
+			
+			"WeaponCrit" => array(
+					"display" => "%",
+			),
+			
+			"SpellCritDamage" => array(
+					"display" => "%",
+			),
+				
+			"WeaponCritDamage" => array(
+					"display" => "%",
+			),
+			
+			"AttackSpellMitigation" => array(
+					"display" => "%",
+			),
+				
+			"AttackPhysicalMitigation" => array(
+					"display" => "%",
+			),
+			
+			"AttackSpellCrit" => array(
+					"display" => "%",
+			),
+			
+			"AttackSpellMitigation" => array(
+					"display" => "%",
+			),
+			
+			"AttackPhysicalMitigation" => array(
+					"display" => "%",
+			),
+			
+			"AttackWeaponCrit" => array(
+					"display" => "%",
+			),
+			
+			"Target.CritResistFactor" => array(
+					"display" => "%",
+			),
+			
+			
+			
+			
+			
 	);
 	
 	
@@ -1287,6 +1337,8 @@ class EsoBuildDataEditor
 			"SpellCrit" => array(
 					"title" => "Spell Critical",
 					"display" => "%",
+					"min" => 0,
+					"max" => 1,
 					"compute" => array(
 							"Set.SpellCrit",
 							"Skill2.SpellCrit",
@@ -1316,6 +1368,8 @@ class EsoBuildDataEditor
 			"WeaponCrit" => array(
 					"title" => "Weapon Critical",
 					"display" => "%",
+					"min" => 0,
+					"max" => 1,
 					"compute" => array(
 							"Set.WeaponCrit",
 							"Skill2.WeaponCrit",
@@ -1345,6 +1399,7 @@ class EsoBuildDataEditor
 			"SpellCritDamage" => array(
 					"title" => "Spell Critical Damage",
 					"display" => "%2",
+					"min" => 0,
 					"compute" => array(
 							"CP.SpellCritDamage",
 							"Skill.CritDamage",
@@ -1372,6 +1427,7 @@ class EsoBuildDataEditor
 			"WeaponCritDamage" => array(
 					"title" => "Weapon Critical Damage",
 					"display" => "%2",
+					"min" => 0,
 					"compute" => array(
 							"CP.WeaponCritDamage",
 							"Skill.CritDamage",
@@ -1487,6 +1543,40 @@ class EsoBuildDataEditor
 							"+",
 							"Buff.PhysicalPenetration",
 							"+",
+					),
+			),
+			
+			"EffectiveSpellPower" => array(
+					"title" => "Effective Spell Power",
+					"deferLevel" => 2,
+					"depends" => array("AttackSpellMitigation", "SpellDamage", "Magicka", "AttackSpellCrit", "SpellCritDamage"),
+					"round" => "round",
+					"note" => "Effective Spell Power is a custom stat that represents your overall power in spell/magicka attacks and can be used to compare different build setups. A higher number is better.",
+					"compute" => array(
+							"round(Magicka/10.5)",
+							"SpellDamage",
+							"+",
+							"1 - AttackSpellCrit + AttackSpellCrit*(1 + SpellCritDamage)",
+							"*",
+							"AttackSpellMitigation",
+							"*",
+					),
+			),
+			
+			"EffectiveWeaponPower" => array(
+					"title" => "Effective Weapon Power",
+					"deferLevel" => 2,
+					"depends" => array("AttackPhysicalMitigation", "WeaponDamage", "Stamina", "AttackWeaponCrit", "WeaponCritDamage"),
+					"round" => "round",
+					"note" => "Effective Weapon Power is a custom stat that represents your overall power in weapon/stamina attacks and can be used to compare different build setups. A higher number is better.",
+					"compute" => array(
+							"round(Stamina/10.5)",
+							"WeaponDamage",
+							"+",
+							"1 - AttackWeaponCrit + AttackWeaponCrit*(1 + WeaponCritDamage)",
+							"*",
+							"AttackPhysicalMitigation",
+							"*",
 					),
 			),
 			
@@ -2371,7 +2461,9 @@ class EsoBuildDataEditor
 			"AttackSpellMitigation" => array(
 					"title" => "Attacker Spell Mitigation",
 					"display" => "%",
-					"depends" => array("SpellPenetration"),
+					"depends" => array("SpellPenetration", "Skill2.PhysicalPenetration"),
+					"min" => 0,
+					"max" => 1,
 					"compute" => array(
 							"Target.SpellResist",
 							"1 - Skill2.SpellPenetration",
@@ -2384,15 +2476,15 @@ class EsoBuildDataEditor
 							"+",
 							"1 - Target.DefenseBonus",
 							"*",
-							"1 + MagicDamageDone",
-							"*",
 					),
 			),
 				
 			"AttackPhysicalMitigation" => array(
 					"title" => "Attacker Physical Mitigation",
 					"display" => "%",
-					"depends" => array("PhysicalPenetration"),
+					"depends" => array("PhysicalPenetration", "Skill2.PhysicalPenetration"),
+					"min" => 0,
+					"max" => 1,
 					"compute" => array(
 							"Target.PhysicalResist",
 							"1 - Skill2.PhysicalPenetration",
@@ -2405,8 +2497,41 @@ class EsoBuildDataEditor
 							"+",
 							"1 - Target.DefenseBonus",
 							"*",
-							"1 + PhysicalDamageDone",
+					),
+			),
+			
+			
+			"AttackSpellCrit" => array(
+					"title" => "Attack Spell Critical",
+					"display" => "%",
+					"depends" => array("SpellCrit"),
+					"min" => 0,
+					"max" => 1,
+					"compute" => array(
+							"SpellCrit",
+							"Target.CritResistFactor",
+							"-",
+							"Target.CritResistFlat",
+							"0.035/250",
 							"*",
+							"-",							
+					),
+			),
+			
+			"AttackWeaponCrit" => array(
+					"title" => "Attack Weapon Critical",
+					"display" => "%",
+					"depends" => array("WeaponCrit"),
+					"min" => 0,
+					"max" => 1,
+					"compute" => array(
+							"WeaponCrit",
+							"Target.CritResistFactor",
+							"-",
+							"Target.CritResistFlat",
+							"0.035/250",
+							"*",
+							"-",
 					),
 			),
 				
@@ -2442,7 +2567,7 @@ class EsoBuildDataEditor
 							"Target.PenetrationFlat",
 							"-",
 							"-1/(Level * 1000)",
--							"*",
+							"*",
 							"1",
 							"+",
 							"1 + Target.AttackBonus",
@@ -2452,6 +2577,24 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			"DefenseCrit" => array(
+					"title" => "Target Critical",
+					"display" => "%",
+					"depends" => array("SpellCrit"),
+					"min" => 0,
+					"max" => 1,
+					"compute" => array(
+							"Target.CritChance",
+							"CP.CritResist",
+							"-",
+							"Set.CritResist",
+							"-",
+							"Item.CritResist",
+							"0.035/250",
+							"*",
+							"-",
+					),
+			),
 			
 			/*
 			 * MagickaCost Confirmed
@@ -2500,7 +2643,6 @@ class EsoBuildDataEditor
 							"*",
 					),
 			),
-			
 			
 			/*
 			 * Divines Confirmed
@@ -3494,6 +3636,14 @@ class EsoBuildDataEditor
 	}
 	
 	
+	public function getCharTargetResist()
+	{
+		$resist = $this->getCharStatField("Target:Resistance", "18200");
+		if ($resist <= 0) $resist = "18200";
+		return $resist;
+	}
+	
+	
 	public function CreateOutputHtml()
 	{
 		$replacePairs = array(
@@ -3542,11 +3692,14 @@ class EsoBuildDataEditor
 				'{attributeMagicka}' => $this->getCharStatField("AttributesMagicka", "0"),
 				'{attributeStamina}' => $this->getCharStatField("AttributesStamina", "0"),
 				'{targetFlatPene}' => $this->getCharStatField("Target:PenetrationFlat", "0"),
-				'{targetFactPene}' => $this->getCharStatField("Target:PenetrationFactor", "0"),
-				'{targetFactDefense}' => $this->getCharStatField("Target:DefenseBonus", "0"),
-				'{targetFactAttack}' => $this->getCharStatField("Target:AttackBonus", "0"),
-				'{targetResist}' => $this->getCharStatField("Target:Resistance", "0"),
+				'{targetFactPene}' => $this->getCharStatField("Target:PenetrationFactor", "0%"),
+				'{targetFactDefense}' => $this->getCharStatField("Target:DefenseBonus", "0%"),
+				'{targetFactAttack}' => $this->getCharStatField("Target:AttackBonus", "0%"),
+				'{targetResist}' => $this->getCharTargetResist(),
+				'{targetCritResistFlat}' => $this->getCharStatField("Target:CritResistFlat", "0"),
+				'{targetCritResistFactor}' => $this->getCharStatField("Target:CritResistFactor", "0%"),
 				'{targetCritDamage}' => $this->getCharStatField("Target:CritDamage", "50%"),
+				'{targetCritChance}' => $this->getCharStatField("Target:CritChance", "50%"),
 				'{miscSpellCost}' => $this->getCharStatField("Misc:SpellCost", "3000"),
 				'{itemDataHead}' => $this->GetEquippedItemData('Head'),
 				'{itemDataShoulders}' => $this->GetEquippedItemData('Shoulders'),
