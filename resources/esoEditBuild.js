@@ -4431,11 +4431,14 @@ function GetEsoInputTargetValues(inputValues)
 {
 	inputValues.Target.SpellResist = parseFloat($("#esotbTargetResistance").val());
 	inputValues.Target.PhysicalResist = inputValues.Target.SpellResist;
+	inputValues.Target.CritResistFlat = parseFloat($("#esotbTargetCritResistFlat").val());
+	inputValues.Target.CritResistFactor = parseFloat($("#esotbTargetCritResistFactor").val()) / 100;
 	inputValues.Target.PenetrationFlat = parseFloat($("#esotbTargetPenetrationFlat").val());
 	inputValues.Target.PenetrationFactor = parseFloat($("#esotbTargetPenetrationFactor").val()) / 100;
 	inputValues.Target.DefenseBonus = parseFloat($("#esotbTargetDefenseBonus").val()) / 100;
 	inputValues.Target.AttackBonus = parseFloat($("#esotbTargetAttackBonus").val()) / 100;
 	inputValues.Target.CritDamage = parseFloat($("#esotbTargetCritDamage").val()) / 100;
+	inputValues.Target.CritChance = parseFloat($("#esotbTargetCritChance").val()) / 100;
 }
 
 
@@ -4772,10 +4775,16 @@ function UpdateEsoComputedStatsList_Real()
 			UpdateEsoComputedStat(statId, g_EsoComputedStats[statId], inputValues);
 	}
 	
-	for (var i = 0; i < deferredStats.length; ++i)
+	for (var j = 0; j <= 10; ++j)
 	{
-		var statId = deferredStats[i];
-		UpdateEsoComputedStat(statId, g_EsoComputedStats[statId], inputValues);
+		for (var i = 0; i < deferredStats.length; ++i)
+		{
+			var statId = deferredStats[i];
+			var deferLevel = g_EsoComputedStats[statId].deferLevel;
+			if (deferLevel == null) deferLevel = 0;
+			
+			if (deferLevel == j) UpdateEsoComputedStat(statId, g_EsoComputedStats[statId], inputValues);
+		}
 	}
 
 	UpdateEsoComputedStatsSpecial();
@@ -4939,6 +4948,10 @@ function UpdateEsoComputedStat(statId, stat, inputValues, saveResult)
 	}
 	
 	var result = stack.pop();
+	
+	if (stat.min != null && result < stat.min) result = stat.min;
+	if (stat.max != null && result > stat.max) result = stat.max;
+	
 	if (saveResult !== true) return result;
 
 	inputValues[statId] = result;
@@ -5062,12 +5075,23 @@ function CreateEsoComputedStat(statId, stat)
 		text("?").
 		appendTo(element);
 	
-	var warningStyle = "display: none;";
-	if (stat.warning != null) warningStyle = "";
+	var warningStyle = "";
+	var warningDisplay = "display: none;";
 	
-	$("<div/>").addClass("esotbStatWarningButton").
+	if (stat.warning != null)
+	{
+		warningStyle = "esotbStatWarningButton";
+		warningDisplay = "";
+	}
+	else if (stat.note != null) 
+	{
+		warningStyle = "esotbStatNoteButton";
+		warningDisplay = "";
+	}
+	
+	$("<div/>").addClass(warningStyle).
 		html("?").
-		attr("style", warningStyle).
+		attr("style", warningDisplay).
 		appendTo(element);
 
 	
@@ -5614,7 +5638,41 @@ function OnEsoFormulaInputChange(e)
 	if (stat == null) return;
 	
 	var newValue = UpdateEsoComputedStat(computeStatId, stat, g_EsoFormulaInputValues, false);
-	$("#esotbFormInputInputResult").val(newValue);
+	
+	display = stat.display;
+	var suffix = "";
+	if (stat.suffix != null) suffix = stat.suffix;
+	var result = newValue;
+	var displayResult = result;
+	
+	if (display == "%")
+	{
+		displayResult = "" + (Math.round(result*1000)/10);
+		suffix = "%";
+	}
+	else if (display == "%2")
+	{
+		displayResult = "" + Math.round(result*100);
+		suffix = "%";
+	}
+	else if (display == "resist")
+	{
+		displayResult = "" + result;
+		suffix = " (" + ConvertEsoFlatResistToPercent(result) + "%)";
+	}
+	else if (display == "elementresist")
+	{
+		displayResult = "" + result;
+		suffix = " (" + ConvertEsoElementResistToPercent(result) + "%)";
+	}
+	else if (display == "critresist")
+	{
+		displayResult = "" + result;
+		suffix = " (" + ConvertEsoCritResistToPercent(result) + "%)";
+	}
+	
+	$("#esotbFormInputInputResult").val(displayResult);
+	$("#esotbFormInputResultSuffix").text(suffix);
 }
 
 
@@ -5626,10 +5684,12 @@ function ShowEsoFormulaPopup(statId)
 
 	var equation = ConvertEsoFormulaToPrefix(stat.compute);
 	
-	if (stat.warning == null)
-		$("#esotbFormulaNote").html("").hide();
-	else
+	if (stat.warning != null)
 		$("#esotbFormulaNote").html(stat.warning).show();
+	else if (stat.note != null)
+		$("#esotbFormulaNote").html(stat.note).show();
+	else
+		$("#esotbFormulaNote").html("").hide();
 	
 	$("#esotbFormulaTitle").text("Complete Formula for " + stat.title);
 	$("#esotbFormulaName").text(statId + " = ");
@@ -5701,9 +5761,42 @@ function MakeEsoFormulaInputs(statId)
 		output += "</div>";
 	}
 	
+	var displayResult = stat.value;
+	var result = stat.value;
+	var suffix = "";
+	var display = stat.display;
+	if (stat.suffix != null) suffix = stat.suffix;
+	
+	if (display == "%")
+	{
+		displayResult = "" + (Math.round(result*1000)/10);
+		suffix = "%";
+	}
+	else if (display == "%2")
+	{
+		displayResult = "" + Math.round(result*100);
+		suffix = "%";
+	}
+	else if (display == "resist")
+	{
+		displayResult = "" + result;
+		suffix = " (" + ConvertEsoFlatResistToPercent(result, inputValues) + "%)";
+	}
+	else if (display == "elementresist")
+	{
+		displayResult = "" + result;
+		suffix = " (" + ConvertEsoElementResistToPercent(result, inputValues) + "%)";
+	}
+	else if (display == "critresist")
+	{
+		displayResult = "" + result;
+		suffix = " (" + ConvertEsoCritResistToPercent(result, inputValues) + "%)";
+	}
+	
 	output += "<div class='esotbFormulaInput'>";
 	output += "<div class='esotbFormInputResult'>" + stat.title + "</div>";
-	output += "<input type='text' class='esotbFormInputInputResult' id='esotbFormInputInputResult' statid='" + stat.title + "' value='" + stat.value + "' size='5' readonly='readonly'>";
+	output += "<input type='text' class='esotbFormInputInputResult' id='esotbFormInputInputResult' statid='" + stat.title + "' value='" + displayResult + "' size='5' readonly='readonly'>";
+	output += "<div id='esotbFormInputResultSuffix'>" + suffix + "</div>";;
 	output += "</div>";
 	
 	return output;
@@ -8216,12 +8309,15 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 	
 	saveData.Stats['BuildType'] = saveData.Build['buildType'];	
 
-	saveData.Stats['Target:FlatPenetration'] = "" + inputValues.Target.PenetrationFlat;
-	saveData.Stats['Target:PenetrationBonus'] = "" + inputValues.Target.PenetrationFactor;
-	saveData.Stats['Target:DefenseBonus'] = "" + inputValues.Target.DefenseBonus;
-	saveData.Stats['Target:AttackBonus'] = "" + inputValues.Target.AttackBonus;
+	saveData.Stats['Target:PenetrationFlat'] = "" + inputValues.Target.PenetrationFlat;
+	saveData.Stats['Target:PenetrationFactor'] = "" + (inputValues.Target.PenetrationFactor * 100) + "%";
+	saveData.Stats['Target:DefenseBonus'] = "" + (inputValues.Target.DefenseBonus * 100) + "%";
+	saveData.Stats['Target:AttackBonus'] = "" + (inputValues.Target.AttackBonus * 100) + "%";
 	saveData.Stats['Target:Resistance'] = "" + inputValues.Target.SpellResist;
+	saveData.Stats['Target:CritResistFlat'] = "" + (inputValues.Target.CritResistFlat * 100) + "%";
+	saveData.Stats['Target:CritResistFactor'] = "" + inputValues.Target.CritResistFactor;
 	saveData.Stats['Target:CritDamage'] = "" + (inputValues.Target.CritDamage * 100) + "%";
+	saveData.Stats['Target:CritChance'] = "" + (inputValues.Target.CritChance * 100) + "%";
 	saveData.Stats['Misc:SpellCost'] = "" + inputValues.Misc.SpellCost;
 	
 	saveData.Stats['AttributesTotal'] = "" + inputValues.Attribute.TotalPoints;
@@ -8416,6 +8512,7 @@ function esotbOnDocReady()
 	$("#esotbCPTotalPoints").change(OnEsoCPTotalPointsChange);
 	$(".esotbStatComputeButton").click(OnEsoToggleStatComputeItems);
 	$(".esotbStatWarningButton").click(OnEsoClickStatWarningButton);
+	$(".esotbStatNoteButton").click(OnEsoClickStatWarningButton);
 	$("#esotbStealth").click(OnEsoClickStealth);	
 	
 	$(".esotbInputValue").on('input', function(e) { OnEsoInputChange.call(this, e); });
