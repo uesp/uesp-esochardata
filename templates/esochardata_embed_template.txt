@@ -86,13 +86,15 @@
 		<div id='ecdEquipSlotRing2'>{equipRing2}</div>
 		<img id='ecdEquipSlotBar3' src='{baseResourceUrl}resources/eso_equip_bar.png' />
 		<div id='ecdEquipSlotSubtitle3'>WEAPONS</div>
-		<div id='ecdWeaponBar1' class='{activeWeaponClass1}'>
+			<div id='ecdWeaponBar1' class='{activeWeaponClass1}'>
 			<div id='ecdEquipSlotWeapon11'>{equipWeapon11}</div>
 			<div id='ecdEquipSlotWeapon12'>{equipWeapon12}</div>
+			<div id='ecdEquipSlotPoison1'>{equipPoison1}</div>
 		</div>
 		<div id='ecdWeaponBar2' class='{activeWeaponClass2}'>
 			<div id='ecdEquipSlotWeapon21'>{equipWeapon21}</div>
 			<div id='ecdEquipSlotWeapon22'>{equipWeapon22}</div>
+			<div id='ecdEquipSlotPoison2'>{equipPoison2}</div>
 		</div>
 	</div>
 	<div id='ecdStatsandBuffs'>
