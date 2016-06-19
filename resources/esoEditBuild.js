@@ -431,6 +431,7 @@ g_EsoBuildBuffData =
 			factorValue: -1,
 			icon : "/esoui/art/icons/ability_templar_sun_shield.png",
 		},
+		//Minor Lifesteal: Heal 2% damage done
 		"Minor Protection" : 
 		{
 			enabled: false,
@@ -7258,6 +7259,7 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
 	};
 	
 	g_LastSkillInputValues.SkillLineCost = inputValues.SkillCost;
+	g_LastSkillInputValues.DamageShield = inputValues.DamageShield;
 	
 	g_LastSkillInputValues.MagickaCost = 
 	{
