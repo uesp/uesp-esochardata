@@ -345,6 +345,7 @@ Note that this character builder is for test purposes and is currently undergoin
 				<li>Live In-Game Issue: The Undaunted Mettle passive sometimes breaks resulting with incorrect stats. Logging out and back in fixes it temporarily.</li>
 				<li>Live In-Game Issue: The Nightblade passive Dark Shades III doesn't trigger the Dark Vigor passive (+3% Health when slotted).
 				<li>Live In-Game Issue: The Templar skill Radiant Destruction and morphs do not update their tooltip based on +Magic/DoT damage buffs from CP or skills.</li>
+				<li>Live In-Game Issue: The Templar passive Burning Light tooltip is not correct for Magicka based characters.</li>
 				<li>There a many skills and effects that have not been tested and may not be working perfectly.</li>
 				<li>Trying doing a forced reload of the page in your browser to ensure you have the latest JavaScript files.</li>
 				<li>Empower may affect the tooltip of more skills than it actually does in-game.</li>
@@ -352,6 +353,11 @@ Note that this character builder is for test purposes and is currently undergoin
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>20 June 2016</b>
+			<ul>
+				<li>Fixed skill coefficients for the Templar's Burning Light passive.</li> 
+			</ul>
+			<p>
 			<b>19 June 2016</b>
 			<ul>
 				<li>Added the Effective Spell and Weapon Power stats to help better gauge the result of build tweaks.</li>
