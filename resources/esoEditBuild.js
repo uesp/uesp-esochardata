@@ -425,10 +425,9 @@ g_EsoBuildBuffData =
 		{
 			enabled: false,
 			skillEnabled : false,
-			value : 0.30,
+			value : -0.30,
 			display: "%",
 			statId : "DamageTaken",
-			factorValue: -1,
 			icon : "/esoui/art/icons/ability_templar_sun_shield.png",
 		},
 		//Minor Lifesteal: Heal 2% damage done
@@ -436,10 +435,9 @@ g_EsoBuildBuffData =
 		{
 			enabled: false,
 			skillEnabled : false,
-			value : 0.08,
+			value : -0.08,
 			display: "%",
 			statId : "DamageTaken",
-			factorValue: -1,
 			icon : "/esoui/art/icons/ability_templar_radiant_ward.png",
 		},
 		"Major Defile" : 
