@@ -173,6 +173,34 @@ ESOBUILD_SKILLTYPES =
 
 g_EsoBuildBuffData =
 {
+		"Warhorn" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			values : [0.10, 0.10, 0.10],
+			display: "%",
+			statIds : ["Health", "Magicka", "Stamina"],
+			icon : "/esoui/art/icons/ability_ava_003_a.png",
+		},
+		 "Major Force" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 0.30,
+			display: "%",
+			statId : "CritDamage",
+			icon : "/esoui/art/icons/ability_ava_003_a.png",
+		},
+		"Minor Force" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 0.12,
+			display: "%",
+			statId : "CritDamage",
+			icon : "/esoui/art/icons/ability_nightblade_003_a.png",
+		},
+		
 		"Major Mending" : 
 		{
 			enabled: false,
@@ -552,15 +580,6 @@ g_EsoBuildBuffData =
 			values : [ 5000, -0.50, -0.50, -0.50 ],
 			statIds : [ "Health", "HealingReceived", "DamageTaken", "DamageShield" ],
 			icon: "/esoui/art/icons/ability_templar_002.png",
-		},
-		"Minor Force" : 
-		{
-			enabled: false,
-			skillEnabled : false,
-			value : 0.12,
-			display: "%",
-			statId : "CritDamage",
-			icon : "/esoui/art/icons/ability_nightblade_003_a.png",
 		},
 		
 			/* Target Buffs */
@@ -4475,18 +4494,28 @@ function UpdateEsoItemSets()
 }
 
 
+function ParseEsoBuildFloat(value, defaultValue)
+{
+	var result = parseFloat(value);
+	
+	if (!isNaN(result)) return result;
+	if (defaultValue != null) return defaultValue;
+	return 0;
+}
+
+
 function GetEsoInputTargetValues(inputValues)
 {
-	inputValues.Target.SpellResist = parseFloat($("#esotbTargetResistance").val());
+	inputValues.Target.SpellResist = ParseEsoBuildFloat($("#esotbTargetResistance").val());
 	inputValues.Target.PhysicalResist = inputValues.Target.SpellResist;
-	inputValues.Target.CritResistFlat = parseFloat($("#esotbTargetCritResistFlat").val());
-	inputValues.Target.CritResistFactor = parseFloat($("#esotbTargetCritResistFactor").val()) / 100;
-	inputValues.Target.PenetrationFlat = parseFloat($("#esotbTargetPenetrationFlat").val());
-	inputValues.Target.PenetrationFactor = parseFloat($("#esotbTargetPenetrationFactor").val()) / 100;
-	inputValues.Target.DefenseBonus = parseFloat($("#esotbTargetDefenseBonus").val()) / 100;
-	inputValues.Target.AttackBonus = parseFloat($("#esotbTargetAttackBonus").val()) / 100;
-	inputValues.Target.CritDamage = parseFloat($("#esotbTargetCritDamage").val()) / 100;
-	inputValues.Target.CritChance = parseFloat($("#esotbTargetCritChance").val()) / 100;
+	inputValues.Target.CritResistFlat = ParseEsoBuildFloat($("#esotbTargetCritResistFlat").val());
+	inputValues.Target.CritResistFactor = ParseEsoBuildFloat($("#esotbTargetCritResistFactor").val()) / 100;
+	inputValues.Target.PenetrationFlat = ParseEsoBuildFloat($("#esotbTargetPenetrationFlat").val());
+	inputValues.Target.PenetrationFactor = ParseEsoBuildFloat($("#esotbTargetPenetrationFactor").val()) / 100;
+	inputValues.Target.DefenseBonus = ParseEsoBuildFloat($("#esotbTargetDefenseBonus").val()) / 100;
+	inputValues.Target.AttackBonus = ParseEsoBuildFloat($("#esotbTargetAttackBonus").val()) / 100;
+	inputValues.Target.CritDamage = ParseEsoBuildFloat($("#esotbTargetCritDamage").val()) / 100;
+	inputValues.Target.CritChance = ParseEsoBuildFloat($("#esotbTargetCritChance").val()) / 100;
 }
 
 
@@ -8399,8 +8428,8 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 	saveData.Stats['Target:DefenseBonus'] = "" + (inputValues.Target.DefenseBonus * 100) + "%";
 	saveData.Stats['Target:AttackBonus'] = "" + (inputValues.Target.AttackBonus * 100) + "%";
 	saveData.Stats['Target:Resistance'] = "" + inputValues.Target.SpellResist;
-	saveData.Stats['Target:CritResistFlat'] = "" + (inputValues.Target.CritResistFlat * 100) + "%";
-	saveData.Stats['Target:CritResistFactor'] = "" + inputValues.Target.CritResistFactor;
+	saveData.Stats['Target:CritResistFlat'] = "" + inputValues.Target.CritResistFlat;
+	saveData.Stats['Target:CritResistFactor'] = "" + (inputValues.Target.CritResistFactor * 100) + "%";
 	saveData.Stats['Target:CritDamage'] = "" + (inputValues.Target.CritDamage * 100) + "%";
 	saveData.Stats['Target:CritChance'] = "" + (inputValues.Target.CritChance * 100) + "%";
 	saveData.Stats['Misc:SpellCost'] = "" + inputValues.Misc.SpellCost;
