@@ -353,6 +353,11 @@ Note that this character builder is for test purposes and is currently undergoin
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>22 June 2016</b>
+			<ul>
+				<li>Added the Warhorn buff. Note that the Major Force buff is seperate.</li> 
+			</ul>
+			<p>
 			<b>20 June 2016</b>
 			<ul>
 				<li>Fixed skill coefficients for the Templar's Burning Light passive.</li> 
