@@ -1656,7 +1656,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /WHILE AN AEDRIC SPEAR ABILITY IS SLOTTED[\s]*Increases the amount of damage you can block against melee attacks by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		requireSkillLine: "Fighters Guild",
+		factorSkillLine: "Fighters Guild",
 		statId: "WeaponDamage",
 		display: "%",
 		match: /Increases Weapon Damage by ([0-9]+\.?[0-9]*)% for each Fighters Guild ability slotted/i
@@ -1743,14 +1743,14 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		statRequireId: "WerewolfStage",
-		statRequireValue: 1,
+		statRequireValue: 2,
 		statId: "HAStaRestoreWerewolf",
 		display: "%",
 		match: /WHILE IN WEREWOLF FORM[\s\S]*?Increases the amount of Stamina your heavy attacks restore by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statRequireId: "Werewolf",
-		statRequireValue: 1,
+		statRequireId: "WerewolfStage",
+		statRequireValue: 2,
 		statId: "WeaponDamage",
 		display: "%",
 		match: /WHILE IN WEREWOLF FORM[\s\S]*?Increases Weapon Damage by ([0-9]+\.?[0-9]*)%/i
@@ -2233,12 +2233,6 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Increase Max Health for up to 12 group members by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		category: "Skill",
-		statId: "StaminaRecovery",
-		display: '%',
-		match: /Increase Max Health for up to 12 group members by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
 		statId: "ResurrectSpeed",
 		display: '%',
 		match: /decrease time to resurrect an ally by ([0-9]+\.?[0-9]*)%/i,
@@ -2311,10 +2305,6 @@ ESO_SETEFFECT_MATCHES = [
 	{
 		statId: "RollDodgeDuration",
 		match: /After using Roll Dodge, continue to dodge attacks for an additional ([0-9]+\.?[0-9]*) seconds/i,
-	},
-	{
-		statId: "Health",
-		match: /Increase Max Health for up to [0-9]+ group members by ([0-9]+)/i,
 	},
 	{
 		category: "SkillCost",
