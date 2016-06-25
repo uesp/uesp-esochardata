@@ -353,6 +353,11 @@ Note that this character builder is for test purposes and is currently undergoin
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>25 June 2016</b>
+			<ul>
+				<li>Fixed the Fighters Guild Slayer passive and the health bonus for the Ebon set.</li> 
+			</ul>
+			<p>
 			<b>22 June 2016</b>
 			<ul>
 				<li>Added the Warhorn buff. Note that the Major Force buff is seperate.</li> 
