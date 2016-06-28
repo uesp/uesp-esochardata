@@ -7564,6 +7564,24 @@ function CreateEsoBuildBuffHtml(buffName, buffData)
 }
 
 
+	/* [].fill() is missing in IE */ 
+if (Array.prototype.fill == null)
+{
+	Array.prototype.fill = function(value, start, end)
+	{
+		if (start == null) start = 0;
+		if (end == null) end == this.length;
+		
+		for (var i = start; i < end; ++i)
+		{
+			this[i] = value;
+		}
+		
+		return this;
+	}
+}
+
+
 function CreateEsoBuildBuffDescHtml(buffData)
 {
 	var statId = buffData.statId;
@@ -7580,6 +7598,11 @@ function CreateEsoBuildBuffDescHtml(buffData)
 	var targetDesc = "your ";
 	
 	buffData.desc = "";
+	
+	if (statDesc == null) statDesc = "";
+	if (statValue == null) statValue = "";
+	if (category == null) category = "";
+	if (display == null) display = "";
 	
 	if (statIds == null) statIds = [ statId ];
 	if (statValues == null) statValues = [].fill.call({ length: statIds.length }, statValue);
