@@ -353,6 +353,13 @@ Note that this character builder is for test purposes and is currently undergoin
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>4 July 2016</b>
+			<ul>
+				<li>Fixed ability tooltip scaling when there are no coefficients for the ability.</li>
+				<li>Added tooltip scaling to the damage portion of Blazing Shield.</li> 
+				<li>Fixed the damage shield scaling of the Cyrodiil Battle Spirit buff.</li>
+			</ul>
+			<p>
 			<b>25 June 2016</b>
 			<ul>
 				<li>Fixed the Fighters Guild Slayer passive and the health bonus for the Ebon set.</li> 

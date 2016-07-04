@@ -1926,10 +1926,11 @@ class EsoBuildDataEditor
 			"DamageShield" => array(
 					"title" => "Damage Shield",
 					"display" => "%",
-					"round" => "floor",
 					"compute" => array(
-							"CP.DamageShield",
-							"Buff.DamageShield",
+							"1 + CP.DamageShield",
+							"1 + Buff.DamageShield",
+							"*",
+							"-1",
 							"+",
 					),
 			),
