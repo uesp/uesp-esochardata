@@ -7632,14 +7632,14 @@ function CreateEsoBuildBuffDescHtml(buffData)
 				statValue = "" + (Math.floor(statValue*1000)/10) + "%";
 			}
 			
-			if (statDescs[i] != null)
+			if (statDescs[i] != null && statDescs[i] != "")
 				buffData.desc += statDescs[i] + statValue + "<br/>";
 			else
 				buffData.desc += prefixDesc + targetDesc + statId + " by " + statValue + "<br/>";
 		}
 		else
 		{
-			if (statDescs[i] != null)
+			if (statDescs[i] != null && statDescs[i] != "")
 				buffData.desc += statDescs[i]+ statValue + "<br/>";
 			else
 				buffData.desc += statValue + "<br/>";
