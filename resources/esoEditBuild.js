@@ -1147,11 +1147,6 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases Cold Resistance by ([0-9]+)/i,
 	},
 	{
-		statId: "Health",
-		display: "%",
-		match: /Increases Cold Resistance by [0-9]+ and increases Max Health by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
 		statId: "MagicDamageTaken",
 		display: "%",
 		factorValue: -1,
@@ -1241,7 +1236,6 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statRequireId: "Weapon1H",
 		statRequireValue: 2,
-		factorStatId: "WeaponDagger",
 		category: "Skill2",
 		statId: "WeaponCrit",
 		rawInputMatch: /(Each dagger increases your Weapon Critical rating[\s\S]*?Current bonus\: [0-9]+)/i,
@@ -2912,7 +2906,7 @@ ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
-		statId: "HADamage",
+		statId: "WeaponDamage",
 		maxTimes: 25,
 		match: /When you take critical damage, your Weapon Damage is increased by ([0-9]+)/i,
 	},
@@ -4104,6 +4098,10 @@ function GetEsoInputItemValues(inputValues, slotId)
 		++inputValues.WeaponDagger;
 		AddEsoItemRawOutput(itemData, "WeaponDagger", 1);
 		AddEsoInputStatSource("WeaponDagger", { item: itemData, value: 1, slotId: slotId });
+		
+		++inputValues.Weapon1H;
+		AddEsoItemRawOutput(itemData, "Weapon1H", 1);
+		AddEsoInputStatSource("Weapon1H", { item: itemData, value: 1, slotId: slotId });
 		break;
 	case 12:
 		++inputValues.WeaponDestStaff;
@@ -4886,7 +4884,7 @@ function UpdateEsoComputedStatsSpecial()
 			g_EsoComputedStats.SpellDamage.value = weaponDamage;
 			
 			AddEsoItemRawOutputString(g_EsoBuildSetData["Pelinal's Aptitude"], "OtherEffects", "Set Spell Damage to Weapon Damage");
-			AddEsoInputStatSource(category + "." + statId, { set: g_EsoBuildSetData["Pelinal's Aptitude"], setBonusCount: setBonusCount, value: "Set Spell Damage to Weapon Damage" });
+			AddEsoInputStatSource("OtherEffects", { set: g_EsoBuildSetData["Pelinal's Aptitude"], setBonusCount: setBonusCount, value: "Set Spell Damage to Weapon Damage" });
 		}
 		else
 		{
