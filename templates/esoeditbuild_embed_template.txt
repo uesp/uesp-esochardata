@@ -6,7 +6,8 @@
 </div>
 
 {saveNote}
-Note that this character builder is for test purposes and is currently undergoing active development. Accuracy of the displayed statistics is unknown. 
+This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
+inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor"><b>let us know</b></a>. 
 <div class='esotbBlockClear'></div>
 <div id="esotbRoot">
 	<div id="esotbStatList">
@@ -269,49 +270,12 @@ Note that this character builder is for test purposes and is currently undergoin
 			</div>
 		</div>
 		<div id="esotbStatBlockHelp" class="esotbStatBlock" style="display: none;">
-			
-			<div class="esotbHelpWarning">
-				<b>Warning:</b> This ESO character builder is currently undergoing construction and is not 100% completed. There are bugs and 
-				missing features as detailed below.	Bug reports and feedback can be made on the editor's <b><a href="http://en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor">talk page</a></b>.
-			</div>
-			<p>
 			This is a yet another character builder/planner for Elder Scrolls Online. The design goal behind the builder is to be able to see 
 			all the various calculations and stat sources to be able to better understand how one thing or another affects your character's
-			final stats. More help on this editor can be found on its <b><a href="http://en.uesp.net/wiki/UESPWiki:EsoBuildEditor">wiki page</a></b>.
+			final stats. More help on this editor can be found on its <b><a href="http://en.uesp.net/wiki/UESPWiki:EsoBuildEditor">wiki page</a></b>
+			and bug reports/feedback can be made on the editor's <b><a href="http://en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor">talk page</a></b>.
 			<p>
-			A for a brief description as to what is and isn't working here yet:
 			
-			<div class='esotbHelpWorkBlock'>
-				<h4>"Mostly" Working</h4>
-				<ul>
-					<li>General stats</li>
-					<li>Items</li>
-					<li>Champion Points</li>
-					<li>Sets (basic stats only)</li>
-					<li>Skills (basic stats only)</li>
-					<li>Buffs (basic stats only)</li>
-					<li>Main computed stats (everything above penetration)</li>
-				</ul>
-			</div>
-			<div class='esotbHelpWorkBlock'>
-				<h4>"Half" Working</h4>
-				<ul>
-					<li>Skill tooltip cost, damage and healing updates</li>
-					<li>All secondary computed stats</li>
-					<li>Base stat values and calculations for less than max level (CP160)</li><li>Saving and loading of builds</li>
-					<li>Integration into the UESP wiki</li>
-					<li>Combining into the existing build data on UESP</li>
-					<li>More complex set, skill, and buff effects</li>
-				</ul>
-			</div>
-			<div class='esotbHelpWorkBlock'>
-				<h4>"Not Yet" Working</h4>
-				<ul>
-					<li>Full testing of all secondary computed effects.</li>
-				</ul>
-			</div><br/>
-			
-			<p>
 			<h3>Basic Usage</h3>
 			Hopefully, most basic interface elements should be obvious to those familiar with the game, but here are a few general tips to help you get going and explore
 			some of the not-so-obvious features of this character builder.  
@@ -341,17 +305,31 @@ Note that this character builder is for test purposes and is currently undergoin
 			<h3>Known Bugs</h3>
 			<hr>
 			<ul>
-				<li>Live In-Game Issue: Ability tooltip costs sometimes report 1-2% higher than actual for no obvious reasons. No known cause or fix.</li>
+				<li>Live In-Game Issue: The Templar passive Restoring Spirit does not stack correctly with other Magicka/Stamina cost reducing abilities. This results in tooltip costs being 1-2% higher than they should be.</li>
 				<li>Live In-Game Issue: The Undaunted Mettle passive sometimes breaks resulting with incorrect stats. Logging out and back in fixes it temporarily.</li>
 				<li>Live In-Game Issue: The Nightblade passive Dark Shades III doesn't trigger the Dark Vigor passive (+3% Health when slotted).
 				<li>Live In-Game Issue: The Templar skill Radiant Destruction and morphs do not update their tooltip based on +Magic/DoT damage buffs from CP or skills.</li>
 				<li>Live In-Game Issue: The Templar passive Burning Light tooltip is not correct for Magicka based characters.</li>
-				<li>There a many skills and effects that have not been tested and may not be working perfectly.</li>
 				<li>Trying doing a forced reload of the page in your browser to ensure you have the latest JavaScript files.</li>
 				<li>Empower may affect the tooltip of more skills than it actually does in-game.</li>
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<hr>
+			<b>27 July 2016</b>
+			<ul>
+				<li>The calculation of Critical Resistance now includes the effect of the Resistant CP skill line.</li>
+				<li>Fixed the StaminaCost calculation with regards to the CP.StaminaCost effect.</li>
+				<li>Fixed the Nord Resist Frost passive having a double-effect for Health.</li> 
+				<li>Fixed CP160 Legendary Precise Torug Lightning and Restorations staffs having incorrect item stats.</li>
+				<li>Fixed the Twin Blade and Blunt skill in regards to Weapon Crit when Daggers are equipped.</li>
+				<li>Fixed Daggers not being recognized as 1H weapons.</li>
+				<li>Fixed the Warrior's Fury set 5-piece bonus when toggled on.</li>
+				<li>Fixed a bug that stopped Pelinal's 5-piece bonus from working when Weapon Damage was higher.</li>
+				<li>Fixed the Break Free Cost calculation.</li>
+				<li>Fixed the Block Cost calculation.</li>
+			</ul>
+			<p>
 			<hr>
 			<b>4 July 2016</b>
 			<ul>

@@ -1115,7 +1115,17 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Set.HealingTaken" => array(
+					"display" => "%",
+			),
 			
+			"Set.BreakFreeCost" => array(
+					"display" => "%",
+			),
+			
+			"Set.PlayerDamageTaken" => array(
+					"display" => "%",
+			),
 			
 			
 			
@@ -1498,11 +1508,16 @@ class EsoBuildDataEditor
 			"CritResist" => array(
 					"title" => "Critical Resistance",
 					"display" => "critresist",
+					"round" => "floor",
 					"compute" => array(
 							"Item.CritResist",
 							"Set.CritResist",
 							"+",
 							"Skill.CritResist",
+							"+",
+							"CP.CritResist",
+							"250/0.035",
+							"*",
 							"+",
 					),
 			),
@@ -1836,18 +1851,20 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"compute" => array(
 							"180 + 30*EffectiveLevel",
+							"Item.BlockCost",
+							"-",
 							"1 - Item.Sturdy",
 							"*",
+							"1",
 							"CP.BlockCost",
-							"Item.BlockCost",
 							"+",
+							"*",
+							"1",
 							"Set.BlockCost",
 							"+",
 							"Skill.BlockCost",
 							"+",
 							"Buff.BlockCost",
-							"+",
-							"1",
 							"+",
 							"*",
 					),
@@ -1899,6 +1916,7 @@ class EsoBuildDataEditor
 							"450 + 75*EffectiveLevel",
 							"1 - CP.BreakFreeCost",
 							"*",
+							"1",
 							"Skill.BreakFreeCost",
 							"+",
 							"Buff.BreakFreeCost",
@@ -1907,7 +1925,6 @@ class EsoBuildDataEditor
 							"+",
 							"Set.BreakFreeCost",
 							"+",
-							"1",
 							"*",
 					),
 			),
@@ -2582,7 +2599,6 @@ class EsoBuildDataEditor
 			"DefenseCrit" => array(
 					"title" => "Target Critical",
 					"display" => "%",
-					"depends" => array("SpellCrit"),
 					"min" => 0,
 					"max" => 1,
 					"compute" => array(
@@ -2592,6 +2608,8 @@ class EsoBuildDataEditor
 							"Set.CritResist",
 							"-",
 							"Item.CritResist",
+							"-",
+							"Skill.CritResist",
 							"0.035/250",
 							"*",
 							"-",
@@ -2631,7 +2649,7 @@ class EsoBuildDataEditor
 					"warning" => "Note: Currently there is a bug on Live that randomly results in ability costs 0-2% higher than normal. ",
 					"compute" => array(
 							"Misc.SpellCost",
-							"1 - CP.StaminaCost",
+							"1 + CP.StaminaCost",
 							"*",
 							"Item.StaminaCost",
 							"Skill.StaminaCost",
