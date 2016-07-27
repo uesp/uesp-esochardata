@@ -330,7 +330,6 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 				<li>Fixed the Block Cost calculation.</li>
 			</ul>
 			<p>
-			<hr>
 			<b>4 July 2016</b>
 			<ul>
 				<li>Fixed ability tooltip scaling when there are no coefficients for the ability.</li>
