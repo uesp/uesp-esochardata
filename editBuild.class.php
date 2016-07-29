@@ -141,10 +141,11 @@ class EsoBuildDataEditor
 			"Stealthed",
 			"Skill.HAMagRestoreRestStaff",
 			"Skill.HAStaRestoreWerewolf",
-			"Skill.HAFlameStaffDamage",
 			"SkillDuration.Placeholder",
 			"SkillDamage.Placeholder",
 			"Buff.Empower",
+			"CP.HAActiveDamage",
+			"CP.LAActiveDamage",
 	);
 	
 	
@@ -727,6 +728,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"CP.PhysicalDamageDone" => array(
+					"display" => "%",
+			),
+			
 			"Buff.MagicDamageTaken" => array(
 					"display" => "%",
 			),
@@ -1051,6 +1056,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"SkillDuration.Fiery Breath" => array(
+					"display" => "%",
+			),
+			
 			"SkillDuration.Entropy" => array(
 					"display" => "%",
 			),
@@ -1127,7 +1136,41 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Skill.PoisonDamageTaken" => array(
+					"display" => "%",
+			),
 			
+			"CP.HAActiveDamage" => array(
+					"display" => "%",
+			),
+			
+			"CP.LAActiveDamage" => array(
+					"display" => "%",
+			),
+			
+			"Skill.FlameDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"CP.LAStaffDamage" => array(
+					"display" => "%",
+			),
+			
+			"CP.LAWeaponDamage" => array(
+					"display" => "%",
+			),
+			
+			"CP.LABowDamage" => array(
+					"display" => "%",
+			),
+			
+			"SkillDamage.Searing Strike" => array(
+					"display" => "%",
+			),
+			
+			"SkillDamage.Fiery Breath" => array(
+					"display" => "%",
+			),
 			
 	);
 	
@@ -2297,12 +2340,13 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"depends" => array("Magicka", "SpellDamage"),
 					"compute" => array(
-							"round(0.055*Magicka + 2.20*SpellDamage - 0.67)",
+							"round(0.0549025*Magicka + 2.20013*SpellDamage - 0.481141)",		//Update 11pts
+							//"round(0.055*Magicka + 2.20*SpellDamage - 0.67)",					//Update 10
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAStaffDamage",
+							"1 + CP.HAStaffDamage + CP.FlameDamageDone",
 							"*",
-							"1 + Skill.HADamage + Skill.HAFlameStaffDamage",
+							"1 + Skill.HADamage + Skill.FlameDamageDone + Buff.Empower",
 							"*",
 					),
 			),
@@ -2312,12 +2356,13 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"depends" => array("Magicka", "SpellDamage"),
 					"compute" => array(
-							"round(0.055*Magicka + 2.20*SpellDamage - 0.67)",
+							"round(0.0549025*Magicka + 2.20013*SpellDamage - 0.481141)",		//Update 11pts
+							//"round(0.055*Magicka + 2.20*SpellDamage - 0.67)",					//Update 10
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAStaffDamage",
+							"1 + CP.HAStaffDamage + CP.ColdDamageDone",
 							"*",
-							"1 + Skill.HADamage",
+							"1 + Skill.HADamage + Skill.ColdDamageDone + Buff.Empower",
 							"*",
 					),
 			),
@@ -2327,14 +2372,16 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"depends" => array("Magicka", "SpellDamage"),
 					"compute" => array(
-							"round((0.013*Magicka + 0.52*SpellDamage - 0.26)*1.8)",
-							"round(0.0182*Magicka + 0.728*SpellDamage - 0.03)",
+							"round((0.0130319*Magicka + 0.519646*SpellDamage - 0.890172)*3)",		//Update 11pts
+							"round(0.0181386*Magicka + 0.728188*SpellDamage - 0.397214)",			//Update 11pts
+							//"round((0.013*Magicka + 0.52*SpellDamage - 0.26)*3)",					//Update 10
+							//"round(0.0182*Magicka + 0.728*SpellDamage - 0.03)",					//Update 10
 							"+",
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAStaffDamage",
+							"1 + CP.HAStaffDamage + CP.ShockDamageDone",
 							"*",
-							"1 + Skill.HADamage",
+							"1 + Skill.HADamage + Skill.ColdDamageDone + Buff.Empower",
 							"*",
 					),
 			),
@@ -2344,14 +2391,14 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"depends" => array("Magicka", "SpellDamage"),
 					"compute" => array(
-							"round(0.0481*Magicka +  1.92*SpellDamage - 3.06)",
-							"round(0.02643*Magicka + 1.055*SpellDamage - 0.62)",
-							"+",
+							"round(0.0478338*Magicka +  1.91925*SpellDamage + 1.35918)",	//Update 11pts
+							//"round(0.0481*Magicka +  1.92*SpellDamage - 3.06)",			//Update 10
+							//"round(0.02643*Magicka + 1.055*SpellDamage - 0.62)",			//Update 10
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAStaffDamage",
+							"1 + CP.HAStaffDamage + CP.MagicDamageDone",
 							"*",
-							"1 + Skill.HADamage",
+							"1 + Skill.HADamage + Buff.Empower",
 							"*",
 					),
 			),
@@ -2361,12 +2408,13 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"depends" => array("Stamina", "WeaponDamage"),
 					"compute" => array(
-							"round(0.03852*Stamina + 1.5436*WeaponDamage - 0.33)",
+							"round(0.038698*Stamina + 1.54378*WeaponDamage - 2.03145)",			//Update 11pts
+							//"round(0.03852*Stamina + 1.5436*WeaponDamage - 0.33)",			//Update 10
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAWeaponDamage",
+							"1 + CP.HAWeaponDamage + CP.PhysicalDamageDone",
 							"*",
-							"1 + Skill.HADamage",
+							"1 + Skill.HADamage + Buff.Empower",
 							"*",
 					),
 			),
@@ -2376,12 +2424,13 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"depends" => array("Stamina", "WeaponDamage"),
 					"compute" => array(
-							"round(0.123*Stamina + 1.283*WeaponDamage - 0.94)",
+							"round(0.044067*Stamina + 1.7596*WeaponDamage - 0.45188)",		//update 11pts
+							//"round(0.123*Stamina + 1.283*WeaponDamage - 0.94)",			//update 10
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAWeaponDamage",
+							"1 + CP.HAWeaponDamage + CP.PhysicalDamageDone",
 							"*",
-							"1 + Skill.HADamage",
+							"1 + Skill.HADamage + Buff.Empower",
 							"*",
 					),
 			),
@@ -2391,12 +2440,13 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"depends" => array("Stamina", "WeaponDamage"),
 					"compute" => array(
-							"round(0.0550*Stamina +  2.20*WeaponDamage - 0.95)",
+							"round(0.0550887*Stamina +  2.20001*WeaponDamage - 1.90256)",		//Update 11pts
+							//"round(0.0550*Stamina +  2.20*WeaponDamage - 0.95)",				//Update 10
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HABowDamage",
+							"1 + CP.HABowDamage + CP.PhysicalDamageDone",
 							"*",
-							"1 + Skill.HADamage",
+							"1 + Skill.HADamage + Buff.Empower",
 							"*",
 					),
 			),
@@ -2406,14 +2456,16 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"depends" => array("Stamina", "WeaponDamage"),
 					"compute" => array(
-							"round(0.01636*Stamina + 0.6556*WeaponDamage + 0.81)",
-							"round(0.0199*Stamina + 0.800*WeaponDamage + 3.82)",
+							"round(0.0165756*Stamina + 0.655433*WeaponDamage - 1.82768)",		//Update 11pts
+							"round(0.0200506*Stamina + 0.799675*WeaponDamage + 2.03471)",		//Update 11pts
+							//"round(0.01636*Stamina + 0.6556*WeaponDamage + 0.81)",			//Update 10
+							//"round(0.0199*Stamina + 0.800*WeaponDamage + 3.82)",				//Update 10
 							"+",
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAWeaponDamage",
+							"1 + CP.HAWeaponDamage + CP.PhysicalDamageDone",
 							"*",
-							"1 + Skill.HADamage",
+							"1 + Skill.HADamage + Buff.Empower",
 							"*",
 					),
 			),
@@ -2423,12 +2475,13 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"depends" => array("Stamina", "WeaponDamage"),
 					"compute" => array(
-							"round(0.0440*Stamina + 1.76*WeaponDamage + 0.74)",
+							"round(0.05007*Stamina + 1.99937*WeaponDamage - 0.51345)",		//Update 11pts
+							//"round(0.0440*Stamina + 1.76*WeaponDamage + 0.74)",			//Update 10
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAWeaponDamage", // TODO: Check?
+							"1 + CP.HAActiveDamage + CP.PhysicalDamageDone",
 							"*",
-							"1 + Skill.HADamage",
+							"1 + Skill.HADamage + Buff.Empower",
 							"*",
 					),
 			),
