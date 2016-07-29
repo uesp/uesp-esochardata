@@ -68,11 +68,6 @@ g_EsoInputStatSources = {};
 
 ESO_MUNDUS_BUFF_DATA = 
 {
-	"The Apprentice" : {
-		abilityId: 13979,
-		icon : "/esoui/art/icons/ability_mundusstones_008.png",
-		description: "Increases your Spell Damage.",
-	},
 	"The Atronach" : {
 		abilityId: 13982,
 		icon : "/esoui/art/icons/ability_mundusstones_009.png",
@@ -581,6 +576,18 @@ g_EsoBuildBuffData =
 			statIds : [ "Health", "HealingReceived", "DamageTaken", "DamageShield" ],
 			icon: "/esoui/art/icons/ability_templar_002.png",
 		},
+		"Lycanthropy" :
+		{
+			enabled: false,
+			skillEnabled : false,
+			visible : false,
+			toggleVisible : true,
+			displays : [ "", "", "%", "%", "%", "%" ],
+			categories : [ "Buff", "Buff", "Buff", "Buff", "Buff", "Skill" ],
+			values : [ 9966, 9966, 0.30, 0.15, 0.10, 0.25 ],
+			statIds : [ "SpellResist", "PhysicalResist", "Stamina", "StaminaRegen", "SprintSpeed", "PoisonDamageTaken" ],
+			icon: "/esoui/art/icons/ability_werewolf_001.png",
+		},
 		
 			/* Target Buffs */
 		"Major Fracture (Target)" : 
@@ -877,10 +884,20 @@ ESO_ACTIVEEFFECT_MATCHES = [
 	{
 		id: "Molten Armaments",
 		baseSkillId: 32173,
+		//baseSkillId: 32156,
 		toggle: true,
 		enabled: false,
 		statId: "HADamage",
-		match: /Your own damage with fully-charged Heavy Attacks is increased by ([0-9]+\.?[0-9]*)% while active/i,
+		display: "%",
+		match: /Your own damage with fully\-charged Heavy Attacks is increased by ([0-9]+\.?[0-9]*)% while active/i,
+	},
+	{
+		id: "Molten Armaments",
+		baseSkillId: 32173,
+		toggle: true,
+		enabled: false,
+		buffId : "Major Sorcery",
+		match: /harge you and your allies' weapons with volcanic power to gain Major Sorcery/i,
 	},
 		/* End Toggled Abilities */
 	
@@ -1291,7 +1308,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statRequireId: "WeaponFlameStaff",
 		statRequireValue: 1,
-		statId: "HAFlameStaffDamage",
+		statId: "HADamage",
 		display: "%",
 		match: /Fully charged heavy fire attacks deal ([0-9]+\.?[0-9]*)% additional damage/i,
 	},
@@ -1809,13 +1826,13 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases damage done while in stealth by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		category: "Skill2",
+		category: "Skill",
 		statId: "LADamage",
 		display: "%",
 		match: /Increases your damage with melee weapon attacks by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		category: "Skill2",
+		category: "Skill",
 		statId: "HADamage",
 		display: "%",
 		match: /Increases your damage with melee weapon attacks by ([0-9]+\.?[0-9]*)%/i,
@@ -2160,8 +2177,9 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Light attack and heavy attack damage increased by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+		category: "Skill2",
 		statId: "HADamage",
-		match: /Your fully charged Heavy Attacks do an additional ([0-9]+\.?[0-9]*) damage/i,
+		match: /Your fully charged Heavy Attacks do an additional ([0-9]+) damage/i,
 	},
 	{
 		statId: "HADamage",
@@ -2438,13 +2456,6 @@ ESO_SETEFFECT_MATCHES = [
 		statId: "HAMagRestore",
 		match: /Fully charged heavy attacks restore ([0-9]+) Magicka/i,
 	},
-	{
-		setBonusCount: 4,
-		category: "Skill2",
-		statId: "HADamage",
-		match: / Your fully charged Heavy Attacks do an additional ([0-9]+) damage/i,
-	},	
-	
 	
 		// Optionally toggled set effects
 	{
@@ -2724,18 +2735,18 @@ ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
-		category: "Skill",
+		category: "Skill2",
 		statId: "LADamage",
-		match: /After dodging an attack, light and heavy attacks deal ([0-9]+)increased damage for [0-9]+ seconds./i,
+		match: /After dodging an attack, light and heavy attacks deal ([0-9]+) increased damage for [0-9]+ seconds./i,
 	},
 	{
 		id: "Noble Duelist's Silks",
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
-		category: "Skill",
+		category: "Skill2",
 		statId: "HADamage",
-		match: /After dodging an attack, light and heavy attacks deal ([0-9]+)increased damage for [0-9]+ seconds./i,
+		match: /After dodging an attack, light and heavy attacks deal ([0-9]+) increased damage for [0-9]+ seconds./i,
 	},
 	{
 		id: "Orgnum's Scales",
@@ -2883,6 +2894,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "HADamage",
+		category: "Skill2",
 		match: /After casting an ability that costs Magicka, Light Attacks deal [0-9]+ additional damage and Heavy Attacks deal ([0-9]+) additional damage/i,
 	},
 	{
@@ -2891,6 +2903,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "LADamage",
+		category: "Skill2",
 		match: /After casting an ability that costs Magicka, Light Attacks deal ([0-9]+) additional damage and Heavy Attacks deal [0-9]+ additional damage/i,
 	},
 	{
@@ -2899,6 +2912,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "HADamage",
+		category: "Skill2",
 		match: /After casting an ability that costs Magicka, Light Attacks deal [0-9]+ additional damage and Heavy Attacks deal ([0-9]+) additional damage/i,
 	},
 	{
@@ -3504,10 +3518,20 @@ function GetEsoInputSpecialValues(inputValues)
 	
 	inputValues.WerewolfStage = parseInt($("#esotbWerewolfStage").val());
 	
-	if (inputValues.WerewolfStage > 0)
+	if (inputValues.WerewolfStage >= 2)
 	{
-		inputValues.Skill.PoisonDamageTaken += 0.25;
-		AddEsoInputStatSource("Skill.PoisonDamageTaken", { source: "Werewolf", value: 0.25 });
+		g_EsoBuildBuffData['Lycanthropy'].visible = true;
+		g_EsoBuildBuffData['Lycanthropy'].enabled = true;
+		g_EsoBuildBuffData['Lycanthropy'].skillEnabled = true;
+		
+		g_EsoBuildBuffData['Lycanthropy'].skillAbilities.push(g_SkillsData[42358]);
+		AddEsoItemRawOutputString(g_EsoBuildBuffData['Lycanthropy'], "Active Skill", "Werewolf Transformation");
+	}
+	else
+	{
+		g_EsoBuildBuffData['Lycanthropy'].visible = false;
+		g_EsoBuildBuffData['Lycanthropy'].enabled = false;
+		g_EsoBuildBuffData['Lycanthropy'].skillEnabled = false;
 	}
 	
 }
@@ -4656,6 +4680,27 @@ function GetEsoInputCPValues(inputValues)
 	ParseEsoCPValue(inputValues, ["HABowDamage", "LABowDamage"], 60546);
 	ParseEsoCPValue(inputValues, ["HAStaffDamage", "LAStaffDamage"], 60503);
 	
+	if (inputValues.Weapon1H >= 1 || inputValues.Weapon2H >= 1) 
+	{
+		inputValues.CP.HAActiveDamage = inputValues.CP.HAWeaponDamage;
+		inputValues.CP.LAActiveDamage = inputValues.CP.LAWeaponDamage;
+	}
+	else if (inputValues.WeaponBow >= 1) 
+	{
+		inputValues.CP.HAActiveDamage = inputValues.CP.HABowDamage;
+		inputValues.CP.LAActiveDamage = inputValues.CP.LABowDamage;
+	}
+	else if (inputValues.WeaponRestStaff >= 1 || inputValues.WeaponDestStaff >= 1) 
+	{
+		inputValues.CP.HAActiveDamage = inputValues.CP.HAStaffDamage;
+		inputValues.CP.LAActiveDamage = inputValues.CP.LAStaffDamage;
+	}
+	else
+	{
+		inputValues.CP.HAActiveDamage = 0;
+		inputValues.CP.LAActiveDamage = 0;
+	}
+		
 		/* Apprentice */
 	ParseEsoCPValue(inputValues, ["MagicDamageDone", "FlameDamageDone", "ColdDamageDone", "ShockDamageDone"], 63848);
 	ParseEsoCPValue(inputValues, "SpellPenetration", 61555);
@@ -6843,17 +6888,19 @@ function UpdateEsoBuildToggledSkillData(inputValues)
 		
 		toggleSkillData.valid = false;
 		
+		//console.log("Checking toggle skill", toggleSkillData);
+		
 		if (abilityData == null)
 		{
-			abilityData = g_EsoSkillActiveData[abilityId];
-			if (abilityData == null) continue;
+			//abilityData = g_EsoSkillActiveData[abilityId];
+			//if (abilityData == null) continue;
 		}
 
 		if (toggleSkillData.matchData == null) continue;
 		
 		if (toggleSkillData.matchData.matchSkillName === true)
 		{
-			var data = g_SkillsData[abilityData.abilityId];
+			var data = g_SkillsData[abilityId];
 			if (data == null) continue;
 			if (toggleSkillData.matchData.id.toUpperCase() != data.name.toUpperCase()) continue;
 		}
@@ -6868,16 +6915,22 @@ function UpdateEsoBuildToggledSkillData(inputValues)
 		if (toggleSkillData.matchData.requireSkillLine != null)
 		{
 			var count = CountEsoBarSkillsWithSkillLine(toggleSkillData.matchData.requireSkillLine);
-			if (count == 0) return false;
+			if (count == 0) continue;
 		}
 		
 		if (!toggleSkillData.isPassive)
 		{
-			if (!IsEsoSkillOnActiveBar(abilityData.abilityId)) continue;
+			if (!IsEsoSkillOnActiveBar(abilityId)) continue;
+		}
+		else
+		{
+			abilityData = g_EsoSkillPassiveData[abilityId];
+			if (abilityData == null) continue;
 		}
 		
 		toggleSkillData.valid = true;
-		toggleSkillData.desc = GetEsoSkillDescription(abilityData.abilityId, g_LastSkillInputValues, false, true);
+		toggleSkillData.desc = GetEsoSkillDescription(abilityId, g_LastSkillInputValues, false, true);
+		//console.log("Toggle Skill Valid");
 		
 		var checkElement = $(".esotbToggledSkillItem[skillid=\"" + skillId + "\"]").find(".esotbToggleSkillCheck");
 		

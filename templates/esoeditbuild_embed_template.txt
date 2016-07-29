@@ -316,6 +316,22 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>29 July 2016</b>
+			<ul>
+				<li>Added Armor/Stamina/Stamina Regen/Run Speed to Werewolfs in Werewolf form.</li>
+				<li>Fixed Werewolf Heavy Attack damage (was a factor of 1.136 lower than expected for some reason).</li>
+				<li>Werewolf Heavy Attack damage is now modified by the correct CP passive depending on which weapons are currently active.</li>
+				<li>Tested and improved accuracy of all heavy attack equations. Added effect of Magic/Physical/Flame/Shock/Cold damage  and Empower modifiers.</li>
+			</ul>
+			<p>
+			<b>28 July 2016</b>
+			<ul>
+				<li>Fixed the HADamage and LADamage effects from multiple sources.</li>
+				<li>Updated the skill coefficients for heavy attacks.</li>
+				<li>Fixed an issue with toggled skills not working or being displayed correctly.</li>
+				<li>Toggling Molten Armaments on now gives you Major Sorcery buff automatically as expected.</li>
+			</ul>
+			<p>
 			<b>27 July 2016</b>
 			<ul>
 				<li>The calculation of Critical Resistance now includes the effect of the Resistant CP skill line.</li>
