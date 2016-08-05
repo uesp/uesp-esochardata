@@ -1,5 +1,10 @@
 <?php
 
+/*
+ * TODO:
+ * *	- Destruction Mastery set...confirm magicka bonus. 
+ */
+
 require_once("/home/uesp/secrets/esolog.secrets");
 require_once("/home/uesp/esolog.static/esoCommon.php");
 require_once("/home/uesp/esolog.static/viewCps.class.php");
