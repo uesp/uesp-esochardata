@@ -316,6 +316,16 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>5 August 2016</b>
+			<ul>
+				<li>Fixed Nirnhoned armor to give the correct bonus.</li>
+			</ul>
+			<p>
+			<b>4 August 2016</b>
+			<ul>
+				<li>Updated formula for Health/Magicka/Stamina regen. If anyone notices issues or discrepancies with the new calculation let me know.</li>
+			</ul>
+			<p>
 			<b>2 August 2016</b>
 			<ul>
 				<li>Skill data has been updated from the Shadow of Hist DLC release.</li>
