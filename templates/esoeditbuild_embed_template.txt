@@ -316,6 +316,12 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>7 August 2016</b>
+			<ul>
+				<li>Fixed skill base costs.</li>
+				<li>Item from update 11 (Shadow of the Hist) are now active.</li>
+			</ul>
+			<p>
 			<b>5 August 2016</b>
 			<ul>
 				<li>Fixed Nirnhoned armor to give the correct bonus.</li>
