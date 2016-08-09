@@ -316,6 +316,11 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>9 August 2016</b>
+			<ul>
+				<li>Fixed the missing Magicka Regen bonus from the Amberplasm set.</li>
+			</ul>
+			<p>
 			<b>7 August 2016</b>
 			<ul>
 				<li>Fixed skill base costs.</li>
