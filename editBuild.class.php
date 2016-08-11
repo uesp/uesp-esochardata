@@ -1502,6 +1502,7 @@ class EsoBuildDataEditor
 			"SpellResist" => array(
 					"title" => "Spell Resistance",
 					"display" => "resist",
+					"round" => "floor",
 					"compute" => array(
 							"Item.SpellResist",
 							"Skill2.SpellResist",
@@ -1510,10 +1511,10 @@ class EsoBuildDataEditor
 							"+",
 							"Skill.SpellResist",
 							"+",
-							"Buff.SpellResist",
-							"+",
 							"CP.SpellResist",
 							"+",
+							"1 + Buff.SpellResist",
+							"*",
 					),
 			),
 			
@@ -1523,6 +1524,7 @@ class EsoBuildDataEditor
 			"PhysicalResist" => array(
 					"title" => "Physical Resistance",
 					"display" => "resist",
+					"round" => "floor",
 					"compute" => array(
 							"Item.PhysicalResist",
 							"Skill2.PhysicalResist",
@@ -1531,10 +1533,10 @@ class EsoBuildDataEditor
 							"+",
 							"Skill.PhysicalResist",
 							"+",
-							"Buff.PhysicalResist",
-							"+",
 							"CP.PhysicalResist",
 							"+",
+							"1 + Buff.PhysicalResist",
+							"*",
 					),
 			),
 			
