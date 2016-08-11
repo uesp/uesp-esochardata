@@ -10,6 +10,7 @@
  *  	- Nightblade - Pressure Points (scales from Assassination slotted)
  *  	- Nightblade - Shadow: Dark Vigor (scales from Shadow slotted)
  *  	- Nightblade - Siphoning: Soul Siphoner (scales from Siphoning abilities slotted)
+ *  	- Sorcerer - Storm Calling: Expert Mage (scales from Storm abilities slotted)
  */
 
 require_once("/home/uesp/secrets/esolog.secrets");
@@ -1242,6 +1243,22 @@ class EsoBuildDataEditor
 			),
 			
 			"SkillDuration.Aspect of Terror" => array(
+					"display" => "%",
+			),
+			
+			"SkillDuration.Negate Magic" => array(
+					"display" => "%",
+			),
+			
+			"SkillDuration.Encase" => array(
+					"display" => "%",
+			),
+			
+			"SkillDuration.Rune Prison" => array(
+					"display" => "%",
+			),
+			
+			"SkillDuration.Daedric Mines" => array(
 					"display" => "%",
 			),
 			
