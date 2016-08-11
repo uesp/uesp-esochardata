@@ -566,16 +566,6 @@ g_EsoBuildBuffData =
 			statIds : [ "MaelstromDamage" ],
 			icon : "/esoui/art/icons/enchantment_weapon_berserking.png",
 		},
-		"Battle Spirit" :
-		{
-			enabled: false,
-			skillEnabled : false,
-			displays : [ "", "%", "%", "%" ],
-			categories : [ "Skill2", "Buff", "Buff", "Buff" ],
-			values : [ 5000, -0.50, -0.50, -0.50 ],
-			statIds : [ "Health", "HealingReceived", "DamageTaken", "DamageShield" ],
-			icon: "/esoui/art/icons/ability_templar_002.png",
-		},
 		"Lycanthropy" :
 		{
 			enabled: false,
@@ -647,7 +637,37 @@ g_EsoBuildBuffData =
 			icon : "/esoui/art/icons/death_recap_poison_ranged.png",
 		},
 		
-		
+			/* Cyrodiil */
+		"Offensive Scroll Bonus" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			category: "Buff",
+			value : 0.05,
+			display: "%",
+			statIds : [ "SpellDamage", "WeaponDamage" ],
+			icon : "/esoui/art/icons/ability_armor_004.png",
+		},
+		"Defensive Scroll Bonus" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			category: "Buff",
+			value : 0.05,
+			display: "%",
+			statIds : [ "SpellResist", "PhysicalResist" ],
+			icon : "/esoui/art/icons/ability_weapon_009.png",
+		},
+		"Battle Spirit" :
+		{
+			enabled: false,
+			skillEnabled : false,
+			displays : [ "", "%", "%", "%" ],
+			categories : [ "Skill2", "Buff", "Buff", "Buff" ],
+			values : [ 5000, -0.50, -0.50, -0.50 ],
+			statIds : [ "Health", "HealingReceived", "DamageTaken", "DamageShield" ],
+			icon: "/esoui/art/icons/ability_templar_002.png",
+		},
 		//Minor Aegis: 5% less damage from Boss Monsters
 		//Minor Slayer: 5% more damage to Boss Monsters.
 
