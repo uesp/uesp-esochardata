@@ -319,7 +319,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<b>11 August 2016</b>
 			<ul>
 				<li>Fixed the armor passives Resolve, Dexterity, and Evocation level 3 labels and skill progression.</li>
-				<li>Added the Offensive and Defensive Scroll Bonus buffs.</li>
+				<li>Added the Offensive and Defensive Scroll Bonus buffs. Also updated the Spell/Physical resist calculation to properly use the buff values.</li>
 			</ul>
 			<p>
 			<b>9 August 2016</b>
