@@ -1286,7 +1286,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		category: "Skill2",
 		statId: "SneakRange",
 		factorValue: -1,
-		match: /Reduces your detection radius in stealth by ([0-9]+\.?[0-9]*) meters/i,
+		match: /Reduces your detection radius in stealth by ([0-9]+\.?[0-9]*) meter/i,
 	},
 	{
 		statId: "WeaponCrit",
