@@ -1119,6 +1119,11 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases Max Health by ([0-9]+\.?[0-9]*)% and /i,
 	},
 	{
+		statId: "Health",
+		display: "%",
+		match: /Increases your Max Health by ([0-9]+\.?[0-9]*)%./i,
+	},
+	{
 		statId: "Magicka",
 		display: "%",
 		match: /Increases your Max Magicka by ([0-9]+\.?[0-9]*)%/i,
@@ -1132,6 +1137,16 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "Stamina",
 		display: "%",
 		match: /Increases Max Health and Max Stamina by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "Health",
+		display: "%",
+		match: /Increases your Max Health and Max Stamina by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "Stamina",
+		display: "%",
+		match: /Increases your Max Health and Max Stamina by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "Stamina",
@@ -1149,6 +1164,12 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Reduces the Magicka cost of spells by ([0-9]+\.?[0-9]*)%\./i,
 	},
 	{
+		statId: "MagickaCost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the Magicka cost of your abilities by ([0-9]+\.?[0-9]*)%\./i,
+	},
+	{
 		statId: "Magicka",
 		display: "%",
 		match: /Increases Max Magicka and Max Stamina by ([0-9]+\.?[0-9]*)%/i,
@@ -1159,8 +1180,52 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases Max Magicka and Max Stamina by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+		statId: "Magicka",
+		display: "%",
+		match: /Increases your Max Magicka and Max Stamina by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "Stamina",
+		display: "%",
+		match: /Increases your Max Magicka and Max Stamina by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
 		statId: "FlameResist",
 		match: /Increases Flame Resistance by ([0-9]+)/i,
+	},
+	{
+		statId: "FlameResist",
+		match: /and Flame Resistance by ([0-9]+)./i,
+	},
+	{
+		statId: "FlameDamageDone",
+		display: "%",
+		match: /Increases your flame damage by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "ColdDamageDone",
+		display: "%",
+		match: /Increases your frost and shock damage by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "ShockDamageDone",
+		display: "%",
+		match: /Increases your frost and shock damage by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "FlameDamageDone",
+		display: "%",
+		match: /Increases your flame, frost, and shock damage by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "ShockDamageDone",
+		display: "%",
+		match: /Increases your flame, frost, and shock damage by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "ColdDamageDone",
+		display: "%",
+		match: /Increases your flame, frost, and shock damage by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "Magicka",
@@ -1173,9 +1238,19 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases Magicka Recovery by ([0-9]+\.?[0-9]*)%\./i,
 	},
 	{
+		statId: "MagickaRegen",
+		display: "%",
+		match: /Increases your Magicka Recovery by ([0-9]+\.?[0-9]*)%\./i,
+	},
+	{
 		statId: "StaminaRegen",
 		display: "%",
 		match: /Increases Stamina Recovery by ([0-9]+\.?[0-9]*)%\./i,
+	},
+	{
+		statId: "StaminaRegen",
+		display: "%",
+		match: /Increases your Stamina Recovery by ([0-9]+\.?[0-9]*)%\./i,
 	},
 	{
 		statId: "HealthRegen",
@@ -1198,6 +1273,16 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases Health Recovery by [0-9]+\.?[0-9]*% and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+		statId: "HealthRegen",
+		display: "%",
+		match: /Increases your Health Recovery by ([0-9]+\.?[0-9]*)%\ and /i,
+	},
+	{
+		statId: "StaminaRegen",
+		display: "%",
+		match: /and Stamina Recovery by ([0-9]+\.?[0-9]*)%\./i,
+	},
+	{
 		category: "Skill2",
 		statId: "SneakRange",
 		factorValue: -1,
@@ -1209,8 +1294,17 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases your Weapon Critical rating by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+		statId: "WeaponCrit",
+		display: "%",
+		match: /Increases your Weapon Critical by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
 		statId: "ColdResist",
 		match: /Increases Cold Resistance by ([0-9]+)/i,
+	},
+	{
+		statId: "ColdResist",
+		match: /and Cold Resistance by ([0-9]+)\./i,
 	},
 	{
 		statId: "MagicDamageTaken",
@@ -1225,15 +1319,48 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Reduces incoming damage by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+		statId: "MagicDamageTaken",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces your damage taken by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "PhysicalDamageTaken",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces your damage taken by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
 		statId: "SprintCost",
 		display: "%",
 		factorValue: -1,
 		match: /Reduces Sprint cost by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+		statId: "SprintCost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of Sprint by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
 		statId: "SprintSpeed",
 		display: "%",
 		match: /Increases sprint speed by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "SprintSpeed",
+		display: "%",
+		match: /Increases the movement speed bonus of sprint by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "HADamage", //TODO: Verify
+		display: "%",
+		match: /Increases your damage done with melee attacks by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "LADamage", //TODO: Verify
+		display: "%",
+		match: /Increases your damage done with melee attacks by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statRequireId: "Weapon1HShield",
@@ -1910,6 +2037,21 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		match: /WITH RESTORATION STAFF EQUIPPED[\s\S]*?Restores an additional ([0-9]+\.?[0-9]*)% Magicka when you complete a heavy attack/i,
 	},
+	{
+		statId: "HealingDone",
+		display: "%",
+		match: /Increases your healing done and healing received by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "HealingReceived",
+		display: "%",
+		match: /Increases your healing done and healing received by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "HealingReceived",
+		display: "%",
+		match: /Increases your healing received by ([0-9]+\.?[0-9]*)%/i,
+	},
 	
 	
 		/* Begin Toggled Passives */
@@ -2017,6 +2159,10 @@ ESO_PASSIVEEFFECT_MATCHES = [
 
 		/* Begin Other Effects */
 		/* End Other Effects */
+	
+	
+		//Argonian
+	//Increases your swimming speed by 15%.
 	
 	
 		// Dragonknight
