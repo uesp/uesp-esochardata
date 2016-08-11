@@ -2834,10 +2834,9 @@ ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
-		category: "Skill",
+		category: "Set",
 		statId: "Magicka",
-		display: '%',
-		match: /While you have pets active, increase max magicka by ([0-9]+\.?[0-9]*)%/i,
+		match: /While you have a pet active your Max Magicka is increased by ([0-9]+\.?[0-9]*)/i,
 	},
 	{
 		id: "Noble Duelist's Silks",
@@ -7044,8 +7043,6 @@ function UpdateEsoBuildToggledSkillData(inputValues)
 		
 		toggleSkillData.valid = false;
 		
-		console.log("Checking toggle skill", toggleSkillData);
-		
 		if (abilityData == null)
 		{
 			abilityData = g_EsoSkillActiveData[abilityId];
@@ -7056,7 +7053,6 @@ function UpdateEsoBuildToggledSkillData(inputValues)
 		
 		if (toggleSkillData.matchData.matchSkillName === true)
 		{
-			console.log("Toggle: matchSkillName");
 			var data = g_SkillsData[abilityId];
 			if (data == null) continue;
 			if (toggleSkillData.matchData.id.toUpperCase() != data.name.toUpperCase()) continue;
@@ -7064,7 +7060,6 @@ function UpdateEsoBuildToggledSkillData(inputValues)
 		
 		if (toggleSkillData.matchData.statRequireId != null)
 		{
-			console.log("Toggle: statRequireId");
 			var requiredStat = inputValues[toggleSkillData.matchData.statRequireId];
 			if (requiredStat == null) continue;
 			if (parseFloat(requiredStat) < parseFloat(toggleSkillData.matchData.statRequireValue)) continue;
@@ -7072,14 +7067,12 @@ function UpdateEsoBuildToggledSkillData(inputValues)
 		
 		if (toggleSkillData.matchData.requireSkillLine != null)
 		{
-			console.log("Toggle: requireSkillLine");
 			var count = CountEsoBarSkillsWithSkillLine(toggleSkillData.matchData.requireSkillLine);
 			if (count == 0) continue;
 		}
 		
 		if (!toggleSkillData.isPassive)
 		{
-			console.log("Toggle: Active Skill");
 			if (!IsEsoSkillOnActiveBar(abilityId)) continue;
 			
 			abilityData = g_EsoSkillActiveData[abilityId];
@@ -7089,7 +7082,6 @@ function UpdateEsoBuildToggledSkillData(inputValues)
 		}
 		else
 		{
-			console.log("Toggle: Passive Skill");
 			abilityData = g_EsoSkillPassiveData[abilityId];
 			if (abilityData == null) continue;
 			
@@ -7098,7 +7090,6 @@ function UpdateEsoBuildToggledSkillData(inputValues)
 		
 		toggleSkillData.valid = true;
 		toggleSkillData.desc = GetEsoSkillDescription(realAbilityId, g_LastSkillInputValues, false, true);
-		console.log("Toggle Skill Valid");
 		
 		var checkElement = $(".esotbToggledSkillItem[skillid=\"" + skillId + "\"]").find(".esotbToggleSkillCheck");
 		
@@ -8042,8 +8033,8 @@ function UpdateEsoInitialToggleSetData()
 		var setData = g_EsoBuildToggledSetData[setName];
 		if (setData == null) continue;
 		
-		setData.enabled = initData.enabled;
-		if (initData.count != null) setData.count = initData.count;
+		setData.enabled = (initData.enabled != 0);
+		if (initData.count != null) setData.count = parseInt(initData.count);
 	}
 
 }
@@ -8057,8 +8048,8 @@ function UpdateEsoInitialToggleSkillData()
 		var skillData = g_EsoBuildToggledSkillData[skillName];
 		if (skillData == null) continue;
 		
-		skillData.enabled = initData.enabled;
-		if (initData.count != null) skillData.count = initData.count;
+		skillData.enabled = (initData.enabled != 0);
+		if (initData.count != null) skillData.count = parseInt(initData.count);
 	}
 
 }
