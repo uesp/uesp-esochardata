@@ -2,7 +2,9 @@
 
 /*
  * TODO:
- * *	- Destruction Mastery set...confirm magicka bonus. 
+ * 		- Destruction Mastery set...confirm magicka bonus.
+ *  	- Spell range modification.
+ *  	- Resurrect time computed stat.
  */
 
 require_once("/home/uesp/secrets/esolog.secrets");
@@ -1175,6 +1177,14 @@ class EsoBuildDataEditor
 			),
 			
 			"SkillDamage.Fiery Breath" => array(
+					"display" => "%",
+			),
+			
+			"Buff.SpellResist" => array(
+					"display" => "%",
+			),
+			
+			"Buff.PhysicalResist" => array(
 					"display" => "%",
 			),
 			

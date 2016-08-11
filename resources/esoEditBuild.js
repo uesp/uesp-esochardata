@@ -247,6 +247,7 @@ g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			value : 5280,
+			category : "Skill",
 			statId : "PhysicalResist",
 			icon : "/esoui/art/icons/ability_warrior_021.png",
 		},
@@ -255,6 +256,7 @@ g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			value : 1320,
+			category : "Skill",
 			statId : "PhysicalResist",
 			icon : "/esoui/art/icons/ability_warrior_033.png",
 		},
@@ -263,6 +265,7 @@ g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			value : 5280,
+			category : "Skill",
 			statId : "SpellResist",
 			icon : "/esoui/art/icons/ability_mage_069.png",
 		},
@@ -271,6 +274,7 @@ g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			value : 1320,
+			category : "Skill",
 			statId : "SpellResist",
 			icon : "/esoui/art/icons/ability_mage_038.png",
 		},
@@ -7031,14 +7035,15 @@ function UpdateEsoBuildToggledSkillData(inputValues)
 		var toggleSkillData = g_EsoBuildToggledSkillData[skillId];
 		var abilityId = toggleSkillData.baseSkillId;
 		var abilityData = g_EsoSkillPassiveData[abilityId];
+		var realAbilityId = abilityId;
 		
 		toggleSkillData.valid = false;
 		
-		//console.log("Checking toggle skill", toggleSkillData);
+		console.log("Checking toggle skill", toggleSkillData);
 		
 		if (abilityData == null)
 		{
-			//abilityData = g_EsoSkillActiveData[abilityId];
+			abilityData = g_EsoSkillActiveData[abilityId];
 			//if (abilityData == null) continue;
 		}
 
@@ -7046,6 +7051,7 @@ function UpdateEsoBuildToggledSkillData(inputValues)
 		
 		if (toggleSkillData.matchData.matchSkillName === true)
 		{
+			console.log("Toggle: matchSkillName");
 			var data = g_SkillsData[abilityId];
 			if (data == null) continue;
 			if (toggleSkillData.matchData.id.toUpperCase() != data.name.toUpperCase()) continue;
@@ -7053,6 +7059,7 @@ function UpdateEsoBuildToggledSkillData(inputValues)
 		
 		if (toggleSkillData.matchData.statRequireId != null)
 		{
+			console.log("Toggle: statRequireId");
 			var requiredStat = inputValues[toggleSkillData.matchData.statRequireId];
 			if (requiredStat == null) continue;
 			if (parseFloat(requiredStat) < parseFloat(toggleSkillData.matchData.statRequireValue)) continue;
@@ -7060,23 +7067,33 @@ function UpdateEsoBuildToggledSkillData(inputValues)
 		
 		if (toggleSkillData.matchData.requireSkillLine != null)
 		{
+			console.log("Toggle: requireSkillLine");
 			var count = CountEsoBarSkillsWithSkillLine(toggleSkillData.matchData.requireSkillLine);
 			if (count == 0) continue;
 		}
 		
 		if (!toggleSkillData.isPassive)
 		{
+			console.log("Toggle: Active Skill");
 			if (!IsEsoSkillOnActiveBar(abilityId)) continue;
+			
+			abilityData = g_EsoSkillActiveData[abilityId];
+			if (abilityData == null) continue;
+			
+			realAbilityId = abilityData.abilityId;
 		}
 		else
 		{
+			console.log("Toggle: Passive Skill");
 			abilityData = g_EsoSkillPassiveData[abilityId];
 			if (abilityData == null) continue;
+			
+			realAbilityId = abilityData.abilityId;			
 		}
 		
 		toggleSkillData.valid = true;
-		toggleSkillData.desc = GetEsoSkillDescription(abilityId, g_LastSkillInputValues, false, true);
-		//console.log("Toggle Skill Valid");
+		toggleSkillData.desc = GetEsoSkillDescription(realAbilityId, g_LastSkillInputValues, false, true);
+		console.log("Toggle Skill Valid");
 		
 		var checkElement = $(".esotbToggledSkillItem[skillid=\"" + skillId + "\"]").find(".esotbToggleSkillCheck");
 		
@@ -7623,6 +7640,11 @@ function IsEsoSkillOnActiveBar(abilityId)
 		if (skillId == null || skillId <= 0) continue;
 		
 		if (skillId == abilityId) return true;
+		
+		var origSkillId = skillBar[i].origSkillId;
+		if (origSkillId == null || origSkillId <= 0) continue;
+		
+		if (origSkillId == abilityId) return true;
 	}
 	
 	return false;
