@@ -4537,6 +4537,9 @@ function GetEsoInputItemEnchantArmorValues(inputValues, slotId, itemData, enchan
 		
 		var statValue = parseFloat(matches[1]);
 		if (!enchantData.isDefaultEnchant) statValue *= enchantFactor;
+		
+		if (matchData.factorValue != null) statValue *= matchData.factorValue;
+		
 		statValue = Math.floor(statValue);
 		
 		inputValues.Item[matchData.statId] += statValue;
