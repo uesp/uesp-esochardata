@@ -1008,7 +1008,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /WHEN 5 OR MORE PIECES OF MEDIUM ARMOR ARE EQUIPPED[\s\S]*?Increases your Weapon Damage by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		// factorStatId: "ArmorMedium", // TODO: Check?
+		factorStatId: "ArmorMedium",
 		statId: "SprintSpeed",
 		display: '%',
 		match: /increases your movement speed while using Sprint by ([0-9]+\.?[0-9]*)%/i,
@@ -1368,15 +1368,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "BlockCost",
 		display: "%",
 		factorValue: -1,
-		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Reduces the cost of blocking by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon1HShield",
-		statRequireValue: 1,
-		statId: "BlockCost",
-		display: "%",
-		factorValue: -1,
-		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Reduces the cost of blocking by ([0-9]+\.?[0-9]*)%/i,
+		match: /and reduces the cost of blocking by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statRequireId: "Weapon1HShield",
@@ -2046,7 +2038,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		factorStatId: "WeaponSword",
 		statId: "DamageDone",
 		display: "%",
-		match: /Swords increase your damage done by  ([0-9]+\.?[0-9]*)%/i,
+		match: /Swords increase your damage done by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statRequireId: "Weapon2H",
