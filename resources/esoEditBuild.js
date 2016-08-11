@@ -3085,8 +3085,6 @@ ESO_SETEFFECT_MATCHES = [
 		// Other Effects
 	//Elemental Succession: While in combat, you gain a rotating bonus to either Flame, Shock, or Frost damage. The active element changes every 4 seconds. Your attacks dealing damage with the active element gain 44-515 Spell Damage.
 	//Oblivion's Foe: Increase the damage of your Soul Trap abilities by 100%.
-	//Pelinal's Aptitude: Your Weapon Damage and Spell Damage both become the highest of the two values.
-	//Spell Power Cure: Healing an ally at 100% Health has a 50% chance of granting them 6-258 increased Weapon and Spell Damage for 10 seconds.
 	//Syvarra's Scales: Take 20% less damage from guards
 	//Trial by Fire: When you take elemental damage, gain 179-7727 Resistance to that element for 4 seconds. You can only be resistant to one element at a time.
 	//Varen's Legacy: 10% chance on block that the next Area of Effect Attack you use will deal an additional 300-3450 Damage.
@@ -5046,6 +5044,11 @@ function UpdateEsoComputedStatsList_Real()
 	}
 
 	UpdateEsoComputedStatsSpecial();
+	
+	for (var name in g_EsoComputedStats)
+	{
+		inputValues[name] = g_EsoComputedStats[name].value;
+	}
 	
 	UpdateEsoTestBuildSkillInputValues(inputValues);
 	UpdateEsoBuildRawInputOtherEffects();

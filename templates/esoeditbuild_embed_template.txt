@@ -333,6 +333,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 				<li>The Nord Stalwart and Orc Unflinching passives now grants HealthRegen as it should.</li>
 				<li>Updated the 5 piece bonus from the Necropotence set to work correctly.</li>
 				<li>Saved toggled sets and skills should now load correctly and not reset to "on".</li>
+				<li>The Pelinal's 5 piece bonus now properly scales ability tooltip values.</li>
 			</ul>
 			<p>
 			<b>9 August 2016</b>
