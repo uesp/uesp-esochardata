@@ -330,6 +330,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 				<li>Added the Continuous Attack effect as a toggled passive.</li>
 				<li>Fixed display and usage of all toggled passives. Also fixed morphed skills not working as toggled skills.</li>
 				<li>Refunding skills should now properly remove that skill effect from the computed stats.</li>
+				<li>The Nord Stalwart passive now grants HealthRegen as it should.</li>
 			</ul>
 			<p>
 			<b>9 August 2016</b>
