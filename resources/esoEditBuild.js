@@ -1738,6 +1738,12 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases the duration of Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+		category: "SkillDuration",
+		statId: "Restoring Aura",
+		display: "%",
+		match: /Increases the duration of Restoring Aura by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
 		statId: "ResurrectSpeed",
 		display: "%",
 		match: /Increases Resurrection speed by ([0-9]+\.?[0-9]*)%/i,
