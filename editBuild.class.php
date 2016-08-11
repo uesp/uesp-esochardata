@@ -11,7 +11,8 @@
  *  	- Nightblade - Shadow: Dark Vigor (scales from Shadow slotted)
  *  	- Nightblade - Siphoning: Soul Siphoner (scales from Siphoning abilities slotted)
  *  	- Sorcerer - Storm Calling: Expert Mage (scales from Storm abilities slotted)
- *  	- Adjust Duration in tooltips?
+ *  	- Adjust all Durations in tooltips?
+ *  	- Increases healing with Restoration Staff spells by 5% 
  */
 
 require_once("/home/uesp/secrets/esolog.secrets");
@@ -1264,6 +1265,10 @@ class EsoBuildDataEditor
 			),
 			
 			"SkillDuration.Restoring Aura" => array(
+					"display" => "%",
+			),
+			
+			"Skill.BlockCost" => array(
 					"display" => "%",
 			),
 			
