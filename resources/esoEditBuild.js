@@ -640,6 +640,8 @@ g_EsoBuildBuffData =
 			/* Cyrodiil */
 		"Offensive Scroll Bonus" : 
 		{
+			visible : false,
+			toggleVisible : true,
 			enabled: false,
 			skillEnabled : false,
 			category: "Buff",
@@ -650,6 +652,8 @@ g_EsoBuildBuffData =
 		},
 		"Defensive Scroll Bonus" : 
 		{
+			visible : false,
+			toggleVisible : true,
 			enabled: false,
 			skillEnabled : false,
 			category: "Buff",
@@ -660,6 +664,8 @@ g_EsoBuildBuffData =
 		},
 		"Battle Spirit" :
 		{
+			visible : false,
+			toggleVisible : true,
 			enabled: false,
 			skillEnabled : false,
 			displays : [ "", "%", "%", "%" ],
@@ -1083,6 +1089,20 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "HealingReceived",
 		display: "%",
 		match: /Increases the effectiveness of healing on you by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
+		statId: "HealingDone",
+		display: "%",
+		match: /Increases the effectiveness of healing you initiate by ([0-9]+\.?[0-9]*)% when near a keep/i,
+	},
+	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
+		statId: "ResurrectSpeed",
+		display: "%",
+		match: /WHILE IN PVP AREAS[\s]*?Reduces the time it takes to resurrect another played by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "Health",
@@ -1705,51 +1725,68 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /WITH A MAGES GUILD ABILITY SLOTTED[\s]*Increases your Max Magicka and your Magicka Recovery by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		requireSkillLine: "Support",
+		factorSkillLine: "Support",
 		statId: "MagickaRegen",
 		display: "%",
 		match: /Increases Magicka Recovery by ([0-9]+\.?[0-9]*)% for each Support ability slotted/i
 	},
 	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
 		statId: "HealthRegen",
 		display: "%",
 		match: /WHILE EMPEROR[\s\S]*?Increases Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
 		statId: "MagickaRegen",
 		display: "%",
 		match: /WHILE EMPEROR[\s\S]*?Increases Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
 		statId: "StaminaRegen",
 		display: "%",
 		match: /WHILE EMPEROR[\s\S]*?Increases Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
 		statId: "OtherEffect",
 		display: "%",
 		match: /WHILE EMPEROR[\s\S]*?Increases Ultimate gains by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
 		statId: "HealingReceived",
 		display: "%",
 		match: /WHILE EMPEROR[\s\S]*?Increases the magnitude of healing effects on Emperors by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
 		statId: "Health",
 		display: "%",
 		match: /WHILE EMPEROR[\s\S]*?Increases Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
 		statId: "Magicka",
 		display: "%",
 		match: /WHILE EMPEROR[\s\S]*?Increases Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
 		statId: "Stamina",
 		display: "%",
 		match: /WHILE EMPEROR[\s\S]*?Increases Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
+	//TODO: Tactician = +Siege Damage
 	{
 		statRequireId: "VampireStage",
 		statRequireValue: 2,
@@ -1914,7 +1951,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireId: "WeaponBow",
 		statRequireValue: 1,
 		id: "Hawk Eye",
-		baseSkillId: 31412,
+		baseSkillId: 30936,
 		statId: "Health",
 		toggle: true,
 		enabled: false,
@@ -1922,7 +1959,50 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		maxTimes: 3,
 		match: /WITH BOW EQUIPPED[\s\S]*?Your successful Light and Heavy Attacks increase the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i
 	},
-	//.
+	{
+		id: "Continuous Attack",
+		baseSkillId: 39248,
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
+		statId: "WeaponDamage",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /Increases Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% and /i,
+	},
+	{
+		id: "Continuous Attack",
+		baseSkillId: 39248,
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
+		statId: "SpellDamage",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /Increases Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% and /i,
+	},
+	{
+		id: "Continuous Attack",
+		baseSkillId: 39248,
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
+		statId: "MagickaRegen",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /and Magicka and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		id: "Continuous Attack",
+		baseSkillId: 39248,
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
+		statId: "StaminaRegen",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /and Magicka and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i,
+	},
 		/* End Toggled Passives */
 	
 
@@ -3361,7 +3441,42 @@ function GetEsoInputValues(mergeComputedStats)
 	inputValues.Attribute.TotalPoints = inputValues.Attribute.Health + inputValues.Attribute.Magicka + inputValues.Attribute.Stamina;
 	
 	inputValues.Stealthed = 0;
-	if ($("#esotbStealth").prop("checked")) inputValues.Stealthed = 1;		
+	
+	if ($("#esotbStealth").prop("checked")) 
+	{
+		inputValues.Stealthed = 1;
+		AddEsoInputStatSource("Stealthed", { source: "Character State", value: inputValues.Stealthed });
+	}
+	
+	inputValues.Cyrodiil = 0;
+	
+	if ($("#esotbCyrodiil").prop("checked")) 
+	{
+		inputValues.Cyrodiil = 1;
+		AddEsoInputStatSource("Cyrodiil", { source: "Character State", value: inputValues.Cyrodiil });
+	}
+	
+	if (inputValues.Cyrodiil > 0)
+	{
+		g_EsoBuildBuffData['Battle Spirit'].visible = true;
+		g_EsoBuildBuffData['Battle Spirit'].enabled = true;
+		g_EsoBuildBuffData['Battle Spirit'].skillEnabled = true;
+		
+		g_EsoBuildBuffData['Offensive Scroll Bonus'].visible = true;
+		g_EsoBuildBuffData['Defensive Scroll Bonus'].visible = true;
+		
+		//g_EsoBuildBuffData['Lycanthropy'].skillAbilities.push(g_SkillsData[42358]);
+		AddEsoItemRawOutputString(g_EsoBuildBuffData['Battle Spirit'], "Active Skill", "Character State");
+	}
+	else
+	{
+		g_EsoBuildBuffData['Battle Spirit'].visible = false;
+		g_EsoBuildBuffData['Battle Spirit'].enabled = false;
+		g_EsoBuildBuffData['Battle Spirit'].skillEnabled = false;
+		
+		g_EsoBuildBuffData['Offensive Scroll Bonus'].visible = false;
+		g_EsoBuildBuffData['Defensive Scroll Bonus'].visible = false;
+	}
 		
 	GetEsoInputSpecialValues(inputValues);
 	
@@ -3947,6 +4062,10 @@ function UpdateEsoBuffSkillEnabled()
 					abilityDesc += " and 1 other";
 				else if (buffData.skillAbilities.length > 2)
 					abilityDesc += " and " + (buffData.skillAbilities.length - 1) + " others";
+			}
+			else if (buffData.rawOutput != null && buffData.rawOutput["Active Skill"] != null)
+			{
+				abilityDesc = buffData.rawOutput["Active Skill"];
 			}
 			
 			parent.addClass("esotbBuffDisable");
@@ -5417,6 +5536,12 @@ function OnEsoWerewolfChange(e)
 
 
 function OnEsoClickStealth(e)
+{
+	UpdateEsoComputedStatsList("async");
+}
+
+
+function OnEsoClickCyrodiil(e)
 {
 	UpdateEsoComputedStatsList("async");
 }
@@ -8496,6 +8621,7 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 	saveData.Stats['WerewolfStage'] = "" + inputValues.WerewolfStage;
 	saveData.Stats['Alliance'] = saveData.Build['alliance'];
 	saveData.Stats['Stealth'] = inputValues.Stealthed;
+	saveData.Stats['Cyrodiil'] = inputValues.Cyrodiil;
 	
 	saveData.Stats['ActiveAbilityBar'] = "" + inputValues.ActiveBar;
 	saveData.Stats['ActiveWeaponBar'] = "" + inputValues.ActiveBar;
@@ -8714,6 +8840,7 @@ function esotbOnDocReady()
 	$(".esotbStatWarningButton").click(OnEsoClickStatWarningButton);
 	$(".esotbStatNoteButton").click(OnEsoClickStatWarningButton);
 	$("#esotbStealth").click(OnEsoClickStealth);	
+	$("#esotbCyrodiil").click(OnEsoClickCyrodiil);
 	
 	$(".esotbInputValue").on('input', function(e) { OnEsoInputChange.call(this, e); });
 	

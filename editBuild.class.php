@@ -151,6 +151,7 @@ class EsoBuildDataEditor
 			"Buff.Empower",
 			"CP.HAActiveDamage",
 			"CP.LAActiveDamage",
+			"Cyrodiil",
 	);
 	
 	
@@ -3704,6 +3705,14 @@ class EsoBuildDataEditor
 	}
 	
 	
+	public function GetCyrodiilCheckState()
+	{
+		$flag = $this->getCharStatField("Cyrodiil", "0");
+		if ($flag > 0) return "checked";
+		return "";
+	}
+	
+	
 	public function getCharTargetResist()
 	{
 		$resist = $this->getCharStatField("Target:Resistance", "18200");
@@ -3819,6 +3828,7 @@ class EsoBuildDataEditor
 				'{saveNote}' => $this->GetSaveNote(),
 				'{trail}' => $this->GetBreadcrumbTrailHtml(),
 				'{stealth}' => $this->GetStealthCheckState(),
+				'{cyrodiil}' => $this->GetCyrodiilCheckState(),
 		);
 		
 		$output = strtr($this->htmlTemplate, $replacePairs);

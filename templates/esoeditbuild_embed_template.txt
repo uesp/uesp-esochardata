@@ -50,6 +50,8 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<br/> 
 			<div class="esotbStatLabel">Stealthed</div> <input type="checkbox" id="esotbStealth" name="esotbStealth" statid="Stealth" {stealth}>
 			<div class="esotbStatLabel">Alliance</div> <select id="esotbAlliance" class="esotbInputSize1" name="esotbAlliance" statid="Alliance">{allianceList}</select>
+			<br/>
+			<div class="esotbStatLabel">In Cyrodiil</div> <input type="checkbox" id="esotbCyrodiil" name="esotbCyrodiil" statid="Cyrodiil" {cyrodiil}>
 			<p>
 			<div id="esotbAttributes">
 				<div class="esotbAttrTitle">Attributes <div id="esotbAttrTotal" statid="AttributeTotal" class="esotbAttributeInput">{attributeTotal} / 64</div></div>
@@ -310,8 +312,8 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 				<li>Live In-Game Issue: The Nightblade passive Dark Shades III doesn't trigger the Dark Vigor passive (+3% Health when slotted).
 				<li>Live In-Game Issue: The Templar skill Radiant Destruction and morphs do not update their tooltip based on +Magic/DoT damage buffs from CP or skills.</li>
 				<li>Live In-Game Issue: The Templar passive Burning Light tooltip is not correct for Magicka based characters.</li>
-				<li>Trying doing a forced reload of the page in your browser to ensure you have the latest JavaScript files.</li>
 				<li>Empower may affect the tooltip of more skills than it actually does in-game.</li>
+				<li>Do a forced reload of the page in your browser to ensure you have the latest JavaScript files.</li>
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
@@ -320,6 +322,13 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<ul>
 				<li>Fixed the armor passives Resolve, Dexterity, and Evocation level 3 labels and skill progression.</li>
 				<li>Added the Offensive and Defensive Scroll Bonus buffs. Also updated the Spell/Physical resist calculation to properly use the buff values.</li>
+				<li>Added the "Cyrodiil" toggle in the General tab. Having this checked automatically gives you the Battle Spirit buff and displays the relevant optional Cyrodiil buffs.
+					Unchecking it will automatically disable and remove all Cyrodiil buffs and passives.</li>
+				<li>Added Battle Resurrection and Combat Medic passive effects while in Cyrodiil.</li>
+				<li>Emperor passives are now only applied when you are in Cyrodiil.</li>
+				<li>Magicka Aid now properly scales based on the number of Support skills slotted.</li>
+				<li>Added the Continuous Attack effect as a toggled passive.</li>
+				<li>Fixed display and usage of all toggled passives.</li> 
 			</ul>
 			<p>
 			<b>9 August 2016</b>
@@ -491,7 +500,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 	g_EsoInitialSkillData = {initialSkillDataJson};
 	g_EsoInitialToggleSkillData = {initialToggleSkillDataJson};
 	g_EsoInitialToggleSetData = {initialToggleSetDataJson};
-	g_EsoBuildActiveWeapon = {activeBar};	
+	g_EsoBuildActiveWeapon = {activeBar};
 </script>
 
 
