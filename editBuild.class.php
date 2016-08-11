@@ -6,6 +6,10 @@
  *  	- Spell range modification.
  *  	- Resurrect time computed stat.
  *  	- Damage done in stealth.
+ *  	- World in Ruin: Increases the damage of Flame and Poison area of effect abilities by 6%.
+ *  	- Nightblade - Pressure Points (scales from Assassination slotted)
+ *  	- Nightblade - Shadow: Dark Vigor (scales from Shadow slotted)
+ *  	- Nightblade - Siphoning: Soul Siphoner (scales from Siphoning abilities slotted)
  */
 
 require_once("/home/uesp/secrets/esolog.secrets");
@@ -1198,6 +1202,46 @@ class EsoBuildDataEditor
 			),
 			
 			"Skill.LADamage" => array(
+					"display" => "%",
+			),
+			
+			"SkillDuration.Magma Armor" => array(
+					"display" => "%",
+			),
+			
+			"SkillDuration.Molten Weapons" => array(
+					"display" => "%",
+			),
+			
+			"SkillDuration.Obsidian Shield" => array(
+					"display" => "%",
+			),
+			
+			"SkillDuration.Petrify" => array(
+					"display" => "%",
+			),
+			
+			"SkillDuration.Ash Cloud" => array(
+					"display" => "%",
+			),
+			
+			"SkillDuration.Consuming Darkness" => array(
+					"display" => "%",
+			),
+			
+			"SkillDuration.Shadow Cloak" => array(
+					"display" => "%",
+			),
+			
+			"SkillDuration.Path of Darkness" => array(
+					"display" => "%",
+			),
+			
+			"SkillDuration.Summon Shade" => array(
+					"display" => "%",
+			),
+			
+			"SkillDuration.Aspect of Terror" => array(
 					"display" => "%",
 			),
 			
