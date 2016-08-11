@@ -1188,6 +1188,11 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases Health Recovery by ([0-9]+\.?[0-9]*)%\ and /i,
 	},
 	{
+		statId: "HealthRegen",
+		display: "%",
+		match: /and Health Recovery by ([0-9]+\.?[0-9]*)%\./i,
+	},
+	{
 		statId: "StaminaRegen",
 		display: "%",
 		match: /Increases Health Recovery by [0-9]+\.?[0-9]*% and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i,
