@@ -342,6 +342,8 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 				<li>Soul Siphoner now scales from the number of Siphoning abilities slotted.</li>
 				<li>The Sorcerer passive Daedric Protection I now works correctly.</li>
 				<li>The Sorcerer passive Persistence now effects the Negate Magic ultimate.</li>
+				<li>Durations in tooltips are now always updated instead of ignoring changes less than 1 second in value.</li>
+				<li>The Templar passive Light Weaver now increases the duration of the relevant skills.</li>
 			</ul>
 			<p>
 			<b>9 August 2016</b>

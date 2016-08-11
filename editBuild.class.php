@@ -11,6 +11,7 @@
  *  	- Nightblade - Shadow: Dark Vigor (scales from Shadow slotted)
  *  	- Nightblade - Siphoning: Soul Siphoner (scales from Siphoning abilities slotted)
  *  	- Sorcerer - Storm Calling: Expert Mage (scales from Storm abilities slotted)
+ *  	- Adjust Duration in tooltips?
  */
 
 require_once("/home/uesp/secrets/esolog.secrets");
@@ -1261,6 +1262,11 @@ class EsoBuildDataEditor
 			"SkillDuration.Daedric Mines" => array(
 					"display" => "%",
 			),
+			
+			"SkillDuration.Restoring Aura" => array(
+					"display" => "%",
+			),
+			
 			
 	);
 	
