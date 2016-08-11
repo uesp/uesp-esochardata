@@ -1619,6 +1619,66 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		category: "SkillDuration",
+		statId: "Consuming Darkness",
+		display: "%",
+		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Shadow Cloak",
+		display: "%",
+		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Path of Darkness",
+		display: "%",
+		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Aspect of Terror",
+		display: "%",
+		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Summon Shade",
+		display: "%",
+		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Magma Armor",
+		display: "%",
+		match: /Increases duration of Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Molten Weapons",
+		display: "%",
+		match: /Increases duration of Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Obsidian Shield",
+		display: "%",
+		match: /Increases duration of Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Petrify",
+		display: "%",
+		match: /Increases duration of Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Ash Cloud",
+		display: "%",
+		match: /Increases duration of Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
 		statId: "Sun Fire",
 		display: "%",
 		match: /Increases the duration of your Sun Fire, Eclipse, and Nova abilities by ([0-9]+\.?[0-9]*)%/i,
@@ -1727,7 +1787,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /WITH DRACONIC POWER ABILITIES SLOTTED[\s\S]*?Increases Health Recovery by ([0-9]+\.?[0-9]*)% for each Draconic Power ability slotted/i
 	},
 	{
-		factorSkillLine: "Assassination",
+		requireSkillLine: "Assassination",
 		statId: "CritDamage",
 		display: "%",
 		match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases damage dealt by Critical Strikes by ([0-9]+\.?[0-9]*)%/i
@@ -1795,7 +1855,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /WITH SIPHONING ABILITY SLOTTED[\s\S]*?Increases Max Magicka ([0-9]+\.?[0-9]*)% while a Siphoning ability is slotted/i
 	},
 	{
-		requireSkillLine: "SIPHONING",
+		factorSkillLine: "SIPHONING",
 		statId: "HealingDone",
 		display: "%",
 		match: /WHILE USING SIPHONING ABILITIES[\s\S]*?Increases the effectiveness of your Healing done by ([0-9]+\.?[0-9]*)% for each Siphoning ability slotted/i
