@@ -1864,13 +1864,13 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		requireSkillLine: "DAEDRIC SUMMONING",
 		statId: "HealthRegen",
 		display: "%",
-		match: /WHILE A DAEDRIC SUMMONING ABILITY IS SLOTTED[\s\S]*?Increases your Health and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i
+		match: /A DAEDRIC SUMMONING ABILITY IS SLOTTED[\s\S]*?Increases your Health and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		requireSkillLine: "DAEDRIC SUMMONING",
 		statId: "StaminaRegen",
 		display: "%",
-		match: /WHILE A DAEDRIC SUMMONING ABILITY IS SLOTTED[\s\S]*?Increases your Health and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i
+		match: /A DAEDRIC SUMMONING ABILITY IS SLOTTED[\s\S]*?Increases your Health and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		factorSkillType: "Sorcerer",
