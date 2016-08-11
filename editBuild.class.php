@@ -5,6 +5,7 @@
  * 		- Destruction Mastery set...confirm magicka bonus.
  *  	- Spell range modification.
  *  	- Resurrect time computed stat.
+ *  	- Damage done in stealth.
  */
 
 require_once("/home/uesp/secrets/esolog.secrets");
@@ -980,6 +981,14 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Skill.ShockDamageDone" => array(
+					"display" => "%",
+			),				
+			
+			"Skill.ColdDamageDone" => array(
+					"display" => "%",
+			),
+			
 			"CP.PoisonDamageDone" => array(
 					"display" => "%",
 			),
@@ -1185,6 +1194,10 @@ class EsoBuildDataEditor
 			),
 			
 			"Buff.PhysicalResist" => array(
+					"display" => "%",
+			),
+			
+			"Skill.LADamage" => array(
 					"display" => "%",
 			),
 			

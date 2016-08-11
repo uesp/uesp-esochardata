@@ -335,6 +335,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 				<li>Saved toggled sets and skills should now load correctly and not reset to "on".</li>
 				<li>The Pelinal's 5 piece bonus now properly scales ability tooltip values.</li>
 				<li>Ability cost jewelry glyphs now reduce costs instead of increasing them. Also fixed the computed stats ability cost calculation.</li>
+				<li>All updated racial passives are now working correctly.</li>
 			</ul>
 			<p>
 			<b>9 August 2016</b>
