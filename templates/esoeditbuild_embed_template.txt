@@ -340,6 +340,8 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 				<li>The NB Shadow passive Dark Veil now increases the duration of the relevant skills.</li>
 				<li>Fixed Hemorrhage from scaling incorrectly on the number of Assassination skills slotted.</li>
 				<li>Soul Siphoner now scales from the number of Siphoning abilities slotted.</li>
+				<li>The Sorcerer passive Daedric Protection I now works correctly.</li>
+				<li>The Sorcerer passive Persistence now effects the Negate Magic ultimate.</li>
 			</ul>
 			<p>
 			<b>9 August 2016</b>

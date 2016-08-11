@@ -1697,7 +1697,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		category: "SkillDuration",
-		statId: "Negate",
+		statId: "Negate Magic",
 		display: "%",
 		match: /Increases the duration of Dark Magic abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
