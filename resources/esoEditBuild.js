@@ -388,7 +388,7 @@ g_EsoBuildBuffData =
 			skillEnabled : false,
 			value : 0.30,
 			display : "%",
-			statId : "HealingReceived",
+			statId : "HealingTaken",
 			icon : "/esoui/art/icons/ability_healer_018.png",
 		},
 		"Minor Vitality" : 
@@ -397,7 +397,7 @@ g_EsoBuildBuffData =
 			skillEnabled : false,
 			value : 0.08,
 			display : "%",
-			statId : "HealingReceived",
+			statId : "HealingTaken",
 			icon : "/esoui/art/icons/ability_healer_004.png",
 		},
 		"Empower" : 
@@ -473,7 +473,7 @@ g_EsoBuildBuffData =
 			skillEnabled : false,
 			value : -0.30,
 			display: "%",
-			statId : "HealingReceived",
+			statId : "HealingTaken",
 			icon : "/esoui/art/icons/ability_nightblade_001_a.png",
 		},
 		"Minor Defile" : 
@@ -482,7 +482,7 @@ g_EsoBuildBuffData =
 			skillEnabled : false,
 			value : -0.08,
 			display: "%",
-			statId : "HealingReceived",
+			statId : "HealingTaken",
 			icon : "/esoui/art/icons/ability_nightblade_001_b.png",
 		},
 			// Major Heroism: /esoui/art/icons/ability_templar_breath_of_life.png
@@ -1121,7 +1121,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "Health",
 		display: "%",
-		match: /Increases your Max Health by ([0-9]+\.?[0-9]*)%./i,
+		match: /Increases your Max Health by ([0-9]+\.?[0-9]*)%\./i,
 	},
 	{
 		statId: "Magicka",

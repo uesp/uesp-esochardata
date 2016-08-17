@@ -345,7 +345,8 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 				<li>Durations in tooltips are now always updated instead of ignoring changes less than 1 second in value.</li>
 				<li>The Templar passive Light Weaver now increases the duration of the relevant skills.</li>
 				<li>Fixed the 2H passive Heavy Weapons with a sword equipped.</li>
-				<li>The Medium Armor passive Athletics now increases sprint speed based on the number of Medium Armor pieces worn.</li> 
+				<li>The Medium Armor passive Athletics now increases sprint speed based on the number of Medium Armor pieces worn.</li>
+				<li>Changed Major/Minor Vitality/Defile to affect HealingTaken instead of HealingReceived.</li> 
 			</ul>
 			<p>
 			<b>9 August 2016</b>
