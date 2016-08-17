@@ -1272,6 +1272,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"CP.HealingReceived" => array(
+					"display" => "%",
+			),			
+			
 			
 	);
 	
