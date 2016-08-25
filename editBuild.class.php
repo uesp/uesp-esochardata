@@ -1607,6 +1607,8 @@ class EsoBuildDataEditor
 							"Item.SpellResist",
 							"Skill2.SpellResist",
 							"+",
+							"Mundus.SpellResist",
+							"+",
 							"Set.SpellResist",
 							"+",
 							"Skill.SpellResist",
@@ -1628,6 +1630,8 @@ class EsoBuildDataEditor
 					"compute" => array(
 							"Item.PhysicalResist",
 							"Skill2.PhysicalResist",
+							"+",
+							"Mundus.PhysicalResist",
 							"+",
 							"Set.PhysicalResist",
 							"+",

@@ -325,6 +325,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 				<li>Fixed the Vampire Supernatural Recovery from having a double stamina regen effect.</li>
 				<li>Fixed the Werewolf Spell/Physical Resistance buff.</li>
 				<li>Fixed the effect of the Tumbling CP on the break free cost.</li>
+				<li>Fixed the omission of resistances in the calculation for the Lady and Lover mundus stones.</li>
 			</ul>
 			<p>
 			<b>11 August 2016</b>
