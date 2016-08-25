@@ -1915,6 +1915,9 @@ class EsoBuildDataViewer
 	
 	public function getCharBasicStatsBarHtml($barIndex)
 	{
+		$baseCrit = 10.0;
+		if ($this->getCharStatField("UseZeroBaseCrit") > 0) $baseCrit = 0.0;
+		
 		$activeBarIndex = intval($this->getCharStatField('ActiveWeaponBar'));
 		$prefix = "";
 		$display = "block";
@@ -1947,7 +1950,7 @@ class EsoBuildDataViewer
 		$output .= $this->getCharBasicStatHtml('Stamina Recovery', $prefix.'StaminaRegenCombat');
 		$output .= "<br />";
 		$output .= $this->getCharBasicStatHtml('Spell Damage', $prefix.'SpellPower');
-		$output .= $this->getCharBasicStatHtml('Spell Critical', $prefix.'SpellCritical', $this->getCharCriticalFactor(), '%', 10.0);
+		$output .= $this->getCharBasicStatHtml('Spell Critical', $prefix.'SpellCritical', $this->getCharCriticalFactor(), '%', $baseCrit);
 		
 		$weaponPower = $this->getCharStatField($prefix."WeaponPower");
 		$power = $this->getCharStatField($prefix."Power");
@@ -1957,7 +1960,7 @@ class EsoBuildDataViewer
 		else
 			$output .= $this->getCharBasicStatHtml('Weapon Damage', $prefix.'Power');
 		
-		$output .= $this->getCharBasicStatHtml('Weapon Critical', $prefix.'CriticalStrike', $this->getCharCriticalFactor(), '%', 10.0);
+		$output .= $this->getCharBasicStatHtml('Weapon Critical', $prefix.'CriticalStrike', $this->getCharCriticalFactor(), '%', $baseCrit);
 		$output .= "<br />";
 		$output .= $this->getCharBasicStatHtml('Spell Resistance', $prefix.'SpellResist');
 		$output .= $this->getCharBasicStatHtml('Physical Resistance', $prefix.'PhysicalResist');
