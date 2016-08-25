@@ -8838,7 +8838,7 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 	saveData.Build['level'] = "" + inputValues.EffectiveLevel;
 	saveData.Build['alliance'] = $("#esotbAlliance").val();
 	saveData.Build['championPoints'] = "" + inputValues.CP.TotalPoints;
-	
+		
 	saveData.Stats['EffectiveLevel'] = "" + inputValues.EffectiveLevel;
 	saveData.Stats['Level'] = "" + inputValues.Level;
 	saveData.Stats['Race'] = inputValues.Race;
@@ -8882,6 +8882,8 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 	saveData.Stats['Mundus2'] = inputValues.Mundus.Name2;
 	
 	saveData.Stats['SkillPointsTotal'] = g_EsoSkillPointsUsed;
+	
+	saveData.Stats['UseZeroBaseCrit'] = 1;
 	
 	return saveData;
 }
@@ -8960,8 +8962,8 @@ function CreateEsoBuildComputedSaveData(saveData, inputValues, barIndex)
 	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", prefix + "CriticalStrike", null, "critical");
 	
 	AddEsoBuildComputedStatToSaveData(saveData, "SpellCrit", prefix + "SpellCritPercent");
-	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", prefix + "WeaponCritPerecent");
-	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", prefix + "WeaponCritPerecent");
+	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", prefix + "WeaponCritPercent");
+	AddEsoBuildComputedStatToSaveData(saveData, "WeaponCrit", prefix + "WeaponCritPercent");
 	
 	AddEsoBuildComputedStatToSaveData(saveData, "SpellResist", prefix + "SpellResist");
 	AddEsoBuildComputedStatToSaveData(saveData, "PhysicalResist", prefix + "PhysicalResist");
@@ -8997,9 +8999,13 @@ function AddEsoBuildComputedStatToSaveData(saveData, name, outName, addComputed,
 	var value = statData.value;
 	
 	if (type == "critical")
-		value = ConvertEsoPercentCritToFlat(value - 0.1);
-	else if (statData.display == "%" || type == "%") 
+	{
+		value = ConvertEsoPercentCritToFlat(value);
+	}
+	else if (statData.display == "%" || type == "%")
+	{
 		value = Math.round(value * 1000)/10;
+	}
 	
 	if (outName == null) outName = name;
 	var statId = outName;

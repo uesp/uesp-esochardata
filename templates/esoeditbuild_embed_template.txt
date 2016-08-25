@@ -318,6 +318,12 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>25 August 2016</b>
+			<ul>
+				<li>Fixed the base spell/weapon critical values for builds saved in-game. Note that builds saved between update 11 release and now will have +10% more critical
+				displayed until re-saved.</li>
+			</ul>
+			<p>
 			<b>11 August 2016</b>
 			<ul>
 				<li>Fixed the Argonian racial health passive from being doubly counted.</li>
