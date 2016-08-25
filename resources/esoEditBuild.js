@@ -1280,7 +1280,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "StaminaRegen",
 		display: "%",
-		match: /and Stamina Recovery by ([0-9]+\.?[0-9]*)%\./i,
+		match: /% and Stamina Recovery by ([0-9]+\.?[0-9]*)%\./i,
 	},
 	{
 		category: "Skill2",
