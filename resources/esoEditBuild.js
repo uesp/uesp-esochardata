@@ -577,7 +577,7 @@ g_EsoBuildBuffData =
 			visible : false,
 			toggleVisible : true,
 			displays : [ "", "", "%", "%", "%", "%" ],
-			categories : [ "Buff", "Buff", "Buff", "Buff", "Buff", "Skill" ],
+			categories : [ "Skill", "Skill", "Buff", "Buff", "Buff", "Skill" ],
 			values : [ 9966, 9966, 0.30, 0.15, 0.10, 0.25 ],
 			statIds : [ "SpellResist", "PhysicalResist", "Stamina", "StaminaRegen", "SprintSpeed", "PoisonDamageTaken" ],
 			icon: "/esoui/art/icons/ability_werewolf_001.png",
