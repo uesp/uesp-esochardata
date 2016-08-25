@@ -2052,7 +2052,7 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"compute" => array(
 							"450 + 75*EffectiveLevel",
-							"1 - CP.BreakFreeCost",
+							"1 + CP.BreakFreeCost",
 							"*",
 							"1",
 							"Skill.BreakFreeCost",
