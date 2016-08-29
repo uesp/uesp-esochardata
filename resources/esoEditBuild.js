@@ -2300,10 +2300,6 @@ ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		statId: "WeaponDamage",
-		match: /Increase Weapon Damage by ([0-9]+)/i,
-	},
-	{
-		statId: "WeaponDamage",
 		match: /Adds ([0-9]+) Weapon Damage/i,
 	},
 	{
@@ -3087,7 +3083,7 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Your melee attacks have an [0-9]+\.?[0-9]*% chance to increase Weapon Damage by ([0-9]+) for [0-9]+ seconds/i,
 	},	
 	{
-		id: "Ravager",
+		id: "Reactive Armor",
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
