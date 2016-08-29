@@ -2656,8 +2656,8 @@ ESO_SETEFFECT_MATCHES = [
 		statRequireId: "WeaponDestStaff",
 		statRequireValue: 1,
 		statId: "Magicka",
-		display: "%",
-		match: /Increase Maximum Magicka by ([0-9]+\.?[0-9]*)% while you have a destruction staff equipped/i,
+		category: "Set",
+		match: /Increase Maximum Magicka by ([0-9]+) while you have a destruction staff equipped/i,
 	},
 	{
 		statId: "SnareDuration",
