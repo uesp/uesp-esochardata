@@ -2834,7 +2834,7 @@ ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		id: "Clever Alchemist",
-		setBonusCount: 4,
+		setBonusCount: 5,
 		toggle: true,
 		enabled: false,
 		statId: "SpellDamage",
@@ -2842,7 +2842,7 @@ ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		id: "Clever Alchemist",
-		setBonusCount: 4,
+		setBonusCount: 5,
 		toggle: true,
 		enabled: false,
 		statId: "WeaponDamage",
@@ -3393,6 +3393,17 @@ ESO_ENCHANT_ARMOR_MATCHES = [
 ];
 
 
+ESO_ENCHANT_OTHERHAND_WEAPON_MATCHES = 
+[
+	{
+		statId: "OtherEffects",
+		match: /Increase your Weapon Damage and Spell Damage by ([0-9]+) for [0-9]+ seconds/i,
+		buffId : "Weapon Damage Enchantment",
+		updateBuffValue : true,
+	},
+];
+
+
 ESO_ENCHANT_WEAPON_MATCHES = [
 	{
 		statId: "SpellDamage",
@@ -3710,6 +3721,9 @@ function GetEsoInputValues(mergeComputedStats)
 		GetEsoInputItemValues(inputValues, "MainHand1");
 		GetEsoInputItemValues(inputValues, "OffHand1");
 		GetEsoInputItemValues(inputValues, "Poison1");
+		
+		GetEsoInputOtherHandItemValues(inputValues, "MainHand2");
+		GetEsoInputOtherHandItemValues(inputValues, "OffHand2");
 	}
 	else
 	{
@@ -3719,6 +3733,9 @@ function GetEsoInputValues(mergeComputedStats)
 		GetEsoInputItemValues(inputValues, "MainHand2");
 		GetEsoInputItemValues(inputValues, "OffHand2");
 		GetEsoInputItemValues(inputValues, "Poison2");
+		
+		GetEsoInputOtherHandItemValues(inputValues, "MainHand1");
+		GetEsoInputOtherHandItemValues(inputValues, "OffHand1");
 	}
 	
 	inputValues.ArmorTypes = 0;
@@ -3897,7 +3914,7 @@ function GetEsoInputSetDataValues(inputValues, setData)
 	for (var i = 0; i < 5; ++i)
 	{
 		var setBonusCount = parseInt(setData.items[0]['setBonusCount' + (i+1)]);
-		if (setBonusCount > setData.count) continue;
+		if (setBonusCount > setData.count && setBonusCount > setData.otherCount) continue;
 		
 		var setDesc = setData.averageDesc[i];
 		
@@ -4364,6 +4381,43 @@ function AddEsoItemRawOutputData(itemData, statId, data)
 }
 
 
+function GetEsoInputOtherHandItemValues(inputValues, slotId)
+{
+	var itemData = g_EsoBuildItemData[slotId];
+	if (itemData == null || itemData.itemId == null || itemData.itemId == "") return false;
+	if (itemData.enabled === false) return false;
+	
+	itemData.rawOutput = {};
+	
+	var enchantData = GetEsoEnchantData(slotId);
+	if (enchantData == null) return false;
+	if (enchantData.enchantDesc == "") return true;
+	
+	var enchantFactor = 1;
+	
+		// Infused
+	if (itemData.trait == 16 || itemData.trait == 4)
+	{
+		var rawDesc = RemoveEsoDescriptionFormats(itemData.traitDesc);
+		var results = rawDesc.match(/by ([0-9]+\.?[0-9]*\%?)/);
+		
+		if (results != null && results.length !== 0) 
+		{
+			var infusedFactor = 1 + parseFloat(results[1])/100;
+			if (isNaN(infusedFactor) || infusedFactor < 1) infusedFactor = 1;
+			enchantFactor = enchantFactor * infusedFactor;
+		}
+	}
+	
+	if (IsEsoItemWeapon(itemData))
+	{
+		GetEsoInputItemEnchantOtherHandWeaponValues(inputValues, slotId, itemData, enchantData, enchantFactor);
+	}
+
+	return true;
+}
+
+
 function GetEsoInputItemValues(inputValues, slotId)
 {
 	var itemData = g_EsoBuildItemData[slotId];
@@ -4820,14 +4874,68 @@ function GetEsoInputItemEnchantWeaponValues(inputValues, slotId, itemData, encha
 }
 
 
+function GetEsoInputItemEnchantOtherHandWeaponValues(inputValues, slotId, itemData, enchantData, enchantFactor)
+{
+	var rawDesc = RemoveEsoDescriptionFormats(enchantData.enchantDesc);
+	var addFinalEffect = false;
+	
+	if (enchantData.isDefaultEnchant) enchantFactor = 1;
+	
+	for (var i = 0; i < ESO_ENCHANT_OTHERHAND_WEAPON_MATCHES.length; ++i)
+	{
+		var matchData = ESO_ENCHANT_OTHERHAND_WEAPON_MATCHES[i];
+		var matches = rawDesc.match(matchData.match);
+		if (matches == null) continue;
+		
+		var modValue = matchData.modValue || 1;
+		
+		if (matchData.statId == "OtherEffects")
+		{
+			rawDesc = rawDesc.replace(matchData.match, function(match, p1, offset, string) { return ReplaceEsoWeaponMatch(match, p1, offset, string, enchantFactor); });
+			addFinalEffect = true;
+			
+			if (matchData.buffId != null && matchData.updateBuffValue === true)
+			{
+				var buffData = g_EsoBuildBuffData[matchData.buffId];
+				
+				if (buffData != null) 
+				{
+					var matches = rawDesc.match(matchData.match);
+					if (matches != null && matches[1] != null) buffData.value = parseFloat(matches[1]);
+					
+					buffData.visible = true;
+				}
+			}
+		}
+		
+	}
+	
+}
+
+
 function UpdateEsoItemSets()
 {
 	g_EsoBuildSetData = {};
 	
 	for (var key in g_EsoBuildItemData)
 	{
-		if (g_EsoBuildActiveWeapon == 1 && (key == "MainHand2" || key == "OffHand2" || key == "Poison2")) continue;
-		if (g_EsoBuildActiveWeapon == 2 && (key == "MainHand1" || key == "OffHand1" || key == "Poison1")) continue;
+		var isOtherHand = false;
+		var isCurrentHand = false;
+		
+		if (key == "MainHand2" || key == "OffHand2" || key == "Poison2")
+		{
+			if (g_EsoBuildActiveWeapon == 1) 
+				isOtherHand = true;
+			else
+				isCurrentHand = true;
+		}
+		else if (key == "MainHand1" || key == "OffHand1" || key == "Poison1")
+		{
+			if (g_EsoBuildActiveWeapon == 2) 
+				isOtherHand = true;
+			else
+				isCurrentHand = true;
+		}
 		
 		var itemData = g_EsoBuildItemData[key];
 		var setName = itemData.setName;
@@ -4840,14 +4948,24 @@ function UpdateEsoItemSets()
 			g_EsoBuildSetData[setName] = {
 					name: setName,
 					count: 0,
+					otherCount: 0,
 					items: [],
 			};
 		}
 		
-		++g_EsoBuildSetData[setName].count;
-		g_EsoBuildSetData[setName].items.push(itemData);
-		AddEsoItemRawOutput(itemData, "Set." + setName, 1);
-		AddEsoInputStatSource("Set." + setName, { set: setName, item: itemData });
+		if (isOtherHand)
+		{
+			++g_EsoBuildSetData[setName].otherCount;
+		}
+		else
+		{
+			if (!isCurrentHand) ++g_EsoBuildSetData[setName].otherCount;
+			++g_EsoBuildSetData[setName].count;
+			
+			g_EsoBuildSetData[setName].items.push(itemData);
+			AddEsoItemRawOutput(itemData, "Set." + setName, 1);
+			AddEsoInputStatSource("Set." + setName, { set: setName, item: itemData });
+		}
 	}
 	
 	ComputeEsoBuildAllSetData();
@@ -7049,12 +7167,14 @@ function GetEsoBuildSetInfoHtml()
 		var setData = g_EsoBuildSetData[setName];
 		
 		var wornItems = setData.count;
-		if (wornItems <= 0) continue;
+		var otherWornItems = setData.otherCount;
+		if (wornItems <= 0 && otherWornItems <= 0) continue;
 		
 		output += "<div class='esotbSetInfoSet'>";
 		output += "<h4>" + setName + "</h4>";
 		
 		output += "<div class='esotbSetInfoRow'>Worn Set Items = " + wornItems + "</div>";
+		output += "<div class='esotbSetInfoRow'>Unequipped Weapon Bar Set Items = " + otherWornItems + "</div>";
 		
 		for (var name in setData.rawOutput)
 		{
@@ -7155,6 +7275,7 @@ function CreateEsoBuildToggledSetData()
 		g_EsoBuildToggledSetData[id].statIds.push(setEffectData.statId);
 		g_EsoBuildToggledSetData[id].maxTimes = setEffectData.maxTimes;
 		g_EsoBuildToggledSetData[id].count = 0;		
+		g_EsoBuildToggledSetData[id].otherCount = 0;
 		
 		if (setEffectData.setId != null) g_EsoBuildToggledSetData[id].setId = setEffectData.setId;
 				
@@ -7392,7 +7513,7 @@ function UpdateEsoBuildToggledSetData()
 		
 		if (setDesc == null || setCount == null) continue;
 		toggleData.desc = setDesc;
-		if (setCount > setData.count) continue;
+		if (setCount > setData.count && setCount > setData.otherCount) continue;
 		
 		SetEsoBuildToggledSetValid(setId, true);
 		
