@@ -322,6 +322,8 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<ul>
 				<li>Fixed the Ravager set 5 piece bonus from being applied all the time.</li>
 				<li>Fixed the Destruction Mastery 5 piece bonus.</li>
+				<li>Fixed the Clever Alchemist 5 piece set toggled label.</li>
+				<li>Toggles for set and enchantment buffs now consider the unequipped weapons to determine which buffs to display or hide.</li> 
 			</ul>
 			<p>
 			<b>25 August 2016</b>
