@@ -214,6 +214,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		$charData .= "\n";
 		$charData .= "uespCharData.IPAddress = '" . $_SERVER["REMOTE_ADDR"] . "'\n";
 		$charData .= "uespCharData.UploadTimestamp = " . time() . "\n";
+		$charData .= "uespCharData.UseZeroBaseCrit = 1\n";
 	
 		return $charData;
 	}

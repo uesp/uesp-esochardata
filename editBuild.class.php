@@ -2480,7 +2480,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + CP.HAStaffDamage + CP.ShockDamageDone",
 							"*",
-							"1 + Skill.HADamage + Skill.ColdDamageDone + Buff.Empower",
+							"1 + Skill.HADamage + Skill.ShockDamageDone + Buff.Empower",
 							"*",
 					),
 			),
