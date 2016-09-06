@@ -376,6 +376,7 @@ class EsoCharDataSubmitter
 		$data['IPAddress'] = $_SERVER["REMOTE_ADDR"];
 		$data['UploadTimestamp'] = time();
 		$data['WikiUser'] = $this->wikiUserName;
+		$data['UseZeroBaseCrit'] = 1;
 		
 		if (!$this->parseBuildData->doParse($data)) 
 		{
@@ -394,6 +395,7 @@ class EsoCharDataSubmitter
 		$data['IPAddress'] = $_SERVER["REMOTE_ADDR"];
 		$data['UploadTimestamp'] = time();
 		$data['WikiUser'] = $this->wikiUserName;
+		$data['UseZeroBaseCrit'] = 1;
 	
 		if (!$this->parseCharData->doParse($data))
 		{

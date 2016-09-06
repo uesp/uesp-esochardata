@@ -412,7 +412,7 @@ class EsoBuildDataParser
 		$buildData .= "\n";
 		$buildData .= "uespBuildData.IPAddress = '" . $_SERVER["REMOTE_ADDR"] . "'\n";
 		$buildData .= "uespBuildData.UploadTimestamp = " . time() . "\n";
-		$buildData .= "UseZeroBaseCrit = 1\n";
+		$buildData .= "uespBuildData.UseZeroBaseCrit = 1\n";
 		
 		return $buildData;
 	}

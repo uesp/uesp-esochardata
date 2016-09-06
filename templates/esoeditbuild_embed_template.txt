@@ -318,6 +318,11 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>6 September 2016</b>
+			<ul>
+				<li>Re-fixed spell/weapon critical values being 10% higher than they should be in characters saved from the game with uespLog.</li>
+			</ul>
+			<p>
 			<b>29 August 2016</b>
 			<ul>
 				<li>Fixed the Ravager set 5 piece bonus from being applied all the time.</li>
