@@ -381,6 +381,8 @@ EOT;
 	
 		foreach ($this->buildData as $buildData)
 		{
+			if (!$this->doesBuildMatchFilter($buildData)) continue;
+			
 			$this->outputHtml .= $this->getBuildTableItemHtml($buildData);
 		}
 	
@@ -407,8 +409,11 @@ EOT;
 		$special = $this->escape($this->getFieldStr($buildData, 'special'));
 	
 		if ($buildName == "") $buildName = $charName;
+		
+		$rowClass = "ecdBuildRowHover";
+		if ($this->doesOwnBuild($buildData)) $rowClass .= " ecdBuildOwned";
 	
-		$output .= "<tr>\n";
+		$output .= "<tr class='$rowClass'>\n";
 		$output .= "<td class='ecdBuildTableName'><a href=\"$linkUrl\">$charName</a></td>";
 		$output .= "<td>$className</td>";
 		$output .= "<td>$raceName</td>";
@@ -497,32 +502,44 @@ EOT;
 	
 	public function getBreadcrumbTrailHtml()
 	{
+		$canViewMyChars = $this->wikiContext != null;
+		$baseLink = $this->getBuildLink();
+		$myLink = $baseLink . "?filter=mine";
+		
 		$output = "<div id='ecdTrail'>";
 	
 		if ($this->characterId > 0)
 		{
-			$baseLink = $this->getBuildLink();
 			$charLink = $this->getCharacterLink($this->characterId);
 				
 			if ($this->viewRawData)
 			{
 				$output .= "<a href='$baseLink'>&laquo; View All Characters</a> : ";
+				if ($canViewMyChars) $output .= " : <a href='$myLink'>View My Characters</a>";
 				$output .= "<a href='$charLink'>View Normal Character</a>";
 			}
 			else
 			{
 				$output .= "<a href='$baseLink'>&laquo; View All Characters</a>";
+				if ($canViewMyChars) $output .= " : <a href='$myLink'>View My Characters</a>";
 			}
 			
 			$output .= " : Account Characters ";
 			$output .= $this->getAccountCharacterListHtml();
 		}
+		else if ($this->viewMyBuilds && $canViewMyChars)
+		{
+			$output .= "<a href='$baseLink'>&laquo; View All Characters</a>";
+			$output .= " : Viewing My Characters";
+			$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
+			$output .= "<a href='http://esochars.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
+		}
 		else
 		{
 			$output .= "Viewing all characters. ";
+			if ($canViewMyChars) $output .= " : <a href='$myLink'>View My Characters</a>";
 			$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
 			$output .= "<a href='http://esochars.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
-			
 		}
 	
 		$output .= "</div>";
