@@ -307,11 +307,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<h3>Known Bugs</h3>
 			<hr>
 			<ul>
-				<li>Live In-Game Issue: The Templar passive Restoring Spirit does not stack correctly with other Magicka/Stamina cost reducing abilities. This results in tooltip costs being 1-2% higher than they should be.</li>
 				<li>Live In-Game Issue: The Undaunted Mettle passive sometimes breaks resulting with incorrect stats. Logging out and back in fixes it temporarily.</li>
-				<li>Live In-Game Issue: The Nightblade passive Dark Shades III doesn't trigger the Dark Vigor passive (+3% Health when slotted).
-				<li>Live In-Game Issue: The Templar skill Radiant Destruction and morphs do not update their tooltip based on +Magic/DoT damage buffs from CP or skills.</li>
-				<li>Live In-Game Issue: The Templar passive Burning Light tooltip is not correct for Magicka based characters.</li>
 				<li>Empower may affect the tooltip of more skills than it actually does in-game.</li>
 				<li>Do a forced reload of the page in your browser to ensure you have the latest JavaScript files.</li>
 			</ul>
