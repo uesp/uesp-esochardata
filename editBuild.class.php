@@ -1276,6 +1276,9 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),			
 			
+			"Set.EnchantPotency" => array(
+					"display" => "%",
+			),
 			
 	);
 	

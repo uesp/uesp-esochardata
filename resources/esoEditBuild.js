@@ -3747,6 +3747,24 @@ function GetEsoInputValues(mergeComputedStats)
 	UpdateEsoItemSets();
 	GetEsoInputSetValues(inputValues);
 	
+		/* Update weapon enchantments */
+	if (g_EsoBuildActiveWeapon == 1)
+	{
+		GetEsoInputItemEnchantValues(inputValues, "MainHand1", true);
+		GetEsoInputItemEnchantValues(inputValues, "OffHand1", true);
+		
+		 UpdateEsoBuildWeaponEnchantFactor("MainHand1", inputValues);
+		 UpdateEsoBuildWeaponEnchantFactor("OffHand1", inputValues);
+	}
+	else
+	{
+		GetEsoInputItemEnchantValues(inputValues, "MainHand2", true);
+		GetEsoInputItemEnchantValues(inputValues, "OffHand2", true);
+		
+		UpdateEsoBuildWeaponEnchantFactor("MainHand2", inputValues);
+		UpdateEsoBuildWeaponEnchantFactor("OffHand2", inputValues);
+	}
+	
 	GetEsoInputMundusValues(inputValues);
 	GetEsoInputCPValues(inputValues);
 	GetEsoInputTargetValues(inputValues);
@@ -4736,7 +4754,7 @@ function IsEsoItemWeapon(itemData)
 }
 
 
-function GetEsoInputItemEnchantValues(inputValues, slotId)
+function GetEsoInputItemEnchantValues(inputValues, slotId, doWeaponUpdate)
 {
 	var itemData = g_EsoBuildItemData[slotId];
 	if (itemData == null || itemData.itemId == null || itemData.itemId == "") return false;
@@ -4766,7 +4784,7 @@ function GetEsoInputItemEnchantValues(inputValues, slotId)
 		enchantFactor = enchantFactor * 0.4044;
 	}
 	
-	if (IsEsoItemWeapon(itemData))
+	if (IsEsoItemWeapon(itemData) && doWeaponUpdate === true)
 	{
 		GetEsoInputItemEnchantWeaponValues(inputValues, slotId, itemData, enchantData, enchantFactor);
 	}
@@ -4824,6 +4842,8 @@ function GetEsoInputItemEnchantWeaponValues(inputValues, slotId, itemData, encha
 	
 	if (enchantData.isDefaultEnchant) enchantFactor = 1;
 	
+	if (inputValues.Set.EnchantPotency != null) enchantFactor *= (1 + inputValues.Set.EnchantPotency);
+	
 	for (var i = 0; i < ESO_ENCHANT_WEAPON_MATCHES.length; ++i)
 	{
 		var matchData = ESO_ENCHANT_WEAPON_MATCHES[i];
@@ -4835,7 +4855,6 @@ function GetEsoInputItemEnchantWeaponValues(inputValues, slotId, itemData, encha
 		if (matchData.statId == "")
 		{
 			rawDesc = rawDesc.replace(matchData.match, function(match, p1, offset, string) { return ReplaceEsoWeaponMatch(match, p1, offset, string, enchantFactor); });
-			
 		}
 		else if (matchData.statId == "OtherEffects")
 		{
@@ -5924,6 +5943,7 @@ function UnequipEsoItemSlot(slotId, update)
 	iconElement.attr("intlevel", "");
 	iconElement.attr("inttype", "");
 	iconElement.attr("setcount", "");
+	iconElement.attr("enchantfactor", "");
 		
 	g_EsoBuildItemData[slotId] = {};
 	
@@ -5980,6 +6000,7 @@ function OnEsoSelectItem(itemData, element)
 	iconElement.attr("intlevel", itemData.internalLevel);
 	iconElement.attr("inttype", itemData.internalSubtype);
 	iconElement.attr("setcount", "0");
+	iconElement.attr("enchantfactor", "0");
 	
 	if (itemData.equipType == 6)
 	{
@@ -7787,6 +7808,19 @@ function UpdateEsoBuildItemLinkSetCount(slotId)
 	if (setData.count == null) return;
 	
 	iconElement.attr("setcount", setData.count);
+}
+
+
+function UpdateEsoBuildWeaponEnchantFactor(slotId, inputValues)
+{
+	var itemElement = $(".esotbItem[slotid='" + slotId + "']");
+	var iconElement = itemElement.children(".esotbItemIcon");
+	var itemData = g_EsoBuildItemData[slotId];
+	
+	iconElement.attr("enchantfactor", 0);
+	if (itemData == null || inputValues.Set == null || inputValues.Set.EnchantPotency == null) return;
+	
+	iconElement.attr("enchantfactor", inputValues.Set.EnchantPotency);
 }
 
 
