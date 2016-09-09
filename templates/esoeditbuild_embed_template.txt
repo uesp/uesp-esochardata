@@ -320,6 +320,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<hr>
 			<b>9 September 2016</b>
 			<ul>
+				<li>Updated Willow's Path 5 piece bonus as a multiplicative bonus (tested on PTS so its valid for update 12, unsure about Live at the moment).</li>
 				<li>The 5 piece bonus of the Torug's Pact set should now modify the enchantment values in both the raw data and visible tooltip.</li>
 			</ul>
 			<p>
