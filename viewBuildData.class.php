@@ -720,10 +720,15 @@ class EsoBuildDataViewer
 			{
 				$lastIndex = count($newItemData) - 1;
 				$newItemData[$lastIndex]['qnt'] += intval($item['qnt']);
+				$newItemData[$lastIndex]['characterIds'][] = $item['characterId'];
+				$newItemData[$lastIndex]['characterQnts'][] = intval($item['qnt']);
 			}
 			else
 			{
 				$newItemData[] = $item;
+				$lastIndex = count($newItemData) - 1;
+				$newItemData[$lastIndex]['characterIds'] = array($item['characterId']);
+				$newItemData[$lastIndex]['characterQnts'] = array(intval($item['qnt']));
 			}
 			
 			$lastItemLink = $itemLink;
@@ -851,6 +856,7 @@ class EsoBuildDataViewer
 					'{craftBagContents}' => $this->getCraftBagContentHtml(),
 					'{accountInvContents}' => $this->getAccountInvContentHtml(),
 					'{allInventoryJS}' => $this->getAllInventoryJS(),
+					'{characterNamesJS}' => $this->getCharacterNamesJS(),
 					'{invGold}' => $this->getInventoryGold(),
 					'{bankGold}' => $this->getBankGold(),
 					'{accInvGold}' => $this->getAccountInventoryGold(),
@@ -892,6 +898,22 @@ class EsoBuildDataViewer
 	public function getInventoryTelvar() { return ""; }
 	public function getBankTelvar() { return ""; }
 	public function getAccountInventoryTelvar() { return ""; }
+	
+	
+	public function getCharacterNamesJS()
+	{
+		$charNames = array();
+		
+		$charNames[-1] = "Bank";
+		$charNames[-2] = "Craft Bag";
+		
+		foreach ($this->accountCharacters as $charId => $charData)
+		{
+			$charNames[$charId] = $charData['name'];
+		}
+		
+		return json_encode($charNames);
+	}
 	
 
 	public function getAllInventoryJS()

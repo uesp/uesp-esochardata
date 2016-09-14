@@ -1395,3 +1395,40 @@ thead.ecdFixedHeader tr {
 	cursor: pointer;
 	background-color: #999;
 }
+
+.ecdItemOwnerWindow {
+	position: absolute;
+	width: 200px;
+	background-color: black;
+	border: solid 2px gray;
+	color: white;
+	z-index: 100;
+	padding: 5px;
+    font-size: 13px;
+}
+
+.ecdItemOwnerTitle {
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	color: #ffff99;
+}
+
+.ecdItemDataQnt {
+	width: 50px;
+	text-align: center;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.ecdItemDataName {
+	display: inline-block;
+	text-align: left;
+	width: 130px;
+	overflow: hidden;
+	vertical-align: top;
+}
+
+.ecdItemOwnerData {
+	
+}
