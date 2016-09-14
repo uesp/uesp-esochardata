@@ -378,6 +378,77 @@ function OnBuildActionBar3Click(e)
 }
 
 
+var ecdItemOwnerWindow = null;
+
+
+function CreateItemOwnerWindow()
+{
+	if (ecdItemOwnerWindow != null) return;
+	
+	ecdItemOwnerWindow = $("<div/>")
+							.addClass("ecdItemOwnerWindow")
+							.attr('id', 'ecdItemOwnerWindow')
+							.hide()
+							.appendTo("body");
+	
+	ecdItemOwnerWindow.html("<div class='ecdItemOwnerTitle'>Characters With Item</div><hr><div id='ecdItemOwnerData' class='ecdItemOwnerData'></div>");
+}
+
+
+function CreateItemOwnerHtml(itemData)
+{
+	var output = "";
+	
+	for (var i = 0; i < itemData.characterIds.length; ++i)
+	{
+		var qnt = itemData.characterQnts[i];
+		var charId = itemData.characterIds[i];
+		
+		var name = ecdCharacterNames[charId];
+		if (name == null) name = "" + charId;
+		
+		output += "<div class='ecdItemDataQnt'>" + qnt + "</div>";
+		output += "<div class='ecdItemDataName'>" + name + "</div>";
+		output += "<br/>\n";
+	}	
+	
+	return output;
+}
+
+
+function ShowItemOwnerWindow(element, itemData)
+{
+	CreateItemOwnerWindow();
+	
+	ecdItemOwnerWindow.find('#ecdItemOwnerData').html(CreateItemOwnerHtml(itemData));
+	ecdItemOwnerWindow.show();
+	
+	var top = element.offset().top + 30;
+    var left = element.offset().left + 100;
+    
+    ecdItemOwnerWindow.offset({ top: top, left: left });
+}
+
+
+function OnItemRowClick(e)
+{
+	
+	var localId = $(this).attr("localid");
+	if (localId == null) return;
+	
+	var itemData = ecdAllInventory[localId];
+	if (itemData == null) return;
+	
+	ShowItemOwnerWindow($(this), itemData);
+}
+
+
+function OnItemRowLeave(e)
+{
+	if (ecdItemOwnerWindow) ecdItemOwnerWindow.hide();
+}
+
+
 function onDocReady() 
 {  
 	$(".ecdTooltipTrigger").hover(onTooltipHoverShow, onTooltipHoverHide, onTooltipMouseMove);
@@ -433,6 +504,10 @@ function onDocReady()
 	$(".ecdActionBar1").click(OnBuildActionBar1Click);
 	$(".ecdActionBar2").click(OnBuildActionBar2Click);
 	$(".ecdActionBar3").click(OnBuildActionBar3Click);
+	
+	$(".ecdScrollContent tr").click(OnItemRowClick);
+	
+	$(".ecdScrollContent tr").mouseleave(OnItemRowLeave);
 }
 
 

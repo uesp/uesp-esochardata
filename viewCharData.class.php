@@ -337,9 +337,42 @@ EOT;
 		{
 			$newItemData[$item['localId']] = $item;
 		}
+		
+		//$this->FindCharacterNamesForItems($newItemData);
 	
 		$output = json_encode($newItemData);
 		return $output;
+	}
+	
+	
+	public function GetCharacterName($charId)
+	{
+		$characterData = $this->accountCharacters[$charId];
+		
+		if ($charId == -1)
+			return "Bank";
+		else if ($charId == -2)
+			return "Craft Bag";
+		else if ($characterData != null)
+			return $characterData['name'];
+		
+		return "ID #" . $charId;
+	}
+	
+		
+	public function FindCharacterNamesForItems(&$itemData)
+	{
+		foreach ($itemData as $id => $item)
+		{
+			$itemData[$id]['characterName'] = $this->GetCharacterName($item['characterId']);
+			$itemData[$id]['characterNames'] = array();
+			
+			foreach ($item['characterIds'] as $charId)
+			{
+				$itemData[$id]['characterNames'][] = $this->GetCharacterName($charId);
+			}
+		}
+		
 	}
 		
 		
