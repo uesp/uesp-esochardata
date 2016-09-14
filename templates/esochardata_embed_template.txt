@@ -29,7 +29,8 @@
 			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdSkillsButton' onclick="OnEsoRightTitleClick('Skills');">SKILLS & CP</div>
 			<div class='ecdSkillTitleButton ecdRightTitleButtonEnabled'  id='ecdInventoryButton' onclick="OnEsoRightTitleClick('Inventory');">INVENTORY</div>
 			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdBankButton' onclick="OnEsoRightTitleClick('Bank');">BANK</div>
-			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdAccountInvButton' onclick="OnEsoRightTitleClick('AccountInv');">ACCOUNT INV</div>
+			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdCraftButton' onclick="OnEsoRightTitleClick('Craft');">CRAFT</div>
+			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdAccountInvButton' onclick="OnEsoRightTitleClick('AccountInv');">ACCOUNT</div>
 		</div>
 		<div id='ecdSkills' class='ecdRightDataArea' style="display: none;">
 			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
@@ -55,6 +56,11 @@
 			<div class='ecdCurrencyAP'></div>
 			<div class='ecdCurrencyGold'>{bankGold} <img src="{baseResourceUrl}resources/goldicon.png" /></div>
 			<div class='ecdCurrencyTelvar'>{bankTelvar} <img src="{baseResourceUrl}resources/telvaricon.png" /></div>
+		</div>
+		<div id='ecdCraft' class='ecdRightDataArea' style="display: none;">
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
+			{craftBagContents}
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 		</div>
 		<div id='ecdAccountInv' class='ecdRightDataArea' style="display: none;">
 			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />

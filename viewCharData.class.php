@@ -18,6 +18,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		
 		$this->hasCharacterInventory = true;
 		$this->hasCharacterBank      = true;
+		$this->hasCharacterCraftBag  = true;
 		$this->hasResearchOutput     = true;
 	}
 	
@@ -287,6 +288,12 @@ EOT;
 	}
 	
 	
+	public function getCraftBagJS()
+	{
+		return $this->getGeneralInventoryJS($this->characterData['craftBag']);
+	}
+	
+	
 	public function getAccountInvJS()
 	{
 		return $this->getGeneralInventoryJS($this->characterData['accountInventory']);
@@ -321,6 +328,11 @@ EOT;
 			$newItemData[$item['localId']] = $item;
 		}
 		
+		foreach ($this->characterData['craftBag'] as $item)
+		{
+			$newItemData[$item['localId']] = $item;
+		}
+		
 		foreach ($this->characterData['accountInventory'] as $item)
 		{
 			$newItemData[$item['localId']] = $item;
@@ -337,6 +349,21 @@ EOT;
 		$output .= $this->getItemHeaderHtml();
 				
 		foreach($this->characterData['bank'] as $key => $item)
+		{
+			$output .= $this->getItemRowHtml($item);
+		}
+		
+		$output .= $this->getItemFooterHtml();
+		return $output;
+	}
+	
+	
+	public function getCraftBagContentHtml()
+	{
+		$output  = $this->getItemFilterHtml();
+		$output .= $this->getItemHeaderHtml();
+				
+		foreach($this->characterData['craftBag'] as $key => $item)
 		{
 			$output .= $this->getItemRowHtml($item);
 		}
