@@ -639,8 +639,8 @@ tr.eso_item_link {
 	font-weight: bold;
 	display: inline-block;
 	padding: 5px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
 	padding-top: 7px;
     cursor: pointer;
 }

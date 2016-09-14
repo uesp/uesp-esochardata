@@ -146,6 +146,7 @@ function OnEsoRightTitleClick(name)
 	$("#ecdSkills").hide();
 	$("#ecdInventory").hide();
 	$("#ecdBank").hide();
+	$("#ecdCraft").hide();
 	$("#ecdAccountInv").hide();
 	
 	$(idName).show();

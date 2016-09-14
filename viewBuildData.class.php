@@ -11,6 +11,7 @@ class EsoBuildDataViewer
 	
 	public $hasCharacterInventory = false;
 	public $hasCharacterBank      = false;
+	public $hasCharacterCraftBag  = false;
 	public $hasResearchOutput     = false;
 	public $combineInventoryItems = true;
 	public $combineBankItems      = true;
@@ -401,6 +402,11 @@ class EsoBuildDataViewer
 			if (!$this->loadCharacterBankData()) return false;
 		}
 		
+		if ($this->hasCharacterCraftBag)
+		{
+			if (!$this->loadCharacterCraftBagData()) return false;
+		}
+		
 		if (!$this->loadCharacterArrayData("buffs")) return false;
 		if (!$this->loadCharacterArrayData("championPoints")) return false;
 		if (!$this->loadCharacterArrayData("skills")) return false;
@@ -450,6 +456,42 @@ class EsoBuildDataViewer
 		if ($this->combineBankItems) $arrayData = $this->combineInventory($arrayData);
 		usort($arrayData, compareInventoryByName);
 		$this->characterData['bank'] = $arrayData;
+		return true;
+	}
+	
+	
+	public function loadCharacterCraftBagData()
+	{
+		$accountName = $this->db->real_escape_string($this->characterData['uniqueAccountName']);
+			
+		$query = "SELECT * FROM inventory WHERE characterId=-2 AND account=\"$accountName\";";
+		$this->lastQuery = $query;
+		$result = $this->db->query($query);
+		if ($result === FALSE) return $this->reportError("Failed to load craft bag data for account $accountName!");
+	
+		$result->data_seek(0);
+		$arrayData = array();
+	
+		while (($row = $result->fetch_assoc()))
+		{
+			if ($row['itemLink'] == "")
+			{
+				/* Skip Data */
+			}
+			else
+			{
+				$row['invType'] = "CraftBag";
+				$row['nameLC'] = strtolower($row['name']);
+				$row['localId'] = $this->nextLocalItemID;
+				++$this->nextLocalItemID;
+	
+				$arrayData[] = $row;
+			}
+		}
+	
+		if ($this->combineBankItems) $arrayData = $this->combineInventory($arrayData);
+		usort($arrayData, compareInventoryByName);
+		$this->characterData['craftBag'] = $arrayData;
 		return true;
 	}
 	
@@ -806,6 +848,7 @@ class EsoBuildDataViewer
 					'{characterLink}' => $this->getShortCharacterLinkHtml(),
 					'{inventoryContents}' => $this->getInventoryContentHtml(),
 					'{bankContents}' => $this->getBankContentHtml(),
+					'{craftBagContents}' => $this->getCraftBagContentHtml(),
 					'{accountInvContents}' => $this->getAccountInvContentHtml(),
 					'{allInventoryJS}' => $this->getAllInventoryJS(),
 					'{invGold}' => $this->getInventoryGold(),
@@ -864,6 +907,12 @@ class EsoBuildDataViewer
 	
 	
 	public function getBankContentHtml()
+	{
+		return "";
+	}
+	
+	
+	public function getCraftBagContentHtml()
 	{
 		return "";
 	}
@@ -2117,6 +2166,7 @@ class EsoBuildDataViewer
 				'actionBars' => 'Action Bars',
 				'screenshots' => 'Screenshots',
 				'bank' => 'Bank',
+				'craft' => 'Craft',
 				'inventory' => 'Inventory',
 				'accountInventory' => 'Account Inventory',
 				'accountEquipSlots' => 'Account Equipment',
