@@ -398,11 +398,22 @@ function CreateItemOwnerWindow()
 function CreateItemOwnerHtml(itemData)
 {
 	var output = "";
+	var summaryData = {};
 	
 	for (var i = 0; i < itemData.characterIds.length; ++i)
 	{
 		var qnt = itemData.characterQnts[i];
 		var charId = itemData.characterIds[i];
+		
+		if (summaryData[charId] == null)
+			summaryData[charId] = qnt;
+		else
+			summaryData[charId] += qnt;
+	}
+	
+	for (var charId in summaryData) 
+	{
+		var qnt = summaryData[charId];
 		
 		var name = ecdCharacterNames[charId];
 		if (name == null) name = "" + charId;
@@ -410,7 +421,7 @@ function CreateItemOwnerHtml(itemData)
 		output += "<div class='ecdItemDataQnt'>" + qnt + "</div>";
 		output += "<div class='ecdItemDataName'>" + name + "</div>";
 		output += "<br/>\n";
-	}	
+	}
 	
 	return output;
 }
