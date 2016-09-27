@@ -38,6 +38,9 @@ class EsoBuildDataEditor
 	
 	public $buildId = null;
 	
+	public $loadSetNames = false;
+	public $setNames = array();
+	
 	public $errorMessages = array();
 	
 	public $initialItemData = array();
@@ -2922,6 +2925,16 @@ class EsoBuildDataEditor
 	{
 		if (array_key_exists('id', $this->inputParams)) $this->buildId = (int) ($this->inputParams['id']);
 		if (array_key_exists('buildid', $this->inputParams)) $this->buildId = (int) ($this->inputParams['buildid']);
+		
+		if (array_key_exists('loadsets', $this->inputParams)) 
+		{
+			$value = $this->inputParams['loadsets'];
+			
+			if ($value == null)
+				$this->loadSetNames = true;
+			else
+				$this->loadSetNames = ($value != 0);
+		}
 	}
 	
 	
@@ -3833,6 +3846,40 @@ class EsoBuildDataEditor
 	}
 	
 	
+	public function LoadSetNamesData()
+	{
+		global $uespEsoLogReadDBHost, $uespEsoLogReadUser, $uespEsoLogReadPW, $uespEsoLogDatabase;
+		
+		$dbLog = new mysqli($uespEsoLogReadDBHost, $uespEsoLogReadUser, $uespEsoLogReadPW, $uespEsoLogDatabase);
+		if ($dbLog->connectError) return $this->ReportError("Could not connect to MySQL uesp_esolog database!");
+		
+		$this->setNames = array();
+		$query = "SELECT setName from uesp_esolog.setSummary;";
+		
+		$result = $dbLog->query($query);
+		if (!$result) return $this->ReportError("Failed to load set name data!");
+		
+		$result->data_seek(0);
+		
+		while (($row = $result->fetch_assoc()))
+		{
+			$this->setNames[] = $row['setName'];
+		}
+		
+		sort($this->setNames);
+		
+		$dbLog->close();
+		return true;
+	}
+	
+	
+	public function GetSetNamesJson()
+	{
+		if ($this->loadSetNames) $this->LoadSetNamesData();
+		return json_encode($this->setNames);
+	}
+	
+	
 	public function CreateOutputHtml()
 	{
 		$replacePairs = array(
@@ -3941,6 +3988,7 @@ class EsoBuildDataEditor
 				'{trail}' => $this->GetBreadcrumbTrailHtml(),
 				'{stealth}' => $this->GetStealthCheckState(),
 				'{cyrodiil}' => $this->GetCyrodiilCheckState(),
+				'{setNamesJson}' => $this->GetSetNamesJson(),
 		);
 		
 		$output = strtr($this->htmlTemplate, $replacePairs);

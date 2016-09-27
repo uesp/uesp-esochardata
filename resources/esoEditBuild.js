@@ -130,6 +130,7 @@ ESO_MUNDUS_BUFF_DATA =
 	},
 };
 
+
 ESOBUILD_SLOTID_TO_EQUIPSLOT = 
 {
 		"Head" : 0,
@@ -148,6 +149,27 @@ ESOBUILD_SLOTID_TO_EQUIPSLOT =
 		"MainHand2" : 20,
 		"OffHand2" : 21,
 		"Poison2" : 14,
+};
+
+
+ESOBUILD_SLOTID_TO_EQUIPTYPE = 
+{
+		"Head" : 1,
+		"Shoulders" : 4,
+		"Chest" : 3,
+		"Hands" : 13,
+		"Waist" : 8,
+		"Legs" : 9,
+		"Feet" : 10,
+		"Neck" : 2,
+		"Ring1" : 12,
+		"Ring2" : 12,
+		"MainHand1" : 14, 	//5,6
+		"OffHand1" : 7,		//5
+		"Poison1" : 15,
+		"MainHand2" : 14,	//5,6
+		"OffHand2" : 7,		//5
+		"Poison2" : 15,
 };
 
 
@@ -6003,6 +6025,16 @@ function OnEsoSelectItem(itemData, element)
 	iconElement.attr("setcount", "0");
 	iconElement.attr("enchantfactor", "0");
 	
+	 UpdateWeaponEquipSlots(itemData, slotId);
+	
+	g_EsoBuildItemData[slotId] = itemData;
+	RequestEsoItemData(itemData, element);
+}
+
+
+function UpdateWeaponEquipSlots(itemData, slotId)
+{
+	
 	if (itemData.equipType == 6)
 	{
 		if (slotId == "MainHand1") UnequipEsoItemSlot("OffHand1", false);
@@ -6021,8 +6053,6 @@ function OnEsoSelectItem(itemData, element)
 		if (g_EsoBuildEnchantData["OffHand2"].type == 20 && itemData.weaponType == 14) UnequipEsoEnchantSlot("OffHand2", false);
 	}
 	
-	g_EsoBuildItemData[slotId] = itemData;
-	RequestEsoItemData(itemData, element);
 }
 
 
@@ -9187,6 +9217,109 @@ function OnEsoBuildCreateCopy(e)
 	
 	RequestEsoBuildCreateCopy();
 	SetEsoBuildSaveResults("Saving new build...");
+}
+
+
+function EsoBuildLog()
+{
+	if (console == null) return;
+	if (console.log == null) return;
+	
+	console.log.apply(console, arguments);
+}
+
+
+var g_EsoBuildLastSetIndex = -1;
+
+
+function EsoBuildEquipSet(setIndex)
+{
+	if (g_EsoBuildSetNames.length <= 0) return EsoBuildLog("Error: No set names currently loaded!");
+	if (setIndex < 0) return EsoBuildLog("Error: Invalid set index!");
+	if (setIndex >= g_EsoBuildSetNames.length) return EsoBuildLog("Error: Set index exceeds maximum of ", g_EsoBuildSetNames.length, "!");
+	
+	g_EsoBuildLastSetIndex = setIndex;
+	var setName = g_EsoBuildSetNames[setIndex];
+	
+	EquipSetItem(setName, "Chest", 66, 5);
+	EquipSetItem(setName, "Waist", 66, 5);
+	EquipSetItem(setName, "Hands", 66, 5);
+	EquipSetItem(setName, "Feet", 66, 5);
+	EquipSetItem(setName, "Legs", 66, 5);
+	EquipSetItem(setName, "Head", 66, 5);
+	EquipSetItem(setName, "Shoulders", 66, 5);
+	EquipSetItem(setName, "MainHand1", 66, 5);
+	EquipSetItem(setName, "OffHand1", 66, 5);
+	EquipSetItem(setName, "Neck", 66, 5);
+	EquipSetItem(setName, "Ring1", 66, 5);
+	EquipSetItem(setName, "Ring2", 66, 5);
+}
+
+
+function EquipSetItem(setName, slotId, level, quality)
+{
+	UnequipEsoItemSlot(slotId, false);
+	
+	var equipSlot = ESOBUILD_SLOTID_TO_EQUIPSLOT[slotId];
+	var equipType = ESOBUILD_SLOTID_TO_EQUIPTYPE[slotId];
+	
+	if (equipSlot == null || equipType == null) return EsoBuildLog("Invalid slotId '" + slotId + "'!");
+	
+	var queryParams = {
+			"equiptype" : equipType,
+			"level" : level,
+			"quality" : quality,
+			"setname" : setName,
+	};
+	
+	$.ajax("http://esolog.uesp.net/getSetItemData.php", {
+			data: queryParams,
+		}).
+		done(function(data, status, xhr) { OnEsoSetItemDataReceive(data, status, xhr, slotId); }).
+		fail(function(xhr, status, errorMsg) { OnEsoSetItemDataError(xhr, status, errorMsg, slotId); });	
+}
+
+
+function OnEsoSetItemDataReceive(data, status, xhr, slotId)
+{
+	//EsoBuildLog("OnEsoSetItemDataReceive", itemData);
+	
+	if (data.minedItem == null || data.minedItem[0] == null) return EsoBuildLog("No item data received for slot '" + slotId + "'!");
+	if (slotId == null || slotId == "") return EsoBuildLog("Invalid slotId '" + slotId + "' received!");
+	
+	var itemData = data.minedItem[0];
+	
+	var element = $("#esotbItem" + slotId);
+	var iconElement = $(element).find(".esotbItemIcon");
+	var labelElement = $(element).find(".esotbItemLabel");
+		
+	var iconName = itemData.icon.replace(".dds", ".png");
+	var iconUrl = ESO_ICON_URL + iconName;
+	var niceName = itemData.name.charAt(0).toUpperCase() + itemData.name.slice(1);
+	
+	if (iconName == "" || iconName == "/") iconUrl = "";
+	
+	iconElement.attr("src", iconUrl);
+	labelElement.text(niceName);
+	
+	iconElement.attr("itemid", itemData.itemId);
+	iconElement.attr("intlevel", itemData.internalLevel);
+	iconElement.attr("inttype", itemData.internalSubtype);
+	iconElement.attr("setcount", "0");
+	iconElement.attr("enchantfactor", "0");
+	
+	UpdateWeaponEquipSlots(itemData, slotId);
+	
+	g_EsoBuildItemData[slotId] = itemData; 
+		
+	GetEsoSetMaxData(g_EsoBuildItemData[slotId]);
+	UpdateEsoComputedStatsList(false);
+}
+
+
+function OnEsoSetItemDataError(xhr, status, errorMsg, slotId)
+{
+	EsoBuildLog("OnEsoSetItemDataError", errorMsg);
 }
 
 
