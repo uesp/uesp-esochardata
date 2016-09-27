@@ -549,6 +549,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 	g_EsoInitialToggleSkillData = {initialToggleSkillDataJson};
 	g_EsoInitialToggleSetData = {initialToggleSetDataJson};
 	g_EsoBuildActiveWeapon = {activeBar};
+	g_EsoBuildSetNames = {setNamesJson};
 </script>
 
 

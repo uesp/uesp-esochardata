@@ -87,7 +87,7 @@ class EsoBuildDataParser
 		global $uespEsoLogReadDBHost, $uespEsoLogReadUser, $uespEsoLogReadPW, $uespEsoLogDatabase;
 	
 		$this->dbLog = new mysqli($uespEsoLogReadDBHost, $uespEsoLogReadUser, $uespEsoLogReadPW, $uespEsoLogDatabase);
-		if ($db->connect_error) return $this->ReportError("Could not connect to mysql database!");
+		if ($this->dbLog->connect_error) return $this->ReportError("Could not connect to mysql database!");
 		
 		return true;
 	}
@@ -101,7 +101,7 @@ class EsoBuildDataParser
 		if ($this->dbReadInitialized || $this->dbWriteInitialized) return true;
 	
 		$this->db = new mysqli($uespEsoBuildDataReadDBHost, $uespEsoBuildDataReadUser, $uespEsoBuildDataReadPW, $uespEsoBuildDataDatabase);
-		if ($db->connect_error) return $this->reportError("Could not connect to mysql database!");
+		if ($this->db->connect_error) return $this->reportError("Could not connect to mysql database!");
 	
 		$this->dbReadInitialized = true;
 		$this->dbWriteInitialized = false;
