@@ -574,9 +574,9 @@ EOT;
 				
 			if ($this->viewRawData)
 			{
-				$output .= "<a href='$baseLink'>&laquo; View All Characters</a> : ";
+				$output .= "<a href='$baseLink'>&laquo; View All Characters</a>";
 				if ($canViewMyChars) $output .= " : <a href='$myLink'>View My Characters</a>";
-				$output .= "<a href='$charLink'>View Normal Character</a>";
+				$output .= " : <a href='$charLink'>View Normal Character</a>";
 			}
 			else
 			{
