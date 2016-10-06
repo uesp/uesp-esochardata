@@ -314,6 +314,11 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>6 October 2016</b>
+			<ul>
+				<li>Skill data has been updated from the One Tamriel release.</li>
+			</ul>
+			<p>
 			<b>9 September 2016</b>
 			<ul>
 				<li>Updated Willow's Path 5 piece bonus as a multiplicative bonus (tested on PTS so its valid for update 12, unsure about Live at the moment).</li>
