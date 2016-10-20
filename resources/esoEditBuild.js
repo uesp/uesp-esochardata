@@ -206,6 +206,7 @@ g_EsoBuildBuffData =
 			value : 0.30,
 			display: "%",
 			statId : "CritDamage",
+			category: "Skill2",
 			icon : "/esoui/art/icons/ability_ava_003_a.png",
 		},
 		"Minor Force" : 
