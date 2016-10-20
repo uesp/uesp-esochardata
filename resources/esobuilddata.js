@@ -471,12 +471,19 @@ function OnItemRowLeave(e)
 }
 
 
+function DoesEsoItemLinkHaveEvent()
+{
+	var events = $._data($(".eso_item_link").get(0), 'events');
+	
+	if (events['mouseover'] != null || events['mouseout'] != null) return true;
+	return false;
+}
+
+
 function onDocReady() 
 {  
 	$(".ecdTooltipTrigger").hover(onTooltipHoverShow, onTooltipHoverHide, onTooltipMouseMove);
 	$(".ecdTooltip").hover(onTooltipHoverHide, onTooltipHoverHide, onTooltipHoverHide);
-	
-	$('.eso_item_link').hover(OnEsoItemLinkEnter, OnEsoItemLinkLeave);
 	
 	$('.ecdSkillTreeName1').click(OnEsoSkillTreeName1Click);
 	$('.ecdSkillTreeName2').click(OnEsoSkillTreeName2Click);
@@ -530,6 +537,8 @@ function onDocReady()
 	$(".ecdScrollContent tr").click(OnItemRowClick);
 	
 	$(".ecdScrollContent tr").mouseleave(OnItemRowLeave);
+	
+	if (!DoesEsoItemLinkHaveEvent()) $('.eso_item_link').hover(OnEsoItemLinkEnter, OnEsoItemLinkLeave);
 }
 
 

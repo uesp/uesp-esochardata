@@ -843,7 +843,7 @@ class EsoBuildDataParser
 		$safeName = $this->db->real_escape_string($itemName);
 
 		$query  = "INSERT INTO inventory(characterId, account, name, itemLink, qnt, style, stolen, value, quality, level, type, equipType, weaponType, armorType, craftType, icon, consumable, junk, setName) ";
-		$query .= "VALUES($charId, \"$accountName\", \"$safeName\", \"$safeLink\", $qnt, $style, $stolen, $value, $quality, $level, $type, $equipType, $weaponType, $armorType, $craftType, \"$icon\", $consumable, $isJunk, '$setName');";
+		$query .= "VALUES($charId, \"$accountName\", \"$safeName\", \"$safeLink\", $qnt, $style, $stolen, $value, $quality, $level, $type, $equipType, $weaponType, $armorType, $craftType, \"$icon\", $consumable, $isJunk, \"$setName\");";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		if ($result === FALSE) return $this->reportError("Failed to save character inventory slot data!");
@@ -973,7 +973,7 @@ class EsoBuildDataParser
 		$safeName = $this->db->real_escape_string($name);
 		
 		$query  = "INSERT INTO equipSlots(characterId, account, name, itemLink, icon, `condition`, `index`, setCount, style, stolen, value, quality, level, type, equipType, weaponType, armorType, craftType, setName) ";
-		$query .= "VALUES($charId, \"$accountName\", \"$safeName\", \"$itemLink\", \"$icon\", $condition, $index, $setCount, $style, $stolen, $value, $quality, $level, $type, $equipType, $weaponType, $armorType, $craftType, '$setName');";
+		$query .= "VALUES($charId, \"$accountName\", \"$safeName\", \"$itemLink\", \"$icon\", $condition, $index, $setCount, $style, $stolen, $value, $quality, $level, $type, $equipType, $weaponType, $armorType, $craftType, \"$setName\");";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		if ($result === FALSE) return $this->reportError("Failed to save character equip slot data!");
