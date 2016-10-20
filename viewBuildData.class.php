@@ -446,6 +446,7 @@ class EsoBuildDataViewer
 			{
 				$row['invType'] = "Bank";
 				$row['nameLC'] = strtolower($row['name']);
+				$row['setNameLC'] = strtolower($row['setName']);
 				$row['localId'] = $this->nextLocalItemID;
 				++$this->nextLocalItemID;
 				
@@ -482,6 +483,7 @@ class EsoBuildDataViewer
 			{
 				$row['invType'] = "CraftBag";
 				$row['nameLC'] = strtolower($row['name']);
+				$row['setNameLC'] = strtolower($row['setName']);
 				$row['localId'] = $this->nextLocalItemID;
 				++$this->nextLocalItemID;
 	
@@ -537,6 +539,7 @@ class EsoBuildDataViewer
 			{
 				$row['invType'] = "Account";
 				$row['nameLC'] = strtolower($row['name']);
+				$row['setNameLC'] = strtolower($row['setName']);
 				$row['localId'] = $this->nextLocalItemID;
 				++$this->nextLocalItemID;
 				
@@ -578,6 +581,7 @@ class EsoBuildDataViewer
 				$row['consumable'] = 0;
 				$row['invType'] = "AccountEquipSlot";
 				$row['nameLC'] = strtolower($row['name']);
+				$row['setNameLC'] = strtolower($row['setName']);
 				$row['localId'] = $this->nextLocalItemID;
 				++$this->nextLocalItemID;
 				
@@ -673,6 +677,7 @@ class EsoBuildDataViewer
 					$row['invType'] = "Inventory";
 					$row['localId'] = $this->nextLocalItemID;
 					$row['nameLC'] = strtolower($row['name']);
+					$row['setNameLC'] = strtolower($row['setName']);
 					++$this->nextLocalItemID;
 					$arrayData[] = $row;
 				}
@@ -2208,6 +2213,7 @@ class EsoBuildDataViewer
 		if ($colName === 'invType') return false;
 		if ($colName === 'localId') return false;
 		if ($colName === 'nameLC') return false;
+		if ($colName === 'setNameLC') return false;
 				
 		return true;
 	}

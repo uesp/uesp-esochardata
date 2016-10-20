@@ -92,6 +92,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 						style TINYINT NOT NULL,
 						consumable TINYINT NOT NULL,
 						junk TINYINT NOT NULL,
+						setName TINYTEXT NOT NULL,
 						PRIMARY KEY (id),
 						INDEX index_name(name(32)),
 						INDEX index_itemLink(itemLink(64)),

@@ -244,6 +244,17 @@ var ITEM_FILTER_FUNCTIONS = {
 }
 
 
+function MatchFilterString(filterText, item)
+{
+	if (filterText == "") return true;
+	
+	if (item.nameLC.indexOf(filterText) != -1) return true;
+	if (item.setNameLC.indexOf(filterText) != -1) return true;
+	
+	return false;	
+}
+
+
 function DoItemFilter()
 {
 	var filterName = $(".ecdItemFilterContainer.selected").attr('itemfilter').toUpperCase();
@@ -267,7 +278,7 @@ function DoItemFilter()
 				return;
 			}
 			
-			if (filterText != "" && item.nameLC.indexOf(filterText) == -1)
+			if (!MatchFilterString(filterText, item))
 			{
 				$(this).hide();
 				return;

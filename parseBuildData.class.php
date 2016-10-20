@@ -207,6 +207,7 @@ class EsoBuildDataParser
 						craftType TINYINT NOT NULL,
 						stolen TINYINT NOT NULL,
 						style TINYINT NOT NULL,
+						setName TINYTEXT NOT NULL,
 						PRIMARY KEY (id),
 						INDEX index_characterId(characterId),
 						INDEX index_account(account(48))
@@ -797,6 +798,7 @@ class EsoBuildDataParser
 		$consumable = 0;
 		$isJunk = 0;
 		$icon = "";
+		$setName = "";
 		
 		if (strpos($extraData, 'Junk') !== false) 
 		{
@@ -828,6 +830,7 @@ class EsoBuildDataParser
 				$weaponType = $itemData['weaponType'];
 				$armorType = $itemData['armorType'];
 				$craftType = $itemData['craftType'];
+				$setName = $itemData['setName'];
 				
 					//TODO: Consumable column in mined item data is currently wrong a lot of the time
 				//$consumable = $itemData['isConsumable'];
@@ -839,8 +842,8 @@ class EsoBuildDataParser
 		$safeLink = $this->db->real_escape_string($itemLink);
 		$safeName = $this->db->real_escape_string($itemName);
 
-		$query  = "INSERT INTO inventory(characterId, account, name, itemLink, qnt, style, stolen, value, quality, level, type, equipType, weaponType, armorType, craftType, icon, consumable, junk) ";
-		$query .= "VALUES($charId, \"$accountName\", \"$safeName\", \"$safeLink\", $qnt, $style, $stolen, $value, $quality, $level, $type, $equipType, $weaponType, $armorType, $craftType, \"$icon\", $consumable, $isJunk);";
+		$query  = "INSERT INTO inventory(characterId, account, name, itemLink, qnt, style, stolen, value, quality, level, type, equipType, weaponType, armorType, craftType, icon, consumable, junk, setName) ";
+		$query .= "VALUES($charId, \"$accountName\", \"$safeName\", \"$safeLink\", $qnt, $style, $stolen, $value, $quality, $level, $type, $equipType, $weaponType, $armorType, $craftType, \"$icon\", $consumable, $isJunk, '$setName');";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		if ($result === FALSE) return $this->reportError("Failed to save character inventory slot data!");
@@ -941,6 +944,7 @@ class EsoBuildDataParser
 		$weaponType = 0;
 		$craftType = 0;
 		$armorType = 0;
+		$setName = "";
 		
 		$matches = array();
 		$result = preg_match('/\|H(?P<color>[A-Za-z0-9]*)\:item\:(?P<itemId>[0-9]*)\:(?P<subtype>[0-9]*)\:(?P<level>[0-9]*)\:(?P<enchantId>[0-9]*)\:(?P<enchantSubtype>[0-9]*)\:(?P<enchantLevel>[0-9]*)\:(.*?)\:(?P<style>[0-9]*)\:(?P<crafted>[0-9]*)\:(?P<bound>[0-9]*)\:(?P<stolen>[0-9]*)\:(?P<charges>[0-9]*)\:(?P<potionData>[0-9]*)\|h(?P<name>[^|\^]*)(?P<nameCode>.*?)\|h/', $itemLink, $matches);
@@ -962,13 +966,14 @@ class EsoBuildDataParser
 				$weaponType = $itemData['weaponType'];
 				$armorType = $itemData['armorType'];
 				$craftType = $itemData['craftType'];
+				$setName = $itemData['setName'];
 			}
 		}
 		
 		$safeName = $this->db->real_escape_string($name);
 		
-		$query  = "INSERT INTO equipSlots(characterId, account, name, itemLink, icon, `condition`, `index`, setCount, style, stolen, value, quality, level, type, equipType, weaponType, armorType, craftType) ";
-		$query .= "VALUES($charId, \"$accountName\", \"$safeName\", \"$itemLink\", \"$icon\", $condition, $index, $setCount, $style, $stolen, $value, $quality, $level, $type, $equipType, $weaponType, $armorType, $craftType);";
+		$query  = "INSERT INTO equipSlots(characterId, account, name, itemLink, icon, `condition`, `index`, setCount, style, stolen, value, quality, level, type, equipType, weaponType, armorType, craftType, setName) ";
+		$query .= "VALUES($charId, \"$accountName\", \"$safeName\", \"$itemLink\", \"$icon\", $condition, $index, $setCount, $style, $stolen, $value, $quality, $level, $type, $equipType, $weaponType, $armorType, $craftType, '$setName');";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		if ($result === FALSE) return $this->reportError("Failed to save character equip slot data!");
