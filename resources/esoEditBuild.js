@@ -715,7 +715,8 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		match: /While slotted, the amount of damage you can block is increased by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "BlockCost",
+		statId: "BlockCost",		// Defensive posture
+		category: "Skill2",
 		display: "%",
 		factorValue: -1,
 		match: /the cost of blocking is reduced by ([0-9]+\.?[0-9]*)%/i
