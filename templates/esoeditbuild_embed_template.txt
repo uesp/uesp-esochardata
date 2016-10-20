@@ -314,6 +314,11 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>20 October 2016</b>
+			<ul>
+				<li>Fixed Major Force to be a multiplicative effect instead of an additive one.</li>
+			</ul>
+			<p>
 			<b>19 October 2016</b>
 			<ul>
 				<li>Item data has finally been updated from the One Tamriel release (66219 unique items with 86 million different versions).</li>
