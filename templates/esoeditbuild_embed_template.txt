@@ -317,6 +317,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<b>20 October 2016</b>
 			<ul>
 				<li>Fixed Major Force to be a multiplicative effect instead of an additive one.</li>
+				<li>Updated the block cost calculation to the new version used in One Tamriel.</li>
 			</ul>
 			<p>
 			<b>19 October 2016</b>

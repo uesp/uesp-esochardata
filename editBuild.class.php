@@ -1283,6 +1283,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Skill2.BlockCost" => array(
+					"display" => "%",
+			),
+			
 	);
 	
 	
@@ -1999,19 +2003,16 @@ class EsoBuildDataEditor
 			
 			/*
 			 * BlockCost Confirmed
+			 * (Base*CP*Sturdy*Fortress - Enchants)*(Defensive Posture)
 			 */
 			"BlockCost" => array(
 					"title" => "Block Cost",
 					"round" => "floor",
 					"compute" => array(
 							"180 + 30*EffectiveLevel",
-							"Item.BlockCost",
-							"-",
 							"1 - Item.Sturdy",
 							"*",
-							"1",
-							"CP.BlockCost",
-							"+",
+							"1 + CP.BlockCost",
 							"*",
 							"1",
 							"Set.BlockCost",
@@ -2020,6 +2021,10 @@ class EsoBuildDataEditor
 							"+",
 							"Buff.BlockCost",
 							"+",
+							"*",
+							"Item.BlockCost",
+							"+",
+							"1 + Skill2.BlockCost",
 							"*",
 					),
 			),
