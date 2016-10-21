@@ -314,6 +314,11 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>21 October 2016</b>
+			<ul>
+				<li>Fixed the change to CP.CritResist from a percent to flat value.</li>
+			</ul>
+			<p>
 			<b>20 October 2016</b>
 			<ul>
 				<li>Fixed Major Force to be a multiplicative effect instead of an additive one.</li>
