@@ -473,9 +473,11 @@ function OnItemRowLeave(e)
 
 function DoesEsoItemLinkHaveEvent()
 {
-	var events = $._data($(".eso_item_link").get(0), 'events');
+	if (ShowEsoItemLinkPopup != null) return true; 
 	
-	if (events['mouseover'] != null || events['mouseout'] != null) return true;
+	//var events = $._data($(".eso_item_link").get(0), 'events');
+	//if (events['mouseover'] != null || events['mouseout'] != null) return true;
+	
 	return false;
 }
 

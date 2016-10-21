@@ -1287,6 +1287,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Target.CritChance" => array(
+					"display" => "%",
+			),			
+			
 	);
 	
 	
@@ -1661,7 +1665,7 @@ class EsoBuildDataEditor
 			),
 			
 			/*
-			 * CP.CritResist is applied against the target
+			 * CritResist Confirmed
 			 */
 			"CritResist" => array(
 					"title" => "Critical Resistance",
@@ -1674,8 +1678,6 @@ class EsoBuildDataEditor
 							"Skill.CritResist",
 							"+",
 							"CP.CritResist",
-							"250/0.035",
-							"*",
 							"+",
 					),
 			),
@@ -2773,12 +2775,12 @@ class EsoBuildDataEditor
 					"compute" => array(
 							"Target.CritChance",
 							"CP.CritResist",
-							"-",
 							"Set.CritResist",
-							"-",
+							"+",
 							"Item.CritResist",
-							"-",
+							"+",
 							"Skill.CritResist",
+							"+",
 							"0.035/250",
 							"*",
 							"-",
