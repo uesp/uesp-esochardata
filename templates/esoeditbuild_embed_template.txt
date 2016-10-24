@@ -314,6 +314,13 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>24 October 2016</b>
+			<ul>
+				<li>Fixed the armor rating of all shields (they were all x1.75 lower than actual due to a parsing error) Some values may be off by 1 compared to live.</li>
+				<li>Fixed support for the Trainee and Worm Cult sets. Some new/updated sets from One Tamriel still need to be checked and fixed.</li>
+				<li>Fixed support for the Witchmother's Potent Brew.</li>
+			</ul>
+			<p>
 			<b>21 October 2016</b>
 			<ul>
 				<li>Fixed the change to CP.CritResist from a percent to flat value.</li>
