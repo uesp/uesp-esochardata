@@ -2287,6 +2287,18 @@ ESO_PASSIVEEFFECT_MATCHES = [
 
 ESO_SETEFFECT_MATCHES = [
 	{
+		statId: "Health",
+		match: /Increases your Max Health, Magicka, and Stamina by ([0-9]+)/i,
+	},
+	{
+		statId: "Magicka",
+		match: /Increases your Max Health, Magicka, and Stamina by ([0-9]+)/i,
+	},
+	{
+		statId: "Stamina",
+		match: /Increases your Max Health, Magicka, and Stamina by ([0-9]+)/i,
+	},
+	{
 		statId: "SpellCrit",
 		match: /Adds ([0-9]+) Spell Critical/i,
 	},
@@ -2413,6 +2425,12 @@ ESO_SETEFFECT_MATCHES = [
 		display: '%',
 		factorValue: -1,
 		match: /Reduce all costs by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "MagickaCost",
+		display: '%',
+		factorValue: -1,
+		match: /Reduces the cost of your Magicka abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "UltimateCost",
@@ -3623,6 +3641,10 @@ ESO_ABILITYDESC_MATCHES = [
 	{
 		statId: "StaminaRegen",
 		match: /Stamina and Magicka Recovery by ([0-9]+)/i,
+	},
+	{
+		statId: "Magicka",
+		match: /Increase Max Magicka and Max Health by ([0-9]+)/i,
 	},
 ];
 
