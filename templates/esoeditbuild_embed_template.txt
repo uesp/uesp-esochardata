@@ -314,11 +314,18 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>25 October 2016</b>
+			<ul>
+				<li>Updated the matching effect data for more than 70 sets from the One Tamriel update. This still leaves a few dozen minor set effects left to implement. 
+					If you notice any omission or errors let us know on the <a href="http://en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor">feedback page</a>.<li>
+			</ul>
+			<p>
 			<b>24 October 2016</b>
 			<ul>
 				<li>Fixed the armor rating of all shields (they were all x1.75 lower than actual due to a parsing error) Some values may be off by 1 compared to live.</li>
 				<li>Fixed support for the Trainee and Worm Cult sets. Some new/updated sets from One Tamriel still need to be checked and fixed.</li>
 				<li>Fixed support for the Witchmother's Potent Brew.</li>
+				<li>Fixed a few minor bugs with the item search.<li>
 			</ul>
 			<p>
 			<b>21 October 2016</b>
