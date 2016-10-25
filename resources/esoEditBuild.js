@@ -19,6 +19,7 @@ g_EsoBuildLastUpdateRequest = 0;
 g_EsoBuildRebuildStatFlag = false;
 g_EsoBuildEnableUpdates = true;
 g_EsoBuildClickWallLinkElement = null;
+g_EsoBuildDumpSetData = "";
 
 g_EsoBuildItemData = {};
 g_EsoBuildEnchantData = {};
@@ -218,7 +219,6 @@ g_EsoBuildBuffData =
 			statId : "CritDamage",
 			icon : "/esoui/art/icons/ability_nightblade_003_a.png",
 		},
-		
 		"Major Mending" : 
 		{
 			enabled: false,
@@ -228,7 +228,15 @@ g_EsoBuildBuffData =
 			statId : "HealingDone",
 			icon : "/esoui/art/icons/ability_templar_cleansing_ritual.png",
 		},
-		// Minor Mending: /esoui/art/icons/ability_templar_extended_ritual.png
+		"Minor Mending" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 0.08,
+			display: "%",
+			statId : "HealingDone",
+			icon : "/esoui/art/icons/ability_templar_extended_ritual.png",
+		},
 		"Major Sorcery" : 
 		{
 			enabled: false,
@@ -1586,6 +1594,12 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Reduces the cost of Ultimate abilities by ([0-9]+\.?[0-9]*)%/i,
 	},	
 	{
+		statId: "UltimateCost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of your Ultimate abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
 		category: "SkillDuration",
 		statId: "Fiery Breath",
 		match: /Increases the duration of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i,
@@ -2286,6 +2300,369 @@ ESO_PASSIVEEFFECT_MATCHES = [
 
 
 ESO_SETEFFECT_MATCHES = [
+                         
+	// Increases the immunity to disabling effects after using Break Free by 3 seconds.
+	// While you have an Armor ability slotted, your Max Health is increased by 5%. When you use an Armor ability, your Physical and Spell Resistance is increased by 5332 for 10 seconds.
+	// When you set an enemy off-balance, your Weapon Damage is increased by 450 for 10 seconds.
+	// When you deal damage, you have a 10% chance to increase your Weapon Damage by 400 for 5 seconds.
+	// Reduces your damage taken from environmental traps by 40%.
+	// Reduces the duration of immobilizations and snares applied to you by 50%.
+	// Reduces your damage taken from Players by 5%.
+	// Reduces your damage taken from Siege Weapons and Player Area of Effect abilities by 20%.
+	// When you take damage, you have a 6% chance to generate 15 Ultimate and increase your Physical and Spell Resistance by 6450 for 6 seconds.
+	// Increases the duration of the dodge chance bonus of Roll Dodge by seconds.
+	// Reduces the duration of all negative effects applied to you by 20%.
+	// While you are blocking, your Physical and Spell Resistance is increased by 4300
+	// Increases the range of your Bow abilities by 3 meters
+	// While you are in combat, you gain a rotating bonus to Flame, Shock, or Frost Damage. The active element changes every 4 seconds. Your attacks dealing damage with the active element gain 358 Spell Damage.
+	// Increases the duration of your Flame Damage abilities by 2 seconds.
+	// Gain Minor Aegis at all times, reducing your damage taken from Dungeon and Trial Monsters by 5%
+	// When an enemy within 28 meters of you dies, you gain Major Berserk for 3 seconds, increasing your damage done by 25%.
+	// While you are blocking you gain Major Evasion, increasing your dodge chance by 20%.
+	// When your target is under 25% Health, add 1800 Weapon Damage to your Light and Heavy Attacks.
+	// Reduces your damage taken from area of effect abilities by 25%, but the damage and healing of your own area of effect abilities is also reduced by 25%.
+	// While you are casting or channeling an ability, your damage taken is reduced by 15%.
+	// increases the damage of your Bow abilities against Players by 8%.
+	// When you cast a Support ability, you increase the Physical and Spell Resistance of up to 4 friendly targets within 10 meters by 3010 for 2 minutes.
+	// When you dodge an attack, your Light and Heavy Attacks deal an additional 1225 damage for 8 seconds.
+	// Ignore the Movement Speed penalty of Sneak.
+	// When you take damage, you have a 6% chance to transform into a skeleton and gain Major Protection and Minor Defile for 12 seconds, reducing your damage taken by 30% but reducing your healing received by 15%. This effect can occur once every 15 seconds.
+	// Reduce the effectiveness of snares applied to you by 50%.
+	// While you are affected by a disabling effect, your damage taken is reduced by 35%.
+	// When you heal a target with a healing over time ability, grant them 1304 Critical Resistance for 20 seconds.
+	// Reduces the duration of all disabling effects applied to you by 20%.
+	// Increases your damage done to Sneaking enemies by 20%.
+	// Gain Minor Heroism at all times while you are in combat
+	// When you cast a Magicka ability you gain Major Evasion for 3 seconds, increasing your dodge chance by 20%.
+	// Reduces your damage taken from Guards by 20%.
+		
+	// Increases your Mounted Movement Speed by 15%.
+	// Reduces the cost of your Werewolf Transformation ability by 33%. While in Werewolf form, your Weapon Damage is increased by 150
+	// When you cast an Assault ability, you increase the Weapon and Spell Damage of up to 4 friendly targets within 10 meters by 164 for 15 seconds.
+	// Increases the damage of your Soul Trap ability by 100%.
+	// When you deal damage with a Magicka ability, your Poison and Disease Damage abilities gain an additional 450 Weapon Damage for 10 seconds.
+	// Adds 400 Weapon and Spell Damage to your Undaunted abilities.
+	// Adds 450 Weapon Damage to your Dual Wield abilities.
+	// Adds 400 Weapon Damage to your Physical Damage abilities.
+	// Adds 450 Weapon Damage to your Two Handed abilities.
+	// Adds 450 Spell Damage to your Destruction Staff abilities.
+	// Adds 450 Spell Damage to your cast time and channeled abilities.
+	// Adds 400 Spell Damage to your Flame Damage abilities.
+	// Adds 400 Spell Damage to your Shock Damage abilities.
+	// Adds 450 Spell Damage to your Restoration Staff abilities.
+	// Adds 400 Spell Damage to your Vampire abilities.
+	// Adds 400 Spell Damage to your Cold Damage abilities.
+	// Adds 200 Weapon Damage to your One Hand and Shield abilities.
+	// Increases the amount of damage you block by 8%.
+	// While you have a drink buff active, your Max Stamina is increased by 2000 and Stamina Recovery by 300
+	// While you have a food buff active, your Max Health is increased by 4000 and Health Recovery by 200
+	// Gain Minor Expedition at all times, increasing your Movement Speed by 10%.
+	// Gain Minor Slayer at all times, increasing your damage done to Dungeon and Trial Monsters by 5%.
+	// Gain Minor Aegis at all times, reducing your damage taken from Dungeon and Trial Monsters by 5%.
+
+	
+	{
+		setBonusCount: 4,
+		statId: "OtherEffects",
+		rawInputMatch: /(Adds [0-9]+ Spell Damage to your Vampire abilities)/i,
+		match: /Adds ([0-9]+) Spell Damage to your Vampire abilities/i,
+	},
+	{
+		setBonusCount: 4,
+		statId: "OtherEffects",
+		rawInputMatch: /(Increases your damage done to Sneaking enemies by [0-9]+%)/i,
+		match: /Increases your damage done to Sneaking enemies by ([0-9]+)%/i,
+	},
+	{
+		setBonusCount: 4,
+		statId: "OtherEffects",
+		rawInputMatch: /(When you kill an enemy, you restore [0-9]+ Stamina and gain Major Expedition for [0-9]+ seconds, increasing your Movement Speed by [0-9]+%)/i,
+		match: /When you kill an enemy, you restore [0-9]+ Stamina andu gain Major Expedition for [0-9]+ seconds, increasing your Movement Speed by ([0-9]+)%/i,
+	},
+	{
+		setBonusCount: 4,
+		statId: "OtherEffects",
+		rawInputMatch: /(When you kill an enemy, you gain Major Expedition for [0-9]+ seconds, increasing your Movement Speed by [0-9]+%)/i,
+		match: /When you kill an enemy, you gain Major Expedition for [0-9]+ seconds, increasing your Movement Speed by ([0-9]+)%/i,
+	},
+	{
+		setBonusCount: 4,
+		statId: "OtherEffects",
+		rawInputMatch: /(While Sprinting, restore [0-9]+ Magicka every [0-9]+ second)/i,
+		match: /While Sprinting, restore ([0-9]+) Magicka every [0-9]+ second/i,
+	},
+	{
+		setBonusCount: 4,
+		statId: "OtherEffects",
+		display: '%',
+		rawInputMatch: /(increases the damage of your Bow abilities against Players by [0-9]+\.?[0-9]*%)/i,
+		match: /increases the damage of your Bow abilities against Players by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		setBonusCount: 4,
+		category: "Skill",
+		statId: "HealthRegen",
+		display: '%',
+		match: /Increases your Health, Magicka, and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		setBonusCount: 4,
+		category: "Skill",
+		statId: "MagickaRegen",
+		display: '%',
+		match: /Increases your Health, Magicka, and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		setBonusCount: 4,
+		category: "Skill",
+		statId: "StaminaRegen",
+		display: '%',
+		match: /Increases your Health, Magicka, and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "BlockMitigation",
+		display: "%",
+		match: /Increases the amount of damage you block by ([0-9]+)%/i,
+	},	 
+	{
+		statId: "Vampire_Cost",
+		category: "SkillCost",
+		factorValue: -1,
+		display: "%",
+		match: /Reduces the cost of your Vampire abilities by ([0-9]+)%/i,
+	},
+	{
+		buffId: "Major Prophecy",
+		match: /Gain Major Prophecy at all times/i,
+	},
+	{
+		buffId: "Major Savagery",
+		match: /Gain Major Savagery at all times/i,
+	},
+	{
+		buffId: "Minor Protection",
+		match: /Gain Minor Protection at all times/i,
+	},
+	{
+		category: "Skill",
+		statId: "SpellDamage",
+		statRequireId: "Stealthed",
+		statRequireValue: 1,
+		display: "%",
+		match: /While you are Sneaking or invisible, your Spell Damage and Max Magicka is increased by ([0-9]+)%/i,
+	},
+	{
+		category: "Skill",
+		statId: "Magicka",
+		statRequireId: "Stealthed",
+		statRequireValue: 1,
+		display: "%",
+		match: /While you are Sneaking or invisible, your Spell Damage and Max Magicka is increased by ([0-9]+)%/i,
+	},
+	{
+		buffId: "Minor Berserk",
+		match: /Gain Minor Berserk at all times/i,
+	},
+	{
+		statId: "BreakFreeCost",
+		factorValue: -1,
+		display: "%",
+		match: /Reduces the cost of Break Free by ([0-9]+)%/i,
+	},
+	{
+		statId: "SneakDetectRange",
+		display: "%",
+		match: /Increases the radius you can detect Sneaking enemies by ([0-9]+)%/i,
+	},
+	{
+		category: "Skill2",
+		statId: "SneakDetectRange",
+		match: /Increases the radius you can detect Sneaking enemies by ([0-9]+) meters/i,
+	},
+	{
+		statId: "HealingReceived",
+		display: "%",
+		match: /Increases your healing received by ([0-9]+)%/i,
+	},
+	{
+		statId: "MagickaCost",
+		factorValue: -1,
+		display: "%",
+		match: /Reduces the cost of all of your abilities by ([0-9]+)%/i,
+	},
+	{
+		statId: "StaminaCost",
+		factorValue: -1,
+		display: "%",
+		match: /Reduces the cost of all of your abilities by ([0-9]+)%/i,
+	},
+	{
+		statId: "UltimateCost",
+		factorValue: -1,
+		display: "%",
+		match: /Reduces the cost of all of your abilities by ([0-9]+)%/i,
+	},
+	{
+		statId: "HealingDone",
+		display: "%",
+		match: /Increases your healing done by ([0-9]+)%/i,
+	},
+	{
+		statId: "StaminaCost",
+		factorValue: -1,
+		display: "%",
+		match: /Reduces the costs of your Stamina abilities by ([0-9]+)%/i,
+	},
+	{
+		statId: "LADamage",
+		display: "%",
+		match: /Increases your Light and Heavy Attack damage by ([0-9]+)%/i,
+	},
+	{
+		statId: "HADamage",
+		display: "%",
+		match: /Increases your Light and Heavy Attack damage by ([0-9]+)%/i,
+	},
+	{
+		statId: "SprintCost",
+		factorValue: -1,
+		display: "%",
+		match: /Reduces the cost of Sprint by ([0-9]+)%/i,
+	},
+	{
+		buffId: "Minor Vitality",
+		match: /Gain Minor Vitality at all times/i,
+	},
+	{
+		statId: "SneakCost",
+		factorValue: -1,
+		display: "%",
+		match: /Reduces the cost of Sneak by ([0-9]+)%/i,
+	},
+	{
+		category: "Skill2",
+		statId: "SneakRange",
+		factorValue: -1,
+		match: /Reduces the radius you can be detected while Sneaking by ([0-9]+) meters/i,
+	},
+	{
+		buffId: "Major Sorcery",
+		match: /Gain Major Sorcery at all times/i,
+	},
+	{
+		buffId: "Major Ward",
+		match: /Gain Major Ward and Major Resolve at all times/i,
+	},
+	{
+		buffId: "Major Resolve",
+		match: /Gain Major Ward and Major Resolve at all times/i,
+	},
+	{
+		buffId: "Minor Force",
+		display: "%",
+		match: /Gain Minor Force at all times, increasing your Critical Damage done by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "StaminaCost",
+		factorValue: -1,
+		display: "%",
+		match: /Reduces the cost of your Stamina abilities by ([0-9]+)%/i,
+	},
+	{
+		statId: "WeaponDamage",
+		match: /Adds ([0-9]+) Weapon Damage$/i,
+	},
+	{
+		statId: "SpellDamage",
+		match: /Adds ([0-9]+) Spell Damage$/i,
+	},
+	{
+		category: "Skill",
+		statId: "StaminaRegen",
+		display: "%",
+		match: /Increases your Stamina Recovery by ([0-9]+)% for you and your group/i,
+	},
+	{
+		statId: "HealingDone",
+		display: "%",
+		match: /Adds ([0-9]+)% Healing Done/i,
+	},
+	{
+		buffId: "Minor Mending",
+		match: /Gain Minor Mending at all times, increasing your healing done by [0-9]+%/i,
+	},
+	{
+		statId: "BowDamageDone",
+		display: "%",
+		match: /Reduces the cost and increases the damage of your Bow abilities by ([0-9]+)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Bow_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost and increases the damage of your Bow abilities by ([0-9]+)%/i,
+	},
+	{
+		category: "Skill",
+		statId: "Magicka",
+		display: "%",
+		match: /Increases your Max Magicka by ([0-9]+)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Restoration_Staff_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of your Restoration Staff abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "Health",
+		match: /Increases your Max Health by ([0-9]+)/i,
+	},
+	{
+		statId: "SprintCost",
+		factorValue: -1,
+		display: '%',
+		match: /Reduces the cost of Sprint and Sneak by ([0-9]+)%/i,
+	},
+	{
+		statId: "SneakCost",
+		factorValue: -1,
+		display: '%',
+		match: /Reduces the cost of Sprint and Sneak by ([0-9]+)%/i,
+	},
+	{
+		statId: "Constitution",
+		display: '%',
+		match: /Increases the Magicka and Stamina restored from the Constitution passive ability by ([0-9]+)%/i,
+	},
+	{
+		statId: "WeaponDamage",
+		match: /Increases your Weapon and Spell Damage by ([0-9]+)/i,
+	},
+	{
+		statId: "SpellDamage",
+		match: /Increases your Weapon and Spell Damage by ([0-9]+)/i,
+	},
+	{
+		statId: "CritDamage",
+		display: "%",
+		match: /Increases your Critical Damage done by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "CritDamage",
+		statRequireId: "Stealthed",
+		statRequireValue: 1,
+		display: "%",
+		match: /Increases your Critical Damage done by an additional ([0-9]+\.?[0-9]*)% when attacking from Sneak or invisibility/i,
+	},
+	{
+		statId: "UltimateCost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of your Ultimate abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
 	{
 		statId: "Health",
 		match: /Increases your Max Health, Magicka, and Stamina by ([0-9]+)/i,
@@ -2327,16 +2704,8 @@ ESO_SETEFFECT_MATCHES = [
 		match: /increases Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
-		statId: "SpellDamage",
-		match: /Adds ([0-9]+) Spell Damage/i,
-	},
-	{
 		statId: "WeaponDamage",
 		match: /increases Weapon and Spell Damage by ([0-9]+)/i,
-	},
-	{
-		statId: "WeaponDamage",
-		match: /Adds ([0-9]+) Weapon Damage/i,
 	},
 	{
 		statId: "HealthRegen",
@@ -2533,6 +2902,11 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Your fully charged Heavy Attacks do an additional ([0-9]+) damage/i,
 	},
 	{
+		category: "Skill2",
+		statId: "HADamage",
+		match: /Increases the damage of your fully-charged Heavy Attacks by ([0-9]+)/i,
+	},
+	{
 		statId: "HADamage",
 		display: '%',
 		category: "Skill",
@@ -2601,6 +2975,12 @@ ESO_SETEFFECT_MATCHES = [
 		match: /decrease time to resurrect an ally by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+		statId: "ResurrectSpeed",
+		display: "%",
+		match: /Decreases the time it takes to resurrect an ally by ([0-9]+\.?[0-9]*)%/i,
+	},
+	
+	{
 		statId: "BossDamageResist",
 		display: '%',
 		match: /you to take ([0-9]+\.?[0-9]*)% less damage from Boss/i,
@@ -2639,20 +3019,20 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Allows you to have two Mundus Stone Boons at the same time/i,
 	},
 	{
+		statId: "TwiceBornStar",
+		match: /You can have two Mundus Stone boons at the same time./i,
+	},	
+	{
 		statId: "SpellResist",
 		factorValue: 0.2309,
 		round: "floor",
-		match: /Mark of the Pariah[\s]*Increase your Physical and Spell Resistance by up to ([0-9]+) based on your missing Health/i,
+		match: /Increases your Physical and Spell Resistance by up to ([0-9]+) based on your missing Health/i,
 	},
 	{
 		statId: "PhysicalResist",
 		factorValue: 0.2309,
 		round: "floor",
-		match: /Mark of the Pariah[\s]*Increase your Physical and Spell Resistance by up to ([0-9]+) based on your missing Health/i,
-	},
-	{
-		statId: "OtherEffects",
-		match: /Mark of the Pariah[\s]*Increase your Physical and Spell Resistance by up to ([0-9]+) based on your missing Health/i,
+		match: /Increases your Physical and Spell Resistance by up to ([0-9]+) based on your missing Health/i,
 	},
 	{
 		statId: "BreakFreeDuration",
@@ -2698,8 +3078,13 @@ ESO_SETEFFECT_MATCHES = [
 		statRequireId: "WeaponDestStaff",
 		statRequireValue: 1,
 		statId: "Magicka",
-		category: "Set",
 		match: /Increase Maximum Magicka by ([0-9]+) while you have a destruction staff equipped/i,
+	},
+	{
+		statRequireId: "WeaponDestStaff",
+		statRequireValue: 1,
+		statId: "Magicka",
+		match: /While you have a Destruction Staff equipped, your Max Magicka is increased by ([0-9]+)/i,
 	},
 	{
 		statId: "SnareDuration",
@@ -2760,6 +3145,12 @@ ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 4,
 		statId: "EnchantCooldown",
 		factorValue: -1,
+		match: /decreases the cooldown on the enchantment's proc by ([0-9]+) second/i,
+	},
+	{
+		setBonusCount: 4,
+		statId: "EnchantCooldown",
+		factorValue: -1,
 		match: /Reduce weapon enchantment's internal cooldown by ([0-9]+) second/i,
 	},
 	{
@@ -2767,6 +3158,12 @@ ESO_SETEFFECT_MATCHES = [
 		statId: "EnchantPotency",
 		display: "%",
 		match: /Increases enchantment potency by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		setBonusCount: 4,			//TODO: Add to item tooltip?
+		statId: "EnchantPotency",
+		display: "%",
+		match: /Increases the potency of your weapon's enchantment by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		setBonusCount: 2,
@@ -2835,12 +3232,12 @@ ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		id: "Berserking Warrior",
-		setBonusCount: 2,
+		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
 		maxTimes: 5,
 		statId: "WeaponCrit",
-		match: /critical strike chance is increased by ([0-9]+) for [0-9]+ seconds\. Stacks five times/i,
+		match: /critical strike rating is increased by ([0-9]+) for [0-9]+ seconds/i,
 	},
 	{
 		id: "Blood Spawn",
@@ -2864,7 +3261,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "WeaponDamage",
-		match: /chance when you deal Critical Damage to create Briarthorns which increases your Weapon Damage by ([0-9]+)/i,
+		match: /When you deal Critical Damage, you have a [0-9]+% chance to increase your Weapon Damage by ([0-9]+)/i,
 	},
 	{
 		id: "Burning Spellweave",
@@ -2872,7 +3269,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "SpellDamage",
-		match: /chance when dealing Flame damage to inflict the burning status effect on enemy and gain ([0-9]+) Spell Damage/i,
+		match: /When you deal damage with a Flame Damage ability, you have a [0-9]+% chance apply the Burning status effect to the enemy and increase your Spell Damage by ([0-9]+)/i,
 	},
 	{
 		id: "Clever Alchemist",
@@ -2880,7 +3277,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "SpellDamage",
-		match: /When you drink a potion you feel a rush of energy, gaining ([0-9]+) Weapon and Spell Damage/i,
+		match: /When you drink a potion you feel a rush of energy, increasing your Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
 		id: "Clever Alchemist",
@@ -2888,7 +3285,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "WeaponDamage",
-		match: /When you drink a potion you feel a rush of energy, gaining ([0-9]+) Weapon and Spell Damage/i,
+		match: /When you drink a potion you feel a rush of energy, increasing your Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
 		id: "Embershield",
@@ -2896,7 +3293,15 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "SpellResist",
-		match: /chance to gain ([0-9]+) Spell Resistance/i,
+		match: /chance to increase your Spell Resistance by ([0-9]+)/i,
+	},
+	{
+		id: "Embershield",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "SpellResist",
+		match: /chance increase your Spell Resistance by ([0-9]+)/i,
 	},
 	{
 		id: "Essence Thief",
@@ -2908,12 +3313,12 @@ ESO_SETEFFECT_MATCHES = [
 		match: /increases your damage by ([0-9]+\.?[0-9]*)% for/i,
 	},
 	{
-		id: "Essence Thief",
+		id: "Flanking Strategist",
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
 		statId: "WeaponDamage",
-		match: /Attacks from behind an enemy gain an additional ([0-9]+) Weapon Damage/i,
+		match: /Adds ([0-9]+) Weapon Damage to your damaging abilities when you use them to attack an enemy from behind/i,
 	},
 	{
 		id: "Imperial Physique",
@@ -2922,7 +3327,7 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "Health",
 		disableSetId: "Imperial Physique +600%",
-		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka and Stamina by ([0-9]+)/i,
+		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka, and Stamina by ([0-9]+)/i,
 	},
 	{
 		id: "Imperial Physique",
@@ -2931,7 +3336,7 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "Magicka",
 		disableSetId: "Imperial Physique +600%",
-		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka and Stamina by ([0-9]+)/i,
+		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka, and Stamina by ([0-9]+)/i,
 	},
 	{
 		id: "Imperial Physique",
@@ -2940,7 +3345,7 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "Stamina",
 		disableSetId: "Imperial Physique +600%",
-		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka and Stamina by ([0-9]+)/i,
+		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka, and Stamina by ([0-9]+)/i,
 	},
 	{
 		id: "Imperial Physique +600%",
@@ -2951,7 +3356,7 @@ ESO_SETEFFECT_MATCHES = [
 		statId: "Health",
 		factorValue: 7,
 		disableSetId: "Imperial Physique",
-		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka and Stamina by ([0-9]+)/i,
+		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka, and Stamina by ([0-9]+)/i,
 	},
 	{
 		id: "Imperial Physique +600%",
@@ -2962,7 +3367,7 @@ ESO_SETEFFECT_MATCHES = [
 		statId: "Magicka",
 		factorValue: 7,
 		disableSetId: "Imperial Physique",
-		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka and Stamina by ([0-9]+)/i,
+		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka, and Stamina by ([0-9]+)/i,
 	},
 	{
 		id: "Imperial Physique +600%",
@@ -2973,7 +3378,7 @@ ESO_SETEFFECT_MATCHES = [
 		statId: "Stamina",
 		factorValue: 7,
 		disableSetId: "Imperial Physique",
-		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka and Stamina by ([0-9]+)/i,
+		match: /you tap into the power of the Tel Var Stones you are carrying, increasing your Health, Magicka, and Stamina by ([0-9]+)/i,
 	},
 	{
 		id: "Jolting Arms",
@@ -2981,7 +3386,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "SpellResist",
-		match: /as well as granting yourself ([0-9]+) Spell Resistance/i,
+		match: /and increase your Spell Resistance by ([0-9]+)/i,
 	},
 	{
 		id: "Light of Cyrodiil",
@@ -2998,7 +3403,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "SpellResist",
-		match: /chance when you take damage to summon a shadow orb that adds ([0-9]+) Physical and Spell Resistance to nearby allies/i,
+		match: /chance to summon a shadow orb for [0-9]+ seconds that increases the Physical and Spell Resistance of you and your allies within [0-9]+ meters by ([0-9]+)/i,
 	},
 	{
 		id: "Lord Warden",
@@ -3006,15 +3411,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "PhysicalResist",
-		match: /chance when you take damage to summon a shadow orb that adds ([0-9]+) Physical and Spell Resistance to nearby allies/i,
-	},
-	{
-		id: "Marksman's Crest",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		statId: "DamageDone",
-		match: /increase the damage of your bow abilities against players by ([0-9]+\.?[0-9]*)%/i,
+		match: /chance to summon a shadow orb for [0-9]+ seconds that increases the Physical and Spell Resistance of you and your allies within [0-9]+ meters by ([0-9]+)/i,
 	},
 	{
 		id: "Molag Kena",
@@ -3023,7 +3420,7 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "MagickaCost",
 		display: "%",
-		match: /triggers Overkill, which increases the cost of all abilities by ([0-9]+\.?[0-9]*)%/i,
+		match: /but also increases the cost of your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		id: "Molag Kena",
@@ -3032,7 +3429,7 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "StaminaCost",
 		display: "%",
-		match: /triggers Overkill, which increases the cost of all abilities by ([0-9]+\.?[0-9]*)%/i,
+		match: /but also increases the cost of your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		id: "Molag Kena",
@@ -3040,7 +3437,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "SpellDamage",
-		match: /and increases Spell and Weapon Damage by ([0-9]+)/i,
+		match: /which increases your Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
 		id: "Molag Kena",
@@ -3048,7 +3445,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "WeaponDamage",
-		match: /and increases Spell and Weapon Damage by ([0-9]+)/i,
+		match: /which increases your Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
 		id: "Moondancer",
@@ -3058,7 +3455,7 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		disableSetId: "Moondancer2",
 		statId: "SpellDamage",
-		match: /When you activate a synergy gain either a shadow blessing that increases Spell Damage by ([0-9]+), or a lunar blessing that increases Magicka Recovery by [0-9]+/i,
+		match: /When you activate a synergy, you gain a shadow blessing that increases your Spell Damage by ([0-9]+) or a lunar blessing that increases your Magicka Recovery by [0-9]+/i,
 	},
 	{
 		id: "Moondancer2",
@@ -3069,16 +3466,15 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "MagickaRegen",
 		disableSetId: "Moondancer",
-		match: /When you activate a synergy gain either a shadow blessing that increases Spell Damage by [0-9]+, or a lunar blessing that increases Magicka Recovery by ([0-9]+)/i,
+		match: /When you activate a synergy, you gain a shadow blessing that increases your Spell Damage by [0-9]+ or a lunar blessing that increases your Magicka Recovery by ([0-9]+)/i,
 	},
 	{
 		id: "Necropotence",
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
-		category: "Set",
 		statId: "Magicka",
-		match: /While you have a pet active your Max Magicka is increased by ([0-9]+\.?[0-9]*)/i,
+		match: /While you have a pet active, your Max Magicka is increased by ([0-9]+)/i,
 	},
 	{
 		id: "Noble Duelist's Silks",
@@ -3106,7 +3502,7 @@ ESO_SETEFFECT_MATCHES = [
 		category: "Skill",
 		statId: "HealthRegen",
 		display: '%',		
-		match: /If below 60% Health, increase Health Recovery by ([0-9]+\.?[0-9]*)%/i,
+		match: /While you are under 60% Health, your Health Recovery is increased by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		id: "Permafrost",
@@ -3114,7 +3510,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "HealthRegen",
-		match: /Gain ([0-9]+\.?[0-9]*) Health Recovery while you have a Damage Shield/i,
+		match: /While you have a damage shield on you, your Health Recovery is increased by ([0-9]+)/i,
 	},
 	{
 		id: "Ravager",
@@ -3122,7 +3518,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "WeaponDamage",
-		match: /Your melee attacks have an [0-9]+\.?[0-9]*% chance to increase Weapon Damage by ([0-9]+) for [0-9]+ seconds/i,
+		match: /When you deal melee damage, you have a [0-9]+\.?[0-9]*% chance to increase your Weapon Damage by ([0-9]+) for [0-9]+ seconds/i,
 	},	
 	{
 		id: "Reactive Armor",
@@ -3131,6 +3527,7 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "DamageTaken",
 		factorValue: -1,
+		display: "%",
 		match: /While affected by Stun, Immobilize, Fear, Knockdown or Disorient effects, damage you take is reduced by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -3139,7 +3536,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "SpellDamage",
-		match: /chance when causing Critical Damage to increase your Spell Damage by ([0-9]+)/i,
+		match: /When you deal direct Critical Damage, you have a [0-9]+% chance to increase your Spell Damage by ([0-9]+)/i,
 	},	
 	{
 		id: "Scourge Harvester",
@@ -3147,7 +3544,8 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "HealingReceived",
-		match: /While beam holds gain ([0-9]+\.?[0-9]*)% increased healing from all sources/i,
+		display: "%",
+		match: /While the beam holds gain ([0-9]+\.?[0-9]*)% increased healing received/i,
 	},
 	{
 		id: "Shroud of the Lich",
@@ -3155,23 +3553,39 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "MagickaRegen",
-		match: /Once per minute, when below [0-9]+\.?[0-9]*% Magicka, gain ([0-9]+) Magicka Recovery/i,
+		match: /When you fall below [0-9]+\.?[0-9]*% Magicka increase your Magicka Recovery by ([0-9]+) /i,
 	},
 	{
-		id: "Skirmisher's Bite",
+		id: "Senche's Bite",
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
 		statId: "WeaponDamage",
-		match: /Using Roll Dodge increases your Weapon Damage by ([0-9]+) and Weapon Critical by [0-9]+/i,
+		match: /When you use Roll Dodge, your Weapon Damage is increased by ([0-9]+) and Weapon Critical rating is increased by [0-9]+/i,
 	},
 	{
-		id: "Skirmisher's Bite",
+		id: "Senche's Bite",
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
 		statId: "WeaponCrit",
-		match: /Using Roll Dodge increases your Weapon Damage by [0-9]+ and Weapon Critical by ([0-9]+)/i,
+		match: /When you use Roll Dodge, your Weapon Damage is increased by [0-9]+ and Weapon Critical rating is increased by ([0-9]+)/i,
+	},
+	{
+		id: "Seventh Legion Brute",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: /When you take damage, you have a [0-9]+% chance to gain ([0-9]+) Weapon Damage/i,
+	},
+	{
+		id: "Sithis' Touch",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		buffId: "Major Berserk",
+		match: /When you use the Blade of Woe, you gain Major Berserk/i,
 	},
 	{
 		id: "Soulshine",
@@ -3180,6 +3594,22 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "SpellDamage",
 		match: /While casting or channeling a spell, your spell power is increased by ([0-9]+)/i,
+	},
+	{
+		id: "Spell Power Cure",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "SpellDamage",
+		match: /When you heal a friendly target that is at [0-9]+% Health, you have a [0-9]+% chance to increase their Weapon and Spell Damage by ([0-9]+)/i,
+	},
+	{
+		id: "Spell Power Cure",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: /When you heal a friendly target that is at [0-9]+% Health, you have a [0-9]+% chance to increase their Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
 		id: "The Brute",
@@ -3195,7 +3625,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "PhysicalResist",
-		match: /Causing damage with a Charge ability applies Taunt for [0-9]+ seconds and increases your Physical and Spell Resistance by ([0-9]+)/i,
+		match: /When you deal damage with a Charge ability, you gain ([0-9]+) Physical and Spell Resistance/
 	},
 	{
 		id: "Tormentor",
@@ -3203,16 +3633,16 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "SpellResist",
-		match: /Causing damage with a Charge ability applies Taunt for [0-9]+ seconds and increases your Physical and Spell Resistance by ([0-9]+)/i,
+		match: /When you deal damage with a Charge ability, you gain ([0-9]+) Physical and Spell Resistance/
 	},
 	{
 		id: "Twice-Fanged Serpent",
-		setBonusCount: 3,
+		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
 		statId: "PhysicalPenetration",
-		maxTimes: 3,
-		match: /Attacking an enemy increases Physical Penetration by ([0-9]+)/i,
+		maxTimes: 5,
+		match: /When you deal damage, your Physical Penetration is increased by ([0-9]+)/i,
 	},
 	{
 		id: "Unassailable",
@@ -3235,35 +3665,37 @@ ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
+		category: "Skill2",
 		statId: "LADamage",
-		match: /After casting an ability that costs Magicka, Light Attacks deal ([0-9]+) additional damage and Heavy Attacks deal [0-9]+ additional damage/i,
+		match: /When you use an ability that costs Magicka, your Light Attacks deal an additional ([0-9]+) damage and Heavy Attacks deal an additional [0-9]+ damage/i,
 	},
 	{
 		id: "Undaunted Infiltrator",
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
-		statId: "HADamage",
 		category: "Skill2",
-		match: /After casting an ability that costs Magicka, Light Attacks deal [0-9]+ additional damage and Heavy Attacks deal ([0-9]+) additional damage/i,
+		statId: "HADamage",
+		match: /When you use an ability that costs Magicka, your Light Attacks deal an additional [0-9]+ damage and Heavy Attacks deal an additional ([0-9]+) damage/i,
 	},
 	{
 		id: "Undaunted Unweaver",
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
+		category: "Skill2",
 		statId: "LADamage",
-		category: "Skill2",
-		match: /After casting an ability that costs Magicka, Light Attacks deal ([0-9]+) additional damage and Heavy Attacks deal [0-9]+ additional damage/i,
+		
+		match: /When you use an ability that costs Stamina, your Light Attacks deal an additional ([0-9]+) damage and Heavy Attacks deal an additional [0-9]+ damage/i,
 	},
 	{
 		id: "Undaunted Unweaver",
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
-		statId: "HADamage",
 		category: "Skill2",
-		match: /After casting an ability that costs Magicka, Light Attacks deal [0-9]+ additional damage and Heavy Attacks deal ([0-9]+) additional damage/i,
+		statId: "HADamage",		
+		match: /When you use an ability that costs Stamina, your Light Attacks deal an additional [0-9]+ damage and Heavy Attacks deal an additional ([0-9]+) damage/i,
 	},
 	{
 		id: "Warrior's Fury",
@@ -3280,7 +3712,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "WeaponDamage",
-		match: /After activating Roll Dodge, Weapon Damage is increased by ([0-9]+) and Spell Damage is increased by [0-9]+/i,
+		match: /When you use Roll Dodge, your Weapon and Spell Damage is increased by ([0-9]+)/i,
 	},
 	{
 		id: "Way of Air",
@@ -3288,40 +3720,8 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "SpellDamage",
-		match: /After activating Roll Dodge, Weapon Damage is increased by [0-9]+ and Spell Damage is increased by ([0-9]+)/i,
+		match: /When you use Roll Dodge, your Weapon and Spell Damage is increased by ([0-9]+)/i,
 	},
-			//TODO: Update 12 change to flat increase all the time
-	{
-		id: "Willow's Path",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		category: "Skill2",
-		statId: "HealthRegen",
-		display: '%',
-		match: /Increase all recovery in combat by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		id: "Willow's Path",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		category: "Skill2",
-		statId: "MagickaRegen",
-		display: '%',
-		match: /Increase all recovery in combat by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		id: "Willow's Path",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		category: "Skill2",
-		statId: "StaminaRegen",
-		display: '%',
-		match: /Increase all recovery in combat by ([0-9]+\.?[0-9]*)%/i,
-	},
-
 		// End of Toggled Sets
 
 	
@@ -3992,6 +4392,7 @@ function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData)
 {
 	var foundMatch = false;
 	var addFinalEffect = false;
+	var rawInputDesc = setDesc;
 	
 	if (setBonusCount < 0 || setDesc == "") return;
 	
@@ -4034,8 +4435,28 @@ function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData)
 		
 		foundMatch = true;
 		
+		if (matchData.buffId != null)
+		{
+			var buffData = g_EsoBuildBuffData[matchData.buffId];
+			if (buffData == null) continue;
+			
+			buffData.skillEnabled = true;
+			buffData.skillAbilities.push(setData);
+			AddEsoItemRawOutputString(setData, "Adds Buff", matchData.buffId);
+			AddEsoItemRawOutputString(buffData, "Set Effect", setData.name + " set");
+			
+			continue;
+		}
+		
 		if (matchData.statId == "OtherEffects")
 		{
+			if (matchData.rawInputMatch != null)
+			{
+				var rawInputMatches = setDesc.match(matchData.rawInputMatch);
+				if (rawInputMatches != null) rawInputDesc = rawInputMatches[1];
+				if (rawInputDesc == null) rawInputDesc = setDesc;
+			}
+			
 			addFinalEffect = true;
 			continue;
 		}
@@ -4074,7 +4495,7 @@ function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData)
 	if (!foundMatch || addFinalEffect)
 	{
 		AddEsoInputStatSource("OtherEffects", { other: true, set: setData, setBonusCount: setBonusCount, value: setDesc });
-		AddEsoItemRawOutputString(setData, "OtherEffects", setDesc);
+		AddEsoItemRawOutputString(setData, "OtherEffects", rawInputDesc);
 	}
 	
 }
@@ -4350,6 +4771,8 @@ function UpdateEsoBuffSkillEnabled()
 					abilityDesc += " and 1 other";
 				else if (buffData.skillAbilities.length > 2)
 					abilityDesc += " and " + (buffData.skillAbilities.length - 1) + " others";
+				else if (abilityData.averageDesc != null)
+					abilityDesc += " set";
 			}
 			else if (buffData.rawOutput != null && buffData.rawOutput["Active Skill"] != null)
 			{
@@ -7033,6 +7456,8 @@ function GetEsoBuildRawInputSourceItemHtml(sourceItem)
 		
 		if (abilityData == null || abilityData.name == null)
 			output += "" + value + ": " + sourceItem.buff.name + " buff ";
+		else if (abilityData.averageDesc != null)
+			output += "" + value + ": " + sourceItem.buff.name + " buff from " + abilityData.name + " set";
 		else
 			output += "" + value + ": " + sourceItem.buff.name + " buff from " + abilityData.name + " skill";
 	}
@@ -7053,6 +7478,17 @@ function ComputeEsoBuildAllSetData()
 	{
 		var setData = g_EsoBuildSetData[setName];
 		ComputeEsoBuildSetData(setData);
+	}
+	
+	if (g_EsoBuildDumpSetData != "" && g_EsoBuildSetData[setName] != null)
+	{
+		g_EsoBuildDumpSetData = "";
+		
+		for (var i in g_EsoBuildSetData[setName].averageDesc)
+		{
+			var desc = g_EsoBuildSetData[setName].averageDesc[i];
+			EsoBuildLog("" + i + ") " + desc);
+		}
 	}
 }
 
@@ -7553,6 +7989,8 @@ function UpdateEsoBuildToggledSetData()
 		var toggleData = g_EsoBuildToggledSetData[setId];
 		if (toggleData == null) continue;
 		
+		SetEsoBuildToggledSetValid(setId, false);
+		
 		var setName = setId;
 		if (toggleData.setId != null) setName = toggleData.setId;
 		
@@ -7560,8 +7998,6 @@ function UpdateEsoBuildToggledSetData()
 		
 		var setData = g_EsoBuildSetData[setName];
 		if (setData == null) continue;
-		
-		SetEsoBuildToggledSetValid(setId, false);
 		
 		if (setData.averageDesc == null || setData.items[0] == null) continue;
 		
@@ -9264,6 +9700,9 @@ function EsoBuildEquipSet(setIndex)
 	
 	g_EsoBuildLastSetIndex = setIndex;
 	var setName = g_EsoBuildSetNames[setIndex];
+	
+	g_EsoBuildDumpSetData = setName;
+	EsoBuildLog("Loading items for set '" + setName + "'...");
 	
 	EquipSetItem(setName, "Chest", 66, 5);
 	EquipSetItem(setName, "Waist", 66, 5);

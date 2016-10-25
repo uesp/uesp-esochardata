@@ -1291,6 +1291,50 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),			
 			
+			"Set.LADamage" => array(
+					"display" => "%",
+			),
+			
+			"Set.HADamage" => array(
+					"display" => "%",
+			),
+			
+			"Set.HealingDone" => array(
+					"display" => "%",
+			),
+			
+			"Set.HealingReceived" => array(
+					"display" => "%",
+			),
+			
+			"Set.Constitution" => array(
+					"display" => "%",
+			),
+			
+			"Set.SprintCost" => array(
+					"display" => "%",
+			),
+			
+			"Set.SneakCost" => array(
+					"display" => "%",
+			),
+			
+			"Set.BowDamageDone" => array(
+					"display" => "%",
+			),			
+			
+			"Set.ResurrectSpeed" => array(
+					"display" => "%",
+			),
+			
+			"Set.SneakDetectRange" => array(
+					"display" => "%",
+			),
+			
+			"Set.BlockMitigation" => array(
+					"display" => "%",
+			),
+
 	);
 	
 	
@@ -1939,10 +1983,12 @@ class EsoBuildDataEditor
 							"6.5",
 							"Skill2.SneakDetectRange",
 							"+",
+							"1",
 							"Item.SneakDetectRange",
+							"+",
 							"Skill.SneakDetectRange",
 							"+",
-							"1",
+							"Set.SneakDetectRange",
 							"+",
 							"*",
 					),
@@ -2464,7 +2510,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + CP.HAStaffDamage + CP.FlameDamageDone",
 							"*",
-							"1 + Skill.HADamage + Skill.FlameDamageDone + Buff.Empower",
+							"1 + Skill.HADamage + Set.HADamage + Skill.FlameDamageDone + Buff.Empower",
 							"*",
 					),
 			),
@@ -2480,7 +2526,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + CP.HAStaffDamage + CP.ColdDamageDone",
 							"*",
-							"1 + Skill.HADamage + Skill.ColdDamageDone + Buff.Empower",
+							"1 + Skill.HADamage + Set.HADamage + Skill.ColdDamageDone + Buff.Empower",
 							"*",
 					),
 			),
@@ -2499,7 +2545,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + CP.HAStaffDamage + CP.ShockDamageDone",
 							"*",
-							"1 + Skill.HADamage + Skill.ShockDamageDone + Buff.Empower",
+							"1 + Skill.HADamage + Set.HADamage + Skill.ShockDamageDone + Buff.Empower",
 							"*",
 					),
 			),
@@ -2548,7 +2594,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + CP.HAWeaponDamage + CP.PhysicalDamageDone",
 							"*",
-							"1 + Skill.HADamage + Buff.Empower",
+							"1 + Skill.HADamage + Set.HADamage + Buff.Empower",
 							"*",
 					),
 			),
@@ -2564,7 +2610,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + CP.HABowDamage + CP.PhysicalDamageDone",
 							"*",
-							"1 + Skill.HADamage + Buff.Empower",
+							"1 + Skill.HADamage + Set.HADamage + Buff.Empower",
 							"*",
 					),
 			),
@@ -2583,7 +2629,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + CP.HAWeaponDamage + CP.PhysicalDamageDone",
 							"*",
-							"1 + Skill.HADamage + Buff.Empower",
+							"1 + Skill.HADamage + Set.HADamage + Buff.Empower",
 							"*",
 					),
 			),
@@ -2599,7 +2645,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + CP.HAActiveDamage + CP.PhysicalDamageDone",
 							"*",
-							"1 + Skill.HADamage + Buff.Empower",
+							"1 + Skill.HADamage + Set.HADamage + Buff.Empower",
 							"*",
 					),
 			),
@@ -2610,7 +2656,7 @@ class EsoBuildDataEditor
 					"depends" => array("Magicka", "SpellDamage"),
 					"compute" => array(
 							"round(0.0140*Magicka + 0.56*SpellDamage - 0.60)",
-							"1 + CP.LAStaffDamage",
+							"1 + CP.LAStaffDamage + Set.LADamage",
 							"*",
 					),
 			),
@@ -2621,7 +2667,7 @@ class EsoBuildDataEditor
 					"depends" => array("Stamina", "WeaponDamage"),
 					"compute" => array(
 							"round(0.0140*Stamina + 0.56*WeaponDamage - 0.60)",
-							"1 + CP.LAWeaponDamage",
+							"1 + CP.LAWeaponDamage + Set.LADamage",
 							"*",
 					),
 			),
@@ -2632,7 +2678,7 @@ class EsoBuildDataEditor
 					"depends" => array("Stamina", "WeaponDamage"),
 					"compute" => array(
 							"round(0.0148*Stamina + 0.592*WeaponDamage - 1.06)",
-							"1 + CP.LAWeaponDamage",
+							"1 + CP.LAWeaponDamage + Set.LADamage",
 							"*",
 					),
 			),
@@ -2643,7 +2689,7 @@ class EsoBuildDataEditor
 					"depends" => array("Stamina", "WeaponDamage"),
 					"compute" => array(
 							"round(0.0140*Stamina + 0.56*WeaponDamage - 0.60)",
-							"1 + CP.LABowDamage",
+							"1 + CP.LABowDamage + Set.LADamage",
 							"*",
 					),
 			),
