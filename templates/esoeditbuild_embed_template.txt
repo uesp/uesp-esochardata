@@ -265,7 +265,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 		<div id="esotbStatBlockBuffs" class="esotbStatBlock" style="display: none;">
 			<div id="esotbBuffs">
 				You can manually select which buffs to include in your character data calculation. Note that some buffs may already be
-				applied through passive/active skills.
+				applied through passive/active skills or sets.
 				<p>
 				<div id="esotbBuffInfo">
 				</div>
@@ -317,6 +317,8 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<b>27 October 2016</b>
 			<ul>
 				<li>Added several resistance debuffs to the buff list (Alkosh, Night Mothers, Crusher Enchantment, Sunderflame). Fixed the target mitigation calculation to add explicit debuff effects.</li>
+				<li>Fixed skills not dropping correctly in Firefox.</li>
+				<li>Fixed shield enchant values from counting twice.</li>
 			</ul>
 			<p>
 			<b>26 October 2016</b>
