@@ -191,6 +191,12 @@ ESOBUILD_SKILLTYPES =
 
 g_EsoBuildBuffData =
 {
+		//Alkosh item set, Crusher glyph (Infused and non-Infused), Sunderflame, Night Mother's Gaze
+			//Reduces the Physical and Spell Resistance of any enemy hit by 35-3010 for 10 seconds.
+			//Reduce the target's Spell Resist and Physical Resist by 1622 for 5 seconds.
+			//When you deal damage with a fully-charged Heavy Attack, you deal an additional 9-774 Flame Damage and reduce the enemy's Physical Resistance by 40-3440 for 8 seconds.
+			//When you deal Critical Damage, you reduce the enemy's Physical Resistance by 30-2580 for 6 seconds.
+		
 		"Warhorn" : 
 		{
 			enabled: false,
@@ -200,7 +206,27 @@ g_EsoBuildBuffData =
 			statIds : ["Health", "Magicka", "Stamina"],
 			icon : "/esoui/art/icons/ability_ava_003_a.png",
 		},
-		 "Major Force" : 
+		"Minor Aegis" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : -0.05,
+			display: "%",
+			statId : "DamageTaken",
+			category: "Buff",
+			icon : "/esoui/art/icons/ability_warrior_030.png",
+		},
+		"Minor Slayer" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 0.05,
+			display: "%",
+			statId : "DamageDone",
+			category: "Buff",
+			icon : "/esoui/art/icons/ability_warrior_025.png",
+		},
+		"Major Force" : 
 		{
 			enabled: false,
 			skillEnabled : false,
@@ -460,7 +486,15 @@ g_EsoBuildBuffData =
 			statId : "DodgeChance",
 			icon : "/esoui/art/icons/ability_rogue_037.png",
 		},
-			// Minor Evasion: /esoui/art/icons/ability_rogue_035.png
+		"Minor Evasion" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 0.05,
+			display : "%",
+			statId : "DodgeChance",
+			icon : "/esoui/art/icons/ability_rogue_035.png",
+		},
 		"Major Berserk" : 
 		{
 			enabled: false,
@@ -516,7 +550,14 @@ g_EsoBuildBuffData =
 			statId : "HealingTaken",
 			icon : "/esoui/art/icons/ability_nightblade_001_b.png",
 		},
-			// Major Heroism: /esoui/art/icons/ability_templar_breath_of_life.png
+		"Major Heroism" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : "Grants you 3 Ultimate every 1 second for 9 seconds.",
+			statId : "OtherEffects",
+			icon : "/esoui/art/icons/ability_templar_breath_of_life.png",
+		},
 		"Minor Heroism" : 
 		{
 			enabled: false,
@@ -559,7 +600,15 @@ g_EsoBuildBuffData =
 			statId : "SpellResist",
 			icon : "/esoui/art/icons/ability_mage_053.png",
 		},
-			// Major Maim: /esoui/art/icons/ability_fightersguild_004_a.png
+		"Major Maim" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : -0.30,
+			display: "%",
+			statId : "DamageDone",
+			icon : "/esoui/art/icons/ability_fightersguild_004_a.png",
+		},
 		"Minor Maim" : 
 		{
 			enabled: false,
@@ -615,13 +664,78 @@ g_EsoBuildBuffData =
 		},
 		
 			/* Target Buffs */
+
+		"Alkosh (Target)" : 
+		{
+			//Reduces the Physical and Spell Resistance of any enemy hit by 35-3010 for 10 seconds.
+			enabled: false,
+			skillEnabled : false,
+			values : [ -3010, -3010 ],
+			category: "Target",
+			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
+			statDescs : [ "Reduces the target's Physical Resistance by ", "Reduces the target's Spell Resistance by " ],
+			icon : "/esoui/art/icons/ability_mage_065.png",
+		},
+		"Crusher Enchantment (Target)" :
+		{
+			//Reduce the target's Spell Resist and Physical Resist by 1622 for 5 seconds.
+			enabled: false,
+			skillEnabled : false,
+			//visible : false,
+			//toggleVisible : true,
+			values : [ -1622, -1622 ],
+			category: "Target",
+			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
+			statDescs : [ "Reduces the target's Physical Resistance by ", "Reduces the target's Spell Resistance by " ],
+			icon : "/esoui/art/icons/ability_armor_001.png",
+		},
+		"Crusher Enchantment Infused (Target)" :
+		{
+			//Reduce the target's Spell Resist and Physical Resist by 1946 for 5 seconds.
+			enabled: false,
+			skillEnabled : false,
+			//visible : false,
+			//toggleVisible : true,
+			values : [ -1946, -1946 ],
+			category: "Target",
+			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
+			statDescs : [ "Reduces the target's Physical Resistance by ", "Reduces the target's Spell Resistance by " ],
+			icon : "/esoui/art/icons/ability_armor_001.png",
+		},
+		"Night Mothers Gaze (Target)" :
+		{
+			//When you deal Critical Damage, you reduce the enemy's Physical Resistance by 30-2580 for 6 seconds.
+			enabled: false,
+			skillEnabled : false,
+			//visible : false,
+			//toggleVisible : true,
+			values : [ -2580 ],
+			category: "Target",
+			statIds : [ "PhysicalDebuff" ],
+			statDesc : "Reduces the target's Physical Resistance by ",
+			icon : "/esoui/art/icons/ability_mage_065.png",
+		},
+		"Sunderflame (Target)" :
+		{
+			//reduce the enemy's Physical Resistance by 40-3440 for 8 seconds.
+			enabled: false,
+			skillEnabled : false,
+			//visible : false,
+			//toggleVisible : true,
+			values : [ -3440 ],
+			category: "Target",
+			statIds : [ "PhysicalDebuff" ],
+			statDesc : "Reduces the target's Physical Resistance by ",
+			icon : "/esoui/art/icons/ability_mage_065.png",
+		},
 		"Major Fracture (Target)" : 
 		{
 			enabled: false,
 			skillEnabled : false,
 			value : -5280,
 			category: "Target",
-			statId : "PhysicalResist",
+			statId : "PhysicalDebuff",
+			statDesc : "Reduces the target's Physical Resistance by ",
 			icon : "/esoui/art/icons/ability_1handed_002_a.png",
 		},
 		"Minor Fracture (Target)" : 
@@ -630,7 +744,8 @@ g_EsoBuildBuffData =
 			skillEnabled : false,
 			value : -1320,
 			category: "Target",
-			statId : "PhysicalResist",
+			statId : "PhysicalDebuff",
+			statDesc : "Reduces the target's Physical Resistance by ",
 			icon : "/esoui/art/icons/ability_1handed_002.png",
 		},
 		"Major Breach (Target)" : 
@@ -639,7 +754,8 @@ g_EsoBuildBuffData =
 			skillEnabled : false,
 			value : -5280,
 			category: "Target",
-			statId : "SpellResist",
+			statId : "SpellDebuff",
+			statDesc : "Reduces the target's Spell Resistance by ",
 			icon : "/esoui/art/icons/ability_mage_039.png",
 		},
 		"Minor Breach (Target)" : 
@@ -648,7 +764,8 @@ g_EsoBuildBuffData =
 			skillEnabled : false,
 			value : -1320,
 			category: "Target",
-			statId : "SpellResist",
+			statId : "SpellDebuff",
+			statDesc : "Reduces the target's Spell Resistance by ",
 			icon : "/esoui/art/icons/ability_mage_053.png",
 		},
 		"Minor Maim (Target)" : 
@@ -659,6 +776,7 @@ g_EsoBuildBuffData =
 			value : -0.15,
 			display: "%",
 			statId : "AttackBonus",
+			statDesc : "Reduces the target's damage done by ",
 			icon : "/esoui/art/icons/ability_fightersguild_004.png",
 		},
 		"Minor Vulnerability (Target)" : 
@@ -709,8 +827,7 @@ g_EsoBuildBuffData =
 			statIds : [ "Health", "HealingReceived", "DamageTaken", "DamageShield" ],
 			icon: "/esoui/art/icons/ability_templar_002.png",
 		},
-		//Minor Aegis: 5% less damage from Boss Monsters
-		//Minor Slayer: 5% more damage to Boss Monsters.
+
 
 };
 
@@ -1138,7 +1255,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireValue: 1,
 		statId: "ResurrectSpeed",
 		display: "%",
-		match: /WHILE IN PVP AREAS[\s]*?Reduces the time it takes to resurrect another played by ([0-9]+\.?[0-9]*)%/i,
+		match: /WHILE IN PVP AREAS[\s]*?Reduces the time it takes to resurrect another player by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "Health",
@@ -2316,7 +2433,6 @@ ESO_SETEFFECT_MATCHES = [
 	// Increases the range of your Bow abilities by 3 meters
 	// While you are in combat, you gain a rotating bonus to Flame, Shock, or Frost Damage. The active element changes every 4 seconds. Your attacks dealing damage with the active element gain 358 Spell Damage.
 	// Increases the duration of your Flame Damage abilities by 2 seconds.
-	// Gain Minor Aegis at all times, reducing your damage taken from Dungeon and Trial Monsters by 5%
 	// When an enemy within 28 meters of you dies, you gain Major Berserk for 3 seconds, increasing your damage done by 25%.
 	// While you are blocking you gain Major Evasion, increasing your dodge chance by 20%.
 	// When your target is under 25% Health, add 1800 Weapon Damage to your Light and Heavy Attacks.
@@ -2332,13 +2448,10 @@ ESO_SETEFFECT_MATCHES = [
 	// When you heal a target with a healing over time ability, grant them 1304 Critical Resistance for 20 seconds.
 	// Reduces the duration of all disabling effects applied to you by 20%.
 	// Increases your damage done to Sneaking enemies by 20%.
-	// Gain Minor Heroism at all times while you are in combat
 	// When you cast a Magicka ability you gain Major Evasion for 3 seconds, increasing your dodge chance by 20%.
 	// Reduces your damage taken from Guards by 20%.
 		
-	// Increases your Mounted Movement Speed by 15%.
 	// Reduces the cost of your Werewolf Transformation ability by 33%. While in Werewolf form, your Weapon Damage is increased by 150
-	// When you cast an Assault ability, you increase the Weapon and Spell Damage of up to 4 friendly targets within 10 meters by 164 for 15 seconds.
 	// Increases the damage of your Soul Trap ability by 100%.
 	// When you deal damage with a Magicka ability, your Poison and Disease Damage abilities gain an additional 450 Weapon Damage for 10 seconds.
 	// Adds 400 Weapon and Spell Damage to your Undaunted abilities.
@@ -2356,11 +2469,23 @@ ESO_SETEFFECT_MATCHES = [
 	// Increases the amount of damage you block by 8%.
 	// While you have a drink buff active, your Max Stamina is increased by 2000 and Stamina Recovery by 300
 	// While you have a food buff active, your Max Health is increased by 4000 and Health Recovery by 200
-	// Gain Minor Expedition at all times, increasing your Movement Speed by 10%.
-	// Gain Minor Slayer at all times, increasing your damage done to Dungeon and Trial Monsters by 5%.
-	// Gain Minor Aegis at all times, reducing your damage taken from Dungeon and Trial Monsters by 5%.
-
 	
+	{
+		buffId: "Minor Slayer",
+		match: /Gain Minor Slayer at all times/i,
+	},
+	{
+		buffId: "Minor Aegis",
+		match: /Gain Minor Aegis at all times/i,
+	},
+	{
+		buffId: "Minor Heroism",
+		match: /Gain Minor Heroism at all times/i,
+	},
+	{
+		buffId: "Minor Expedition",
+		match: /Gain Minor Expedition at all times/i,
+	},
 	{
 		setBonusCount: 4,
 		statId: "OtherEffects",
@@ -2812,7 +2937,7 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Adds ([0-9]+) Physical Penetration/i,
 	},
 	{
-		statId: "Spell Penetration",
+		statId: "SpellPenetration",
 		match: /Adds ([0-9]+) Spell Penetration/i,
 	},
 	{
@@ -3024,13 +3149,13 @@ ESO_SETEFFECT_MATCHES = [
 	},	
 	{
 		statId: "SpellResist",
-		factorValue: 0.2309,
+		factorValue: 0.233,
 		round: "floor",
 		match: /Increases your Physical and Spell Resistance by up to ([0-9]+) based on your missing Health/i,
 	},
 	{
 		statId: "PhysicalResist",
-		factorValue: 0.2309,
+		factorValue: 0.233,
 		round: "floor",
 		match: /Increases your Physical and Spell Resistance by up to ([0-9]+) based on your missing Health/i,
 	},
@@ -3172,8 +3297,14 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Movement speed while mounted increased by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		setBonusCount: 4,
+		setBonusCount: 2,
 		statId: "MountSpeed",
+		display: "%",
+		match: /Increases your Mounted Movement Speed by ([0-9]+\.?[0-9]*)%/i,
+	},	
+	{
+		setBonusCount: 4,
+		statId: "BlockMitigation",
 		display: "%",
 		match: /Increase block mitigation by ([0-9]+\.?[0-9]*)%/i,
 	},
@@ -3513,6 +3644,22 @@ ESO_SETEFFECT_MATCHES = [
 		match: /While you have a damage shield on you, your Health Recovery is increased by ([0-9]+)/i,
 	},
 	{
+		id: "Powerful Assault",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "SpellDamage",
+		match: /When you cast an Assault ability, you increase the Weapon and Spell Damage of up to [0-9]+ friendly targets within [0-9]+ meters by ([0-9]+)/i,
+	},
+	{
+		id: "Powerful Assault",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: /When you cast an Assault ability, you increase the Weapon and Spell Damage of up to [0-9]+ friendly targets within [0-9]+ meters by ([0-9]+)/i,
+	},
+	{
 		id: "Ravager",
 		setBonusCount: 4,
 		toggle: true,
@@ -3635,6 +3782,14 @@ ESO_SETEFFECT_MATCHES = [
 		statId: "SpellResist",
 		match: /When you deal damage with a Charge ability, you gain ([0-9]+) Physical and Spell Resistance/
 	},
+	{
+		id: "The Troll King",
+		setBonusCount: 2,
+		toggle: true,
+		enabled: false,
+		statId: "HealthRegen",
+		match: /When you heal a friendly target, if they are still below [0-9]+% Health, their Health Recovery is increased by ([0-9]+)/
+	},	
 	{
 		id: "Twice-Fanged Serpent",
 		setBonusCount: 4,
@@ -9692,9 +9847,48 @@ function EsoBuildLog()
 var g_EsoBuildLastSetIndex = -1;
 
 
-function EsoBuildEquipSet(setIndex)
+function EsoBuildFindSetName(setName)
+{
+	setName = setName.toLowerCase();
+	
+	for (var i in g_EsoBuildSetNames)
+	{
+		if (g_EsoBuildSetNames[i].toLowerCase().indexOf(setName) != -1)
+		{
+			return i
+		}
+	}
+	
+	return -1;
+}
+
+
+function EsoBuildEquipSet(setIndexOrName)
 {
 	if (g_EsoBuildSetNames.length <= 0) return EsoBuildLog("Error: No set names currently loaded!");
+	
+	var setIndex = -1;
+	
+	if (typeof setIndexOrName == "string")
+	{
+		setIndex = EsoBuildFindSetName(setIndexOrName);
+		
+		if (setIndex < 0)
+		{
+			EsoBuildLog("No match for set name '" + setIndexOrName + "'!");
+			return;
+		}
+	}
+	else if (typeof setIndexOrName == "number")
+	{
+		setIndex = parseInt(setIndexOrName);
+	}
+	else
+	{
+		EsoBuildLog("Unknown input to EsoBuildEquipSet()!")
+		return;
+	}	
+	
 	if (setIndex < 0) return EsoBuildLog("Error: Invalid set index!");
 	if (setIndex >= g_EsoBuildSetNames.length) return EsoBuildLog("Error: Set index exceeds maximum of ", g_EsoBuildSetNames.length, "!");
 	
