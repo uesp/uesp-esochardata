@@ -128,6 +128,8 @@ class EsoBuildDataEditor
 			"Target.CritResistFactor",
 			"Target.HealingReceived",
 			"Target.DamageTaken",
+			"Target.SpellDebuff",
+			"Target.PhysicalDebuff",
 			"Misc.SpellCost",
 			"VampireStage",
 			"WerewolfStage",
@@ -282,6 +284,8 @@ class EsoBuildDataEditor
 			"MountSpeed",
 			"HAMagRestore",
 			"HAStaRestore",
+			"BossDamageDone",
+			"BossDamageTaken",
 	);
 	
 	
@@ -1334,7 +1338,7 @@ class EsoBuildDataEditor
 			"Set.BlockMitigation" => array(
 					"display" => "%",
 			),
-
+			
 	);
 	
 	
@@ -1925,6 +1929,30 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			/*
+			 * Resurrection Time Needs Confirmation
+			 */
+			"ResurrectTime" => array(
+					"title" => "Resurrect Time",
+					"suffix" => " secs",
+					"round" => "floor2",
+					"compute" => array(
+							"7",
+							"1",
+							"Set.ResurrectSpeed",
+							"-",
+							"Skill.ResurrectSpeed",
+							"-",
+							"Buff.ResurrectSpeed",
+							"-",
+							"CP.ResurrectSpeed",
+							"-",
+							"Item.ResurrectSpeed",
+							"-",
+							"*",
+					),
+			),
+			
 			/* 
 			 * Sneak Cost Confirmed: 
 			 * Note that all effects seem to multiplicative, even within a category.
@@ -2025,7 +2053,24 @@ class EsoBuildDataEditor
 							"+",
 							"Skill.SprintSpeed",
 							"+",
-							"Buff.SprintSpeed",
+							"CP.SprintSpeed",
+							"+",
+					),
+			),
+			
+			"MountSpeed" => array(
+					"title" => "Mount Speed",
+					"round" => "floor",
+					"display" => "%",
+					"compute" => array(
+							"Buff.MountSpeed",
+							"Set.MountSpeed",
+							"+",
+							"Item.MountSpeed",
+							"+",
+							"Skill.MountSpeed",
+							"+",
+							"Buff.MountSpeed",
 							"+",
 					),
 			),
@@ -2610,7 +2655,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + CP.HABowDamage + CP.PhysicalDamageDone",
 							"*",
-							"1 + Skill.HADamage + Set.HADamage + Buff.Empower",
+							"1 + Skill.HADamage + Set.HADamage + Buff.Empower + Set.BowDamageDone",  //TODO: Check BowDamageDone
 							"*",
 					),
 			),
@@ -2689,7 +2734,7 @@ class EsoBuildDataEditor
 					"depends" => array("Stamina", "WeaponDamage"),
 					"compute" => array(
 							"round(0.0140*Stamina + 0.56*WeaponDamage - 0.60)",
-							"1 + CP.LABowDamage + Set.LADamage",
+							"1 + CP.LABowDamage + Set.LADamage + Set.BowDamageDone", 	// TODO: Check BowDamageDone
 							"*",
 					),
 			),
@@ -2702,6 +2747,8 @@ class EsoBuildDataEditor
 					"max" => 1,
 					"compute" => array(
 							"Target.SpellResist",
+							"Target.SpellDebuff",
+							"+",
 							"1 - Skill2.SpellPenetration",
 							"*",
 							"SpellPenetration",
@@ -2723,6 +2770,8 @@ class EsoBuildDataEditor
 					"max" => 1,
 					"compute" => array(
 							"Target.PhysicalResist",
+							"Target.PhysicalDebuff",
+							"+",
 							"1 - Skill2.PhysicalPenetration",
 							"*",
 							"PhysicalPenetration",

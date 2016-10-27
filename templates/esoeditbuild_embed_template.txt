@@ -314,6 +314,26 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>27 October 2016</b>
+			<ul>
+				<li>Added several resistance debuffs to the buff list (Alkosh, Night Mothers, Crusher Enchantment, Sunderflame). Fixed the target mitigation calculation to add explicit debuff effects.</li>
+			</ul>
+			<p>
+			<b>26 October 2016</b>
+			<ul>
+				<li>Added the Troll King monster set effect.<li>
+				<li>Added Resurrection Time computed stat.</li>
+				<li>Fixed the Support Battle Resurrection passive.</li>
+				<li>Updated the effect of the 5 piece Mark of the Pariah at 100% health (23.3% of the given resistance).</li>
+				<li>Added Mount Speed computed stat.</li>
+				<li>Fixed the Cyrodiil's Ward 3 piece set effect.</li>
+				<li>Added the Powerful Assault set 5 piece bonus effect.</li>
+				<li>Fixed a few corrupt item data entries.</li>
+				<li>Added the Minor Aegis/Slayer buff effects. These have been set to DamageDone/DamageTaken so affect all skills in the builder but be aware the actual
+					skills only take affect inside dungeons and trials and not in the open world.</li>
+				<li>Fixed the Sprint Speed calculation which had a double Buff effect.<li>
+			</ul>
+			<p>
 			<b>25 October 2016</b>
 			<ul>
 				<li>Updated the matching effect data for more than 70 sets from the One Tamriel update. This still leaves a few dozen minor set effects left to implement. 
