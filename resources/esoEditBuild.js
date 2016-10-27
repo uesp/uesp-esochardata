@@ -191,11 +191,6 @@ ESOBUILD_SKILLTYPES =
 
 g_EsoBuildBuffData =
 {
-		//Alkosh item set, Crusher glyph (Infused and non-Infused), Sunderflame, Night Mother's Gaze
-			//Reduces the Physical and Spell Resistance of any enemy hit by 35-3010 for 10 seconds.
-			//Reduce the target's Spell Resist and Physical Resist by 1622 for 5 seconds.
-			//When you deal damage with a fully-charged Heavy Attack, you deal an additional 9-774 Flame Damage and reduce the enemy's Physical Resistance by 40-3440 for 8 seconds.
-			//When you deal Critical Damage, you reduce the enemy's Physical Resistance by 30-2580 for 6 seconds.
 		
 		"Warhorn" : 
 		{
@@ -4355,8 +4350,8 @@ function GetEsoInputValues(mergeComputedStats)
 		GetEsoInputItemEnchantValues(inputValues, "MainHand1", true);
 		GetEsoInputItemEnchantValues(inputValues, "OffHand1", true);
 		
-		 UpdateEsoBuildWeaponEnchantFactor("MainHand1", inputValues);
-		 UpdateEsoBuildWeaponEnchantFactor("OffHand1", inputValues);
+		UpdateEsoBuildWeaponEnchantFactor("MainHand1", inputValues);
+		UpdateEsoBuildWeaponEnchantFactor("OffHand1", inputValues);
 	}
 	else
 	{
@@ -5413,7 +5408,7 @@ function GetEsoInputItemEnchantValues(inputValues, slotId, doWeaponUpdate)
 	{
 		GetEsoInputItemEnchantWeaponValues(inputValues, slotId, itemData, enchantData, enchantFactor);
 	}
-	else if (IsEsoItemArmor(itemData))
+	else if (IsEsoItemArmor(itemData) && doWeaponUpdate !== true)
 	{
 		GetEsoInputItemEnchantArmorValues(inputValues, slotId, itemData, enchantData, enchantFactor);
 	}	
