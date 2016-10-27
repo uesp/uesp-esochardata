@@ -2736,8 +2736,9 @@ ESO_SETEFFECT_MATCHES = [
 		factorValue: -1,
 		match: /Reduces the cost of your Restoration Staff abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
-	{
+	{		// Ebon Set
 		statId: "Health",
+		category: "Skill2",
 		match: /Increases your Max Health by ([0-9]+)/i,
 	},
 	{
@@ -9510,6 +9511,9 @@ function CreateEsoBuildSkillSaveData(saveData, inputValues)
 
 function CreateEsoBuildSaveDataForSkill(saveData, abilityData, skillData)
 {
+	
+	//EsoBuildLog("CreateEsoBuildSaveDataForSkill", abilityData, skillData);
+	
 	var data = {};
 	var abilityId = abilityData.abilityId;
 	
@@ -9521,7 +9525,12 @@ function CreateEsoBuildSaveDataForSkill(saveData, abilityData, skillData)
 	if (data.type == "active") data.type = "skill";
 	data.icon = abilityData.texture;
 	data.abilityId = abilityId;
-	data.rank = +skillData.rank + +skillData.morph * 4;
+	
+	if (skillData.morph != null)
+		data.rank = (+skillData.rank) + (+skillData.morph) * 4;
+	else
+		data.rank = (+skillData.rank);
+	
 	data.index = +abilityData.skillIndex;
 	data.area = CreateEsoAbilityAreaString(abilityData);
 	data.range = CreateEsoAbilityRangeString(abilityData);
@@ -9673,6 +9682,7 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 	saveData.Stats['Mundus'] = inputValues.Mundus.Name;
 	saveData.Stats['Mundus2'] = inputValues.Mundus.Name2;
 	
+	saveData.Stats['SkillPointsUsed'] = g_EsoSkillPointsUsed;
 	saveData.Stats['SkillPointsTotal'] = g_EsoSkillPointsUsed;
 	
 	saveData.Stats['UseZeroBaseCrit'] = 1;
