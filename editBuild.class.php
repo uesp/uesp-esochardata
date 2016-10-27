@@ -1087,10 +1087,6 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
-			"SkillDuration.Fiery Breath" => array(
-					"display" => "%",
-			),
-			
 			"SkillDuration.Entropy" => array(
 					"display" => "%",
 			),
@@ -1336,6 +1332,10 @@ class EsoBuildDataEditor
 			),
 			
 			"Set.BlockMitigation" => array(
+					"display" => "%",
+			),
+			
+			"SkillDamage.Dragonknight Standard" => array(
 					"display" => "%",
 			),
 			
@@ -3686,8 +3686,8 @@ class EsoBuildDataEditor
 		
 		$this->initialSkillData = array();
 		$this->initialSkillData['UsedPoints'] = $this->getCharStatField("SkillPointsUsed", 0);
-		$this->initialSkillData['UnusedPoints'] = $this->getCharStatField("SkillPointsUnused", 0);;
-		$this->initialSkillData['TotalPoints'] = $this->getCharStatField("SkillPointsTotal", 0);;
+		$this->initialSkillData['UnusedPoints'] = $this->getCharStatField("SkillPointsUnused", 0);
+		$this->initialSkillData['TotalPoints'] = $this->getCharStatField("SkillPointsTotal", 0);
 		
 		foreach ($this->buildDataViewer->characterData['skills'] as $skillName => $skillData)
 		{
@@ -3721,6 +3721,7 @@ class EsoBuildDataEditor
 			
 			$data = array();
 			$baseAbilityId = $this->viewSkills->FindBaseAbilityForActiveData($abilityId);
+			
 			$data['abilityId'] = $abilityId;
 			$data['baseAbilityId'] = $baseAbilityId;
 			$data['morph'] = $morph;

@@ -319,6 +319,9 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 				<li>Added several resistance debuffs to the buff list (Alkosh, Night Mothers, Crusher Enchantment, Sunderflame). Fixed the target mitigation calculation to add explicit debuff effects.</li>
 				<li>Fixed skills not dropping correctly in Firefox.</li>
 				<li>Fixed shield enchant values from counting twice.</li>
+				<li>Rebuilt the skill data which was causing errors when purchasing and resetting skills. If you have double-skills try saving and reloading. If that
+					doesn't work you may have to do a complete skill reset, save, reload, and reassign skills.</li>
+				<li>Updated how the Ebon 5 piece bonus is calculated based on in-game testing (works like a food buff so isn't affected by CP increases).</li>
 			</ul>
 			<p>
 			<b>26 October 2016</b>

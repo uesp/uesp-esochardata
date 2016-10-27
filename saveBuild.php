@@ -228,11 +228,11 @@ class EsoBuildDataSaver
 		
 		if (!$result) 
 		{
-			file_put_contents("/home/dave/test.log", "Query Error: '$query',  Error: '{$this->db->error}'\n", FILE_APPEND);
+			//file_put_contents("/home/dave/test.log", "Query Error: '$query',  Error: '{$this->db->error}'\n", FILE_APPEND);
 			return $this->ReportError("Database query error: $query");
 		}
 		
-		file_put_contents("/home/dave/test.log", "Query: '$query',  NumRows: '{$result->num_rows}'\n", FILE_APPEND);
+		//file_put_contents("/home/dave/test.log", "Query: '$query',  NumRows: '{$result->num_rows}'\n", FILE_APPEND);
 		
 		return $result;
 	}
