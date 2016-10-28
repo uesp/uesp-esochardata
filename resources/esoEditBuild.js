@@ -4689,8 +4689,9 @@ function GetEsoInputGeneralValues(inputValues, outputId, slotId)
 {
 	var itemData = g_EsoBuildItemData[slotId];
 	if (itemData == null || itemData.itemId == null || itemData.itemId == "") return false;
-	
 	itemData.rawOutput = {};
+	
+	if (itemData.enabled === false) return false;
 	
 	GetEsoInputAbilityDescValues(inputValues, outputId, itemData, slotId);
 }
@@ -4698,9 +4699,11 @@ function GetEsoInputGeneralValues(inputValues, outputId, slotId)
 
 function GetEsoInputAbilityDescValues(inputValues, outputId, itemData, slotId)
 {
+	if (itemData.enabled === false) return;
+	
 	var rawDesc = RemoveEsoDescriptionFormats(itemData.abilityDesc);
 	if (rawDesc == "") return;
-	
+		
 	for (var i = 0; i < ESO_ABILITYDESC_MATCHES.length; ++i)
 	{
 		var matchData = ESO_ABILITYDESC_MATCHES[i];
