@@ -153,6 +153,7 @@ class EsoBuildDataEditor
 			"SkillCost.Restoration_Staff_Cost",
 			"SkillCost.Vampire_Cost",
 			"SkillCost.Werewolf_Cost",
+			"SkillCost.Werewolf_Transformation_Cost",
 			"SkillCost.Fighters_Guild_Cost",
 			"SkillCost.Mages_Guild_Cost",
 			"SkillCost.Undaunted_Cost",
@@ -167,6 +168,8 @@ class EsoBuildDataEditor
 			"CP.HAActiveDamage",
 			"CP.LAActiveDamage",
 			"Cyrodiil",
+			"DrinkBuff",
+			"FoodBuff",
 	);
 	
 	
@@ -264,6 +267,7 @@ class EsoBuildDataEditor
 			"TrapResist",
 			"PlayerDamageTaken",
 			"NegativeEffectDuration",
+			"DisableEffectDuration",
 			"BowRange",
 			"FlameEffectDuration",
 			"BowDamageDone",
@@ -1339,6 +1343,37 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"SkillDamage.Soul Trap" => array(
+					"display" => "%",
+			),
+			
+			"Set.WerewolfTransformCost" => array(
+					"display" => "%",
+			),			
+			
+			"Set.NegativeEffectDuration" => array(
+					"display" => "%",
+			),
+			
+			"Set.DisableEffectDuration" => array(
+					"display" => "%",
+			),
+			
+			"Set.SnareEffect" => array(
+					"display" => "%",
+			),
+			
+			"Skill2.MagickaRegen" => array(
+					"display" => "%",
+			),
+			
+			"Skill2.StaminaRegen" => array(
+					"display" => "%",
+			),
+			
+			"CP.SprintCost" => array(
+					"display" => "%",
+			),
 	);
 	
 	
@@ -1450,6 +1485,8 @@ class EsoBuildDataEditor
 							"floor(Mundus.HealthRegen * Item.Divines)",
 							"+",
 							"Food.HealthRegen",
+							"1/(1 + Skill2.HealthRegen)",
+							"*",
 							"+",
 							"1 + CP.HealthRegen + Skill.HealthRegen + Buff.HealthRegen",
 							"*",
@@ -1475,6 +1512,8 @@ class EsoBuildDataEditor
 							"floor(Mundus.MagickaRegen * Item.Divines)",
 							"+",
 							"Food.MagickaRegen",
+							"1/(1 + Skill2.MagickaRegen)",
+							"*",
 							"+",
 							"1 + CP.MagickaRegen + Skill.MagickaRegen + Buff.MagickaRegen",
 							"*",
@@ -1500,6 +1539,8 @@ class EsoBuildDataEditor
 							"floor(Mundus.StaminaRegen * Item.Divines)",
 							"+",
 							"Food.StaminaRegen",
+							"1/(1 + Skill2.StaminaRegen)",
+							"*",
 							"+",
 							"1 + CP.StaminaRegen + Skill.StaminaRegen + Buff.StaminaRegen",
 							"*",
@@ -2588,7 +2629,7 @@ class EsoBuildDataEditor
 							"+",
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAStaffDamage + CP.ShockDamageDone",
+							"1 + CP.HAStaffDamage + CP.ShockDamageDone + CP.DotDamageDone",
 							"*",
 							"1 + Skill.HADamage + Set.HADamage + Skill.ShockDamageDone + Buff.Empower",
 							"*",
@@ -2869,15 +2910,7 @@ class EsoBuildDataEditor
 					"max" => 1,
 					"compute" => array(
 							"Target.CritChance",
-							"CP.CritResist",
-							"Set.CritResist",
-							"+",
-							"Item.CritResist",
-							"+",
-							"Skill.CritResist",
-							"+",
-							"0.035/250",
-							"*",
+							"CritResist",
 							"-",
 					),
 			),
