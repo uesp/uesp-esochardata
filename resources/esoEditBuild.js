@@ -6519,17 +6519,20 @@ function OnEsoInputChange(e)
 function OnEsoAttributeChange(e)
 {
 	var $this = $(this);
-	var value = $this.val();
+	var value = parseInt($this.val()) || 0;
 	
 	if (value > ESO_MAX_ATTRIBUTES) $this.val(ESO_MAX_ATTRIBUTES);
-	if (value < 0)  $this.val("0");
+	if (value < 0) $this.val("0");
 	
-	var totalValue = parseInt($("#esotbAttrHea").val()) + parseInt($("#esotbAttrMag").val()) + parseInt($("#esotbAttrSta").val());
+	var value1 = parseInt($("#esotbAttrHea").val()) || 0;
+	var value2 = parseInt($("#esotbAttrMag").val()) || 0;
+	var value3 = parseInt($("#esotbAttrSta").val()) || 0;
+	var totalValue = value1 + value2 + value3;
 	
 	if (totalValue > ESO_MAX_ATTRIBUTES) 
 	{
+		$this.val(ESO_MAX_ATTRIBUTES - totalValue + value);
 		totalValue = ESO_MAX_ATTRIBUTES;
-		$this.val(ESO_MAX_ATTRIBUTES - totalValue + parseInt(value));
 	}
 	
 	$("#esotbAttrTotal").text(totalValue + " / " + ESO_MAX_ATTRIBUTES);

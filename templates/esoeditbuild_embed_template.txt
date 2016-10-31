@@ -318,6 +318,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<ul>
 				<li>Added CP.DotDamageDone to the Lightning Staff Heavy Attack damage calculation.</li>
 				<li>Fixed parsing of Magicka/Stamina food and added support for the new Halloween event foods.</li>
+				<li>Fixed being able to select more than 64 attribute points.</li>
 			</ul>
 			<p>
 			<b>30 October 2016</b>
