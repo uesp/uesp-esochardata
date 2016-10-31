@@ -314,9 +314,30 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
-			<b>27 October 2016</b>
+			<b>31 October 2016</b>
+			<ul>
+				<li>Added CP.DotDamageDone to the Lightning Staff Heavy Attack damage calculation.</li>
+				<li>Fixed parsing of Magicka/Stamina food and added support for the new Halloween event foods.</li>
+			</ul>
+			<p>
+			<b>30 October 2016</b>
+			<ul>
+				<li>Updated the Willow's Path set 5 piece bonus calculation based on in-game testing.</li>
+				<li>Fixed the Target Critical computed stat.</li>
+			</ul>
+			<p>
+			<b>28 October 2016</b>
 			<ul>
 				<li>Fixed disabling the food slot.</li>
+				<li>Added the Oblivion's Foe 5 piece set effect.</li>
+				<li>Added the Bone Pirate's Tatters and Green Pact 5 piece set effects.</li>
+				<li>Added the Salvation 5 piece set effect.</li>
+				<li>Added the Robes of Transmutation 5 piece set effect as a toggled effect.</li>
+				<li>Fixed the 5 piece set effect of the Reactive Armor set.</li>
+				<li>Fixed the 5 piece set effect of the Curse Eater set. Still need confirmation on exactly what effects it reduces the duration of.</li>
+				<li>Added the Robes of the Hist 5 piece set effect. Need confirmation on exactly what a "disabling effect" is.</li>
+				<li>Added the Barkskin 5 piece set effect.</li>
+				<li>Added the Ranger's Gait 5 piece set effect.</li>
 			</ul>
 			<p>
 			<b>27 October 2016</b>

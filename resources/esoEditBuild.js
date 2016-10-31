@@ -2418,7 +2418,6 @@ ESO_SETEFFECT_MATCHES = [
 	// When you set an enemy off-balance, your Weapon Damage is increased by 450 for 10 seconds.
 	// When you deal damage, you have a 10% chance to increase your Weapon Damage by 400 for 5 seconds.
 	// Reduces your damage taken from environmental traps by 40%.
-	// Reduces the duration of immobilizations and snares applied to you by 50%.
 	// Reduces your damage taken from Players by 5%.
 	// Reduces your damage taken from Siege Weapons and Player Area of Effect abilities by 20%.
 	// When you take damage, you have a 6% chance to generate 15 Ultimate and increase your Physical and Spell Resistance by 6450 for 6 seconds.
@@ -2438,16 +2437,13 @@ ESO_SETEFFECT_MATCHES = [
 	// When you dodge an attack, your Light and Heavy Attacks deal an additional 1225 damage for 8 seconds.
 	// Ignore the Movement Speed penalty of Sneak.
 	// When you take damage, you have a 6% chance to transform into a skeleton and gain Major Protection and Minor Defile for 12 seconds, reducing your damage taken by 30% but reducing your healing received by 15%. This effect can occur once every 15 seconds.
-	// Reduce the effectiveness of snares applied to you by 50%.
-	// While you are affected by a disabling effect, your damage taken is reduced by 35%.
-	// When you heal a target with a healing over time ability, grant them 1304 Critical Resistance for 20 seconds.
-	// Reduces the duration of all disabling effects applied to you by 20%.
+	
 	// Increases your damage done to Sneaking enemies by 20%.
 	// When you cast a Magicka ability you gain Major Evasion for 3 seconds, increasing your dodge chance by 20%.
 	// Reduces your damage taken from Guards by 20%.
+	
+	
 		
-	// Reduces the cost of your Werewolf Transformation ability by 33%. While in Werewolf form, your Weapon Damage is increased by 150
-	// Increases the damage of your Soul Trap ability by 100%.
 	// When you deal damage with a Magicka ability, your Poison and Disease Damage abilities gain an additional 450 Weapon Damage for 10 seconds.
 	// Adds 400 Weapon and Spell Damage to your Undaunted abilities.
 	// Adds 450 Weapon Damage to your Dual Wield abilities.
@@ -2461,10 +2457,73 @@ ESO_SETEFFECT_MATCHES = [
 	// Adds 400 Spell Damage to your Vampire abilities.
 	// Adds 400 Spell Damage to your Cold Damage abilities.
 	// Adds 200 Weapon Damage to your One Hand and Shield abilities.
-	// Increases the amount of damage you block by 8%.
-	// While you have a drink buff active, your Max Stamina is increased by 2000 and Stamina Recovery by 300
-	// While you have a food buff active, your Max Health is increased by 4000 and Health Recovery by 200
 	
+	
+	{
+		statId: "OtherEffects",
+		rawInputMatch: /(When an immobilization or snare is applied to you, heal for [0-9]+ Health and restore [0-9]+ Stamina)/i,
+		match: /When an immobilization or snare is applied to you, heal for [0-9]+ Health and restore [0-9]+ Stamina/i,
+	},
+	{
+		statId: "OtherEffects",
+		rawInputMatch: /(While you are affected by a disabling effect, heal for [0-9]+ Health every 1 second)/i,
+		match: /While you are affected by a disabling effect, heal for ([0-9]+) Health every 1 second/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Werewolf_Transformation_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of your Werewolf Transformation ability by ([0-9]+)%/i,
+	},
+	{
+		statRequireId: "WerewolfStage",
+		statRequireValue: 2,
+		statId: "WeaponDamage",
+		match: /While in Werewolf form, your Weapon Damage is increased by ([0-9]+)/i,
+	},
+	{
+		statRequireId: "FoodBuff",
+		statRequireValue: 1,
+		statId: "Health",
+		match: /While you have a food buff active, your Max Health is increased by ([0-9]+)/i,
+	},
+	{
+		statRequireId: "FoodBuff",
+		statRequireValue: 1,
+		statId: "HealthRegen",
+		match: /While you have a food buff active, your Max Health is increased by [0-9]+ and Health Recovery by ([0-9]+)/i,
+	},
+	{
+		statRequireId: "FoodBuff",
+		statRequireValue: 1,
+		statId: "StaminaRegen",
+		match: /While you have a drink buff active, your Max Stamina is increased by [0-9]+ and Stamina Recovery by ([0-9]+)/i,
+	},	
+	{
+		statRequireId: "DrinkBuff",
+		statRequireValue: 1,
+		statId: "Stamina",
+		match: /While you have a drink buff active, your Max Stamina is increased by ([0-9]+)/i,
+	},
+	{
+		statRequireId: "DrinkBuff",
+		statRequireValue: 1,
+		statId: "StaminaRegen",
+		match: /While you have a drink buff active, your Max Stamina is increased by [0-9]+ and Stamina Recovery by ([0-9]+)/i,
+	},
+	{
+		category: "SkillDamage",
+		statId: "Soul Trap",
+		display: "%",
+		match: /Increases the damage of your Soul Trap ability by ([0-9]+)%/i,
+	},
+	{
+		category: "SkillDamage",
+		statId: "Soul Trap",
+		display: "%",
+		match: /Increases the damage of your Soul Trap ability by ([0-9]+)%/i,
+	},
 	{
 		buffId: "Minor Slayer",
 		match: /Gain Minor Slayer at all times/i,
@@ -2518,23 +2577,23 @@ ESO_SETEFFECT_MATCHES = [
 		rawInputMatch: /(increases the damage of your Bow abilities against Players by [0-9]+\.?[0-9]*%)/i,
 		match: /increases the damage of your Bow abilities against Players by ([0-9]+\.?[0-9]*)%/i,
 	},
-	{
+	{			// Willow's Path
 		setBonusCount: 4,
-		category: "Skill",
+		category: "Skill2",
 		statId: "HealthRegen",
 		display: '%',
 		match: /Increases your Health, Magicka, and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i,
 	},
-	{
+	{			// Willow's Path
 		setBonusCount: 4,
-		category: "Skill",
+		category: "Skill2",
 		statId: "MagickaRegen",
 		display: '%',
 		match: /Increases your Health, Magicka, and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i,
 	},
-	{
+	{			// Willow's Path
 		setBonusCount: 4,
-		category: "Skill",
+		category: "Skill2",
 		statId: "StaminaRegen",
 		display: '%',
 		match: /Increases your Health, Magicka, and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i,
@@ -2960,7 +3019,20 @@ ESO_SETEFFECT_MATCHES = [
 	{
 		statId: "NegativeEffectDuration",
 		display: '%',
+		factorValue: -1,
 		match: /Reduce the duration of negative effects on you by ([0-9]+)%/i,
+	},
+	{
+		statId: "NegativeEffectDuration",
+		display: '%',
+		factorValue: -1,
+		match: /Reduces the duration of all negative effects applied to you by ([0-9]+)%/i,
+	},
+	{
+		statId: "DisableEffectDuration",
+		display: '%',
+		factorValue: -1,
+		match: /Reduces the duration of all disabling effects applied to you by ([0-9]+)%/i,
 	},
 	{
 		statId: "SprintCost",
@@ -3187,6 +3259,18 @@ ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		match: /Reduce the effectiveness of incoming snares by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "SnareEffect",
+		display: "%",
+		factorValue: -1,
+		match: /Reduce the effectiveness of snares applied to you by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "DisableEffectDuration",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the duration of immobilizations and snares applied to you by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statRequireId: "WeaponDestStaff",
@@ -3671,8 +3755,16 @@ ESO_SETEFFECT_MATCHES = [
 		statId: "DamageTaken",
 		factorValue: -1,
 		display: "%",
-		match: /While affected by Stun, Immobilize, Fear, Knockdown or Disorient effects, damage you take is reduced by ([0-9]+\.?[0-9]*)%/i,
+		match: /While you are affected by a disabling effect, your damage taken is reduced by ([0-9]+\.?[0-9]*)%/i,
 	},
+	{
+		id: "Robes of Transmutation",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "CritResist",
+		match: /When you heal a target with a healing over time ability, grant them ([0-9]+) Critical Resistance/i,
+	},	
 	{
 		id: "Scathing Mage",
 		setBonusCount: 4,
@@ -4170,6 +4262,14 @@ ESO_ABILITYDESC_MATCHES = [
 		match: /Max Magicka and Max Stamina by ([0-9]+)/i,
 	},
 	{
+		statId: "Magicka",
+		match: /Max Magicka and Stamina by ([0-9]+)/i,
+	},
+	{
+		statId: "Stamina",
+		match: /Max Magicka and Stamina by ([0-9]+)/i,
+	},
+	{
 		statId: "Stamina",
 		match: /Max Stamina by ([0-9]+)/i,
 	},
@@ -4196,6 +4296,22 @@ ESO_ABILITYDESC_MATCHES = [
 	{
 		statId: "Magicka",
 		match: /Increase Max Magicka and Max Health by ([0-9]+)/i,
+	},
+	{
+		statId: "MagickaRegen",
+		match: /Increase Magicka Recovery, Stamina Recovery, and Health Recovery by ([0-9]+)/i,
+	},
+	{
+		statId: "StaminaRegen",
+		match: /Increase Magicka Recovery, Stamina Recovery, and Health Recovery by ([0-9]+)/i,
+	},
+	{
+		statId: "HealthRegen",
+		match: /Increase Magicka Recovery, Stamina Recovery, and Health Recovery by ([0-9]+)/i,
+	},
+	{
+		statId: "MagickaRegen",
+		match: /Increase Magicka Recovery and Health Recovery by ([0-9]+)/i,
 	},
 ];
 
@@ -4308,6 +4424,14 @@ function GetEsoInputValues(mergeComputedStats)
 	
 	GetEsoInputGeneralValues(inputValues, "Food", "Food");
 	GetEsoInputGeneralValues(inputValues, "Buff", "Potion");
+	
+	inputValues.FoodBuff = 0;
+	inputValues.DrinkBuff = 0;
+	
+	if (g_EsoBuildItemData.Food.type == 4 && g_EsoBuildItemData.Food.enabled !== false)
+		inputValues.FoodBuff = 1;
+	else if (g_EsoBuildItemData.Food.type == 12 && g_EsoBuildItemData.Food.enabled !== false)
+		inputValues.DrinkBuff = 1;
 	
 	inputValues.ActiveBar = g_EsoBuildActiveWeapon;
 	
@@ -4633,6 +4757,8 @@ function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData)
 		if (matchData.display == "%") statValue = statValue/100;
 					
 		var category = matchData.category || "Set";
+		
+		if (inputValues[category][matchData.statId] == null) inputValues[category][matchData.statId] = 0;
 		
 		if (matchData.combineAs == "*%")
 			inputValues[category][matchData.statId] = (1 + inputValues[category][matchData.statId]) * (1 + statValue) - 1;
