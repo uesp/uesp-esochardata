@@ -1070,3 +1070,14 @@ button.esotbWeaponSelect {
 #esotbStealth {
     margin-right: 183px;	
 }
+
+.esotbStatDivider {
+	border-bottom: solid 1px #aaa;
+    margin-bottom: 3px;
+}
+
+.esotbStatDividerLite {
+    border-bottom: 1px solid #edd;
+    padding-bottom: 1px;
+    margin-bottom: 1px;
+}

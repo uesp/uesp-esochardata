@@ -168,6 +168,7 @@ class EsoBuildDataEditor
 			"SkillLineSpellDmg.Placeholder",
 			"SkillBonusWeaponDmg.Placeholder",
 			"SkillBonusSpellDmg.Placeholder",
+			"SkillBonusSpellDmg.CastTime",
 			"Buff.Empower",
 			"CP.HAActiveDamage",
 			"CP.LAActiveDamage",
@@ -1399,7 +1400,7 @@ class EsoBuildDataEditor
 			"Health" => array(
 					"title" => "Health",
 					"round" => "floor",
-					"warning" => "Note: Currently there is a bug on Live with the Undaunted Mettle passive that sometimes causes incorrect health/magica/stamina values to be displayed. Logging out and back in should reset the display issue.",
+					//"warning" => "Note: Currently there is a bug on Live with the Undaunted Mettle passive that sometimes causes incorrect health/magica/stamina values to be displayed. Logging out and back in should reset the display issue.",
 					"compute" => array(
 							"156 * Level + 944",
 							"122 * Attribute.Health",
@@ -1430,7 +1431,7 @@ class EsoBuildDataEditor
 			"Magicka" => array(
 					"title" => "Magicka",
 					"round" => "floor",
-					"warning" => "Note: Currently there is a bug on Live with the Undaunted Mettle passive that sometimes causes incorrect health/magica/stamina values to be displayed. Logging out and back in should reset the display issue.",
+					//"warning" => "Note: Currently there is a bug on Live with the Undaunted Mettle passive that sometimes causes incorrect health/magica/stamina values to be displayed. Logging out and back in should reset the display issue.",
 					"compute" => array(
 							"142 * Level + 858",
 							"111 * Attribute.Magicka",
@@ -1459,7 +1460,8 @@ class EsoBuildDataEditor
 			"Stamina" => array(
 					"title" => "Stamina",
 					"round" => "floor",
-					"warning" => "Note: Currently there is a bug on Live with the Undaunted Mettle passive that sometimes causes incorrect health/magica/stamina values to be displayed. Logging out and back in should reset the display issue.",
+					"addClass" => "esotbStatDividerLite",
+					//"warning" => "Note: Currently there is a bug on Live with the Undaunted Mettle passive that sometimes causes incorrect health/magica/stamina values to be displayed. Logging out and back in should reset the display issue.",
 					"compute" => array(
 							"142 * Level + 858",
 							"111 * Attribute.Stamina",
@@ -1541,6 +1543,7 @@ class EsoBuildDataEditor
 			"StaminaRegen" => array(
 					"title" => "Stamina Recovery",
 					"round" => "floor",
+					"addClass" => "esotbStatDividerLite",
 					"compute" => array(
 							"round(9.30612 * Level + 48.7)",
 							"Item.StaminaRegen",
@@ -1587,6 +1590,7 @@ class EsoBuildDataEditor
 			"WeaponDamage" => array(
 					"title" => "Weapon Damage",
 					"round" => "floor",
+					"addClass" => "esotbStatDividerLite",
 					"compute" => array(
 							"Item.WeaponDamage",
 							"Set.WeaponDamage",
@@ -1697,6 +1701,7 @@ class EsoBuildDataEditor
 					"title" => "Weapon Critical Damage",
 					"display" => "%2",
 					"min" => 0,
+					"addClass" => "esotbStatDividerLite",
 					"compute" => array(
 							"CP.WeaponCritDamage",
 							"Skill.CritDamage",
@@ -1773,6 +1778,7 @@ class EsoBuildDataEditor
 					"title" => "Critical Resistance",
 					"display" => "critresist",
 					"round" => "floor",
+					"addClass" => "esotbStatDividerLite",
 					"compute" => array(
 							"Item.CritResist",
 							"Set.CritResist",
@@ -1809,6 +1815,7 @@ class EsoBuildDataEditor
 			*/
 			"PhysicalPenetration" => array(
 					"title" => "Physical Penetration",
+					"addClass" => "esotbStatDividerLite",
 					"compute" => array(
 							"100",
 							"Item.PhysicalPenetration",
@@ -1847,6 +1854,7 @@ class EsoBuildDataEditor
 					"depends" => array("AttackPhysicalMitigation", "WeaponDamage", "Stamina", "WeaponCrit", "AttackWeaponCritDamage"),
 					"round" => "round",
 					"note" => "Effective Weapon Power is a custom stat that represents your overall power with weapon/stamina attacks and can be used to compare different build setups. A higher number is better.",
+					"addClass" => "esotbStatDivider",
 					"compute" => array(
 							"round(Stamina/10.5)",
 							"WeaponDamage",
@@ -1901,6 +1909,7 @@ class EsoBuildDataEditor
 			"DiseaseResist" => array(
 					"title" => "Disease Resistance",
 					"display" => "elementresist",
+					"addClass" => "esotbStatDivider",
 					"compute" => array(
 							"Item.DiseaseResist",
 							"Skill.DiseaseResist",
@@ -1990,6 +1999,7 @@ class EsoBuildDataEditor
 					"title" => "Resurrect Time",
 					"suffix" => " secs",
 					"round" => "floor2",
+					"addClass" => "esotbStatDivider",
 					"compute" => array(
 							"7",
 							"1",
@@ -2116,6 +2126,7 @@ class EsoBuildDataEditor
 					"title" => "Mount Speed",
 					"round" => "floor",
 					"display" => "%",
+					"addClass" => "esotbStatDivider",
 					"compute" => array(
 							"Buff.MountSpeed",
 							"Set.MountSpeed",
@@ -2262,6 +2273,7 @@ class EsoBuildDataEditor
 					"title" => "Shield Damage Done",
 					"display" => "%",
 					"round" => "floor",
+					"addClass" => "esotbStatDivider",
 					"compute" => array(
 							"CP.ShieldDamageDone",
 					),
@@ -2307,6 +2319,23 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			"HADamageTaken" => array(
+					"title" => "Heavy Attack Damage Taken",
+					"display" => "%",
+					"round" => "floor",
+					"compute" => array(
+							"1 + CP.HADamageTaken",
+					),
+			),
+				
+			"LADamageTaken" => array(
+					"title" => "Light Attack Damage Taken",
+					"display" => "%",
+					"round" => "floor",
+					"compute" => array(
+							"1 + CP.LADamageTaken",
+					),
+			),			
 			
 			"DamageDone" => array(
 					"title" => "Damage Done",
@@ -2448,6 +2477,7 @@ class EsoBuildDataEditor
 					"title" => "Disease Damage Done",
 					"display" => "%",
 					"round" => "floor",
+					"addClass" => "esotbStatDivider",
 					"compute" => array(
 							"CP.DiseaseDamageDone",
 							"Skill.DiseaseDamageDone",
@@ -2571,30 +2601,13 @@ class EsoBuildDataEditor
 			"Constitution" => array(				// TODO: Check?
 					"title" => "Constitution",
 					"round" => "floor",
+					"addClass" => "esotbStatDivider",
 					"compute" => array(
 							"floor(2.82 * EffectiveLevel)",
 							"ArmorHeavy",
 							"*",
 							"1 + Set.Constitution",
 							"*",
-					),
-			),
-			
-			"HADamageTaken" => array(
-					"title" => "Heavy Attack Damage Taken",
-					"display" => "%",
-					"round" => "floor",
-					"compute" => array(
-							"1 + CP.HADamageTaken",
-					),
-			),
-			
-			"LADamageTaken" => array(
-					"title" => "Light Attack Damage Taken",
-					"display" => "%",
-					"round" => "floor",
-					"compute" => array(
-							"1 + CP.LADamageTaken",
 					),
 			),
 			
@@ -2737,6 +2750,7 @@ class EsoBuildDataEditor
 					"title" => "Heavy Attack Werewolf",
 					"round" => "floor",
 					"depends" => array("Stamina", "WeaponDamage"),
+					"addClass" => "esotbStatDivider",
 					"compute" => array(
 							"round(0.05007*Stamina + 1.99937*WeaponDamage - 0.51345)",		//Update 11pts
 							//"round(0.0440*Stamina + 1.76*WeaponDamage + 0.74)",			//Update 10
@@ -2786,6 +2800,7 @@ class EsoBuildDataEditor
 					"title" => "Light Attack Bow",
 					"round" => "floor",
 					"depends" => array("Stamina", "WeaponDamage"),
+					"addClass" => "esotbStatDivider",
 					"compute" => array(
 							"round(0.0140*Stamina + 0.56*WeaponDamage - 0.60)",
 							"1 + CP.LABowDamage + Set.LADamage + Set.BowDamageDone", 	// TODO: Check BowDamageDone
@@ -2918,6 +2933,7 @@ class EsoBuildDataEditor
 					"display" => "%",
 					"min" => 0,
 					"max" => 1,
+					"addClass" => "esotbStatDivider",
 					"compute" => array(
 							"Target.CritDamage",
 							"CritResist",
@@ -2933,7 +2949,7 @@ class EsoBuildDataEditor
 			"MagickaCost" => array(
 					"title" => "Magicka Ability Cost",
 					"round" => "floor",
-					"warning" => "Note: Currently there is a bug on Live that randomly results in ability costs 0-2% higher than normal. ",
+					//"warning" => "Note: Currently there is a bug on Live that randomly results in ability costs 0-2% higher than normal. ",
 					"compute" => array(
 							"Misc.SpellCost",
 							"1 + CP.MagickaCost",
@@ -2957,7 +2973,8 @@ class EsoBuildDataEditor
 			"StaminaCost" => array(
 					"title" => "Stamina Ability Cost",
 					"round" => "floor",
-					"warning" => "Note: Currently there is a bug on Live that randomly results in ability costs 0-2% higher than normal. ",
+					"addClass" => "esotbStatDivider",
+					//"warning" => "Note: Currently there is a bug on Live that randomly results in ability costs 0-2% higher than normal. ",
 					"compute" => array(
 							"Misc.SpellCost",
 							"1 + CP.StaminaCost",

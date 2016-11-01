@@ -2426,8 +2426,6 @@ ESO_SETEFFECT_MATCHES = [
 	// Increases your damage done to Sneaking enemies by 20%.
 	// Reduces your damage taken from Guards by 20%.
 		
-	// When you deal damage with a Magicka ability, your Poison and Disease Damage abilities gain an additional 450 Weapon Damage for 10 seconds.
-	
 	{
 		category: "SkillBonusSpellDmg",
 		statId: "CastTime",
@@ -2528,12 +2526,6 @@ ESO_SETEFFECT_MATCHES = [
 		statId: "HealthRegen",
 		match: /While you have a food buff active, your Max Health is increased by [0-9]+ and Health Recovery by ([0-9]+)/i,
 	},
-	{
-		statRequireId: "FoodBuff",
-		statRequireValue: 1,
-		statId: "StaminaRegen",
-		match: /While you have a drink buff active, your Max Stamina is increased by [0-9]+ and Stamina Recovery by ([0-9]+)/i,
-	},	
 	{
 		statRequireId: "DrinkBuff",
 		statRequireValue: 1,
@@ -3957,6 +3949,24 @@ ESO_SETEFFECT_MATCHES = [
 		match: /When you heal a friendly target that is at [0-9]+% Health, you have a [0-9]+% chance to increase their Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
+		id: "Swamp Raider",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		category: "SkillBonusWeaponDmg",
+		statId: "Poison",
+		match: /When you deal damage with a Magicka ability, your Poison and Disease Damage abilities gain an additional ([0-9]+) Weapon Damage/i,
+	},
+	{
+		id: "Swamp Raider",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		category: "SkillBonusWeaponDmg",
+		statId: "Disease",
+		match: /When you deal damage with a Magicka ability, your Poison and Disease Damage abilities gain an additional ([0-9]+) Weapon Damage/i,
+	},
+	{
 		id: "The Brute",
 		setBonusCount: 4,
 		toggle: true,
@@ -4418,6 +4428,16 @@ ESO_ABILITYDESC_MATCHES = [
 ];
 
 
+
+ESOBUILD_RAWOUTPUT_LABELSUFFIX = 
+{
+	"SkillBonusWeaponDmg" : "WeaponDamage",
+	"SkillBonusSpellDmg" : "SpellDamage",
+	"SkillLineWeaponDmg" : "WeaponDamage",
+	"SkillLineSpellDmg" : "SpellDamage",
+};
+
+
 function GetEsoInputValues(mergeComputedStats)
 {
 	ResetEsoBuffSkillEnabled();
@@ -4531,17 +4551,28 @@ function GetEsoInputValues(mergeComputedStats)
 	inputValues.DrinkBuff = 0;
 	
 	if (g_EsoBuildItemData.Food.type == 4 && g_EsoBuildItemData.Food.enabled !== false)
+	{
 		inputValues.FoodBuff = 1;
+		AddEsoInputStatSource("FoodBuff", { source: "Food", value: 1 });
+	}
 	else if (g_EsoBuildItemData.Food.type == 12 && g_EsoBuildItemData.Food.enabled !== false)
+	{
 		inputValues.DrinkBuff = 1;
+		AddEsoInputStatSource("DrinkBuff", { source: "Drink", value: 1 });
+	}
 	
 	inputValues.ActiveBar = g_EsoBuildActiveWeapon;
 	
 	if (g_EsoBuildActiveWeapon == 1)
 	{
 		if ( ( (g_EsoBuildItemData.MainHand1.weaponType >= 1 && g_EsoBuildItemData.MainHand1.weaponType <= 3) ||
-				g_EsoBuildItemData.MainHand1.weaponType == 1) &&				
-				g_EsoBuildItemData.OffHand1.weaponType == 14) inputValues.Weapon1HShield = 1;
+				g_EsoBuildItemData.MainHand1.weaponType == 11) &&				
+				g_EsoBuildItemData.OffHand1.weaponType == 14)
+		{
+			inputValues.Weapon1HShield = 1;
+			AddEsoInputStatSource("Weapon1HShield", { source: "Worn Weapons", value: 1 });
+		}
+		
 		GetEsoInputItemValues(inputValues, "MainHand1");
 		GetEsoInputItemValues(inputValues, "OffHand1");
 		GetEsoInputItemValues(inputValues, "Poison1");
@@ -4552,8 +4583,13 @@ function GetEsoInputValues(mergeComputedStats)
 	else
 	{
 		if ( ( (g_EsoBuildItemData.MainHand2.weaponType >= 1 && g_EsoBuildItemData.MainHand2.weaponType <= 3) ||
-				g_EsoBuildItemData.MainHand2.weaponType == 1) &&				
-				g_EsoBuildItemData.OffHand2.weaponType == 14) inputValues.Weapon1HShield = 1;
+				g_EsoBuildItemData.MainHand2.weaponType == 11) &&				
+				g_EsoBuildItemData.OffHand2.weaponType == 14) 
+		{
+			inputValues.Weapon1HShield = 1;
+			AddEsoInputStatSource("Weapon1HShield", { source: "Worn Weapons", value: 1 });
+		}
+		
 		GetEsoInputItemValues(inputValues, "MainHand2");
 		GetEsoInputItemValues(inputValues, "OffHand2");
 		GetEsoInputItemValues(inputValues, "Poison2");
@@ -4757,16 +4793,21 @@ function GetEsoInputSetDataValues(inputValues, setData)
 	for (var i = 0; i < 5; ++i)
 	{
 		var setBonusCount = parseInt(setData.items[0]['setBonusCount' + (i+1)]);
+		
+		//if (setBonusCount > setData.count) continue;
 		if (setBonusCount > setData.count && setBonusCount > setData.otherCount) continue;
+		
+		var onlyEnableToggles = false;
+		if (setBonusCount > setData.count) onlyEnableToggles = true;
 		
 		var setDesc = setData.averageDesc[i];
 		
-		GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData);
+		GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData, onlyEnableToggles);
 	}
 }
 
 
-function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData)
+function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData, onlyEnableToggles)
 {
 	var foundMatch = false;
 	var addFinalEffect = false;
@@ -4790,6 +4831,10 @@ function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData)
 		if (matchData.toggle === true)
 		{
 			if (!IsEsoBuildToggledSetEnabled(matchData.id)) continue;
+		}
+		else if (onlyEnableToggles)
+		{
+			continue;
 		}
 		
 		if (matchData.statRequireId != null)
@@ -6154,8 +6199,13 @@ function AddEsoInputStatSource(statId, data)
 	if (statIds.length > 1)
 	{
 		var firstStatId = statIds.shift();
-		
 		var newStatId = statIds.join(".");
+		
+		if (ESOBUILD_RAWOUTPUT_LABELSUFFIX[firstStatId] != null)
+		{
+			newStatId += ESOBUILD_RAWOUTPUT_LABELSUFFIX[firstStatId]; 
+		}
+				
 		if (g_EsoInputStatSources[newStatId] == null) g_EsoInputStatSources[newStatId] = [];
 		g_EsoInputStatSources[newStatId].push(data);
 	}
@@ -6520,6 +6570,8 @@ function CreateEsoComputedStat(statId, stat)
 		attr("statid", statId).
 		addClass("esotbStatRow").
 		appendTo("#esotbStatList");
+	
+	if (stat["addClass"] != null) element.addClass(stat["addClass"]);
 
 	$("<div/>").addClass("esotbStatName").
 		text(stat.title).
