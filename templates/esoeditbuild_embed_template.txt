@@ -326,7 +326,8 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 				<li>Food/drink searches will include all the variable level results at all levels such as Orzorga's and Crown items. Note that all such food/drink
 					have CP160 stats regardless of search level.</li>
 				<li>Fixed Daggers not counting as a weapon for the 1H+Shield skill line.</li>
-				<li>Added the 5 piece bonus from the Soulshine set.</li> 
+				<li>Added the 5 piece bonus from the Soulshine set.</li>
+				<li>Added the 5 piece bonus from the Elemental Succession set as 3 toggled effects.</li> 
 			</ul>
 			<p>
 			<b>31 October 2016</b>
