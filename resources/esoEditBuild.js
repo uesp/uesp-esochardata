@@ -2416,15 +2416,15 @@ ESO_SETEFFECT_MATCHES = [
 	// Reduces your damage taken from environmental traps by 40%.
 	// Reduces your damage taken from Players by 5%.
 	// Reduces your damage taken from Siege Weapons and Player Area of Effect abilities by 20%.
-	// While you are in combat, you gain a rotating bonus to Flame, Shock, or Frost Damage. The active element changes every 4 seconds. Your attacks dealing damage with the active element gain 358 Spell Damage.
-	// Increases the duration of your Flame Damage abilities by 2 seconds.
-	// When your target is under 25% Health, add 1800 Weapon Damage to your Light and Heavy Attacks.
 	// Reduces your damage taken from area of effect abilities by 25%, but the damage and healing of your own area of effect abilities is also reduced by 25%.
 	// increases the damage of your Bow abilities against Players by 8%.
 	// When you dodge an attack, your Light and Heavy Attacks deal an additional 1225 damage for 8 seconds.
 	// Ignore the Movement Speed penalty of Sneak.
 	// Increases your damage done to Sneaking enemies by 20%.
 	// Reduces your damage taken from Guards by 20%.
+	
+	// Increases the duration of your Flame Damage abilities by 2 seconds.
+	// When your target is under 25% Health, add 1800 Weapon Damage to your Light and Heavy Attacks.
 		
 	{
 		category: "Item",
@@ -3574,6 +3574,39 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "PhysicalResist",
 		match: /While you are blocking, your Physical and Spell Resistance is increased by ([0-9]+)/i,
+	},
+	{
+		id: "Elemental Succession (Flame)",
+		setId: "Elemental Succession",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		category: "SkillBonusSpellDmg",
+		statId: "Flame",
+		disableSetIds: [ "Elemental Succession (Shock)", "Elemental Succession (Cold)" ],
+		match: /Your attacks dealing damage with the active element gain ([0-9]+) Spell Damage/i,
+	},
+	{
+		id: "Elemental Succession (Shock)",
+		setId: "Elemental Succession",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		category: "SkillBonusSpellDmg",
+		statId: "Shock",
+		disableSetIds: [ "Elemental Succession (Cold)", "Elemental Succession (Flame)" ],
+		match: /Your attacks dealing damage with the active element gain ([0-9]+) Spell Damage/i,
+	},
+	{
+		id: "Elemental Succession (Cold)",
+		setId: "Elemental Succession",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		category: "SkillBonusSpellDmg",
+		statId: "Cold",
+		disableSetIds: [ "Elemental Succession (Shock)", "Elemental Succession (Flame)" ],
+		match: /Your attacks dealing damage with the active element gain ([0-9]+) Spell Damage/i,
 	},
 	{
 		id: "Embershield",
@@ -8210,6 +8243,7 @@ function CreateEsoBuildToggledSetData()
 			g_EsoBuildToggledSetData[id].setId = id;
 			g_EsoBuildToggledSetData[id].displayName = setEffectData.displayName;
 			g_EsoBuildToggledSetData[id].disableSetId = setEffectData.disableSetId;
+			g_EsoBuildToggledSetData[id].disableSetIds = setEffectData.disableSetIds;
 		}
 		
 		g_EsoBuildToggledSetData[id].id = id;
@@ -8543,6 +8577,15 @@ function OnEsoBuildToggleSetChanged(checkBox)
 	if (toggleData.disableSetId != null)
 	{
 		$(".esotbToggledSetItem[setid='" + toggleData.disableSetId + "']").find(".esotbToggleSetCheck").prop("checked", false);
+	}
+	
+	if (toggleData.disableSetIds != null)
+	{
+		for (var i in toggleData.disableSetIds)
+		{
+			var disableSetId = toggleData.disableSetIds[i];
+			$(".esotbToggledSetItem[setid='" + disableSetId + "']").find(".esotbToggleSetCheck").prop("checked", false);
+		}
 	}
 	
 }
