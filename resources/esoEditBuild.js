@@ -639,7 +639,7 @@ g_EsoBuildBuffData =
 			skillEnabled : false,
 			visible : false,
 			toggleVisible : true,
-			value : 3096,
+			value : 2003,
 			statDesc : "Increases the Spell and Weapon Damage of your next non-AoE DoT attack by ",
 			category: "Item",
 			statIds : [ "MaelstromDamage" ],
@@ -2413,52 +2413,86 @@ ESO_PASSIVEEFFECT_MATCHES = [
 
 ESO_SETEFFECT_MATCHES = [
                          
-	// Increases the immunity to disabling effects after using Break Free by 3 seconds.
-	// While you have an Armor ability slotted, your Max Health is increased by 5%. When you use an Armor ability, your Physical and Spell Resistance is increased by 5332 for 10 seconds.
-	// When you set an enemy off-balance, your Weapon Damage is increased by 450 for 10 seconds.
-	// When you deal damage, you have a 10% chance to increase your Weapon Damage by 400 for 5 seconds.
 	// Reduces your damage taken from environmental traps by 40%.
 	// Reduces your damage taken from Players by 5%.
 	// Reduces your damage taken from Siege Weapons and Player Area of Effect abilities by 20%.
-	// When you take damage, you have a 6% chance to generate 15 Ultimate and increase your Physical and Spell Resistance by 6450 for 6 seconds.
-	// Increases the duration of the dodge chance bonus of Roll Dodge by seconds.
-	// Reduces the duration of all negative effects applied to you by 20%.
-	// While you are blocking, your Physical and Spell Resistance is increased by 4300
-	// Increases the range of your Bow abilities by 3 meters
 	// While you are in combat, you gain a rotating bonus to Flame, Shock, or Frost Damage. The active element changes every 4 seconds. Your attacks dealing damage with the active element gain 358 Spell Damage.
 	// Increases the duration of your Flame Damage abilities by 2 seconds.
-	// When an enemy within 28 meters of you dies, you gain Major Berserk for 3 seconds, increasing your damage done by 25%.
-	// While you are blocking you gain Major Evasion, increasing your dodge chance by 20%.
 	// When your target is under 25% Health, add 1800 Weapon Damage to your Light and Heavy Attacks.
 	// Reduces your damage taken from area of effect abilities by 25%, but the damage and healing of your own area of effect abilities is also reduced by 25%.
-	// While you are casting or channeling an ability, your damage taken is reduced by 15%.
 	// increases the damage of your Bow abilities against Players by 8%.
-	// When you cast a Support ability, you increase the Physical and Spell Resistance of up to 4 friendly targets within 10 meters by 3010 for 2 minutes.
 	// When you dodge an attack, your Light and Heavy Attacks deal an additional 1225 damage for 8 seconds.
 	// Ignore the Movement Speed penalty of Sneak.
-	// When you take damage, you have a 6% chance to transform into a skeleton and gain Major Protection and Minor Defile for 12 seconds, reducing your damage taken by 30% but reducing your healing received by 15%. This effect can occur once every 15 seconds.
-	
 	// Increases your damage done to Sneaking enemies by 20%.
-	// When you cast a Magicka ability you gain Major Evasion for 3 seconds, increasing your dodge chance by 20%.
 	// Reduces your damage taken from Guards by 20%.
-	
-	
 		
 	// When you deal damage with a Magicka ability, your Poison and Disease Damage abilities gain an additional 450 Weapon Damage for 10 seconds.
-	// Adds 400 Weapon and Spell Damage to your Undaunted abilities.
-	// Adds 450 Weapon Damage to your Dual Wield abilities.
-	// Adds 400 Weapon Damage to your Physical Damage abilities.
-	// Adds 450 Weapon Damage to your Two Handed abilities.
-	// Adds 450 Spell Damage to your Destruction Staff abilities.
-	// Adds 450 Spell Damage to your cast time and channeled abilities.
-	// Adds 400 Spell Damage to your Flame Damage abilities.
-	// Adds 400 Spell Damage to your Shock Damage abilities.
-	// Adds 450 Spell Damage to your Restoration Staff abilities.
-	// Adds 400 Spell Damage to your Vampire abilities.
-	// Adds 400 Spell Damage to your Cold Damage abilities.
-	// Adds 200 Weapon Damage to your One Hand and Shield abilities.
 	
-	
+	{
+		category: "SkillBonusSpellDmg",
+		statId: "CastTime",
+		match: /Adds ([0-9]+) Spell Damage to your cast time and channeled abilities/i,
+	},
+	{
+		category: "SkillBonusWeaponDmg",
+		statId: "Physical",
+		match: /Adds ([0-9]+) Weapon Damage to your Physical Damage abilities/i,
+	},
+	{
+		category: "SkillBonusSpellDmg",
+		statId: "Cold",
+		match: /Adds ([0-9]+) Spell Damage to your Cold Damage abilities/i,
+	},
+	{
+		category: "SkillBonusSpellDmg",
+		statId: "Flame",
+		match: /Adds ([0-9]+) Spell Damage to your Flame Damage abilities/i,
+	},
+	{
+		category: "SkillBonusSpellDmg",
+		statId: "Shock",
+		match: /Adds ([0-9]+) Spell Damage to your Shock Damage abilities/i,
+	},
+	{
+		category: "SkillLineWeaponDmg",
+		statId: "Two Handed",
+		match: /Adds ([0-9]+) Weapon Damage to your Two Handed abilities/i,
+	},
+	{
+		category: "SkillLineWeaponDmg",
+		statId: "Undaunted",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your Undaunted abilities/i,
+	},
+	{
+		category: "SkillLineSpellDmg",
+		statId: "Undaunted",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your Undaunted abilities/i,
+	},
+	{
+		category: "SkillLineWeaponDmg",
+		statId: "Dual Wield",
+		match: /Adds ([0-9]+) Weapon Damage to your Dual Wield abilities/i,
+	},
+	{
+		category: "SkillLineWeaponDmg",
+		statId: "One Hand and Shield ",
+		match: /Adds ([0-9]+) Weapon Damage to your One Hand and Shield  abilities/i,
+	},
+	{
+		category: "SkillLineSpellDmg",
+		statId: "Restoration Staff",
+		match: /Adds ([0-9]+) Spell Damage to your Restoration Staff abilities/i,
+	},
+	{
+		category: "SkillLineSpellDmg",
+		statId: "Destruction Staff",
+		match: /Adds ([0-9]+) Spell Damage to your Destruction Staff abilities/i,
+	},
+	{
+		category: "SkillLineSpellDmg",
+		statId: "Vampire",
+		match: /Adds ([0-9]+) Spell Damage to your Vampire abilities/i,
+	},
 	{
 		statId: "OtherEffects",
 		rawInputMatch: /(When an immobilization or snare is applied to you, heal for [0-9]+ Health and restore [0-9]+ Stamina)/i,
@@ -2539,6 +2573,12 @@ ESO_SETEFFECT_MATCHES = [
 	{
 		buffId: "Minor Expedition",
 		match: /Gain Minor Expedition at all times/i,
+	},
+	{
+		setBonusCount: 2,
+		statId: "OtherEffects",
+		rawInputMatch: /(When you take damage, you have a [0-9]+% chance to generate [0-9]+ Ultimate)/i,
+		match: /When you take damage, you have a [0-9]+% chance to generate ([0-9]+) Ultimate/i,
 	},
 	{
 		setBonusCount: 4,
@@ -3078,6 +3118,10 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Increase range of bow attacks by ([0-9]+) meters/i,
 	},
 	{
+		statId: "BowRange",
+		match: /Increases the range of your Bow abilities by ([0-9]+) meters/i,
+	},
+		{
 		statId: "LADamage",
 		display: '%',
 		category: "Skill",
@@ -3232,15 +3276,23 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Immunity duration after using Break Free increased by ([0-9]+\.?[0-9]*) seconds/i,
 	},
 	{
+		statId: "BreakFreeDuration",
+		match: /Increases the immunity to disabling effects after using Break Free by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
 		requireSkillType: "Armor",
 		category: "Skill",
 		statId: "Health",
 		display: "%",
-		match: /While you have an Armor Ability slotted, increase your Maximum Health by ([0-9]+\.?[0-9]*)%/i,
+		match: /While you have an Armor Ability slotted, your Max Health is increased by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "RollDodgeDuration",
 		match: /After using Roll Dodge, continue to dodge attacks for an additional ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		statId: "RollDodgeDuration",
+		match: /Increases the duration of the dodge chance bonus of Roll Dodge by ([0-9]+\.?[0-9]*) seconds/i,
 	},
 	{
 		category: "SkillCost",
@@ -3423,7 +3475,8 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "PhysicalResist",
-		match: /When you activate an Armor Ability you gain ([0-9]+) Physical and Spell Resistance/i,
+		rawInputMatch: /(When you use an Armor ability, your Physical and Spell Resistance is increased by [0-9]+)/i,
+		match: /When you use an Armor ability, your Physical and Spell Resistance is increased by ([0-9]+)/i,
 	},
 	{
 		id: "Armor Master",
@@ -3431,7 +3484,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "SpellResist",
-		match: /When you activate an Armor Ability you gain ([0-9]+) Physical and Spell Resistance/i,
+		match: /When you use an Armor ability, your Physical and Spell Resistance is increased by ([0-9]+)/i,
 	},
 	{
 		id: "Armor of Rage",
@@ -3440,6 +3493,22 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "WeaponDamage",
 		match: /chance to increase Weapon Damage by ([0-9]+) for [0-9]+ seconds after dealing damage/i,
+	},
+	{
+		id: "Armor of the Veiled Heritance",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: /When you deal damage, you have a [0-9]+% chance to increase your Weapon Damage by ([0-9]+)/i,
+	},
+	{
+		id: "Armor of Truth",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: / When you set an enemy off-balance, your Weapon Damage is increased by ([0-9]+)/i,
 	},
 	{
 		id: "Berserking Warrior",
@@ -3456,7 +3525,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "PhysicalResist",
-		match: /chance when hit to gain ([0-9]+) Physical Resistance and Spell Resistance/i,
+		match: /and increase your Physical and Spell Resistance by ([0-9]+) for/i,
 	},
 	{
 		id: "Blood Spawn",
@@ -3464,7 +3533,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "SpellResist",
-		match: /chance when hit to gain ([0-9]+) Physical Resistance and Spell Resistance/i,
+		match: /and increase your Physical and Spell Resistance by ([0-9]+) for/i,
 	},
 	{
 		id: "Briarheart",
@@ -3497,6 +3566,22 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "WeaponDamage",
 		match: /When you drink a potion you feel a rush of energy, increasing your Weapon and Spell Damage by ([0-9]+)/i,
+	},
+	{
+		id: "Duneripper's Scales",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "SpellResist",
+		match: /While you are blocking, your Physical and Spell Resistance is increased by ([0-9]+)/i,
+	},
+	{
+		id: "Duneripper's Scales",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "PhysicalResist",
+		match: /While you are blocking, your Physical and Spell Resistance is increased by ([0-9]+)/i,
 	},
 	{
 		id: "Embershield",
@@ -3609,6 +3694,15 @@ ESO_SETEFFECT_MATCHES = [
 		match: /While casting or channeling a spell, incoming damage is reduced by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+		id: "Light of Cyrodiil",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "DamageTaken",
+		factorValue: -0.01,
+		match: /While you are casting or channeling an ability, your damage taken is reduced by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
 		id: "Lord Warden",
 		setBonusCount: 2,
 		toggle: true,
@@ -3623,6 +3717,22 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "PhysicalResist",
 		match: /chance to summon a shadow orb for [0-9]+ seconds that increases the Physical and Spell Resistance of you and your allies within [0-9]+ meters by ([0-9]+)/i,
+	},
+	{
+		id: "Meritorious Service",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "PhysicalResist",
+		match: /When you cast a Support ability, you increase the Physical and Spell Resistance of up to [0-9]+ friendly targets within [0-9]+ meters by ([0-9]+)/i,
+	},
+	{
+		id: "Meritorious Service",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "SpellResist",
+		match: /When you cast a Support ability, you increase the Physical and Spell Resistance of up to [0-9]+ friendly targets within [0-9]+ meters by ([0-9]+)/i,
 	},
 	{
 		id: "Molag Kena",
@@ -3965,16 +4075,8 @@ ESO_SETEFFECT_MATCHES = [
 		statId: "SpellDamage",
 		match: /When you use Roll Dodge, your Weapon and Spell Damage is increased by ([0-9]+)/i,
 	},
-		// End of Toggled Sets
 
-	
-		// Other Effects
-	//Elemental Succession: While in combat, you gain a rotating bonus to either Flame, Shock, or Frost damage. The active element changes every 4 seconds. Your attacks dealing damage with the active element gain 44-515 Spell Damage.
-	//Oblivion's Foe: Increase the damage of your Soul Trap abilities by 100%.
-	//Syvarra's Scales: Take 20% less damage from guards
-	//Trial by Fire: When you take elemental damage, gain 179-7727 Resistance to that element for 4 seconds. You can only be resistant to one element at a time.
-	//Varen's Legacy: 10% chance on block that the next Area of Effect Attack you use will deal an additional 300-3450 Damage.
-];
+];		// End of Toggled Sets
 
 	
 ESO_ENCHANT_ARMOR_MATCHES = [
@@ -4551,6 +4653,7 @@ function GetEsoInputBuffValue(inputValues, buffName, buffData)
 		}
 		else
 		{
+			if (inputValues[category][statId] == null) inputValues[category][statId] = 0;
 			inputValues[category][statId] += parseFloat(statValue);
 			AddEsoItemRawOutput(buffData, category + "." + statId, statValue);
 			AddEsoInputStatSource(category + "." + statId, { buff: buffData,  buffName: buffName, value: statValue });
@@ -5757,7 +5860,7 @@ function GetEsoInputTargetValues(inputValues)
 	inputValues.Target.SpellResist = ParseEsoBuildFloat($("#esotbTargetResistance").val());
 	inputValues.Target.PhysicalResist = inputValues.Target.SpellResist;
 	inputValues.Target.CritResistFlat = ParseEsoBuildFloat($("#esotbTargetCritResistFlat").val());
-	inputValues.Target.CritResistFactor = ParseEsoBuildFloat($("#esotbTargetCritResistFactor").val()) / 100;
+	//inputValues.Target.CritResistFactor = ParseEsoBuildFloat($("#esotbTargetCritResistFactor").val()) / 100;
 	inputValues.Target.PenetrationFlat = ParseEsoBuildFloat($("#esotbTargetPenetrationFlat").val());
 	inputValues.Target.PenetrationFactor = ParseEsoBuildFloat($("#esotbTargetPenetrationFactor").val()) / 100;
 	inputValues.Target.DefenseBonus = ParseEsoBuildFloat($("#esotbTargetDefenseBonus").val()) / 100;
@@ -7876,10 +7979,10 @@ function ComputeEsoBuildSetDataAverages(setData)
 				continue;
 			}
 			
-			setData.averageNumbers[i][j] = Math.floor(thisSum[j] / counts[j]);
-			
 			if (numbersVary[j])
 			{
+				setData.averageNumbers[i][j] = Math.floor(thisSum[j] / counts[j]);
+				
 				if (setData.maxParsedNumbers == null) continue;
 				if (setData.maxParsedNumbers[i] == null) continue;
 				if (setData.maxParsedNumbers[i][0] == null) continue;
@@ -7890,7 +7993,10 @@ function ComputeEsoBuildSetDataAverages(setData)
 				var delta = maxNumber / 86;		// Best estimate so far
 				setData.averageNumbers[i][j] = Math.round(Math.floor(setData.averageNumbers[i][j] / delta) * delta);
 			}
-			
+			else
+			{
+				setData.averageNumbers[i][j] = setData.parsedNumbers[i][0][j];
+			}			
 			
 		}
 	}
@@ -8697,7 +8803,7 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
 		Dot				: inputValues.DotDamageDone,
 		All				: inputValues.DamageDone,
 		Empower			: inputValues.Buff.Empower,
-		MaelstromDamage : inputValues.Item.MaelstromDamage,
+		MaelstromDamage : 0,
 	};
 	
 	g_LastSkillInputValues.Healing =
@@ -8710,8 +8816,47 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
 	g_LastSkillInputValues.SkillDuration = inputValues.SkillDuration;
  	g_LastSkillInputValues.SkillDamage = inputValues.SkillDamage;
  	g_LastSkillInputValues.useMaelstromDamage = false;
-	
+ 	
+ 	var SpellDamageFactor = 1 + inputValues.Skill.SpellDamage + inputValues.Buff.SpellDamage;
+ 	var WeaponDamageFactor = 1 + inputValues.Skill.WeaponDamage + inputValues.Buff.WeaponDamage;
+ 	var BaseSpellDamage = inputValues.Item.SpellDamage + inputValues.Set.SpellDamage + inputValues.Mundus.SpellDamage + Math.floor(inputValues.Mundus.SpellDamage * inputValues.Item.Divines);
+ 	var BaseWeaponDamage = inputValues.Item.WeaponDamage + inputValues.Set.WeaponDamage + inputValues.Mundus.WeaponDamage + Math.floor(inputValues.Mundus.WeaponDamage * inputValues.Item.Divines);
+ 	
+ 	inputValues.SkillLineWeaponDmg['base'] = 0;
+ 	inputValues.SkillLineSpellDmg['base'] = 0;
+ 	inputValues.SkillBonusWeaponDmg['base'] = 0;
+ 	inputValues.SkillBonusSpellDmg['base'] = 0;
+ 	
+ 	g_LastSkillInputValues.SkillWeaponDamage = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage, WeaponDamageFactor);
+ 	g_LastSkillInputValues.SkillSpellDamage = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage, SpellDamageFactor);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage, WeaponDamageFactor);
+ 	g_LastSkillInputValues.SkillSpellDamage["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Item.MaelstromDamage, SpellDamageFactor);
+ 	
 	return g_LastSkillInputValues; 
+}
+
+
+function EsoBuildCreateSkillBonusDamage(lineSourceDmg, sourceDmg, baseDmg, factorDmg)
+{
+	var bonusDmg = {};
+	
+	for (var lineDmgType in lineSourceDmg)
+	{
+		var lineDmg = lineSourceDmg[lineDmgType];
+		lineDmgType = lineDmgType.toLowerCase();
+		
+		bonusDmg[lineDmgType] = {};
+		
+		for (var dmgType in sourceDmg)
+		{
+			var dmg = sourceDmg[dmgType];
+			dmgType = dmgType.toLowerCase();
+			
+			bonusDmg[lineDmgType][dmgType] = Math.floor((baseDmg + lineDmg + dmg) * factorDmg);
+		}	
+	}
+	
+	return bonusDmg;
 }
 
 
@@ -9801,7 +9946,7 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 	saveData.Stats['Target:AttackBonus'] = "" + (inputValues.Target.AttackBonus * 100) + "%";
 	saveData.Stats['Target:Resistance'] = "" + inputValues.Target.SpellResist;
 	saveData.Stats['Target:CritResistFlat'] = "" + inputValues.Target.CritResistFlat;
-	saveData.Stats['Target:CritResistFactor'] = "" + (inputValues.Target.CritResistFactor * 100) + "%";
+	//saveData.Stats['Target:CritResistFactor'] = "" + (inputValues.Target.CritResistFactor * 100) + "%";
 	saveData.Stats['Target:CritDamage'] = "" + (inputValues.Target.CritDamage * 100) + "%";
 	saveData.Stats['Target:CritChance'] = "" + (inputValues.Target.CritChance * 100) + "%";
 	saveData.Stats['Misc:SpellCost'] = "" + inputValues.Misc.SpellCost;
