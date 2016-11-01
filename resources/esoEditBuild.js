@@ -2427,8 +2427,8 @@ ESO_SETEFFECT_MATCHES = [
 	// Reduces your damage taken from Guards by 20%.
 		
 	{
-		category: "SkillBonusSpellDmg",
-		statId: "CastTime",
+		category: "Item",
+		statId: "ChannelSpellDamage",
 		match: /Adds ([0-9]+) Spell Damage to your cast time and channeled abilities/i,
 	},
 	{
@@ -3923,14 +3923,6 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		buffId: "Major Berserk",
 		match: /When you use the Blade of Woe, you gain Major Berserk/i,
-	},
-	{
-		id: "Soulshine",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		statId: "SpellDamage",
-		match: /While casting or channeling a spell, your spell power is increased by ([0-9]+)/i,
 	},
 	{
 		id: "Spell Power Cure",
@@ -8881,9 +8873,16 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
  	
  	g_LastSkillInputValues.SkillWeaponDamage = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage, WeaponDamageFactor);
  	g_LastSkillInputValues.SkillSpellDamage = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage, SpellDamageFactor);
+ 	 		
  	g_LastSkillInputValues.SkillWeaponDamage["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage, WeaponDamageFactor);
  	g_LastSkillInputValues.SkillSpellDamage["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Item.MaelstromDamage, SpellDamageFactor);
  	
+ 	g_LastSkillInputValues.SkillSpellDamage["Channel"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Item.ChannelSpellDamage, SpellDamageFactor);
+ 	g_LastSkillInputValues.SkillSpellDamage["Channel"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Item.ChannelSpellDamage + inputValues.Item.MaelstromDamage, SpellDamageFactor);
+ 	
+ 	g_LastSkillInputValues.SkillWeaponDamage["Channel"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusSpellDmg, BaseWeaponDamage, WeaponDamageFactor);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Channel"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage, WeaponDamageFactor);
+ 	 	
 	return g_LastSkillInputValues; 
 }
 
