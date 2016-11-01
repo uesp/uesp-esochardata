@@ -306,8 +306,6 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<h3>Known Bugs</h3>
 			<hr>
 			<ul>
-				<li>Live In-Game Issue: The Undaunted Mettle passive sometimes breaks resulting with incorrect stats. Logging out and back in fixes it temporarily.</li>
-				<li>Empower may affect the tooltip of more skills than it actually does in-game.</li>
 				<li>Do a forced reload of the page in your browser to ensure you have the latest JavaScript files.</li>
 			</ul>
 			<p>
@@ -318,7 +316,16 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 				<li>Removed the Target.CritResistFactor parameter as all critical resistance is now flat values.</li>
 				<li>Fixed calculations involving CritResist from modifing the critical chance to the correct critical damage modifier.</li>
 				<li>Redid the skill damage tooltips to correctly support skill line and damage type Spell/Weapon damage buffs as well as the Maelstrom Duel Wield enchantment.</il>
+				<li>Added all new set effects that modify the spell/weapon damage of a specific skill line or damage type.</li> 
 				<li>Updated which skills are affected by the Maelstrom Duel Wield damage enchantment.</li>
+				<li>Tweaked the section labels in the "Raw Data" tab for some items to be more descriptive.</li>
+				<li>Removed old bug warning labels.</li>
+				<li>Added dividers in the computed statistic list to break up the long list a bit into sections that can be more quickly found.</li>
+				<li>Fixed unequipped weapons from adding their set effects while still permitting toggled effects to work from the unequipped weapons.</li>
+				<li>Fixed the Bone Pirate 5 piece bonus from having double effects.</li>
+				<li>Food/drink searches will include all the variable level results at all levels such as Orzorga's and Crown items. Note that all such food/drink
+					have CP160 stats regardless of search level.</li>
+				<li>Fixed Daggers not counting as a weapon for the 1H+Shield skill line.</li> 
 			</ul>
 			<p>
 			<b>31 October 2016</b>
