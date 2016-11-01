@@ -73,8 +73,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 				<div class="esotbStatLabel">% Critical</div> <input id="esotbTargetCritChance" class="esotbInputValue esotbTargetInput" statid="Target.CritChance" type="text" size="2" value="{targetCritChance}">
 				<br/>
 				<div class="esotbStatLabel">Resistance</div> <input id="esotbTargetResistance" class="esotbInputValue esotbTargetInput" statid="Target.Resistance" type="number" size="2" value="{targetResist}">
-				<div class="esotbStatLabel">Flat Crit Resist</div> <input id="esotbTargetCritResistFlat" class="esotbInputValue esotbTargetInput" statid="Target.CritResistFlat" type="number" size="2" value="{targetCritResistFlat}">
-				<div class="esotbStatLabel">% Crit Resist</div> <input id="esotbTargetCritResistFactor" class="esotbInputValue esotbTargetInput" statid="Target.CritResistFactor" type="text" size="2" value="{targetCritResistFactor}">
+				<div class="esotbStatLabel">Crit Resistance</div> <input id="esotbTargetCritResistFlat" class="esotbInputValue esotbTargetInput" statid="Target.CritResistFlat" type="number" size="2" value="{targetCritResistFlat}">
 			</div>
 			<div id="esotbMisc">
 				<div class="esotbAttrTitle">Miscellaneous Stats</div>
@@ -314,11 +313,30 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>1 November 2016</b>
+			<ul>
+				<li>Removed the Target.CritResistFactor parameter as all critical resistance is now flat values.</li>
+				<li>Fixed calculations involving CritResist from modifing the critical chance to the correct critical damage modifier.</li>
+				<li>Redid the skill damage tooltips to correctly support skill line and damage type Spell/Weapon damage buffs as well as the Maelstrom Duel Wield enchantment.</il>
+				<li>Updated which skills are affected by the Maelstrom Duel Wield damage enchantment.</li>
+			</ul>
+			<p>
 			<b>31 October 2016</b>
 			<ul>
 				<li>Added CP.DotDamageDone to the Lightning Staff Heavy Attack damage calculation.</li>
 				<li>Fixed parsing of Magicka/Stamina food and added support for the new Halloween event foods.</li>
 				<li>Fixed being able to select more than 64 attribute points.</li>
+				<li>Added the Meritorious Service 5 piece effect as a toggled effect.</li>
+				<li>Fixed the 5 piece Light of Cyrodiil set effect toggle.</li>
+				<li>Added the 3 piece bonus from the Eagle Eye set.</li>
+				<li>Added the 5 piece bonus from the Duneripper's Scales set as a toggled effect.</li>
+				<li>Fixed the 5 piece bonus from the Crusader set.</li>
+				<li>Fixed parsing of constant set effect values with decimals.</li>
+				<li>Fixed the 2 piece toggled bonus from the Bloodspawn set.</li>
+				<li>Added the 5 piece bonus from the Armor of the Veiled Heritance set as a toggled effect.</li> 
+				<li>Added the 5 piece bonus from the Armor of Truth set as a toggled effect.</li>
+				<li>Fixed the 5 piece bonus from the Armor Master set.</li>
+				<li>Fixed the 5 piece bonus from the Alessian Order set.</li>
 			</ul>
 			<p>
 			<b>30 October 2016</b>

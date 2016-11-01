@@ -164,6 +164,10 @@ class EsoBuildDataEditor
 			"Skill.HAStaRestoreWerewolf",
 			"SkillDuration.Placeholder",
 			"SkillDamage.Placeholder",
+			"SkillLineWeaponDmg.Placeholder",
+			"SkillLineSpellDmg.Placeholder",
+			"SkillBonusWeaponDmg.Placeholder",
+			"SkillBonusSpellDmg.Placeholder",
 			"Buff.Empower",
 			"CP.HAActiveDamage",
 			"CP.LAActiveDamage",
@@ -1135,7 +1139,7 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
-			"AttackSpellCrit" => array(
+			"AttackSpellCritDamage" => array(
 					"display" => "%",
 			),
 			
@@ -1147,7 +1151,7 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
-			"AttackWeaponCrit" => array(
+			"AttackWeaponCritDamage" => array(
 					"display" => "%",
 			),
 			
@@ -1374,6 +1378,15 @@ class EsoBuildDataEditor
 			"CP.SprintCost" => array(
 					"display" => "%",
 			),
+			
+			"Set.DamageTaken" => array(
+					"display" => "%",
+			),
+			
+			"Target.CritDamage" => array(
+					"display" => "%",
+			),
+			
 	);
 	
 	
@@ -1814,14 +1827,14 @@ class EsoBuildDataEditor
 			"EffectiveSpellPower" => array(
 					"title" => "Effective Spell Power",
 					"deferLevel" => 2,
-					"depends" => array("AttackSpellMitigation", "SpellDamage", "Magicka", "AttackSpellCrit", "SpellCritDamage"),
+					"depends" => array("AttackSpellMitigation", "SpellDamage", "Magicka", "SpellCrit", "AttackSpellCritDamage"),
 					"round" => "round",
 					"note" => "Effective Spell Power is a custom stat that represents your overall power with spell/magicka attacks and can be used to compare different build setups. A higher number is better.",
 					"compute" => array(
 							"round(Magicka/10.5)",
 							"SpellDamage",
 							"+",
-							"1 + AttackSpellCrit*SpellCritDamage",
+							"1 + SpellCrit*AttackSpellCritDamage",
 							"*",
 							"AttackSpellMitigation",
 							"*",
@@ -1831,14 +1844,14 @@ class EsoBuildDataEditor
 			"EffectiveWeaponPower" => array(
 					"title" => "Effective Weapon Power",
 					"deferLevel" => 2,
-					"depends" => array("AttackPhysicalMitigation", "WeaponDamage", "Stamina", "AttackWeaponCrit", "WeaponCritDamage"),
+					"depends" => array("AttackPhysicalMitigation", "WeaponDamage", "Stamina", "WeaponCrit", "AttackWeaponCritDamage"),
 					"round" => "round",
 					"note" => "Effective Weapon Power is a custom stat that represents your overall power with weapon/stamina attacks and can be used to compare different build setups. A higher number is better.",
 					"compute" => array(
 							"round(Stamina/10.5)",
 							"WeaponDamage",
 							"+",
-							"1 + AttackWeaponCrit*WeaponCritDamage",
+							"1 + WeaponCrit*AttackWeaponCritDamage",
 							"*",
 							"AttackPhysicalMitigation",
 							"*",
@@ -2827,16 +2840,14 @@ class EsoBuildDataEditor
 			),
 			
 			
-			"AttackSpellCrit" => array(
-					"title" => "Attack Spell Critical",
+			"AttackSpellCritDamage" => array(
+					"title" => "Attack Spell Critical Dmg",
 					"display" => "%",
-					"depends" => array("SpellCrit"),
+					"depends" => array("SpellCritDamage"),
 					"min" => 0,
 					"max" => 1,
 					"compute" => array(
-							"SpellCrit",
-							"Target.CritResistFactor",
-							"-",
+							"SpellCritDamage",
 							"Target.CritResistFlat",
 							"0.035/250",
 							"*",
@@ -2844,16 +2855,14 @@ class EsoBuildDataEditor
 					),
 			),
 			
-			"AttackWeaponCrit" => array(
-					"title" => "Attack Weapon Critical",
+			"AttackWeaponCritDamage" => array(
+					"title" => "Attack Weapon Critical Dmg",
 					"display" => "%",
-					"depends" => array("WeaponCrit"),
+					"depends" => array("WeaponCritDamage"),
 					"min" => 0,
 					"max" => 1,
 					"compute" => array(
-							"WeaponCrit",
-							"Target.CritResistFactor",
-							"-",
+							"WeaponCritDamage",
 							"Target.CritResistFlat",
 							"0.035/250",
 							"*",
@@ -2903,14 +2912,17 @@ class EsoBuildDataEditor
 					),
 			),
 			
-			"DefenseCrit" => array(
-					"title" => "Target Critical",
+			"DefenseCritDmg" => array(
+					"title" => "Target Critical Dmg",
+					"depends" => array("CritResist"),
 					"display" => "%",
 					"min" => 0,
 					"max" => 1,
 					"compute" => array(
-							"Target.CritChance",
+							"Target.CritDamage",
 							"CritResist",
+							"0.035/250",
+							"*",
 							"-",
 					),
 			),
@@ -4069,7 +4081,7 @@ class EsoBuildDataEditor
 				'{targetFactAttack}' => $this->getCharStatField("Target:AttackBonus", "0%"),
 				'{targetResist}' => $this->getCharTargetResist(),
 				'{targetCritResistFlat}' => $this->getCharStatField("Target:CritResistFlat", "0"),
-				'{targetCritResistFactor}' => $this->getCharStatField("Target:CritResistFactor", "0%"),
+				//'{targetCritResistFactor}' => $this->getCharStatField("Target:CritResistFactor", "0%"),
 				'{targetCritDamage}' => $this->getCharStatField("Target:CritDamage", "50%"),
 				'{targetCritChance}' => $this->getCharStatField("Target:CritChance", "50%"),
 				'{miscSpellCost}' => $this->getCharStatField("Misc:SpellCost", "3000"),
