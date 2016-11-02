@@ -313,6 +313,11 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<hr>
 			<b>1 November 2016</b>
 			<ul>
+				<li>Tweaked the effective spell/weapon power custom stats to use the player's effective level instead of level for the mitigation calculations.</li>
+			</ul>
+			<p>
+			<b>1 November 2016</b>
+			<ul>
 				<li>Removed the Target.CritResistFactor parameter as all critical resistance is now flat values.</li>
 				<li>Fixed calculations involving CritResist from modifing the critical chance to the correct critical damage modifier.</li>
 				<li>Redid the skill damage tooltips to correctly support skill line and damage type Spell/Weapon damage buffs as well as the Maelstrom Duel Wield enchantment.</il>
