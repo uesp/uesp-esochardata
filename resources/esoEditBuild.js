@@ -3428,12 +3428,6 @@ ESO_SETEFFECT_MATCHES = [
 	},	
 	{
 		setBonusCount: 4,
-		statId: "BlockMitigation",
-		display: "%",
-		match: /Increase block mitigation by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		setBonusCount: 4,
 		statId: "BreakFreeCost",
 		display: "%",
 		match: /Reduce cost of Break Free by ([0-9]+\.?[0-9]*)%/i,
