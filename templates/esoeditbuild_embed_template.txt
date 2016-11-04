@@ -314,6 +314,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<b>3 November 2016</b>
 			<ul>
 				<li>Fixed the BlockMitigation calculation (still being confirmed).</li>
+				<li>Fixed an issue with double parsing the Nightblade's Dark Vigor passive.</li>
 			</ul>
 			<p>
 			<b>1 November 2016</b>
