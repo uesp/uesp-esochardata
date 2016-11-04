@@ -1265,7 +1265,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "Health",
 		display: "%",
-		match: /Increases your Max Health by ([0-9]+\.?[0-9]*)%\./i,
+		match: /^Increases your Max Health by ([0-9]+\.?[0-9]*)%\./i,
 	},
 	{
 		statId: "Magicka",
