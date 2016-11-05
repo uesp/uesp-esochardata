@@ -2615,17 +2615,81 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			"LAShockStaff" => array(
+					"title" => "Light Attack Shock Staff",
+					"round" => "floor",
+					"depends" => array("Magicka", "SpellDamage"),
+					"compute" => array(
+							"round(0.0129965*Magicka + 0.520247*SpellDamage - 1.1641)",				//Update 12
+							//"round((0.0130319*Magicka + 0.519646*SpellDamage - 0.890172)*3)",		//Update 11pts
+							//"round((0.013*Magicka + 0.52*SpellDamage - 0.26)*3)",					//Update 10
+							"1 + CP.HAStaffDamage + CP.ShockDamageDone + CP.DotDamageDone",
+							"*",
+							"Skill2.HADamage",
+							"+",
+							"1 + Skill.HADamage + Set.HADamage + Skill.ShockDamageDone + Buff.Empower",
+							"*",
+								
+					),
+			),
+			
+			"LAStaff" => array(
+					"title" => "Light Attack Staff",
+					"round" => "floor",
+					"depends" => array("Magicka", "SpellDamage"),
+					"compute" => array(
+							"round(0.0140*Magicka + 0.56*SpellDamage - 0.60)",
+							"1 + CP.LAStaffDamage + Set.LADamage",
+							"*",
+					),
+			),
+				
+			"LAOneHand" => array(
+					"title" => "Light Attack One Hand",
+					"round" => "floor",
+					"depends" => array("Stamina", "WeaponDamage"),
+					"compute" => array(
+							"round(0.0140*Stamina + 0.56*WeaponDamage - 0.60)",
+							"1 + CP.LAWeaponDamage + Set.LADamage",
+							"*",
+					),
+			),
+				
+			"LATwoHand" => array(
+					"title" => "Light Attack Two Hand",
+					"round" => "floor",
+					"depends" => array("Stamina", "WeaponDamage"),
+					"compute" => array(
+							"round(0.0148*Stamina + 0.592*WeaponDamage - 1.06)",
+							"1 + CP.LAWeaponDamage + Set.LADamage",
+							"*",
+					),
+			),
+				
+			"LABow" => array(
+					"title" => "Light Attack Bow",
+					"round" => "floor",
+					"depends" => array("Stamina", "WeaponDamage"),
+					"addClass" => "esotbStatDivider",
+					"compute" => array(
+							"round(0.0140*Stamina + 0.56*WeaponDamage - 0.60)",
+							"1 + CP.LABowDamage + Set.LADamage + Set.BowDamageDone", 	// TODO: Check BowDamageDone
+							"*",
+					),
+			),
+			
 			"HAFlameStaff" => array(
 					"title" => "Heavy Attack Fire Staff",
 					"round" => "floor",
 					"depends" => array("Magicka", "SpellDamage"),
 					"compute" => array(
-							"round(0.0549025*Magicka + 2.20013*SpellDamage - 0.481141)",		//Update 11pts
+							"round(0.0550432*Magicka + 2.19972*SpellDamage - 0.864784)",		//Update 12
+							//"round(0.0549025*Magicka + 2.20013*SpellDamage - 0.481141)",		//Update 11pts
 							//"round(0.055*Magicka + 2.20*SpellDamage - 0.67)",					//Update 10
-							"Skill2.HADamage",
-							"+",
 							"1 + CP.HAStaffDamage + CP.FlameDamageDone",
 							"*",
+							"Skill2.HADamage",
+							"+",
 							"1 + Skill.HADamage + Set.HADamage + Skill.FlameDamageDone + Buff.Empower",
 							"*",
 					),
@@ -2636,12 +2700,13 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"depends" => array("Magicka", "SpellDamage"),
 					"compute" => array(
-							"round(0.0549025*Magicka + 2.20013*SpellDamage - 0.481141)",		//Update 11pts
+							"round(0.0550432*Magicka + 2.19972*SpellDamage - 0.864784)",		//Update 12
+							//"round(0.0549025*Magicka + 2.20013*SpellDamage - 0.481141)",		//Update 11pts
 							//"round(0.055*Magicka + 2.20*SpellDamage - 0.67)",					//Update 10
-							"Skill2.HADamage",
-							"+",
 							"1 + CP.HAStaffDamage + CP.ColdDamageDone",
 							"*",
+							"Skill2.HADamage",
+							"+",
 							"1 + Skill.HADamage + Set.HADamage + Skill.ColdDamageDone + Buff.Empower",
 							"*",
 					),
@@ -2650,19 +2715,21 @@ class EsoBuildDataEditor
 			"HAShockStaff" => array(
 					"title" => "Heavy Attack Shock Staff",
 					"round" => "floor",
-					"depends" => array("Magicka", "SpellDamage"),
+					"depends" => array("Magicka", "SpellDamage", "LAShockStaff"),
 					"compute" => array(
-							"round((0.0130319*Magicka + 0.519646*SpellDamage - 0.890172)*3)",		//Update 11pts
-							"round(0.0181386*Magicka + 0.728188*SpellDamage - 0.397214)",			//Update 11pts
-							//"round((0.013*Magicka + 0.52*SpellDamage - 0.26)*3)",					//Update 10
+							"round(0.0182736*Magicka + 0.728039*SpellDamage - 2.50684)",			//Update 12
+							//"round(0.0181386*Magicka + 0.728188*SpellDamage - 0.397214)",			//Update 11pts
 							//"round(0.0182*Magicka + 0.728*SpellDamage - 0.03)",					//Update 10
-							"+",
+							"1 + CP.ShockDamageDone",
+							"*",
+							"1 + Skill.ShockDamageDone",
+							"*",
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAStaffDamage + CP.ShockDamageDone + CP.DotDamageDone",
+							"1 + Skill.HADamage + Set.HADamage + Buff.Empower",
 							"*",
-							"1 + Skill.HADamage + Set.HADamage + Skill.ShockDamageDone + Buff.Empower",
-							"*",
+							"LAShockStaff * 3",
+							"+",
 					),
 			),
 			
@@ -2766,52 +2833,7 @@ class EsoBuildDataEditor
 							"*",
 					),
 			),
-			
-			"LAStaff" => array(
-					"title" => "Light Attack Staff",
-					"round" => "floor",
-					"depends" => array("Magicka", "SpellDamage"),
-					"compute" => array(
-							"round(0.0140*Magicka + 0.56*SpellDamage - 0.60)",
-							"1 + CP.LAStaffDamage + Set.LADamage",
-							"*",
-					),
-			),
-			
-			"LAOneHand" => array(
-					"title" => "Light Attack One Hand",
-					"round" => "floor",
-					"depends" => array("Stamina", "WeaponDamage"),
-					"compute" => array(
-							"round(0.0140*Stamina + 0.56*WeaponDamage - 0.60)",
-							"1 + CP.LAWeaponDamage + Set.LADamage",
-							"*",
-					),
-			),
-			
-			"LATwoHand" => array(
-					"title" => "Light Attack Two Hand",
-					"round" => "floor",
-					"depends" => array("Stamina", "WeaponDamage"),
-					"compute" => array(
-							"round(0.0148*Stamina + 0.592*WeaponDamage - 1.06)",
-							"1 + CP.LAWeaponDamage + Set.LADamage",
-							"*",
-					),
-			),
-			
-			"LABow" => array(
-					"title" => "Light Attack Bow",
-					"round" => "floor",
-					"depends" => array("Stamina", "WeaponDamage"),
-					"addClass" => "esotbStatDivider",
-					"compute" => array(
-							"round(0.0140*Stamina + 0.56*WeaponDamage - 0.60)",
-							"1 + CP.LABowDamage + Set.LADamage + Set.BowDamageDone", 	// TODO: Check BowDamageDone
-							"*",
-					),
-			),
-			
+						
 			"AttackSpellMitigation" => array(
 					"title" => "Attacker Spell Mitigation",
 					"display" => "%",

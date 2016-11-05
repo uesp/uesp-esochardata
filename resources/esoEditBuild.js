@@ -645,6 +645,18 @@ g_EsoBuildBuffData =
 			statIds : [ "MaelstromDamage" ],
 			icon : "/esoui/art/icons/enchantment_weapon_berserking.png",
 		},
+		"Maelstrom Destruction Enchantment" :
+		{
+			enabled: false,
+			skillEnabled : false,
+			visible : false,
+			toggleVisible : true,
+			value : 1341,
+			statDescs : ["Increases your Light Attack damage on targets affected by your Wall of Elements by ", "Increases your Heavy Attack damage on targets affected by your Wall of Elements by "],
+			category: "Skill2",
+			statIds : [ "LADamage", "HADamage" ],
+			icon : "/esoui/art/icons/enchantment_weapon_berserking.png",
+		},
 		"Lycanthropy" :
 		{
 			enabled: false,
@@ -1040,7 +1052,8 @@ ESO_ACTIVEEFFECT_MATCHES = [
 	{
 		id: "Lightning Form",
 		displayName: "Hurricane",
-		baseSkillId: 30244,
+		baseSkillId: 30235,
+		matchSkillName: true,
 		buffId : "Minor Expedition",
 		toggle: true,
 		enabled: false,
@@ -1049,16 +1062,18 @@ ESO_ACTIVEEFFECT_MATCHES = [
 	{
 		id: "Lightning Form",
 		displayName: "Boundless Storm",
-		baseSkillId: 30255,
+		baseSkillId: 30235,
+		matchSkillName: true,
 		buffId : "Major Expedition",
 		toggle: true,
 		enabled: false,
 		match: /Activating this grants Major Expedition for a brief period/i,
 	},
 	{
-		id: "Molten Armaments",
-		baseSkillId: 32173,
-		//baseSkillId: 32156,
+		id: "Molten Weapons",
+		displayName: "Molten Armaments",
+		//baseSkillId: 32173,
+		baseSkillId: 32156,
 		toggle: true,
 		enabled: false,
 		statId: "HADamage",
@@ -1066,12 +1081,22 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		match: /Your own damage with fully\-charged Heavy Attacks is increased by ([0-9]+\.?[0-9]*)% while active/i,
 	},
 	{
-		id: "Molten Armaments",
-		baseSkillId: 32173,
+		id: "Molten Weapons",
+		displayName: "Molten Weapons",
+		baseSkillId: 32156,
 		toggle: true,
 		enabled: false,
 		buffId : "Major Sorcery",
-		match: /harge you and your allies' weapons with volcanic power to gain Major Sorcery/i,
+		match: /Charge you and your allies' weapons with volcanic power to gain Major Sorcery/i,
+	},
+	{
+		id: "Molten Weapons",
+		displayName: "Igneous Weapons",
+		baseSkillId: 32156,
+		toggle: true,
+		enabled: false,
+		buffId : "Major Brutality",
+		match: /Charge you and your allies' weapons with volcanic power to gain Major Sorcery and Major Brutality/i,
 	},
 		/* End Toggled Abilities */
 	
@@ -1622,7 +1647,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireValue: 1,
 		statId: "HADamage",
 		display: "%",
-		match: /Fully charged heavy fire attacks deal ([0-9]+\.?[0-9]*)% additional damage/i,
+		match: /Fully-charged Flame Heavy Attacks deal ([0-9]+\.?[0-9]*)% additional damage/i,
 	},
 	{
 		statRequireId: "Weapon2H",
@@ -4374,6 +4399,12 @@ ESO_ENCHANT_WEAPON_MATCHES = [
 		statId: "OtherEffects",
 		match: /Your Flurry grants ([0-9]+) additional Weapon and Spell Damage/i,
 		buffId : "Maelstrom DW Enchantment",
+		updateBuffValue : true,
+	},
+	{
+		statId: "OtherEffects",
+		match: /Targets affected by Wall of Elements take ([0-9]+) additional damage/i,
+		buffId : "Maelstrom Destruction Enchantment",
 		updateBuffValue : true,
 	},
 ];
