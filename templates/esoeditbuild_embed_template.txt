@@ -311,6 +311,13 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>4 November 2016</b>
+			<ul>
+				<li>Updated Light/Heavy Attack damage calculations for destruction staffs.</li>
+				<li>Fixed the Molten Weapons and Lightning Form toggled skills.</li>
+				<li>Added the Maelstrom Destruction Staff enchantment buff when you have a vMA staff equipped.</li> 
+			</ul>
+			<p>
 			<b>3 November 2016</b>
 			<ul>
 				<li>Fixed the BlockMitigation calculation (still being confirmed).</li>
