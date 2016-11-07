@@ -311,6 +311,11 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b7 November 2016</b>
+			<ul>
+				<li>Fixed shown quality of White, Green, and Blue CP160 jewelry items when searching.</li>
+			</ul>
+			<p>
 			<b>4 November 2016</b>
 			<ul>
 				<li>Updated Light/Heavy Attack damage calculations for destruction staffs.</li>
