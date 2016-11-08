@@ -1326,6 +1326,8 @@ class EsoBuildDataViewer
 			$rawValues = explode(',', $rawData);
 			$styleData = '';
 			$unknownChapters = "";
+			$knownCount = 0;
+			$unknownCount = 14;
 			
 			if (count($rawValues) > 1)
 			{
@@ -1342,15 +1344,21 @@ class EsoBuildDataViewer
 				
 				$styleData = implode(', ', $styleArray);
 				$unknownChapters = implode(', ', $unknownArray);
+				$unknownCount = count($unknownArray);
+				$knownCount = 14 - $unknownCount;
 			}
 			elseif ($rawData == '1')
 			{
 				$styleData = 'All Known';
+				$knownCount = 14;
+				$unknownCount = 0;
 			}
 			elseif ($rawData == '0')
 			{
 				$styleData = 'None Known';
 				$unknownChapters =  implode(', ', $this->ESO_MOTIF_CHAPTERNAMES);
+				$knownCount = 0;
+				$unknownCount = 14;
 			}
 			else
 			{
@@ -1368,7 +1376,7 @@ class EsoBuildDataViewer
 							
 			$output .= "<div class='ecdSkillDataBox ecdClickToCopyTooltip $extraClass' $tooltip>\n";
 			$output .= "<div class='ecdSkillNameCraft'>$styleName:</div>";
-			$output .= "<div class='ecdSkillValueCraft'>$styleData</div>";
+			$output .= "<div class='ecdSkillValueCraft'>($knownCount/14) $styleData</div>";
 			$output .= "</div>\n";
 		}
 		
