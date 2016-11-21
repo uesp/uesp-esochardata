@@ -2833,6 +2833,8 @@ class EsoBuildDataEditor
 							"*",
 					),
 			),
+			
+			//TODO: Bash Damage = 0.5 * WeaponDamage
 						
 			"AttackSpellMitigation" => array(
 					"title" => "Attacker Spell Mitigation",
@@ -2886,7 +2888,6 @@ class EsoBuildDataEditor
 					"display" => "%",
 					"depends" => array("SpellCritDamage"),
 					"min" => 0,
-					"max" => 1,
 					"compute" => array(
 							"SpellCritDamage",
 							"Target.CritResistFlat",
@@ -2901,7 +2902,6 @@ class EsoBuildDataEditor
 					"display" => "%",
 					"depends" => array("WeaponCritDamage"),
 					"min" => 0,
-					"max" => 1,
 					"compute" => array(
 							"WeaponCritDamage",
 							"Target.CritResistFlat",

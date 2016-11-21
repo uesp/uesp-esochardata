@@ -2876,11 +2876,11 @@ ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		statId: "WeaponDamage",
-		match: /Increases your Weapon and Spell Damage by ([0-9]+)/i,
+		match: /Increases your Weapon and Spell Damage by ([0-9]+)/,
 	},
 	{
 		statId: "SpellDamage",
-		match: /Increases your Weapon and Spell Damage by ([0-9]+)/i,
+		match: /Increases your Weapon and Spell Damage by ([0-9]+)/,
 	},
 	{
 		statId: "CritDamage",
