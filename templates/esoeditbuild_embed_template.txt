@@ -311,6 +311,18 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>21 November 2016</b>
+			<ul>
+				<li>Set names are now searched for in the item search popup. This fixes finding some sets like the Poisonous Serpent where the set name does not
+					show up in the item name.</li>
+				<li>Fixed AttackSpellCritDamage and AttackWeaponCritDamage from being limited to 100%. This affected the effective Spell/Weapon power stat.</li>
+			</ul>
+			<p>
+			<b>8 November 2016</b>
+			<ul>
+				<li>Fixed Molag Kena 2 piece bonus from double-counting.</li>
+			</ul>
+			<p>
 			<b7 November 2016</b>
 			<ul>
 				<li>Fixed shown quality of White, Green, and Blue CP160 jewelry items when searching.</li>
