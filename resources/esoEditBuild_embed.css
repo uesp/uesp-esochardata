@@ -1081,3 +1081,8 @@ button.esotbWeaponSelect {
     padding-bottom: 1px;
     margin-bottom: 1px;
 }
+
+.esotbItemSetupTitle {
+	font-weight: bold;
+	display: inline-block;
+}
