@@ -226,6 +226,8 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p />&nbsp;<p />&nbsp;<p />
 			<h3>Common Item Setups</h3>
 			<hr>
+			Note: The following features are under development and probably don't work perfectly yet.
+			<p />
 			Use the following to quickly change your build with commonly used setups. All items used will be CP160 Gold quality unless specified. 
 			<p />
 			<div class="esptbItemSetup">

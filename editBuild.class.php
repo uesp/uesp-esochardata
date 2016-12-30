@@ -317,7 +317,7 @@ class EsoBuildDataEditor
 	
 	public $ALLIANCE_TYPES = array(
 			"Aldmeri Dominion",
-			"Ebonheart Pack",
+			"Ebonheart Pact",
 			"Daggerfall Covenant",
 	);
 	
