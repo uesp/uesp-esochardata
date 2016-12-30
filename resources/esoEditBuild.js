@@ -4597,19 +4597,7 @@ function GetEsoInputValues(mergeComputedStats)
 	GetEsoInputGeneralValues(inputValues, "Food", "Food");
 	GetEsoInputGeneralValues(inputValues, "Buff", "Potion");
 	
-	inputValues.FoodBuff = 0;
-	inputValues.DrinkBuff = 0;
-	
-	if (g_EsoBuildItemData.Food.type == 4 && g_EsoBuildItemData.Food.enabled !== false)
-	{
-		inputValues.FoodBuff = 1;
-		AddEsoInputStatSource("FoodBuff", { source: "Food", value: 1 });
-	}
-	else if (g_EsoBuildItemData.Food.type == 12 && g_EsoBuildItemData.Food.enabled !== false)
-	{
-		inputValues.DrinkBuff = 1;
-		AddEsoInputStatSource("DrinkBuff", { source: "Drink", value: 1 });
-	}
+	GetEsoInputFoodValues(inputValues);
 	
 	inputValues.ActiveBar = g_EsoBuildActiveWeapon;
 	
@@ -4697,6 +4685,45 @@ function GetEsoInputValues(mergeComputedStats)
 	
 	g_EsoBuildLastInputValues = inputValues;
 	return inputValues;
+}
+
+
+
+function GetEsoInputFoodValues(inputValues)
+{
+	var buffDesc = g_EsoBuildItemData['Food'].abilityDesc;
+ 
+	inputValues.FoodBuff = 0;
+	inputValues.DrinkBuff = 0;
+	
+	if (g_EsoBuildItemData['Food'].enabled === false) return;
+	if (buffDesc == null) return;
+	
+	
+	if (buffDesc.indexOf("Max ") >= 0)
+	{
+		inputValues.FoodBuff = 1;
+		AddEsoInputStatSource("FoodBuff", { source: "Food", value: 1 });
+	}
+	
+	if (buffDesc.indexOf(" Recovery ") >= 0)
+	{
+		inputValues.DrinkBuff = 1;
+		AddEsoInputStatSource("DrinkBuff", { source: "Drink", value: 1 });
+	}
+	
+	/*
+	if (g_EsoBuildItemData.Food.type == 4 && g_EsoBuildItemData.Food.enabled !== false)
+	{
+		inputValues.FoodBuff = 1;
+		AddEsoInputStatSource("FoodBuff", { source: "Food", value: 1 });
+	}
+	else if (g_EsoBuildItemData.Food.type == 12 && g_EsoBuildItemData.Food.enabled !== false)
+	{
+		inputValues.DrinkBuff = 1;
+		AddEsoInputStatSource("DrinkBuff", { source: "Drink", value: 1 });
+	} */
+
 }
 
 
@@ -7026,14 +7053,12 @@ function OnEsoItemDataReceive(data, status, xhr, element, origItemData)
 	var slotId = $(element).attr("slotId");
 	if (slotId == null || slotId == "") return false;
 	
-	if (data.minedItem != null && data.minedItem[0] != null)
-	{
-		g_EsoBuildItemData[slotId] = data.minedItem[0];
-		UpdateEsoComputedStatsList(true);
-		
-		GetEsoSetMaxData(g_EsoBuildItemData[slotId]);
-	}
+	if (data.minedItem == null || data.minedItem[0] == null) return false;
 	
+	g_EsoBuildItemData[slotId] = data.minedItem[0];
+	UpdateEsoComputedStatsList(true);
+		
+	GetEsoSetMaxData(g_EsoBuildItemData[slotId]);
 }
 
 
@@ -7786,18 +7811,18 @@ function OnEsoEnchantDataReceive(data, status, xhr, element, origItemData)
 {
 	var slotId = $(element).attr("slotId");
 	if (slotId == null || slotId == "") return false;
+	if (data.minedItem == null || data.minedItem[0] == null) return false;
 	
-	if (data.minedItem != null && data.minedItem[0] != null)
+	if (slotId == "allarmor")
 	{
-		g_EsoBuildEnchantData[slotId] = data.minedItem[0];
-		
-		var iconElement = $(element).find(".esotbItemIcon");
-		iconElement.attr("enchantintlevel", data.minedItem[0].internalLevel);
-		iconElement.attr("enchantinttype", data.minedItem[0].internalSubtype);
-		
-		UpdateEsoComputedStatsList(true);
+		UpdateAllArmorEnchantData(data.minedItem[0]);
 	}
-	
+	else
+	{
+		UpdateEnchantSlotData(slotId, data.minedItem[0], element);
+	}
+		
+	UpdateEsoComputedStatsList(true);
 }
 
 
@@ -10378,6 +10403,98 @@ function OnEsoSetItemDataReceive(data, status, xhr, slotId)
 function OnEsoSetItemDataError(xhr, status, errorMsg, slotId)
 {
 	EsoBuildLog("OnEsoSetItemDataError", errorMsg);
+}
+
+
+function EsoEditBuildChangeAllArmorEnchants(itemId, internalType, internalLevel, element)
+{
+	var itemData = {};
+	
+	itemData.itemId = itemId;
+	itemData.type = 1;
+	itemData.internalLevel = internalLevel;
+	itemData.internalSubtype = internalType;
+	itemData.level = 66;
+	itemData.quality = 5;
+	
+	RequestEsoEnchantData(itemData, element);	
+}
+
+
+function OnEsoEditBuildSetupArmorEnchant(element)
+{
+	var form = $("#esotbItemSetupArmorEnchant");
+	var formValue = form.val();
+	
+	EsoBuildLog("OnEsoEditBuildSetupArmorEnchant", formValue);
+	
+	if (formValue == "none")
+	{
+		UpdateAllArmorEnchantData({});
+		UpdateEsoComputedStatsList(true);
+		return;
+	}
+	else if (formValue == "health")
+	{	
+		EsoEditBuildChangeAllArmorEnchants(26580, 370, 50, form);
+	}
+	else if (formValue == "magicka")
+	{
+		EsoEditBuildChangeAllArmorEnchants(26582, 370, 50, form);
+	}
+	else if (formValue == "stamina")
+	{
+		EsoEditBuildChangeAllArmorEnchants(26588, 370, 50, form);
+	}
+	else if (formValue == "prismatic")
+	{
+		EsoEditBuildChangeAllArmorEnchants(68343, 370, 50, form);
+	}
+
+}
+
+
+function UpdateAllArmorEnchantData(itemData)
+{
+	UpdateEnchantSlotData('Chest', itemData);
+	UpdateEnchantSlotData('Head', itemData);
+	UpdateEnchantSlotData('Feet', itemData);
+	UpdateEnchantSlotData('Legs', itemData);
+	UpdateEnchantSlotData('Waist', itemData);
+	UpdateEnchantSlotData('Hands', itemData);
+	UpdateEnchantSlotData('Shoulders', itemData);
+	
+	if (g_EsoBuildItemData['OffHand1'].type == 14) UpdateEnchantSlotData('OffHand1', itemData);
+	if (g_EsoBuildItemData['OffHand2'].type == 14) UpdateEnchantSlotData('OffHand2', itemData);
+}
+
+
+function UpdateEnchantSlotData(slotId, itemData, element)
+{
+	var itemId = itemData.itemId;
+	var level = itemData.internalLevel;
+	var subtype = itemData.internalSubtype;
+	
+	if (element == null) element = $("#esotbItems").children(".esotbItem[slotid='" + slotId + "']");
+	if (itemId == null) itemId = 0;
+	if (level == null) level = 0;
+	if (subtype == null) subtype = 0;
+	
+	g_EsoBuildEnchantData[slotId] = itemData;
+	
+	var iconElement = $(element).find(".esotbItemIcon");
+	iconElement.attr("enchantid", itemId);
+	iconElement.attr("enchantintlevel", level);
+	iconElement.attr("enchantinttype", subtype);
+}
+
+
+function OnEsoEditBuildSetupArmorTrait(element)
+{
+	var form = $("#esotbItemSetupArmorTrait");
+	var formValue = form.val();
+	
+	EsoBuildLog("OnEsoEditBuildSetupArmorTrait", formValue);
 }
 
 

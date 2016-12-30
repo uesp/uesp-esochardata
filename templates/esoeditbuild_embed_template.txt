@@ -223,6 +223,37 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 					<div class="esotbItemDetailsButton esotbItemButton">...</div>
 				</div>
 			</div>
+			<p />&nbsp;<p />&nbsp;<p />
+			<h3>Common Item Setups</h3>
+			<hr>
+			Use the following to quickly change your build with commonly used setups. All items used will be CP160 Gold quality unless specified. 
+			<p />
+			<div class="esptbItemSetup">
+				<div class="esotbItemSetupTitle">Armor Enchantments</div>
+				<select id="esotbItemSetupArmorEnchant" slotid="allarmor">
+					<option value="none">None</option>
+					<option value="health">Health</option>
+					<option value="magicka">Magicka</option>
+					<option value="stamina">Stamina</option>
+					<option value="prismatic">Prismatic</option>
+				</select>
+				<button id="esotbItemSetupArmorEnchantButton" onclick="OnEsoEditBuildSetupArmorEnchant(this);">Change</button>
+			</div>
+			<div class="esptbItemSetup">
+				<div class="esotbItemSetupTitle">Armor Traits</div>
+				<select id="esotbItemSetupArmorTrait" slotid="allarmor">
+					<option value="0">None</option>
+					<option value="18">Divines</option>
+					<option value="12">Impenetrable</option>
+					<option value="16">Infused</option>
+					<option value="17">Prosperous</option>
+					<option value="13">Reinforced</option>
+					<option value="11">Sturdy</option>
+					<option value="15">Training</option>
+					<option value="14">Well-Fitted</option>
+				</select>
+				<button id="esotbItemSetupArmorTraitButton" onclick="OnEsoEditBuildSetupArmorTrait(this);">Change</button>
+			</div>
 		</div>
 		<div id="esotbStatBlockSkills" class="esotbStatBlock" style="display: none;">
 			{skillHtml}
@@ -311,6 +342,12 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>13 December 2016</b>
+			<ul>
+				<li>Corrected what is considered a food and drink buff for the purpose of the Green Pact and Bone Pirate's Tatters set.</li>
+				<li>Fixed scaling of damage shields with CP for the morphs of Ingeous Shields.</li>
+			</ul>
+			<p>
 			<b>21 November 2016</b>
 			<ul>
 				<li>Set names are now searched for in the item search popup. This fixes finding some sets like the Poisonous Serpent where the set name does not
@@ -701,6 +738,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 	g_EsoBuildActiveWeapon = {activeBar};
 	g_EsoBuildSetNames = {setNamesJson};
 </script>
+
 
 
 
