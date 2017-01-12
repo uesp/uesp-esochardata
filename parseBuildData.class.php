@@ -911,6 +911,7 @@ class EsoBuildDataParser
 		if ($name == null) $name = "";
 		
 		$name = preg_replace("/(.*?)(\^.*)?/", "$1", $name);
+		$name = preg_replace("/\|.*/", "", $name);
 		$name = ucwords($name);
 		
 		$name = preg_replace("/ Of /", " of ", $name);
