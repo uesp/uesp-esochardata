@@ -180,7 +180,6 @@ ESOBUILD_SKILLTYPES =
 		1 : "Class",
 		2 : "Weapon",
 		3 : "Armor",
-		4 : "World",
 		5 : "Guild",
 		6 : "Alliance War",
 		7 : "Racial",
@@ -795,6 +794,15 @@ g_EsoBuildBuffData =
 			display: "%",
 			statId : "DamageTaken",
 			icon : "/esoui/art/icons/death_recap_poison_ranged.png",
+		},
+		"Ebon Armory" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			category: "Item",
+			statId : "Health",
+			value : 1118,
+			icon : "/esoui/art/icons/ability_warrior_028.png",
 		},
 		
 			/* Cyrodiil */
@@ -2853,8 +2861,10 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Reduces the cost of your Restoration Staff abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{		// Ebon Set
-		statId: "Health",
-		category: "Skill2",
+		//statId: "Health",
+		//category: "Skill2",
+		buffId: "Ebon Armory",
+		updateBuffValue : true,
 		match: /Increases your Max Health by ([0-9]+)/i,
 	},
 	{
@@ -4945,6 +4955,15 @@ function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData, 
 			AddEsoItemRawOutputString(setData, "Adds Buff", matchData.buffId);
 			AddEsoItemRawOutputString(buffData, "Set Effect", setData.name + " set");
 			
+			if (matchData.updateBuffValue === true)
+			{
+				var matches = setDesc.match(matchData.match);
+				if (matches != null && matches[1] != null) buffData.value = parseFloat(matches[1]);
+				
+				buffData.visible = true;
+				buffData.forceUpdate = true;
+			}
+			
 			continue;
 		}
 		
@@ -5846,6 +5865,7 @@ function GetEsoInputItemEnchantWeaponValues(inputValues, slotId, itemData, encha
 					if (matches != null && matches[1] != null) buffData.value = parseFloat(matches[1]);
 					
 					buffData.visible = true;
+					buffData.forceUpdate = true;
 				}
 			}
 		}
@@ -5898,6 +5918,7 @@ function GetEsoInputItemEnchantOtherHandWeaponValues(inputValues, slotId, itemDa
 					if (matches != null && matches[1] != null) buffData.value = parseFloat(matches[1]);
 					
 					buffData.visible = true;
+					buffData.forceUpdate = true;
 				}
 			}
 		}
@@ -9305,6 +9326,11 @@ function UpdateEsoBuildVisibleBuffs()
 		else if (buffData.toggleVisible === true && !buffData.visible)
 		{
 			element.hide();
+		}
+		else if (buffData.forceUpdate)
+		{
+			element.find(".esotbBuffDesc").html(CreateEsoBuildBuffDescHtml(buffData));
+			buffData.forceUpdate = false;
 		}
 	}
 }
