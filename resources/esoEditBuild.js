@@ -6042,37 +6042,37 @@ function GetEsoInputMundusNameValues(inputValues, mundusName)
 	
 	if (mundusName == "The Lady")
 	{
-		inputValues.Mundus.PhysicalResist = 1280;
+		inputValues.Mundus.PhysicalResist = 1980; //30*66
 		AddEsoInputStatSource("Mundus.PhysicalResist", { mundus: mundusName, value: inputValues.Mundus.PhysicalResist });
 	}
 	else if (mundusName == "The Lover")
 	{
-		inputValues.Mundus.SpellResist = 1280;
+		inputValues.Mundus.SpellResist = 1980;	//30*66
 		AddEsoInputStatSource("Mundus.SpellResist", { mundus: mundusName, value: inputValues.Mundus.SpellResist });
 	}
 	else if (mundusName == "The Lord")
 	{
-		inputValues.Mundus.Health = 1452;
+		inputValues.Mundus.Health = 1452;	//22*66
 		AddEsoInputStatSource("Mundus.Health", { mundus: mundusName, value: inputValues.Mundus.Health });
 	}
 	else if (mundusName == "The Mage")
 	{
-		inputValues.Mundus.Magicka = 1320;
+		inputValues.Mundus.Magicka = 1320;	//20*66
 		AddEsoInputStatSource("Mundus.Magicka", { mundus: mundusName, value: inputValues.Mundus.Magicka });
 	}
 	else if (mundusName == "The Tower")
 	{
-		inputValues.Mundus.Stamina = 1320;
+		inputValues.Mundus.Stamina = 1320;//20*66
 		AddEsoInputStatSource("Mundus.Stamina", { mundus: mundusName, value: inputValues.Mundus.Stamina });
 	}
 	else if (mundusName == "The Atronach")
 	{
-		inputValues.Mundus.MagickaRegen = 198;
+		inputValues.Mundus.MagickaRegen = 198;	//3*66
 		AddEsoInputStatSource("Mundus.MagickaRegen", { mundus: mundusName, value: inputValues.Mundus.MagickaRegen });
 	}
 	else if (mundusName == "The Serpent")
 	{
-		inputValues.Mundus.StaminaRegen = 198;
+		inputValues.Mundus.StaminaRegen = 198;	//3*66
 		AddEsoInputStatSource("Mundus.StaminaRegen", { mundus: mundusName, value: inputValues.Mundus.StaminaRegen });
 	}
 	else if (mundusName == "The Shadow")
@@ -6104,7 +6104,7 @@ function GetEsoInputMundusNameValues(inputValues, mundusName)
 	}
 	else if (mundusName == "The Steed")
 	{
-		inputValues.Mundus.HealthRegen = 198;
+		inputValues.Mundus.HealthRegen = 198;	//3*66
 		inputValues.Mundus.SprintSpeed = 0.05;
 		AddEsoInputStatSource("Mundus.HealthRegen", { mundus: mundusName, value: inputValues.Mundus.HealthRegen });
 		AddEsoInputStatSource("Mundus.SprintSpeed", { mundus: mundusName, value: inputValues.Mundus.SprintSpeed });

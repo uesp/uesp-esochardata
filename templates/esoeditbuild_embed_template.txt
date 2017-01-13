@@ -348,12 +348,14 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<ul>
 				<li>Changed the Ebon Armory 5 piece set effect to a buff. Default value is 1118 health unless you have 5 pieces of the set equipped with a different value.</li>
 				<li>Fixed display of enchantments on infused shields.</li>
+				<li>Fixed the values of the Lady and Lover mundus stone resistance values to the correct 1980.</li>
 			</ul>
 			<p>
 			<b>13 December 2016</b>
 			<ul>
 				<li>Corrected what is considered a food and drink buff for the purpose of the Green Pact and Bone Pirate's Tatters set.</li>
 				<li>Fixed scaling of damage shields with CP for the morphs of Ingeous Shields.</li>
+				
 			</ul>
 			<p>
 			<b>21 November 2016</b>
