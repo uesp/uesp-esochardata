@@ -347,6 +347,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<b>13 January 2017</b>
 			<ul>
 				<li>Changed the Ebon Armory 5 piece set effect to a buff. Default value is 1118 health unless you have 5 pieces of the set equipped with a different value.</li>
+				<li>Fixed display of enchantments on infused shields.</li>
 			</ul>
 			<p>
 			<b>13 December 2016</b>
