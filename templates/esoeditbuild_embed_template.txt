@@ -353,6 +353,8 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 				<li>Fixed bash cost reducing effects from actually increasing the cost.</li>
 				<li>Fixed the Medium Armor and Legdermain passives that weren't reducing the cost of Sneaking.</li>
 				<li>Tweaked the ability cost calculation to try and fix an off-by-1 error in ultimate cost.</li>
+				<li>Fixed the "Last Updated" date to be the last saved date instead of the creation date.</li>
+				<li>Fixed the Breton passive Gift of Magnus from not resetting when you change races.</li>
 			</ul>
 			<p>
 			<b>13 December 2016</b>
