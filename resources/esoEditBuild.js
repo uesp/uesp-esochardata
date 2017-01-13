@@ -1171,6 +1171,20 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Reduces the cost of sneaking by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
 	},
 	{
+		statId: "SneakCost",
+		display: '%',
+		factorValue: -1,
+		match: /Reduces the cost of Sneak by ([0-9]+\.?[0-9]*)%\./i,
+	},
+	{
+		factorStatId: "ArmorMedium",
+		statId: "SneakCost",
+		display: '%',
+		factorValue: -1,
+		combineAs: "*%",
+		match: /Reduces the cost of Sneak by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
+	},
+	{
 		factorStatId: "ArmorMedium",
 		statId: "SneakRange",
 		display: '%',
