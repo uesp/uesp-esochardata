@@ -2155,7 +2155,7 @@ class EsoBuildDataEditor
 					"compute" => array(
 							"floor(157 + 26.25*EffectiveLevel)",
 							"Item.BashCost",
-							"-",
+							"+",
 							"1 + CP.BashCost",
 							"*",
 							"1 + Skill.BashCost",
