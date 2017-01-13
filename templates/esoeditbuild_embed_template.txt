@@ -351,6 +351,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 				<li>Fixed the values of the Lady and Lover mundus stone resistance values to the correct 1980.</li>
 				<li>Added missing effect of Divines to the Lady, Lover, and Ritual mundus effects.</li>
 				<li>Fixed bash cost reducing effects from actually increasing the cost.</li>
+				<li>Fixed the Medium Armor and Legdermain passives that weren't reducing the cost of Sneaking.</li>
 			</ul>
 			<p>
 			<b>13 December 2016</b>
