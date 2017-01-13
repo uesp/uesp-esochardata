@@ -1135,7 +1135,7 @@ class EsoBuildDataViewer
 	
 	public function getBuildEditDate($buildData)
 	{
-		$editTime = $buildData['editStamp'];
+		$editTime = $buildData['editTimestamp'];
 		if ($editTime == null) return "";
 		
 		return $editTime;
@@ -1144,7 +1144,7 @@ class EsoBuildDataViewer
 	
 	public function isBuildEditted($buildData)
 	{
-		$editTime = $buildData['editStamp'];
+		$editTime = $buildData['editTimestamp'];
 		if ($editTime == null) return false;
 		
 		$time = strtotime($editTime);
