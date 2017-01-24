@@ -344,6 +344,16 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>24 January 2017</b>
+			<ul>
+				<li>Added the Ayleid Health bonus and 3 simmilar Craglorn buffs.</li>
+			</ul>
+			<p>
+			<b>19 January 2017</b>
+			<ul>
+				<li>Tweaked some light/heavy attack formulas.</li>
+			</ul>
+			<p>
 			<b>13 January 2017</b>
 			<ul>
 				<li>Changed the Ebon Armory 5 piece set effect to a buff. Default value is 1118 health unless you have 5 pieces of the set equipped with a different value.</li>
