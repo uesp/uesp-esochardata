@@ -253,6 +253,8 @@ class EsoBuildDataEditor
 			"DiseaseDamageTaken",
 			"HADamage",
 			"LADamage",
+			"HAMeleeDamage",
+			"LAMeleeDamage",
 			"HAWeaponDamage",
 			"HABowDamage",
 			"HAStaffDamage",
@@ -809,6 +811,14 @@ class EsoBuildDataEditor
 			),
 			
 			"Skill.HADamage" => array(
+					"display" => "%",
+			),
+			
+			"Skill.HAMeleeDamage" => array(
+					"display" => "%",
+			),
+			
+			"Skill.LAMeleeDamage" => array(
 					"display" => "%",
 			),
 			
@@ -2633,19 +2643,44 @@ class EsoBuildDataEditor
 							"*",
 							"Skill2.HADamage",
 							"+",
-							"1 + Skill.HADamage + Set.HADamage + Skill.ShockDamageDone + Buff.Empower",
+							"1 + Skill.HADamage + Set.HADamage + Skill.ShockDamageDone + Buff.Empower + Skill.DamageDone",
 							"*",
 								
 					),
 			),
 			
-			"LAStaff" => array(
-					"title" => "Light Attack Staff",
+			"LAFlameStaff" => array(
+					"title" => "Light Attack Flame Staff",
 					"round" => "floor",
 					"depends" => array("Magicka", "SpellDamage"),
 					"compute" => array(
-							"round(0.0140*Magicka + 0.56*SpellDamage - 0.60)",
-							"1 + CP.LAStaffDamage + Set.LADamage",
+							"round(0.0139076*Magicka + 0.560231*SpellDamage + 0.0163755)", 		// Update 12
+							//"round(0.0140*Magicka + 0.56*SpellDamage - 0.60)", 				// Update 10?
+							"1 + CP.LAStaffDamage + Set.LADamage + Buff.Empower + Skill.FlameDamageDone + Skill.DamageDone",
+							"*",
+					),
+			),
+			
+			"LAColdStaff" => array(
+					"title" => "Light Attack Cold Staff",
+					"round" => "floor",
+					"depends" => array("Magicka", "SpellDamage"),
+					"compute" => array(
+							"round(0.0139076*Magicka + 0.560231*SpellDamage + 0.0163755)", 		// Update 12
+							//"round(0.0140*Magicka + 0.56*SpellDamage - 0.60)",
+							"1 + CP.LAStaffDamage + Set.LADamage + Buff.Empower + Skill.ColdDamageDone + Skill.DamageDone",
+							"*",
+					),
+			),
+			
+			"LAResorationStaff" => array(
+					"title" => "Light Attack Restoration",
+					"round" => "floor",
+					"depends" => array("Magicka", "SpellDamage"),
+					"compute" => array(
+							"round(0.0139076*Magicka + 0.560231*SpellDamage + 0.0163755)", 		// Update 12
+							//"round(0.0140*Magicka + 0.56*SpellDamage - 0.60)",
+							"1 + CP.LAStaffDamage + Set.LADamage + Buff.Empower + Skill.DamageDone",
 							"*",
 					),
 			),
@@ -2655,8 +2690,9 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"depends" => array("Stamina", "WeaponDamage"),
 					"compute" => array(
-							"round(0.0140*Stamina + 0.56*WeaponDamage - 0.60)",
-							"1 + CP.LAWeaponDamage + Set.LADamage",
+							"round(0.0145129*Stamina + 0.579979*WeaponDamage - 1.0552)",		// Update 12
+							//"round(0.0140*Stamina + 0.56*WeaponDamage - 0.60)",
+							"1 + CP.LAWeaponDamage + Set.LADamage + Buff.Empower + Skill.PhysicalDamageDone + Skill.LAMeleeDamage + Skill.DamageDone",
 							"*",
 					),
 			),
@@ -2666,8 +2702,9 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"depends" => array("Stamina", "WeaponDamage"),
 					"compute" => array(
-							"round(0.0148*Stamina + 0.592*WeaponDamage - 1.06)",
-							"1 + CP.LAWeaponDamage + Set.LADamage",
+							"round(0.019042*Stamina + 0.760103*WeaponDamage - 1.77928)",		// Update 12
+							//"round(0.0148*Stamina + 0.592*WeaponDamage - 1.06)",
+							"1 + CP.LAWeaponDamage + Set.LADamage + Buff.Empower + Skill.PhysicalDamageDone + Skill.LAMeleeDamage + Skill.DamageDone",
 							"*",
 					),
 			),
@@ -2676,10 +2713,22 @@ class EsoBuildDataEditor
 					"title" => "Light Attack Bow",
 					"round" => "floor",
 					"depends" => array("Stamina", "WeaponDamage"),
+					"compute" => array(
+							"round(0.0145129*Stamina + 0.579979*WeaponDamage - 1.0552)",		// Update 12
+							//"round(0.0140*Stamina + 0.56*WeaponDamage - 0.60)",
+							"1 + CP.LABowDamage + Set.LADamage + Set.BowDamageDone + Buff.Empower + Skill.PhysicalDamageDone + Skill.DamageDone", 	// TODO: Check BowDamageDone
+							"*",
+					),
+			),
+			
+			"LADualWield" => array(
+					"title" => "Light Dual Wield",
+					"round" => "floor",
+					"depends" => array("Stamina", "WeaponDamage"),
 					"addClass" => "esotbStatDivider",
 					"compute" => array(
-							"round(0.0140*Stamina + 0.56*WeaponDamage - 0.60)",
-							"1 + CP.LABowDamage + Set.LADamage + Set.BowDamageDone", 	// TODO: Check BowDamageDone
+							"round(0.0163232*Stamina + 0.65628*WeaponDamage + 0.555625)",		// Probably not correct
+							"1 + CP.LAWeaponDamage + Set.LADamage + Buff.Empower + Skill.PhysicalDamageDone + Skill.LAMeleeDamage + Skill.DamageDone",
 							"*",
 					),
 			),
@@ -2696,7 +2745,7 @@ class EsoBuildDataEditor
 							"*",
 							"Skill2.HADamage",
 							"+",
-							"1 + Skill.HADamage + Set.HADamage + Skill.FlameDamageDone + Buff.Empower",
+							"1 + Skill.HADamage + Set.HADamage + Skill.FlameDamageDone + Buff.Empower + Skill.DamageDone",
 							"*",
 					),
 			),
@@ -2713,7 +2762,7 @@ class EsoBuildDataEditor
 							"*",
 							"Skill2.HADamage",
 							"+",
-							"1 + Skill.HADamage + Set.HADamage + Skill.ColdDamageDone + Buff.Empower",
+							"1 + Skill.HADamage + Set.HADamage + Skill.ColdDamageDone + Buff.Empower + Skill.DamageDone",
 							"*",
 					),
 			),
@@ -2732,7 +2781,7 @@ class EsoBuildDataEditor
 							"*",
 							"Skill2.HADamage",
 							"+",
-							"1 + Skill.HADamage + Set.HADamage + Buff.Empower",
+							"1 + Skill.HADamage + Set.HADamage + Skill.ShockDamageDone + Buff.Empower + Skill.DamageDone",
 							"*",
 							"LAShockStaff * 3",
 							"+",
@@ -2751,7 +2800,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + CP.HAStaffDamage + CP.MagicDamageDone",
 							"*",
-							"1 + Skill.HADamage + Buff.Empower",
+							"1 + Skill.HADamage + Set.HADamage + Buff.Empower + Skill.DamageDone",
 							"*",
 					),
 			),
@@ -2767,7 +2816,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + CP.HAWeaponDamage + CP.PhysicalDamageDone",
 							"*",
-							"1 + Skill.HADamage + Buff.Empower",
+							"1 + Skill.HADamage + Buff.Empower + Skill.PhysicalDamageDone + Skill.HAMeleeDamage + Skill.DamageDone",
 							"*",
 					),
 			),
@@ -2783,7 +2832,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + CP.HAWeaponDamage + CP.PhysicalDamageDone",
 							"*",
-							"1 + Skill.HADamage + Set.HADamage + Buff.Empower",
+							"1 + Skill.HADamage + Set.HADamage + Buff.Empower + Skill.PhysicalDamageDone + Skill.HAMeleeDamage + Skill.DamageDone",
 							"*",
 					),
 			),
@@ -2799,7 +2848,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + CP.HABowDamage + CP.PhysicalDamageDone",
 							"*",
-							"1 + Skill.HADamage + Set.HADamage + Buff.Empower + Set.BowDamageDone",  //TODO: Check BowDamageDone
+							"1 + Skill.HADamage + Set.HADamage + Buff.Empower + Set.BowDamageDone + Skill.PhysicalDamageDone + Skill.DamageDone",  //TODO: Check BowDamageDone
 							"*",
 					),
 			),
@@ -2818,7 +2867,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + CP.HAWeaponDamage + CP.PhysicalDamageDone",
 							"*",
-							"1 + Skill.HADamage + Set.HADamage + Buff.Empower",
+							"1 + Skill.HADamage + Set.HADamage + Buff.Empower + Skill.PhysicalDamageDone + Skill.HAMeleeDamage + Skill.DamageDone",
 							"*",
 					),
 			),
@@ -2835,7 +2884,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + CP.HAActiveDamage + CP.PhysicalDamageDone",
 							"*",
-							"1 + Skill.HADamage + Set.HADamage + Buff.Empower",
+							"1 + Skill.HADamage + Set.HADamage + Buff.Empower + Skill.PhysicalDamageDone + Skill.HAMeleeDamage + Skill.DamageDone",
 							"*",
 					),
 			),

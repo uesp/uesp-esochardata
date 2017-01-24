@@ -668,6 +668,45 @@ g_EsoBuildBuffData =
 			statIds : [ "SpellResist", "PhysicalResist", "Stamina", "StaminaRegen", "SprintSpeed", "PoisonDamageTaken" ],
 			icon: "/esoui/art/icons/ability_werewolf_001.png",
 		},
+		"Ayleid Health Bonus" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 0.10,
+			display: "%",
+			statId : "Health",
+			icon : "/esoui/art/icons/quest_spirit_001.png",
+		},
+		"Yokudan Might" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 0.08,
+			display: "%",
+			statId : "DamageDone",
+			statDesc : "Increases your Damage Done while in Craglorn by ",
+			icon : "/esoui/art/icons/ability_armor_001_a.png",
+		},
+		"Magicka Attunement" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 1320,
+			category: "Item",
+			statId : "SpellResist",
+			statDesc : "Increases your Spell Resistance while in Craglorn by ",
+			icon : "/esoui/art/icons/ability_mage_038.png",
+		},
+		"Nirncrux Infusion" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 1320,
+			category: "Item",
+			statId : "PhysicalResist",
+			statDesc : "Increases your Physical Resistance while in Craglorn by ",
+			icon : "/esoui/art/icons/ability_wrothgar_chillingwind.png",
+		},
 		
 			/* Target Buffs */
 
@@ -1544,12 +1583,12 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases the movement speed bonus of sprint by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		statId: "HADamage", //TODO: Verify
+		statId: "HAMeleeDamage", //TODO: Verify
 		display: "%",
 		match: /Increases your damage done with melee attacks by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		statId: "LADamage", //TODO: Verify
+		statId: "LAMeleeDamage", //TODO: Verify
 		display: "%",
 		match: /Increases your damage done with melee attacks by ([0-9]+\.?[0-9]*)%/i,
 	},
@@ -2216,11 +2255,6 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		statId: "PhysicalDamageDone",
-		display: "%",
-		match: /Increases your Physical and Shock Damage by ([0-9]+\.?[0-9]*)%/i
-	},
-	{
-		statId: "ShockDamageDone",
 		display: "%",
 		match: /Increases your Physical and Shock Damage by ([0-9]+\.?[0-9]*)%/i
 	},
