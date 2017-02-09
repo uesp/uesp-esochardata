@@ -1504,10 +1504,6 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases your Max Stamina by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		statId: "SpellResist",
-		match: /Increases your Spell Resistance by ([0-9]+)/i,
-	},
-	{
 		statId: "MagickaCost",
 		display: "%",
 		factorValue: -1,
@@ -2885,30 +2881,6 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "WeaponDamage",
 		toggle: true,
 		enabled: false,
-		maxTimes: 10,
-		match: /WHEN 5 OR MORE PIECES OF HEAVY ARMOR ARE EQUIPPED[\s]*Gain ([0-9]+) Weapon and Spell Damage for [0-9]+ seconds when you take damage, stacking up to 10 times/i
-	},
-	{
-		id: "Wrath",
-		baseSkillId: 29773,
-		statRequireId: "ArmorHeavy",
-		statRequireValue: 5,
-		category: "Item",
-		statId: "SpellDamage",
-		toggle: true,
-		enabled: false,
-		maxTimes: 10,
-		match: /WHEN 5 OR MORE PIECES OF HEAVY ARMOR ARE EQUIPPED[\s\S]*?Gain ([0-9]+) Weapon and Spell Damage for [0-9]+ seconds when you take damage, stacking up to 10 times/i
-	},
-	{
-		id: "Wrath",
-		baseSkillId: 29773,
-		statRequireId: "ArmorHeavy",
-		statRequireValue: 5,
-		category: "Item",
-		statId: "WeaponDamage",
-		toggle: true,
-		enabled: false,
 		maxTimes: 20,
 		match: /WHEN 5 OR MORE PIECES OF HEAVY ARMOR ARE EQUIPPED[\s\S]*?Increases your Weapon and Spell Damage by ([0-9]+) for [0-9]+ seconds when you take damage, stacking up to [0-9]+ times/i
 	},
@@ -2924,9 +2896,9 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		maxTimes: 20,
 		match: /WHEN 5 OR MORE PIECES OF HEAVY ARMOR ARE EQUIPPED[\s\S]*?Increases your Weapon and Spell Damage by ([0-9]+) for [0-9]+ seconds when you take damage, stacking up to [0-9]+ times/i
 	},
-	{
+{
 		id: "Burning Heart",
-		requireSkillLine: "DRACONIC POWER",
+		//requireSkillLine: "DRACONIC POWER",
 		baseSkillId: 29457,
 		statId: "HealingReceived",
 		toggle: true,
@@ -2936,7 +2908,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		id: "Burning Heart",
-		requireSkillLine: "DRACONIC POWER",
+		//requireSkillLine: "DRACONIC POWER",
 		baseSkillId: 29457,
 		statId: "HealingReceived",
 		toggle: true,
@@ -8904,7 +8876,6 @@ function AddEsoBuildToggledSkillData(skillEffectData, isPassive)
 		g_EsoBuildToggledSkillData[id].matchData = skillEffectData;
 		g_EsoBuildToggledSkillData[id].baseSkillId = skillEffectData.baseSkillId;
 		g_EsoBuildToggledSkillData[id].statIds = [];
-		
 	}
 	
 	g_EsoBuildToggledSkillData[id].id = id;
