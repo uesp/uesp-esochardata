@@ -917,6 +917,22 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		match: /While slotted, your weapon damage is increased by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
+		statId: "BreakFreeCost",
+		display: "%",
+		factorValue: -1,
+		match: /While slotted the Stamina cost of breaking free from a disabling effect is reduced for each piece of Heavy Armor equipped.[\s]*Current Bonus: ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		statId: "StaminaRegen",
+		display: "%",
+		match: /While slotted your Stamina Recovery is increased by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		statId: "WeaponDamage",
+		display: "%",
+		match: /While slotted your weapon damage is increased by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
 		statId: "Magicka",
 		display: "%",
 		match: /While slotted, your Max Magicka is increased by ([0-9]+\.?[0-9]*)%/i
@@ -925,6 +941,16 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		statId: "Health",
 		display: "%",
 		match: /While slotted, your Max Health is increased by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		statId: "Magicka",
+		display: "%",
+		match: /While slotted your Max Magicka is increased by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		statId: "Health",
+		display: "%",
+		match: /While slotted your Max Health is increased by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		buffId: "Major Prophecy",
@@ -947,6 +973,10 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		match: /While slotted, your Max Magicka is increased by [0-9]+\.?[0-9]*% and you gain Major Prophecy/i
 	},
 	{
+		buffId: "Major Prophecy",
+		match: /While slotted your Max Magicka is increased by [0-9]+\.?[0-9]*% and you gain Major Prophecy/i
+	},
+	{
 		buffId: "Minor Fortitude",
 		match: /While slotted, you gain Minor Fortitude/i
 	},
@@ -957,6 +987,18 @@ ESO_ACTIVEEFFECT_MATCHES = [
 	{
 		buffId: "Minor Intellect",
 		match: /While slotted, you gain Minor Fortitude, Minor Endurance, and Minor Intellect/i
+	},
+	{
+		buffId: "Minor Fortitude",
+		match: /While slotted you gain Minor Fortitude/i
+	},
+	{
+		buffId: "Minor Endurance",
+		match: /While slotted you gain Minor Fortitude, Minor Endurance/i
+	},
+	{
+		buffId: "Minor Intellect",
+		match: /While slotted you gain Minor Fortitude, Minor Endurance, and Minor Intellect/i
 	},
 	
 		/* Begin Other Effects */
@@ -1162,13 +1204,31 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		factorStatId: "ArmorLight",
+		statId: "MagickaCost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the Magicka cost of your abilities by ([0-9]+\.?[0-9]*)% for each piece of Light Armor/i,
+	},
+	{
+		factorStatId: "ArmorLight",
 		statId: "MagickaRegen",
 		display: "%",
 		match: /Increases Magicka Recovery by ([0-9]+\.?[0-9]*)% per piece of Light Armor/i,
 	},
 	{
+		factorStatId: "ArmorLight",
+		statId: "MagickaRegen",
+		display: "%",
+		match: /Increases Magicka Recovery by ([0-9]+\.?[0-9]*)% for each piece of Light Armor/i,
+	},
+	{
 		statId: "SpellResist",
 		match: /Increases your Spell Resistance for each piece of Light Armor equipped.[\s\S]*?Current Bonus\: ([0-9]+)/i,
+	},
+	{
+		statId: "SpellResist",
+		factorStatId: "ArmorLight",
+		match: /Increases your Spell Resistance by ([0-9]+) for each piece of Light Armor equipped/i,
 	},
 	{
 		statRequireId: "ArmorLight",
@@ -1189,6 +1249,12 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases your Weapon Critical rating for each piece of Medium Armor equipped.[\s\S]*?Current Bonus\: ([0-9]+)/i,
 	},
 	{
+		category: "Skill2",
+		factorStatId: "ArmorMedium",
+		statId: "WeaponCrit",
+		match: /Increases your Weapon Critical rating by ([0-9]+) for each piece of Medium Armor equipped/i,
+	},
+	{
 		factorStatId: "ArmorMedium",
 		statId: "StaminaRegen",
 		display: '%',
@@ -1196,10 +1262,23 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		factorStatId: "ArmorMedium",
+		statId: "StaminaRegen",
+		display: '%',
+		match: /Increases your Stamina Recovery by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
+	},
+	{
+		factorStatId: "ArmorMedium",
 		statId: "StaminaCost",
 		display: '%',
 		factorValue: -1,
 		match: /Reduces the Stamina cost of abilities by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
+	},
+	{
+		factorStatId: "ArmorMedium",
+		statId: "StaminaCost",
+		display: '%',
+		factorValue: -1,
+		match: /Reduces the Stamina cost of your abilities by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
 	},
 	{
 		factorStatId: "ArmorMedium",
@@ -1231,6 +1310,13 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Reduces the size of your detection area by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
 	},
 	{
+		factorStatId: "ArmorMedium",
+		statId: "SneakRange",
+		display: '%',
+		factorValue: -1,
+		match: /Reduces the size of your detection area while Sneaking by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
+	},
+	{
 		statRequireId: "ArmorMedium",
 		statRequireValue: 5,
 		statId: "WeaponDamage",
@@ -1242,6 +1328,12 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "SprintSpeed",
 		display: '%',
 		match: /increases your movement speed while using Sprint by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		factorStatId: "ArmorMedium",
+		statId: "SprintSpeed",
+		display: '%',
+		match: /Increases the movement speed bonus of sprint by ([0-9]+\.?[0-9]*)% for each piece of medium armor/i,
 	},
 	{
 		factorStatId: "ArmorMedium",
@@ -1259,6 +1351,16 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases your Physical Resistance and Spell Resistance for each piece of Heavy Armor equipped.[\s\S]*?Current bonus\: ([0-9]+)/i,
 	},
 	{
+		statId: "PhysicalResist",
+		factorStatId: "ArmorHeavy",
+		match: /Increases your Physical and Spell Resistance by ([0-9]+) for each piece of Heavy Armor equipped/i,
+	},
+	{
+		statId: "SpellResist",
+		factorStatId: "ArmorHeavy",
+		match: /Increases your Physical and Spell Resistance by ([0-9]+) for each piece of Heavy Armor equipped/i,
+	},
+	{
 		factorStatId: "ArmorHeavy",
 		statId: "HealthRegen",
 		display: "%",
@@ -1269,10 +1371,21 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Also restores Magicka and Stamina each time you are hit[\s\S]*?Current bonus\: ([0-9]+)/i,
 	},
 	{
+		statId: "Constitution",
+		factorStatId: "ArmorHeavy",
+		match: /You restore ([0-9]+) Magicka and Stamina when you take damage/i,
+	},
+	{
 		factorStatId: "ArmorHeavy",
 		statId: "Health",
 		display: "%",
 		match: /Increases Max Health by ([0-9]+\.?[0-9]*)% per piece of Heavy Armor equipped/i,
+	},
+	{
+		factorStatId: "ArmorHeavy",
+		statId: "Health",
+		display: "%",
+		match: /Increases your Max Health by ([0-9]+\.?[0-9]*)% for each piece of Heavy Armor equipped/i,
 	},
 	{
 		statRequireId: "ArmorHeavy",
@@ -1339,6 +1452,13 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /WHILE IN PVP AREAS[\s]*?Reduces the time it takes to resurrect another player by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
+		statId: "ResurrectSpeed",
+		display: "%",
+		match: /Reduces the time it takes you to resurrect another player by ([0-9]+\.?[0-9]*)% while you are in a PvP area/i,
+	},
+	{
 		statId: "Health",
 		display: "%",
 		match: /Increases Max Health by ([0-9]+\.?[0-9]*)%\./i,
@@ -1392,6 +1512,18 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		match: /Reduces the Magicka cost of spells by ([0-9]+\.?[0-9]*)%\./i,
+	},
+	{
+		statId: "MagickaCost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the Magicka and Stamina costs of your abilities ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "StaminaCost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the Magicka and Stamina costs of your abilities ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "MagickaCost",
@@ -1511,6 +1643,21 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "StaminaRegen",
 		display: "%",
 		match: /% and Stamina Recovery by ([0-9]+\.?[0-9]*)%\./i,
+	},
+	{
+		statId: "HealthRegen",
+		display: "%",
+		match: /Increases your Health, Stamina, and Magicka Recovery by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "MagickaRegen",
+		display: "%",
+		match: /Increases your Health, Stamina, and Magicka Recovery by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "StaminaRegen",
+		display: "%",
+		match: /Increases your Health, Stamina, and Magicka Recovery by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		category: "Skill2",
@@ -1692,6 +1839,14 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statRequireId: "WeaponDestStaff",
 		statRequireValue: 1,
+		category: "Skill2",
+		statId: "SpellPenetration",
+		display: "%",
+		match: /Your Destruction Staff abilities ignore ([0-9]+)% of the enemy's Spell Resistance./i,
+	},	
+	{
+		statRequireId: "WeaponDestStaff",
+		statRequireValue: 1,
 		statId: "HAChargeTime",
 		display: "%",
 		match: /WITH DESTRUCTION STAFF EQUIPPED[\s\S]*?Reduces the time it takes to charge a heavy attack by ([0-9]+\.?[0-9]*)%/i,
@@ -1711,6 +1866,34 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Fully-charged Flame Heavy Attacks deal ([0-9]+\.?[0-9]*)% additional damage/i,
 	},
 	{
+		statRequireId: "WeaponFlameStaff",
+		statRequireValue: 1,
+		statId: "SingleTargetDamageDone",
+		display: "%",
+		match: /Flame Staff increases your damage done with single target abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statRequireId: "WeaponShockStaff",
+		statRequireValue: 1,
+		statId: "AOEDamageDone",
+		display: "%",
+		match: /Lightning Staff increases your damage done with area of effect abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statRequireId: "WeaponColdStaff",
+		statRequireValue: 1,
+		statId: "BlockCost",
+		display: "%",
+		match: /Frost Staff reduces the cost of blocking by ([0-9]+\.?[0-9]*)% and increases the amount of damage you block by [0-9]+\.?[0-9]*%/i,
+	},
+	{
+		statRequireId: "WeaponColdStaff",
+		statRequireValue: 1,
+		statId: "BlockMitigation",
+		display: "%",
+		match: /Frost Staff reduces the cost of blocking by [0-9]+\.?[0-9]*% and increases the amount of damage you block by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
 		statRequireId: "Weapon2H",
 		statRequireValue: 1,
 		category: "SkillCost",
@@ -1718,6 +1901,15 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		match: /WITH TWO-HANDED WEAPON EQUIPPED[\s]*Reduces the cost of Two-Handed abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statRequireId: "Weapon2H",
+		statRequireValue: 1,
+		category: "SkillCost",
+		statId: "Two_Handed_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /WITH TWO-HANDED WEAPON EQUIPPED[\s]*Reduces the Stamina cost of your Two-Handed abilities by ([0-9]+\.?[0-9]*)%/i,
 	},	
 	{
 		statRequireId: "Weapon1HShield",
@@ -1729,6 +1921,15 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Reduces the cost of One Hand and Shield abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+		statRequireId: "Weapon1HShield",
+		statRequireValue: 1,
+		category: "SkillCost",
+		statId: "One_Hand_and_Shield_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Reduces the cost of your One Hand and Shield abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
 		statRequireId: "Weapon1H",
 		statRequireValue: 2,
 		category: "SkillCost",
@@ -1736,6 +1937,15 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		match: /WHILE DUAL WIELDING[\s]*Reduces the cost of Dual Wield abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statRequireId: "Weapon1H",
+		statRequireValue: 2,
+		category: "SkillCost",
+		statId: "Dual_Wield_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /WHILE DUAL WIELDING[\s]*Reduces the cost of your Dual Wield abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statRequireId: "WeaponBow",
@@ -1746,6 +1956,15 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		factorValue: -1,
 		match: /WITH BOW EQUIPPED[\s]*Reduces the Stamina cost of Bow abilities by ([0-9]+\.?[0-9]*)%/i,
 	},	 
+	{
+		statRequireId: "WeaponBow",
+		statRequireValue: 1,
+		category: "SkillCost",
+		statId: "Bow_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /WITH BOW EQUIPPED[\s]*Reduces the Stamina cost of your Bow abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
 	{
 		statId: "WeaponDamage",
 		display: "%",
@@ -1847,6 +2066,39 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		category: "SkillDuration",
+		statId: "Fiery Breath",
+		match: /Increases the damage of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Searing Strike",
+		match: /Increases the damage of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Dragonknight Standard",
+		match: /Increases the damage of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		category: "SkillDamage",
+		statId: "Fiery Breath",
+		display: "%",
+		match: /Increases the damage of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDamage",
+		statId: "Searing Strike",
+		display: "%",
+		match: /Increases the damage of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDamage",
+		statId: "Dragonknight Standard",
+		display: "%",
+		match: /Increases the damage of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
 		statId: "Consuming Darkness",
 		display: "%",
 		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
@@ -1877,6 +2129,36 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		category: "SkillDuration",
+		statId: "Consuming Darkness",
+		display: "%",
+		match: /Increases duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Shadow Cloak",
+		display: "%",
+		match: /Increases duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Path of Darkness",
+		display: "%",
+		match: /Increases duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Aspect of Terror",
+		display: "%",
+		match: /Increases duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Summon Shade",
+		display: "%",
+		match: /Increases duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
 		statId: "Magma Armor",
 		display: "%",
 		match: /Increases duration of Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
@@ -1904,6 +2186,36 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "Ash Cloud",
 		display: "%",
 		match: /Increases duration of Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Magma Armor",
+		display: "%",
+		match: /Increases duration of your Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Molten Weapons",
+		display: "%",
+		match: /Increases duration of your Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Obsidian Shield",
+		display: "%",
+		match: /Increases duration of your Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Petrify",
+		display: "%",
+		match: /Increases duration of your Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Ash Cloud",
+		display: "%",
+		match: /Increases duration of your Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		category: "SkillDuration",
@@ -1949,6 +2261,30 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		category: "SkillDuration",
+		statId: "Negate Magic",
+		display: "%",
+		match: /Increases the duration of your Dark Magic abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Encase",
+		display: "%",
+		match: /Increases the duration of your Dark Magic abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Rune Prison",
+		display: "%",
+		match: /Increases the duration of your Dark Magic abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Daedric Mines",
+		display: "%",
+		match: /Increases the duration of your Dark Magic abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
 		statId: "Magelight",
 		display: "%",
 		match: /Increases the duration of Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i,
@@ -1964,6 +2300,24 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "Fire Rune",
 		display: "%",
 		match: /Increases the duration of Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Magelight",
+		display: "%",
+		match: /Increases the duration of your Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Entropy",
+		display: "%",
+		match: /Increases the duration of your Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Fire Rune",
+		display: "%",
+		match: /Increases the duration of your Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		category: "SkillDuration",
@@ -1997,8 +2351,17 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Block an additional ([0-9]+\.?[0-9]*)% damage/i,
 	},
 	{
+		statId: "BlockMitigation",
+		display: "%",
+		match: /Increases the amount of damage you can block by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
 		statId: "SpellResist",
 		match: /Increases Spell Resistance by ([0-9]+)/i,
+	},
+	{
+		statId: "SpellResist",
+		match: /Increases your Spell Resistance by ([0-9]+)/i,
 	},
 	{
 		statRequireId: "ArmorHeavy",
@@ -2021,10 +2384,22 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /WITH DRACONIC POWER ABILITIES SLOTTED[\s\S]*?Increases Health Recovery by ([0-9]+\.?[0-9]*)% for each Draconic Power ability slotted/i
 	},
 	{
+		factorSkillLine: "Draconic Power",
+		statId: "HealthRegen",
+		display: "%",
+		match: /Increases your Health Recovery by ([0-9]+\.?[0-9]*)% for each Draconic Power ability slotted/i
+	},
+	{
 		requireSkillLine: "Assassination",
 		statId: "CritDamage",
 		display: "%",
 		match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases damage dealt by Critical Strikes by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		requireSkillLine: "Assassination",
+		statId: "CritDamage",
+		display: "%",
+		match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases your Critical Damage done by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		factorSkillLine: "Assassination",
@@ -2034,6 +2409,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		skillName: "Pressure Points",
 		skillRank: 1,
 		//match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
+		//Increases your Weapon and Spell Critical ratings by 438 for each Assassination ability slotted. Current bonus: 0.
 	},
 	{
 		factorSkillLine: "Assassination",
@@ -2075,24 +2451,56 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "WeaponDamage",
 		display: "%",
 		match: /Increases Weapon and Spell Damage while invisible or stealthed by ([0-9]+\.?[0-9]*)%/i
-	},	 
+	},
+	{
+		statRequireId: "Stealthed",
+		statRequireValue: 1,
+		statId: "SpellDamage",
+		display: "%",
+		match: /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% while you are Sneaking or invisible/i
+	},
+	{
+		statRequireId: "Stealthed",
+		statRequireValue: 1,
+		statId: "WeaponDamage",
+		display: "%",
+		match: /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% while you are Sneaking or invisible/i
+	},
 	{
 		factorSkillLine: "Shadow",
 		statId: "Health",
 		display: "%",
-		match: /WITH A SHADOW ABILITY SLOTTED[\s\S]*?Each Shadow Ability slotted increases your Max Health by ([0-9]+\.?[0-9]*)%/i
+		match: /Each Shadow Ability slotted increases your Max Health by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		factorSkillLine: "Shadow",
+		statId: "Health",
+		display: "%",
+		match: /Increases your Max Health by ([0-9]+\.?[0-9]*)% for each Shadow ability slotted/i
+	},	
+	{
+		requireSkillLine: "SIPHONING",
+		statId: "Magicka",
+		display: "%",
+		match: /Increases Max Magicka ([0-9]+\.?[0-9]*)% while a Siphoning ability is slotted/i
 	},
 	{
 		requireSkillLine: "SIPHONING",
 		statId: "Magicka",
 		display: "%",
-		match: /WITH SIPHONING ABILITY SLOTTED[\s\S]*?Increases Max Magicka ([0-9]+\.?[0-9]*)% while a Siphoning ability is slotted/i
+		match: /Increases your Max Magicka by ([0-9]+\.?[0-9]*)% while a Siphoning ability is slotted/i
 	},
 	{
 		factorSkillLine: "SIPHONING",
 		statId: "HealingDone",
 		display: "%",
-		match: /WHILE USING SIPHONING ABILITIES[\s\S]*?Increases the effectiveness of your Healing done by ([0-9]+\.?[0-9]*)% for each Siphoning ability slotted/i
+		match: /Increases the effectiveness of your Healing done by ([0-9]+\.?[0-9]*)% for each Siphoning ability slotted/i
+	},
+	{
+		factorSkillLine: "SIPHONING",
+		statId: "HealingDone",
+		display: "%",
+		match: /Increases your healing done by ([0-9]+\.?[0-9]*)% for each Siphoning ability slotted/i
 	},
 	{
 		requireSkillLine: "DAEDRIC SUMMONING",
@@ -2107,6 +2515,18 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /A DAEDRIC SUMMONING ABILITY IS SLOTTED[\s\S]*?Increases your Health and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
+		requireSkillLine: "DAEDRIC SUMMONING",
+		statId: "HealthRegen",
+		display: "%",
+		match: /Increases your Health and Stamina Recovery by ([0-9]+\.?[0-9]*)% while you have a Daedric Summoning ability slotted./i
+	},
+	{
+		requireSkillLine: "DAEDRIC SUMMONING",
+		statId: "StaminaRegen",
+		display: "%",
+		match: /Increases your Health and Stamina Recovery by ([0-9]+\.?[0-9]*)% while you have a Daedric Summoning ability slotted./i
+	},
+	{
 		factorSkillType: "Sorcerer",
 		statId: "SpellDamage",
 		display: "%",
@@ -2117,6 +2537,18 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "WeaponDamage",
 		display: "%",
 		match: /Increases Spell Damage and Weapon Damage by ([0-9]+\.?[0-9]*)% for each Sorcerer ability slotted/i
+	},
+	{
+		factorSkillType: "Sorcerer",
+		statId: "SpellDamage",
+		display: "%",
+		match: /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% for each Sorcerer ability slotted/i
+	},
+	{
+		factorSkillType: "Sorcerer",
+		statId: "WeaponDamage",
+		display: "%",
+		match: /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% for each Sorcerer ability slotted/i
 	},
 	{
 		requireSkillLine: "AEDRIC SPEAR",
@@ -2143,6 +2575,12 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases Weapon Damage by ([0-9]+\.?[0-9]*)% for each Fighters Guild ability slotted/i
 	},
 	{
+		factorSkillLine: "Fighters Guild",
+		statId: "WeaponDamage",
+		display: "%",
+		match: /Increases your Weapon Damage by ([0-9]+\.?[0-9]*)% for each Fighters Guild ability slotted/i
+	},
+	{
 		factorSkillLine: "Mages Guild",
 		statId: "Magicka",
 		display: "%",
@@ -2155,10 +2593,35 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /WITH A MAGES GUILD ABILITY SLOTTED[\s]*Increases your Max Magicka and your Magicka Recovery by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
+		factorSkillLine: "Mages Guild",
+		statId: "Magicka",
+		display: "%",
+		match: /Increases your Max Magicka and Magicka Recovery by ([0-9]+\.?[0-9]*)% for each Mages Guild ability slotted/i
+	},
+	{
+		factorSkillLine: "Mages Guild",
+		statId: "MagickaRegen",
+		display: "%",
+		match: /Increases your Max Magicka and Magicka Recovery by ([0-9]+\.?[0-9]*)% for each Mages Guild ability slotted/i
+	},
+	{
+		category: "SkillCost",
+		statId: "Mages_Guild_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the Magicka and Health cost of your Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
 		factorSkillLine: "Support",
 		statId: "MagickaRegen",
 		display: "%",
 		match: /Increases Magicka Recovery by ([0-9]+\.?[0-9]*)% for each Support ability slotted/i
+	},
+	{
+		factorSkillLine: "Support",
+		statId: "MagickaRegen",
+		display: "%",
+		match: /Increases your Magicka Recovery by ([0-9]+\.?[0-9]*)% for each Support ability slotted/i
 	},
 	{
 		statRequireId: "Cyrodiil",
@@ -2184,6 +2647,27 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statRequireId: "Cyrodiil",
 		statRequireValue: 1,
+		statId: "HealthRegen",
+		display: "%",
+		match: /WHILE EMPEROR[\s\S]*?Increases your Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
+	},
+	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
+		statId: "MagickaRegen",
+		display: "%",
+		match: /WHILE EMPEROR[\s\S]*?Increases your Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
+	},
+	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
+		statId: "StaminaRegen",
+		display: "%",
+		match: /WHILE EMPEROR[\s\S]*?Increases your Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
+	},
+	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
 		statId: "OtherEffect",
 		display: "%",
 		match: /WHILE EMPEROR[\s\S]*?Increases Ultimate gains by ([0-9]+\.?[0-9]*)% while in your campaign/i
@@ -2191,9 +2675,23 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statRequireId: "Cyrodiil",
 		statRequireValue: 1,
+		statId: "OtherEffect",
+		display: "%",
+		match: /WHILE EMPEROR[\s\S]*?Increases your Ultimate generation by ([0-9]+\.?[0-9]*)% while in your campaign/i
+	},
+	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
 		statId: "HealingReceived",
 		display: "%",
 		match: /WHILE EMPEROR[\s\S]*?Increases the magnitude of healing effects on Emperors by ([0-9]+\.?[0-9]*)% while in your campaign/i
+	},
+	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
+		statId: "HealingReceived",
+		display: "%",
+		match: /WHILE EMPEROR[\s\S]*?Increases your healing received by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
 		statRequireId: "Cyrodiil",
@@ -2216,7 +2714,27 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		match: /WHILE EMPEROR[\s\S]*?Increases Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
-	//TODO: Tactician = +Siege Damage
+	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
+		statId: "Health",
+		display: "%",
+		match: /WHILE EMPEROR[\s\S]*?Increases your Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
+	},
+	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
+		statId: "Magicka",
+		display: "%",
+		match: /WHILE EMPEROR[\s\S]*?Increases your Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
+	},
+	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
+		statId: "Stamina",
+		display: "%",
+		match: /WHILE EMPEROR[\s\S]*?Increases your Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
+	},
 	{
 		statRequireId: "VampireStage",
 		statRequireValue: 2,
@@ -2249,9 +2767,23 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statRequireId: "WerewolfStage",
 		statRequireValue: 2,
+		statId: "HAStaRestoreWerewolf",
+		display: "%",
+		match: /WHILE YOU ARE IN WEREWOLF FORM[\s\S]*?Increases the Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		statRequireId: "WerewolfStage",
+		statRequireValue: 2,
 		statId: "WeaponDamage",
 		display: "%",
 		match: /WHILE IN WEREWOLF FORM[\s\S]*?Increases Weapon Damage by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		statRequireId: "WerewolfStage",
+		statRequireValue: 2,
+		statId: "WeaponDamage",
+		display: "%",
+		match: /WHILE YOU ARE IN WEREWOLF FORM[\s\S]*?Increases your Weapon Damage by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		statId: "PhysicalDamageDone",
@@ -2369,6 +2901,30 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /WHEN 5 OR MORE PIECES OF HEAVY ARMOR ARE EQUIPPED[\s\S]*?Gain ([0-9]+) Weapon and Spell Damage for [0-9]+ seconds when you take damage, stacking up to 10 times/i
 	},
 	{
+		id: "Wrath",
+		baseSkillId: 29773,
+		statRequireId: "ArmorHeavy",
+		statRequireValue: 5,
+		category: "Item",
+		statId: "WeaponDamage",
+		toggle: true,
+		enabled: false,
+		maxTimes: 20,
+		match: /WHEN 5 OR MORE PIECES OF HEAVY ARMOR ARE EQUIPPED[\s\S]*?Increases your Weapon and Spell Damage by ([0-9]+) for [0-9]+ seconds when you take damage, stacking up to [0-9]+ times/i
+	},
+	{
+		id: "Wrath",
+		baseSkillId: 29773,
+		statRequireId: "ArmorHeavy",
+		statRequireValue: 5,
+		category: "Item",
+		statId: "SpellDamage",
+		toggle: true,
+		enabled: false,
+		maxTimes: 20,
+		match: /WHEN 5 OR MORE PIECES OF HEAVY ARMOR ARE EQUIPPED[\s\S]*?Increases your Weapon and Spell Damage by ([0-9]+) for [0-9]+ seconds when you take damage, stacking up to [0-9]+ times/i
+	},
+	{
 		id: "Burning Heart",
 		requireSkillLine: "DRACONIC POWER",
 		baseSkillId: 29457,
@@ -2379,6 +2935,16 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /WHILE USING DRACONIC POWER ABILITIES[\s\S]*?Increases healing received by ([0-9]+\.?[0-9]*)% while a Draconic Power ability is active/i
 	},
 	{
+		id: "Burning Heart",
+		requireSkillLine: "DRACONIC POWER",
+		baseSkillId: 29457,
+		statId: "HealingReceived",
+		toggle: true,
+		enabled: false,
+		display: "%",
+		match: /Increases your healing received by ([0-9]+\.?[0-9]*)% while a Draconic Power ability is active./i
+	},	
+	{
 		id: "Expert Summoner",
 		baseSkillId: 31412,
 		statId: "Health",
@@ -2386,6 +2952,15 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		enabled: false,
 		display: "%",
 		match: /Increases your Max Health by ([0-9]+\.?[0-9]*)% if you have a Daedric Summoning pet active/i
+	},
+	{
+		id: "Expert Summoner",
+		baseSkillId: 31412,
+		statId: "Health",
+		toggle: true,
+		enabled: false,
+		display: "%",
+		match: /Increases your Max Health by ([0-9]+\.?[0-9]*)% while you have a Daedric Summoning pet active/i
 	},
 	{
 		statRequireId: "WeaponBow",
@@ -2426,6 +3001,28 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		baseSkillId: 39248,
 		statRequireId: "Cyrodiil",
 		statRequireValue: 1,
+		statId: "WeaponDamage",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% and /i,
+	},
+	{
+		id: "Continuous Attack",
+		baseSkillId: 39248,
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
+		statId: "SpellDamage",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% and /i,
+	},
+	{
+		id: "Continuous Attack",
+		baseSkillId: 39248,
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
 		statId: "MagickaRegen",
 		display: "%",
 		toggle: true,
@@ -2453,10 +3050,9 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		//Argonian
 	//Increases your swimming speed by 15%.
 	
-	
 		// Dragonknight
-	//Increases the damage of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by 3% and the duration by 2 seconds.
-	//Increases the damage of Flame and Poison area of effect abilities by 6%.
+	//Increases the damage of your Flame and Poison area of effect abilities by 6%.
+	//Increases the damage of your Burning and Poisoned status effects by 66%.
 	
 		// Templar
 	//Gives you a 25% chance to cause an extra 1803 Damage any time you hit with an Aedric Spear ability. Deals Physical Damage and scales with Weapon Damage, or deals Magic Damage and scales with Spell Damage, based on whichever is higher.
@@ -2471,6 +3067,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		//Fully charged heavy fire attacks deal 12% additional damage.
 		//Fully charged heavy frost attacks grant a damage shield that absorbs 1809 damage.
 		//Fully charged heavy shock attacks damage nearby enemies for 100% of the damage done.
+	//Increases your chance to apply the Burning, Concussion, and Chilled status effects by 100% while you have a Destruction Staff equipped.
 	
 		// Bow
 	//WITH BOW ABILITIES Gives you a damage bonus of up to 12% against enemies at longer range.
@@ -2485,10 +3082,14 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		// Two Handed
 	//Grants a bonus based on the type of weapon equipped:
 		//Axes grant your melee attacks 16% chance to apply a bleed dealing 5635 Physical Damage over 6 seconds.
+	//WITH TWO-HANDED WEAPON EQUIPPED Increases your Stamina Recovery by 30% for 10 seconds after killing a target.
 	
 		// Racial
 	//Gives your melee attacks a 10% chance to restore 854 Health.
 	//Restores 361 Stamina whenever you damage an enemy with a melee attack. This can happen no more than once every 3 seconds.
+	
+		// Emperor
+	//WHILE YOU ARE EMPEROR Increases your damage done with Siege Weapons to keeps and other Siege Weapons by 100% while in your campaign.
 ];
 
 
@@ -3291,7 +3892,6 @@ ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		match: /Decreases the time it takes to resurrect an ally by ([0-9]+\.?[0-9]*)%/i,
 	},
-	
 	{
 		statId: "BossDamageResist",
 		display: '%',
@@ -9027,6 +9627,24 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
  	var WeaponDamageFactor = 1 + inputValues.Skill.WeaponDamage + inputValues.Buff.WeaponDamage;
  	var BaseSpellDamage = inputValues.Item.SpellDamage + inputValues.Set.SpellDamage + inputValues.Mundus.SpellDamage + Math.floor(inputValues.Mundus.SpellDamage * inputValues.Item.Divines);
  	var BaseWeaponDamage = inputValues.Item.WeaponDamage + inputValues.Set.WeaponDamage + inputValues.Mundus.WeaponDamage + Math.floor(inputValues.Mundus.WeaponDamage * inputValues.Item.Divines);
+ 	
+ 		/* TODO: Check if this works correctly for buffs */
+	if (g_EsoBuildSetData["Pelinal's Aptitude"] != null && g_EsoBuildSetData["Pelinal's Aptitude"].count >= 5)
+	{
+		var weaponDamage = BaseWeaponDamage * WeaponDamageFactor;
+		var spellDamage = BaseSpellDamage * SpellDamageFactor;
+		
+		if (weaponDamage > spellDamage)
+		{
+			SpellDamageFactor = WeaponDamageFactor;
+			BaseSpellDamage = BaseWeaponDamage;
+		}
+		else
+		{
+			WeaponDamageFactor = SpellDamageFactor;
+			BaseWeaponDamage = BaseSpellDamage;
+		}
+	}
  	
  	inputValues.SkillLineWeaponDmg['base'] = 0;
  	inputValues.SkillLineSpellDmg['base'] = 0;

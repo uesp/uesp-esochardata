@@ -344,6 +344,12 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>9 February 2017</b>
+			<ul>
+				<li>Fixed a lot of skills broken/changed in the Homestead patch.</li>
+				<li>The Pelinal's Aptitude set should now be modifying skill tooltips correctly.</li>
+			</ul>
+			<p>
 			<b>7 February 2017</b>
 			<ul>
 				<li>Skills updated from the Homestead patch. There may be some minor issues with some skills until we find and fix all skill changes.</li>
