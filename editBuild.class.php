@@ -175,6 +175,8 @@ class EsoBuildDataEditor
 			"Cyrodiil",
 			"DrinkBuff",
 			"FoodBuff",
+			"Skill.SingleTargetDamageDone",
+			"Skill.AOEDamageDone",
 	);
 	
 	
@@ -502,6 +504,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"SkillCost.Mages_Guild" => array(
+					"display" => "%",
+			),			
+			
 			"CP.CritDamage" => array(
 					"display" => "%",
 			),
@@ -539,6 +545,14 @@ class EsoBuildDataEditor
 			),
 				
 			"Skill.SpellCrit" => array(
+					"display" => "%",
+			),
+			
+			"Skill.AOEDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"Skill.SingleTargetDamageDone" => array(
 					"display" => "%",
 			),
 			
