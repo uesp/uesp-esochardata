@@ -4611,15 +4611,8 @@ ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
-		statId: "SpellDamage",
-		match: /When you heal a friendly target that is at [0-9]+% Health, you have a [0-9]+% chance to increase their Weapon and Spell Damage by ([0-9]+)/i,
-	},
-	{
-		id: "Spell Power Cure",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		statId: "WeaponDamage",
+		buffId: "Spell Power Cure",
+		updateBuffValue : true,
 		match: /When you heal a friendly target that is at [0-9]+% Health, you have a [0-9]+% chance to increase their Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
