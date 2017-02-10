@@ -340,6 +340,8 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<hr>
 			<ul>
 				<li>Do a forced reload of the page in your browser to ensure you have the latest JavaScript files.</li>
+				<li>Note: There are some ability tooltips that aren't correct but the actual effect value used is correct (Dexterity, Slayer, Expert Mage, etc...).
+					If in doubt check the Raw Data tab or the ability details (...) for the actual value used.</li>
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
