@@ -76,6 +76,7 @@ class EsoBuildDataViewer
 	
 	public $accountGold = 0;
 	public $accountTelvar = 0;
+	public $accountWritVoucher = 0;
 	public $accountAP = 0;
 	public $accountUsedSpace = 0;
 	public $accountTotalSpace = 0;
@@ -522,6 +523,10 @@ class EsoBuildDataViewer
 				{
 					$this->accountTelvar += intval($row['qnt']);
 				}
+				else if ($row['name'] == "__WritVoucher")
+				{
+					$this->accountWritVoucher += intval($row['qnt']);
+				}
 				else if ($row['name'] == "__AP")
 				{
 					$this->accountAP += intval($row['qnt']);
@@ -616,6 +621,13 @@ class EsoBuildDataViewer
 				"characterId" => $this->characterId,
 				"name" => "AccountTelvarStones",
 				"value" => (string) $this->accountTelvar,
+		);
+		
+		$arrayData['AccountWritVoucher'] = array(
+				"id" => -1,
+				"characterId" => $this->characterId,
+				"name" => "AccountWritVoucher",
+				"value" => (string) $this->accountWritVoucher,
 		);
 		
 		$arrayData['AccountAlliancePoints'] = array(
@@ -863,6 +875,7 @@ class EsoBuildDataViewer
 					'{allInventoryJS}' => $this->getAllInventoryJS(),
 					'{characterNamesJS}' => $this->getCharacterNamesJS(),
 					'{invGold}' => $this->getInventoryGold(),
+					'{invVoucher}' => $this->getInventoryWritVoucher(),
 					'{bankGold}' => $this->getBankGold(),
 					'{accInvGold}' => $this->getAccountInventoryGold(),
 					'{invAP}' => $this->getInventoryAP(),
@@ -871,6 +884,7 @@ class EsoBuildDataViewer
 					'{invTelvar}' => $this->getInventoryTelvar(),
 					'{bankTelvar}' => $this->getBankTelvar(),
 					'{accInvTelvar}' => $this->getAccountInventoryTelvar(),
+					'{accInvVoucher}' => $this->getAccountInventoryWritVoucher(),
 					'{invUsedSpace}' => $this->getInventoryUsedSpace(),
 					'{invTotalSpace}' => $this->getInventoryTotalSpace(),
 					'{bankUsedSpace}' => $this->getBankUsedSpace(),
@@ -901,8 +915,10 @@ class EsoBuildDataViewer
 	public function getBankAP() { return ""; }
 	public function getAccountInventoryAP() { return ""; }
 	public function getInventoryTelvar() { return ""; }
+	public function getInventoryWritVoucher() { return ""; }
 	public function getBankTelvar() { return ""; }
 	public function getAccountInventoryTelvar() { return ""; }
+	public function getAccountInventoryWritVoucher() { return ""; }
 	
 	
 	public function getCharacterNamesJS()
