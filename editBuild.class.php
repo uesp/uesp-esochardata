@@ -1470,6 +1470,8 @@ class EsoBuildDataEditor
 							"+",
 							"Mundus.Magicka",
 							"+",
+							"Skill2.Magicka",
+							"+",
 							"floor(Mundus.Magicka * Item.Divines)",
 							"+",
 							"1 + Skill.Magicka + Buff.Magicka",
