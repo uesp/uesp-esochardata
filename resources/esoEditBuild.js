@@ -224,17 +224,17 @@ g_EsoBuildBuffData =
 		{
 			enabled: false,
 			skillEnabled : false,
-			value : 0.30,
+			value : 0.15,
 			display: "%",
 			statId : "CritDamage",
-			category: "Skill2",
+			category: "Buff",
 			icon : "/esoui/art/icons/ability_ava_003_a.png",
 		},
 		"Minor Force" : 
 		{
 			enabled: false,
 			skillEnabled : false,
-			value : 0.12,
+			value : 0.10,
 			display: "%",
 			statId : "CritDamage",
 			icon : "/esoui/art/icons/ability_nightblade_003_a.png",
@@ -475,7 +475,7 @@ g_EsoBuildBuffData =
 		{
 			enabled: false,
 			skillEnabled : false,
-			value : 0.20,
+			value : 0.15,
 			display : "%",
 			statId : "DodgeChance",
 			icon : "/esoui/art/icons/ability_rogue_037.png",
@@ -2554,6 +2554,12 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		requireSkillLine: "AEDRIC SPEAR",
+		statId: "CritDamage",
+		display: "%",
+		match: /Increases your Critical Damage done and your damage against blocking targets by ([0-9]+\.?[0-9]*)% while you have an Aedric Spear ability slotted/i
+	},
+	{
+		requireSkillLine: "AEDRIC SPEAR",
 		statId: "OtherEffects",
 		display: "%",
 		match: /WHILE AN AEDRIC SPEAR ABILITY IS SLOTTED[\s\S]*?your damage against blocking targets by ([0-9]+\.?[0-9]*)%/i
@@ -2563,6 +2569,12 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "OtherEffects",
 		display: "%",
 		match: /WHILE AN AEDRIC SPEAR ABILITY IS SLOTTED[\s]*Increases the amount of damage you can block against melee attacks by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		requireSkillLine: "AEDRIC SPEAR",
+		statId: "OtherEffects",
+		display: "%",
+		match: /Increases your Critical Damage done and your damage against blocking targets by ([0-9]+\.?[0-9]*)% while you have an Aedric Spear ability slotted/i
 	},
 	{
 		factorSkillLine: "Fighters Guild",
@@ -3621,6 +3633,13 @@ ESO_SETEFFECT_MATCHES = [
 		statRequireValue: 1,
 		display: '%',
 		match: /Attacking from stealth increases Critical Damage by an additional ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "CritDamage",
+		statRequireId: "Stealthed",
+		statRequireValue: 1,
+		display: '%',
+		match: /Attacking from stealth increases your Critical Damage by an additional ([0-9]+\.?[0-9]*)%/i,
 	},	
 	{
 		statId: "CritResist",
