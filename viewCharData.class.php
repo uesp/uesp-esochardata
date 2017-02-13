@@ -221,6 +221,13 @@ EOT;
 	}
 	
 	
+	public function getInventoryWritVoucher()
+	{
+		$voucher = $this->getCharStatField('WritVoucher');
+		return number_format(intval($voucher));
+	}
+	
+	
 	public function getBankGold() 
 	{ 
 		$gold = $this->getCharStatField('BankedMoney');
@@ -273,6 +280,13 @@ EOT;
 	{ 
 		$ap = $this->getCharStatField('AccountTelvarStones');
 		return number_format(intval($ap)); 
+	}
+	
+	
+	public function getAccountInventoryWritVoucher()
+	{
+		$voucher = $this->getCharStatField('AccountWritVoucher');
+		return number_format(intval($voucher));
 	}
 	
 	

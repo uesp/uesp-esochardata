@@ -607,12 +607,14 @@ class EsoCharDataParser extends EsoBuildDataParser
 		$invGold = $this->getSafeFieldInt($this->currentCharacterStats, 'Money');
 		$invTelvar = $this->getSafeFieldInt($this->currentCharacterStats, 'TelvarStones');
 		$invAP = $this->getSafeFieldInt($this->currentCharacterStats, 'AlliancePoints');
+		$invVoucher = $this->getSafeFieldInt($this->currentCharacterStats, 'WritVoucher');
 		
 		$result = True;
 		
 		$result &= $this->saveCharacterInventoryExtraRawData($charId, $account, "__Gold",   $invGold);
 		$result &= $this->saveCharacterInventoryExtraRawData($charId, $account, "__Telvar", $invTelvar);
 		$result &= $this->saveCharacterInventoryExtraRawData($charId, $account, "__AP",     $invAP);
+		$result &= $this->saveCharacterInventoryExtraRawData($charId, $account, "__WritVoucher", $invVoucher);
 		
 		return $result;
 	}

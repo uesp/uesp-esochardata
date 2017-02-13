@@ -1153,9 +1153,9 @@ thead.ecdFixedHeader tr {
     text-shadow: 1px 1px 2px black;
 }
 
-.ecdCurrencyTelvar {
+.ecdCurrencyTelvar, .ecdCurrencyVoucher {
 	display: inline-block;
-	width: 125px;
+	width: 90px;
     font-size: 18px;
     font-weight: bold;
     text-align: right;

@@ -45,7 +45,8 @@
 			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			<div class='ecdInventorySpace'><div class='ecdInvSpaceLabel'>Inventory Space:</div> {invUsedSpace} / {invTotalSpace}</div>
 			<div class='ecdCurrencyGold'>{invGold} <img src="{baseResourceUrl}resources/goldicon.png" /></div>
-			<div class='ecdCurrencyTelvar'>{invTelvar} <img src="{baseResourceUrl}resources/telvaricon.png" /></div>
+			<div class='ecdCurrencyVoucher'>{invVoucher} <img src="{baseResourceUrl}resources/writvoucher.png" width="16" height="16" /></div>
+			<div class='ecdCurrencyTelvar'>{invTelvar} <img src="{baseResourceUrl}resources/telvaricon.png"/></div>
 			<div class='ecdCurrencyAP'>{invAP} <img src="{baseResourceUrl}resources/apicon.png" /></div>
 		</div>
 		<div id='ecdBank' class='ecdRightDataArea' style="display: none;">
@@ -68,6 +69,7 @@
 			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			<div class='ecdInventorySpace'><div class='ecdInvSpaceLabel'>Inventory Space:</div> {accInvUsedSpace} / {accInvTotalSpace}</div>
 			<div class='ecdCurrencyGold'>{accInvGold} <img src="{baseResourceUrl}resources/goldicon.png" /></div>
+			<div class='ecdCurrencyVoucher'>{accInvVoucher} <img src="{baseResourceUrl}resources/writvoucher.png" width="16" height="16" /></div>
 			<div class='ecdCurrencyTelvar'>{accInvTelvar} <img src="{baseResourceUrl}resources/telvaricon.png" /></div>
 			<div class='ecdCurrencyAP'>{accInvAP} <img src="{baseResourceUrl}resources/apicon.png" /></div>
 		</div>
