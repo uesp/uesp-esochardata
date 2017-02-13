@@ -351,6 +351,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<ul>
 				<li>Updated the Major Force, Minor Force, and Major Evasion buffs with changes from the Homestead patch.</li>
 				<li>Fixed the Templar's Piercing Spear passive.</li>
+				<li>Fixed the 5 piece Necropotence set bonus (the CP bonus does not apply to it in-game).</li>
 			</ul>
 			<p>
 			<b>10 February 2017</b>

@@ -4488,6 +4488,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "Magicka",
+		category: "Skill2",
 		match: /While you have a pet active, your Max Magicka is increased by ([0-9]+)/i,
 	},
 	{
