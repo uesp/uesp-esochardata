@@ -347,6 +347,12 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>13 February 2017</b>
+			<ul>
+				<li>Updated the Major Force, Minor Force, and Major Evasion buffs with changes from the Homestead patch.</li>
+				<li>Fixed the Templar's Piercing Spear passive.</li>
+			</ul>
+			<p>
 			<b>10 February 2017</b>
 			<ul>
 				<li>Fixed a bug that was causing some skills to not reset, display as toggles, and be counted twice in some cases.</li>
