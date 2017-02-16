@@ -492,6 +492,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Skill.BowDamageDone" => array(
+					"display" => "%",
+			),
+			
 			"Skill.CritDamage" => array(
 					"display" => "%",
 			),
@@ -2732,7 +2736,7 @@ class EsoBuildDataEditor
 					"compute" => array(
 							"round(0.0145129*Stamina + 0.579979*WeaponDamage - 1.0552)",		// Update 12
 							//"round(0.0140*Stamina + 0.56*WeaponDamage - 0.60)",
-							"1 + CP.LABowDamage + Set.LADamage + Set.BowDamageDone + Buff.Empower + Skill.PhysicalDamageDone + Skill.DamageDone", 	// TODO: Check BowDamageDone
+							"1 + CP.LABowDamage + Set.LADamage + Set.BowDamageDone + Skill.BowDamageDone + Buff.Empower + Skill.PhysicalDamageDone + Skill.DamageDone", 	// TODO: Check BowDamageDone
 							"*",
 					),
 			),
@@ -2864,7 +2868,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + CP.HABowDamage + CP.PhysicalDamageDone",
 							"*",
-							"1 + Skill.HADamage + Set.HADamage + Buff.Empower + Set.BowDamageDone + Skill.PhysicalDamageDone + Skill.DamageDone",  //TODO: Check BowDamageDone
+							"1 + Skill.HADamage + Set.HADamage + Buff.Empower + Set.BowDamageDone + Skill.BowDamageDone + Skill.PhysicalDamageDone + Skill.DamageDone",  //TODO: Check BowDamageDone
 							"*",
 					),
 			),
