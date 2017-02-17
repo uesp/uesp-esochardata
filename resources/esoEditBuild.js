@@ -1395,6 +1395,13 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /WITH 5 OR MORE PIECES OF HEAVY ARMOR EQUIPPED[\s\S]*?Increases your healing received by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+		statRequireId: "ArmorHeavy",
+		statRequireValue: 5,
+		statId: "HealingReceived",
+		display: "%",
+		match: /WHEN 5 OR MORE PIECES OF HEAVY ARMOR ARE EQUIPPED[\s\S]*?Increases your healing received by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
 		statId: "SneakCost",
 		display: '%',
 		factorValue: -1,
@@ -2374,6 +2381,20 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /WITH 5 OR MORE PIECES OF HEAVY ARMOR EQUIPPED[\s\S]*?increases the Magicka or Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
+		statRequireId: "ArmorHeavy",
+		statRequireValue: 5,
+		statId: "HAStaRestore",
+		display: "%",
+		match: /WHEN 5 OR MORE PIECES OF HEAVY ARMOR ARE EQUIPPED[\s\S]*?increases the Magicka or Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		statRequireId: "ArmorHeavy",
+		statRequireValue: 5,
+		statId: "HAMagRestore",
+		display: "%",
+		match: /WHEN 5 OR MORE PIECES OF HEAVY ARMOR ARE EQUIPPED[\s\S]*?increases the Magicka or Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
 		factorSkillLine: "Draconic Power",
 		statId: "HealthRegen",
 		display: "%",
@@ -2657,21 +2678,21 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireValue: 1,
 		statId: "HealthRegen",
 		display: "%",
-		match: /WHILE EMPEROR[\s\S]*?Increases your Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		match: /WHILE YOU ARE EMPEROR[\s\S]*?Increases your Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
 		statRequireId: "Cyrodiil",
 		statRequireValue: 1,
 		statId: "MagickaRegen",
 		display: "%",
-		match: /WHILE EMPEROR[\s\S]*?Increases your Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		match: /WHILE YOU ARE EMPEROR[\s\S]*?Increases your Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
 		statRequireId: "Cyrodiil",
 		statRequireValue: 1,
 		statId: "StaminaRegen",
 		display: "%",
-		match: /WHILE EMPEROR[\s\S]*?Increases your Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		match: /WHILE YOU ARE EMPEROR[\s\S]*?Increases your Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
 		statRequireId: "Cyrodiil",
@@ -2679,6 +2700,13 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "OtherEffect",
 		display: "%",
 		match: /WHILE EMPEROR[\s\S]*?Increases Ultimate gains by ([0-9]+\.?[0-9]*)% while in your campaign/i
+	},
+	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
+		statId: "OtherEffect",
+		display: "%",
+		match: /WHILE YOU ARE EMPEROR[\s\S]*?Increases your Ultimate generation by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
 		statRequireId: "Cyrodiil",
@@ -2704,6 +2732,13 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statRequireId: "Cyrodiil",
 		statRequireValue: 1,
+		statId: "HealingReceived",
+		display: "%",
+		match: /WHILE YOU ARE EMPEROR[\s\S]*?Increases your healing received by ([0-9]+\.?[0-9]*)% while in your campaign/i
+	},
+	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
 		statId: "Health",
 		display: "%",
 		match: /WHILE EMPEROR[\s\S]*?Increases Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
@@ -2742,6 +2777,27 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "Stamina",
 		display: "%",
 		match: /WHILE EMPEROR[\s\S]*?Increases your Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
+	},
+	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
+		statId: "Health",
+		display: "%",
+		match: /WHILE YOU ARE EMPEROR[\s\S]*?Increases your Max Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
+	},
+	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
+		statId: "Magicka",
+		display: "%",
+		match: /WHILE YOU ARE EMPEROR[\s\S]*?Increases your Max Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
+	},
+	{
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
+		statId: "Stamina",
+		display: "%",
+		match: /WHILE YOU ARE EMPEROR[\s\S]*?Increases your Max Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
 	},
 	{
 		statRequireId: "VampireStage",
@@ -2879,7 +2935,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "HealingReceived",
 		display: "%",
-		match: /Increases your healing received by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increases your healing received by ([0-9]+\.?[0-9]*)% and /i,
 	},
 	
 	
