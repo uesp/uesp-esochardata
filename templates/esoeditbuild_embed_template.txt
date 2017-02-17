@@ -347,6 +347,11 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>76 February 2017</b>
+			<ul>
+				<li>Fixed several more skill passives that were broken from the Homestead update.</li>
+			</ul>
+			<p>
 			<b>16 February 2017</b>
 			<ul>
 				<li>All items updated from the Homstead patch. If you find any incorrect or corrupt item data let us know!</li>
