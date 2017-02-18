@@ -346,11 +346,11 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
-			<hr>
-			<b>76 February 2017</b>
+			<hr8
+			<b>17 February 2017</b>
 			<ul>
 				<li>Fixed several more skill passives that were broken from the Homestead update.</li>
-				<li>Fixed the Twice-Born Star set which was missing its 5 piece bonus for many items.</li>
+				<li>Fixed many sets which were missing some of their bonuses for some items.</li>
 			</ul>
 			<p>
 			<b>16 February 2017</b>
