@@ -9693,6 +9693,13 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
 			ArmorTypes		: parseInt(inputValues.ArmorTypes),
 			DaggerWeapon	: parseInt(inputValues.WeaponDagger),
 			AssassinSkills	: CountEsoBarSkillsWithSkillLine("Assassination"),
+			FightersGuildSkills	: CountEsoBarSkillsWithSkillLine("Fighters Guild"),
+			DraconicPowerSkills	: CountEsoBarSkillsWithSkillLine("Draconic Power"),
+			ShadowSkills	: CountEsoBarSkillsWithSkillLine("Shadow"),
+			SiphoningSkills	: CountEsoBarSkillsWithSkillLine("Siphoning"),
+			SorcererSkills	: CountEsoBarSkillsWithSkillType("Sorcerer"),
+			MagesGuildSkills : CountEsoBarSkillsWithSkillLine("Mages Guild"),
+			SupportSkills : CountEsoBarSkillsWithSkillLine("Support"),
 	};
 	
 	g_LastSkillInputValues.SkillLineCost = inputValues.SkillCost;
@@ -11406,5 +11413,6 @@ function esotbOnDocReady()
 
 
 $( document ).ready(esotbOnDocReady);
+
 
 

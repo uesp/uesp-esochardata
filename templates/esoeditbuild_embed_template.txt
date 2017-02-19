@@ -346,7 +346,12 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
-			<hr8
+			<hr>
+			<b>19 February 2017</b>
+			<ul>
+				<li>The Slayer, Expert Mage, Magicka Controller, Magicka Aid, Soul Siphoner, Dark Vigor, Pressure Points, and Draconic Power tooltips now correctly updates based on skills slotted.</li>
+			</ul>
+			<p>
 			<b>17 February 2017</b>
 			<ul>
 				<li>Fixed several more skill passives that were broken from the Homestead update.</li>
