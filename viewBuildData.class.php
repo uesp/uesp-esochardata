@@ -1345,6 +1345,8 @@ class EsoBuildDataViewer
 			$knownCount = 0;
 			$unknownCount = 14;
 			
+			if ($styleName == "Akatosh") continue;
+			
 			if (count($rawValues) > 1)
 			{
 				$styleArray = array();
