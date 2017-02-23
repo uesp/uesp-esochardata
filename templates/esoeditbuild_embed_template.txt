@@ -347,6 +347,13 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>23 February 2017</b>
+			<ul>
+				<li>Added AOE and Single Target damage modifiers to ability tooltips from the updated Destruction Staff Ancient Knowledge passive. Currently this
+					goes by the ability's target field and will be incorrect for skills that use a mix of AoE and single target damages.</li>
+				<li>Fixed Frost Damage tooltip values.</li>
+			</ul>
+			<p>
 			<b>19 February 2017</b>
 			<ul>
 				<li>The Slayer, Expert Mage, Magicka Controller, Magicka Aid, Soul Siphoner, Dark Vigor, Pressure Points, and Draconic Power tooltips now correctly updates based on skills slotted.</li>
