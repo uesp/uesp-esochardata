@@ -6388,7 +6388,7 @@ function GetEsoInputItemValues(inputValues, slotId)
 		if (slotId == "OffHand1" || slotId == "OffHand2") 
 		{
 			inputValues.WeaponOffHandDamage = weaponPower;
-			weaponPower = Math.floor(weaponPower * 0.200);
+			weaponPower = Math.floor(weaponPower * 0.178);
 		}
 		
 		if (itemData.trait == 26)	// Weapon nirnhoned
