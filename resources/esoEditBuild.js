@@ -9748,6 +9748,8 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
 		All				: inputValues.DamageDone,
 		Empower			: inputValues.Buff.Empower,
 		MaelstromDamage : 0,
+		AOE				: inputValues.Skill.AOEDamageDone,
+		SingleTarget	: inputValues.Skill.SingleTargetDamageDone,
 	};
 	
 	g_LastSkillInputValues.Healing =
