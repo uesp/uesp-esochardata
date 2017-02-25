@@ -1,0 +1,29 @@
+#esotbTrail {
+	left: 60px;
+}
+
+.esptbItemSetup {
+	padding-bottom: 10px;
+}
+
+.esotbStatDetailsButton {
+	line-height: 15px;
+}
+
+.esotbStatNoteButton {
+	line-height: 17px;
+}
+
+#esotbStatInputs select {
+	border: 1px solid #ccc;
+	padding: 5px;
+}
+
+#esoispRoot select {
+	padding: 5px;
+	margin: 3px;
+}
+
+#esoispUneqipButton, #esoispSearchButton {
+	padding: 5px;
+}

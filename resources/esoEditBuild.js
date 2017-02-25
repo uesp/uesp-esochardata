@@ -7934,6 +7934,7 @@ function SelectEsoItem(element)
 
 function ShowEsoBuildClickWall(parentElement)
 {
+	$(".eso_item_link_popup").hide();
 	$("#esotbClickWall").show();
 	g_EsoBuildClickWallLinkElement = parentElement;
 }
