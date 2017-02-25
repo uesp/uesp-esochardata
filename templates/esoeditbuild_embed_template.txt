@@ -182,7 +182,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 						<div class="esotbItemDetailsButton esotbItemButton">...</div>
 						<div class="esotbItemEnchantButton esotbItemButton">*</div>
 					</div>
-					<div class="esotbItem" id="esotbItemPoison1" slotid="Poison1" equiptype="15" itemtype="30">
+					<div class="esotbItem" id="esotbItemPoison1" slotid="Poison1" equiptype="15" itemtype="30" style="display: none;">
 						<img class="esotbItemIcon eso_item_link" {itemDataPoison1} alt="">
 						<div class="esotbItemLabel">{itemNamePoison1}</div>
 						<div class="esotbItemDisableButton esotbItemButton">-</div>
@@ -207,7 +207,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 						<div class="esotbItemDetailsButton esotbItemButton">...</div>
 						<div class="esotbItemEnchantButton esotbItemButton">*</div>
 					</div>
-					<div class="esotbItem " id="esotbItemPoison2" slotid="Poison2" equiptype="15" itemtype="30">
+					<div class="esotbItem " id="esotbItemPoison2" slotid="Poison2" equiptype="15" itemtype="30" style="display: none;">
 						<img class="esotbItemIcon eso_item_link" {itemDataPoison2} alt="">
 						<div class="esotbItemLabel">{itemNamePoison2}</div>
 						<div class="esotbItemDisableButton esotbItemButton">-</div>
@@ -215,7 +215,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 					</div>
 				</div>
 				<hr>				
-				<div class="esotbItemSlotLabel" style="display: inline-block">Food/Drink</div>
+				<div class="esotbItemSlotLabel" style="display: inline-block">Food / Drink</div>
 				<div class="esotbItem " id="esotbItemFood" slotid="Food" itemtype="4,12">
 					<img class="esotbItemIcon eso_item_link" {itemDataFood} alt="">
 					<div class="esotbItemLabel">{itemNameFood}</div>
