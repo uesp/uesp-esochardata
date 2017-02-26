@@ -1393,6 +1393,9 @@ class EsoBuildDataViewer
 	{
 		$output  = "<div id='ecdSkill_Motifs' class='ecdSkillData ecdScrollContent' style='display: none;'>\n";
 		$output .= "<div id='ecdSkillContentTitle'>Crafting Motifs</div>";
+		$output1 = "";
+		
+		$craftData = array();
 		
 		foreach ($this->characterData['stats'] as $key => $value)
 		{
@@ -1410,6 +1413,8 @@ class EsoBuildDataViewer
 			
 			if ($styleName == "Akatosh") continue;
 			
+			$craftData[$styleName] = array();
+			
 			if (count($rawValues) > 1)
 			{
 				$styleArray = array();
@@ -1417,10 +1422,18 @@ class EsoBuildDataViewer
 				
 				for ($i = 0; $i < 14; ++$i)
 				{
-					if ($rawValues[$i] == 1) 
-						$styleArray[] = $this->ESO_MOTIF_CHAPTERNAMES[$i];
+					$name = $this->ESO_MOTIF_CHAPTERNAMES[$i];
+					
+					if ($rawValues[$i] == 1)
+					{
+						$styleArray[] = $name;
+						$craftData[$styleName][$name] = true;
+					}
 					else
-						$unknownArray[] = $this->ESO_MOTIF_CHAPTERNAMES[$i];
+					{
+						$unknownArray[] = $name;
+						$craftData[$styleName][$name] = false;
+					}					
 				}
 				
 				$styleData = implode(', ', $styleArray);
@@ -1433,6 +1446,11 @@ class EsoBuildDataViewer
 				$styleData = 'All Known';
 				$knownCount = 14;
 				$unknownCount = 0;
+								
+				foreach ($this->ESO_MOTIF_CHAPTERNAMES as $name)
+				{
+					$craftData[$styleName][$name] = true;
+				}
 			}
 			elseif ($rawData == '0')
 			{
@@ -1440,6 +1458,11 @@ class EsoBuildDataViewer
 				$unknownChapters =  implode(', ', $this->ESO_MOTIF_CHAPTERNAMES);
 				$knownCount = 0;
 				$unknownCount = 14;
+				
+				foreach ($this->ESO_MOTIF_CHAPTERNAMES as $name)
+				{
+					$craftData[$styleName][$name] = false;
+				}
 			}
 			else
 			{
@@ -1455,13 +1478,51 @@ class EsoBuildDataViewer
 				$extraClass = "ecdTraitTooltip ecdMotifTooltip";
 			}
 							
-			$output .= "<div class='ecdSkillDataBox ecdClickToCopyTooltip $extraClass' $tooltip>\n";
-			$output .= "<div class='ecdSkillNameCraft'>$styleName:</div>";
-			$output .= "<div class='ecdSkillValueCraft'>($knownCount/14) $styleData</div>";
-			$output .= "</div>\n";
+			$output1 .= "<div class='ecdSkillDataBox ecdClickToCopyTooltip $extraClass' $tooltip>\n";
+			$output1 .= "<div class='ecdSkillNameCraft'>$styleName:</div>";
+			$output1 .= "<div class='ecdSkillValueCraft'>($knownCount/14) $styleData</div>";
+			$output1 .= "</div>\n";
 		}
 		
+		$output .= $this->getCharSkillMotifTableHtml($craftData);
+		$output .= "<p/><br/>";
+		$output .= $output1;
 		$output .= "</div>\n";
+		return $output;
+	}
+	
+	
+	public function getCharSkillMotifTableHtml($craftData)
+	{
+		$output = "<table class='ecdSkillMotifsTable'>";
+		$output .= "<tr><td></td>";
+		
+		foreach ($this->ESO_MOTIF_CHAPTERNAMES as $name)
+		{
+			$output .= "<th>$name</th>";
+		}
+		
+		foreach ($craftData as $style => $styleData)
+		{
+			$output .= "<tr>";
+			$output .= "<td>$style</td>";
+			
+			foreach ($this->ESO_MOTIF_CHAPTERNAMES as $name)
+			{
+				$isKnown = $styleData[$name];
+				
+				if ($isKnown) 
+					$output .= "<td title='$name'>X</td>";
+				else
+					$output .= "<td title='$name'></td>";
+			}
+			
+			$output .= "</tr>";
+		}
+		
+		$output .= "</tr>";
+		
+		$output .= "</table>";
 		return $output;
 	}
 	
