@@ -1211,8 +1211,7 @@ class EsoBuildDataViewer
 		$knownCount = $this->getCharStatField("Research:$craftType:Trait:Known");
 		$totalCount = $this->getCharStatField("Research:$craftType:Trait:Total");
 				
-		$output  = "<div class='ecdResearchTitle'>$craftType ($knownCount / $totalCount Traits)</div>";
-		$output .= "<div class='ecdResearchBlock'>";
+		$output = "";
 		
 		$prefix = "Research:$craftType";
 		$openSlots = $this->getCharStatField("$prefix:Open");
@@ -1221,6 +1220,7 @@ class EsoBuildDataViewer
 		$researchTimes = array();
 		$researchTraits = array();
 		$researchItems = array();
+		$extraTraits = array();
 		
 		for ($i = 1; $i <= 3; ++$i)
 		{
@@ -1256,9 +1256,16 @@ class EsoBuildDataViewer
 			$output .= "<div class='ecdResearchItem'>\n";
 			
 			if ($timeLeft <= 0)
+			{
+				++$openSlots;
+				++$knownCount;
 				$output .= "$trait $item research is finished!";
+				$extraTraits[$item] = $trait;
+			}			
 			else
+			{
 				$output .= "$trait $item finishes in $timeFmt";
+			}
 			
 			$output .= "</div>\n";
 		}
@@ -1271,13 +1278,16 @@ class EsoBuildDataViewer
 		}
 		
 		$output .= "<hr width='95%' />";
-		$output .= $this->getResearchTraitContentHtml($craftType);
+		$output .= $this->getResearchTraitContentHtml($craftType, $extraTraits);
 		$output .= "</div>\n";
+		
+		$output = "<div class='ecdResearchTitle'>$craftType ($knownCount / $totalCount Traits)</div> <div class='ecdResearchBlock'>" . $output;
+		
 		return $output;
 	}
 	
 	
-	public function getResearchTraitContentHtml($craftType)
+	public function getResearchTraitContentHtml($craftType, $extraTraits)
 	{
 		$output = "";
 		$totalCount = 0;
@@ -1305,11 +1315,62 @@ class EsoBuildDataViewer
 			
 			$tooltip = "";
 			$extraClass = "";
-			$unknownTraits = $this->characterData['stats']["Research:$craftType:Trait:$slotName:Unknown"];
+			$totalTraits = 9;
+			$unknownTraits = "";
+			$knownTraitCount = 0;
 			
-			if ($unknownTraits != null) 
+			$stat = $this->characterData['stats']["Research:$craftType:Trait:$slotName:Unknown"];
+			if ($stat && $stat['value']) $unknownTraits = $stat['value'];
+			
+			$stat = $this->characterData['stats']["Research:$craftType:Trait:$slotName:Total"];
+			if ($stat && $stat['value']) $totalTraits = intval($stat['value']);
+			
+			$stat = $this->characterData['stats']["Research:$craftType:Trait:$slotName:Known"];
+			if ($stat && $stat['value']) $knownTraitCount = intval($stat['value']);
+			
+			if ($extraTraits && $extraTraits[$slotName])
 			{
-				$tooltip = " tooltip='" . $unknownTraits['value'] . "'";
+				if ($knownTraitCount <= 0)
+				{
+					$rawData = $extraTraits[$slotName] . " (1/9)";
+				}
+				else if ($knownTraitCount == $totalTraits - 1)
+				{
+					$rawData = "All traits known";
+				}
+				else 
+				{
+					$rawData = preg_replace_callback("# \(([0-9]+)/([0-9]+)\)#", function ($matches) {
+								$count = intval($matches[1]) + 1;
+          					  	return " ($count/{$matches[2]})";
+        				}, $rawData);
+				}
+				
+				if ($unknownTraits)
+				{
+					if ($knownTraitCount <= 0)
+					{
+						$unknownTraits = "All except {$extraTraits[$slotName]} (8/9)";
+					}
+					else if ($knownTraitCount == $totalTraits - 1)
+					{
+						$unknownTraits = "";
+					}
+					else
+					{
+						$unknownTraits = preg_replace_callback("# \(([0-9]+)/([0-9]+)\)#", function ($matches) {
+								$count = intval($matches[1]) - 1;
+          					  	return " ($count/{$matches[2]})";
+        					}, $unknownTraits );
+						$unknownTraits = str_replace($extraTraits[$slotName] . ", ", "", $unknownTraits); 
+						$unknownTraits = str_replace(", " . $extraTraits[$slotName], "", $unknownTraits);
+					}
+				}
+			}
+			
+			if ($unknownTraits != "") 
+			{
+				$tooltip = " tooltip='" . $unknownTraits . "'";
 				$extraClass = "ecdTraitTooltip";
 			}
 			
