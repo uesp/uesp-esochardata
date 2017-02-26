@@ -1412,6 +1412,7 @@ class EsoBuildDataViewer
 			$unknownCount = 14;
 			
 			if ($styleName == "Akatosh") continue;
+			if ($styleName == "Grim Arlequin") $styleName = "Grim Harlequin";
 			
 			$craftData[$styleName] = array();
 			
