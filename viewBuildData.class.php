@@ -1344,6 +1344,7 @@ class EsoBuildDataViewer
 								$count = intval($matches[1]) + 1;
           					  	return " ($count/{$matches[2]})";
         				}, $rawData);
+					$rawData = str_replace($extraTraits[$slotName], "[" . $extraTraits[$slotName]."]", $rawData);
 				}
 				
 				if ($unknownTraits)
@@ -1364,6 +1365,7 @@ class EsoBuildDataViewer
         					}, $unknownTraits );
 						$unknownTraits = str_replace($extraTraits[$slotName] . ", ", "", $unknownTraits); 
 						$unknownTraits = str_replace(", " . $extraTraits[$slotName], "", $unknownTraits);
+						$unknownTraits = str_replace(" [" . $extraTraits[$slotName]."]", "", $unknownTraits);
 					}
 				}
 			}
