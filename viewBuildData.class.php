@@ -1296,7 +1296,7 @@ class EsoBuildDataViewer
 		foreach ($this->characterData['stats'] as $key => $value)
 		{
 			$matches = array();
-			$result = preg_match("/^Research:$craftType:Trait:([a-zA-Z\ _0-9]*)$/", $key, $matches);
+			$result = preg_match("/^Research:$craftType:Trait:([a-zA-Z\ _0-9&]*)$/", $key, $matches);
 			if ($result == 0) continue;
 			
 			$slotName = $matches[1];
