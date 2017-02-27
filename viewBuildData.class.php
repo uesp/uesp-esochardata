@@ -1278,14 +1278,281 @@ class EsoBuildDataViewer
 		}
 		
 		$output .= "<hr width='95%' />";
-		$output .= $this->getResearchTraitContentHtml($craftType, $extraTraits);
+		//$output .= $this->getResearchTraitContentHtml($craftType, $extraTraits);
+		$output .= $this->getResearchTraitTableHtml($craftType, $extraTraits);
 		$output .= "</div>\n";
 		
 		$output = "<div class='ecdResearchTitle'>$craftType ($knownCount / $totalCount Traits)</div> <div class='ecdResearchBlock'>" . $output;
 		
 		return $output;
 	}
+
 	
+	public function FormatResearchTime($time, $timeStamp)
+	{
+		$finishTime = intval($time) + intval($timeStamp);
+		$timeLeft   = intval($time) + intval($timeStamp) - time();
+			
+		$days = floor($timeLeft / 3600 / 24);
+		$hours = floor($timeLeft / 3600) % 24;
+		$minutes = floor($timeLeft / 60) % 60;
+		$seconds = $timeLeft % 60;
+		$timeFmt = "";
+		
+		if ($days > 1)
+			$timeFmt = sprintf("%d days %02d:%02d:%02d", $days, $hours, $minutes, $seconds);
+		else if ($days > 0)
+			$timeFmt = sprintf("%d day %02d:%02d:%02d", $days, $hours, minutes, $seconds);
+		else
+			$timeFmt = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
+						
+		$output = "<div class='ecdResearchItem'>\n";
+						
+		if ($timeLeft <= 0)
+		{
+			$output = "research is finished!";
+		}
+		else
+		{
+			$output = "finishes in $timeFmt";
+		}
+		
+		return $output;
+	}
+	
+	
+	public function getResearchTraitTableHtml($craftType, $extraTraits)
+	{
+		static $ARMOR_TRAITS = array("Divines", "Impenetrable", "Infused", "Nirnhoned", "Prosperous", "Reinforced", "Sturdy", "Training", "Well-Fitted");
+		static $WEAPON_TRAITS = array("Charged", "Decisive", "Divines", "Impenetrable", "Infused", "Nirnhoned", "Powered", "Sharpened", "Training" );
+		
+		static $WEAPONS = array("Axe" => 1, "Battle Axe" => 1, "Dagger" => 1, "Greatsword" => 1, "Mace" => 1, "Maul" => 1, "Sword" => 1, "Bow" => 1, 
+								"Ice Staff" => 1, "Inferno Staff" => 1, "Lightning Staff" => 1, "Restoration Staff" => 1);
+		
+		$output = "";
+		$totalCount = 0;
+		$knownCount = 0;
+		$armorTraits = array();
+		$weaponTraits = array();
+		$prefix = "Research:$craftType";
+		$timestamp = $this->getCharStatField("Research:Timestamp");
+		$research = array();
+		
+		for ($i = 1; $i <= 3; ++$i)
+		{
+			$trait = $this->getCharStatField("$prefix:Trait$i");
+			$time = $this->getCharStatField("$prefix:Time$i");
+			$item = $this->getCharStatField("$prefix:Item$i");
+			
+			if ($research[$item] == null) $research[$item] = array();
+			$research[$item][$trait] = $time;
+		}
+		
+		foreach ($this->characterData['stats'] as $key => $value)
+		{
+			$matches = array();
+			$result = preg_match("/^Research:$craftType:Trait:([a-zA-Z\ _0-9&]*)$/", $key, $matches);
+			if ($result == 0) continue;
+				
+			$slotName = $matches[1];
+			$rawData = $value["value"];
+				
+			if ($slotName == "Known")
+			{
+				$knownCount = intval($rawData);
+				continue;
+			}
+			else if ($slotName == "Total")
+			{
+				$totalCount = intval($rawData);
+				continue;
+			}
+				
+			$tooltip = "";
+			$extraClass = "";
+			$totalTraits = 9;
+			$unknownTraits = "";
+			$knownTraitCount = 0;
+				
+			$stat = $this->characterData['stats']["Research:$craftType:Trait:$slotName:Unknown"];
+			if ($stat && $stat['value']) $unknownTraits = $stat['value'];
+				
+			$stat = $this->characterData['stats']["Research:$craftType:Trait:$slotName:Total"];
+			if ($stat && $stat['value']) $totalTraits = intval($stat['value']);
+				
+			$stat = $this->characterData['stats']["Research:$craftType:Trait:$slotName:Known"];
+			if ($stat && $stat['value']) $knownTraitCount = intval($stat['value']);
+				
+			if ($extraTraits && $extraTraits[$slotName])
+			{
+				if ($knownTraitCount <= 0)
+				{
+					$knownTraitCount = 1;
+					$rawData = $extraTraits[$slotName] . " (1/9)";
+				}
+				else if ($knownTraitCount == $totalTraits - 1)
+				{
+					$knownTraitCount = $totalTraits;
+					$rawData = "All traits known";
+				}
+				else
+				{
+					++$knownTraitCount;
+					$rawData = preg_replace_callback("# \(([0-9]+)/([0-9]+)\)#", function ($matches) {
+							$count = intval($matches[1]) + 1;
+							return " ($count/{$matches[2]})";
+						}, $rawData);
+					$rawData = str_replace($extraTraits[$slotName], "[" . $extraTraits[$slotName]."]", $rawData);
+				}
+			}
+			
+			$rawData = preg_replace("#[ ]*\(.*\)#", "", $rawData);
+			$traits = preg_split("#[, ]+#", $rawData, 0, PREG_SPLIT_NO_EMPTY);
+			
+			if ($WEAPONS[$slotName])
+			{
+				$weaponTraits[$slotName] = array();
+				
+				$value = 0;
+				if ($knownTraitCount == $totalTraits) $value = 1;
+				
+				foreach ($WEAPON_TRAITS as $trait)
+				{
+					$weaponTraits[$slotName][$trait] = $value;
+				}
+				
+				foreach ($traits as $trait)
+				{
+					if (preg_match("#\[([a-zA-Z 0-9\&\-]+)\]#", $trait, $matches))
+					{
+						$weaponTraits[$slotName][$matches[1]] = 2;
+						$trait = $matches[1];
+					}
+					else
+					{						
+						$weaponTraits[$slotName][$trait] = 1;
+					}
+				}
+			}
+			else
+			{
+				$armorTraits[$slotName] = array();
+				
+				$value = 0;
+				if ($knownTraitCount == $totalTraits) $value = 1;
+				
+				foreach ($ARMOR_TRAITS as $trait)
+				{
+					$armorTraits[$slotName][$trait] = $value;
+				}
+				
+				foreach ($traits as $trait)
+				{
+					if (preg_match("#\[([a-zA-Z 0-9\&\-]+)\]#", $trait, $matches))
+					{
+						$armorTraits[$slotName][$matches[1]] = 2;
+						$trait = $matches[1];
+					}
+					else
+					{
+						$armorTraits[$slotName][$trait] = 1;
+					}
+				}
+			}			
+		}
+		
+		if (count($armorTraits) > 0)
+		{
+			$output .= "<table class='ecdSkillResearchTable'>";
+			$output .= "<tr><td></td>";
+			
+			foreach ($ARMOR_TRAITS as $trait)
+			{
+				$output .= "<th>$trait</th>";	
+			}
+			
+			$output .= "</tr>";
+			
+			foreach ($armorTraits as $slot => $slotTraits)
+			{
+				$output .= "<tr>";
+				$output .= "<td>$slot</td>";
+				
+				foreach ($ARMOR_TRAITS as $trait)
+				{
+					$value = "";
+					$researchNote = "";
+					
+					if ($slotTraits[$trait] == 1)
+					{
+						$value = "X";
+					}
+					else if ($slotTraits[$trait] == 2)
+					{
+						$value = "?";
+						
+						if ($research[$slot] != null && $research[$slot][$trait] != null)
+						{
+							$researchNote = " : " . $this->FormatResearchTime($research[$slot][$trait], $timestamp);
+						}
+					}
+					
+					$output .= "<td title='$trait$researchNote'>$value</td>";
+				}
+				
+				$output .= "</tr>";
+			}
+			
+			$output .= "</table>";
+		}
+		
+		if (count($weaponTraits) > 0)
+		{
+			$output .= "<table class='ecdSkillResearchTable'>";
+			$output .= "<tr><td></td>";
+				
+			foreach ($WEAPON_TRAITS as $trait)
+			{
+				$output .= "<th>$trait</th>";
+			}
+				
+			$output .= "</tr>";
+				
+			foreach ($weaponTraits as $slot => $slotTraits)
+			{
+				$output .= "<tr>";
+				$output .= "<td>$slot</td>";
+		
+				foreach ($WEAPON_TRAITS as $trait)
+				{
+					$value = "";
+					$researchNote = "";
+					
+					if ($slotTraits[$trait] == 1)
+					{
+						$value = "X";
+					}
+					else if ($slotTraits[$trait] == 2)
+					{
+						$value = "?";
+						
+						if ($research[$slot] != null && $research[$slot][$trait] != null)
+						{
+							$researchNote = " : " . $this->FormatResearchTime($research[$slot][$trait], $timestamp);
+						}
+					}
+					
+					$output .= "<td title='$trait$researchNote'>$value</td>";
+				}
+		
+				$output .= "</tr>";
+			}
+				
+			$output .= "</table>";
+		}
+		
+		return $output;
+	}
 	
 	public function getResearchTraitContentHtml($craftType, $extraTraits)
 	{
