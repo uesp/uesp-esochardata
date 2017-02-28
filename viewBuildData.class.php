@@ -1337,6 +1337,7 @@ class EsoBuildDataViewer
 		$prefix = "Research:$craftType";
 		$timestamp = $this->getCharStatField("Research:Timestamp");
 		$research = array();
+		$knownCounts = array();
 		
 		for ($i = 1; $i <= 3; ++$i)
 		{
@@ -1406,6 +1407,7 @@ class EsoBuildDataViewer
 				}
 			}
 			
+			$knownCounts[$slotName] = $knownTraitCount;
 			$rawData = preg_replace("#[ ]*\(.*\)#", "", $rawData);
 			$traits = preg_split("#[, ]+#", $rawData, 0, PREG_SPLIT_NO_EMPTY);
 			
@@ -1468,16 +1470,16 @@ class EsoBuildDataViewer
 			
 			foreach ($ARMOR_TRAITS as $trait)
 			{
-				$output .= "<th>$trait</th>";	
+				$output .= "<th><div class='ecdSkillRotateHeader'>$trait</div></th>";	
 			}
 			
-			$output .= "</tr>";
+			$output .= "<th></th></tr>";
 			
 			foreach ($armorTraits as $slot => $slotTraits)
 			{
 				$output .= "<tr>";
 				$output .= "<td>$slot</td>";
-				
+								
 				foreach ($ARMOR_TRAITS as $trait)
 				{
 					$value = "";
@@ -1500,6 +1502,7 @@ class EsoBuildDataViewer
 					$output .= "<td title='$trait$researchNote'>$value</td>";
 				}
 				
+				$output .= "<td>{$knownCounts[$slot]}/9</td>";
 				$output .= "</tr>";
 			}
 			
@@ -1513,7 +1516,7 @@ class EsoBuildDataViewer
 				
 			foreach ($WEAPON_TRAITS as $trait)
 			{
-				$output .= "<th>$trait</th>";
+				$output .= "<th><div class='ecdSkillRotateHeader'>$trait</div></th>";
 			}
 				
 			$output .= "</tr>";
@@ -1522,7 +1525,7 @@ class EsoBuildDataViewer
 			{
 				$output .= "<tr>";
 				$output .= "<td>$slot</td>";
-		
+						
 				foreach ($WEAPON_TRAITS as $trait)
 				{
 					$value = "";
@@ -1544,11 +1547,12 @@ class EsoBuildDataViewer
 					
 					$output .= "<td title='$trait$researchNote'>$value</td>";
 				}
-		
+				
+				$output .= "<td>{$knownCounts[$slot]}/9</td>";
 				$output .= "</tr>";
 			}
 				
-			$output .= "</table>";
+			$output .= "</table><p/>";
 		}
 		
 		return $output;
@@ -1767,7 +1771,7 @@ class EsoBuildDataViewer
 		
 		foreach ($this->ESO_MOTIF_CHAPTERNAMES as $name)
 		{
-			$output .= "<th>$name</th>";
+			$output .= "<th><div class='ecdSkillRotateHeader'>$name</div></th>";
 		}
 		
 		foreach ($craftData as $style => $styleData)

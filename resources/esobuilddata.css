@@ -1441,10 +1441,12 @@ thead.ecdFixedHeader tr {
 }
 
 .ecdSkillMotifsTable th:not(:first-child) {
-	transform: rotate(270deg) translate(-35px, 0px);;
+	transform: rotate(45deg) translate(-55px, 30px);
 	height: 100px;
 	width: 15px;
 	color: #C5C29E;
+	white-space: nowrap;
+	padding: 2px;
 }
 
 .ecdSkillMotifsTable td:first-child {
@@ -1477,11 +1479,12 @@ thead.ecdFixedHeader tr {
 }
 
 .ecdSkillResearchTable th:not(:first-child) {
-	transform: rotate(270deg) translate(-35px, 0px);;
+	transform: rotate(45deg) translate(-55px, 30px);
 	height: 100px;
 	width: 15px;
 	color: #C5C29E;
 	white-space: nowrap;
+	padding: 4px;
 }
 
 .ecdSkillResearchTable td:first-child {
@@ -1506,3 +1509,9 @@ thead.ecdFixedHeader tr {
 	background-color: #555;
 }
 
+.ecdSkillRotateHeader {
+	width: 100px;
+	height: 15px;
+	white-space: nowrap;
+	text-align: right;
+}
