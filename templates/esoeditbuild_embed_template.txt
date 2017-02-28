@@ -347,6 +347,11 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>28 February 2017</b>
+			<ul>
+				<li>Fixed the Light Armor Recovery passive.</li>
+			</ul>
+			<p>
 			<b>24 February 2017</b>
 			<ul>
 				<li>Fixed more sets that were missing bonuses for some pieces.</li>

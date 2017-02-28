@@ -1222,6 +1222,12 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases Magicka Recovery by ([0-9]+\.?[0-9]*)% for each piece of Light Armor/i,
 	},
 	{
+		factorStatId: "ArmorLight",
+		statId: "MagickaRegen",
+		display: "%",
+		match: /Increases your Magicka Recovery by ([0-9]+\.?[0-9]*)% for each piece of Light Armor/i,
+	},
+	{
 		statId: "SpellResist",
 		match: /Increases your Spell Resistance for each piece of Light Armor equipped.[\s\S]*?Current Bonus\: ([0-9]+)/i,
 	},

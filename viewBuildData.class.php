@@ -1324,7 +1324,7 @@ class EsoBuildDataViewer
 	public function getResearchTraitTableHtml($craftType, $extraTraits)
 	{
 		static $ARMOR_TRAITS = array("Divines", "Impenetrable", "Infused", "Nirnhoned", "Prosperous", "Reinforced", "Sturdy", "Training", "Well-Fitted");
-		static $WEAPON_TRAITS = array("Charged", "Decisive", "Divines", "Impenetrable", "Infused", "Nirnhoned", "Powered", "Sharpened", "Training" );
+		static $WEAPON_TRAITS = array("Charged", "Decisive", "Impenetrable", "Infused", "Nirnhoned",  "Precise", "Powered", "Sharpened", "Training" );
 		
 		static $WEAPONS = array("Axe" => 1, "Battle Axe" => 1, "Dagger" => 1, "Greatsword" => 1, "Mace" => 1, "Maul" => 1, "Sword" => 1, "Bow" => 1, 
 								"Ice Staff" => 1, "Inferno Staff" => 1, "Lightning Staff" => 1, "Restoration Staff" => 1);
