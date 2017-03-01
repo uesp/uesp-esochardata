@@ -9,6 +9,8 @@ class EsoBuildDataViewer
 	public $ESO_HTML_TEMPLATE = "templates/esobuilddata_embed_template.txt";
 	public $ESO_SHORT_LINK_URL = "http://esobuilds.uesp.net/";
 	
+	public $MAX_BUILD_DISPLAY = 100;
+	
 	public $hasCharacterInventory = false;
 	public $hasCharacterBank      = false;
 	public $hasCharacterCraftBag  = false;
@@ -17,6 +19,10 @@ class EsoBuildDataViewer
 	public $combineBankItems      = true;
 	public $showCPLevel           = true;
 	
+	public $currentCharacterPage = 0;
+	public $totalCharacterCount = 0;
+	public $totalCharacterPages = 0;
+		
 	
 	const ESO_ICON_URL = "http://esoicons.uesp.net";
 
@@ -161,7 +167,7 @@ class EsoBuildDataViewer
 
 		return true;
 	}
-	
+		
 	
 	public function loadHtmlTemplate()
 	{
@@ -354,24 +360,69 @@ class EsoBuildDataViewer
 		{
 			$this->viewMyBuilds = true;
 		}
+		
+		if (array_key_exists('page', $this->inputParams))
+		{
+			$this->currentCharacterPage = intval($this->inputParams['page']) - 1;
+			if ($this->currentCharacterPage < 0) $this->currentCharacterPage = 0;
+		}
+		
 	
 		return true;
 	}
 	
-	
+		
 	public function loadBuilds()
 	{
-		$query = "SELECT * FROM characters ORDER BY buildName;";
+		$page = $this->currentCharacterPage * $this->MAX_BUILD_DISPLAY;
+		$this->totalCharacterCount = 0;
+		$where = array();
+		
+		if ($this->inputSearch != "")
+		{
+			$value = $this->db->real_escape_string($this->inputSearch);
+			$where[] = "(name LIKE '%$value%' OR buildName LIKE '%$value%' OR class LIKE '%$value%' OR race LIKE '%$value%' OR alliance LIKE '%$value%' OR buildType LIKE '%$value%' OR special LIKE '%$value%')";
+		}
+		
+		if ($this->viewMyBuilds)
+		{
+			if ($this->wikiContext != null)
+			{			
+				$user = $this->wikiContext->getUser();
+				
+				if ($user != null)
+				{
+					$name = $this->db->real_escape_string($user->getName());
+					$where[] = "wikiUserName='$name'";
+				}
+			}
+		}
+				
+		$query = "SELECT SQL_CALC_FOUND_ROWS * FROM characters ";
+		if (count($where) > 0) $query .= " WHERE " . implode(" AND ", $where); 
+		$query .= " ORDER BY buildName LIMIT $page, {$this->MAX_BUILD_DISPLAY};";
+		
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		if ($result === FALSE) return $this->reportError("Failed to load builds!");
 		
 		$result->data_seek(0);
+		$this->totalCharacterCount = $result->num_rows;
 		
 		while (($row = $result->fetch_assoc()))
 		{
 			$this->buildData[] = $row;
 		}
+		
+		$this->lastQuery = "SELECT FOUND_ROWS() as count;";
+		$result = $this->db->query($this->lastQuery);
+		if ($result === FALSE) return true;
+		
+		$row = $result->fetch_assoc();
+		$this->totalCharacterCount = $row['count'];
+		
+		$this->totalCharacterPages = ceil($this->totalCharacterCount / $this->MAX_BUILD_DISPLAY);
+		if (($this->MAX_BUILD_DISPLAY % $this->totalCharacterCount) == 0) $this->totalCharacterPages -= 1;
 		
 		return true;
 	}
@@ -2774,6 +2825,25 @@ class EsoBuildDataViewer
 		return $output;
 	}
 	
+	
+	public function getCreateBuildButtonHtml()
+	{
+		$output = "";
+		
+		if ($this->canWikiUserCreate())
+		{
+			$editLink = $this->getEditLink();
+				
+			$output .= "<tr class='ecdBuildCreateNewRow'><td colspan='10' align='center'>";
+			$output .= "	<form method='get' action='$editLink'>";
+			$output .= "		<input type='submit' value='Create New Build'>";
+			$output .= "	</form>";
+			$output .= "</td></tr>";
+		}
+		
+		return $output;
+	}
+	
 
 	public function createBuildTableHtml()
 	{
@@ -2786,6 +2856,8 @@ class EsoBuildDataViewer
 		{
 			$this->outputHtml .= "If you wish to create, edit, or copy the builds listed below you must login or create a Wiki account.";
 		}
+		
+		$this->outputHtml .= $this->getBuildTablePageHtml();
 		
 		$this->outputHtml .= "<table id='ecdBuildTable' class='sortable jquery-tablesorter'>\n";
 		$this->outputHtml .= "<thead><tr class='ecdBuildTableHeader'>\n";
@@ -2801,29 +2873,94 @@ class EsoBuildDataViewer
 		$this->outputHtml .= "<th class='headerSort'>Last Updated</th>\n";
 		$this->outputHtml .= "</tr>\n";
 		
-		if ($this->canWikiUserCreate())
-		{
-			$editLink = $this->getEditLink();
-			
-			$this->outputHtml .= "<tr class='ecdBuildCreateNewRow'><td colspan='10' align='center'>";
-			$this->outputHtml .= "	<form method='get' action='$editLink'>";
-			$this->outputHtml .= "		<input type='submit' value='Create New Build'>";
-			$this->outputHtml .= "	</form>";
-			$this->outputHtml .= "</td></tr>";
-		}
+		$this->outputHtml .= $this->getCreateBuildButtonHtml();		
 		
 		$this->outputHtml .= "</thead><tbody>\n";
 		
 		foreach ($this->buildData as $buildData)
 		{
-			if (!$this->doesBuildMatchFilter($buildData)) continue;
-			
 			$this->outputHtml .= $this->getBuildTableItemHtml($buildData);
 		}
 		
-		$this->outputHtml .= "</tbody></table>\n";		
+		$this->outputHtml .= $this->getCreateBuildButtonHtml();
+		
+		$this->outputHtml .= "</tbody></table>\n";
+		$this->outputHtml .= $this->getBuildTablePageHtml();
 		
 		return true;
+	}
+	
+	
+	public function getBuildTableFindQuery()
+	{
+		$query = array();
+		
+		if ($this->inputSearch != "") 
+		{
+			$value = urlencode($this->inputSearch);
+			$query[] = "findbuild=$value";
+		}
+		
+		if ($this->viewMyBuilds) $query[] = "filter=mine";
+				
+		return implode("&", $query);
+	}
+	
+	
+	public function getBuildTablePageHtml()
+	{
+		$output = "";
+		$displayCount = 0;
+		$query = $this->getBuildTableFindQuery();
+		
+		if ($this->totalCharacterPages <= 1) return $output;
+		
+		if ($this->currentCharacterPage > 0)
+		{
+			$page = $this->currentCharacterPage - 1 + 1;
+			$output .= "<a href='?$query&page=$page'>prev</a> ";
+		}
+		
+		$page = $this->currentCharacterPage + 1;
+		$max = $this->totalCharacterPages;
+		$output .= "| Page $page of $max ";
+		
+		if ($this->currentCharacterPage < $this->totalCharacterPages - 1)
+		{
+			$page = $this->currentCharacterPage + 1 + 1;
+			$output .= "| <a href='?$query&page=$page'>next</a> ";
+		}
+		
+		for ($i = 0; $i < $this->totalCharacterPages; ++$i)
+		{
+			++$displayCount;
+			
+			if ($displayCount == 4)
+			{
+				if ($i < $this->currentCharacterPage - 5)
+				{
+					$output .= "| ... ";
+					$i = $this->currentCharacterPage - 4;
+				}
+			}
+			else if ($displayCount == 13)
+			{
+				if ($i < $this->totalCharacterPages - 4) 
+				{
+					$output .= "| ... ";
+					$i = $this->totalCharacterPages - 3;
+				}
+			}
+			
+			$page = $i + 1;
+			
+			if ($i == $this->currentCharacterPage)
+				$output .= "| <b>$page</b> ";
+			else
+				$output .= "| <a href='?$query&page=$page'>$page</a> ";			
+		}		
+				
+		return $output;		
 	}
 	
 	
@@ -3145,7 +3282,10 @@ EOT;
 		$linkUrl = $this->getCharacterLink($charId);
 		$special = $this->escape($this->getFieldStr($buildData, 'special'));
 		
-		if ($buildName == "") $buildName = "(none)";
+		if ($buildName == "") 
+		{
+			$buildName = "Noname $buildType $className $special";
+		}
 		
 		if ($this->isBuildEditted($buildData))
 			$lastUpdate = $this->getBuildEditDate($buildData);
