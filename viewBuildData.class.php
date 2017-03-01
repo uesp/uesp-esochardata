@@ -53,6 +53,10 @@ class EsoBuildDataViewer
 	public $inputFilter = "";
 	public $myMyBuilds = false;
 	public $inputSearch = "";
+	public $inputSearchClass = "";
+	public $inputSearchRace = "";
+	public $inputSearchBuildType = "";
+	public $inputSearchSpecial = "";
 	
 	public $characterData = array();
 	public $skillData = array();
@@ -356,6 +360,26 @@ class EsoBuildDataViewer
 			$this->inputSearch = trim($this->inputParams['findbuild']);
 		}
 		
+		if (array_key_exists('findclass', $this->inputParams))
+		{
+			$this->inputSearchClass = trim($this->inputParams['findclass']);
+		}
+		
+		if (array_key_exists('findrace', $this->inputParams))
+		{
+			$this->inputSearchRace = trim($this->inputParams['findrace']);
+		}
+		
+		if (array_key_exists('findbuildtype', $this->inputParams))
+		{
+			$this->inputSearchBuildType = trim($this->inputParams['findbuildtype']);
+		}
+		
+		if (array_key_exists('findspecial', $this->inputParams))
+		{
+			$this->inputSearchSpecial = trim($this->inputParams['findspecial']);
+		}		
+		
 		if ($this->inputFilter == "mine" || $this->inputFilter == "my")
 		{
 			$this->viewMyBuilds = true;
@@ -382,6 +406,30 @@ class EsoBuildDataViewer
 		{
 			$value = $this->db->real_escape_string($this->inputSearch);
 			$where[] = "(name LIKE '%$value%' OR buildName LIKE '%$value%' OR class LIKE '%$value%' OR race LIKE '%$value%' OR alliance LIKE '%$value%' OR buildType LIKE '%$value%' OR special LIKE '%$value%')";
+		}
+		
+		if ($this->inputSearchClass != "")
+		{
+			$value = $this->db->real_escape_string($this->inputSearchClass);
+			$where[] = "class='$value'";
+		}
+		
+		if ($this->inputSearchRace != "")
+		{
+			$value = $this->db->real_escape_string($this->inputSearchRace);
+			$where[] = "race='$value'";
+		}
+		
+		if ($this->inputSearchBuildType != "")
+		{
+			$value = $this->db->real_escape_string($this->inputSearchBuildType);
+			$where[] = "buildType='$value'";
+		}
+		
+		if ($this->inputSearchSpecial != "")
+		{
+			$value = $this->db->real_escape_string($this->inputSearchSpecial);
+			$where[] = "special='$value'";
 		}
 		
 		if ($this->viewMyBuilds)
@@ -1034,6 +1082,28 @@ class EsoBuildDataViewer
 	}
 	
 	
+	public function getOptionHtml($value, $inputValue)
+	{
+		$select = "";
+		if ($value == $inputValue) $select = "selected";
+		return "<option value='$value' $select>$value</option>";
+	}
+	
+	
+	public function isViewingAllBuilds()
+	{
+		//if ($this->viewMyBuilds && $this->wikiContext != null) return false;
+		
+		if ($this->inputSearch != "") return false;
+		if ($this->inputSearchClass != "") return false;
+		if ($this->inputSearchRace != "") return false;
+		if ($this->inputSearchBuildType != "") return false;
+		if ($this->inputSearchSpecial != "") return false;
+		
+		return true;
+	}
+	
+	
 	public function getBreadcrumbTrailHtml()
 	{
 		$output = "<div id='ecdTrail'>";
@@ -1044,8 +1114,45 @@ class EsoBuildDataViewer
 		$canViewMyBuilds = $this->wikiContext != null;
 		$searchText = $this->escape($this->inputSearch);
 		
-		$search  = "<form method='GET' action='' id='ecdSearchForm'>";
-		$search .= "	<input name='findbuild' id='ecdSearchText' type='text' size='10' value='$searchText'>";
+		$search  = "<br/><form method='GET' action='' id='ecdSearchForm'>";
+		$search .= "	<div class='ecdSearchLabel'>Text</div>";
+		$search .= "	<input name='findbuild' id='ecdSearchText' type='text' size='25' value='$searchText'>";
+		$search .= "	<div class='ecdSearchLabel'>Class</div>";
+		$search .= "	<select name='findclass' id='ecdSearchClass'>";
+		$search .= $this->getOptionHtml("", $this->inputSearchClass);
+		$search .= $this->getOptionHtml("Dragonknight", $this->inputSearchClass);
+		$search .= $this->getOptionHtml("Nightblade", $this->inputSearchClass);
+		$search .= $this->getOptionHtml("Sorcerer", $this->inputSearchClass);
+		$search .= $this->getOptionHtml("Templar", $this->inputSearchClass);
+		$search .= "	</select>";
+		$search .= "	<div class='ecdSearchLabel'>Race</div>";
+		$search .= "	<select name='findrace' id='ecdSearchRace'>";
+		$search .= $this->getOptionHtml("", $this->inputSearchRace);
+		$search .= $this->getOptionHtml("Argonian", $this->inputSearchRace);
+		$search .= $this->getOptionHtml("Breton", $this->inputSearchRace);
+		$search .= $this->getOptionHtml("Dark Elf", $this->inputSearchRace);
+		$search .= $this->getOptionHtml("High Elf", $this->inputSearchRace);
+		$search .= $this->getOptionHtml("Imperial", $this->inputSearchRace);
+		$search .= $this->getOptionHtml("Khajiit", $this->inputSearchRace);
+		$search .= $this->getOptionHtml("Nord", $this->inputSearchRace);
+		$search .= $this->getOptionHtml("Orc", $this->inputSearchRace);
+		$search .= $this->getOptionHtml("Redguard", $this->inputSearchRace);
+		$search .= $this->getOptionHtml("Wood Elf", $this->inputSearchRace);
+		$search .= "	</select>";
+		$search .= "	<div class='ecdSearchLabel'>Build Type</div>";
+		$search .= "	<select name='findbuildtype' id='ecdSearchBuildType'>";
+		$search .= $this->getOptionHtml("", $this->inputSearchBuildType);
+		$search .= $this->getOptionHtml("Magicka", $this->inputSearchBuildType);
+		$search .= $this->getOptionHtml("Stamina", $this->inputSearchBuildType);
+		$search .= $this->getOptionHtml("Other", $this->inputSearchBuildType);
+		$search .= "	</select>";
+		$search .= "	<div class='ecdSearchLabel'>Special</div>";
+		$search .= "	<select name='findspecial' id='ecdSearchSpecial'>";
+		$search .= $this->getOptionHtml("", $this->inputSearchSpecial);
+		$search .= $this->getOptionHtml("Vampire", $this->inputSearchSpecial);
+		$search .= $this->getOptionHtml("Werewolf", $this->inputSearchSpecial);
+		$search .= "	</select>";
+		if ($this->viewMyBuilds) $search .= "	<input type='hidden' name='filter' value='mine'>";
 		$search .= "	<input type='submit' id='ecdSearchButton' value='Find Builds'>";
 		$search .= "</form>";
 		
@@ -1063,7 +1170,7 @@ class EsoBuildDataViewer
 				if ($canViewMyBuilds) $output .= " : <a href='$myLink'>View My Builds</a>";
 			}
 		}
-		else if ($searchText != "")
+		else if (!$this->isViewingAllBuilds())
 		{
 			$output .= "<a href='$baseLink'>&laquo; View All Builds</a>";
 			if ($canViewMyBuilds) $output .= " : <a href='$myLink'>View My Builds</a>";
@@ -2935,8 +3042,33 @@ class EsoBuildDataViewer
 			$query[] = "findbuild=$value";
 		}
 		
+		if ($this->inputSearchClass != "")
+		{
+			$value = urlencode($this->inputSearchClass);
+			$query[] = "findclass=$value";
+		}
+		
+		if ($this->inputSearchRace != "")
+		{
+			$value = urlencode($this->inputSearchRace);
+			$query[] = "findrace=$value";
+		}
+		
+		if ($this->inputSearchBuildType != "")
+		{
+			$value = urlencode($this->inputSearchBuildType);
+			$query[] = "findbuildtype=$value";
+		}
+		
+		if ($this->inputSearchSpecial != "")
+		{
+			$value = urlencode($this->inputSearchSpecial);
+			$query[] = "findspecial=$value";
+		}
+		
+		
 		if ($this->viewMyBuilds) $query[] = "filter=mine";
-				
+						
 		return implode("&", $query);
 	}
 	
@@ -3318,7 +3450,7 @@ EOT;
 		
 		if ($buildName == "") 
 		{
-			$buildName = "Noname $buildType $className $special";
+			$buildName = "(Noname $buildType $className $special)";
 		}
 		
 		if ($this->isBuildEditted($buildData))

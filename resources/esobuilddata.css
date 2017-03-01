@@ -1352,16 +1352,6 @@ thead.ecdFixedHeader tr {
 	cursor: default;
 }
 
-#ecdSearchForm {
-	display: inline-block
-}
-
-#ecdSearchText {
-}
-
-#ecdSearchButton {
-}
-
 #ecdBuildTable th {
 	padding-right: 20px;
 }
@@ -1514,4 +1504,40 @@ thead.ecdFixedHeader tr {
 	height: 15px;
 	white-space: nowrap;
 	text-align: right;
+}
+
+#ecdSearchForm {
+	display: inline-block;
+	padding-top: 10px;	
+}
+
+#ecdSearchButton {
+    margin-left: 20px;
+}
+
+.ecdSearchLabel {
+	font-weight: bold;
+	text-align: right;
+	display: inline-block;
+	padding-left: 20px;
+}
+
+#ecdSearchText {
+	display: inline-block;
+}
+
+#ecdSearchClass {
+	display: inline-block;
+}
+
+#ecdSearchRace {
+	display: inline-block;
+}
+
+#ecdSearchBuildType {
+	display: inline-block;
+}
+
+#ecdSearchSpecial {
+	display: inline-block;
 }
