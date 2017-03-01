@@ -1181,14 +1181,14 @@ class EsoBuildDataViewer
 		else if ($this->viewMyBuilds && $canViewMyBuilds)
 		{
 			$output .= "<a href='$baseLink'>&laquo; View All Builds</a>";
-			$output .= " : Viewing My Builds";
+			$output .= " : <b>Viewing My Builds</b>";
 			$output .= " : $search";
 			$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
 			$output .= "<a href='http://esobuilds.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
 		}
 		else
 		{
-			$output .= "Viewing All Builds";
+			$output .= "<b>Viewing All Builds</b>";
 			if ($canViewMyBuilds) $output .= " : <a href='$myLink'>View My Builds</a>";
 			$output .= " : $search";
 			$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
@@ -1482,7 +1482,7 @@ class EsoBuildDataViewer
 	public function getResearchTraitTableHtml($craftType, $extraTraits)
 	{
 		static $ARMOR_TRAITS = array("Divines", "Impenetrable", "Infused", "Nirnhoned", "Prosperous", "Reinforced", "Sturdy", "Training", "Well-Fitted");
-		static $WEAPON_TRAITS = array("Charged", "Decisive", "Impenetrable", "Infused", "Nirnhoned",  "Precise", "Powered", "Sharpened", "Training" );
+		static $WEAPON_TRAITS = array("Charged", "Decisive", "Defending", "Infused", "Nirnhoned",  "Precise", "Powered", "Sharpened", "Training" );
 		
 		static $WEAPONS = array("Axe" => 1, "Battle Axe" => 1, "Dagger" => 1, "Greatsword" => 1, "Mace" => 1, "Maul" => 1, "Sword" => 1, "Bow" => 1, 
 								"Ice Staff" => 1, "Inferno Staff" => 1, "Lightning Staff" => 1, "Restoration Staff" => 1);
