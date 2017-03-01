@@ -401,13 +401,7 @@ class EsoBuildDataViewer
 		$page = $this->currentCharacterPage * $this->MAX_BUILD_DISPLAY;
 		$this->totalCharacterCount = 0;
 		$where = array();
-		
-		if ($this->inputSearch != "")
-		{
-			$value = $this->db->real_escape_string($this->inputSearch);
-			$where[] = "(name LIKE '%$value%' OR buildName LIKE '%$value%' OR class LIKE '%$value%' OR race LIKE '%$value%' OR alliance LIKE '%$value%' OR buildType LIKE '%$value%' OR special LIKE '%$value%')";
-		}
-		
+				
 		if ($this->inputSearchClass != "")
 		{
 			$value = $this->db->real_escape_string($this->inputSearchClass);
@@ -432,6 +426,12 @@ class EsoBuildDataViewer
 			$where[] = "special='$value'";
 		}
 		
+		if ($this->inputSearch != "")
+		{
+			$value = $this->db->real_escape_string($this->inputSearch);
+			$where[] = "(name LIKE '%$value%' OR buildName LIKE '%$value%' OR class LIKE '%$value%' OR race LIKE '%$value%' OR alliance LIKE '%$value%' OR buildType LIKE '%$value%' OR special LIKE '%$value%')";
+		}
+				
 		if ($this->viewMyBuilds)
 		{
 			if ($this->wikiContext != null)
