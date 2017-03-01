@@ -2844,6 +2844,38 @@ class EsoBuildDataViewer
 		return $output;
 	}
 	
+	
+	public function getPrevBuildTableRowHtml() 
+	{
+		$output = "";
+		
+		if ($this->currentCharacterPage > 0)
+		{
+			$page = $this->currentCharacterPage - 1 + 1;
+			$output .= "<tr class='ecdBuildNextPrevRow'><td colspan='10' align='center'>";				
+			$output .= "<a href='?$query&page=$page'><b>Previous Builds...</b></a>";
+			$output .= "</td></tr>";
+		}
+		
+		return $output;
+	}
+	
+	
+	public function getNextBuildTableRowHtml()
+	{
+		$output = "";
+	
+		if ($this->currentCharacterPage < $this->totalCharacterPages - 1)
+		{
+			$page = $this->currentCharacterPage + 1 + 1;
+			$output .= "<tr class='ecdBuildNextPrevRow'><td colspan='10' align='center'>";
+			$output .= "<a href='?$query&page=$page'><b>More Builds...</b></a> ";
+			$output .= "</td></tr>";
+		}
+		
+		return $output;
+	}
+	
 
 	public function createBuildTableHtml()
 	{
@@ -2873,7 +2905,8 @@ class EsoBuildDataViewer
 		$this->outputHtml .= "<th class='headerSort'>Last Updated</th>\n";
 		$this->outputHtml .= "</tr>\n";
 		
-		$this->outputHtml .= $this->getCreateBuildButtonHtml();		
+		$this->outputHtml .= $this->getCreateBuildButtonHtml();
+		$this->outputHtml .= $this->getPrevBuildTableRowHtml();
 		
 		$this->outputHtml .= "</thead><tbody>\n";
 		
@@ -2882,6 +2915,7 @@ class EsoBuildDataViewer
 			$this->outputHtml .= $this->getBuildTableItemHtml($buildData);
 		}
 		
+		$this->outputHtml .= $this->getNextBuildTableRowHtml();
 		$this->outputHtml .= $this->getCreateBuildButtonHtml();
 		
 		$this->outputHtml .= "</tbody></table>\n";
