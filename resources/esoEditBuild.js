@@ -7158,8 +7158,15 @@ function UpdateEsoComputedStatsList_Real()
 			UpdateEsoComputedStat(statId, g_EsoComputedStats[statId], inputValues);
 	}
 	
+	UpdateEsoComputedStatsSpecial();
+	
 	for (var j = 0; j <= 10; ++j)
 	{
+		for (var name in g_EsoComputedStats)
+		{
+			inputValues[name] = g_EsoComputedStats[name].value;
+		}
+		
 		for (var i = 0; i < deferredStats.length; ++i)
 		{
 			var statId = deferredStats[i];
@@ -7169,8 +7176,6 @@ function UpdateEsoComputedStatsList_Real()
 			if (deferLevel == j) UpdateEsoComputedStat(statId, g_EsoComputedStats[statId], inputValues);
 		}
 	}
-
-	UpdateEsoComputedStatsSpecial();
 	
 	for (var name in g_EsoComputedStats)
 	{

@@ -347,6 +347,12 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>3 March 2017</b>
+			<ul>
+				<li>Fixed how calculations using computed values obtain and update those values. Specifically, this fixes the Effective Spell/Weapon Power 
+						computed values when using a 5 piece Pelinal's set.</li>
+			</ul>
+			<p>
 			<b>1 March 2017</b>
 			<ul>
 				<li>Added paging and filters when viewing the build list.</li>
