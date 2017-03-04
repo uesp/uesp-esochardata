@@ -10,6 +10,9 @@ class EsoBuildDataViewer
 	public $ESO_HTML_TEMPLATE = "templates/esobuilddata_embed_template.txt";
 	public $ESO_SHORT_LINK_URL = "http://esobuilds.uesp.net/";
 	
+	public $ORNATE_ICON = "resources/ornate.png";
+	public $INTRICATE_ICON = "resources/intricate.png";
+	
 	public $MAX_BUILD_DISPLAY = 100;
 	
 	public $hasCharacterInventory = false;

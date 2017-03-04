@@ -116,11 +116,12 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		$quality = intval($item['quality']);
 		$qualityClass = "ecdItemQuality" . $quality;
 		$itemLink = $this->escape($item['itemLink']);
+		$trait = $item['trait'];
 		$stolen = $item['stolen'];
 		$itemId = 0;
 		$itemIntSubType = 0;
 		$itemIntLevel = 0;
-		$stolenIcon = "";
+		$optionalIcon = "";
 		$localId = $item['localId'];
 		
 		$matches = array();
@@ -138,11 +139,22 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		
 		if ($stolen > 0)
 		{
-			$stolenIcon = "<img src='{$this->baseResourceUrl}resources/stolenitem.png' class='ecdStolenItemIcon' /><div style='display:none;'>1</div>";
+			$optionalIcon = "<img src='{$this->baseResourceUrl}resources/stolenitem.png' class='ecdStolenItemIcon' /><div style='display:none;'>1</div>";
+		}
+		else if ($trait == 19 || $trait == 24 || $trait == 10)
+		{
+			$optionalIcon = "<img src='{$this->baseResourceUrl}{$this->ORNATE_ICON}' class='ecdStolenItemIcon' /><div style='display:none;'>$trait</div>";
+		}
+		else if ($trait == 20 || $trait == 9)
+		{
+			$optionalIcon = "<img src='{$this->baseResourceUrl}{$this->INTRICATE_ICON}' class='ecdStolenItemIcon' /><div style='display:none;'>$trait</div>";
+		}
+		else 
+		{
 		}
 			
 		$output .= "<tr class='eso_item_link' itemlink='$itemLink' itemid='$itemId' inttype='$itemIntSubType' intlevel='$itemIntLevel' localid='$localId'>";
-		$output .= "<td>$stolenIcon</td>";
+		$output .= "<td>$optionalIcon</td>";
 		$output .= "<td style=\"background-image: url($iconUrl);\">$qnt</td>";
 		$output .= "<td class='$qualityClass'>$name</td>";
 		$output .= "<td></td>";
