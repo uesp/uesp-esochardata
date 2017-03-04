@@ -37,7 +37,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 	
 		$this->dbReadInitialized = true;
 		$this->dbWriteInitialized = false;
-	
+			
 		return true;
 	}	
 

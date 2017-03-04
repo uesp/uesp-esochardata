@@ -3,6 +3,7 @@
 
 require_once("viewBuildData.class.php");
 require_once("/home/uesp/secrets/esochardata.secrets");
+require_once("/home/uesp/esolog.static/esoCommon.php");
 
 
 class EsoCharDataViewer extends EsoBuildDataViewer
@@ -34,6 +35,8 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 	
 		$this->dbReadInitialized = true;
 		$this->dbWriteInitialized = false;
+		
+		UpdateEsoPageViews("charDataViews");
 	
 		return true;
 	}
@@ -58,6 +61,8 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 	
 		$this->dbReadInitialized = true;
 		$this->dbWriteInitialized = true;
+		
+		UpdateEsoPageViews("charDataViews");
 	
 		return true;
 	}
