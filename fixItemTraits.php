@@ -41,6 +41,8 @@ function UpdateTraits($db, $dbLog, $table)
 	{
 		++$count;
 		if (($count % 100) == 0) print("\t$count of $numRows items updated\n");
+		
+		if ($item['trait'] > 0) continue;
 			
 		$matches = array();
 		$itemLink = $item['itemLink'];
