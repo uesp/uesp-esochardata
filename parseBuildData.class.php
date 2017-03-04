@@ -105,7 +105,7 @@ class EsoBuildDataParser
 	
 		$this->dbReadInitialized = true;
 		$this->dbWriteInitialized = false;
-	
+		
 		return true;
 	}
 	
@@ -129,7 +129,7 @@ class EsoBuildDataParser
 	
 		$this->dbReadInitialized = true;
 		$this->dbWriteInitialized = true;
-	
+		
 		if ($this->skipCreateTables) return true;
 		return $this->createTables();
 	}

@@ -2,6 +2,7 @@
 
 
 require_once("/home/uesp/secrets/esobuilddata.secrets");
+require_once("/home/uesp/esolog.static/esoCommon.php");
 
 
 class EsoBuildDataViewer
@@ -144,7 +145,9 @@ class EsoBuildDataViewer
 		if ($this->db == null || $this->db->connect_error) return $this->reportError("Could not connect to mysql database!");
 	
 		$this->dbReadInitialized = true;
-	
+		
+		UpdateEsoPageViews("buildDataViews");
+		
 		return true;
 	}
 	
@@ -168,6 +171,8 @@ class EsoBuildDataViewer
 	
 		$this->dbReadInitialized = true;
 		$this->dbWriteInitialized = true;
+		
+		UpdateEsoPageViews("buildDataViews");
 
 		return true;
 	}
