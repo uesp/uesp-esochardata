@@ -89,6 +89,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 						armorType TINYINT NOT NULL,
 						craftType TINYINT NOT NULL,
 						stolen TINYINT NOT NULL,
+						trait TINYINT NOT NULL,
 						style TINYINT NOT NULL,
 						consumable TINYINT NOT NULL,
 						junk TINYINT NOT NULL,
