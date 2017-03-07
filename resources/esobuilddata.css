@@ -743,7 +743,7 @@ tr.eso_item_link {
 	font-size: 20px;
     font-weight: bold;
     color: #C5C29E;
-    padding: 8px;
+    padding: 6px;
     padding-left: 10px;
     margin-left: -10px;
     cursor: pointer;
@@ -1540,4 +1540,25 @@ thead.ecdFixedHeader tr {
 
 #ecdSearchSpecial {
 	display: inline-block;
+}
+
+.ecdRidingStat {
+	font-size: 20px;
+    font-weight: bold;
+    display: block;
+    padding: 5px;
+    padding-left: 50px;
+	color: #C5C29E;
+}
+
+.ecdRidingStat img {
+	width: 48px;
+	height: 48px;
+}
+
+.ecdRidingValue {
+	display: inline-block;
+	text-align: right;
+	width: 80px;
+	color: #fff;
 }

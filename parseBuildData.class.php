@@ -734,7 +734,7 @@ class EsoBuildDataParser
 		
 		return true;
 	}
-		
+			
 	
 	public function saveCharacterInventory($buildData, $name, $arrayData)
 	{

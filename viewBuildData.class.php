@@ -1353,6 +1353,8 @@ class EsoBuildDataViewer
 		{
 			$output .= $this->getCharSkillResearchContentHtml();
 		}
+		
+		$output .= $this->getCharSkillRidingContentHtml();
 	
 		return $output;
 	}
@@ -1827,6 +1829,45 @@ class EsoBuildDataViewer
 	}
 	
 	
+	public function getCharSkillRidingContentHtml()
+	{
+		$output  = "<div id='ecdSkill_Riding' class='ecdSkillData ecdScrollContent' style='display: none;'>\n";
+		$output .= "<div id='ecdSkillContentTitle'>Riding</div>";
+		
+		$ridingInv = $this->getCharStatField("RidingInventory", 0);
+		$ridingSta = $this->getCharStatField("RidingStamina", 0);
+		$ridingSpd = $this->getCharStatField("RidingSpeeed", 0);
+		$ridingTimeDone = $this->getCharStatField("RidingTrainingDone", 0);
+				
+		$output .= "<div class='ecdRidingStat'><div class='ecdRidingValue'>$ridingSpd%</div> <img src='{$this->baseResourceUrl}resources/ridingskill_speed.png'> Speed</div>";
+		$output .= "<div class='ecdRidingStat'><div class='ecdRidingValue'>$ridingSta</div> <img src='{$this->baseResourceUrl}resources/ridingskill_stamina.png'> Stamina</div>";
+		$output .= "<div class='ecdRidingStat'><div class='ecdRidingValue'>$ridingInv</div> <img src='{$this->baseResourceUrl}resources/ridingskill_capacity.png'> Inventory</div>";
+		$output .= "<br/>";
+		
+		if ($ridingTimeDone > 0)
+		{
+			$timeLeft = $ridingTimeDone - time();
+			
+			if ($timeLeft <= 0)
+			{
+				$output .= "<div class='ecdRidingStat'><div class='ecdRidingValue'></div> <img src='{$this->baseResourceUrl}resources/ridingskill_ready.png'>Ready to Train!</div>";
+			}
+			else
+			{
+				$hours = floor($timeLeft / 3600) % 24;
+				$minutes = floor($timeLeft / 60) % 60;
+				$seconds = $timeLeft % 60;
+				
+				$timeFmt = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
+				$output .= "<div class='ecdRidingStat'><div class='ecdRidingValue'>$timeFmt</div> <img src='{$this->baseResourceUrl}resources/timer_64.png'> to Next Training!</div>";
+			}
+		}
+		
+		$output .= "</div>";
+		return $output;
+	}
+	
+	
 	public function getCharSkillMotifContentHtml()
 	{
 		$output  = "<div id='ecdSkill_Motifs' class='ecdSkillData ecdScrollContent' style='display: none;'>\n";
@@ -2218,6 +2259,7 @@ class EsoBuildDataViewer
 		$output .= $this->getCharSkillTreeHtml1("RACIAL", $this->skillData['Racial']);
 		$output .= $this->getCharSkillTreeHtml1("CRAFT", $this->skillData['Craft']);
 		$output .= $this->getCharSkillTreeHtml1("CHAMPION POINTS", $this->skillData['ChampionPoints']);
+		$output .= $this->getCharSkillTreeHtml1("OTHER", $this->skillData['Other']);
 		
 		return $output;
 	}
@@ -2225,7 +2267,7 @@ class EsoBuildDataViewer
 	
 	public function getCharSkillTreeHtml1($skillName, &$skillData)
 	{
-		if ($skillData == null) return "";
+		if ($skillData === null) return "";
 		
 		$safeName = $this->escape($skillName);
 		
@@ -2254,6 +2296,10 @@ class EsoBuildDataViewer
 			{
 				$output .= "<div class='ecdSkillTreeName2'>Research</div>\n";
 			}
+		}
+		else if ($skillName == "OTHER") 
+		{
+			$output .= "<div class='ecdSkillTreeName2'>Riding</div>\n";
 		}
 		
 		$output .= "</div>\n";
@@ -2291,6 +2337,7 @@ class EsoBuildDataViewer
 	
 	public function parseCharSkillData()
 	{
+		$this->skillData['Other'] = array();
 		
 		foreach ($this->characterData['skills'] as $skillName => &$skillData)
 		{
