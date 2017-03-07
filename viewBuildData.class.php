@@ -1489,7 +1489,7 @@ class EsoBuildDataViewer
 	
 	public function getResearchTraitTableHtml($craftType, $extraTraits)
 	{
-		static $ARMOR_TRAITS = array("Divines", "Impenetrable", "Infused", "Nirnhoned", "Prosperous", "Reinforced", "Sturdy", "Training", "Well-Fitted");
+		static $ARMOR_TRAITS = array("Divines", "Impenetrable", "Infused", "Nirnhoned", "Prosperous", "Reinforced", "Sturdy", "Training", "Well-fitted");
 		static $WEAPON_TRAITS = array("Charged", "Decisive", "Defending", "Infused", "Nirnhoned",  "Precise", "Powered", "Sharpened", "Training" );
 		
 		static $WEAPONS = array("Axe" => 1, "Battle Axe" => 1, "Dagger" => 1, "Greatsword" => 1, "Mace" => 1, "Maul" => 1, "Sword" => 1, "Bow" => 1, 
@@ -1636,6 +1636,7 @@ class EsoBuildDataViewer
 			
 			foreach ($ARMOR_TRAITS as $trait)
 			{
+				$trait = str_replace("-fitted", "-Fitted", $trait);
 				$output .= "<th><div class='ecdSkillRotateHeader'>$trait</div></th>";	
 			}
 			
