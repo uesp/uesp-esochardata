@@ -1469,8 +1469,8 @@ thead.ecdFixedHeader tr {
 }
 
 .ecdSkillResearchTable th:not(:first-child) {
-	transform: rotate(45deg) translate(-55px, 30px);
-	height: 100px;
+	transform: rotate(45deg) translate(-65px, 20px);
+	height: 80px;
 	width: 15px;
 	color: #C5C29E;
 	white-space: nowrap;
