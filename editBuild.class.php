@@ -3917,8 +3917,10 @@ class EsoBuildDataEditor
 		$this->initialSkillBarData = array();
 		$this->initialSkillBarData[0] = array();
 		$this->initialSkillBarData[1] = array();
+		$this->initialSkillBarData[2] = array();
+		$this->initialSkillBarData[3] = array();
 		
-		for ($i = 0; $i < 2; ++$i)
+		for ($i = 0; $i < 4; ++$i)
 		{
 			for ($j = 0; $j < 6; ++$j)
 			{
@@ -3936,6 +3938,8 @@ class EsoBuildDataEditor
 			
 			$barIndex = 0;
 			if ($index > 100) $barIndex = 1;
+			if ($index > 200) $barIndex = 2;
+			if ($index > 300) $barIndex = 3;
 			$slotIndex = ($index % 100) - 3;
 			
 			$barData = array();
@@ -3949,18 +3953,30 @@ class EsoBuildDataEditor
 		
 		$this->viewSkills->initialSkillBarData = $this->initialSkillBarData;
 		$this->viewSkills->activeSkillBar = $this->getCharStatField("ActiveAbilityBar", 1);
+		
+		if ($this->getCharStatField("Werewolf", 0) > 0) $this->viewSkills->enableWerewolf = true;
+		if ($this->getCharField('class') == "Sorcerer") $this->viewSkills->enableOverload = true;
+		
+		$this->viewSkills->activeWeaponBar3 = $this->getCharStatField("Bar3:ActiveWeaponBar", "-1"); 
+		$this->viewSkills->activeWeaponBar4 = $this->getCharStatField("Bar4:ActiveWeaponBar", "-1");
 	}
 
 	
 	public function GetClassWeaponBar($weaponBar)
 	{
-		$activeBar = $this->getCharStatField("ActiveAbilityBar", 1);
+		$activeBar = $this->GetActiveWeaponBar();
 		if ($activeBar == $weaponBar) return "esotbWeaponSelect";
 		return "";
 	}
 	
 	
 	public function GetActiveWeaponBar()
+	{
+		return $this->getCharStatField("ActiveWeaponBar", 1);
+	}
+	
+	
+	public function GetActiveAbilityBar()
 	{
 		return $this->getCharStatField("ActiveAbilityBar", 1);
 	}
@@ -4249,7 +4265,8 @@ class EsoBuildDataEditor
 				'{initialToggleSetDataJson}' => json_encode($this->initialToggleSetData),
 				'{weaponBarClass1}' => $this->GetClassWeaponBar(1),
 				'{weaponBarClass2}' => $this->GetClassWeaponBar(2),
-				'{activeBar}' => $this->GetActiveWeaponBar(),
+				'{activeWeaponBar}' => $this->GetActiveWeaponBar(),
+				'{activeSkillBar}' =>  $this->GetActiveAbilityBar(),
 				'{saveButtonDisabled}' => $this->GetSaveButtonDisabled(),
 				'{createCopyButtonDisabled}' => $this->GetCreateCopyButtonDisabled(),
 				'{saveNote}' => $this->GetSaveNote(),
@@ -4298,5 +4315,6 @@ class EsoBuildDataEditor
 	}
 	
 };
+
 
 

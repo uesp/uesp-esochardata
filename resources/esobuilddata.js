@@ -337,15 +337,25 @@ function copyTextToClipboard(textToCopy)
 function ActivateBuildActionBar(barIndex)
 {
 	
-	if (barIndex >= 1 && barIndex <= 3)
+	if (barIndex >= 1 && barIndex <= 4)
 	{
+		var activeBar = $(".ecdActionBar" + barIndex);
+		var weaponBarIndex = activeBar.attr("activeweaponbar");
+		
 		$("#ecdActionBar .ecdActiveAbilityBar").removeClass("ecdActiveAbilityBar");
-		$(".ecdActionBar" + barIndex).addClass("ecdActiveAbilityBar");
+		activeBar.addClass("ecdActiveAbilityBar");
+		
+		if (weaponBarIndex >= 1 && weaponBarIndex <= 2)
+		{
+			$("#ecdEquipSlots .ecdActiveAbilityBar").removeClass("ecdActiveAbilityBar");
+			$("#ecdWeaponBar" + weaponBarIndex).addClass("ecdActiveAbilityBar");
+		}
 		
 		$(".ecdStatBar").hide();
 		$(".ecdStatBar1").hide();
 		$(".ecdStatBar2").hide();
 		$(".ecdStatBar3").hide();
+		$(".ecdStatBar4").hide();
 		
 		$(".ecdStatBar" + barIndex).show();
 	}
@@ -386,6 +396,12 @@ function OnBuildActionBar2Click(e)
 function OnBuildActionBar3Click(e)
 {
 	ActivateBuildActionBar(3);
+}
+
+
+function OnBuildActionBar4Click(e)
+{
+	ActivateBuildActionBar(4);
 }
 
 
@@ -535,6 +551,7 @@ function onDocReady()
 	$(".ecdActionBar1").click(OnBuildActionBar1Click);
 	$(".ecdActionBar2").click(OnBuildActionBar2Click);
 	$(".ecdActionBar3").click(OnBuildActionBar3Click);
+	$(".ecdActionBar4").click(OnBuildActionBar4Click);
 	
 	$(".ecdScrollContent tr").click(OnItemRowClick);
 	

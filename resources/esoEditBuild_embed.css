@@ -468,7 +468,7 @@
 .eso_item_link_q1 { color: #fff !important; }
 
 .esotbItemSlotLabel {
-	width: 75px;
+	width: 50px;
 	text-align: right;
 	font-weight: bold;
 	display: inline-block;
@@ -1093,4 +1093,13 @@ button.esotbWeaponSelect {
 
  .esptbItemSetup button {
  	margin-left: 20px;
+}
+
+#esotbItemSkillCopy {
+    font-family: "EsoFontStyleAlt", "Arial", sans-serif;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    white-space: nowrap;
+    width: 580px;
 }

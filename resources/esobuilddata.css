@@ -145,14 +145,14 @@
 }
 
 #ecdActionBar {
-	width: 550px;
+	width: 580px;
 	text-align: center;
     margin-left: auto;
     margin-right: auto;
     white-space: nowrap;
 }
 
-.ecdActionBar1, .ecdActionBar2, .ecdActionBar3 {
+.ecdActionBar1, .ecdActionBar2, .ecdActionBar3, .ecdActionBar4 {
 	border: solid 2px rgba(0,0,0,0);
     padding: 2px;
     text-align: left;
@@ -160,9 +160,6 @@
 
 #ecdTitleBar {
 	text-align: center;
-}
-
-.ecdActionBar1 {
 }
 
 .ecdActionIcon {
@@ -188,7 +185,7 @@
 	display: inline-block;
 	vertical-align: middle;
 	padding-right: 10px;
-	width: 50px;
+	width: 75px;
     text-align: right;
 }
 
@@ -777,7 +774,7 @@ tr.eso_item_link {
 }
 
 .ecdSkillData {
-	height: 550px;
+	height: 580px;
     overflow-y: auto;
 }
 
@@ -1381,7 +1378,8 @@ thead.ecdFixedHeader tr {
 
 .ecdActionBar1:hover,
 .ecdActionBar2:hover,
-.ecdActionBar3:hover {
+.ecdActionBar3:hover,
+.ecdActionBar4:hover {
 	cursor: pointer;
 	background-color: #999;
 }

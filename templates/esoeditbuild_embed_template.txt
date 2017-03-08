@@ -213,17 +213,19 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 						<div class="esotbItemDisableButton esotbItemButton">-</div>
 						<div class="esotbItemDetailsButton esotbItemButton">...</div>
 					</div>
-				</div>
-				<hr>				
-				<div class="esotbItemSlotLabel" style="display: inline-block">Food / Drink</div>
-				<div class="esotbItem " id="esotbItemFood" slotid="Food" itemtype="4,12">
+					<div class="esotbItemSlotLabel" style="display: inline-block">Food / Drink</div>
+					<div class="esotbItem" id="esotbItemFood" slotid="Food" itemtype="4,12">
 					<img class="esotbItemIcon eso_item_link" {itemDataFood} alt="">
 					<div class="esotbItemLabel">{itemNameFood}</div>
 					<div class="esotbItemDisableButton esotbItemButton">-</div>
 					<div class="esotbItemDetailsButton esotbItemButton">...</div>
 				</div>
+				</div>
+				<hr>	
 			</div>
-			<p />&nbsp;<p />&nbsp;<p />
+			<div id="esotbItemSkillCopy">
+			</div>
+			<p />&nbsp;<p />
 			<h3>Common Item Setups</h3>
 			<hr>
 			Note: The following features are under development and probably don't work perfectly yet.
@@ -340,16 +342,21 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<hr>
 			<ul>
 				<li>Do a forced reload of the page in your browser to ensure you have the latest JavaScript files.</li>
-				<li>Note: There are some ability tooltips that aren't correct but the actual effect value used is correct (Dexterity, Slayer, Expert Mage, etc...).
-					If in doubt check the Raw Data tab or the ability details (...) for the actual value used.</li>
-				<li>Fixed the 5 piece bonus from the Spell Power Cure set to enable the buff which prevents it from being activated twice in a build.</li> 
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>8 March 2017</b>
+			<ul>
+				<li>Added 2 extra ability bars for Overload and Werewolf.</li>
+				<li>Experimented with adding a read-only abililty bar in the items tab. This makes swapping between bars and 
+					comparing stats a little easier.</li>
+			</ul>
+			<p>
+			<hr>
 			<b>6 March 2017</b>
 			<ul>
-				<li>Updated 50k items that had incorrect data (most were random mid-levels).</li>
+				<li>Updated 50k items that had incorrect data (most were random mid-level items).</li>
 			</ul>
 			<p>
 			<b>3 March 2017</b>
@@ -361,6 +368,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<b>1 March 2017</b>
 			<ul>
 				<li>Added paging and filters when viewing the build list.</li>
+								<li>Fixed the 5 piece bonus from the Spell Power Cure set to enable the buff which prevents it from being activated twice in a build.</li>
 			</ul>
 			<p>
 			<b>28 February 2017</b>
@@ -838,7 +846,8 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 	g_EsoInitialSkillData = {initialSkillDataJson};
 	g_EsoInitialToggleSkillData = {initialToggleSkillDataJson};
 	g_EsoInitialToggleSetData = {initialToggleSetDataJson};
-	g_EsoBuildActiveWeapon = {activeBar};
+	g_EsoBuildActiveWeapon = {activeWeaponBar};
+	g_EsoBuildActiveAbilityBar = {activeSkillBar};
 	g_EsoBuildSetNames = {setNamesJson};
 </script>
 

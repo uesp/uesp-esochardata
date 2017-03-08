@@ -5395,7 +5395,8 @@ function GetEsoInputValues(mergeComputedStats)
 	
 	GetEsoInputFoodValues(inputValues);
 	
-	inputValues.ActiveBar = g_EsoBuildActiveWeapon;
+	inputValues.ActiveWeaponBar = g_EsoBuildActiveWeapon;
+	inputValues.ActiveAbilityBar = g_EsoBuildActiveAbilityBar;
 	
 	if (g_EsoBuildActiveWeapon == 1)
 	{
@@ -5890,7 +5891,7 @@ function GetEsoInputSkillPassives(inputValues)
 function GetEsoInputSkillActiveBar(inputValues)
 {
 	var skillInputValues = GetEsoTestBuildSkillInputValues();
-	var skillBar = g_EsoSkillBarData[g_EsoBuildActiveWeapon - 1];
+	var skillBar = g_EsoSkillBarData[g_EsoBuildActiveAbilityBar - 1];
 	if (skillBar == null) return;
 	
 	for (var i = 0; i < skillBar.length; ++i)
@@ -7656,6 +7657,8 @@ function OnEsoClassChange(e)
 	g_EsoBuildEnableUpdates = false;
 	EnableEsoClassSkills(newClass);
 	g_EsoBuildEnableUpdates = true;
+	
+	UpdateEsoSkillBarDisplay();
 		
 	UpdateEsoComputedStatsList("async");
 }
@@ -7679,6 +7682,7 @@ function OnEsoWerewolfChange(e)
 		$("#esotbVampireStage").val("0");
 	}
 	
+	UpdateEsoSkillBarDisplay();
 	UpdateEsoComputedStatsList("async");
 }
 
@@ -9866,31 +9870,49 @@ function SetEsoBuildActiveWeaponBar(barIndex)
 function SetEsoBuildActiveSkillBar(skillBarIndex)
 {
 	SetEsoSkillBarSelect(skillBarIndex);
+	g_EsoBuildActiveAbilityBar = skillBarIndex;
 }
 
 
-function OnEsoBuildSkillBarSwap(e, skillBarIndex)
+function OnEsoBuildSkillBarSwap(e, skillBarIndex, weaponBarIndex)
 {
-	SetEsoBuildActiveWeaponBar(skillBarIndex);	
+	g_EsoBuildActiveAbilityBar = skillBarIndex;
+	
+	if (weaponBarIndex >= 1 && weaponBarIndex <= 2)
+	{
+		SetEsoBuildActiveWeaponBar(weaponBarIndex);	
+	}
+	else if (skillBarIndex >= 1 && skillBarIndex <= 2)
+	{
+		SetEsoBuildActiveWeaponBar(skillBarIndex);
+	}
+	else
+	{
+		SetEsoBuildActiveWeaponMatchingSkillBar(skillBarIndex);
+	}
+	
+	CopyEsoSkillsToItemTab();
 	UpdateEsoComputedStatsList("async");
 }
 
 
 function OnEsoBuildSkillUpdate(e)
 {
+	CopyEsoSkillsToItemTab();
 	UpdateEsoComputedStatsList("async");
 }
 
 
 function OnEsoBuildSkillBarUpdate(e)
 {
+	CopyEsoSkillsToItemTab();
 	UpdateEsoComputedStatsList();
 }
 
 
 function IsEsoSkillOnActiveBar(abilityId)
 {
-	var skillBar = g_EsoSkillBarData[g_EsoBuildActiveWeapon - 1];
+	var skillBar = g_EsoSkillBarData[g_EsoBuildActiveAbilityBar - 1];
 	if (skillBar == null) return false;
 	
 	for (var i = 0; i < skillBar.length; ++i)
@@ -9912,7 +9934,7 @@ function IsEsoSkillOnActiveBar(abilityId)
 
 function IsEsoOrigSkillOnActiveBar(abilityId)
 {
-	var skillBar = g_EsoSkillBarData[g_EsoBuildActiveWeapon - 1];
+	var skillBar = g_EsoSkillBarData[g_EsoBuildActiveAbilityBar - 1];
 	if (skillBar == null) return false;
 	
 	for (var i = 0; i < skillBar.length; ++i)
@@ -9929,7 +9951,7 @@ function IsEsoOrigSkillOnActiveBar(abilityId)
 
 function CountEsoBarSkillsWithSkillLine(skillLine)
 {
-	var skillBar = g_EsoSkillBarData[g_EsoBuildActiveWeapon - 1];
+	var skillBar = g_EsoSkillBarData[g_EsoBuildActiveAbilityBar - 1];
 	var count = 0;
 	
 	if (skillBar == null) return 0;
@@ -9952,7 +9974,7 @@ function CountEsoBarSkillsWithSkillLine(skillLine)
 
 function CountEsoBarSkillsWithSkillType(skillType)
 {
-	var skillBar = g_EsoSkillBarData[g_EsoBuildActiveWeapon - 1];
+	var skillBar = g_EsoSkillBarData[g_EsoBuildActiveAbilityBar - 1];
 	var count = 0;
 	
 	if (skillBar == null) return 0;
@@ -10545,7 +10567,7 @@ function CreateEsoBuildActionBarSaveData(saveData, inputValues)
 {
 	saveData.ActionBars = {};
 	
-	for (var barIndex = 0; barIndex < 2; ++barIndex)
+	for (var barIndex = 0; barIndex < 4; ++barIndex)
 	{
 		for (var slotIndex = 0; slotIndex < 6; ++slotIndex)
 		{
@@ -10917,8 +10939,8 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 	saveData.Stats['Stealth'] = inputValues.Stealthed;
 	saveData.Stats['Cyrodiil'] = inputValues.Cyrodiil;
 	
-	saveData.Stats['ActiveAbilityBar'] = "" + inputValues.ActiveBar;
-	saveData.Stats['ActiveWeaponBar'] = "" + inputValues.ActiveBar;
+	saveData.Stats['ActiveAbilityBar'] = "" + inputValues.ActiveAbilityBar;
+	saveData.Stats['ActiveWeaponBar'] = "" + inputValues.ActiveWeaponBar;
 	
 	if (inputValues.Attribute.Magicka > 32)	saveData.Build['buildType'] = "Magicka";
 	if (inputValues.Attribute.Stamina > 32)	saveData.Build['buildType'] = "Stamina";
@@ -10958,20 +10980,93 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 
 function HasEsoBuildThirdSkillBar()
 {
-		// TODO: Add third skill bar
-	return false;
+	return $("#esotbClass").val() == "Sorcerer";
+}
+
+
+function HasEsoBuildForthSkillBar()
+{
+	return parseInt($("#esotbWerewolfStage").val()) > 0;
+}
+
+
+function SetEsoBuildActiveWeaponMatchingSkillBar(skillBar)
+{
+	if (skillBar == 1)
+	{
+		SetEsoBuildActiveWeaponBar(1);
+		return 1;
+	}
+	
+	if (skillBar == 2)
+	{
+		SetEsoBuildActiveWeaponBar(2);
+		return 2;
+	}
+	
+	if (skillBar == 3)
+	{
+		var ult1 = g_EsoSkillBarData[0][5].origSkillId;
+		var ult2 = g_EsoSkillBarData[1][5].origSkillId;
+		
+		if (ult1 == 30354 && ult2 == 30354) return -1;
+		
+		if (ult1 == 30354)
+		{
+			SetEsoBuildActiveWeaponBar(1);
+			return 1;
+		}
+		
+		if (ult2 == 30354)
+		{
+			SetEsoBuildActiveWeaponBar(2);
+			return 2;
+		}
+	}
+	
+	if (skillBar == 4)
+	{
+		var ult1 = g_EsoSkillBarData[0][5].origSkillId;
+		var ult2 = g_EsoSkillBarData[1][5].origSkillId;
+		
+		if (ult1 == 42358 && ult2 == 42358) return -1;
+		
+		if (ult1 == 42358)
+		{
+			SetEsoBuildActiveWeaponBar(1);
+			return 1;
+		}
+		
+		if (ult2 == 42358)
+		{
+			SetEsoBuildActiveWeaponBar(2);
+			return 2;
+		}
+	}
+	
+	return -1;
 }
 
 
 function CreateEsoBuildOffBarSaveData(saveData, inputValues)
 {
-	var CurrentActiveBar = g_EsoBuildActiveWeapon;
+	var CurrentActiveBar = g_EsoBuildActiveAbilityBar;
+	var CurrentWeaponBar = SetEsoBuildActiveWeaponBar;
 	
 	CreateEsoBuildComputedSaveData(saveData, inputValues, CurrentActiveBar);
+	
+	if (HasEsoBuildForthSkillBar() && CurrentActiveBar != 4)
+	{
+		SetEsoBuildActiveSkillBar(4);
+		SetEsoBuildActiveWeaponMatchingSkillBar(4);
+		UpdateEsoComputedStatsList(true);
+		CreateEsoBuildComputedSaveData(saveData, inputValues, 4);
+	}
 	
 	if (HasEsoBuildThirdSkillBar() && CurrentActiveBar != 3)
 	{
 		SetEsoBuildActiveSkillBar(3);
+		SetEsoBuildActiveWeaponMatchingSkillBar(3);
 		UpdateEsoComputedStatsList(true);
 		CreateEsoBuildComputedSaveData(saveData, inputValues, 3);
 	}
@@ -10992,7 +11087,7 @@ function CreateEsoBuildOffBarSaveData(saveData, inputValues)
 		CreateEsoBuildComputedSaveData(saveData, inputValues, 2);
 	}
 	
-	SetEsoBuildActiveWeaponBar(CurrentActiveBar);
+	SetEsoBuildActiveWeaponBar(CurrentWeaponBar);
 	SetEsoBuildActiveSkillBar(CurrentActiveBar);
 	UpdateEsoComputedStatsList(true);
 }
@@ -11045,6 +11140,8 @@ function CreateEsoBuildComputedSaveData(saveData, inputValues, barIndex)
 	
 	AddEsoBuildComputedStatToSaveData(saveData, "SpellPenetration", prefix + "SpellPenetration");
 	AddEsoBuildComputedStatToSaveData(saveData, "PhysicalPenetration", prefix + "PhysicalPenetration");
+	
+	saveData.Stats[prefix + "ActiveWeaponBar"] = g_EsoBuildActiveWeapon;
 	
 	return saveData;
 }
@@ -11342,6 +11439,30 @@ function OnEsoEditBuildSetupArmorTrait(element)
 }
 
 
+function UpdateEsoSkillBarDisplay()
+{
+	if (HasEsoBuildThirdSkillBar())
+		$(".esovsSkillBar[skillbar='3']").show()
+	else
+		$(".esovsSkillBar[skillbar='3']").hide()
+		
+	if (HasEsoBuildForthSkillBar())
+		$(".esovsSkillBar[skillbar='4']").show()
+	else
+		$(".esovsSkillBar[skillbar='4']").hide()
+}
+
+
+function CopyEsoSkillsToItemTab()
+{
+	$("#esotbItemSkillCopy").html($("#esovsSkillBar").html());
+
+	$("#esotbItemSkillCopy .esovsSkillBarIcon[draggable='true']").attr("draggable", "false");
+	$("#esotbItemSkillCopy .esovsSkillBar").click(OnSkillBarSelect);
+	$("#esotbItemSkillCopy .esovsSkillBarIcon").hover(OnHoverEsoSkillBarIcon, OnLeaveEsoSkillBarIcon);
+}
+
+
 function esotbOnDocReady()
 {
 	GetEsoSkillInputValues = GetEsoTestBuildSkillInputValues;
@@ -11422,6 +11543,7 @@ function esotbOnDocReady()
 	});
 	
 	//UpdateEsoComputedStatsList(true);
+	CopyEsoSkillsToItemTab();
 	UpdateEsoCpData();
 }
 
