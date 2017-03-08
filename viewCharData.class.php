@@ -515,7 +515,7 @@ EOT;
 	public function createCharInventorySummaryHtml()
 	{
 		$output  = "<p><br/>";
-		$output .= "<h2>Inventory</h2>";
+		$output .= "<h2>Inventory Summary</h2>";
 		
 		$output .= "<table id='ecdCharSummaryInventory' class='ecdCharSummaryTable'>";
 		$output .= "<tr>";
@@ -731,7 +731,7 @@ EOT;
 	public function createCharMotifSummaryHtml()
 	{
 		$output  = "<p><br/>";
-		$output .= "<h2>Motifs</h2>";
+		$output .= "<h2>Motif  Summary</h2>";
 		
 		$motifCharData = array();
 		
@@ -963,7 +963,7 @@ EOT;
 	public function createCharResearchSummaryHtml()
 	{
 		$output  = "<p><br/>";
-		$output .= "<h2>Research</h2>";
+		$output .= "<h2>Research Summary</h2>";
 		
 		$blacksmithData = array();
 		$clothingData = array();
@@ -1154,7 +1154,7 @@ EOT;
 	public function createCharRidingSummaryHtml()
 	{
 		$output  = "<p><br/>";
-		$output .= "<h2>Riding</h2>";
+		$output .= "<h2>Riding Summary</h2>";
 		$output .= "<table id='ecdCharSummaryRiding' class='ecdCharSummaryTable'>";
 		$output .= "<tr>";
 		$output .= "<th>Character</th>";
