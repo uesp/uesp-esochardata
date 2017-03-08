@@ -863,12 +863,6 @@ class EsoBuildDataViewer
 			$this->accountStats[$charId][$row['name']] = $row;
 		}
 		
-		//$this->loadCharacterAccountCurrency($arrayData);
-		//$this->loadCharacterAccountInventorySpace($arrayData);
-		//ksort($arrayData);
-		
-		error_log("Loaded $count account stats!");
-		
 		return true;
 	}
 	
