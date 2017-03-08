@@ -501,6 +501,7 @@ EOT;
 	public function createCharSummaryHtml()
 	{
 		if ($this->accountStats == null || count($this->accountStats) == 0) return "";
+		if (!$this->viewMyBuilds) return "";
 		
 		$output .= $this->createCharInventorySummaryHtml();
 		$output .= $this->createCharRidingSummaryHtml();
