@@ -452,9 +452,22 @@ EOT;
 	}
 	
 	
+	public function SortBuildsByName($a, $b)
+	{
+		return strcmp($a['name'], $b['name']);
+	}
+	
+	
 	public function createBuildTableHtml()
 	{
 		if (!$this->loadBuilds()) return false;
+		
+		if ($this->buildData[0] != null)
+		{
+			$this->loadAccountStats($this->buildData[0]['accountName']);
+		}
+		
+		usort($this->buildData, array('EsoCharDataViewer', 'SortBuildsByName'));
 	
 		$this->outputHtml .= $this->getBreadcrumbTrailHtml() . "<p />\n";
 	
@@ -478,8 +491,727 @@ EOT;
 		}
 	
 		$this->outputHtml .= "</table>\n";
+		
+		$this->outputHtml .= $this->createCharSummaryHtml();
 	
 		return true;
+	}
+	
+	
+	public function createCharSummaryHtml()
+	{
+		if ($this->accountStats == null || count($this->accountStats) == 0) return "";
+		
+		$output .= $this->createCharInventorySummaryHtml();
+		$output .= $this->createCharRidingSummaryHtml();
+		$output .= $this->createCharResearchSummaryHtml();
+		$output .= $this->createCharMotifSummaryHtml();
+		
+		return $output;
+	}
+	
+	
+	public function createCharInventorySummaryHtml()
+	{
+		$output  = "<p><br/>";
+		$output .= "<h2>Inventory</h2>";
+		
+		$output .= "<table id='ecdCharSummaryInventory' class='ecdCharSummaryTable'>";
+		$output .= "<tr>";
+		$output .= "<th>Character</th>";
+		$output .= "<th>Gold</th>";
+		$output .= "<th>AP</th>";
+		$output .= "<th>Telvar</th>";
+		$output .= "<th>Vouchers</th>";
+		$output .= "<th>Inv Used</th>";
+		$output .= "<th>Inv Total</th>";
+		$output .= "</tr>";
+		
+		//InventorySize
+		//InventoryUsedSize
+		//Money
+		//TelvarStones
+		//AlliancePoints
+		//WritVoucher
+		
+		//BankSize
+		//BankUsedSize
+		//BankedMoney
+		//BankedTelvarStones
+		$totalGold = 0;
+		$totalAP = 0;
+		$totalTelvar = 0;
+		$totalVouchers = 0;
+		$totalInvUsed = 0;
+		$totalInv = 0;		
+		
+		foreach ($this->buildData as $build)
+		{
+			$charId = intval($build['id']);
+			$charName = $this->escape($build['name']);
+			if ($this->accountStats[$charId] == null) continue;
+			
+			$gold = intval($this->getAccountStatsField($charId, 'Money', 0));
+			$telvar = intval($this->getAccountStatsField($charId, 'TelvarStones', 0));
+			$ap = intval($this->getAccountStatsField($charId, 'AlliancePoints', 0));
+			$voucher = intval($this->getAccountStatsField($charId, 'WritVoucher', 0));
+			$invUsed = intval($this->getAccountStatsField($charId, 'InventoryUsedSize', 0));
+			$invTotal = intval($this->getAccountStatsField($charId, 'InventorySize', 0));
+			
+			$totalGold += $gold;
+			$totalAP += $ap;
+			$totalTelvar += $telvar;
+			$totalVouchers += $voucher;
+			$totalInvUsed += $invUsed;
+			$totalInv += $invTotal;
+			
+			$output .= "<tr>";
+			$output .= "<td>$charName</td>";
+			$output .= "<td>$gold</td>";
+			$output .= "<td>$ap</td>";
+			$output .= "<td>$telvar</td>";
+			$output .= "<td>$voucher</td>";
+			$output .= "<td>$invUsed</td>";
+			$output .= "<td>$invTotal</td>";
+			$output .= "</tr>";			
+		}
+		
+		$gold = intval($this->getAccountStatsField($charId, 'BankedMoney', 0));
+		$telvar = intval($this->getAccountStatsField($charId, 'BankedTelvarStones', 0));
+		$ap = "-";
+		$voucher = "-";
+		$invUsed = intval($this->getAccountStatsField($charId, 'BankUsedSize', 0));
+		$invTotal = intval($this->getAccountStatsField($charId, 'BankSize', 0));
+		
+		$totalGold += $gold;
+		$totalTelvar += $telvar;
+		$totalInvUsed += $invUsed;
+		$totalInv += $invTotal;
+		
+		$output .= "<tr>";
+		$output .= "<td>Bank</td>";
+		$output .= "<td>$gold</td>";
+		$output .= "<td>$ap</td>";
+		$output .= "<td>$telvar</td>";
+		$output .= "<td>$voucher</td>";
+		$output .= "<td>$invUsed</td>";
+		$output .= "<td>$invTotal</td>";
+		$output .= "</tr>";
+		
+		$output .= "<tr>";
+		$output .= "<th>Account</th>";
+		$output .= "<th>$totalGold</th>";
+		$output .= "<th>$totalAP</th>";
+		$output .= "<th>$totalTelvar</th>";
+		$output .= "<th>$totalVouchers</th>";
+		$output .= "<th>$totalInvUsed</th>";
+		$output .= "<th>$totalInv</th>";
+		$output .= "</tr>";
+
+		$output .= "</table>";
+		return $output;
+	}
+	
+	
+	public function getAccountMotifData($charId)
+	{
+		$craftData = array();
+		if ($this->accountStats[$charId] == null) return $craftData;
+		
+		foreach ($this->accountStats[$charId] as $key => $value)
+		{
+			$matches = array();
+			$result = preg_match("/Crafting:(.*)/", $key, $matches);
+			if ($result == 0) continue;
+		
+			$styleName = $matches[1];
+			$rawData = $value['value'];
+			$rawValues = explode(',', $rawData);
+			$styleData = '';
+			$unknownChapters = "";
+			$knownCount = 0;
+			$unknownCount = 14;
+				
+			if ($styleName == "Akatosh") continue;
+			if ($styleName == "Grim Arlequin") $styleName = "Grim Harlequin";
+				
+			$craftData[$styleName] = array();
+				
+			if (count($rawValues) > 1)
+			{
+				$styleArray = array();
+				$unknownArray = array();
+		
+				for ($i = 0; $i < 14; ++$i)
+				{
+					$name = $this->ESO_MOTIF_CHAPTERNAMES[$i];
+						
+					if ($rawValues[$i] == 1)
+					{
+						$styleArray[] = $name;
+						$craftData[$styleName][$name] = true;
+					}
+					else
+					{
+						$unknownArray[] = $name;
+						$craftData[$styleName][$name] = false;
+					}
+				}
+		
+				$unknownCount = count($unknownArray);
+				$knownCount = 14 - $unknownCount;
+			}
+			elseif ($rawData == '1')
+			{
+				$knownCount = 14;
+				$unknownCount = 0;
+		
+				foreach ($this->ESO_MOTIF_CHAPTERNAMES as $name)
+				{
+					$craftData[$styleName][$name] = true;
+				}
+			}
+			elseif ($rawData == '0')
+			{
+				$unknownChapters = implode(', ', $this->ESO_MOTIF_CHAPTERNAMES);
+				$knownCount = 0;
+				$unknownCount = 14;
+		
+				foreach ($this->ESO_MOTIF_CHAPTERNAMES as $name)
+				{
+					$craftData[$styleName][$name] = false;
+				}
+			}
+		}
+		
+		return $craftData;
+	}
+	
+	
+	public function sumMotifArray($data)
+	{
+		$sum = array();
+	
+		foreach ($data as $charId => $data1)
+		{
+			$charName = $this->escape($this->accountCharacters[$charId]['name']);
+			
+			foreach ($data1 as $styleName => $data2)
+			{
+				if ($sum[$styleName] === null) $sum[$styleName] = array();
+					
+				foreach ($data2 as $chapter => $isKnown)
+				{
+					if ($sum[$styleName][$chapter] === null)
+					{
+						$sum[$styleName][$chapter] = array();
+						$sum[$styleName][$chapter]['known'] = array();
+						$sum[$styleName][$chapter]['unknown'] = array();
+						$sum[$styleName][$chapter]['count'] = 0;
+					}
+					
+					if ($isKnown)
+					{
+						$sum[$styleName][$chapter]['count'] += 1;
+						$sum[$styleName][$chapter]['known'][] = $charName;	
+					}
+					else
+					{
+						$sum[$styleName][$chapter]['unknown'][] = $charName;
+					}
+				}
+			}
+		}
+	
+		return $sum;
+	}
+	
+	
+	public function createCharMotifSummaryHtml()
+	{
+		$output  = "<p><br/>";
+		$output .= "<h2>Motifs</h2>";
+		
+		$motifCharData = array();
+		
+		foreach ($this->buildData as $build)
+		{
+			$charId = intval($build['id']);
+			$motifCharData[$charId] = $this->getAccountMotifData($charId);
+		}
+		
+		$motifData = $this->sumMotifArray($motifCharData);
+		
+		$output .= "<table class='ecdCharSummaryTable'>";
+		$output .= "<tr>";
+		$output .= "<th></th>";
+		
+		foreach ($this->ESO_MOTIF_CHAPTERNAMES as $name)
+		{
+			$output .= "<th>$name</th>";
+		}
+		
+		$output .= "<th></th>";
+		$output .= "</tr>";
+		$numChars = count($this->buildData);
+		$maxCount = 14 * $numChars;
+		
+		ksort($motifData);
+		
+		foreach ($motifData as $styleName => $chapterData)
+		{
+			$output .= "<tr>";
+			$output .= "<td>$styleName</td>";
+			$totalCount = 0;
+			
+			foreach ($this->ESO_MOTIF_CHAPTERNAMES as $name)
+			{
+				$count = $chapterData[$name]['count'] ?: 0;
+				$totalCount += $count;
+				$title = implode(", ", $chapterData[$name]['known']);
+				$output .= "<td title='$title'>$count</td>";
+			}
+			
+			$output .= "<td>$totalCount / $maxCount</td>";
+			$output .= "</tr>";			
+		}
+		
+		$output .= "</table>";
+		return $output;
+	}
+	
+	
+	public function getAccountResearchData($charId, $craftType)
+	{
+		if ($this->accountStats[$charId] == null) return array("weapons" => array(), "armor" => array());
+		
+		$output = "";
+		$totalCount = 0;
+		$knownCount = 0;
+		$armorTraits = array();
+		$weaponTraits = array();
+		$prefix = "Research:$craftType";
+		$timestamp = $this->getAccountStatsField($charId, "Research:Timestamp");
+		$research = array();
+		$knownCounts = array();
+		
+		for ($i = 1; $i <= 3; ++$i)
+		{
+			$trait = $this->getAccountStatsField($charId, "$prefix:Trait$i");
+			$time = $this->getAccountStatsField($charId, "$prefix:Time$i");
+			$item = $this->getAccountStatsField($charId, "$prefix:Item$i");
+				
+			if ($research[$item] == null) $research[$item] = array();
+			$research[$item][$trait] = $time;
+		}
+		
+		foreach ($this->accountStats[$charId] as $key => $value)
+		{
+			$matches = array();
+			$result = preg_match("/^Research:$craftType:Trait:([a-zA-Z\ _0-9&]*)$/", $key, $matches);
+			if ($result == 0) continue;
+		
+			$slotName = $matches[1];
+			$rawData = $value["value"];
+		
+			if ($slotName == "Known")
+			{
+				$knownCount = intval($rawData);
+				continue;
+			}
+			else if ($slotName == "Total")
+			{
+				$totalCount = intval($rawData);
+				continue;
+			}
+		
+			$tooltip = "";
+			$extraClass = "";
+			$totalTraits = 9;
+			$unknownTraits = "";
+			$knownTraitCount = 0;
+		
+			$unknownTraits = $this->getAccountStatsField($charId, "Research:$craftType:Trait:$slotName:Unknown"); 
+			$totalTraits = intval($this->getAccountStatsField($charId, "Research:$craftType:Trait:$slotName:Total"));
+			$knownTraitCount = intval($this->getAccountStatsField($charId, "Research:$craftType:Trait:$slotName:Known"));
+		
+			if ($extraTraits && $extraTraits[$slotName])
+			{
+				if ($knownTraitCount <= 0)
+				{
+					$knownTraitCount = 1;
+					$rawData = $extraTraits[$slotName] . " (1/9)";
+				}
+				else if ($knownTraitCount == $totalTraits - 1)
+				{
+					$knownTraitCount = $totalTraits;
+					$rawData = "All traits known";
+				}
+				else
+				{
+					++$knownTraitCount;
+					$rawData = preg_replace_callback("# \(([0-9]+)/([0-9]+)\)#", function ($matches) {
+						$count = intval($matches[1]) + 1;
+						return " ($count/{$matches[2]})";
+					}, $rawData);
+					$rawData = str_replace($extraTraits[$slotName], "[" . $extraTraits[$slotName]."]", $rawData);
+				}
+			}
+				
+			$knownCounts[$slotName] = $knownTraitCount;
+			$rawData = preg_replace("#[ ]*\(.*\)#", "", $rawData);
+			$traits = preg_split("#[, ]+#", $rawData, 0, PREG_SPLIT_NO_EMPTY);
+				
+			if (self::$WEAPONS[$slotName])
+			{
+				$weaponTraits[$slotName] = array();
+		
+				$value = 0;
+				if ($knownTraitCount == $totalTraits) $value = 1;
+		
+				foreach (self::$WEAPON_TRAITS as $trait)
+				{
+					$weaponTraits[$slotName][$trait] = $value;
+				}
+		
+				foreach ($traits as $trait)
+				{
+					if (preg_match("#\[([a-zA-Z 0-9\&\-]+)\]#", $trait, $matches))
+					{
+						$weaponTraits[$slotName][$matches[1]] = 1;
+					}
+					else
+					{
+						$weaponTraits[$slotName][$trait] = 1;
+					}
+				}
+			}
+			else
+			{
+				$armorTraits[$slotName] = array();
+		
+				$value = 0;
+				if ($knownTraitCount == $totalTraits) $value = 1;
+		
+				foreach (self::$ARMOR_TRAITS as $trait)
+				{
+					$armorTraits[$slotName][$trait] = $value;
+				}
+		
+				foreach ($traits as $trait)
+				{
+					if (preg_match("#\[([a-zA-Z 0-9\&\-]+)\]#", $trait, $matches))
+					{
+						$armorTraits[$slotName][$matches[1]] = 1;
+					}
+					else
+					{
+						$armorTraits[$slotName][$trait] = 1;
+					}
+				}
+			}
+		}
+	
+		ksort($weaponTraits);
+		ksort($armorTraits);
+		return array("weapons" => $weaponTraits, "armor" => $armorTraits);
+	}
+	
+	
+	public function sumResearchArray($data)
+	{
+		$sum = array();
+		
+		foreach ($data as $charId => $data1)
+		{
+			$charName = $this->escape($this->accountCharacters[$charId]['name']);
+			
+			foreach ($data1 as $itemType => $data2)
+			{
+				if ($sum[$itemType] === null) $sum[$itemType] = array();
+					
+				foreach ($data2 as $slotName => $data3)
+				{
+					if ($sum[$itemType][$slotName] === null) $sum[$itemType][$slotName] = array();
+					
+					foreach ($data3 as $trait => $isKnown)
+					{
+						if ($sum[$itemType][$slotName][$trait] === null) 
+						{
+							$sum[$itemType][$slotName][$trait] = array();
+							$sum[$itemType][$slotName][$trait]['count'] = 0;
+							$sum[$itemType][$slotName][$trait]['known'] = array();
+							$sum[$itemType][$slotName][$trait]['unknown'] = array();
+						}
+						
+						$sum[$itemType][$slotName][$trait]['count'] += intval($isKnown);
+						
+						if ($isKnown)
+							$sum[$itemType][$slotName][$trait]['known'][] = $charName;
+						else
+							$sum[$itemType][$slotName][$trait]['unknown'][] = $charName;
+					}
+				}
+			}
+		}
+		
+		return $sum;
+	}
+	
+	
+	public function createCharResearchSummaryHtml()
+	{
+		$output  = "<p><br/>";
+		$output .= "<h2>Research</h2>";
+		
+		$blacksmithData = array();
+		$clothingData = array();
+		$woodworkData = array();
+		
+		foreach ($this->buildData as $build)
+		{
+			$charId = intval($build['id']);
+			$blacksmithData[$charId] = $this->getAccountResearchData($charId, "Blacksmithing");
+			$clothingData[$charId] = $this->getAccountResearchData($charId, "Clothier");
+			$woodworkData[$charId] = $this->getAccountResearchData($charId, "Woodworking");
+		}
+		
+		$blacksmithSum = $this->sumResearchArray($blacksmithData);
+		$clothingSum = $this->sumResearchArray($clothingData);
+		$woodworkSum = $this->sumResearchArray($woodworkData);
+		$numChars = count($this->buildData);
+		
+		$output .= "<h3>Blacksmithing</h3>";
+		$output .= "<table class='ecdCharSummaryTable'>";
+		$output .= "<tr>";
+		$output .= "<th></th>";
+		
+		foreach (self::$WEAPON_TRAITS as $trait)
+		{
+			$output .= "<th>$trait</th>";
+		}
+		
+		$output .= "<th></th>";
+		$output .= "</tr>";
+		$maxTraits = $numChars * 9;
+		
+		foreach ($blacksmithSum['weapons'] as $slotName => $traitData)
+		{
+			$output .= "<tr>";
+			$output .= "<td>$slotName</td>";
+			$totalCount = 0;
+			
+			foreach (self::$WEAPON_TRAITS as $trait)
+			{
+				$count = $traitData[$trait]['count'] ? : 0;
+				$totalCount += $count;
+				$title = implode(", ", $traitData[$trait]['known']);
+				$output .= "<td title='$title'>$count</td>";
+			}
+			
+			$output .= "<td>$totalCount / $maxTraits</td>";
+			$output .= "</tr>";
+		}
+		
+		$output .= "</table><p><br/>";
+		
+		$output .= "<table class='ecdCharSummaryTable'>";
+		$output .= "<tr>";
+		$output .= "<th></th>";
+		
+		foreach (self::$ARMOR_TRAITS as $trait)
+		{
+			$output .= "<th>$trait</th>";
+		}
+		
+		$output .= "<th></th>";
+		$output .= "</tr>";
+		
+		foreach ($blacksmithSum['armor'] as $slotName => $traitData)
+		{
+			$output .= "<tr>";
+			$output .= "<td>$slotName</td>";
+			$totalCount = 0;
+				
+			foreach (self::$ARMOR_TRAITS as $trait)
+			{
+				$count = $traitData[$trait]['count'] ? : 0;
+				$totalCount += $count;
+				$title = implode(", ", $traitData[$trait]['known']);
+				$output .= "<td title='$title'>$count</td>";
+			}
+				
+			$output .= "<td>$totalCount / $maxTraits</td>";
+			$output .= "</tr>";
+		}
+		
+		$output .= "</table><p><br/>";
+		
+		$output .= "<h3>Clothing</h3>";
+		$output .= "<table class='ecdCharSummaryTable'>";
+		$output .= "<tr>";
+		$output .= "<th></th>";
+		
+		foreach (self::$ARMOR_TRAITS as $trait)
+		{
+			$output .= "<th>$trait</th>";
+		}
+		
+		$output .= "<th></th>";
+		$output .= "</tr>";
+		
+		foreach ($clothingSum['armor'] as $slotName => $traitData)
+		{
+			$output .= "<tr>";
+			$output .= "<td>$slotName</td>";
+			$totalCount = 0;
+				
+			foreach (self::$ARMOR_TRAITS as $trait)
+			{
+				$count = $traitData[$trait]['count'] ? : 0;
+				$totalCount += $count;
+				$title = implode(", ", $traitData[$trait]['known']);
+				$output .= "<td title='$title'>$count</td>";
+			}
+				
+			$output .= "<td>$totalCount / $maxTraits</td>";
+			$output .= "</tr>";
+		}
+		
+		$output .= "</table><p><br/>";
+		
+		$output .= "<h3>Woodworking</h3>";
+		$output .= "<table class='ecdCharSummaryTable'>";
+		$output .= "<tr>";
+		$output .= "<th></th>";
+		
+		foreach (self::$WEAPON_TRAITS as $trait)
+		{
+			$output .= "<th>$trait</th>";
+		}
+		
+		$output .= "<th></th>";
+		$output .= "</tr>";
+		
+		foreach ($woodworkSum['weapons'] as $slotName => $traitData)
+		{
+			$output .= "<tr>";
+			$output .= "<td>$slotName</td>";
+			$totalCount = 0;
+				
+			foreach (self::$WEAPON_TRAITS as $trait)
+			{
+				$count = $traitData[$trait]['count'] ? : 0;
+				$totalCount += $count;
+				$title = implode(", ", $traitData[$trait]['known']);
+				$output .= "<td title='$title'>$count</td>";
+			}
+				
+			$output .= "<td>$totalCount / $maxTraits</td>";
+			$output .= "</tr>";
+		}
+		
+		$output .= "</table><p><br/>";
+		
+		$output .= "<table class='ecdCharSummaryTable'>";
+		$output .= "<tr>";
+		$output .= "<th></th>";
+		
+		foreach (self::$ARMOR_TRAITS as $trait)
+		{
+			$output .= "<th>$trait</th>";
+		}
+		
+		$output .= "<th></th>";
+		$output .= "</tr>";
+		
+		foreach ($woodworkSum['armor'] as $slotName => $traitData)
+		{
+			$output .= "<tr>";
+			$output .= "<td>$slotName</td>";
+			$totalCount = 0;
+		
+			foreach (self::$ARMOR_TRAITS as $trait)
+			{
+				$count = $traitData[$trait]['count'] ? : 0;
+				$totalCount += $count;
+				$title = implode(", ", $traitData[$trait]['known']);
+				$output .= "<td title='$title'>$count</td>";
+			}
+		
+			$output .= "<td>$totalCount / $maxTraits</td>";
+			$output .= "</tr>";
+		}
+		
+		$output .= "</table><p><br/>";
+		
+		
+		return $output;
+	}
+	
+	
+	public function createCharRidingSummaryHtml()
+	{
+		$output  = "<p><br/>";
+		$output .= "<h2>Riding</h2>";
+		$output .= "<table id='ecdCharSummaryRiding' class='ecdCharSummaryTable'>";
+		$output .= "<tr>";
+		$output .= "<th>Character</th>";
+		$output .= "<th>Speed</th>";
+		$output .= "<th>Stamina</th>";
+		$output .= "<th>Inventory</th>";
+		$output .= "<th>Training Time</th>";
+		$output .= "</tr>";
+		
+		foreach ($this->buildData as $build)
+		{
+			$charId = intval($build['id']);
+			$charName = $this->escape($build['name']);
+			if ($this->accountStats[$charId] == null) continue;
+			
+			$ridingSta = intval($this->getAccountStatsField($charId, 'RidingStamina'));
+			$ridingSpd = intval($this->getAccountStatsField($charId, "RidingSpeeed", 0));
+			if ($ridingSpd == 0) $ridingSpd = intval($this->getAccountStatsField($charId, "RidingSpeed", 0));
+			$ridingInv = intval($this->getAccountStatsField($charId, 'RidingInventory'));
+			$ridingTimeDone = intval($this->getAccountStatsField($charId, 'RidingTrainingDone', -1));
+			
+			$isFinishedTraining = false;
+			if ($ridingInv + $ridingSta + $ridingSpd >= 180) $isFinishedTraining = true;
+			
+			$timeLeftMsg = "";
+			
+			if (!$isFinishedTraining)
+			{
+				$timeLeft = $ridingTimeDone - time();
+				
+				if ($ridingTimeDone < 0)
+				{
+					$timeLeftMsg = "?";
+				}
+				else if ($timeLeft <= 0)
+				{
+					$timeLeftMsg = "Ready";
+				}
+				else
+				{
+					$hours = floor($timeLeft / 3600) % 24;
+					$minutes = floor($timeLeft / 60) % 60;
+					$seconds = $timeLeft % 60;
+					$timeLeftMsg = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
+				}
+			}
+			
+			$output .= "<tr>";
+			$output .= "<td>$charName</td>";
+			$output .= "<td>$ridingSpd</td>";
+			$output .= "<td>$ridingSta</td>";
+			$output .= "<td>$ridingInv</td>";
+			$output .= "<td>$timeLeftMsg</td>";
+			$output .= "</tr>";			
+		}		
+
+		$output .= "</table>";
+		return $output;
 	}
 	
 	

@@ -7,6 +7,11 @@ require_once("/home/uesp/esolog.static/esoCommon.php");
 
 class EsoBuildDataViewer
 {
+	static $ARMOR_TRAITS = array("Divines", "Impenetrable", "Infused", "Nirnhoned", "Prosperous", "Reinforced", "Sturdy", "Training", "Well-fitted");
+	static $WEAPON_TRAITS = array("Charged", "Decisive", "Defending", "Infused", "Nirnhoned",  "Precise", "Powered", "Sharpened", "Training" );
+	static $WEAPONS = array("Axe" => 1, "Battle Axe" => 1, "Dagger" => 1, "Greatsword" => 1, "Mace" => 1, "Maul" => 1, "Sword" => 1, "Bow" => 1,
+			"Ice Staff" => 1, "Inferno Staff" => 1, "Lightning Staff" => 1, "Restoration Staff" => 1);
+	
 	public $ESO_HTML_TEMPLATE = "templates/esobuilddata_embed_template.txt";
 	public $ESO_SHORT_LINK_URL = "http://esobuilds.uesp.net/";
 	
@@ -67,6 +72,7 @@ class EsoBuildDataViewer
 	public $buildData = array();
 	public $accountData = array();
 	public $accountCharacters = array();
+	public $accountStats = array();
 	
 	public $characterId = 0;
 	public $viewRawData = false;
@@ -468,6 +474,7 @@ class EsoBuildDataViewer
 		while (($row = $result->fetch_assoc()))
 		{
 			$this->buildData[] = $row;
+			$this->accountCharacters[$row['id']] = $row;
 		}
 		
 		$this->lastQuery = "SELECT FOUND_ROWS() as count;";
@@ -824,6 +831,43 @@ class EsoBuildDataViewer
 		}
 		
 		$this->characterData[$table] = $arrayData;
+		
+		return true;
+	}
+	
+	
+	public function loadAccountStats()
+	{
+		$charIds = array();
+		
+		foreach ($this->buildData as $build)
+		{
+			$charIds[] = $build['id'];	
+		}
+		
+		if (count($charIds) == 0) return false;
+		
+		$this->lastQuery = "SELECT * FROM stats WHERE characterId IN (" . implode(",", $charIds) . ");";
+		$result = $this->db->query($this->lastQuery);
+		if ($result === FALSE) return $this->reportError("Failed to load stats data for account $accountName!");
+		
+		$result->data_seek(0);
+		$this->accountStats = array();
+		$count = 0;
+		
+		while (($row = $result->fetch_assoc()))
+		{
+			++$count;
+			$charId = intval($row['characterId']);
+			if ($this->accountStats[$charId] === null) $this->accountStats[$charId] = array();
+			$this->accountStats[$charId][$row['name']] = $row;
+		}
+		
+		//$this->loadCharacterAccountCurrency($arrayData);
+		//$this->loadCharacterAccountInventorySpace($arrayData);
+		//ksort($arrayData);
+		
+		error_log("Loaded $count account stats!");
 		
 		return true;
 	}
@@ -1491,12 +1535,6 @@ class EsoBuildDataViewer
 	
 	public function getResearchTraitTableHtml($craftType, $extraTraits)
 	{
-		static $ARMOR_TRAITS = array("Divines", "Impenetrable", "Infused", "Nirnhoned", "Prosperous", "Reinforced", "Sturdy", "Training", "Well-fitted");
-		static $WEAPON_TRAITS = array("Charged", "Decisive", "Defending", "Infused", "Nirnhoned",  "Precise", "Powered", "Sharpened", "Training" );
-		
-		static $WEAPONS = array("Axe" => 1, "Battle Axe" => 1, "Dagger" => 1, "Greatsword" => 1, "Mace" => 1, "Maul" => 1, "Sword" => 1, "Bow" => 1, 
-								"Ice Staff" => 1, "Inferno Staff" => 1, "Lightning Staff" => 1, "Restoration Staff" => 1);
-		
 		$output = "";
 		$totalCount = 0;
 		$knownCount = 0;
@@ -1579,14 +1617,14 @@ class EsoBuildDataViewer
 			$rawData = preg_replace("#[ ]*\(.*\)#", "", $rawData);
 			$traits = preg_split("#[, ]+#", $rawData, 0, PREG_SPLIT_NO_EMPTY);
 			
-			if ($WEAPONS[$slotName])
+			if (self::$WEAPONS[$slotName])
 			{
 				$weaponTraits[$slotName] = array();
 				
 				$value = 0;
 				if ($knownTraitCount == $totalTraits) $value = 1;
 				
-				foreach ($WEAPON_TRAITS as $trait)
+				foreach (self::$WEAPON_TRAITS as $trait)
 				{
 					$weaponTraits[$slotName][$trait] = $value;
 				}
@@ -1611,7 +1649,7 @@ class EsoBuildDataViewer
 				$value = 0;
 				if ($knownTraitCount == $totalTraits) $value = 1;
 				
-				foreach ($ARMOR_TRAITS as $trait)
+				foreach (self::$ARMOR_TRAITS as $trait)
 				{
 					$armorTraits[$slotName][$trait] = $value;
 				}
@@ -1636,7 +1674,7 @@ class EsoBuildDataViewer
 			$output .= "<table class='ecdSkillResearchTable'>";
 			$output .= "<tr><td></td>";
 			
-			foreach ($ARMOR_TRAITS as $trait)
+			foreach (self::$ARMOR_TRAITS as $trait)
 			{
 				$trait = str_replace("-fitted", "-Fitted", $trait);
 				$output .= "<th><div class='ecdSkillRotateHeader'>$trait</div></th>";	
@@ -1649,7 +1687,7 @@ class EsoBuildDataViewer
 				$output .= "<tr>";
 				$output .= "<td>$slot</td>";
 								
-				foreach ($ARMOR_TRAITS as $trait)
+				foreach (self::$ARMOR_TRAITS as $trait)
 				{
 					$value = "";
 					$researchNote = "";
@@ -1683,7 +1721,7 @@ class EsoBuildDataViewer
 			$output .= "<table class='ecdSkillResearchTable'>";
 			$output .= "<tr><td></td>";
 				
-			foreach ($WEAPON_TRAITS as $trait)
+			foreach (self::$WEAPON_TRAITS as $trait)
 			{
 				$output .= "<th><div class='ecdSkillRotateHeader'>$trait</div></th>";
 			}
@@ -1695,7 +1733,7 @@ class EsoBuildDataViewer
 				$output .= "<tr>";
 				$output .= "<td>$slot</td>";
 						
-				foreach ($WEAPON_TRAITS as $trait)
+				foreach (self::$WEAPON_TRAITS as $trait)
 				{
 					$value = "";
 					$researchNote = "";
@@ -1829,26 +1867,40 @@ class EsoBuildDataViewer
 	}
 	
 	
+	public function createCharSummaryHtml()
+	{
+		return "";
+	}
+	
+	
 	public function getCharSkillRidingContentHtml()
 	{
 		$output  = "<div id='ecdSkill_Riding' class='ecdSkillData ecdScrollContent' style='display: none;'>\n";
 		$output .= "<div id='ecdSkillContentTitle'>Riding</div>";
 		
-		$ridingInv = $this->getCharStatField("RidingInventory", 0);
-		$ridingSta = $this->getCharStatField("RidingStamina", 0);
-		$ridingSpd = $this->getCharStatField("RidingSpeeed", 0);
-		$ridingTimeDone = $this->getCharStatField("RidingTrainingDone", 0);
+		$ridingInv = intval($this->getCharStatField("RidingInventory", 0));
+		$ridingSta = intval($this->getCharStatField("RidingStamina", 0));
+		$ridingSpd = intval($this->getCharStatField("RidingSpeeed", 0));
+		if ($ridingSpd == 0) $ridingSpd = intval($this->getCharStatField("RidingSpeed", 0));
+		$ridingTimeDone = intval($this->getCharStatField("RidingTrainingDone", -1));
+		
+		$isFinishedTraining = false;
+		if ($ridingInv + $ridingSta + $ridingSpd >= 180) $isFinishedTraining = true;
 				
 		$output .= "<div class='ecdRidingStat'><div class='ecdRidingValue'>$ridingSpd%</div> <img src='{$this->baseResourceUrl}resources/ridingskill_speed.png'> Speed</div>";
 		$output .= "<div class='ecdRidingStat'><div class='ecdRidingValue'>$ridingSta</div> <img src='{$this->baseResourceUrl}resources/ridingskill_stamina.png'> Stamina</div>";
 		$output .= "<div class='ecdRidingStat'><div class='ecdRidingValue'>$ridingInv</div> <img src='{$this->baseResourceUrl}resources/ridingskill_capacity.png'> Inventory</div>";
 		$output .= "<br/>";
 		
-		if ($ridingTimeDone > 0)
+		if (!$isFinishedTraining)
 		{
 			$timeLeft = $ridingTimeDone - time();
 			
-			if ($timeLeft <= 0)
+			if ($ridingTimeDone < 0)
+			{
+				$output .= "<div class='ecdRidingStat'><div class='ecdRidingValue'></div> ?</div>";
+			}
+			else if ($timeLeft <= 0)
 			{
 				$output .= "<div class='ecdRidingStat'><div class='ecdRidingValue'></div> <img src='{$this->baseResourceUrl}resources/ridingskill_ready.png'>Ready to Train!</div>";
 			}
@@ -2023,6 +2075,15 @@ class EsoBuildDataViewer
 		return $output;
 	}
 	
+	
+	public function getAccountStatsField ($charId, $stat, $default = '')
+	{
+		if ($this->accountStats[$charId] === null) return $default;
+		if ($this->accountStats[$charId][$stat] === null) return $default;
+		if ($this->accountStats[$charId][$stat]['value'] === null) return $default;
+		
+		return $this->escape($this->accountStats[$charId][$stat]['value']);
+	}
 	
 	public function getCharSkillContentHtml2($skillName, &$skillData)
 	{
@@ -2850,6 +2911,9 @@ class EsoBuildDataViewer
 		if ($colName === 'localId') return false;
 		if ($colName === 'nameLC') return false;
 		if ($colName === 'setNameLC') return false;
+		if ($colName === 'password') return false;
+		if ($colName === 'Password') return false;
+		if ($colName === 'OldPassword') return false;
 				
 		return true;
 	}
@@ -2862,6 +2926,8 @@ class EsoBuildDataViewer
 		if ($keyName === 'uniqueAccountName') return false;
 		if ($keyName === 'account') return false;
 		if ($keyName === 'accountName') return false;
+		if ($keyName === 'Password') return false;
+		if ($keyName === 'OldPassword') return false;
 	
 		return true;
 	}
