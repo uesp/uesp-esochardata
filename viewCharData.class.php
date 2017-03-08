@@ -1026,10 +1026,16 @@ EOT;
 		}
 	
 		if ($knownCount >= $totalCount)
-			$output .= "Research Complete!";
+		{
+			$output .= "Research Complete!<br/>";
+		}
 		else if ($openSlots > 0)
-			$output .= "$openSlots research slots available";
-	
+		{
+			$output .= "$openSlots research slots available<br/>";
+		}
+		
+		$output .= "$knownCount / $totalCount traits known";
+		
 		return $output;
 	}
 	
