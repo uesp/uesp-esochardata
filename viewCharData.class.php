@@ -526,6 +526,7 @@ EOT;
 		$output .= "<th>Vouchers</th>";
 		$output .= "<th>Inv Used</th>";
 		$output .= "<th>Inv Total</th>";
+		$output .= "<th>Skill Points</th>";
 		$output .= "</tr>";
 		
 		//InventorySize
@@ -544,7 +545,8 @@ EOT;
 		$totalTelvar = 0;
 		$totalVouchers = 0;
 		$totalInvUsed = 0;
-		$totalInv = 0;		
+		$totalInv = 0;
+		$totalSkillPoints = 0;
 		
 		foreach ($this->buildData as $build)
 		{
@@ -558,6 +560,7 @@ EOT;
 			$voucher = intval($this->getAccountStatsField($charId, 'WritVoucher', 0));
 			$invUsed = intval($this->getAccountStatsField($charId, 'InventoryUsedSize', 0));
 			$invTotal = intval($this->getAccountStatsField($charId, 'InventorySize', 0));
+			$skillPoints = intval($this->getAccountStatsField($charId, 'SkillPointsTotal', 0));
 			
 			$totalGold += $gold;
 			$totalAP += $ap;
@@ -565,6 +568,7 @@ EOT;
 			$totalVouchers += $voucher;
 			$totalInvUsed += $invUsed;
 			$totalInv += $invTotal;
+			$totalSkillPoints += $skillPoints;
 			
 			$output .= "<tr>";
 			$output .= "<td>$charName</td>";
@@ -574,6 +578,7 @@ EOT;
 			$output .= "<td>$voucher</td>";
 			$output .= "<td>$invUsed</td>";
 			$output .= "<td>$invTotal</td>";
+			$output .= "<td>$skillPoints</td>";
 			$output .= "</tr>";			
 		}
 		
@@ -597,6 +602,7 @@ EOT;
 		$output .= "<td>$voucher</td>";
 		$output .= "<td>$invUsed</td>";
 		$output .= "<td>$invTotal</td>";
+		$output .= "<td>-</td>";
 		$output .= "</tr>";
 		
 		$output .= "<tr>";
@@ -607,6 +613,7 @@ EOT;
 		$output .= "<th>$totalVouchers</th>";
 		$output .= "<th>$totalInvUsed</th>";
 		$output .= "<th>$totalInv</th>";
+		$output .= "<th>$totalSkillPoints</th>";
 		$output .= "</tr>";
 
 		$output .= "</table>";
@@ -769,7 +776,7 @@ EOT;
 			{
 				$count = $chapterData[$name]['count'] ?: 0;
 				$totalCount += $count;
-				$title = implode(", ", $chapterData[$name]['known']);
+				$title = implode(", ", $chapterData[$name]['known']) . "\n\nUnknown: " . implode(", ", $chapterData[$name]['unknown']);
 				$output .= "<td title='$title'>$count</td>";
 			}
 			
@@ -1098,7 +1105,7 @@ EOT;
 			{
 				$count = $traitData[$trait]['count'] ? : 0;
 				$totalCount += $count;
-				$title = implode(", ", $traitData[$trait]['known']);
+				$title = implode(", ", $traitData[$trait]['known']) . "\n\nUnknown: " . implode(", ", $traitData[$trait]['unknown']);
 				$output .= "<td title='$title'>$count</td>";
 			}
 			
@@ -1130,7 +1137,7 @@ EOT;
 			{
 				$count = $traitData[$trait]['count'] ? : 0;
 				$totalCount += $count;
-				$title = implode(", ", $traitData[$trait]['known']);
+				$title = implode(", ", $traitData[$trait]['known']). "\n\nUnknown: " . implode(", ", $traitData[$trait]['unknown']);
 				$output .= "<td title='$title'>$count</td>";
 			}
 				
@@ -1163,7 +1170,7 @@ EOT;
 			{
 				$count = $traitData[$trait]['count'] ? : 0;
 				$totalCount += $count;
-				$title = implode(", ", $traitData[$trait]['known']);
+				$title = implode(", ", $traitData[$trait]['known']). "\n\nUnknown: " . implode(", ", $traitData[$trait]['unknown']);
 				$output .= "<td title='$title'>$count</td>";
 			}
 				
@@ -1196,7 +1203,7 @@ EOT;
 			{
 				$count = $traitData[$trait]['count'] ? : 0;
 				$totalCount += $count;
-				$title = implode(", ", $traitData[$trait]['known']);
+				$title = implode(", ", $traitData[$trait]['known']). "\n\nUnknown: " . implode(", ", $traitData[$trait]['unknown']);
 				$output .= "<td title='$title'>$count</td>";
 			}
 				
@@ -1228,7 +1235,7 @@ EOT;
 			{
 				$count = $traitData[$trait]['count'] ? : 0;
 				$totalCount += $count;
-				$title = implode(", ", $traitData[$trait]['known']);
+				$title = implode(", ", $traitData[$trait]['known']). "\n\nUnknown: " . implode(", ", $traitData[$trait]['unknown']);
 				$output .= "<td title='$title'>$count</td>";
 			}
 		
