@@ -960,6 +960,73 @@ EOT;
 	}
 	
 	
+	public function createAccountResearchSlotData($charId, $craftType)
+	{
+		$output = "";
+		
+		$knownCount = $this->getAccountStatsField($charId, "Research:$craftType:Trait:Known");
+		$totalCount = $this->getAccountStatsField($charId, "Research:$craftType:Trait:Total");
+	
+		$openSlots = $this->getAccountStatsField($charId,"Research:$craftType:Open");
+		$timeStamp = $this->getAccountStatsField($charId,"Research:Timestamp");
+	
+		$researchTimes = array();
+		$researchTraits = array();
+		$researchItems = array();
+		$extraTraits = array();
+	
+		for ($i = 1; $i <= 3; ++$i)
+		{
+			$researchTraits[] = $this->getAccountStatsField($charId, "Research:$craftType:Trait$i");
+			$researchTimes[]  = $this->getAccountStatsField($charId, "Research:$craftType:Time$i");
+			$researchItems[]  = $this->getAccountStatsField($charId, "Research:$craftType:Item$i");
+		}
+	
+		foreach ($researchTimes as $i => $time)
+		{
+			$trait = $researchTraits[$i];
+			$item  = $researchItems[$i];
+				
+			if ($time == "" || $trait == "" || $item == "") continue;
+				
+			$finishTime = intval($time) + intval($timeStamp);
+			$timeLeft   = intval($time) + intval($timeStamp) - time();
+				
+			$days = floor($timeLeft / 3600 / 24);
+			$hours = floor($timeLeft / 3600) % 24;
+			$minutes = floor($timeLeft / 60) % 60;
+			$seconds = $timeLeft % 60;
+			$timeFmt = "";
+	
+			if ($days > 1)
+				$timeFmt = sprintf("%d days %02d:%02d:%02d", $days, $hours, $minutes, $seconds);
+			else if ($days > 0)
+				$timeFmt = sprintf("%d day %02d:%02d:%02d", $days, $hours, minutes, $seconds);
+			else
+				$timeFmt = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
+							
+			if ($timeLeft <= 0)
+			{
+				++$openSlots;
+				++$knownCount;
+				$output .= "$trait $item research is finished!<br/>";
+				$extraTraits[$item] = $trait;
+			}
+			else
+			{
+				$output .= "$trait $item finishes in $timeFmt<br/>";
+			}
+		}
+	
+		if ($knownCount >= $totalCount)
+			$output .= "Research Complete!";
+		else if ($openSlots > 0)
+			$output .= "$openSlots research slots available";
+	
+		return $output;
+	}
+	
+	
 	public function createCharResearchSummaryHtml()
 	{
 		$output  = "<p><br/>";
@@ -981,6 +1048,31 @@ EOT;
 		$clothingSum = $this->sumResearchArray($clothingData);
 		$woodworkSum = $this->sumResearchArray($woodworkData);
 		$numChars = count($this->buildData);
+		
+		$output .= "<h3>Current Research</h3>";
+		$output .= "<table class='ecdCharSummaryTable'>";
+		$output .= "<tr>";
+		$output .= "<th></th>";
+		$output .= "<th>Blacksmithing</th>";
+		$output .= "<th>Clothing</th>";
+		$output .= "<th>Woodworking</th>";
+		$output .= "</tr>";
+		
+		foreach ($this->buildData as $build)
+		{
+			$charId = $build['id'];
+			$charName = $this->escape($build['name']);
+			
+			$output .= "<tr>";
+			$output .= "<td>$charName</td>";
+			$output .= "<td>" . $this->createAccountResearchSlotData($charId, "Blacksmithing") . "</td>";
+			$output .= "<td>" . $this->createAccountResearchSlotData($charId, "Clothier") . "</td>";
+			$output .= "<td>" . $this->createAccountResearchSlotData($charId, "Woodworking") . "</td>";
+			$output .= "</tr>";
+		}
+		
+		$output .= "</table>";
+		$output .= "<p><br/>";
 		
 		$output .= "<h3>Blacksmithing</h3>";
 		$output .= "<table class='ecdCharSummaryTable'>";
