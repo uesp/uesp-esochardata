@@ -3188,7 +3188,6 @@ class EsoBuildDataViewer
 			$query[] = "findspecial=$value";
 		}
 		
-		
 		if ($this->viewMyBuilds) $query[] = "filter=mine";
 						
 		return implode("&", $query);
