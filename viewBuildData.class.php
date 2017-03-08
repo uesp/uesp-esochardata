@@ -971,6 +971,20 @@ class EsoBuildDataViewer
 					'{action34}' => $this->getCharActionHtml(3, 4),
 					'{action35}' => $this->getCharActionHtml(3, 5),
 					'{action36}' => $this->getCharActionHtml(3, 6),
+					'{action41}' => $this->getCharActionHtml(4, 1),
+					'{action42}' => $this->getCharActionHtml(4, 2),
+					'{action43}' => $this->getCharActionHtml(4, 3),
+					'{action44}' => $this->getCharActionHtml(4, 4),
+					'{action45}' => $this->getCharActionHtml(4, 5),
+					'{action46}' => $this->getCharActionHtml(4, 6),
+					'{actionBarTitle1}' => $this->getActionBarTitle(1),
+					'{actionBarTitle2}' => $this->getActionBarTitle(2),
+					'{actionBarTitle3}' => $this->getActionBarTitle(3),
+					'{actionBarTitle4}' => $this->getActionBarTitle(4),
+					'{activeBarIndex1}' => $this->getActionBarIndex(1),
+					'{activeBarIndex2}' => $this->getActionBarIndex(2),
+					'{activeBarIndex3}' => $this->getActionBarIndex(3),
+					'{activeBarIndex4}' => $this->getActionBarIndex(4),
 					'{attrMag}' => $this->getCharStatField('AttributesMagicka'),
 					'{attrHea}' => $this->getCharStatField('AttributesHealth'),
 					'{attrSta}' => $this->getCharStatField('AttributesStamina'),
@@ -1011,6 +1025,7 @@ class EsoBuildDataViewer
 					'{activeBarClass1}' => $this->getActiveAbilityBarClass(1),
 					'{activeBarClass2}' => $this->getActiveAbilityBarClass(2),
 					'{activeBarClass3}' => $this->getActiveAbilityBarClass(3),
+					'{activeBarClass4}' => $this->getActiveAbilityBarClass(4),
 					'{trail}' => $this->getBreadcrumbTrailHtml(),
 					'{characterLink}' => $this->getShortCharacterLinkHtml(),
 					'{inventoryContents}' => $this->getInventoryContentHtml(),
@@ -1253,11 +1268,66 @@ class EsoBuildDataViewer
 		
 		if ($barIndex == 3)	
 		{
-			if ($this->characterData['class'] != "Sorcerer" && $this->characterData['special'] != "Werewolf") return "ecdHiddenAbilityBar";
+				/* Handle old stats data that held both Werewolf and Overload skills in bar3 */
+			if ($this->characterData['special'] == "Werewolf")
+			{
+				if ($this->getCharStatField('Bar4:Health') == "") return "";
+			}
+			
+			if ($this->characterData['class'] != "Sorcerer") return "ecdHiddenAbilityBar";
+			return "";
+		}
+		else if ($barIndex == 4)
+		{
+			if ($this->characterData['special'] != "Werewolf") return "ecdHiddenAbilityBar";
+			if ($this->getCharStatField('Bar4:Health') == "") return "ecdHiddenAbilityBar";
 			return "";
 		}
 		
 		return "";
+	}
+	
+	
+	public function getActionBarTitle($barIndex)
+	{
+		if ($barIndex == 1) return "Bar 1";
+		if ($barIndex == 2) return "Bar 2";
+		
+		if ($barIndex == 3) 
+		{
+			if ($this->characterData['special'] == "Werewolf")
+			{
+				if ($this->getCharStatField('Bar4:Health') == "") return "Werewolf";
+			}
+			
+			return "Overload";
+		}
+		
+		if ($barIndex == 4)
+		{
+			return "Werewolf";
+		}
+		
+		return "Bar $barIndex";
+	}
+	
+	
+	public function getActionBarIndex($barIndex)
+	{
+		if ($barIndex == 1) return "1";
+		if ($barIndex == 2) return "2";
+		
+		if ($barIndex == 3)
+		{
+			return $this->getCharStatField('Bar3:ActiveWeaponBar', "-1");
+		}
+		
+		if ($barIndex == 4)
+		{
+			return $this->getCharStatField('Bar4:ActiveWeaponBar', "-1");
+		}
+		
+		return "$barIndex";
 	}
 	
 	

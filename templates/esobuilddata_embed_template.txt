@@ -76,7 +76,7 @@
 		</div>
 	</div>
 	<div id='ecdActionBar'>
-		<div class='ecdActionBar1 {activeBarClass1}'>
+		<div class='ecdActionBar1 {activeBarClass1}' activeweaponbar="1">
 			<div class='ecdActionBarTitle'>Bar 1</div>
 			{action11}
 			{action12}
@@ -86,7 +86,7 @@
 			&nbsp; &nbsp; &nbsp; &nbsp;
 			{action16}
 		</div>
-		<div class='ecdActionBar2 {activeBarClass2}'>
+		<div class='ecdActionBar2 {activeBarClass2}' activeweaponbar="2">
 			<div class='ecdActionBarTitle'>Bar 2</div>
 			{action21}
 			{action22}
@@ -96,8 +96,8 @@
 			&nbsp; &nbsp; &nbsp; &nbsp;
 			{action26}
 		</div>
-		<div class='ecdActionBar3 {activeBarClass3}'>
-			<div class='ecdActionBarTitle'>Bar 3</div>
+		<div class='ecdActionBar3 {activeBarClass3}' activeweaponbar="{activeBarIndex3}">
+			<div class='ecdActionBarTitle'>{actionBarTitle3}</div>
 			{action31}
 			{action32}
 			{action33}
@@ -105,6 +105,16 @@
 			{action35}
 			&nbsp; &nbsp; &nbsp; &nbsp;
 			{action36}
+		</div>
+		<div class='ecdActionBar4 {activeBarClass4}' activeweaponbar="{activeBarIndex4}">
+			<div class='ecdActionBarTitle'>{actionBarTitle4}</div>
+			{action41}
+			{action42}
+			{action43}
+			{action44}
+			{action45}
+			&nbsp; &nbsp; &nbsp; &nbsp;
+			{action46}
 		</div>
 	</div>
 	<div class='ecdRawLink'><a href="{rawLink}">View Raw Data</a></div>
