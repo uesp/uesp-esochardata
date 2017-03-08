@@ -1063,7 +1063,7 @@ EOT;
 		$numChars = count($this->buildData);
 		
 		$output .= "<h3>Current Research</h3>";
-		$output .= "<table class='ecdCharSummaryTable'>";
+		$output .= "<table id='ecdCharResearchSummary' class='ecdCharSummaryTable'>";
 		$output .= "<tr>";
 		$output .= "<th></th>";
 		$output .= "<th>Blacksmithing</th>";
