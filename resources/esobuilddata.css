@@ -1597,3 +1597,7 @@ thead.ecdFixedHeader tr {
 	background-color: #ff0;
 	cursor: pointer;
 }
+
+#ecdCharResearchSummary td {
+	border-bottom: 1px solid #ccc;
+}
