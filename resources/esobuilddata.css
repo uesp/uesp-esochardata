@@ -1562,3 +1562,40 @@ thead.ecdFixedHeader tr {
 	width: 80px;
 	color: #fff;
 }
+
+.ecdCharSummaryTable {
+	background: none;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+
+.ecdCharSummaryTable td {
+	text-align: center;	
+	padding: 3px;
+	border-left: 1px solid #ccc;
+}
+
+.ecdCharSummaryTable th {
+	padding: 3px;
+	border-left: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+.ecdCharSummaryTable td:first-child {
+	font-weight: bold;
+	text-align: left;
+	border-left: none;	
+}
+
+.ecdCharSummaryTable th:first-child {
+	border-left: none;
+}
+
+.ecdCharSummaryTable tr:hover {
+	background-color: #ccc;
+}
+
+.ecdCharSummaryTable td:hover {
+	background-color: #ff0;
+	cursor: pointer;
+}
