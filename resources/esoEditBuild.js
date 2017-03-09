@@ -1489,7 +1489,12 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "Magicka",
 		display: "%",
-		match: /Increases your Max Magicka by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increases your Max Magicka by ([0-9]+\.?[0-9]*)% and /i,
+	},
+	{
+		statId: "Magicka",
+		display: "%",
+		match: /Increases your Max Magicka by ([0-9]+\.?[0-9]*)%\./i,
 	},
 	{
 		statId: "Health",
@@ -6004,7 +6009,7 @@ function ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData,
 		
 		buffData.skillEnabled = true;
 		buffData.skillAbilities.push(abilityData);
-		AddEsoItemRawOutputString(abilityData, "Adds Buff", buffData.buffId);
+		AddEsoItemRawOutputString(abilityData, "Adds Buff", matchData.buffId);
 		AddEsoItemRawOutputString(buffData, (isPassive ? "Passive Skill" : "Active Skill"), abilityData.name);
 	}
 	else if (matchData.statId == "OtherEffects")
@@ -6168,8 +6173,11 @@ function AddEsoItemRawOutput(itemData, statId, value)
 function AddEsoItemRawOutputString(itemData, statId, value)
 {
 	if (itemData.rawOutput == null) itemData.rawOutput = {};
-	if (itemData.rawOutput[statId] == null)	itemData.rawOutput[statId] = "";
-	itemData.rawOutput[statId] += "" + value;
+	
+	if (itemData.rawOutput[statId] == null)	
+		itemData.rawOutput[statId] = value;
+	else
+		itemData.rawOutput[statId] += ", " + value;
 }
 
 
