@@ -73,6 +73,7 @@ class EsoBuildDataViewer
 	public $accountData = array();
 	public $accountCharacters = array();
 	public $accountStats = array();
+	public $accountBuffs = array();
 	
 	public $characterId = 0;
 	public $viewRawData = false;
@@ -718,7 +719,7 @@ class EsoBuildDataViewer
 	{
 		return True;
 	}
-		
+	
 	
 	public function loadCharacterAccountCurrency(&$arrayData)
 	{
@@ -863,6 +864,37 @@ class EsoBuildDataViewer
 			$this->accountStats[$charId][$row['name']] = $row;
 		}
 		
+		return true;
+	}
+	
+	
+	public function loadAccountBuffs()
+	{
+		$charIds = array();
+	
+		foreach ($this->buildData as $build)
+		{
+			$charIds[] = $build['id'];
+		}
+	
+		if (count($charIds) == 0) return false;
+	
+		$this->lastQuery = "SELECT * FROM buffs WHERE characterId IN (" . implode(",", $charIds) . ");";
+		$result = $this->db->query($this->lastQuery);
+		if ($result === FALSE) return $this->reportError("Failed to load buffs data for account $accountName!");
+	
+		$result->data_seek(0);
+		$this->accountBuffs = array();
+		$count = 0;
+	
+		while (($row = $result->fetch_assoc()))
+		{
+			++$count;
+			$charId = intval($row['characterId']);
+			if ($this->accountBuffs[$charId] === null) $this->accountBuffs[$charId] = array();
+			$this->accountBuffs[$charId][$row['name']] = $row;
+		}
+	
 		return true;
 	}
 	
@@ -3029,6 +3061,42 @@ class EsoBuildDataViewer
 		
 		$pngIcon = preg_replace("/\.dds$/", ".png", $icon);
 		return self::ESO_ICON_URL . $pngIcon;
+	}
+	
+	
+	public function GetCharMundus()
+	{
+		$mundus = "";
+		if ($this->characterData == null) return "";
+	
+		foreach ($this->characterData['buffs'] as $buff)
+		{
+			if (preg_match("#Boon\: (.*)#", $buff['name'], $matches))
+			{
+				if ($mundus != "") $mundus .= "+";
+				$mundus .= $matches[1];
+			}
+		}
+	
+		return $mundus;
+	}
+	
+	
+	public function GetAccountCharMundus($charId)
+	{
+		if ($this->accountBuffs[$charId] === null) return "";
+		$mundus = "";
+	
+		foreach ($this->accountBuffs[$charId] as $buff)
+		{
+			if (preg_match("#Boon\: (.*)#", $buff['name'], $matches))
+			{
+				if ($mundus != "") $mundus .= "+";
+				$mundus .= $matches[1];
+			}
+		}
+	
+		return $mundus;
 	}
 	
 	
