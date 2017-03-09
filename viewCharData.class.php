@@ -465,6 +465,7 @@ EOT;
 		if ($this->buildData[0] != null)
 		{
 			$this->loadAccountStats($this->buildData[0]['accountName']);
+			$this->loadAccountBuffs($this->buildData[0]['accountName']);			
 		}
 		
 		usort($this->buildData, array('EsoCharDataViewer', 'SortBuildsByName'));
@@ -527,6 +528,7 @@ EOT;
 		$output .= "<th>Inv Used</th>";
 		$output .= "<th>Inv Total</th>";
 		$output .= "<th>Skill Points</th>";
+		$output .= "<th>Mundus</th>";
 		$output .= "</tr>";
 		
 		//InventorySize
@@ -561,6 +563,7 @@ EOT;
 			$invUsed = intval($this->getAccountStatsField($charId, 'InventoryUsedSize', 0));
 			$invTotal = intval($this->getAccountStatsField($charId, 'InventorySize', 0));
 			$skillPoints = intval($this->getAccountStatsField($charId, 'SkillPointsTotal', 0));
+			$mundus = $this->escape($this->GetAccountCharMundus($charId));
 			
 			$totalGold += $gold;
 			$totalAP += $ap;
@@ -579,6 +582,7 @@ EOT;
 			$output .= "<td>$invUsed</td>";
 			$output .= "<td>$invTotal</td>";
 			$output .= "<td>$skillPoints</td>";
+			$output .= "<td>$mundus</td>";
 			$output .= "</tr>";			
 		}
 		
@@ -603,6 +607,7 @@ EOT;
 		$output .= "<td>$invUsed</td>";
 		$output .= "<td>$invTotal</td>";
 		$output .= "<td>-</td>";
+		$output .= "<td>-</td>";
 		$output .= "</tr>";
 		
 		$output .= "<tr>";
@@ -614,6 +619,7 @@ EOT;
 		$output .= "<th>$totalInvUsed</th>";
 		$output .= "<th>$totalInv</th>";
 		$output .= "<th>$totalSkillPoints</th>";
+		$output .= "<th>-</th>";
 		$output .= "</tr>";
 
 		$output .= "</table>";
@@ -1544,5 +1550,6 @@ EOT;
 	}
 	
 };
+
 
 
