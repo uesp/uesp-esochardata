@@ -346,6 +346,11 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>9 March 2017</b>
+			<ul>
+				<li>Fixed the Nightblade's Magicka Flood passive from counting twice or without any Siphoning skills slotted.</li>
+			</ul>
+			<p>
 			<b>8 March 2017</b>
 			<ul>
 				<li>Added 2 extra ability bars for Overload and Werewolf.</li>
