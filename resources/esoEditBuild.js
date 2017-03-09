@@ -10571,6 +10571,8 @@ function CreateEsoBuildActionBarSaveData(saveData, inputValues)
 	{
 		for (var slotIndex = 0; slotIndex < 6; ++slotIndex)
 		{
+			if (g_EsoSkillBarData[barIndex] == null) continue;
+			
 			var slotData = g_EsoSkillBarData[barIndex][slotIndex];
 			var index = barIndex*100 + slotIndex + 3;
 			var data = {};
