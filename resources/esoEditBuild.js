@@ -7811,7 +7811,7 @@ function OnEsoSelectItem(itemData, element)
 	iconElement.attr("setcount", "0");
 	iconElement.attr("enchantfactor", "0");
 	
-	 UpdateWeaponEquipSlots(itemData, slotId);
+	UpdateWeaponEquipSlots(itemData, slotId);
 	
 	g_EsoBuildItemData[slotId] = itemData;
 	RequestEsoItemData(itemData, element);
@@ -7839,6 +7839,59 @@ function UpdateWeaponEquipSlots(itemData, slotId)
 		if (g_EsoBuildEnchantData["OffHand2"].type == 20 && itemData.weaponType == 14) UnequipEsoEnchantSlot("OffHand2", false);
 	}
 	
+}
+
+
+function RequestEsoChangeTraitData(itemData, newTrait, slotId)
+{
+	if (itemData.itemId == null || itemData.itemId == "") return false;
+	if (itemData.level == null || itemData.level == "") return false;
+	if (itemData.quality == null || itemData.quality == "") return false;
+	
+	var queryParams = {
+			"text" : itemData.name,
+			"set" : itemData.setName,
+			"equiptype" : itemData.equipType,
+			"type" : itemData.type,
+			"weapontype" : itemData.weaponType,
+			"armortype" : itemData.armorType,
+			"quality" : itemData.quality,
+			"level" : itemData.level,
+			"intlevel" : itemData.internalLevel,
+			"intype" : itemData.internalSubtype,
+			"trait" : newTrait,
+	};
+
+	$.ajax("http://esolog.uesp.net/esoItemSearchPopup.php", {
+			data: queryParams,
+		}).
+		done(function(data, status, xhr) { OnEsoRequestChangeTraitReceive(data, status, xhr, slotId, itemData); }).
+		fail(function(xhr, status, errorMsg) { OnEsoItemDataError(xhr, status, errorMsg); });
+}
+
+
+function OnEsoRequestChangeTraitReceive(data, status, xhr, slotId, origItemData)
+{
+	if (slotId == null || slotId == "") return false;
+	
+	//EsoBuildLog("OnEsoRequestChangeTraitReceive", slotId, data.length, data);
+	
+	var itemData = data[0];
+	if (itemData == null || itemData.itemId == null) return false;
+	
+	var tempItemData = {};
+	var element = $(".esotbItem[slotid='" + slotId + "']");
+	var iconElement = element.find(".esotbItemIcon");
+	
+	tempItemData.itemId = itemData.itemId;
+	tempItemData.level = origItemData.level;
+	tempItemData.quality = origItemData.quality;
+	tempItemData.internalLevel = origItemData.internalLevel;
+	tempItemData.internalSubtype = origItemData.internalSubtype;
+	
+	iconElement.attr("itemid", itemData.itemId);
+	
+	RequestEsoItemData(tempItemData, element);	
 }
 
 
@@ -9335,8 +9388,6 @@ function UpdateEsoBuildToggledSetData()
 		var setName = setId;
 		if (toggleData.setId != null) setName = toggleData.setId;
 		
-		//console.log("SetData", setId, setName);
-		
 		var setData = g_EsoBuildSetData[setName];
 		if (setData == null) continue;
 		
@@ -10808,7 +10859,6 @@ function CreateEsoBuildSkillSaveData(saveData, inputValues)
 
 function CreateEsoBuildSaveDataForSkill(saveData, abilityData, skillData)
 {
-	
 	//EsoBuildLog("CreateEsoBuildSaveDataForSkill", abilityData, skillData);
 	
 	var data = {};
@@ -11377,8 +11427,6 @@ function OnEsoEditBuildSetupArmorEnchant(element)
 	var form = $("#esotbItemSetupArmorEnchant");
 	var formValue = form.val();
 	
-	EsoBuildLog("OnEsoEditBuildSetupArmorEnchant", formValue);
-	
 	if (formValue == "none")
 	{
 		UpdateAllArmorEnchantData({});
@@ -11415,8 +11463,8 @@ function UpdateAllArmorEnchantData(itemData)
 	UpdateEnchantSlotData('Hands', itemData);
 	UpdateEnchantSlotData('Shoulders', itemData);
 	
-	if (g_EsoBuildItemData['OffHand1'].type == 14) UpdateEnchantSlotData('OffHand1', itemData);
-	if (g_EsoBuildItemData['OffHand2'].type == 14) UpdateEnchantSlotData('OffHand2', itemData);
+	if (g_EsoBuildItemData['OffHand1'].weaponType == 14) UpdateEnchantSlotData('OffHand1', itemData);
+	if (g_EsoBuildItemData['OffHand2'].weaponType == 14) UpdateEnchantSlotData('OffHand2', itemData);
 }
 
 
@@ -11426,7 +11474,7 @@ function UpdateEnchantSlotData(slotId, itemData, element)
 	var level = itemData.internalLevel;
 	var subtype = itemData.internalSubtype;
 	
-	if (element == null) element = $("#esotbItems").children(".esotbItem[slotid='" + slotId + "']");
+	if (element == null) element = $("#esotbItems").find(".esotbItem[slotid='" + slotId + "']");
 	if (itemId == null) itemId = 0;
 	if (level == null) level = 0;
 	if (subtype == null) subtype = 0;
@@ -11445,7 +11493,33 @@ function OnEsoEditBuildSetupArmorTrait(element)
 	var form = $("#esotbItemSetupArmorTrait");
 	var formValue = form.val();
 	
-	EsoBuildLog("OnEsoEditBuildSetupArmorTrait", formValue);
+	EsoEditBuildChangeAllArmorTraits(formValue);
+}
+
+
+function EsoEditBuildChangeAllArmorTraits(newTrait)
+{
+	EsoBuildChangeSlotTrait('Chest', newTrait);
+	EsoBuildChangeSlotTrait('Head', newTrait);
+	EsoBuildChangeSlotTrait('Feet', newTrait);
+	EsoBuildChangeSlotTrait('Legs', newTrait);
+	EsoBuildChangeSlotTrait('Waist', newTrait);
+	EsoBuildChangeSlotTrait('Hands', newTrait);
+	EsoBuildChangeSlotTrait('Shoulders', newTrait);
+	
+	if (g_EsoBuildItemData['OffHand1'].weaponType == 14) EsoBuildChangeSlotTrait('OffHand1', newTrait);
+	if (g_EsoBuildItemData['OffHand2'].weaponType == 14) EsoBuildChangeSlotTrait('OffHand2', newTrait);
+}
+
+
+function EsoBuildChangeSlotTrait(slotId, newTrait)
+{
+	if (g_EsoBuildItemData[slotId] == null) return false;
+	if (g_EsoBuildItemData[slotId].trait == newTrait) return true;
+	
+	RequestEsoChangeTraitData(g_EsoBuildItemData[slotId], newTrait, slotId);
+	
+	return true;
 }
 
 
@@ -11559,6 +11633,4 @@ function esotbOnDocReady()
 
 
 $( document ).ready(esotbOnDocReady);
-
-
 

@@ -588,7 +588,7 @@ class EsoBuildDataParser
 		$race = $this->getSafeFieldStr($buildData, 'Race');
 		$buildType = $this->getSafeFieldStr($buildData, 'BuildType');
 		$alliance = $this->getSafeFieldStr($buildData, 'Alliance');
-		$level = $this->getSafeFieldInt($buildData, 'EffectiveLevel');
+		$level = $this->getSafeFieldInt($buildData, 'Level');
 		$createTime = $this->getSafeFieldInt($buildData, 'TimeStamp');
 		$special = '';
 		$championPoints = 0;
@@ -604,6 +604,12 @@ class EsoBuildDataParser
 		}
 		
 		$championPoints = $buildData['ChampionPointsEarned'];
+		
+		if ($level == 50)
+		{
+			$level = 50 + intval($championPoints/10);
+			if ($level > 66) $level = 66;
+		}
 		
 		if ($buildData['Vampire'] == 1) $special = "Vampire";
 		if ($buildData['Werewolf'] == 1) $special = "Werewolf";
