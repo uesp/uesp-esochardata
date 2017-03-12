@@ -965,6 +965,28 @@ class EsoBuildDataViewer
 		//if ($this->getCharStatField('SkyShards') == "") return "none";
 		return "inline-block";
 	}
+	
+	
+	public function getCharRawLevel()
+	{
+		$level1 = $this->getCharField('level');
+		
+		$level2 = $this->getCharStatField('Level');
+		$cp = $this->getCharField('Level');
+		
+		if ($level2 != "")
+		{
+			if ($level2 == 50) 
+			{
+				$level2 = 50 + intval($cp/100);
+				if ($level2 > 66) $level2 = 66;
+			}
+			
+			return $level2;
+		}
+		
+		return $level1;
+	}
 		
 	
 	public function createCharacterOutput()
@@ -979,7 +1001,7 @@ class EsoBuildDataViewer
 					'{race}' => $this->getCharField('race'),
 					'{class}' => $this->getCharField('class'),
 					'{special}' => $this->getCharField('special'),				
-					'{level}' => $this->formatCharacterLevel($this->getCharField('level')),
+					'{level}' => $this->formatCharacterLevel($this->getCharRawLevel()),
 					'{alliance}' => strtoupper($this->getCharStatField('Alliance')),
 					'{allianceRank}' => $this->getCharStatField('AllianceRank'),
 					'{levelTitle}' => $this->getCharLevelTitle(),

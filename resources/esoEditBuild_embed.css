@@ -1091,6 +1091,10 @@ button.esotbWeaponSelect {
 	font-family: "Arial", sans-serif;
 }
 
+.esptbItemSetup {
+	padding: 7px;
+}
+
  .esptbItemSetup button {
  	margin-left: 20px;
 }
