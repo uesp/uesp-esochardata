@@ -7842,6 +7842,34 @@ function UpdateWeaponEquipSlots(itemData, slotId)
 }
 
 
+function RequestEsoChangeArmorTypeData(itemData, armorType, slotId)
+{
+	if (itemData.itemId == null || itemData.itemId == "") return false;
+	if (itemData.level == null || itemData.level == "") return false;
+	if (itemData.quality == null || itemData.quality == "") return false;
+	
+	var queryParams = {
+			"text" : itemData.setName,
+			"set" : itemData.setName,
+			"equiptype" : itemData.equipType,
+			"type" : itemData.type,
+			"weapontype" : itemData.weaponType,
+			"armortype" : armorType,
+			"quality" : itemData.quality,
+			"level" : itemData.level,
+			"intlevel" : itemData.internalLevel,
+			"intype" : itemData.internalSubtype,
+			"trait" : itemData.trait,
+	};
+
+	$.ajax("http://esolog.uesp.net/esoItemSearchPopup.php", {
+			data: queryParams,
+		}).
+		done(function(data, status, xhr) { OnEsoRequestChangeArmorTypeReceive(data, status, xhr, slotId, itemData); }).
+		fail(function(xhr, status, errorMsg) { OnEsoItemDataError(xhr, status, errorMsg); });
+}
+
+
 function RequestEsoChangeTraitData(itemData, newTrait, slotId)
 {
 	if (itemData.itemId == null || itemData.itemId == "") return false;
@@ -7890,6 +7918,33 @@ function OnEsoRequestChangeTraitReceive(data, status, xhr, slotId, origItemData)
 	tempItemData.internalSubtype = origItemData.internalSubtype;
 	
 	iconElement.attr("itemid", itemData.itemId);
+	
+	RequestEsoItemData(tempItemData, element);	
+}
+
+
+function OnEsoRequestChangeArmorTypeReceive(data, status, xhr, slotId, origItemData)
+{
+	if (slotId == null || slotId == "") return false;
+	
+	//EsoBuildLog("OnEsoRequestChangeArmorTypeReceive", slotId, data.length, data);
+	
+	var itemData = data[0];
+	if (itemData == null || itemData.itemId == null) return false;
+	
+	var tempItemData = {};
+	var element = $(".esotbItem[slotid='" + slotId + "']");
+	var iconElement = element.find(".esotbItemIcon");
+	var labelElement = element.find(".esotbItemLabel");
+	
+	tempItemData.itemId = itemData.itemId;
+	tempItemData.level = origItemData.level;
+	tempItemData.quality = origItemData.quality;
+	tempItemData.internalLevel = origItemData.internalLevel;
+	tempItemData.internalSubtype = origItemData.internalSubtype;
+	
+	iconElement.attr("itemid", itemData.itemId);
+	labelElement.text(itemData.name);
 	
 	RequestEsoItemData(tempItemData, element);	
 }
@@ -11520,6 +11575,64 @@ function EsoBuildChangeSlotTrait(slotId, newTrait)
 	RequestEsoChangeTraitData(g_EsoBuildItemData[slotId], newTrait, slotId);
 	
 	return true;
+}
+
+
+function OnEsoEditBuildSetupArmorTypes(element)
+{
+	var form = $("#esotbItemSetupArmorTypes");
+	var formValue = form.val();
+	var numLight = Math.floor(formValue/100) % 10;
+	var numMedium = Math.floor(formValue/10) % 10;
+	var numHeavy = Math.floor(formValue) % 10;;
+	
+	EsoEditBuildChangeArmorTypes(numLight, numMedium, numHeavy);
+}
+
+
+function EsoEditBuildChangeArmorTypes(numLight, numMedium, numHeavy)
+{
+	// 1 => "Light",
+	// 2 => "Medium",
+	// 3 => "Heavy",
+	var slots = [ "Chest", "Legs", "Head", "Feet", "Shoulders", "Hands", "Waist" ];
+	
+	//EsoBuildLog("EsoEditBuildChangeArmorTypes", numLight, numMedium, numHeavy);
+	
+	for (var i in slots)
+	{
+		var slot = slots[i];
+		
+		if (numHeavy > 0)
+		{
+			EsoBuildChangeArmorType(slot, 3);
+			--numHeavy;
+		}
+		else if (numMedium > 0)
+		{
+			EsoBuildChangeArmorType(slot, 2);
+			--numMedium;
+		}
+		else if (numLight > 0)
+		{
+			EsoBuildChangeArmorType(slot, 1);
+			--numLight;
+		}
+		else 
+		{
+			// Do nothing
+		}
+	}
+	
+}
+
+
+function EsoBuildChangeArmorType(slotId, armorType)
+{
+	if (g_EsoBuildItemData[slotId] == null) return false;
+	if (g_EsoBuildItemData[slotId].armorType == armorType) return true;
+	
+	RequestEsoChangeArmorTypeData(g_EsoBuildItemData[slotId], armorType, slotId);
 }
 
 

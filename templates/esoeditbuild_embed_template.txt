@@ -228,7 +228,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p />&nbsp;<p />
 			<h3>Common Item Setups</h3>
 			<hr>
-			Note: The following features are under development and probably don't work perfectly yet.
+			Note: The following features are under development and may not work perfectly yet.
 			<p />
 			Use the following to quickly change your build with commonly used setups. All items used will be CP160 Gold quality unless specified. 
 			<p />
@@ -242,10 +242,11 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 					<option value="prismatic">Prismatic</option>
 				</select>
 				<button id="esotbItemSetupArmorEnchantButton" onclick="OnEsoEditBuildSetupArmorEnchant(this);">Change</button>
+				<div id="esotbItemSetupArmorEnchantMsg" class="esotbItemSetupMsg"></div>
 			</div>
 			<div class="esptbItemSetup">
 				<div class="esotbItemSetupTitle">Armor Traits</div>
-				<select id="esotbItemSetupArmorTrait" slotid="allarmor">
+				<select id="esotbItemSetupArmorTrait">
 					<option value="0">None</option>
 					<option value="18">Divines</option>
 					<option value="12">Impenetrable</option>
@@ -257,6 +258,41 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 					<option value="14">Well-Fitted</option>
 				</select>
 				<button id="esotbItemSetupArmorTraitButton" onclick="OnEsoEditBuildSetupArmorTrait(this);">Change</button>
+				<div id="esotbItemSetupArmorTraitMsg" class="esotbItemSetupMsg"></div>
+			</div>
+			<div class="esptbItemSetup">
+				<div class="esotbItemSetupTitle">Armor Types</div>
+				<select id="esotbItemSetupArmorTypes">
+					<option value="700">7L / 0M / 0H</option>
+					<option value="511">5L / 1M / 1H</option>
+					<option value="070">0L / 7M / 0H</option>
+					<option value="151">1L / 5M / 1H</option>
+					<option value="007">0L / 0M / 7H</option>
+					<option value="115">1L / 1M / 5H</option>
+				</select>
+				<button id="esotbItemSetupArmorTypesButton" onclick="OnEsoEditBuildSetupArmorTypes(this);">Change</button>
+				<div id="esotbItemSetupArmorTypeMsg" class="esotbItemSetupMsg"></div>
+			</div>
+			<div class="esptbItemSetup">
+				Change Jewelry Trait
+			</div>
+			<div class="esptbItemSetup">
+				Change All Item/Enchant Quality
+			</div>
+			<div class="esptbItemSetup">
+				Change Jewelry Quality
+			</div>
+			<div class="esptbItemSetup">
+				Change Enchant Quality
+			</div>
+			<div class="esptbItemSetup">
+				Change Armor Quality
+			</div>
+			<div class="esptbItemSetup">
+				Change Weapon Quality
+			</div>
+			<div class="esptbItemSetup">
+				Change Level?
 			</div>
 		</div>
 		<div id="esotbStatBlockSkills" class="esotbStatBlock" style="display: none;">

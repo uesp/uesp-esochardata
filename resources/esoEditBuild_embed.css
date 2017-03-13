@@ -1107,3 +1107,17 @@ button.esotbWeaponSelect {
     white-space: nowrap;
     width: 580px;
 }
+
+.esotbItemSetupTitle {
+	width: 150px;
+	text-align: right;
+}
+
+.esptbItemSetup select {
+	width: 110px;
+}
+
+.esotbItemSetupMsg {
+	display: inline-block;
+	padding-left: 20px;
+}
