@@ -67,6 +67,55 @@ g_EsoFormulaInputValues = {};
 g_EsoInputStatSources = {};
 
 
+var ESO_ITEMQUALITYLEVEL_INTTYPEMAP = 
+{
+		 1 : [1,  30,  31,  32,  33,  34],
+		 4 : [1,  25,  26,  27,  28,  29],
+		 6 : [1,  20,  21,  22,  23,  24],
+		50 : [1,  20,  21,  22,  23,  24], //?
+		51 : [1, 125, 135, 145, 155, 156],
+		52 : [1, 126, 136, 146, 156, 166],
+		53 : [1, 127, 137, 147, 157, 167],
+		54 : [1, 128, 138, 148, 158, 168],
+		55 : [1, 129, 139, 149, 159, 169],
+		56 : [1, 130, 140, 150, 160, 170],
+		57 : [1, 131, 141, 151, 161, 171],
+		58 : [1, 132, 142, 152, 162, 172],
+		59 : [1, 133, 143, 153, 163, 173],
+		60 : [1, 134, 144, 154, 164, 174],
+		61 : [1, 236, 237, 238, 239, 240],
+		62 : [1, 254, 255, 256, 257, 258],
+		63 : [1, 272, 273, 274, 275, 276],
+		64 : [1, 290, 291, 292, 293, 294],
+		65 : [1, 308, 309, 310, 311, 312],
+		66 : [1, 366, 367, 368, 369, 370],
+};
+
+var ESO_ITEMQUALITYLEVEL_INTTYPEMAP_JEWELRY = 
+{
+		 1 : [1,  30,  31,  32,  33,  34],
+		 4 : [1,  25,  26,  27,  28,  29],
+		 6 : [1,  20,  21,  22,  23,  24],
+		50 : [1,  20,  21,  22,  23,  24],  //?
+		51 : [1, 125, 135, 145, 155, 156],
+		52 : [1, 126, 136, 146, 156, 166],
+		53 : [1, 127, 137, 147, 157, 167],
+		54 : [1, 128, 138, 148, 158, 168],
+		55 : [1, 129, 139, 149, 159, 169],
+		56 : [1, 130, 140, 150, 160, 170],
+		57 : [1, 131, 141, 151, 161, 171],
+		58 : [1, 132, 142, 152, 162, 172],
+		59 : [1, 133, 143, 153, 163, 173],
+		60 : [1, 134, 144, 154, 164, 174],
+		61 : [1, 236, 237, 238, 239, 240],
+		62 : [1, 254, 255, 256, 257, 258],
+		63 : [1, 272, 273, 274, 275, 276],
+		64 : [1, 290, 291, 292, 293, 294],
+		65 : [1, 308, 309, 310, 311, 312], //TODO: and previous levels
+		66 : [1, 365, 359, 362, 363, 364],
+};
+
+
 ESO_MUNDUS_BUFF_DATA = 
 {
 	"The Atronach" : {
@@ -7842,6 +7891,178 @@ function UpdateWeaponEquipSlots(itemData, slotId)
 }
 
 
+function GetEsoIntDataFromLevelQuality(level, quality, equipType)
+{
+	level = parseInt(level);
+	quality = parseInt(quality)
+	var result = { type: 1, level: level };
+	var typeMap = ESO_ITEMQUALITYLEVEL_INTTYPEMAP;
+	
+	if (result.level > 50) result.level = 50;
+	if (result.level <  1) result.level = 1;
+	
+	if (equipType == 12 || equipType == 2) typeMap = ESO_ITEMQUALITYLEVEL_INTTYPEMAP_JEWELRY;
+	
+	for (var l in typeMap)
+	{
+		var levelData = typeMap[l];
+		
+		if (level <= l)
+		{
+			if (levelData[quality] == null) return result;
+			result.type = levelData[quality];
+			break;
+		}
+	}
+	
+	if (result.level == null || result.level <= 0) return null;
+	if (result.type  == null || result.type   < 0) return null;
+	
+	return result;
+}
+
+
+function GetEsoIntTypeFromLevelQuality(level, quality, equipType)
+{
+	level = parseInt(level);
+	quality = parseInt(quality);
+	var typeMap = ESO_ITEMQUALITYLEVEL_INTTYPEMAP;
+	var returnType = null;
+	
+	if (equipType == 2 || equipType == 12) typeMap = ESO_ITEMQUALITYLEVEL_INTTYPEMAP_JEWELRY;
+	
+	for (var l in typeMap)
+	{
+		var levelData = typeMap[l];
+		
+		if (level <= l)
+		{
+			if (levelData[quality] == null) return returnType;
+			returnType = levelData[quality];
+			break;
+		}
+	}
+	
+	return returnType;
+}
+
+
+function RequestEsoChangeItemLevelData(itemData, level, slotId, msgElement)
+{
+	if (itemData.itemId == null || itemData.itemId == "") return false;
+	if (itemData.level == null || itemData.level == "") return false;
+	if (itemData.quality == null || itemData.quality == "") return false;
+	if (slotId == null || slotId == "") return false;
+	
+	var newIntData = GetEsoIntDataFromLevelQuality(level, itemData.quality, itemData.equipType);
+	if (newIntData == null) return false;
+	
+	var tempItemData = {};
+	var element = $(".esotbItem[slotid='" + slotId + "']");
+	var iconElement = element.find(".esotbItemIcon");
+	
+	tempItemData.itemId = itemData.itemId;
+	tempItemData.level = level;
+	tempItemData.quality = itemData.quality;
+	tempItemData.internalLevel = newIntData.level;
+	tempItemData.internalSubtype = newIntData.type;
+	
+	iconElement.attr("intlevel", newIntData.level);
+	iconElement.attr("inttype", newIntData.type);
+	
+	RequestEsoItemData(tempItemData, element);
+	
+	return true;
+}
+
+
+function RequestEsoChangeEnchantLevelData(itemData, level, slotId, msgElement)
+{
+	if (itemData.itemId == null || itemData.itemId == "") return false;
+	if (itemData.level == null || itemData.level == "") return false;
+	if (itemData.quality == null || itemData.quality == "") return false;
+	if (slotId == null || slotId == "") return false;
+	
+	var newIntData = GetEsoIntDataFromLevelQuality(level, itemData.quality, itemData.equipType);
+	if (newIntData == null) return false;
+	
+	var tempItemData = {};
+	var element = $(".esotbItem[slotid='" + slotId + "']");
+	var iconElement = element.find(".esotbItemIcon");
+	
+	tempItemData.itemId = itemData.itemId;
+	tempItemData.level = level;
+	tempItemData.quality = itemData.quality;
+	tempItemData.internalLevel = newIntData.level;
+	tempItemData.internalSubtype = newIntData.type;
+	
+	iconElement.attr("enchantintlevel", newIntData.level);
+	iconElement.attr("enchantinttype", newIntData.type);
+	
+	RequestEsoEnchantData(tempItemData, element);
+	
+	return true;
+}
+
+
+function RequestEsoChangeItemQualityData(itemData, quality, slotId, msgElement)
+{
+	if (itemData.itemId == null || itemData.itemId == "") return false;
+	if (itemData.level == null || itemData.level == "") return false;
+	if (itemData.quality == null || itemData.quality == "") return false;
+	if (slotId == null || slotId == "") return false;
+	
+	var newIntType = GetEsoIntTypeFromLevelQuality(itemData.level, quality, itemData.equipType);
+	if (newIntType == null) return false;
+	
+	var tempItemData = {};
+	var element = $(".esotbItem[slotid='" + slotId + "']");
+	var iconElement = element.find(".esotbItemIcon");
+	
+	tempItemData.itemId = itemData.itemId;
+	tempItemData.level = itemData.level;
+	tempItemData.quality = quality;
+	tempItemData.internalLevel = itemData.internalLevel;
+	tempItemData.internalSubtype = newIntType;
+	
+	iconElement.attr("intlevel", itemData.internalLevel);
+	iconElement.attr("inttype", newIntType);
+	
+	RequestEsoItemData(tempItemData, element);
+	
+	return true;
+}
+
+
+function RequestEsoChangeEnchantQualityData(itemData, quality, slotId, msgElement)
+{
+	if (itemData.itemId == null || itemData.itemId == "") return false;
+	if (itemData.level == null || itemData.level == "") return false;
+	if (itemData.quality == null || itemData.quality == "") return false;
+	if (slotId == null || slotId == "") return false;
+	
+	var newIntType = GetEsoIntTypeFromLevelQuality(itemData.level, quality, itemData.equipType);
+	if (newIntType == null) return false;
+	
+	var tempItemData = {};
+	var element = $(".esotbItem[slotid='" + slotId + "']");
+	var iconElement = element.find(".esotbItemIcon");
+	
+	tempItemData.itemId = itemData.itemId;
+	tempItemData.level = itemData.level;
+	tempItemData.quality = quality;
+	tempItemData.internalLevel = itemData.internalLevel;
+	tempItemData.internalSubtype = newIntType;
+	
+	iconElement.attr("enchantintlevel", itemData.internalLevel);
+	iconElement.attr("enchantinttype", newIntType);
+	
+	RequestEsoEnchantData(tempItemData, element);
+	
+	return true;
+}
+
+
 function RequestEsoChangeArmorTypeData(itemData, armorType, slotId)
 {
 	if (itemData.itemId == null || itemData.itemId == "") return false;
@@ -7865,12 +8086,21 @@ function RequestEsoChangeArmorTypeData(itemData, armorType, slotId)
 	$.ajax("http://esolog.uesp.net/esoItemSearchPopup.php", {
 			data: queryParams,
 		}).
-		done(function(data, status, xhr) { OnEsoRequestChangeArmorTypeReceive(data, status, xhr, slotId, itemData); }).
-		fail(function(xhr, status, errorMsg) { OnEsoItemDataError(xhr, status, errorMsg); });
+		done(function(data, status, xhr) { OnEsoRequestChangeArmorTypeReceive(data, status, xhr, slotId, itemData, armorType); }).
+		fail(function(xhr, status, errorMsg) { OnEsoChangeArmorTypeError(xhr, status, errorMsg, armorType); });
+	
+	return true;
 }
 
 
-function RequestEsoChangeTraitData(itemData, newTrait, slotId)
+function OnEsoChangeArmorTypeError(xhr, status, errorMsg, armorType)
+{
+	var text = $("#esotbItemSetupArmorTraitMsg").text();
+	$("#esotbItemSetupArmorTypeMsg").text(text + " No " + slotId + " item found! ")
+}
+
+
+function RequestEsoChangeTraitData(itemData, newTrait, slotId, msgElement)
 {
 	if (itemData.itemId == null || itemData.itemId == "") return false;
 	if (itemData.level == null || itemData.level == "") return false;
@@ -7893,19 +8123,34 @@ function RequestEsoChangeTraitData(itemData, newTrait, slotId)
 	$.ajax("http://esolog.uesp.net/esoItemSearchPopup.php", {
 			data: queryParams,
 		}).
-		done(function(data, status, xhr) { OnEsoRequestChangeTraitReceive(data, status, xhr, slotId, itemData); }).
-		fail(function(xhr, status, errorMsg) { OnEsoItemDataError(xhr, status, errorMsg); });
+		done(function(data, status, xhr) { OnEsoRequestChangeTraitReceive(data, status, xhr, slotId, itemData, newTrait, msgElement); }).
+		fail(function(xhr, status, errorMsg) { OnEsoRequestChangeTraitError(xhr, status, errorMsg, slotId, newTrait, msgElement); });
+	
+	return true;
 }
 
 
-function OnEsoRequestChangeTraitReceive(data, status, xhr, slotId, origItemData)
+function OnEsoRequestChangeTraitError(xhr, status, errorMsg, slotId, newTrait, msgElement)
+{
+	var text = $(msgElement).text();
+	$(msgElement).text(text + " No " + slotId + " item found! ")
+}
+
+
+function OnEsoRequestChangeTraitReceive(data, status, xhr, slotId, origItemData, newTrait, msgElement)
 {
 	if (slotId == null || slotId == "") return false;
 	
 	//EsoBuildLog("OnEsoRequestChangeTraitReceive", slotId, data.length, data);
 	
+	var text = $(msgElement).text();
 	var itemData = data[0];
-	if (itemData == null || itemData.itemId == null) return false;
+	
+	if (itemData == null || itemData.itemId == null) 
+	{
+		$(msgElement).text(text + " No " + slotId + " item found! ")
+		return false;
+	}
 	
 	var tempItemData = {};
 	var element = $(".esotbItem[slotid='" + slotId + "']");
@@ -7923,14 +8168,20 @@ function OnEsoRequestChangeTraitReceive(data, status, xhr, slotId, origItemData)
 }
 
 
-function OnEsoRequestChangeArmorTypeReceive(data, status, xhr, slotId, origItemData)
+function OnEsoRequestChangeArmorTypeReceive(data, status, xhr, slotId, origItemData, armorType)
 {
 	if (slotId == null || slotId == "") return false;
 	
 	//EsoBuildLog("OnEsoRequestChangeArmorTypeReceive", slotId, data.length, data);
 	
 	var itemData = data[0];
-	if (itemData == null || itemData.itemId == null) return false;
+	var text = $("#esotbItemSetupArmorTypeMsg").text();
+	
+	if (itemData == null || itemData.itemId == null) 
+	{
+		$("#esotbItemSetupArmorTypeMsg").text(text + " No " + slotId + " item found! ")
+		return false;
+	}
 	
 	var tempItemData = {};
 	var element = $(".esotbItem[slotid='" + slotId + "']");
@@ -8736,7 +8987,7 @@ function RequestEsoEnchantData(itemData, element)
 			data: queryParams,
 		}).
 		done(function(data, status, xhr) { OnEsoEnchantDataReceive(data, status, xhr, element, itemData); }).
-		fail(function(xhr, status, errorMsg) { OnEsoEnchantDataError(xhr, status, errorMsg); });
+		fail(function(xhr, status, errorMsg) { OnEsoEnchantDataError(xhr, status, errorMsg, element); });
 }
 
 
@@ -8759,8 +9010,13 @@ function OnEsoEnchantDataReceive(data, status, xhr, element, origItemData)
 }
 
 
-function OnEsoEnchantDataError(xhr, status, errorMsg)
+function OnEsoEnchantDataError(xhr, status, errorMsg, element)
 {
+	
+	if (element != null && $(element).attr("slotId") == "allarmor")
+	{
+		$("#esotbItemSetupArmorEnchantMsg").text("No armor enchantment found!");
+	}
 }
 
 
@@ -11482,6 +11738,8 @@ function OnEsoEditBuildSetupArmorEnchant(element)
 	var form = $("#esotbItemSetupArmorEnchant");
 	var formValue = form.val();
 	
+	$("#esotbItemSetupArmorEnchantMsg").text("");
+	
 	if (formValue == "none")
 	{
 		UpdateAllArmorEnchantData({});
@@ -11510,6 +11768,8 @@ function OnEsoEditBuildSetupArmorEnchant(element)
 
 function UpdateAllArmorEnchantData(itemData)
 {
+	updateCount = 7;
+		
 	UpdateEnchantSlotData('Chest', itemData);
 	UpdateEnchantSlotData('Head', itemData);
 	UpdateEnchantSlotData('Feet', itemData);
@@ -11518,8 +11778,10 @@ function UpdateAllArmorEnchantData(itemData)
 	UpdateEnchantSlotData('Hands', itemData);
 	UpdateEnchantSlotData('Shoulders', itemData);
 	
-	if (g_EsoBuildItemData['OffHand1'].weaponType == 14) UpdateEnchantSlotData('OffHand1', itemData);
-	if (g_EsoBuildItemData['OffHand2'].weaponType == 14) UpdateEnchantSlotData('OffHand2', itemData);
+	if (g_EsoBuildItemData['OffHand1'].weaponType == 14) { ++updateCount; UpdateEnchantSlotData('OffHand1', itemData); }
+	if (g_EsoBuildItemData['OffHand2'].weaponType == 14) { ++updateCount; UpdateEnchantSlotData('OffHand2', itemData); }
+	
+	$("#esotbItemSetupArmorEnchantMsg").text("Updated " + updateCount + " armor enchantments!");
 }
 
 
@@ -11548,33 +11810,103 @@ function OnEsoEditBuildSetupArmorTrait(element)
 	var form = $("#esotbItemSetupArmorTrait");
 	var formValue = form.val();
 	
+	$("#esotbItemSetupArmorTraitMsg").text("");
+	
 	EsoEditBuildChangeAllArmorTraits(formValue);
+}
+
+
+function OnEsoEditBuildSetupJewelryTrait(element)
+{
+	var form = $("#esotbItemSetupJewelryTrait");
+	var formValue = form.val();
+	
+	$("#esotbItemSetupJewelryTraitMsg").text("");
+	
+	EsoEditBuildChangJewelryTraits(formValue);
+}
+
+
+function OnEsoEditBuildSetupWeaponTrait(element)
+{
+	var form = $("#esotbItemSetupWeaponTrait");
+	var formValue = form.val();
+	
+	$("#esotbItemSetupWeaponTraitMsg").text("");
+	
+	EsoEditBuildChangWeaponTraits(formValue);
 }
 
 
 function EsoEditBuildChangeAllArmorTraits(newTrait)
 {
-	EsoBuildChangeSlotTrait('Chest', newTrait);
-	EsoBuildChangeSlotTrait('Head', newTrait);
-	EsoBuildChangeSlotTrait('Feet', newTrait);
-	EsoBuildChangeSlotTrait('Legs', newTrait);
-	EsoBuildChangeSlotTrait('Waist', newTrait);
-	EsoBuildChangeSlotTrait('Hands', newTrait);
-	EsoBuildChangeSlotTrait('Shoulders', newTrait);
+	var msgElement = $("#esotbItemSetupArmorTraitMsg");
+	var count = 0;
 	
-	if (g_EsoBuildItemData['OffHand1'].weaponType == 14) EsoBuildChangeSlotTrait('OffHand1', newTrait);
-	if (g_EsoBuildItemData['OffHand2'].weaponType == 14) EsoBuildChangeSlotTrait('OffHand2', newTrait);
+	if (EsoBuildChangeSlotTrait('Chest', newTrait, msgElement)) ++count;
+	if (EsoBuildChangeSlotTrait('Head', newTrait, msgElement)) ++count;
+	if (EsoBuildChangeSlotTrait('Feet', newTrait, msgElement)) ++count;
+	if (EsoBuildChangeSlotTrait('Legs', newTrait, msgElement)) ++count;
+	if (EsoBuildChangeSlotTrait('Waist', newTrait, msgElement)) ++count;
+	if (EsoBuildChangeSlotTrait('Hands', newTrait, msgElement)) ++count;
+	if (EsoBuildChangeSlotTrait('Shoulders', newTrait, msgElement)) ++count;
+	
+	if (g_EsoBuildItemData['OffHand1'].weaponType == 14) 
+	{
+		if (EsoBuildChangeSlotTrait('OffHand1', newTrait, msgElement)) ++count;
+	}
+	
+	if (g_EsoBuildItemData['OffHand2'].weaponType == 14) 
+	{
+		if (EsoBuildChangeSlotTrait('OffHand2', newTrait, msgElement)) ++count;
+	}
+	
+	msgElement.text("Updating " + count + " armor... ");
 }
 
 
-function EsoBuildChangeSlotTrait(slotId, newTrait)
+function EsoEditBuildChangJewelryTraits(newTrait)
+{
+	var msgElement = $("#esotbItemSetupJewelryTraitMsg");
+	var count = 0;
+	
+	if (EsoBuildChangeSlotTrait('Neck', newTrait, msgElement)) ++count;
+	if (EsoBuildChangeSlotTrait('Ring1', newTrait, msgElement)) ++count;
+	if (EsoBuildChangeSlotTrait('Ring2', newTrait, msgElement)) ++count;
+	
+	msgElement.text("Updating " + count + " jewelry... ");
+}
+
+
+function EsoEditBuildChangWeaponTraits(newTrait)
+{
+	var msgElement = $("#esotbItemSetupWeaponTraitMsg");
+	var count = 0;
+	
+	if (EsoBuildChangeSlotTrait('MainHand1', newTrait, msgElement)) ++count;
+	if (EsoBuildChangeSlotTrait('MainHand2', newTrait, msgElement)) ++count;
+	
+	if (g_EsoBuildItemData['OffHand1'].weaponType != 14) 
+	{
+		if (EsoBuildChangeSlotTrait('OffHand1', newTrait, msgElement)) ++count;
+	}
+	
+	if (g_EsoBuildItemData['OffHand2'].weaponType != 14) 
+	{
+		if (EsoBuildChangeSlotTrait('OffHand2', newTrait, msgElement)) ++count;
+	}
+	
+	msgElement.text("Updating " + count + " weapons... ");
+}
+
+
+function EsoBuildChangeSlotTrait(slotId, newTrait, msgElement)
 {
 	if (g_EsoBuildItemData[slotId] == null) return false;
+	if (g_EsoBuildItemData[slotId].itemId == null) return false;
 	if (g_EsoBuildItemData[slotId].trait == newTrait) return true;
 	
-	RequestEsoChangeTraitData(g_EsoBuildItemData[slotId], newTrait, slotId);
-	
-	return true;
+	return RequestEsoChangeTraitData(g_EsoBuildItemData[slotId], newTrait, slotId, msgElement);
 }
 
 
@@ -11586,6 +11918,8 @@ function OnEsoEditBuildSetupArmorTypes(element)
 	var numMedium = Math.floor(formValue/10) % 10;
 	var numHeavy = Math.floor(formValue) % 10;;
 	
+	$("#esotbItemSetupArmorTypeMsg").text("");
+	
 	EsoEditBuildChangeArmorTypes(numLight, numMedium, numHeavy);
 }
 
@@ -11596,6 +11930,7 @@ function EsoEditBuildChangeArmorTypes(numLight, numMedium, numHeavy)
 	// 2 => "Medium",
 	// 3 => "Heavy",
 	var slots = [ "Chest", "Legs", "Head", "Feet", "Shoulders", "Hands", "Waist" ];
+	var count = 0;
 	
 	//EsoBuildLog("EsoEditBuildChangeArmorTypes", numLight, numMedium, numHeavy);
 	
@@ -11605,17 +11940,17 @@ function EsoEditBuildChangeArmorTypes(numLight, numMedium, numHeavy)
 		
 		if (numHeavy > 0)
 		{
-			EsoBuildChangeArmorType(slot, 3);
+			if (EsoBuildChangeArmorType(slot, 3)) ++count;
 			--numHeavy;
 		}
 		else if (numMedium > 0)
 		{
-			EsoBuildChangeArmorType(slot, 2);
+			if (EsoBuildChangeArmorType(slot, 2)) ++count;
 			--numMedium;
 		}
 		else if (numLight > 0)
 		{
-			EsoBuildChangeArmorType(slot, 1);
+			if (EsoBuildChangeArmorType(slot, 1)) ++count;
 			--numLight;
 		}
 		else 
@@ -11624,15 +11959,298 @@ function EsoEditBuildChangeArmorTypes(numLight, numMedium, numHeavy)
 		}
 	}
 	
+	$("#esotbItemSetupArmorTypeMsg").text("Updating " + count + " armor... ");
 }
 
 
 function EsoBuildChangeArmorType(slotId, armorType)
 {
 	if (g_EsoBuildItemData[slotId] == null) return false;
+	if (g_EsoBuildItemData[slotId].itemId == null) return false;
 	if (g_EsoBuildItemData[slotId].armorType == armorType) return true;
 	
-	RequestEsoChangeArmorTypeData(g_EsoBuildItemData[slotId], armorType, slotId);
+	return RequestEsoChangeArmorTypeData(g_EsoBuildItemData[slotId], armorType, slotId);
+}
+
+
+function OnEsoEditBuildSetupAllQualities(element)
+{
+	var form = $("#esotbItemSetupAllQualities");
+	var formValue = form.val();
+	
+	$("#esotbItemSetupAllQualitiesMsg").text("");
+	
+	EsoEditBuildChangeAllQualities(formValue);
+}
+
+
+function OnEsoEditBuildSetupWeaponQualities(element)
+{
+	var form = $("#esotbItemSetupWeaponQualities");
+	var formValue = form.val();
+	
+	$("#esotbItemSetupWeaponQualitiesMsg").text("");
+	
+	EsoEditBuildChangeWeaponQualities(formValue);
+}
+
+
+function OnEsoEditBuildSetupArmorQualities(element)
+{
+	var form = $("#esotbItemSetupArmorQualities");
+	var formValue = form.val();
+	
+	$("#esotbItemSetupArmorQualitiesMsg").text("");
+	
+	EsoEditBuildChangeArmorQualities(formValue);
+}
+
+
+function OnEsoEditBuildSetupEnchantQualities(element)
+{
+	var form = $("#esotbItemSetupEnchantQualities");
+	var formValue = form.val();
+	
+	$("#esotbItemSetupEnchantQualitiesMsg").text("");
+	
+	EsoEditBuildChangeEnchantQualities(formValue);
+}
+
+
+function OnEsoEditBuildSetupJewelryQualities(element)
+{
+	var form = $("#esotbItemSetupJewelryQualities");
+	var formValue = form.val();
+	
+	$("#esotbItemSetupJewelryQualitiesMsg").text("");
+	
+	EsoEditBuildChangeJewelryQualities(formValue);
+}
+
+
+function EsoEditBuildChangeAllQualities(newQuality)
+{
+	var msgElement = $("#esotbItemSetupAllQualitiesMsg");
+	var count = 0;
+		
+	if (EsoBuildChangeSlotQuality('Chest', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeSlotQuality('Head', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeSlotQuality('Feet', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeSlotQuality('Legs', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeSlotQuality('Waist', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeSlotQuality('Hands', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeSlotQuality('Shoulders', newQuality, msgElement)) ++count;
+	
+	if (EsoBuildChangeSlotQuality('Neck', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeSlotQuality('Ring1', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeSlotQuality('Ring2', newQuality, msgElement)) ++count;
+	
+	if (EsoBuildChangeSlotQuality('MainHand1', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeSlotQuality('MainHand2', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeSlotQuality('OffHand1', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeSlotQuality('OffHand2', newQuality, msgElement)) ++count;
+	
+	if (EsoBuildChangeEnchantQuality('Chest', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('Head', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('Feet', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('Legs', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('Waist', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('Hands', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('Shoulders', newQuality, msgElement)) ++count;
+	
+	if (EsoBuildChangeEnchantQuality('Neck', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('Ring1', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('Ring2', newQuality, msgElement)) ++count;
+	
+	if (EsoBuildChangeEnchantQuality('MainHand1', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('MainHand2', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('OffHand1', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('OffHand2', newQuality, msgElement)) ++count;
+	
+	$(msgElement).text("Updating " + count + " items/enchants... ");
+}
+
+
+function EsoEditBuildChangeJewelryQualities(newQuality)
+{
+	var msgElement = $("#esotbItemSetupJewelryQualitiesMsg");
+	var count = 0;
+	
+	if (EsoBuildChangeSlotQuality('Neck', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeSlotQuality('Ring1', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeSlotQuality('Ring2', newQuality, msgElement)) ++count;
+	
+	$(msgElement).text("Updating " + count + " jewelry items... ");
+}
+
+
+function EsoEditBuildChangeArmorQualities(newQuality)
+{
+	var msgElement = $("#esotbItemSetupArmorQualitiesMsg");
+	var count = 0;
+	
+	if (EsoBuildChangeSlotQuality('Chest', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeSlotQuality('Head', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeSlotQuality('Feet', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeSlotQuality('Legs', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeSlotQuality('Waist', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeSlotQuality('Hands', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeSlotQuality('Shoulders', newQuality, msgElement)) ++count;
+	
+	if (g_EsoBuildItemData['OffHand1'].weaponType == 14) 
+	{
+		if (EsoBuildChangeSlotQuality('OffHand1', newQuality, msgElement)) ++count;
+	}
+	
+	if (g_EsoBuildItemData['OffHand2'].weaponType == 14) 
+	{
+		if (EsoBuildChangeSlotQuality('OffHand2', newQuality, msgElement)) ++count;
+	}
+		
+	$(msgElement).text("Updating " + count + " armor items... ");
+}
+
+
+function EsoEditBuildChangeWeaponQualities(newQuality)
+{
+	var msgElement = $("#esotbItemSetupWeaponQualitiesMsg");
+	var count = 0;
+	
+	if (EsoBuildChangeSlotQuality('MainHand1', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeSlotQuality('MainHand2', newQuality, msgElement)) ++count;
+	
+	if (g_EsoBuildItemData['OffHand1'].weaponType != 14) 
+	{
+		if (EsoBuildChangeSlotQuality('OffHand1', newQuality, msgElement)) ++count;
+	}
+	
+	if (g_EsoBuildItemData['OffHand2'].weaponType != 14) 
+	{
+		if (EsoBuildChangeSlotQuality('OffHand2', newQuality, msgElement)) ++count;
+	}
+		
+	$(msgElement).text("Updating " + count + " weapon items... ");
+}
+
+
+function EsoEditBuildChangeEnchantQualities(newQuality)
+{
+	var msgElement = $("#esotbItemSetupEnchantQualitiesMsg");
+	var count = 0;
+	
+	if (EsoBuildChangeEnchantQuality('Chest', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('Head', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('Feet', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('Legs', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('Waist', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('Hands', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('Shoulders', newQuality, msgElement)) ++count;
+	
+	if (EsoBuildChangeEnchantQuality('Neck', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('Ring1', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('Ring2', newQuality, msgElement)) ++count;
+	
+	if (EsoBuildChangeEnchantQuality('MainHand1', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('MainHand2', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('OffHand1', newQuality, msgElement)) ++count;
+	if (EsoBuildChangeEnchantQuality('OffHand2', newQuality, msgElement)) ++count;
+	
+	$(msgElement).text("Updating " + count + " enchantments... ");
+}
+
+
+function EsoBuildChangeSlotLevel(slotId, newLevel, msgElement)
+{
+	if (g_EsoBuildItemData[slotId] == null) return false;
+	if (g_EsoBuildItemData[slotId].itemId == null) return false;
+	if (g_EsoBuildItemData[slotId].level == newLevel) return true;
+
+	return RequestEsoChangeItemLevelData(g_EsoBuildItemData[slotId], newLevel, slotId, msgElement);
+}
+
+
+function EsoBuildChangeEnchantLevel(slotId, newLevel, msgElement)
+{
+	if (g_EsoBuildEnchantData[slotId] == null) return false;
+	if (g_EsoBuildEnchantData[slotId].itemId == null) return false;
+	if (g_EsoBuildEnchantData[slotId].level == newLevel) return true;
+	
+	return RequestEsoChangeEnchantLevelData(g_EsoBuildItemData[slotId], newLevel, slotId, msgElement);
+}
+
+
+function EsoBuildChangeSlotQuality(slotId, newQuality, msgElement)
+{
+	if (g_EsoBuildItemData[slotId] == null) return false;
+	if (g_EsoBuildItemData[slotId].itemId == null) return false;
+	if (g_EsoBuildItemData[slotId].quality == newQuality) return true;
+	
+	return RequestEsoChangeItemQualityData(g_EsoBuildItemData[slotId], newQuality, slotId, msgElement);
+}
+
+
+function EsoBuildChangeEnchantQuality(slotId, newQuality, msgElement)
+{
+	if (g_EsoBuildEnchantData[slotId] == null) return false;
+	if (g_EsoBuildEnchantData[slotId].itemId == null) return false;
+	if (g_EsoBuildEnchantData[slotId].quality == newQuality) return true;
+	
+	return RequestEsoChangeEnchantQualityData(g_EsoBuildEnchantData[slotId], newQuality, slotId, msgElement);
+}
+
+
+
+function OnEsoEditBuildSetupAllLevel(element)
+{
+	var form = $("#esotbItemSetupAllLevel");
+	var formValue = form.val();
+	
+	$("#esotbItemSetupAllLevelMsg").text("");
+	
+	EsoEditBuildChangeAllLevel(formValue);
+}
+
+
+function EsoEditBuildChangeAllLevel(newLevel)
+{
+	var msgElement = $("#esotbItemSetupAllLevelMsg");
+	var count = 0;
+		
+	if (EsoBuildChangeSlotLevel('Chest', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeSlotLevel('Head', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeSlotLevel('Feet', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeSlotLevel('Legs', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeSlotLevel('Waist', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeSlotLevel('Hands', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeSlotLevel('Shoulders', newLevel, msgElement)) ++count;
+	
+	if (EsoBuildChangeSlotLevel('Neck', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeSlotLevel('Ring1', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeSlotLevel('Ring2', newLevel, msgElement)) ++count;
+	
+	if (EsoBuildChangeSlotLevel('MainHand1', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeSlotLevel('MainHand2', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeSlotLevel('OffHand1', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeSlotLevel('OffHand2', newLevel, msgElement)) ++count;
+	
+	if (EsoBuildChangeEnchantLevel('Chest', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeEnchantLevel('Head', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeEnchantLevel('Feet', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeEnchantLevel('Legs', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeEnchantLevel('Waist', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeEnchantLevel('Hands', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeEnchantLevel('Shoulders', newLevel, msgElement)) ++count;
+	
+	if (EsoBuildChangeEnchantLevel('Neck', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeEnchantLevel('Ring1', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeEnchantLevel('Ring2', newLevel, msgElement)) ++count;
+	
+	if (EsoBuildChangeEnchantLevel('MainHand1', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeEnchantLevel('MainHand2', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeEnchantLevel('OffHand1', newLevel, msgElement)) ++count;
+	if (EsoBuildChangeEnchantLevel('OffHand2', newLevel, msgElement)) ++count;
+	
+	$(msgElement).text("Updating " + count + " items/enchants... ");
 }
 
 

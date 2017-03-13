@@ -251,6 +251,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 					<option value="18">Divines</option>
 					<option value="12">Impenetrable</option>
 					<option value="16">Infused</option>
+					<option value="25">Nirnhoned</option>
 					<option value="17">Prosperous</option>
 					<option value="13">Reinforced</option>
 					<option value="11">Sturdy</option>
@@ -274,25 +275,107 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 				<div id="esotbItemSetupArmorTypeMsg" class="esotbItemSetupMsg"></div>
 			</div>
 			<div class="esptbItemSetup">
-				Change Jewelry Trait
+				<div class="esotbItemSetupTitle">Jewelry Trait</div>
+				<select id="esotbItemSetupJewelryTrait">
+					<option value="0">None</option>
+					<option value="22">Arcane</option>
+					<option value="21">Heathly</option>
+					<option value="23">Robust</option>
+				</select>
+				<button id="esotbItemSetupJewelryTraitButton" onclick="OnEsoEditBuildSetupJewelryTrait(this);">Change</button>
+				<div id="esotbItemSetupJewelryTraitMsg" class="esotbItemSetupMsg"></div>
 			</div>
 			<div class="esptbItemSetup">
-				Change All Item/Enchant Quality
+				<div class="esotbItemSetupTitle">Jewelry Quality</div>
+				<select id="esotbItemSetupJewelryQualities">
+					<option value="1">Normal</option>
+					<option value="2">Fine</option>
+					<option value="3">Superior</option>
+					<option value="4">Epic</option>
+					<option value="5">Legendary</option>
+				</select>
+				<button id="esotbItemSetupJewelryQualitiesButton" onclick="OnEsoEditBuildSetupJewelryQualities(this);">Change</button>
+				<div id="esotbItemSetupJewelryQualitiesMsg" class="esotbItemSetupMsg"></div>
 			</div>
 			<div class="esptbItemSetup">
-				Change Jewelry Quality
+				<div class="esotbItemSetupTitle">All Item/Enchant Quality</div>
+				<select id="esotbItemSetupAllQualities">
+					<option value="1">Normal</option>
+					<option value="2">Fine</option>
+					<option value="3">Superior</option>
+					<option value="4">Epic</option>
+					<option value="5">Legendary</option>
+				</select>
+				<button id="esotbItemSetupAllQualitiesButton" onclick="OnEsoEditBuildSetupAllQualities(this);">Change</button>
+				<div id="esotbItemSetupAllQualitiesMsg" class="esotbItemSetupMsg"></div>
+			</div>			
+			<div class="esptbItemSetup">
+				<div class="esotbItemSetupTitle">All Enchant Quality</div>
+				<select id="esotbItemSetupEnchantQualities">
+					<option value="1">Normal</option>
+					<option value="2">Fine</option>
+					<option value="3">Superior</option>
+					<option value="4">Epic</option>
+					<option value="5">Legendary</option>
+				</select>
+				<button id="esotbItemSetupEnchantQualitiesButton" onclick="OnEsoEditBuildSetupEnchantQualities(this);">Change</button>
+				<div id="esotbItemSetupEnchantQualitiesMsg" class="esotbItemSetupMsg"></div>
 			</div>
 			<div class="esptbItemSetup">
-				Change Enchant Quality
+				<div class="esotbItemSetupTitle">Armor Quality</div>
+				<select id="esotbItemSetupArmorQualities">
+					<option value="1">Normal</option>
+					<option value="2">Fine</option>
+					<option value="3">Superior</option>
+					<option value="4">Epic</option>
+					<option value="5">Legendary</option>
+				</select>
+				<button id="esotbItemSetupArmorQualitiesButton" onclick="OnEsoEditBuildSetupArmorQualities(this);">Change</button>
+				<div id="esotbItemSetupArmorQualitiesMsg" class="esotbItemSetupMsg"></div>
 			</div>
 			<div class="esptbItemSetup">
-				Change Armor Quality
+				<div class="esotbItemSetupTitle">Weapon Quality</div>
+				<select id="esotbItemSetupWeaponQualities">
+					<option value="1">Normal</option>
+					<option value="2">Fine</option>
+					<option value="3">Superior</option>
+					<option value="4">Epic</option>
+					<option value="5">Legendary</option>
+				</select>
+				<button id="esotbItemSetupWeaponQualitiesButton" onclick="OnEsoEditBuildSetupWeaponQualities(this);">Change</button>
+				<div id="esotbItemSetupWeaponQualitiesMsg" class="esotbItemSetupMsg"></div>
 			</div>
 			<div class="esptbItemSetup">
-				Change Weapon Quality
+				<div class="esotbItemSetupTitle">Weapon Traits</div>
+				<select id="esotbItemSetupWeaponTrait">
+					<option value="0">None</option>
+					<option value="2">Charged</option>
+					<option value="8">Decisive</option>
+					<option value="5">Defending</option>					
+					<option value="4">Infused</option>
+					<option value="26">Nirnhoned</option>
+					<option value="1">Powered</option>
+					<option value="3">Precise</option>
+					<option value="7">Sharpened</option>
+					<option value="6">Training</option>
+				</select>
+				<button id="esotbItemSetupWeaponTraitButton" onclick="OnEsoEditBuildSetupWeaponTrait(this);">Change</button>
+				<div id="esotbItemSetupWeaponTraitMsg" class="esotbItemSetupMsg"></div>
 			</div>
 			<div class="esptbItemSetup">
-				Change Level?
+				<div class="esotbItemSetupTitle">All Item/Enchant Level</div>
+				<select id="esotbItemSetupAllLevel">
+					<option value="66">CP160</option>
+					<option value="65">CP150</option>
+					<option value="64">CP140</option>
+					<option value="57">CP70</option>					
+					<option value="51">CP10</option>
+					<option value="50">50</option>
+					<option value="25">25</option>
+					<option value="1">1</option>
+				</select>
+				<button id="esotbItemSetupAllLevelButton" onclick="OnEsoEditBuildSetupAllLevel(this);">Change</button>
+				<div id="esotbItemSetupAllLevelMsg" class="esotbItemSetupMsg"></div>
 			</div>
 		</div>
 		<div id="esotbStatBlockSkills" class="esotbStatBlock" style="display: none;">
@@ -382,6 +465,11 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>13 March 2017</b>
+			<ul>
+				<li>Implemented many of the item setups found at the bottom of the item tab.</li>
+			</ul>
+			<p>
 			<b>9 March 2017</b>
 			<ul>
 				<li>Fixed the Nightblade's Magicka Flood passive from counting twice or without any Siphoning skills slotted.</li>
