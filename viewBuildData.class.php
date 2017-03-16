@@ -81,6 +81,7 @@ class EsoBuildDataViewer
 	public $action = '';
 	public $confirm = '';
 	public $nonConfirm = '';
+	public $copyCharToNewBuildCharId = -1;
 	
 	public $db = null;
 	public $dbReadInitialized  = false;
@@ -406,6 +407,10 @@ class EsoBuildDataViewer
 			if ($this->currentCharacterPage < 0) $this->currentCharacterPage = 0;
 		}
 		
+		if (array_key_exists('copytobuild', $this->inputParams))
+		{
+			$this->copyCharToNewBuildCharId = intval($this->inputParams['copytobuild']);
+		}		
 	
 		return true;
 	}
@@ -486,7 +491,7 @@ class EsoBuildDataViewer
 		$this->totalCharacterCount = $row['count'];
 		
 		$this->totalCharacterPages = ceil($this->totalCharacterCount / $this->MAX_BUILD_DISPLAY);
-		if (($this->MAX_BUILD_DISPLAY % $this->totalCharacterCount) == 0) $this->totalCharacterPages -= 1;
+		if ($this->totalCharacterCount <= 0 || ($this->MAX_BUILD_DISPLAY % $this->totalCharacterCount) == 0) $this->totalCharacterPages -= 1;
 		
 		return true;
 	}
@@ -3864,6 +3869,12 @@ EOT;
 		return $output;
 	}
 	
+	
+	public function copyCharToNewBuild()
+	{
+		return false;
+	}
+	
 		
 	public function getOutput()
 	{
@@ -3885,6 +3896,11 @@ EOT;
 		{
 			$this->reportError("Error parsing input data!");
 			return $this->outputHtml;
+		}
+		
+		if ($this->copyCharToNewBuildCharId > 0)
+		{
+			if ($this->copyCharToNewBuild()) return $this->outputHtml;
 		}
 		
 		if ($this->action == 'delete')
