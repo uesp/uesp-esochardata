@@ -1491,6 +1491,11 @@ EOT;
 		$output = "";
 		$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
 		
+		if ($this->characterId > 0 && $this->canWikiUserCreate())
+		{
+			$output .= "<a href='?copytobuild={$this->characterId}' class='ecdShortCharLink'>Copy to New Build</a>";
+		}
+		
 		if ($this->characterId > 0) 
 		{
 			$charLink = $this->ESO_SHORT_LINK_URL . "c/" . $this->characterId;
@@ -1500,7 +1505,7 @@ EOT;
 		$output .= "<a href='http://esochars.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
 		return $output;
 	}
-	
+			
 	
 	public function deleteBuild()
 	{
@@ -1541,12 +1546,244 @@ EOT;
 	
 	public function getDeleteSuccessHtmlOutput($buildName, $charName, $id)
 	{
-	$output = "";
-	$output .= $this->getBreadcrumbTrailHtml();
-	$output  .= "<p />\n";
-	$output  .= "Successfully deleted character '$charName' (id #$id)! <br/>";
+		$output = "";
+		$output .= $this->getBreadcrumbTrailHtml();
+		$output  .= "<p />\n";
+		$output  .= "Successfully deleted character '$charName' (id #$id)! <br/>";
+		
+		return $output;
+	}
 	
-	return $output;
+	
+	public function createNewBuildFromCharacter()
+	{
+		$name = $this->db->real_escape_string($this->characterData['name']);
+		$buildName = $this->db->real_escape_string($this->characterData['buildName']);
+		$accountName = $this->db->real_escape_string($this->characterData['accoutName']);
+		$uniqueAccountName = $this->db->real_escape_string($this->characterData['uniqueAccountName']);
+		$wikiUserName = $this->db->real_escape_string($this->characterData['wikiUserName']);
+		$class = $this->db->real_escape_string($this->characterData['class']);
+		$race = $this->db->real_escape_string($this->characterData['race']);
+		$buildType = $this->db->real_escape_string($this->characterData['buildType']);
+		$alliance = $this->db->real_escape_string($this->characterData['alliance']);
+		$level = $this->characterData['level'];
+		$createTime = $this->characterData['createTime'];
+		$championPoints = $this->characterData['cp'];
+		$special = $this->db->real_escape_string($this->characterData['special']);
+		$uploadTimestamp = $this->db->real_escape_string($this->characterData['uploadTimestamp']);
+		$editTimestamp = $this->db->real_escape_string(date('Y-m-d G:i:s'));
+		
+		$query  = "INSERT INTO characters(name, buildName, accountName, uniqueAccountName, wikiUserName, class, race, buildType, level, createTime, championPoints, special, alliance, uploadTimestamp, editTimestamp) ";
+		$query .= "VALUES(\"$name\", \"$buildName\", \"$accountName\", \"$uniqueAccountName\", \"$wikiUserName\", \"$class\", \"$race\", \"$buildType\", $level, $createTime, $championPoints, \"$special\", \"$alliance\", '$uploadTimestamp', '$editTimestamp');";
+		$this->lastQuery = $query;
+		$result = $this->db->query($query);
+	
+		if ($result === FALSE)
+		{
+			$this->reportError("Failed to create new build record from character data!");
+			return -1;
+		}
+		
+		return $this->db->insert_id;
+	}
+	
+	
+	public function createNewBuildCPs($buildId)
+	{
+		
+		foreach ($this->characterData['championPoints'] as $data)
+		{
+			$name = $this->db->real_escape_string($data['name']);
+			$points = $data['points'];
+			$desc = $this->db->real_escape_string($data['description']);
+			$abilityId = $data['abilityId'];
+			
+			$query = "INSERT INTO championPoints(characterId, name, points, description, abilityId) ";
+			$query .= "VALUES($buildId, '$name', $points, '$desc', $abilityId);";
+			$this->lastQuery = $query;
+			
+			$result = $this->db->query($query);
+			if ($result === FALSE) $this->reportError("Failed to save new build record championPoints data!");
+		}
+		
+		return true;
+	}
+	
+	
+	public function createNewBuildBuffs($buildId)
+	{
+	
+		foreach ($this->characterData['buffs'] as $data)
+		{
+			$name = $this->db->real_escape_string($data['name']);
+			$icon = $this->db->real_escape_string($data['icon']);
+			$desc = $this->db->real_escape_string($data['description']);
+			$abilityId = $data['abilityId'];
+			$enabled = $data['enabled'];
+				
+			$query = "INSERT INTO buffs(characterId, name, icon, abilityId, description, enabled) ";
+			$query .= "VALUES($buildId, '$name', '$icon', $abilityId, '$desc', $enabled);";
+			$this->lastQuery = $query;
+				
+			$result = $this->db->query($query);
+			if ($result === FALSE) $this->reportError("Failed to save new build record buffs data!");
+		}
+	
+		return true;
+	}
+	
+	
+	public function createNewBuildSkills($buildId)
+	{
+	
+		foreach ($this->characterData['skills'] as $data)
+		{
+			$name = $this->db->real_escape_string($data['name']);
+			$icon = $this->db->real_escape_string($data['icon']);
+			$desc = $this->db->real_escape_string($data['description']);
+			$abilityId = $data['abilityId'];
+			$type = $this->db->real_escape_string($data['type']);
+			$index = $data['index'];
+			$rank = $data['rank'];
+			$area = $this->db->real_escape_string($data['area']);
+			$cost = $this->db->real_escape_string($data['cost']);
+			$range = $this->db->real_escape_string($data['range']);
+			$radius = $data['radius'];
+			$castTime = $data['castTime'];
+			$channelTime = $data['channelTime'];
+			$duration = $data['duration'];
+			$target = $this->db->real_escape_string($data['target']);			
+	
+			$query = "INSERT INTO skills(characterId, name, type, description, icon, abilityId, `index`, `rank`, area, cost, `range`, radius, castTime, channelTime, duration, target) ";
+			$query .= "VALUES($buildId, '$name', '$type', '$desc', '$icon', $abilityId, $index, $rank, '$area', '$cost', '$range', $radius, $castTime, $channelTime, $duration, '$target');";
+			$this->lastQuery = $query;
+	
+			$result = $this->db->query($query);
+			if ($result === FALSE) $this->reportError("Failed to save new build record skills data!");
+		}
+	
+		return true;
+	}
+	
+	
+	public function createNewBuildStats($buildId)
+	{
+	
+		foreach ($this->characterData['stats'] as $data)
+		{
+			$name = $this->db->real_escape_string($data['name']);
+			$value = $this->db->real_escape_string($data['value']);
+			
+			$query = "INSERT INTO stats(characterId, name, value) ";
+			$query .= "VALUES($buildId, '$name', '$value');";
+			$this->lastQuery = $query;
+	
+			$result = $this->db->query($query);
+			if ($result === FALSE) $this->reportError("Failed to save new build record stats data!");
+		}
+	
+		return true;
+	}
+	
+	
+	public function createNewBuildEquipment($buildId)
+	{
+	
+		foreach ($this->characterData['equipSlots'] as $data)
+		{
+			$name = $this->db->real_escape_string($data['name']);
+			$account = $this->db->real_escape_string($data['account']);
+			$itemLink = $this->db->real_escape_string($data['itemLink']);
+			$setName = $this->db->real_escape_string($data['setName']);
+			$icon = $this->db->real_escape_string($data['icon']);
+			$condition = $data['condition'];
+			$index = $data['index'];
+			$setCount = $data['setCount'];
+			$value = $data['value'];
+			$level = $data['level'];
+			$quality = $data['quality'];
+			$type = $data['type'];
+			$equipType = $data['equipType'];
+			$weaponType = $data['weaponType'];
+			$armorType = $data['armorType'];
+			$craftType = $data['craftType'];
+			$stolen = $data['stolen'];
+			$trait = $data['trait'];
+			$style = $data['style'];
+				
+			$query = "INSERT INTO equipSlots(characterId, account, name, icon, itemLink, setName, `condition`, `index`, setCount, value, level, quality, type, equipType, weaponType, armorType, craftType, stolen, trait, style) ";
+			$query .= "VALUES($buildId, '$account', '$name', '$icon', '$itemLink', '$setName', $condition, $index, $setCount, $value, $level, $quality, $type, $equipType, $weaponType, $armorType, $craftType, $stolen, $trait, $style);";
+			$this->lastQuery = $query;
+	
+			$result = $this->db->query($query);
+			if ($result === FALSE) $this->reportError("Failed to save new build record equipSlots data!");
+		}
+	
+		return true;
+	}
+	
+	
+	public function createNewBuildActionBars($buildId)
+	{
+	
+		foreach ($this->characterData['actionBars'] as $data)
+		{
+			$name = $this->db->real_escape_string($data['name']);
+			$icon = $this->db->real_escape_string($data['icon']);
+			$desc = $this->db->real_escape_string($data['description']);
+			$abilityId = $data['abilityId'];
+			$index = $data['index'];
+			$area = $this->db->real_escape_string($data['area']);
+			$cost = $this->db->real_escape_string($data['cost']);
+			$range = $this->db->real_escape_string($data['range']);
+			$radius = $data['radius'];
+			$castTime = $data['castTime'];
+			$channelTime = $data['channelTime'];
+			$duration = $data['duration'];
+			$target = $this->db->real_escape_string($data['target']);
+	
+			$query = "INSERT INTO actionBars(characterId, name, description, icon, abilityId, `index`, area, cost, `range`, radius, castTime, channelTime, duration, target) ";
+			$query .= "VALUES($buildId, '$name', '$desc', '$icon', $abilityId, $index, '$area', '$cost', '$range', $radius, $castTime, $channelTime, $duration, '$target');";
+			$this->lastQuery = $query;
+	
+			$result = $this->db->query($query);
+			if ($result === FALSE) $this->reportError("Failed to save new build record actionBars data!");
+		}
+	
+		return true;
+	}
+	
+	
+	public function redirectToNewBuild($buildId)
+	{
+		header("Location: http://esobuilds.uesp.net/b/$buildId");
+		return true;
+	}
+	
+	
+	public function copyCharToNewBuild()
+	{
+		if ($this->copyCharToNewBuildCharId <= 0) return false;
+		
+		$this->characterId = $this->copyCharToNewBuildCharId;
+				
+		if (!$this->loadCharacter()) return true;
+		if (!parent::initDatabaseWrite()) return true;
+		
+		$buildId = $this->createNewBuildFromCharacter();
+		if ($buildId <= 0) return true;
+		
+		$this->createNewBuildCPs($buildId);
+		$this->createNewBuildBuffs($buildId);
+		$this->createNewBuildSkills($buildId);
+		$this->createNewBuildStats($buildId);
+		$this->createNewBuildEquipment($buildId);
+		$this->createNewBuildActionBars($buildId);
+		
+		$this->redirectToNewBuild($buildId);
+		$this->outputHtml .= "<p/>Created <a href='http://esobuilds.uesp.net/b/$buildId'><b>New Build!</b></a>";
+				
+		return true;
 	}
 	
 };
