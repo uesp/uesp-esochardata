@@ -23,6 +23,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		$this->hasCharacterInventory = true;
 		$this->hasCharacterBank      = true;
 		$this->hasCharacterCraftBag  = true;
+		$this->hasCharacterRecipes   = true;
 	}
 	
 	
