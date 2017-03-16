@@ -3,7 +3,6 @@
 
 require_once("viewBuildData.class.php");
 require_once("/home/uesp/secrets/esochardata.secrets");
-require_once("/home/uesp/esolog.static/esoCommon.php");
 
 
 class EsoCharDataViewer extends EsoBuildDataViewer
@@ -21,6 +20,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		$this->hasCharacterBank      = true;
 		$this->hasCharacterCraftBag  = true;
 		$this->hasResearchOutput     = true;
+		$this->hasRecipeOutput       = true;		
 	}
 	
 	
@@ -508,7 +508,7 @@ EOT;
 		$output .= $this->createCharRidingSummaryHtml();
 		$output .= $this->createCharResearchSummaryHtml();
 		$output .= $this->createCharMotifSummaryHtml();
-		
+				
 		return $output;
 	}
 	
@@ -740,7 +740,7 @@ EOT;
 		return $sum;
 	}
 	
-	
+
 	public function createCharMotifSummaryHtml()
 	{
 		$output  = "<p><br/>";

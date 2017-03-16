@@ -15,6 +15,7 @@ class EsoBuildDataParser
 	public $hasCharacterInventory = false;
 	public $hasCharacterBank      = false;
 	public $hasCharacterCraftBag  = false;
+	public $hasCharacterRecipes   = false;
 	
 	public $inputParams = array();
 	public $rawBuildData = array();
@@ -720,6 +721,12 @@ class EsoBuildDataParser
 				return $this->saveCharacterCrafting($buildData, $name, $arrayData);
 			case "Research":
 				return $this->saveCharacterResearch($buildData, $name, $arrayData);
+			case "Recipes":
+				return $this->saveCharacterRecipes($buildData, $name, $arrayData);
+			case "Achievements":
+				return $this->saveCharacterAchievements($buildData, $name, $arrayData);
+			case "Books":
+				return $this->saveCharacterBooks($buildData, $name, $arrayData);
 			case "Stats":
 			case "Power":
 				return $this->saveCharacterArrayStats($buildData, $name, $arrayData);
@@ -1201,6 +1208,53 @@ class EsoBuildDataParser
 		foreach ($arrayData as $styleName => $value)
 		{
 			$key = "Research:" . $styleName;
+			$result &= $this->saveCharacterStatData($buildData, $key, $value);
+		}
+	
+		return $result;
+	}
+	
+	
+	public function saveCharacterRecipes($buildData, $name, $arrayData)
+	{
+		if (!$this->hasCharacterRecipes || $arrayData == null) return true;
+		
+		$result = true;
+		
+		foreach ($arrayData as $name => $value)
+		{
+			$result &= $this->saveCharacterStatData($buildData, $name, $value);
+		}
+	
+		return $result;
+	}
+	
+	
+	public function saveCharacterBooks($buildData, $name, $arrayData)
+	{
+		if ($arrayData == null) return true;
+	
+		$result = true;
+	
+		foreach ($arrayData as $name => $value)
+		{
+			$key = "Book:" . $name;
+			$result &= $this->saveCharacterStatData($buildData, $key, $value);
+		}
+	
+		return $result;
+	}
+	
+	
+	public function saveCharacterAchievements($buildData, $name, $arrayData)
+	{
+		if ($arrayData == null) return true;
+	
+		$result = true;
+	
+		foreach ($arrayData as $name => $value)
+		{
+			$key = "Achievement:" . $name;
 			$result &= $this->saveCharacterStatData($buildData, $key, $value);
 		}
 	

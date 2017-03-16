@@ -3,6 +3,7 @@
 
 require_once("/home/uesp/secrets/esobuilddata.secrets");
 require_once("/home/uesp/esolog.static/esoCommon.php");
+require_once("/home/uesp/esolog.static/esoRecipeData.php");
 
 
 class EsoBuildDataViewer
@@ -24,6 +25,7 @@ class EsoBuildDataViewer
 	public $hasCharacterBank      = false;
 	public $hasCharacterCraftBag  = false;
 	public $hasResearchOutput     = false;
+	public $hasRecipeOutput       = false;
 	public $combineInventoryItems = true;
 	public $combineBankItems      = true;
 	public $showCPLevel           = true;
@@ -1514,12 +1516,13 @@ class EsoBuildDataViewer
 			}	
 		}
 		
-		$output .= $this->getCharSkillMotifContentHtml();
-		
 		if ($this->hasResearchOutput)
 		{
+			$output .= $this->getCharSkillMotifContentHtml();
 			$output .= $this->getCharSkillResearchContentHtml();
 		}
+		
+		if ($this->hasRecipeOutput) $output .= $this->getCharSkillRecipeContentHtml();
 		
 		$output .= $this->getCharSkillRidingContentHtml();
 	
@@ -2043,6 +2046,139 @@ class EsoBuildDataViewer
 	}
 	
 	
+	public function getCharRecipeData()
+	{
+		global $ESO_RECIPELIST_INFO, $ESO_RECIPE_INFO;
+		
+		$recipes = array();
+		
+		foreach ($this->characterData['stats'] as $key => $value)
+		{
+			$matches = array();
+			$result = preg_match("/^Recipe:(.*)/", $key, $matches);
+			if (!($key == "Recipe" || $result != 0)) continue;
+			
+			$resultId = -1;
+			$recipeId = -1;
+			$quality = 1;
+			$recipeName = $value['value'];
+			$recipeType = "Unknown";
+			if ($key != "Recipe") $resultId = intval($matches[1]);
+			
+			$recipeInfo = $ESO_RECIPE_INFO[$resultId];
+			
+			if ($recipeInfo != null)
+			{
+				$recipeId = $recipeInfo[0];
+				$recipeType = $recipeInfo[1];
+				$quality = $recipeInfo[3];
+			}
+			
+			if ($recipes[$recipeType] == null) $recipes[$recipeType] = array();
+			
+			if ($resultId > 0)
+				$recipes[$recipeType][$resultId] = array('recipe' => $recipeId, 'name' => $recipeName, 'known' => true, 'quality' => $quality);
+			else
+				$recipes[$recipeType][] = array('recipe' => $recipeId, 'name' => $recipeName, 'known' => true, 'quality' => $quality);			
+		}
+		
+		return $recipes;
+	}
+	
+	
+	public function createAllRecipeData($knownRecipes)
+	{
+		global $ESO_RECIPELIST_INFO, $ESO_RECIPE_INFO;
+		
+		$recipes = $knownRecipes;
+		
+		foreach ($ESO_RECIPE_INFO as $resultId => $recipeData)
+		{
+			$recipeId = intval($recipeData[0]);
+			$recipeType = $recipeData[1];
+			$recipeName = $recipeData[2];
+			$quality = $recipeData[3];
+			
+			if ($recipes[$recipeType] == null) $recipes[$recipeType] = array();
+			
+			if ($recipes[$recipeType][$resultId] == null)
+			{
+				$recipes[$recipeType][$resultId] = array('recipe' => $recipeId, 'name' => $recipeName, 'known' => false, 'quality' => $quality);
+			}
+		}		
+		
+		return $recipes;
+	}
+	
+	
+	public function SortRecipeListByName($a, $b)
+	{
+		return strcmp($a['name'], $b['name']);
+	}
+	
+	
+	public function getCharSkillRecipeContentHtml()
+	{
+		global $ESO_RECIPELIST_INFO;
+		
+		$totalCount = $this->getCharStatField("RecipeTotalCount", 0);
+		$knownCount = $this->getCharStatField("RecipeKnownCount", 0);
+		
+		$output  = "<div id='ecdSkill_Recipes' class='ecdSkillData ecdScrollContent' style='display: none;'>\n";
+		$output .= "<div id='ecdSkillContentTitle'>Recipes ($knownCount / $totalCount Known)</div>";
+		$output .= "<br/>";
+		
+		$knownRecipes = $this->getCharRecipeData();
+		$allRecipes = $this->createAllRecipeData($knownRecipes);
+		//$allRecipes = $knownRecipes;
+		
+		foreach ($ESO_RECIPELIST_INFO as $recipeListIndex => $listInfo)
+		{
+			$listCount = $listInfo[0];
+			$listName = $listInfo[1];
+			$listIcon = $listInfo[2];
+			$listQuality = $listInfo[3];
+			$qualityClass = "";
+			$knownCount = 0;
+			if ($listQuality >= 1 && $listQuality <= 5) $qualityClass = "ecdItemQuality$listQuality";
+			
+			if ($allRecipes[$listName] == null) continue;
+			
+			usort($allRecipes[$listName], array("EsoBuildDataViewer", "SortRecipeListByName"));
+			
+			foreach ($allRecipes[$listName] as $resultId => $recipeData)
+			{
+				if ($recipeData['known']) ++$knownCount;
+			}
+			
+			if ($listCount == 0) $listCount = "?";
+			$output .= "<div class='ecdRecipeTitle'>$listName ($knownCount / $listCount Known)</div>";
+			
+			foreach ($allRecipes[$listName] as $resultId => $recipeData)
+			{
+				$name = $recipeData['name'];
+				$known = $recipeData['known'];
+				$itemId = $recipeData['recipe'];
+				$quality = $recipeData['quality'];
+				$extraClass = "";
+				if ($known) $extraClass = "ecdRecipeKnown";
+				
+				if ($quality >= 1 && $quality <= 5) 
+					$qualityClass = "ecdItemQuality$quality";
+				else
+					$qualityClass = "ecdItemQuality$listQuality";
+				
+				if ($itemId == null || $itemId <= 0) $itemId = $resultId;
+				
+				$output .= "<div class='ecdRecipeItem eso_item_link $extraClass $qualityClass' itemid='$itemId' inttype='1' intlevel='1'>$name</div>";
+			}
+		}
+		
+		$output .= "</div>";
+		return $output;
+	}
+	
+	
 	public function getCharSkillMotifContentHtml()
 	{
 		$output  = "<div id='ecdSkill_Motifs' class='ecdSkillData ecdScrollContent' style='display: none;'>\n";
@@ -2474,12 +2610,13 @@ class EsoBuildDataViewer
 		
 		if ($skillName == "CRAFT") 
 		{
-			$output .= "<div class='ecdSkillTreeName2'>Motifs</div>\n";
-			
 			if ($this->hasResearchOutput)
 			{
+				$output .= "<div class='ecdSkillTreeName2'>Motifs</div>\n";
 				$output .= "<div class='ecdSkillTreeName2'>Research</div>\n";
 			}
+			
+			if ($this->hasRecipeOutput) $output .= "<div class='ecdSkillTreeName2'>Recipes</div>\n";
 		}
 		else if ($skillName == "OTHER") 
 		{
