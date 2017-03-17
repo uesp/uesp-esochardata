@@ -1238,8 +1238,7 @@ class EsoBuildDataParser
 	
 		foreach ($arrayData as $name => $value)
 		{
-			$key = "Book:" . $name;
-			$result &= $this->saveCharacterStatData($buildData, $key, $value);
+			$result &= $this->saveCharacterStatData($buildData, $name, $value);
 		}
 	
 		return $result;
@@ -1254,8 +1253,7 @@ class EsoBuildDataParser
 	
 		foreach ($arrayData as $name => $value)
 		{
-			$key = "Achievement:" . $name;
-			$result &= $this->saveCharacterStatData($buildData, $key, $value);
+			$result &= $this->saveCharacterStatData($buildData, $name, $value);
 		}
 	
 		return $result;

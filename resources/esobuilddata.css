@@ -628,16 +628,17 @@ tr.eso_item_link {
 #ecdRightTitleBar {
 	float: right;
 	display: inline-block;
-	width: 650px;
+	width: 659px;
+	text-align: center;
 }
 
 .ecdSkillTitleButton {
-	font-size: 24px;
+	font-size: 20px;
 	font-weight: bold;
 	display: inline-block;
 	padding: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 7px;
+    padding-right: 7px;
 	padding-top: 7px;
     cursor: pointer;
 }
@@ -1628,4 +1629,248 @@ thead.ecdFixedHeader tr {
 
 .ecdRecipeKnown {
 	opacity: 1;
+}
+
+#ecdAchievementTree {
+	width: 220px;
+	height: 510px;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+#ecdAchievementContents {
+	width: 420px;
+	height: 580px;
+    display: inline-block;
+    float: right;
+    padding: 3px;
+    overflow-x: hidden;
+}
+
+.ecdAchTree1 {
+}
+
+.ecdAchTreeName1 {
+	font-size: 20px;
+    font-weight: bold;
+    color: #C5C29E;
+    padding: 6px;
+    padding-left: 0px;
+    margin-left: 0px;
+    cursor: pointer;
+    border-radius: 15px;
+    height: 22px;
+}
+
+.ecdAchTreeName1 img {
+	width: 32px;
+	height: 32px;
+	position: relative;
+	top: -2px;
+}
+
+.ecdAchTreeNameHighlight {
+    color: white;
+    background-color: #000;
+}
+
+.ecdAchTreeContent1 {
+	margin-left: 30px;
+}
+
+.ecdAchTree2 {
+}
+
+.ecdAchTreeName2 {
+	font-size: 17px;
+    font-weight: bold;
+    color: #C5C29E;
+    padding: 2px;
+    cursor: pointer;
+    padding-left: 20px;
+}
+
+.ecdAchTreeNameHighlight2 {
+    color: WHITE;
+    background-color: #444;
+    border-radius: 10px;
+}
+
+.ecdAchTreeName1:hover,
+.ecdAchTreeName2:hover {
+	color: WHITE;
+	background-color: #333;
+}
+
+.ecdAchContentTitle {
+    font-size: 24px;
+    font-weight: bold;
+    color: WHITE;
+    float: none;
+    text-align: left;
+    display: inline-block;
+    margin-bottom: 10px;
+    margin-top: 5px;	
+}
+
+.ecdAchData {
+	height: 580px;
+    overflow-y: auto;
+}
+
+.ecdAchievement1 {
+	padding: 3px;
+	padding-top: 10px;
+	min-height: 50px;
+}
+
+.ecdAchievement1:hover {
+	background-color: #447A7E;
+	cursor: pointer;	
+}
+
+.ecdAchMidBlock {
+	display: inline-block;
+	width: 250px;
+    padding-left: 5px;
+}
+
+.ecdAchRightBlock {
+	float: right;
+	display: inline-block;
+	width: 75px;
+    text-align: center;
+    padding-top: 10px;    
+}
+
+.ecdAchIcon {
+	width: 48px;
+	height: 48px;
+	float: left;
+	display: inline-block;
+}
+
+.ecdAchName {
+	color: #fff;
+	font-weight: bold;
+	font-size: 18px;
+	text-shadow: 2px 2px 2px black;
+}
+
+.ecdAchDesc {
+	color: #C5C29E;
+	font-weight: bold;
+	font-size: 14px;
+	text-shadow: 1px 1px 2px black;
+}
+
+.ecdAchPoints {
+	color: #fff;
+	font-weight: bold;
+	font-size: 36px;
+	text-shadow: 3px 3px 2px black;
+}
+
+.ecdAchDate {
+	color: #C5C29E;
+	font-weight: bold;
+	font-size: 16px;
+	text-shadow: 1px 1px 2px black;
+	padding-top: 5px;
+}
+
+.ecdAchUnknown .ecdAchIcon {
+	opacity: 0.4;
+}
+
+.ecdAchUnknown .ecdAchName {
+	color: #888;
+}
+
+.ecdAchUnknown .ecdAchDesc {
+	color: #888;
+}
+
+.ecdAchUnknown .ecdAchPoints {
+	color: #888;	
+}
+
+.ecdAchUnknown .ecdAchDate {
+	color: #888;
+}
+
+.ecdAchList {
+	width: 100%;
+	text-align:center;
+}
+
+.ecdAchList img {
+	width: 32px;
+	height: 32px;
+	display: inline-block;
+	padding: 3px;
+}
+
+.ecdAchList .ecdAchUnknown {
+	opacity: 0.4;	
+}
+
+.ecdAchCriteriaList {
+	padding-left: 40px;
+    clear: both;
+}
+
+.ecdAchCriteria {
+	font-weight: bold;
+	font-size: 15px;
+	text-shadow: 1px 1px 2px black;
+	padding-bottom: 5px;
+	white-space: nowrap;
+}
+
+.ecdAchCriteria.ecdAchUnknown {
+	color: #888;
+}
+
+.ecdAchDataBlock {
+	clear: both;
+}
+
+.ecdAchCriteriaCheck {
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+}
+
+.ecdAchCriteriaCheck.ecdAchUnknown {
+	opacity: 0;
+}
+
+.ecdAchStatusBar {
+	width: 240px;
+	height: 19px;
+	display: inline-block;	
+	background-image: url('achstatusbar-inside1.png');
+	background-size: 240px 19px;
+	background-repeat: no-repeat;
+	position: relative;
+	z-index: 1;
+	text-align: center;	
+}
+
+.ecdAchStatusBarFrame {
+	width: 240px;
+	height: 19px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-image: url('achstatusbar-frame1.png');
+	background-size: 240px 19px;
+	z-index: 10;
+}
+
+.ecdAchCriteriaPoints {
+	display: inline-block;
+	z-index: 20;
+	font-size: 14px;
 }

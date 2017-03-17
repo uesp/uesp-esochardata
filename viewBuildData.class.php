@@ -26,6 +26,7 @@ class EsoBuildDataViewer
 	public $hasCharacterCraftBag  = false;
 	public $hasResearchOutput     = false;
 	public $hasRecipeOutput       = false;
+	public $hasAchievementOutput  = false;
 	public $combineInventoryItems = true;
 	public $combineBankItems      = true;
 	public $showCPLevel           = true;
@@ -1113,7 +1114,8 @@ class EsoBuildDataViewer
 					'{accInvUsedSpace}' => $this->getAccountInventoryUsedSpace(),
 					'{accInvTotalSpace}' => $this->getAccountInventoryTotalSpace(),
 					'{editButtons}' => $this->getEditButtonsHtml(),
-				
+					'{achievementContents}' => $this->getAchievementContentHtml(),
+					'{achievementTree}' => $this->getAchievementTreeHtml(),				
 			);
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
@@ -1121,6 +1123,9 @@ class EsoBuildDataViewer
 		return true;
 	}
 	
+	
+	public function getAchievementContentHtml() { return ""; }
+	public function getAchievementTreeHtml() { return ""; }	
 	
 	public function getInventoryUsedSpace() { return ""; }
 	public function getInventoryTotalSpace() { return ""; }
