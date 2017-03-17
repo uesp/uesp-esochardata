@@ -22,7 +22,7 @@
 			</div>
 		</div>
 		<br />
-		<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' height='5' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' height='5'/>
+		<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' height='5' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' height='5'/>
 	</div>
 	<div id='ecdRightData'>
 		<div id='ecdRightTitleBar'>
@@ -31,18 +31,19 @@
 			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdBankButton' onclick="OnEsoRightTitleClick('Bank');">BANK</div>
 			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdCraftButton' onclick="OnEsoRightTitleClick('Craft');">CRAFT</div>
 			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdAccountInvButton' onclick="OnEsoRightTitleClick('AccountInv');">ACCOUNT</div>
+			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdAchievementsButton' onclick="OnEsoRightTitleClick('Achievements');">ACHIEVEMENTS</div>
 		</div>
 		<div id='ecdSkills' class='ecdRightDataArea' style="display: none;">
-			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			<div class='ecdSkillSubTitle'>Skill Points:</div> <div class='ecdSkillSubValue'>{skillPointsUnused} / {skillPointsTotal}</div><br />
 			<div class='ecdSkillSubTitle'>Skyshards:</div> <div class='ecdSkillSubValue'>{skyshards} / 3</div>
 			<div id='ecdSkillContents'>{skillContents}</div>
 			<div id='ecdSkillTree'>{skillTree}</div>
 		</div>
 		<div id='ecdInventory' class='ecdRightDataArea' style="display: block;">
-			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			{inventoryContents}
-			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			<div class='ecdInventorySpace'><div class='ecdInvSpaceLabel'>Inventory Space:</div> {invUsedSpace} / {invTotalSpace}</div>
 			<div class='ecdCurrencyGold'>{invGold} <img src="{baseResourceUrl}resources/goldicon.png" /></div>
 			<div class='ecdCurrencyVoucher'>{invVoucher} <img src="{baseResourceUrl}resources/writvoucher.png" width="16" height="16" /></div>
@@ -50,28 +51,33 @@
 			<div class='ecdCurrencyAP'>{invAP} <img src="{baseResourceUrl}resources/apicon.png" /></div>
 		</div>
 		<div id='ecdBank' class='ecdRightDataArea' style="display: none;">
-			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			{bankContents}
-			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			<div class='ecdInventorySpace'><div class='ecdInvSpaceLabel'>Inventory Space:</div> {bankUsedSpace} / {bankTotalSpace}</div>
 			<div class='ecdCurrencyAP'></div>
 			<div class='ecdCurrencyGold'>{bankGold} <img src="{baseResourceUrl}resources/goldicon.png" /></div>
 			<div class='ecdCurrencyTelvar'>{bankTelvar} <img src="{baseResourceUrl}resources/telvaricon.png" /></div>
 		</div>
 		<div id='ecdCraft' class='ecdRightDataArea' style="display: none;">
-			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			{craftBagContents}
-			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 		</div>
 		<div id='ecdAccountInv' class='ecdRightDataArea' style="display: none;">
-			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			{accountInvContents}
-			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			<div class='ecdInventorySpace'><div class='ecdInvSpaceLabel'>Inventory Space:</div> {accInvUsedSpace} / {accInvTotalSpace}</div>
 			<div class='ecdCurrencyGold'>{accInvGold} <img src="{baseResourceUrl}resources/goldicon.png" /></div>
 			<div class='ecdCurrencyVoucher'>{accInvVoucher} <img src="{baseResourceUrl}resources/writvoucher.png" width="16" height="16" /></div>
 			<div class='ecdCurrencyTelvar'>{accInvTelvar} <img src="{baseResourceUrl}resources/telvaricon.png" /></div>
 			<div class='ecdCurrencyAP'>{accInvAP} <img src="{baseResourceUrl}resources/apicon.png" /></div>
+		</div>
+		<div id='ecdAchievements' class='ecdRightDataArea' style="display: none;">
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
+			<div id='ecdAchievementContents'>{achievementContents}</div>
+			<div id='ecdAchievementTree'>{achievementTree}</div>
 		</div>
 	</div>
 	<div id='ecdEquipSlots'>

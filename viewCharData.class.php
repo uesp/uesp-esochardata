@@ -3,6 +3,7 @@
 
 require_once("viewBuildData.class.php");
 require_once("/home/uesp/secrets/esochardata.secrets");
+require_once("/home/uesp/esolog.static/esoAchievementData.php");
 
 
 class EsoCharDataViewer extends EsoBuildDataViewer
@@ -20,7 +21,8 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		$this->hasCharacterBank      = true;
 		$this->hasCharacterCraftBag  = true;
 		$this->hasResearchOutput     = true;
-		$this->hasRecipeOutput       = true;		
+		$this->hasRecipeOutput       = true;
+		$this->hasAchievementOutput  = true;
 	}
 	
 	
@@ -1784,6 +1786,275 @@ EOT;
 		$this->outputHtml .= "<p/>Created <a href='http://esobuilds.uesp.net/b/$buildId'><b>New Build!</b></a>";
 				
 		return true;
+	}
+	
+	
+	public function getAchievementContentHtml() 
+	{ 
+		global $ESO_ACHIEVEMENT_CATEGORIES, $ESO_ACHIEVEMENT_DATA, $ESO_ACHIEVEMENT_TREE;
+		
+		$output = "";
+		
+		foreach ($ESO_ACHIEVEMENT_TREE as $catName => $catData)
+		{
+			foreach ($catData as $subCatName => $subCatData)
+			{
+				$idName = "ecdAch_" . $catName . "_" . $subCatName;
+				$idName = str_replace("'", '', str_replace(' ', '', $idName));
+				
+				$displayCat = strtoupper($catName);
+				$displaySubCat = strtoupper($subCatName);
+				
+				$output .= "<div id='$idName' class='ecdAchData ecdScrollContent' style='display: none;'>";
+				$output .= "<div class='ecdAchContentTitle'>$displayCat: $displaySubCat</div>";
+				
+				foreach ($subCatData as $subIndex => $achList) 
+				{
+					$output .= $this->getAchievementListContentHtml($achList);	
+				}
+				
+				$output .= "</div>";
+			}
+		}
+		
+		return $output; 
+	}
+
+	
+	public function getCharAchievementData($achId)
+	{
+		$charAchData = $this->getCharStatField("Achievement:$achId", "");
+		if ($charAchData == "") return false;
+		
+		$data = explode(",", $charAchData);
+		$progress = $data[0];
+		$timestamp = intval($data[1]);
+		if ($progress === null) $progress = "";
+		
+		return array($progress, $timestamp);
+	}
+	
+	
+	public function getAchievementListContentHtml($achList)
+	{
+		global $ESO_ACHIEVEMENT_DATA;
+		
+		if ($achList === null || count($achList) == 0) return "";
+		
+		$output = "";
+		$count = 0;
+		$progress = "";
+		$timestamp = 0;
+		
+		$displayDate = "";
+		$displayId = 0;
+		$displayProgress = 0;
+		$displayTimestamp = 0;
+		$displayIsKnown = false;
+		
+		foreach ($achList as $index => $achId)
+		{
+			$achData = $ESO_ACHIEVEMENT_DATA[$achId];
+			if ($achData == null) continue;
+			
+			if ($displayId <= 0) $displayId = $achId;
+			
+			$charAchData = $this->getCharAchievementData($achId);
+			
+			if ($charAchData)
+			{
+				$progress = $charAchData[0];
+				$timestamp = $charAchData[1];
+					
+				if ($timestamp > 0)
+				{
+					$displayId = $achId;
+					$displayProgress = $progress;
+					$displayTimestamp = $timestamp;
+					$displayDate = date("d/m/Y", $timestamp);
+					$displayIsKnown = true;
+				}
+			}
+		}
+		
+		$knownClass = "ecdAchUnknown";
+		if ($displayIsKnown) $knownClass = "";
+		
+		$achData = $ESO_ACHIEVEMENT_DATA[$displayId];
+		
+		$iconUrl = $this->convertIconToImageUrl($achData['icon']);
+		$name = $this->escape($achData['name']);
+		$desc = $this->escape($achData['desc']);
+		$points = $this->escape($achData['points']);		
+		
+		$output .= "<div class='ecdAchievement1 $knownClass' achieveid='$achId'>";
+		$output .= "<img src='$iconUrl' class='ecdAchIcon'>";
+		$output .= "<div class='ecdAchMidBlock'>";
+		$output .= "<div class='ecdAchName'>$name</div>";
+		$output .= "<div class='ecdAchDesc'>$desc</div>";
+		$output .= "</div>";
+		$output .= "<div class='ecdAchRightBlock'>";
+		$output .= "<div class='ecdAchPoints'>$points</div>";
+		$output .= "<div class='ecdAchDate'>$displayDate</div>";
+		$output .= "</div>";
+		
+		$output .= "<div class='ecdAchDataBlock' style='display: none;' >";
+		$output .= $this->getAchievementCriteriaHtml($displayId);
+		$output .= $this->getAchievementSubBlockHtml($achList);
+		$output .= "</div>";
+		
+		$output .= "</div>";
+		return $output;
+	}
+	
+	
+	public function parseCharAchievementProgress($achId, $progress)
+	{
+		global $ESO_ACHIEVEMENT_DATA;
+		$achData = $ESO_ACHIEVEMENT_DATA[$achId];
+		if ($achData == null) return array(0);
+				
+		if ($progress === null || $progress === "") return array_fill(1, count($achData['criteria']), 0);
+		if (count($achData['criteria']) == 1) return array( 1 => intval($progress));
+
+		$progressResult = array();
+		
+		foreach ($achData['criteria'] as $index => $criteria)
+		{
+			$value = $criteria['value'];
+			
+			$nextPowerof2 = ceil(log($value + 1, 2));
+			
+			$progressResult[$index] = $progress & (pow(2, $nextPowerof2) - 1);
+			$progress = $progress >> $nextPowerof2;
+		}
+		
+		return $progressResult;
+	}
+	
+	
+	public function getAchievementCriteriaHtml($achId)
+	{
+		global $ESO_ACHIEVEMENT_DATA;
+		
+		$achData = $ESO_ACHIEVEMENT_DATA[$achId];
+		if ($achData == null) return "";
+		
+		if (count($achData['criteria']) <= 0) return "";
+		if (count($achData['criteria']) == 1 && $achData['criteria'][1]['value'] == 1) return "";
+		
+		$output = "<div class='ecdAchCriteriaList'>";
+		
+		$charAchData = $this->getCharAchievementData($achId);
+		$progressData = $this->parseCharAchievementProgress($achId, $charAchData[0]);
+		
+		foreach ($achData['criteria'] as $index => $criteria)
+		{
+			$name = $criteria['name'];
+			$value = $criteria['value'];
+			$progress = $progressData[$index] ? : 0;
+			$knownClass = "ecdAchUnknown";
+			$img = "";
+			
+			if ($value == 1)
+			{
+				if ($progress >= 1)	$knownClass = "";
+				
+				$img = "<img src='http://esoicons.uesp.net/esoui/art/cadwell/check.png' class='ecdAchCriteriaCheck $knownClass'>";
+				$output .= "<div class='ecdAchCriteria $knownClass'>$img $name</div>";
+			}
+			else
+			{
+				if ($progress >= $value) $knownClass = "";
+				
+				$progress = $this->formatAchievementValue($progress);
+				$value = $this->formatAchievementValue($value);
+				$percentWidth = 100;
+				if ($value > 0) $percentWidth = intval($progress * 100 / $value);
+				
+				$output .= "<div class='ecdAchCriteria $knownClass'>$name<br/>";
+				$output .= "<div class='ecdAchStatusBar' style='background-size: $percentWidth% 100%;'><div class='ecdAchStatusBarFrame'></div>";
+				$output .= "<div class='ecdAchCriteriaPoints'>$progress/$value</div></div>";
+				$output .= "</div>";
+			}
+		}
+		
+		$output .= "</div>";
+		return $output;
+	}
+	
+	
+	public function formatAchievementValue($value)
+	{
+		return number_format($value);
+	}
+	
+	
+	public function getAchievementSubBlockHtml($achList)
+	{
+		global $ESO_ACHIEVEMENT_DATA;
+		
+		if (count($achList) <= 1) return "";
+		
+		$output = "<div class='ecdAchList'>";
+	
+		foreach ($achList as $index => $achId)
+		{
+			$achData = $ESO_ACHIEVEMENT_DATA[$achId];
+			if ($achData == null) continue;
+			
+			$isKnown = false;
+			$knownClass = "ecdAchUnknown";
+			if ($displayId <= 0) $displayId = $achId;
+				
+			$charAchData = $this->getCharAchievementData($achId);
+			if ($charAchData && $charAchData[1] > 0) $isKnown = true;
+			if ($isKnown) $knownClass = "";
+			
+			$title = $this->escape($achData['name']);
+			
+			$iconUrl = $this->convertIconToImageUrl($achData['icon']);
+			$output .= "<img title='$title' src='$iconUrl' class='$knownClass'>";
+		}
+		
+		$output .= "</div>";
+		return $output;			
+	}
+	
+	
+	public function getAchievementTreeHtml() 
+	{ 
+		global $ESO_ACHIEVEMENT_CATEGORIES, $ESO_ACHIEVEMENT_DATA, $ESO_ACHIEVEMENT_TREE;
+		
+		$output = "";
+		
+		foreach ($ESO_ACHIEVEMENT_TREE as $catName => $catData)
+		{
+			$category = $ESO_ACHIEVEMENT_CATEGORIES[$catName];
+			$iconUrl = "";
+			
+			if ($category != null)
+			{
+				$iconUrl = $this->convertIconToImageUrl($category['icon']);
+			}
+			
+			$displayName = strtoupper($catName);
+			 
+			
+			$output .= "<div class='ecdAchTree1'>";
+			$output .= "<div class='ecdAchTreeName1' achcategory='$catName'><img src='$iconUrl'>$displayName</div>";
+			$output .= "<div class='ecdAchTreeContent1' style='display: none;'>";
+			
+			foreach ($catData as $subCatName => $subCatData)
+			{
+				$displayName = $subCatName;
+				$output .= "<div class='ecdAchTreeName2' achsubcategory='$subCatName'>$displayName</div>";
+			}
+			
+			$output .= "</div></div>";
+		}
+		
+		return $output;
 	}
 	
 };

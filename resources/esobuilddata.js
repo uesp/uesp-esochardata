@@ -85,6 +85,11 @@ var EsoSkillTree_LastOpenTreeName = null;
 var EsoSkillTree_LastSkillContentName = null;
 var EsoSkillTree_LastSkillContent = null;
 
+var EsoAchTree_LastOpenTree = null;
+var EsoAchTree_LastOpenTreeName = null;
+var EsoAchTree_LastContentName = null;
+var EsoAchTree_LastContent = null;
+
 
 function OnEsoSkillTreeName1Click(e)
 {
@@ -135,6 +140,59 @@ function SelectEsoSkillTreeContents(object)
 }
 
 
+function OnEsoAchievementTreeName1Click(e)
+{
+	EsoAchTree_LastOpenTreeName = $('.ecdAchTreeName1.ecdAchTreeNameHighlight').first();
+	EsoAchTree_LastOpenTree = EsoAchTree_LastOpenTreeName.next(".ecdAchTreeContent1");
+	
+	if (EsoAchTree_LastOpenTree.is($(this).next(".ecdAchTreeContent1"))) return;
+	
+	EsoAchTree_LastOpenTree.slideUp();
+	EsoAchTree_LastOpenTreeName.removeClass('ecdAchTreeNameHighlight');
+		
+	EsoAchTree_LastContentName = $('.ecdAchTreeNameHighlight2').first();
+	EsoAchTree_LastContentName.removeClass('ecdAchTreeNameHighlight2');
+	EsoAchTree_LastContent = $('.ecdAchData:visible').first();
+	EsoAchTree_LastContent.hide();
+		
+	EsoAchTree_LastOpenTreeName = $(this);
+	EsoAchTree_LastOpenTree = EsoAchTree_LastOpenTreeName.next(".ecdAchTreeContent1");
+	
+	EsoAchTree_LastOpenTreeName.addClass('ecdAchTreeNameHighlight');
+	EsoAchTree_LastOpenTree.slideDown();
+
+	SelectEsoAchievementTreeContents(EsoAchTree_LastOpenTree.children(".ecdAchTreeName2").first());
+}
+
+
+function OnEsoAchievementTreeName2Click(e)
+{
+	SelectEsoAchievementTreeContents($(this));
+}
+
+
+function SelectEsoAchievementTreeContents(object)
+{
+	EsoAchTree_LastContentName = $('.ecdAchTreeNameHighlight2').first();
+	EsoAchTree_LastContent = $('.ecdAchData:visible').first();
+	
+	EsoAchTree_LastContentName.removeClass('ecdAchTreeNameHighlight2');
+	EsoAchTree_LastContent.hide();
+	
+	EsoAchTree_LastContentName = object;
+	object.addClass('ecdAchTreeNameHighlight2');
+	
+	var catName = EsoAchTree_LastOpenTreeName.attr("achcategory");
+	var subCatName = EsoAchTree_LastContentName.attr("achsubcategory");
+	var idName = "ecdAch_" + catName + "_" + subCatName;
+	
+	idName = idName.replace(/ /g, "").replace(/'/g, "");
+	
+	EsoAchTree_LastContent = $('#'+idName); 
+	EsoAchTree_LastContent.show(); 
+}
+
+
 function OnEsoRightTitleClick(name)
 {
 	$('.ecdRightTitleButtonEnabled').addClass("ecdRightTitleButtonDisabled").removeClass("ecdRightTitleButtonEnabled");
@@ -143,11 +201,13 @@ function OnEsoRightTitleClick(name)
 	var idButtonName = "#ecd" + name + "Button";
 	$(idButtonName).removeClass("ecdRightTitleButtonDisabled").addClass("ecdRightTitleButtonEnabled");
 	
-	$("#ecdSkills").hide();
-	$("#ecdInventory").hide();
-	$("#ecdBank").hide();
-	$("#ecdCraft").hide();
-	$("#ecdAccountInv").hide();
+	$(".ecdRightDataArea").hide();
+	//$("#ecdSkills").hide();
+	//$("#ecdInventory").hide();
+	//$("#ecdBank").hide();
+	//$("#ecdCraft").hide();
+	//$("#ecdAccountInv").hide();
+	//$("#ecdAchievements").hide();
 	
 	$(idName).show();
 }
@@ -498,6 +558,12 @@ function DoesEsoItemLinkHaveEvent()
 }
 
 
+function OnAchievementClick()
+{
+	$(this).children(".ecdAchDataBlock").slideToggle();
+}
+
+
 function onDocReady() 
 {  
 	$(".ecdTooltipTrigger").hover(onTooltipHoverShow, onTooltipHoverHide, onTooltipMouseMove);
@@ -511,6 +577,15 @@ function onDocReady()
 	
 	EsoSkillTree_LastSkillContentName = $('.ecdSkillTreeNameHighlight2').first();
 	EsoSkillTree_LastSkillContent = $('.ecdSkillData:visible').first();
+		
+	$('.ecdAchTreeName1').click(OnEsoAchievementTreeName1Click);
+	$('.ecdAchTreeName2').click(OnEsoAchievementTreeName2Click);
+	
+	EsoAchTree_LastOpenTreeName = $('.ecdAchTreeName1:visible').first();
+	EsoAchTree_LastOpenTree = EsoAchTree_LastOpenTreeName.next(".ecdAchTreeContent1");
+	
+	EsoAchTree_LastContentName = $('.ecdAchTreeNameHighlight2').first();
+	EsoAchTree_LastContent = $('.ecdAchData:visible').first();
 	
 	var tables = $(".tablesorter");
 	
@@ -556,6 +631,8 @@ function onDocReady()
 	$(".ecdScrollContent tr").click(OnItemRowClick);
 	
 	$(".ecdScrollContent tr").mouseleave(OnItemRowLeave);
+	
+	$(".ecdAchievement1").click(OnAchievementClick);
 	
 	if (!DoesEsoItemLinkHaveEvent()) $('.eso_item_link').hover(OnEsoItemLinkEnter, OnEsoItemLinkLeave);
 }
