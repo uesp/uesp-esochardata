@@ -184,7 +184,9 @@ function SelectEsoAchievementTreeContents(object)
 	
 	var catName = EsoAchTree_LastOpenTreeName.attr("achcategory");
 	var subCatName = EsoAchTree_LastContentName.attr("achsubcategory");
+	
 	var idName = "ecdAch_" + catName + "_" + subCatName;
+	if (subCatName == null || subCatName == "") idName = "ecdAch_" + catName;
 	
 	idName = idName.replace(/ /g, "").replace(/'/g, "");
 	

@@ -1794,6 +1794,7 @@ EOT;
 		global $ESO_ACHIEVEMENT_CATEGORIES, $ESO_ACHIEVEMENT_DATA, $ESO_ACHIEVEMENT_TREE;
 		
 		$output = "";
+		$output .= $this->getAchievementSummaryContentHtml();
 		
 		foreach ($ESO_ACHIEVEMENT_TREE as $catName => $catData)
 		{
@@ -1847,6 +1848,55 @@ EOT;
 		}
 		
 		return $output; 
+	}
+	
+	
+	public function getAchievementSummaryContentHtml()
+	{
+		global $ESO_ACHIEVEMENT_CATEGORIES, $ESO_ACHIEVEMENT_DATA, $ESO_ACHIEVEMENT_TREE;
+	
+		$output = "";
+
+		$output .= "<div id='ecdAch_Summary' class='ecdAchData ecdScrollContent' style='display: block;'>";
+		$output .= "<div class='ecdAchContentTitle'>SUMMARY</div>";
+		
+		$points = $this->getCharStatField("AchievementEarnedPoints", 0); 
+		$total = $this->getCharStatField("AchievementTotalPoints", 0);
+		
+		if ($total > 0)
+		{
+			$percentWidth = intval($points * 100 / $total);
+			$output .= "<p/>";
+			$output .= "<div class='ecdAchSummaryName'>ACHIEVEMENT POINTS EARNED</div>";
+			$output .= "<div class='ecdAchLargeStatusBar' style='background-size: $percentWidth% 100%;'><div class='ecdAchLargeStatusBarFrame'></div>";
+			$output .= "<div class='ecdAchStatusBarLargePoints'>$points/$total</div></div>";
+		}
+		
+		foreach ($ESO_ACHIEVEMENT_TREE as $catName => $catData)
+		{
+			$category = $ESO_ACHIEVEMENT_CATEGORIES[$catName];
+			if ($category == null) continue;
+			
+			$displayName = strtoupper($catName); 
+			$index = $category['index'];
+			$pointsData = $this->getCharStatField("AchievementPoints:$index", "");
+			if ($pointsData == "") continue;
+			
+			$splitData = explode(",", $pointsData);
+			$points = intval($splitData[0]);
+			$total = intval($splitData[1]);
+			if ($total <= 0) continue;
+			
+			$percentWidth = intval($points * 100 / $total);
+			$output .= "<div class='ecdSummaryBlock'>";
+			$output .= "<div class='ecdAchSummaryName'>$displayName</div>";
+			$output .= "<div class='ecdAchSmallStatusBar' style='background-size: $percentWidth% 100%;'><div class='ecdAchSmallStatusBarFrame'></div>";
+			$output .= "<div class='ecdAchStatusBarSmallPoints'>$points/$total</div></div>";
+			$output .= "</div>";
+		}
+		
+		$output .= "</div>";
+		return $output;
 	}
 
 	
@@ -1940,15 +1990,21 @@ EOT;
 		
 		$blockOutput  = $this->getAchievementCriteriaHtml($displayId);
 		$blockOutput .= $this->getAchievementSubBlockHtml($achList);
-		$blockOutput .= $this->getAchievementRewardBlockHtml($achList);
+		$rewardOutput = $this->getAchievementRewardBlockHtml($achList);
 		
-		if ($blockOutput != "")
+		if ($blockOutput != "" || $rewardOutput != "")
 		{
 			$output .= "<div class='ecdAchDataBlock' style='display: none;' >";
 			$output .= $blockOutput;
+			$output .= $rewardOutput;
 			$output .= "</div>";
 		}
 		
+		if ($rewardOutput != "")
+		{
+			$output .= "<img src='http://esoicons.uesp.net/esoui/art/achievements/achievements_reward_earned.png' class='achAchRewardIcon1'>";
+		}
+
 		$output .= "</div>";
 		return $output;
 	}
@@ -1985,14 +2041,30 @@ EOT;
 			if ($achData['itemName'] != null)
 			{
 				$output .= "<div class='ecdAchReward $knownClass'>";
-				$output .= "Item: " . $this->escape($achData['itemName']);
+				$output .= "Item: ";
+				
+				if ($achData['itemIcon'] != "")
+				{
+					$iconUrl = $this->convertIconToImageUrl($achData['itemIcon']);
+					$output .= "<img src='$iconUrl' class='ecdAchRewardItemIcon'> ";
+				}
+				
+				$output .= $this->escape($achData['itemName']);
 				$output .= "</div>";
 			}
 			
-			if ($achData['collectibleId'] != null)
+			if ($achData['collectId'] != null)
 			{
-				$output .= "<div class='ecdAchReward $knownClass'>";
-				$output .= "Collectible #{$achData['collectibleId']}";
+				$output .= "<div class='ecdAchReward $knownClass' collectid='{$achData['collectId']}'>";
+				$output .= "Collectible: ";
+				
+				if ($achData['collectIcon'] != "")
+				{
+					$iconUrl = $this->convertIconToImageUrl($achData['collectIcon']);
+					$output .= "<img src='$iconUrl' class='ecdAchRewardItemIcon'> ";
+				}
+				
+				$output .= $achData['collectName'];
 				$output .= "</div>";
 			}
 		}
@@ -2128,7 +2200,7 @@ EOT;
 		}
 		
 		$output .= "</div>";
-		return $output;			
+		return $output;
 	}
 	
 	
@@ -2137,6 +2209,12 @@ EOT;
 		global $ESO_ACHIEVEMENT_CATEGORIES, $ESO_ACHIEVEMENT_DATA, $ESO_ACHIEVEMENT_TREE;
 		
 		$output = "";
+		
+		$output .= "<div class='ecdAchTree1'>";
+		$output .= "<div class='ecdAchTreeName1 ecdAchTreeNameHighlight' achcategory='Summary'>";
+		$output .= "<img src='http://esoicons.uesp.net/esoui/art/treeicons/achievements_indexicon_summary_up.dds'>";
+		$output .= "SUMMARY</div></div>";
+		//$output .= "<div class='ecdAchTreeContent1' style='display: none;'></div>";		
 		
 		foreach ($ESO_ACHIEVEMENT_TREE as $catName => $catData)
 		{
