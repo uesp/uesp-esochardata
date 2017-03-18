@@ -2234,7 +2234,6 @@ EOT;
 		$output .= "<div class='ecdAchTreeName1 ecdAchTreeNameHighlight' achcategory='Summary'>";
 		$output .= "<img src='http://esoicons.uesp.net/esoui/art/treeicons/achievements_indexicon_summary_up.dds'>";
 		$output .= "SUMMARY</div></div>";
-		//$output .= "<div class='ecdAchTreeContent1' style='display: none;'></div>";		
 		
 		foreach ($ESO_ACHIEVEMENT_TREE as $catName => $catData)
 		{
@@ -2247,15 +2246,17 @@ EOT;
 			}
 			
 			$displayName = strtoupper($catName);
+			$catId = str_replace("'", '', str_replace(' ', '', $catName));
 			
 			$output .= "<div class='ecdAchTree1'>";
-			$output .= "<div class='ecdAchTreeName1' achcategory='$catName'><img src='$iconUrl'>$displayName</div>";
+			$output .= "<div class='ecdAchTreeName1' achcategory=\"$catId\"><img src='$iconUrl'>$displayName</div>";
 			$output .= "<div class='ecdAchTreeContent1' style='display: none;'>";
 			
 			foreach ($catData as $subCatName => $subCatData)
 			{
 				$displayName = $subCatName;
-				$output .= "<div class='ecdAchTreeName2' achsubcategory='$subCatName'>$displayName</div>";
+				$subCatId = $catId = str_replace("'", '', str_replace(' ', '', $subCatName));
+				$output .= "<div class='ecdAchTreeName2' achsubcategory=\"$subCatId\">$displayName</div>";
 			}
 			
 			$output .= "</div></div>";

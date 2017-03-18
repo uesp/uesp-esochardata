@@ -655,7 +655,7 @@ function FindNextAchievement()
 		lastAchSearchText = "";
 		lastAchSearchPos = -1;
 		lastAchSearchElement = null;
-		$(".ecdFindAchTextBox button").text("Find...");
+		$(".ecdFindAchTextBox button").text("Done!");
 	}
 	else
 	{
@@ -668,8 +668,40 @@ function SelectFoundAchievement(element)
 {
 	var achievement = $(element).closest(".ecdAchievement1");
 	var parent = $(element).closest(".ecdAchData");
+	var parentId = parent.attr("id");
+	var catData = parentId.split("_");
+	var catName = catData[1];
+	var subCatName = catData[2];
+	var currentCat = $(".ecdAchTreeNameHighlight").attr("achcategory");
+	var currentSubCat = $(".ecdAchTreeNameHighlight2").attr("achsubcategory");
+	
+	if (currentCat != catName)
+	{
+		$(".ecdAchTreeContent1:visible").slideUp();
+		$(".ecdAchTreeNameHighlight").removeClass("ecdAchTreeNameHighlight");
+		
+		EsoAchTree_LastOpenTreeName = $(".ecdAchTreeName1[achcategory='" + catName + "']");
+		EsoAchTree_LastOpenTreeName.addClass("ecdAchTreeNameHighlight");
+		
+		EsoAchTree_LastOpenTree = EsoAchTree_LastOpenTreeName.next(".ecdAchTreeContent1");
+		EsoAchTree_LastOpenTree.slideDown();
+
+		currentSubCat = "";
+	}
+	
+	if (currentSubCat != subCatName)
+	{
+		$(".ecdAchTreeNameHighlight2").removeClass("ecdAchTreeNameHighlight2");
+		
+		EsoAchTree_LastOpenTreeName = $(".ecdAchTreeNameHighlight");
+		EsoAchTree_LastOpenTree = EsoAchTree_LastOpenTreeName.next(".ecdAchTreeContent1");
+		
+		EsoAchTree_LastContentName = $(".ecdAchTreeName2[achsubcategory='" + subCatName + "']");
+		EsoAchTree_LastContentName.addClass('ecdAchTreeNameHighlight2');
+	}
 	
 	$(".ecdAchData:visible").hide();
+	EsoAchTree_LastContent = parent;
 	parent.show();
 	
 	achievement.addClass("ecdAchSearchHighlight");
@@ -751,7 +783,10 @@ function onDocReady()
 	$(".ecdAchievement1").click(OnAchievementClick);
 	
 	$("#ecdFindAchInput").keyup(function(e) {
-		if(event.keyCode == 13) OnFindAchievement();
+		if (e.keyCode == 13) 
+			OnFindAchievement();
+		else
+			$(".ecdFindAchTextBox button").text("Find...");
 	});
 	
 	if (!DoesEsoItemLinkHaveEvent()) $('.eso_item_link').hover(OnEsoItemLinkEnter, OnEsoItemLinkLeave);
