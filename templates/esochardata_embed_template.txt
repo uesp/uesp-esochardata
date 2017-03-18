@@ -77,7 +77,13 @@
 		<div id='ecdAchievements' class='ecdRightDataArea' style="display: none;">
 			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			<div id='ecdAchievementContents'>{achievementContents}</div>
-			<div id='ecdAchievementTree'>{achievementTree}</div>
+			<div id='ecdAchievementTree'>
+				<div class='ecdFindAchTextBox'>
+					<input type="text" size="16" maxsize="32" value="" id='ecdFindAchInput' placeholder="Find Achievement" />
+					<button onclick="OnFindAchievement(this);">Find...</button> 
+				</div>
+				{achievementTree}
+			</div>
 		</div>
 	</div>
 	<div id='ecdEquipSlots'>
