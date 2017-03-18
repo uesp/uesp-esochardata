@@ -560,9 +560,123 @@ function DoesEsoItemLinkHaveEvent()
 }
 
 
+function OnSlideAchievementComplete()
+{
+	SlideAchievementIntoView($(this).parent());
+}
+
+
+function SlideAchievementIntoView(element, instant)
+{
+	var offsetTop = element.position().top;
+	var parent = element.parent(".ecdAchData");
+	var nextAch = element.next(".ecdAchievement1");
+	var nextTop = offsetTop + element.height() + 25;
+	var bottomScroll = parent.scrollTop() + parent.height();
+	var delay = 400;
+	
+	if (instant) delay = 0;
+	
+	if (offsetTop < 0)
+	{
+		parent.animate({ 
+	        scrollTop: offsetTop + parent.scrollTop(),
+	    }, delay);
+	}
+	else if (nextTop > parent.height())
+	{
+		parent.animate({ 
+	        scrollTop: nextTop - parent.height() + parent.scrollTop(),
+	    }, delay);
+	}
+}
+
+
 function OnAchievementClick()
 {
-	$(this).children(".ecdAchDataBlock").slideToggle();
+	var dataBlock = $(this).children(".ecdAchDataBlock");
+	dataBlock.slideToggle(400, OnSlideAchievementComplete);
+	
+	if (dataBlock.length == 0) SlideAchievementIntoView($(this));
+}
+
+
+var lastAchSearchText = "";
+var lastAchSearchPos = -1;
+var lastAchSearchElement = null;
+
+
+function OnFindAchievement(element)
+{
+	var text = $("#ecdFindAchInput").val().toLowerCase();
+	if (text == "") return;
+	
+	if (text != lastAchSearchText)
+	{
+		lastAchSearchText = text;
+		lastAchSearchPos = -1;
+		lastAchSearchElement = null;
+	}
+	
+	FindNextAchievement();
+}
+
+
+function FindNextAchievement()
+{
+	var isFound = false;
+	
+	$(".ecdAchSearchHighlight").removeClass("ecdAchSearchHighlight");
+		
+	$(".ecdAchName, .ecdAchDesc, .ecdAchReward, .ecdAchListItem img").each(function(index) {
+		if (index <= lastAchSearchPos) return true;
+		var $this = $(this);
+		var text = $this.text().toLowerCase();
+		var title = $this.attr("title");
+		if (title == null) title = "";
+		title = title.toLowerCase();
+		
+		lastAchSearchPos = index;
+		
+		if (text.indexOf(lastAchSearchText) >= 0 || title.indexOf(lastAchSearchText) >= 0) 
+		{
+			var achievement = $this.closest(".ecdAchievement1");
+			if (lastAchSearchElement != null && achievement.is(lastAchSearchElement)) return true;
+			
+			lastAchSearchElement = achievement;
+			SelectFoundAchievement($this);
+			isFound = true;
+			return false
+		}
+	});
+	
+	if (!isFound)
+	{
+		lastAchSearchText = "";
+		lastAchSearchPos = -1;
+		lastAchSearchElement = null;
+		$(".ecdFindAchTextBox button").text("Find...");
+	}
+	else
+	{
+		$(".ecdFindAchTextBox button").text("Find Next");
+	}
+}
+
+
+function SelectFoundAchievement(element)
+{
+	var achievement = $(element).closest(".ecdAchievement1");
+	var parent = $(element).closest(".ecdAchData");
+	
+	$(".ecdAchData:visible").hide();
+	parent.show();
+	
+	achievement.addClass("ecdAchSearchHighlight");
+	var dataBlock = achievement.children(".ecdAchDataBlock");
+	if (dataBlock.length > 0) dataBlock.slideDown(0, OnSlideAchievementComplete);
+	
+	SlideAchievementIntoView(achievement, true);
 }
 
 
@@ -635,6 +749,10 @@ function onDocReady()
 	$(".ecdScrollContent tr").mouseleave(OnItemRowLeave);
 	
 	$(".ecdAchievement1").click(OnAchievementClick);
+	
+	$("#ecdFindAchInput").keyup(function(e) {
+		if(event.keyCode == 13) OnFindAchievement();
+	});
 	
 	if (!DoesEsoItemLinkHaveEvent()) $('.eso_item_link').hover(OnEsoItemLinkEnter, OnEsoItemLinkLeave);
 }

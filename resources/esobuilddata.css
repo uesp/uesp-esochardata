@@ -1656,7 +1656,7 @@ thead.ecdFixedHeader tr {
 	font-size: 20px;
     font-weight: bold;
     color: #C5C29E;
-    padding: 6px;
+    padding: 5px;
     padding-left: 0px;
     margin-left: 0px;
     cursor: pointer;
@@ -1719,6 +1719,7 @@ thead.ecdFixedHeader tr {
 .ecdAchData {
 	height: 580px;
     overflow-y: auto;
+	position: relative;
 }
 
 .ecdAchievement1 {
@@ -1726,6 +1727,7 @@ thead.ecdFixedHeader tr {
 	padding-top: 10px;
 	min-height: 70px;
 	position: relative;
+	border-radius: 5px;
 }
 
 .ecdAchievement1:hover {
@@ -1917,6 +1919,7 @@ thead.ecdFixedHeader tr {
     text-align: center;
     opacity: 1 !important;
     vertical-align: top !important;
+	background-color: black;    
 }
 
 .ecdAchIconFrame img {
@@ -2061,4 +2064,65 @@ thead.ecdFixedHeader tr {
 	display: inline-block;
 	padding-top: 15px;
     padding-right: 20px;
+}
+
+.ecdFindAchTextBox {
+	
+}
+
+.ecdFindAchTextBox input {
+    width: 120px;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: white;
+    background-color: #666;
+    border: 1px solid gray;
+    font-size: 14px;
+    text-shadow: 1px 1px 1px black;
+    padding: 2px;
+}
+
+.ecdFindAchTextBox button {
+	-moz-box-shadow: 3px 4px 4px 0px #636134;
+	-webkit-box-shadow: 3px 4px 4px 0px #636134;
+	box-shadow: 3px 4px 4px 0px #636134;
+	background-color: #C5C29E;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	border:1px solid #8a843e;
+	display:inline-block;
+	cursor:pointer;
+	color:#000000;
+	font-family:Arial;
+	padding:16px 31px;
+    font-family: Arial;
+    font-size: 12px;
+    padding: 3px;
+    text-decoration: none;
+    width: 70px;
+    height: 24px;
+}
+
+.ecdFindAchTextBox button:hover {
+	background-color:#857a45;
+}
+
+.ecdFindAchTextBox button:active {
+	position:relative;
+	top:1px;
+}
+
+.ecdFindAchTextBox button:focus {
+	outline: 0;
+}
+
+.ecdAchSearchHighlight {
+	background-color: #447A7E;
+}
+
+.ecdAchSearchHighlight:hover {
+	background-color: #245A5E;
 }
