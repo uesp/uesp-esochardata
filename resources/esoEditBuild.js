@@ -7196,10 +7196,10 @@ function CheckEsoComputeStatUpdate()
 }
 
 
-function UpdateEsoComputedStatsList_Real()
+function UpdateEsoComputedStatsList_Real(keepSaveResults)
 {
 	g_EsoBuildRebuildStatFlag = false;
-	SetEsoBuildSaveResults("");
+	if (keepSaveResults !== true) SetEsoBuildSaveResults("");
 	
 	var inputValues = GetEsoInputValues();
 	var deferredStats = [];
@@ -10834,7 +10834,7 @@ function CreateEsoBuildSaveData()
 {
 	var saveData = {};
 
-	UpdateEsoComputedStatsList_Real();
+	UpdateEsoComputedStatsList_Real(true);
 	
 	var inputValues = g_EsoBuildLastInputValues;
 	
@@ -11422,7 +11422,7 @@ function SetEsoBuildActiveWeaponMatchingSkillBar(skillBar)
 function CreateEsoBuildOffBarSaveData(saveData, inputValues)
 {
 	var CurrentActiveBar = g_EsoBuildActiveAbilityBar;
-	var CurrentWeaponBar = SetEsoBuildActiveWeaponBar;
+	var CurrentWeaponBar = g_EsoBuildActiveWeapon;
 	
 	CreateEsoBuildComputedSaveData(saveData, inputValues, CurrentActiveBar);
 	
@@ -11559,7 +11559,8 @@ function SetEsoBuildSaveResults(text)
 function OnEsoBuildSave(e)
 {
 	SetEsoBuildSaveResults("Saving build...");
-	RequestEsoBuildSave();	
+	
+	setTimeout(RequestEsoBuildSave, 50);
 }
 
 
@@ -11568,8 +11569,9 @@ function OnEsoBuildCreateCopy(e)
 	var buildName = $("#esotbBuildName").val().trim();
 	if (!buildName.endsWith(" (Copy)")) $("#esotbBuildName").val(buildName + " (Copy)");
 	
-	RequestEsoBuildCreateCopy();
 	SetEsoBuildSaveResults("Saving new build...");
+
+	setTimeout(RequestEsoBuildCreateCopy, 50);
 }
 
 
