@@ -1847,11 +1847,11 @@ thead.ecdFixedHeader tr {
 }
 
 .ecdAchStatusBar {
-	width: 240px;
+	width: 300px;
 	height: 19px;
 	display: inline-block;	
 	background-image: url('achstatusbar-inside1.png');
-	background-size: 240px 19px;
+	background-size: 300px 19px;
 	background-repeat: no-repeat;
 	position: relative;
 	z-index: 1;
@@ -1859,13 +1859,13 @@ thead.ecdFixedHeader tr {
 }
 
 .ecdAchStatusBarFrame {
-	width: 240px;
+	width: 300px;
 	height: 19px;
 	position: absolute;
 	top: 0px;
 	left: 0px;
 	background-image: url('achstatusbar-frame1.png');
-	background-size: 240px 19px;
+	background-size: 300px 19px;
 	z-index: 10;
 }
 
@@ -1873,4 +1873,96 @@ thead.ecdFixedHeader tr {
 	display: inline-block;
 	z-index: 20;
 	font-size: 14px;
+	color: #fff !important;
+}
+
+.ecdAchRewardList {
+	padding-left: 40px;
+	clear: both;
+    padding-top: 10px;
+}
+
+.ecdAchReward {
+	font-weight: bold;
+	font-size: 15px;
+	color: #C5C29E;
+	text-shadow: 1px 1px 2px black;
+}
+
+.ecdAchReward.ecdAchUnknown {
+	color: #888 !important;
+}
+
+.ecdAchRewardDye {
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	vertical-align: middle;
+    position: relative;
+    top: -1.5px;
+}
+
+.ecdAchIconFrame {
+	display: inline-block;
+    width: 52px;
+    height: 52px;
+    background-image: url(eso_ability_frame.png);
+    background-size: 100% 100%;
+    vertical-align: middle;
+    text-align: center;
+    opacity: 1 !important;
+    vertical-align: top !important;
+}
+
+.ecdAchIconFrame img {
+	left: 2px;
+    top: 2px;
+    position: relative;
+}
+
+.ecdAchSmallIconFrame {
+	display: inline-block;
+    width: 34px;
+    height: 34px;
+    background-image: url(eso_ability_frame.png);
+    background-size: 100% 100%;
+    vertical-align: middle;
+    text-align: center;
+    opacity: 1 !important;
+}
+
+.ecdAchSmallIconFrame img {
+	left: -2px;
+    top: -2px;
+    position: relative;	
+}
+
+.ecdAchListItem {
+	display: inline-block;
+	color: #fff !important;
+	font-weight: bold;
+	font-size: 14px;
+	padding: 3px;
+}
+
+.ecdAchRewardDyeFrame {
+	display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-image: url(eso_ability_frame.png);
+    background-size: 100% 100%;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.ecdAchCatePoints {
+	font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 2px black;
+}
+
+.ecdAchCatePointsText {
+	z-index: 15;
+	display: inline-block;
 }

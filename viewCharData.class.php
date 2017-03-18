@@ -1799,14 +1799,43 @@ EOT;
 		{
 			foreach ($catData as $subCatName => $subCatData)
 			{
+				$catData = $ESO_ACHIEVEMENT_CATEGORIES["$catName::$subCatName"];
+				
 				$idName = "ecdAch_" . $catName . "_" . $subCatName;
 				$idName = str_replace("'", '', str_replace(' ', '', $idName));
 				
 				$displayCat = strtoupper($catName);
 				$displaySubCat = strtoupper($subCatName);
 				
+				$points = 0;
+				$total = 0;
+				
+				if ($catData)
+				{
+					$total = $catData['points'];
+					$index = $catData['index'];
+					$subIndex = $catData['subIndex'];
+					$pointsData = $this->getCharStatField("AchievementPoints:$index:$subIndex", "");
+					
+					if ($pointsData !== "")
+					{
+						$splitData = explode(",", $pointsData);
+						if ($splitData[0] != null) $points = intval($splitData[0]);
+						if ($splitData[1] != null) $total = intval($splitData[1]);
+					}
+				}
+				
 				$output .= "<div id='$idName' class='ecdAchData ecdScrollContent' style='display: none;'>";
 				$output .= "<div class='ecdAchContentTitle'>$displayCat: $displaySubCat</div>";
+				
+				if ($total > 0)
+				{
+					$percentWidth = intval(100 * $points / $total);
+					$output .= "<div class='ecdAchCatePoints'>";
+					$output .= "<div class='ecdAchStatusBar' style='background-size: $percentWidth% 100%;'><div class='ecdAchStatusBarFrame'></div>";
+					$output .= "<div class='ecdAchCatePointsText'>$points / $total</div>";
+					$output .= "</div></div>";
+				}
 				
 				foreach ($subCatData as $subIndex => $achList) 
 				{
@@ -1851,6 +1880,7 @@ EOT;
 		$displayProgress = 0;
 		$displayTimestamp = 0;
 		$displayIsKnown = false;
+		$firstUnknown = true;
 		
 		foreach ($achList as $index => $achId)
 		{
@@ -1866,13 +1896,19 @@ EOT;
 				$progress = $charAchData[0];
 				$timestamp = $charAchData[1];
 					
-				if ($timestamp > 0)
+				if (($timestamp <= 0 && $firstUnknown) || $timestamp > 0)
 				{
 					$displayId = $achId;
 					$displayProgress = $progress;
 					$displayTimestamp = $timestamp;
 					$displayDate = date("d/m/Y", $timestamp);
-					$displayIsKnown = true;
+					$displayIsKnown = ($timestamp > 0);
+					
+					if ($timestamp <= 0) 
+					{
+						$displayDate = "";
+						$firstUnknown = false;
+					}
 				}
 			}
 		}
@@ -1883,12 +1919,16 @@ EOT;
 		$achData = $ESO_ACHIEVEMENT_DATA[$displayId];
 		
 		$iconUrl = $this->convertIconToImageUrl($achData['icon']);
-		$name = $this->escape($achData['name']);
+		
+		$name = $achData['name'];
+		$name = preg_replace("#\<\<[A-Za-z]+\{(.*?)\}\>\>#", '$1', $name);
+		$name = $this->escape($name);
+		
 		$desc = $this->escape($achData['desc']);
 		$points = $this->escape($achData['points']);		
 		
 		$output .= "<div class='ecdAchievement1 $knownClass' achieveid='$achId'>";
-		$output .= "<img src='$iconUrl' class='ecdAchIcon'>";
+		$output .= "<div class='ecdAchIconFrame'><img src='$iconUrl' class='ecdAchIcon'></div>";
 		$output .= "<div class='ecdAchMidBlock'>";
 		$output .= "<div class='ecdAchName'>$name</div>";
 		$output .= "<div class='ecdAchDesc'>$desc</div>";
@@ -1898,12 +1938,68 @@ EOT;
 		$output .= "<div class='ecdAchDate'>$displayDate</div>";
 		$output .= "</div>";
 		
-		$output .= "<div class='ecdAchDataBlock' style='display: none;' >";
-		$output .= $this->getAchievementCriteriaHtml($displayId);
-		$output .= $this->getAchievementSubBlockHtml($achList);
-		$output .= "</div>";
+		$blockOutput  = $this->getAchievementCriteriaHtml($displayId);
+		$blockOutput .= $this->getAchievementSubBlockHtml($achList);
+		$blockOutput .= $this->getAchievementRewardBlockHtml($achList);
+		
+		if ($blockOutput != "")
+		{
+			$output .= "<div class='ecdAchDataBlock' style='display: none;' >";
+			$output .= $blockOutput;
+			$output .= "</div>";
+		}
 		
 		$output .= "</div>";
+		return $output;
+	}
+	
+	
+	public function getAchievementRewardBlockHtml($achList)
+	{
+		global $ESO_ACHIEVEMENT_DATA;
+				
+		foreach ($achList as $index => $achId)
+		{
+			$achData = $ESO_ACHIEVEMENT_DATA[$achId];
+			if ($achData == null) continue;
+			
+			$charAchData = $this->getCharAchievementData($achId);
+			$isKnown = $charAchData[1] > 0;
+			$knownClass = "ecdAchUnknown";
+			if ($isKnown) $knownClass = "ecdAchKnown";
+			
+			if ($achData['title'] != null)
+			{
+				$output .= "<div class='ecdAchReward $knownClass'>";
+				$output .= "Title: " . $this->escape($achData['title']);
+				$output .= "</div>";
+			}
+			
+			if ($achData['dyeName'] != null)
+			{
+				$output .= "<div class='ecdAchReward $knownClass'>";
+				$output .= "Dye: <div class='ecdAchRewardDyeFrame'><div class='ecdAchRewardDye' style='background-color: #{$achData['dyeColor']};'></div></div> ". $this->escape($achData['dyeName']);
+				$output .= "</div>";
+			}
+			
+			if ($achData['itemName'] != null)
+			{
+				$output .= "<div class='ecdAchReward $knownClass'>";
+				$output .= "Item: " . $this->escape($achData['itemName']);
+				$output .= "</div>";
+			}
+			
+			if ($achData['collectibleId'] != null)
+			{
+				$output .= "<div class='ecdAchReward $knownClass'>";
+				$output .= "Collectible #{$achData['collectibleId']}";
+				$output .= "</div>";
+			}
+		}
+		
+		if ($output == "") return "";
+		$output = "<div class='ecdAchRewardList'>" . $output . "</div>";
+		
 		return $output;
 	}
 	
@@ -1911,6 +2007,7 @@ EOT;
 	public function parseCharAchievementProgress($achId, $progress)
 	{
 		global $ESO_ACHIEVEMENT_DATA;
+		
 		$achData = $ESO_ACHIEVEMENT_DATA[$achId];
 		if ($achData == null) return array(0);
 				
@@ -1940,8 +2037,10 @@ EOT;
 		$achData = $ESO_ACHIEVEMENT_DATA[$achId];
 		if ($achData == null) return "";
 		
-		if (count($achData['criteria']) <= 0) return "";
-		if (count($achData['criteria']) == 1 && $achData['criteria'][1]['value'] == 1) return "";
+		$numCriteria = count($achData['criteria']);
+		
+		if ($numCriteria <= 0) return "";
+		if ($numCriteria == 1 && $achData['criteria'][1]['value'] == 1) return "";
 		
 		$output = "<div class='ecdAchCriteriaList'>";
 		
@@ -1972,7 +2071,8 @@ EOT;
 				$percentWidth = 100;
 				if ($value > 0) $percentWidth = intval($progress * 100 / $value);
 				
-				$output .= "<div class='ecdAchCriteria $knownClass'>$name<br/>";
+				$output .= "<div class='ecdAchCriteria $knownClass'>";
+				if ($numCriteria > 1) $output .= "$name<br/>";
 				$output .= "<div class='ecdAchStatusBar' style='background-size: $percentWidth% 100%;'><div class='ecdAchStatusBarFrame'></div>";
 				$output .= "<div class='ecdAchCriteriaPoints'>$progress/$value</div></div>";
 				$output .= "</div>";
@@ -2009,12 +2109,22 @@ EOT;
 				
 			$charAchData = $this->getCharAchievementData($achId);
 			if ($charAchData && $charAchData[1] > 0) $isKnown = true;
-			if ($isKnown) $knownClass = "";
+			$completeText = "Not Completed";
 			
-			$title = $this->escape($achData['name']);
+			if ($isKnown) 
+			{
+				$knownClass = "";
+				$displayDate = date("d/m/Y", $charAchData[1]);
+				$completeText = "Completed on $displayDate";
+			}
+			
+			$title = $this->escape($achData['name'] . "\nPoints " . $achData['points'] . "\n" . $achData['desc'] . "\n" . $completeText);
 			
 			$iconUrl = $this->convertIconToImageUrl($achData['icon']);
-			$output .= "<img title='$title' src='$iconUrl' class='$knownClass'>";
+			$output .= "<div class='ecdAchListItem'>";
+			$output .= "<div class='ecdAchSmallIconFrame'><img title=\"$title\" src='$iconUrl' class='$knownClass'></div>";
+			$output .= "<br/>{$achData['points']}";
+			$output .= "</div>";
 		}
 		
 		$output .= "</div>";
@@ -2039,7 +2149,6 @@ EOT;
 			}
 			
 			$displayName = strtoupper($catName);
-			 
 			
 			$output .= "<div class='ecdAchTree1'>";
 			$output .= "<div class='ecdAchTreeName1' achcategory='$catName'><img src='$iconUrl'>$displayName</div>";
