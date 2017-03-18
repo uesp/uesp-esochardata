@@ -1683,6 +1683,19 @@ EOT;
 			$name = $this->db->real_escape_string($data['name']);
 			$value = $this->db->real_escape_string($data['value']);
 			
+			$result = preg_match("#([^:]+):(.*)#", $name, $matches);
+			
+			if ($result)
+			{
+				if ($matches[1] == "Research") continue;
+				if ($matches[1] == "Book") continue;
+				if ($matches[1] == "Recipe") continue;
+				if ($matches[1] == "Achievement") continue;
+				if ($matches[1] == "AchievementPoints") continue;
+				if ($matches[1] == "Crafting") continue;
+				if ($matches[1] == "Research") continue;
+			}
+			
 			$query = "INSERT INTO stats(characterId, name, value) ";
 			$query .= "VALUES($buildId, '$name', '$value');";
 			$this->lastQuery = $query;
