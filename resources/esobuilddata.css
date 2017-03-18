@@ -257,19 +257,19 @@
 
 .ecdAttributesMag {
 	font-size: 18px;
-	font-weight: normal;
+	font-weight: bold;
 	color: #6666ff;
 }
 
 .ecdAttributesHea {
 	font-size: 18px;
-	font-weight: normal;
+	font-weight: bold;
 	color: #ff6666;
 }
 
 .ecdAttributesSta {
 	font-size: 18px;
-	font-weight: normal;
+	font-weight: bold;
 	color: #66ff66;
 }
 
@@ -1968,6 +1968,7 @@ thead.ecdFixedHeader tr {
     font-weight: bold;
     color: #fff;
     text-shadow: 1px 1px 2px black;
+	padding-bottom: 10px;
 }
 
 .ecdAchCatePointsText {
