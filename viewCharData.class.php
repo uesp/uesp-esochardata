@@ -532,6 +532,11 @@ EOT;
 		$output .= "<th>Skill Points</th>";
 		$output .= "<th>Achievement<br>Points</th>";
 		$output .= "<th>Mundus</th>";
+		$output .= "<th>Blacksmith<br/>Hireling</th>";
+		$output .= "<th>Clothier<br/>Hireling</th>";
+		$output .= "<th>Enchanter<br/>Hireling</th>";
+		$output .= "<th>Provisioner<br/>Hireling</th>";
+		$output .= "<th>Woodworker<br/>Hireling</th>";
 		$output .= "</tr>";
 		
 		//InventorySize
@@ -553,6 +558,7 @@ EOT;
 		$totalInv = 0;
 		$totalSkillPoints = 0;
 		$totalAchPoints = 0;
+		$currentTime = time();
 		
 		foreach ($this->buildData as $build)
 		{
@@ -570,6 +576,70 @@ EOT;
 			$achPoints = intval($this->getAccountStatsField($charId, 'AchievementEarnedPoints', 0));
 			$mundus = $this->escape($this->GetAccountCharMundus($charId));
 			
+			$blackHireling = intval($this->getAccountStatsField($charId, 'HirelingMailTime:Blacksmithing', 0));
+			$clothHireling = intval($this->getAccountStatsField($charId, 'HirelingMailTime:Clothier', 0));
+			$enchantHireling = intval($this->getAccountStatsField($charId, 'HirelingMailTime:Enchanting', 0));
+			$provHireling = intval($this->getAccountStatsField($charId, 'HirelingMailTime:Provisioning', 0));
+			$woodHireling = intval($this->getAccountStatsField($charId, 'HirelingMailTime:Woodworking', 0));
+			
+			$blackSkill = intval($this->getAccountStatsField($charId, 'HirelingSkill:Blacksmithing', 0));
+			$clothSkilll = intval($this->getAccountStatsField($charId, 'HirelingSkill:Clothier', 0));
+			$enchantSkill = intval($this->getAccountStatsField($charId, 'HirelingSkill:Enchanting', 0));
+			$provSkill = intval($this->getAccountStatsField($charId, 'HirelingSkill:Provisioning', 0));
+			$woodSkill = intval($this->getAccountStatsField($charId, 'HirelingSkill:Woodworking', 0));
+			
+			$blackTime = (($blackSkill >= 3) ? 12 : 24) * 3600 + $blackHireling;
+			$clothTime = (($clothSkilll >= 3) ? 12 : 24) * 3600 + $clothHireling;
+			$enchantTime = (($enchantSkill >= 3) ? 12 : 24) * 3600 + $enchantHireling;
+			$provTime = (($provSkill >= 3) ? 12 : 24) * 3600 + $provHireling;
+			$woodTime = (($woodSkill >= 3) ? 12 : 24) * 3600 + $woodHireling;
+			
+			$blackTimeFmt = "";
+			$clothTimeFmt = "";
+			$enchantTimeFmt = "";
+			$provTimeFmt = "";
+			$woodTimeFmt = "";
+			
+			if ($blackHireling > 0) 
+			{
+				if ($blackTime > $currentTime)
+					$blackTimeFmt = $this->formatTimeLeft($blackTime - $currentTime);
+				else
+					$blackTimeFmt = "Ready!";
+			}
+			
+			if ($clothHireling > 0)
+			{
+				if ($clothTime > $currentTime)
+					$clothTimeFmt = $this->formatTimeLeft($clothTime - $currentTime);
+				else
+					$clothTimeFmt = "Ready!";
+			}
+			
+			if ($enchantHireling > 0)
+			{
+				if ($enchantTime > $currentTime)
+					$enchantTimeFmt = $this->formatTimeLeft($enchantTime - $currentTime);
+				else
+					$enchantTimeFmt = "Ready!";
+			}
+			
+			if ($provHireling > 0)
+			{
+				if ($provTime > $currentTime)
+					$provTimeFmt = $this->formatTimeLeft($provTime - $currentTime);
+				else
+					$provTimeFmt = "Ready!";
+			}
+			
+			if ($woodHireling > 0)
+			{
+				if ($woodTime > $currentTime)
+					$woodTimeFmt = $this->formatTimeLeft($woodTime - $currentTime);
+				else
+					$woodTimeFmt = "Ready!";
+			}
+						
 			$totalGold += $gold;
 			$totalAP += $ap;
 			$totalTelvar += $telvar;
@@ -590,6 +660,11 @@ EOT;
 			$output .= "<td>$skillPoints</td>";
 			$output .= "<td>$achPoints</td>";
 			$output .= "<td>$mundus</td>";
+			$output .= "<td>$blackTimeFmt</td>";
+			$output .= "<td>$clothTimeFmt</td>";
+			$output .= "<td>$enchantTimeFmt</td>";
+			$output .= "<td>$provTimeFmt</td>";
+			$output .= "<td>$woodTimeFmt</td>";
 			$output .= "</tr>";			
 		}
 		
@@ -616,6 +691,11 @@ EOT;
 		$output .= "<td>-</td>";
 		$output .= "<td>-</td>";
 		$output .= "<td>-</td>";
+		$output .= "<td>-</td>";
+		$output .= "<td>-</td>";
+		$output .= "<td>-</td>";
+		$output .= "<td>-</td>";
+		$output .= "<td>-</td>";
 		$output .= "</tr>";
 		
 		$output .= "<tr>";
@@ -628,6 +708,11 @@ EOT;
 		$output .= "<th>$totalInv</th>";
 		$output .= "<th>$totalSkillPoints</th>";
 		$output .= "<th>$totalAchPoints</th>";
+		$output .= "<th>-</th>";
+		$output .= "<th>-</th>";
+		$output .= "<th>-</th>";
+		$output .= "<th>-</th>";
+		$output .= "<th>-</th>";
 		$output .= "<th>-</th>";
 		$output .= "</tr>";
 
@@ -982,6 +1067,25 @@ EOT;
 	}
 	
 	
+	public function formatTimeLeft($timeLeft)
+	{
+		$days = floor($timeLeft / 3600 / 24);
+		$hours = floor($timeLeft / 3600) % 24;
+		$minutes = floor($timeLeft / 60) % 60;
+		$seconds = $timeLeft % 60;
+		$timeFmt = "";
+		
+		if ($days > 1)
+			$timeFmt = sprintf("%d days %02d:%02d:%02d", $days, $hours, $minutes, $seconds);
+		else if ($days > 0)
+			$timeFmt = sprintf("%d day %02d:%02d:%02d", $days, $hours, minutes, $seconds);
+		else
+			$timeFmt = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
+		
+		return $timeFmt;
+	}
+	
+	
 	public function createAccountResearchSlotData($charId, $craftType)
 	{
 		$output = "";
@@ -1013,19 +1117,7 @@ EOT;
 				
 			$finishTime = intval($time) + intval($timeStamp);
 			$timeLeft   = intval($time) + intval($timeStamp) - time();
-				
-			$days = floor($timeLeft / 3600 / 24);
-			$hours = floor($timeLeft / 3600) % 24;
-			$minutes = floor($timeLeft / 60) % 60;
-			$seconds = $timeLeft % 60;
-			$timeFmt = "";
-	
-			if ($days > 1)
-				$timeFmt = sprintf("%d days %02d:%02d:%02d", $days, $hours, $minutes, $seconds);
-			else if ($days > 0)
-				$timeFmt = sprintf("%d day %02d:%02d:%02d", $days, $hours, minutes, $seconds);
-			else
-				$timeFmt = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
+			$timeFmt = $this->formatTimeLeft($timeLeft);			
 							
 			if ($timeLeft <= 0)
 			{
