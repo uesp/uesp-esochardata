@@ -2349,6 +2349,7 @@ class EsoBuildDataViewer
 		return $this->escape($this->accountStats[$charId][$stat]['value']);
 	}
 	
+	
 	public function getCharSkillContentHtml2($skillName, &$skillData)
 	{
 		$safeName = $this->escape($skillName);
@@ -2401,6 +2402,7 @@ class EsoBuildDataViewer
 				$output .= "<div class='ecdSkillDataHeader'>PASSIVES</div>\n";
 			$foundPassive = true;
 			}
+	
 			
 			$output .= $this->getCharSkillContentHtml3($i, $skillData[$i]);
 		}
@@ -3156,6 +3158,7 @@ class EsoBuildDataViewer
 				'screenshots' => 'Screenshots',
 				'bank' => 'Bank',
 				'craft' => 'Craft',
+				'craftBag' => 'Craft Bag',
 				'inventory' => 'Inventory',
 				'accountInventory' => 'Account Inventory',
 				'accountEquipSlots' => 'Account Equipment',
