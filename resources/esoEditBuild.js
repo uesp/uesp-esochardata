@@ -12349,30 +12349,7 @@ function UpdateEsoTooltipEnchantDamageShield(match, divData, enchantValue)
 function UpdateEsoBuildTooltipEnchant(enchantBlock, tooltip)
 {
 	var enchantHtml = enchantBlock.html();
-	
-	/*
-	<div id="esoil_itemenchantblock">
-		<div class="esoil_white esoil_small">CRUSHER ENCHANTMENT</div>
-		<br>Reduce the target's Physical and Spell Resistance by 
-		<div style="color:#ffffff;display:inline;">1622</div> for 
-		<div style="color:#ffffff;display:inline;">5</div> seconds.
-	</div>
-	
-	<div id="esoil_itemenchantblock">
-		<div class="esoil_white esoil_small">CHARGED WEAPON ENCHANTMENT</div><br>
-		Deals <div style="color:#ffffff;display:inline;">2534</div> Shock Damage.
-	</div>
-	
-	 inputValues.PhysicalDamageDone,
-		Magic			: inputValues.MagicDamageDone,
-		Shock			: inputValues.ShockDamageDone,
-		Flame			: inputValues.FlameDamageDone,
-		Cold			: inputValues.ColdDamageDone,
-		Poison			: inputValues.PoisonDamageDone,
-		Disease			: inputValues.DiseaseDamageDone,
-		Dot				: inputValues.DotDamageDone,
-	*/
-	newEnchantHtml = enchantHtml;
+	var newEnchantHtml = enchantHtml;
 	
 	newEnchantHtml = newEnchantHtml.replace(/Deals \<div([^>]*)\>([0-9]+)\<\/div\> ([A-Za-z]+) Damage/gi, UpdateEsoTooltipEnchantDamage);
 	newEnchantHtml = newEnchantHtml.replace(/restores \<div([^>]*)\>([0-9]+)\<\/div\> Health/gi, UpdateEsoTooltipEnchantHealing);
@@ -12381,10 +12358,110 @@ function UpdateEsoBuildTooltipEnchant(enchantBlock, tooltip)
 	if (newEnchantHtml != enchantHtml) enchantBlock.html(newEnchantHtml);
 }
 
+// additional 33-2838 Disease Damage
+// chance to breath fire to all enemies in front of you for 13-1118 Flame Damage
+// damages them for 10-860 Magic Damage every 1 second
+// you deal 46-4000 Magic Damage to all enemies within 10 meters of you a
+// they detonate the bomb, dealing 87-7500 Magic Damage all enemies within 8 meter
+// and deal 12-1032 Flame Damage to all enemies within 5 meters of you
+// when enemies come close, dealing 85-7335 Poison Damage
+// enemy they detonate for 55-4730 Magic Damage
+// dealing 23-2000 Flame Damage to all enemies within 8 meters
+// of enemies within by 50%. After 5 seconds the webs burst into venom, dealing 30-2580 Poison Damage and applying Minor Fracture to any enemy hit for 5 seconds
+// you deal 160-1840 Physical Damage 
+// you deal 8-770 Frost Damage to all enemies within 5 meters
+// When you deal Flame or Shock Damage, you have a 10% chance to summon a meteor shower of that damage type that deals 15-1300 Damage to all enemies within 4 meters
+// ? deal an additional 10-903 damage
+// deal 63-5500 Flame Damage to all enemies within 5 meters
+// additional 67-5805 Shock Damage
+// in front of you dealing 15-1300 Physical Damage
+// that deals 14-1204 Poison Damage in a 4 meter
+// ? The Daedroth's basic attacks deal 49-4257 Physical Damage
+// dealing 85-7335 Magic Damage to all enemies within 4 meters
+// you deal 23-2000 Poison Damage to the attacker
+// ? your Light and Heavy Attacks deal an additional 14-1225 damage
+// to surround yourself with a torrent that deals 22-1892 Shock Damage to the closest enemy within 12 meters
+// explode for 100-8600 Flame Damage to all enemies within 8 meters
+// to deal an additional 79-6800 Poison Damage
+// send a shockwave from your position that deals 20-1720 Physical Damage and an additional 140-12040 Physical Damage over
+// a primal spirit that mauls the closest enemy in front of you for 139-12000 Physical Damage
+// under the enemy that erupts after 2 seconds, dealing 45-3870 Physical Damage to all enemies within 4
+// summon a dwemer spider that heals for 12-1049 Health and
+// ? Increases the damage of your fully-charged Heavy Attacks by 19-1634.
+// When you deal damage with a Weapon ability, you have a 10% chance to deal an additional 272-8000 Flame Damage.
+// When you deal damage with an Execute ability you infect the enemy, dealing 98-8428 Poison Damage over 6 seconds.
+// ? you deal an additional 25-2150 Oblivion Damage to them.
+// you deal 45-3870 Magic Damage to the attacker
+// you create a web for 10 seconds that deals 12-1044 Poison Damage every 1 second and reduces the Movement Speed of enemies within by 50%.
+// to deal 50-4373 Shock Damage all enemies within 5 meters
+// ? your Light Attacks deal an additional 15-1333 Shock Damage for 20 seconds.
+// to create a thunderfist to crush the enemy, dealing 17-1500 Shock Damage every 1 second for 3 seconds to all enemies within 4 meters and a final 93-8000 Physical Damage when the fist closes
+// you deal an additional 9-774 Flame Damage
+// you have a 5% chance to cause a burst of lamia poison that deals 11-967 Poison Damage in a 5 meter radius and an additional 66-5802 Poison Damage over 6 seconds to all enemies hit.
+// you have a 50% chance to deal an additional 34-997 Flame Damage to all enemies within 8 meters around the initial target.
+// chance to deal 60-5160 Shock Damage in a 5 meter radius
+// cause a duneripper to burst from the ground beneath them, dealing 68-5850 Physical Damage to all enemies within 4 meters
+// and damages enemies for 42-3667 Magic Damage in a 5 meter radius
+// chance to cause all enemies within 5 meters of you to bleed for 100-8600 Physical Damage over 8 seconds
+// ? When you use an ability that costs Magicka, your Light Attacks deal an additional 9-774 damage and Heavy Attacks deal an additional 13-1161 damage for 10 seconds.
+// to summon a meteor that deals 104-9000 Flame Damage to the target and 46-4000 Flame Damage to all other enemies within 5 meters.
+// you have a 10% chance to cause your next direct damage area of effect attack to deal an additional 300-3450 damage.
+// you have a 20% chance to spawn 3 disease spores in front of you that deal 120-10320 Disease Damage to the first enemy they hit.
+// you inject a leeching poison that deals 160-13760 Poison Damage over 15 seconds to them
+// When you kill a Player, they violently explode for 183-15815 Flame Damage to all other enemies in a 4 meter radius.
+// When you deal damage with a melee attack, you deal an additional 74-6400 Poison Damage.
+// you have a 20% chance to deal an additional 46-4000 Flame Damage.
+// When your alchemical poison fires, deal 90-7740 Poison Damage to all enemies within 5 meters of you.
+// to summon an ice pillar that deals 70-6020 Frost Damage to all enemies in a 3 meter radius. 
+
+// to heal you and your allies within 7 meters of you for 28-2429 Health
+// When you fall below 30% Health, heal for 82-7052 Health
+// heal for 23-2000 Health
+// while this effect is active your Critical Strikes heal you for 14-609 Health.
+// at heals you or an ally for 225-19565 Health over
+// and heal for 81-7000 Health
+// nd heal for 81-7000 Health
+// ollecting the essence heals you 50-4300 Health
+// you heal for 28-2433 Health
+// you heal for 14-1250 Health
+// chance to heal for 14-1216 Health
+// heals you and your allies within 5 meters for 40-3483 Health 
+// you heal for 50-4300 Health
+// heal for 20-1720 Health
+// you heal for 200-17200 Health
+// you heal an ally within 15 meters of you for 27-2347 Health
+// While you are affected by a disabling effect, heal for 23-2000 Health every 1 second.
+// heal for 15-1290 Health
+// ? When you take damage, you have a 6% chance to create a beam that steals 63-5805 Health over 4 seconds from the attacker
+// and heal for 15-1290 Health
+// heal for 25-2150 Health
+// While you are under 50% Health, dealing damage with a Light Attack heals you for 71 Health.
+// and heal for 45-3870 Health
+// heal for 210-18060 Health
+// that heals you and your allies for 42-3667 Health
+// ? they heal themselves for 220-18920 Health 
+// you heal for 60-5160 Health
+// you heal for 17-1505 Health
+
+// a damage shield that absorbs 140-12040 damage
+// to gain a damage shield that absorbs 30-2580 damage
+// grant them a damage shield that absorbs 95-8195 damage
+// Gain a damage shield that absorbs 58-5000 damage
+// gain a damage shield that absorbs 100-8600 damage
+// grants a damage shield every 2 seconds that absorbs 27-2399 damage
+// gain a damage shield that absorbs 140-12040 damage
+// grant them a damage shield that absorbs 28-2425 damage
+// you have a 5% chance to gain a damage shield that absorbs 105-3080 damage
+// gain a damage shield that absorbs 160-13760 damage
+// you gain a damage shield that absorbs 120-10320 damage
+
 
 function UpdateEsoBuildTooltipSet(setBlock, tooltip)
 {
 	var setHtml = setBlock.html();
+	var newSetHtml = setHtml;
+	
+	if (newSetHtml != setHtml) setBlock.html(newSetHtml);
 }
 
 
