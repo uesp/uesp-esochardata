@@ -580,6 +580,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Item.HealingDone" => array(
+					"display" => "%",
+			),
+			
 			"CP.DotDamageDone" => array(
 					"display" => "%",
 			),
@@ -1232,9 +1236,17 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"SkillDamage.Overload" => array(
+					"display" => "%",
+			),
+			
 			"SkillDamage.Fiery Breath" => array(
 					"display" => "%",
 			),
+						
+			"Skill.PhysicalDamageDone" => array(
+					"display" => "%",
+			),			
 			
 			"Buff.SpellResist" => array(
 					"display" => "%",
