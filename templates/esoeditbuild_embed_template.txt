@@ -471,6 +471,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 				<li>Overload is no longer affected by increased damage from the Destruction Ancient Knowledge passive.</li>
 				<li>The Queen's Elegance 5 piece bonus now affects Overload damage.</li>
 				<li>Fixed the off-bar weapon disabled set bonuses from adding "Other Effects".</li>
+				<li>Fixed the sign of DamageTaken in the mitigation calculations.</li>
 			</ul>
 			<p>
 			<b>13 March 2017</b>

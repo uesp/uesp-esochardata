@@ -632,6 +632,14 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"MagicDamageTaken" => array(
+					"display" => "%",
+			),
+			
+			"PhysicalDamageTaken" => array(
+					"display" => "%",
+			),
+			
 			"CP.MagicDamageDone" => array(
 					"display" => "%",
 			),
@@ -3001,7 +3009,7 @@ class EsoBuildDataEditor
 			"DefenseSpellMitigation" => array(
 					"title" => "Defending Spell Mitigation",
 					"display" => "%",
-					"depends" => array("SpellResist"),
+					"depends" => array("SpellResist", "MagicDamageTaken"),
 					"compute" => array(
 							"SpellResist",
 							"1 - Target.PenetrationFactor",
@@ -3014,7 +3022,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + Target.AttackBonus",
 							"*",
-							"1 - MagicDamageTaken",
+							"1 + MagicDamageTaken",
 							"*",
 					),
 			),
@@ -3022,7 +3030,7 @@ class EsoBuildDataEditor
 			"DefensePhysicalMitigation" => array(
 					"title" => "Defending Physical Mitigation",
 					"display" => "%",
-					"depends" => array("PhysicalResist"),
+					"depends" => array("PhysicalResist", "PhysicalDamageTaken"),
 					"compute" => array(
 							"PhysicalResist",
 							"1 - Target.PenetrationFactor",
@@ -3035,7 +3043,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + Target.AttackBonus",
 							"*",
-							"1 - PhysicalDamageTaken",
+							"1 + PhysicalDamageTaken",
 							"*",
 					),
 			),
