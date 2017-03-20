@@ -12289,6 +12289,122 @@ function CopyEsoSkillsToItemTab()
 }
 
 
+function UpdateEsoTooltipEnchantDamage(match, divData, enchantValue, damageType)
+{
+	var enchantFactor = 1;
+	var damageMod;
+	var checkDamageType = damageType;
+	
+	if (checkDamageType == "Frost") checkDamageType = "Cold";
+	
+	damageMod = g_EsoBuildLastInputValues[checkDamageType + "DamageDone"];
+	if (damageMod != null && damageMod !== 0) enchantFactor *= (1 + damageMod);	
+	
+	damageMod = g_EsoBuildLastInputValues.Skill.SingleTargetDamageDone;
+	if (damageMod != null && damageMod !== 0) enchantFactor *= (1 + damageMod);
+
+	if (enchantFactor != 0)
+	{
+		enchantValue = Math.floor(enchantValue * enchantFactor);
+	}
+		
+	return "Deals <div" + divData + ">" + enchantValue + "</div> " + damageType + " Damage";
+}
+
+
+function UpdateEsoTooltipEnchantHealing(match, divData, enchantValue)
+{
+	var enchantFactor = 1;
+	var healingMod;
+	
+	healingMod = g_EsoBuildLastInputValues["HealingDone"];
+	if (healingMod != null && healingMod !== 0) enchantFactor *= (1 + healingMod);
+	
+	if (enchantFactor != 0)
+	{
+		enchantValue = Math.floor(enchantValue * enchantFactor);
+	}
+	
+	return "restores <div" + divData + ">" + enchantValue + "</div> Health";
+}
+
+
+function UpdateEsoTooltipEnchantDamageShield(match, divData, enchantValue)
+{
+	var enchantFactor = 1;
+	var shieldMod;
+	
+	shieldMod = g_EsoBuildLastInputValues["DamageShield"];
+	if (shieldMod != null && shieldMod !== 0) enchantFactor *= (1 + shieldMod);
+	
+	if (enchantFactor != 0)
+	{
+		enchantValue = Math.floor(enchantValue * enchantFactor);
+	}
+	
+	return "Grants a  <div" + divData + ">" + enchantValue + "</div> point Damage shield";
+}
+
+
+function UpdateEsoBuildTooltipEnchant(enchantBlock, tooltip)
+{
+	var enchantHtml = enchantBlock.html();
+	
+	/*
+	<div id="esoil_itemenchantblock">
+		<div class="esoil_white esoil_small">CRUSHER ENCHANTMENT</div>
+		<br>Reduce the target's Physical and Spell Resistance by 
+		<div style="color:#ffffff;display:inline;">1622</div> for 
+		<div style="color:#ffffff;display:inline;">5</div> seconds.
+	</div>
+	
+	<div id="esoil_itemenchantblock">
+		<div class="esoil_white esoil_small">CHARGED WEAPON ENCHANTMENT</div><br>
+		Deals <div style="color:#ffffff;display:inline;">2534</div> Shock Damage.
+	</div>
+	
+	 inputValues.PhysicalDamageDone,
+		Magic			: inputValues.MagicDamageDone,
+		Shock			: inputValues.ShockDamageDone,
+		Flame			: inputValues.FlameDamageDone,
+		Cold			: inputValues.ColdDamageDone,
+		Poison			: inputValues.PoisonDamageDone,
+		Disease			: inputValues.DiseaseDamageDone,
+		Dot				: inputValues.DotDamageDone,
+	*/
+	newEnchantHtml = enchantHtml;
+	
+	newEnchantHtml = newEnchantHtml.replace(/Deals \<div([^>]*)\>([0-9]+)\<\/div\> ([A-Za-z]+) Damage/gi, UpdateEsoTooltipEnchantDamage);
+	newEnchantHtml = newEnchantHtml.replace(/restores \<div([^>]*)\>([0-9]+)\<\/div\> Health/gi, UpdateEsoTooltipEnchantHealing);
+	newEnchantHtml = newEnchantHtml.replace(/Grants a \<div([^>]*)\>([0-9]+)\<\/div\> point Damage shield/gi, UpdateEsoTooltipEnchantDamageShield);
+	
+	if (newEnchantHtml != enchantHtml) enchantBlock.html(newEnchantHtml);
+}
+
+
+function UpdateEsoBuildTooltipSet(setBlock, tooltip)
+{
+	var setHtml = setBlock.html();
+}
+
+
+function UpdateEsoBuildTooltip(tooltip)
+{
+	var enchantBlock = $(tooltip).find("#esoil_itemenchantblock");
+	var setBlock = $(tooltip).find("#esoil_itemsetblock");
+	
+	UpdateEsoBuildTooltipEnchant(enchantBlock, tooltip);
+	UpdateEsoBuildTooltipSet(enchantBlock, tooltip);
+}
+
+
+function OnEsoTooltipUpdate(event, tooltip)
+{
+	//EsoBuildLog("OnEsoTooltipUpdate");
+	UpdateEsoBuildTooltip(tooltip);	
+}
+
+
 function esotbOnDocReady()
 {
 	GetEsoSkillInputValues = GetEsoTestBuildSkillInputValues;
@@ -12363,6 +12479,8 @@ function esotbOnDocReady()
 	
 	$("#esotbSaveButton").click(OnEsoBuildSave);
 	$("#esotbCreateCopyButton").click(OnEsoBuildCreateCopy);
+	
+	$(document).on("esoTooltipUpdate", OnEsoTooltipUpdate);
 	
 	$(document).keyup(function(e) {
 	    if (e.keyCode == 27) OnEsoBuildEscapeKey(e);
