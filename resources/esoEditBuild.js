@@ -3608,6 +3608,12 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Increases your Light and Heavy Attack damage by ([0-9]+)%/i,
 	},
 	{
+		statId: "Overload",
+		category: "SkillDamage",
+		display: "%",
+		match: /Increases your Light and Heavy Attack damage by ([0-9]+)%/i,
+	},
+	{
 		statId: "SprintCost",
 		factorValue: -1,
 		display: "%",
@@ -5854,7 +5860,7 @@ function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData, 
 		AddEsoInputStatSource(category + "." + matchData.statId, { set: setData, setBonusCount: setBonusCount, value: statValue });
 	}
 	
-	if (!foundMatch || addFinalEffect)
+	if ((!foundMatch && !onlyEnableToggles) || addFinalEffect)
 	{
 		AddEsoInputStatSource("OtherEffects", { other: true, set: setData, setBonusCount: setBonusCount, value: setDesc });
 		AddEsoItemRawOutputString(setData, "OtherEffects", rawInputDesc);
@@ -6818,7 +6824,6 @@ function UpdateEsoItemSets()
 		}
 		else
 		{
-			if (!isCurrentHand) ++g_EsoBuildSetData[setName].otherCount;
 			++g_EsoBuildSetData[setName].count;
 			
 			g_EsoBuildSetData[setName].items.push(itemData);
@@ -7198,6 +7203,8 @@ function CheckEsoComputeStatUpdate()
 
 function UpdateEsoComputedStatsList_Real(keepSaveResults)
 {
+	if (console && console.time) console.time('UpdateEsoComputedStatsList_Real');
+	
 	g_EsoBuildRebuildStatFlag = false;
 	if (keepSaveResults !== true) SetEsoBuildSaveResults("");
 	
@@ -7253,6 +7260,8 @@ function UpdateEsoComputedStatsList_Real(keepSaveResults)
 	UpdateEsoBuildVisibleBuffs();
 	UpdateEsoBuffSkillEnabled();
 	UpdateEsoAllSkillCost(false);
+	
+	if (console && console.timeEnd) console.timeEnd('UpdateEsoComputedStatsList_Real');
 }
 
 

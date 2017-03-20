@@ -461,10 +461,18 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<hr>
 			<ul>
 				<li>Do a forced reload of the page in your browser to ensure you have the latest JavaScript files.</li>
+				<li>Weapon enchantments are not currently affected by +damage modifiers.</li>
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>20 March 2017</b>
+			<ul>
+				<li>Overload is no longer affected by increased damage from the Destruction Ancient Knowledge passive.</li>
+				<li>The Queen's Elegance 5 piece bonus now affects Overload damage.</li>
+				<li>Fixed the off-bar weapon disabled set bonuses from adding "Other Effects".</li>
+			</ul>
+			<p>
 			<b>13 March 2017</b>
 			<ul>
 				<li>Implemented many of the item setups found at the bottom of the item tab.</li>
@@ -485,7 +493,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<hr>
 			<b>6 March 2017</b>
 			<ul>
-				<li>Updated 50k items that had incorrect data (most were random mid-level items).</li>
+				<li>Updated 50,000 items that had incorrect data (most were random mid-level items).</li>
 			</ul>
 			<p>
 			<b>3 March 2017</b>
