@@ -12300,6 +12300,9 @@ function UpdateEsoTooltipEnchantDamage(match, divData, enchantValue, damageType)
 	damageMod = g_EsoBuildLastInputValues[checkDamageType + "DamageDone"];
 	if (damageMod != null && damageMod !== 0) enchantFactor *= (1 + damageMod);	
 	
+	damageMod = g_EsoBuildLastInputValues.DamageDone;
+	if (damageMod != null && damageMod !== 0) enchantFactor *= (1 + damageMod);
+	
 	damageMod = g_EsoBuildLastInputValues.Skill.SingleTargetDamageDone;
 	if (damageMod != null && damageMod !== 0) enchantFactor *= (1 + damageMod);
 
