@@ -5869,6 +5869,33 @@ function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData, 
 }
 
 
+function UpdateEsoBuildSetOtherEffectDesc()
+{
+	for (var setName in g_EsoBuildSetData)
+	{
+		var setData = g_EsoBuildSetData[setName];
+		
+		for (var name in setData.rawOutput)
+		{
+			if (name == "OtherEffects")
+			{
+				setData.rawOutput[name] = UpdateEsoBuildSetAll(setName, setData.rawOutput[name]);
+			}
+		}
+	}
+	
+	for (var i in g_EsoInputStatSources.OtherEffects)
+	{
+		var data = g_EsoInputStatSources.OtherEffects[i];
+		
+		if (data.set != null)
+		{
+			data.value = UpdateEsoBuildSetAll(data.set.name, data.value);
+		}
+	}
+}
+
+
 function GetEsoEnchantData(slotId)
 {
 	var itemData = null;
@@ -7249,6 +7276,7 @@ function UpdateEsoComputedStatsList_Real(keepSaveResults)
 	
 	UpdateEsoTestBuildSkillInputValues(inputValues);
 	UpdateEsoBuildRawInputOtherEffects();
+	UpdateEsoBuildSetOtherEffectDesc();
 	
 	UpdateEsoReadOnlyStats(inputValues);
 	UpdateEsoBuildMundusList2();
@@ -7260,7 +7288,7 @@ function UpdateEsoComputedStatsList_Real(keepSaveResults)
 	UpdateEsoBuildVisibleBuffs();
 	UpdateEsoBuffSkillEnabled();
 	UpdateEsoAllSkillCost(false);
-	
+		
 	if (console && console.timeEnd) console.timeEnd('UpdateEsoComputedStatsList_Real');
 }
 
@@ -9198,7 +9226,7 @@ function ComputeEsoBuildAllSetData()
 		for (var i in g_EsoBuildSetData[setName].averageDesc)
 		{
 			var desc = g_EsoBuildSetData[setName].averageDesc[i];
-			EsoBuildLog("" + i + ") " + desc);
+			//EsoBuildLog("" + i + ") " + desc);
 		}
 	}
 }
@@ -12361,17 +12389,597 @@ function UpdateEsoBuildTooltipEnchant(enchantBlock, tooltip)
 	if (newEnchantHtml != enchantHtml) enchantBlock.html(newEnchantHtml);
 }
 
-// additional 33-2838 Disease Damage
-// chance to breath fire to all enemies in front of you for 13-1118 Flame Damage
-// damages them for 10-860 Magic Damage every 1 second
+
+var ESO_SETPROCDAMAGE_DATA = 
+{
+		"affliction" : {
+			// (5 items) When you deal damage, you have a 50% chance to deal an additional 33-2838 Disease Damage
+			// This effect can occur once every 4 seconds.
+			isAoE : false,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"ashen grip" : {
+			// (5 items) When you deal direct melee damage, you have a 10% chance to breath fire to all enemies in front of you for 13-1118 Flame Damage
+			// This effect can occur once every 4 seconds.
+			isAoE : true,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"bahraha's curse" : {
+			// (5 items) When you deal damage, you have a 25% chance to create desecrated ground for 5 seconds, which reduces the Movement Speed of enemies within by 70%, 
+			// damages them for 10-860 Magic Damage every 1 second, and heals you for 100% of the damage done.
+			isAoE : true,
+			isDoT : true,
+			index : 5,
+			items : 5,
+		},
+		"defending warrior" : {
+			// (5 items) When you block an attack, you deal 46-4000 Magic Damage to all enemies within 10 meters of you and heal for 100% of the damage done
+			// This effect can occur once every 10 seconds.
+			isAoE : true,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"destructive mage" : {
+			// (5 items) When you deal damage with a fully-charged Heavy Attack, you place a bomb on the enemy for 10 seconds
+			// When another player hits the same enemy with a fully-charged Heavy Attack they detonate the bomb, dealing 87-7500 Magic Damage 
+			// all enemies within 8 meters. This effect can occur once every 10 seconds.
+			isAoE : true,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"embershield" : {
+			// (5 items) When you deal damage with a fully-charged Heavy Attack, you have a 50% chance increase your Spell Resistance by 40-3440 and 
+			// deal 12-1032 Flame Damage to all enemies within 5 meters of you every 1 second for 6 seconds.
+			isAoE : true,
+			isDoT : true,
+			index : 4,
+			items : 5,
+		},
+		"eternal hunt" : {
+			// (5 items) When you use Roll Dodge, you leave behind a rune that detonates when enemies come close, dealing 85-7335 Poison Damage 
+			// and immobilizing them for 1.5 seconds.
+			isAoE : false,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"galerion's revenge" : {
+			// (5 items) When you deal damage with a Light or Heavy Attack, you put a Mark of Revenge on the enemy for 15 seconds
+			// After stacking 6 Marks of Revenge on an enemy they detonate for 55-4730 Magic Damage.
+			isAoE : true,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"grothdarr" : {
+			// (2 items) When you deal damage, you have a 10% chance create lava pools that swirl around you, dealing 23-2000 Flame Damage to all 
+			// enemies within 8 meters of you every 1 second for 5 seconds. This effect can occur once every 10 seconds.
+			isAoE : true,
+			isDoT : true,
+			index : 2,
+			items : 2,
+		},
+		"hand of mephala" : {
+			// (5 items) When you take damage, you have a 10% chance to cast a web around you for 5 seconds, reducing the Movement Speed of enemies within by 50%
+			// After 5 seconds the webs burst into venom, dealing 30-2580 Poison Damage and applying Minor Fracture to any enemy hit for 5 seconds, 
+			// reducing their Physical Resistance by 1320.
+			isAoE : true,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"hide of morihaus" : {
+			// (5 items) When you Roll Dodge through an enemy, you deal 160-1840 Physical Damage and knock them down for 3 seconds.
+			isAoE : false,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"ilambris" : {
+			// (2 items) When you deal Flame or Shock Damage, you have a 10% chance to summon a meteor shower of that damage type that deals 15-1300 Damage to 
+			// all enemies within 4 meters every 1 second for 5 seconds. Each effect can occur once every 8 seconds.
+			isAoE : true,
+			isDoT : true,			
+			damageType : "Shock",
+			index : 2,
+			items : 2,
+		},
+		"infernal guardian" : {
+			// (2 items) When you use a damage shield ability, you have a 50% chance to lob 3 mortars over 2 seconds at the furthest enemy from you
+			// that each deal 63-5500 Flame Damage to all enemies within 5 meters of the blast area
+			// This effect can occur once every 6 seconds.
+			isAoE : true,
+			isDoT : true,
+			index : 2,
+			items : 2,
+		},
+		"jolting arms" : {
+			// (5 items) When you block an attack, you have a 50% chance to charge your arms, causing your next Bash ability to deal an 
+			// additional 67-5805 Shock Damage and increase your Spell Resistance by 75-6450 for 6 seconds.
+			isAoE : false,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"kra'gh" : {
+			// (2 items) When you deal damage, you have a 10% chance to spawn dreugh limbs that create shockwaves in front of you 
+			// dealing 15-1300 Physical Damage every 0.4 seconds for 1.2 seconds
+			// This effect can occur once every 3 seconds.
+			isAoE : true,
+			isDoT : true,
+			index : 2,
+			items : 2,
+		},
+		"leeching plate" : {
+			// (5 items) When you take damage, you have a 8% chance to summon a cloud of leeching poison under the attacker that 
+			// deals 14-1204 Poison Damage in a 4 meter radius every 1 second for 5 seconds and heals you for 100% of the damage caused.
+			isAoE : true,
+			isDoT : true,
+			index : 4,
+			items : 5,
+		},
+		"maw of the infernal" : {
+			// (2 items) When you deal damage with a Light or Heavy Attack, you have a 10% chance to summon a fire breathing Daedroth for 15 seconds
+			// The Daedroth's basic attacks deal 49-4257 Physical Damage
+			// This effect can occur once every 15 seconds.
+			isAoE : false,
+			isDoT : false,
+			index : 2,
+			items : 2,
+		},
+		"morkuldin" : {
+			// (5 items) When you deal damage with a Light or Heavy Attack, you have a 10% chance to summon an animated weapon to attack 
+			// your enemies for 15 seconds. The animated weapon's basic attacks deal 47-4108 Physical Damage.
+			isAoE : false,
+			isDoT : true,
+			index : 4,
+			items : 5,
+		},
+		"nerien'eth" : {
+			// (2 items) When you deal direct damage, you have a 10% chance to summon a Lich crystal that explodes after 3 seconds, dealing 
+			// 85-7335 Magic Damage to all enemies within 4 meters. This effect can occur once every 3 seconds.
+			isAoE : true,
+			isDoT : false,
+			index : 2,
+			items : 2,
+		},
+		"night terror" : {
+			// (5 items) When you take melee damage, you deal 23-2000 Poison Damage to the attacker
+			// This effect can occur once every 1 second.
+			isAoE : false,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"overwhelming surge" : {
+			// (5 items) When you activate a Class ability, you have a 15% chance to surround yourself with a torrent that deals 
+			// 22-1892 Shock Damage to the closest enemy within 12 meters of you every 1 second for 6 seconds.
+			isAoE : false,
+			isDoT : true,
+			index : 4,
+			items : 5,
+		},
+		"phoenix" : {
+			// (5 items) When you die, you instead become immune to all negative effects and healing for 3 seconds
+			// When the effect ends, you heal for 200-17200 Health and explode for 100-8600 Flame Damage to all enemies within 8 meters
+			// This effect can occur once every 10 minutes.
+			isAoE : true,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"poisonous serpent" : {
+			// (5 items) When you deal damage with a Light or Heavy Attack against an enemy who has a Poison Damage ability on them, you 
+			// have a 25% chance to deal an additional 79-6800 Poison Damage. This effect can occur once every 1 second.
+			isAoE : false,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"roar of alkosh" : {
+			// (5 items) When you activate a synergy, you send a shockwave from your position that deals 20-1720 Physical Damage and an additional 
+			// 140-12040 Physical Damage over 10 seconds. Reduces the Physical and Spell Resistance of any enemy hit by 35-3010 for 10 seconds.
+			isAoE : true,
+			isDoT : true,
+			index : 4,
+			items : 5,
+		},
+		"selene" : {
+			// (2 items) When you deal direct melee damage, you have a 15% chance call on a primal spirit that mauls the closest enemy in front
+			// of you for 139-12000 Physical Damage. This effect can occur once every 4 seconds.
+			isAoE : true,
+			isDoT : false,
+			index : 2,
+			items : 2,
+		},
+		"sellistrix" : {
+			// (2 items) When you deal damage, you have a 10% chance to create an earthquake under the enemy that erupts after 2 seconds, 
+			// dealing 45-3870 Physical Damage to all enemies within 4 meters and stunning them for 3 seconds
+			// This effect can occur once every 5 seconds.
+			isAoE : true,
+			isDoT : false,
+			index : 2,
+			items : 2,
+		},
+		"shadow of the red mountain" : {
+			// (5 items) When you deal damage with a Weapon ability, you have a 10% chance to deal an additional 272-8000 Flame Damage
+			// This effect can occur once every 2 seconds.
+			isAoE : false,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"shadowrend" : {
+			// (2 items) When you deal damage, you have a 5% chance to summon a shadowy Clannfear for 15 seconds
+			// The Clannfear's basic attacks deal 40-3440 Physical Damage and apply Minor Maim to any enemy hit for 5 seconds, reducing their damage done by 15%
+			// This effect can occur once every 15 seconds.
+			isAoE : false,
+			isDoT : false,
+			singleTarget : false,
+			index : 2,
+			items : 2,
+		},
+		"sheer venom" : {
+			// (5 items) When you deal damage with an Execute ability you infect the enemy, dealing 98-8428 Poison Damage over 6 seconds
+			// This effect can occur once every 6 seconds.
+			isAoE : false,
+			isDoT : true,
+			index : 2,
+			items : 5,
+		},
+		"shield breaker" : {
+			// (5 items) When you deal damage with a Light or Heavy Attack against a Player with a damage shield, you deal an
+			// additional 25-2150 Oblivion Damage to them.
+			isAoE : false,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"song of lamae" : {
+			// (5 items) When you take damage while you are under 30% Health, you deal 45-3870 Magic Damage to the attacker and heal for 45-3870 Health
+			// This effect can occur once every 30 seconds.
+			isAoE : false,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"spawn of mephala" : {
+			// (2 items) When you deal damage with a fully-charged Heavy Attack, you create a web for 10 seconds that deals 12-1044 Poison Damage
+			// every 1 second and reduces the Movement Speed of enemies within by 50%. This effect can occur once every 10 seconds.
+			isAoE : true,
+			isDoT : true,
+			items : 2,
+		},
+		"storm knight's plate" : {
+			// (5 items) When you take non-physical damage, you have a 10% chance to deal 50-4373 Shock Damage all enemies within 5 meters 
+			// of you every 2 seconds for 6 seconds. This effect can occur once every 6 seconds.
+			isAoE : true,
+			isDoT : true,
+			index : 4,
+			items : 5,
+		},
+		"storm master" : {
+			// (5 items) When you deal Critical Damage with a fully-charged Heavy Attack, your Light Attacks deal an additional 15-1333 Shock Damage for 20 seconds.
+			isAoE : false,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"stormfist" : {
+			// (2 items) When you deal damage, you have a 10% chance to create a thunderfist to crush the enemy, dealing 17-1500 Shock Damage 
+			// every 1 second for 3 seconds to all enemies within 4 meters and a final 93-8000 Physical Damage when the fist closes
+			// This effect can occur once every 8 seconds.
+			isAoE : true,
+			isDoT : [true, false],
+			index : 2,
+			items : 2,
+		},
+		"sunderflame" : {
+			// (5 items) When you deal damage with a fully-charged Heavy Attack, you deal an additional 9-774 Flame Damage and reduce the enemy's 
+			// Physical Resistance by 40-3440 for 8 seconds.
+			isAoE : false,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"syvarra's scales" : {
+			// (5 items) When you deal damage, you have a 5% chance to cause a burst of lamia poison that deals 11-967 Poison Damage in a 5 meter radius 
+			// and an additional 66-5802 Poison Damage over 6 seconds to all enemies hit
+			// This effect can occur once every 6.5 seconds.
+			isAoE : [true, true],
+			isDoT : [false, true],
+			index : 5,
+			items : 5,
+		},
+		"the ice furnace" : {
+			// (5 items) When you deal direct damage with a Frost Damage ability, you have a 50% chance to deal an additional 34-997 Flame Damage to all
+			// enemies within 8 meters around the initial target. This effect can occur once every 1 second.
+			isAoE : true,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"thunderbug's carapace" : {
+			// (5 items) When you take Physical Damage, you have a 50% chance to deal 60-5160 Shock Damage in a 5 meter radius around you
+			// This effect can occur once every 3 seconds.
+			isAoE : true,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"tremorscale" : {
+			// (2 items) When you taunt an enemy, you have a 50% chance to cause a duneripper to burst from the ground beneath them, dealing 
+			// 68-5850 Physical Damage to all enemies within 4 meters and reducing their Movement Speed by 70% for 8 seconds
+			// This effect can occur once every 4 seconds.
+			isAoE : true,
+			isDoT : false,
+			index : 4,
+			items : 2,
+		},
+		"trinimac's valor" : {
+			// (5 items) When you cast a damage shield on an ally, you have a 20% chance to call down a fragment of Trinimac that heals you 
+			// and your allies for 42-3667 Health and damages enemies for 42-3667 Magic Damage in a 5 meter radius
+			// This effect can occur once every 5 seconds.
+			isAoE : true,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"twin sisters" : {
+			// (5 items) When you block an attack, you have a 20% chance to cause all enemies within 5 meters of you to bleed for 100-8600 Physical Damage 
+			// over 8 seconds. This effect can occur once every 8 seconds.
+			isAoE : true,
+			isDoT : true,
+			index : 4,
+			items : 5,
+		},
+		"valkyn skoria" : {
+			// (2 items) When you deal damage with a damage over time effect, you have a 8% chance to summon a meteor that deals 104-9000 Flame Damage 
+			// to the target and 46-4000 Flame Damage to all other enemies within 5 meters.  This effect can occur once every 5 seconds.
+			isAoE : [false, true],
+			isDoT : false,
+			index : 2,
+			items : 2,
+		},
+		"velidreth" : {
+			// (2 items) When you deal damage, you have a 20% chance to spawn 3 disease spores in front of you that deal 120-10320 Disease Damage 
+			// to the first enemy they hit. This effect can occur once every 9 seconds.
+			isAoE : false,
+			isDoT : false,
+			index : 2,
+			items : 2,
+		},
+		"vicecanon of venom" : {
+			// (5 items) When you deal Critical Damage to an enemy from Sneak, you inject a leeching poison that deals 160-13760 Poison Damage over 
+			// 15 seconds to them and heals you for 100% of the damage done.
+			isAoE : false,
+			isDoT : true,
+			index : 4,
+			items : 5,
+		},
+		"vicious death" : {
+			// (5 items) When you kill a Player, they violently explode for 183-15815 Flame Damage to all other enemies in a 4 meter radius.
+			isAoE : true,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"viper's sting" : {
+			// (5 items) When you deal damage with a melee attack, you deal an additional 74-6400 Poison Damage
+			// This effect can occur once every 4 seconds.
+			isAoE : false,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"way of fire" : {
+			// (5 items) When you deal damage with a Weapon ability, you have a 20% chance to deal an additional 46-4000 Flame Damage
+			// This effect can occur once every 2 seconds.
+			isAoE : false,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"widowmaker" : {
+			// (5 items) When your alchemical poison fires, deal 90-7740 Poison Damage to all enemies within 5 meters of you.
+			isAoE : true,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"winterborn" : {
+			// (5 items) When you deal damage with a Cold Damage ability, you have a 8% chance to summon an ice pillar that deals 70-6020 Frost Damage 
+			// to all enemies in a 3 meter radius. The ice pillar persists for 2 seconds and reduces the Movement Speed of all enemies within the radius by 60%.
+			isAoE : true,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+};
+
+
+var ESO_SETPROC_UNKNOWN = {
+		"infallible mage" : {	// Not affected
+			// (5 items) Your fully-charged Heavy Attacks deal an additional 10-903 damage
+			// Enemies you damage with fully-charged Heavy Attacks are afflicted with Minor Vulnerability for 10 seconds, increasing their damage taken by 8%.
+			isAoE : false,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},	
+		"noble duelist's silks" : {	// Not affected
+			// (5 items) When you dodge an attack, your Light and Heavy Attacks deal an additional 14-1225 damage for 8 seconds.
+			isAoE : false,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"undaunted infiltrator" : {	// Not affected
+			// (5 items) When you use an ability that costs Magicka, your Light Attacks deal an additional 9-774 damage and Heavy Attacks deal an
+			// additional 13-1161 damage for 10 seconds.
+			isAoE : false,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"undaunted unweaver" : { // Not affected
+			// (5 items) When you use an ability that costs Stamina, your Light Attacks deal an additional 9-774 damage and Heavy Attacks deal an
+			// additional 13-1161 damage for 10 seconds.
+			isAoE : false,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+		"varen's legacy" : {	// Not affected
+			// (5 items) When you block an attack, you have a 10% chance to cause your next direct damage area of effect attack to deal an 
+			// additional 300-3450 damage.
+			isAoE : true,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
+};
+
+
+function UpdateEsoSetDamageData(match, prefixWord, damageValue, damageType, extraSpace, setDamageData, matchCount)
+{
+	var damageFactor = 1;
+	var damageMod;
+	var checkDamageType = damageType;
+	var isAoE = false;
+	var isSingleTarget = false;
+	var isDoT = false;
+	
+	if (prefixWord == "absorbs") return match;
+	if (damageType == "Spell") return match;
+	if (damageType == "Weapon") return match;
+	
+	if (checkDamageType == "Frost") checkDamageType = "Cold";
+	
+	if (setDamageData != null)
+	{
+		if (typeof setDamageData.isAoE == 'boolean')
+			isAoE = setDamageData.isAoE;
+		else if (setDamageData.isAoE[matchCount - 1] != null)
+			isAoE = setDamageData.isAoE[matchCount - 1];
+		
+		if (typeof setDamageData.isDoT == 'boolean')
+			isDoT = setDamageData.isDoT;
+		else if (setDamageData.isDoT[matchCount - 1] != null)
+			isDoT = setDamageData.isDoT[matchCount - 1];
+		
+		if (setDamageData.isSingleTarget == null)
+			isSingleTarget = !isAoE;
+		else if (typeof setDamageData.isSingleTarget == 'boolean')
+			isSingleTarget = setDamageData.isSingleTarget;
+		else if (setDamageData.isSingleTarget[matchCount - 1] != null)
+			isSingleTarget = setDamageData.isSingleTarget[matchCount - 1];
+		
+		if (setDamageData.damageType != null) checkDamageType = setDamageData.damageType;
+	}
+	
+	//EsoBuildLog("UpdateEsoSetDamageData", match, isAoE, isDoT, damageValue, damageType);
+	
+	damageMod = g_EsoBuildLastInputValues[checkDamageType + "DamageDone"];
+	if (damageMod != null && damageMod !== 0) damageFactor *= (1 + damageMod);	
+	
+	damageMod = g_EsoBuildLastInputValues.DamageDone;
+	if (damageMod != null && damageMod !== 0) damageFactor *= (1 + damageMod);
+	
+	if (isAoE)
+	{
+		damageMod = g_EsoBuildLastInputValues.Skill.AOEDamageDone;
+		if (damageMod != null && damageMod !== 0) damageFactor *= (1 + damageMod);
+	}
+	else if (isSingleTarget)
+	{
+		damageMod = g_EsoBuildLastInputValues.Skill.SingleTargetDamageDone;
+		if (damageMod != null && damageMod !== 0) damageFactor *= (1 + damageMod);
+	}
+	
+	if (isDoT)
+	{
+		damageMod = g_EsoBuildLastInputValues.Skill.DotDamageDone;
+		if (damageMod != null && damageMod !== 0) damageFactor *= (1 + damageMod);
+	}
+
+	if (damageFactor != 0)
+	{
+		damageValue = Math.floor(damageValue * damageFactor);
+	}
+	
+	return " " + prefixWord + " " + damageValue + " " + damageType + extraSpace + "damage ";
+}
+
+
+function UpdateEsoBuildSetDamageData(setDesc, setDamageData)
+{
+	var newDesc = setDesc;
+	var matchCount = 0;
+	
+	//EsoBuildLog("UpdateEsoBuildSetDamageData", setDesc, setDamageData);
+	
+	newDesc = newDesc.replace(/ ([A-Za-z]+) ([0-9]+) ((?:[a-zA-Z]+)|)( |)damage/gi, function(match, prefixWord, damageValue, damageType, extraSpace) {
+		++matchCount;
+		return UpdateEsoSetDamageData(match, prefixWord, damageValue, damageType, extraSpace, setDamageData, matchCount);
+	});
+	
+	return newDesc;
+}
+
+
+function UpdateEsoBuildSetAllData(setDesc, setDamageData)
+{
+	var newDesc = setDesc;
+	
+	newDesc = UpdateEsoBuildSetDamageData(newDesc, setDamageData);
+	//TODO: Healing
+	//TODO: Damage Shield
+	
+	return newDesc;
+}
+ 
+
+function UpdateEsoBuildSetAllFullText(setText)
+{
+	var matchResult;
+	var setName = "";
+	var setDamageData = null;
+	
+	matchResult = setText.match(/PART OF THE ([A-Za-z0-9_\'\- ]+) SET/i);
+	if (matchResult && matchResult[1]) setName = matchResult[1].toLowerCase();
+	
+	//EsoBuildLog("UpdateEsoBuildSetAllFullText", matchResult, setName, ESO_SETPROCDAMAGE_DATA[setName], setText);
+	
+	setDamageData = ESO_SETPROCDAMAGE_DATA[setName];
+	return UpdateEsoBuildSetAllData(setText, setDamageData);
+}
+
+
+function UpdateEsoBuildSetAll(setName, setDesc)
+{
+	var matchResult;
+	var setDamageData = null;
+	
+	setDamageData = ESO_SETPROCDAMAGE_DATA[setName.toLowerCase()];
+	return UpdateEsoBuildSetAllData(setDesc, setDamageData);
+}
+
+// When you deal damage, you have a 25% chance to create desecrated ground for 5 seconds, which reduces the Movement Speed of enemies within by 70%, damages them for 10-860 Magic Damage every 1 second
 // you deal 46-4000 Magic Damage to all enemies within 10 meters of you a
 // they detonate the bomb, dealing 87-7500 Magic Damage all enemies within 8 meter
 // and deal 12-1032 Flame Damage to all enemies within 5 meters of you
-// when enemies come close, dealing 85-7335 Poison Damage
+// When you use Roll Dodge, you leave behind a rune that detonates when enemies come close, dealing 85-7335 Poison Damage
 // enemy they detonate for 55-4730 Magic Damage
 // dealing 23-2000 Flame Damage to all enemies within 8 meters
 // of enemies within by 50%. After 5 seconds the webs burst into venom, dealing 30-2580 Poison Damage and applying Minor Fracture to any enemy hit for 5 seconds
-// you deal 160-1840 Physical Damage 
+// When you Roll Dodge through an enemy you deal 160-1840 Physical Damage 
 // you deal 8-770 Frost Damage to all enemies within 5 meters
 // When you deal Flame or Shock Damage, you have a 10% chance to summon a meteor shower of that damage type that deals 15-1300 Damage to all enemies within 4 meters
 // ? deal an additional 10-903 damage
@@ -12462,7 +13070,9 @@ function UpdateEsoBuildTooltipEnchant(enchantBlock, tooltip)
 function UpdateEsoBuildTooltipSet(setBlock, tooltip)
 {
 	var setHtml = setBlock.html();
-	var newSetHtml = setHtml;
+	var newSetHtml;
+	
+	newSetHtml = UpdateEsoBuildSetAllFullText(setHtml);
 	
 	if (newSetHtml != setHtml) setBlock.html(newSetHtml);
 }
@@ -12474,7 +13084,7 @@ function UpdateEsoBuildTooltip(tooltip)
 	var setBlock = $(tooltip).find("#esoil_itemsetblock");
 	
 	UpdateEsoBuildTooltipEnchant(enchantBlock, tooltip);
-	UpdateEsoBuildTooltipSet(enchantBlock, tooltip);
+	UpdateEsoBuildTooltipSet(setBlock, tooltip);
 }
 
 
