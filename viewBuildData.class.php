@@ -2130,7 +2130,11 @@ class EsoBuildDataViewer
 		$knownCount = $this->getCharStatField("RecipeKnownCount", 0);
 		
 		$output  = "<div id='ecdSkill_Recipes' class='ecdSkillData ecdScrollContent' style='display: none;'>\n";
-		$output .= "<div id='ecdSkillContentTitle'>Recipes ($knownCount / $totalCount Known)</div>";
+		$output .= "<div class='ecdSkillRecipesSearchBlock' id='ecdSkillRecipesSearchBlock'>";
+		$output .= "<input type='text' size='10' maxlength='32' id='ecdSkillRecipesSearchInput' placeholder='Find Recipes'/>";
+		$output .= "<button onclick='OnEsoCharDataSearchRecipe();'>Find...</button>";
+		$output .= "</div>";
+		$output .= "<div id='ecdSkillContentTitle'>Recipes<small> ($knownCount / $totalCount Known)</small></div>";
 		$output .= "<br/>";
 		
 		$knownRecipes = $this->getCharRecipeData();
