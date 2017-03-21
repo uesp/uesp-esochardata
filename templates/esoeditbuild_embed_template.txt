@@ -466,6 +466,12 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>21 March 2017</b>
+			<ul>
+				<li>Damage, healing, and damage shield effects on set items are now modified by any applicable +% modifier. If you see any discprenancy between the
+					build editor and in-game set effects just let us know.</li>
+			</ul>
+			<p>
 			<b>20 March 2017</b>
 			<ul>
 				<li>Overload is no longer affected by increased damage from the Destruction Ancient Knowledge passive.</li>
