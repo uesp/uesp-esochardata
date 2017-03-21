@@ -606,9 +606,9 @@ var lastAchSearchPos = -1;
 var lastAchSearchElement = null;
 
 
-function OnFindAchievement(element)
+function OnFindEsoCharAchievement(element)
 {
-	var text = $("#ecdFindAchInput").val().toLowerCase();
+	var text = $("#ecdFindAchInput").val().trim().toLowerCase();
 	if (text == "") return;
 	
 	if (text != lastAchSearchText)
@@ -618,11 +618,11 @@ function OnFindAchievement(element)
 		lastAchSearchElement = null;
 	}
 	
-	FindNextAchievement();
+	FindEsoCharNextAchievement();
 }
 
 
-function FindNextAchievement()
+function FindEsoCharNextAchievement()
 {
 	var isFound = false;
 	
@@ -712,6 +712,102 @@ function SelectFoundAchievement(element)
 }
 
 
+var lastRecipeSearchText = "";
+var lastRecipeSearchPos = -1;
+var lastRecipeSearchElement = null;
+
+
+function OnEsoCharDataSearchRecipe(event)
+{
+	var searchText = $("#ecdSkillRecipesSearchInput").val().trim().toLowerCase();
+	if (searchText == "") return;
+	
+	if (searchText != lastRecipeSearchText)
+	{
+		lastRecipeSearchText = searchText;
+		lastRecipeSearchPos = -1;
+		lastRecipeSearchElement = null;
+	}
+	
+	FindEsoCharNextRecipe();
+}
+
+
+
+function FindEsoCharNextRecipe()
+{
+	var isFound = false;
+	
+	$(".ecdRecipeSearchHighlight").removeClass("ecdRecipeSearchHighlight");
+		
+	$(".ecdRecipeItem").each(function(index) {
+		
+		if (index <= lastRecipeSearchPos) return true;
+		
+		var $this = $(this);
+		var text = $this.text().toLowerCase();
+		
+		lastRecipeSearchPos = index;
+		
+		if (text.indexOf(lastRecipeSearchText) >= 0) 
+		{
+			if (lastRecipeSearchElement != null && $this.is(lastRecipeSearchElement)) return true;
+			
+			lastRecipeSearchElement = $this;
+			SelectFoundEsoCharRecipe($this);
+			isFound = true;
+			return false
+		}
+	});
+	
+	if (!isFound)
+	{
+		lastRecipeSearchText = "";
+		lastRecipeSearchPos = -1;
+		lastRecipeSearchElement = null;
+		$("#ecdSkillRecipesSearchBlock button").text("Done!");
+	}
+	else
+	{
+		$("#ecdSkillRecipesSearchBlock button").text("Next...");
+	}
+}
+
+
+function SelectFoundEsoCharRecipe(element, instant)
+{
+	element.addClass("ecdRecipeSearchHighlight");
+	
+	var offsetTop = element.position().top;
+	var parent = element.parent("#ecdSkill_Recipes");
+	var nextAch = element.next(".ecdRecipeItem ");
+	var nextTop = offsetTop + element.height() + 25;
+	var bottomScroll = parent.scrollTop() + parent.height();
+	var delay = 400;
+	
+	if (instant) delay = 0;
+	
+	if (offsetTop < 0)
+	{
+		parent.animate({ 
+	        scrollTop: offsetTop + parent.scrollTop(),
+	    }, delay);
+	}
+	else if (nextTop > parent.height())
+	{
+		parent.animate({ 
+	        scrollTop: nextTop - parent.height() + parent.scrollTop(),
+	    }, delay);
+	}
+}
+
+
+function OnEsoRecipeScroll(event)
+{
+	$("#ecdSkillRecipesSearchBlock").css('top', $("#ecdSkill_Recipes").scrollTop());
+}
+
+
 function onDocReady() 
 {  
 	$(".ecdTooltipTrigger").hover(onTooltipHoverShow, onTooltipHoverHide, onTooltipMouseMove);
@@ -784,10 +880,19 @@ function onDocReady()
 	
 	$("#ecdFindAchInput").keyup(function(e) {
 		if (e.keyCode == 13) 
-			OnFindAchievement();
+			OnFindEsoCharAchievement();
 		else
 			$(".ecdFindAchTextBox button").text("Find...");
 	});
+	
+	$("#ecdSkillRecipesSearchInput").keyup(function(e) {
+		if (e.keyCode == 13) 
+			OnEsoCharDataSearchRecipe();
+		else
+			$("#ecdSkillRecipesSearchBlock button").text("Find...");
+	});
+	
+	$("#ecdSkill_Recipes").on("scroll", OnEsoRecipeScroll);
 	
 	if (!DoesEsoItemLinkHaveEvent()) $('.eso_item_link').hover(OnEsoItemLinkEnter, OnEsoItemLinkLeave);
 }

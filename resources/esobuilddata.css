@@ -779,6 +779,7 @@ tr.eso_item_link {
 .ecdSkillData {
 	height: 580px;
     overflow-y: auto;
+    position: relative;
 }
 
 .ecdSkillIconBox {
@@ -2124,4 +2125,76 @@ thead.ecdFixedHeader tr {
 
 .ecdAchSearchHighlight:hover {
 	background-color: #245A5E;
+}
+
+.ecdSkillRecipesSearchBlock {
+	position: absolute;
+	top: 0px;
+	right: 5px;
+	z-index: 10;
+}
+
+.ecdSkillRecipesSearchBlock input {
+    width: 100px;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: white;
+    background-color: #666;
+    border: 1px solid gray;
+    font-size: 14px;
+    text-shadow: 1px 1px 1px black;
+    padding: 2px;
+}
+
+.ecdSkillRecipesSearchBlock button {
+	-moz-box-shadow: 3px 4px 4px 0px #636134;
+	-webkit-box-shadow: 3px 4px 4px 0px #636134;
+	box-shadow: 3px 4px 4px 0px #636134;
+	background-color: #C5C29E;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	border: 1px solid #8a843e;
+	display: inline-block;
+	cursor: pointer;
+	color: #000000;
+	font-family: "EsoFontStyle", Arial, sans-serif;
+    font-size: 13px;
+    padding: 3px;
+    text-decoration: none;
+    width: 50px;
+    height: 22px;
+    position: relative;
+    top: -2px;
+}
+
+.ecdSkillRecipesSearchBlock button:hover {
+	background-color:#857a45;
+}
+
+.ecdSkillRecipesSearchBlock button:active {
+	position:relative;
+	top:1px;
+}
+
+.ecdSkillRecipesSearchBlock button:focus {
+	outline: 0;
+}
+
+.ecdRecipeSearchHighlight {
+	background-color: #447A7E;
+}
+
+.ecdRecipeSearchHighlight:hover {
+	background-color: #245A5E;
+}
+
+.ecdRecipeSearchHighlight {
+	opacity: 0.7;
+}
+
+.ecdRecipeSearchHighlight.ecdRecipeKnown  {
+	opacity: 1 !important;
 }
