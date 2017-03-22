@@ -212,6 +212,8 @@ function OnEsoRightTitleClick(name)
 	//$("#ecdAchievements").hide();
 	
 	$(idName).show();
+	
+	UpdateEsoInventoryShownSpace();
 }
 
 
@@ -349,6 +351,7 @@ function DoItemFilter()
 			$(this).show();
 		});	
 	
+	UpdateEsoInventoryShownSpace();
 }
 
 
@@ -808,6 +811,40 @@ function OnEsoRecipeScroll(event)
 }
 
 
+function UpdateEsoInventoryShownSpace()
+{
+	$(".ecdInvShowSpaceLabel").text("");
+	
+	setTimeout(UpdateEsoInventoryShownSpace_Async, 100);
+}
+
+
+function UpdateEsoInventoryShownSpace_Async()
+{	
+	var shownItems = $(".ecdItemTable tr.eso_item_link:visible");
+	var numItems = 0;
+	
+	numItems = shownItems.length;
+	$(".ecdInvShowSpaceLabel").text("" + numItems + " items shown");
+	return;
+	
+	shownItems.each(function() {
+		var itemIndex = parseInt($(this).attr("localid"));
+		var itemData = ecdAllInventory[itemIndex];
+		if (itemData == null) return true;
+		
+		if (itemData.stacks == null)
+			numItems += 1;
+		else
+			numItems += itemData.stacks;
+		
+		return true;		
+	});
+	
+	$(".ecdInvShowSpaceLabel").text("" + numItems + " items");
+}
+
+
 function onDocReady() 
 {  
 	$(".ecdTooltipTrigger").hover(onTooltipHoverShow, onTooltipHoverHide, onTooltipMouseMove);
@@ -895,6 +932,8 @@ function onDocReady()
 	$("#ecdSkill_Recipes").on("scroll", OnEsoRecipeScroll);
 	
 	if (!DoesEsoItemLinkHaveEvent()) $('.eso_item_link').hover(OnEsoItemLinkEnter, OnEsoItemLinkLeave);
+	
+	UpdateEsoInventoryShownSpace();
 }
 
 

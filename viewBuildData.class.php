@@ -921,6 +921,7 @@ class EsoBuildDataViewer
 			if ($itemLink == $lastItemLink)
 			{
 				$lastIndex = count($newItemData) - 1;
+				$newItemData[$lastIndex]['stacks'] += 1;
 				$newItemData[$lastIndex]['qnt'] += intval($item['qnt']);
 				$newItemData[$lastIndex]['characterIds'][] = $item['characterId'];
 				$newItemData[$lastIndex]['characterQnts'][] = intval($item['qnt']);
@@ -929,6 +930,7 @@ class EsoBuildDataViewer
 			{
 				$newItemData[] = $item;
 				$lastIndex = count($newItemData) - 1;
+				$newItemData[$lastIndex]['stacks'] = 1;
 				$newItemData[$lastIndex]['characterIds'] = array($item['characterId']);
 				$newItemData[$lastIndex]['characterQnts'] = array(intval($item['qnt']));
 			}
