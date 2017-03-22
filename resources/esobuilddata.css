@@ -2198,3 +2198,11 @@ thead.ecdFixedHeader tr {
 .ecdRecipeSearchHighlight.ecdRecipeKnown  {
 	opacity: 1 !important;
 }
+
+.ecdInvShowSpaceLabel {
+	padding-left: 10px;
+	text-align: right;
+	font-size: 16px;
+	font-weight: normal;
+	color: #999;
+}
