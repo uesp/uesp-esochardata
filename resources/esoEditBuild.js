@@ -756,6 +756,17 @@ g_EsoBuildBuffData =
 			statDesc : "Increases your Physical Resistance while in Craglorn by ",
 			icon : "/esoui/art/icons/ability_wrothgar_chillingwind.png",
 		},
+		"Firelight" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 0.08,
+			display: "%",
+			category: "Buff",
+			statId : "Stamina",
+			statDesc : "Increases your Max Stamina by ",
+			icon : "/esoui/art/icons/quest_small_furnishing_001.png",
+		},
 		
 			/* Target Buffs */
 
