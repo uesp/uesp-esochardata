@@ -466,6 +466,13 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>27 March 2017</b>
+			<ul>
+				<li>Fixed World skills from not showing up in saved builds.</li>
+				<li>Off-bar set buffs and toggles now show up correctly.</li>
+				<li>The Heavy Armor constitution passive now correctly increases your Health Recovery.</li>
+			</ul>
+			<p>
 			<b>21 March 2017</b>
 			<ul>
 				<li>Damage, healing, and damage shield effects on set items are now modified by any applicable +% modifier. If you see any discprenancy between the

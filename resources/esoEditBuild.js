@@ -1462,6 +1462,12 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /WITH 5 OR MORE PIECES OF HEAVY ARMOR EQUIPPED[\s\S]*?Increases your healing received by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+		factorStatId: "ArmorHeavy",
+		statId: "HealthRegen",
+		display: "%",
+		match: /Increases your Health Recovery by ([0-9]+\.?[0-9]*)% for each piece of Heavy Armor equipped/i,
+	},	
+	{
 		statRequireId: "ArmorHeavy",
 		statRequireValue: 5,
 		statId: "HealingReceived",
@@ -6864,6 +6870,7 @@ function UpdateEsoItemSets()
 		else
 		{
 			++g_EsoBuildSetData[setName].count;
+			if (!isCurrentHand) ++g_EsoBuildSetData[setName].otherCount;
 			
 			g_EsoBuildSetData[setName].items.push(itemData);
 			AddEsoItemRawOutput(itemData, "Set." + setName, 1);
