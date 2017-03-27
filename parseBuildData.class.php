@@ -729,6 +729,7 @@ class EsoBuildDataParser
 				return $this->saveCharacterBooks($buildData, $name, $arrayData);
 			case "Stats":
 			case "Power":
+			case "NonCombat":
 				return $this->saveCharacterArrayStats($buildData, $name, $arrayData);
 			case "Buffs":
 				return $this->saveCharacterBuffs($buildData, $name, $arrayData);
