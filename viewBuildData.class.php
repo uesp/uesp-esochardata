@@ -2954,6 +2954,7 @@ class EsoBuildDataViewer
 		$output .= $this->getCharBasicStatsBarHtml(1);
 		$output .= $this->getCharBasicStatsBarHtml(2);
 		$output .= $this->getCharBasicStatsBarHtml(3);
+		$output .= $this->getCharBasicStatsBarHtml(4);
 		
 		return $output;
 	}
