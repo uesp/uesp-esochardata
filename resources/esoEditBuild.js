@@ -229,6 +229,7 @@ ESOBUILD_SKILLTYPES =
 		1 : "Class",
 		2 : "Weapon",
 		3 : "Armor",
+		4 : "World",
 		5 : "Guild",
 		6 : "Alliance War",
 		7 : "Racial",
