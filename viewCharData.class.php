@@ -1086,7 +1086,7 @@ EOT;
 	}
 	
 	
-	public function createAccountResearchSlotData($charId, $craftType)
+	public function createAccountResearchSlotData($charId, $craftType, $charName)
 	{
 		$output = "";
 		
@@ -1125,10 +1125,12 @@ EOT;
 				++$knownCount;
 				$output .= "$trait $item research is finished!<br/>";
 				$extraTraits[$item] = $trait;
+				$this->nextResearchFinished[] = array("time" => 0, "name" => "$charName has finished research for $craftType $trait $item!");
 			}
 			else
 			{
 				$output .= "$trait $item finishes in $timeFmt<br/>";
+				$this->nextResearchFinished[] = array("time" => $timeLeft, "name" => "$charName finishes $craftType $trait $item in $timeFmt.");
 			}
 		}
 	
@@ -1151,6 +1153,12 @@ EOT;
 	}
 	
 	
+	public function SortNextResearchByTime($a, $b)
+	{
+		return $a['time'] - $b['time'];
+	}
+	
+	
 	public function createCharResearchSummaryHtml()
 	{
 		$output  = "<p><br/>";
@@ -1159,6 +1167,7 @@ EOT;
 		$blacksmithData = array();
 		$clothingData = array();
 		$woodworkData = array();
+		$this->nextResearchFinished = array();
 		
 		foreach ($this->buildData as $build)
 		{
@@ -1189,14 +1198,31 @@ EOT;
 			
 			$output .= "<tr>";
 			$output .= "<td>$charName</td>";
-			$output .= "<td>" . $this->createAccountResearchSlotData($charId, "Blacksmithing") . "</td>";
-			$output .= "<td>" . $this->createAccountResearchSlotData($charId, "Clothier") . "</td>";
-			$output .= "<td>" . $this->createAccountResearchSlotData($charId, "Woodworking") . "</td>";
+			$output .= "<td>" . $this->createAccountResearchSlotData($charId, "Blacksmithing", $charName) . "</td>";
+			$output .= "<td>" . $this->createAccountResearchSlotData($charId, "Clothier", $charName) . "</td>";
+			$output .= "<td>" . $this->createAccountResearchSlotData($charId, "Woodworking", $charName) . "</td>";
 			$output .= "</tr>";
 		}
 		
 		$output .= "</table>";
 		$output .= "<p><br/>";
+		
+		if (count($this->nextResearchFinished) > 0)
+		{
+			usort($this->nextResearchFinished, array("EsoCharDataViewer", "SortNextResearchByTime"));
+			
+			$output .= "<h3>Next Research Finished</h3>";
+			$output .= "<ol>";
+			
+			for ($i = 0; $i < 10 && $i < count($this->nextResearchFinished); ++$i)
+			{
+				$research = $this->nextResearchFinished[$i];
+				$output .= "<li>{$research['name']}</li>";
+			}
+			
+			$output .= "</ol><p/><br/>";
+		}
+		
 		
 		$output .= "<h3>Blacksmithing</h3>";
 		$output .= "<table class='ecdCharSummaryTable'>";
@@ -1360,9 +1386,9 @@ EOT;
 			$output .= "</tr>";
 		}
 		
-		$output .= "</table><p><br/>";
+		$output .= "</table>";
 		
-		
+		$output .= "<p><br/>";
 		return $output;
 	}
 	
