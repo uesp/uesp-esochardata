@@ -764,6 +764,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Target.DamageTaken" => array(
+					"display" => "%",
+			),
+			
 			"Buff.DodgeChance" => array(
 					"display" => "%",
 			),
@@ -1157,6 +1161,10 @@ class EsoBuildDataEditor
 			),
 			
 			"SpellCrit" => array(
+					"display" => "%",
+			),
+			
+			"DamageDone" => array(
 					"display" => "%",
 			),
 			
@@ -1888,7 +1896,7 @@ class EsoBuildDataEditor
 			"EffectiveSpellPower" => array(
 					"title" => "Effective Spell Power",
 					"deferLevel" => 2,
-					"depends" => array("AttackSpellMitigation", "SpellDamage", "Magicka", "SpellCrit", "AttackSpellCritDamage"),
+					"depends" => array("AttackSpellMitigation", "SpellDamage", "Magicka", "SpellCrit", "AttackSpellCritDamage", "DamageDone"),
 					"round" => "round",
 					"note" => "Effective Spell Power is a custom stat that represents your overall power with spell/magicka attacks and can be used to compare different build setups. A higher number is better.",
 					"compute" => array(
@@ -1897,7 +1905,13 @@ class EsoBuildDataEditor
 							"+",
 							"1 + SpellCrit*AttackSpellCritDamage",
 							"*",
+							"1 + CP.MagicDamageDone",
+							"*",
 							"AttackSpellMitigation",
+							"*",
+							"1 + Target.DamageTaken",
+							"*",
+							"1 + DamageDone",
 							"*",
 					),
 			),
@@ -1905,7 +1919,7 @@ class EsoBuildDataEditor
 			"EffectiveWeaponPower" => array(
 					"title" => "Effective Weapon Power",
 					"deferLevel" => 2,
-					"depends" => array("AttackPhysicalMitigation", "WeaponDamage", "Stamina", "WeaponCrit", "AttackWeaponCritDamage"),
+					"depends" => array("AttackPhysicalMitigation", "WeaponDamage", "Stamina", "WeaponCrit", "AttackWeaponCritDamage", "DamageDone"),
 					"round" => "round",
 					"note" => "Effective Weapon Power is a custom stat that represents your overall power with weapon/stamina attacks and can be used to compare different build setups. A higher number is better.",
 					"addClass" => "esotbStatDivider",
@@ -1915,7 +1929,13 @@ class EsoBuildDataEditor
 							"+",
 							"1 + WeaponCrit*AttackWeaponCritDamage",
 							"*",
+							"1 + CP.PhysicalDamageDone",
+							"*",
 							"AttackPhysicalMitigation",
+							"*",
+							"1 + Target.DamageTaken",
+							"*",
+							"1 + DamageDone",
 							"*",
 					),
 			),
