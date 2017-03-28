@@ -5364,6 +5364,8 @@ ESOBUILD_RAWOUTPUT_LABELSUFFIX =
 
 function GetEsoInputValues(mergeComputedStats)
 {
+	//if (console && console.time) console.time('GetEsoInputValues');
+	
 	ResetEsoBuffSkillEnabled();
 	ResetEsoAllSkillRawOutputs();
 	
@@ -5559,6 +5561,8 @@ function GetEsoInputValues(mergeComputedStats)
 	}
 	
 	g_EsoBuildLastInputValues = inputValues;
+	
+	//if (console && console.time) console.timeEnd('GetEsoInputValues');
 	return inputValues;
 }
 
@@ -7293,6 +7297,8 @@ function UpdateEsoComputedStatsList_Real(keepSaveResults)
 		inputValues[name] = g_EsoComputedStats[name].value;
 	}
 	
+	//if (console && console.time) console.time('UpdateEsoComputedStatsList_Real:Update');
+	
 	UpdateEsoTestBuildSkillInputValues(inputValues);
 	UpdateEsoBuildRawInputOtherEffects();
 	UpdateEsoBuildSetOtherEffectDesc();
@@ -7307,7 +7313,8 @@ function UpdateEsoComputedStatsList_Real(keepSaveResults)
 	UpdateEsoBuildVisibleBuffs();
 	UpdateEsoBuffSkillEnabled();
 	UpdateEsoAllSkillCost(false);
-		
+	
+	//if (console && console.time) console.timeEnd('UpdateEsoComputedStatsList_Real:Update');
 	if (console && console.timeEnd) console.timeEnd('UpdateEsoComputedStatsList_Real');
 }
 
@@ -7344,6 +7351,7 @@ function UpdateEsoComputedStatsSpecial()
 
 function UpdateEsoReadOnlyStats(inputValues)
 {
+	
 	if (inputValues == null) inputValues = GetEsoInputValues();
 	
 	$("#esotbEffectiveLevel").text(inputValues.EffectiveLevel);
