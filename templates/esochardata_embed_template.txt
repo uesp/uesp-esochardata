@@ -81,7 +81,7 @@
 			<div id='ecdAchievementTree'>
 				<div class='ecdFindAchTextBox'>
 					<input type="text" size="16" maxsize="32" value="" id='ecdFindAchInput' placeholder="Find Achievement" />
-					<button onclick="OnFindAchievement(this);">Find...</button> 
+					<button onclick="OnFindEsoCharAchievement(this);">Find...</button> 
 				</div>
 				{achievementTree}
 			</div>
