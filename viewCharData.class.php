@@ -537,6 +537,7 @@ EOT;
 		$output .= "<th>Enchanter<br/>Hireling</th>";
 		$output .= "<th>Provisioner<br/>Hireling</th>";
 		$output .= "<th>Woodworker<br/>Hireling</th>";
+		$output .= "<th>Time Played</th>";
 		$output .= "</tr>";
 		
 		//InventorySize
@@ -558,6 +559,7 @@ EOT;
 		$totalInv = 0;
 		$totalSkillPoints = 0;
 		$totalAchPoints = 0;
+		$totalSecondsPlayed = 0;
 		$currentTime = time();
 		
 		foreach ($this->buildData as $build)
@@ -587,6 +589,9 @@ EOT;
 			$enchantSkill = intval($this->getAccountStatsField($charId, 'HirelingSkill:Enchanting', 0));
 			$provSkill = intval($this->getAccountStatsField($charId, 'HirelingSkill:Provisioning', 0));
 			$woodSkill = intval($this->getAccountStatsField($charId, 'HirelingSkill:Woodworking', 0));
+			
+			$secondsPlayed = intval($this->getAccountStatsField($charId, 'SecondsPlayed', 0));
+			$timePlayedFmt = $this->formatTimeLeft($secondsPlayed);
 			
 			$blackTime = (($blackSkill >= 3) ? 12 : 24) * 3600 + $blackHireling;
 			$clothTime = (($clothSkilll >= 3) ? 12 : 24) * 3600 + $clothHireling;
@@ -639,7 +644,7 @@ EOT;
 				else
 					$woodTimeFmt = "Ready!";
 			}
-						
+			
 			$totalGold += $gold;
 			$totalAP += $ap;
 			$totalTelvar += $telvar;
@@ -648,6 +653,7 @@ EOT;
 			$totalInv += $invTotal;
 			$totalSkillPoints += $skillPoints;
 			$totalAchPoints += $achPoints;
+			$totalSecondsPlayed += $secondsPlayed;
 			
 			$output .= "<tr>";
 			$output .= "<td>$charName</td>";
@@ -665,6 +671,7 @@ EOT;
 			$output .= "<td>$enchantTimeFmt</td>";
 			$output .= "<td>$provTimeFmt</td>";
 			$output .= "<td>$woodTimeFmt</td>";
+			$output .= "<td>$timePlayedFmt</td>";
 			$output .= "</tr>";			
 		}
 		
@@ -696,7 +703,10 @@ EOT;
 		$output .= "<td>-</td>";
 		$output .= "<td>-</td>";
 		$output .= "<td>-</td>";
+		$output .= "<td>-</td>";
 		$output .= "</tr>";
+		
+		$timePlayedFmt = $this->formatTimeLeft($totalSecondsPlayed);
 		
 		$output .= "<tr>";
 		$output .= "<th>Account</th>";
@@ -714,6 +724,7 @@ EOT;
 		$output .= "<th>-</th>";
 		$output .= "<th>-</th>";
 		$output .= "<th>-</th>";
+		$output .= "<th>$timePlayedFmt</th>";
 		$output .= "</tr>";
 
 		$output .= "</table>";
