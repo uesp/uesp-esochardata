@@ -1103,6 +1103,8 @@ EOT;
 		
 		$knownCount = $this->getAccountStatsField($charId, "Research:$craftType:Trait:Known");
 		$totalCount = $this->getAccountStatsField($charId, "Research:$craftType:Trait:Total");
+		$inProgressCount = 0;
+		$finishedCount = 0;
 	
 		$openSlots = $this->getAccountStatsField($charId,"Research:$craftType:Open");
 		$timeStamp = $this->getAccountStatsField($charId,"Research:Timestamp");
@@ -1133,6 +1135,7 @@ EOT;
 			if ($timeLeft <= 0)
 			{
 				++$openSlots;
+				++$finishedCount;
 				++$knownCount;
 				$output .= "$trait $item research is finished!<br/>";
 				$extraTraits[$item] = $trait;
@@ -1142,6 +1145,7 @@ EOT;
 			{
 				$output .= "$trait $item finishes in $timeFmt<br/>";
 				$this->nextResearchFinished[] = array("time" => $timeLeft, "name" => "$charName finishes $craftType $trait $item in $timeFmt.");
+				++$inProgressCount;
 			}
 		}
 	
@@ -1156,6 +1160,12 @@ EOT;
 		else if ($openSlots > 1)
 		{
 			$output .= "<b>$openSlots research slots available</b><br/>";
+		}
+		
+		if ($finishedCount < $openSlots && $knownCount < $totalCount)
+		{
+			$openSlots -= $finishedCount;
+			$this->nextResearchFinished[] = array("time" => 0, "name" => "$charName has $openSlots research slots available!");
 		}
 		
 		$output .= "$knownCount / $totalCount traits known";
