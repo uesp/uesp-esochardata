@@ -2037,7 +2037,7 @@ EOT;
 			if ($total <= 0) continue;
 			
 			$percentWidth = intval($points * 100 / $total);
-			$output .= "<div class='ecdSummaryBlock'>";
+			$output .= "<div class='ecdAchSummaryBlock'>";
 			$output .= "<div class='ecdAchSummaryName'>$displayName</div>";
 			$output .= "<div class='ecdAchSmallStatusBar' style='background-size: $percentWidth% 100%;'><div class='ecdAchSmallStatusBarFrame'></div>";
 			$output .= "<div class='ecdAchStatusBarSmallPoints'>$points/$total</div></div>";

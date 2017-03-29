@@ -2062,7 +2062,7 @@ thead.ecdFixedHeader tr {
 	text-shadow: 2px 2px 3px black;
 }
 
-.ecdSummaryBlock {
+.ecdAchSummaryBlock {
 	display: inline-block;
 	padding-top: 15px;
     padding-right: 20px;
