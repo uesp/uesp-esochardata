@@ -469,6 +469,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<b>31 March 2017</b>
 			<ul>
 				<li>Changed the skill drag and drop to be more mobile friendly.</li>
+				<li>Fixed the Templar's Restoring Spirit passive.</li>
 			</ul>
 			<p>
 			<b>28 March 2017</b>

@@ -2089,6 +2089,24 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "UltimateCost",
 		display: "%",
 		factorValue: -1,
+		match: /Reduces the Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "MagickaCost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "StaminaCost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "UltimateCost",
+		display: "%",
+		factorValue: -1,
 		match: /Reduces the cost of Ultimate abilities by ([0-9]+\.?[0-9]*)%/i,
 	},	
 	{
