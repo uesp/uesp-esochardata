@@ -319,13 +319,22 @@ function MatchFilterString(filterText, item)
 }
 
 
+var g_EsoCharLastItemFilter = "";
+var ESO_ITEMFILTER_UPDATEMS = 250;
+var g_EsoItemFilterIsUpdating = false;
+
+
 function DoItemFilter()
 {
 	var filterName = $(".ecdItemFilterContainer.selected").attr('itemfilter').toUpperCase();
-	var filterText = $(".ecdItemFilterTextInput").val().toLowerCase();
+	var filterText = $(".ecdItemFilterTextInput:visible").val().toLowerCase();
 	var filterFunc = ITEM_FILTER_FUNCTIONS[filterName];
 	
+	g_EsoItemFilterIsUpdating = false;
 	if (filterFunc == null) filterFunc = ItemFilter_All;
+	
+	if (filterText == g_EsoCharLastItemFilter) return;
+	g_EsoCharLastItemFilter = filterText;
 	
 	$(".ecdScrollContent tr").each(function() {
 			var localId = $(this).attr('localid');
@@ -352,6 +361,17 @@ function DoItemFilter()
 		});	
 	
 	UpdateEsoInventoryShownSpace();
+}
+
+
+function UpdateItemFilter()
+{
+	
+	if (!g_EsoItemFilterIsUpdating)
+	{
+		g_EsoItemFilterIsUpdating = true;
+		setTimeout(DoItemFilter, ESO_ITEMFILTER_UPDATEMS);
+	}
 }
 
 
@@ -880,12 +900,14 @@ function onDocReady()
 	}
 	
 	$(".ecdItemFilterTextInput").keyup(function() {
-			$(".ecdItemFilterTextInput").val(this.value);
-			DoItemFilter();
+			//$(".ecdItemFilterTextInput").val(this.value);
+			UpdateItemFilter();
+			return true;
 		});
 	
 	$(".ecdItemFilterTextInput").blur(function() {
 			$(".ecdItemFilterTextInput").val(this.value);
+			return true;
 		});
 	
 	$('.ecdClickToCopy').click(function() {
