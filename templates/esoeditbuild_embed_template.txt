@@ -466,6 +466,11 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>31 March 2017</b>
+			<ul>
+				<li>Changed the skill drag and drop to be more mobile friendly.</li>
+			</ul>
+			<p>
 			<b>28 March 2017</b>
 			<ul>
 				<li>Updated the Effective Spell and Weapon Power stats to include Elemental Expert/Mighty, Minor Slayer, and Minor Vulnerability (Target) effects.</li>
