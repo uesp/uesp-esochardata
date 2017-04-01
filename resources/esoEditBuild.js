@@ -13175,7 +13175,14 @@ function esotbOnDocReady()
 	$(".esotbBuffCheck").click(OnEsoBuildBuffCheckClick);
 	$(".esotbBuffItem").click(OnEsoBuildBuffClick);
 	
-	$(".esovsSkillContentBlock").children(".esovsAbilityBlock").click(OnEsoBuildAbilityBlockClick); 
+	if ((g_EsoSkillIsMobile == null || !g_EsoSkillIsMobile) && window.skin != "minerva")
+	{
+		$(".esovsSkillContentBlock").children(".esovsAbilityBlock").click(OnEsoBuildAbilityBlockClick);
+	}
+	else
+	{
+		//$(".esovsSkillContentBlock").find(".esovsAbilityBlockIcon ").click(OnEsoBuildAbilityIconBlockClick);
+	}
 	
 	$("#esotbSaveButton").click(OnEsoBuildSave);
 	$("#esotbCreateCopyButton").click(OnEsoBuildCreateCopy);
