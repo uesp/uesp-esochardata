@@ -471,7 +471,7 @@ g_EsoBuildBuffData =
 			skillEnabled : false,
 			value : 0.30,
 			display : "%",
-			statId : "SprintSpeed",
+			statIds : ["MovementSpeed", "MountSpeed"],
 			icon : "/esoui/art/icons/ability_rogue_049.png",
 		},
 		"Minor Expedition" : 
@@ -480,7 +480,7 @@ g_EsoBuildBuffData =
 			skillEnabled : false,
 			value : 0.10,
 			display : "%",
-			statId : "SprintSpeed",
+			statIds : ["MovementSpeed"],
 			icon : "/esoui/art/icons/ability_rogue_045.png",
 		},
 		"Major Vitality" : 
@@ -767,6 +767,17 @@ g_EsoBuildBuffData =
 			statId : "Stamina",
 			statDesc : "Increases your Max Stamina by ",
 			icon : "/esoui/art/icons/quest_small_furnishing_001.png",
+		},
+		"Blade Cloak" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : -0.20,
+			display: "%",
+			category: "Skill",
+			statId : "AOEDamageTaken",
+			//statDesc : "Decreases AOE damage taken by ",
+			icon : "/esoui/art/icons/ability_dualwield_004.png",
 		},
 		
 			/* Target Buffs */
@@ -1061,6 +1072,12 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		buffId: "Minor Intellect",
 		match: /While slotted you gain Minor Fortitude, Minor Endurance, and Minor Intellect/i
 	},
+	{
+		statId: "SneakSpeed",
+		display: "%",
+		rawInputMatch: /(While slotted, your movement speed while stealthed or invisible is increased by [0-9]+\.?[0-9]*%\.)/i,
+		match: /While slotted, your movement speed while stealthed or invisible is increased by ([0-9]+\.?[0-9]*)%/i
+	},
 	
 		/* Begin Other Effects */
 	{
@@ -1078,11 +1095,6 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		statId: "OtherEffects",
 		rawInputMatch: /(While slotted, any time you kill an enemy you gain [0-9]+ Ultimate\.)/i,
 		match: /While slotted, any time you kill an enemy you gain ([0-9]+) Ultimate/i
-	},
-	{
-		statId: "OtherEffects",
-		rawInputMatch: /(While slotted, your movement speed while stealthed or invisible is increased by [0-9]+\.?[0-9]*%\.)/i,
-		match: /While slotted, your movement speed while stealthed or invisible is increased by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		statId: "OtherEffects",
@@ -1247,6 +1259,19 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		enabled: false,
 		buffId : "Major Brutality",
 		match: /Charge you and your allies' weapons with volcanic power to gain Major Sorcery and Major Brutality/i,
+	},
+	{
+		id: "Blade Cloak",
+		statRequireId: "Weapon1H",
+		statRequireValue: 2,
+		baseSkillId: 40633,
+		factorValue: -1,
+		toggle: true,
+		enabled: false,
+		display: "%",
+		buffId: "Blade Cloak",
+		rawInputMatch: /(The razors also shield you from shrapnel, reducing the damage you take from area of effect attacks by [0-9]+\.?[0-9]*%\.)/i,
+		match: /The razors also shield you from shrapnel, reducing the damage you take from area of effect attacks by ([0-9]+\.?[0-9]*)%/i
 	},
 		/* End Toggled Abilities */
 	
@@ -1827,6 +1852,13 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		match: /and reduces the cost of blocking by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statRequireId: "Weapon1HShield",
+		statRequireValue: 1,
+		statId: "BlockSpeed",
+		display: "%",
+		match: /Increases your Movement Speed while blocking by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statRequireId: "Weapon1HShield",
@@ -3033,7 +3065,11 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		match: /Increases your healing received by ([0-9]+\.?[0-9]*)% and /i,
 	},
-	
+	{
+		statId: "SwimSpeed",
+		display: "%",
+		match: /Increases your swimming speed by ([0-9]+\.?[0-9]*)%/i,
+	},
 	
 		/* Begin Toggled Passives */
 	{
@@ -3273,10 +3309,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		/* Begin Other Effects */
 		/* End Other Effects */
 	
-	
-		//Argonian
-	//Increases your swimming speed by 15%.
-	
+
 		// Dragonknight
 	//Increases the damage of your Flame and Poison area of effect abilities by 6%.
 	//Increases the damage of your Burning and Poisoned status effects by 66%.
@@ -4376,6 +4409,30 @@ ESO_SETEFFECT_MATCHES = [
 		statId: "HAMagRestore",
 		match: /Fully charged heavy attacks restore ([0-9]+) Magicka/i,
 	},
+	{
+		setBonusCount: 4,
+		category: "Skill",
+		statId: "AOEDamageTaken",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces your damage taken from area of effect abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		setBonusCount: 4,
+		category: "Skill",
+		statId: "AOEDamageDone",
+		display: "%",
+		factorValue: -1,
+		match: /but the damage and healing of your own area of effect abilities is also reduced by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		setBonusCount: 4,
+		category: "Skill",
+		statId: "AOEHealingDone",
+		display: "%",
+		factorValue: -1,
+		match: /but the damage and healing of your own area of effect abilities is also reduced by ([0-9]+\.?[0-9]*)%/i,
+	},
 	
 		// Optionally toggled set effects
 	{
@@ -5438,6 +5495,8 @@ function GetEsoInputValues(mergeComputedStats)
 	inputValues.Attribute.TotalPoints = inputValues.Attribute.Health + inputValues.Attribute.Magicka + inputValues.Attribute.Stamina;
 	
 	inputValues.Stealthed = 0;
+	inputValues.MountSpeedBonus = parseInt($("#esotbMountSpeedBonus").val()) / 100;
+	inputValues.BaseWalkSpeed = parseFloat($("#esotbBaseWalkSpeed").val()); // 3.0 m/s estimated
 	
 	if ($("#esotbStealth").prop("checked")) 
 	{
@@ -7022,9 +7081,9 @@ function GetEsoInputMundusNameValues(inputValues, mundusName)
 	else if (mundusName == "The Steed")
 	{
 		inputValues.Mundus.HealthRegen = 198;	//3*66
-		inputValues.Mundus.SprintSpeed = 0.05;
-		AddEsoInputStatSource("Mundus.HealthRegen", { mundus: mundusName, value: inputValues.Mundus.HealthRegen });
-		AddEsoInputStatSource("Mundus.SprintSpeed", { mundus: mundusName, value: inputValues.Mundus.SprintSpeed });
+		inputValues.Mundus.MovementSpeed = 0.05;
+		AddEsoInputStatSource("Mundus.HealthRegen",   { mundus: mundusName, value: inputValues.Mundus.HealthRegen });
+		AddEsoInputStatSource("Mundus.MovementSpeed", { mundus: mundusName, value: inputValues.Mundus.MovementSpeed });
 	}
 
 }
@@ -7118,6 +7177,7 @@ function GetEsoInputCPValues(inputValues)
 	ParseEsoCPValue(inputValues, "MagickaRegen", 59577);
 	ParseEsoCPValue(inputValues, "HealthRegen", 60374);
 	ParseEsoCPValue(inputValues, ["HAMagRestore", "HAStaRestore"], 63854);
+	ParseEsoCPValue(inputValues, ["MovementSpeed", "MountSpeed"], 60560);
 	
 		/* Tower */
 	ParseEsoCPValue(inputValues, "BashCost", 58899, null, null, -1);
@@ -7526,6 +7586,14 @@ function DisplayEsoComputedStat(statId, inputValues)
 	else if (display == "%2")
 	{
 		displayResult = "" + Math.round(result*100) + "%";
+	}
+	else if (display == "round1")
+	{
+		displayResult = "" + (Math.round(result*10)/10).toFixed(1);
+	}
+	else if (display == "round2")
+	{
+		displayResult = "" + (Math.round(result*100)/100).toFixed(2);
 	}
 	else if (display == "resist")
 	{
@@ -10224,7 +10292,8 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
 	{
 		Done		: inputValues.HealingDone,
 		Taken		: inputValues.HealingTaken,
-		Received	: inputValues.HealingReceived,	
+		Received	: inputValues.HealingReceived,
+		AOE      	: inputValues.Skill.AOEHealingDone,
 	};
 	
 	g_LastSkillInputValues.SkillDuration = inputValues.SkillDuration;
@@ -10564,7 +10633,7 @@ function CreateEsoBuildBuffDescHtml(buffData)
 			
 	for (var i = 0; i < statIds.length; ++i)
 	{
-		statId = statIds[i].replace(/([A-Z])/g, ' $1').trim();
+		statId = statIds[i].replace(/([A-Z])/g, ' $1').trim().replace("A O E ", " AOE ");
 		statValue = statValues[i];
 		category = categories[i];
 		display = displays[i];
@@ -11392,6 +11461,9 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 	saveData.Stats['Stealth'] = inputValues.Stealthed;
 	saveData.Stats['Cyrodiil'] = inputValues.Cyrodiil;
 	
+	saveData.Stats['BaseWalkSpeed'] = inputValues.BaseWalkSpeed;
+	saveData.Stats['RidingSpeed'] = parseInt(inputValues.MountSpeedBonus * 100);
+		
 	saveData.Stats['ActiveAbilityBar'] = "" + inputValues.ActiveAbilityBar;
 	saveData.Stats['ActiveWeaponBar'] = "" + inputValues.ActiveWeaponBar;
 	

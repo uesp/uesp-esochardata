@@ -177,6 +177,10 @@ class EsoBuildDataEditor
 			"FoodBuff",
 			"Skill.SingleTargetDamageDone",
 			"Skill.AOEDamageDone",
+			"Skill.AOEHealingDone",
+			"Skill.AOEDamageTaken",
+			"MountSpeedBonus",
+			"BaseWalkSpeed",
 	);
 	
 	
@@ -230,6 +234,11 @@ class EsoBuildDataEditor
 			"RollDodgeDuration",
 			"SprintCost",
 			"SprintSpeed",
+			"MovementSpeed",
+			"MountSpeed",
+			"SwimSpeed",
+			"BlockSpeed",
+			"SneakSpeed",
 			"SneakCost",
 			"BreakFreeCost",
 			"BreakFreeDuration",
@@ -556,6 +565,14 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Skill.AOEHealingDone" => array(
+					"display" => "%",
+			),
+			
+			"Skill.AOEDamageTaken" => array(
+					"display" => "%",
+			),
+			
 			"Skill.SingleTargetDamageDone" => array(
 					"display" => "%",
 			),
@@ -700,7 +717,47 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"CP.MovementSpeed" => array(
+					"display" => "%",
+			),
+			
+			"CP.MountSpeed" => array(
+					"display" => "%",
+			),
+			
 			"Skill.SprintSpeed" => array(
+					"display" => "%",
+			),
+			
+			"Skill.MovementSpeed" => array(
+					"display" => "%",
+			),
+			
+			"Skill.MountSpeed" => array(
+					"display" => "%",
+			),
+			
+			"Skill.SneakSpeed" => array(
+					"display" => "%",
+			),
+			
+			"Skill.BlockSpeed" => array(
+					"display" => "%",
+			),
+			
+			"Skill.SwimSpeed" => array(
+					"display" => "%",
+			),
+			
+			"Mundus.SprintSpeed" => array(
+					"display" => "%",
+			),			
+			
+			"Mundus.MovementSpeed" => array(
+					"display" => "%",
+			),
+			
+			"Mundus.MountSpeed" => array(
 					"display" => "%",
 			),
 			
@@ -811,6 +868,14 @@ class EsoBuildDataEditor
 			"Buff.SprintSpeed" => array(
 					"display" => "%",
 			),		
+			
+			"Buff.MovementSpeed" => array(
+					"display" => "%",
+			),
+			
+			"Buff.MountSpeed" => array(
+					"display" => "%",
+			),
 			
 			"Buff.DamageTaken" => array(
 					"display" => "%",
@@ -2181,38 +2246,151 @@ class EsoBuildDataEditor
 					),
 			),
 			
-			"SprintSpeed" => array(
-					"title" => "Sprint Speed",
-					"round" => "floor",
-					"display" => "%",
+			"WalkSpeed" => array(
+					"title" => "Walk Speed",
+					"display" => "round2",
+					"suffix" => " m/s",
 					"compute" => array(
-							"Buff.SprintSpeed",
-							"Set.SprintSpeed",
+							"BaseWalkSpeed",
+							"1 + Buff.MovementSpeed",
+							"Skill.MovementSpeed",
 							"+",
-							"Item.SprintSpeed",
+							"Mundus.MovementSpeed",
+							"1 + Item.Divines",
+							"*",
 							"+",
-							"Skill.SprintSpeed",
-							"+",
-							"CP.SprintSpeed",
-							"+",
+							"*",
+							"1 + CP.MovementSpeed",
+							"*",
 					),
 			),
 			
-			"MountSpeed" => array(
-					"title" => "Mount Speed",
-					"round" => "floor",
-					"display" => "%",
-					"addClass" => "esotbStatDivider",
+			"SprintSpeed" => array(
+					"title" => "Sprint Speed",
+					"display" => "round2",
+					"suffix" => " m/s",
 					"compute" => array(
-							"Buff.MountSpeed",
-							"Set.MountSpeed",
+							"BaseWalkSpeed",
+							"1 + 0.40",
+							"Set.SprintSpeed",
 							"+",
-							"Item.MountSpeed",
+							"Buff.MovementSpeed",
+							"+",
+							"Buff.SprintSpeed",
+							"+",
+							"Skill.MovementSpeed",
+							"+",
+							"Mundus.MovementSpeed",
+							"1 + Item.Divines",
+							"*",
+							"+",
+							"*",							
+							"1 + CP.MovementSpeed",
+							"*",
+					),
+			),
+			
+			"SwimSpeed" => array(
+					"title" => "Swim Speed",
+					"display" => "round2",
+					"suffix" => " m/s",
+					"compute" => array(
+							"BaseWalkSpeed",
+							"1 - 0.40",
+							"*",
+							"1 + Skill.SwimSpeed",
+							"*",
+							"1 + Buff.MovementSpeed",
+							"Mundus.MovementSpeed",
+							"1 + Item.Divines",
+							"*",
+							"+",
+							"CP.MovementSpeed",
+							"+",
+							"*",
+					),
+			),
+			
+			"SneakSpeed" => array(
+					"title" => "Sneak Speed",
+					"display" => "round2",
+					"suffix" => " m/s",
+					"compute" => array(
+							"BaseWalkSpeed",
+							"1 - 0.40",
+							"Set.SneakSpeed",
+							"+",
+							"Buff.MovementSpeed",
+							"+",
+							"Skill.MovementSpeed",
+							"+",
+							"Skill.SneakSpeed",
+							"+",
+							"Mundus.MovementSpeed",
+							"1 + Item.Divines",
+							"*",
+							"+",
+							"*",
+							"1 + Skill2.SneakSpeed",
+							"CP.MovementSpeed",
+							"+",
+							"*",
+					),
+			),
+			
+			"BlockSpeed" => array(
+					"title" => "Block Speed",
+					"display" => "round2",
+					"suffix" => " m/s",
+					"compute" => array(
+							"BaseWalkSpeed",
+							"1 - 0.60",
+							"*",
+							"1 + Skill.BlockSpeed",
+							"*"
+					),
+			),
+			
+			"MountWalkSpeed" => array(
+					"title" => "Mount Walk Speed",
+					"display" => "round2",
+					"suffix" => " m/s",
+					"compute" => array(
+							"BaseWalkSpeed",
+							"1 + 0.15",
+							"MountSpeedBonus",
 							"+",
 							"Skill.MountSpeed",
 							"+",
+							"CP.MountSpeed",
+							"+",
+							"*",
+							"1 + Set.MountSpeed",
 							"Buff.MountSpeed",
 							"+",
+							"*",
+					),
+			),
+			
+			"MountRunSpeed" => array(
+					"title" => "Mount Run Speed",
+					"display" => "round2",
+					"suffix" => " m/s",
+					"addClass" => "esotbStatDivider",
+					"compute" => array(
+							"BaseWalkSpeed",
+							"1 + 0.45",
+							"MountSpeedBonus",
+							"+",
+							"Skill.MountSpeed",
+							"+",
+							"CP.MountSpeed",
+							"+",
+							"*",
+							"1 + Set.MountSpeed",
+							"Buff.MountSpeed",
+							"+",
+							"*",
 					),
 			),
 			
@@ -2287,7 +2465,7 @@ class EsoBuildDataEditor
 			),
 			
 			"RollDodgeCost" => array(					// TODO: Check?
-					"title" => "Roll Dodge Cost",
+					"title" => "Dodge Roll Cost",
 					"round" => "floor",
 					"compute" => array(
 							"floor(34 + 5.62*EffectiveLevel)*10",
@@ -4245,6 +4423,8 @@ class EsoBuildDataEditor
 				'{level}' => $this->getCharStatField('Level', '50'),
 				'{effectiveLevel}' => $this->getCharStatField('EffectiveLevel', '66'),
 				'{CPTotalPoints}' => $this->getCharField('cp', '160'),
+				'{BaseWalkSpeed}' => $this->getCharStatField("BaseWalkSpeed", "3.0"),
+				'{MountSpeedBonus}' => $this->getCharStatField("RidingSpeed", "0"),
 				'{vampireStage}' => $this->GetCharVampireStage(),
 				'{werewolfStage}' => $this->GetCharWerewolfStage(),
 				'{attributeTotal}' => $this->getCharStatField("AttributesTotal", "0"),

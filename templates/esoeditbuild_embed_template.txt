@@ -77,8 +77,15 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			</div>
 			<div id="esotbMisc">
 				<div class="esotbAttrTitle">Miscellaneous Stats</div>
+				
 				<div class="esotbStatLabel">Spell/Ability Cost</div> <input id="esotbMiscSpellCost" class="esotbInputValue esotbMiscInput" statid="Misc.SpellCost" type="number" size="2" value="{miscSpellCost}">
-				This value is used to see the effect of cost reduction from all factors.
+				This value is used to see the effect of cost reduction from all factors.<br/>
+				
+				<div class="esotbStatLabel">Mount Speed Bonus</div> <input id="esotbMountSpeedBonus" class="esotbInputValue esotbMiscInput" statid="MountSpeedBonus" type="number" size="2" value="{MountSpeedBonus}"> %
+				(0-60%)<br/>
+				
+				<div class="esotbStatLabel">Base Walk Speed</div> <input id="esotbBaseWalkSpeed" class="esotbInputValue esotbMiscInput" statid="BaseWalkSpeed" type="number" size="2" value="{BaseWalkSpeed}"> m/s
+				(Estimated value is 3.0 m/s)<br/>
 			</div>
 		</div>
 		<div id="esotbStatBlockItems" class="esotbStatBlock" style="display: none;">
@@ -466,6 +473,18 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>4 April 2017</b>
+			<ul>
+				<li>Complete redid all movement calculations. Split up SprintSpeed into seperate components and added the applicable affects. Added the Mount Speed Bonus
+					and Base Walking Speed stats to the bottom of the general tab.</li>
+			</ul>
+			<p>
+			<b>1 April 2017</b>
+			<ul>
+				<li>Added the 5 piece effects from the Leki set and the Blade Cloak DW buff.</li>
+				<li>Added the AOE Healing effect on healing skills. The exact nature of this effect combined with other healing effects has not yet been tested in-game.</li>	
+			</ul>
+			<p>
 			<b>31 March 2017</b>
 			<ul>
 				<li>Changed the skill drag and drop to be more mobile friendly.</li>
