@@ -1074,6 +1074,7 @@ ESO_ACTIVEEFFECT_MATCHES = [
 	},
 	{
 		statId: "SneakSpeed",
+		category: "Skill2",
 		display: "%",
 		rawInputMatch: /(While slotted, your movement speed while stealthed or invisible is increased by [0-9]+\.?[0-9]*%\.)/i,
 		match: /While slotted, your movement speed while stealthed or invisible is increased by ([0-9]+\.?[0-9]*)%/i
@@ -1505,6 +1506,13 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		factorValue: -1,
 		combineAs: "*%",
 		match: /Reduces the Stamina cost of sneaking by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "Skill",
+		statId: "NormalSneakSpeed",
+		statRequireId: "VampireStage",
+		statRequireValue: 4,
+		match: /Ignore the movement speed penalty while in crouch/i,
 	},
 	{
 		factorStatId: "ArmorTypes",
@@ -3613,6 +3621,11 @@ ESO_SETEFFECT_MATCHES = [
 		match: /While you are Sneaking or invisible, your Spell Damage and Max Magicka is increased by ([0-9]+)%/i,
 	},
 	{
+		category: "Skill",
+		statId: "NormalSneakSpeed",
+		match: /Ignore the Movement Speed penalty of Sneak/i,
+	},
+	{
 		buffId: "Minor Berserk",
 		match: /Gain Minor Berserk at all times/i,
 	},
@@ -5495,6 +5508,7 @@ function GetEsoInputValues(mergeComputedStats)
 	inputValues.Attribute.TotalPoints = inputValues.Attribute.Health + inputValues.Attribute.Magicka + inputValues.Attribute.Stamina;
 	
 	inputValues.Stealthed = 0;
+	inputValues.NormalSneakSpeed = 0;
 	inputValues.MountSpeedBonus = parseInt($("#esotbMountSpeedBonus").val()) / 100;
 	inputValues.BaseWalkSpeed = parseFloat($("#esotbBaseWalkSpeed").val()); // 3.0 m/s estimated
 	
@@ -6106,7 +6120,8 @@ function ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData,
 	{
 		matches = rawDesc.match(matchData.match);
 		if (matches == null) return false;
-		if (matches[1] != null) statValue = parseFloat(matches[1]);
+		statValue = parseFloat(matches[1]);
+		if (isNaN(statValue)) statValue = 1;
 	}
 	
 	if (matchData.skillName != null)
