@@ -181,6 +181,7 @@ class EsoBuildDataEditor
 			"Skill.AOEDamageTaken",
 			"MountSpeedBonus",
 			"BaseWalkSpeed",
+			"Skill.NormalSneakSpeed",
 	);
 	
 	
@@ -738,6 +739,10 @@ class EsoBuildDataEditor
 			),
 			
 			"Skill.SneakSpeed" => array(
+					"display" => "%",
+			),
+			
+			"Skill2.SneakSpeed" => array(
 					"display" => "%",
 			),
 			
@@ -2317,14 +2322,14 @@ class EsoBuildDataEditor
 					"suffix" => " m/s",
 					"compute" => array(
 							"BaseWalkSpeed",
-							"1 - 0.40",
-							"Set.SneakSpeed",
+							"1",
+							"-0.40",
+							"1 - Skill.NormalSneakSpeed",
+							"*",
 							"+",
 							"Buff.MovementSpeed",
 							"+",
 							"Skill.MovementSpeed",
-							"+",
-							"Skill.SneakSpeed",
 							"+",
 							"Mundus.MovementSpeed",
 							"1 + Item.Divines",
