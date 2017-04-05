@@ -462,6 +462,18 @@ EOT;
 	}
 	
 	
+	public function SortBuildsByCharIndexAndName($a, $b)
+	{
+		$charIndex1 = $a['charIndex'] ? : 1000;
+		$charIndex2 = $b['charIndex'] ? : 1000;
+		
+		$result = $charIndex1 - $charIndex2;
+		if ($result != 0) return $result;
+		
+		return strcmp($a['name'], $b['name']);
+	}	
+	
+	
 	public function createBuildTableHtml()
 	{
 		if (!$this->loadBuilds()) return false;
@@ -472,7 +484,8 @@ EOT;
 			$this->loadAccountBuffs($this->buildData[0]['accountName']);			
 		}
 		
-		usort($this->buildData, array('EsoCharDataViewer', 'SortBuildsByName'));
+		//usort($this->buildData, array('EsoCharDataViewer', 'SortBuildsByName'));
+		usort($this->buildData, array('EsoCharDataViewer', 'SortBuildsByCharIndexAndName'));
 	
 		$this->outputHtml .= $this->getBreadcrumbTrailHtml() . "<p />\n";
 	
@@ -1567,17 +1580,11 @@ EOT;
 		if ($this->viewRawData) $output .= "<input type='hidden' name='raw' value='' />\n";
 		$output .= "<select name='id' class='ecdAccountCharList' onchange='this.form.submit();' >\n";
 		
-		$sortedCharNames = array();
+		usort($this->accountCharacters, array('EsoCharDataViewer', 'SortBuildsByCharIndexAndName'));
 		
 		foreach ($this->accountCharacters as $charId => $charData)
 		{
-			$sortedCharNames[$charData['name']] = $charId;
-		}
-		
-		ksort($sortedCharNames);
-		
-		foreach ($sortedCharNames as $charName => $charId)
-		{
+			$charName = $charData['name'];
 			$selected = "";
 			if ($charId == $this->characterData['id']) $selected = "selected";
 			
