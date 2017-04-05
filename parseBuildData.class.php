@@ -158,6 +158,7 @@ class EsoBuildDataParser
 						createTime BIGINT NOT NULL,
 						editTimestamp TIMESTAMP NOT NULL DEFAULT 0,
 						uploadTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+						charIndex TINYINT NOT NULL,
 						PRIMARY KEY (id),
 						INDEX index_name(name(32)),
 						INDEX index_class(class(10)),
@@ -591,6 +592,7 @@ class EsoBuildDataParser
 		$alliance = $this->getSafeFieldStr($buildData, 'Alliance');
 		$level = $this->getSafeFieldInt($buildData, 'Level');
 		$createTime = $this->getSafeFieldInt($buildData, 'TimeStamp');
+		$charIndex = $this->getSafeFieldInt($buildData, 'CharIndex');
 		$special = '';
 		$championPoints = 0;
 		
@@ -617,8 +619,8 @@ class EsoBuildDataParser
 		
 		if ($this->checkBuffWerewolf($buildData)) $special = "Werewolf";
 				
-		$query  = "INSERT INTO characters(name, buildName, accountName, uniqueAccountName, wikiUserName, class, race, buildType, level, createTime, championPoints, special, alliance) ";
-		$query .= "VALUES(\"$name\", \"$buildName\", \"$accountName\", \"$uniqueAccountName\", \"$wikiUserName\", \"$class\", \"$race\", \"$buildType\", $level, $createTime, $championPoints, \"$special\", \"$alliance\");";
+		$query  = "INSERT INTO characters(name, buildName, accountName, uniqueAccountName, wikiUserName, class, race, buildType, level, createTime, championPoints, special, alliance, charIndex) ";
+		$query .= "VALUES(\"$name\", \"$buildName\", \"$accountName\", \"$uniqueAccountName\", \"$wikiUserName\", \"$class\", \"$race\", \"$buildType\", $level, $createTime, $championPoints, \"$special\", \"$alliance\", $charIndex);";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		
