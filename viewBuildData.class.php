@@ -14,7 +14,7 @@ class EsoBuildDataViewer
 			"Ice Staff" => 1, "Inferno Staff" => 1, "Lightning Staff" => 1, "Restoration Staff" => 1);
 	
 	public $ESO_HTML_TEMPLATE = "templates/esobuilddata_embed_template.txt";
-	public $ESO_SHORT_LINK_URL = "http://esobuilds.uesp.net/";
+	public $ESO_SHORT_LINK_URL = "//esobuilds.uesp.net/";
 	
 	public $ORNATE_ICON = "resources/ornate.png";
 	public $INTRICATE_ICON = "resources/intricate.png";
@@ -36,7 +36,7 @@ class EsoBuildDataViewer
 	public $totalCharacterPages = 0;
 		
 	
-	const ESO_ICON_URL = "http://esoicons.uesp.net";
+	const ESO_ICON_URL = "//esoicons.uesp.net";
 
 	
 	public $ESO_MOTIF_CHAPTERNAMES = array(
@@ -1198,7 +1198,7 @@ class EsoBuildDataViewer
 	public function getShortCharacterLinkHtml()
 	{
 		$output = "";
-		$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
+		$output .= "<a href='//en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
 		
 		if ($this->characterId <= 0)
 		{
@@ -1206,7 +1206,7 @@ class EsoBuildDataViewer
 			$output .= " <a href='$charLink' class='ecdShortCharLink'>Link to Build</a>";
 		}
 		
-		$output .= "<a href='http://esobuilds.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
+		$output .= "<a href='//esobuilds.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
 		return $output;
 	}
 	
@@ -1304,24 +1304,24 @@ class EsoBuildDataViewer
 			$output .= "<a href='$baseLink'>&laquo; View All Builds</a>";
 			if ($canViewMyBuilds) $output .= " : <a href='$myLink'>View My Builds</a>";
 			$output .= " : $search";
-			$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
-			$output .= "<a href='http://esobuilds.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
+			$output .= "<a href='//en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
+			$output .= "<a href='//esobuilds.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
 		}
 		else if ($this->viewMyBuilds && $canViewMyBuilds)
 		{
 			$output .= "<a href='$baseLink'>&laquo; View All Builds</a>";
 			$output .= " : <b>Viewing My Builds</b>";
 			$output .= " : $search";
-			$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
-			$output .= "<a href='http://esobuilds.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
+			$output .= "<a href='//en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
+			$output .= "<a href='//esobuilds.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
 		}
 		else
 		{
 			$output .= "<b>Viewing All Builds</b>";
 			if ($canViewMyBuilds) $output .= " : <a href='$myLink'>View My Builds</a>";
 			$output .= " : $search";
-			$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
-			$output .= "<a href='http://esobuilds.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
+			$output .= "<a href='//en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
+			$output .= "<a href='//esobuilds.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
 		}
 		
 		$output .= "</div>";

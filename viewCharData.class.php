@@ -14,7 +14,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		parent::__construct();
 		
 		$this->ESO_HTML_TEMPLATE = "templates/esochardata_embed_template.txt";
-		$this->ESO_SHORT_LINK_URL = "http://esochars.uesp.net/";
+		$this->ESO_SHORT_LINK_URL = "//esochars.uesp.net/";
 		$this->baseUrl = "viewCharData.php";
 		
 		$this->hasCharacterInventory = true;
@@ -1582,9 +1582,10 @@ EOT;
 		
 		usort($this->accountCharacters, array('EsoCharDataViewer', 'SortBuildsByCharIndexAndName'));
 		
-		foreach ($this->accountCharacters as $charId => $charData)
+		foreach ($this->accountCharacters as $charIndex => $charData)
 		{
 			$charName = $charData['name'];
+			$charId = $charData['id'];
 			$selected = "";
 			if ($charId == $this->characterData['id']) $selected = "selected";
 			
@@ -1627,15 +1628,15 @@ EOT;
 		{
 			$output .= "<a href='$baseLink'>&laquo; View All Characters</a>";
 			$output .= " : Viewing My Characters";
-			$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
-			$output .= "<a href='http://esochars.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
+			$output .= "<a href='//en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
+			$output .= "<a href='//esochars.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
 		}
 		else
 		{
 			$output .= "Viewing all characters. ";
 			if ($canViewMyChars) $output .= " : <a href='$myLink'>View My Characters</a>";
-			$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
-			$output .= "<a href='http://esochars.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
+			$output .= "<a href='//en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
+			$output .= "<a href='//esochars.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
 		}
 	
 		$output .= "</div>";
@@ -1646,7 +1647,7 @@ EOT;
 	public function getShortCharacterLinkHtml()
 	{
 		$output = "";
-		$output .= "<a href='http://en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
+		$output .= "<a href='//en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
 		
 		if ($this->characterId > 0 && $this->canWikiUserCreate())
 		{
@@ -1659,7 +1660,7 @@ EOT;
 			$output .= "<a href='$charLink' class='ecdShortCharLink'>Link to Character</a>";
 		}
 	
-		$output .= "<a href='http://esochars.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
+		$output .= "<a href='//esochars.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
 		return $output;
 	}
 			
@@ -1926,7 +1927,7 @@ EOT;
 	
 	public function redirectToNewBuild($buildId)
 	{
-		header("Location: http://esobuilds.uesp.net/b/$buildId");
+		header("Location: //esobuilds.uesp.net/b/$buildId");
 		return true;
 	}
 	
@@ -1951,7 +1952,7 @@ EOT;
 		$this->createNewBuildActionBars($buildId);
 		
 		$this->redirectToNewBuild($buildId);
-		$this->outputHtml .= "<p/>Created <a href='http://esobuilds.uesp.net/b/$buildId'><b>New Build!</b></a>";
+		$this->outputHtml .= "<p/>Created <a href='//esobuilds.uesp.net/b/$buildId'><b>New Build!</b></a>";
 				
 		return true;
 	}

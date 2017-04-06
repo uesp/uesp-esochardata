@@ -5,7 +5,7 @@
 
 ESO_TESTBUILD_SHOWALLRAWINPUTS = false;
 
-ESO_ICON_URL = "http://esoicons.uesp.net";
+ESO_ICON_URL = "//esoicons.uesp.net";
 
 ESO_MAX_ATTRIBUTES = 64;
 ESO_MAX_LEVEL = 50;
@@ -8248,7 +8248,7 @@ function RequestEsoChangeArmorTypeData(itemData, armorType, slotId)
 			"trait" : itemData.trait,
 	};
 
-	$.ajax("http://esolog.uesp.net/esoItemSearchPopup.php", {
+	$.ajax("//esolog.uesp.net/esoItemSearchPopup.php", {
 			data: queryParams,
 		}).
 		done(function(data, status, xhr) { OnEsoRequestChangeArmorTypeReceive(data, status, xhr, slotId, itemData, armorType); }).
@@ -8285,7 +8285,7 @@ function RequestEsoChangeTraitData(itemData, newTrait, slotId, msgElement)
 			"trait" : newTrait,
 	};
 
-	$.ajax("http://esolog.uesp.net/esoItemSearchPopup.php", {
+	$.ajax("//esolog.uesp.net/esoItemSearchPopup.php", {
 			data: queryParams,
 		}).
 		done(function(data, status, xhr) { OnEsoRequestChangeTraitReceive(data, status, xhr, slotId, itemData, newTrait, msgElement); }).
@@ -8388,7 +8388,7 @@ function RequestEsoItemData(itemData, element)
 		queryParams.quality = null;
 	}
 	
-	$.ajax("http://esolog.uesp.net/exportJson.php", {
+	$.ajax("//esolog.uesp.net/exportJson.php", {
 			data: queryParams,
 		}).
 		done(function(data, status, xhr) { OnEsoItemDataReceive(data, status, xhr, element, itemData); }).
@@ -8427,7 +8427,7 @@ function GetEsoSetMaxData(itemData)
 			"limit" : 1,
 	};
 	
-	$.ajax("http://esolog.uesp.net/exportJson.php", {
+	$.ajax("//esolog.uesp.net/exportJson.php", {
 			data: queryParams,
 		}).
 		done(function(data, status, xhr) { OnEsoSetMaxDataReceive(data, status, xhr); }).
@@ -9148,7 +9148,7 @@ function RequestEsoEnchantData(itemData, element)
 			"limit" : 1,
 	};
 	
-	$.ajax("http://esolog.uesp.net/exportJson.php", {
+	$.ajax("//esolog.uesp.net/exportJson.php", {
 			data: queryParams,
 		}).
 		done(function(data, status, xhr) { OnEsoEnchantDataReceive(data, status, xhr, element, itemData); }).
@@ -10905,7 +10905,7 @@ function RequestEsoBuildSave()
 {
 	var saveData = CreateEsoBuildSaveData();
 	
-	$.ajax("http://esobuilds.uesp.net/saveBuild.php", {
+	$.ajax("//esobuilds.uesp.net/saveBuild.php", {
 				type: "POST",
 				data: { 
 					savedata: JSON.stringify(saveData), 
@@ -10922,7 +10922,7 @@ function RequestEsoBuildCreateCopy()
 {
 	var saveData = CreateEsoBuildSaveData();
 	
-	$.ajax("http://esobuilds.uesp.net/saveBuild.php", {
+	$.ajax("//esobuilds.uesp.net/saveBuild.php", {
 				type: "POST",
 				data: { 
 					savedata: JSON.stringify(saveData), 
@@ -11838,7 +11838,7 @@ function EquipSetItem(setName, slotId, level, quality)
 			"setname" : setName,
 	};
 	
-	$.ajax("http://esolog.uesp.net/getSetItemData.php", {
+	$.ajax("//esolog.uesp.net/getSetItemData.php", {
 			data: queryParams,
 		}).
 		done(function(data, status, xhr) { OnEsoSetItemDataReceive(data, status, xhr, slotId); }).
