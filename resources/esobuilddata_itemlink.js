@@ -15,7 +15,7 @@ function CreateEsoItemLinkPopup()
 
 function ShowEsoItemLinkPopup(parent, itemId, itemLink, intLevel, intType)
 {
-	var linkSrc = "http://esoitem.uesp.net/itemLink.php?itemid=" + itemId + "&embed";
+	var linkSrc = "//esoitem.uesp.net/itemLink.php?itemid=" + itemId + "&embed";
 	
 	if (itemId <= 0) return;
 	linkSrc += "&itemid=" + itemId;

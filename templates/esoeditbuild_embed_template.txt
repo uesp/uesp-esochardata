@@ -7,7 +7,7 @@
 
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
-inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor"><b>let us know</b></a>. 
+inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor"><b>let us know</b></a>. 
 <div class='esotbBlockClear'></div>
 <div id="esotbRoot">
 	<div id="esotbStatList">
@@ -434,8 +434,8 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 		<div id="esotbStatBlockHelp" class="esotbStatBlock" style="display: none;">
 			This is a yet another character builder/planner for Elder Scrolls Online. The design goal behind the builder is to be able to see 
 			all the various calculations and stat sources to be able to better understand how one thing or another affects your character's
-			final stats. More help on this editor can be found on its <b><a href="http://en.uesp.net/wiki/UESPWiki:EsoBuildEditor">wiki page</a></b>
-			and bug reports/feedback can be made on the editor's <b><a href="http://en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor">talk page</a></b>.
+			final stats. More help on this editor can be found on its <b><a href="//en.uesp.net/wiki/UESPWiki:EsoBuildEditor">wiki page</a></b>
+			and bug reports/feedback can be made on the editor's <b><a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor">talk page</a></b>.
 			<p>
 			
 			<h3>Basic Usage</h3>
@@ -762,7 +762,7 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<b>25 October 2016</b>
 			<ul>
 				<li>Updated the matching effect data for more than 70 sets from the One Tamriel update. This still leaves a few dozen minor set effects left to implement. 
-					If you notice any omission or errors let us know on the <a href="http://en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor">feedback page</a>.<li>
+					If you notice any omission or errors let us know on the <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor">feedback page</a>.<li>
 			</ul>
 			<p>
 			<b>24 October 2016</b>
@@ -1000,12 +1000,12 @@ inaccurate computed values just <a href="http://en.uesp.net/wiki/UESPWiki_talk:E
 			<hr>
 			This character builder has been made possible by a large number of contributors:
 			<ul>
-				<li>The builder was assembled from all the parts by <a href="http://www.uesp.net/wiki/User:Daveh">Daveh</a>.</li>
-				<li>Asayre and his detailed <a href="http://tamrielfoundry.com/topic/pts-2-1-2-sorcerer-arithmagic/">Arithmagic Post</a> on <a href="http://tamrielfoundry.com/">Tamriel Foundry</a> among his many others.</li>
-				<li>The <a href="http://en.uesp.net/wiki/Online:UespLog_AddOn">uespLog add-on</a> which collects various data from the game.</li>
-				<li>The <a href="http://esolog.uesp.net/viewlog.php">data</a> collected by users of uespLog.</a></li>
-				<li>The <a href="http://www.uesp.net/wiki/Special:EsoCps">ESO Champion Point Browser</a> is used within the builder.</li>
-				<li>The <a href="http://www.uesp.net/wiki/Special:EsoSkills">ESO Skill Browser</a> is also used within the builder.</li>
+				<li>The builder was assembled from all the parts by <a href="//www.uesp.net/wiki/User:Daveh">Daveh</a>.</li>
+				<li>Asayre and his detailed <a href="//tamrielfoundry.com/topic/pts-2-1-2-sorcerer-arithmagic/">Arithmagic Post</a> on <a href="http://tamrielfoundry.com/">Tamriel Foundry</a> among his many others.</li>
+				<li>The <a href="//en.uesp.net/wiki/Online:UespLog_AddOn">uespLog add-on</a> which collects various data from the game.</li>
+				<li>The <a href="//esolog.uesp.net/viewlog.php">data</a> collected by users of uespLog.</a></li>
+				<li>The <a href="//www.uesp.net/wiki/Special:EsoCps">ESO Champion Point Browser</a> is used within the builder.</li>
+				<li>The <a href="//www.uesp.net/wiki/Special:EsoSkills">ESO Skill Browser</a> is also used within the builder.</li>
 				<li>All the numerous people who have tested and posted various ESO game details they've figured out.</li> 
 			</ul>
 		</div>

@@ -187,7 +187,7 @@ class EsoCharDataSubmitter
 		<p />
 		If you are playing on the Windows/PC version you can use uespLogMonitor program included with the addon to automatically upload the build data.
 		<p />
-		Only character and build data is parsed and saved with this form. To parse/save all uespLog data use the <a href='http://esolog.uesp.net/submit.php'>http://esolog.uesp.net/submit.php</a> form.
+		Only character and build data is parsed and saved with this form. To parse/save all uespLog data use the <a href='//esolog.uesp.net/submit.php'>esolog.uesp.net/submit.php</a> form.
 		<p />
 		<ul>
 		<li>Choose your uespLog saved variable file. This is usually in your <em>"Documents"</em> folder as one of the following:<br />
