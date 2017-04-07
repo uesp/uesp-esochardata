@@ -1156,8 +1156,9 @@ class EsoBuildDataViewer
 		$charNames[-1] = "Bank";
 		$charNames[-2] = "Craft Bag";
 		
-		foreach ($this->accountCharacters as $charId => $charData)
+		foreach ($this->accountCharacters as $charIndex => $charData)
 		{
+			$charId = $charData['id'];
 			$charNames[$charId] = $charData['name'];
 		}
 		

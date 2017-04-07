@@ -1580,7 +1580,7 @@ EOT;
 		if ($this->viewRawData) $output .= "<input type='hidden' name='raw' value='' />\n";
 		$output .= "<select name='id' class='ecdAccountCharList' onchange='this.form.submit();' >\n";
 		
-		usort($this->accountCharacters, array('EsoCharDataViewer', 'SortBuildsByCharIndexAndName'));
+		uksort($this->accountCharacters, array('EsoCharDataViewer', 'SortBuildsByCharIndexAndName'));
 		
 		foreach ($this->accountCharacters as $charIndex => $charData)
 		{
