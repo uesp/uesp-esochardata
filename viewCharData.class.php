@@ -485,7 +485,7 @@ EOT;
 		}
 		
 		//usort($this->buildData, array('EsoCharDataViewer', 'SortBuildsByName'));
-		usort($this->buildData, array('EsoCharDataViewer', 'SortBuildsByCharIndexAndName'));
+		uasort($this->buildData, array('EsoCharDataViewer', 'SortBuildsByCharIndexAndName'));
 	
 		$this->outputHtml .= $this->getBreadcrumbTrailHtml() . "<p />\n";
 	
@@ -1580,9 +1580,9 @@ EOT;
 		if ($this->viewRawData) $output .= "<input type='hidden' name='raw' value='' />\n";
 		$output .= "<select name='id' class='ecdAccountCharList' onchange='this.form.submit();' >\n";
 		
-		uksort($this->accountCharacters, array('EsoCharDataViewer', 'SortBuildsByCharIndexAndName'));
-		
-		foreach ($this->accountCharacters as $charIndex => $charData)
+		uasort($this->accountCharacters, array('EsoCharDataViewer', 'SortBuildsByCharIndexAndName'));
+	
+		foreach ($this->accountCharacters as $charData)
 		{
 			$charName = $charData['name'];
 			$charId = $charData['id'];
