@@ -6120,8 +6120,13 @@ function ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData,
 	{
 		matches = rawDesc.match(matchData.match);
 		if (matches == null) return false;
-		statValue = parseFloat(matches[1]);
-		if (isNaN(statValue)) statValue = 1;
+		
+		var newStatValue = parseFloat(matches[1]);
+		
+		if (isNaN(newStatValue) && matchData.statValue === null) 
+			statValue = 1;
+		else if (!isNaN(newStatValue))
+			statValue = newStatValue;
 	}
 	
 	if (matchData.skillName != null)

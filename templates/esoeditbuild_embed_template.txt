@@ -475,6 +475,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<hr>
 			<b>4 April 2017</b>
 			<ul>
+				<li>Fixed the Vampire's Unnatural Resistance and a few other skills from having the incorrect skill value of 1%.</li>
+			</ul>			
+			<p>
+			<b>4 April 2017</b>
+			<ul>
 				<li>Complete redid all movement calculations. Split up SprintSpeed into seperate components and added the applicable affects. Added the Mount Speed Bonus
 					and Base Walking Speed stats to the bottom of the general tab.</li>
 			</ul>
