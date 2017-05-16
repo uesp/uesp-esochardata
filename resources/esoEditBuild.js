@@ -1841,7 +1841,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "SprintSpeed",
 		display: "%",
-		match: /Increases the movement speed bonus of sprint by ([0-9]+\.?[0-9]*)%/i,
+		match: /and increases the movement speed bonus of sprint by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "HAMeleeDamage", //TODO: Verify
