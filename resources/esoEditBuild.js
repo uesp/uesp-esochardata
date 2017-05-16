@@ -1436,6 +1436,13 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Reduces the cost of Roll Dodge by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
 	},
 	{
+		factorStatId: "ArmorMedium",
+		statId: "RollDodgeCost",
+		display: '%',
+		factorValue: -1,
+		match: /Reduces the cost of Roll Dodge by ([0-9]+\.?[0-9]*)% for each piece of Medium Armor equipped/i,
+	},
+	{
 		statId: "PhysicalResist",
 		match: /Increases your Physical Resistance and Spell Resistance for each piece of Heavy Armor equipped.[\s\S]*?Current bonus\: ([0-9]+)/i,
 	},
