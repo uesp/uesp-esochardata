@@ -473,6 +473,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>4 16 May 2017</b>
+			<ul>
+				<li>The Orc Swift Warrior passive now correctly applies its sprint effects.</li>
+			</ul>			
+			<p>
 			<b>4 April 2017</b>
 			<ul>
 				<li>Fixed the Vampire's Unnatural Resistance and a few other skills from having the incorrect skill value of 1%.</li>
