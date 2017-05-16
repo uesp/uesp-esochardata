@@ -2883,7 +2883,7 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"depends" => array("Magicka", "SpellDamage"),
 					"compute" => array(
-							"round(0.0129965*Magicka + 0.520247*SpellDamage - 1.1641)",				//Update 12
+							"round(0.0129965*Magicka + 0.520247*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) - 1.1641)",				//Update 12
 							//"round((0.0130319*Magicka + 0.519646*SpellDamage - 0.890172)*3)",		//Update 11pts
 							//"round((0.013*Magicka + 0.52*SpellDamage - 0.26)*3)",					//Update 10
 							"1 + CP.HAStaffDamage + CP.ShockDamageDone + CP.DotDamageDone",
@@ -2925,7 +2925,7 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"depends" => array("Magicka", "SpellDamage"),
 					"compute" => array(
-							"round(0.0139076*Magicka + 0.560231*SpellDamage + 0.0163755)", 		// Update 12
+							"round(0.0139076*Magicka + 0.560231*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) + 0.0163755)", 		// Update 12
 							//"round(0.0140*Magicka + 0.56*SpellDamage - 0.60)",
 							"1 + CP.LAStaffDamage + Set.LADamage + Buff.Empower + Skill.DamageDone",
 							"*",
@@ -3019,7 +3019,7 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"depends" => array("Magicka", "SpellDamage", "LAShockStaff"),
 					"compute" => array(
-							"round(0.0182736*Magicka + 0.728039*SpellDamage - 2.50684)",			//Update 12
+							"round(0.0182736*Magicka + 0.728039*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) - 2.50684)",			//Update 12
 							//"round(0.0181386*Magicka + 0.728188*SpellDamage - 0.397214)",			//Update 11pts
 							//"round(0.0182*Magicka + 0.728*SpellDamage - 0.03)",					//Update 10
 							"1 + CP.ShockDamageDone",
@@ -3040,7 +3040,7 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"depends" => array("Magicka", "SpellDamage"),
 					"compute" => array(
-							"round(0.0478338*Magicka +  1.91925*SpellDamage + 1.35918)",	//Update 11pts
+							"round(0.0478338*Magicka +  1.91925*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) + 1.35918)",	//Update 11pts
 							//"round(0.0481*Magicka +  1.92*SpellDamage - 3.06)",			//Update 10
 							//"round(0.02643*Magicka + 1.055*SpellDamage - 0.62)",			//Update 10
 							"Skill2.HADamage",
