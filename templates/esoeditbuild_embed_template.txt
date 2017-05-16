@@ -477,6 +477,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<ul>
 				<li>The Orc Swift Warrior passive now correctly applies its sprint effects.</li>
 				<li>The Medium Armor Athletics passive now only applies its sprint bonus once, applies its roll dodge bonus, and has the correct tooltip display.</li>
+				<li>The Soulshine 5 piece effect has been added to Shock/Restoration Staff damage.</li>
 			</ul>			
 			<p>
 			<b>4 April 2017</b>
