@@ -476,7 +476,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>4 16 May 2017</b>
 			<ul>
 				<li>The Orc Swift Warrior passive now correctly applies its sprint effects.</li>
-				<li>The Medium Armor Athletics passive now only applies its sprint bonus once.</li>
+				<li>The Medium Armor Athletics passive now only applies its sprint bonus once, applies its roll dodge bonus, and has the correct tooltip display.</li>
 			</ul>			
 			<p>
 			<b>4 April 2017</b>
