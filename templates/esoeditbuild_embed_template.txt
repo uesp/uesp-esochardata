@@ -478,6 +478,9 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>The Orc Swift Warrior passive now correctly applies its sprint effects.</li>
 				<li>The Medium Armor Athletics passive now only applies its sprint bonus once, applies its roll dodge bonus, and has the correct tooltip display.</li>
 				<li>The Soulshine 5 piece effect has been added to Shock/Restoration Staff damage.</li>
+				<li>The Maelstrom DW enchantment now affects Drain Essence and its morphs.</li>
+				<li>Equilibrium and its morphs now have their health cost adjusted by the Mage Adept passive.</li>
+				<li>Infused weapons with default enchantments now only have their enchantment effect increased once.</li>
 			</ul>			
 			<p>
 			<b>4 April 2017</b>
