@@ -10308,6 +10308,7 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
 		Poison			: inputValues.PoisonDamageDone,
 		Disease			: inputValues.DiseaseDamageDone,
 		Dot				: inputValues.DotDamageDone,
+		Direct			: inputValues.DirectDamageDone,
 		All				: inputValues.DamageDone,
 		Empower			: inputValues.Buff.Empower,
 		MaelstromDamage : 0,
@@ -13050,6 +13051,12 @@ function UpdateEsoSetDamageDataReplace(match, prefixWord, damageValue, damageTyp
 	if (isDoT)
 	{
 		damageMod = g_EsoBuildLastInputValues.Skill.DotDamageDone;
+		if (damageMod != null && damageMod !== 0) damageFactor *= (1 + damageMod);
+	}
+	else
+	{
+			// TODO: Confirm
+		damageMod = g_EsoBuildLastInputValues.Skill.DirectDamageDone;
 		if (damageMod != null && damageMod !== 0) damageFactor *= (1 + damageMod);
 	}
 
