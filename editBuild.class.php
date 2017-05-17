@@ -249,6 +249,7 @@ class EsoBuildDataEditor
 			"LADamageTaken",
 			"DotDamageTaken",
 			"DotDamageDone",
+			"DirectDamageDone",
 			"MagicDamageDone",
 			"PhysicalDamageDone",
 			"ShockDamageDone",
@@ -603,6 +604,10 @@ class EsoBuildDataEditor
 			),
 			
 			"CP.DotDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"CP.DirectDamageDone" => array(
 					"display" => "%",
 			),
 			
@@ -2561,6 +2566,24 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"compute" => array(
 							"CP.DotDamageDone",
+					),
+			),
+			
+			"DirectDamageDone" => array(
+					"title" => "Direct Damage Done",
+					"display" => "%",
+					"round" => "floor",
+					"compute" => array(
+							"CP.DirectDamageDone",
+					),
+			),
+						
+			"DirectDamageTaken" => array(
+					"title" => "Direct Damage Taken",
+					"display" => "%",
+					"round" => "floor",
+					"compute" => array(
+							"CP.DirectDamageTaken",
 					),
 			),
 			
