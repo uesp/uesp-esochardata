@@ -576,12 +576,22 @@ EOT;
 		$totalAchPoints = 0;
 		$totalSecondsPlayed = 0;
 		$currentTime = time();
+		$maxTimestamp = 0;
+		$maxCharId = 0;
 		
 		foreach ($this->buildData as $build)
 		{
 			$charId = intval($build['id']);
 			$charName = $this->escape($build['name']);
 			if ($this->accountStats[$charId] == null) continue;
+			
+			$timestamp = $this->getAccountStatsField($charId, 'TimeStamp', 0);
+			
+			if ($timestamp > $maxTimestamp)
+			{
+				$maxTimestamp = $timestamp;
+				$maxCharId = $charId;
+			}
 			
 			$gold = intval($this->getAccountStatsField($charId, 'Money', 0));
 			$telvar = intval($this->getAccountStatsField($charId, 'TelvarStones', 0));
@@ -690,12 +700,14 @@ EOT;
 			$output .= "</tr>";			
 		}
 		
-		$gold = intval($this->getAccountStatsField($charId, 'BankedMoney', 0));
-		$telvar = intval($this->getAccountStatsField($charId, 'BankedTelvarStones', 0));
+		if ($maxCharId <= 0) $maxCharId = $charId;
+		
+		$gold = intval($this->getAccountStatsField($maxCharId, 'BankedMoney', 0));
+		$telvar = intval($this->getAccountStatsField($maxCharId, 'BankedTelvarStones', 0));
 		$ap = "-";
 		$voucher = "-";
-		$invUsed = intval($this->getAccountStatsField($charId, 'BankUsedSize', 0));
-		$invTotal = intval($this->getAccountStatsField($charId, 'BankSize', 0));
+		$invUsed = intval($this->getAccountStatsField($maxCharId, 'BankUsedSize', 0));
+		$invTotal = intval($this->getAccountStatsField($maxCharId, 'BankSize', 0));
 		
 		$totalGold += $gold;
 		$totalTelvar += $telvar;
