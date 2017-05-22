@@ -4,7 +4,9 @@
 	<button id="esotbCreateCopyButton" {createCopyButtonDisabled}>Create Copy</button>
 	<div id="esotbSaveResults"></div>
 </div>
-
+<div style='background-color: #fcc; display: inline-block;'>
+	Note: Build data and code is not yet updated for the Morrowind expansion! 
+</div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
 inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor"><b>let us know</b></a>. 
