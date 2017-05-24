@@ -159,11 +159,13 @@ class EsoBuildDataEditor
 			"SkillCost.Undaunted_Cost",
 			"SkillCost.Assault_Cost",
 			"SkillCost.Support_Cost",
+			"SkillCost.Fighters_Guild_Cost",
 			"Stealthed",
 			"Skill.HAMagRestoreRestStaff",
 			"Skill.HAStaRestoreWerewolf",
 			"SkillDuration.Placeholder",
 			"SkillDamage.Placeholder",
+			"SkillHealing.Placeholder",
 			"SkillLineWeaponDmg.base",
 			"SkillLineSpellDmg.base",
 			"SkillBonusWeaponDmg.base",
@@ -182,6 +184,8 @@ class EsoBuildDataEditor
 			"MountSpeedBonus",
 			"BaseWalkSpeed",
 			"Skill.NormalSneakSpeed",
+			"CP.TargetRecovery",
+			"CP.InspirationGained",	
 	);
 	
 	
@@ -264,6 +268,7 @@ class EsoBuildDataEditor
 			"ColdDamageTaken",
 			"PoisonDamageTaken",
 			"DiseaseDamageTaken",
+			"DirectDamageTaken",
 			"HADamage",
 			"LADamage",
 			"HAMeleeDamage",
@@ -396,6 +401,7 @@ class EsoBuildDataEditor
 			"Nightblade",
 			"Sorcerer",
 			"Templar",
+			"Warden",
 	);
 	
 	
@@ -1519,6 +1525,54 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"CP.BashCost" => array(
+					"display" => "%",
+			),
+			
+			"CP.DirectDamageTaken" => array(
+					"display" => "%",
+			),
+			
+			"CP.HADamageTaken" => array(
+					"display" => "%",
+			),
+			
+			"CP.LADamageTaken" => array(
+					"display" => "%",
+			),
+			
+			"CP.ShieldDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"CP.TargetRecovery" => array(
+					"display" => "%",
+			),
+			
+			"CP.InspirationGained" => array(
+					"display" => "%",
+			),
+			
+			"Skill.BashDamage" => array(
+					"display" => "%",
+			),
+			
+			"SkillCost.Fighters_Guild_Cost" => array(
+					"display" => "%",
+			),
+			
+			"SkillHealing.Green Balance" => array(
+					"display" => "%",
+			),
+			
+			"Skill.MagicDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"Skill.SnareEffect" => array(
+					"display" => "%",
+			),
+			
 	);
 	
 	
@@ -1540,7 +1594,8 @@ class EsoBuildDataEditor
 							"+",
 							"Set.Health",
 							"+",
-							"1 + pow(CP.Health, 0.56432)/100",
+							//"1 + pow(CP.Health, 0.56432)/100",
+							"1 + pow(min(CP.Health, 100), 0.6506)/100",		// Update 14
 							"*",
 							"Food.Health",
 							"+",
@@ -1571,7 +1626,8 @@ class EsoBuildDataEditor
 							"+",
 							"Set.Magicka",
 							"+",
-							"1 + pow(CP.Magicka, 0.56432)/100",
+							//"1 + pow(CP.Magicka, 0.56432)/100",
+							"1 + pow(min(CP.Magicka, 100), 0.6506)/100",		// Update 14
 							"*",
 							"Food.Magicka",
 							"+",
@@ -1603,7 +1659,8 @@ class EsoBuildDataEditor
 							"+",
 							"Set.Stamina",
 							"+",
-							"1 + pow(CP.Stamina, 0.56432)/100",
+							//"1 + pow(CP.Stamina, 0.56432)/100",
+							"1 + pow(min(CP.Stamina, 100), 0.6506)/100",		// Update 14
 							"*",
 							"Food.Stamina",
 							"+",
@@ -2986,7 +3043,8 @@ class EsoBuildDataEditor
 					"compute" => array(
 							"round(0.0145129*Stamina + 0.579979*WeaponDamage - 1.0552)",		// Update 12
 							//"round(0.0140*Stamina + 0.56*WeaponDamage - 0.60)",
-							"1 + CP.LABowDamage + Set.LADamage + Set.BowDamageDone + Skill.BowDamageDone + Buff.Empower + Skill.PhysicalDamageDone + Skill.DamageDone", 	// TODO: Check BowDamageDone
+							//"1 + CP.LABowDamage + Set.LADamage + Set.BowDamageDone + Skill.BowDamageDone + Buff.Empower + Skill.PhysicalDamageDone + Skill.DamageDone", 	// TODO: Check BowDamageDone
+							"1 + CP.LAWeaponDamage + Set.LADamage + Set.BowDamageDone + Skill.BowDamageDone + Buff.Empower + Skill.PhysicalDamageDone + Skill.DamageDone", 	// Update 14
 							"*",
 					),
 			),
@@ -3116,7 +3174,8 @@ class EsoBuildDataEditor
 							//"round(0.0550*Stamina +  2.20*WeaponDamage - 0.95)",				//Update 10
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HABowDamage + CP.PhysicalDamageDone",
+							"1 + CP.HAWeaponDamage + CP.PhysicalDamageDone",					//Update 14
+							//"1 + CP.HABowDamage + CP.PhysicalDamageDone",
 							"*",
 							"1 + Skill.HADamage + Set.HADamage + Buff.Empower + Set.BowDamageDone + Skill.BowDamageDone + Skill.PhysicalDamageDone + Skill.DamageDone",  //TODO: Check BowDamageDone
 							"*",
@@ -4098,6 +4157,8 @@ class EsoBuildDataEditor
 			$this->viewSkills->highlightSkillId = 30538;
 		else if ($this->viewSkills->displayClass == "Templar")
 			$this->viewSkills->highlightSkillId = 23784;		
+		else if ($this->viewSkills->displayClass == "Warden")
+			$this->viewSkills->highlightSkillId = 85985;
 		
 		$this->initialSkillData = array();
 		$this->initialSkillData['UsedPoints'] = $this->getCharStatField("SkillPointsUsed", 0);

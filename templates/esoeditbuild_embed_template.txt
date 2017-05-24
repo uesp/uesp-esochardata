@@ -5,7 +5,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #fcc; display: inline-block;'>
-	Note: Build data and code is not yet updated for the Morrowind expansion! 
+	Note: Skill and CP data have been updated for the Morrowind expansion! Item data is not yet updated. 
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -475,6 +475,17 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>24 May 2017</b>
+			<ul>
+				<li>Added Warden class.</li>
+				<li>Updated CPs and skills. Note that most new/updated skills won't yet work correctly.</li>
+				<li>New and modified CP abilities parsing updated.</li>
+				<li>Change in CP scaling of health/magicka/stamina updated (needs verification).</li>
+				<li>Skill details button now updates the skill data before displaying the popup window to ensure accurate data is displayed.</li>
+				<li>Parsing of updated and new skills/CPs in Morrowind is complete. If you notice a skill that isn't being parsed correctly or
+						a tooltip that is not correct <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor">let us know</a>.</li>
+			</ul>
+			<p>
 			<b>16 May 2017</b>
 			<ul>
 				<li>The Orc Swift Warrior passive now correctly applies its sprint effects.</li>
