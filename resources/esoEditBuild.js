@@ -1276,8 +1276,6 @@ ESO_ACTIVEEFFECT_MATCHES = [
 	},
 		/* End Toggled Abilities */
 	
-	
-	// While slotted, your Spell and Weapon Damage is increased by 101 for Ardent Flame abilities.
 ];
 
 
@@ -1519,6 +1517,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "NormalSneakSpeed",
 		statRequireId: "VampireStage",
 		statRequireValue: 4,
+		value: 1,
 		match: /Ignore the movement speed penalty while in crouch/i,
 	},
 	{
@@ -1894,7 +1893,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireValue: 1,
 		statId: "BashDamage",
 		display: "%",
-		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Bashing deals ([0-9]+\.?[0-9]*)% additional damage/i,
+		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s\S]*Bashing deals ([0-9]+\.?[0-9]*)% additional damage/i,
 	},
 	{
 		statRequireId: "Weapon1HShield",
@@ -2058,6 +2057,15 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Reduces the cost of your One Hand and Shield abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+		statRequireId: "Weapon1HShield",
+		statRequireValue: 1,
+		category: "SkillCost",
+		statId: "One_Hand_and_Shield_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Reduces the Stamina cost of your One Hand and Shield abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
 		statRequireId: "Weapon1H",
 		statRequireValue: 2,
 		category: "SkillCost",
@@ -2101,6 +2109,10 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "SpellResist",
 		match: /and your Spell Resistance by ([0-9]+)/i,
+	},
+	{
+		statId: "SpellResist",
+		match: /\% and Spell Resistance by ([0-9]+)\./i,
 	},
 	{
 		statId: "MagickaCost",
@@ -2277,37 +2289,37 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		category: "SkillDuration",
 		statId: "Consuming Darkness",
 		display: "%",
-		match: /Increases duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		category: "SkillDuration",
 		statId: "Shadow Cloak",
 		display: "%",
-		match: /Increases duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		category: "SkillDuration",
 		statId: "Path of Darkness",
 		display: "%",
-		match: /Increases duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		category: "SkillDuration",
 		statId: "Aspect of Terror",
 		display: "%",
-		match: /Increases duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		category: "SkillDuration",
 		statId: "Summon Shade",
 		display: "%",
-		match: /Increases duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		category: "SkillDuration",
 		statId: "Magma Armor",
 		display: "%",
-		match: /Increases duration of Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increases the duration of Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		category: "SkillDuration",
@@ -2732,7 +2744,13 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		requireSkillLine: "AEDRIC SPEAR",
 		statId: "OtherEffects",
 		display: "%",
-		match: /WHILE AN AEDRIC SPEAR ABILITY IS SLOTTED[\s]*Increases the amount of damage you can block against melee attacks by ([0-9]+\.?[0-9]*)%/i
+		match: /Increases the amount of damage you can block against melee attacks by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		requireSkillLine: "AEDRIC SPEAR",
+		statId: "OtherEffects",
+		display: "%",
+		match: /Increases the amount of damage you can block from melee attacks by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		requireSkillLine: "AEDRIC SPEAR",
@@ -2751,6 +2769,13 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "WeaponDamage",
 		display: "%",
 		match: /Increases your Weapon Damage by ([0-9]+\.?[0-9]*)% for each Fighters Guild ability slotted/i
+	},
+	{
+		category: "SkillCost",
+		statId: "Fighters_Guild_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /reduces the Stamina cost of your Fighters Guild abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		factorSkillLine: "Mages Guild",
@@ -3084,6 +3109,59 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "SwimSpeed",
 		display: "%",
 		match: /Increases your swimming speed by ([0-9]+\.?[0-9]*)%/i,
+	},
+	
+		/* Warden */
+	{
+		requireSkillLine: "ANIMAL COMPANIONS",
+		statId: "MagickaRegen",
+		display: "%",
+		match: /Increases your Magicka and Stamina recovery by ([0-9]+\.?[0-9]*)% if an Animal Companion ability is slotted/i,
+	},
+	{
+		requireSkillLine: "ANIMAL COMPANIONS",
+		statId: "StaminaRegen",
+		display: "%",
+		match: /Increases your Magicka and Stamina recovery by ([0-9]+\.?[0-9]*)% if an Animal Companion ability is slotted/i,
+	},
+	{
+		factorSkillLine: "ANIMAL COMPANIONS",
+		statId: "DamageDone",
+		display: "%",
+		match: /Increases your damage done by ([0-9]+\.?[0-9]*)% for each Animal Companion ability slotted/i,
+	},
+	{
+		factorSkillLine: "GREEN BALANCE",
+		category: "SkillHealing",
+		statId: "Green Balance",
+		display: "%",
+		match: /Increase Healing Done for Green Balance abilities by ([0-9]+\.?[0-9]*)% for each Green Balance ability slotted/i,
+	},
+	{
+		factorSkillLine: "Winter's Embrace",
+		statId: "PhysicalResist",
+		match: /Increases your Physical and Spell Resistance by ([0-9]+) for each Winter's Embrace ability slotted/i,
+	},
+	{
+		factorSkillLine: "Winter's Embrace",
+		statId: "SpellResist",
+		match: /Increases your Physical and Spell Resistance by ([0-9]+) for each Winter's Embrace ability slotted/i,
+	},
+	{
+		statId: "SnareEffect",
+		factorValue: -1,
+		display: '%',
+		match: /Reduce the effectiveness of snares applied to you by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "MagicDamageDone",
+		display: '%',
+		match: /Increases your Magic and Frost Damage by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "ColdDamageDone",
+		display: '%',
+		match: /Increases your Magic and Frost Damage by ([0-9]+\.?[0-9]*)%/i,
 	},
 	
 		/* Begin Toggled Passives */
@@ -3630,6 +3708,7 @@ ESO_SETEFFECT_MATCHES = [
 	{
 		category: "Skill",
 		statId: "NormalSneakSpeed",
+		value: 1,
 		match: /Ignore the Movement Speed penalty of Sneak/i,
 	},
 	{
@@ -5492,6 +5571,8 @@ function GetEsoInputValues(mergeComputedStats)
 	inputValues.floor = Math.floor;
 	inputValues.round = Math.round;
 	inputValues.ceil = Math.ceil;
+	inputValues.max = Math.max;
+	inputValues.min = Math.min;
 	
 	inputValues.Race = $("#esotbRace").val();
 	inputValues.Class = $("#esotbClass").val();
@@ -5950,7 +6031,7 @@ function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData, 
 		var statValue = parseFloat(matches[1]);
 		var statFactor = 1;
 		if (isNaN(statValue)) statValue = 1;
-		
+				
 		if (matchData.maxTimes != null)
 		{
 			var toggleData = g_EsoBuildToggledSetData[matchData.id];
@@ -6121,7 +6202,7 @@ function ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData,
 	var statFactor = 1;
 	var matches = null;
 
-	if (matchData.statValue != null) statValue = matchData.statValue;
+	if (matchData.statValue !== undefined) statValue = matchData.statValue;
 	
 	if (matchData.match != null) 
 	{
@@ -6130,7 +6211,7 @@ function ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData,
 		
 		var newStatValue = parseFloat(matches[1]);
 		
-		if (isNaN(newStatValue) && matchData.statValue === null) 
+		if (isNaN(newStatValue) && matchData.statValue === undefined) 
 			statValue = 1;
 		else if (!isNaN(newStatValue))
 			statValue = newStatValue;
@@ -7133,36 +7214,61 @@ function GetEsoInputCPValues(inputValues)
 		inputValues.EffectiveLevel = inputValues.Level;
 		
 	if (inputValues.EffectiveLevel > ESO_MAX_EFFECTIVELEVEL) inputValues.EffectiveLevel = ESO_MAX_EFFECTIVELEVEL;
-
-		/* Lord */
+	
+		/* Tower (1) */
+	ParseEsoCPValue(inputValues, "BashCost", 58899, null, null, -1);
+	ParseEsoCPValue(inputValues, "SprintCost", 64077, null, null, -1);
+	//ParseEsoCPValue(inputValues, "MagickaCost", 63861, null, null, -1);	// Pre Update 14
+	//ParseEsoCPValue(inputValues, "StaminaCost", 63862, null, null, -1);	// Pre Update 14
+	ParseEsoCPValue(inputValues, "TargetRecovery", 92425, null, null, -1);
+	ParseEsoCPValue(inputValues, "BreakFreeCost", 92431, null, null, -1);
+	ParseEsoCPValue(inputValues, "InspirationGained", 60494, "the_tower", 30);
+		
+		/* Lord (2) */
 	if (inputValues.ArmorHeavy >= 5) ParseEsoCPValue(inputValues, "PhysicalResist", 60624);
 	ParseEsoCPValue(inputValues, "DamageShield", 59948);
 	ParseEsoCPValue(inputValues, ["HADamageTaken", "LADamageTaken"], 59953, null, null, -1);
 	ParseEsoCPValue(inputValues, "HealingReceived", 63851);
 	
-		/* Lady */
+		/* Lady (3) */
 	if (inputValues.ArmorLight >= 5) ParseEsoCPValue(inputValues, "PhysicalResist", 60502);
 	ParseEsoCPValue(inputValues, "DotDamageTaken", 63850, null, null, -1);
 	ParseEsoCPValue(inputValues, ["PhysicalDamageTaken", "PoisonDamageTaken", "DiseaseDamageTaken"], 63844, null, null, -1);
 	ParseEsoCPValue(inputValues, ["MagicDamageTaken", "FlameDamageTaken", "ColdDamageTaken", "ShockDamageTaken"], 63843, null, null, -1);
 	
-		/* Steed */
+	var itemData = g_EsoBuildItemData.OffHand1;
+	if (g_EsoBuildActiveWeapon == 2) itemData = g_EsoBuildItemData.OffHand2;
+	
+	if (itemData.weaponType == 14 && g_EsoCpData['Shield Expert'].isUnlocked)
+	{
+		var extraBonus = Math.floor(itemData.armorRating * 0.75);
+		
+		inputValues.Item.SpellResist += extraBonus;
+		inputValues.Item.PhysicalResist += extraBonus;
+		AddEsoInputStatSource("Item.SpellResist", { cp: "Shield Expert", abilityId: g_EsoCpData['Shield Expert'].id, value: extraBonus });
+		AddEsoInputStatSource("Item.PhysicalResist", { cp: "Shield Expert", abilityId: g_EsoCpData['Shield Expert'].id, value: extraBonus });
+	}
+	
+		/* Steed (4) */
 	if (inputValues.ArmorMedium >= 5) ParseEsoCPValue(inputValues, "PhysicalResist", 59120);
-	ParseEsoCPValue(inputValues, "BlockCost", 60649, null, null, -1);
+	//ParseEsoCPValue(inputValues, "BlockCost", 60649, null, null, -1);  // Pre Update 14
+	ParseEsoCPValue(inputValues, "DirectDamageTaken", 92423, null, null, -1);
 	ParseEsoCPValue(inputValues, "SpellResist", 62760);
 	ParseEsoCPValue(inputValues, "CritResist", 60384);
 	
-		/* Ritual */
+		/* Ritual (5) */
 	ParseEsoCPValue(inputValues, "DotDamageDone", 63847);
 	ParseEsoCPValue(inputValues, "WeaponCritDamage", 59105);
 	ParseEsoCPValue(inputValues, "PhysicalPenetration", 61546);
 	ParseEsoCPValue(inputValues, ["PhysicalDamageDone", "PoisonDamageDone", "DiseaseDamageDone"], 63868);
 	ParseEsoCPValue(inputValues, "WeaponCrit", 59418, "the_ritual", 30);
 	
-		/* Atronach */
-	ParseEsoCPValue(inputValues, ["HAWeaponDamage", "LAWeaponDamage"], 60565);
+		/* Atronach (6) */
+	//ParseEsoCPValue(inputValues, ["HAWeaponDamage", "LAWeaponDamage"], 60565);  // Pre Update 14
+	ParseEsoCPValue(inputValues, ["HAWeaponDamage", "LAWeaponDamage"], 92424);
 	ParseEsoCPValue(inputValues, "ShieldDamageDone", 60662);
-	ParseEsoCPValue(inputValues, ["HABowDamage", "LABowDamage"], 60546);
+	//ParseEsoCPValue(inputValues, ["HABowDamage", "LABowDamage"], 60546);		  // Pre Update 14
+	ParseEsoCPValue(inputValues, "DirectDamageDone", 92134);
 	ParseEsoCPValue(inputValues, ["HAStaffDamage", "LAStaffDamage"], 60503);
 	
 	if (inputValues.Weapon1H >= 1 || inputValues.Weapon2H >= 1) 
@@ -7186,45 +7292,25 @@ function GetEsoInputCPValues(inputValues)
 		inputValues.CP.LAActiveDamage = 0;
 	}
 		
-		/* Apprentice */
+		/* Apprentice (7) */
 	ParseEsoCPValue(inputValues, ["MagicDamageDone", "FlameDamageDone", "ColdDamageDone", "ShockDamageDone"], 63848);
 	ParseEsoCPValue(inputValues, "SpellPenetration", 61555);
 	ParseEsoCPValue(inputValues, "SpellCritDamage", 61680);
 	ParseEsoCPValue(inputValues, "HealingDone", 59630);
 	ParseEsoCPValue(inputValues, "SpellCrit", 59626, "the_apprentice", 30);
 	
-		/* Shadow */
+		/* Shadow (8) */
 	ParseEsoCPValue(inputValues, "HealingReceived", 59298, null, null, null, "Target");
 	ParseEsoCPValue(inputValues, "SneakCost", 61548, null, null, -1);
 	ParseEsoCPValue(inputValues, ["FearDuration", "StunDuration", "DisorientDuration", "SnareDuration"], 59353, null, null, -1);
 	ParseEsoCPValue(inputValues, ["RollDodgeCost", "BreakFreeCost"], 63863, null, null, -1);
 	
-		/* Lover */
+		/* Lover (9) */
 	ParseEsoCPValue(inputValues, "StaminaRegen", 59346);
 	ParseEsoCPValue(inputValues, "MagickaRegen", 59577);
 	ParseEsoCPValue(inputValues, "HealthRegen", 60374);
 	ParseEsoCPValue(inputValues, ["HAMagRestore", "HAStaRestore"], 63854);
-	ParseEsoCPValue(inputValues, ["MovementSpeed", "MountSpeed"], 60560);
-	
-		/* Tower */
-	ParseEsoCPValue(inputValues, "BashCost", 58899, null, null, -1);
-	ParseEsoCPValue(inputValues, "SprintCost", 64077, null, null, -1);
-	ParseEsoCPValue(inputValues, "MagickaCost", 63861, null, null, -1);
-	ParseEsoCPValue(inputValues, "StaminaCost", 63862, null, null, -1);
-	
-	var itemData = g_EsoBuildItemData.OffHand1;
-	if (g_EsoBuildActiveWeapon == 2) itemData = g_EsoBuildItemData.OffHand2;
-	
-	if (itemData.weaponType == 14 && g_EsoCpData['Shield Expert'].isUnlocked)
-	{
-		var extraBonus = Math.floor(itemData.armorRating * 0.75);
-		
-		inputValues.Item.SpellResist += extraBonus;
-		inputValues.Item.PhysicalResist += extraBonus;
-		AddEsoInputStatSource("Item.SpellResist", { cp: "Shield Expert", abilityId: g_EsoCpData['Shield Expert'].id, value: extraBonus });
-		AddEsoInputStatSource("Item.PhysicalResist", { cp: "Shield Expert", abilityId: g_EsoCpData['Shield Expert'].id, value: extraBonus });
-	}
-	
+	ParseEsoCPValue(inputValues, ["MovementSpeed", "MountSpeed"], 60560, "the_lover", 120);
 }
 
 
@@ -8683,7 +8769,7 @@ function MakeEsoFormulaInputs(statId)
 	var stat = g_EsoComputedStats[statId];
 	if (stat == null) return "";
 	
-	var FUNCTIONS = { "floor" : 1, "round" : 1, "ceil" : 1, "pow" : 1 };
+	var FUNCTIONS = { "floor" : 1, "round" : 1, "ceil" : 1, "pow" : 1, "min" : 1, "max" : 1 };
 	
 	var inputValues = GetEsoInputValues(true);
 	var inputNames = {};
@@ -8908,7 +8994,9 @@ function ShowEsoSkillDetailsPopup(abilityId)
 	var skillData = g_SkillsData[abilityId];
 	if (skillData == null) return false;
 	
-	GetEsoSkillDescription(abilityId, null, false); 
+	GetEsoSkillDescription(abilityId, null, false);
+	GetEsoSkillCost(abilityId, null);
+	GetEsoSkillDuration(abilityId, null);
 	
 	var detailsHtml = "";
 	
@@ -10263,6 +10351,9 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
 			SorcererSkills	: CountEsoBarSkillsWithSkillType("Sorcerer"),
 			MagesGuildSkills : CountEsoBarSkillsWithSkillLine("Mages Guild"),
 			SupportSkills : CountEsoBarSkillsWithSkillLine("Support"),
+			AnimalCompanionSkills : CountEsoBarSkillsWithSkillLine("Animal Companions"),
+			GreenBalanceSkills : CountEsoBarSkillsWithSkillLine("Green Balance"),
+			WintersEmbraceSkills : CountEsoBarSkillsWithSkillLine("Winter's Embrace"),
 	};
 	
 	g_LastSkillInputValues.SkillLineCost = inputValues.SkillCost;
@@ -10326,6 +10417,7 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
 	
 	g_LastSkillInputValues.SkillDuration = inputValues.SkillDuration;
  	g_LastSkillInputValues.SkillDamage = inputValues.SkillDamage;
+ 	g_LastSkillInputValues.SkillHealing = inputValues.SkillHealing;
  	g_LastSkillInputValues.useMaelstromDamage = false;
  	
  	var SpellDamageFactor = 1 + inputValues.Skill.SpellDamage + inputValues.Buff.SpellDamage;
