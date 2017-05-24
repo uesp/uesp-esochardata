@@ -484,6 +484,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Skill details button now updates the skill data before displaying the popup window to ensure accurate data is displayed.</li>
 				<li>Parsing of updated and new skills/CPs in Morrowind is complete. If you notice a skill that isn't being parsed correctly or
 						a tooltip that is not correct <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor">let us know</a>.</li>
+				<li>All bad skill coefficients fixed (mainly for new/updated skills).</li>
 			</ul>
 			<p>
 			<b>16 May 2017</b>
