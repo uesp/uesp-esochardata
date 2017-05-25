@@ -1594,8 +1594,8 @@ class EsoBuildDataEditor
 							"+",
 							"Set.Health",
 							"+",
-							//"1 + pow(CP.Health, 0.56432)/100",
-							"1 + pow(min(CP.Health, 100), 0.6506)/100",		// Update 14
+							//"1 + pow(CP.Health, 0.56432)/100",	
+							"1 + 0.004 * min(CP.Health, 100) - 0.00002 * pow(min(CP.Health, 100), 2)", // Update 14
 							"*",
 							"Food.Health",
 							"+",
@@ -1627,7 +1627,7 @@ class EsoBuildDataEditor
 							"Set.Magicka",
 							"+",
 							//"1 + pow(CP.Magicka, 0.56432)/100",
-							"1 + pow(min(CP.Magicka, 100), 0.6506)/100",		// Update 14
+							"1 + 0.004 * min(CP.Magicka, 100) - 0.00002 * pow(min(CP.Magicka, 100), 2)",	// Update 14
 							"*",
 							"Food.Magicka",
 							"+",
@@ -1660,7 +1660,7 @@ class EsoBuildDataEditor
 							"Set.Stamina",
 							"+",
 							//"1 + pow(CP.Stamina, 0.56432)/100",
-							"1 + pow(min(CP.Stamina, 100), 0.6506)/100",		// Update 14
+							"1 + 0.004 * min(CP.Stamina, 100) - 0.00002 * pow(min(CP.Stamina, 100), 2)",	// Update 14
 							"*",
 							"Food.Stamina",
 							"+",
