@@ -475,6 +475,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>25 May 2017</b>
+			<ul>
+				<li>Verified and corrected the CP Health/Magicka/Stamina modifier.</li>
+			</ul>
+			<p>
 			<b>24 May 2017</b>
 			<ul>
 				<li>Added Warden class.</li>
