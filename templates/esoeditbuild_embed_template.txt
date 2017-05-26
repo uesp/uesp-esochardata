@@ -475,6 +475,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>26 May 2017</b>
+			<ul>
+				<li>Updated all Light and Heavy Attack skill coefficients. Note that these values and the LA/HA calculations have not yet been verified to 
+					be accurate for update 14.</li>
+			</ul>
+			<p>
 			<b>25 May 2017</b>
 			<ul>
 				<li>Verified and corrected the CP Health/Magicka/Stamina modifier.</li>
