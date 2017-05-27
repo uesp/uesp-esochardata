@@ -235,6 +235,8 @@ function OnItemFilter(name)
 	
 	$(".ecdItemFilterTextLabel").text(displayName);
 	
+	g_EsoCharLastItemFilter = null;
+	
 	DoItemFilter();
 }
 
@@ -319,7 +321,7 @@ function MatchFilterString(filterText, item)
 }
 
 
-var g_EsoCharLastItemFilter = "";
+var g_EsoCharLastItemFilter = null;
 var ESO_ITEMFILTER_UPDATEMS = 250;
 var g_EsoItemFilterIsUpdating = false;
 
