@@ -478,6 +478,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>30 May 2017</b>
 			<ul>
 				<li>Item data updated for Morrowind.</li>
+				<li>Fixed the Dual Wield passive Twin Blade and Blunt to increase weapon critical when wielding Daggers.</li>
 			</ul>
 			<p>
 			<b>26 May 2017</b>
