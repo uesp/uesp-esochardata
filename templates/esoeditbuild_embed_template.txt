@@ -479,6 +479,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<ul>
 				<li>Item data updated for Morrowind.</li>
 				<li>Fixed the Dual Wield passive Twin Blade and Blunt to increase weapon critical when wielding Daggers.</li>
+				<li>Fixed the Warden's Frozen Armor I passive description.</li>
+				<li>The Master-at-Arms direct damage done should now correctly modify skill tooltips.</li>
 			</ul>
 			<p>
 			<b>26 May 2017</b>
