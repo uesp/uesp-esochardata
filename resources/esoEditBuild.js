@@ -7087,6 +7087,7 @@ function GetEsoInputTargetValues(inputValues)
 	inputValues.Target.SpellResist = ParseEsoBuildFloat($("#esotbTargetResistance").val());
 	inputValues.Target.PhysicalResist = inputValues.Target.SpellResist;
 	inputValues.Target.CritResistFlat = ParseEsoBuildFloat($("#esotbTargetCritResistFlat").val());
+	inputValues.Target.EffectiveLevel = parseInt(ParseEsoBuildFloat($("#esotbTargetEffectiveLevel").val()));
 	//inputValues.Target.CritResistFactor = ParseEsoBuildFloat($("#esotbTargetCritResistFactor").val()) / 100;
 	inputValues.Target.PenetrationFlat = ParseEsoBuildFloat($("#esotbTargetPenetrationFlat").val());
 	inputValues.Target.PenetrationFactor = ParseEsoBuildFloat($("#esotbTargetPenetrationFactor").val()) / 100;
@@ -11601,6 +11602,7 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 	saveData.Stats['Target:AttackBonus'] = "" + (inputValues.Target.AttackBonus * 100) + "%";
 	saveData.Stats['Target:Resistance'] = "" + inputValues.Target.SpellResist;
 	saveData.Stats['Target:CritResistFlat'] = "" + inputValues.Target.CritResistFlat;
+	saveData.Stats['Target:EffectiveLevel'] = "" + inputValues.Target.EffectiveLevel;
 	//saveData.Stats['Target:CritResistFactor'] = "" + (inputValues.Target.CritResistFactor * 100) + "%";
 	saveData.Stats['Target:CritDamage'] = "" + (inputValues.Target.CritDamage * 100) + "%";
 	saveData.Stats['Target:CritChance'] = "" + (inputValues.Target.CritChance * 100) + "%";
