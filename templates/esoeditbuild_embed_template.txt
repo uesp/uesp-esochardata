@@ -488,6 +488,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Fixed Light Armor passive Spell Warding from adding extra Spell Resistance.</li>
 				<li>Fixed first healing tooltip of Structured Entropy.</li>
 				<li>Healing% tooltip of Puncturing Sweeps is now affected by +healing effects.</li>
+				<li>Fixed Magicka cost of all Magicka abilities.</li>
 			</ul>
 			<p>
 			<b>26 May 2017</b>
