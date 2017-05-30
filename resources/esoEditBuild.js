@@ -2519,7 +2519,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		statId: "SpellResist",
-		match: /Increases your Spell Resistance by ([0-9]+)/i,
+		match: /Increases your Spell Resistance by ([0-9]+)\./i,
 	},
 	{
 		statRequireId: "ArmorHeavy",
