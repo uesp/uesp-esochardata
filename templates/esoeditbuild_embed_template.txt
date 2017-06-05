@@ -476,6 +476,26 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>5 June 2017</b>
+			<ul>
+				<li>Updated the DK Obsidian Shield and morphs with changes from the 3.0.5 patch.</li>
+				<li>Bound Aegis now correctly increases your Max Magicka.</li>
+				<li>The Shadow Ward and Tumbling CPs now correctly adjust your Block and Roll Dodge costs.</li>
+				<li>The Impregnable 5 piece bonus now works.</li>
+				<li>You can now search for Wardens in the build list.</li>
+				<li>Added the Major Slayer buff (+15% Damage Done).</li>
+				<li>Added the Minor Toughness buffs (+10% Health).</li>
+				<li>The Warhorn buff now only increases Magicka and Stamina.</li>
+				<li>The 5 piece Warrior-Poet bonus now grants Minor Toughness.</li>
+				<li>War Horn and its morphs now are toggled skills which makes it easier to turn their effects on if you have the ultimate slotted.</li>
+				<li>Radiant Magelight now grants Major Prophecy when slotted. The skill description text AB_DERIVED_VALUE_PERCENT is due to an in-game bug.</li>
+			</ul>
+			<p>
+			<b>2 June 2017</b>
+			<ul>
+				<li>Concealed Weapon now correctly increases Sneak speed while slotted.</li>
+			</ul>
+			<p>
 			<b>30 May 2017</b>
 			<ul>
 				<li>Item data updated for Morrowind.</li>

@@ -245,9 +245,9 @@ g_EsoBuildBuffData =
 		{
 			enabled: false,
 			skillEnabled : false,
-			values : [0.10, 0.10, 0.10],
+			values : [0.10, 0.10],
 			display: "%",
-			statIds : ["Health", "Magicka", "Stamina"],
+			statIds : ["Magicka", "Stamina"],
 			icon : "/esoui/art/icons/ability_ava_003_a.png",
 		},
 		"Minor Aegis" : 
@@ -269,6 +269,16 @@ g_EsoBuildBuffData =
 			statId : "DamageDone",
 			category: "Buff",
 			icon : "/esoui/art/icons/ability_warrior_025.png",
+		},
+		"Major Slayer" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 0.15,
+			display: "%",
+			statId : "DamageDone",
+			category: "Buff",
+			icon : "/esoui/art/icons/procs_006.png",
 		},
 		"Major Force" : 
 		{
@@ -779,6 +789,15 @@ g_EsoBuildBuffData =
 			//statDesc : "Decreases AOE damage taken by ",
 			icon : "/esoui/art/icons/ability_dualwield_004.png",
 		},
+		"Minor Toughness" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 0.10,
+			display: "%",
+			statId : "Health",
+			icon : "/esoui/art/icons/achievement_031.png",
+		},
 		
 			/* Target Buffs */
 
@@ -1020,6 +1039,11 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		match: /While slotted your Max Magicka is increased by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
+		statId: "Magicka",
+		display: "%",
+		match: /The armor increases your Max Magicka by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
 		statId: "Health",
 		display: "%",
 		match: /While slotted your Max Health is increased by ([0-9]+\.?[0-9]*)%/i
@@ -1027,6 +1051,10 @@ ESO_ACTIVEEFFECT_MATCHES = [
 	{
 		buffId: "Major Prophecy",
 		match: /While slotted, you gain Major Prophecy/i
+	},
+	{
+		buffId: "Major Prophecy",
+		match: /While slotted you gain Major Prophecy/i
 	},
 	{
 		buffId: "Major Savagery",
@@ -1078,6 +1106,13 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		display: "%",
 		rawInputMatch: /(While slotted, your movement speed while stealthed or invisible is increased by [0-9]+\.?[0-9]*%\.)/i,
 		match: /While slotted, your movement speed while stealthed or invisible is increased by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		statId: "SneakSpeed",
+		category: "Skill2",
+		display: "%",
+		rawInputMatch: /(While slotted, your Movement Speed while Sneaking or invisible is increased by [0-9]+\.?[0-9]*%\.)/i,
+		match: /While slotted, your Movement Speed while Sneaking or invisible is increased by ([0-9]+\.?[0-9]*)%/i
 	},
 	
 		/* Begin Other Effects */
@@ -1195,6 +1230,49 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		match: /Protect yourself with the power of Oblivion, creating a suit of Daedric mail that grants Minor Resolve and Minor Ward/i,
+	},
+	{
+		id: "War Horn",
+		baseSkillId: 46529,
+		buffId : "Minor Toughness",
+		toggle: true,
+		enabled: false,
+		match: /granting Minor Toughness/i,
+	},
+	{
+		id: "War Horn",
+		baseSkillId: 46529,
+		buffId : "Warhorn",
+		toggle: true,
+		enabled: false,
+		match: /increasing you and your allies' Max Magicka and Max Stamina by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		id: "War Horn",
+		baseSkillId: 46537,
+		displayName: "Aggressive Horn",
+		buffId : "Major Force",
+		toggle: true,
+		enabled: false,
+		match: /You and your allies gain Major Force/i,
+	},
+	{
+		id: "War Horn",
+		baseSkillId: 46546,
+		displayName: "Sturdy Horn",
+		buffId : "Minor Resolve",
+		toggle: true,
+		enabled: false,
+		match: /You and your allies gain Minor Resolve and Minor Ward/i,
+	},
+	{
+		id: "War Horn",
+		baseSkillId: 46546,
+		displayName: "Sturdy Horn",
+		buffId : "Minor Ward",
+		toggle: true,
+		enabled: false,
+		match: /You and your allies gain Minor Resolve and Minor Ward/i,
 	},
 	{
 		id: "Lightning Form",
@@ -3586,6 +3664,10 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Increases the damage of your Soul Trap ability by ([0-9]+)%/i,
 	},
 	{
+		buffId: "Minor Toughness",
+		match: /Gain Minor Toughness at all times/i,
+	},
+	{
 		buffId: "Minor Slayer",
 		match: /Gain Minor Slayer at all times/i,
 	},
@@ -4026,6 +4108,10 @@ ESO_SETEFFECT_MATCHES = [
 		statId: "CritResist",
 		display: '%',
 		match: /Reduces damage from Critical Hits by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "CritResist",
+		match: /Adds ([0-9]+) Critical Resistance/i,
 	},
 	{
 		statId: "MagickaCost",
@@ -7303,8 +7389,10 @@ function GetEsoInputCPValues(inputValues)
 		/* Shadow (8) */
 	ParseEsoCPValue(inputValues, "HealingReceived", 59298, null, null, null, "Target");
 	ParseEsoCPValue(inputValues, "SneakCost", 61548, null, null, -1);
-	ParseEsoCPValue(inputValues, ["FearDuration", "StunDuration", "DisorientDuration", "SnareDuration"], 59353, null, null, -1);
-	ParseEsoCPValue(inputValues, ["RollDodgeCost", "BreakFreeCost"], 63863, null, null, -1);
+	//ParseEsoCPValue(inputValues, ["FearDuration", "StunDuration", "DisorientDuration", "SnareDuration"], 59353, null, null, -1);
+	//ParseEsoCPValue(inputValues, ["RollDodgeCost", "BreakFreeCost"], 63863, null, null, -1);
+	ParseEsoCPValue(inputValues, "BlockCost", 60649, null, null, -1);		// Update 14
+	ParseEsoCPValue(inputValues, "RollDodgeCost", 63863, null, null, -1);	// Update 14
 	
 		/* Lover (9) */
 	ParseEsoCPValue(inputValues, "StaminaRegen", 59346);

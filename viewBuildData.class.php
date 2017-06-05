@@ -1254,6 +1254,7 @@ class EsoBuildDataViewer
 		$search .= $this->getOptionHtml("Nightblade", $this->inputSearchClass);
 		$search .= $this->getOptionHtml("Sorcerer", $this->inputSearchClass);
 		$search .= $this->getOptionHtml("Templar", $this->inputSearchClass);
+		$search .= $this->getOptionHtml("Warden", $this->inputSearchClass);
 		$search .= "	</select>";
 		$search .= "	<div class='ecdSearchLabel'>Race</div>";
 		$search .= "	<select name='findrace' id='ecdSearchRace'>";
