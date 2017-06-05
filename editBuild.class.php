@@ -1982,6 +1982,8 @@ class EsoBuildDataEditor
 							"+",
 							"CP.CritResist",
 							"+",
+							"round(Skill2.CritResist / EffectiveLevel)",							
+							"+",
 					),
 			),
 
