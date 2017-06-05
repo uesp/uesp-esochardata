@@ -186,7 +186,8 @@ class EsoBuildDataEditor
 			"BaseWalkSpeed",
 			"Skill.NormalSneakSpeed",
 			"CP.TargetRecovery",
-			"CP.InspirationGained",	
+			"CP.InspirationGained",
+			"Skill.DestructionPenetration",
 	);
 	
 	
@@ -455,6 +456,10 @@ class EsoBuildDataEditor
 			),
 			
 			"Buff.Health" => array(
+					"display" => "%",
+			),
+						
+			"Skill.DestructionPenetration" => array(
 					"display" => "%",
 			),
 			
