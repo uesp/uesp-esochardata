@@ -11656,7 +11656,9 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 	saveData.Build['buildType'] = "Other";
 	saveData.Build['level'] = "" + inputValues.EffectiveLevel;
 	saveData.Build['alliance'] = $("#esotbAlliance").val();
+	
 	saveData.Build['championPoints'] = "" + inputValues.CP.TotalPoints;
+	if (inputValues.CP.UsedPoints > inputValues.CP.TotalPoints)	saveData.Build['championPoints'] = "" + inputValues.CP.UsedPoints;
 		
 	saveData.Stats['EffectiveLevel'] = "" + inputValues.EffectiveLevel;
 	saveData.Stats['Level'] = "" + inputValues.Level;
@@ -11669,6 +11671,8 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 	saveData.Stats['Alliance'] = saveData.Build['alliance'];
 	saveData.Stats['Stealth'] = inputValues.Stealthed;
 	saveData.Stats['Cyrodiil'] = inputValues.Cyrodiil;
+	saveData.Stats['CP:Level'] = inputValues.CP.TotalPoints;
+	saveData.Stats['CP:Used'] = inputValues.CP.UsedPoints;
 	
 	saveData.Stats['BaseWalkSpeed'] = inputValues.BaseWalkSpeed;
 	saveData.Stats['RidingSpeed'] = parseInt(inputValues.MountSpeedBonus * 100);
