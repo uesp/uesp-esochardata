@@ -489,6 +489,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>The 5 piece Warrior-Poet bonus now grants Minor Toughness.</li>
 				<li>War Horn and its morphs now are toggled skills which makes it easier to turn their effects on if you have the ultimate slotted.</li>
 				<li>Radiant Magelight now grants Major Prophecy when slotted. The skill description text AB_DERIVED_VALUE_PERCENT is due to an in-game bug.</li>
+				<li>When viewing builds the CP will show the total CPs allocated instead of the max level of 160. Builds need to be resaved for this value to be updated.</li>
 			</ul>
 			<p>
 			<b>2 June 2017</b>
