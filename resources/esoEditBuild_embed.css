@@ -1121,3 +1121,7 @@ button.esotbWeaponSelect {
 	display: inline-block;
 	padding-left: 20px;
 }
+
+#esotbWeaponBar2, #esotbFoodDrinkBar {
+	display: inline-block;
+}
