@@ -223,15 +223,17 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<div class="esotbItemDisableButton esotbItemButton">-</div>
 						<div class="esotbItemDetailsButton esotbItemButton">...</div>
 					</div>
+				</div>
+				<div id="esotbFoodDrinkBar" class="{weaponBarClass2}">
 					<div class="esotbItemSlotLabel" style="display: inline-block">Food / Drink</div>
 					<div class="esotbItem" id="esotbItemFood" slotid="Food" itemtype="4,12">
-					<img class="esotbItemIcon eso_item_link" {itemDataFood} alt="">
-					<div class="esotbItemLabel">{itemNameFood}</div>
-					<div class="esotbItemDisableButton esotbItemButton">-</div>
-					<div class="esotbItemDetailsButton esotbItemButton">...</div>
+						<img class="esotbItemIcon eso_item_link" {itemDataFood} alt="">
+						<div class="esotbItemLabel">{itemNameFood}</div>
+						<div class="esotbItemDisableButton esotbItemButton">-</div>
+						<div class="esotbItemDetailsButton esotbItemButton">...</div>
+					</div>
 				</div>
-				</div>
-				<hr>	
+				<hr>
 			</div>
 			<div id="esotbItemSkillCopy">
 			</div>
@@ -476,6 +478,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>6 June 2017</b>
+			<ul>
+				<li>Defensive Posture and morphs now increase Block Mitigation. Block Cost/Mitigation is now only applied when you have a 
+					1H+Shield equipped in the active slot.</li>
+			</ul>
+			<p>
 			<b>5 June 2017</b>
 			<ul>
 				<li>Updated the DK Obsidian Shield and morphs with changes from the 3.0.5 patch.</li>

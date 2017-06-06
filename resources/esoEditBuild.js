@@ -989,7 +989,16 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		category: "Skill2",
 		display: "%",
 		factorValue: -1,
+		statRequireId: "Weapon1HShield",
+		statRequireValue: 1,
 		match: /the cost of blocking is reduced by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		statId: "BlockMitigation",
+		display: "%",
+		statRequireId: "Weapon1HShield",
+		statRequireValue: 1,
+		match: /the amount of damage you can block is increased by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		statId: "BreakFreeCost",
