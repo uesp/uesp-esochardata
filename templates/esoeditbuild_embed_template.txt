@@ -478,6 +478,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>19 June 2017</b>
+			<ul>
+				<li>The Sorcerer Bound Armor and morphs now apply their magicka/stamina bonuses.</li>
+				<li>Fixed the Magicka cost for all spells (was 191 Magicka lower than on live).</li>
+			</ul>
+			<p>
 			<b>6 June 2017</b>
 			<ul>
 				<li>Defensive Posture and morphs now increase Block Mitigation. Block Cost/Mitigation is now only applied when you have a 

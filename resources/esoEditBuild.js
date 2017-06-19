@@ -1048,11 +1048,6 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		match: /While slotted your Max Magicka is increased by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "Magicka",
-		display: "%",
-		match: /The armor increases your Max Magicka by ([0-9]+\.?[0-9]*)%/i
-	},
-	{
 		statId: "Health",
 		display: "%",
 		match: /While slotted your Max Health is increased by ([0-9]+\.?[0-9]*)%/i
@@ -1202,7 +1197,7 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		display: "%",
-		match: /The armor also increases your Max Magicka by ([0-9]+\.?[0-9]*)%/i
+		match: /The armor increases your Max Magicka by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		id: "Bound Armor",
@@ -1212,7 +1207,8 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		display: "%",
-		match: /The armor also increases your damage with Heavy Attacks by ([0-9]+\.?[0-9]*)% and increases your Max Stamina by [0-9]+\.?[0-9]*%/i
+		//match: /The armor increases your damage with Heavy Attacks by ([0-9]+\.?[0-9]*)% and increases your Max Stamina by [0-9]+\.?[0-9]*%/i
+		match: /The armor increases your Max Stamina by [0-9]+\.?[0-9]*% and your damage done with Heavy Attacks by ([0-9]+\.?[0-9]*%)/i,
 	},
 	{
 		id: "Bound Armor",
@@ -1222,7 +1218,8 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		display: "%",
-		match: /The armor also increases your damage with Heavy Attacks by [0-9]+\.?[0-9]*% and increases your Max Stamina by ([0-9]+\.?[0-9]*)%/i
+		//match: /The armor increases your damage with Heavy Attacks by [0-9]+\.?[0-9]*% and increases your Max Stamina by ([0-9]+\.?[0-9]*)%/i
+		match: /The armor increases your Max Stamina by ([0-9]+\.?[0-9]*)% and your damage done with Heavy Attacks by [0-9]+\.?[0-9]*%/i,
 	},
 	{
 		id: "Bound Armor",
