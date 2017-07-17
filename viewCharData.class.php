@@ -1175,6 +1175,9 @@ EOT;
 				++$inProgressCount;
 			}
 		}
+		
+		$totalKnown = $knownCount + $inProgressCount;
+		if ($totalKnown >= $totalCount) $openSlots = 0;
 	
 		if ($knownCount >= $totalCount)
 		{

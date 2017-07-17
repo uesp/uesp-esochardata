@@ -478,6 +478,16 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>28 June 2017</b>
+			<ul>
+				<li>Added CP.DotDamageDone and CP.DirectDamageDone to Light/Heavy attack calculations. Note that not all of these
+					have been verified in-game yet.</li>				
+				<li>The Nightblade's Swallow Soul ability now gives Minor Vitality when slotted.</li>
+				<li>Master weapon enchantments now give Health/Magicka/Stamina as appropriate.</li>
+				<li>Fixed the application of DOT/DirectDamage on the Unstable Wall of Elements tooltip.</li>
+				<li>Added the 5 piece bonus from the War Maiden's set.</li>
+			</ul>
+			<p>
 			<b>19 June 2017</b>
 			<ul>
 				<li>The Sorcerer Bound Armor and morphs now apply their magicka/stamina bonuses.</li>
