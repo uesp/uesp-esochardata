@@ -1053,6 +1053,10 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		match: /While slotted your Max Health is increased by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
+		buffId: "Minor Vitality",
+		match: /While slotted, you gain Minor Vitality/i
+	},
+	{
 		buffId: "Major Prophecy",
 		match: /While slotted, you gain Major Prophecy/i
 	},
@@ -3562,6 +3566,11 @@ ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		category: "SkillBonusSpellDmg",
+		statId: "Magic",
+		match: /Adds ([0-9]+) Spell Damage to your Magic Damage abilities/i,
+	},
+	{
+		category: "SkillBonusSpellDmg",
 		statId: "Flame",
 		match: /Adds ([0-9]+) Spell Damage to your Flame Damage abilities/i,
 	},
@@ -5472,6 +5481,18 @@ ESO_ENCHANT_WEAPON_MATCHES = [
 	{
 		statId: "Magicka",
 		match: /Max Magicka is increased by ([0-9]+)/i,
+	},
+	{
+		statId: "Health",
+		match: /Adds ([0-9]+) Maximum Health/i,
+	},
+	{
+		statId: "Stamina",
+		match: /Adds ([0-9]+) Maximum Stamina/i,
+	},
+	{
+		statId: "Magicka",
+		match: /Adds ([0-9]+) Maximum Magicka/i,
 	},
   	{
 		statId: "OtherEffects",
