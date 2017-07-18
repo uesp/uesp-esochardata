@@ -798,6 +798,24 @@ g_EsoBuildBuffData =
 			statId : "Health",
 			icon : "/esoui/art/icons/achievement_031.png",
 		},
+		"Worms Raiment" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : -0.12,
+			display: '%',
+			statId : "MagickaCost",
+			icon : "/esoui/art/icons/gear_artifactwormcultlight_head_a.png", //TODO: Not the correct one?
+		},
+		"Hircines Veneer" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 0.12,
+			display: '%',
+			statId : "StaminaRegen",
+			icon : "/esoui/art/icons/gear_artifactsaviorhidemd_head_a.png", //TODO: Not the correct one?
+		},
 		
 			/* Target Buffs */
 
@@ -3932,10 +3950,11 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Adds ([0-9]+) Spell Damage$/i,
 	},
 	{
-		category: "Skill",
-		statId: "StaminaRegen",
-		display: "%",
-		match: /Increases your Stamina Recovery by ([0-9]+)% for you and your group/i,
+		//category: "Skill",
+		//statId: "StaminaRegen",
+		//display: "%",
+		buffId: "Hircines Veneer",
+		match: /Increases your Stamina Recovery by ([0-9]+)% for you and up to 11 other group members/i,
 	},
 	{
 		statId: "HealingDone",
@@ -3967,6 +3986,13 @@ ESO_SETEFFECT_MATCHES = [
 	{
 		category: "SkillCost",
 		statId: "Restoration_Staff_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of your Restoration Staff abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Panacea_Cost",
 		display: "%",
 		factorValue: -1,
 		match: /Reduces the cost of your Restoration Staff abilities by ([0-9]+\.?[0-9]*)%/i,
@@ -4165,9 +4191,10 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Reduce all costs by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		statId: "MagickaCost",
-		display: '%',
-		factorValue: -1,
+		//statId: "MagickaCost",
+		//display: '%',
+		//factorValue: -1,
+		buffId: "Worms Raiment",
 		match: /Reduces the cost of your Magicka abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -4938,6 +4965,7 @@ ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 3,
 		toggle: true,
 		enabled: false,
+		enableOffBar : true,
 		statId: "MagickaCost",
 		display: "%",
 		match: /but also increases the cost of your abilities by ([0-9]+\.?[0-9]*)%/i,
@@ -4947,6 +4975,7 @@ ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 3,
 		toggle: true,
 		enabled: false,
+		enableOffBar : true,
 		statId: "StaminaCost",
 		display: "%",
 		match: /but also increases the cost of your abilities by ([0-9]+\.?[0-9]*)%/i,
@@ -4956,6 +4985,7 @@ ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 3,
 		toggle: true,
 		enabled: false,
+		enableOffBar : true,
 		statId: "SpellDamage",
 		match: /which increases your Weapon and Spell Damage by ([0-9]+)/i,
 	},
@@ -4964,6 +4994,7 @@ ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 3,
 		toggle: true,
 		enabled: false,
+		enableOffBar : true,
 		statId: "WeaponDamage",
 		match: /which increases your Weapon and Spell Damage by ([0-9]+)/i,
 	},
@@ -4973,6 +5004,7 @@ ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
+		enableOffBar : true,
 		disableSetId: "Moondancer2",
 		statId: "SpellDamage",
 		match: /When you activate a synergy, you gain a shadow blessing that increases your Spell Damage by ([0-9]+) or a lunar blessing that increases your Magicka Recovery by [0-9]+/i,
@@ -4984,6 +5016,7 @@ ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
+		enableOffBar : true,
 		statId: "MagickaRegen",
 		disableSetId: "Moondancer",
 		match: /When you activate a synergy, you gain a shadow blessing that increases your Spell Damage by [0-9]+ or a lunar blessing that increases your Magicka Recovery by ([0-9]+)/i,
@@ -4993,6 +5026,7 @@ ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
+		enableOffBar : false,
 		statId: "Magicka",
 		category: "Skill2",
 		match: /While you have a pet active, your Max Magicka is increased by ([0-9]+)/i,
@@ -5020,6 +5054,7 @@ ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
+		enableOffBar : false,
 		category: "Skill",
 		statId: "HealthRegen",
 		display: '%',		
@@ -5030,6 +5065,7 @@ ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
+		enableOffBar : false,
 		statId: "HealthRegen",
 		match: /While you have a damage shield on you, your Health Recovery is increased by ([0-9]+)/i,
 	},
@@ -6044,6 +6080,7 @@ function GetEsoInputSetDataValues(inputValues, setData)
 		
 		//if (setBonusCount > setData.count) continue;
 		if (setBonusCount > setData.count && setBonusCount > setData.otherCount) continue;
+		//if (setBonusCount > setData.count && setData.enableOffBar === false) continue;
 		
 		var onlyEnableToggles = false;
 		if (setBonusCount > setData.count) onlyEnableToggles = true;
@@ -6079,6 +6116,7 @@ function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData, 
 		if (matchData.toggle === true)
 		{
 			if (!IsEsoBuildToggledSetEnabled(matchData.id)) continue;
+			if (setBonusCount > setData.count && matchData.enableOffBar === false) continue;
 		}
 		else if (onlyEnableToggles)
 		{
@@ -7161,6 +7199,7 @@ function UpdateEsoItemSets()
 					name: setName,
 					count: 0,
 					otherCount: 0,
+					enableOffBar : null,
 					items: [],
 			};
 		}
@@ -7414,7 +7453,7 @@ function GetEsoInputCPValues(inputValues)
 	ParseEsoCPValue(inputValues, "SpellCrit", 59626, "the_apprentice", 30);
 	
 		/* Shadow (8) */
-	ParseEsoCPValue(inputValues, "HealingReceived", 59298, null, null, null, "Target");
+	ParseEsoCPValue(inputValues, "HealingReduction", 59298, null, null, null, null);
 	ParseEsoCPValue(inputValues, "SneakCost", 61548, null, null, -1);
 	//ParseEsoCPValue(inputValues, ["FearDuration", "StunDuration", "DisorientDuration", "SnareDuration"], 59353, null, null, -1);
 	//ParseEsoCPValue(inputValues, ["RollDodgeCost", "BreakFreeCost"], 63863, null, null, -1);
@@ -7454,6 +7493,8 @@ function ParseEsoCPValue(inputValues, statIds, abilityId, discId, unlockLevel, s
 {
 	var cpDesc = $("#descskill_" + abilityId);
 	if (cpDesc.length == 0) return false;
+	
+	if (category == null) category = "CP";
 
 	var cpName = cpDesc.prev().text();
 	
@@ -7477,14 +7518,14 @@ function ParseEsoCPValue(inputValues, statIds, abilityId, discId, unlockLevel, s
 	{
 		for (var i = 0; i < statIds.length; ++i)
 		{
-			inputValues.CP[statIds[i]] += value;
-			AddEsoInputStatSource("CP." + statIds[i], { cp: cpName, abilityId: abilityId, value: value });
+			inputValues[category][statIds[i]] += value;
+			AddEsoInputStatSource(category + "." + statIds[i], { cp: cpName, abilityId: abilityId, value: value });
 		}
 	}
 	else
 	{
-		inputValues.CP[statIds] += value;
-		AddEsoInputStatSource("CP." + statIds, { cp: cpName, abilityId: abilityId, value: value });
+		inputValues[category][statIds] += value;
+		AddEsoInputStatSource(category + "." + statIds, { cp: cpName, abilityId: abilityId, value: value });
 	}
 	
 	return true;
