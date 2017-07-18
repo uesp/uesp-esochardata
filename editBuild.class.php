@@ -108,6 +108,7 @@ class EsoBuildDataEditor
 			"EffectiveLevel",
 			"CP.TotalPoints",
 			"CP.UsedPoints",
+			"CP.HealingReduction",
 			"Attribute.TotalPoints",
 			"Attribute.Health",
 			"Attribute.Magicka",
@@ -127,6 +128,7 @@ class EsoBuildDataEditor
 			"Target.CritResistFlat",
 			"Target.CritResistFactor",
 			"Target.HealingReceived",
+			"Target.HealingReduction",
 			"Target.DamageTaken",
 			"Target.SpellDebuff",
 			"Target.PhysicalDebuff",
@@ -466,6 +468,10 @@ class EsoBuildDataEditor
 			"Skill.Magicka" => array(
 					"display" => "%",
 			),
+			
+			"CP.HealingReduction" => array(
+					"display" => "%",
+			),
 				
 			"Buff.Magicka" => array(
 					"display" => "%",
@@ -555,6 +561,14 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Buff.MagickaCost" => array(
+					"display" => "%",
+			),
+						
+			"Buff.StaminaRegen" => array(
+					"display" => "%",
+			),
+						
 			"Skill.WeaponCrit" => array(
 					"display" => "%",
 			),
@@ -720,6 +734,14 @@ class EsoBuildDataEditor
 			),
 			
 			"Skill.SneakRange" => array(
+					"display" => "%",
+			),
+			
+			"Target.HealingReceived" => array(
+					"display" => "%",
+			),
+			
+			"Target.HealingReduction" => array(
 					"display" => "%",
 			),
 			

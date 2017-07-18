@@ -480,6 +480,17 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<hr>
 			<b>28 June 2017</b>
 			<ul>
+				<li>The Befoul CP now correctly modifies CP.HealingReduction instead of HealingReceived. Note that this stat is not yet used in
+					skill tooltips.</li>
+				<li>The Necropotence and Orgnum's Scale 5 piece bonus is now only applied when you have 5 pieces equipped.</li>
+				<li>The Eyes of Mara 5 piece bonus now affects the Restoration Staff ultimates.</li>
+				<li>Resetting all skills now correctly updates the skill display.</li>
+				<li>The Worm's Raiment and Hircine's Veneer 5 piece bonuses are now buffs to permit anyone to use them to simulate
+					being in the same group as someone wearing them.</li>
+			</ul>
+			<p>
+			<b>28 June 2017</b>
+			<ul>
 				<li>Added CP.DotDamageDone and CP.DirectDamageDone to Light/Heavy attack calculations. Note that not all of these
 					have been verified in-game yet.</li>				
 				<li>The Nightblade's Swallow Soul ability now gives Minor Vitality when slotted.</li>
