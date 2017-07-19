@@ -7352,11 +7352,11 @@ function GetEsoInputMundusNameValues(inputValues, mundusName)
 
 function GetEsoInputCPValues(inputValues)
 {
-	inputValues.CP.Health = g_EsoCpData.attribute1.points;
-	inputValues.CP.Magicka = g_EsoCpData.attribute2.points;
-	inputValues.CP.Stamina = g_EsoCpData.attribute3.points;
+	inputValues.CP.Enabled = true;
+	if (!$("#esotbEnableCP").prop("checked")) inputValues.CP.Enabled = false;
+	AddEsoInputStatSource("CP.Enabled", { source: "Character State", value: inputValues.CP.Enabled });
+		
 	inputValues.CP.TotalPoints = parseInt($("#esotbCPTotalPoints").val());
-	inputValues.CP.UsedPoints = inputValues.CP.Health + inputValues.CP.Magicka + inputValues.CP.Stamina;
 	
 	inputValues.CPLevel = Math.floor(inputValues.CP.TotalPoints/10);
 	if (inputValues.CPLevel > ESO_MAX_CPLEVEL) inputValues.CPLevel = ESO_MAX_CPLEVEL;
@@ -7368,6 +7368,17 @@ function GetEsoInputCPValues(inputValues)
 		
 	if (inputValues.EffectiveLevel > ESO_MAX_EFFECTIVELEVEL) inputValues.EffectiveLevel = ESO_MAX_EFFECTIVELEVEL;
 	
+	if (!inputValues.CP.Enabled) 
+	{
+		if (inputValues.EffectiveLevel > 50) inputValues.EffectiveLevel = 50;
+		return;
+	}
+	
+	inputValues.CP.Health = g_EsoCpData.attribute1.points;
+	inputValues.CP.Magicka = g_EsoCpData.attribute2.points;
+	inputValues.CP.Stamina = g_EsoCpData.attribute3.points;
+	inputValues.CP.UsedPoints = inputValues.CP.Health + inputValues.CP.Magicka + inputValues.CP.Stamina;
+		
 		/* Tower (1) */
 	ParseEsoCPValue(inputValues, "BashCost", 58899, null, null, -1);
 	ParseEsoCPValue(inputValues, "SprintCost", 64077, null, null, -1);
@@ -8171,6 +8182,12 @@ function OnEsoClickStealth(e)
 
 
 function OnEsoClickCyrodiil(e)
+{
+	UpdateEsoComputedStatsList("async");
+}
+
+
+function OnEsoClickEnableCP(e)
 {
 	UpdateEsoComputedStatsList("async");
 }
@@ -11741,6 +11758,18 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 	saveData.Stats['Cyrodiil'] = inputValues.Cyrodiil;
 	saveData.Stats['CP:Level'] = inputValues.CP.TotalPoints;
 	saveData.Stats['CP:Used'] = inputValues.CP.UsedPoints;
+	saveData.Stats['CP:Enabled'] = inputValues.CP.Enabled;
+		
+	inputValues.CPLevel = Math.floor(inputValues.CP.TotalPoints/10);
+	if (inputValues.CPLevel > ESO_MAX_CPLEVEL) inputValues.CPLevel = ESO_MAX_CPLEVEL;
+	
+	if (inputValues.Level == 50)
+		inputValues.EffectiveLevel = inputValues.Level + inputValues.CPLevel;
+	else
+		inputValues.EffectiveLevel = inputValues.Level;
+		
+	if (inputValues.EffectiveLevel > ESO_MAX_EFFECTIVELEVEL) inputValues.EffectiveLevel = ESO_MAX_EFFECTIVELEVEL;
+	if (!inputValues.CP.Enabled && inputValues.EffectiveLevel > 50) inputValues.EffectiveLevel = 50;	
 	
 	saveData.Stats['BaseWalkSpeed'] = inputValues.BaseWalkSpeed;
 	saveData.Stats['RidingSpeed'] = parseInt(inputValues.MountSpeedBonus * 100);
@@ -13520,6 +13549,7 @@ function esotbOnDocReady()
 	$(".esotbStatNoteButton").click(OnEsoClickStatWarningButton);
 	$("#esotbStealth").click(OnEsoClickStealth);	
 	$("#esotbCyrodiil").click(OnEsoClickCyrodiil);
+	$("#esotbEnableCP").click(OnEsoClickEnableCP);
 	
 	$(".esotbInputValue").on('input', function(e) { OnEsoInputChange.call(this, e); });
 	
