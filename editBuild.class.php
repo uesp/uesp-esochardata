@@ -109,6 +109,7 @@ class EsoBuildDataEditor
 			"CP.TotalPoints",
 			"CP.UsedPoints",
 			"CP.HealingReduction",
+			"CP.Enabled",
 			"Attribute.TotalPoints",
 			"Attribute.Health",
 			"Attribute.Magicka",
@@ -4484,6 +4485,14 @@ class EsoBuildDataEditor
 	}
 	
 	
+	public function GetEnableCPCheckState()
+	{
+		$flag = $this->getCharStatField("CP:Enabled", "1");
+		if ($flag > 0) return "checked";
+		return "";
+	}
+	
+	
 	public function getCharTargetResist()
 	{
 		$resist = $this->getCharStatField("Target:Resistance", "18200");
@@ -4638,6 +4647,7 @@ class EsoBuildDataEditor
 				'{trail}' => $this->GetBreadcrumbTrailHtml(),
 				'{stealth}' => $this->GetStealthCheckState(),
 				'{cyrodiil}' => $this->GetCyrodiilCheckState(),
+				'{enableCP}' => $this->GetEnableCPCheckState(),
 				'{setNamesJson}' => $this->GetSetNamesJson(),
 		);
 		
