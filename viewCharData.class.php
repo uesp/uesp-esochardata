@@ -1356,6 +1356,8 @@ EOT;
 		
 		foreach ($clothingSum['armor'] as $slotName => $traitData)
 		{
+			if ($slotName == "Robe & Jerkin") $slotName = "Robe & Shirt";
+			
 			$output .= "<tr>";
 			$output .= "<td>$slotName</td>";
 			$totalCount = 0;
