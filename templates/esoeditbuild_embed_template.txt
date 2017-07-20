@@ -390,6 +390,404 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<button id="esotbItemSetupAllLevelButton" onclick="OnEsoEditBuildSetupAllLevel(this);">Change</button>
 				<div id="esotbItemSetupAllLevelMsg" class="esotbItemSetupMsg"></div>
 			</div>
+			<div class="esptbItemSetup esptbItemSetupBoxBorder">
+				<div class="esotbItemSetupTitle">Equip Monster Set</div>
+				
+				<select id="esotbItemSetupMonsterSet" style="width: 150px;">
+					<option>Blood Spawn</option>
+					<option>Chokethorn</option>
+					<option>Engine Guardian</option>
+					<option>Grothdarr</option>
+					<option>Iceheart</option>
+					<option>Illambris</option>
+					<option>Infernal Guardian</option>
+					<option>Kra'gh</option>
+					<option>Lord Warden</option>
+					<option>Maw of the Infernal</option>
+					<option>Mighty Chudan</option>
+					<option>Molag Kena</option>
+					<option>Nerien'eth</option>
+					<option>Nightflame</option>
+					<option>Pirate Skeleton</option>
+					<option>Scourge Harvester</option>
+					<option>Selene</option>
+					<option>Sellistrix</option>
+					<option>Sentinel of Rkugamz</option>
+					<option>Shadowrend</option>
+					<option>Slimecraw</option>
+					<option>Spawn of Mephala</option>
+					<option>Stormfist</option>
+					<option>Swarm Mother</option>
+					<option>Tremorscale</option>
+					<option>The Troll King</option>
+					<option>Valkyn Skoria</option>
+					<option>Velidreth</option>
+				</select>
+				
+				<button id="esotbItemSetupMonsterSetButton" onclick="OnEsoEditBuildSetupMonsterSet(this);">Change</button>
+				<div id="esotbItemSetupMonsterSetMsg" class="esotbItemSetupMsg"></div>
+				
+				<p/>
+				<div style="margin-left:150px;">
+					Armor Types: Head <select id="esotbItemSetupMonsterSetHeadType" style="">
+						<option value="0">Any</option>
+						<option value="1">Light</option>
+						<option value="2">Medium</option>
+						<option value="3">Heavy</option>
+					</select>
+					
+					Shoulders <select id="esotbItemSetupMonsterSetShoulderType" style="">
+						<option value="0">Any</option>
+						<option value="1">Light</option>
+						<option value="2">Medium</option>
+						<option value="3">Heavy</option>
+					</select>
+					<p/>
+					
+					Traits: Head <select id="esotbItemSetupMonsterSetHeadTrait" style="">
+						<option value="0">Any</option>
+						<option value="18">Divines</option>
+						<option value="12">Impenetrable</option>
+						<option value="16">Infused</option>
+						<option value="25">Nirnhoned</option>
+						<option value="17">Prosperous</option>
+						<option value="13">Reinforced</option>
+						<option value="11">Sturdy</option>
+						<option value="15">Training</option>
+						<option value="14">Well-Fitted</option>
+					</select>
+					
+					Shoulders <select id="esotbItemSetupMonsterSetShoulderTrait" style="">
+						<option value="0">Any</option>
+						<option value="18">Divines</option>
+						<option value="12">Impenetrable</option>
+						<option value="16">Infused</option>
+						<option value="25">Nirnhoned</option>
+						<option value="17">Prosperous</option>
+						<option value="13">Reinforced</option>
+						<option value="11">Sturdy</option>
+						<option value="15">Training</option>
+						<option value="14">Well-Fitted</option>
+					</select>
+				</div>				
+			</div>
+			<div class="esptbItemSetup esptbItemSetupBoxBorder">
+				<div class="esotbItemSetupTitle">Equip Set</div>
+				
+				<select id="esotbItemSetupEquipSet" style="width: 150px;">
+					<option>Affliction</option>
+					<option>Agility</option>
+					<option>Akaviri Dragonguard</option>
+					<option>Alessia's Bulwark</option>
+					<option>Alessian Order</option>
+					<option>Almalexia's Mercy</option>
+					<option>Amber Plasm</option>
+					<option>Archer's Mind</option>
+					<option>Armor Master</option>
+					<option>Armor of the Seducer</option>
+					<option>Armor of the Trainee</option>
+					<option>Armor of the Veiled Heritance</option>
+					<option>Armor of Truth</option>
+					<option>Arms of Infernace</option>
+					<option>Arms of the Ancestors</option>
+					<option>Ashen Grip</option>
+					<option>Aspect of Mazzatun</option>
+					<option>Assassin's Guile</option>
+					<option>Automated Defense</option>
+					<option>Bahraha's Curse</option>
+					<option>Barkskin</option>
+					<option>Bastion of the Heartland</option>
+					<option>Beckoning Steel</option>
+					<option>Beekeeper's Gear</option>
+					<option>Berserking Warrior</option>
+					<option>Black Rose</option>
+					<option>Blessing of the Potentates</option>
+					<option>Bloodthorn's Touch</option>
+					<option>Bone Pirate's Tatters</option>
+					<option>Brands of Imperium</option>
+					<option>Briarheart</option>
+					<option>Buffer of the Swift</option>
+					<option>Burning Spellweave</option>
+					<option>Clever Alchemist</option>
+					<option>Combat Physician</option>
+					<option>Coward's Gear</option>
+					<option>Crest of Cyrodiil</option>
+					<option>Crusader</option>
+					<option>Curse Eater</option>
+					<option>Daedric Trickery</option>
+					<option>Darkstride</option>
+					<option>Deadly Strike</option>
+					<option>Death's Wind</option>
+					<option>Defending Warrior</option>
+					<option>Defiler</option>
+					<option>Desert Rose</option>
+					<option>Destructive Mage</option>
+					<option>Draugr Hulk</option>
+					<option>Draugr's Heritage</option>
+					<option>Dreamer's Mantle</option>
+					<option>Dreugh King Slayer</option>
+					<option>Duneripper's Scales</option>
+					<option>Durok's Bane</option>
+					<option>Eagle Eye</option>
+					<option>Ebon Armory</option>
+					<option>Elemental Succession</option>
+					<option>Elf Bane</option>
+					<option>Embershield</option>
+					<option>Endurance</option>
+					<option>Essence Thief</option>
+					<option>Eternal Hunt</option>
+					<option>Eternal Warrior</option>
+					<option>Eyes of Mara</option>
+					<option>Fasalla's Guile</option>
+					<option>Fiord's Legacy</option>
+					<option>Flanking Strategist</option>
+					<option>Footman's Fortune</option>
+					<option>Galerion's Revenge</option>
+					<option>Glorious Defender</option>
+					<option>Gossamer</option>
+					<option>Grace of the Ancients</option>
+					<option>Green Pact</option>
+					<option>Hand of Mephala</option>
+					<option>Hatchling's Shell</option>
+					<option>Hawk's Eye</option>
+					<option>Healer's Habit</option>
+					<option>Healing Mage</option>
+					<option>Heem-Jas' Retribution</option>
+					<option>Hide of Morihaus</option>
+					<option>Hide of the Werewolf</option>
+					<option>Hircine's Veneer</option>
+					<option>Hist Bark</option>
+					<option>Hunding's Rage</option>
+					<option>Hunt Leader</option>
+					<option>Immortal Warrior</option>
+					<option>Imperial Physique</option>
+					<option>Impregnable Armor</option>
+					<option>Infallible Mage</option>
+					<option>Inventor's Guard</option>
+					<option>Jailbreaker</option>
+					<option>Jolting Arms</option>
+					<option>Kagrenac's Hope</option>
+					<option>Knight Slayer</option>
+					<option>Knight-Errant's Mail</option>
+					<option>Knightmare</option>
+					<option>Kvatch Gladiator</option>
+					<option>Kyne's Kiss</option>
+					<option>Lamia's Song</option>
+					<option>Law of Julianos</option>
+					<option>Leeching Plate</option>
+					<option>Leki's Focus</option>
+					<option>Leviathan</option>
+					<option>Light of Cyrodiil</option>
+					<option>Light Speaker</option>
+					<option>Lunar Bastion</option>
+					<option>Magicka Furnace</option>
+					<option>Magnus' Gift</option>
+					<option>Mark of the Pariah</option>
+					<option>Marksman's Crest</option>
+					<option>Master Architect</option>
+					<option>Medusa</option>
+					<option>Meridia's Blessed Armor</option>
+					<option>Meritorious Service</option>
+					<option>Moondancer</option>
+					<option>Morkuldin</option>
+					<option>Mother's Sorrow</option>
+					<option>Necropotence</option>
+					<option>Netch's Touch</option>
+					<option>Night Mother's Embrace</option>
+					<option>Night Mother's Gaze</option>
+					<option>Night Terror</option>
+					<option>Night's Silence</option>
+					<option>Nikulas' Heavy Armor</option>
+					<option>Noble Duelist's Silks</option>
+					<option>Noble's Conquest</option>
+					<option>Oblivion's Edge</option>
+					<option>Oblivion's Foe</option>
+					<option>Order of Diagna</option>
+					<option>Orgnum's Scales</option>
+					<option>Overwhelming Surge</option>
+					<option>Para Bellum</option>
+					<option>Pelinal's Aptitude</option>
+					<option>Permafrost</option>
+					<option>Phoenix</option>
+					<option>Plague Doctor</option>
+					<option>Poisonous Serpent</option>
+					<option>Powerful Assault</option>
+					<option>Prayer Shawl</option>
+					<option>Prisoner's Rags</option>
+					<option>Queen's Elegance</option>
+					<option>Quick Serpent</option>
+					<option>Ranger's Gait</option>
+					<option>Rattlecage</option>
+					<option>Ravager</option>
+					<option>Reactive Armor</option>
+					<option>Redistributor</option>
+					<option>Relics of the Physician, Ansur</option>
+					<option>Relics of the Rebellion</option>
+					<option>Roar of Alkosh</option>
+					<option>Robes of Alteration Mastery</option>
+					<option>Robes of Destruction Mastery</option>
+					<option>Robes of the Hist</option>
+					<option>Robes of the Withered Hand</option>
+					<option>Robes of Transmutation</option>
+					<option>Salvation</option>
+					<option>Sanctuary</option>
+					<option>Scathing Mage</option>
+					<option>Senche's Bite</option>
+					<option>Sentry</option>
+					<option>Sergeant's Mail</option>
+					<option>Seventh Legion Brute</option>
+					<option>Shacklebreaker</option>
+					<option>Shadow Dancer's Raiment</option>
+					<option>Shadow of the Red Mountain</option>
+					<option>Shadow Walker</option>
+					<option>Shalidor's Curse</option>
+					<option>Shalk Exoskeleton</option>
+					<option>Sheer Venom</option>
+					<option>Shield Breaker</option>
+					<option>Shield of the Valiant</option>
+					<option>Shroud of the Lich</option>
+					<option>Silks of the Sun</option>
+					<option>Sithis' Touch</option>
+					<option>Skooma Smuggler</option>
+					<option>Song of Lamae</option>
+					<option>Soulshine</option>
+					<option>Spectre's Eye</option>
+					<option>Spell Power Cure</option>
+					<option>Spelunker</option>
+					<option>Spider Cultist Cowl</option>
+					<option>Spinner's Garments</option>
+					<option>Spriggan's Thorns</option>
+					<option>Stendarr's Embrace</option>
+					<option>Storm Knight's Plate</option>
+					<option>Storm Master</option>
+					<option>Strength of the Automaton</option>
+					<option>Stygian</option>
+					<option>Sunderflame</option>
+					<option>Swamp Raider</option>
+					<option>Sword Dancer</option>
+					<option>Sword-Singer</option>
+					<option>Syrabane's Grip</option>
+					<option>Syvarra's Scales</option>
+					<option>Tava's Favor</option>
+					<option>The Arch-Mage</option>
+					<option>The Destruction Suite</option>
+					<option>The Ice Furnace</option>
+					<option>The Juggernaut</option>
+					<option>The Morag Tong</option>
+					<option>The Worm's Raiment</option>
+					<option>Thews of the Harbinger</option>
+					<option>Thunderbug's Carapace</option>
+					<option>Toothrow</option>
+					<option>Tormentor</option>
+					<option>Torug's Pact</option>
+					<option>Treasure Hunter</option>
+					<option>Treasures of the Earthforge</option>
+					<option>Trial By Fire</option>
+					<option>Trinimac's Valor</option>
+					<option>Twice-Born Star</option>
+					<option>Twice-Fanged Serpent</option>
+					<option>Twilight Remedy</option>
+					<option>Twilight's Embrace</option>
+					<option>Twin Sisters</option>
+					<option>Undaunted Bastion</option>
+					<option>Undaunted Infiltrator</option>
+					<option>Undaunted Unweaver</option>
+					<option>Vampire Cloak</option>
+					<option>Vampire Lord</option>
+					<option>Vampire's Kiss</option>
+					<option>Vanguard's Challenge</option>
+					<option>Varen's Legacy</option>
+					<option>Vengeance Leech</option>
+					<option>Vestments of the Warlock</option>
+					<option>Vicecanon of Venom</option>
+					<option>Vicious Death</option>
+					<option>Vicious Serpent</option>
+					<option>Viper's Sting</option>
+					<option>War Machine</option>
+					<option>War Maiden</option>
+					<option>Ward of Cyrodiil</option>
+					<option>Warrior-Poet</option>
+					<option>Warrior's Fury</option>
+					<option>Way of Air</option>
+					<option>Way of Fire</option>
+					<option>Way of Martial Knowledge</option>
+					<option>Way of the Arena</option>
+					<option>Whitestrake's Retribution</option>
+					<option>Widowmaker</option>
+					<option>Wilderqueen's Arch</option>
+					<option>Willow's Path</option>
+					<option>Willpower</option>
+					<option>Winterborn</option>
+					<option>Wise Mage</option>
+					<option>Witchman Armor</option>
+					<option>Wizard's Riposte</option>
+					<option>Wrath of the Imperium</option>
+					<option>Wyrd Tree's Blessing</option>
+					<option>Ysgramor's Birthright</option>				
+				</select>
+				
+				<button id="esotbItemSetupEquipSetButton" onclick="OnEsoEditBuildSetupEquipSet(this);">Change</button>
+				<div id="esotbItemSetupEquipSetMsg" class="esotbItemSetupMsg"></div>
+				
+				<p/>
+				<div style="margin-left:150px;">
+					Locations <select id="esotbItemSetupEquipSetLocation" style="width=150px;">
+						<option value="1">x5 Body</option>
+						<option value="2">x3 Jewelry + x2 Weapon</option>
+					</select>
+					<p/>
+					
+					Types <select id="esotbItemSetupEquipSetArmorType" style="width=200px;">
+						<option value="0">Any</option>
+						<option value="500">x5 Light</option>
+						<option value="050">x5 Medium</option>
+						<option value="005">x5 Heavy</option>
+						<option value="311">x3 Light + x1 Medium + x1 Heavy</option>
+						<option value=320">x3 Light + x2 Medium</option>
+						<option value="302">x3 Light + x2 Heavy</option>
+						<option value="131">x3 Medium + x1 Light + x1 Heavy</option>
+						<option value="230">x3 Medium + x2 Light</option>
+						<option value="032">x3 Medium + x2 Heavy</option>
+						<option value="113">x3 Heavy + x1 Light + x1 Medium</option>
+						<option value="203">x3 Heavy + x2 Light</option>
+						<option value="023">x3 Heavy + x2 Medium</option>
+					</select>
+					
+					<select id="esotbItemSetupEquipSetWeaponType" style="">
+						<option value="0">Any</option>
+						<option value="1">x2 Dagger</option>
+						<option value="2">x2 Sword</option>
+						<option value="3">x2 Axe</option>
+						<option value="4">Dagger + Axe</option>
+						<option value="5">Sword + Shield</option>
+					</select>
+					<p/>
+					
+					Traits <select id="esotbItemSetupEquipSetTraitArmor" style="">
+						<option value="0">Any</option>
+						<option value="1">Divines</option>
+						<option value="2">Divines + Infused</option>					
+						<option value="3">Infused</option>
+						<option value="4">Reinforced</option>
+						<option value="5">Sturdy</option>
+						<option value="6">Nirnhoned</option>
+					</select>
+					
+					<select id="esotbItemSetupEquipSetTraitJewelry" style="">
+						<option value="0">Any</option>
+						<option value="1">Healthy</option>
+						<option value="2">Robust</option>					
+						<option value="3">Arcane</option>
+					</select>
+					
+					<select id="esotbItemSetupEquipSetTraitWeapon" style="">
+						<option value="0">Any</option>
+						<option value="1">Sharpened</option>
+						<option value="2">Defending</option>					
+						<option value="3">Nirnhoned</option>
+					</select>
+				</div>				
+			</div>
 		</div>
 		<div id="esotbStatBlockSkills" class="esotbStatBlock" style="display: none;">
 			{skillHtml}

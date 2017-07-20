@@ -2206,3 +2206,10 @@ thead.ecdFixedHeader tr {
 	font-weight: normal;
 	color: #999;
 }
+
+.esptbItemSetupBoxBorder {
+	border: 1px solid lightgray;
+    padding: 5px;
+    margin: 5px;
+	
+}
