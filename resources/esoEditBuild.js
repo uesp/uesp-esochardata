@@ -8524,16 +8524,46 @@ function RequestEsoChangeArmorTypeData(itemData, armorType, slotId)
 			data: queryParams,
 		}).
 		done(function(data, status, xhr) { OnEsoRequestChangeArmorTypeReceive(data, status, xhr, slotId, itemData, armorType); }).
-		fail(function(xhr, status, errorMsg) { OnEsoChangeArmorTypeError(xhr, status, errorMsg, armorType); });
+		fail(function(xhr, status, errorMsg) { OnEsoChangeArmorTypeError(xhr, status, errorMsg, armorType, slotId); });
 	
 	return true;
 }
 
 
-function OnEsoChangeArmorTypeError(xhr, status, errorMsg, armorType)
+function RequestEsoFindSetItemData(slotId, monsterSet, equipType, armorType, weaponType, level, quality, trait, msgElement)
 {
-	var text = $("#esotbItemSetupArmorTraitMsg").text();
+	var queryParams = {
+			"text" : monsterSet,
+			"set" : monsterSet,
+			"armortype" : armorType,
+			"equiptype" : equipType,
+			"weapontype" : weaponType,
+			"quality" : quality,
+			"level" : level,
+			"trait" : trait,
+	};
+
+	$.ajax("//esolog.uesp.net/esoItemSearchPopup.php", {
+			data: queryParams,
+		}).
+		done(function(data, status, xhr) { OnEsoRequestFindSetItemReceive(data, status, xhr, slotId, monsterSet, equipType, armorType, weaponType, level, quality, trait, msgElement); }).
+		fail(function(xhr, status, errorMsg) { OnEsoFindSetItemError(xhr, status, errorMsg, monsterSet, armorType, msgElement); });
+	
+	return true;
+}
+
+
+function OnEsoChangeArmorTypeError(xhr, status, errorMsg, armorType, slotId)
+{
+	var text = $("#esotbItemSetupArmorTypeMsg").text();
 	$("#esotbItemSetupArmorTypeMsg").text(text + " No " + slotId + " item found! ")
+}
+
+
+function OnEsoFindSetItemError(xhr, status, errorMsg, monsterSet, armorType, msgElement)
+{
+	var text = msgElement.text();
+	msgElement.text(text + " No " + monsterSet + " set with armor type " + armorType + " found! ")
 }
 
 
@@ -8633,6 +8663,62 @@ function OnEsoRequestChangeArmorTypeReceive(data, status, xhr, slotId, origItemD
 	
 	iconElement.attr("itemid", itemData.itemId);
 	labelElement.text(itemData.name);
+	
+	RequestEsoItemData(tempItemData, element);	
+}
+
+
+function OnEsoRequestFindSetItemReceive(data, status, xhr, slotId, monsterSet, equipType, armorType, weaponType, level, quality, trait, msgElement)
+{
+	if (slotId == null || slotId == "") return false;
+	
+	EsoBuildLog("OnEsoRequestFindSetItemReceive", slotId, data.length, data);
+	
+	var itemData = data[0];
+	var text = msgElement.text();
+	
+	if (itemData == null || itemData.itemId == null) 
+	{
+		msgElement.text(text + " No " + slotId + " item found! ")
+		return false;
+	}
+	
+	var tempItemData = {};
+	var element = $(".esotbItem[slotid='" + slotId + "']");
+	var iconElement = element.find(".esotbItemIcon");
+	var labelElement = element.find(".esotbItemLabel");
+	
+	tempItemData.itemId = itemData.itemId;
+	tempItemData.level = level;
+	tempItemData.quality = quality;
+	
+	var result = GetEsoIntDataFromLevelQuality(level, quality, equipType);
+	
+	if (result)
+	{
+		tempItemData.internalLevel = result.level;
+		tempItemData.internalSubtype = result.type;
+	}
+	else 
+	{
+		tempItemData.internalLevel = 1;
+		tempItemData.internalSubtype = 1;
+	}
+		
+	var iconName = itemData.icon.replace(".dds", ".png");
+	var iconUrl = ESO_ICON_URL + iconName;
+	var niceName = itemData.name.charAt(0).toUpperCase() + itemData.name.slice(1);
+	
+	if (iconName == "" || iconName == "/") iconUrl = "";
+	
+	iconElement.attr("src", iconUrl);
+	labelElement.text(niceName);
+	
+	iconElement.attr("itemid", itemData.itemId);
+	iconElement.attr("intlevel", tempItemData.internalLevel);
+	iconElement.attr("inttype", tempItemData.internalSubtype);
+	iconElement.attr("setcount", "0");
+	iconElement.attr("enchantfactor", "0");
 	
 	RequestEsoItemData(tempItemData, element);	
 }
@@ -12666,7 +12752,6 @@ function EsoBuildChangeEnchantQuality(slotId, newQuality, msgElement)
 }
 
 
-
 function OnEsoEditBuildSetupAllLevel(element)
 {
 	var form = $("#esotbItemSetupAllLevel");
@@ -12675,6 +12760,313 @@ function OnEsoEditBuildSetupAllLevel(element)
 	$("#esotbItemSetupAllLevelMsg").text("");
 	
 	EsoEditBuildChangeAllLevel(formValue);
+}
+
+
+function OnEsoEditBuildSetupMonsterSet(element)
+{
+	var msgElement = $("#esotbItemSetupMonsterSetMsg");
+	var count = 0;
+	
+	var monsterSet = $("#esotbItemSetupMonsterSet").val();
+	var headArmorType = parseInt($("#esotbItemSetupMonsterSetHeadType").val());
+	var shoulderArmorType = parseInt($("#esotbItemSetupMonsterSetShoulderType").val());
+	var headTrait = parseInt($("#esotbItemSetupMonsterSetHeadTrait").val());
+	var shoulderTrait = parseInt($("#esotbItemSetupMonsterSetShoulderTrait").val());
+	
+	msgElement.text("");
+	
+	if (headArmorType == 0) headArmorType = null;
+	if (shoulderArmorType == 0) shoulderArmorType = null;
+	if (headTrait == 0) headTrait = null;
+	if (shoulderTrait == 0) shoulderTrait = null;
+		
+	if (RequestEsoFindSetItemData('Head', monsterSet, 1, headArmorType, null, 66, 5, headTrait, msgElement)) ++count;
+	if (RequestEsoFindSetItemData('Shoulders', monsterSet, 4, shoulderArmorType, null, 66, 5, shoulderTrait, msgElement)) ++count;
+	
+	$(msgElement).text("Updating " + count + " items... ");
+}
+
+
+function OnEsoEditBuildSetupEquipSet(element)
+{
+	var msgElement = $("#esotbItemSetupEquipSetMsg");
+	var count = 0;
+	
+	var setName = $("#esotbItemSetupEquipSet").val();
+	var locationVal = parseInt($("#esotbItemSetupEquipSetLocation").val());
+	var armorTraitVal = parseInt($("#esotbItemSetupEquipSetTraitArmor").val());
+	var weaponTraitVal = parseInt($("#esotbItemSetupEquipSetTraitWeapon").val());
+	var jewelTraitVal = parseInt($("#esotbItemSetupEquipSetTraitJewelry").val());
+	var armorTypeVal = parseInt($("#esotbItemSetupEquipSetArmorType").val());
+	var weaponTypeVal = parseInt($("#esotbItemSetupEquipSetWeaponType").val());
+	
+	var armorTypes = [null, null, null, null, null];
+	var weaponTypes = [null, null, null, null, null];
+	var traits = [null, null, null, null, null];
+	
+	if (armorTypeVal == 0)
+	{
+		armorTypes[0] = null;
+		armorTypes[1] = null;
+		armorTypes[2] = null;
+		armorTypes[3] = null;
+		armorTypes[4] = null;
+	}
+	else if (armorTypeVal == 500)
+	{
+		armorTypes[0] = 1;
+		armorTypes[1] = 1;
+		armorTypes[2] = 1;
+		armorTypes[3] = 1;
+		armorTypes[4] = 1;
+	}
+	else if (armorTypeVal == 50)
+	{
+		armorTypes[0] = 2;
+		armorTypes[1] = 2;
+		armorTypes[2] = 2;
+		armorTypes[3] = 2;
+		armorTypes[4] = 2;
+	}
+	else if (armorTypeVal == 5)
+	{
+		armorTypes[0] = 3;
+		armorTypes[1] = 3;
+		armorTypes[2] = 3;
+		armorTypes[3] = 3;
+		armorTypes[4] = 3;
+	}
+	else if (armorTypeVal == 311)
+	{
+		armorTypes[0] = 3;
+		armorTypes[1] = 2;
+		armorTypes[2] = 1;
+		armorTypes[3] = 1;
+		armorTypes[4] = 1;
+	} 
+	else if (armorTypeVal == 320)
+	{
+		armorTypes[0] = 2;
+		armorTypes[1] = 2;
+		armorTypes[2] = 1;
+		armorTypes[3] = 1;
+		armorTypes[4] = 1;
+	}
+	else if (armorTypeVal == 302)
+	{
+		armorTypes[0] = 3;
+		armorTypes[1] = 3;
+		armorTypes[2] = 1;
+		armorTypes[3] = 1;
+		armorTypes[4] = 1;
+	} 
+	else if (armorTypeVal == 131)
+	{
+		armorTypes[0] = 3;
+		armorTypes[1] = 2;
+		armorTypes[2] = 2;
+		armorTypes[3] = 2;
+		armorTypes[4] = 1;
+	}
+	else if (armorTypeVal == 230)
+	{
+		armorTypes[0] = 2;
+		armorTypes[1] = 2;
+		armorTypes[2] = 2;
+		armorTypes[3] = 1;
+		armorTypes[4] = 1;
+	}
+	else if (armorTypeVal == 032)
+	{
+		armorTypes[0] = 3;
+		armorTypes[1] = 3;
+		armorTypes[2] = 2;
+		armorTypes[3] = 2;
+		armorTypes[4] = 2;
+	}
+	else if (armorTypeVal == 113)
+	{
+		armorTypes[0] = 3;
+		armorTypes[1] = 3;
+		armorTypes[2] = 3;
+		armorTypes[3] = 2;
+		armorTypes[4] = 1;
+	}
+	else if (armorTypeVal == 203)
+	{
+		armorTypes[0] = 3;
+		armorTypes[1] = 3;
+		armorTypes[2] = 3;
+		armorTypes[3] = 1;
+		armorTypes[4] = 1;
+	}
+	else if (armorTypeVal == 023)
+	{
+		armorTypes[0] = 3;
+		armorTypes[1] = 3;
+		armorTypes[2] = 3;
+		armorTypes[3] = 2;
+		armorTypes[4] = 2;
+	}
+
+	if (armorTraitVal == 0)
+	{
+		traits[0] = null;
+		traits[1] = null;
+		traits[2] = null;
+		traits[3] = null;
+		traits[4] = null;		
+	}
+	else if (armorTraitVal == 1)
+	{
+		traits[0] = 18;
+		traits[1] = 18;
+		traits[2] = 18;
+		traits[3] = 18;
+		traits[4] = 18;		
+	}
+	else if (armorTraitVal == 2)
+	{
+		traits[0] = 16;
+		traits[1] = 16;
+		traits[2] = 18;
+		traits[3] = 18;
+		traits[4] = 18;		
+	}
+	else if (armorTraitVal == 3)
+	{
+		traits[0] = 16;
+		traits[1] = 16;
+		traits[2] = 16;
+		traits[3] = 16;
+		traits[4] = 16;		
+	}
+	else if (armorTraitVal == 4)
+	{
+		traits[0] = 13;
+		traits[1] = 13;
+		traits[2] = 13;
+		traits[3] = 13;
+		traits[4] = 13;		
+	}
+	else if (armorTraitVal == 5)
+	{
+		traits[0] = 11;
+		traits[1] = 11;
+		traits[2] = 11;
+		traits[3] = 11;
+		traits[4] = 11;		
+	}
+	else if (armorTraitVal == 6)
+	{
+		traits[0] = 25;
+		traits[1] = 25;
+		traits[2] = 25;
+		traits[3] = 25;
+		traits[4] = 25;		
+	}
+	
+	if (locationVal == 2)
+	{
+		if (weaponTypeVal == 0)
+		{
+			weaponTypes[0] = null;
+			weaponTypes[1] = null;
+		}
+		else if (weaponTypeVal == 1)
+		{
+			weaponTypes[0] = 11;
+			weaponTypes[1] = 11;
+		}
+		else if (weaponTypeVal == 2)
+		{
+			weaponTypes[0] = 3;
+			weaponTypes[1] = 3;
+		}
+		else if (weaponTypeVal == 3)
+		{
+			weaponTypes[0] = 1;
+			weaponTypes[1] = 1;
+		}
+		else if (weaponTypeVal == 4)
+		{
+			weaponTypes[0] = 11;
+			weaponTypes[1] = 1;
+		}
+		else if (weaponTypeVal == 5)
+		{
+			weaponTypes[0] = 3;
+			weaponTypes[1] = 14;
+		}
+
+		if (jewelTraitVal == 0)
+		{
+			traits[0] = null;
+			traits[1] = null;
+			traits[2] = null;
+		}
+		else if (jewelTraitVal == 1)
+		{
+			traits[0] = 21;
+			traits[1] = 21;
+			traits[2] = 21;
+		}
+		else if (jewelTraitVal == 2)
+		{
+			traits[0] = 23;
+			traits[1] = 23;
+			traits[2] = 23;
+		}
+		else if (jewelTraitVal == 3)
+		{
+			traits[0] = 22;
+			traits[1] = 22;
+			traits[2] = 22;
+		}
+		
+		if (weaponTraitVal == 0)
+		{
+			traits[3] = null;
+			if (weaponTypeVal != 5) traits[4] = null;
+		}
+		else if (weaponTraitVal == 1)
+		{
+			traits[3] = 7;
+			if (weaponTypeVal != 5) traits[4] = 7;		
+		}
+		else if (weaponTraitVal == 2)
+		{
+			traits[3] = 5;
+			if (weaponTypeVal != 5) traits[4] = 5;		
+		}
+		else if (weaponTraitVal == 3)
+		{
+			traits[3] = 26;
+			if (weaponTypeVal != 5) traits[4] = 26;		
+		}
+	}
+
+	msgElement.text("");
+
+	if (locationVal == 1)
+	{
+		if (RequestEsoFindSetItemData('Chest', setName,  3, armorTypes[0], null, 66, 5, traits[0], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('Legs',  setName,  9, armorTypes[1], null, 66, 5, traits[1], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('Waist', setName,  8, armorTypes[2], null, 66, 5, traits[2], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('Feet',  setName, 10, armorTypes[3], null, 66, 5, traits[3], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('Hands', setName, 13, armorTypes[4], null, 66, 5, traits[4], msgElement)) ++count;
+	}
+	else if (locationVal == 2)
+	{
+		if (RequestEsoFindSetItemData('Neck',      setName,     2, null, null, 66, 5, traits[0], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('Ring1',     setName,    12, null, null, 66, 5, traits[1], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('Ring2',     setName,    12, null, null, 66, 5, traits[2], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('MainHand1', setName,     5, null, weaponTypes[0], 66, 5, traits[3], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('OffHand1',  setName, "5,7", null, weaponTypes[1], 66, 5, traits[4], msgElement)) ++count;
+	}
+	
+	$(msgElement).text("Updating " + count + " items... ");
 }
 
 
