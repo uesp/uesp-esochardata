@@ -802,7 +802,7 @@ g_EsoBuildBuffData =
 		{
 			enabled: false,
 			skillEnabled : false,
-			value : -0.12,
+			value : -0.04,
 			display: '%',
 			statId : "MagickaCost",
 			icon : "/esoui/art/icons/gear_artifactwormcultlight_head_a.png", //TODO: Not the correct one?
@@ -3664,6 +3664,7 @@ ESO_SETEFFECT_MATCHES = [
 		statRequireId: "FoodBuff",
 		statRequireValue: 1,
 		statId: "Health",
+		category: "Skill2", // As of patch 3.1.2 this is calculated differently
 		match: /While you have a food buff active, your Max Health is increased by ([0-9]+)/i,
 	},
 	{
@@ -3676,6 +3677,7 @@ ESO_SETEFFECT_MATCHES = [
 		statRequireId: "DrinkBuff",
 		statRequireValue: 1,
 		statId: "Stamina",
+		//category: "Skill2",  // As of patch 3.1.2 this is still normal +set 
 		match: /While you have a drink buff active, your Max Stamina is increased by ([0-9]+)/i,
 	},
 	{
@@ -3865,6 +3867,24 @@ ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		statId: "UltimateCost",
+		factorValue: -1,
+		display: "%",
+		match: /Reduces the cost of all of your abilities by ([0-9]+)%/i,
+	},
+	{
+		statId: "BlockCost",
+		factorValue: -1,
+		display: "%",
+		match: /Reduces the cost of all of your abilities by ([0-9]+)%/i,
+	},
+	{
+		statId: "SprintCost",
+		factorValue: -1,
+		display: "%",
+		match: /Reduces the cost of all of your abilities by ([0-9]+)%/i,
+	},
+	{
+		statId: "BashCost",
 		factorValue: -1,
 		display: "%",
 		match: /Reduces the cost of all of your abilities by ([0-9]+)%/i,
@@ -4195,7 +4215,13 @@ ESO_SETEFFECT_MATCHES = [
 		//display: '%',
 		//factorValue: -1,
 		buffId: "Worms Raiment",
-		match: /Reduces the cost of your Magicka abilities by ([0-9]+\.?[0-9]*)%/i,
+		match: /Reduces the cost of your Magicka abilities by ([0-9]+\.?[0-9]*)% for you and up to /i,
+	},
+	{
+		statId: "MagickaCost",
+		display: '%',
+		factorValue: -1,
+		match: /Reduces the cost of your Magicka abilities by ([0-9]+\.?[0-9]*)%\./i,
 	},
 	{
 		statId: "UltimateCost",
@@ -8672,7 +8698,7 @@ function OnEsoRequestFindSetItemReceive(data, status, xhr, slotId, monsterSet, e
 {
 	if (slotId == null || slotId == "") return false;
 	
-	EsoBuildLog("OnEsoRequestFindSetItemReceive", slotId, data.length, data);
+	//EsoBuildLog("OnEsoRequestFindSetItemReceive", slotId, data.length, data);
 	
 	var itemData = data[0];
 	var text = msgElement.text();
@@ -12187,7 +12213,7 @@ function EsoBuildEquipSet(setIndexOrName)
 	var setName = g_EsoBuildSetNames[setIndex];
 	
 	g_EsoBuildDumpSetData = setName;
-	EsoBuildLog("Loading items for set '" + setName + "'...");
+	//EsoBuildLog("Loading items for set '" + setName + "'...");
 	
 	EquipSetItem(setName, "Chest", 66, 5);
 	EquipSetItem(setName, "Waist", 66, 5);
@@ -12769,6 +12795,7 @@ function OnEsoEditBuildSetupMonsterSet(element)
 	var count = 0;
 	
 	var monsterSet = $("#esotbItemSetupMonsterSet").val();
+	var qualityVal = parseInt($("#esotbItemSetupMonsterSetQuality").val());
 	var headArmorType = parseInt($("#esotbItemSetupMonsterSetHeadType").val());
 	var shoulderArmorType = parseInt($("#esotbItemSetupMonsterSetShoulderType").val());
 	var headTrait = parseInt($("#esotbItemSetupMonsterSetHeadTrait").val());
@@ -12781,8 +12808,8 @@ function OnEsoEditBuildSetupMonsterSet(element)
 	if (headTrait == 0) headTrait = null;
 	if (shoulderTrait == 0) shoulderTrait = null;
 		
-	if (RequestEsoFindSetItemData('Head', monsterSet, 1, headArmorType, null, 66, 5, headTrait, msgElement)) ++count;
-	if (RequestEsoFindSetItemData('Shoulders', monsterSet, 4, shoulderArmorType, null, 66, 5, shoulderTrait, msgElement)) ++count;
+	if (RequestEsoFindSetItemData('Head', monsterSet, 1, headArmorType, null, 66, qualityVal, headTrait, msgElement)) ++count;
+	if (RequestEsoFindSetItemData('Shoulders', monsterSet, 4, shoulderArmorType, null, 66, qualityVal, shoulderTrait, msgElement)) ++count;
 	
 	$(msgElement).text("Updating " + count + " items... ");
 }
@@ -12795,6 +12822,7 @@ function OnEsoEditBuildSetupEquipSet(element)
 	
 	var setName = $("#esotbItemSetupEquipSet").val();
 	var locationVal = parseInt($("#esotbItemSetupEquipSetLocation").val());
+	var qualityVal = parseInt($("#esotbItemSetupEquipSetQuality").val());
 	var armorTraitVal = parseInt($("#esotbItemSetupEquipSetTraitArmor").val());
 	var weaponTraitVal = parseInt($("#esotbItemSetupEquipSetTraitWeapon").val());
 	var jewelTraitVal = parseInt($("#esotbItemSetupEquipSetTraitJewelry").val());
@@ -13051,19 +13079,19 @@ function OnEsoEditBuildSetupEquipSet(element)
 
 	if (locationVal == 1)
 	{
-		if (RequestEsoFindSetItemData('Chest', setName,  3, armorTypes[0], null, 66, 5, traits[0], msgElement)) ++count;
-		if (RequestEsoFindSetItemData('Legs',  setName,  9, armorTypes[1], null, 66, 5, traits[1], msgElement)) ++count;
-		if (RequestEsoFindSetItemData('Waist', setName,  8, armorTypes[2], null, 66, 5, traits[2], msgElement)) ++count;
-		if (RequestEsoFindSetItemData('Feet',  setName, 10, armorTypes[3], null, 66, 5, traits[3], msgElement)) ++count;
-		if (RequestEsoFindSetItemData('Hands', setName, 13, armorTypes[4], null, 66, 5, traits[4], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('Chest', setName,  3, armorTypes[0], null, 66, qualityVal, traits[0], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('Legs',  setName,  9, armorTypes[1], null, 66, qualityVal, traits[1], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('Waist', setName,  8, armorTypes[2], null, 66, qualityVal, traits[2], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('Feet',  setName, 10, armorTypes[3], null, 66, qualityVal, traits[3], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('Hands', setName, 13, armorTypes[4], null, 66, qualityVal, traits[4], msgElement)) ++count;
 	}
 	else if (locationVal == 2)
 	{
-		if (RequestEsoFindSetItemData('Neck',      setName,     2, null, null, 66, 5, traits[0], msgElement)) ++count;
-		if (RequestEsoFindSetItemData('Ring1',     setName,    12, null, null, 66, 5, traits[1], msgElement)) ++count;
-		if (RequestEsoFindSetItemData('Ring2',     setName,    12, null, null, 66, 5, traits[2], msgElement)) ++count;
-		if (RequestEsoFindSetItemData('MainHand1', setName,     5, null, weaponTypes[0], 66, 5, traits[3], msgElement)) ++count;
-		if (RequestEsoFindSetItemData('OffHand1',  setName, "5,7", null, weaponTypes[1], 66, 5, traits[4], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('Neck',      setName,     2, null, null, 66, qualityVal, traits[0], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('Ring1',     setName,    12, null, null, 66, qualityVal, traits[1], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('Ring2',     setName,    12, null, null, 66, qualityVal, traits[2], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('MainHand1', setName,     5, null, weaponTypes[0], 66, qualityVal, traits[3], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('OffHand1',  setName, "5,7", null, weaponTypes[1], 66, qualityVal, traits[4], msgElement)) ++count;
 	}
 	
 	$(msgElement).text("Updating " + count + " items... ");
