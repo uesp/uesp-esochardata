@@ -444,6 +444,15 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					</select>
 					<p/>
 					
+					Quality <select id="esotbItemSetupMonsterSetQuality" style="">
+						<option value="1">Normal</option>
+						<option value="2">Fine</option>
+						<option value="3">Superior</option>
+						<option value="4">Epic</option>
+						<option value="5">Legendary</option>
+					</select>
+					<p/>
+					
 					Traits: Head <select id="esotbItemSetupMonsterSetHeadTrait" style="">
 						<option value="0">Any</option>
 						<option value="18">Divines</option>
@@ -737,6 +746,15 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					</select>
 					<p/>
 					
+					Quality <select id="esotbItemSetupEquipSetQuality" style="">
+						<option value="1">Normal</option>
+						<option value="2">Fine</option>
+						<option value="3">Superior</option>
+						<option value="4">Epic</option>
+						<option value="5">Legendary</option>
+					</select>
+					<p/>
+					
 					Types <select id="esotbItemSetupEquipSetArmorType" style="width=200px;">
 						<option value="0">Any</option>
 						<option value="500">x5 Light</option>
@@ -877,7 +895,16 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
-			<b>28 June 2017</b>
+			<b>26 July 2017</b>
+			<ul>
+				<li>The Green Pact 5 piece set bonus has been changed to a Skill2 bonus to match the value used in-game (as of update 14 and verified in patch 3.1.2).</li>
+				<li>The 5 piece bonus from Robes of Alteration Mastery now affects SprintCost, BashCost and BlockCost.</li>
+				<li>Fixed the 5 piece bonus of the Seducer set which was incorrectly giving you the buff from the Worm's Raiment set.</li>
+				<li>Correct the value of the Worm's Raiment buff from 12% to 4%.</li>
+				<li>Added a quality option to the monster set/set equip functions on the item tab.</li>
+			</ul>
+			<p>
+			<b>17 July 2017</b>
 			<ul>
 				<li>The Befoul CP now correctly modifies CP.HealingReduction instead of HealingReceived. Note that this stat is not yet used in
 					skill tooltips.</li>

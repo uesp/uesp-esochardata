@@ -506,6 +506,14 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Set.BashCost" => array(
+					"display" => "%",
+			),
+			
+			"Set.BlockCost" => array(
+					"display" => "%",
+			),
+			
 			"Skill.StaminaRegen" => array(
 					"display" => "%",
 			),
