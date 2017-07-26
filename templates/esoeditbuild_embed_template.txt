@@ -902,6 +902,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Fixed the 5 piece bonus of the Seducer set which was incorrectly giving you the buff from the Worm's Raiment set.</li>
 				<li>Correct the value of the Worm's Raiment buff from 12% to 4%.</li>
 				<li>Added a quality option to the monster set/set equip functions on the item tab.</li>
+				<li>Fixed the tooltip for Equilibrium and morphs to no longer be dependant on health (they are fixed values since the MW update).</li>
 			</ul>
 			<p>
 			<b>17 July 2017</b>
