@@ -5867,6 +5867,18 @@ function GetEsoInputValues(mergeComputedStats)
 		GetEsoInputOtherHandItemValues(inputValues, "OffHand1");
 	}
 	
+	g_EsoSkillDestructionElementPrev = g_EsoSkillDestructionElement;
+	g_EsoSkillDestructionElement = "";
+	
+	if (inputValues.WeaponColdStaff > 0)
+		g_EsoSkillDestructionElement = "frost";	
+	else if (inputValues.WeaponShockStaff > 0)
+		g_EsoSkillDestructionElement = "shock";
+	else if (inputValues.WeaponFlameStaff > 0)
+		g_EsoSkillDestructionElement = "flame";
+	
+	UpdateEsoBuildSlottedDestructionSkills();
+	
 	inputValues.ArmorTypes = 0;
 	if (inputValues.ArmorLight  > 0) ++inputValues.ArmorTypes;
 	if (inputValues.ArmorMedium > 0) ++inputValues.ArmorTypes;
@@ -13929,6 +13941,58 @@ function OnEsoTooltipUpdate(event, tooltip)
 {
 	//EsoBuildLog("OnEsoTooltipUpdate");
 	UpdateEsoBuildTooltip(tooltip);	
+}
+
+
+function UpdateEsoBuildSlottedDestructionSkills()
+{
+	var changed = false;
+	
+	//if (g_EsoSkillDestructionElementPrev == g_EsoSkillDestructionElement) return;
+	if (g_EsoSkillDestructionData == null) return;
+	if (g_EsoSkillDestructionElement == null) return;
+	
+	var skillBarItems = $("#esovsSkillBar").children(".esovsSkillBarHighlight").children(".esovsSkillBarItem");
+	
+	skillBarItems.each(function (i, element) {
+		var icon = $(this).children(".esovsSkillBarIcon");
+		var skillId = parseInt(icon.attr('skillid'));
+		var origSkillId = parseInt(icon.attr('origSkillId'));
+		
+		if (skillId < 0 || origSkillId <= 0) return;
+		
+		var skillData = g_SkillsData[skillId];
+		if (skillData == null) return;
+		if (skillData.skillLine != "Destruction Staff") return;
+		
+		var newSkillId = null;
+		
+		for (var origId in g_EsoSkillDestructionData)
+		{
+			var destData = g_EsoSkillDestructionData[origId];
+			
+			if (origId == skillId || destData['flame'] == skillId || destData['frost'] == skillId || destData['shock'] == skillId)
+			{
+				newSkillId = destData[g_EsoSkillDestructionElement];
+				break;
+			}
+		}
+		
+		if (newSkillId == null) return;
+		if (newSkillId == skillId) return;
+		
+		//console.log("Switching destruction skill abilities", skillId, newSkillId, origSkillId);
+		
+		if (g_SkillsData[newSkillId] != null)
+		{
+			icon.attr("src", "//esoicons.uesp.net" + g_SkillsData[newSkillId]['icon'].replace("\.dds", ".png"));
+		}
+		
+		icon.attr("skillId", newSkillId);
+		changed = true;
+	});
+	
+	if (changed) UpdateEsoSkillBarData();
 }
 
 
