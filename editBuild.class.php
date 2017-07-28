@@ -2899,7 +2899,7 @@ class EsoBuildDataEditor
 					"title" => "Bow HA Stamina Restore",
 					"round" => "floor",
 					"compute" => array(
-							"round(EffectiveLevel * 35.26)",
+							"round(EffectiveLevel * 41.28)",
 							"1 + CP.HAStaRestore",
 							"*",
 							"1 + Skill.HAStaRestore",
@@ -2911,7 +2911,7 @@ class EsoBuildDataEditor
 					"title" => "Dual Wield HA Stamina Restore",
 					"round" => "floor",
 					"compute" => array(
-							"round(EffectiveLevel * 21.00)",
+							"round(EffectiveLevel * 48.78)",
 							"1 + CP.HAStaRestore",
 							"*",
 							"1 + Skill.HAStaRestore",
@@ -2923,7 +2923,7 @@ class EsoBuildDataEditor
 					"title" => "2H HA Stamina Restore",
 					"round" => "floor",
 					"compute" => array(
-							"round(EffectiveLevel * 28.26)",
+							"round(EffectiveLevel * 36.76)",
 							"1 + CP.HAStaRestore",
 							"*",
 							"1 + Skill.HAStaRestore",
@@ -2935,7 +2935,7 @@ class EsoBuildDataEditor
 					"title" => "1H+Shield HA Stamina Restore",
 					"round" => "floor",
 					"compute" => array(
-							"round(EffectiveLevel * 23.50)",
+							"round(EffectiveLevel * 30.52)",
 							"1 + CP.HAStaRestore",
 							"*",
 							"1 + Skill.HAStaRestore",
@@ -2943,11 +2943,25 @@ class EsoBuildDataEditor
 					),
 			),
 			
-			"HARestoreDestStaff" => array(
-					"title" => "Destruct HA Magicka Restore",
+			"HARestoreFireFrostStaff" => array(
+					"title" => "Fire/Frost HA Magicka Restore",
 					"round" => "floor",
 					"compute" => array(
-							"round(EffectiveLevel * 37.52)",
+							"round(EffectiveLevel * 42.78)",
+							"Skill2.HAMagRestore",
+							"+",
+							"1 + CP.HAMagRestore",
+							"*",
+							"1 + Skill.HAMagRestore",
+							"*",
+					),
+			),
+			
+			"HARestoreShockStaff" => array(
+					"title" => "Shock HA Magicka Restore",
+					"round" => "floor",
+					"compute" => array(
+							"round(EffectiveLevel * 55.04)",
 							"Skill2.HAMagRestore",
 							"+",
 							"1 + CP.HAMagRestore",
@@ -2961,7 +2975,7 @@ class EsoBuildDataEditor
 					"title" => "Restore HA Magicka Restore",
 					"round" => "floor",
 					"compute" => array(
-							"round(EffectiveLevel * 37.52)",
+							"round(EffectiveLevel * 48.78)",
 							"Skill2.HAMagRestore",
 							"+",
 							"1 + CP.HAMagRestore",
@@ -2978,7 +2992,7 @@ class EsoBuildDataEditor
 					"title" => "Werewolf HA Stamina Restore",
 					"round" => "floor",
 					"compute" => array(
-							"round(EffectiveLevel * 18.76)",
+							"round(EffectiveLevel * 24.5)",
 							"1 + CP.HAStaRestore",
 							"*",
 							"1 + Skill.HAStaRestore",
