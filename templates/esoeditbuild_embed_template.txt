@@ -895,6 +895,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>28 July 2017</b>
+			<ul>
+				<li>Updated heavy attack Magicka/Stamina restore values from Morrowind update.</li>
+			</ul>
+			<p>
 			<b>27 July 2017</b>
 			<ul>
 				<li>The element specific destruction staff skills are now supported. The element used is currently based from your active weapon bar.</li>
