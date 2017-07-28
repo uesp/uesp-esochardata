@@ -2911,7 +2911,7 @@ class EsoBuildDataEditor
 					"title" => "Dual Wield HA Stamina Restore",
 					"round" => "floor",
 					"compute" => array(
-							"round(EffectiveLevel * 48.78)",
+							"round(EffectiveLevel * 25.26)",
 							"1 + CP.HAStaRestore",
 							"*",
 							"1 + Skill.HAStaRestore",
