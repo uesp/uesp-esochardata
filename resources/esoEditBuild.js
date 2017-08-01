@@ -7108,8 +7108,8 @@ function GetEsoInputItemEnchantWeaponValues(inputValues, slotId, itemData, encha
 	var addFinalEffect = false;
 	
 	if (enchantData.isDefaultEnchant) enchantFactor = 1;
-	
-	if (inputValues.Set.EnchantPotency != null) enchantFactor *= (1 + inputValues.Set.EnchantPotency);
+	if (itemData.type != 1) return false;
+	if (inputValues.Set.EnchantPotency != null && itemData.weaponType != 14) enchantFactor *= (1 + inputValues.Set.EnchantPotency);
 	
 	for (var i = 0; i < ESO_ENCHANT_WEAPON_MATCHES.length; ++i)
 	{
@@ -10586,7 +10586,10 @@ function UpdateEsoBuildWeaponEnchantFactor(slotId, inputValues)
 	iconElement.attr("enchantfactor", 0);
 	if (itemData == null || inputValues.Set == null || inputValues.Set.EnchantPotency == null) return;
 	
-	iconElement.attr("enchantfactor", inputValues.Set.EnchantPotency);
+	if (itemData.weaponType == 14)
+		iconElement.attr("enchantfactor", 0);
+	else
+		iconElement.attr("enchantfactor", inputValues.Set.EnchantPotency);
 }
 
 

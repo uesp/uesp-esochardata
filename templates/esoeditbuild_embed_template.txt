@@ -895,6 +895,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>1 August 2017</b>
+			<ul>
+				<li>Fixed Torug's Pact 5 piece bonus from affected equipped shield enchantments.</li>
+			</ul>
+			<p>
 			<b>28 July 2017</b>
 			<ul>
 				<li>Updated heavy attack Magicka/Stamina restore values from Morrowind update.</li>
