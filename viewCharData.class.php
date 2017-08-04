@@ -9,6 +9,25 @@ require_once("/home/uesp/esolog.static/viewAchievements.class.php");
 class EsoCharDataViewer extends EsoBuildDataViewer
 {
 	
+	public $CLOTHING_SLOT_DISPLAYNAMES = array(
+			"Arm Cops" => "(M) Arm Cops",
+			"Belt" => "(M) Belt",
+			"Boots" => "(M) Boots",
+			"Bracers" => "(M) Bracers",
+			"Breeches" => "(L) Breeches",
+			"Epaulets" => "(L) Epaulets",
+			"Gloves" => "(L) Gloves",
+			"Guards" => "(M) Guards",
+			"Hat" => "(L) Hat",
+			"Helmet" => "(M) Helmet",
+			"Jack" => "(M) Jack",
+			"Robe & Shirt" => "(L) Robe & Shirt",
+			"Robe & Jerkin" => "(L) Robe & Shirt",
+			"Sash" => "(L) Sash",
+			"Shoes" => "(L) Shoes",
+		);
+	
+	
 	public function __construct ()
 	{
 		parent::__construct();
@@ -927,7 +946,7 @@ EOT;
 	}
 	
 	
-	public function getAccountResearchData($charId, $craftType)
+	public function getAccountResearchData($charId, $craftType, $slotNameModifier = array())
 	{
 		if ($this->accountStats[$charId] == null) return array("weapons" => array(), "armor" => array());
 		
@@ -1007,52 +1026,55 @@ EOT;
 			$knownCounts[$slotName] = $knownTraitCount;
 			$rawData = preg_replace("#[ ]*\(.*\)#", "", $rawData);
 			$traits = preg_split("#[, ]+#", $rawData, 0, PREG_SPLIT_NO_EMPTY);
+			
+			$saveSlotName = $slotName;
+			if ($slotNameModifier[$slotName] != null) $saveSlotName = $slotNameModifier[$slotName];
 				
-			if (self::$WEAPONS[$slotName])
+			if (self::$WEAPONS[$saveSlotName])
 			{
-				$weaponTraits[$slotName] = array();
+				$weaponTraits[$saveSlotName] = array();
 		
 				$value = 0;
 				if ($knownTraitCount == $totalTraits) $value = 1;
 		
 				foreach (self::$WEAPON_TRAITS as $trait)
 				{
-					$weaponTraits[$slotName][$trait] = $value;
+					$weaponTraits[$saveSlotName][$trait] = $value;
 				}
 		
 				foreach ($traits as $trait)
 				{
 					if (preg_match("#\[([a-zA-Z 0-9\&\-]+)\]#", $trait, $matches))
 					{
-						$weaponTraits[$slotName][$matches[1]] = 1;
+						$weaponTraits[$saveSlotName][$matches[1]] = 1;
 					}
 					else
 					{
-						$weaponTraits[$slotName][$trait] = 1;
+						$weaponTraits[$saveSlotName][$trait] = 1;
 					}
 				}
 			}
 			else
 			{
-				$armorTraits[$slotName] = array();
+				$armorTraits[$saveSlotName] = array();
 		
 				$value = 0;
 				if ($knownTraitCount == $totalTraits) $value = 1;
 		
 				foreach (self::$ARMOR_TRAITS as $trait)
 				{
-					$armorTraits[$slotName][$trait] = $value;
+					$armorTraits[$saveSlotName][$trait] = $value;
 				}
 		
 				foreach ($traits as $trait)
 				{
 					if (preg_match("#\[([a-zA-Z 0-9\&\-]+)\]#", $trait, $matches))
 					{
-						$armorTraits[$slotName][$matches[1]] = 1;
+						$armorTraits[$saveSlotName][$matches[1]] = 1;
 					}
 					else
 					{
-						$armorTraits[$slotName][$trait] = 1;
+						$armorTraits[$saveSlotName][$trait] = 1;
 					}
 				}
 			}
@@ -1224,7 +1246,7 @@ EOT;
 		{
 			$charId = intval($build['id']);
 			$blacksmithData[$charId] = $this->getAccountResearchData($charId, "Blacksmithing");
-			$clothingData[$charId] = $this->getAccountResearchData($charId, "Clothier");
+			$clothingData[$charId] = $this->getAccountResearchData($charId, "Clothier", $this->CLOTHING_SLOT_DISPLAYNAMES);
 			$woodworkData[$charId] = $this->getAccountResearchData($charId, "Woodworking");
 		}
 		

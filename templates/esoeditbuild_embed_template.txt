@@ -449,7 +449,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option value="2">Fine</option>
 						<option value="3">Superior</option>
 						<option value="4">Epic</option>
-						<option value="5">Legendary</option>
+						<option value="5" selected>Legendary</option>
 					</select>
 					<p/>
 					
@@ -751,7 +751,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option value="2">Fine</option>
 						<option value="3">Superior</option>
 						<option value="4">Epic</option>
-						<option value="5">Legendary</option>
+						<option value="5" selected>Legendary</option>
 					</select>
 					<p/>
 					
