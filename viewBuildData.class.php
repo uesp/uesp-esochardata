@@ -1273,6 +1273,7 @@ class EsoBuildDataViewer
 		$search .= "	<div class='ecdSearchLabel'>Build Type</div>";
 		$search .= "	<select name='findbuildtype' id='ecdSearchBuildType'>";
 		$search .= $this->getOptionHtml("", $this->inputSearchBuildType);
+		$search .= $this->getOptionHtml("Health", $this->inputSearchBuildType);
 		$search .= $this->getOptionHtml("Magicka", $this->inputSearchBuildType);
 		$search .= $this->getOptionHtml("Stamina", $this->inputSearchBuildType);
 		$search .= $this->getOptionHtml("Other", $this->inputSearchBuildType);
