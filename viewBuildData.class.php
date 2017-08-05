@@ -1107,6 +1107,7 @@ class EsoBuildDataViewer
 					'{accInvAP}' => $this->getAccountInventoryAP(),
 					'{invTelvar}' => $this->getInventoryTelvar(),
 					'{bankTelvar}' => $this->getBankTelvar(),
+					'{bankVoucher}' => $this->getBankVoucher(),
 					'{accInvTelvar}' => $this->getAccountInventoryTelvar(),
 					'{accInvVoucher}' => $this->getAccountInventoryWritVoucher(),
 					'{invUsedSpace}' => $this->getInventoryUsedSpace(),
@@ -1141,6 +1142,7 @@ class EsoBuildDataViewer
 	public function getAccountInventoryGold() { return ""; }
 	public function getInventoryAP() { return ""; }
 	public function getBankAP() { return ""; }
+	public function getBankVoucher() { return ""; }
 	public function getAccountInventoryAP() { return ""; }
 	public function getInventoryTelvar() { return ""; }
 	public function getInventoryWritVoucher() { return ""; }

@@ -291,7 +291,17 @@ EOT;
 	
 	public function getBankAP() 
 	{ 
-		return $this->getInventoryAP();
+		$telvar = $this->getCharStatField('BankedAP');
+		return number_format(intval($telvar));
+		//return $this->getInventoryAP();
+	}
+	
+	
+	public function getVoucherAP()
+	{
+		$telvar = $this->getCharStatField('BankedWritVoucher');
+		return number_format(intval($telvar));
+		//return $this->getInventoryAP();
 	}
 	
 	
@@ -723,12 +733,14 @@ EOT;
 		
 		$gold = intval($this->getAccountStatsField($maxCharId, 'BankedMoney', 0));
 		$telvar = intval($this->getAccountStatsField($maxCharId, 'BankedTelvarStones', 0));
-		$ap = "-";
-		$voucher = "-";
+		$ap = intval($this->getAccountStatsField($maxCharId, 'BankedAP', 0));
+		$voucher = intval($this->getAccountStatsField($maxCharId, 'BankedWritVouchers', 0));
 		$invUsed = intval($this->getAccountStatsField($maxCharId, 'BankUsedSize', 0));
 		$invTotal = intval($this->getAccountStatsField($maxCharId, 'BankSize', 0));
 		
 		$totalGold += $gold;
+		$totalAP += $ap;
+		$totalVouchers += $voucher;
 		$totalTelvar += $telvar;
 		$totalInvUsed += $invUsed;
 		$totalInv += $invTotal;
