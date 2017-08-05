@@ -535,6 +535,14 @@ class EsoCharDataParser extends EsoBuildDataParser
 			{
 				$result &= $this->saveCharacterInventoryExtraRawData(-1, $account, "__Telvar", $value);
 			}
+			else if ($key == "AP")
+			{
+				$result &= $this->saveCharacterInventoryExtraRawData(-1, $account, "__AP", $value);
+			}
+			else if ($key == "WritVouchers")
+			{
+				$result &= $this->saveCharacterInventoryExtraRawData(-1, $account, "__WritVoucher", $value);
+			}
 			else if ($key == "Size")
 			{
 				$result &= $this->saveCharacterInventoryExtraRawData(-1, $account, "__TotalSpace", $value);
