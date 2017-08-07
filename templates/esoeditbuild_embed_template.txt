@@ -399,7 +399,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Engine Guardian</option>
 					<option>Grothdarr</option>
 					<option>Iceheart</option>
-					<option>Illambris</option>
+					<option>Ilambris</option>
 					<option>Infernal Guardian</option>
 					<option>Kra'gh</option>
 					<option>Lord Warden</option>
@@ -895,6 +895,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>7 August 2017</b>
+			<ul>
+				<li>Fixed a few minor issues with the Ilambris set equipping and tooltip updates.</li>
+			</ul>
+			<p>
 			<b>1 August 2017</b>
 			<ul>
 				<li>Fixed Torug's Pact 5 piece bonus from affected equipped shield enchantments.</li>
