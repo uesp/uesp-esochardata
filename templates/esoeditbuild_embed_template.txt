@@ -898,6 +898,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>7 August 2017</b>
 			<ul>
 				<li>Fixed a few minor issues with the Ilambris set equipping and tooltip updates.</li>
+				<li>Updated the Alteration Mastery 5 piece bonus to include Sneak, Roll Dodge and Break Free cost reductions.</li>
 			</ul>
 			<p>
 			<b>1 August 2017</b>

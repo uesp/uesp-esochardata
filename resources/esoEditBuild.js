@@ -3890,6 +3890,24 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Reduces the cost of all of your abilities by ([0-9]+)%/i,
 	},
 	{
+		statId: "SneakCost",
+		factorValue: -1,
+		display: "%",
+		match: /Reduces the cost of all of your abilities by ([0-9]+)%/i,
+	},
+	{
+		statId: "RollDodgeCost",
+		factorValue: -1,
+		display: "%",
+		match: /Reduces the cost of all of your abilities by ([0-9]+)%/i,
+	},
+	{
+		statId: "BreakFreeCost",	//Assumed
+		factorValue: -1,
+		display: "%",
+		match: /Reduces the cost of all of your abilities by ([0-9]+)%/i,
+	},
+	{
 		statId: "HealingDone",
 		display: "%",
 		match: /Increases your healing done by ([0-9]+)%/i,
