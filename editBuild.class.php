@@ -191,6 +191,11 @@ class EsoBuildDataEditor
 			"CP.TargetRecovery",
 			"CP.InspirationGained",
 			"Skill.DestructionPenetration",
+			"Item.EnchantPotency1",
+			"Item.EnchantCooldown1",
+			"Item.EnchantPotency2",
+			"Item.EnchantCooldown2",
+			"Item.EnchantCooldown",
 	);
 	
 	
@@ -563,6 +568,22 @@ class EsoBuildDataEditor
 			),
 			
 			"Item.WeaponCrit" => array(
+					"display" => "%",
+			),
+			
+			"Item.EnchantPotency1" => array(
+					"display" => "%",
+			),
+			
+			"Item.EnchantCooldown1" => array(
+					"display" => "%",
+			),
+			
+			"Item.EnchantPotency2" => array(
+					"display" => "%",
+			),
+				
+			"Item.EnchantCooldown2" => array(
 					"display" => "%",
 			),
 			
@@ -2044,6 +2065,8 @@ class EsoBuildDataEditor
 							"+",
 							"Buff.SpellPenetration",
 							"+",
+							"Mundus.SpellPenetration",	// Update 15
+							"+",
 					),
 			),
 				
@@ -2064,6 +2087,8 @@ class EsoBuildDataEditor
 							"CP.PhysicalPenetration",
 							"+",
 							"Buff.PhysicalPenetration",
+							"+",
+							"Mundus.PhysicalPenetration",	// Update 15
 							"+",
 					),
 			),

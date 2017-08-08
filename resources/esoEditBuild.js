@@ -4630,13 +4630,13 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Reduce weapon enchantment's internal cooldown by ([0-9]+) second/i,
 	},
 	{
-		setBonusCount: 4,			//TODO: Add to item tooltip?
+		setBonusCount: 4,
 		statId: "EnchantPotency",
 		display: "%",
 		match: /Increases enchantment potency by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		setBonusCount: 4,			//TODO: Add to item tooltip?
+		setBonusCount: 4,
 		statId: "EnchantPotency",
 		display: "%",
 		match: /Increases the potency of your weapon's enchantment by ([0-9]+\.?[0-9]*)%/i,
@@ -6702,11 +6702,11 @@ function GetEsoInputOtherHandItemValues(inputValues, slotId)
 	if (itemData.trait == 16 || itemData.trait == 4)
 	{
 		var rawDesc = RemoveEsoDescriptionFormats(itemData.traitDesc);
-		var results = rawDesc.match(/by ([0-9]+\.?[0-9]*\%?)/);
+		var results = rawDesc.match(/([0-9]+\.?[0-9]*\%?)/g);
 		
 		if (results != null && results.length !== 0) 
 		{
-			var infusedFactor = 1 + parseFloat(results[1])/100;
+			var infusedFactor = 1 + parseFloat(results[0])/100;
 			if (isNaN(infusedFactor) || infusedFactor < 1) infusedFactor = 1;
 			enchantFactor = enchantFactor * infusedFactor;
 		}
@@ -6923,11 +6923,29 @@ function GetEsoInputItemValues(inputValues, slotId)
 		AddEsoItemRawOutput(itemData, "Item.Divines", traitValue/100);
 		AddEsoInputStatSource("Item.Divines", { item: itemData, value: traitValue/100, slotId:slotId });
 	}
-	else if (itemData.trait == 17) //Prosperous
+	else if (itemData.trait == 17) // Prosperous/Invigorating
 	{
+			/* Pre update 15 */
 		inputValues.Item.Prosperous += traitValue/100;
 		AddEsoItemRawOutput(itemData, "Item.Prosperous", traitValue/100);
 		AddEsoInputStatSource("Item.Prosperous", { item: itemData, value: traitValue/100, slotId:slotId });
+		
+			/* Update 15 */
+		/* 
+		traitValue = Math.floor(traitValue);
+		
+		inputValues.Item.HealthRegen += traitValue;
+		AddEsoItemRawOutput(itemData, "Item.HealthRegen", traitValue);
+		AddEsoInputStatSource("Item.HealthRegen", { item: itemData, value: traitValue, slotId:slotId });
+		
+		inputValues.Item.MagickaRegen += traitValue;
+		AddEsoItemRawOutput(itemData, "Item.MagickaRegen", traitValue);
+		AddEsoInputStatSource("Item.MagickaRegen", { item: itemData, value: traitValue, slotId:slotId });
+		
+		inputValues.Item.StaminaRegen += traitValue;
+		AddEsoItemRawOutput(itemData, "Item.StaminaRegen", traitValue);
+		AddEsoInputStatSource("Item.StaminaRegen", { item: itemData, value: traitValue, slotId:slotId });
+		//*/
 	}
 	else if (itemData.trait == 12) //Impenetrable
 	{
@@ -7054,13 +7072,45 @@ function GetEsoInputItemEnchantValues(inputValues, slotId, doWeaponUpdate)
 	if (itemData.trait == 16 || itemData.trait == 4)
 	{
 		var rawDesc = RemoveEsoDescriptionFormats(itemData.traitDesc);
-		var results = rawDesc.match(/by ([0-9]+\.?[0-9]*\%?)/);
+		var results = rawDesc.match(/([0-9]+\.?[0-9]*\%?)/g);
 		
-		if (results != null && results.length !== 0) 
+		if (results != null && results.length !== 0)
 		{
-			var infusedFactor = 1 + parseFloat(results[1])/100;
-			if (isNaN(infusedFactor) || infusedFactor < 1) infusedFactor = 1;
-			enchantFactor = enchantFactor * infusedFactor;
+			var infusedFactor = parseFloat(results[0])/100;
+			if (isNaN(infusedFactor) || infusedFactor < 0) infusedFactor = 0;
+			enchantFactor = enchantFactor * (1 + infusedFactor);
+			
+			if (doWeaponUpdate && (slotId == "MainHand1" || slotId == "OffHand1"))
+			{
+				inputValues.Item.EnchantPotency1 += infusedFactor;
+				AddEsoItemRawOutput(itemData, "Item.EnchantPotency1", infusedFactor);
+				AddEsoInputStatSource("Item.EnchantPotency1", { item: itemData, enchant: enchantData, value: infusedFactor, slotId: slotId });
+			}
+			else if (doWeaponUpdate && (slotId == "MainHand2" || slotId == "OffHand2"))
+			{
+				inputValues.Item.EnchantPotency2 += infusedFactor;
+				AddEsoItemRawOutput(itemData, "Item.EnchantPotency2", infusedFactor);
+				AddEsoInputStatSource("Item.EnchantPotency2", { item: itemData, enchant: enchantData, value: infusedFactor, slotId: slotId });
+			}			
+			
+			if (results.length > 1)
+			{
+				var infusedCooldown = parseFloat(results[1])/100;
+				if (isNaN(infusedCooldown) || infusedCooldown < 0) infusedCooldown = 0;
+				
+				if (doWeaponUpdate && (slotId == "MainHand1" || slotId == "OffHand1"))
+				{
+					inputValues.Item.EnchantCooldown1 += infusedCooldown;
+					AddEsoItemRawOutput(itemData, "Item.EnchantCooldown1", infusedCooldown);
+					AddEsoInputStatSource("Item.EnchantCooldown1", { item: itemData, enchant: enchantData, value: infusedCooldown, slotId: slotId });
+				}
+				else if (doWeaponUpdate && (slotId == "MainHand2" || slotId == "OffHand2"))
+				{
+					inputValues.Item.EnchantCooldown2 += infusedCooldown;
+					AddEsoItemRawOutput(itemData, "Item.EnchantCooldown2", infusedCooldown);
+					AddEsoInputStatSource("Item.EnchantCooldown2", { item: itemData, enchant: enchantData, value: infusedCooldown, slotId: slotId });
+				}
+			}
 		}
 	}
 	
@@ -7335,37 +7385,57 @@ function GetEsoInputMundusNameValues(inputValues, mundusName)
 	
 	if (mundusName == "The Lady")
 	{
+			// Preupdate 15
 		inputValues.Mundus.PhysicalResist = 1980; //30*66
 		AddEsoInputStatSource("Mundus.PhysicalResist", { mundus: mundusName, value: inputValues.Mundus.PhysicalResist });
+		
+			// Update 15
+		//inputValues.Mundus.PhysicalResist = 2752;
+		//inputValues.Mundus.SpellResist = 2752;
+		//AddEsoInputStatSource("Mundus.PhysicalResist", { mundus: mundusName, value: inputValues.Mundus.PhysicalResist });
+		//AddEsoInputStatSource("Mundus.SpellResist", { mundus: mundusName, value: inputValues.Mundus.SpellResist });
+		
 	}
 	else if (mundusName == "The Lover")
 	{
-		inputValues.Mundus.SpellResist = 1980;	//30*66
+			// Preupdate 15
+		inputValues.Mundus.SpellResist = 1980;	// 30*66
 		AddEsoInputStatSource("Mundus.SpellResist", { mundus: mundusName, value: inputValues.Mundus.SpellResist });
+		
+			// Update 15
+		//inputValues.Mundus.SpellPenetration = 2752;
+		//inputValues.Mundus.PhysicalPenetration = 2752;
+		//AddEsoInputStatSource("Mundus.SpellPenetration", { mundus: mundusName, value: inputValues.Mundus.SpellPenetration });
+		//AddEsoInputStatSource("Mundus.PhysicalPenetration", { mundus: mundusName, value: inputValues.Mundus.PhysicalPenetration });		
 	}
 	else if (mundusName == "The Lord")
 	{
-		inputValues.Mundus.Health = 1452;	//22*66
+		inputValues.Mundus.Health = 1452;		// 22*66
+		//inputValues.Mundus.Health = 2231;		// Update 15
 		AddEsoInputStatSource("Mundus.Health", { mundus: mundusName, value: inputValues.Mundus.Health });
 	}
 	else if (mundusName == "The Mage")
 	{
-		inputValues.Mundus.Magicka = 1320;	//20*66
+		inputValues.Mundus.Magicka = 1320;		// 20*66
+		//inputValues.Mundus.Magicka = 2028;	// Update 15
 		AddEsoInputStatSource("Mundus.Magicka", { mundus: mundusName, value: inputValues.Mundus.Magicka });
 	}
 	else if (mundusName == "The Tower")
 	{
-		inputValues.Mundus.Stamina = 1320;//20*66
+		inputValues.Mundus.Stamina = 1320;		// 20*66
+		//inputValues.Mundus.Stamina = 2028;	// Update 15
 		AddEsoInputStatSource("Mundus.Stamina", { mundus: mundusName, value: inputValues.Mundus.Stamina });
 	}
 	else if (mundusName == "The Atronach")
 	{
-		inputValues.Mundus.MagickaRegen = 198;	//3*66
+		inputValues.Mundus.MagickaRegen = 198;		// 3*66
+		//inputValues.Mundus.MagickaRegen = 238;	// Update 15
 		AddEsoInputStatSource("Mundus.MagickaRegen", { mundus: mundusName, value: inputValues.Mundus.MagickaRegen });
 	}
 	else if (mundusName == "The Serpent")
 	{
-		inputValues.Mundus.StaminaRegen = 198;	//3*66
+		inputValues.Mundus.StaminaRegen = 198;		// 3*66
+		//inputValues.Mundus.StaminaRegen = 238;	// Update 15
 		AddEsoInputStatSource("Mundus.StaminaRegen", { mundus: mundusName, value: inputValues.Mundus.StaminaRegen });
 	}
 	else if (mundusName == "The Shadow")
@@ -7380,24 +7450,29 @@ function GetEsoInputMundusNameValues(inputValues, mundusName)
 	}
 	else if (mundusName == "The Thief")
 	{
-		inputValues.Mundus.SpellCrit = 0.11;
+		inputValues.Mundus.SpellCrit = 0.11;		// Preupdate 15
 		inputValues.Mundus.WeaponCrit = 0.11;
+		//inputValues.Mundus.SpellCrit = 0.09;		// Update 15
+		//inputValues.Mundus.WeaponCrit = 0.09;
 		AddEsoInputStatSource("Mundus.SpellCrit", { mundus: mundusName, value: inputValues.Mundus.SpellCrit });
 		AddEsoInputStatSource("Mundus.WeaponCrit", { mundus: mundusName, value: inputValues.Mundus.WeaponCrit });
 	}
 	else if (mundusName == "The Warrior")
 	{
-		inputValues.Mundus.WeaponDamage = 166;
+		inputValues.Mundus.WeaponDamage = 167;	// Preupdate 15
+		//inputValues.Mundus.WeaponDamage = 238;	// Update 15
 		AddEsoInputStatSource("Mundus.WeaponDamage", { mundus: mundusName, value: inputValues.Mundus.WeaponDamage });
 	}
 	else if (mundusName == "The Apprentice")
 	{
-		inputValues.Mundus.SpellDamage = 166;
+		inputValues.Mundus.SpellDamage = 167; // Preupdate 15
+		//inputValues.Mundus.SpellDamage = 238; // Update 15
 		AddEsoInputStatSource("Mundus.SpellDamage", { mundus: mundusName, value: inputValues.Mundus.SpellDamage });
 	}
 	else if (mundusName == "The Steed")
 	{
-		inputValues.Mundus.HealthRegen = 198;	//3*66
+		inputValues.Mundus.HealthRegen = 198;	// 3*66, preupdate 15
+		//inputValues.Mundus.HealthRegen = 238;	// Update 15
 		inputValues.Mundus.MovementSpeed = 0.05;
 		AddEsoInputStatSource("Mundus.HealthRegen",   { mundus: mundusName, value: inputValues.Mundus.HealthRegen });
 		AddEsoInputStatSource("Mundus.MovementSpeed", { mundus: mundusName, value: inputValues.Mundus.MovementSpeed });
