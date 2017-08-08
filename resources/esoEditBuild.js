@@ -7534,7 +7534,8 @@ function GetEsoInputCPValues(inputValues)
 	var itemData = g_EsoBuildItemData.OffHand1;
 	if (g_EsoBuildActiveWeapon == 2) itemData = g_EsoBuildItemData.OffHand2;
 	
-	if (itemData.weaponType == 14 && g_EsoCpData['Shield Expert'].isUnlocked)
+		// Preupdate 15
+	if (itemData.weaponType == 14 && g_EsoCpData['Shield Expert'] != null && g_EsoCpData['Shield Expert'].isUnlocked)
 	{
 		var extraBonus = Math.floor(itemData.armorRating * 0.75);
 		
@@ -7542,6 +7543,16 @@ function GetEsoInputCPValues(inputValues)
 		inputValues.Item.PhysicalResist += extraBonus;
 		AddEsoInputStatSource("Item.SpellResist", { cp: "Shield Expert", abilityId: g_EsoCpData['Shield Expert'].id, value: extraBonus });
 		AddEsoInputStatSource("Item.PhysicalResist", { cp: "Shield Expert", abilityId: g_EsoCpData['Shield Expert'].id, value: extraBonus });
+	}
+		// Update 15
+	else if ((itemData.weaponType == 13 || itemData.weaponType == 14) && g_EsoCpData['Bulwark'] != null && g_EsoCpData['Bulwark'].isUnlocked)	
+	{
+		var extraBonus = 1500;
+		
+		inputValues.Item.SpellResist += extraBonus;
+		inputValues.Item.PhysicalResist += extraBonus;
+		AddEsoInputStatSource("Item.SpellResist", { cp: "Bulwark", abilityId: g_EsoCpData['Bulwark'].id, value: extraBonus });
+		AddEsoInputStatSource("Item.PhysicalResist", { cp: "Bulwark", abilityId: g_EsoCpData['Bulwark'].id, value: extraBonus });
 	}
 	
 		/* Steed (4) */
