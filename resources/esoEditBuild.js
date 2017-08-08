@@ -7532,7 +7532,13 @@ function GetEsoInputCPValues(inputValues)
 	ParseEsoCPValue(inputValues, ["MagicDamageTaken", "FlameDamageTaken", "ColdDamageTaken", "ShockDamageTaken"], 63843, null, null, -1);
 	
 	var itemData = g_EsoBuildItemData.OffHand1;
-	if (g_EsoBuildActiveWeapon == 2) itemData = g_EsoBuildItemData.OffHand2;
+	var slotId = "OffHand1";
+	
+	if (g_EsoBuildActiveWeapon == 2) 
+	{
+		itemData = g_EsoBuildItemData.OffHand2;
+		slotId = "OffHand2";
+	}
 	
 		// Preupdate 15
 	if (itemData.weaponType == 14 && g_EsoCpData['Shield Expert'] != null && g_EsoCpData['Shield Expert'].isUnlocked)
@@ -7543,6 +7549,13 @@ function GetEsoInputCPValues(inputValues)
 		inputValues.Item.PhysicalResist += extraBonus;
 		AddEsoInputStatSource("Item.SpellResist", { cp: "Shield Expert", abilityId: g_EsoCpData['Shield Expert'].id, value: extraBonus });
 		AddEsoInputStatSource("Item.PhysicalResist", { cp: "Shield Expert", abilityId: g_EsoCpData['Shield Expert'].id, value: extraBonus });
+		
+		var element = $(".esotbItem[slotid='" + slotId + "']");
+		var iconElement = element.find(".esotbItemIcon");
+		iconElement.attr("extraArmor", extraBonus);
+		
+		AddEsoItemRawOutputString(itemData, "SpellResist from Shield Expert", extraBonus);
+		AddEsoItemRawOutputString(itemData, "PhysicalResist from Shield Expert", extraBonus);
 	}
 		// Update 15
 	else if ((itemData.weaponType == 13 || itemData.weaponType == 14) && g_EsoCpData['Bulwark'] != null && g_EsoCpData['Bulwark'].isUnlocked)	
@@ -7553,6 +7566,13 @@ function GetEsoInputCPValues(inputValues)
 		inputValues.Item.PhysicalResist += extraBonus;
 		AddEsoInputStatSource("Item.SpellResist", { cp: "Bulwark", abilityId: g_EsoCpData['Bulwark'].id, value: extraBonus });
 		AddEsoInputStatSource("Item.PhysicalResist", { cp: "Bulwark", abilityId: g_EsoCpData['Bulwark'].id, value: extraBonus });
+		
+		var element = $(".esotbItem[slotid='" + slotId + "']");
+		var iconElement = element.find(".esotbItemIcon");
+		iconElement.attr("extraArmor", extraBonus);
+		
+		AddEsoItemRawOutputString(itemData, "SpellResist from Bulwark", extraBonus);
+		AddEsoItemRawOutputString(itemData, "PhysicalResist from Bulwark", extraBonus);
 	}
 	
 		/* Steed (4) */
@@ -8381,6 +8401,7 @@ function UnequipEsoItemSlot(slotId, update)
 	iconElement.attr("inttype", "");
 	iconElement.attr("setcount", "");
 	iconElement.attr("enchantfactor", "");
+	iconElement.attr("extraarmor", "");
 		
 	g_EsoBuildItemData[slotId] = {};
 	
@@ -8438,6 +8459,7 @@ function OnEsoSelectItem(itemData, element)
 	iconElement.attr("inttype", itemData.internalSubtype);
 	iconElement.attr("setcount", "0");
 	iconElement.attr("enchantfactor", "0");
+	iconElement.attr("extraarmor", "0");
 	
 	UpdateWeaponEquipSlots(itemData, slotId);
 	
@@ -8861,6 +8883,7 @@ function OnEsoRequestFindSetItemReceive(data, status, xhr, slotId, monsterSet, e
 	iconElement.attr("inttype", tempItemData.internalSubtype);
 	iconElement.attr("setcount", "0");
 	iconElement.attr("enchantfactor", "0");
+	iconElement.attr("extraarmor", "0");	
 	
 	RequestEsoItemData(tempItemData, element);	
 }
@@ -12400,6 +12423,7 @@ function OnEsoSetItemDataReceive(data, status, xhr, slotId)
 	iconElement.attr("inttype", itemData.internalSubtype);
 	iconElement.attr("setcount", "0");
 	iconElement.attr("enchantfactor", "0");
+	iconElement.attr("extraarmor", "0");
 	
 	UpdateWeaponEquipSlots(itemData, slotId);
 	
