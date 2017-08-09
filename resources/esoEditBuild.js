@@ -7683,7 +7683,12 @@ function ParseEsoCPValue(inputValues, statIds, abilityId, discId, unlockLevel, s
 	
 	var value = parseFloat(results[1]);
 	var lastChar = results[1].slice(-1);
-	if (lastChar == "%") value = value/100;
+	
+	if (lastChar == "%") 
+	{
+		value = Math.floor(value); // Jump points
+		value = value/100;		
+	}
 	
 	if (statFactor != null) value *= statFactor;
 
