@@ -771,11 +771,12 @@ g_EsoBuildBuffData =
 		{
 			enabled: false,
 			skillEnabled : false,
-			value : 0.08,
+			value : 0.05,
 			display: "%",
 			category: "Buff",
 			statId : "Stamina",
 			statDesc : "Increases your Max Stamina by ",
+			description: "Random event for the Lightbringer achievement.",
 			icon : "/esoui/art/icons/quest_small_furnishing_001.png",
 		},
 		"Blade Cloak" : 
