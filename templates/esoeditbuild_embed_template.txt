@@ -895,6 +895,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>10 August 2017</b>
+			<ul>
+				<li>The Vampire Drain Essence skill and morphs now have their heal effect modified by Healing Done.</li>
+			</ul>
+			<p>
 			<b>9 August 2017</b>
 			<ul>
 				<li>Shield tooltips now include the Shield Expert/Bulwark CP passive effect.</li>
