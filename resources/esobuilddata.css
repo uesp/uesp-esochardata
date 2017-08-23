@@ -1731,7 +1731,7 @@ thead.ecdFixedHeader tr {
 	border-radius: 5px;
 }
 
-.ecdAchievement1:hover {
+.ecdSelectAchievement1:hover {
 	background-color: #447A7E;
 	cursor: pointer;	
 }
