@@ -2516,6 +2516,22 @@ class EsoBuildDataEditor
 			),
 			
 			/*
+			 * BashCost: Confirmed Update 15
+			 */
+			"BashDamage" => array(
+					"warning" => "This is the base damage for bashing a non-casting opponent.",
+					"title" => "Bash Damage",
+					"round" => "floor",
+					"compute" => array(
+							"floor((WeaponDamage + Item.BashDamage)*0.5)",
+							"1 + Skill.BashDamage",
+							"*",
+							"1 + CP.DirectDamageDone + CP.PhysicalDamageDone + Buff.Empower + Skill.PhysicalDamageDone + Skill.DamageDone",
+							"*",
+					),
+			),
+			
+			/*
 			 * BlockCost Confirmed
 			 * (Base*CP*Sturdy*Fortress - Enchants)*(Defensive Posture)
 			 */
