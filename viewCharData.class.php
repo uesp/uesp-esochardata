@@ -1080,14 +1080,9 @@ EOT;
 		
 				foreach ($traits as $trait)
 				{
-					if (preg_match("#\[([a-zA-Z 0-9\&\-]+)\]#", $trait, $matches))
-					{
-						$armorTraits[$saveSlotName][$matches[1]] = 1;
-					}
-					else
-					{
-						$armorTraits[$saveSlotName][$trait] = 1;
-					}
+					if (preg_match("#\[([a-zA-Z 0-9\&\-]+)\]#", $trait, $matches)) $trait = $matches[1];
+					if ($trait == "Prosperous") $trait = "Invigorating";
+					$armorTraits[$saveSlotName][$trait] = 1;
 				}
 			}
 		}

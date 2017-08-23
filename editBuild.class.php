@@ -82,7 +82,7 @@ class EsoBuildDataEditor
 	public $STATS_UNIQUE_LIST = array(
 			"Item.Divines",
 			"Item.Sturdy",
-			"Item.Prosperous",
+			//"Item.Prosperous",
 			"Item.Training",
 			"Item.MaelstromDamage",
 			"ArmorLight",
@@ -325,14 +325,15 @@ class EsoBuildDataEditor
 			"HAStaRestore",
 			"BossDamageDone",
 			"BossDamageTaken",
+			"BleedDamage",
 	);
 	
 	
 	public $MUNDUS_TYPES = array(
 			"The Apprentice" 	=> "Spell Damage",
 			"The Atronach" 		=> "Magicka Recovery",
-			"The Lady" 			=> "Physical Resist",
-			"The Lover" 		=> "Spell Resist",
+			"The Lady" 			=> "Resistance",
+			"The Lover" 		=> "Penetration",
 			"The Lord" 			=> "Health",
 			"The Mage" 			=> "Magicka",
 			"The Ritual" 		=> "Healing",
@@ -1665,8 +1666,6 @@ class EsoBuildDataEditor
 							"+",
 							"Mundus.Health",
 							"+",
-							"floor(Mundus.Health * Item.Divines)",
-							"+",
 							"1 + Skill.Health + Buff.Health",
 							"*",
 					),
@@ -1697,8 +1696,6 @@ class EsoBuildDataEditor
 							"+",
 							"Skill2.Magicka",
 							"+",
-							"floor(Mundus.Magicka * Item.Divines)",
-							"+",
 							"1 + Skill.Magicka + Buff.Magicka",
 							"*",
 					),
@@ -1728,8 +1725,6 @@ class EsoBuildDataEditor
 							"+",
 							"Mundus.Stamina",
 							"+",
-							"floor(Mundus.Stamina * Item.Divines)",
-							"+",
 							"1 + Skill.Stamina + Buff.Stamina",
 							"*",
 					),
@@ -1748,8 +1743,6 @@ class EsoBuildDataEditor
 							"Set.HealthRegen",
 							"+",
 							"Mundus.HealthRegen",
-							"+",
-							"floor(Mundus.HealthRegen * Item.Divines)",
 							"+",
 							"Food.HealthRegen",
 							"1/(1 + Skill2.HealthRegen)",
@@ -1775,8 +1768,6 @@ class EsoBuildDataEditor
 							"Set.MagickaRegen",
 							"+",
 							"Mundus.MagickaRegen",
-							"+",
-							"floor(Mundus.MagickaRegen * Item.Divines)",
 							"+",
 							"Food.MagickaRegen",
 							"1/(1 + Skill2.MagickaRegen)",
@@ -1804,8 +1795,6 @@ class EsoBuildDataEditor
 							"+",
 							"Mundus.StaminaRegen",
 							"+",
-							"floor(Mundus.StaminaRegen * Item.Divines)",
-							"+",
 							"Food.StaminaRegen",
 							"1/(1 + Skill2.StaminaRegen)",
 							"*",
@@ -1829,8 +1818,6 @@ class EsoBuildDataEditor
 							"+",
 							"Mundus.SpellDamage",
 							"+",
-							"floor(Mundus.SpellDamage * Item.Divines)",
-							"+",
 							"1 + Skill.SpellDamage + Buff.SpellDamage",
 							"*",							
 					),
@@ -1848,8 +1835,6 @@ class EsoBuildDataEditor
 							"Set.WeaponDamage",
 							"+",
 							"Mundus.WeaponDamage",
-							"+",
-							"floor(Mundus.WeaponDamage * Item.Divines)",
 							"+",
 							"1 + Skill.WeaponDamage + Buff.WeaponDamage",
 							"*",
@@ -1877,8 +1862,6 @@ class EsoBuildDataEditor
 							"Item.SpellCrit",
 							"+",
 							"Mundus.SpellCrit",
-							"+",
-							"Mundus.SpellCrit * Item.Divines",
 							"+",
 							"Skill.SpellCrit",
 							"+",
@@ -1909,8 +1892,6 @@ class EsoBuildDataEditor
 							"+",
 							"Mundus.WeaponCrit",
 							"+",
-							"Mundus.WeaponCrit * Item.Divines",
-							"+",
 							"Skill.WeaponCrit",
 							"+",
 							"CP.WeaponCrit",
@@ -1930,8 +1911,6 @@ class EsoBuildDataEditor
 							"Skill.CritDamage",
 							"+",
 							"Mundus.CritDamage",
-							"+",
-							"Mundus.CritDamage * Item.Divines",
 							"+",
 							"Set.CritDamage",
 							"+",
@@ -1960,8 +1939,6 @@ class EsoBuildDataEditor
 							"+",
 							"Mundus.CritDamage",
 							"+",
-							"Mundus.CritDamage * Item.Divines",
-							"+",
 							"Set.CritDamage",
 							"+",
 							"Item.CritDamage",
@@ -1988,8 +1965,6 @@ class EsoBuildDataEditor
 							"+",
 							"Mundus.SpellResist",
 							"+",
-							"floor(Mundus.SpellResist * Item.Divines)",
-							"+",
 							"Set.SpellResist",
 							"+",
 							"Skill.SpellResist",
@@ -2013,8 +1988,6 @@ class EsoBuildDataEditor
 							"Skill2.PhysicalResist",
 							"+",
 							"Mundus.PhysicalResist",
-							"+",
-							"floor(Mundus.PhysicalResist * Item.Divines)",
 							"+",
 							"Set.PhysicalResist",
 							"+",
@@ -2209,8 +2182,6 @@ class EsoBuildDataEditor
 							"+",
 							"Mundus.HealingDone",
 							"+",
-							"floor(Mundus.HealingDone * Item.Divines * 100)/100",
-							"+",
 					),
 			),
 			
@@ -2393,8 +2364,6 @@ class EsoBuildDataEditor
 							"Skill.MovementSpeed",
 							"+",
 							"Mundus.MovementSpeed",
-							"1 + Item.Divines",
-							"*",
 							"+",
 							"*",
 							"1 + CP.MovementSpeed",
@@ -2420,8 +2389,6 @@ class EsoBuildDataEditor
 							"Skill.SprintSpeed",
 							"+",
 							"Mundus.MovementSpeed",
-							"1 + Item.Divines",
-							"*",
 							"+",
 							"*",							
 							"1 + CP.MovementSpeed",
@@ -2441,8 +2408,6 @@ class EsoBuildDataEditor
 							"*",
 							"1 + Buff.MovementSpeed",
 							"Mundus.MovementSpeed",
-							"1 + Item.Divines",
-							"*",
 							"+",
 							"CP.MovementSpeed",
 							"+",
@@ -2466,8 +2431,6 @@ class EsoBuildDataEditor
 							"Skill.MovementSpeed",
 							"+",
 							"Mundus.MovementSpeed",
-							"1 + Item.Divines",
-							"*",
 							"+",
 							"*",
 							"1 + Skill2.SneakSpeed",
@@ -3513,15 +3476,16 @@ class EsoBuildDataEditor
 			),
 			
 			/*
-			 * Prosperous Confirmed
+			 * Prosperous Confirmed (Pre-Update 15)
 			 */
+			/*
 			"Prosperous" => array(
 					"title" => "Prosperous Trait",
 					"display" => "%",
 					"compute" => array(
 							"Item.Prosperous",
 					),
-			),
+			), */
 			
 			/*
 			 * Sturdy Confirmed
@@ -4705,14 +4669,25 @@ class EsoBuildDataEditor
 	
 	public function SetSessionData()
 	{
+		global $_SESSION;
+		
 		if ($this->wikiContext == null) return $this->ReportError("Failed to setup session data!");
 		
 		$request = $this->wikiContext->getRequest();
 		if ($request == null) return $this->ReportError("Failed to setup session data!");
 		
-		$request->setSessionData( 'UESP_ESO_canEditBuild', $this->buildDataViewer->canWikiUserEdit() );
-		$request->setSessionData( 'UESP_ESO_canDeleteBuild', $this->buildDataViewer->canWikiUserDelete() );
-		$request->setSessionData( 'UESP_ESO_canCreateBuild', $this->buildDataViewer->canWikiUserCreate() );
+		//$request->setSessionData( 'UESP_ESO_canEditBuild', $this->buildDataViewer->canWikiUserEdit() );
+		//$request->setSessionData( 'UESP_ESO_canDeleteBuild', $this->buildDataViewer->canWikiUserDelete() );
+		//$request->setSessionData( 'UESP_ESO_canCreateBuild', $this->buildDataViewer->canWikiUserCreate() );
+		$_SESSION['UESP_ESO_canEditBuild']   = $this->buildDataViewer->canWikiUserEdit();
+		$_SESSION['UESP_ESO_canDeleteBuild'] = $this->buildDataViewer->canWikiUserDelete();
+		$_SESSION['UESP_ESO_canCreateBuild'] = $this->buildDataViewer->canWikiUserCreate();
+		
+		//$val = $request->getSessionData('UESP_ESO_canEditBuild');
+		//$val = $_SESSION['UESP_ESO_canEditBuild'];
+		//$val1 = $this->buildDataViewer->canWikiUserEdit();
+		
+		//error_log("EsoBuildSetSession: '$val' = '$val1'");
 	}
 	
 		

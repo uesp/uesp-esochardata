@@ -4,7 +4,8 @@
 	<button id="esotbCreateCopyButton" {createCopyButtonDisabled}>Create Copy</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #ccf; display: inline-block;'>
+<div style='background-color: #cfc; display: flex;'>
+Note: The build editor is now updated for the Horns of the Reach (update 15) patch.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -264,8 +265,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option value="18">Divines</option>
 					<option value="12">Impenetrable</option>
 					<option value="16">Infused</option>
-					<option value="25">Nirnhoned</option>
-					<option value="17">Prosperous</option>
+					<option value="17">Invigorating</option>
+					<option value="25">Nirnhoned</option>					
 					<option value="13">Reinforced</option>
 					<option value="11">Sturdy</option>
 					<option value="15">Training</option>
@@ -458,8 +459,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option value="18">Divines</option>
 						<option value="12">Impenetrable</option>
 						<option value="16">Infused</option>
-						<option value="25">Nirnhoned</option>
-						<option value="17">Prosperous</option>
+						<option value="17">Invigorating</option>
+						<option value="25">Nirnhoned</option>						
 						<option value="13">Reinforced</option>
 						<option value="11">Sturdy</option>
 						<option value="15">Training</option>
@@ -471,8 +472,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option value="18">Divines</option>
 						<option value="12">Impenetrable</option>
 						<option value="16">Infused</option>
-						<option value="25">Nirnhoned</option>
-						<option value="17">Prosperous</option>
+						<option value="17">Invigorating</option>
+						<option value="25">Nirnhoned</option>						
 						<option value="13">Reinforced</option>
 						<option value="11">Sturdy</option>
 						<option value="15">Training</option>
@@ -895,6 +896,45 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>22 August 2017</b>
+			<ul>
+				<li>Item data updated.</li>
+				<li>Fixed armor enchantments that were not working.</li>
+				<li>Fixed enchantment display on "small" armor items.</li>
+				<li>Fixed the Bash Damage jewelry enchantment.</li>
+			</ul>
+			<p>
+			<b>18 August 2017</b>
+			<ul>
+				<li>Fixed The Lover mundus divine bonus.</li>
+			</ul>
+			<p>
+			<b>17 August 2017</b>
+			<ul>
+				<li>Fixed the Twin Blade and Blunt passive for Daggers and the Warden passives related to skills slotted.</li>
+			</ul>
+			<p>
+			<b>16 August 2017</b>
+			<ul>
+				<li>Divine bonuses are moved out from the stat calculation and are now listed as a seperate stat bonus for easier tracking.<li>
+				<li>Fixed one issue that was preventing builds from being saved for some people.</li>
+			</ul>
+			<p>
+			<b>15 August 2017</b>
+			<ul>
+				<li>Fixed The Apprentice from not having a buff icon in saved builds.</li>
+				<li>Added base stat values to mundus buffs in saved builds.</li>
+				<li>Major/Minor Defile now affect Health Regen in the Skill2 slot (verified in-game). Minor Defile adjusted to 15% from 8%.</li>
+				<li>The Lover mundus now includes effects from Divine items.</li>
+			</ul>
+			<p>
+			<b>14 August 2017</b>
+			<ul>
+				<li>Mundus values updated from the Horns of the Reach patch (update 15).</li>
+				<li>Prosperous trait changed to the Invigorating trait.</li>
+				<li>Skills and Champion Point data have been updated. Skills with changed descriptions may not work until fixed (let us know if you find any broken skills).</li>
+			</ul>
+			<p>
 			<b>10 August 2017</b>
 			<ul>
 				<li>The Vampire Drain Essence skill and morphs now have their heal effect modified by Healing Done.</li>

@@ -118,65 +118,72 @@ var ESO_ITEMQUALITYLEVEL_INTTYPEMAP_JEWELRY =
 
 ESO_MUNDUS_BUFF_DATA = 
 {
+	"The Apprentice" : {
+		abilityId: 13979,
+		icon : "/esoui/art/icons/ability_mundusstones_008.png",
+		description: "Increases your Spell Damage by 238.",
+	},
 	"The Atronach" : {
 		abilityId: 13982,
 		icon : "/esoui/art/icons/ability_mundusstones_009.png",
-		description: "Increases your Magicka Recovery.",
+		description: "Increases your Magicka Recovery by 238.",
 	},
 	"The Lady" : {
 		abilityId: 13976,
 		icon : "/esoui/art/icons/ability_mundusstones_005.png",
-		description: "Increases your Physical Resistance.",
+		//description: "Increases your Physical Resistance.",
+		description: "Increases your Spell and Physical Resistance by 2752.",
 	},
 	"The Lover" : {
 		abilityId: 13981,
 		icon : "/esoui/art/icons/ability_mundusstones_011.png",
-		description: "Increases your Spell Resistance.",
+		//description: "Increases your Spell Resistance.",
+		description: "Increases your Spell and Physical Penetration by 2752.",
 	},
 	"The Lord" : {
 		abilityId: 13978,
 		icon : "/esoui/art/icons/ability_mundusstones_007.png",
-		description: "Increases your Maximum Health.",
+		description: "Increases your Maximum Health by 2231.",
 	},
 	"The Mage" : {
 		abilityId: 13943,
 		icon : "/esoui/art/icons/ability_mundusstones_002.png",
-		description: "Increases your Maximum Magicka.",
+		description: "Increases your Maximum Magicka by 2028.",
 	},
 	"The Ritual" : {
 		abilityId: 13980,
 		icon : "/esoui/art/icons/ability_mundusstones_010.png",
-		description: "Increases your Healing Done.",
+		description: "Increases your Healing Done by 10%.",
 	},
 	"The Serpent" : {
 		abilityId: 13974,
 		icon : "/esoui/art/icons/ability_mundusstones_004.png",
-		description: "Increases your Stamina Recovery.",
+		description: "Increases your Stamina Recovery by 238.",
 	},
 	"The Shadow" : {
 		abilityId: 13984,
 		icon : "/esoui/art/icons/ability_mundusstones_012.png",
-		description: "Increases your Critical Strike Damage.",
+		description: "Increases your Critical Strike Damage by 9%.",
 	},
 	"The Steed" : {
 		abilityId: 13977,
 		icon : "/esoui/art/icons/ability_mundusstones_006.png",
-		description: "Increases your Movement Speed and Health Recovery.",
+		description: "Increases your Movement Speed by 5% and Health Recovery by 238.",
 	},
 	"The Thief" : {
 		abilityId: 13975,
 		icon : "/esoui/art/icons/ability_mundusstones_003.png",
-		description: "Increases your Critical Strike Chance.",
+		description: "Increases your Critical Strike Chance by 7%.",
 	},
 	"The Tower" : {
 		abilityId: 13985,
 		icon : "/esoui/art/icons/ability_mundusstones_013.png",
-		description: "Increases your Maximum Stamina.",
+		description: "Increases your Maximum Stamina by 2028.",
 	},
 	"The Warrior" : {
 		abilityId: 13985,
 		icon : "/esoui/art/icons/ability_mundusstones_001.png",
-		description: "Increases your Weapon Damage.",
+		description: "Increases your Weapon Damage by 238.",
 	},
 };
 
@@ -592,16 +599,18 @@ g_EsoBuildBuffData =
 			skillEnabled : false,
 			value : -0.30,
 			display: "%",
-			statId : "HealingTaken",
+			categories : [  "Buff", "Skill2" ],
+			statIds : [ "HealingTaken", "HealthRegen" ],
 			icon : "/esoui/art/icons/ability_nightblade_001_a.png",
 		},
 		"Minor Defile" : 
 		{
 			enabled: false,
 			skillEnabled : false,
-			value : -0.08,
+			value : -0.15,
 			display: "%",
-			statId : "HealingTaken",
+			categories : [ "Buff", "Skill2" ],
+			statIds : [ "HealingTaken", "HealthRegen" ],
 			icon : "/esoui/art/icons/ability_nightblade_001_b.png",
 		},
 		"Major Heroism" : 
@@ -3585,6 +3594,11 @@ ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		category: "SkillBonusSpellDmg",
+		statId: "Cold",
+		match: /Adds ([0-9]+) Spell Damage to your Frost Damage abilities/i,
+	},
+	{
+		category: "SkillBonusSpellDmg",
 		statId: "Magic",
 		match: /Adds ([0-9]+) Spell Damage to your Magic Damage abilities/i,
 	},
@@ -3988,6 +4002,10 @@ ESO_SETEFFECT_MATCHES = [
 		statId: "SpellDamage",
 		match: /Adds ([0-9]+) Spell Damage$/i,
 	},
+	{
+		statId: "BleedDamage",
+		match: /Increases the damage you deal with bleed damage over time effects by ([0-9]+\.?[0-9]*)%/i,
+	},	 
 	{
 		//category: "Skill",
 		//statId: "StaminaRegen",
@@ -4643,6 +4661,32 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Increases the potency of your weapon's enchantment by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+		setBonusCount: 4,
+		statId: "EnchantPotency",
+		display: "%",
+		match: /Decreases weapon enchantment cooldown and increases potency by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		setBonusCount: 4,
+		statId: "EnchantCooldown",
+		display: "%",
+		match: /Decreases weapon enchantment cooldown and increases potency by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		setBonusCount: 4,
+		category: "Item",
+		statId: "EnchantCooldown1",
+		display: "%",
+		match: /Decreases weapon enchantment cooldown and increases potency by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		setBonusCount: 4,
+		category: "Item",
+		statId: "EnchantCooldown2",
+		display: "%",
+		match: /Decreases weapon enchantment cooldown and increases potency by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
 		setBonusCount: 2,
 		statId: "MountSpeed",
 		display: "%",
@@ -4806,6 +4850,22 @@ ESO_SETEFFECT_MATCHES = [
 		match: /When you drink a potion you feel a rush of energy, increasing your Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
+		id: "Domihaus",
+		setBonusCount: 3,
+		toggle: true,
+		enabled: false,
+		statId: "SpellDamage",
+		match: /Standing within the ring grants you ([0-9]+) Spell Damage /i,
+	},
+	{
+		id: "Domihaus",
+		setBonusCount: 3,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: /Standing within the ring grants you [0-9]+ Spell Damage or ([0-9]+) Weapon Damage/i,
+	},
+	{
 		id: "Duneripper's Scales",
 		setBonusCount: 4,
 		toggle: true,
@@ -4886,6 +4946,23 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "WeaponDamage",
 		match: /Adds ([0-9]+) Weapon Damage to your damaging abilities when you use them to attack an enemy from behind/i,
+	},
+	{
+		id: "Ironblood",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		buffId: "Major Protection",
+		match: /When you take damage, you have an [0-9]+% chance to turn your blood into pure iron and gain Major Protection for [0-9]+ seconds/i,
+	},
+	{
+		id: "Ironblood",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "MovementSpeed",
+		factorValue: -1,
+		match: /When you take damage, you have an [0-9]+% chance to turn your blood into pure iron and gain Major Protection for [0-9]+ seconds, reducing your damage taken by [0-9]+%, but your Movement Speed is reduced by ([0-9]+)%/i,
 	},
 	{
 		id: "Imperial Physique",
@@ -5182,6 +5259,14 @@ ESO_SETEFFECT_MATCHES = [
 		match: /When you fall below [0-9]+\.?[0-9]*% Magicka increase your Magicka Recovery by ([0-9]+) /i,
 	},
 	{
+		id: "Shroud of the Lich",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "MagickaRegen",
+		match: /When you cast an ability while under [0-9]+\.?[0-9]*% Magicka, your Magicka Recovery is increased by ([0-9]+) /i,
+	},
+	{
 		id: "Senche's Bite",
 		setBonusCount: 4,
 		toggle: true,
@@ -5377,8 +5462,24 @@ ESO_ENCHANT_ARMOR_MATCHES = [
 		match: /Adds ([0-9]+) Maximum Stamina/i,
 	},
 	{
+		statId: "Health",
+		match: /Adds up to ([0-9]+) Maximum Health/i,
+	},
+	{
+		statId: "Magicka",
+		match: /Adds up to ([0-9]+) Maximum Magicka/i,
+	},
+	{
+		statId: "Stamina",
+		match: /Adds up to ([0-9]+) Maximum Stamina/i,
+	},
+	{
 		statId: "BashDamage",
 		match: /Increase bash damage by ([0-9]+)/i,
+	},
+	{
+		statId: "BashDamage",
+		match: /Adds ([0-9]+) Weapon Damage to your bash ability/i,
 	},
 	{
 		statId: "PhysicalResist",
@@ -5422,11 +5523,11 @@ ESO_ENCHANT_ARMOR_MATCHES = [
 	},
 	{
 		statId: "SpellDamage",
-		match: /Adds ([0-9]+) Spell Damage/i,
+		match: /Adds ([0-9]+) Spell Damage\./i,
 	},
 	{
 		statId: "WeaponDamage",
-		match: /Adds ([0-9]+) Weapon Damage/i,
+		match: /Adds ([0-9]+) Weapon Damage\./i,
 	},
 	{
 		statId: "PotionDuration",
@@ -6865,7 +6966,7 @@ function GetEsoInputItemValues(inputValues, slotId)
 		var bonusResist = 0;
 		
 				// Shield expert
-		if (itemData.weaponType == 14 && g_EsoCpData['Shield Expert'].isUnlocked)
+		if (itemData.weaponType == 14 && g_EsoCpData['Shield Expert'] != null && g_EsoCpData['Shield Expert'].isUnlocked)
 		{
 			//var extraBonus = factor * 0.75;
 			//factor *= 1.75;
@@ -6927,12 +7028,11 @@ function GetEsoInputItemValues(inputValues, slotId)
 	else if (itemData.trait == 17) // Prosperous/Invigorating
 	{
 			/* Pre update 15 */
-		inputValues.Item.Prosperous += traitValue/100;
-		AddEsoItemRawOutput(itemData, "Item.Prosperous", traitValue/100);
-		AddEsoInputStatSource("Item.Prosperous", { item: itemData, value: traitValue/100, slotId:slotId });
+		//inputValues.Item.Prosperous += traitValue/100;
+		//AddEsoItemRawOutput(itemData, "Item.Prosperous", traitValue/100);
+		//AddEsoInputStatSource("Item.Prosperous", { item: itemData, value: traitValue/100, slotId:slotId });
 		
 			/* Update 15 */
-		/* 
 		traitValue = Math.floor(traitValue);
 		
 		inputValues.Item.HealthRegen += traitValue;
@@ -6946,7 +7046,6 @@ function GetEsoInputItemValues(inputValues, slotId)
 		inputValues.Item.StaminaRegen += traitValue;
 		AddEsoItemRawOutput(itemData, "Item.StaminaRegen", traitValue);
 		AddEsoInputStatSource("Item.StaminaRegen", { item: itemData, value: traitValue, slotId:slotId });
-		//*/
 	}
 	else if (itemData.trait == 12) //Impenetrable
 	{
@@ -7383,100 +7482,209 @@ function GetEsoInputMundusValues(inputValues)
 
 function GetEsoInputMundusNameValues(inputValues, mundusName)
 {
+	var divines = inputValues.Item.Divines;
 	
 	if (mundusName == "The Lady")
 	{
 			// Preupdate 15
-		inputValues.Mundus.PhysicalResist = 1980; //30*66
-		AddEsoInputStatSource("Mundus.PhysicalResist", { mundus: mundusName, value: inputValues.Mundus.PhysicalResist });
+		//inputValues.Mundus.PhysicalResist = 1980; //30*66
+		//AddEsoInputStatSource("Mundus.PhysicalResist", { mundus: mundusName, value: inputValues.Mundus.PhysicalResist });
 		
 			// Update 15
-		//inputValues.Mundus.PhysicalResist = 2752;
-		//inputValues.Mundus.SpellResist = 2752;
-		//AddEsoInputStatSource("Mundus.PhysicalResist", { mundus: mundusName, value: inputValues.Mundus.PhysicalResist });
-		//AddEsoInputStatSource("Mundus.SpellResist", { mundus: mundusName, value: inputValues.Mundus.SpellResist });
+		inputValues.Mundus.PhysicalResist = 2752;
+		inputValues.Mundus.SpellResist = 2752;
+		AddEsoInputStatSource("Mundus.PhysicalResist", { mundus: mundusName, value: inputValues.Mundus.PhysicalResist });
+		AddEsoInputStatSource("Mundus.SpellResist", { mundus: mundusName, value: inputValues.Mundus.SpellResist });
+		
+		if (divines > 0)
+		{
+			var extraSpell    = Math.floor(inputValues.Mundus.SpellResist    * divines);
+			var extraPhysical = Math.floor(inputValues.Mundus.PhysicalResist * divines);
+			inputValues.Mundus.PhysicalResist += extraPhysical;
+			inputValues.Mundus.SpellResist += extraSpell;
+			
+			AddEsoInputStatSource("Mundus.PhysicalResist", { source: mundusName + " Divines bonus", value: extraPhysical });
+			AddEsoInputStatSource("Mundus.SpellResist", { source: mundusName + " Divines bonus", value: extraSpell });
+		}
 		
 	}
 	else if (mundusName == "The Lover")
 	{
 			// Preupdate 15
-		inputValues.Mundus.SpellResist = 1980;	// 30*66
-		AddEsoInputStatSource("Mundus.SpellResist", { mundus: mundusName, value: inputValues.Mundus.SpellResist });
+		//inputValues.Mundus.SpellResist = 1980;	// 30*66
+		//AddEsoInputStatSource("Mundus.SpellResist", { mundus: mundusName, value: inputValues.Mundus.SpellResist });
 		
 			// Update 15
-		//inputValues.Mundus.SpellPenetration = 2752;
-		//inputValues.Mundus.PhysicalPenetration = 2752;
-		//AddEsoInputStatSource("Mundus.SpellPenetration", { mundus: mundusName, value: inputValues.Mundus.SpellPenetration });
-		//AddEsoInputStatSource("Mundus.PhysicalPenetration", { mundus: mundusName, value: inputValues.Mundus.PhysicalPenetration });		
+		inputValues.Mundus.SpellPenetration = 2752;
+		inputValues.Mundus.PhysicalPenetration = 2752;
+		AddEsoInputStatSource("Mundus.SpellPenetration", { mundus: mundusName, value: inputValues.Mundus.SpellPenetration });
+		AddEsoInputStatSource("Mundus.PhysicalPenetration", { mundus: mundusName, value: inputValues.Mundus.PhysicalPenetration });
+		
+		if (divines > 0)
+		{
+			var extraSpell    = Math.floor(inputValues.Mundus.SpellPenetration    * divines);
+			var extraPhysical = Math.floor(inputValues.Mundus.PhysicalPenetration * divines);
+			inputValues.Mundus.PhysicalPenetration += extraPhysical;
+			inputValues.Mundus.SpellPenetration += extraSpell;
+			
+			AddEsoInputStatSource("Mundus.PhysicalPenetration", { source: mundusName + " Divines bonus", value: extraPhysical });
+			AddEsoInputStatSource("Mundus.SpellPenetration", { source: mundusName + " Divines bonus", value: extraSpell });
+		}
 	}
 	else if (mundusName == "The Lord")
 	{
-		inputValues.Mundus.Health = 1452;		// 22*66
-		//inputValues.Mundus.Health = 2231;		// Update 15
+		//inputValues.Mundus.Health = 1452;			// 22*66
+		inputValues.Mundus.Health = 2231;			// Update 15
 		AddEsoInputStatSource("Mundus.Health", { mundus: mundusName, value: inputValues.Mundus.Health });
+		
+		if (divines > 0)
+		{
+			var extra = Math.floor(inputValues.Mundus.Health * divines);
+			inputValues.Mundus.Health += extra;
+			AddEsoInputStatSource("Mundus.Health", { source: mundusName + " Divines bonus", value: extra });
+		}
 	}
 	else if (mundusName == "The Mage")
 	{
-		inputValues.Mundus.Magicka = 1320;		// 20*66
-		//inputValues.Mundus.Magicka = 2028;	// Update 15
+		//inputValues.Mundus.Magicka = 1320;		// 20*66
+		inputValues.Mundus.Magicka = 2028;			// Update 15
 		AddEsoInputStatSource("Mundus.Magicka", { mundus: mundusName, value: inputValues.Mundus.Magicka });
+		
+		if (divines > 0)
+		{
+			var extra = Math.floor(inputValues.Mundus.Magicka * divines);
+			inputValues.Mundus.Magicka += extra;
+			AddEsoInputStatSource("Mundus.Magicka", { source: mundusName + " Divines bonus", value: extra });
+		}
 	}
 	else if (mundusName == "The Tower")
 	{
-		inputValues.Mundus.Stamina = 1320;		// 20*66
-		//inputValues.Mundus.Stamina = 2028;	// Update 15
+		//inputValues.Mundus.Stamina = 1320;		// 20*66
+		inputValues.Mundus.Stamina = 2028;			// Update 15
 		AddEsoInputStatSource("Mundus.Stamina", { mundus: mundusName, value: inputValues.Mundus.Stamina });
+		
+		if (divines > 0)
+		{
+			var extra = Math.floor(inputValues.Mundus.Stamina * divines);
+			inputValues.Mundus.Stamina += extra;
+			AddEsoInputStatSource("Mundus.Stamina", { source: mundusName + " Divines bonus", value: extra });
+		}
 	}
 	else if (mundusName == "The Atronach")
 	{
-		inputValues.Mundus.MagickaRegen = 198;		// 3*66
-		//inputValues.Mundus.MagickaRegen = 238;	// Update 15
+		//inputValues.Mundus.MagickaRegen = 198;		// 3*66
+		inputValues.Mundus.MagickaRegen = 238;			// Update 15
 		AddEsoInputStatSource("Mundus.MagickaRegen", { mundus: mundusName, value: inputValues.Mundus.MagickaRegen });
+		
+		if (divines > 0)
+		{
+			var extra = Math.floor(inputValues.Mundus.MagickaRegen * divines);
+			inputValues.Mundus.MagickaRegen += extra;
+			AddEsoInputStatSource("Mundus.MagickaRegen", { source: mundusName + " Divines bonus", value: extra });
+		}
 	}
 	else if (mundusName == "The Serpent")
 	{
-		inputValues.Mundus.StaminaRegen = 198;		// 3*66
-		//inputValues.Mundus.StaminaRegen = 238;	// Update 15
+		//inputValues.Mundus.StaminaRegen = 198;		// 3*66
+		inputValues.Mundus.StaminaRegen = 238;			// Update 15
 		AddEsoInputStatSource("Mundus.StaminaRegen", { mundus: mundusName, value: inputValues.Mundus.StaminaRegen });
+		
+		if (divines > 0)
+		{
+			var extra = Math.floor(inputValues.Mundus.StaminaRegen * divines);
+			inputValues.Mundus.StaminaRegen += extra;
+			AddEsoInputStatSource("Mundus.StaminaRegen", { source: mundusName + " Divines bonus", value: extra });
+		}
 	}
 	else if (mundusName == "The Shadow")
 	{
-		inputValues.Mundus.CritDamage = 0.12;
+		//inputValues.Mundus.CritDamage = 0.12;
+		inputValues.Mundus.CritDamage = 0.09;		// Update 15
 		AddEsoInputStatSource("Mundus.CritDamage", { mundus: mundusName, value: inputValues.Mundus.CritDamage });
+		
+		if (divines > 0)
+		{
+			var extra = Math.floor(inputValues.Mundus.CritDamage * 1000 * divines) / 1000;
+			inputValues.Mundus.CritDamage += extra;
+			AddEsoInputStatSource("Mundus.CritDamage", { source: mundusName + " Divines bonus", value: extra });
+		}
 	}
 	else if (mundusName == "The Ritual")
 	{
 		inputValues.Mundus.HealingDone = 0.10;
 		AddEsoInputStatSource("Mundus.HealingDone", { mundus: mundusName, value: inputValues.Mundus.HealingDone });
+		
+		if (divines > 0)
+		{
+			var extra = Math.floor(inputValues.Mundus.HealingDone * 1000 * divines)/1000;
+			inputValues.Mundus.HealingDone += extra;
+			AddEsoInputStatSource("Mundus.HealingDone", { source: mundusName + " Divines bonus", value: extra });
+		}
 	}
 	else if (mundusName == "The Thief")
 	{
-		inputValues.Mundus.SpellCrit = 0.11;		// Preupdate 15
-		inputValues.Mundus.WeaponCrit = 0.11;
-		//inputValues.Mundus.SpellCrit = 0.09;		// Update 15
-		//inputValues.Mundus.WeaponCrit = 0.09;
+		//inputValues.Mundus.SpellCrit = 0.11;		// Preupdate 15
+		//inputValues.Mundus.WeaponCrit = 0.11;
+		inputValues.Mundus.SpellCrit = 0.07;		// Update 15
+		inputValues.Mundus.WeaponCrit = 0.07;
 		AddEsoInputStatSource("Mundus.SpellCrit", { mundus: mundusName, value: inputValues.Mundus.SpellCrit });
 		AddEsoInputStatSource("Mundus.WeaponCrit", { mundus: mundusName, value: inputValues.Mundus.WeaponCrit });
+		
+		if (divines > 0)
+		{
+			var extraSpell    = Math.floor(inputValues.Mundus.SpellCrit * 1000  * divines)/1000;
+			var extraPhysical = Math.floor(inputValues.Mundus.WeaponCrit * 1000 * divines)/1000;
+			inputValues.Mundus.WeaponCrit += extraPhysical;
+			inputValues.Mundus.SpellCrit += extraSpell;
+			
+			AddEsoInputStatSource("Mundus.WeaponCrit", { source: mundusName + " Divines bonus", value: extraPhysical });
+			AddEsoInputStatSource("Mundus.SpellCrit", { source: mundusName + " Divines bonus", value: extraSpell });
+		}
 	}
 	else if (mundusName == "The Warrior")
 	{
-		inputValues.Mundus.WeaponDamage = 167;	// Preupdate 15
-		//inputValues.Mundus.WeaponDamage = 238;	// Update 15
+		//inputValues.Mundus.WeaponDamage = 167;	// Preupdate 15
+		inputValues.Mundus.WeaponDamage = 238;		// Update 15
 		AddEsoInputStatSource("Mundus.WeaponDamage", { mundus: mundusName, value: inputValues.Mundus.WeaponDamage });
+		
+		if (divines > 0)
+		{
+			var extra = Math.floor(inputValues.Mundus.WeaponDamage * divines);
+			inputValues.Mundus.WeaponDamage += extra;
+			AddEsoInputStatSource("Mundus.WeaponDamage", { source: mundusName + " Divines bonus", value: extra });
+		}
 	}
 	else if (mundusName == "The Apprentice")
 	{
-		inputValues.Mundus.SpellDamage = 167; // Preupdate 15
-		//inputValues.Mundus.SpellDamage = 238; // Update 15
+		//inputValues.Mundus.SpellDamage = 167; 	// Preupdate 15
+		inputValues.Mundus.SpellDamage = 238; 		// Update 15
 		AddEsoInputStatSource("Mundus.SpellDamage", { mundus: mundusName, value: inputValues.Mundus.SpellDamage });
+		
+		if (divines > 0)
+		{
+			var extra = Math.floor(inputValues.Mundus.SpellDamage * divines);
+			inputValues.Mundus.SpellDamage += extra;
+			AddEsoInputStatSource("Mundus.SpellDamage", { source: mundusName + " Divines bonus", value: extra });
+		}
 	}
 	else if (mundusName == "The Steed")
 	{
-		inputValues.Mundus.HealthRegen = 198;	// 3*66, preupdate 15
-		//inputValues.Mundus.HealthRegen = 238;	// Update 15
+		//inputValues.Mundus.HealthRegen = 198;		// 3*66, preupdate 15
+		inputValues.Mundus.HealthRegen = 238;		// Update 15
 		inputValues.Mundus.MovementSpeed = 0.05;
 		AddEsoInputStatSource("Mundus.HealthRegen",   { mundus: mundusName, value: inputValues.Mundus.HealthRegen });
 		AddEsoInputStatSource("Mundus.MovementSpeed", { mundus: mundusName, value: inputValues.Mundus.MovementSpeed });
+		
+		if (divines > 0)
+		{
+			var extraRegen = Math.floor(inputValues.Mundus.HealthRegen    * divines);
+			var extraMove  = Math.floor(inputValues.Mundus.MovementSpeed * 1000 * divines)/1000;
+			inputValues.Mundus.HealthRegen += extraRegen;
+			inputValues.Mundus.MovementSpeed += extraMove;
+			
+			AddEsoInputStatSource("Mundus.HealthRegen", { source: mundusName + " Divines bonus", value: extraRegen });
+			AddEsoInputStatSource("Mundus.MovementSpeed", { source: mundusName + " Divines bonus", value: extraMove });
+		}
 	}
 
 }

@@ -165,8 +165,31 @@ class EsoBuildDataSaver
 	}
 	
 	
+	public function DebugSessionData()
+	{
+		global $_SESSION;
+		
+		$canEditBuilds   = $_SESSION['UESP_ESO_canEditBuild'];
+		$canDeleteBuilds = $_SESSION['UESP_ESO_canDeleteBuild'];
+		$canCreateBuilds = $_SESSION['UESP_ESO_canCreateBuild'];
+		//$wikiUser = $_SESSION['uesp_net_wikiuser'];
+		
+		error_log("EsoBuildSession:");
+		
+		foreach ($_SESSION as $name => $val)
+		{
+			error_log("       $name = '$val'");
+		}		
+
+	}
+	
+	
 	public function GetSessionData()
 	{
+		global $_SESSION;
+		
+		//$this->DebugSessionData();
+		
 		$this->canEditBuilds   = $_SESSION['UESP_ESO_canEditBuild'];
 		$this->canDeleteBuilds = $_SESSION['UESP_ESO_canDeleteBuild'];
 		$this->canCreateBuilds = $_SESSION['UESP_ESO_canCreateBuild'];
