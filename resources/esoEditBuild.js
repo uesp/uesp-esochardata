@@ -860,12 +860,26 @@ g_EsoBuildBuffData =
 			skillEnabled : false,
 			//visible : false,
 			//toggleVisible : true,
-			values : [ -1946, -1946 ],
+			values : [ -2108, -2108 ],
 			category: "Target",
 			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
 			statDescs : [ "Reduces the target's Physical Resistance by ", "Reduces the target's Spell Resistance by " ],
 			icon : "/esoui/art/icons/ability_armor_001.png",
 		},
+		"Crusher Enchantment Infused + Torug (Target)" :
+		{
+			//Reduce the target's Spell Resist and Physical Resist by 1946 for 5 seconds.
+			enabled: false,
+			skillEnabled : false,
+			//visible : false,
+			//toggleVisible : true,
+			values : [ -2741, -2741 ],
+			category: "Target",
+			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
+			statDescs : [ "Reduces the target's Physical Resistance by ", "Reduces the target's Spell Resistance by " ],
+			icon : "/esoui/art/icons/ability_armor_001.png",
+		},
+		
 		"Night Mothers Gaze (Target)" :
 		{
 			//When you deal Critical Damage, you reduce the enemy's Physical Resistance by 30-2580 for 6 seconds.

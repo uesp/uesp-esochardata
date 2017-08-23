@@ -580,6 +580,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Set.EnchantCooldown" => array(
+					"display" => "%",
+			),
+			
 			"Item.EnchantPotency2" => array(
 					"display" => "%",
 			),
