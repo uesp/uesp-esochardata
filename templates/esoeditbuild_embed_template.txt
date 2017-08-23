@@ -893,6 +893,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Do a forced reload of the page in your browser to ensure you have the latest JavaScript files.</li>
 				<li>Weapon enchantments are not currently affected by +damage modifiers.</li>
 				<li>Master destruction staffs don't modify the Destructive Touch cost or damage.</li>
+				<li>Weapon enchantment cooldown time is not modified by Infused or Torug's Pact effects.</li>
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
@@ -902,6 +903,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Added the Bash Damage calculated stat.</li>
 				<li>Updated the Blade Cloak buff effect from 20% to 25% reduced AOE damage.</li>
 				<li>Fixed the Frost Staff block cost reduction value.</li>
+				<li>Updated the Crusher Infused (Target) buff and added the Crusher Infused + Torug (Target) buff.</li>
 			</ul>
 			<p>
 			<b>22 August 2017</b>
