@@ -896,6 +896,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>23 August 2017</b>
+			<ul>
+				<li>Added the Bash Damage calculated stat.</li>
+			</ul>
+			<p>
 			<b>22 August 2017</b>
 			<ul>
 				<li>Item data updated.</li>
