@@ -792,7 +792,7 @@ g_EsoBuildBuffData =
 		{
 			enabled: false,
 			skillEnabled : false,
-			value : -0.20,
+			value : -0.25,
 			display: "%",
 			category: "Skill",
 			statId : "AOEDamageTaken",
@@ -2127,6 +2127,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireValue: 1,
 		statId: "BlockCost",
 		display: "%",
+		factorValue: -1,
 		match: /Frost Staff reduces the cost of blocking by ([0-9]+\.?[0-9]*)% and increases the amount of damage you block by [0-9]+\.?[0-9]*%/i,
 	},
 	{
