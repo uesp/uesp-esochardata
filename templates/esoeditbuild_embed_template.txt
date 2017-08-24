@@ -898,12 +898,19 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>24 August 2017</b>
+			<ul>
+				<li>The Vampire ultimate Bat Swarm and morphs are now reduced in cost according to the vampire stage bonus.</li>
+			</ul>
+			<p>
 			<b>23 August 2017</b>
 			<ul>
 				<li>Added the Bash Damage calculated stat.</li>
 				<li>Updated the Blade Cloak buff effect from 20% to 25% reduced AOE damage.</li>
 				<li>Fixed the Frost Staff block cost reduction value.</li>
 				<li>Updated the Crusher Infused (Target) buff and added the Crusher Infused + Torug (Target) buff.</li>
+				<li>Added the Exploiter Off-Balance (Target) to do +10% Damage Done. Note that this buff is not linked to the CP and must be 
+					enabled manually.</li>
 			</ul>
 			<p>
 			<b>22 August 2017</b>

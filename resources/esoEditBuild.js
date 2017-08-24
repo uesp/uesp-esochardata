@@ -690,6 +690,15 @@ g_EsoBuildBuffData =
 			statId : "DamageTaken",
 			icon : "/esoui/art/icons/death_recap_poison_ranged.png",
 		},
+		"Exploiter Off-Balance (Target)" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 0.10,
+			display: "%",
+			statId : "DamageDone",
+			icon : "/esoui/art/icons/ability_debuff_offbalance.png",
+		},
 		"Weapon Damage Enchantment" :
 		{
 			enabled: false,
