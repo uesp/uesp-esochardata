@@ -848,25 +848,29 @@ function UpdateEsoInventoryShownSpace_Async()
 {	
 	var shownItems = $(".ecdItemTable tr.eso_item_link:visible");
 	var numItems = 0;
+	var totalItems = 0;
 	
 	numItems = shownItems.length;
-	$(".ecdInvShowSpaceLabel").text("" + numItems + " items shown");
-	return;
+	//$(".ecdInvShowSpaceLabel").text("" + numItems + " items shown");
+	//return;
 	
 	shownItems.each(function() {
 		var itemIndex = parseInt($(this).attr("localid"));
 		var itemData = ecdAllInventory[itemIndex];
 		if (itemData == null) return true;
 		
-		if (itemData.stacks == null)
-			numItems += 1;
+		if (itemData.qnt == null)
+			totalItems += 1;
 		else
-			numItems += itemData.stacks;
+			totalItems += parseInt(itemData.qnt);
 		
 		return true;		
 	});
 	
-	$(".ecdInvShowSpaceLabel").text("" + numItems + " items");
+	if (numItems == totalItems)
+		$(".ecdInvShowSpaceLabel").text("" + numItems + " items shown");
+	else
+		$(".ecdInvShowSpaceLabel").text("" + numItems + " items shown (" + totalItems + " total)");
 }
 
 
