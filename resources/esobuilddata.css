@@ -1136,7 +1136,7 @@ thead.ecdFixedHeader tr {
 
 .ecdCurrencyGold {
 	display: inline-block;
-	width: 125px;
+	width: 110px;
     font-size: 18px;
     font-weight: bold;
     text-align: right;
@@ -1146,7 +1146,7 @@ thead.ecdFixedHeader tr {
 
 .ecdCurrencyAP {
 	display: inline-block;
-	width: 125px;
+	width: 100px;
     font-size: 18px;
     font-weight: bold;
     text-align: right;
@@ -1154,9 +1154,9 @@ thead.ecdFixedHeader tr {
     text-shadow: 1px 1px 2px black;
 }
 
-.ecdCurrencyTelvar, .ecdCurrencyVoucher {
+.ecdCurrencyTelvar, .ecdCurrencyVoucher, .ecdCurrencyTransmute {
 	display: inline-block;
-	width: 90px;
+	width: 80px;
     font-size: 18px;
     font-weight: bold;
     text-align: right;
@@ -1181,7 +1181,8 @@ thead.ecdFixedHeader tr {
 
 .ecdCurrencyAP img,
 .ecdCurrencyGold img, 
-.ecdCurrencyTelvar img {
+.ecdCurrencyTelvar img,
+.ecdCurrencyTransmute img {
 	width: 16px;
 }
 

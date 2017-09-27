@@ -273,7 +273,13 @@ EOT;
 		$gold = $this->getCharStatField('BankedMoney');
 		return number_format(intval($gold));
 	}
+
 	
+	public function getAccountTransmuteCrystals()
+	{
+		$crystals = $this->getCharStatField('TransmuteCrystals');
+		return number_format(intval($crystals));
+	}
 	
 	public function getAccountInventoryGold() 
 	{ 
@@ -571,6 +577,7 @@ EOT;
 		$output .= "<th>AP</th>";
 		$output .= "<th>Telvar</th>";
 		$output .= "<th>Vouchers</th>";
+		$output .= "<th>Transmute</th>";
 		$output .= "<th>Inv Used</th>";
 		$output .= "<th>Inv Total</th>";
 		$output .= "<th>Skill Points</th>";
@@ -715,6 +722,7 @@ EOT;
 			$output .= "<td>$ap</td>";
 			$output .= "<td>$telvar</td>";
 			$output .= "<td>$voucher</td>";
+			$output .= "<td>-</td>";
 			$output .= "<td>$invUsed</td>";
 			$output .= "<td>$invTotal</td>";
 			$output .= "<td>$skillPoints</td>";
@@ -751,6 +759,7 @@ EOT;
 		$output .= "<td>$ap</td>";
 		$output .= "<td>$telvar</td>";
 		$output .= "<td>$voucher</td>";
+		$output .= "<td>-</td>";
 		$output .= "<td>$invUsed</td>";
 		$output .= "<td>$invTotal</td>";
 		$output .= "<td>-</td>";
@@ -765,6 +774,7 @@ EOT;
 		$output .= "</tr>";
 		
 		$timePlayedFmt = $this->formatTimeLeft($totalSecondsPlayed);
+		$transmuteCrystals = intval($this->getAccountStatsField($maxCharId, 'TransmuteCrystals', 0));
 		
 		$output .= "<tr>";
 		$output .= "<th>Account</th>";
@@ -772,6 +782,7 @@ EOT;
 		$output .= "<th>$totalAP</th>";
 		$output .= "<th>$totalTelvar</th>";
 		$output .= "<th>$totalVouchers</th>";
+		$output .= "<th>$transmuteCrystals</th>";
 		$output .= "<th>$totalInvUsed</th>";
 		$output .= "<th>$totalInv</th>";
 		$output .= "<th>$totalSkillPoints</th>";

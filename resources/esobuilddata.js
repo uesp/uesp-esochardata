@@ -851,7 +851,7 @@ function UpdateEsoInventoryShownSpace_Async()
 	var totalItems = 0;
 	
 	numItems = shownItems.length;
-	//$(".ecdInvShowSpaceLabel").text("" + numItems + " items shown");
+	//$(".ecdInvShowSpaceLabel").text("" + numItems + " shown");
 	//return;
 	
 	shownItems.each(function() {
@@ -868,9 +868,9 @@ function UpdateEsoInventoryShownSpace_Async()
 	});
 	
 	if (numItems == totalItems)
-		$(".ecdInvShowSpaceLabel").text("" + numItems + " items shown");
+		$(".ecdInvShowSpaceLabel").text("" + numItems + " shown");
 	else
-		$(".ecdInvShowSpaceLabel").text("" + numItems + " items shown (" + totalItems + " total)");
+		$(".ecdInvShowSpaceLabel").text("" + numItems + " shown (" + totalItems + " total)");
 }
 
 

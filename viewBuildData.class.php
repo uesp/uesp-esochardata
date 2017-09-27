@@ -103,6 +103,7 @@ class EsoBuildDataViewer
 	public $accountTelvar = 0;
 	public $accountWritVoucher = 0;
 	public $accountAP = 0;
+	public $accountTransmuteCrystals = 0;
 	public $accountUsedSpace = 0;
 	public $accountTotalSpace = 0;
 	
@@ -654,6 +655,10 @@ class EsoBuildDataViewer
 				{
 					$this->accountAP += intval($row['qnt']);
 				}
+				else if ($row['name'] == "__TransmuteCrystals")
+				{
+					$this->accountTransmuteCrystals += intval($row['qnt']);
+				}
 				else if ($row['name'] == "__TotalSpace")
 				{
 					$this->accountTotalSpace += intval($row['qnt']);
@@ -758,6 +763,13 @@ class EsoBuildDataViewer
 				"characterId" => $this->characterId,
 				"name" => "AccountAlliancePoints",
 				"value" => (string) $this->accountAP,
+		);
+		
+		$arrayData['AccountTransmuteCrystals'] = array(
+				"id" => -1,
+				"characterId" => $this->characterId,
+				"name" => "AccountTransmuteCrystals",
+				"value" => (string) $this->accountTransmuteCrystals,
 		);
 		
 		return True;
@@ -1103,6 +1115,7 @@ class EsoBuildDataViewer
 					'{bankGold}' => $this->getBankGold(),
 					'{accInvGold}' => $this->getAccountInventoryGold(),
 					'{invAP}' => $this->getInventoryAP(),
+					'{invTransmute}' => $this->getAccountTransmuteCrystals(),
 					'{bankAP}' => $this->getBankAP(),
 					'{accInvAP}' => $this->getAccountInventoryAP(),
 					'{invTelvar}' => $this->getInventoryTelvar(),
@@ -1149,6 +1162,7 @@ class EsoBuildDataViewer
 	public function getBankTelvar() { return ""; }
 	public function getAccountInventoryTelvar() { return ""; }
 	public function getAccountInventoryWritVoucher() { return ""; }
+	public function getAccountTransmuteCrystals() { return ""; }
 	
 	
 	public function getCharacterNamesJS()
