@@ -4,8 +4,8 @@
 	<button id="esotbCreateCopyButton" {createCopyButtonDisabled}>Create Copy</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #cfc; display: flex;'>
-Note: The build editor is now updated for the Horns of the Reach (update 15) patch.
+<div style='background-color: #fcc; display: flex;'>
+Note: The build editor is *not* yet updated for the Clockwork City (update 16) patch.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
