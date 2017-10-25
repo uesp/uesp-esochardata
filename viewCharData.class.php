@@ -1235,7 +1235,7 @@ EOT;
 		if ($finishedCount < $openSlots && $knownCount < $totalCount)
 		{
 			$openSlots -= $finishedCount;
-			$this->nextResearchFinished[] = array("time" => 0, "name" => "$charName has $openSlots research slots available!");
+			$this->nextResearchFinished[] = array("time" => 0, "name" => "$charName has $openSlots $craftType research slots available!");
 		}
 		
 		$output .= "$knownCount / $totalCount traits known";
