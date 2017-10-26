@@ -898,6 +898,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>23 October 2017</b>
+			<ul>
+				<li>CP data updated from Clockwork City.</li>
+				<li>Skill data updated from Clockwork City. Note that skills with changed descriptions probably won't yet work.</li>
+			</ul>
+			<p>
 			<b>1 September 2017</b>
 			<ul>
 				<li>Fixed racial skills not resetting when you change race. To fix simply change your race to anything and back again.</li>
