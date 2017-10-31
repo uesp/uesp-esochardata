@@ -3766,12 +3766,6 @@ ESO_SETEFFECT_MATCHES = [
 	{
 		setBonusCount: 4,
 		statId: "OtherEffects",
-		rawInputMatch: /(Adds [0-9]+ Spell Damage to your Vampire abilities)/i,
-		match: /Adds ([0-9]+) Spell Damage to your Vampire abilities/i,
-	},
-	{
-		setBonusCount: 4,
-		statId: "OtherEffects",
 		rawInputMatch: /(Increases your damage done to Sneaking enemies by [0-9]+%)/i,
 		match: /Increases your damage done to Sneaking enemies by ([0-9]+)%/i,
 	},
@@ -3978,6 +3972,17 @@ ESO_SETEFFECT_MATCHES = [
 		factorValue: -1,
 		display: "%",
 		match: /Reduces the cost of Sprint by ([0-9]+)%/i,
+	},
+	{
+		statId: "SprintCost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost and increases the Movement Speed bonus of Sprint by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "SprintSpeed",
+		display: "%",
+		match: /Reduces the cost and increases the Movement Speed bonus of Sprint by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		buffId: "Minor Vitality",
@@ -4542,6 +4547,20 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Increases the immunity to disabling effects after using Break Free by ([0-9]+\.?[0-9]*) seconds/i,
 	},
 	{
+		id: "Innate Axiom",
+		setBonusCount: 5,
+		enabled: false,
+		statId: "ClassWeaponDamage",
+		match: /Adds ([0-9]+) Spell and Weapon Damage to your Class abilities/i,
+	},
+	{
+		id: "Innate Axiom",
+		setBonusCount: 5,
+		enabled: false,
+		statId: "ClassSpellDamage",
+		match: /Adds ([0-9]+) Spell and Weapon Damage to your Class abilities/i,
+	},
+	{
 		requireSkillType: "Armor",
 		category: "Skill",
 		statId: "Health",
@@ -4773,7 +4792,41 @@ ESO_SETEFFECT_MATCHES = [
 		factorValue: -1,
 		match: /but the damage and healing of your own area of effect abilities is also reduced by ([0-9]+\.?[0-9]*)%/i,
 	},
-	
+	{
+		id: "Infallible Mage",
+		setBonusCount: 4,
+		enabled: false,
+		category: "Skill2",
+		statId: "HADamage",
+		match: /Your fully-charged Heavy Attacks deal an additional ([0-9]+) damage/i,
+	},
+	{
+		id: "Cruel Flurry",
+		setBonusCount: 1,
+		enabled: false,
+		buffId: "Maelstrom DW Enchantment",
+		updateBuffValue : true,
+		match: /When you deal damage with Flurry, your next single target damage over time ability used within 10 seconds gains ([0-9]+) Spell and Weapon Damage/i,
+	},
+	{
+		id: "Destructive Impact",
+		setBonusCount: 1,
+		enabled: false,
+		category: "SkillCost",
+		statId: "Destructive_Touch_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of Destructive Touch by ([0-9]+)% and increases the direct damage it deals by [0-9]+./i,
+	},
+	{
+		id: "Destructive Impact",
+		setBonusCount: 1,
+		enabled: false,
+		category: "SkillDirectDamage",
+		statId: "Destructive Touch",
+		match: /Reduces the cost of Destructive Touch by [0-9]+% and increases the direct damage it deals by ([0-9]+)./i,
+	},
+		
 		// Optionally toggled set effects
 	{
 		id: "Armor Master",
@@ -4814,7 +4867,15 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "WeaponDamage",
-		match: / When you set an enemy off-balance, your Weapon Damage is increased by ([0-9]+)/i,
+		match: /When you set an enemy off-balance, your Weapon Damage is increased by ([0-9]+)/i,
+	},
+	{
+		id: "Armor of Truth",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: /When you set an enemy off balance, your Weapon Damage is increased by ([0-9]+)/i,
 	},
 	{
 		id: "Berserking Warrior",
@@ -4858,6 +4919,14 @@ ESO_SETEFFECT_MATCHES = [
 		match: /When you deal damage with a Flame Damage ability, you have a [0-9]+% chance apply the Burning status effect to the enemy and increase your Spell Damage by ([0-9]+)/i,
 	},
 	{
+		id: "Caustic Arrow",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: /Increases your Weapon Damage by ([0-9]+) against targets affected by your Poison Arrow/i,
+	},
+	{
 		id: "Clever Alchemist",
 		setBonusCount: 5,
 		toggle: true,
@@ -4873,6 +4942,15 @@ ESO_SETEFFECT_MATCHES = [
 		statId: "WeaponDamage",
 		match: /When you drink a potion you feel a rush of energy, increasing your Weapon and Spell Damage by ([0-9]+)/i,
 	},
+	{
+		id: "Crushing Wall",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		buffId : "Maelstrom Destruction Enchantment",
+		updateBuffValue : true,
+		match: /Your Light and Heavy Attacks deal an additional ([0-9]+) damage to enemies in your Wall of Elements/i,
+	},	
 	{
 		id: "Domihaus",
 		setBonusCount: 3,
@@ -5256,7 +5334,7 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "CritResist",
 		match: /When you heal a target with a healing over time ability, grant them ([0-9]+) Critical Resistance/i,
-	},	
+	},
 	{
 		id: "Scathing Mage",
 		setBonusCount: 4,
@@ -5431,7 +5509,6 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		category: "Skill2",
 		statId: "LADamage",
-		
 		match: /When you use an ability that costs Stamina, your Light Attacks deal an additional ([0-9]+) damage and Heavy Attacks deal an additional [0-9]+ damage/i,
 	},
 	{
@@ -11024,6 +11101,7 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
 	
 	g_LastSkillInputValues.SkillLineCost = inputValues.SkillCost;
 	g_LastSkillInputValues.DamageShield = inputValues.DamageShield;
+	g_LastSkillInputValues.SkillDirectDamage = inputValues.SkillDirectDamage;
 	
 	g_LastSkillInputValues.MagickaCost = 
 	{
@@ -11116,16 +11194,27 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
  	
  	g_LastSkillInputValues.SkillWeaponDamage = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage, WeaponDamageFactor);
  	g_LastSkillInputValues.SkillSpellDamage = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage, SpellDamageFactor);
+ 	
+ 	g_LastSkillInputValues.SkillWeaponDamage["Class"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage, WeaponDamageFactor);
+ 	g_LastSkillInputValues.SkillSpellDamage["Class"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Set.ClassSpellDamage, SpellDamageFactor);
  	 		
  	g_LastSkillInputValues.SkillWeaponDamage["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage, WeaponDamageFactor);
  	g_LastSkillInputValues.SkillSpellDamage["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Item.MaelstromDamage, SpellDamageFactor);
  	
  	g_LastSkillInputValues.SkillSpellDamage["Channel"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Item.ChannelSpellDamage, SpellDamageFactor);
- 	g_LastSkillInputValues.SkillSpellDamage["Channel"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Item.ChannelSpellDamage + inputValues.Item.MaelstromDamage, SpellDamageFactor);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Channel"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage, WeaponDamageFactor);
  	
- 	g_LastSkillInputValues.SkillWeaponDamage["Channel"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusSpellDmg, BaseWeaponDamage, WeaponDamageFactor);
- 	g_LastSkillInputValues.SkillWeaponDamage["Channel"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage, WeaponDamageFactor);
+ 	g_LastSkillInputValues.SkillSpellDamage["Channel"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Item.ChannelSpellDamage + inputValues.Item.MaelstromDamage, SpellDamageFactor);
+ 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Set.ClassSpellDamage + inputValues.Item.MaelstromDamage, SpellDamageFactor);
+ 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Set.ClassSpellDamage + inputValues.Item.MaelstromDamage, SpellDamageFactor);
  	 	
+ 	g_LastSkillInputValues.SkillWeaponDamage["Channel"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage, WeaponDamageFactor);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.Set.ClassWeaponDamage, WeaponDamageFactor);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.Set.ClassWeaponDamage, WeaponDamageFactor);
+ 	
+ 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Set.ClassSpellDamage + inputValues.Item.ChannelSpellDamage + inputValues.Item.MaelstromDamage, SpellDamageFactor);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.Set.ClassWeaponDamage, WeaponDamageFactor);
+ 	 	 	
 	return g_LastSkillInputValues; 
 }
 
