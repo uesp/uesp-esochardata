@@ -5,7 +5,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #fcc; display: flex;'>
-Note: The build editor is *not* yet updated for the Clockwork City (update 16) patch.
+Note: The build editor is *not* completely updated for the Clockwork City (update 16) patch. Skill, CP, and Item data has been updated but new/updated skills and items will not yet work.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -898,6 +898,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>31 October 2017</b>
+			<ul>
+				<li>Item data updated from Clockwork City. Note that new/updated sets are not yet working.</li>
+			</ul>
+			<p>
 			<b>23 October 2017</b>
 			<ul>
 				<li>CP data updated from Clockwork City.</li>
