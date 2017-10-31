@@ -174,6 +174,7 @@ class EsoBuildDataEditor
 			"SkillLineSpellDmg.base",
 			"SkillBonusWeaponDmg.base",
 			"SkillBonusSpellDmg.base",
+			"SkillDirectDamage.Placeholder",
 			"Item.ChannelSpellDamage",
 			"Buff.Empower",
 			"CP.HAActiveDamage",
@@ -196,6 +197,9 @@ class EsoBuildDataEditor
 			"Item.EnchantPotency2",
 			"Item.EnchantCooldown2",
 			"Item.EnchantCooldown",
+			"Set.ClassSpellDamage",
+			"Set.ClassWeaponDamage",
+			
 	);
 	
 	
@@ -556,6 +560,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),			
 			
+			"SkillCost.Destructive_Touch_Cost" => array(
+					"display" => "%",
+			),
+			
 			"CP.CritDamage" => array(
 					"display" => "%",
 			),
@@ -784,6 +792,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Set.RollDodgeCost" => array(
+					"display" => "%",
+			),
+			
 			"Skill.RollDodgeCost" => array(
 					"display" => "%",
 			),
@@ -805,6 +817,10 @@ class EsoBuildDataEditor
 			),
 			
 			"Skill.SprintSpeed" => array(
+					"display" => "%",
+			),
+			
+			"Set.SprintSpeed" => array(
 					"display" => "%",
 			),
 			

@@ -397,6 +397,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<select id="esotbItemSetupMonsterSet" style="width: 150px;">
 					<option>Blood Spawn</option>
 					<option>Chokethorn</option>
+					<option>Domihaus</option>
+					<option>Earthgore</option>					
 					<option>Engine Guardian</option>
 					<option>Grothdarr</option>
 					<option>Iceheart</option>
@@ -512,6 +514,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Berserking Warrior</option>
 					<option>Black Rose</option>
 					<option>Blessing of the Potentates</option>
+					<option>Blooddrinker</option>
 					<option>Bloodthorn's Touch</option>
 					<option>Bone Pirate's Tatters</option>
 					<option>Brands of Imperium</option>
@@ -534,6 +537,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Destructive Mage</option>
 					<option>Draugr Hulk</option>
 					<option>Draugr's Heritage</option>
+					<option>Draugr's Rest</option>
 					<option>Dreamer's Mantle</option>
 					<option>Dreugh King Slayer</option>
 					<option>Duneripper's Scales</option>
@@ -550,14 +554,17 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Eyes of Mara</option>
 					<option>Fasalla's Guile</option>
 					<option>Fiord's Legacy</option>
+					<option>Flame Blossom</option>
 					<option>Flanking Strategist</option>
 					<option>Footman's Fortune</option>
+					<option>Fortified Brass</option>
 					<option>Galerion's Revenge</option>
 					<option>Glorious Defender</option>
 					<option>Gossamer</option>
 					<option>Grace of the Ancients</option>
 					<option>Green Pact</option>
 					<option>Hand of Mephala</option>
+					<option>Hargraven's Garden</option>
 					<option>Hatchling's Shell</option>
 					<option>Hawk's Eye</option>
 					<option>Healer's Habit</option>
@@ -573,7 +580,9 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Imperial Physique</option>
 					<option>Impregnable Armor</option>
 					<option>Infallible Mage</option>
+					<option>Innate Axiom</option>
 					<option>Inventor's Guard</option>
+					<option>Ironblood</option>
 					<option>Jailbreaker</option>
 					<option>Jolting Arms</option>
 					<option>Kagrenac's Hope</option>
@@ -589,12 +598,15 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Leviathan</option>
 					<option>Light of Cyrodiil</option>
 					<option>Light Speaker</option>
+					<option>Livewire</option>
 					<option>Lunar Bastion</option>
+					<option>Mad Tinkerer</option>
 					<option>Magicka Furnace</option>
 					<option>Magnus' Gift</option>
 					<option>Mark of the Pariah</option>
 					<option>Marksman's Crest</option>
 					<option>Master Architect</option>
+					<option>Mechanical Acuity</option>
 					<option>Medusa</option>
 					<option>Meridia's Blessed Armor</option>
 					<option>Meritorious Service</option>
@@ -619,6 +631,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Pelinal's Aptitude</option>
 					<option>Permafrost</option>
 					<option>Phoenix</option>
+					<option>Pillar of Nirn</option>
 					<option>Plague Doctor</option>
 					<option>Poisonous Serpent</option>
 					<option>Powerful Assault</option>
@@ -702,6 +715,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Undaunted Bastion</option>
 					<option>Undaunted Infiltrator</option>
 					<option>Undaunted Unweaver</option>
+					<option>Unfathomable Darkness</option>
 					<option>Vampire Cloak</option>
 					<option>Vampire Lord</option>
 					<option>Vampire's Kiss</option>
@@ -900,7 +914,17 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<hr>
 			<b>31 October 2017</b>
 			<ul>
+				<li>Added the 6 new sets from both the Clockwork City and Horns of the Reach updates to the quick-equip set list.</li>
+				<li>Added the 5 piece effect from the Innate Axiom set to skill tooltips.</li>
+				<li>Added the Domihaus and Earthgore sets to the Monster Set quick-equip list.</li>
+				<li>Added the 5 piece bonus of Infalliable Mage set to Heavy Attack damage.</li>
+				<li>Fixed the 5 piece bonus of Fiord's Legacy set.</li>
+				<li>Fixed the 5 piece bonus toggle of the Armor of Truth set.</li>
 				<li>Item data updated from Clockwork City. Note that new/updated sets are not yet working.</li>
+				<li>Added effect from the Master Bow set (Caustic Arrow).</li>
+				<li>Added effect from the Maelstrom Duel Wield set (Cruel Flurry).</li>
+				<li>Added effect from the Maelstrom Destruction Staff set (Crushing Wall).</li>
+				<li>Added effect from the Master Destruction Staff set (Destructive Impact). Note that the extra damage is not yet displayed in the skill tooltip.</li>
 			</ul>
 			<p>
 			<b>23 October 2017</b>
