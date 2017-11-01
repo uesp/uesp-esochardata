@@ -4,8 +4,8 @@
 	<button id="esotbCreateCopyButton" {createCopyButtonDisabled}>Create Copy</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #fcc; display: flex;'>
-Note: The build editor is *not* completely updated for the Clockwork City (update 16) patch. Skill, CP, and Item data has been updated but new/updated skills and items will not yet work.
+<div style='background-color: #cfc; display: flex;'>
+Note: The build editor is now updated for the Clockwork City (update 16) patch.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -906,7 +906,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<ul>
 				<li>Do a forced reload of the page in your browser to ensure you have the latest JavaScript files.</li>
 				<li>Weapon enchantments are not currently affected by +damage modifiers.</li>
-				<li>Master destruction staffs don't modify the Destructive Touch cost or damage.</li>
+				<li>Master destruction staffs don't modify the Destructive Touch damage on skill tooltips.</li>
 				<li>Weapon enchantment cooldown time is not modified by Infused or Torug's Pact effects.</li>
 			</ul>
 			<p>
