@@ -912,6 +912,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>1 November 2017</b>
+			<ul>
+				<li>Fixed the Magicka Recovery effect from the Witchmother's Party Punch food.</li>
+			</ul>
+			<p>
 			<b>31 October 2017</b>
 			<ul>
 				<li>Added the 6 new sets from both the Clockwork City and Horns of the Reach updates to the quick-equip set list.</li>

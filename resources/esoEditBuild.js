@@ -5919,6 +5919,10 @@ ESO_ABILITYDESC_MATCHES = [
 		statId: "MagickaRegen",
 		match: /Increase Magicka Recovery and Health Recovery by ([0-9]+)/i,
 	},
+	{
+		statId: "MagickaRegen",
+		match: /Increase Magicka Recovery and Stamina Recovery by ([0-9]+)/i,
+	},
 ];
 
 

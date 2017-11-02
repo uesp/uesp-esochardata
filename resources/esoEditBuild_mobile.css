@@ -27,3 +27,29 @@
 #esoispUneqipButton, #esoispSearchButton {
 	padding: 5px;
 }
+
+#esoispInputText {
+	padding: 1px;
+	margin-left: 3px;
+}
+
+#esoispQuality {
+	margin-left: 6px !important;
+}
+
+#esoispLevel {
+	padding: 1px;
+	margin-left: 3px;
+}
+
+#esoispInputs select {
+	padding: 1px;
+}
+
+#esoispResults {
+	height: 340px;
+}
+
+#esoispSearchButton {
+	margin-top: 0px;
+}
