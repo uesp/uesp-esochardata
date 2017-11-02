@@ -909,6 +909,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Master destruction staffs don't modify the Destructive Touch damage on skill tooltips.</li>
 				<li>Weapon enchantment cooldown time is not modified by Infused or Torug's Pact effects.</li>
 				<li>The Elf Bane 5 piece bonus does not update the skill durations of flame abilities.</li>
+				<li>The IE browser can cause issues with stats updating and saving builds due to very slow JS execution in some cases. Using Chrome, FF, or Edge browsers is recommended.</li>
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
