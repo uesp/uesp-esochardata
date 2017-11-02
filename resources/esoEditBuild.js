@@ -7846,12 +7846,28 @@ function GetEsoInputCPValues(inputValues)
 	ParseEsoCPValue(inputValues, ["MagicDamageTaken", "FlameDamageTaken", "ColdDamageTaken", "ShockDamageTaken"], 63843, null, null, -1);
 	
 	var itemData = g_EsoBuildItemData.OffHand1;
+	var weaponData = g_EsoBuildItemData.MainHand1;
 	var slotId = "OffHand1";
 	
-	if (g_EsoBuildActiveWeapon == 2) 
+	if (g_EsoBuildActiveWeapon == 1)
+	{
+		if (weaponData.weaponType == 13)
+		{
+			itemData = weaponData;
+			slotId = "MainHand1";
+		}
+	}
+	else if (g_EsoBuildActiveWeapon == 2) 
 	{
 		itemData = g_EsoBuildItemData.OffHand2;
+		weaponData = g_EsoBuildItemData.MainHand2;
 		slotId = "OffHand2";
+		
+		if (weaponData.weaponType == 13)
+		{
+			itemData = weaponData;
+			slotId = "MainHand2";
+		}
 	}
 	
 		// Preupdate 15
