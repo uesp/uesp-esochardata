@@ -7084,7 +7084,7 @@ function GetEsoInputItemValues(inputValues, slotId)
 		else if (itemData.trait == 25) // Armor Nirnhoned
 		{
 			//bonusResist = Math.floor(itemData.armorRating*traitValue/100*factor);	// Pre Update 11
-			bonusResist = Math.floor(traitValue);
+			//bonusResist = Math.floor(traitValue);		// Update 15?: Now included in the raw item data when mined
 		}
 		
 		var armorRating = Math.floor(itemData.armorRating * factor) + bonusResist;
