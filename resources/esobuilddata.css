@@ -779,6 +779,7 @@ tr.eso_item_link {
 .ecdSkillData {
 	height: 580px;
     overflow-y: auto;
+    overflow-x: hidden;
     position: relative;
 }
 
