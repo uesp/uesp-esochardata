@@ -876,6 +876,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Skill2.HealingReceived" => array(
+					"display" => "%",
+			),
+			
 			"Buff.SpellDamage" => array(
 					"display" => "%",
 			),
@@ -2226,12 +2230,13 @@ class EsoBuildDataEditor
 			
 			/*
 			 * HealingReceived Confirmed
+			 * 		Skill2.HealingReceived (Battle Spirit) changed in update 16?
 			 */
 			"HealingReceived" => array(
 					"title" => "Healing Received",
 					"display" => "%",
 					"compute" => array(
-							"Item.HealingReceived",
+							"1 + Item.HealingReceived",
 							"Set.HealingReceived",
 							"+",
 							"Skill.HealingReceived",
@@ -2240,6 +2245,10 @@ class EsoBuildDataEditor
 							"+",
 							"Buff.HealingReceived",
 							"+",
+							"1 + Skill2.HealingReceived",
+							"*",
+							"1",
+							"-",							
 					),
 			),
 			
