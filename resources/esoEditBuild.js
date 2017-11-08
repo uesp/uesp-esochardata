@@ -1018,7 +1018,7 @@ g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			displays : [ "", "%", "%", "%" ],
-			categories : [ "Skill2", "Buff", "Buff", "Buff" ],
+			categories : [ "Skill2", "Skill2", "Buff", "Buff" ],
 			values : [ 5000, -0.50, -0.50, -0.50 ],
 			statIds : [ "Health", "HealingReceived", "DamageTaken", "DamageShield" ],
 			icon: "/esoui/art/icons/ability_templar_002.png",

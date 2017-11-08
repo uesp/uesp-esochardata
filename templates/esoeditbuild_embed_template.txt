@@ -914,6 +914,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>8 November 2017</b>
+			<ul>
+				<li>Rapid Regenation and morphs now have applied any +healing modifiers.</li>
+				<li>Changed the Cyrodiil Battle Spirit buff to modify HealingReceived with a multiplicative bonus instead of additive.</li>
+			</ul>
+			<p>
 			<b>7 November 2017</b>
 			<ul>
 				<li>Fixed some Food/Drinks that had set, enchantment, and trait bonuses applied to them.</li>
