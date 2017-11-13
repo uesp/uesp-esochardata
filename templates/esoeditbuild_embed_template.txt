@@ -1073,6 +1073,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<ul>
 				<li>Added support for transmuted items. Use the trait drop-down list to the right of each item slot to transmute an item. This feature is 
 					current under testing so report any issues with the stats of transmuted items (particularily Infused).</li>
+				<li>Fixed the 5 piece Ysgramor's Birthright bonus to correctly modify frost/cold damage skills.</li>
 			</ul>
 			<p>
 			<b>9 November 2017</b>
