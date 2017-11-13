@@ -3941,11 +3941,11 @@ class EsoBuildDataEditor
 	{
 		$linkData = array();
 		
-		$result = preg_match('/\|H(?P<color>[A-Za-z0-9]*)\:item\:(?P<itemId>[0-9]*)\:(?P<subtype>[0-9]*)\:(?P<level>[0-9]*)\:(?P<enchantId1>[0-9]*)\:(?P<enchantSubtype1>[0-9]*)\:(?P<enchantLevel1>[0-9]*)\:(?P<enchantId2>[0-9]*)\:(?P<enchantSubtype2>[0-9]*)\:(?P<enchantLevel2>[0-9]*)\:(.*?)\:(?P<style>[0-9]*)\:(?P<crafted>[0-9]*)\:(?P<bound>[0-9]*)\:(?P<stolen>[0-9]*)\:(?P<charges>[0-9]*)\:(?P<potionData>[0-9]*)\|h\[?(?P<name>[a-zA-Z0-9 %_\(\)\'\-]*)(?P<nameCode>.*?)\]?\|h/', $itemLink, $matches);
+		$result = preg_match('/\|H(?P<color>[A-Za-z0-9]*)\:item\:(?P<itemId>[0-9]*)\:(?P<subtype>[0-9]*)\:(?P<level>[0-9]*)\:(?P<enchantId1>[0-9]*)\:(?P<enchantSubtype1>[0-9]*)\:(?P<enchantLevel1>[0-9]*)\:(?P<transmuteTrait>[0-9]*)\:(?P<enchantSubtype2>[0-9]*)\:(?P<enchantLevel2>[0-9]*)\:(.*?)\:(?P<style>[0-9]*)\:(?P<crafted>[0-9]*)\:(?P<bound>[0-9]*)\:(?P<stolen>[0-9]*)\:(?P<charges>[0-9]*)\:(?P<potionData>[0-9]*)\|h\[?(?P<name>[a-zA-Z0-9 %_\(\)\'\-]*)(?P<nameCode>.*?)\]?\|h/', $itemLink, $matches);
 		
 		if (!$result) 
 		{
-			$result = preg_match('/\|H(?P<color>[A-Za-z0-9]*)\:item\:(?P<itemId>[0-9]*)\:(?P<subtype>[0-9]*)\:(?P<level>[0-9]*)\:(?P<enchantId1>[0-9]*)\:(?P<enchantSubtype1>[0-9]*)\:(?P<enchantLevel1>[0-9]*)\:(?P<enchantId2>[0-9]*)\:(?P<enchantSubtype2>[0-9]*)\:(?P<enchantLevel2>[0-9]*)\:(.*?)\:(?P<style>[0-9]*)\:(?P<crafted>[0-9]*)\:(?P<bound>[0-9]*)\:(?P<charges>[0-9]*)\:(?P<potionData>[0-9]*)\|h\[?(?P<name>[a-zA-Z0-9 %_\(\)\'\-]*)(?P<nameCode>.*?)\]?\|h/', $itemLink, $matches);
+			$result = preg_match('/\|H(?P<color>[A-Za-z0-9]*)\:item\:(?P<itemId>[0-9]*)\:(?P<subtype>[0-9]*)\:(?P<level>[0-9]*)\:(?P<enchantId1>[0-9]*)\:(?P<enchantSubtype1>[0-9]*)\:(?P<enchantLevel1>[0-9]*)\:(?P<transmuteTrait>[0-9]*)\:(?P<enchantSubtype2>[0-9]*)\:(?P<enchantLevel2>[0-9]*)\:(.*?)\:(?P<style>[0-9]*)\:(?P<crafted>[0-9]*)\:(?P<bound>[0-9]*)\:(?P<charges>[0-9]*)\:(?P<potionData>[0-9]*)\|h\[?(?P<name>[a-zA-Z0-9 %_\(\)\'\-]*)(?P<nameCode>.*?)\]?\|h/', $itemLink, $matches);
 			if (!$result) return $linkData;
 		}
 		
@@ -3964,9 +3964,11 @@ class EsoBuildDataEditor
 		$linkData['enchantIntLevel1'] = $matches['enchantLevel1'];
 		$linkData['enchantIntType1'] = $matches['enchantSubtype1'];
 		
-		$linkData['enchantId2'] = $matches['enchantId2'];
-		$linkData['enchantIntLevel2'] = $matches['enchantLevel2'];
-		$linkData['enchantIntType2'] = $matches['enchantSubtype2'];
+		$linkData['transmuteTrait'] = $matches['transmuteTrait'];
+		
+		//$linkData['enchantId2'] = $matches['enchantId2'];
+		//$linkData['enchantIntLevel2'] = $matches['enchantLevel2'];
+		//$linkData['enchantIntType2'] = $matches['enchantSubtype2'];
 		
 		return $linkData;
 	}
@@ -3995,6 +3997,9 @@ class EsoBuildDataEditor
 		}
 		
 		$this->initialItemData[$slotId] = $result->fetch_assoc();
+		$this->initialItemData[$slotId]["origTrait"] = $this->initialItemData[$slotId]["trait"];
+		
+		if ($linkData['transmuteTrait'] > 0) $this->initialItemData[$slotId]["trait"] = $linkData['transmuteTrait']; 
 		
 		$setName = $this->initialItemData[$slotId]['setName'];
 		if ($setName != "") return $this->LoadInitialSetMaxData($setName, $linkData);
@@ -4073,6 +4078,7 @@ class EsoBuildDataEditor
 		$output .= " enchantid=\"{$linkData['enchantId1']}\"";
 		$output .= " enchantintlevel=\"{$linkData['enchantIntLevel1']}\"";
 		$output .= " enchantinttype=\"{$linkData['enchantIntType1']}\"";
+		$output .= " trait=\"{$linkData['transmuteTrait']}\"";
 		
 		$this->LoadInitialItemData($slotId, $linkData);
 		$this->LoadInitialEnchantData($slotId, $linkData);

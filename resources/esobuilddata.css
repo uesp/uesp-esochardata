@@ -1656,15 +1656,17 @@ thead.ecdFixedHeader tr {
 }
 
 .ecdAchTreeName1 {
-	font-size: 20px;
+	font-size: 18px;
     font-weight: bold;
     color: #C5C29E;
-    padding: 5px;
+    padding: 4px;
     padding-left: 0px;
     margin-left: 0px;
     cursor: pointer;
     border-radius: 15px;
     height: 22px;
+	padding-top: 0px;
+	padding-bottom: 5px;
 }
 
 .ecdAchTreeName1 img {
@@ -1690,7 +1692,7 @@ thead.ecdFixedHeader tr {
 	font-size: 17px;
     font-weight: bold;
     color: #C5C29E;
-    padding: 2px;
+    padding: 1px;
     cursor: pointer;
     padding-left: 20px;
     border-radius: 10px;

@@ -6904,6 +6904,7 @@ function GetEsoInputOtherHandItemValues(inputValues, slotId)
 	if (enchantData.enchantDesc == "") return true;
 	
 	var enchantFactor = 1;
+	var transmuteFactor = 1;
 	
 		// Infused
 	if (itemData.trait == 16 || itemData.trait == 4)
@@ -6921,7 +6922,7 @@ function GetEsoInputOtherHandItemValues(inputValues, slotId)
 	
 	if (IsEsoItemWeapon(itemData))
 	{
-		GetEsoInputItemEnchantOtherHandWeaponValues(inputValues, slotId, itemData, enchantData, enchantFactor);
+		GetEsoInputItemEnchantOtherHandWeaponValues(inputValues, slotId, itemData, enchantData, enchantFactor, transmuteFactor);
 	}
 
 	return true;
@@ -7068,13 +7069,42 @@ function GetEsoInputItemValues(inputValues, slotId)
 	if (itemData.armorRating > 0)
 	{
 		var factor = 1;
-		var bonusResist = 0;
+		var factor2 = 1;
+		var bonusResist  = 0;
+		var bonusResist2 = 0;
 		
 				// Shield expert
 		if (itemData.weaponType == 14 && g_EsoCpData['Shield Expert'] != null && g_EsoCpData['Shield Expert'].isUnlocked)
 		{
 			//var extraBonus = factor * 0.75;
 			//factor *= 1.75;
+		}
+		
+		var transmuteTraitMatch = null;
+		var transmuteTraitValue = 0;
+		if (itemData.origTraitDesc != null) transmuteTraitMatch = itemData.origTraitDesc.match(/[0-9]+.?[0-9]*/);
+		if (transmuteTraitMatch != null && transmuteTraitMatch[0] != null) transmuteTraitValue = parseFloat(transmuteTraitMatch[0]);
+		
+			// Fix original reinforced trait for transmuted armor
+		if (itemData.origTrait == 13 && itemData.transmuteTrait > 0 && itemData.transmuteTrait != 13)
+		{
+			factor2 /= 1 + transmuteTraitValue/100;
+		}
+			// Fix original nirnhoned trait for transmuted armor
+		else if (itemData.origTrait == 25 && itemData.transmuteTrait > 0 && itemData.transmuteTrait != 25)
+		{
+			bonusResist2 = -Math.floor(transmuteTraitValue);
+		}
+		
+			// Fix transmuted reinforced trait
+		if (itemData.origTrait != 13 && itemData.transmuteTrait == 13)
+		{
+			factor *= 1 + traitValue/100;
+		}
+			// Fix transmuted nirnhoned trait
+		else if (itemData.origTrait != 25 && itemData.transmuteTrait == 25)
+		{
+			bonusResist = Math.floor(traitValue);
 		}
 		
 		if (itemData.trait == 13)	// Reinforced
@@ -7087,7 +7117,10 @@ function GetEsoInputItemValues(inputValues, slotId)
 			//bonusResist = Math.floor(traitValue);		// Update 15?: Now included in the raw item data when mined
 		}
 		
-		var armorRating = Math.floor(itemData.armorRating * factor) + bonusResist;
+		var armorRating = +itemData.armorRating;
+		armorRating += bonusResist2;
+		armorRating = Math.round(armorRating * factor2)
+		armorRating = Math.floor(armorRating * factor) + bonusResist;
 		
 		inputValues.Item.SpellResist += armorRating;
 		inputValues.Item.PhysicalResist += armorRating;
@@ -7107,6 +7140,18 @@ function GetEsoInputItemValues(inputValues, slotId)
 		{
 			inputValues.WeaponOffHandDamage = weaponPower;
 			weaponPower = Math.floor(weaponPower * 0.178);
+		}
+		
+			// Fix original nirnhoned trait for transmuted weapons
+		if (itemData.origTrait == 26 && itemData.transmuteTrait > 0 && itemData.transmuteTrait != 26)
+		{
+			weaponPower = Math.floor(weaponPower / (1 + traitValue/100));
+		}
+		
+			// Fix transmuted nirnhoned trait
+		if (itemData.origTrait != 26 && itemData.transmuteTrait == 26)
+		{
+			weaponPower = Math.floor(weaponPower * (1 + traitValue/100));
 		}
 		
 		if (itemData.trait == 26)	// Weapon nirnhoned
@@ -7242,7 +7287,7 @@ function GetEsoInputItemValues(inputValues, slotId)
 		// TODO?
 	}
 	
-	GetEsoInputItemEnchantValues(inputValues, slotId);
+	GetEsoInputItemEnchantValues(inputValues, slotId, false);
 }
 
 
@@ -7272,6 +7317,21 @@ function GetEsoInputItemEnchantValues(inputValues, slotId, doWeaponUpdate)
 	if (enchantData.enchantDesc == "") return true;
 	
 	var enchantFactor = 1;
+	var transmuteFactor = 1;
+	
+		// Fix original infused item that is transmuted
+	if ((itemData.origTrait == 16 || itemData.origTrait == 4) && itemData.transmuteTrait != itemData.origTrait)
+	{
+		var rawDesc = RemoveEsoDescriptionFormats(itemData.origTraitDesc);
+		var results = rawDesc.match(/([0-9]+\.?[0-9]*\%?)/g);
+		
+		if (results != null && results.length !== 0)
+		{
+			transmuteFactor = parseFloat(results[0])/100;
+			if (isNaN(transmuteFactor) || transmuteFactor < 0) transmuteFactor = 0;
+			transmuteFactor += 1;
+		}
+	}
 	
 		// Infused
 	if (itemData.trait == 16 || itemData.trait == 4)
@@ -7326,20 +7386,21 @@ function GetEsoInputItemEnchantValues(inputValues, slotId, doWeaponUpdate)
 	
 	if (IsEsoItemWeapon(itemData) && doWeaponUpdate === true)
 	{
-		GetEsoInputItemEnchantWeaponValues(inputValues, slotId, itemData, enchantData, enchantFactor);
+		GetEsoInputItemEnchantWeaponValues(inputValues, slotId, itemData, enchantData, enchantFactor, transmuteFactor);
 	}
 	else if (IsEsoItemArmor(itemData) && doWeaponUpdate !== true)
 	{
-		GetEsoInputItemEnchantArmorValues(inputValues, slotId, itemData, enchantData, enchantFactor);
+		GetEsoInputItemEnchantArmorValues(inputValues, slotId, itemData, enchantData, enchantFactor, transmuteFactor);
 	}	
 	
 	return true;
 }
 
 
-function GetEsoInputItemEnchantArmorValues(inputValues, slotId, itemData, enchantData, enchantFactor)
+function GetEsoInputItemEnchantArmorValues(inputValues, slotId, itemData, enchantData, enchantFactor, transmuteFactor)
 {
 	var rawDesc = RemoveEsoDescriptionFormats(enchantData.enchantDesc);
+	var isTransmuted = (itemData.transmuteTrait > 0 && itemData.transmuteTrait != itemData.origTrait)
 	
 	for (var i = 0; i < ESO_ENCHANT_ARMOR_MATCHES.length; ++i)
 	{
@@ -7348,7 +7409,9 @@ function GetEsoInputItemEnchantArmorValues(inputValues, slotId, itemData, enchan
 		if (matches == null) continue;
 		
 		var statValue = parseFloat(matches[1]);
-		if (!enchantData.isDefaultEnchant) statValue *= enchantFactor;
+		
+		statValue /= transmuteFactor;
+		if (!enchantData.isDefaultEnchant || isTransmuted) statValue *= enchantFactor;
 		
 		if (matchData.factorValue != null) statValue *= matchData.factorValue;
 		
@@ -7375,12 +7438,13 @@ function ReplaceEsoWeaponMatch(match, p1, offset, string, enchantFactor)
 }
 
 
-function GetEsoInputItemEnchantWeaponValues(inputValues, slotId, itemData, enchantData, enchantFactor)
+function GetEsoInputItemEnchantWeaponValues(inputValues, slotId, itemData, enchantData, enchantFactor, transmuteFactor)
 {
 	var rawDesc = RemoveEsoDescriptionFormats(enchantData.enchantDesc);
 	var addFinalEffect = false;
+	var isTransmuted = (itemData.transmuteTrait > 0 && itemData.transmuteTrait != itemData.origTrait)
 	
-	if (enchantData.isDefaultEnchant) enchantFactor = 1;
+	if (enchantData.isDefaultEnchant && !isTransmuted) enchantFactor = 1;
 	if (itemData.type != 1) return false;
 	if (inputValues.Set.EnchantPotency != null && itemData.weaponType != 14) enchantFactor *= (1 + inputValues.Set.EnchantPotency);
 	
@@ -7434,7 +7498,7 @@ function GetEsoInputItemEnchantWeaponValues(inputValues, slotId, itemData, encha
 }
 
 
-function GetEsoInputItemEnchantOtherHandWeaponValues(inputValues, slotId, itemData, enchantData, enchantFactor)
+function GetEsoInputItemEnchantOtherHandWeaponValues(inputValues, slotId, itemData, enchantData, enchantFactor, transmuteFactor)
 {
 	var rawDesc = RemoveEsoDescriptionFormats(enchantData.enchantDesc);
 	var addFinalEffect = false;
@@ -8737,6 +8801,9 @@ function UnequipEsoItemSlot(slotId, update)
 	iconElement.attr("setcount", "");
 	iconElement.attr("enchantfactor", "");
 	iconElement.attr("extraarmor", "");
+	iconElement.attr("trait", "");
+	
+	UpdateEsoItemTraitList(slotId, 0);
 		
 	g_EsoBuildItemData[slotId] = {};
 	
@@ -8795,10 +8862,13 @@ function OnEsoSelectItem(itemData, element)
 	iconElement.attr("setcount", "0");
 	iconElement.attr("enchantfactor", "0");
 	iconElement.attr("extraarmor", "0");
+	iconElement.attr("trait", "0");
 	
+	//UpdateEsoItemTraitList(slotId, 0);
 	UpdateWeaponEquipSlots(itemData, slotId);
 	
 	g_EsoBuildItemData[slotId] = itemData;
+	
 	RequestEsoItemData(itemData, element);
 }
 
@@ -9015,7 +9085,7 @@ function RequestEsoChangeArmorTypeData(itemData, armorType, slotId)
 			"quality" : itemData.quality,
 			"level" : itemData.level,
 			"intlevel" : itemData.internalLevel,
-			"intype" : itemData.internalSubtype,
+			"inttype" : itemData.internalSubtype,
 			"trait" : itemData.trait,
 	};
 
@@ -9082,7 +9152,7 @@ function RequestEsoChangeTraitData(itemData, newTrait, slotId, msgElement)
 			"quality" : itemData.quality,
 			"level" : itemData.level,
 			"intlevel" : itemData.internalLevel,
-			"intype" : itemData.internalSubtype,
+			"inttype" : itemData.internalSubtype,
 			"trait" : newTrait,
 	};
 
@@ -9129,6 +9199,9 @@ function OnEsoRequestChangeTraitReceive(data, status, xhr, slotId, origItemData,
 	tempItemData.internalSubtype = origItemData.internalSubtype;
 	
 	iconElement.attr("itemid", itemData.itemId);
+	iconElement.attr("trait", "0");
+	
+	UpdateEsoItemTraitList(slotId, newTrait);
 	
 	RequestEsoItemData(tempItemData, element);	
 }
@@ -9218,7 +9291,10 @@ function OnEsoRequestFindSetItemReceive(data, status, xhr, slotId, monsterSet, e
 	iconElement.attr("inttype", tempItemData.internalSubtype);
 	iconElement.attr("setcount", "0");
 	iconElement.attr("enchantfactor", "0");
-	iconElement.attr("extraarmor", "0");	
+	iconElement.attr("extraarmor", "0");
+	iconElement.attr("trait", "0");
+	
+	UpdateEsoItemTraitList(slotId, trait);
 	
 	RequestEsoItemData(tempItemData, element);	
 }
@@ -9262,6 +9338,13 @@ function OnEsoItemDataReceive(data, status, xhr, element, origItemData)
 	if (data.minedItem == null || data.minedItem[0] == null) return false;
 	
 	g_EsoBuildItemData[slotId] = data.minedItem[0];
+	
+	g_EsoBuildItemData[slotId].transmuteTrait = 0;
+	g_EsoBuildItemData[slotId].origTrait = g_EsoBuildItemData[slotId].trait; 
+	g_EsoBuildItemData[slotId].origTraitDesc = g_EsoBuildItemData[slotId].traitDesc;
+	
+	UpdateEsoItemTraitList(slotId, g_EsoBuildItemData[slotId].trait);	
+	
 	UpdateEsoComputedStatsList(true);
 		
 	GetEsoSetMaxData(g_EsoBuildItemData[slotId]);
@@ -9737,11 +9820,18 @@ function MakeEsoBuildItemLink(slotId)
 	if (itemLink == null) return "";
 	
 	var enchantData = g_EsoBuildEnchantData[slotId];
-	if (enchantData == null || enchantData.itemId == null) return itemLink;
 	
-	itemLink = itemLink.replace(/(\|H[0-9]+:item:[0-9]+:[0-9]+:[0-9]+:)([0-9]+)(:[0-9]+:[0-9]+:)/, "$1" + enchantData.itemId + "$3");
-	itemLink = itemLink.replace(/(\|H[0-9]+:item:[0-9]+:[0-9]+:[0-9]+:[0-9]+:)([0-9]+)(:[0-9]+:)/, "$1" + enchantData.internalSubtype + "$3");
-	itemLink = itemLink.replace(/(\|H[0-9]+:item:[0-9]+:[0-9]+:[0-9]+:[0-9]+:[0-9]+:)([0-9]+)(:)/, "$1" + enchantData.internalLevel + "$3");
+	if (enchantData != null && enchantData.itemId != null) 
+	{
+		itemLink = itemLink.replace(/(\|H[0-9]+:item:[0-9]+:[0-9]+:[0-9]+:)([0-9]+)(:[0-9]+:[0-9]+:)/, "$1" + enchantData.itemId + "$3");
+		itemLink = itemLink.replace(/(\|H[0-9]+:item:[0-9]+:[0-9]+:[0-9]+:[0-9]+:)([0-9]+)(:[0-9]+:)/, "$1" + enchantData.internalSubtype + "$3");
+		itemLink = itemLink.replace(/(\|H[0-9]+:item:[0-9]+:[0-9]+:[0-9]+:[0-9]+:[0-9]+:)([0-9]+)(:)/, "$1" + enchantData.internalLevel + "$3");
+	}
+	
+	if (itemData.trait != itemData.origTrait)
+	{
+		itemLink = itemLink.replace(/(\|H[0-9]+:item:[0-9]+:[0-9]+:[0-9]+:[0-9]+:[0-9]+:[0-9]+:)([0-9]+)(:)/, "$1" + itemData.trait + "$3");
+	}
 		
 	return itemLink;
 }
@@ -12270,6 +12360,7 @@ function CreateEsoBuildItemSaveData(saveData, inputValues)
 		data.itemLink = MakeEsoBuildItemLink(slotId);
 		data.icon = itemData.icon;
 		data.setCount = GetEsoBuildSetCount(itemData.setName);
+		data.setName = itemData.setName;
 		data.value = itemData.value;
 		data.level = itemData.level;
 		data.quality = itemData.quality;
@@ -12280,6 +12371,7 @@ function CreateEsoBuildItemSaveData(saveData, inputValues)
 		data.craftType = itemData.craftType;
 		data.stolen = itemData.stolen;
 		data.style = itemData.style;
+		data.trait = itemData.trait;
 		
 		saveData.EquipSlots[slotId] = data;
 	}
@@ -12771,7 +12863,9 @@ function OnEsoSetItemDataReceive(data, status, xhr, slotId)
 	iconElement.attr("setcount", "0");
 	iconElement.attr("enchantfactor", "0");
 	iconElement.attr("extraarmor", "0");
+	iconElement.attr("trait", "0");
 	
+	UpdateEsoItemTraitList(slotId, itemData.trait);
 	UpdateWeaponEquipSlots(itemData, slotId);
 	
 	g_EsoBuildItemData[slotId] = itemData; 
@@ -14474,6 +14568,112 @@ function UpdateEsoBuildSlottedDestructionSkills()
 }
 
 
+function UpdateAllEsoItemTraitLists()
+{
+	for (var slotId in ESOBUILD_SLOTID_TO_EQUIPSLOT)
+	{
+		var itemData = g_EsoBuildItemData[slotId];
+		
+		if (itemData == null || $.isEmptyObject(g_EsoBuildItemData[slotId]))
+		{
+			UpdateEsoItemTraitList(slotId, 0);
+		}
+		else
+		{
+			UpdateEsoItemTraitList(slotId, itemData.trait);
+		}
+		
+	}
+}
+
+
+function UpdateEsoItemTraitList(slotId, trait)
+{
+	if (trait === null || trait === undefined || trait < 0) return false;
+	
+	var list = $("#esotbItemTransmute" + slotId);
+	if (list.length == 0) return false;
+		
+	list.val(trait);
+	
+	return true;
+}
+
+
+function OnEsoTransmuteListChange(e)
+{
+	var $this = $(this);
+	var slotId = $this.attr("slotid");
+	var newTrait = $this.val();
+	
+	if (slotId == null || slotId == "") return;
+	if (g_EsoBuildItemData[slotId] == null) return
+	if ($.isEmptyObject(g_EsoBuildItemData[slotId])) return;
+	
+	if (g_EsoBuildItemData[slotId].trait == newTrait) return;
+	
+	var element = $(".esotbItem[slotid='" + slotId + "']");
+	var iconElement = element.find(".esotbItemIcon");
+	
+	g_EsoBuildItemData[slotId].trait = newTrait;
+	g_EsoBuildItemData[slotId].transmuteTrait = newTrait;
+	
+	iconElement.attr("trait", newTrait);
+	
+	RequestEsoTransmuteTraitData(g_EsoBuildItemData[slotId], newTrait, element);
+	
+	//EsoBuildLog("OnEsoTransmuteListChange", newTrait, slotId, this, e);
+	
+	//UpdateEsoComputedStatsList(true);
+}
+
+
+function RequestEsoTransmuteTraitData(itemData, newTrait, element)
+{	
+	if (itemData.itemId == null || itemData.itemId == "") return false;
+	if (itemData.level == null || itemData.level == "") return false;
+	if (itemData.quality == null || itemData.quality == "") return false;
+	
+	var queryParams = {
+			"table" : "minedItem",
+			"id" : itemData.itemId,
+			"intlevel" : itemData.internalLevel,
+			"inttype" : itemData.internalSubtype,
+			"transmutetrait" : newTrait,
+			"equiptype" : itemData.equipType,
+			"limit" : 1,
+	};
+	
+	$.ajax("//esolog.uesp.net/exportJson.php", {
+			data: queryParams,
+		}).
+		done(function(data, status, xhr) { OnEsoTransmuteTraitDataReceive(data, status, xhr, element, itemData); }).
+		fail(function(xhr, status, errorMsg) { OnEsoTransmuteTraitDataError(xhr, status, errorMsg); });
+}
+
+
+function OnEsoTransmuteTraitDataReceive(data, status, xhr, element, origItemData)
+{
+	var slotId = $(element).attr("slotId");
+	if (slotId == null || slotId == "") return false;
+	
+	if (data.minedItem == null || data.minedItem[0] == null) return false;
+	
+	var itemData = data.minedItem[0];
+	
+	g_EsoBuildItemData[slotId].traitDesc = itemData.traitDesc;
+	
+	//EsoBuildLog("Received Transmute Trait Desc", itemData.traitDesc, data);
+	
+	UpdateEsoComputedStatsList(true);
+}
+
+
+function OnEsoTransmuteTraitDataError(xhr, status, errorMsg)
+{
+}
+
+
 function esotbOnDocReady()
 {
 	GetEsoSkillInputValues = GetEsoTestBuildSkillInputValues;
@@ -14545,6 +14745,8 @@ function esotbOnDocReady()
 	$(".esotbBuffCheck").click(OnEsoBuildBuffCheckClick);
 	$(".esotbBuffItem").click(OnEsoBuildBuffClick);
 	
+	$(".esotbItemTransmuteList").change(OnEsoTransmuteListChange);
+	
 	if ((g_EsoSkillIsMobile == null || !g_EsoSkillIsMobile) && window.skin != "minerva")
 	{
 		$(".esovsSkillContentBlock").children(".esovsAbilityBlock").click(OnEsoBuildAbilityBlockClick);
@@ -14566,6 +14768,7 @@ function esotbOnDocReady()
 	//UpdateEsoComputedStatsList(true);
 	CopyEsoSkillsToItemTab();
 	UpdateEsoCpData();
+	UpdateAllEsoItemTraitLists();
 }
 
 

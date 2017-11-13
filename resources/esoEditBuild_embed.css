@@ -1125,3 +1125,27 @@ button.esotbWeaponSelect {
 #esotbWeaponBar2, #esotbFoodDrinkBar {
 	display: inline-block;
 }
+
+.esotbItemTransmute {
+	position: absolute;
+	top: 0px;
+	left: 117px;
+}
+
+.esotbItemTransmuteList {
+	display: inline-block;
+	font-size: 0.9em;
+	outline: 0px;
+    background-color: #DBBFA5;
+    height: 18px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+}
+
+.esotbItemTransmuteIcon {
+	width: 16px;
+	height 16px;
+	display: inline-block;
+}
