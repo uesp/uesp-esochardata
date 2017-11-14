@@ -1069,6 +1069,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>14 November 2017</b>
+			<ul>
+				<li>Fixed the food/drink search to include all level independant items regardless of item level. Let me know if there are still
+					specific recipes that aren't listed.</li>
+			</ul>
+			<p>
 			<b>13 November 2017</b>
 			<ul>
 				<li>Added support for transmuted items. Use the trait drop-down list to the right of each item slot to transmute an item. This feature is 
