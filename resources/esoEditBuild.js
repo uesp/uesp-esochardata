@@ -833,7 +833,16 @@ g_EsoBuildBuffData =
 			value : 0.12,
 			display: '%',
 			statId : "StaminaRegen",
-			icon : "/esoui/art/icons/gear_artifactsaviorhidemd_head_a.png", //TODO: Not the correct one?
+			icon : "/esoui/art/icons/gear_artifactsaviorhidemd_head_a.png",
+		},
+		"Hircines Rage" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 0.10,
+			display: '%',
+			statId : "WeaponDamage",
+			icon : "/esoui/art/icons/ability_werewolf_004_b.png",
 		},
 		
 			/* Target Buffs */
@@ -1412,6 +1421,16 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		buffId: "Blade Cloak",
 		rawInputMatch: /(The razors also shield you from shrapnel, reducing the damage you take from area of effect attacks by [0-9]+\.?[0-9]*%\.)/i,
 		match: /The razors also shield you from shrapnel, reducing the damage you take from area of effect attacks by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		id: "Hircine's Rage",
+		//displayName: "Hircine's Rage",
+		matchSkillName: true,
+		baseSkillId: 58316,
+		buffId: "Hircines Rage",
+		toggle: true,
+		enabled: false,
+		match: /increasing your Weapon Damage by ([0-9]+\.?[0-9]*)%/i
 	},
 		/* End Toggled Abilities */
 	
@@ -10712,7 +10731,12 @@ function UpdateEsoBuildToggledSkillData(inputValues)
 		
 		if (toggleSkillData.matchData.matchSkillName === true)
 		{
-			var data = g_SkillsData[abilityId];
+			//var data = g_SkillsData[abilityId];
+			//if (data == null) continue;
+			//if (toggleSkillData.matchData.id.toUpperCase() != data.name.toUpperCase()) continue;
+			
+			if (abilityData == null) continue;
+			var data = g_SkillsData[abilityData.abilityId];
 			if (data == null) continue;
 			if (toggleSkillData.matchData.id.toUpperCase() != data.name.toUpperCase()) continue;
 		}
