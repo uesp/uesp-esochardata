@@ -318,6 +318,15 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 								<option value="3">Precise</option>
 								<option value="7">Sharpened</option>
 								<option value="6">Training</option>
+								<option value="18" hidden>Divines</option>
+								<option value="12" hidden>Impenetrable</option>
+								<option value="16" hidden>Infused</option>
+								<option value="17" hidden>Invigorating</option>
+								<option value="25" hidden>Nirnhoned</option>					
+								<option value="13" hidden>Reinforced</option>
+								<option value="11" hidden>Sturdy</option>
+								<option value="15" hidden>Training</option>
+								<option value="14" hidden>Well-Fitted</option>
 							</select>
 						</div>
 					</div>
@@ -371,6 +380,15 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 								<option value="3">Precise</option>
 								<option value="7">Sharpened</option>
 								<option value="6">Training</option>
+								<option value="18" hidden>Divines</option>
+								<option value="12" hidden>Impenetrable</option>
+								<option value="16" hidden>Infused</option>
+								<option value="17" hidden>Invigorating</option>
+								<option value="25" hidden>Nirnhoned</option>					
+								<option value="13" hidden>Reinforced</option>
+								<option value="11" hidden>Sturdy</option>
+								<option value="15" hidden>Training</option>
+								<option value="14" hidden>Well-Fitted</option>
 							</select>
 						</div>
 					</div>
@@ -1073,6 +1091,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>24 November 2017</b>
 			<ul>
 				<li>Orzorga's Red Frothgar drink now shows up properly when searched.</li>
+				<li>Fixed display of some infused items.</li>
+				<li>The transmute trait list for shields now correctly displays armor traits.</li>
 			</ul>
 			<p>
 			<b>14 November 2017</b>
