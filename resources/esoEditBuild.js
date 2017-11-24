@@ -14620,6 +14620,7 @@ function UpdateEsoItemTraitList(slotId, trait)
 		
 	list.val(trait);
 	
+	UpdateEsoOffHandTransmuteTraitList(slotId);
 	return true;
 }
 
@@ -14695,6 +14696,37 @@ function OnEsoTransmuteTraitDataReceive(data, status, xhr, element, origItemData
 
 function OnEsoTransmuteTraitDataError(xhr, status, errorMsg)
 {
+}
+
+
+function UpdateEsoOffHandTransmuteTraitList(slotId)
+{
+	var item = g_EsoBuildItemData[slotId];
+	
+	if ($.isEmptyObject(item)) return;
+
+	var list = $("#esotbItemTransmute" + slotId);
+	var options = list.children("option");
+	var isShield = item.weaponType == 14;
+	
+	options.each(function(index, element) {
+		var $this = $(this);
+		var value = $this.attr("value");
+		
+		if (value == 0) return;
+		
+		var isWeaponTrait = (value > 0 && value <= 8) || value == 26;
+	
+		if ((isShield && isWeaponTrait) || (!isShield && !isWeaponTrait))
+		{
+			$this.hide();
+		}
+		else
+		{
+			$this.show();
+		}
+	});
+	
 }
 
 
