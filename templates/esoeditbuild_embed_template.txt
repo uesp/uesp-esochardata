@@ -1070,6 +1070,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>24 November 2017</b>
+			<ul>
+				<li>Orzorga's Red Frothgar drink now shows up properly when searched.</li>
+			</ul>
+			<p>
 			<b>14 November 2017</b>
 			<ul>
 				<li>Fixed the food/drink search to include all level independant items regardless of item level. Let me know if there are still
