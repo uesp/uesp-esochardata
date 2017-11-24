@@ -14620,7 +14620,7 @@ function UpdateEsoItemTraitList(slotId, trait)
 		
 	list.val(trait);
 	
-	UpdateEsoOffHandTransmuteTraitList(slotId);
+	if (slotId == "OffHand1" || slotId == "OffHand2") UpdateEsoOffHandTransmuteTraitList(slotId);
 	return true;
 }
 
