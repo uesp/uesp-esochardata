@@ -7339,7 +7339,7 @@ function GetEsoInputItemEnchantValues(inputValues, slotId, doWeaponUpdate)
 	var transmuteFactor = 1;
 	
 		// Fix original infused item that is transmuted
-	if ((itemData.origTrait == 16 || itemData.origTrait == 4) && itemData.transmuteTrait != itemData.origTrait)
+	if (itemData.transmuteTrait > 0 && (itemData.origTrait == 16 || itemData.origTrait == 4) && itemData.transmuteTrait != itemData.origTrait)
 	{
 		var rawDesc = RemoveEsoDescriptionFormats(itemData.origTraitDesc);
 		var results = rawDesc.match(/([0-9]+\.?[0-9]*\%?)/g);
