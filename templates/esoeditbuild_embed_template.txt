@@ -1093,6 +1093,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Orzorga's Red Frothgar drink now shows up properly when searched.</li>
 				<li>Fixed display of some infused items.</li>
 				<li>The transmute trait list for shields now correctly displays armor traits.</li>
+				<li>Fixed divine items with the Apprentice and Warrior mundus stones adding a extra spell damage to tooltips.</li>
 			</ul>
 			<p>
 			<b>14 November 2017</b>
