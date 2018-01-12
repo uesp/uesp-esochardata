@@ -66,6 +66,8 @@ g_EsoBuildEnchantData.OffHand2 = {};
 g_EsoFormulaInputValues = {};
 g_EsoInputStatSources = {};
 
+g_EsoBuildUpdatedOffBarEnchantFactor = false;
+
 
 var ESO_ITEMQUALITYLEVEL_INTTYPEMAP = 
 {
@@ -6111,9 +6113,6 @@ function GetEsoInputValues(mergeComputedStats)
 		GetEsoInputItemValues(inputValues, "MainHand1");
 		GetEsoInputItemValues(inputValues, "OffHand1");
 		GetEsoInputItemValues(inputValues, "Poison1");
-		
-		GetEsoInputOtherHandItemValues(inputValues, "MainHand2");
-		GetEsoInputOtherHandItemValues(inputValues, "OffHand2");
 	}
 	else
 	{
@@ -6128,9 +6127,6 @@ function GetEsoInputValues(mergeComputedStats)
 		GetEsoInputItemValues(inputValues, "MainHand2");
 		GetEsoInputItemValues(inputValues, "OffHand2");
 		GetEsoInputItemValues(inputValues, "Poison2");
-		
-		GetEsoInputOtherHandItemValues(inputValues, "MainHand1");
-		GetEsoInputOtherHandItemValues(inputValues, "OffHand1");
 	}
 	
 	g_EsoSkillDestructionElementPrev = g_EsoSkillDestructionElement;
@@ -6160,16 +6156,38 @@ function GetEsoInputValues(mergeComputedStats)
 		GetEsoInputItemEnchantValues(inputValues, "MainHand1", true);
 		GetEsoInputItemEnchantValues(inputValues, "OffHand1", true);
 		
+		GetEsoInputOtherHandItemValues(inputValues, "MainHand2");
+		GetEsoInputOtherHandItemValues(inputValues, "OffHand2");
+		
 		UpdateEsoBuildWeaponEnchantFactor("MainHand1", inputValues);
 		UpdateEsoBuildWeaponEnchantFactor("OffHand1", inputValues);
+		
+			/* Update offbar only the first update */
+		if (!g_EsoBuildUpdatedOffBarEnchantFactor)
+		{
+			UpdateEsoBuildWeaponEnchantFactor("MainHand2", inputValues);
+			UpdateEsoBuildWeaponEnchantFactor("OffHand2", inputValues);
+			g_EsoBuildUpdatedOffBarEnchantFactor = true;
+		}
 	}
 	else
 	{
 		GetEsoInputItemEnchantValues(inputValues, "MainHand2", true);
 		GetEsoInputItemEnchantValues(inputValues, "OffHand2", true);
 		
+		GetEsoInputOtherHandItemValues(inputValues, "MainHand1");
+		GetEsoInputOtherHandItemValues(inputValues, "OffHand1");
+		
 		UpdateEsoBuildWeaponEnchantFactor("MainHand2", inputValues);
 		UpdateEsoBuildWeaponEnchantFactor("OffHand2", inputValues);
+			
+			/* Update offbar only the first update */
+		if (!g_EsoBuildUpdatedOffBarEnchantFactor)
+		{
+			UpdateEsoBuildWeaponEnchantFactor("MainHand1", inputValues);
+			UpdateEsoBuildWeaponEnchantFactor("OffHand1", inputValues);
+			g_EsoBuildUpdatedOffBarEnchantFactor = true;
+		}
 	}
 	
 	GetEsoInputMundusValues(inputValues);
@@ -7543,8 +7561,18 @@ function GetEsoInputItemEnchantOtherHandWeaponValues(inputValues, slotId, itemDa
 {
 	var rawDesc = RemoveEsoDescriptionFormats(enchantData.enchantDesc);
 	var addFinalEffect = false;
+	var isTransmuted = (itemData.transmuteTrait > 0 && itemData.transmuteTrait != itemData.origTrait)
 	
-	if (enchantData.isDefaultEnchant) enchantFactor = 1;
+	if (enchantData.isDefaultEnchant && !isTransmuted) enchantFactor = 1;
+	if (itemData.type != 1) return false;
+	
+	if (inputValues.Set.EnchantPotency != null && itemData.weaponType != 14) enchantFactor *= (1 + inputValues.Set.EnchantPotency);
+	
+		/* Special case for offbar Torug's Pact setup */
+	if (g_EsoBuildSetData["Torug's Pact"] != null && g_EsoBuildSetData["Torug's Pact"].count < 5 && g_EsoBuildSetData["Torug's Pact"].otherCount >= 5)
+	{
+		enchantFactor *= (1 + 0.3);
+	}
 	
 	for (var i = 0; i < ESO_ENCHANT_OTHERHAND_WEAPON_MATCHES.length; ++i)
 	{
@@ -7554,23 +7582,20 @@ function GetEsoInputItemEnchantOtherHandWeaponValues(inputValues, slotId, itemDa
 		
 		var modValue = matchData.modValue || 1;
 		
-		if (matchData.statId == "OtherEffects")
+		rawDesc = rawDesc.replace(matchData.match, function(match, p1, offset, string) { return ReplaceEsoWeaponMatch(match, p1, offset, string, enchantFactor); });
+		addFinalEffect = true;
+		
+		if (matchData.buffId != null && matchData.updateBuffValue === true)
 		{
-			rawDesc = rawDesc.replace(matchData.match, function(match, p1, offset, string) { return ReplaceEsoWeaponMatch(match, p1, offset, string, enchantFactor); });
-			addFinalEffect = true;
+			var buffData = g_EsoBuildBuffData[matchData.buffId];
 			
-			if (matchData.buffId != null && matchData.updateBuffValue === true)
+			if (buffData != null) 
 			{
-				var buffData = g_EsoBuildBuffData[matchData.buffId];
+				var matches = rawDesc.match(matchData.match);
+				if (matches != null && matches[1] != null) buffData.value = parseFloat(matches[1]);
 				
-				if (buffData != null) 
-				{
-					var matches = rawDesc.match(matchData.match);
-					if (matches != null && matches[1] != null) buffData.value = parseFloat(matches[1]);
-					
-					buffData.visible = true;
-					buffData.forceUpdate = true;
-				}
+				buffData.visible = true;
+				buffData.forceUpdate = true;
 			}
 		}
 		
@@ -11182,12 +11207,27 @@ function UpdateEsoBuildWeaponEnchantFactor(slotId, inputValues)
 	var itemData = g_EsoBuildItemData[slotId];
 	
 	iconElement.attr("enchantfactor", 0);
-	if (itemData == null || inputValues.Set == null || inputValues.Set.EnchantPotency == null) return;
+	if (itemData == null) return;
 	
-	if (itemData.weaponType == 14)
+	if (itemData.weaponType == 14) 
+	{
 		iconElement.attr("enchantfactor", 0);
-	else
-		iconElement.attr("enchantfactor", inputValues.Set.EnchantPotency);
+		return;
+	}
+	
+		/* Manually check for Torug's Pact offbar setup */
+	if (inputValues == null)
+	{
+		if (g_EsoBuildSetData["Torug's Pact"] != null && g_EsoBuildSetData["Torug's Pact"].otherCount >= 5)
+		{
+			iconElement.attr("enchantfactor", 0.3);
+		}
+		
+		return;
+	}
+	
+	if (inputValues.Set == null || inputValues.Set.EnchantPotency == null) return;
+	iconElement.attr("enchantfactor", inputValues.Set.EnchantPotency);
 }
 
 
