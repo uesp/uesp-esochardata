@@ -1097,7 +1097,19 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"SkillCost.Panacea_Cost" => array(
+					"display" => "%",
+			),
+			
 			"SkillCost.Vampire_Cost" => array(
+					"display" => "%",
+			),
+			
+			"SkillCost.Bat_Swarm_Cost" => array(
+					"display" => "%",
+			),
+			
+			"SkillCost.Rapid_Fire_Cost" => array(
 					"display" => "%",
 			),
 			
