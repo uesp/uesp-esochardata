@@ -3325,6 +3325,18 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	
 		/* Begin Toggled Passives */
 	{
+		id: "Slaughter",
+		baseSkillId: 18929,
+		statRequireId: "Weapon1H",
+		statRequireValue: 2,
+		category: "SkillLineDamage",
+		statId: "Dual Wield Damage",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /WHILE DUAL WIELDING[\s\S]*?Increases damage with Dual Wield abilities by ([0-9]+\.?[0-9]*)% against enemies with under [0-9]+\.?[0-9]*% health/i,
+	},
+	{
 		id: "Wrath",
 		baseSkillId: 29773,
 		statRequireId: "ArmorHeavy",
@@ -3391,19 +3403,23 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireValue: 1,
 		id: "Hawk Eye",
 		baseSkillId: 30936,
-		statId: "BowDamageDone",
+		category: "SkillLineDamage",
+		statId: "Bow Damage",
 		toggle: true,
 		enabled: false,
 		display: "%",
 		maxTimes: 5,
-		match: /WITH BOW EQUIPPED[\s\S]*?Your successful Light and Heavy Attacks increase the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i
+		//match: /WITH BOW EQUIPPED[\s\S]*?Your successful Light and Heavy Attacks increase the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i
+		match: /WITH A BOW EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack increases the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i,
 	},
+	/*
 	{
 		statRequireId: "WeaponBow",
 		statRequireValue: 1,
 		id: "Hawk Eye",
 		baseSkillId: 30936,
-		statId: "BowDamageDone",
+		category: "SkillLineDamage",
+		statId: "Bow",
 		toggle: true,
 		enabled: false,
 		display: "%",
@@ -3487,7 +3503,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		maxTimes: 5,
 		match: /WITH A BOW EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack increases the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i
-	},
+	}, //*/
 	
 	{
 		id: "Continuous Attack",
@@ -3755,6 +3771,24 @@ ESO_SETEFFECT_MATCHES = [
 		statId: "Soul Trap",
 		display: "%",
 		match: /Increases the damage of your Soul Trap ability by ([0-9]+)%/i,
+	},
+	{
+		category: "SkillLineDamage",
+		statId: "Bow Damage",
+		display: "%",
+		match: /Reduces the cost and increases the damage of your Bow abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	/* {
+		statId: "BowDamageDone",
+		display: "%",
+		match: /Reduces the cost and increases the damage of your Bow abilities by ([0-9]+)%/i,
+	}, //*/
+	{
+		category: "SkillCost",
+		statId: "Bow_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost and increases the damage of your Bow abilities by ([0-9]+)%/i,
 	},
 	{
 		buffId: "Minor Toughness",
@@ -4069,18 +4103,6 @@ ESO_SETEFFECT_MATCHES = [
 	{
 		buffId: "Minor Mending",
 		match: /Gain Minor Mending at all times, increasing your healing done by [0-9]+%/i,
-	},
-	{
-		statId: "BowDamageDone",
-		display: "%",
-		match: /Reduces the cost and increases the damage of your Bow abilities by ([0-9]+)%/i,
-	},
-	{
-		category: "SkillCost",
-		statId: "Bow_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the cost and increases the damage of your Bow abilities by ([0-9]+)%/i,
 	},
 	{
 		category: "Skill",
@@ -11295,6 +11317,7 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
 	
 	g_LastSkillInputValues.SkillDuration = inputValues.SkillDuration;
  	g_LastSkillInputValues.SkillDamage = inputValues.SkillDamage;
+ 	g_LastSkillInputValues.SkillLineDamage = inputValues.SkillLineDamage;
  	g_LastSkillInputValues.SkillHealing = inputValues.SkillHealing;
  	g_LastSkillInputValues.useMaelstromDamage = false;
  	

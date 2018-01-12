@@ -169,6 +169,7 @@ class EsoBuildDataEditor
 			"Skill.HAStaRestoreWerewolf",
 			"SkillDuration.Placeholder",
 			"SkillDamage.Placeholder",
+			"SkillLineDamage.Placeholder",
 			"SkillHealing.Placeholder",
 			"SkillLineWeaponDmg.base",
 			"SkillLineSpellDmg.base",
@@ -1425,6 +1426,14 @@ class EsoBuildDataEditor
 			),
 			
 			"SkillDamage.Fiery Breath" => array(
+					"display" => "%",
+			),
+			
+			"SkillLineDamage.Bow Damage" => array(
+					"display" => "%",
+			),
+			
+			"SkillLineDamage.Dual Wield Damage" => array(
 					"display" => "%",
 			),
 						
