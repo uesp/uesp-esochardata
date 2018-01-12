@@ -1090,6 +1090,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>12 January 2017</b>
 			<ul>
 				<li>Transmuted items now should work correctly after loading a build for editing (previously they would only actually use correct stats after changing a trait with the drop-down lists).</li>
+				<li>Offbar Weapon Damage enchantments with the Torug's Set now correctly set the Weapon Damage Enchantment buff value. Offbar tooltips should also now be correct on build load (previously you had to
+						bar switch once to update enchant values).</li>
 			</ul>
 			<p>
 			<b>11 January 2017</b>
