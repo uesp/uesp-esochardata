@@ -1087,6 +1087,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>12 January 2017</b>
+			<ul>
+				<li>Transmuted items now should work correctly after loading a build for editing (previously they would only actually use correct stats after changing a trait with the drop-down lists).</li>
+			</ul>
+			<p>
 			<b>11 January 2017</b>
 			<ul>
 				<li>Hawk's Eye set and passive now correctly increase damage to the Bow line.</li>

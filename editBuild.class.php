@@ -3985,6 +3985,8 @@ class EsoBuildDataEditor
 	
 	public function LoadInitialItemData($slotId, $linkData)
 	{
+		global $ESO_ITEMTRANSMUTETRAIT_IDS;
+		
 		$itemId = (int) $linkData['itemId'];
 		$intLevel = (int) $linkData['itemIntLevel'];
 		$intType = (int) $linkData['itemIntType'];
@@ -4007,8 +4009,29 @@ class EsoBuildDataEditor
 		
 		$this->initialItemData[$slotId] = $result->fetch_assoc();
 		$this->initialItemData[$slotId]["origTrait"] = $this->initialItemData[$slotId]["trait"];
+		$this->initialItemData[$slotId]["origTraitDesc"] = $this->initialItemData[$slotId]["traitDesc"];
 		
-		if ($linkData['transmuteTrait'] > 0) $this->initialItemData[$slotId]["trait"] = $linkData['transmuteTrait']; 
+		if ($linkData['transmuteTrait'] > 0)
+		{
+			$this->initialItemData[$slotId]["trait"] = $linkData['transmuteTrait'];
+			
+			$transmuteItemId = $ESO_ITEMTRANSMUTETRAIT_IDS[$linkData['transmuteTrait']];
+			
+			if ($transmuteItemId != null) 
+			{
+				$query = "SELECT traitDesc, trait, internalLevel, internalSubtype FROM minedItem WHERE itemId='$transmuteItemId' AND internalLevel='$intLevel' AND internalSubtype='$intType' LIMIT 1;";
+				$result = $this->db->query($query);
+				
+				if ($result) 
+				{
+					$this->ReportError("Failed to load item data for transmute item $transmuteItemId:$intLevel:$intType!");
+					$row = $result->fetch_assoc();
+					
+					$this->initialItemData[$slotId]["traitDesc"] = $row['traitDesc'];
+					$this->initialItemData[$slotId]["transmuteTrait"] = $linkData['transmuteTrait'];
+				}								
+			}
+		}
 		
 		$setName = $this->initialItemData[$slotId]['setName'];
 		if ($setName != "") return $this->LoadInitialSetMaxData($setName, $linkData);
