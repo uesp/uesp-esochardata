@@ -3997,8 +3997,6 @@ class EsoBuildDataEditor
 	
 	public function LoadInitialItemData($slotId, $linkData)
 	{
-		global $ESO_ITEMTRANSMUTETRAIT_IDS;
-		
 		$itemId = (int) $linkData['itemId'];
 		$intLevel = (int) $linkData['itemIntLevel'];
 		$intType = (int) $linkData['itemIntType'];
@@ -4027,7 +4025,8 @@ class EsoBuildDataEditor
 		{
 			$this->initialItemData[$slotId]["trait"] = $linkData['transmuteTrait'];
 			
-			$transmuteItemId = $ESO_ITEMTRANSMUTETRAIT_IDS[$linkData['transmuteTrait']];
+			//$transmuteItemId = $ESO_ITEMTRANSMUTETRAIT_IDS[$linkData['transmuteTrait']];
+			$transmuteItemId = GetEsoTransmuteTraitItemId($linkData['transmuteTrait'], $this->initialItemData[$slotId]['equipType']);
 			
 			if ($transmuteItemId != null) 
 			{
