@@ -3573,6 +3573,17 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		enabled: false,
 		match: /and Magicka and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i,
 	},
+	{
+		statRequireId: "Weapon2H",
+		statRequireValue: 1,
+		id: "Battle Rush",
+		baseSkillId: 29391,
+		statId: "StaminaRegen",
+		toggle: true,
+		enabled: false,
+		display: "%",
+		match: /WITH TWO-HANDED WEAPON EQUIPPED[\s\S]*?Increases your Stamina Recovery by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds after killing a target/i,
+	},
 		/* End Toggled Passives */
 	
 
@@ -3612,7 +3623,6 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		// Two Handed
 	//Grants a bonus based on the type of weapon equipped:
 		//Axes grant your melee attacks 16% chance to apply a bleed dealing 5635 Physical Damage over 6 seconds.
-	//WITH TWO-HANDED WEAPON EQUIPPED Increases your Stamina Recovery by 30% for 10 seconds after killing a target.
 	
 		// Racial
 	//Gives your melee attacks a 10% chance to restore 854 Health.
@@ -3792,6 +3802,27 @@ ESO_SETEFFECT_MATCHES = [
 		factorValue: -1,
 		match: /Reduces the cost and increases the damage of your Bow abilities by ([0-9]+)%/i,
 	},
+	{	/* Check if this actually affects the Bow ultimate */
+		category: "SkillCost",
+		statId: "Rapid_Fire_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost and increases the damage of your Bow abilities by ([0-9]+)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Bow_Cost",
+		display: '%',
+		factorValue: -1,
+		match: /Reduce cost of bow abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{	/* Check if this actually affects the Bow ultimate */
+		category: "SkillCost",
+		statId: "Rapid_Fire_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduce cost of bow abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
 	{
 		buffId: "Minor Toughness",
 		match: /Gain Minor Toughness at all times/i,
@@ -3877,6 +3908,13 @@ ESO_SETEFFECT_MATCHES = [
 	},	 
 	{
 		statId: "Vampire_Cost",
+		category: "SkillCost",
+		factorValue: -1,
+		display: "%",
+		match: /Reduces the cost of your Vampire abilities by ([0-9]+)%/i,
+	},
+	{
+		statId: "Bat_Swarm_Cost",
 		category: "SkillCost",
 		factorValue: -1,
 		display: "%",
@@ -4484,13 +4522,6 @@ ESO_SETEFFECT_MATCHES = [
 		statId: "Magicka",
 		display: '%',
 		match: /Increase Maximum Magicka by ([0-9]+\.?[0-9]*)%./i,
-	},
-	{
-		category: "SkillCost",
-		statId: "Bow_Cost",
-		display: '%',
-		factorValue: -1,
-		match: /Reduce cost of bow abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "BowDamageDone",
@@ -5292,8 +5323,8 @@ ESO_SETEFFECT_MATCHES = [
 		id: "Necropotence",
 		setBonusCount: 4,
 		toggle: true,
-		enabled: false,
-		enableOffBar : false,
+		enabled: true,
+		enableOffBar : true,
 		statId: "Magicka",
 		category: "Skill2",
 		match: /While you have a pet active, your Max Magicka is increased by ([0-9]+)/i,

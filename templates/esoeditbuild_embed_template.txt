@@ -1093,6 +1093,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Offbar Weapon Damage enchantments with the Torug's Set now correctly set the Weapon Damage Enchantment buff value. Offbar tooltips should also now be correct on build load (previously you had to
 						bar switch once to update enchant values).</li>
 				<li>Fixed some skill data in the database that was causing issues with skill point numbers for Bretons and Altmers.</li>
+				<li>The weapon passives that reduce skill cost no longer apply to ultimates (as verified on PTS). Note that sets that reduce skill line cost still apply to ultimates (needs confirmation).</li>
+				<li>Added the 2H Battle Rush passive as a toggled ability.</li>
 			</ul>
 			<p>
 			<b>11 January 2017</b>
