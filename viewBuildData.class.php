@@ -1170,7 +1170,16 @@ class EsoBuildDataViewer
 		$charNames = array();
 		
 		$charNames[-1] = "Bank";
-		$charNames[-2] = "Craft Bag";
+		$charNames[-7] = "Storage Coffer, Fortified";
+		$charNames[-8] = "Storage Chest, Fortified";
+		$charNames[-9] = "Storage Coffer, Oaken";
+		$charNames[-10] = "Storage Coffer, Secure";
+		$charNames[-11] = "Storage Coffer, Sturdy";
+		$charNames[-12] = "Storage Chest, Oaken";
+		$charNames[-13] = "Storage Chest, Secure";
+		$charNames[-14] = "Storage Chest, Sturdy";
+		$charNames[-15] = "House Storage";
+		$charNames[-16] = "House Storage";		
 		
 		foreach ($this->accountCharacters as $charIndex => $charData)
 		{

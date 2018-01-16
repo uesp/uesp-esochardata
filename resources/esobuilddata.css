@@ -1147,7 +1147,7 @@ thead.ecdFixedHeader tr {
 
 .ecdCurrencyAP {
 	display: inline-block;
-	width: 100px;
+	width: 120px;
     font-size: 18px;
     font-weight: bold;
     text-align: right;
@@ -1163,6 +1163,10 @@ thead.ecdFixedHeader tr {
     text-align: right;
     float: right;
 	text-shadow: 1px 1px 2px black;
+}
+
+.ecdCurrencyTelvar {
+	width: 115px;
 }
 
 .ecdInventorySpace {
@@ -1392,7 +1396,7 @@ thead.ecdFixedHeader tr {
 
 .ecdItemOwnerWindow {
 	position: absolute;
-	width: 200px;
+	width: 250px;
 	background-color: black;
 	border: solid 2px gray;
 	color: white;
@@ -1418,7 +1422,7 @@ thead.ecdFixedHeader tr {
 .ecdItemDataName {
 	display: inline-block;
 	text-align: left;
-	width: 130px;
+	width: 175px;
 	overflow: hidden;
 	vertical-align: top;
 }
