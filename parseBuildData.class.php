@@ -7,6 +7,8 @@ require_once("/home/uesp/secrets/esolog.secrets");
 
 class EsoBuildDataParser
 {
+	const ECD_HOUSESTORAGE_FIRST = -7;
+	
 	public $ECD_OUTPUTLOG_FILENAME = "/home/uesp/esobuilddata/builddata.log";
 	public $ECD_OUTPUT_BUILDDATA_PATH = "/home/uesp/esobuilddata/";
 	public $ECD_OUTPUT_BUILDDATA_PREFIX = "builddata-";
@@ -744,9 +746,82 @@ class EsoBuildDataParser
 			case "Inventory":
 			case "inventory":
 				return $this->saveCharacterInventory($buildData, $name, $arrayData);
+			case "HouseStorage":
+				return $this->saveCharacterHouseStorage($buildData, $name, $arrayData);
 			default:
 				return $this->reportError("Unknown array '$name' found in character data!");
 		}
+		
+		return true;
+	}
+	
+	
+	public function saveCharacterHouseStorage($buildData, $name, $arrayData)
+	{
+		if (!$this->hasCharacterInventory) return true;
+		
+		$this->deleteCharacterHouseStorage($buildData);
+	
+		$charId = intval($buildData['id']);
+		$accountName = $this->getSafeFieldStr($buildData, 'UniqueAccountName');
+	
+		$result = True;
+		$startTime = microtime(True);
+			
+		foreach ($arrayData as $key => &$value)
+		{
+			if (is_numeric($key))
+			{
+				$result &= $this->saveCharacterHouseStorageBox($charId, $accountName, $key, $value);
+			}
+		}
+	
+		$deltaTime = (microtime(True) - $startTime) * 1000;
+		$count = count($arrayData);
+		$this->log("Parsed and saved $count house storage items in $deltaTime ms.");
+			
+		return $result;
+	}
+	
+		
+	public function saveCharacterHouseStorageBox($charId, $account, $boxId, $contents)
+	{
+		$boxCharId = -$boxId;
+		$result = true;
+		
+		foreach ($contents as $key => &$value)
+		{
+			if ($key == "Size")
+			{
+				$result &= $this->saveCharacterInventoryExtraRawData($boxCharId, $account, "__TotalSpace", $value);
+			}
+			else if ($key == "UsedSize")
+			{
+				$result &= $this->saveCharacterInventoryExtraRawData($boxCharId, $account, "__UsedSpace", $value);
+			}
+			else if ($key == "CollectId")
+			{
+				//$result &= $this->saveCharacterInventoryExtraRawData($boxCharId, $account, "__CollectId", $value);
+			}
+			else if (is_numeric($key))
+			{
+				$result &= $this->saveCharacterInventoryItem($boxCharId, $account, $key, $value);
+			}
+		}
+			
+		return $result;
+	}
+
+	
+	public function deleteCharacterHouseStorage($buildData)
+	{
+		$accountName = $this->getSafeFieldStr($buildData, 'UniqueAccountName');
+		
+		$this->log("Deleting bank inventory for $accountName...");
+		
+		$this->lastQuery = "DELETE FROM inventory WHERE characterId<=" . self::ECD_HOUSESTORAGE_FIRST . " AND account='$accountName';";
+		$result = $this->db->query($this->lastQuery);
+		if ($result === FALSE) return $this->reportError("Failed to clear character house storage data!");
 		
 		return true;
 	}
