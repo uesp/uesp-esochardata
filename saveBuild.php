@@ -8,6 +8,8 @@ require_once("/home/uesp/www/esomap/UespMemcachedSession.php");
 class EsoBuildDataSaver 
 {
 	
+	public $SESSION_DEBUG_FILENAME = "/var/log/httpd/esoeditbuild_sessions.log"; 
+	
 	public $canEditBuilds = false;
 	public $canDeleteBuilds = false;
 	public $canCreateBuilds = false;
@@ -172,24 +174,32 @@ class EsoBuildDataSaver
 		$canEditBuilds   = $_SESSION['UESP_ESO_canEditBuild'];
 		$canDeleteBuilds = $_SESSION['UESP_ESO_canDeleteBuild'];
 		$canCreateBuilds = $_SESSION['UESP_ESO_canCreateBuild'];
-		//$wikiUser = $_SESSION['uesp_net_wikiuser'];
+		$wikiUser = $_SESSION['wsUserName'];
+		$sessionId = session_id();
+		$currentDate = date("Y-m-d H:i:s");
 		
-		error_log("EsoBuildSession:");
+		$output = "EsoBuildSession: $currentDate\n";
+		$output .= "\tsessionId = $sessionId\n";
+		$output .= "\tbuildId = {$this->buildId}\n";
+		$output .= "\torigBuildId = {$this->origBuildId}\n";
+		$output .= "\twikiUser = $wikiUser\n";
+		$output .= "\tcanEditBuilds = {$this->canEditBuilds}\n";
+		$output .= "\tcanDeleteBuilds = {$this->canDeleteBuilds}\n";
+		$output .= "\tcanCreateBuilds = {$this->canCreateBuilds}\n";
 		
 		foreach ($_SESSION as $name => $val)
 		{
-			error_log("       $name = '$val'");
-		}		
-
+			$output .= "\t$name = '$val'\n";
+		}
+		
+		file_put_contents($this->SESSION_DEBUG_FILENAME, $output, FILE_APPEND | LOCK_EX);
 	}
 	
 	
 	public function GetSessionData()
 	{
 		global $_SESSION;
-		
-		//$this->DebugSessionData();
-		
+	
 		$this->canEditBuilds   = $_SESSION['UESP_ESO_canEditBuild'];
 		$this->canDeleteBuilds = $_SESSION['UESP_ESO_canDeleteBuild'];
 		$this->canCreateBuilds = $_SESSION['UESP_ESO_canCreateBuild'];
@@ -197,6 +207,8 @@ class EsoBuildDataSaver
 		if ($this->canEditBuilds   === null) $this->canEditBuilds   = false;
 		if ($this->canDeleteBuilds === null) $this->canDeleteBuilds = false;
 		if ($this->canCreateBuilds === null) $this->canCreateBuilds = false;
+		
+		$this->DebugSessionData();
 		
 		return true;
 	}
@@ -224,6 +236,7 @@ class EsoBuildDataSaver
 	
 	public function Initialize()
 	{
+		if (!$this->ParseInputParams()) return false;
 		
 		if (!$this->GetSessionData()) 
 		{
@@ -234,7 +247,6 @@ class EsoBuildDataSaver
 		$this->OutputHeaders();
 		
 		if (!$this->InitDatabaseWrite()) return false;
-		if (!$this->ParseInputParams()) return false;
 		
 		if ($this->inputData === null || $this->inputId === null) return $this->ReportError("No input data received!");
 		
