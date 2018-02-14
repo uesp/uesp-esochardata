@@ -36,7 +36,7 @@ class EsoBuildDataEditor
 	
 	public $buildDataViewer = null;
 	
-	public $buildId = null;
+	public $buildId = -1;
 	
 	public $loadSetNames = false;
 	public $setNames = array();
