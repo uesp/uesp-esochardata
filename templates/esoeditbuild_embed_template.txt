@@ -4,7 +4,8 @@
 	<button id="esotbCreateCopyButton" {createCopyButtonDisabled}>Create Copy</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #cfc; display: flex;'>
+<div style='background-color: #fcc; display: flex;'>
+Note: The builder has not yet been completely modified for the Dragon Bones update 17! Skills and CP data have been updated.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
