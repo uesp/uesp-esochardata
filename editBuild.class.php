@@ -20,11 +20,13 @@ require_once("/home/uesp/esolog.static/esoCommon.php");
 require_once("/home/uesp/esolog.static/viewCps.class.php");
 require_once("/home/uesp/esolog.static/viewSkills.class.php");
 require_once(__DIR__."/viewBuildData.class.php");
-require_once("/home/uesp/www/esomap/UespMemcachedSession.php");
+# require_once("/home/uesp/www/esomap/UespMemcachedSession.php");
 
 
 class EsoBuildDataEditor 
 {
+	public $SESSION_DEBUG_FILENAME = "/var/log/httpd/esoeditbuild_sessions.log";
+	
 	public $TEMPLATE_FILE = "";
 	
 	public $db = null;
@@ -3591,7 +3593,7 @@ class EsoBuildDataEditor
 	
 	public function __construct()
 	{
-		UespMemcachedSession::install();
+		//UespMemcachedSession::install();
 		
 		$this->TEMPLATE_FILE = __DIR__."/templates/esoeditbuild_embed_template.txt";
 		
@@ -4760,19 +4762,61 @@ class EsoBuildDataEditor
 		return $output;
 	}
 	
+
+	public function DebugSessionData()
+	{
+		global $_SESSION, $_COOKIE;
+	
+		$canEditBuilds   = $_SESSION['UESP_ESO_canEditBuild'];
+		$canDeleteBuilds = $_SESSION['UESP_ESO_canDeleteBuild'];
+		$canCreateBuilds = $_SESSION['UESP_ESO_canCreateBuild'];
+		$wikiUser = $_SESSION['wsUserName'];
+		$sessionId = session_id();
+		$currentDate = date("Y-m-d H:i:s");
+		
+		$sessionName = session_name();
+		$cookie = $_COOKIE[$sessionName];
+		
+		$cookieParams = session_get_cookie_params();
+	
+		$output = "EsoBuildSession Set: $currentDate\n";
+		$output .= "\tsessionId = $sessionId\n";
+		$output .= "\tsessionName = $sessionName\n";
+		$output .= "\tsessionCookie = $cookie\n";
+		$output .= "\tsessionDomain = {$cookieParams['domain']}\n";
+		$output .= "\tbuildId = {$this->buildId}\n";
+		//$output .= "\torigBuildId = {$this->origBuildId}\n";
+		$output .= "\twikiUser = $wikiUser\n";
+		//$output .= "\tcanEditBuilds = {$this->canEditBuilds}\n";
+		//$output .= "\tcanDeleteBuilds = {$this->canDeleteBuilds}\n";
+		//$output .= "\tcanCreateBuilds = {$this->canCreateBuilds}\n";
+	
+		foreach ($_COOKIE as $name => $val)
+		{
+			//$output .= "\t$name = '$val'\n";
+		}
+		
+		file_put_contents($this->SESSION_DEBUG_FILENAME, $output, FILE_APPEND | LOCK_EX);
+	}
+	
 	
 	public function SetSessionData()
 	{
 		global $_SESSION;
 		
+		$_SESSION['UESP_ESO_canEditBuild']   = false;
+		$_SESSION['UESP_ESO_canDeleteBuild'] = false;
+		$_SESSION['UESP_ESO_canCreateBuild'] = false;
+		
 		if ($this->wikiContext == null) return $this->ReportError("Failed to setup session data!");
 		
-		$request = $this->wikiContext->getRequest();
-		if ($request == null) return $this->ReportError("Failed to setup session data!");
+		//$request = $this->wikiContext->getRequest();
+		//if ($request == null) return $this->ReportError("Failed to setup session data!");
 		
 		//$request->setSessionData( 'UESP_ESO_canEditBuild', $this->buildDataViewer->canWikiUserEdit() );
 		//$request->setSessionData( 'UESP_ESO_canDeleteBuild', $this->buildDataViewer->canWikiUserDelete() );
 		//$request->setSessionData( 'UESP_ESO_canCreateBuild', $this->buildDataViewer->canWikiUserCreate() );
+		
 		$_SESSION['UESP_ESO_canEditBuild']   = $this->buildDataViewer->canWikiUserEdit();
 		$_SESSION['UESP_ESO_canDeleteBuild'] = $this->buildDataViewer->canWikiUserDelete();
 		$_SESSION['UESP_ESO_canCreateBuild'] = $this->buildDataViewer->canWikiUserCreate();
@@ -4782,6 +4826,7 @@ class EsoBuildDataEditor
 		//$val1 = $this->buildDataViewer->canWikiUserEdit();
 		
 		//error_log("EsoBuildSetSession: '$val' = '$val1'");
+		//$this->DebugSessionData();
 	}
 	
 		
