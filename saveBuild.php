@@ -177,9 +177,13 @@ class EsoBuildDataSaver
 		$wikiUser = $_SESSION['wsUserName'];
 		$sessionId = session_id();
 		$currentDate = date("Y-m-d H:i:s");
+		$sessionName = session_name();
+		$cookie = $_COOKIE[$sessionName];
 		
 		$output = "EsoBuildSession: $currentDate\n";
 		$output .= "\tsessionId = $sessionId\n";
+		$output .= "\tsessionName = $sessionName\n";
+		$output .= "\tsessionCookie = $cookie\n";
 		$output .= "\tbuildId = {$this->buildId}\n";
 		$output .= "\torigBuildId = {$this->origBuildId}\n";
 		$output .= "\twikiUser = $wikiUser\n";
@@ -208,7 +212,7 @@ class EsoBuildDataSaver
 		if ($this->canDeleteBuilds === null) $this->canDeleteBuilds = false;
 		if ($this->canCreateBuilds === null) $this->canCreateBuilds = false;
 		
-		$this->DebugSessionData();
+		//$this->DebugSessionData();
 		
 		return true;
 	}

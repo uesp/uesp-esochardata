@@ -5,7 +5,8 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #fcc; display: flex;'>
-Note: The builder has not yet been completely modified for the Dragon Bones update 17! Skills and CP data have been updated.
+Note: The builder has not yet been completely modified for the Dragon Bones update 17! Skills and CP data have been updated. 
+If you can't save builds &nbsp; <a href="http://en.uesp.net/wiki/UESPWiki:EsoBuildEditor#Can.27t_Save_Build_.28Error_Saving_Build.29">see here</a> &nbsp; for details on how to fix it. 
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
