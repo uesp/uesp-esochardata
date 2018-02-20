@@ -697,7 +697,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Briarheart</option>
 					<option>Buffer of the Swift</option>
 					<option>Burning Spellweave</option>
-					<option>Caluurion’s Legacy</option>
+					<option>Caluurion's Legacy</option>
 					<option>Clever Alchemist</option>
 					<option>Combat Physician</option>
 					<option>Coward's Gear</option>
@@ -763,7 +763,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Ironblood</option>
 					<option>Jailbreaker</option>
 					<option>Jolting Arms</option>
-					<option>Jorvuld’s Guidance</option>
+					<option>Jorvuld's Guidance</option>
 					<option>Kagrenac's Hope</option>
 					<option>Knight Slayer</option>
 					<option>Knight-Errant's Mail</option>
@@ -1099,11 +1099,16 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<hr>
 			<b>20 February 2018</b>
 			<ul>
-				<li>Skills, champion points, and item data have been updated for the Dragon Bones DLC (update 17). Note that new/updated skills/sets may not yet be working.</li>
+				<li>Skills, champion points, and item data have been updated for the Dragon Bones DLC (update 17). </li>
 				<li>Updated the block cost calculation. Note that it has only been verified at max level so far.</li>
 				<li>Added the new sets to the "Quick Item Setup" lists.</li>
 				<li>Added the 5 piece effect for the Ulfnor's Favor set. Note that it is not yet verified how this effect combines with other effects that increase your Magicka/Stamina restored from heavy attacks.</li>
 				<li>The Warden's Betty abilities now grant you the appropriate buff when slotted.</li>
+				<li>Fixed the 5 piece bonus for the Clever Alchemist set.</li>
+				<li>Tweaked the message output for the quick item setup commands.</li>
+				<li>Added a toggled buff effect for the 5 piece bonus of the Roar of Alkosh set.</li>
+				<li>Fixed the quick item setup set commands that would sometimes equip an item from the wrong set.</li>
+				<li>All (or most) skills and sets updated in the Dragon Bones DLC (update 17) should now be working.</li>
 			</ul>
 			<p>			
 			<b>12 January 2018</b>
