@@ -1111,6 +1111,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>All (or most) skills and sets updated in the Dragon Bones DLC (update 17) should now be working.</li>
 				<li>Fixed a few Green Balance healing skills that were not being modified by +Healing effects.</li>
 				<li>Caustic Arrow (Master Bow set) should now work from the off-bar.</li>
+				<li>Vampire stage skill cost reduction now affects the Vampire ultimates.</li>
 			</ul>
 			<p>			
 			<b>12 January 2018</b>
