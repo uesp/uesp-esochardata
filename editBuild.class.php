@@ -2591,6 +2591,27 @@ class EsoBuildDataEditor
 					"title" => "Block Cost",
 					"round" => "floor",
 					"compute" => array(
+							
+								/* Update 17 */
+							"110 + 25*EffectiveLevel",
+							"Item.BlockCost",
+							"+",
+							"1 - Item.Sturdy",
+							"*",
+							"1 + CP.BlockCost",
+							"*",
+							"1",
+							"Set.BlockCost",
+							"+",
+							"Skill.BlockCost",
+							"+",
+							"Buff.BlockCost",
+							"+",
+							"*",
+							"1 + Skill2.BlockCost",
+							"*",
+							
+								/* Pre Update 17 
 							"180 + 30*EffectiveLevel",
 							"1 - Item.Sturdy",
 							"*",
@@ -2607,7 +2628,7 @@ class EsoBuildDataEditor
 							"Item.BlockCost",
 							"+",
 							"1 + Skill2.BlockCost",
-							"*",
+							"*", // */
 					),
 			),
 			
