@@ -5035,6 +5035,22 @@ ESO_SETEFFECT_MATCHES = [
 		match: /When you drink a potion you feel a rush of energy, increasing your Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
+		id: "Clever Alchemist",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		statId: "SpellDamage",
+		match: /When you drink a potion during combat you feel a rush of energy, increasing your Weapon and Spell Damage by ([0-9]+)/i,
+	},
+	{
+		id: "Clever Alchemist",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: /When you drink a potion during combat you feel a rush of energy, increasing your Weapon and Spell Damage by ([0-9]+)/i,
+	},
+	{
 		id: "Crushing Wall",
 		setBonusCount: 1,
 		toggle: true,
@@ -5418,6 +5434,15 @@ ESO_SETEFFECT_MATCHES = [
 		factorValue: -1,
 		display: "%",
 		match: /While you are affected by a disabling effect, your damage taken is reduced by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		id: "Roar of Alkosh",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		buffId: "Alkosh (Target)",
+		updateBuffValue : true,
+		match: /Reduces the Physical and Spell Resistance of any enemy hit by ([0-9]+) for/i,
 	},
 	{
 		id: "Robes of Transmutation",
@@ -6528,7 +6553,18 @@ function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData, 
 			if (matchData.updateBuffValue === true)
 			{
 				var matches = setDesc.match(matchData.match);
-				if (matches != null && matches[1] != null) buffData.value = parseFloat(matches[1]);
+				
+				if (matches != null && matches[1] != null) 
+				{
+					if (buffData.value != null) buffData.value = parseFloat(matches[1]);
+					
+					if (buffData.values) {
+						for (var j = 0; j < buffData.values.length; j++) 
+						{
+							buffData.values[j] = parseFloat(matches[1]);
+						}						
+					}
+				}
 				
 				buffData.visible = true;
 				buffData.forceUpdate = true;
@@ -7580,7 +7616,18 @@ function GetEsoInputItemEnchantWeaponValues(inputValues, slotId, itemData, encha
 				if (buffData != null) 
 				{
 					var matches = rawDesc.match(matchData.match);
-					if (matches != null && matches[1] != null) buffData.value = parseFloat(matches[1]);
+					
+					if (matches != null && matches[1] != null) 
+					{
+						if (buffData.value != null) buffData.value = parseFloat(matches[1]);
+						
+						if (buffData.values) {
+							for (var j = 0; j < buffData.values.length; j++) 
+							{
+								buffData.values[j] = parseFloat(matches[1]);
+							}						
+						}
+					}
 					
 					buffData.visible = true;
 					buffData.forceUpdate = true;
@@ -7641,7 +7688,18 @@ function GetEsoInputItemEnchantOtherHandWeaponValues(inputValues, slotId, itemDa
 			if (buffData != null) 
 			{
 				var matches = rawDesc.match(matchData.match);
-				if (matches != null && matches[1] != null) buffData.value = parseFloat(matches[1]);
+				
+				if (matches != null && matches[1] != null) 
+				{
+					if (buffData.value != null) buffData.value = parseFloat(matches[1]);
+					
+					if (buffData.values) {
+						for (var j = 0; j < buffData.values.length; j++) 
+						{
+							buffData.values[j] = parseFloat(matches[1]);
+						}						
+					}	
+				}
 				
 				buffData.visible = true;
 				buffData.forceUpdate = true;
@@ -13160,7 +13218,7 @@ function EsoEditBuildChangeAllArmorTraits(newTrait)
 		if (EsoBuildChangeSlotTrait('OffHand2', newTrait, msgElement)) ++count;
 	}
 	
-	msgElement.text("Updating " + count + " armor... ");
+	msgElement.text("Updating " + count + " armor to trait " + newTrait + "... ");
 }
 
 
@@ -13173,7 +13231,7 @@ function EsoEditBuildChangJewelryTraits(newTrait)
 	if (EsoBuildChangeSlotTrait('Ring1', newTrait, msgElement)) ++count;
 	if (EsoBuildChangeSlotTrait('Ring2', newTrait, msgElement)) ++count;
 	
-	msgElement.text("Updating " + count + " jewelry... ");
+	msgElement.text("Updating " + count + " jewelry to trait " + newTrait + "... ");
 }
 
 
@@ -13195,7 +13253,7 @@ function EsoEditBuildChangWeaponTraits(newTrait)
 		if (EsoBuildChangeSlotTrait('OffHand2', newTrait, msgElement)) ++count;
 	}
 	
-	msgElement.text("Updating " + count + " weapons... ");
+	msgElement.text("Updating " + count + " weapons to trait " + newTrait + "... ");
 }
 
 
@@ -13258,7 +13316,7 @@ function EsoEditBuildChangeArmorTypes(numLight, numMedium, numHeavy)
 		}
 	}
 	
-	$("#esotbItemSetupArmorTypeMsg").text("Updating " + count + " armor... ");
+	$("#esotbItemSetupArmorTypeMsg").text("Updating " + count + " armor to " + numLight + "/" + numMedium + "/" + numHeavy + "... ");
 }
 
 
@@ -13366,7 +13424,7 @@ function EsoEditBuildChangeAllQualities(newQuality)
 	if (EsoBuildChangeEnchantQuality('OffHand1', newQuality, msgElement)) ++count;
 	if (EsoBuildChangeEnchantQuality('OffHand2', newQuality, msgElement)) ++count;
 	
-	$(msgElement).text("Updating " + count + " items/enchants... ");
+	$(msgElement).text("Updating " + count + " items/enchants to quality " + newQuality + "... ");
 }
 
 
@@ -13379,7 +13437,7 @@ function EsoEditBuildChangeJewelryQualities(newQuality)
 	if (EsoBuildChangeSlotQuality('Ring1', newQuality, msgElement)) ++count;
 	if (EsoBuildChangeSlotQuality('Ring2', newQuality, msgElement)) ++count;
 	
-	$(msgElement).text("Updating " + count + " jewelry items... ");
+	$(msgElement).text("Updating " + count + " jewelry to quality " + newQuality + "... ");
 }
 
 
@@ -13406,7 +13464,7 @@ function EsoEditBuildChangeArmorQualities(newQuality)
 		if (EsoBuildChangeSlotQuality('OffHand2', newQuality, msgElement)) ++count;
 	}
 		
-	$(msgElement).text("Updating " + count + " armor items... ");
+	$(msgElement).text("Updating " + count + " armor to quality " + newQuality + "... ");
 }
 
 
@@ -13428,7 +13486,7 @@ function EsoEditBuildChangeWeaponQualities(newQuality)
 		if (EsoBuildChangeSlotQuality('OffHand2', newQuality, msgElement)) ++count;
 	}
 		
-	$(msgElement).text("Updating " + count + " weapon items... ");
+	$(msgElement).text("Updating " + count + " weapons to quality " + newQuality + "... ");
 }
 
 
@@ -13454,7 +13512,7 @@ function EsoEditBuildChangeEnchantQualities(newQuality)
 	if (EsoBuildChangeEnchantQuality('OffHand1', newQuality, msgElement)) ++count;
 	if (EsoBuildChangeEnchantQuality('OffHand2', newQuality, msgElement)) ++count;
 	
-	$(msgElement).text("Updating " + count + " enchantments... ");
+	$(msgElement).text("Updating " + count + " enchantments to quality " + newQuality + "... ");
 }
 
 
@@ -13531,7 +13589,7 @@ function OnEsoEditBuildSetupMonsterSet(element)
 	if (RequestEsoFindSetItemData('Head', monsterSet, 1, headArmorType, null, 66, qualityVal, headTrait, msgElement)) ++count;
 	if (RequestEsoFindSetItemData('Shoulders', monsterSet, 4, shoulderArmorType, null, 66, qualityVal, shoulderTrait, msgElement)) ++count;
 	
-	$(msgElement).text("Updating " + count + " items... ");
+	$(msgElement).text("Updating " + count + " items to monster set " + monsterSet + "... ");
 }
 
 
@@ -13814,7 +13872,7 @@ function OnEsoEditBuildSetupEquipSet(element)
 		if (RequestEsoFindSetItemData('OffHand1',  setName, "5,7", null, weaponTypes[1], 66, qualityVal, traits[4], msgElement)) ++count;
 	}
 	
-	$(msgElement).text("Updating " + count + " items... ");
+	$(msgElement).text("Updating " + count + " items to set " + setName + "... ");
 }
 
 
@@ -13857,7 +13915,7 @@ function EsoEditBuildChangeAllLevel(newLevel)
 	if (EsoBuildChangeEnchantLevel('OffHand1', newLevel, msgElement)) ++count;
 	if (EsoBuildChangeEnchantLevel('OffHand2', newLevel, msgElement)) ++count;
 	
-	$(msgElement).text("Updating " + count + " items/enchants... ");
+	$(msgElement).text("Updating " + count + " items/enchants to level " + newLevel + "... ");
 }
 
 
