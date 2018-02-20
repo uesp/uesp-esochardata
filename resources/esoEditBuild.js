@@ -1184,6 +1184,14 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		rawInputMatch: /(While slotted, your Movement Speed while Sneaking or invisible is increased by [0-9]+\.?[0-9]*%\.)/i,
 		match: /While slotted, your Movement Speed while Sneaking or invisible is increased by ([0-9]+\.?[0-9]*)%/i
 	},
+	{
+		buffId : "Major Sorcery",
+		match: /grants you Major Sorcery/i,
+	},
+	{
+		buffId : "Major Brutality",
+		match: /grants you Major Sorcery and Major Brutality/i,
+	},
 	
 		/* Begin Other Effects */
 	{
