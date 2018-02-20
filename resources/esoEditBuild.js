@@ -4016,6 +4016,16 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Reduces the cost of all of your abilities by ([0-9]+)%/i,
 	},
 	{
+		statId: "HAStaRestore",
+		display: "%",
+		match: /Increases the Magicka or Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		statId: "HAMagRestore",
+		display: "%",
+		match: /Increases the Magicka or Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
 		statId: "SneakCost",
 		factorValue: -1,
 		display: "%",

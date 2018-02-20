@@ -414,7 +414,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<div id="esotbItemSkillCopy">
 			</div>
 			<p />&nbsp;<p />
-			<h3>Common Item Setups</h3>
+			<h3>Quick Item Setups</h3>
 			<hr>
 			Note: The following features are under development and may not work perfectly yet.
 			<p />
@@ -595,10 +595,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Spawn of Mephala</option>
 					<option>Stormfist</option>
 					<option>Swarm Mother</option>
+					<option>Thurvokun</option>
 					<option>Tremorscale</option>
 					<option>The Troll King</option>
 					<option>Valkyn Skoria</option>
 					<option>Velidreth</option>
+					<option>Zaan</option> 
 				</select>
 				
 				<button id="esotbItemSetupMonsterSetButton" onclick="OnEsoEditBuildSetupMonsterSet(this);">Change</button>
@@ -695,12 +697,14 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Briarheart</option>
 					<option>Buffer of the Swift</option>
 					<option>Burning Spellweave</option>
+					<option>Caluurion’s Legacy</option>
 					<option>Clever Alchemist</option>
 					<option>Combat Physician</option>
 					<option>Coward's Gear</option>
 					<option>Crest of Cyrodiil</option>
 					<option>Crusader</option>
 					<option>Curse Eater</option>
+					<option>Curse of Doylemish</option>
 					<option>Daedric Trickery</option>
 					<option>Darkstride</option>
 					<option>Deadly Strike</option>
@@ -759,6 +763,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Ironblood</option>
 					<option>Jailbreaker</option>
 					<option>Jolting Arms</option>
+					<option>Jorvuld’s Guidance</option>
 					<option>Kagrenac's Hope</option>
 					<option>Knight Slayer</option>
 					<option>Knight-Errant's Mail</option>
@@ -807,6 +812,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Phoenix</option>
 					<option>Pillar of Nirn</option>
 					<option>Plague Doctor</option>
+					<option>Plague Slinger</option>
 					<option>Poisonous Serpent</option>
 					<option>Powerful Assault</option>
 					<option>Prayer Shawl</option>
@@ -877,6 +883,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Toothrow</option>
 					<option>Tormentor</option>
 					<option>Torug's Pact</option>
+					<option>Trappings of Invigoration</option>
 					<option>Treasure Hunter</option>
 					<option>Treasures of the Earthforge</option>
 					<option>Trial By Fire</option>
@@ -886,6 +893,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Twilight Remedy</option>
 					<option>Twilight's Embrace</option>
 					<option>Twin Sisters</option>
+					<option>Ulfnor's Favor</option>
 					<option>Undaunted Bastion</option>
 					<option>Undaunted Infiltrator</option>
 					<option>Undaunted Unweaver</option>
@@ -1093,6 +1101,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<ul>
 				<li>Skills, champion points, and item data have been updated for the Dragon Bones DLC (update 17). Note that new/updated skills/sets may not yet be working.</li>
 				<li>Updated the block cost calculation. Note that it has only been verified at max level so far.</li>
+				<li>Added the new sets to the "Quick Item Setup" lists.</li>
+				<li>Added the 5 piece effect for the Ulfnor's Favor set. Note that it is not yet verified how this effect combines with other effects that increase your Magicka/Stamina restored from heavy attacks.</li>
 			</ul>
 			<p>			
 			<b>12 January 2018</b>
