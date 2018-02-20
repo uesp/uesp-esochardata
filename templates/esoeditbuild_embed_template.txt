@@ -1103,6 +1103,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Updated the block cost calculation. Note that it has only been verified at max level so far.</li>
 				<li>Added the new sets to the "Quick Item Setup" lists.</li>
 				<li>Added the 5 piece effect for the Ulfnor's Favor set. Note that it is not yet verified how this effect combines with other effects that increase your Magicka/Stamina restored from heavy attacks.</li>
+				<li>The Warden's Betty abilities now grant you the appropriate buff when slotted.</li>
 			</ul>
 			<p>			
 			<b>12 January 2018</b>
