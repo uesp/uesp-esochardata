@@ -5015,6 +5015,7 @@ ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 1,
 		toggle: true,
 		enabled: false,
+		enableOffBar : true,
 		statId: "WeaponDamage",
 		match: /Increases your Weapon Damage by ([0-9]+) against targets affected by your Poison Arrow/i,
 	},
@@ -6467,12 +6468,17 @@ function GetEsoInputSetValues(inputValues)
 
 function GetEsoInputSetDataValues(inputValues, setData)
 {
-	if (setData == null || setData.count <= 0) return;
+	if (setData == null || (setData.count <= 0 && setData.otherCount <= 0)) return;
 	setData.rawOutput = [];
 	
 	for (var i = 0; i < 5; ++i)
 	{
-		var setBonusCount = parseInt(setData.items[0]['setBonusCount' + (i+1)]);
+		var setBonusCount = 10;
+		
+		if (setData.items[0] != null)
+			setBonusCount = parseInt(setData.items[0]['setBonusCount' + (i+1)]);
+		else if (setData.unequippedItems[0])
+			setBonusCount = parseInt(setData.unequippedItems[0]['setBonusCount' + (i+1)]);
 		
 		//if (setBonusCount > setData.count) continue;
 		if (setBonusCount > setData.count && setBonusCount > setData.otherCount) continue;
@@ -6482,6 +6488,16 @@ function GetEsoInputSetDataValues(inputValues, setData)
 		if (setBonusCount > setData.count) onlyEnableToggles = true;
 		
 		var setDesc = setData.averageDesc[i];
+		
+		if (setDesc == null)
+		{
+			if (setData.unequippedItems[0])
+			{
+				setDesc = RemoveEsoDescriptionFormats(setData.unequippedItems[0]['setBonusDesc' + (i+1)]);
+			}
+			
+			if (setDesc == null || setDesc == "") continue;
+		}
 		
 		GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData, onlyEnableToggles);
 	}
@@ -6500,6 +6516,7 @@ function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData, 
 	{
 		var matchData = ESO_SETEFFECT_MATCHES[i];
 		var matches = setDesc.match(matchData.match);
+		
 		if (matches == null) continue;
 		
 		if (matchData.ignore === true) 
@@ -7749,17 +7766,19 @@ function UpdateEsoItemSets()
 					otherCount: 0,
 					enableOffBar : null,
 					items: [],
+					unequippedItems : [],
 			};
 		}
 		
 		if (isOtherHand)
 		{
 			++g_EsoBuildSetData[setName].otherCount;
+			g_EsoBuildSetData[setName].unequippedItems.push(itemData);
 		}
 		else
 		{
 			++g_EsoBuildSetData[setName].count;
-			if (!isCurrentHand) ++g_EsoBuildSetData[setName].otherCount;
+			//if (!isCurrentHand) ++g_EsoBuildSetData[setName].otherCount;
 			
 			g_EsoBuildSetData[setName].items.push(itemData);
 			AddEsoItemRawOutput(itemData, "Set." + setName, 1);
@@ -10995,7 +11014,7 @@ function UpdateEsoBuildToggledSetData()
 		var setData = g_EsoBuildSetData[setName];
 		if (setData == null) continue;
 		
-		if (setData.averageDesc == null || setData.items[0] == null) continue;
+		//if (setData.averageDesc == null || setData.items[0] == null) continue;
 		
 		if (toggleData.matchData.statRequireId != null)
 		{
@@ -11016,8 +11035,17 @@ function UpdateEsoBuildToggledSetData()
 			if (count == 0) continue;
 		}
 		
-		var setDesc = setData.averageDesc[toggleData.setBonusCount - 1];
-		var setCount = setData.items[0]['setBonusCount' + toggleData.setBonusCount];
+		var setDesc = null;
+		var setCount = null;
+		
+		if (toggleData.matchData.enableOffBar) 
+		{
+			setDesc = RemoveEsoDescriptionFormats(toggleData.desc);
+			if (setData.unequippedItems && setData.unequippedItems[0] != null) setCount = setData.unequippedItems[0]['setBonusCount' + toggleData.setBonusCount];
+		}
+		
+		if (setData.averageDesc[toggleData.setBonusCount - 1] != null) setDesc = setData.averageDesc[toggleData.setBonusCount - 1];
+		if (setData.items[0] != null) setCount = setData.items[0]['setBonusCount' + toggleData.setBonusCount];
 		
 		if (setDesc == null || setCount == null) continue;
 		toggleData.desc = setDesc;
