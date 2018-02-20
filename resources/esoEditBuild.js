@@ -748,6 +748,15 @@ g_EsoBuildBuffData =
 			statIds : [ "SpellResist", "PhysicalResist", "Stamina", "StaminaRegen", "SprintSpeed", "PoisonDamageTaken" ],
 			icon: "/esoui/art/icons/ability_werewolf_001.png",
 		},
+		"Mechanical Acuity" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			values : [ 21910, 21910 ],
+			//displays: [ "%", "%" ],
+			statIds : [ "SpellCrit", "WeaponCrit" ],
+			icon : "/esoui/art/icons/gear_clockwork_medium_head_a.png",
+		},
 		"Ayleid Health Bonus" : 
 		{
 			enabled: false,
@@ -5276,6 +5285,14 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "PhysicalResist",
 		match: /chance to summon a shadow orb for [0-9]+ seconds that increases the Physical and Spell Resistance of you and your allies within [0-9]+ meters by ([0-9]+)/i,
+	},
+	{
+		id: "Mechanical Acuity",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		buffId: "Mechanical Acuity",
+		match: /When you deal damage, you have a [0-9]+% chance to gain unerring mechanical vision for [0-9]+ seconds, causing your attacks to always be a Critical Strike/i,
 	},
 	{
 		id: "Meritorious Service",
