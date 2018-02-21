@@ -3203,7 +3203,6 @@ class EsoBuildDataEditor
 					"title" => "Light Attack Dual Wield",
 					"round" => "floor",
 					"depends" => array("Stamina", "WeaponDamage"),
-					"addClass" => "esotbStatDivider",
 					"compute" => array(
 							"round(0.0139542*Stamina + 0.557374*WeaponDamage - 0.139753)",		// Update 14?
 							//"round(0.0163232*Stamina + 0.65628*WeaponDamage + 0.555625)",		// Probably not correct?
