@@ -1100,6 +1100,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>21 February 2018</b>
 			<ul>
 				<li>Reverted change to Dodge Roll cost (seems to be still 4040 base).</li>
+				<li>Added the Werewolf Light Attack stat (not yet confirmed).</li>
 			</ul>
 			<p>
 			<b>20 February 2018</b>

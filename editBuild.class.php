@@ -3200,7 +3200,7 @@ class EsoBuildDataEditor
 			),
 			
 			"LADualWield" => array(
-					"title" => "Light Dual Wield",
+					"title" => "Light Attack Dual Wield",
 					"round" => "floor",
 					"depends" => array("Stamina", "WeaponDamage"),
 					"addClass" => "esotbStatDivider",
@@ -3211,6 +3211,23 @@ class EsoBuildDataEditor
 							"*",
 					),
 			),
+			
+			"LAWerewolf" => array(
+					"title" => "Light Attack Werewolf",
+					"round" => "floor",
+					"depends" => array("Stamina", "WeaponDamage"),
+					"addClass" => "esotbStatDivider",
+					"compute" => array(
+							"round(0.0166213*Stamina + 0.666503*WeaponDamage + 0.0462245)",	// Update 17
+							"Skill2.HADamage",
+							"+",
+							"1 + CP.LAActiveDamage + CP.PhysicalDamageDone + CP.DirectDamageDone",
+							"*",
+							"1 + Skill.LADamage + Set.LADamage + Buff.Empower + Skill.PhysicalDamageDone + Skill.LAMeleeDamage + Skill.DamageDone",
+							"*",
+					),
+			),
+				
 			
 			"HAFlameStaff" => array(
 					"title" => "Heavy Attack Fire Staff",
