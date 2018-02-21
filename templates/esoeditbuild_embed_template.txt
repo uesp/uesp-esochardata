@@ -1097,6 +1097,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>21 February 2018</b>
+			<ul>
+				<li>Reverted change to Dodge Roll cost (seems to be still 4040 base).</li>
+			</ul>
+			<p>
 			<b>20 February 2018</b>
 			<ul>
 				<li>Skills, champion points, and item data have been updated for the Dragon Bones DLC (update 17). </li>
