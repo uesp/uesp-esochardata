@@ -2667,8 +2667,8 @@ class EsoBuildDataEditor
 					"title" => "Dodge Roll Cost",
 					"round" => "floor",
 					"compute" => array(
-							//"floor(34 + 5.62*EffectiveLevel)*10", // Old?
-							"3200",
+							"floor(34 + 5.62*EffectiveLevel)*10", // Old?
+							//"3200", //?
 							"1 + CP.RollDodgeCost",
 							"*",
 							"Skill.RollDodgeCost",
