@@ -1100,6 +1100,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>22 February 2018</b>
 			<ul>
 				<li>Added a bunch of toggled set effects to work when on the off-bar. If you find a set effect that works differently in game than on the builder just let us know!</li>
+				<li>The DamageTaken stat for sets, abilities, and buffs is now calculated multiplicatively instead of additively. % values are rounded to 2 decimal places during this calculation.</li>
 			</ul>
 			<p>
 			<b>21 February 2018</b>

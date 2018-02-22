@@ -265,6 +265,7 @@ g_EsoBuildBuffData =
 			skillEnabled : false,
 			value : -0.05,
 			display: "%",
+			combineAs: "*%",
 			statId : "DamageTaken",
 			category: "Buff",
 			icon : "/esoui/art/icons/ability_warrior_030.png",
@@ -582,6 +583,7 @@ g_EsoBuildBuffData =
 			skillEnabled : false,
 			value : -0.30,
 			display: "%",
+			combineAs: "*%",
 			statId : "DamageTaken",
 			icon : "/esoui/art/icons/ability_templar_sun_shield.png",
 		},
@@ -593,6 +595,7 @@ g_EsoBuildBuffData =
 			value : -0.08,
 			display: "%",
 			statId : "DamageTaken",
+			combineAs: "*%",
 			icon : "/esoui/art/icons/ability_templar_radiant_ward.png",
 		},
 		"Major Defile" : 
@@ -690,6 +693,7 @@ g_EsoBuildBuffData =
 			value : 0.08,
 			display: "%",
 			statId : "DamageTaken",
+			combineAs: "*%",
 			icon : "/esoui/art/icons/death_recap_poison_ranged.png",
 		},
 		"Exploiter Off-Balance (Target)" : 
@@ -994,6 +998,7 @@ g_EsoBuildBuffData =
 			value : 0.08,
 			display: "%",
 			statId : "DamageTaken",
+			combineAs: "*%",
 			icon : "/esoui/art/icons/death_recap_poison_ranged.png",
 		},
 		"Ebon Armory" : 
@@ -1041,6 +1046,7 @@ g_EsoBuildBuffData =
 			categories : [ "Skill2", "Skill2", "Buff", "Buff" ],
 			values : [ 5000, -0.50, -0.50, -0.50 ],
 			statIds : [ "Health", "HealingReceived", "DamageTaken", "DamageShield" ],
+			combineAses: [ '', '', "*%", '' ],
 			icon: "/esoui/art/icons/ability_templar_002.png",
 		},
 
@@ -5281,6 +5287,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "DamageTaken",
+		combineAs: "*%",
 		factorValue: -1,
 		match: /While casting or channeling a spell, incoming damage is reduced by ([0-9]+\.?[0-9]*)%/i,
 	},
@@ -5290,6 +5297,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "DamageTaken",
+		combineAs: "*%",
 		factorValue: -0.01,
 		match: /While you are casting or channeling an ability, your damage taken is reduced by ([0-9]+\.?[0-9]*)%/i,
 	},
@@ -5482,6 +5490,7 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "DamageTaken",
+		combineAs: "*%",
 		factorValue: -1,
 		display: "%",
 		match: /While you are affected by a disabling effect, your damage taken is reduced by ([0-9]+\.?[0-9]*)%/i,
@@ -6424,18 +6433,23 @@ function GetEsoInputBuffValue(inputValues, buffName, buffData)
 	var categories = buffData.categories;
 	var statValue = buffData.value;
 	var statValues = buffData.values;
+	var combineAs = buffData.combineAs;
+	var combineAses = buffData.combineAses;
 	
 	if (buffData.category != null) category = buffData.category;
+	if (combineAs == null) combineAs = '';
 	
 	if (statIds == null) statIds = [ statId ];
 	if (statValues == null) statValues = [].fill.call({ length: statIds.length }, statValue);
 	if (categories == null) categories = [].fill.call({ length: statIds.length }, category);
+	if (combineAses == null) combineAses = [].fill.call({ length: statIds.length }, combineAs);
 	
 	for (var i = 0; i < statIds.length; ++i)
 	{
-		statValue = statValues[i];
+		statValue = parseFloat(statValues[i]);
 		category = categories[i];
 		statId = statIds[i];
+		combineAs = combineAses[i];
 		
 		if (statId == "OtherEffects")
 		{
@@ -6445,7 +6459,12 @@ function GetEsoInputBuffValue(inputValues, buffName, buffData)
 		else
 		{
 			if (inputValues[category][statId] == null) inputValues[category][statId] = 0;
-			inputValues[category][statId] += parseFloat(statValue);
+			
+			if (combineAs == "*%")
+				inputValues[category][statId] = +((1 + inputValues[category][statId]) * (1 + statValue) - 1).toFixed(2);
+			else
+				inputValues[category][statId] += statValue;
+			
 			AddEsoItemRawOutput(buffData, category + "." + statId, statValue);
 			AddEsoInputStatSource(category + "." + statId, { buff: buffData,  buffName: buffName, value: statValue });
 		}
@@ -6702,7 +6721,7 @@ function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData, 
 		if (inputValues[category][matchData.statId] == null) inputValues[category][matchData.statId] = 0;
 		
 		if (matchData.combineAs == "*%")
-			inputValues[category][matchData.statId] = (1 + inputValues[category][matchData.statId]) * (1 + statValue) - 1;
+			inputValues[category][matchData.statId] = +((1 + inputValues[category][matchData.statId]) * (1 + statValue) - 1).toFixed(2);
 		else
 			inputValues[category][matchData.statId] += statValue;
 		
@@ -6806,7 +6825,13 @@ function GetEsoInputAbilityDescValues(inputValues, outputId, itemData, slotId)
 		
 		var statValue = Math.floor(parseFloat(matches[1]));
 		
-		inputValues[outputId][matchData.statId] += statValue;
+		if (inputValues[outputId][matchData.statId] == null) inputValues[outputId][matchData.statId] = 0;
+		
+		if (matchData.combineAs == "*%")
+			inputValues[outputId][matchData.statId] = +((1 + inputValues[outputId][matchData.statId]) * (1 + statValue) - 1).toFixed(2);
+		else
+			inputValues[outputId][matchData.statId] += statValue;
+		
 		AddEsoItemRawOutput(itemData, outputId + "." + matchData.statId, statValue);
 		AddEsoInputStatSource(outputId + "." + matchData.statId, { item: itemData, value: statValue, slotId: slotId });
 	}
@@ -6973,7 +6998,7 @@ function ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData,
 		if (inputValues[category][matchData.statId] == null) inputValues[category][matchData.statId] = 0;
 		
 		if (matchData.combineAs == "*%")
-			inputValues[category][matchData.statId] = (1 + inputValues[category][matchData.statId]) * (1 + statValue) - 1;
+			inputValues[category][matchData.statId] = +((1 + inputValues[category][matchData.statId]) * (1 + statValue) - 1).toFixed(2);
 		else
 			inputValues[category][matchData.statId] += statValue;
 		
