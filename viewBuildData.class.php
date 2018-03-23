@@ -2112,9 +2112,9 @@ class EsoBuildDataViewer
 			if ($recipes[$recipeType] == null) $recipes[$recipeType] = array();
 			
 			if ($resultId > 0)
-				$recipes[$recipeType][$resultId] = array('recipe' => $recipeId, 'name' => $recipeName, 'known' => true, 'quality' => $quality);
+				$recipes[$recipeType][$resultId] = array('recipe' => $recipeId, 'name' => $recipeName, 'known' => true, 'quality' => $quality, 'result' => $resultId);
 			else
-				$recipes[$recipeType][] = array('recipe' => $recipeId, 'name' => $recipeName, 'known' => true, 'quality' => $quality);			
+				$recipes[$recipeType][] = array('recipe' => $recipeId, 'name' => $recipeName, 'known' => true, 'quality' => $quality, 'result' => $resultId);			
 		}
 		
 		return $recipes;
@@ -2207,7 +2207,7 @@ class EsoBuildDataViewer
 				else
 					$qualityClass = "ecdItemQuality$listQuality";
 				
-				if ($itemId == null || $itemId <= 0) $itemId = $resultId;
+				if ($itemId == null || $itemId <= 0) $itemId = $recipeData['result'];
 				
 				$output .= "<div class='ecdRecipeItem eso_item_link $extraClass $qualityClass' itemid='$itemId' inttype='1' intlevel='1'>$name</div>";
 			}
