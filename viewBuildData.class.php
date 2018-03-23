@@ -2191,7 +2191,8 @@ class EsoBuildDataViewer
 			}
 			
 			if ($listCount == 0) $listCount = "?";
-			$output .= "<div class='ecdRecipeTitle'>$listName ($knownCount / $listCount Known)</div>";
+			$output .= "<div class='ecdRecipeTitle'>$listName ($knownCount / $listCount Known)<div class='ecdRecipeTitleArrow'>&#9660;</div></div>";
+			$output .= "<div class='ecdRecipeList' style='display: none;'>";
 			
 			foreach ($allRecipes[$listName] as $resultId => $recipeData)
 			{
@@ -2211,6 +2212,8 @@ class EsoBuildDataViewer
 				
 				$output .= "<div class='ecdRecipeItem eso_item_link $extraClass $qualityClass' itemid='$itemId' inttype='1' intlevel='1'>$name</div>";
 			}
+			
+			$output .= "</div>";
 		}
 		
 		$output .= "</div>";

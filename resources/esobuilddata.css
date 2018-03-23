@@ -1450,7 +1450,7 @@ thead.ecdFixedHeader tr {
 .ecdSkillMotifsTable td:first-child {
 	font-weight: bold;
 	text-align: left;
-	width: 130px;
+	width: 140px;
 	color: #C5C29E;
 }
 
@@ -1617,8 +1617,21 @@ thead.ecdFixedHeader tr {
     font-weight: bold;
     display: block;
     padding: 5px;
-    padding-top: 20px;
     color: #C5C29E;
+}
+
+.ecdRecipeTitle:hover {
+	cursor: pointer;
+	background-color: #444;	
+}
+
+.ecdRecipeTitleArrow {
+	display: inline-block;
+	float: right;	
+}
+
+.ecdRecipeList {
+	padding-bottom: 20px;
 }
 
 .ecdRecipeItem {
