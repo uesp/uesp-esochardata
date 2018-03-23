@@ -807,11 +807,19 @@ function SelectFoundEsoCharRecipe(element, instant)
 	element.addClass("ecdRecipeSearchHighlight");
 	
 	var offsetTop = element.position().top;
-	var parent = element.parent("#ecdSkill_Recipes");
+	var parentList = element.parent(".ecdRecipeList");
+	var parent = parentList.parent("#ecdSkill_Recipes");
 	var nextAch = element.next(".ecdRecipeItem ");
 	var nextTop = offsetTop + element.height() + 25;
 	var bottomScroll = parent.scrollTop() + parent.height();
 	var delay = 400;
+	
+	if (!parentList.is(":visible"))
+	{
+		SetRecipeTitleArrow(parentList.prev(".ecdRecipeTitle"), true);
+		parentList.show(0, function() { SelectFoundEsoCharRecipe(element, instant); });
+		return;
+	}
 	
 	if (instant) delay = 0;
 	
@@ -871,6 +879,28 @@ function UpdateEsoInventoryShownSpace_Async()
 		$(".ecdInvShowSpaceLabel").text("" + numItems + " shown");
 	else
 		$(".ecdInvShowSpaceLabel").text("" + numItems + " shown (" + totalItems + " total)");
+}
+
+
+function OnRecipeTitleClick(e)
+{
+	var recipeList = $(this).next(".ecdRecipeList");
+
+	SetRecipeTitleArrow(this, !recipeList.is(":visible"));
+	
+	recipeList.slideToggle();
+}
+
+
+function SetRecipeTitleArrow(element, visible)
+{
+	var recipeArrow = $(element).children(".ecdRecipeTitleArrow");
+	
+	if (visible)
+		recipeArrow.html("&#9650");
+	else
+		recipeArrow.html("&#9660");
+	
 }
 
 
@@ -961,6 +991,8 @@ function onDocReady()
 	});
 	
 	$("#ecdSkill_Recipes").on("scroll", OnEsoRecipeScroll);
+	
+	$(".ecdRecipeTitle").click(OnRecipeTitleClick);
 	
 	if (!DoesEsoItemLinkHaveEvent()) $('.eso_item_link').hover(OnEsoItemLinkEnter, OnEsoItemLinkLeave);
 	
