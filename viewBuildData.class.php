@@ -2614,14 +2614,14 @@ class EsoBuildDataViewer
 		$this->skillTreeDisplay = 'block';
 		$this->skillTreeFirstName = '';
 
-		$output .= $this->getCharSkillTreeHtml1("CLASS", $this->skillData['Class']);
-		$output .= $this->getCharSkillTreeHtml1("WEAPON", $this->skillData['Weapon']);
-		$output .= $this->getCharSkillTreeHtml1("ARMOR", $this->skillData['Armor']);
-		$output .= $this->getCharSkillTreeHtml1("WORLD", $this->skillData['World']);
-		$output .= $this->getCharSkillTreeHtml1("GUILD", $this->skillData['Guild']);
-		$output .= $this->getCharSkillTreeHtml1("ALLIANCE WAR", $this->skillData['Alliance War']);
-		$output .= $this->getCharSkillTreeHtml1("RACIAL", $this->skillData['Racial']);
-		$output .= $this->getCharSkillTreeHtml1("CRAFT", $this->skillData['Craft']);
+		$output .= $this->getCharSkillTreeHtml1("CLASS", $this->skillData['Class'], "progression_indexicon_class_up.png");
+		$output .= $this->getCharSkillTreeHtml1("WEAPON", $this->skillData['Weapon'], "progression_indexicon_weapons_up.png");
+		$output .= $this->getCharSkillTreeHtml1("ARMOR", $this->skillData['Armor'], "progression_indexicon_armor_up.png");
+		$output .= $this->getCharSkillTreeHtml1("WORLD", $this->skillData['World'], "progression_indexicon_world_up.png");
+		$output .= $this->getCharSkillTreeHtml1("GUILD", $this->skillData['Guild'], "progression_indexicon_guilds_up.png");
+		$output .= $this->getCharSkillTreeHtml1("ALLIANCE WAR", $this->skillData['Alliance War'], "progression_indexicon_ava_up.png");
+		$output .= $this->getCharSkillTreeHtml1("RACIAL", $this->skillData['Racial'], "progression_indexicon_race_up.png");
+		$output .= $this->getCharSkillTreeHtml1("CRAFT", $this->skillData['Craft'], "progression_indexicon_tradeskills_up.png");
 		$output .= $this->getCharSkillTreeHtml1("CHAMPION POINTS", $this->skillData['ChampionPoints']);
 		$output .= $this->getCharSkillTreeHtml1("OTHER", $this->skillData['Other']);
 		
@@ -2629,7 +2629,7 @@ class EsoBuildDataViewer
 	}
 	
 	
-	public function getCharSkillTreeHtml1($skillName, &$skillData)
+	public function getCharSkillTreeHtml1($skillName, &$skillData, $icon = null)
 	{
 		if ($skillData === null) return "";
 		
@@ -2638,8 +2638,15 @@ class EsoBuildDataViewer
 		$extraClass = "";
 		if ($this->skillTreeDisplay == 'block') $extraClass = " ecdSkillTreeNameHighlight";
 		
+		$iconHtml = "";
+		
+		if ($icon) 
+		{
+			$iconHtml = "<img src='{$this->baseResourceUrl}resources/$icon' class='ecdSkillTreeIcon'> ";
+		}
+		
 		$output  = "<div class='ecdSkillTree1'>\n";
-		$output .= "<div class='ecdSkillTreeName1$extraClass'>$safeName</div>\n";
+		$output .= "<div class='ecdSkillTreeName1$extraClass'>$iconHtml$safeName</div>\n";
 		$output .= "<div class='ecdSkillTreeContent1' style='display: {$this->skillTreeDisplay};'>\n";
 		
 		$this->skillTreeDisplay = 'none';

@@ -26,12 +26,12 @@
 	</div>
 	<div id='ecdRightData'>
 		<div id='ecdRightTitleBar'>
-			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdSkillsButton' onclick="OnEsoRightTitleClick('Skills');">SKILLS & CP</div>
-			<div class='ecdSkillTitleButton ecdRightTitleButtonEnabled'  id='ecdInventoryButton' onclick="OnEsoRightTitleClick('Inventory');">INVENTORY</div>
-			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdBankButton' onclick="OnEsoRightTitleClick('Bank');">BANK</div>
-			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdCraftButton' onclick="OnEsoRightTitleClick('Craft');">CRAFT</div>
-			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdAccountInvButton' onclick="OnEsoRightTitleClick('AccountInv');">ACCOUNT</div>
-			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdAchievementsButton' onclick="OnEsoRightTitleClick('Achievements');">ACHIEVEMENTS</div>
+			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdSkillsButton' onclick="OnEsoRightTitleClick('Skills', this);"><div title="Skills" class='ecdTopLevelIcon ecdTopLevelIcon_Skills'></div></div>
+			<div class='ecdSkillTitleButton ecdRightTitleButtonEnabled'  id='ecdInventoryButton' onclick="OnEsoRightTitleClick('Inventory', this);"><div title="Inventory" class='ecdTopLevelIcon ecdTopLevelIcon_Inventory selected'></div></div>
+			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdBankButton' onclick="OnEsoRightTitleClick('Bank', this);"><div title="Bank" class='ecdTopLevelIcon ecdTopLevelIcon_Bank'></div></div>
+			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdCraftButton' onclick="OnEsoRightTitleClick('Craft', this);"><div title="Craft Bag" class='ecdTopLevelIcon ecdTopLevelIcon_CraftBag'></div></div>
+			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdAccountInvButton' onclick="OnEsoRightTitleClick('AccountInv', this);"><div title="Account Inventory" class='ecdTopLevelIcon ecdTopLevelIcon_AccountInv'></div></div>
+			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdAchievementsButton' onclick="OnEsoRightTitleClick('Achievements', this);"><div title="Achievements" class='ecdTopLevelIcon ecdTopLevelIcon_Achievements'></div></div>
 		</div>
 		<div id='ecdSkills' class='ecdRightDataArea' style="display: none;">
 			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
