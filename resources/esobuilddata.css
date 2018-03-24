@@ -631,17 +631,16 @@ tr.eso_item_link {
 	display: inline-block;
 	width: 659px;
 	text-align: center;
+	margin-top: -5px;
+	margin-bottom: -8px;	
 }
 
 .ecdSkillTitleButton {
 	font-size: 20px;
 	font-weight: bold;
 	display: inline-block;
-	padding: 5px;
-    padding-left: 7px;
-    padding-right: 7px;
-	padding-top: 7px;
     cursor: pointer;
+	margin-right: 10px;
 }
 
 .ecdSkillTitleButton:hover {
@@ -719,6 +718,57 @@ tr.eso_item_link {
 	font-size: 1.4em;
 	display: inline-block;
 	margin-top: 15px;
+}
+
+.ecdSkillTreeIcon {
+	width: 32px;
+	float: left;
+	margin-top: -7px;
+}
+
+.ecdTopLevelIcon {
+	width: 48px;
+    height: 48px;
+    padding: 0;
+    padding-right: 10px;
+    background-position: center;
+    opacity: 0.5;
+}
+
+.ecdTopLevelIcon:hover {
+	opacity: 1;
+}
+
+.ecdTopLevelIcon.selected {
+	opacity: 1;
+}
+
+.ecdTopLevelIcon_Skills {
+    background-image: url('menubar_skills_up.png');
+}
+
+.ecdTopLevelIcon_CP {
+    background-image: url('menubar_champion_up.png');
+}
+
+.ecdTopLevelIcon_Inventory {
+    background-image: url('menubar_inventory_up.png');
+}
+
+.ecdTopLevelIcon_Bank {
+    background-image: url('bank_tabicon_gold_up.png');
+}
+
+.ecdTopLevelIcon_CraftBag {
+    background-image: url('inventory_tabicon_craftbag_up.png');
+}
+
+.ecdTopLevelIcon_AccountInv {
+    background-image: url('inventory_currencytab_accountwide_up.png');
+}
+
+.ecdTopLevelIcon_Achievements {
+    background-image: url('journal_tabicon_achievements_up.png');
 }
 
 #ecdSkillContents {
@@ -1081,6 +1131,8 @@ thead.ecdFixedHeader tr {
  }
  
  .ecdItemFilters {
+	margin-top: -5px;
+	margin-bottom: -5px;
  }
  
  .ecdItemFilterTextBox {

@@ -198,9 +198,12 @@ function SelectEsoAchievementTreeContents(object)
 }
 
 
-function OnEsoRightTitleClick(name)
+function OnEsoRightTitleClick(name, self)
 {
 	$('.ecdRightTitleButtonEnabled').addClass("ecdRightTitleButtonDisabled").removeClass("ecdRightTitleButtonEnabled");
+	$('.ecdTopLevelIcon').removeClass('selected');
+	
+	$(self).children(".ecdTopLevelIcon").addClass('selected');
 	
 	var idName = "#ecd" + name;
 	var idButtonName = "#ecd" + name + "Button";
