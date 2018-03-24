@@ -196,14 +196,14 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 					<input type="text" size="16" maxsize="32" value="" placeholder="Filter Text" class="ecdItemFilterTextInput" /> 
 				</div>
 				<div class='ecdItemFilterTextLabel'>ALL</div>
-				<div class='ecdItemFilterContainer ecdItemFilterAll selected' style="background-image: url('{$this->baseResourceUrl}resources/allfilter.png');" onclick="OnItemFilter('All');" itemfilter="all" /></div> 
-				<div class='ecdItemFilterContainer ecdItemFilterWeapon' style="background-image: url('{$this->baseResourceUrl}resources/weaponfilter.png');" onclick="OnItemFilter('Weapon');"  itemfilter="weapon" /></div>
-				<div class='ecdItemFilterContainer ecdItemFilterArmor' style="background-image: url('{$this->baseResourceUrl}resources/armorfilter.png');" onclick="OnItemFilter('Armor');"  itemfilter="armor" /></div>
-				<div class='ecdItemFilterContainer ecdItemFilterConsumable' style="background-image: url('{$this->baseResourceUrl}resources/consumablefilter.png');" onclick="OnItemFilter('Consumable');"  itemfilter="consumable" /></div>
-				<div class='ecdItemFilterContainer ecdItemFilterMaterial' style="background-image: url('{$this->baseResourceUrl}resources/materialfilter.png');" onclick="OnItemFilter('Material');"  itemfilter="material" /></div>
-				<div class='ecdItemFilterContainer ecdItemFilterMisc' style="background-image: url('{$this->baseResourceUrl}resources/miscfilter.png');" onclick="OnItemFilter('Misc');"  itemfilter="misc" /></div>
-				<div class='ecdItemFilterContainer ecdItemFilterQuest' style="background-image: url('{$this->baseResourceUrl}resources/questfilter.png');" onclick="OnItemFilter('Quest');"  itemfilter="quest" /></div>
-				<div class='ecdItemFilterContainer ecdItemFilterJunk' style="background-image: url('{$this->baseResourceUrl}resources/junkfilter.png');" onclick="OnItemFilter('Junk');"  itemfilter="junk" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterAll selected' title='All Items' style="background-image: url('{$this->baseResourceUrl}resources/allfilter.png');" onclick="OnItemFilter('All');" itemfilter="all" /></div> 
+				<div class='ecdItemFilterContainer ecdItemFilterWeapon' title='Weapons' style="background-image: url('{$this->baseResourceUrl}resources/weaponfilter.png');" onclick="OnItemFilter('Weapon');"  itemfilter="weapon" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterArmor' title='Armor' style="background-image: url('{$this->baseResourceUrl}resources/armorfilter.png');" onclick="OnItemFilter('Armor');"  itemfilter="armor" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterConsumable' title='Consumable Items' style="background-image: url('{$this->baseResourceUrl}resources/consumablefilter.png');" onclick="OnItemFilter('Consumable');"  itemfilter="consumable" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterMaterial' title='Crafting Materials' style="background-image: url('{$this->baseResourceUrl}resources/materialfilter.png');" onclick="OnItemFilter('Material');"  itemfilter="material" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterMisc' title='Miscellaneous Items' style="background-image: url('{$this->baseResourceUrl}resources/miscfilter.png');" onclick="OnItemFilter('Misc');"  itemfilter="misc" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterQuest' title='Quest Items' style="background-image: url('{$this->baseResourceUrl}resources/questfilter.png');" onclick="OnItemFilter('Quest');"  itemfilter="quest" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterJunk' title='Junk' style="background-image: url('{$this->baseResourceUrl}resources/junkfilter.png');" onclick="OnItemFilter('Junk');"  itemfilter="junk" /></div>
 			</div>
 			<img class='ecdImageFlip' src='{$this->baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{$this->baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 EOT;
