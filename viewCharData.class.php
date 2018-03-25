@@ -2028,6 +2028,23 @@ EOT;
 		return $this->achievements->GetAchievementTreeHtml();
 	}
 	
+	
+	public function GetSkyshardsTotal() 
+	{
+		$this->achievements->characterData = &$this->characterData;
+		
+		$skyshardCount = $this->achievements->GetSkyshardsFound();
+		if ($skyshardCount == null) return "";
+		
+		$skyshardsFound = $skyshardCount['skyshardsFound'];
+		$skyshardsTotal = $skyshardCount['skyshardsTotal'];
+				
+		$output = "<br/>$skyshardsFound / $skyshardsTotal";
+
+		return $output; 
+	}
+
+	
 };
 
 
