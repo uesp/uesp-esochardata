@@ -4,6 +4,7 @@
 require_once("/home/uesp/secrets/esobuilddata.secrets");
 require_once("/home/uesp/esolog.static/esoCommon.php");
 require_once("/home/uesp/esolog.static/esoRecipeData.php");
+require_once("/home/uesp/esolog.static/viewCps.class.php");
 
 
 class EsoBuildDataViewer
@@ -34,6 +35,8 @@ class EsoBuildDataViewer
 	public $currentCharacterPage = 0;
 	public $totalCharacterCount = 0;
 	public $totalCharacterPages = 0;
+	
+	public $viewCPs = null;
 		
 	
 	const ESO_ICON_URL = "//esoicons.uesp.net";
@@ -119,6 +122,13 @@ class EsoBuildDataViewer
 	public function __construct ($isEmbedded = false, $initDbWrite = false)
 	{
 		$this->isEmbedded = $isEmbedded;
+		
+		$this->viewCPs = new CEsoViewCP(true, false);
+		$this->viewCPs->hideTopBar = true;
+		$this->viewCPs->shortDiscDisplay = true;
+		$this->viewCPs->showEdit = false;
+		$this->viewCPs->showFooter = false;
+		$this->viewCPs->showTitleonLeft = true;
 		
 		if ($initDbWrite)
 			$this->initDatabaseWrite();
@@ -1084,6 +1094,7 @@ class EsoBuildDataViewer
 					'{equipPoison2}' => $this->getCharEquipSlotHtml(14),
 					'{buffs}' => $this->getCharBuffsHtml(),
 					'{skyshards}' => $this->getCharStatField('SkyShards', 0),
+					'{skyshardsTotal}' => $this->GetSkyshardsTotal(),
 					'{skillPointDisplay}' => $this->getSkillPointDisplay(),
 					'{skyshardDisplay}' => $this->getSkyshardDisplay(),
 					'{skillPointsUnused}' => $this->getCharStatField('SkillPointsUnused', 0),
@@ -1131,7 +1142,9 @@ class EsoBuildDataViewer
 					'{accInvTotalSpace}' => $this->getAccountInventoryTotalSpace(),
 					'{editButtons}' => $this->getEditButtonsHtml(),
 					'{achievementContents}' => $this->getAchievementContentHtml(),
-					'{achievementTree}' => $this->getAchievementTreeHtml(),				
+					'{achievementTree}' => $this->getAchievementTreeHtml(),
+					'{mountContents}' => $this->getMountContentsHtml(),
+					'{cpContents}' => $this->getCPContentsHtml(),
 			);
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
@@ -1141,7 +1154,7 @@ class EsoBuildDataViewer
 	
 	
 	public function getAchievementContentHtml() { return ""; }
-	public function getAchievementTreeHtml() { return ""; }	
+	public function getAchievementTreeHtml() { return ""; }
 	
 	public function getInventoryUsedSpace() { return ""; }
 	public function getInventoryTotalSpace() { return ""; }
@@ -1163,8 +1176,9 @@ class EsoBuildDataViewer
 	public function getAccountInventoryTelvar() { return ""; }
 	public function getAccountInventoryWritVoucher() { return ""; }
 	public function getAccountTransmuteCrystals() { return ""; }
-	
-	
+		
+	public function GetSkyshardsTotal() { return ""; }
+		
 	public function getCharacterNamesJS()
 	{
 		$charNames = array();
@@ -1926,6 +1940,7 @@ class EsoBuildDataViewer
 		return $output;
 	}
 	
+	
 	public function getResearchTraitContentHtml($craftType, $extraTraits)
 	{
 		$output = "";
@@ -2036,8 +2051,19 @@ class EsoBuildDataViewer
 	
 	public function getCharSkillRidingContentHtml()
 	{
-		$output  = "<div id='ecdSkill_Riding' class='ecdSkillData ecdScrollContent' style='display: none;'>\n";
-		$output .= "<div id='ecdSkillContentTitle'>Riding</div>";
+		$output = "<div id='ecdSkill_Riding' class='ecdSkillData ecdScrollContent' style='display: none;'>\n";
+		
+		$output .= $this->getMountContentsHtml();
+		
+		$output .= "</div>";
+		return $output;
+	}
+	
+	
+	
+	public function getMountContentsHtml() 
+	{ 
+		$output = "<div id='ecdSkillContentTitle'>RIDING SKLILL</div>";
 		
 		$ridingInv = intval($this->getCharStatField("RidingInventory", 0));
 		$ridingSta = intval($this->getCharStatField("RidingStamina", 0));
@@ -2076,7 +2102,6 @@ class EsoBuildDataViewer
 			}
 		}
 		
-		$output .= "</div>";
 		return $output;
 	}
 	
@@ -2622,8 +2647,9 @@ class EsoBuildDataViewer
 		$output .= $this->getCharSkillTreeHtml1("ALLIANCE WAR", $this->skillData['Alliance War'], "progression_indexicon_ava_up.png");
 		$output .= $this->getCharSkillTreeHtml1("RACIAL", $this->skillData['Racial'], "progression_indexicon_race_up.png");
 		$output .= $this->getCharSkillTreeHtml1("CRAFT", $this->skillData['Craft'], "progression_indexicon_tradeskills_up.png");
-		$output .= $this->getCharSkillTreeHtml1("CHAMPION POINTS", $this->skillData['ChampionPoints']);
-		$output .= $this->getCharSkillTreeHtml1("OTHER", $this->skillData['Other']);
+		
+		//$output .= $this->getCharSkillTreeHtml1("CHAMPION POINTS", $this->skillData['ChampionPoints']);
+		//$output .= $this->getCharSkillTreeHtml1("OTHER", $this->skillData['Other']);
 		
 		return $output;
 	}
@@ -4064,6 +4090,50 @@ EOT;
 	{
 		return false;
 	}
+	
+	
+	public function getCPContentsHtml() 
+	{ 
+		$this->CreateInitialCPData();
+		
+		$output = $this->viewCPs->GetOutputHtml();
+		
+		return $output;		
+	}
+	
+	
+	public function CreateInitialCPData()
+	{
+		$cpData = $this->characterData['championPoints'];
+		
+		$this->initialCpData = array();
+		$this->initialCpData['points'] = 0;
+		
+		foreach ($cpData as $cp)
+		{
+			$names = explode(":", $cp['name']);
+			$cpLine = $names[0];
+			$cpSkill = $names[1];
+			$points = $cp['points'];
+			
+			if ($this->initialCpData[$cpLine] === null)
+			{
+				 $this->initialCpData[$cpLine] = array();
+				 $this->initialCpData[$cpLine]['points'] = 0;
+			}
+			
+			$this->initialCpData[$cpLine][$cpSkill] = $points;
+			
+			if ($points > 0) 
+			{
+				$this->initialCpData[$cpLine]['points'] += $points;
+				$this->initialCpData['points'] += $points;
+			}
+		}
+		
+		$this->viewCPs->initialData = $this->initialCpData;
+	}
+	
 	
 		
 	public function getOutput()

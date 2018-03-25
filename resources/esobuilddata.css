@@ -693,7 +693,8 @@ tr.eso_item_link {
 	font-size: 20px;
 	font-weight: bold;
 	color: WHITE;
-	display: inline-block;	
+	display: inline-block;
+	vertical-align: top;	
 }
 
 #ecdSkillContentTitle {
@@ -769,6 +770,10 @@ tr.eso_item_link {
 
 .ecdTopLevelIcon_Achievements {
     background-image: url('journal_tabicon_achievements_up.png');
+}
+
+.ecdTopLevelIcon_Mount {
+	background-image: url('tabicon_mounts_up.png');
 }
 
 #ecdSkillContents {
@@ -2285,4 +2290,138 @@ thead.ecdFixedHeader tr {
     padding: 5px;
     margin: 5px;
 	
+}
+
+#ecdCP #esovcpSkills {
+	margin-left: 220px;
+}
+
+#ecdCP .esovcpSkillDesc {
+    font-size: 13px;
+    max-width: 600px;
+    vertical-align: middle;
+    display: inline;
+	margin-left: 4px;
+}
+ 
+#ecdCP #esovcpDisciplines {
+	color: black !important;
+}
+ 
+#ecdCP .esovcpTotalPoints {
+ 	background-color: #000;
+ 	color: #fff;
+}
+ 
+#ecdCP .esovcpDiscipline {
+ 	height: 20px;
+	font-size: 18px;
+}
+    
+#ecdCP .esovcpDiscAttrPoints {
+ 	padding-top: 42px;
+ 	height: 60px;
+}
+
+#ecdCP .esovcpDiscipline:hover {
+	background: #aaa;	
+}
+
+#ecdCP .esovcpSkill {
+	padding: 6px;
+	margin-left: 65px;
+	min-height: 25px;
+}
+
+#ecdCP .esovcpSkill:hover {
+	border-radius: 0px;
+	background-color: black;
+	box-shadow: 0px 0px 0px rgba(0,0,0,0);
+}
+
+#ecdCP .esovcpSkillControls {
+	width: 65px;
+    margin-left: -65px;
+}
+
+#ecdCP .esovcpSkillLevel {
+	top: 0px;
+	font-weight: normal;
+	width: 65px;
+    margin-left: -65px;
+    line-height: 1.1em;
+	font-size: 13px;
+}
+
+#ecdCP .esovcpSkillName {
+	font-size: 18px;
+}
+
+#ecdCP .esovcpPointInput {
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    font-family: "EsoFontStyle", "Arial", sans-serif;
+    padding: 0;
+    margin: 0;
+    margin-top: -2px;
+}
+
+#ecdCP #esovcpDisciplines .esovcpDiscSkillTitle {
+	font-size: 24px;
+	color: white;
+	padding-bottom: 15px;
+}
+
+#ecdCP .esovcpDiscHighlight {
+    border: solid 4px black;
+    background-color: #555 !important;
+}
+
+#ecdCP .esovcpDiscSkillTitle {
+	padding-bottom: 10px;
+}
+
+#ecdCP .esovcpDiscHea {
+	background-color: #000;
+	color: #ffcc88;
+}
+
+#ecdCP .esovcpDiscMag {
+	background-color: #000;
+	color: #aaaaff;
+}
+
+#ecdCP .esovcpDiscSta {
+	background-color: #000;
+	color: #bbffbb;
+}
+
+#ecdCP .esovcpSkill.esovcpPassiveUnlocked .esovcpSkillName,
+#ecdCP .esovcpSkill.esovcpPassiveUnlocked .esovcpSkillDesc {
+	color: #fff;
+} 
+
+#ecdCP .esovcpSkill.esovcpPassiveLocked .esovcpSkillName,
+#ecdCP .esovcpSkill.esovcpPassiveLocked .esovcpSkillDesc {
+	color: #444;
+}
+
+#ecdCP .esovcpSkillLevel.esovcpPassiveUnlocked {
+	color: #444;
+}
+
+#ecdCP .esovpcDiscTitle1 {
+	color: #ffcc88;
+}
+
+#ecdCP .esovpcDiscTitle2 {
+	color: #aaaaff;
+}
+
+#ecdCP .esovpcDiscTitle3 {
+	color: #bbffbb;
 }
