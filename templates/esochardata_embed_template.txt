@@ -32,7 +32,11 @@
 			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdBankButton' onclick="OnEsoRightTitleClick('Bank', this);"><div title="Bank" class='ecdTopLevelIcon ecdTopLevelIcon_Bank'></div></div>
 			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdCraftButton' onclick="OnEsoRightTitleClick('Craft', this);"><div title="Craft Bag" class='ecdTopLevelIcon ecdTopLevelIcon_CraftBag'></div></div>
 			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdAccountInvButton' onclick="OnEsoRightTitleClick('AccountInv', this);"><div title="Account Inventory" class='ecdTopLevelIcon ecdTopLevelIcon_AccountInv'></div></div>
+			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdQuestsButton' onclick="OnEsoRightTitleClick('Quests', this);"><div title="Quests" class='ecdTopLevelIcon ecdTopLevelIcon_Quests'></div></div>
 			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdAchievementsButton' onclick="OnEsoRightTitleClick('Achievements', this);"><div title="Achievements" class='ecdTopLevelIcon ecdTopLevelIcon_Achievements'></div></div>
+			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdCollectiblesButton' onclick="OnEsoRightTitleClick('Collectibles', this);"><div title="Collectibles" class='ecdTopLevelIcon ecdTopLevelIcon_Collectibles'></div></div>
+			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdBooksButton' onclick="OnEsoRightTitleClick('Books', this);"><div title="Books" class='ecdTopLevelIcon ecdTopLevelIcon_Books'></div></div>
+			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdGuildsButton' onclick="OnEsoRightTitleClick('Guilds', this);"><div title="Guilds" class='ecdTopLevelIcon ecdTopLevelIcon_Guilds'></div></div>
 			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdMountButton' onclick="OnEsoRightTitleClick('Mount', this);"><div title="Riding Skill" class='ecdTopLevelIcon ecdTopLevelIcon_Mount'></div></div>
 		</div>
 		<div id='ecdSkills' class='ecdRightDataArea' style="display: none;">
@@ -97,6 +101,22 @@
 		<div id='ecdMount' class='ecdRightDataArea' style="display: none;">
 			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			{mountContents}
+		</div>
+		<div id='ecdQuests' class='ecdRightDataArea' style="display: none;">
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
+			{questContents}
+		</div>
+		<div id='ecdBooks' class='ecdRightDataArea' style="display: none;">
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
+			{bookContents}
+		</div>
+		<div id='ecdCollectibles' class='ecdRightDataArea' style="display: none;">
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
+			{collectibleContents}
+		</div>
+		<div id='ecdGuilds' class='ecdRightDataArea' style="display: none;">
+			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
+			{guildContents}
 		</div>
 	</div>
 	<div id='ecdEquipSlots'>

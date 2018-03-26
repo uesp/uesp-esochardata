@@ -601,7 +601,6 @@ function SlideAchievementIntoView(element, instant)
 {
 	var offsetTop = element.position().top;
 	var parent = element.parent(".ecdAchData");
-	var nextAch = element.next(".ecdAchievement1");
 	var nextTop = offsetTop + element.height() + 25;
 	var bottomScroll = parent.scrollTop() + parent.height();
 	var delay = 400;
@@ -812,7 +811,6 @@ function SelectFoundEsoCharRecipe(element, instant)
 	var offsetTop = element.position().top;
 	var parentList = element.parent(".ecdRecipeList");
 	var parent = parentList.parent("#ecdSkill_Recipes");
-	var nextAch = element.next(".ecdRecipeItem ");
 	var nextTop = offsetTop + element.height() + 25;
 	var bottomScroll = parent.scrollTop() + parent.height();
 	var delay = 400;
@@ -907,6 +905,169 @@ function SetRecipeTitleArrow(element, visible)
 }
 
 
+function OnQuestZoneTitleClick(e)
+{
+	var lastOpenQuestZone = $(".ecdQuestZoneTitle.ecdQuestSelected").first();
+	if (lastOpenQuestZone.is($(this))) return;
+	
+	lastOpenQuestZone.removeClass("ecdQuestSelected");
+	lastOpenQuestZone.next(".ecdQuestZoneList").slideUp();
+	
+	$(this).addClass("ecdQuestSelected");
+	var questList = $(this).next(".ecdQuestZoneList");
+	
+	questList.slideDown();
+	
+	$(".ecdQuestName.ecdQuestSelected").removeClass("ecdQuestSelected");
+	
+	var firstQuest = questList.children(".ecdQuestName").first();
+	firstQuest.addClass('ecdQuestSelected');
+	
+	var journalIndex = firstQuest.attr("journalindex");
+	
+	if (journalIndex != null )
+	{
+		$(".ecdQuestDetail:visible").hide(0);
+		$("#ecdQuestJournal" + journalIndex).show(0);
+	}
+}
+
+
+function OnQuestZoneTitle1Click(e)
+{
+	var questList = $(this).next(".ecdQuestZoneList1");
+	questList.slideToggle();
+}
+
+
+function OnQuestNameClick(e)
+{
+	var lastOpenQuest = $(".ecdQuestName.ecdQuestSelected").first();
+	if (lastOpenQuest.is($(this))) return;
+	
+	lastOpenQuest.removeClass("ecdQuestSelected");
+	
+	$(this).addClass("ecdQuestSelected");
+	
+	var journalIndex = $(this).attr("journalindex");
+	
+	if (journalIndex != null)
+	{
+		$(".ecdQuestDetail:visible").hide(0);
+		$("#ecdQuestJournal" + journalIndex).show(0);
+	}
+}
+
+
+function UpdateFirstQuestDetails()
+{
+	var firstQuest = $(".ecdQuestZoneTitle.ecdQuestSelected").next(".ecdQuestZoneList").children(".ecdQuestName").first()[0];
+	
+	if (firstQuest) OnQuestNameClick.call(firstQuest, null);
+}
+
+
+var lastEsoCompletedQuestSearchText = "";
+var lastEsoCompletedQuestSearchPos = -1;
+var lastEsoCompletedQuestSearchElement = null;
+
+
+function OnEsoCharDataSearchCompletedQuests()
+{
+	var text = $("#ecdQuestCompleteSearchText").val().trim().toLowerCase();
+	if (text == "") return;
+	
+	if (text != lastEsoCompletedQuestSearchText)
+	{
+		lastEsoCompletedQuestSearchText = text;
+		lastEsoCompletedQuestSearchPos = -1;
+		lastEsoCompletedQuestSearchElement = null;
+	}
+	
+	FindEsoCharNextCompletedQuest();
+}
+
+
+function FindEsoCharNextCompletedQuest()
+{
+	var isFound = false;
+	
+	$(".ecdQuestSearchHighlight").removeClass("ecdQuestSearchHighlight");
+		
+	$(".ecdQuestName1").each(function(index) {
+		if (index <= lastEsoCompletedQuestSearchPos) return true;
+		var $this = $(this);
+		var text = $this.text().toLowerCase();
+				
+		lastEsoCompletedQuestSearchPos = index;
+		
+		if (text.indexOf(lastEsoCompletedQuestSearchText) >= 0) 
+		{
+			if (lastEsoCompletedQuestSearchElement != null && $this.is(lastEsoCompletedQuestSearchElement)) return true;
+			
+			lastEsoCompletedQuestSearchElement = $this;
+			SelectFoundEsoCompletedQuest($this);
+			isFound = true;
+			return false
+		}
+	});
+	
+	if (!isFound)
+	{
+		lastEsoCompletedQuestSearchText = "";
+		lastEsoCompletedQuestSearchPos = -1;
+		lastEsoCompletedQuestSearchElement = null;
+		$("#ecdQuestCompleteSearchForm button").text("Done!");
+	}
+	else
+	{
+		$("#ecdQuestCompleteSearchForm button").text("Find Next");
+	}
+}
+
+
+function SelectFoundEsoCompletedQuest(quest)
+{
+	var questList = $(quest).parent(".ecdQuestZoneList1");
+	
+	if (!questList.is(":visible")) questList.show(0);
+	
+	quest.addClass("ecdQuestSearchHighlight");
+	
+	SlideEsoQuestIntoView(quest, true);
+}
+
+
+function SlideEsoQuestIntoView(element, instant)
+{
+	var offsetTop = element.position().top - 200;
+	var parent = element.parents(".ecdQuestDetail");
+	var nextTop = offsetTop + element.height() + 225;
+	var bottomScroll = parent.scrollTop() + parent.height();
+	var delay = 400;
+	
+	if (instant) delay = 0;
+	
+	if (offsetTop < 0)
+	{
+		parent.animate({ 
+	        scrollTop: offsetTop + parent.scrollTop(),
+	    }, delay);
+	}
+	else if (nextTop > parent.height())
+	{
+		parent.animate({ 
+	        scrollTop: nextTop - parent.height() + parent.scrollTop(),
+	    }, delay);
+	}
+}
+
+
+function OnEsoCharDataSearchMissingQuests()
+{
+}
+
+
 function onDocReady() 
 {  
 	$(".ecdTooltipTrigger").hover(onTooltipHoverShow, onTooltipHoverHide, onTooltipMouseMove);
@@ -979,6 +1140,10 @@ function onDocReady()
 	
 	$(".ecdSelectAchievement1").click(OnAchievementClick);
 	
+	$(".ecdQuestZoneTitle").click(OnQuestZoneTitleClick);
+	$(".ecdQuestZoneTitle1").click(OnQuestZoneTitle1Click);
+	$(".ecdQuestName ").click(OnQuestNameClick);
+	
 	$("#ecdFindAchInput").keyup(function(e) {
 		if (e.keyCode == 13) 
 			OnFindEsoCharAchievement();
@@ -1000,6 +1165,8 @@ function onDocReady()
 	if (!DoesEsoItemLinkHaveEvent()) $('.eso_item_link').hover(OnEsoItemLinkEnter, OnEsoItemLinkLeave);
 	
 	UpdateEsoInventoryShownSpace();
+	
+	UpdateFirstQuestDetails();
 }
 
 

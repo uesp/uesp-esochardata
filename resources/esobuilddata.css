@@ -640,7 +640,7 @@ tr.eso_item_link {
 	font-weight: bold;
 	display: inline-block;
     cursor: pointer;
-	margin-right: 10px;
+	margin-right: 0px;
 }
 
 .ecdSkillTitleButton:hover {
@@ -731,7 +731,7 @@ tr.eso_item_link {
 	width: 48px;
     height: 48px;
     padding: 0;
-    padding-right: 10px;
+    padding-right: 0px;
     background-position: center;
     opacity: 0.5;
 }
@@ -750,6 +750,22 @@ tr.eso_item_link {
 
 .ecdTopLevelIcon_CP {
     background-image: url('menubar_champion_up.png');
+}
+
+.ecdTopLevelIcon_Quests {
+    background-image: url('map_indexicon_quests_up.png');
+}
+
+.ecdTopLevelIcon_Books {
+    background-image: url('journal_tabicon_lorelibrary_up.png');
+}
+
+.ecdTopLevelIcon_Collectibles {
+    background-image: url('collections_tabicon_collectibles_up.png');
+}
+
+.ecdTopLevelIcon_Guilds {
+    background-image: url('menubar_guilds_up.png');
 }
 
 .ecdTopLevelIcon_Inventory {
@@ -2424,4 +2440,224 @@ thead.ecdFixedHeader tr {
 
 #ecdCP .esovpcDiscTitle3 {
 	color: #bbffbb;
+}
+
+#ecdQuestList {
+    width: 220px;
+    height: 510px;
+    display: inline-block;
+    margin-top: 5px;
+	overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#ecdQuestDetails {
+	width: 420px;
+    height: 580px;
+    display: inline-block;
+    float: right;
+    padding: 3px;
+    overflow-x: hidden;
+    margin-top: -5px;
+}
+
+.ecdQuestDetail {
+	height: 580px;
+    overflow-y: auto;
+}
+
+.ecdQuestZoneTitle,
+.ecdQuestZoneTitle1 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #C5C29E;
+    padding: 6px;
+	cursor: pointer;
+    border-radius: 15px;
+}
+
+.ecdQuestZoneTitle:hover,
+.ecdQuestZoneTitle1:hover {
+	background-color: #555;	
+}
+
+.ecdQuestZoneList, 
+.ecdQuestZoneList1 {
+}
+
+.ecdQuestZoneList .ecdQuestName, 
+.ecdQuestZoneList1 .ecdQuestName1 {
+	font-size: 15px;
+    font-weight: bold;
+    color: yellow;
+    padding: 0px;
+    cursor: pointer;
+    padding-left: 10px;
+    border-radius: 10px;
+	margin-left: 15px;
+    white-space: nowrap;
+}
+
+.ecdQuestCountTitle {
+	font-size: 20px;
+    font-weight: bold;
+    color: #C5C29E;
+    display: inline-block;
+}
+
+.ecdQuestZoneTitle.ecdQuestSelected {
+	color: white;
+}
+
+.ecdQuestName.ecdQuestSelected {
+	color: white;
+}
+
+.ecdQuestName img,
+.ecdQuestName1 img {
+	width: 16px;
+	margin-left: -19px;
+	margin-top: -2px;
+    padding-right: 3px;
+}
+
+.ecdQuestName:hover {
+	background-color: #555;	
+}
+
+.ecdQuestCount {
+	font-size: 18px;
+	color: white;
+	font-weight: bold;
+    display: inline-block;
+}
+
+.ecdQuestDetailDesc {
+	font-size: 15px;
+    font-weight: bold;
+    color: #C5C29E;	
+    padding-left: 25px;
+	min-height: 220px;
+}
+
+.ecdQuestDetailTasks {
+	font-size: 15px;
+    font-weight: bold;
+    color: white;	
+}
+
+.ecdQuestDetailTitle {
+	font-size: 22px;
+    font-weight: bold;
+    color: white;
+    padding: 4px;
+}
+
+.ecdQuestDetailTaskTitle {
+	font-size: 18px;
+    font-weight: bold;
+    color: white;
+    padding: 4px;
+}
+
+.ecdQuestTaskList {
+	list-style: none;
+}
+
+.ecdQuestTaskList li {
+	list-style-image: none;
+	background: url('bullet.png') no-repeat left top;
+	padding: 0px 0px 3px 19px;
+	background-size: 16px 16px;
+	margin: 0;	
+}
+
+.ecdQuestTaskSublist {
+	list-style: none;
+	padding-left: 0px;
+}
+
+.ecdQuestTaskSublist li {
+	list-style-image: none;
+	background: url('gp_bullet.png') no-repeat left top;
+	background-size: 16px 16px;
+	padding: 0px 0px 0px 14px;
+	margin: 0;
+}
+
+.ecdQuestDetailType {
+	display: inline-block;
+	width: 30px;
+}
+
+.ecdQuestDetailType img {
+	width: 20px;
+}
+
+.ecdQuestDetailRepeat {
+	display: inline-block;
+	font-size: 15px;
+    font-weight: bold;
+    color: #C5C29E;
+}
+
+.ecdQuestDetailRepeat img {
+	width: 20px;
+	margin-top: -2px;
+    margin-right: -3px;
+}
+
+.ecdQuestDetailSearch {
+	float: right;
+	width: 180px;
+	text-align: right;
+	background-color: black;
+	position: absolute;
+    right: 40px;
+}
+
+#ecdQuestMissingSearchForm button,
+#ecdQuestCompleteSearchForm button {
+    -moz-box-shadow: 3px 4px 4px 0px #636134;
+    -webkit-box-shadow: 3px 4px 4px 0px #636134;
+    box-shadow: 3px 4px 4px 0px #636134;
+    background-color: #C5C29E;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    border: 1px solid #8a843e;
+    display: inline-block;
+    cursor: pointer;
+    color: #000000;
+    font-family: "EsoFontStyle", Arial, sans-serif;
+    font-size: 12px;
+    padding: 3px;
+    text-decoration: none;
+    width: 70px;
+    height: 24px;
+}
+
+#ecdQuestMissingSearchForm button:hover,
+#ecdQuestCompleteSearchForm button:hover {
+	background-color: #857a45;
+}
+
+#ecdQuestMissingSearchForm input,
+#ecdQuestCompleteSearchForm input {
+    width: 100px;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: white;
+    background-color: #666;
+    border: 1px solid gray;
+    font-size: 14px;
+    text-shadow: 1px 1px 1px black;
+    padding: 2px;
+	margin-right: 3px;
+}
+
+.ecdQuestSearchHighlight {
+	background-color: #533;
 }

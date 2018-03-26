@@ -727,10 +727,18 @@ class EsoBuildDataParser
 				return $this->saveCharacterResearch($buildData, $name, $arrayData);
 			case "Recipes":
 				return $this->saveCharacterRecipes($buildData, $name, $arrayData);
+			case "Journal":
+				return $this->saveCharacterJournal($buildData, $name, $arrayData);
+			case "CompletedQuests":
+				return $this->saveCharacterCompletedQuests($buildData, $name, $arrayData);
 			case "Achievements":
 				return $this->saveCharacterAchievements($buildData, $name, $arrayData);
 			case "Books":
 				return $this->saveCharacterBooks($buildData, $name, $arrayData);
+			case "Guilds":
+				return $this->saveCharacterGuilds($buildData, $name, $arrayData);
+			case "Collectibles":
+				return $this->saveCharacterCollectibles($buildData, $name, $arrayData);
 			case "Stats":
 			case "Power":
 			case "NonCombat":
@@ -1309,6 +1317,66 @@ class EsoBuildDataParser
 	
 	
 	public function saveCharacterBooks($buildData, $name, $arrayData)
+	{
+		if ($arrayData == null) return true;
+	
+		$result = true;
+	
+		foreach ($arrayData as $name => $value)
+		{
+			$result &= $this->saveCharacterStatData($buildData, $name, $value);
+		}
+	
+		return $result;
+	}
+	
+	
+	public function saveCharacterGuilds($buildData, $name, $arrayData)
+	{
+		if ($arrayData == null) return true;
+	
+		$result = true;
+	
+		foreach ($arrayData as $name => $value)
+		{
+			$result &= $this->saveCharacterStatData($buildData, $name, $value);
+		}
+	
+		return $result;
+	}
+	
+	
+	public function saveCharacterCollectibles($buildData, $name, $arrayData)
+	{
+		if ($arrayData == null) return true;
+	
+		$result = true;
+	
+		foreach ($arrayData as $name => $value)
+		{
+			$result &= $this->saveCharacterStatData($buildData, $name, $value);
+		}
+	
+		return $result;
+	}
+	
+	
+	public function saveCharacterJournal($buildData, $name, $arrayData)
+	{
+		if ($arrayData == null) return true;
+	
+		$result = true;
+	
+		foreach ($arrayData as $name => $value)
+		{
+			$result &= $this->saveCharacterStatData($buildData, $name, $value);
+		}
+	
+		return $result;
+	}
+	
+	
+	public function saveCharacterCompletedQuests($buildData, $name, $arrayData)
 	{
 		if ($arrayData == null) return true;
 	
