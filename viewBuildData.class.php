@@ -1103,6 +1103,7 @@ class EsoBuildDataViewer
 					'{skillContents}' => $this->getCharSkillContentHtml(),
 					'{skillContentTitle}' => $this->skillTreeFirstName,
 					'{questContents}' => $this->getCharQuestContentHtml(),
+					'{guildContents}' => $this->getCharGuildContentHtml(),
 					'{rawLink}' => $this->getCharacterLink($this->characterId, true),
 					'{createDate}' => $this->getCharCreateDate(),
 					'{editDateNote}' => $this->getCharEditDateNote(),
@@ -1550,6 +1551,36 @@ class EsoBuildDataViewer
 		
 		$time = strtotime($editTime);
 		return ($time > 0);
+	}
+	
+	
+	public function getCharGuildContentHtml()
+	{
+		$output = "<div class='ecdGuildTitle'>GUILDS</div>";
+		$output .= "<ol>";
+				
+		for ($i = 1; $i <= 5; ++$i)
+		{
+			$guild = $this->getCharStatField("Guild:$i", "");
+			$guildFounded = $this->getCharStatField("Guild:$i:Founded", "");
+			$guildMembers = $this->getCharStatField("Guild:$i:Members", 0);
+			$guildRank = $this->getCharStatField("Guild:$i:Rank", "");
+			
+			if ($guild)
+			{
+				$output .= "<li><div class='ecdGuildName'>$guild</div>";
+				$output .= "<ul>";
+				$output .= "<li>Rank: $guildRank</li>";
+				$output .= "<li>Members: $guildMembers</li>";
+				$output .= "<li>Founded: $guildFounded</li>";
+				$output .= "</ul>";
+				$output .= "</li>";
+			}
+		}
+		
+		$output .= "</ol>";
+		
+		return $output;
 	}
 	
 	

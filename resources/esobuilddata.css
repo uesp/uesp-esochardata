@@ -2661,3 +2661,26 @@ thead.ecdFixedHeader tr {
 .ecdQuestSearchHighlight {
 	background-color: #533;
 }
+
+.ecdGuildTitle {
+	font-size: 22px;
+    font-weight: bold;
+    color: white;
+    padding: 0px;
+}
+
+.ecdGuildName {
+	font-size: 18px;
+    font-weight: bold;
+    color: #C5C29E;
+    padding: 3px;
+    padding-bottom: 0;
+    margin-bottom: -7px;
+    padding-top: 5px;
+}
+
+#ecdGuilds li {
+	padding: 0px;
+    font-size: 14px;
+    margin: 0px;
+}
