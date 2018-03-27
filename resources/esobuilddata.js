@@ -1,6 +1,15 @@
 var ecdLastTooltip = null;
 
 
+function EsoBuildLog()
+{
+	if (console == null) return;
+	if (console.log == null) return;
+	
+	console.log.apply(console, arguments);
+}
+
+
 function onTooltipHoverShow()
 {
 	ecdLastTooltip = $(this).find('.ecdTooltip');
@@ -1068,6 +1077,258 @@ function OnEsoCharDataSearchMissingQuests()
 }
 
 
+function OnEsoBookCollectionClick(e)
+{
+	var categoryIndex = $(this).attr("categoryindex");
+	var collectionIndex = $(this).attr("collectionindex");
+	
+	$(".ecdBookList:visible").hide(0);
+	$("#ecdBookList_"+categoryIndex+"_"+collectionIndex).show(0);
+	
+	$(".ecdBookCollectionSelected").removeClass("ecdBookCollectionSelected");
+	$(this).addClass("ecdBookCollectionSelected");
+}
+
+
+function OnEsoBookCategoryClick(e)
+{
+	var currentCategory = $(".ecdBookCategorySelected").first();
+	if ($(this).is(currentCategory)) return;
+	
+	currentCategory.removeClass("ecdBookCategorySelected");
+	$(".ecdBookCollectionList:visible").slideUp();
+	
+	$(this).addClass('ecdBookCategorySelected');
+	
+	var nextList = $(this).next(".ecdBookCollectionList");
+	var firstBook = nextList.children(".ecdBookCollection").first();
+	
+	nextList.slideDown();
+	
+	var categoryIndex = firstBook.attr("categoryindex");
+	var collectionIndex = firstBook.attr("collectionindex");
+	
+	$(".ecdBookList:visible").hide(0);
+	$("#ecdBookList_"+categoryIndex+"_"+collectionIndex).show(0);
+	
+	$(".ecdBookCollectionSelected").removeClass("ecdBookCollectionSelected");
+	firstBook.addClass("ecdBookCollectionSelected");	
+}
+
+
+
+var lastEsoBookSearchText = "";
+var lastEsoBookSearchPos = -1;
+var lastEsoBookSearchElement = null;
+
+
+function OnEsoCharDataSearchBooks()
+{
+	var text = $("#ecdBookSearchText").val().trim().toLowerCase();
+	if (text == "") return;
+	
+	if (text != lastEsoBookSearchText)
+	{
+		lastEsoBookSearchText = text;
+		lastEsoBookSearchPos = -1;
+		lastEsoBookSearchElement = null;
+	}
+	
+	FindEsoCharNextBook();
+}
+
+
+function FindEsoCharNextBook()
+{
+	var isFound = false;
+	
+	$(".ecdBookSearchHighlight").removeClass("ecdBookSearchHighlight");
+		
+	$(".ecdBookLine").each(function(index) {
+		if (index <= lastEsoBookSearchPos) return true;
+		var $this = $(this);
+		var text = $this.text().toLowerCase();
+				
+		lastEsoBookSearchPos = index;
+		
+		if (text.indexOf(lastEsoBookSearchText) >= 0) 
+		{
+			if (lastEsoBookSearchElement != null && $this.is(lastEsoBookSearchElement)) return true;
+			
+			lastEsoBookSearchElement = $this;
+			SelectFoundEsoBook($this);
+			isFound = true;
+			return false
+		}
+	});
+	
+	if (!isFound)
+	{
+		lastEsoBookSearchText = "";
+		lastEsoBookSearchPos = -1;
+		lastEsoBookSearchElement = null;
+		$("#ecdBookSearchForm button").text("Done!");
+	}
+	else
+	{
+		$("#ecdBookSearchForm button").text("Find Next");
+	}
+}
+
+
+function SelectFoundEsoBook(book)
+{
+	var bookList = $(book).parent(".ecdBookList");
+	
+	if (!bookList.is(":visible")) 
+	{
+		$(".ecdBookList:visible").hide(0);
+		bookList.show(0);
+		
+		var categoryIndex = bookList.attr("categoryindex");
+		var collectionIndex = bookList.attr("collectionindex");
+		
+		$(".ecdBookCollectionSelected").removeClass("ecdBookCollectionSelected");
+		
+		var collection = $(".ecdBookCollection[categoryindex='" + categoryIndex + "'][collectionindex='" + collectionIndex + "']");
+		var collectionList = collection.parent(".ecdBookCollectionList");
+		collection.addClass("ecdBookCollectionSelected");
+		
+		if (!collectionList.is(":visible"))
+		{
+			var currentCategory = $(".ecdBookCategorySelected").first();
+			var newCategory = collectionList.prev(".ecdBookCategory");
+			
+			currentCategory.removeClass("ecdBookCategorySelected");
+			newCategory.addClass("ecdBookCategorySelected");
+			
+			$(".ecdBookCollectionList:visible").hide(0);
+			collectionList.show(0);
+		}
+		
+		SlideEsoBookCollectionIntoView(collection, true);
+	}
+	
+	book.addClass("ecdBookSearchHighlight");
+	
+	SlideEsoBookIntoView(book, true);
+}
+
+
+function SlideEsoBookIntoView(element, instant)
+{
+	var offsetTop = element.position().top - 200;
+	var parent = element.parent(".ecdBookList");
+	var nextTop = offsetTop + element.height() + 225;
+	var bottomScroll = parent.scrollTop() + parent.height();
+	var delay = 400;
+	
+	if (instant) delay = 0;
+	
+	if (offsetTop < 0)
+	{
+		parent.animate({ 
+	        scrollTop: offsetTop + parent.scrollTop(),
+	    }, delay);
+	}
+	else if (nextTop > parent.height())
+	{
+		parent.animate({ 
+	        scrollTop: nextTop - parent.height() + parent.scrollTop(),
+	    }, delay);
+	}
+}
+
+
+function SlideEsoBookCollectionIntoView(element, instant)
+{
+	var offsetTop = element.position().top - 200;
+	var parent = element.parents(".ecdBookTree");
+	var nextTop = offsetTop + element.height() + 225;
+	var bottomScroll = parent.scrollTop() + parent.height();
+	var delay = 400;
+	
+	if (instant) delay = 0;
+	
+	if (offsetTop < 0)
+	{
+		parent.animate({ 
+	        scrollTop: offsetTop + parent.scrollTop(),
+	    }, delay);
+	}
+	else if (nextTop > parent.height())
+	{
+		parent.animate({ 
+	        scrollTop: nextTop - parent.height() + parent.scrollTop(),
+	    }, delay);
+	}
+}
+
+
+function OnEsoBookClick(e)
+{
+	var queryParams = {}
+	var bookId = $(this).attr("bookid");
+	
+	queryParams['table'] = 'book';
+	queryParams['id'] = bookId;
+	
+	$.ajax("//esolog.uesp.net/exportJson.php", {
+			data: queryParams,
+		}).
+		done(function(data, status, xhr) { OnEsoBookDataRequest(data, status, xhr); }).
+		fail(function(xhr, status, errorMsg) { OnEsoBookDataError(xhr, status, errorMsg); });
+	
+	return true;
+}
+
+
+function OnEsoBookDataRequest(data, status, xhr)
+{
+	EsoBuildLog("Received book data!", data);
+	
+	ShowEsoBook(data.book[0]);
+}
+
+
+function OnEsoBookDataError(xhr, status, errorMsg)
+{
+	EsoBuildLog("Error requesting book data!", errorMsg);
+}
+
+
+function ShowEsoBook(book)
+{
+	var bookRoot = $("#ecdBookRoot");
+	var bookContents = $("#ecdBookContents");
+	var output = "";
+	
+	bookRoot.show(0);
+	
+	$(document).on("click.OnEsoBookClickDocument", OnEsoBookClickDocument);
+	
+	output += "<div class='ecdBookTitle'>" + book.title + "</div>";
+	output += "<div class='ecdBookBody'>" + book.body + "</div>";
+	
+	bookContents.html(output);
+}
+
+
+function OnEsoBookCloseClick()
+{
+	var bookRoot = $("#ecdBookRoot");
+	bookRoot.hide(0);
+}
+
+
+function OnEsoBookClickDocument()
+{
+	var bookRoot = $("#ecdBookRoot");
+	bookRoot.hide(0);
+	$(document).off("click.OnEsoBookClickDocument");
+}
+
+
 function onDocReady() 
 {  
 	$(".ecdTooltipTrigger").hover(onTooltipHoverShow, onTooltipHoverHide, onTooltipMouseMove);
@@ -1161,6 +1422,11 @@ function onDocReady()
 	$("#ecdSkill_Recipes").on("scroll", OnEsoRecipeScroll);
 	
 	$(".ecdRecipeTitle").click(OnRecipeTitleClick);
+	
+	$(".ecdBookCollection").click(OnEsoBookCollectionClick);
+	$(".ecdBookCategory").click(OnEsoBookCategoryClick);
+	$(".ecdBookLine").click(OnEsoBookClick);
+	$(".ecdBookClose").click(OnEsoBookCloseClick);
 	
 	if (!DoesEsoItemLinkHaveEvent()) $('.eso_item_link').hover(OnEsoItemLinkEnter, OnEsoItemLinkLeave);
 	

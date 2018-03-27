@@ -2444,7 +2444,7 @@ thead.ecdFixedHeader tr {
 
 #ecdQuestList {
     width: 220px;
-    height: 510px;
+    height: 580px;
     display: inline-block;
     margin-top: 5px;
 	overflow-x: hidden;
@@ -2617,7 +2617,8 @@ thead.ecdFixedHeader tr {
 }
 
 #ecdQuestMissingSearchForm button,
-#ecdQuestCompleteSearchForm button {
+#ecdQuestCompleteSearchForm button,
+#ecdBookSearchForm button {
     -moz-box-shadow: 3px 4px 4px 0px #636134;
     -webkit-box-shadow: 3px 4px 4px 0px #636134;
     box-shadow: 3px 4px 4px 0px #636134;
@@ -2638,12 +2639,14 @@ thead.ecdFixedHeader tr {
 }
 
 #ecdQuestMissingSearchForm button:hover,
-#ecdQuestCompleteSearchForm button:hover {
+#ecdQuestCompleteSearchForm button:hover,
+#ecdBookSearchForm input:hover {
 	background-color: #857a45;
 }
 
 #ecdQuestMissingSearchForm input,
-#ecdQuestCompleteSearchForm input {
+#ecdQuestCompleteSearchForm input,
+#ecdBookSearchForm input {
     width: 100px;
     margin: 0;
     -webkit-box-sizing: border-box;
@@ -2683,4 +2686,176 @@ thead.ecdFixedHeader tr {
 	padding: 0px;
     font-size: 14px;
     margin: 0px;
+}
+
+#ecdBooks {
+	position: relative;
+}
+
+.ecdBookCountTitle {
+	font-size: 22px;
+    font-weight: bold;
+    color: #C5C29E;
+    padding: 0px;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.ecdBookCount {
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    padding: 0px;
+    display: inline-block;
+}
+
+.ecdBookTree {
+	width: 315px;
+    height: 540px;
+    display: inline-block;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.ecdBookLists {
+	width: 325px;
+    height: 540px;
+    display: inline-block;
+    float: right;
+    padding: 3px;
+    overflow-x: hidden;
+}
+
+.ecdBookList {
+	overflow-y: auto;
+	height: 540px;
+}
+
+.ecdBookLine {
+	font-size: 16px;
+    font-weight: bold;
+    color: #777;
+    padding: 2px;
+    height: 32px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.ecdBookLine:hover {
+	background-color: #336;
+	cursor: pointer;
+}
+
+.ecdBookLine img {
+	vertical-align: middle;
+	width: 32px;
+}
+
+.ecdBookTitle {
+	vertical-align: middle;
+	display: inline-block;
+	width: 270px;
+}
+
+.ecdBookKnown {
+	color: #C5C29E;
+}
+
+.ecdBookCategory {
+	font-size: 22px;
+    font-weight: bold;
+    color: #C5C29E;
+    padding: 4px;
+	margin-top: 10px;
+	border-radius: 15px;
+	cursor: pointer;
+}
+
+.ecdBookCategorySelected {
+	color: white;
+}
+
+.ecdBookCategory:hover {
+	background-color: #555;
+}	
+
+.ecdBookListTitle {
+	font-size: 22px;
+    font-weight: bold;
+    color: white;
+    padding: 2px;
+}
+
+.ecdBookCollection {
+	font-size: 17px;
+    font-weight: bold;
+    color: #C5C29E;
+    padding: 2px;
+    margin-left: 25px;
+    cursor: pointer;
+	border-radius: 10px;
+}
+
+.ecdBookCollection:hover {
+	background-color: #555;
+}
+
+.ecdBookCollectionCount {
+    color: white;
+    display: inline-block;
+}
+
+.ecdBookCollectionSelected {
+	color: white;
+	border-radius: 10px;
+}
+
+.ecdBookSearch {
+	float: right;
+	width: 180px;
+	text-align: right;
+	background-color: black;
+	position: absolute;
+    right: 40px;	
+}
+
+.ecdBookSearchHighlight {
+	background-color: #533;
+}
+
+#ecdBookRoot {
+	position: absolute;
+	width: 98%;
+	height: 560px;
+	z-index: 100;
+	background-color: rgba(0,0,0,0.9);
+	top: 15px;
+	left: 0px;
+	padding: 10px;
+	overflow-y: auto;
+}
+
+#ecdBookRoot .ecdBookTitle {
+	text-align: center;
+	width: 100%;
+	font-size: 20px;
+}
+
+#ecdBookRoot .ecdBookBody {
+	white-space: pre-wrap;
+}
+
+.ecdBookClose {
+	width: 24px;
+	height: 24px;
+	float: right;
+	background-image: url('gp_disabled_x.png');
+	background-size: 24px 24px;
+	cursor: pointer;
+    position: absolute;
+    right: 20px;
+}
+
+.ecdBookClose:hover {
+	background-color: #777;
 }

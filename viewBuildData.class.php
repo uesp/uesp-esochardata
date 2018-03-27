@@ -2,6 +2,7 @@
 
 
 require_once("/home/uesp/secrets/esobuilddata.secrets");
+require("/home/uesp/secrets/esolog.secrets");
 require_once("/home/uesp/esolog.static/esoCommon.php");
 require_once("/home/uesp/esolog.static/esoRecipeData.php");
 require_once("/home/uesp/esolog.static/viewCps.class.php");
@@ -1104,6 +1105,7 @@ class EsoBuildDataViewer
 					'{skillContentTitle}' => $this->skillTreeFirstName,
 					'{questContents}' => $this->getCharQuestContentHtml(),
 					'{guildContents}' => $this->getCharGuildContentHtml(),
+					'{bookContents}' => $this->getCharBookContentHtml(),
 					'{rawLink}' => $this->getCharacterLink($this->characterId, true),
 					'{createDate}' => $this->getCharCreateDate(),
 					'{editDateNote}' => $this->getCharEditDateNote(),
@@ -1551,6 +1553,14 @@ class EsoBuildDataViewer
 		
 		$time = strtotime($editTime);
 		return ($time > 0);
+	}
+	
+	
+	public function getCharBookContentHtml()
+	{
+		$output = "";
+		
+		return $output;
 	}
 	
 	
