@@ -4,6 +4,7 @@
 require_once("viewBuildData.class.php");
 require_once("/home/uesp/secrets/esochardata.secrets");
 require_once("/home/uesp/esolog.static/viewAchievements.class.php");
+require_once("/home/uesp/esolog.static/esoBookCollectionData.php");
 
 
 class EsoCharDataViewer extends EsoBuildDataViewer
@@ -2042,6 +2043,107 @@ EOT;
 		$output = "<br/>$skyshardsFound / $skyshardsTotal";
 
 		return $output; 
+	}
+	
+	
+	public function getCharBookContentHtml()
+	{
+		global $ESO_BOOK_COLLECTIONS;
+		
+		$output = "";
+		$leftOutput = "";
+		$rightOutput = "";
+		$totalBooks = 0;
+		$totalKnownBooks = 0;
+		$catArray = array();
+		
+		foreach ($ESO_BOOK_COLLECTIONS as $catIndex => $catData)
+		{
+			$catInfo = $catData[0];
+			if ($catInfo == null) continue;
+			
+			$numCollections = $catInfo['numCollect'];
+			$catName = preg_replace("/`/", "'", $catInfo['name']);
+			$numCatBooks = $catInfo['numBooks'];
+			$totalBooks += $numCatBooks;
+			$knownCatBooks = 0;
+			$collectArray = array();
+							
+			for ($collectIndex = 1; $collectIndex <= $numCollections; ++$collectIndex)
+			{
+				$collectData = $catData[$collectIndex];
+				
+				$collectName = preg_replace("/`/", "'", $collectData['name']);
+				$collectIcon = $collectData['icon'];
+				$numBooks = $collectData['numBooks'];
+				$books = &$collectData['books'];
+				$colKnownBooks = 0;
+				
+				if ($collectName == "" || $numBooks == 0) continue;
+				
+				$rightOutput .= "<div class='ecdBookList ecdScrollContent' id='ecdBookList_{$catIndex}_{$collectIndex}' categoryindex='$catIndex' collectionindex='$collectIndex' style='display: none;'>";
+				$rightOutput .= "<div class='ecdBookListTitle'>$collectName</div>";
+				$booksArray = array();
+				
+				foreach ($books as $bookId => $bookData)
+				{
+					$title = preg_replace("/`/", "'", $bookData['title']);
+					$icon = $bookData['icon'];
+					$iconUrl = MakeEsoIconLink($icon);
+					
+					$isKnown = $this->getCharStatField("Book:$bookId");
+					$knownClass = "";
+					
+					if ($isKnown)
+					{
+						$knownClass = "ecdBookKnown";
+						++$colKnownBooks;
+						++$knownCatBooks;
+						++$totalKnownBooks;
+					}
+					
+					$bookOutput  = "<div class='ecdBookLine $knownClass' bookid='$bookId'>";
+					$bookOutput .= "<img src='$iconUrl'>";
+					$bookOutput .= " <div class='ecdBookTitle'>$title</div>";
+					$bookOutput .= "</div>";
+					
+					$booksArray[$title] = $bookOutput;
+				}
+				
+				ksort($booksArray);
+				$rightOutput .= implode("", $booksArray);
+				
+				$rightOutput .= "</div>";
+				$collectArray[$collectName] = "<div class='ecdBookCollection' categoryindex='$catIndex' collectionindex='$collectIndex'>$collectName <div class='ecdBookCollectionCount'>$colKnownBooks/$numBooks</div></div>";
+			}
+			
+			ksort($collectArray);
+			
+			$catOutput  = "<div class='ecdBookCategory'>$catName $knownCatBooks/$numCatBooks</div>";
+			$catOutput .= "<div class='ecdBookCollectionList' style='display: none'>";
+			$catOutput .= implode("", $collectArray);
+			$catOutput .= "</div>";
+			
+			$catArray[$catName] = $catOutput;
+		}
+		
+		ksort($catArray);
+		$leftOutput = implode("", $catArray);
+		
+		$output .= "<div class='ecdBookSearch' id='ecdBookSearchForm'>";
+		$output .= "<input type='text' size='10' maxlength='32' id='ecdBookSearchText' placeholder='Find Book'/>";
+		$output .= "<button onclick='OnEsoCharDataSearchBooks();'>Find...</button>";
+		$output .= "</div>";
+		
+		$output .= "<div class='ecdBookCountTitle'>Books:</div> ";
+		$output .= "<div class='ecdBookCount'>$totalKnownBooks/$totalBooks</div><br/>";
+		
+		$output .= "<div class='ecdBookLists'>$rightOutput</div>";
+		$output .= "<div class='ecdBookTree ecdScrollContent'>$leftOutput</div>";
+		
+		$output .= "<div id='ecdBookRoot' class='ecdScrollContent' style='display:none;'><div class='ecdBookClose'></div><div id='ecdBookContents'></div></div>";
+		
+		return $output;
 	}
 
 	
