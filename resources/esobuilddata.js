@@ -1329,6 +1329,76 @@ function OnEsoBookClickDocument()
 }
 
 
+function OnEsoCategoryCollectibleClick()
+{
+	var lastCategory = $(".ecdCollectibleCategorySelected").first();
+	if ($(this).is(lastCategory)) return;
+	
+	lastCategory.removeClass('ecdCollectibleCategorySelected');
+	$(this).addClass('ecdCollectibleCategorySelected');
+	
+	$(".ecdCollectibleSubcategories:visible").slideUp();
+	
+	var subCategoryList = $(this).next(".ecdCollectibleSubcategories");
+	if (subCategoryList.text() != "") subCategoryList.slideDown();
+	
+	$(".ecdCollectibleBlock:visible").hide(0);
+	
+	var categoryIndex = $(this).attr('categoryindex');
+	var subCategoryIndex = 0;
+	var collectibleBlock = 	$("#ecdCollectible_" + categoryIndex + "_" + subCategoryIndex);
+	
+	if (collectibleBlock.length > 0)
+	{
+		collectibleBlock.show(0);
+		return;
+	}
+	
+	var firstSubcategory = $(this).next(".ecdCollectibleSubcategories").children(".ecdCollectibleSubcategory").first();
+	
+	$(".ecdCollectibleSubcategorySelected").removeClass('ecdCollectibleSubcategorySelected');
+	firstSubcategory.addClass('ecdCollectibleSubcategorySelected');
+	
+	categoryIndex = firstSubcategory.attr('categoryindex');
+	subCategoryIndex = firstSubcategory.attr('subcategoryindex');
+	
+	$("#ecdCollectible_" + categoryIndex + "_" + subCategoryIndex).show(0);
+}
+
+
+function OnEsoSubcategoryCollectibleClick()
+{
+	var lastSubcategory = $(".ecdCollectibleSubcategorySelected").first();
+	if ($(this).is(lastSubcategory)) return;
+	
+	lastSubcategory.removeClass('ecdCollectibleSubcategorySelected');
+	
+	$(this).addClass('ecdCollectibleSubcategorySelected');
+	
+	$(".ecdCollectibleBlock:visible").hide(0);
+	
+	var categoryIndex = $(this).attr('categoryindex');
+	var subCategoryIndex = $(this).attr('subcategoryindex');
+	
+	$("#ecdCollectible_" + categoryIndex + "_" + subCategoryIndex).show(0);
+}
+
+
+function OnEsoCollectionsMenuItemClick()
+{
+	var collectible = $(this).attr("collectid");
+	var title = $(this).attr("title");
+	
+	$(".ecdCollectMenuItemSelected").removeClass("ecdCollectMenuItemSelected");
+	$(this).addClass("ecdCollectMenuItemSelected");
+	
+	$("#ecdCollectMenuTitle").text(title.toUpperCase());
+	
+	$(".ecdCollectContents:visible").hide(0);
+	$("#ecdCollectContents_"+collectible).show(0);
+}
+
+
 function onDocReady() 
 {  
 	$(".ecdTooltipTrigger").hover(onTooltipHoverShow, onTooltipHoverHide, onTooltipMouseMove);
@@ -1427,6 +1497,10 @@ function onDocReady()
 	$(".ecdBookCategory").click(OnEsoBookCategoryClick);
 	$(".ecdBookLine").click(OnEsoBookClick);
 	$(".ecdBookClose").click(OnEsoBookCloseClick);
+	
+	$(".ecdCollectibleCategory").click(OnEsoCategoryCollectibleClick);
+	$(".ecdCollectibleSubcategory").click(OnEsoSubcategoryCollectibleClick);
+	$(".ecdCollectMenuItem").click(OnEsoCollectionsMenuItemClick);
 	
 	if (!DoesEsoItemLinkHaveEvent()) $('.eso_item_link').hover(OnEsoItemLinkEnter, OnEsoItemLinkLeave);
 	
