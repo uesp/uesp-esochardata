@@ -32,6 +32,8 @@ class EsoBuildDataViewer
 	public $combineInventoryItems = true;
 	public $combineBankItems      = true;
 	public $showCPLevel           = true;
+	public $hasLoadedCharacter	  = false; 
+	public $enableCaching 		  = false;
 	
 	public $currentCharacterPage = 0;
 	public $totalCharacterCount = 0;
@@ -512,7 +514,7 @@ class EsoBuildDataViewer
 	}
 	
 	
-	public function loadCharacter()
+	public function loadSingleCharacter()
 	{
 		if ($this->characterId <= 0) return $this->reportError("Cannot load character: No characterId specified!");
 		
@@ -526,6 +528,20 @@ class EsoBuildDataViewer
 		$this->characterData = $result->fetch_assoc();
 		
 		$this->characterData['cp'] = $this->characterData['championPoints'];
+		
+		$this->hasLoadedCharacter = true;
+		return true;
+	}
+	
+	
+	public function loadCharacter()
+	{
+		if ($this->characterId <= 0) return $this->reportError("Cannot load character: No characterId specified!");
+		
+		if (!$this->hasLoadedCharacter)
+		{
+			if (!$this->loadSingleCharacter()) return false;
+		}
 
 		if ($this->hasCharacterInventory)
 		{
@@ -1024,8 +1040,23 @@ class EsoBuildDataViewer
 	
 	public function createCharacterOutput()
 	{
+		if ($this->viewRawData) 
+		{
+			if (!$this->loadCharacter()) return false;
+			return $this->createCharacterOutputRaw();
+		}
+		
+		if (!$this->loadSingleCharacter()) return false;
+		
+		$cacheHtml = $this->LoadCharacterCache();
+		
+		if ($cacheHtml != null) 
+		{
+			$this->outputHtml .= $cacheHtml;
+			return true;
+		}
+		
 		if (!$this->loadCharacter()) return false;
-		if ($this->viewRawData) return $this->createCharacterOutputRaw();
 		
 		$replacePairs = array(
 					'{buildName}' => $this->getCharField('buildName'),
@@ -1154,6 +1185,8 @@ class EsoBuildDataViewer
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
 		
+		$this->CreateCharacterCache($this->outputHtml);
+			
 		return true;
 	}
 	
@@ -2183,7 +2216,7 @@ class EsoBuildDataViewer
 						
 						if ($research[$slot] != null && $research[$slot][$trait] != null)
 						{
-							$researchNote = " : " . $this->FormatResearchTime($research[$slot][$trait], $timestamp);
+							$researchNote = " " . $this->FormatResearchTime($research[$slot][$trait], $timestamp);
 						}
 					}
 					
@@ -2229,7 +2262,7 @@ class EsoBuildDataViewer
 						
 						if ($research[$slot] != null && $research[$slot][$trait] != null)
 						{
-							$researchNote = " : " . $this->FormatResearchTime($research[$slot][$trait], $timestamp);
+							$researchNote = " " . $this->FormatResearchTime($research[$slot][$trait], $timestamp);
 						}
 					}
 					
@@ -4015,7 +4048,7 @@ class EsoBuildDataViewer
 	public function doBuildDelete()
 	{
 		if ($this->characterId <= 0) return $this->reportError("Missing valid character ID!");
-		if (!$this->loadCharacter()) return false;
+		if (!$this->loadSingleCharacter()) return false;
 		if (!$this->canWikiUserDelete()) return $this->reportError("Permission denied!");
 		
 		$buildName = $this->getCharField('buildName');
@@ -4057,7 +4090,7 @@ class EsoBuildDataViewer
 		if ($this->nonConfirm != '') return $this->createBuildTableHtml();
 		if ($this->confirm != '') return $this->doBuildChangePassword();
 		
-		if (!$this->loadCharacter()) return false;
+		if (!$this->loadSingleCharacter()) return false;
 		if (!$this->canWikiUserEdit()) return $this->reportError("Permission denied!");
 		
 		$buildName = $this->getCharField('buildName');
@@ -4130,7 +4163,7 @@ EOT;
 		
 		if (!$this->initDatabaseWrite()) return false;
 		
-		if (!$this->loadCharacter()) return false;
+		if (!$this->loadSingleCharacter()) return false;
 		if (!$this->loadAccount($this->formAccount)) return false;
 		if (!$this->canWikiUserDelete()) return $this->reportError("Permission denied!");
 			
@@ -4204,7 +4237,7 @@ EOT;
 		if ($this->nonConfirm != '') return $this->createBuildTableHtml();
 		if ($this->confirm != '') return $this->doBuildDelete();
 		
-		if (!$this->loadCharacter()) return false;
+		if (!$this->loadSingleCharacter()) return false;
 		if (!$this->canWikiUserDelete()) return $this->reportError("Permission denied!");
 		
 		$buildName = $this->getCharField('buildName');
@@ -4441,6 +4474,60 @@ EOT;
 	}
 	
 	
+	public function CreateCharacterCache($htmlOutput)
+	{
+		if (!$this->enableCaching) return true;
+		
+		$characterId = $this->characterId;
+		$charTimestamp = $this->characterData['createTime'];
+		$safeOutput = $this->db->real_escape_string($htmlOutput);
+		$size = strlen($safeOutput);
+		
+		$query = "REPLACE into cache(characterId, html, createTimestamp) values($characterId, '$safeOutput', $charTimestamp);";
+		
+		error_log("CreateCharacterCache, $characterId, $charTimestamp, $size");
+		
+		$result = $this->db->query($query);
+		
+		if ($result === false) {
+			error_log("CreateCharacterCache Failed! ".$this->db->error);
+			return false;
+		}
+		
+		error_log("CreateCharacterCache Success!");
+		
+		return true;
+	}	
+	
+	
+	public function LoadCharacterCache()
+	{
+		if (!$this->enableCaching) return null;
+		
+		$characterId = $this->characterId;
+		
+		$query = "SELECT * FROM cache WHERE characterId='$characterId' LIMIT 1;";
+		$result = $this->db->query($query);
+		if ($result === false || $result->num_rows == 0) return null;
+		
+		error_log("LoadCharacterCache Loaded!");
+		
+		$cacheData = $result->fetch_assoc();
+		
+		$createTimestamp = $cacheData['createTimestamp'];
+		$charTimestamp = $this->characterData['createTime'];
+		
+		if ($charTimestamp > $createTimestamp) 
+		{
+			error_log("LoadCharacterCache Cache too Old: $charTimestamp > $createTimestamp!");
+			return null;
+		}
+		
+		error_log("LoadCharacterCache Success:  $charTimestamp <= $createTimestamp! ".strlen($cacheData['html']));
+		
+		return $cacheData['html'];
+	}
+	
 		
 	public function getOutput()
 	{
@@ -4512,6 +4599,7 @@ function compareInventoryByItemLink($a, $b)
 
 function CompareEsoSkillTypeName($a, $b)
 {
+	
 	static $SKILLTYPES = array(
 			"Light Armor" => 1,
 			"Medium Armor" => 2,

@@ -734,6 +734,8 @@ tr.eso_item_link {
     padding-right: 0px;
     background-position: center;
     opacity: 0.5;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .ecdTopLevelIcon:hover {
