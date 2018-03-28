@@ -3074,3 +3074,164 @@ thead.ecdFixedHeader tr {
 	right: 10px;
 	top: 5px;
 }
+
+.ecdCollectibleDlcCategory {
+	font-size: 22px;
+	font-weight: bold;
+	color: white;
+	padding: 2px;
+	margin-top: 10px;	
+}
+
+.ecdCollectibleDlc {
+	margin-left: 25px;
+	font-size: 18px;
+	font-weight: bold;
+	height: 32px;
+	color: #777;
+	padding: 0px;
+	opacity: 0.5;
+	font-family: "EsoFontStyle", "Arial", sans-serif !important;
+}
+
+.ecdCollectibleDlc:hover {
+	background-color: #336;
+}
+
+.ecdCollectibleDlc img {
+	width: 32px;
+	height: 32px;
+	margin-right: 10px;
+}
+
+#ecdCollectContents_DLC {
+	overflow-y: auto;
+	position: relative;
+}
+
+.ecdCollectDlcCount {
+	font-size: 18px;
+	font-weight: bold;
+	color: white;
+	position: absolute;
+	right: 10px;
+	top: 5px;
+}
+
+.ecdOutfitDetails {
+	float: right;
+	display: inline-block;
+	width: 460px;
+}
+
+.ecdOutfitTree {
+	width: 190px;	
+	display: inline-block;
+	height: 530px;
+    overflow-y: auto;
+}
+
+.ecdOutfitCategory {
+	font-size: 20px;
+	font-weight: bold;
+	color: #C5C29E;
+	padding: 2px;
+	cursor: pointer;
+	border-radius: 10px;
+	height: 26px;
+	margin-top: 5px;
+    margin-bottom: -5px;
+}
+
+.ecdOutfitCategorySelected {
+	color: white;	
+}
+
+.ecdCOutfitCategory:hover {
+	background-color: #555;
+}
+
+.ecdOutfitCategory img {
+	width: 32px;
+	margin-top: -6px;
+    margin-right: -5px;
+}
+
+.ecdOutfitSubcategories {
+	margin-left: 25px;
+}
+
+.ecdOutfitSubcategory {
+	font-size: 16px;
+	font-weight: bold;
+	color: #C5C29E;
+	padding: 0px;
+	cursor: pointer;
+	border-radius: 10px;
+}
+
+.ecdOutfitSubcategory:hover {
+	background-color: #555;
+} 
+
+.ecdOutfitSubcategorySelected {
+	color: white;
+}
+
+.ecdOutfit {
+	width: 46px;
+	height: 46px;
+	display: inline-block;
+	font-size: 16px;
+	font-weight: bold;
+	color: #777;
+	opacity: 0.5;
+	margin-left: 3px;
+	text-align: center;
+	overflow: hidden;
+    border: solid 2px red;
+    font-family: "EsoFontStyle", "Arial", sans-serif !important;
+}
+
+.ecdOutfit:hover {
+	background-color: #336;
+}
+
+.ecdOutfit img {
+	width: 46px;
+	height: 46px;
+}
+
+.ecdOutfitKnown {
+	color: #C5C29E !important;
+	opacity: 1 !important;
+	border-top: solid 3px #222;
+    border-left: solid 3px #222;
+    border-bottom: solid 3px #444;
+    border-right: solid 3px #444;
+}
+
+.ecdOutfitContents {
+	height: 510px;
+	margin-top: 15px;
+}
+
+.ecdOutfitBlock {
+	height: 520px;
+    overflow-y: auto;
+}
+
+.ecdOutfitBlockTitle {
+	font-size: 22px;
+	font-weight: bold;
+	color: white;
+	padding: 3px;	
+}
+
+.ecdOutfitTypeTitle {
+	font-size: 18px;
+	font-weight: bold;
+	color: #C5C29E;
+	padding-top: 5px;
+	
+}

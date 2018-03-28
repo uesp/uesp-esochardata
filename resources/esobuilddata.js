@@ -1399,6 +1399,51 @@ function OnEsoCollectionsMenuItemClick()
 }
 
 
+function OnEsoCategoryOutfitClick()
+{
+	var lastCategory = $(".ecdOutfitCategorySelected").first();
+	if ($(this).is(lastCategory)) return;
+	
+	lastCategory.removeClass('ecdOutfitCategorySelected');
+	$(this).addClass('ecdOutfitCategorySelected');
+	
+	$(".ecdOutfitSubcategories:visible").slideUp();
+	
+	var subCategoryList = $(this).next(".ecdOutfitSubcategories");
+	if (subCategoryList.text() != "") subCategoryList.slideDown();
+	
+	$(".ecdOutfitBlock:visible").hide(0);
+		
+	var firstSubcategory = $(this).next(".ecdOutfitSubcategories").children(".ecdOutfitSubcategory").first();
+	
+	$(".ecdOutfitSubcategorySelected").removeClass('ecdOutfitSubcategorySelected');
+	firstSubcategory.addClass('ecdOutfitSubcategorySelected');
+	
+	var categoryIndex = firstSubcategory.attr('categoryindex');
+	var subCategoryIndex = firstSubcategory.attr('subcategoryindex');
+	
+	$("#ecdOutfit_" + categoryIndex + "_" + subCategoryIndex).show(0);
+}
+
+
+function OnEsoSubcategoryOutfitClick()
+{
+	var lastSubcategory = $(".ecdOutfitSubcategorySelected").first();
+	if ($(this).is(lastSubcategory)) return;
+	
+	lastSubcategory.removeClass('ecdOutfitSubcategorySelected');
+	
+	$(this).addClass('ecdOutfitSubcategorySelected');
+	
+	$(".ecdOutfitBlock:visible").hide(0);
+	
+	var categoryIndex = $(this).attr('categoryindex');
+	var subCategoryIndex = $(this).attr('subcategoryindex');
+	
+	$("#ecdOutfit_" + categoryIndex + "_" + subCategoryIndex).show(0);
+}
+
+
 function onDocReady() 
 {  
 	$(".ecdTooltipTrigger").hover(onTooltipHoverShow, onTooltipHoverHide, onTooltipMouseMove);
@@ -1501,6 +1546,9 @@ function onDocReady()
 	$(".ecdCollectibleCategory").click(OnEsoCategoryCollectibleClick);
 	$(".ecdCollectibleSubcategory").click(OnEsoSubcategoryCollectibleClick);
 	$(".ecdCollectMenuItem").click(OnEsoCollectionsMenuItemClick);
+	
+	$(".ecdOutfitCategory").click(OnEsoCategoryOutfitClick);
+	$(".ecdOutfitSubcategory").click(OnEsoSubcategoryOutfitClick);
 	
 	if (!DoesEsoItemLinkHaveEvent()) $('.eso_item_link').hover(OnEsoItemLinkEnter, OnEsoItemLinkLeave);
 	

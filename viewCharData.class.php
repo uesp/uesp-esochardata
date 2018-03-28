@@ -2323,10 +2323,72 @@ EOT;
 	public function getCollectibleDLCContentsHtml()
 	{
 		global $ESO_COLLECTIBLE_DATA; // 1
+				
+		$storyData = $ESO_COLLECTIBLE_DATA[1];
+		if ($storyData == null || $storyData[0] == null) return "";
 		
-		$output = "<div id='ecdCollectContents_DLC' collectid='DLC' class='ecdCollectContents' style='display: none;'>";
-		$output .= "<div class='ecdCollectTitle'>CHAPTERS & DLC</div>"; 
-		$output .= "</div>";		
+		$numSubCategories = $storyData[0]['numSubCategories'];
+		$catDlcData = array();
+		$totalCount = 0;
+		$knownCount = 0;
+		$output = "";
+		$leftOutput = "";
+		$rightOutput = "";
+		
+		for ($subCategoryIndex = 1; $subCategoryIndex <= $numSubCategories; ++$subCategoryIndex)
+		{
+			$catOutput = "";
+			
+			$catStoryData = $storyData[$subCategoryIndex];
+			if ($catStoryData == null) continue;
+			
+			$catName = strtoupper(preg_replace("/`/", "'", $catStoryData['name']));
+			$dlcData = $catStoryData['collectibles'];
+			
+			$catOutput .= "<div class='ecdCollectibleDlcCategory'>$catName</div>";
+			$catOutput .= "<div class='ecdCollectibleDlcCategoryList'>";
+			
+			$subCatDlcData = array();
+			
+			foreach ($dlcData as $dlc)
+			{
+				$subCatOutput = "";
+				++$totalCount;
+				
+				$collectibleId = $dlc['id'];
+				$name = preg_replace("/`/", "'", $dlc['name']);
+				$desc = preg_replace("/`/", "'", $dlc['desc']);
+				$icon = $dlc['icon'];
+				$iconHtml = "";
+				if ($icon) $iconHtml = "<img src='" . MakeEsoIconLink($icon) . "'>"; 
+				$image = $dlc['image'];
+				
+				$knownClass = "";			
+				$isKnown = $this->getCharStatField("Collectible:$collectibleId", 0);
+				
+				if ($isKnown)
+				{
+					$knownClass = "ecdCollectibleKnown";
+					++$knownCount;
+				}
+				
+				$subCatDlcData[$name] = "<div class='ecdCollectibleDlc $knownClass eso_item_link' collectid='$collectibleId'>$iconHtml$name</div>";
+			}
+			
+			ksort($subCatDlcData);
+			$catOutput .= implode("", $subCatDlcData); 
+			$catOutput .= "</div>";
+			
+			$catDlcData[$catName] = $catOutput;
+		}
+		
+		ksort($catDlcData);
+		$output .= implode("", $catDlcData);
+		
+		$output .= "</div>";
+		$output = "<div class='ecdCollectDlcCount'>You own $knownCount / $totalCount stories</div>" . $output;
+		$output = "<div id='ecdCollectContents_DLC' collectid='DLC' class='ecdCollectContents' style='display: none;'>" . $output;
+		
 		return $output;				
 	}
 	
@@ -2335,9 +2397,190 @@ EOT;
 	{
 		global $ESO_COLLECTIBLE_DATA; // 12, 13
 		
-		$output = "<div id='ecdCollectContents_OutfitStyles' collectid='OutfitStyles' class='ecdCollectContents' style='display: none;'>";
-		 $output .= "<div class='ecdCollectTitle'>OUTFIT STYLES</div>";
-		$output .= "</div>";		
+		$OUTFIT_TYPE_STRINGS = array(
+				"Head" => array(
+							"Hat" => "Light",
+							"Helmet" => "Medium",
+							"Helm" => "Heavy",
+						),
+				"Chest" => array(
+							"Jerkin" => "Light",
+							"Robe" => "Light",
+							"Jack" => "Medium",
+							"Cuirass" => "Heavy",
+							"Shirt" => "Clothing",
+						),
+				"Legs" => array(
+							"Breeches" => "Light",
+							"Guards" => "Medium",
+							"Greaves" => "Heavy",
+							"Trousers" => "Clothing",
+							"Skirt" => "Clothing",
+						),
+				"Shoulders" => array(
+							"Epaulets" => "Light",
+							"Arm Cops" => "Medium",
+							"Pauldrons" => "Heavy",
+						),
+				"Feet" => array(
+							"Shoes" => "Light",
+							"Boots" => "Medium",
+							"Sabatons" => "Heavy",
+							"Sandals" => "Clothing",
+						),
+				"Hands" => array(
+							"Gloves" => "Light",
+							"Bracers" => "Medium",
+							"Gauntlets" => "Heavy",
+							"Chains" => "Clouthing",
+						),
+				"Waist" => array(
+							"Sash" => "Light",
+							"Belt" => "Medium",
+							"Girdle" => "Heavy",
+						),
+				"Two-Handed" => array(
+							"Battle Axe" => "Axe",
+							"Maul" => "Hammer",
+							"Greatsword" => "Sword",
+						),
+				"One-Handed" => array(
+							"Axe" => "Axe",
+							"Hammer" => "Hammer",
+							"Sword" => "Sword",
+							"Dagger" => "Dagger",
+						),
+			);
+		
+		$totalCount = 0;
+		$knownCount = 0;
+		$output = "";
+		$rightOutput = "";
+		$leftOutput = "";
+				
+		foreach (array(12, 13) as $styleIndex)
+		{
+			$styleData = $ESO_COLLECTIBLE_DATA[$styleIndex];
+			if ($styleData == null || $styleData[0] == null) continue;
+						
+			$categoryInfo = $styleData[0];
+			if ($categoryInfo == null) continue;
+			
+			$icon = $categoryInfo['icon'];
+			$iconImage = "";
+			if ($icon != "") $iconImage = "<img src='" . MakeEsoIconLink($categoryInfo['icon']) . "'>";
+			
+			$catName = preg_replace("/`/", "'", strtoupper($categoryInfo['name']));
+			$special = $categoryInfo['special'];
+			$numSubCategories = $categoryInfo['numSubCategories'];
+			$collectibles = $categoryInfo['collectibles'];
+			$categoryIndex = $categoryInfo['categoryIndex'];
+			
+			$leftOutput .= "<div class='ecdOutfitCategory' categoryindex='$categoryIndex'>$iconImage $catName</div>";
+			$leftOutput .= "<div class='ecdOutfitSubcategories' style='display: none;'>";			
+						
+			$knownCatCount = 0;
+			$totalCatCount = 0;			
+			
+			for ($subCategoryIndex = 1; $subCategoryIndex <= $numSubCategories; ++$subCategoryIndex)
+			{
+				$subCategoryData = $styleData[$subCategoryIndex];
+				if ($subCategoryData == null) continue;
+				
+				$title = preg_replace("/`/", "'", $subCategoryData['name']);
+				$collectibles = $subCategoryData['collectibles'];
+															
+				$knownSubCatCount = 0;
+				$totalSubCatCount = 0;
+				
+				$OUTFIT_TYPE_CATEGORY = $OUTFIT_TYPE_STRINGS[$title];
+				$outfitData = array();
+				$knownOutfitData = array();
+				
+				foreach ($collectibles as $collectIndex => $collectible)
+				{
+					++$totalSubCatCount;
+					
+					$collectibleId = $collectible['id'];
+					$name = preg_replace("/`/", "'", $collectible['name']);
+					$icon = $collectible['icon'];
+					$iconUrl = MakeEsoIconLink($icon);
+					$desc = preg_replace("/`/", "'", $collectible['desc']);
+					$type = $collectible['type'];
+					$image = $collectible['image'];
+					
+					$outfitType = $title;
+					
+					if ($OUTFIT_TYPE_CATEGORY)
+					{
+						foreach($OUTFIT_TYPE_CATEGORY as $searchTerm => $targetType)
+						{
+							$result = preg_match("/$searchTerm/", $name);
+							
+							if ($result) 
+							{
+								$outfitType = $targetType;
+								break;
+							}	
+						}
+					}
+					
+					$knownClass = "";			
+					$isKnown = $this->getCharStatField("Collectible:$collectibleId", 0);
+										
+					if ($outfitData[$outfitType] == null) 
+					{
+						$outfitData[$outfitType] = array();
+						$knownOutfitData[$outfitType] = 0;
+					}
+					
+					if ($isKnown)
+					{
+						$knownClass = "ecdOutfitKnown";
+						++$knownSubCatCount;
+						++$knownOutfitData[$outfitType];
+					}					
+					
+					$outfitOutput = "";
+					$outfitOutput .= "<div class='ecdOutfit $knownClass eso_item_link' collectid='$collectibleId'>";
+					if ($icon != "") $outfitOutput .= "<img src='$iconUrl'><br />";
+					$outfitOutput .= "</div>";
+					
+					$outfitData[$outfitType][] = $outfitOutput;
+				}
+				
+				$rightOutput .= "<div class='ecdOutfitBlock ecdScrollContent' id='ecdOutfit_{$categoryIndex}_{$subCategoryIndex}' style='display: none'>";
+				$rightOutput .= "<div class='ecdOutfitBlockTitle'>$title ($knownSubCatCount / $totalSubCatCount)</div>";
+				
+				uksort($outfitData, "cmpEsoOutfitTypes");
+				
+				foreach ($outfitData as $outfitType => $typeData)
+				{
+					$count = count($typeData);
+					$known = $knownOutfitData[$outfitType];
+					if (count($outfitData) > 1) $rightOutput .= "<div class='ecdOutfitTypeTitle'>$outfitType ($known / $count)</div>";
+					$rightOutput .= implode("", $typeData);
+				}
+				
+				$rightOutput .= "</div>";
+				
+				$knownCatCount += $knownSubCatCount;
+				$totalCatCount += $totalSubCatCount;
+				
+				$leftOutput .= "<div class='ecdOutfitSubcategory' categoryindex='$categoryIndex' subcategoryindex='$subCategoryIndex'>$title</div>";
+			}
+			
+			$totalCount += $knownCatCount;
+			$knownCount += $totalCatCount;
+						
+			$leftOutput .= "</div>";				
+		}				
+		
+		$output .= "<div class='ecdOutfitDetails'>$rightOutput</div>";
+		$output .= "<div class='ecdOutfitTree ecdScrollContent'>$leftOutput</div>";
+		$output .= "</div>";
+		$output = "<div id='ecdCollectContents_OutfitStyles' collectid='OutfitStyles' class='ecdCollectContents' style='display: none;'>" . $output;
+		
 		return $output;				
 	}
 	
@@ -2347,7 +2590,7 @@ EOT;
 		$output = "<div class='ecdCollectMenuBar'>";
 		$output .= "<div id='ecdCollectMenuTitle'>COLLECTIBLES</div>";
 		$output .= "<div class='ecdCollectMenuItem ecdCollectMenuItemSelected' title='Collectibles' collectid='Collectibles' id='ecdCollectMenuItem_Collectibles'></div>";
-		$output .= "<div class='ecdCollectMenuItem' title='DLC' collectid='DLC' id='ecdCollectMenuItem_DLC'></div>";
+		$output .= "<div class='ecdCollectMenuItem' title='Stories' collectid='DLC' id='ecdCollectMenuItem_DLC'></div>";
 		$output .= "<div class='ecdCollectMenuItem' title='Housing' collectid='Housing' id='ecdCollectMenuItem_Housing'></div>";
 		$output .= "<div class='ecdCollectMenuItem' title='Outfit Styles' collectid='OutfitStyles' id='ecdCollectMenuItem_OutfitStyles'></div>";
 		$output .= "</div>";
@@ -2366,3 +2609,24 @@ EOT;
 
 
 
+function cmpEsoOutfitTypes($a, $b)
+{
+	static $OUTFIT_TYPES = array(
+				"Light" => 1,
+				"Medium" => 2,
+				"Heavy" => 3,
+				"Clothing" => 4,
+				"Axe" => 1,
+				"Hammer" => 2,
+				"Sword" => 3,
+				"Dagger" => 4,
+			);
+	
+	$a1 = $OUTFIT_TYPES[$a];
+	if ($a1 == null) $a1 = 10;
+	
+	$b1 = $OUTFIT_TYPES[$b];
+	if ($b1 == null) $b1 = 10;
+	
+	return $a1 > $b1;
+}
