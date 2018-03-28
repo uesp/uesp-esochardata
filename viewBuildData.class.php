@@ -1149,6 +1149,7 @@ class EsoBuildDataViewer
 					'{achievementTree}' => $this->getAchievementTreeHtml(),
 					'{mountContents}' => $this->getMountContentsHtml(),
 					'{cpContents}' => $this->getCPContentsHtml(),
+					'{collectibleContents}' => $this->getCollectibleContentsHtml(),
 			);
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
@@ -1159,6 +1160,7 @@ class EsoBuildDataViewer
 	
 	public function getAchievementContentHtml() { return ""; }
 	public function getAchievementTreeHtml() { return ""; }
+	public function getCollectibleContentsHtml() { return ""; }
 	
 	public function getInventoryUsedSpace() { return ""; }
 	public function getInventoryTotalSpace() { return ""; }

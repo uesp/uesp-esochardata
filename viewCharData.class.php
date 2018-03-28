@@ -5,6 +5,7 @@ require_once("viewBuildData.class.php");
 require_once("/home/uesp/secrets/esochardata.secrets");
 require_once("/home/uesp/esolog.static/viewAchievements.class.php");
 require_once("/home/uesp/esolog.static/esoBookCollectionData.php");
+require_once("/home/uesp/esolog.static/esoCollectibleData.php");
 
 
 class EsoCharDataViewer extends EsoBuildDataViewer
@@ -2144,6 +2145,220 @@ EOT;
 		$output .= "<div id='ecdBookRoot' class='ecdScrollContent' style='display:none;'><div class='ecdBookClose'></div><div id='ecdBookContents'></div></div>";
 		
 		return $output;
+	}
+	
+	
+	public function getCollectibleCollectibleContentsHtml_Collectibles($collectibles, $categoryIndex, $subCategoryIndex, $title)
+	{
+		if (count($collectibles) == 0) return "";
+		
+		$output = "";
+		$knownCount = 0;
+		$totalCount = 0;
+				
+		foreach ($collectibles as $collectIndex => $collectible)
+		{
+			++$totalCount;
+			
+			$collectibleId = $collectible['id'];
+			$name = preg_replace("/`/", "'", $collectible['name']);
+			$icon = $collectible['icon'];
+			$iconUrl = MakeEsoIconLink($icon);
+			$desc = preg_replace("/`/", "'", $collectible['desc']);
+			$type = $collectible['type'];
+			$image = $collectible['image'];
+			
+			$knownClass = "";			
+			$isKnown = $this->getCharStatField("Collectible:$collectibleId", 0);
+			
+			if ($isKnown)
+			{
+				$knownClass = "ecdCollectibleKnown";
+				++$knownCount;
+			}
+			
+			$output .= "<div class='ecdCollectible $knownClass eso_item_link' collectid='$collectibleId'>";
+			if ($icon != "") $output .= "<img src='$iconUrl'><br />";
+			$output .= "$name";
+			$output .= "</div>";			
+		}
+		
+		$output .= "</div>";
+		
+		$output = "<div class='ecdCollectibleBlockTitle'>$title ($knownCount / $totalCount)</div>" . $output;
+		$output = "<div class='ecdCollectibleBlock ecdScrollContent' id='ecdCollectible_{$categoryIndex}_{$subCategoryIndex}' style='display: none'>" . $output;
+		
+		return $output;
+	}
+	
+	
+	public function getCollectibleCollectibleContentsHtml()
+	{
+		global $ESO_COLLECTIBLE_DATA; // 2, 3, 5, 6, 7, 8, 9, 10, 11
+		
+		$categories = array(2, 3, 5, 6, 7, 8, 9, 10, 11);
+		
+		$output = "<div id='ecdCollectContents_Collectibles' collectid='Collectibles' class='ecdCollectContents' style='display: block;'>";
+		$leftOutput = "";
+		$rightOutput = "";
+		
+		foreach ($categories as $category)
+		{
+			$categoryData = $ESO_COLLECTIBLE_DATA[$category];
+			if ($categoryData == null) continue;
+			
+			$categoryInfo = $categoryData[0];
+			if ($categoryInfo == null) continue;
+			
+			$icon = $categoryInfo['icon'];
+			$iconImage = "";
+			if ($icon != "") $iconImage = "<img src='" . MakeEsoIconLink($categoryInfo['icon']) . "'>";
+			
+			$name = preg_replace("/`/", "'", strtoupper($categoryInfo['name']));
+			$special = $categoryInfo['special'];
+			$numSubCategories = $categoryInfo['numSubCategories'];
+			$collectibles = $categoryInfo['collectibles'];
+			$categoryIndex = $categoryInfo['categoryIndex'];
+			
+			$rightOutput .= $this->getCollectibleCollectibleContentsHtml_Collectibles($collectibles, $categoryIndex, 0, $name);
+			
+			$leftOutput .= "<div class='ecdCollectibleCategory' categoryindex='$categoryIndex'>$iconImage $name</div>";
+			$leftOutput .= "<div class='ecdCollectibleSubcategories' style='display: none;'>";
+			
+			for ($subCategoryIndex = 1; $subCategoryIndex <= $numSubCategories; ++$subCategoryIndex)
+			{
+				$subCategoryData = $categoryData[$subCategoryIndex];
+				if ($subCategoryData == null) continue;
+				
+				$name = preg_replace("/`/", "'", $subCategoryData['name']);
+				$collectibles = $subCategoryData['collectibles'];
+				
+				$leftOutput .= "<div class='ecdCollectibleSubcategory' categoryindex='$categoryIndex' subcategoryindex='$subCategoryIndex'>$name</div>";
+				$rightOutput .= $this->getCollectibleCollectibleContentsHtml_Collectibles($collectibles, $categoryIndex, $subCategoryIndex, $name);
+			}
+			
+			$leftOutput .= "</div>";
+		}
+		 
+		$output .= "<div class='ecdCollectibleDetails'>$rightOutput</div>";
+		$output .= "<div class='ecdCollectibleTree ecdScrollContent'>$leftOutput</div>";
+		$output .= "</div>";
+		return $output;				
+	}
+	
+	
+	public function getCollectibleHousingContentsHtml()
+	{
+		global $ESO_COLLECTIBLE_DATA; // 4
+		
+		$totalCount = 0;
+		$knownCount = 0;
+		
+		$housingData = $ESO_COLLECTIBLE_DATA[4];
+		if ($housingData == null || $housingData[0] == null) return "";
+
+		$output = "";
+		
+		$numSubCategories = $housingData[0]['numSubCategories'];
+		$catHouseData = array();
+		
+		for ($subCategoryIndex = 1; $subCategoryIndex <= $numSubCategories; ++$subCategoryIndex)
+		{
+			$catOutput = "";
+			
+			$houseCatData = $housingData[$subCategoryIndex];
+			if ($houseCatData == null) continue;
+			
+			$catName = strtoupper(preg_replace("/`/", "'", $houseCatData['name']));
+			$houses = $houseCatData['collectibles'];
+			
+			$catOutput .= "<div class='ecdCollectibleHouseCategory'>$catName</div>";
+			$catOutput .= "<div class='ecdCollectibleHouseCategoryList'>";
+			
+			$subCatHouseData = array();
+			
+			foreach ($houses as $houseData)
+			{
+				$subCatOutput = "";
+				++$totalCount;
+				
+				$collectibleId = $houseData['id'];
+				$name = preg_replace("/`/", "'", $houseData['name']);
+				$desc = preg_replace("/`/", "'", $houseData['desc']);
+				$icon = $houseData['icon'];
+				$iconHtml = "";
+				if ($icon) $iconHtml = "<img src='" . MakeEsoIconLink($icon) . "'>"; 
+				$image = $houseData['image'];
+				
+				$knownClass = "";			
+				$isKnown = $this->getCharStatField("Collectible:$collectibleId", 0);
+				
+				if ($isKnown)
+				{
+					$knownClass = "ecdCollectibleKnown";
+					++$knownCount;
+				}
+				
+				$subCatHouseData[$name] = "<div class='ecdCollectibleHouse $knownClass eso_item_link' collectid='$collectibleId'>$iconHtml$name</div>";
+			}
+			
+			ksort($subCatHouseData);
+			$catOutput .= implode("", $subCatHouseData); 
+			$catOutput .= "</div>";
+			
+			$catHouseData[$catName] = $catOutput;
+		}
+		
+		ksort($catHouseData);
+		$output .= implode("", $catHouseData);
+		
+		$output .= "</div>";
+		$output = "<div class='ecdCollectHouseCount'>You own $knownCount / $totalCount homes</div>" . $output;
+		$output = "<div id='ecdCollectContents_Housing' collectid='Housing' class='ecdCollectContents ecdScrollContent' style='display: none;'>" . $output;
+		
+		return $output;				
+	}
+	
+	
+	public function getCollectibleDLCContentsHtml()
+	{
+		global $ESO_COLLECTIBLE_DATA; // 1
+		
+		$output = "<div id='ecdCollectContents_DLC' collectid='DLC' class='ecdCollectContents' style='display: none;'>";
+		$output .= "<div class='ecdCollectTitle'>CHAPTERS & DLC</div>"; 
+		$output .= "</div>";		
+		return $output;				
+	}
+	
+	
+	public function getCollectibleOutfitStylesContentsHtml()
+	{
+		global $ESO_COLLECTIBLE_DATA; // 12, 13
+		
+		$output = "<div id='ecdCollectContents_OutfitStyles' collectid='OutfitStyles' class='ecdCollectContents' style='display: none;'>";
+		 $output .= "<div class='ecdCollectTitle'>OUTFIT STYLES</div>";
+		$output .= "</div>";		
+		return $output;				
+	}
+	
+	
+	public function getCollectibleContentsHtml() 
+	{
+		$output = "<div class='ecdCollectMenuBar'>";
+		$output .= "<div id='ecdCollectMenuTitle'>COLLECTIBLES</div>";
+		$output .= "<div class='ecdCollectMenuItem ecdCollectMenuItemSelected' title='Collectibles' collectid='Collectibles' id='ecdCollectMenuItem_Collectibles'></div>";
+		$output .= "<div class='ecdCollectMenuItem' title='DLC' collectid='DLC' id='ecdCollectMenuItem_DLC'></div>";
+		$output .= "<div class='ecdCollectMenuItem' title='Housing' collectid='Housing' id='ecdCollectMenuItem_Housing'></div>";
+		$output .= "<div class='ecdCollectMenuItem' title='Outfit Styles' collectid='OutfitStyles' id='ecdCollectMenuItem_OutfitStyles'></div>";
+		$output .= "</div>";
+		$output .= "<div class='ecdCollectTitle'>COLLECTIONS</div>";
+		
+		$output .= $this->getCollectibleCollectibleContentsHtml();
+		$output .= $this->getCollectibleHousingContentsHtml();
+		$output .= $this->getCollectibleDLCContentsHtml();
+		$output .= $this->getCollectibleOutfitStylesContentsHtml();
+		
+		return $output; 
 	}
 
 	
