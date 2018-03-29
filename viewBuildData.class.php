@@ -1655,6 +1655,7 @@ class EsoBuildDataViewer
 		{
 			$output .= $this->getCharSkillMotifContentHtml();
 			$output .= $this->getCharSkillResearchContentHtml();
+			$output .= $this->getCharSkillHirelingsContentHtml();
 		}
 		
 		if ($this->hasRecipeOutput) $output .= $this->getCharSkillRecipeContentHtml();
@@ -1668,7 +1669,7 @@ class EsoBuildDataViewer
 	public function getCharSkillResearchContentHtml()
 	{
 		$output  = "<div id='ecdSkill_Research' class='ecdSkillData ecdScrollContent' style='display: none;'>\n";
-		$output .= "<div id='ecdSkillContentTitle'>Crafting Research</div>";
+		$output .= "<div class='ecdSkillContentTitle'>Crafting Research</div>";
 		
 		$output .= $this->getResearchContentHtml("Blacksmithing");
 		$output .= $this->getResearchContentHtml("Clothier");
@@ -2151,7 +2152,7 @@ class EsoBuildDataViewer
 	
 	public function getMountContentsHtml() 
 	{ 
-		$output = "<div id='ecdSkillContentTitle'>RIDING SKLILL</div>";
+		$output = "<div class='ecdSkillContentTitle'>RIDING SKILL</div>";
 		
 		$ridingInv = intval($this->getCharStatField("RidingInventory", 0));
 		$ridingSta = intval($this->getCharStatField("RidingStamina", 0));
@@ -2277,6 +2278,12 @@ class EsoBuildDataViewer
 	}
 	
 	
+	public function getCharSkillHirelingsContentHtml() 
+	{
+		return "";
+	}
+	
+	
 	public function getCharSkillMotifTableHtml($craftData)
 	{
 		$output = "<table class='ecdSkillMotifsTable'>";
@@ -2371,7 +2378,7 @@ class EsoBuildDataViewer
 		$skillLine = $this->escape($skillData['_skillLine']);
 		$skillLineName = "SkillRank:" . $skillData['_skillType'] . ":" . $skillData['_skillLine'];
 		$skillRank = $this->getCharStatField($skillLineName);
-		$output .= "<div id='ecdSkillContentTitle'><div class='ecdSkillRank'>$skillRank</div> $skillLine</div><br />";
+		$output .= "<div class='ecdSkillContentTitle'><div class='ecdSkillRank'>$skillRank</div> $skillLine</div><br />";
 		
 		for ($i = 0; $i < 100; ++$i)
 		{
@@ -2408,7 +2415,7 @@ class EsoBuildDataViewer
 		$skillLine = $this->escape($skillData['_skillLine']);
 		$skillLineName = "ChampionPoints:" . $skillData['_skillLine'] . ":Points";
 		$skillRank = $this->getCharStatField($skillLineName);
-		$output .= "<div id='ecdSkillContentTitle'><div class='ecdSkillRank'>$skillRank&nbsp;</div> $skillLine</div><br />";
+		$output .= "<div class='ecdSkillContentTitle'><div class='ecdSkillRank'>$skillRank&nbsp;</div> $skillLine</div><br />";
 		
 		foreach ($skillData as $name => &$data)
 		{
@@ -2619,6 +2626,7 @@ class EsoBuildDataViewer
 			{
 				$output .= "<div class='ecdSkillTreeName2'>Motifs</div>\n";
 				$output .= "<div class='ecdSkillTreeName2'>Research</div>\n";
+				$output .= "<div class='ecdSkillTreeName2'>Hirelings</div>\n";
 			}
 			
 			if ($this->hasRecipeOutput) $output .= "<div class='ecdSkillTreeName2'>Recipes</div>\n";
