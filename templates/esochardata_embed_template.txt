@@ -26,9 +26,9 @@
 	</div>
 	<div id='ecdRightData'>
 		<div id='ecdRightTitleBar'>
-			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdSkillsButton' onclick="OnEsoRightTitleClick('Skills', this);"><div title="Skills" class='ecdTopLevelIcon ecdTopLevelIcon_Skills'></div></div>
+			<div class='ecdSkillTitleButton ecdRightTitleButtonEnabled' id='ecdSkillsButton' onclick="OnEsoRightTitleClick('Skills', this);"><div title="Skills" class='ecdTopLevelIcon ecdTopLevelIcon_Skills selected'></div></div>
 			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdCPButton' onclick="OnEsoRightTitleClick('CP', this);"><div title="Champion Points" class='ecdTopLevelIcon ecdTopLevelIcon_CP'></div></div>
-			<div class='ecdSkillTitleButton ecdRightTitleButtonEnabled'  id='ecdInventoryButton' onclick="OnEsoRightTitleClick('Inventory', this);"><div title="Inventory" class='ecdTopLevelIcon ecdTopLevelIcon_Inventory selected'></div></div>
+			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdInventoryButton' onclick="OnEsoRightTitleClick('Inventory', this);"><div title="Inventory" class='ecdTopLevelIcon ecdTopLevelIcon_Inventory'></div></div>
 			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdBankButton' onclick="OnEsoRightTitleClick('Bank', this);"><div title="Bank" class='ecdTopLevelIcon ecdTopLevelIcon_Bank'></div></div>
 			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdCraftButton' onclick="OnEsoRightTitleClick('Craft', this);"><div title="Craft Bag" class='ecdTopLevelIcon ecdTopLevelIcon_CraftBag'></div></div>
 			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdAccountInvButton' onclick="OnEsoRightTitleClick('AccountInv', this);"><div title="Account Inventory" class='ecdTopLevelIcon ecdTopLevelIcon_AccountInv'></div></div>
@@ -39,7 +39,7 @@
 			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdGuildsButton' onclick="OnEsoRightTitleClick('Guilds', this);"><div title="Guilds" class='ecdTopLevelIcon ecdTopLevelIcon_Guilds'></div></div>
 			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdMountButton' onclick="OnEsoRightTitleClick('Mount', this);"><div title="Riding Skill" class='ecdTopLevelIcon ecdTopLevelIcon_Mount'></div></div>
 		</div>
-		<div id='ecdSkills' class='ecdRightDataArea' style="display: none;">
+		<div id='ecdSkills' class='ecdRightDataArea' style="display: block;">
 			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			<div class='ecdSkillSubTitle'>Skill Points:</div> <div class='ecdSkillSubValue'>{skillPointsUnused} / {skillPointsTotal}</div><br />
 			<div class='ecdSkillSubTitle'>Skyshards:</div> <div class='ecdSkillSubValue'>{skyshards} / 3{skyshardsTotal}</div>
@@ -50,7 +50,7 @@
 			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			{cpContents}
 		</div>
-		<div id='ecdInventory' class='ecdRightDataArea' style="display: block;">
+		<div id='ecdInventory' class='ecdRightDataArea' style="display: none;">
 			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 			{inventoryContents}
 			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
@@ -89,14 +89,7 @@
 		</div>
 		<div id='ecdAchievements' class='ecdRightDataArea' style="display: none;">
 			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
-			<div id='ecdAchievementContents'>{achievementContents}</div>
-			<div id='ecdAchievementTree'>
-				<div class='ecdFindAchTextBox'>
-					<input type="text" size="16" maxsize="32" value="" id='ecdFindAchInput' placeholder="Find Achievement" />
-					<button onclick="OnFindEsoCharAchievement(this);">Find...</button> 
-				</div>
-				{achievementTree}
-			</div>
+			{achievementContents}
 		</div>
 		<div id='ecdMount' class='ecdRightDataArea' style="display: none;">
 			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
@@ -206,4 +199,5 @@
 <script type="text/javascript">
 	var ecdAllInventory = {allInventoryJS};
 	var ecdCharacterNames = {characterNamesJS};
+	var ecdCharacterId = {characterId};
 </script>

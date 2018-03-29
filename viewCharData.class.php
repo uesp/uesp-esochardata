@@ -95,6 +95,8 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 	
 	public function getInventoryContentHtml()
 	{
+		if ($this->useAsyncLoad) return $this->GetAsyncLoadContentsHtml();
+		
 		$output  = $this->getItemFilterHtml();
 		$output .= $this->getItemHeaderHtml();
 				
@@ -198,14 +200,14 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 					<input type="text" size="16" maxsize="32" value="" placeholder="Filter Text" class="ecdItemFilterTextInput" /> 
 				</div>
 				<div class='ecdItemFilterTextLabel'>ALL</div>
-				<div class='ecdItemFilterContainer ecdItemFilterAll selected' title='All Items' style="background-image: url('{$this->baseResourceUrl}resources/allfilter.png');" onclick="OnItemFilter('All');" itemfilter="all" /></div> 
-				<div class='ecdItemFilterContainer ecdItemFilterWeapon' title='Weapons' style="background-image: url('{$this->baseResourceUrl}resources/weaponfilter.png');" onclick="OnItemFilter('Weapon');"  itemfilter="weapon" /></div>
-				<div class='ecdItemFilterContainer ecdItemFilterArmor' title='Armor' style="background-image: url('{$this->baseResourceUrl}resources/armorfilter.png');" onclick="OnItemFilter('Armor');"  itemfilter="armor" /></div>
-				<div class='ecdItemFilterContainer ecdItemFilterConsumable' title='Consumable Items' style="background-image: url('{$this->baseResourceUrl}resources/consumablefilter.png');" onclick="OnItemFilter('Consumable');"  itemfilter="consumable" /></div>
-				<div class='ecdItemFilterContainer ecdItemFilterMaterial' title='Crafting Materials' style="background-image: url('{$this->baseResourceUrl}resources/materialfilter.png');" onclick="OnItemFilter('Material');"  itemfilter="material" /></div>
-				<div class='ecdItemFilterContainer ecdItemFilterMisc' title='Miscellaneous Items' style="background-image: url('{$this->baseResourceUrl}resources/miscfilter.png');" onclick="OnItemFilter('Misc');"  itemfilter="misc" /></div>
-				<div class='ecdItemFilterContainer ecdItemFilterQuest' title='Quest Items' style="background-image: url('{$this->baseResourceUrl}resources/questfilter.png');" onclick="OnItemFilter('Quest');"  itemfilter="quest" /></div>
-				<div class='ecdItemFilterContainer ecdItemFilterJunk' title='Junk' style="background-image: url('{$this->baseResourceUrl}resources/junkfilter.png');" onclick="OnItemFilter('Junk');"  itemfilter="junk" /></div>
+				<div class='ecdItemFilterContainer ecdItemFilterAll selected' title='All Items' style="background-image: url('{$this->baseResourceUrl}resources/allfilter.png');" onclick="OnItemFilter('All');" itemfilter="all" ></div> 
+				<div class='ecdItemFilterContainer ecdItemFilterWeapon' title='Weapons' style="background-image: url('{$this->baseResourceUrl}resources/weaponfilter.png');" onclick="OnItemFilter('Weapon');"  itemfilter="weapon" ></div>
+				<div class='ecdItemFilterContainer ecdItemFilterArmor' title='Armor' style="background-image: url('{$this->baseResourceUrl}resources/armorfilter.png');" onclick="OnItemFilter('Armor');"  itemfilter="armor" ></div>
+				<div class='ecdItemFilterContainer ecdItemFilterConsumable' title='Consumable Items' style="background-image: url('{$this->baseResourceUrl}resources/consumablefilter.png');" onclick="OnItemFilter('Consumable');"  itemfilter="consumable" ></div>
+				<div class='ecdItemFilterContainer ecdItemFilterMaterial' title='Crafting Materials' style="background-image: url('{$this->baseResourceUrl}resources/materialfilter.png');" onclick="OnItemFilter('Material');"  itemfilter="material" ></div>
+				<div class='ecdItemFilterContainer ecdItemFilterMisc' title='Miscellaneous Items' style="background-image: url('{$this->baseResourceUrl}resources/miscfilter.png');" onclick="OnItemFilter('Misc');"  itemfilter="misc" ></div>
+				<div class='ecdItemFilterContainer ecdItemFilterQuest' title='Quest Items' style="background-image: url('{$this->baseResourceUrl}resources/questfilter.png');" onclick="OnItemFilter('Quest');"  itemfilter="quest" ></div>
+				<div class='ecdItemFilterContainer ecdItemFilterJunk' title='Junk' style="background-image: url('{$this->baseResourceUrl}resources/junkfilter.png');" onclick="OnItemFilter('Junk');"  itemfilter="junk" ></div>
 			</div>
 			<img class='ecdImageFlip' src='{$this->baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='3' src='{$this->baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 EOT;
@@ -388,6 +390,8 @@ EOT;
 	
 	public function getAllInventoryJS()
 	{
+		if ($this->useAsyncLoad) return "{}";
+		
 		$newItemData = array();
 	
 		foreach ($this->characterData['inventory'] as $item)
@@ -446,10 +450,277 @@ EOT;
 		}
 		
 	}
+	
+	
+	public function getCharQuestContentHtml()
+	{
+		if ($this->useAsyncLoad) return $this->GetAsyncLoadContentsHtml();
 		
+		$output = "";
+		$leftOutput = "<div id='ecdQuestList'>";
+		$rightOutput = "<div id='ecdQuestDetails' class=''>";
+		$questTree = array();
+		$completedQuests = array();
+		
+		$numJournalQuests = $this->getCharStatField("NumJournalQuests", 0);
+		
+		$leftOutput .= "<div class='ecdQuestCountTitle'>Quests: </div> <div class='ecdQuestCount'> $numJournalQuests / 25</div><p/>";
+		$firstStyle = "display: none;";
+		
+		for ($i = 1; $i <= $numJournalQuests; ++$i)
+		{
+			$prefix = "Journal:$i";
+			
+			$activeText = $this->getCharStatField("$prefix:ActiveText");
+			$activeType = $this->getCharStatField("$prefix:ActiveType");
+			$questName = $this->getCharStatField("$prefix:Name");
+			$repeatType = $this->getCharStatField("$prefix:Repeat");
+			$questTasks = $this->getCharStatField("$prefix:Tasks");
+			$questText = $this->getCharStatField("$prefix:Text");
+			$questType = $this->getCharStatField("$prefix:Type");
+			$questZone = $this->getCharStatField("$prefix:Zone");
+			
+			if ($questType == 13)
+			{
+				$questZone = "Battleground";
+			}
+			else if ($questType == 2)
+			{
+				$questZone = "Main Quest";
+			}
+			else if ($questType == 12)
+			{
+				$questZone = "Holiday Event";
+			}
+			else if ($questType == 4)
+			{
+				$questZone = "Crafting";
+			}
+			else if ($questZone == "") 
+			{
+				$questZone = "Other";
+			}
+			
+			if ($questTree[$questZone] == null) $questTree[$questZone] = array();
+			$questTree[$questZone][] = array("name" => $questName, "index" => $i, "type" => $questType, "repeat" => $repeatType);
+			
+			$tasks = explode("|", $questTasks);
+			$taskHtml = "<ul class='ecdQuestTaskList'>";
+			
+			foreach ($tasks as $task)
+			{
+				$subTasks = explode("~*", $task);
+				
+				if (count($subTasks) > 1)
+				{
+					$taskHtml .= "<li>" . $subTasks[0] . "<ul class='ecdQuestTaskSublist'>";
+					
+					for ($j = 1; $j < count($subTasks); $j++)
+					{
+						$taskHtml .= "<li>" . $subTasks[$j] . "</li>";
+					}
+					
+					$taskHtml .= "</ul></li>";
+				}
+				else
+				{					
+					$taskHtml .= "<li>$task</li>";
+				}
+			}
+			
+			$taskHtml .= "</ul>";
+			
+			$questName = strtoupper($questName);
+			
+			$typeHtml = "";
+			$repeatHtml = "";
+			
+			if ($repeatType != 0)
+			{
+				$repeatHtml = "<img src='{$this->baseResourceUrl}resources/journal_quest_repeat.png'> Repeatable";
+			}
+			
+			if ($questType == 1)
+			{
+				$typeHtml = "<img src='{$this->baseResourceUrl}resources/journal_quest_trial.png'>";
+			}
+			else if ($questType == 5)
+			{
+				$typeHtml = "<img src='{$this->baseResourceUrl}resources/journal_quest_group_instance.png'>";
+			}
+						
+			$rightOutput .= "<div class='ecdQuestDetail ecdScrollContent' style='$firstStyle' id='ecdQuestJournal$i' journalindex='$i'>";			
+			$rightOutput .= "<div class='ecdQuestDetailTitle'>$questName</div>";			
+			$rightOutput .= "<div class='ecdQuestDetailType'>$typeHtml</div>";
+			$rightOutput .= "<div class='ecdQuestDetailRepeat'>$repeatHtml</div><br/>";
+			$rightOutput .= "<div class='ecdQuestDetailDesc'><p>$questText</p><p>$activeText</p></div>";
+			$rightOutput .= "<img class='' src='{$this->baseResourceUrl}resources/eso_equip_bar.png' width='100%' height='4px' />";
+			$rightOutput .= "<div class='ecdQuestDetailTaskTitle'>TASKS</div>";
+			$rightOutput .= "<div class='ecdQuestDetailTasks'>$taskHtml</div>";
+			$rightOutput .= "</div>";
+			
+			$firstStyle = "display: none;";
+		}
+		
+		ksort($questTree);
+		$firstStyle = "display: block;";
+		$firstClass = "ecdQuestSelected";
+		
+		foreach ($questTree as $questZone => $quests)
+		{
+			$zone = strtoupper($questZone);
+			$leftOutput .= "<div class='ecdQuestZoneTitle $firstClass'>$zone</div><div class='ecdQuestZoneList' style='$firstStyle'>";
+			$firstStyle = 'display: none;';
+			
+			foreach ($quests as $questData)
+			{
+				$questName = $questData['name'];
+				$questType = $questData['type'];
+				$questIndex = $questData['index'];
+				$repeatType = $questData['repeat'];
+				$imageHtml = "";
+				
+				if ($questType == 1)
+				{
+					$imageHtml = "<img src='{$this->baseResourceUrl}resources/journal_quest_trial.png'>";
+				}
+				else if ($questType == 5)
+				{
+					$imageHtml = "<img src='{$this->baseResourceUrl}resources/journal_quest_group_instance.png'>";
+				}
+				else if ($repeatType != 0)
+				{
+					$imageHtml = "<img src='{$this->baseResourceUrl}resources/journal_quest_repeat.png'>";
+				}
+				
+				$leftOutput .= "<div class='ecdQuestName' journalindex='$questIndex'>$imageHtml$questName</div>";
+				$firstClass = '';
+			}
+			
+			$firstClass = '';
+			$leftOutput .= "</div>";
+		}
+		
+		$numCompletedQuests = $this->getCharStatField("NumCompletedQuests", 0);
+		
+		$leftOutput .= "<img class='ecdImageFlip' src='{$this->baseResourceUrl}resources/eso_equip_bar.png' width='49%' />";
+		$leftOutput .= "<img class='' src='{$this->baseResourceUrl}resources/eso_equip_bar.png' width='49%' />";
+		$leftOutput .= "<div class='ecdQuestZoneTitle'>ALL QUESTS</div>";
+		$leftOutput .= "<div class='ecdQuestZoneList' style='display: none;'>";
+		$leftOutput .= "<div class='ecdQuestName' journalindex='Completed'>Completed Quests ($numCompletedQuests)</div>";
+		$leftOutput .= "<div class='ecdQuestName' journalindex='Missing'>Missing Quests (?)</div>";
+		$leftOutput .= "</div>";		
+				
+		for ($i = 1; $i <= $numCompletedQuests; ++$i)
+		{
+			$questData = explode("|", $this->getCharStatField("Quest:$i", ""));
+			if ($questData[4] === null) continue; 
+			
+			$questId = $questData[0];
+			$questName = $questData[1];
+			$questType = $questData[2];
+			$questZone = $questData[3];
+			$questObjective = $questData[4];
+						
+			if ($questType == 13)
+			{
+				$questZone = "Battleground";
+			}
+			else if ($questType == 2)
+			{
+				$questZone = "Main Quest";
+			}
+			else if ($questType == 12)
+			{
+				$questZone = "Holiday Event";
+			}
+			else if ($questType == 4)
+			{
+				$questZone = "Crafting";
+			}
+			else if ($questZone == "") 
+			{
+				$questZone = "Other";
+			}
+			
+			if ($completedQuests[$questZone] == null) $completedQuests[$questZone] = array();
+			
+			$completedQuests[$questZone][$questName] = array(
+					"id" => $questId,
+					//"name" => $questName,
+					"type" => $questType,
+					"objective" => $questObjective,
+				);
+		}
+		
+		ksort($completedQuests);
+		
+		$rightOutput .= "<div class='ecdQuestDetail ecdScrollContent' style='display: none;' id='ecdQuestJournalCompleted' journalindex='Completed'>";
+		$rightOutput .= "<div class='ecdQuestDetailSearch' id='ecdQuestCompleteSearchForm'>";
+		$rightOutput .= "<input type='text' size='10' maxlength='32' id='ecdQuestCompleteSearchText' placeholder='Find Quest'/>";
+		$rightOutput .= "<button onclick='OnEsoCharDataSearchCompletedQuests();'>Find...</button>";
+		$rightOutput .= "</div>";
+		$rightOutput .= "<div class='ecdQuestDetailTitle'>COMPLETED QUESTS</div>";
+		$rightOutput .= "This character has completed $numCompletedQuests unique quests.<p/>";
+		
+		foreach ($completedQuests as $questZone => $zoneData)
+		{
+			ksort($zoneData);
+
+			$questZone = strtoupper($questZone);
+			$questCount = count($zoneData);
+			$rightOutput .= "<div class='ecdQuestZoneTitle1'>$questZone ($questCount)</div>";
+			$rightOutput .= "<div class='ecdQuestZoneList1' style='display: none;'>";
+						
+			foreach ($zoneData as $questName => $questData)
+			{
+				$questId = $questData['id'];
+				$questType = $questData['type'];
+				$questObj = $questData['objective'];
+				$imageHtml = "";
+				
+				if ($questType == 1)
+				{
+					$imageHtml = "<img src='{$this->baseResourceUrl}resources/journal_quest_trial.png'>";
+				}
+				else if ($questType == 5)
+				{
+					$imageHtml = "<img src='{$this->baseResourceUrl}resources/journal_quest_group_instance.png'>";
+				}
+				
+				if ($questObj != "")
+					$rightOutput .= "<div class='ecdQuestName1'>$imageHtml$questName ($questObj)</div>";
+				else
+					$rightOutput .= "<div class='ecdQuestName1'>$imageHtml$questName</div>";
+			}
+			
+			$rightOutput .= "</div>";
+		}
+		
+		$rightOutput .= "</div>";
+		
+		$rightOutput .= "<div class='ecdQuestDetail ecdScrollContent' style='display: none;' id='ecdQuestJournalMissing' journalindex='Missing'>";
+		$rightOutput .= "<div class='ecdQuestDetailSearch' id='ecdQuestMissingSearchForm'>";
+		$rightOutput .= "<input type='text' size='10' maxlength='32' id='ecdQuestMissingSearchText' placeholder='Find Quest'/>";
+		$rightOutput .= "<button onclick='OnEsoCharDataSearchMissingQuests();'>Find...</button>";
+		$rightOutput .= "</div>";
+		$rightOutput .= "<div class='ecdQuestDetailTitle'>MISSING QUESTS</div>";
+		$rightOutput .= "This character is missing ? quests.<p/>";
+		$rightOutput .= "</div>";
+		
+		$leftOutput .= "</div>";
+		$rightOutput .= "</div>";
+		$output = $rightOutput . $leftOutput;
+				
+		return $output;
+	}
+	
+	
 		
 	public function getBankContentHtml()
 	{
+		if ($this->useAsyncLoad) return $this->GetAsyncLoadContentsHtml();
+		
 		$output  = $this->getItemFilterHtml();
 		$output .= $this->getItemHeaderHtml();
 				
@@ -465,6 +736,8 @@ EOT;
 	
 	public function getCraftBagContentHtml()
 	{
+		if ($this->useAsyncLoad) return $this->GetAsyncLoadContentsHtml();
+		
 		$output  = $this->getItemFilterHtml();
 		$output .= $this->getItemHeaderHtml();
 				
@@ -480,6 +753,8 @@ EOT;
 	
 	public function getAccountInvContentHtml()
 	{
+		if ($this->useAsyncLoad) return $this->GetAsyncLoadContentsHtml();
+		
 		$output  = $this->getItemFilterHtml();
 		$output .= $this->getItemHeaderHtml();
 				
@@ -2017,10 +2292,24 @@ EOT;
 	}
 	
 	
-	public function getAchievementContentHtml() 
+	public function getAchievementContentHtml()
 	{
+		if ($this->useAsyncLoad) return $this->GetAsyncLoadContentsHtml();
+	
 		$this->achievements->characterData = &$this->characterData;
-		return $this->achievements->GetAchievementContentHtml();
+		
+		$output  = "<div id='ecdAchievementContents'>";
+		$output .= $this->achievements->GetAchievementContentHtml();
+		$output .= "</div>";
+		$output .= "<div id='ecdAchievementTree'>";
+		$output .= "<div class='ecdFindAchTextBox'>";
+		$output .= "<input type='text' size='16' maxsize='32' value='' id='ecdFindAchInput' placeholder='Find Achievement' />";
+		$output .= "<button onclick='OnFindEsoCharAchievement(this);'>Find...</button>"; 
+		$output .= "</div>";
+		$output .= $this->achievements->getAchievementTreeHtml();
+		$output .= "</div>";
+			
+		return $output;
 	}
 	
 	
@@ -2050,6 +2339,8 @@ EOT;
 	public function getCharBookContentHtml()
 	{
 		global $ESO_BOOK_COLLECTIONS;
+		
+		if ($this->useAsyncLoad) return $this->GetAsyncLoadContentsHtml();
 		
 		$output = "";
 		$leftOutput = "";
@@ -2587,6 +2878,8 @@ EOT;
 	
 	public function getCollectibleContentsHtml() 
 	{
+		if ($this->useAsyncLoad) return $this->GetAsyncLoadContentsHtml();
+		
 		$output = "<div class='ecdCollectMenuBar'>";
 		$output .= "<div id='ecdCollectMenuTitle'>COLLECTIBLES</div>";
 		$output .= "<div class='ecdCollectMenuItem ecdCollectMenuItemSelected' title='Collectibles' collectid='Collectibles' id='ecdCollectMenuItem_Collectibles'></div>";

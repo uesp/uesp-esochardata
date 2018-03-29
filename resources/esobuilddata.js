@@ -219,18 +219,80 @@ function OnEsoRightTitleClick(name, self)
 	$(idButtonName).removeClass("ecdRightTitleButtonDisabled").addClass("ecdRightTitleButtonEnabled");
 	
 	$(".ecdRightDataArea").hide();
-	//$("#ecdSkills").hide();
-	//$("#ecdInventory").hide();
-	//$("#ecdBank").hide();
-	//$("#ecdCraft").hide();
-	//$("#ecdAccountInv").hide();
-	//$("#ecdAchievements").hide();
 	
-	$(idName).show();
+	var newContent = $(idName);
+	
+	CheckEsoContentForAsyncLoad(newContent, name);
+	newContent.show();
 	
 	UpdateEsoInventoryShownSpace();
 }
 
+
+function CheckEsoContentForAsyncLoad(element, contentId)
+{
+	var asyncLoadElement = $(element).children(".ecdAsyncLoad");
+	
+	if (asyncLoadElement.length < 1) return false;
+	
+		/* Load inventory JSON data if required */
+	if ($.isEmptyObject(ecdAllInventory) && (contentId == "Inventory" || contentId == "Bank" || contentId == "Craft" || contentId == "AccountInv"))
+	{
+		var queryParams = {}
+		
+		queryParams['content'] = "AllInventoryJS";
+		queryParams['id'] = ecdCharacterId;
+		
+		$.ajax("//esochars.uesp.net/loadCharDataContents.php", {
+				data: queryParams,
+			}).
+			done(function(data, status, xhr) { OnEsoCharDataJsonRequest(data, "AllInventoryJS", status, xhr); }).
+			fail(function(xhr, status, errorMsg) { OnEsoCharDataJsonError(xhr, "AllInventoryJS", status, errorMsg); });
+	}
+	
+	var queryParams = {}
+	
+	queryParams['content'] = contentId;
+	queryParams['id'] = ecdCharacterId;
+	
+	
+	
+	$.ajax("//esochars.uesp.net/loadCharDataContents.php", {
+			data: queryParams,
+		}).
+		done(function(data, status, xhr) { OnEsoCharDataContentRequest(data, contentId, asyncLoadElement, status, xhr); }).
+		fail(function(xhr, status, errorMsg) { OnEsoCharDataContentError(xhr, contentId, asyncLoadElement, status, errorMsg); });
+	
+	return true;
+}
+
+
+function OnEsoCharDataContentRequest(data, contentId, element, status, xhr)
+{
+	var parent = $(element).parent();
+	
+	$(element).replaceWith(data);
+	AddEsoCharDataAsyncHandlers(parent);
+}
+
+
+function OnEsoCharDataContentError(xhr, contentId, element, status, errorMsg)
+{
+	EsoBuildLog("Error requesting char data content '" + contentId + "'!", errorMsg);
+}
+
+
+function OnEsoCharDataJsonRequest(data, contentId, status, xhr)
+{
+	if (contentId == "AllInventoryJS") ecdAllInventory = data;	
+}
+
+
+function OnEsoCharDataJsonError(xhr, contentId, status, errorMsg)
+{
+	EsoBuildLog("Error requesting char data JSON '" + contentId + "'!", errorMsg);
+}
+	
 
 function OnItemFilter(name)
 {
@@ -1285,8 +1347,6 @@ function OnEsoBookClick(e)
 
 function OnEsoBookDataRequest(data, status, xhr)
 {
-	EsoBuildLog("Received book data!", data);
-	
 	ShowEsoBook(data.book[0]);
 }
 
@@ -1444,7 +1504,108 @@ function OnEsoSubcategoryOutfitClick()
 }
 
 
-function onDocReady() 
+function AddEsoCharDataAsyncHandlers(parent)
+{
+	var $parent = $(parent);
+	
+	if ($parent.find('.ecdAchTreeName1').length > 0)
+	{
+		$parent.find('.ecdAchTreeName1').click(OnEsoAchievementTreeName1Click);
+		$parent.find('.ecdAchTreeName2').click(OnEsoAchievementTreeName2Click);
+	
+		EsoAchTree_LastOpenTreeName = $parent.find('.ecdAchTreeName1:visible').first();
+		EsoAchTree_LastOpenTree = EsoAchTree_LastOpenTreeName.next(".ecdAchTreeContent1");
+	
+		EsoAchTree_LastContentName = $parent.find('.ecdAchTreeNameHighlight2').first();
+		EsoAchTree_LastContent = $parent.find('.ecdAchData:visible').first();
+	}
+	
+	$parent.find(".ecdSelectAchievement1").click(OnAchievementClick);
+	
+	var tables = $parent.find(".tablesorter");
+	
+	if (tables.tablesorter)
+	{
+		$parent.find(".tablesorter").tablesorter({
+			sortList: [[2,0]] 
+		});
+	}
+	
+	$parent.find(".ecdItemFilterTextInput").keyup(function() {
+		UpdateItemFilter();
+		return true;
+	});
+
+	$parent.find(".ecdItemFilterTextInput").blur(function() {
+			$(".ecdItemFilterTextInput").val(this.value);
+			return true;
+		});
+	
+	$parent.find('.ecdClickToCopy').click(function() {
+			copyToClipboard(this);
+		});
+	
+	$parent.find('.ecdClickToCopyTooltip').click(function() {
+			var text = $(this).attr('tooltip');
+			copyTextToClipboard(text);
+		});
+	
+	$parent.find(".ecdScrollContent tr").click(OnItemRowClick);
+	$parent.find(".ecdScrollContent tr").mouseleave(OnItemRowLeave);
+		
+	$parent.find(".ecdQuestZoneTitle").click(OnQuestZoneTitleClick);
+	$parent.find(".ecdQuestZoneTitle1").click(OnQuestZoneTitle1Click);
+	$parent.find(".ecdQuestName ").click(OnQuestNameClick);
+	
+	$parent.find("#ecdFindAchInput").keyup(function(e) {
+		if (e.keyCode == 13) 
+			OnFindEsoCharAchievement();
+		else
+			$(".ecdFindAchTextBox button").text("Find...");
+	});
+	
+	$parent.find("#ecdSkillRecipesSearchInput").keyup(function(e) {
+		if (e.keyCode == 13) 
+			OnEsoCharDataSearchRecipe();
+		else
+			$("#ecdSkillRecipesSearchBlock button").text("Find...");
+	});
+	
+	$parent.find("#ecdQuestCompleteSearchText").keyup(function(e) {
+		if (e.keyCode == 13) 
+			OnEsoCharDataSearchCompletedQuests();
+		else
+			$("#ecdQuestCompleteSearchForm button").text("Find...");
+	});
+	
+	$parent.find("#ecdBookSearchText").keyup(function(e) {
+		if (e.keyCode == 13) 
+			OnEsoCharDataSearchBooks();
+		else
+			$("#ecdBookSearchForm button").text("Find...");
+	});	
+	
+	$parent.find("#ecdSkill_Recipes").on("scroll", OnEsoRecipeScroll);
+	
+	$parent.find(".ecdRecipeTitle").click(OnRecipeTitleClick);
+	
+	$parent.find(".ecdBookCollection").click(OnEsoBookCollectionClick);
+	$parent.find(".ecdBookCategory").click(OnEsoBookCategoryClick);
+	$parent.find(".ecdBookLine").click(OnEsoBookClick);
+	$parent.find(".ecdBookClose").click(OnEsoBookCloseClick);
+	
+	$parent.find(".ecdCollectibleCategory").click(OnEsoCategoryCollectibleClick);
+	$parent.find(".ecdCollectibleSubcategory").click(OnEsoSubcategoryCollectibleClick);
+	$parent.find(".ecdCollectMenuItem").click(OnEsoCollectionsMenuItemClick);
+	
+	$parent.find(".ecdOutfitCategory").click(OnEsoCategoryOutfitClick);
+	$parent.find(".ecdOutfitSubcategory").click(OnEsoSubcategoryOutfitClick);
+	
+	if (!DoesEsoItemLinkHaveEvent() || !parent.is($(document))) $parent.find('.eso_item_link').hover(OnEsoItemLinkEnter, OnEsoItemLinkLeave);
+}
+
+
+function onDocReady()
 {  
 	$(".ecdTooltipTrigger").hover(onTooltipHoverShow, onTooltipHoverHide, onTooltipMouseMove);
 	$(".ecdTooltip").hover(onTooltipHoverHide, onTooltipHoverHide, onTooltipHoverHide);
@@ -1458,47 +1619,6 @@ function onDocReady()
 	EsoSkillTree_LastSkillContentName = $('.ecdSkillTreeNameHighlight2').first();
 	EsoSkillTree_LastSkillContent = $('.ecdSkillData:visible').first();
 		
-	$('.ecdAchTreeName1').click(OnEsoAchievementTreeName1Click);
-	$('.ecdAchTreeName2').click(OnEsoAchievementTreeName2Click);
-	
-	EsoAchTree_LastOpenTreeName = $('.ecdAchTreeName1:visible').first();
-	EsoAchTree_LastOpenTree = EsoAchTree_LastOpenTreeName.next(".ecdAchTreeContent1");
-	
-	EsoAchTree_LastContentName = $('.ecdAchTreeNameHighlight2').first();
-	EsoAchTree_LastContent = $('.ecdAchData:visible').first();
-	
-	var tables = $(".tablesorter");
-	
-	if (tables.tablesorter)
-	{
-		$("#ecdRoot .tablesorter").tablesorter({
-			sortList: [[2,0]] 
-		});
-		
-		//$("#ecdBuildTable").tablesorter();
-	}
-	
-	$(".ecdItemFilterTextInput").keyup(function() {
-			//$(".ecdItemFilterTextInput").val(this.value);
-			UpdateItemFilter();
-			return true;
-		});
-	
-	$(".ecdItemFilterTextInput").blur(function() {
-			$(".ecdItemFilterTextInput").val(this.value);
-			return true;
-		});
-	
-	$('.ecdClickToCopy').click(function() {
-    		copyToClipboard(this);
-		});
-	
-	$('.ecdClickToCopyTooltip').click(function() {
-			var text = $(this).attr('tooltip');
-			copyTextToClipboard(text);
-		});
-	
-	
 	$("#ecdBuildTable a").click(OnBuildTableAnchorClick);
 	$(".ecdBuildRowHover td").not(".ecdBuildTableButtons").click(OnBuildTableRowClick);
 	
@@ -1510,50 +1630,9 @@ function onDocReady()
 	$(".ecdActionBar3").click(OnBuildActionBar3Click);
 	$(".ecdActionBar4").click(OnBuildActionBar4Click);
 	
-	$(".ecdScrollContent tr").click(OnItemRowClick);
-	
-	$(".ecdScrollContent tr").mouseleave(OnItemRowLeave);
-	
-	$(".ecdSelectAchievement1").click(OnAchievementClick);
-	
-	$(".ecdQuestZoneTitle").click(OnQuestZoneTitleClick);
-	$(".ecdQuestZoneTitle1").click(OnQuestZoneTitle1Click);
-	$(".ecdQuestName ").click(OnQuestNameClick);
-	
-	$("#ecdFindAchInput").keyup(function(e) {
-		if (e.keyCode == 13) 
-			OnFindEsoCharAchievement();
-		else
-			$(".ecdFindAchTextBox button").text("Find...");
-	});
-	
-	$("#ecdSkillRecipesSearchInput").keyup(function(e) {
-		if (e.keyCode == 13) 
-			OnEsoCharDataSearchRecipe();
-		else
-			$("#ecdSkillRecipesSearchBlock button").text("Find...");
-	});
-	
-	$("#ecdSkill_Recipes").on("scroll", OnEsoRecipeScroll);
-	
-	$(".ecdRecipeTitle").click(OnRecipeTitleClick);
-	
-	$(".ecdBookCollection").click(OnEsoBookCollectionClick);
-	$(".ecdBookCategory").click(OnEsoBookCategoryClick);
-	$(".ecdBookLine").click(OnEsoBookClick);
-	$(".ecdBookClose").click(OnEsoBookCloseClick);
-	
-	$(".ecdCollectibleCategory").click(OnEsoCategoryCollectibleClick);
-	$(".ecdCollectibleSubcategory").click(OnEsoSubcategoryCollectibleClick);
-	$(".ecdCollectMenuItem").click(OnEsoCollectionsMenuItemClick);
-	
-	$(".ecdOutfitCategory").click(OnEsoCategoryOutfitClick);
-	$(".ecdOutfitSubcategory").click(OnEsoSubcategoryOutfitClick);
-	
-	if (!DoesEsoItemLinkHaveEvent()) $('.eso_item_link').hover(OnEsoItemLinkEnter, OnEsoItemLinkLeave);
+	AddEsoCharDataAsyncHandlers(document);
 	
 	UpdateEsoInventoryShownSpace();
-	
 	UpdateFirstQuestDetails();
 }
 
