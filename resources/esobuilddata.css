@@ -2510,6 +2510,11 @@ thead.ecdFixedHeader tr {
     white-space: nowrap;
 }
 
+.ecdQuestName1:hover {
+	background-color: #555;
+	cursor: pointer;	
+}
+
 .ecdQuestMissing {
 	color: #777 !important;
 }
@@ -2632,8 +2637,7 @@ thead.ecdFixedHeader tr {
     right: 40px;
 }
 
-#ecdQuestMissingSearchForm button,
-#ecdQuestCompleteSearchForm button,
+#ecdQuestAllSearchForm button,
 #ecdBookSearchForm button {
     -moz-box-shadow: 3px 4px 4px 0px #636134;
     -webkit-box-shadow: 3px 4px 4px 0px #636134;
@@ -2654,14 +2658,12 @@ thead.ecdFixedHeader tr {
     height: 24px;
 }
 
-#ecdQuestMissingSearchForm button:hover,
-#ecdQuestCompleteSearchForm button:hover,
+#ecdQuestAllSearchForm button:hover,
 #ecdBookSearchForm input:hover {
 	background-color: #857a45;
 }
 
-#ecdQuestMissingSearchForm input,
-#ecdQuestCompleteSearchForm input,
+#ecdQuestAllSearchForm input,
 #ecdBookSearchForm input {
     width: 100px;
     margin: 0;
@@ -3323,3 +3325,34 @@ thead.ecdFixedHeader tr {
 	float: left;
 }
 
+.ecdQuestTooltip {
+	position: relative;
+}
+
+.ecdQuestTooltip:hover:after {
+    background: #ffff99;
+    border-radius: 5px;
+    bottom: 26px;
+    color: #000;
+    content: attr(tooltip);
+    left: 10px;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 98;
+    width: 340px;
+    font-size: 13px;
+    font-weight: normal;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    white-space: pre-wrap;
+}
+
+.ecdQuestTooltip:hover:before {
+    border: solid;
+    border-color: #ffff99 transparent;
+    border-width: 6px 6px 0 6px;
+    bottom: 20px;
+    content: "";
+    left: 100px;
+    position: absolute;
+    z-index: 99;
+}

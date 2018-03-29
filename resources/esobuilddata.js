@@ -1038,46 +1038,46 @@ function UpdateFirstQuestDetails()
 }
 
 
-var lastEsoCompletedQuestSearchText = "";
-var lastEsoCompletedQuestSearchPos = -1;
-var lastEsoCompletedQuestSearchElement = null;
+var lastEsoAllQuestSearchText = "";
+var lastEsoAllQuestSearchPos = -1;
+var lastEsoAllQuestSearchElement = null;
 
 
-function OnEsoCharDataSearchCompletedQuests()
+function OnEsoCharDataSearchAllQuests()
 {
-	var text = $("#ecdQuestCompleteSearchText").val().trim().toLowerCase();
+	var text = $("#ecdQuestAllSearchText").val().trim().toLowerCase();
 	if (text == "") return;
 	
-	if (text != lastEsoCompletedQuestSearchText)
+	if (text != lastEsoAllQuestSearchText)
 	{
-		lastEsoCompletedQuestSearchText = text;
-		lastEsoCompletedQuestSearchPos = -1;
-		lastEsoCompletedQuestSearchElement = null;
+		lastEsoAllQuestSearchText = text;
+		lastEsoAllQuestSearchPos = -1;
+		lastEsoAllQuestSearchElement = null;
 	}
 	
-	FindEsoCharNextCompletedQuest();
+	FindEsoCharNextAllQuest();
 }
 
 
-function FindEsoCharNextCompletedQuest()
+function FindEsoCharNextAllQuest()
 {
 	var isFound = false;
 	
 	$(".ecdQuestSearchHighlight").removeClass("ecdQuestSearchHighlight");
 		
-	$(".ecdQuestName1").each(function(index) {
-		if (index <= lastEsoCompletedQuestSearchPos) return true;
+	$("#ecdQuestJournalAll .ecdQuestName1").each(function(index) {
+		if (index <= lastEsoAllQuestSearchPos) return true;
 		var $this = $(this);
 		var text = $this.text().toLowerCase();
 				
-		lastEsoCompletedQuestSearchPos = index;
+		lastEsoAllQuestSearchPos = index;
 		
-		if (text.indexOf(lastEsoCompletedQuestSearchText) >= 0) 
+		if (text.indexOf(lastEsoAllQuestSearchText) >= 0) 
 		{
-			if (lastEsoCompletedQuestSearchElement != null && $this.is(lastEsoCompletedQuestSearchElement)) return true;
+			if (lastEsoAllQuestSearchElement != null && $this.is(lastEsoAllQuestSearchElement)) return true;
 			
-			lastEsoCompletedQuestSearchElement = $this;
-			SelectFoundEsoCompletedQuest($this);
+			lastEsoAllQuestSearchElement = $this;
+			SelectFoundEsoAllQuest($this);
 			isFound = true;
 			return false
 		}
@@ -1085,19 +1085,19 @@ function FindEsoCharNextCompletedQuest()
 	
 	if (!isFound)
 	{
-		lastEsoCompletedQuestSearchText = "";
-		lastEsoCompletedQuestSearchPos = -1;
-		lastEsoCompletedQuestSearchElement = null;
-		$("#ecdQuestCompleteSearchForm button").text("Done!");
+		lastEsoAllQuestSearchText = "";
+		lastEsoAllQuestSearchPos = -1;
+		lastEsoAllQuestSearchElement = null;
+		$("#ecdQuestAllSearchForm button").text("Done!");
 	}
 	else
 	{
-		$("#ecdQuestCompleteSearchForm button").text("Find Next");
+		$("#ecdQuestAllSearchForm button").text("Find Next");
 	}
 }
 
 
-function SelectFoundEsoCompletedQuest(quest)
+function SelectFoundEsoAllQuest(quest)
 {
 	var questList = $(quest).parent(".ecdQuestZoneList1");
 	
@@ -1131,11 +1131,6 @@ function SlideEsoQuestIntoView(element, instant)
 	        scrollTop: nextTop - parent.height() + parent.scrollTop(),
 	    }, delay);
 	}
-}
-
-
-function OnEsoCharDataSearchMissingQuests()
-{
 }
 
 
@@ -1571,11 +1566,11 @@ function AddEsoCharDataAsyncHandlers(parent)
 			$("#ecdSkillRecipesSearchBlock button").text("Find...");
 	});
 	
-	$parent.find("#ecdQuestCompleteSearchText").keyup(function(e) {
+	$parent.find("#ecdQuestAllSearchText").keyup(function(e) {
 		if (e.keyCode == 13) 
-			OnEsoCharDataSearchCompletedQuests();
+			OnEsoCharDataSearchAllQuests();
 		else
-			$("#ecdQuestCompleteSearchForm button").text("Find...");
+			$("#ecdQuestAllSearchForm button").text("Find...");
 	});
 	
 	$parent.find("#ecdBookSearchText").keyup(function(e) {

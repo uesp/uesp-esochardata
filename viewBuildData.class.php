@@ -147,6 +147,13 @@ class EsoBuildDataViewer
 	}
 	
 	
+	public function escapeAttr($input)
+	{
+		$output = htmlspecialchars($input, ENT_COMPAT, 'UTF-8');
+		return str_replace('"', '\"', $output);
+	}
+	
+	
 	public function reportError($msg)
 	{
 		error_log("Error: " . $msg);
@@ -1960,7 +1967,8 @@ class EsoBuildDataViewer
 						}
 					}
 					
-					$output .= "<td title='$trait$researchNote'>$value</td>";
+					$title = $this->escapeAttr("$trait$researchNote");
+					$output .= "<td title='$title'>$value</td>";
 				}
 				
 				$output .= "<td>{$knownCounts[$slot]}/9</td>";
@@ -2006,7 +2014,8 @@ class EsoBuildDataViewer
 						}
 					}
 					
-					$output .= "<td title='$trait$researchNote'>$value</td>";
+					$title = $this->escapeAttr("$trait$researchNote");
+					$output .= "<td title='$title'>$value</td>";
 				}
 				
 				$output .= "<td>{$knownCounts[$slot]}/9</td>";
@@ -2286,6 +2295,7 @@ class EsoBuildDataViewer
 			foreach ($this->ESO_MOTIF_CHAPTERNAMES as $name)
 			{
 				$isKnown = $styleData[$name];
+				$name = $this->escapeAttr($name);
 				
 				if ($isKnown) 
 					$output .= "<td title='$name'>X</td>";
@@ -2781,6 +2791,8 @@ class EsoBuildDataViewer
 		}
 		
 		$iconUrl = $this->convertIconToImageUrl($rawIcon);
+		$rawIcon = $this->escapeAttr($rawIcon);
+		
 		$output .= "<div class='ecdBuff $extraClass' $tooltip><img src=\"$iconUrl\" title=\"$rawIcon\"/>\n";
 		$output .= "<div class='ecdBuffDesc'>$safeName</div>\n";
 		$output .= "</div>\n";
@@ -3211,6 +3223,7 @@ class EsoBuildDataViewer
 		$height = "";
 		if ($this->viewRawData) $height = "32";
 		$pngIconUrl = $this->convertIconToImageUrl($icon);
+		$icon = $this->escapeAttr($icon);
 		$iconLink = "<img src=\"$pngIconUrl\" height='$height' title=\"$icon\" />";
 		return $iconLink;
 	}
