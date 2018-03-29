@@ -317,6 +317,17 @@ class EsoBuildDataParser
 		$result = $this->db->query($query);
 		if ($result === FALSE) return $this->reportError("Failed to create screenshots table!");
 		
+		$query = "CREATE TABLE IF NOT EXISTS cache (
+						characterId INTEGER NOT NULL,
+						html MEDIUMTEXT NOT NULL,
+						createTimestamp BITINT NOT NULL DEFAULT 0,
+						PRIMARY KEY (characterId)
+					);";
+		
+		$this->lastQuery = $query;
+		$result = $this->db->query($query);
+		if ($result === FALSE) return $this->reportError("Failed to create cache table!");
+				
 		$this->lastQuery = "";
 		return true;
 	}
