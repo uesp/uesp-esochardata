@@ -6,6 +6,8 @@ require_once("/home/uesp/secrets/esochardata.secrets");
 require_once("/home/uesp/esolog.static/viewAchievements.class.php");
 require_once("/home/uesp/esolog.static/esoBookCollectionData.php");
 require_once("/home/uesp/esolog.static/esoCollectibleData.php");
+require_once("/home/uesp/esolog.static/esoRecipeData.php");
+require_once("/home/uesp/esolog.static/esoQuestData.php");
 
 
 class EsoCharDataViewer extends EsoBuildDataViewer
@@ -453,16 +455,177 @@ EOT;
 	}
 	
 	
+	public function GetCharAllQuestData(&$numAllQuests, &$numMissingQuests)
+	{
+		global $ESO_QUEST_DATA;
+		
+		$resultData = array();
+		$numCompletedQuests = $this->getCharStatField("NumCompletedQuests", 0);
+		$numMissingQuests = 0;
+		$numAllQuests = 0;
+		
+		foreach ($ESO_QUEST_DATA as $questId => $questData)
+		{
+			if ($resultData[$questZone] == null) $resultData[$questZone] = array();
+			
+			$questType = $questData['type'];
+			$questZone = $questData['zone'];
+			
+			if ($questType == 13)
+			{
+				$questZone = "Battleground";
+			}
+			else if ($questType == 2)
+			{
+				$questZone = "Main Quest";
+			}
+			else if ($questType == 12)
+			{
+				$questZone = "Holiday Event";
+			}
+			else if ($questType == 4)
+			{
+				$questZone = "Crafting";
+			}
+			else if ($questZone == "") 
+			{
+				$questZone = "Other";
+			}
+		
+			$resultData[$questZone][$questId] = array(
+					"id" => $questId,
+					"zone" => $questZone,
+					"name" => $questData['name'],
+					"type" => $questData['type'],
+					"objective" => "",
+					"journal" => $questData['journal'],
+					"completed" => 0,
+				);
+		}
+				
+		for ($i = 1; $i <= $numCompletedQuests; ++$i)
+		{
+			$questData = explode("|", $this->getCharStatField("Quest:$i", ""));
+			if ($questData[4] === null) continue; 
+			
+			$questId = $questData[0];
+			$questName = $questData[1];
+			$questType = $questData[2];
+			$questZone = $questData[3];
+			$questObjective = $questData[4];
+						
+			if ($questType == 13)
+			{
+				$questZone = "Battleground";
+			}
+			else if ($questType == 2)
+			{
+				$questZone = "Main Quest";
+			}
+			else if ($questType == 12)
+			{
+				$questZone = "Holiday Event";
+			}
+			else if ($questType == 4)
+			{
+				$questZone = "Crafting";
+			}
+			else if ($questZone == "") 
+			{
+				$questZone = "Other";
+			}
+			
+			if ($resultData[$questZone] == null) $resultData[$questZone] = array();
+			if ($resultData[$questZone][$questId] == null)$resultData[$questZone][$questId] = array();
+		
+			$resultData[$questZone][$questId]["id"] = $questId;
+			$resultData[$questZone][$questId]["zone"] = $questZone;
+			$resultData[$questZone][$questId]["name"] = $questName;
+			$resultData[$questZone][$questId]["type"] = $questType;
+			$resultData[$questZone][$questId]["index"] = $index;
+			$resultData[$questZone][$questId]["objective"] = $questObjective;
+			$resultData[$questZone][$questId]["completed"] = 1;
+		}
+		
+		ksort($resultData);
+		
+		foreach ($resultData as $zoneName => $zoneData)
+		{
+			foreach ($zoneData as $questId => $questData)
+			{
+				if ($questData['completed'] != 1) $numMissingQuests++;
+				++$numAllQuests;
+			}
+			
+			uasort($resultData[$zoneName], "cmpQuestZoneData");
+		}
+		
+		return $resultData;
+	}
+	
+		
+	public function GetAllQuestContentHtml($allQuests, $showComplete, $showMissing)
+	{
+		$rightOutput = "";
+		
+		foreach ($allQuests as $questZone => $zoneData)
+		{
+			$questZone = strtoupper($questZone);
+			$questCount = count($zoneData);
+			$zoneOutput = "";
+						
+			foreach ($zoneData as $questId => $questData)
+			{
+				if (!$showComplete && $questData['completed'] == 1) continue;
+				if (!$showMissing && $questData['completed'] == 0) continue;
+				
+				$questId = $questData['id'];
+				$questType = $questData['type'];
+				$questObj = $this->escape($questData['objective']);
+				$name = $this->escape($questData['name']);
+				$complete = $questData['complete'];
+				$journal = $this->escape($questData['journal']);
+				$imageHtml = "";
+				$extraClass = "";
+				if ($questData['completed'] == 0) $extraClass = "ecdQuestMissing";
+				
+				if ($questType == 1)
+				{
+					$imageHtml = "<img src='{$this->baseResourceUrl}resources/journal_quest_trial.png'>";
+				}
+				else if ($questType == 5)
+				{
+					$imageHtml = "<img src='{$this->baseResourceUrl}resources/journal_quest_group_instance.png'>";
+				}
+				
+				if ($questObj != "")
+					$zoneOutput .= "<div class='ecdQuestName1 $extraClass' title='$journal'>$imageHtml$name ($questObj)</div>";
+				else
+					$zoneOutput .= "<div class='ecdQuestName1 $extraClass' title='$journal'>$imageHtml$name</div>";
+			}
+			
+			if ($zoneOutput != "")
+			{
+				$rightOutput .= "<div class='ecdQuestZoneTitle1'>$questZone ($questCount)</div>";
+				$rightOutput .= "<div class='ecdQuestZoneList1' style='display: none;'>";
+				$rightOutput .= $zoneOutput;
+				$rightOutput .= "</div>";
+			}
+		}
+		
+		return $rightOutput;
+	}
+	
+	
 	public function getCharQuestContentHtml()
 	{
 		if ($this->useAsyncLoad) return $this->GetAsyncLoadContentsHtml();
-		
+				
 		$output = "";
 		$leftOutput = "<div id='ecdQuestList'>";
 		$rightOutput = "<div id='ecdQuestDetails' class=''>";
 		$questTree = array();
-		$completedQuests = array();
-		
+				
 		$numJournalQuests = $this->getCharStatField("NumJournalQuests", 0);
 		
 		$leftOutput .= "<div class='ecdQuestCountTitle'>Quests: </div> <div class='ecdQuestCount'> $numJournalQuests / 25</div><p/>";
@@ -566,7 +729,6 @@ EOT;
 		{
 			$zone = strtoupper($questZone);
 			$leftOutput .= "<div class='ecdQuestZoneTitle $firstClass'>$zone</div><div class='ecdQuestZoneList' style='display: none;'>";
-			;
 			
 			foreach ($quests as $questData)
 			{
@@ -597,58 +759,27 @@ EOT;
 		}
 		
 		$numCompletedQuests = $this->getCharStatField("NumCompletedQuests", 0);
+		$numMissingQuests = 0;
+		$numAllQuests = 0;
+		$allQuests = $this->GetCharAllQuestData($numAllQuests, $numMissingQuests);
 		
 		$leftOutput .= "<img class='ecdImageFlip' src='{$this->baseResourceUrl}resources/eso_equip_bar.png' width='49%' />";
 		$leftOutput .= "<img class='' src='{$this->baseResourceUrl}resources/eso_equip_bar.png' width='49%' />";
 		$leftOutput .= "<div class='ecdQuestZoneTitle'>ALL QUESTS</div>";
 		$leftOutput .= "<div class='ecdQuestZoneList' style='display: none;'>";
+		$leftOutput .= "<div class='ecdQuestName' journalindex='All'>All Quests ($numAllQuests)</div>";
 		$leftOutput .= "<div class='ecdQuestName' journalindex='Completed'>Completed Quests ($numCompletedQuests)</div>";
-		$leftOutput .= "<div class='ecdQuestName' journalindex='Missing'>Missing Quests (?)</div>";
-		$leftOutput .= "</div>";		
-				
-		for ($i = 1; $i <= $numCompletedQuests; ++$i)
-		{
-			$questData = explode("|", $this->getCharStatField("Quest:$i", ""));
-			if ($questData[4] === null) continue; 
-			
-			$questId = $questData[0];
-			$questName = $questData[1];
-			$questType = $questData[2];
-			$questZone = $questData[3];
-			$questObjective = $questData[4];
-						
-			if ($questType == 13)
-			{
-				$questZone = "Battleground";
-			}
-			else if ($questType == 2)
-			{
-				$questZone = "Main Quest";
-			}
-			else if ($questType == 12)
-			{
-				$questZone = "Holiday Event";
-			}
-			else if ($questType == 4)
-			{
-				$questZone = "Crafting";
-			}
-			else if ($questZone == "") 
-			{
-				$questZone = "Other";
-			}
-			
-			if ($completedQuests[$questZone] == null) $completedQuests[$questZone] = array();
-			
-			$completedQuests[$questZone][$questName] = array(
-					"id" => $questId,
-					//"name" => $questName,
-					"type" => $questType,
-					"objective" => $questObjective,
-				);
-		}
+		$leftOutput .= "<div class='ecdQuestName' journalindex='Missing'>Missing Quests ($numMissingQuests)</div>";
+		$leftOutput .= "</div>";
 		
-		ksort($completedQuests);
+		$rightOutput .= "<div class='ecdQuestDetail ecdScrollContent' style='display: none;' id='ecdQuestJournalAll' journalindex='All'>";
+		$rightOutput .= "<div class='ecdQuestDetailSearch' id='ecdQuestAllSearchForm'>";
+		$rightOutput .= "<input type='text' size='10' maxlength='32' id='ecdQuestAllSearchText' placeholder='Find Quest'/>";
+		$rightOutput .= "<button onclick='OnEsoCharDataSearchAllQuests();'>Find...</button>";
+		$rightOutput .= "</div>";
+		$rightOutput .= "<div class='ecdQuestDetailTitle'>ALL QUESTS</div>";
+		$rightOutput .= $this->GetAllQuestContentHtml($allQuests, true, true);
+		$rightOutput .= "</div>";
 		
 		$rightOutput .= "<div class='ecdQuestDetail ecdScrollContent' style='display: none;' id='ecdQuestJournalCompleted' journalindex='Completed'>";
 		$rightOutput .= "<div class='ecdQuestDetailSearch' id='ecdQuestCompleteSearchForm'>";
@@ -657,41 +788,7 @@ EOT;
 		$rightOutput .= "</div>";
 		$rightOutput .= "<div class='ecdQuestDetailTitle'>COMPLETED QUESTS</div>";
 		$rightOutput .= "This character has completed $numCompletedQuests unique quests.<p/>";
-		
-		foreach ($completedQuests as $questZone => $zoneData)
-		{
-			ksort($zoneData);
-
-			$questZone = strtoupper($questZone);
-			$questCount = count($zoneData);
-			$rightOutput .= "<div class='ecdQuestZoneTitle1'>$questZone ($questCount)</div>";
-			$rightOutput .= "<div class='ecdQuestZoneList1' style='display: none;'>";
-						
-			foreach ($zoneData as $questName => $questData)
-			{
-				$questId = $questData['id'];
-				$questType = $questData['type'];
-				$questObj = $questData['objective'];
-				$imageHtml = "";
-				
-				if ($questType == 1)
-				{
-					$imageHtml = "<img src='{$this->baseResourceUrl}resources/journal_quest_trial.png'>";
-				}
-				else if ($questType == 5)
-				{
-					$imageHtml = "<img src='{$this->baseResourceUrl}resources/journal_quest_group_instance.png'>";
-				}
-				
-				if ($questObj != "")
-					$rightOutput .= "<div class='ecdQuestName1'>$imageHtml$questName ($questObj)</div>";
-				else
-					$rightOutput .= "<div class='ecdQuestName1'>$imageHtml$questName</div>";
-			}
-			
-			$rightOutput .= "</div>";
-		}
-		
+		$rightOutput .= $this->GetAllQuestContentHtml($allQuests, true, false);
 		$rightOutput .= "</div>";
 		
 		$rightOutput .= "<div class='ecdQuestDetail ecdScrollContent' style='display: none;' id='ecdQuestJournalMissing' journalindex='Missing'>";
@@ -700,7 +797,8 @@ EOT;
 		$rightOutput .= "<button onclick='OnEsoCharDataSearchMissingQuests();'>Find...</button>";
 		$rightOutput .= "</div>";
 		$rightOutput .= "<div class='ecdQuestDetailTitle'>MISSING QUESTS</div>";
-		$rightOutput .= "This character is missing ? quests.<p/>";
+		$rightOutput .= "This character is missing $numMissingQuests quests.<p/>";
+		$rightOutput .= $this->GetAllQuestContentHtml($allQuests, false, true);
 		$rightOutput .= "</div>";
 		
 		$leftOutput .= "</div>";
@@ -2910,6 +3008,179 @@ EOT;
 		
 		return $output; 
 	}
+	
+
+	public function getCharSkillRecipeContentHtml()
+	{
+		global $ESO_RECIPELIST_INFO;
+		
+		$totalCount = $this->getCharStatField("RecipeTotalCount", 0);
+		$knownCount = $this->getCharStatField("RecipeKnownCount", 0);
+		
+		$output  = "<div id='ecdSkill_Recipes' class='ecdSkillData ecdScrollContent' style='display: none;'>\n";
+		$output .= "<div class='ecdSkillRecipesSearchBlock' id='ecdSkillRecipesSearchBlock'>";
+		$output .= "<input type='text' size='10' maxlength='32' id='ecdSkillRecipesSearchInput' placeholder='Find Recipes'/>";
+		$output .= "<button onclick='OnEsoCharDataSearchRecipe();'>Find...</button>";
+		$output .= "</div>";
+		$output .= "<div id='ecdSkillContentTitle'>Recipes<small> ($knownCount / $totalCount Known)</small></div>";
+		$output .= "<br/>";
+		
+		$knownRecipes = $this->getCharRecipeData();
+		$allRecipes = $this->createAllRecipeData($knownRecipes);
+		//$allRecipes = $knownRecipes;
+		
+		foreach ($ESO_RECIPELIST_INFO as $recipeListIndex => $listInfo)
+		{
+			$listCount = $listInfo[0];
+			$listName = $listInfo[1];
+			$listIcon = $listInfo[2];
+			$listQuality = $listInfo[3];
+			$qualityClass = "";
+			$knownCount = 0;
+			if ($listQuality >= 1 && $listQuality <= 5) $qualityClass = "ecdItemQuality$listQuality";
+			
+			if ($allRecipes[$listName] == null) continue;
+			
+			usort($allRecipes[$listName], array("EsoBuildDataViewer", "SortRecipeListByName"));
+			
+			foreach ($allRecipes[$listName] as $resultId => $recipeData)
+			{
+				if ($recipeData['known']) ++$knownCount;
+			}
+			
+			if ($listCount == 0) $listCount = "?";
+			$output .= "<div class='ecdRecipeTitle'>$listName ($knownCount / $listCount Known)<div class='ecdRecipeTitleArrow'>&#9660;</div></div>";
+			$output .= "<div class='ecdRecipeList' style='display: none;'>";
+			
+			foreach ($allRecipes[$listName] as $resultId => $recipeData)
+			{
+				$name = $recipeData['name'];
+				$known = $recipeData['known'];
+				$itemId = $recipeData['recipe'];
+				$quality = $recipeData['quality'];
+				$extraClass = "";
+				if ($known) $extraClass = "ecdRecipeKnown";
+				
+				if ($quality >= 1 && $quality <= 5) 
+					$qualityClass = "ecdItemQuality$quality";
+				else
+					$qualityClass = "ecdItemQuality$listQuality";
+				
+				if ($itemId == null || $itemId <= 0) $itemId = $recipeData['result'];
+				
+				$output .= "<div class='ecdRecipeItem eso_item_link $extraClass $qualityClass' itemid='$itemId' inttype='1' intlevel='1'>$name</div>";
+			}
+			
+			$output .= "</div>";
+		}
+		
+		$output .= "</div>";
+		return $output;
+	}
+	
+	
+	public function getCharSkillMotifContentHtml()
+	{
+		$output  = "<div id='ecdSkill_Motifs' class='ecdSkillData ecdScrollContent' style='display: none;'>\n";
+		$output .= "<div id='ecdSkillContentTitle'>Crafting Motifs</div>";
+		$output1 = "";
+		
+		$craftData = array();
+		
+		foreach ($this->characterData['stats'] as $key => $value)
+		{
+			$matches = array();
+			$result = preg_match("/Crafting:(.*)/", $key, $matches);
+			if ($result == 0) continue; 
+
+			$styleName = $matches[1];
+			$rawData = $value['value'];
+			$rawValues = explode(',', $rawData);
+			$styleData = '';
+			$unknownChapters = "";
+			$knownCount = 0;
+			$unknownCount = 14;
+			
+			if ($styleName == "Akatosh") continue;
+			if ($styleName == "Grim Arlequin") $styleName = "Grim Harlequin";
+			
+			$craftData[$styleName] = array();
+			
+			if (count($rawValues) > 1)
+			{
+				$styleArray = array();
+				$unknownArray = array();
+				
+				for ($i = 0; $i < 14; ++$i)
+				{
+					$name = $this->ESO_MOTIF_CHAPTERNAMES[$i];
+					
+					if ($rawValues[$i] == 1)
+					{
+						$styleArray[] = $name;
+						$craftData[$styleName][$name] = true;
+					}
+					else
+					{
+						$unknownArray[] = $name;
+						$craftData[$styleName][$name] = false;
+					}					
+				}
+				
+				$styleData = implode(', ', $styleArray);
+				$unknownChapters = implode(', ', $unknownArray);
+				$unknownCount = count($unknownArray);
+				$knownCount = 14 - $unknownCount;
+			}
+			elseif ($rawData == '1')
+			{
+				$styleData = 'All Known';
+				$knownCount = 14;
+				$unknownCount = 0;
+								
+				foreach ($this->ESO_MOTIF_CHAPTERNAMES as $name)
+				{
+					$craftData[$styleName][$name] = true;
+				}
+			}
+			elseif ($rawData == '0')
+			{
+				$styleData = 'None Known';
+				$unknownChapters =  implode(', ', $this->ESO_MOTIF_CHAPTERNAMES);
+				$knownCount = 0;
+				$unknownCount = 14;
+				
+				foreach ($this->ESO_MOTIF_CHAPTERNAMES as $name)
+				{
+					$craftData[$styleName][$name] = false;
+				}
+			}
+			else
+			{
+				continue;
+			}
+			
+			$extraClass = "";
+			$tooltip = "";
+				
+			if ($unknownChapters != "")
+			{
+				$tooltip = " tooltip='" . $unknownChapters . "'";
+				$extraClass = "ecdTraitTooltip ecdMotifTooltip";
+			}
+							
+			$output1 .= "<div class='ecdSkillDataBox ecdClickToCopyTooltip $extraClass' $tooltip>\n";
+			$output1 .= "<div class='ecdSkillNameCraft'>$styleName:</div>";
+			$output1 .= "<div class='ecdSkillValueCraft'>($knownCount/14) $styleData</div>";
+			$output1 .= "</div>\n";
+		}
+		
+		$output .= $this->getCharSkillMotifTableHtml($craftData);
+		$output .= "<p/><br/>";
+		$output .= $output1;
+		$output .= "</div>\n";
+		return $output;
+	}
 
 	
 };
@@ -2936,4 +3207,12 @@ function cmpEsoOutfitTypes($a, $b)
 	if ($b1 == null) $b1 = 10;
 	
 	return $a1 > $b1;
+}
+
+
+function cmpQuestZoneData($a, $b)
+{
+	$name1 = $a['name'];
+	$name2 = $b['name'];
+	return strcmp($name1, $name2);
 }
