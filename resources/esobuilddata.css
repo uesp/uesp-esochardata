@@ -3237,3 +3237,20 @@ thead.ecdFixedHeader tr {
 	padding-top: 5px;
 	
 }
+
+.ecdAsyncLoad {
+	font-size: 22px;
+	font-weight: bold;
+	color: white;
+	width: 650px;
+	height: 620px;
+    text-align: center;
+    margin-top: 250px;
+}
+
+#ecdInventory .ecdAsyncLoad,
+#ecdBank .ecdAsyncLoad,
+#ecdCraft .ecdAsyncLoad,
+#ecdAccountInv .ecdAsyncLoad
+	height: 270px !important;
+}
