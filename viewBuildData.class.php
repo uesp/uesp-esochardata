@@ -35,7 +35,7 @@ class EsoBuildDataViewer
 	public $hasLoadedCharacter	  = false; 
 	public $enableCaching 		  = false;
 	public $useAsyncLoad		  = true;
-	public $useSprites			  = true;
+	public $useDivImageTags		  = true;
 	
 	public $currentCharacterPage = 0;
 	public $totalCharacterCount = 0;
@@ -4223,9 +4223,9 @@ EOT;
 	}
 	
 	
-	public function MakeIconTag($icon, $spriteClass, $extraClass = "")
+	public function MakeIconTag($icon, $extraClass = "")
 	{
-		if (!$this->useSprites)	
+		if (!$this->useDivImageTags)	
 		{
 			$output = "<img src='" . MakeEsoIconLink($icon) . "' ";
 			if ($extraClass) $output .= "class='$extraClass' ";
@@ -4236,15 +4236,6 @@ EOT;
 			/* Use background div to let images load only when first displayed */
 		$iconUrl = MakeEsoIconLink($icon);
 		$output = "<div class='$extraClass' style=\"background-image: url('$iconUrl');\" ></div>";
-		return $output;
-		
-		
-			/* Normal CSS sprites */
- 		$imageParts = pathinfo($icon);
- 		$imageFilename = $imageParts['filename'];
-		
-		$output = "<div class='$spriteClass-$imageFilename $extraClass'></div>";
-		
 		return $output;
 	}
 	

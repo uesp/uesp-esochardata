@@ -3251,7 +3251,7 @@ thead.ecdFixedHeader tr {
 #ecdBank .ecdAsyncLoad,
 #ecdCraft .ecdAsyncLoad,
 #ecdAccountInv .ecdAsyncLoad {
-	height: 270px !important;
+	height: 265px !important;
 }
 
 .ecdBookSprite {

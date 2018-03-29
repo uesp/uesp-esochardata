@@ -46,7 +46,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		$this->hasAchievementOutput  = true;
 		
 		$this->achievements = new CEsoViewAchievements(false);
-		$this->achievements->useSprites = $this->useSprites;
+		$this->achievements->useDivImageTags = $this->useDivImageTags;
 	}
 	
 	
@@ -466,7 +466,6 @@ EOT;
 		$numJournalQuests = $this->getCharStatField("NumJournalQuests", 0);
 		
 		$leftOutput .= "<div class='ecdQuestCountTitle'>Quests: </div> <div class='ecdQuestCount'> $numJournalQuests / 25</div><p/>";
-		$firstStyle = "display: none;";
 		
 		for ($i = 1; $i <= $numJournalQuests; ++$i)
 		{
@@ -550,7 +549,7 @@ EOT;
 				$typeHtml = "<img src='{$this->baseResourceUrl}resources/journal_quest_group_instance.png'>";
 			}
 						
-			$rightOutput .= "<div class='ecdQuestDetail ecdScrollContent' style='$firstStyle' id='ecdQuestJournal$i' journalindex='$i'>";			
+			$rightOutput .= "<div class='ecdQuestDetail ecdScrollContent' style='display: none;' id='ecdQuestJournal$i' journalindex='$i'>";			
 			$rightOutput .= "<div class='ecdQuestDetailTitle'>$questName</div>";			
 			$rightOutput .= "<div class='ecdQuestDetailType'>$typeHtml</div>";
 			$rightOutput .= "<div class='ecdQuestDetailRepeat'>$repeatHtml</div><br/>";
@@ -559,19 +558,15 @@ EOT;
 			$rightOutput .= "<div class='ecdQuestDetailTaskTitle'>TASKS</div>";
 			$rightOutput .= "<div class='ecdQuestDetailTasks'>$taskHtml</div>";
 			$rightOutput .= "</div>";
-			
-			$firstStyle = "display: none;";
 		}
 		
 		ksort($questTree);
-		$firstStyle = "display: block;";
-		$firstClass = "ecdQuestSelected";
 		
 		foreach ($questTree as $questZone => $quests)
 		{
 			$zone = strtoupper($questZone);
-			$leftOutput .= "<div class='ecdQuestZoneTitle $firstClass'>$zone</div><div class='ecdQuestZoneList' style='$firstStyle'>";
-			$firstStyle = 'display: none;';
+			$leftOutput .= "<div class='ecdQuestZoneTitle $firstClass'>$zone</div><div class='ecdQuestZoneList' style='display: none;'>";
+			;
 			
 			foreach ($quests as $questData)
 			{
@@ -598,7 +593,6 @@ EOT;
 				$firstClass = '';
 			}
 			
-			$firstClass = '';
 			$leftOutput .= "</div>";
 		}
 		
@@ -2396,8 +2390,7 @@ EOT;
 					}
 					
 					$bookOutput  = "<div class='ecdBookLine $knownClass' bookid='$bookId'>";
-					$bookOutput .= $this->MakeIconTag($icon, "esobooksprite", "ecdBookSprite");
-					//$bookOutput .= "<img src='$iconUrl'>";
+					$bookOutput .= $this->MakeIconTag($icon, "ecdBookSprite");
 					$bookOutput .= " <div class='ecdBookTitle'>$title</div>";
 					$bookOutput .= "</div>";
 					
@@ -2474,8 +2467,7 @@ EOT;
 			
 			if ($icon != "") 
 			{
-				$output .= $this->MakeIconTag($icon, "esocolsprite", "ecdCollectSprite");
-				//$output .= "<img src='$iconUrl'><br />";
+				$output .= $this->MakeIconTag($icon, "ecdCollectSprite");
 			}
 			
 			$output .= "$name";
@@ -2589,8 +2581,7 @@ EOT;
 				
 				if ($icon) 
 				{
-					$iconHtml = $this->MakeIconTag($icon, "esohousesprite", "ecdHouseSprite");
-					//$iconHtml = "<img src='" . MakeEsoIconLink($icon) . "'>";
+					$iconHtml = $this->MakeIconTag($icon, "ecdHouseSprite");
 				}
 				
 				$image = $houseData['image'];
@@ -2668,8 +2659,7 @@ EOT;
 				
 				if ($icon) 
 				{
-					$iconHtml = $this->MakeIconTag($icon, "esodlcsprite", "ecdDlcSprite");
-					//$iconHtml = "<img src='" . MakeEsoIconLink($icon) . "'>";
+					$iconHtml = $this->MakeIconTag($icon, "ecdDlcSprite");
 				}
 				
 				$image = $dlc['image'];
@@ -2857,8 +2847,7 @@ EOT;
 					
 					if ($icon != "") 
 					{
-						$outfitOutput .= $this->MakeIconTag($icon, "esooutfitsprite", "ecdOutfitSprite");
-						//$outfitOutput .= "<img src='$iconUrl'><br />";
+						$outfitOutput .= $this->MakeIconTag($icon, "ecdOutfitSprite");
 					}
 					$outfitOutput .= "</div>";
 					
