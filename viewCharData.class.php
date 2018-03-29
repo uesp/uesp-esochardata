@@ -584,7 +584,7 @@ EOT;
 				$questObj = $this->escape($questData['objective']);
 				$name = $this->escape($questData['name']);
 				$complete = $questData['complete'];
-				$journal = $this->escape($questData['journal']);
+				$journal = $this->escapeAttr($questData['journal']);
 				$imageHtml = "";
 				$extraClass = "";
 				if ($questData['completed'] == 0) $extraClass = "ecdQuestMissing";
@@ -598,10 +598,13 @@ EOT;
 					$imageHtml = "<img src='{$this->baseResourceUrl}resources/journal_quest_group_instance.png'>";
 				}
 				
+				$tooltip = "$questId: $journal";
+				$extraClass .= " ecdQuestTooltip"; 
+				
 				if ($questObj != "")
-					$zoneOutput .= "<div class='ecdQuestName1 $extraClass' title='$journal'>$imageHtml$name ($questObj)</div>";
+					$zoneOutput .= "<div class='ecdQuestName1 $extraClass' tooltip='$tooltip' questid='$questId'>$imageHtml$name ($questObj)</div>";
 				else
-					$zoneOutput .= "<div class='ecdQuestName1 $extraClass' title='$journal'>$imageHtml$name</div>";
+					$zoneOutput .= "<div class='ecdQuestName1 $extraClass' tooltip='$tooltip' questid='$questId'>$imageHtml$name</div>";
 			}
 			
 			if ($zoneOutput != "")
@@ -782,20 +785,12 @@ EOT;
 		$rightOutput .= "</div>";
 		
 		$rightOutput .= "<div class='ecdQuestDetail ecdScrollContent' style='display: none;' id='ecdQuestJournalCompleted' journalindex='Completed'>";
-		$rightOutput .= "<div class='ecdQuestDetailSearch' id='ecdQuestCompleteSearchForm'>";
-		$rightOutput .= "<input type='text' size='10' maxlength='32' id='ecdQuestCompleteSearchText' placeholder='Find Quest'/>";
-		$rightOutput .= "<button onclick='OnEsoCharDataSearchCompletedQuests();'>Find...</button>";
-		$rightOutput .= "</div>";
 		$rightOutput .= "<div class='ecdQuestDetailTitle'>COMPLETED QUESTS</div>";
 		$rightOutput .= "This character has completed $numCompletedQuests unique quests.<p/>";
 		$rightOutput .= $this->GetAllQuestContentHtml($allQuests, true, false);
 		$rightOutput .= "</div>";
 		
 		$rightOutput .= "<div class='ecdQuestDetail ecdScrollContent' style='display: none;' id='ecdQuestJournalMissing' journalindex='Missing'>";
-		$rightOutput .= "<div class='ecdQuestDetailSearch' id='ecdQuestMissingSearchForm'>";
-		$rightOutput .= "<input type='text' size='10' maxlength='32' id='ecdQuestMissingSearchText' placeholder='Find Quest'/>";
-		$rightOutput .= "<button onclick='OnEsoCharDataSearchMissingQuests();'>Find...</button>";
-		$rightOutput .= "</div>";
 		$rightOutput .= "<div class='ecdQuestDetailTitle'>MISSING QUESTS</div>";
 		$rightOutput .= "This character is missing $numMissingQuests quests.<p/>";
 		$rightOutput .= $this->GetAllQuestContentHtml($allQuests, false, true);
@@ -1327,6 +1322,7 @@ EOT;
 				$count = $chapterData[$name]['count'] ?: 0;
 				$totalCount += $count;
 				$title = implode(", ", $chapterData[$name]['known']) . "\n\nUnknown: " . implode(", ", $chapterData[$name]['unknown']);
+				$title = $this->escapeAttr($title);
 				$output .= "<td title='$title'>$count</td>";
 			}
 			
@@ -1710,6 +1706,7 @@ EOT;
 				$count = $traitData[$trait]['count'] ? : 0;
 				$totalCount += $count;
 				$title = implode(", ", $traitData[$trait]['known']) . "\n\nUnknown: " . implode(", ", $traitData[$trait]['unknown']);
+				$title = $this->escapeAttr($title);
 				$output .= "<td title='$title'>$count</td>";
 			}
 			
@@ -1742,6 +1739,7 @@ EOT;
 				$count = $traitData[$trait]['count'] ? : 0;
 				$totalCount += $count;
 				$title = implode(", ", $traitData[$trait]['known']). "\n\nUnknown: " . implode(", ", $traitData[$trait]['unknown']);
+				$title = $this->escapeAttr($title);
 				$output .= "<td title='$title'>$count</td>";
 			}
 				
@@ -1777,6 +1775,7 @@ EOT;
 				$count = $traitData[$trait]['count'] ? : 0;
 				$totalCount += $count;
 				$title = implode(", ", $traitData[$trait]['known']). "\n\nUnknown: " . implode(", ", $traitData[$trait]['unknown']);
+				$title = $this->escapeAttr($title);
 				$output .= "<td title='$title'>$count</td>";
 			}
 				
@@ -1810,6 +1809,7 @@ EOT;
 				$count = $traitData[$trait]['count'] ? : 0;
 				$totalCount += $count;
 				$title = implode(", ", $traitData[$trait]['known']). "\n\nUnknown: " . implode(", ", $traitData[$trait]['unknown']);
+				$title = $this->escapeAttr($title);
 				$output .= "<td title='$title'>$count</td>";
 			}
 				
@@ -1842,6 +1842,7 @@ EOT;
 				$count = $traitData[$trait]['count'] ? : 0;
 				$totalCount += $count;
 				$title = implode(", ", $traitData[$trait]['known']). "\n\nUnknown: " . implode(", ", $traitData[$trait]['unknown']);
+				$title = $this->escapeAttr($title);
 				$output .= "<td title='$title'>$count</td>";
 			}
 		
