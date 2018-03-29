@@ -2752,7 +2752,6 @@ thead.ecdFixedHeader tr {
 	vertical-align: middle;
 	width: 32px;
 }
-
 .ecdBookTitle {
 	vertical-align: middle;
 	display: inline-block;
@@ -3251,6 +3250,62 @@ thead.ecdFixedHeader tr {
 #ecdInventory .ecdAsyncLoad,
 #ecdBank .ecdAsyncLoad,
 #ecdCraft .ecdAsyncLoad,
-#ecdAccountInv .ecdAsyncLoad
+#ecdAccountInv .ecdAsyncLoad {
 	height: 270px !important;
 }
+
+.ecdBookSprite {
+	background-repeat: no-repeat;
+	display: inline-block;
+    vertical-align: middle;
+    width: 32px;
+    height: 32px;
+    background-position: 0 0;
+    background-size: 32px 32px;
+}
+
+.ecdHouseSprite, 
+.ecdDlcSprite {
+	background-repeat: no-repeat;
+	display: inline-block;
+    vertical-align: middle;
+    width: 32px;
+    height: 32px;
+    background-position: 0 0;
+    background-size: 32px 32px;
+}
+
+.ecdCollectSprite {
+	background-repeat: no-repeat;
+    vertical-align: middle;
+    width: 64px;
+    height: 64px;
+    background-position: 0 0;
+    background-size: 64px 64px;
+	margin: 0 auto;
+}
+
+.ecdOutfitSprite {
+	background-repeat: no-repeat;
+	display: inline-block;
+    vertical-align: middle;
+    width: 46px;
+    height: 46px;
+    background-position: 0 0;
+    background-size: 46px 46px;
+}
+
+.ecdAchIcon {
+	background-repeat: no-repeat;
+	display: inline-block;
+    vertical-align: middle;
+    width: 48px;
+    height: 48px;
+    background-position: 0 0;
+    background-size: 48px 48px;
+    left: 2px;
+    top: 2px;
+    position: relative;
+	float: left;
+}
+

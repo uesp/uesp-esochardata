@@ -46,6 +46,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		$this->hasAchievementOutput  = true;
 		
 		$this->achievements = new CEsoViewAchievements(false);
+		$this->achievements->useSprites = $this->useSprites;
 	}
 	
 	
@@ -2395,7 +2396,8 @@ EOT;
 					}
 					
 					$bookOutput  = "<div class='ecdBookLine $knownClass' bookid='$bookId'>";
-					$bookOutput .= "<img src='$iconUrl'>";
+					$bookOutput .= $this->MakeIconTag($icon, "esobooksprite", "ecdBookSprite");
+					//$bookOutput .= "<img src='$iconUrl'>";
 					$bookOutput .= " <div class='ecdBookTitle'>$title</div>";
 					$bookOutput .= "</div>";
 					
@@ -2469,7 +2471,13 @@ EOT;
 			}
 			
 			$output .= "<div class='ecdCollectible $knownClass eso_item_link' collectid='$collectibleId'>";
-			if ($icon != "") $output .= "<img src='$iconUrl'><br />";
+			
+			if ($icon != "") 
+			{
+				$output .= $this->MakeIconTag($icon, "esocolsprite", "ecdCollectSprite");
+				//$output .= "<img src='$iconUrl'><br />";
+			}
+			
 			$output .= "$name";
 			$output .= "</div>";			
 		}
@@ -2578,7 +2586,13 @@ EOT;
 				$desc = preg_replace("/`/", "'", $houseData['desc']);
 				$icon = $houseData['icon'];
 				$iconHtml = "";
-				if ($icon) $iconHtml = "<img src='" . MakeEsoIconLink($icon) . "'>"; 
+				
+				if ($icon) 
+				{
+					$iconHtml = $this->MakeIconTag($icon, "esohousesprite", "ecdHouseSprite");
+					//$iconHtml = "<img src='" . MakeEsoIconLink($icon) . "'>";
+				}
+				
 				$image = $houseData['image'];
 				
 				$knownClass = "";			
@@ -2651,7 +2665,13 @@ EOT;
 				$desc = preg_replace("/`/", "'", $dlc['desc']);
 				$icon = $dlc['icon'];
 				$iconHtml = "";
-				if ($icon) $iconHtml = "<img src='" . MakeEsoIconLink($icon) . "'>"; 
+				
+				if ($icon) 
+				{
+					$iconHtml = $this->MakeIconTag($icon, "esodlcsprite", "ecdDlcSprite");
+					//$iconHtml = "<img src='" . MakeEsoIconLink($icon) . "'>";
+				}
+				
 				$image = $dlc['image'];
 				
 				$knownClass = "";			
@@ -2834,7 +2854,12 @@ EOT;
 					
 					$outfitOutput = "";
 					$outfitOutput .= "<div class='ecdOutfit $knownClass eso_item_link' collectid='$collectibleId'>";
-					if ($icon != "") $outfitOutput .= "<img src='$iconUrl'><br />";
+					
+					if ($icon != "") 
+					{
+						$outfitOutput .= $this->MakeIconTag($icon, "esooutfitsprite", "ecdOutfitSprite");
+						//$outfitOutput .= "<img src='$iconUrl'><br />";
+					}
 					$outfitOutput .= "</div>";
 					
 					$outfitData[$outfitType][] = $outfitOutput;

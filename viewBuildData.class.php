@@ -35,6 +35,7 @@ class EsoBuildDataViewer
 	public $hasLoadedCharacter	  = false; 
 	public $enableCaching 		  = false;
 	public $useAsyncLoad		  = true;
+	public $useSprites			  = true;
 	
 	public $currentCharacterPage = 0;
 	public $totalCharacterCount = 0;
@@ -4218,6 +4219,32 @@ EOT;
 	{
 		$output = "<div class='ecdAsyncLoad'>Loading...</div>";
 
+		return $output;
+	}
+	
+	
+	public function MakeIconTag($icon, $spriteClass, $extraClass = "")
+	{
+		if (!$this->useSprites)	
+		{
+			$output = "<img src='" . MakeEsoIconLink($icon) . "' ";
+			if ($extraClass) $output .= "class='$extraClass' ";
+			$output .= "/>";
+			return $output;
+		}
+				
+			/* Use background div to let images load only when first displayed */
+		$iconUrl = MakeEsoIconLink($icon);
+		$output = "<div class='$extraClass' style=\"background-image: url('$iconUrl');\" ></div>";
+		return $output;
+		
+		
+			/* Normal CSS sprites */
+ 		$imageParts = pathinfo($icon);
+ 		$imageFilename = $imageParts['filename'];
+		
+		$output = "<div class='$spriteClass-$imageFilename $extraClass'></div>";
+		
 		return $output;
 	}
 	
