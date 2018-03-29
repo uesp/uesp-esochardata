@@ -1600,7 +1600,7 @@ function AddEsoCharDataAsyncHandlers(parent)
 	$parent.find(".ecdCollectibleCategory").first().trigger("click");
 	$parent.find(".ecdQuestZoneTitle").first().trigger("click");
 	 	
-	if (!DoesEsoItemLinkHaveEvent() || !parent.is($(document))) $parent.find('.eso_item_link').hover(OnEsoItemLinkEnter, OnEsoItemLinkLeave);
+	if (!DoesEsoItemLinkHaveEvent() || !$parent.is($(document))) $parent.find('.eso_item_link').hover(OnEsoItemLinkEnter, OnEsoItemLinkLeave);
 }
 
 

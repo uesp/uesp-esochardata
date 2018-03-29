@@ -149,7 +149,7 @@ class EsoBuildDataViewer
 	
 	public function escapeAttr($input)
 	{
-		$output = htmlspecialchars($input, ENT_COMPAT, 'UTF-8');
+		$output = htmlspecialchars($input, ENT_IGNORE, 'UTF-8');
 		return str_replace('"', '\"', $output);
 	}
 	

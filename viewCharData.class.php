@@ -455,6 +455,82 @@ EOT;
 	}
 	
 	
+	public function GetQuestCategoryFromType($questType, $questZone)
+	{
+		if ($questType == 13)
+		{
+			$questZone = "Battleground";
+		}
+		else if ($questType == 2)
+		{
+			$questZone = "Main Quest";
+		}
+		else if ($questType == 12)
+		{
+			$questZone = "Holiday Event";
+		}
+		else if ($questType == 4)
+		{
+			$questZone = "Crafting";
+		}
+		else if ($questType == 7 || $questType == 10 || $questType == 11)
+		{
+			$questZone = "Cyrodiil";
+		}
+		else if ($questZone == "") 
+		{
+			if ($questType == 5)
+				$questZone = "Dungeon";
+			elseif ($questType == 3)
+				$questZone = "Guild";
+			elseif ($questType == 9)
+				$questZone = "QA Test";
+			else
+				$questZone = "Other";
+		}
+		
+		return $questZone;
+	}
+	
+	
+	public function FindQuestIdFromQuestData($allQuestData, $targetName, $targetZone, $targetType)
+	{
+		$foundQuestIds = array();
+		
+		$targetZone = $this->GetQuestCategoryFromType($targetType, $targetZone);
+		
+		$zoneData = $allQuestData[$targetZone];
+		if ($zoneData == null) return -1;
+		
+		foreach ($zoneData as $questId => $questData)
+		{
+			if ($questData['name'] != $targetName) continue;
+			if ($questData['type'] != $targetType) continue;
+			if ($questData['complete'] == 0) return $questId;
+			
+			$foundQuestIds[] = $questId;
+		}
+		
+		if ($foundQuestIds[0] != null) return $foundQuestIds[0];
+		
+		foreach ($allQuestData as $questZone => $zoneData)
+		{
+			foreach ($zoneData as $questId => $questData)
+			{
+				if ($questData['name'] != $targetName) continue;
+				if ($questData['type'] != $targetType) continue;
+				if ($questData['complete'] == 0) return $questId;
+				$foundQuestIds[] = $questId;
+			}
+		}
+		
+		if ($foundQuestIds[0] != null) return $foundQuestIds[0];
+		
+		//error_log("FindQuestIdFromQuestData: No Matches! $targetName, $targetZone, $targetType");
+		return -1;
+	}
+	
+	
 	public function GetCharAllQuestData(&$numAllQuests, &$numMissingQuests)
 	{
 		global $ESO_QUEST_DATA;
@@ -470,28 +546,8 @@ EOT;
 			
 			$questType = $questData['type'];
 			$questZone = $questData['zone'];
+			$questZone = $this->GetQuestCategoryFromType($questType, $questZone);
 			
-			if ($questType == 13)
-			{
-				$questZone = "Battleground";
-			}
-			else if ($questType == 2)
-			{
-				$questZone = "Main Quest";
-			}
-			else if ($questType == 12)
-			{
-				$questZone = "Holiday Event";
-			}
-			else if ($questType == 4)
-			{
-				$questZone = "Crafting";
-			}
-			else if ($questZone == "") 
-			{
-				$questZone = "Other";
-			}
-		
 			$resultData[$questZone][$questId] = array(
 					"id" => $questId,
 					"zone" => $questZone,
@@ -513,30 +569,10 @@ EOT;
 			$questType = $questData[2];
 			$questZone = $questData[3];
 			$questObjective = $questData[4];
-						
-			if ($questType == 13)
-			{
-				$questZone = "Battleground";
-			}
-			else if ($questType == 2)
-			{
-				$questZone = "Main Quest";
-			}
-			else if ($questType == 12)
-			{
-				$questZone = "Holiday Event";
-			}
-			else if ($questType == 4)
-			{
-				$questZone = "Crafting";
-			}
-			else if ($questZone == "") 
-			{
-				$questZone = "Other";
-			}
-			
+			$questZone = $this->GetQuestCategoryFromType($questType, $questZone);
+
 			if ($resultData[$questZone] == null) $resultData[$questZone] = array();
-			if ($resultData[$questZone][$questId] == null)$resultData[$questZone][$questId] = array();
+			if ($resultData[$questZone][$questId] == null) $resultData[$questZone][$questId] = array();
 		
 			$resultData[$questZone][$questId]["id"] = $questId;
 			$resultData[$questZone][$questId]["zone"] = $questZone;
@@ -545,6 +581,26 @@ EOT;
 			$resultData[$questZone][$questId]["index"] = $index;
 			$resultData[$questZone][$questId]["objective"] = $questObjective;
 			$resultData[$questZone][$questId]["completed"] = 1;
+		}
+		
+		$numJournalQuests = $this->getCharStatField("NumJournalQuests", 0);
+	
+		for ($i = 1; $i <= $numJournalQuests; ++$i)
+		{
+			$prefix = "Journal:$i";
+
+			$questName = $this->getCharStatField("$prefix:Name");
+			$questType = $this->getCharStatField("$prefix:Type");
+			$questZone = $this->getCharStatField("$prefix:Zone");
+			$questZone = $this->GetQuestCategoryFromType($questType, $questZone);
+			
+			$questId = $this->FindQuestIdFromQuestData($resultData, $questName, $questZone, $questType);
+			if ($questId < 0) continue;
+			
+			if ($resultData[$questZone] == null) $resultData[$questZone] = array();
+			if ($resultData[$questZone][$questId] == null) $resultData[$questZone][$questId] = array();
+			
+			if ($resultData[$questZone][$questId]["completed"] == 0) $resultData[$questZone][$questId]["completed"] = -1;			
 		}
 		
 		ksort($resultData);
@@ -571,13 +627,15 @@ EOT;
 		foreach ($allQuests as $questZone => $zoneData)
 		{
 			$questZone = strtoupper($questZone);
-			$questCount = count($zoneData);
+			$questCount = 0;
 			$zoneOutput = "";
 						
 			foreach ($zoneData as $questId => $questData)
 			{
 				if (!$showComplete && $questData['completed'] == 1) continue;
-				if (!$showMissing && $questData['completed'] == 0) continue;
+				if (!$showMissing && $questData['completed'] != 1) continue;
+				
+				++$questCount;
 				
 				$questId = $questData['id'];
 				$questType = $questData['type'];
@@ -586,8 +644,19 @@ EOT;
 				$complete = $questData['complete'];
 				$journal = $this->escapeAttr($questData['journal']);
 				$imageHtml = "";
-				$extraClass = "";
-				if ($questData['completed'] == 0) $extraClass = "ecdQuestMissing";
+				
+				$tooltip = "$questId: $journal";
+				$extraClass = "ecdQuestTooltip ";
+				
+				if ($questData['completed'] == 0)
+				{
+					$extraClass .= "ecdQuestMissing ";
+				}
+				elseif ($questData['completed'] == -1)
+				{
+					$tooltip = "$questId: (In Progress) $journal";
+					$extraClass .= "ecdQuestInProgress ";
+				}
 				
 				if ($questType == 1)
 				{
@@ -597,9 +666,6 @@ EOT;
 				{
 					$imageHtml = "<img src='{$this->baseResourceUrl}resources/journal_quest_group_instance.png'>";
 				}
-				
-				$tooltip = "$questId: $journal";
-				$extraClass .= " ecdQuestTooltip"; 
 				
 				if ($questObj != "")
 					$zoneOutput .= "<div class='ecdQuestName1 $extraClass' tooltip='$tooltip' questid='$questId'>$imageHtml$name ($questObj)</div>";
@@ -645,27 +711,7 @@ EOT;
 			$questText = $this->getCharStatField("$prefix:Text");
 			$questType = $this->getCharStatField("$prefix:Type");
 			$questZone = $this->getCharStatField("$prefix:Zone");
-			
-			if ($questType == 13)
-			{
-				$questZone = "Battleground";
-			}
-			else if ($questType == 2)
-			{
-				$questZone = "Main Quest";
-			}
-			else if ($questType == 12)
-			{
-				$questZone = "Holiday Event";
-			}
-			else if ($questType == 4)
-			{
-				$questZone = "Crafting";
-			}
-			else if ($questZone == "") 
-			{
-				$questZone = "Other";
-			}
+			$questZone = $this->GetQuestCategoryFromType($questType, $questZone);
 			
 			if ($questTree[$questZone] == null) $questTree[$questZone] = array();
 			$questTree[$questZone][] = array("name" => $questName, "index" => $i, "type" => $questType, "repeat" => $repeatType);
