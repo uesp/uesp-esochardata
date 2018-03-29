@@ -2519,6 +2519,10 @@ thead.ecdFixedHeader tr {
 	color: #777 !important;
 }
 
+.ecdQuestInProgress {
+	color: #393 !important;
+}
+
 .ecdQuestCountTitle {
 	font-size: 20px;
     font-weight: bold;
@@ -2635,6 +2639,7 @@ thead.ecdFixedHeader tr {
 	background-color: black;
 	position: absolute;
     right: 40px;
+    z-index: 200;
 }
 
 #ecdQuestAllSearchForm button,
