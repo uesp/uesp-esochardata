@@ -2487,8 +2487,7 @@ thead.ecdFixedHeader tr {
 .ecdQuestZoneList1 {
 }
 
-.ecdQuestZoneList .ecdQuestName, 
-.ecdQuestZoneList1 .ecdQuestName1 {
+.ecdQuestZoneList .ecdQuestName {
 	font-size: 15px;
     font-weight: bold;
     color: yellow;
@@ -2498,6 +2497,21 @@ thead.ecdFixedHeader tr {
     border-radius: 10px;
 	margin-left: 15px;
     white-space: nowrap;
+}
+
+.ecdQuestZoneList1 .ecdQuestName1 {
+	font-size: 15px;
+    font-weight: bold;
+    color: yellow;
+    padding: 0px;
+    padding-left: 10px;
+    border-radius: 10px;
+	margin-left: 15px;
+    white-space: nowrap;
+}
+
+.ecdQuestMissing {
+	color: #777 !important;
 }
 
 .ecdQuestCountTitle {

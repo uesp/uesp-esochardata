@@ -4,7 +4,6 @@
 require_once("/home/uesp/secrets/esobuilddata.secrets");
 require("/home/uesp/secrets/esolog.secrets");
 require_once("/home/uesp/esolog.static/esoCommon.php");
-require_once("/home/uesp/esolog.static/esoRecipeData.php");
 require_once("/home/uesp/esolog.static/viewCps.class.php");
 
 
@@ -2259,174 +2258,13 @@ class EsoBuildDataViewer
 	
 	public function getCharSkillRecipeContentHtml()
 	{
-		global $ESO_RECIPELIST_INFO;
-		
-		$totalCount = $this->getCharStatField("RecipeTotalCount", 0);
-		$knownCount = $this->getCharStatField("RecipeKnownCount", 0);
-		
-		$output  = "<div id='ecdSkill_Recipes' class='ecdSkillData ecdScrollContent' style='display: none;'>\n";
-		$output .= "<div class='ecdSkillRecipesSearchBlock' id='ecdSkillRecipesSearchBlock'>";
-		$output .= "<input type='text' size='10' maxlength='32' id='ecdSkillRecipesSearchInput' placeholder='Find Recipes'/>";
-		$output .= "<button onclick='OnEsoCharDataSearchRecipe();'>Find...</button>";
-		$output .= "</div>";
-		$output .= "<div id='ecdSkillContentTitle'>Recipes<small> ($knownCount / $totalCount Known)</small></div>";
-		$output .= "<br/>";
-		
-		$knownRecipes = $this->getCharRecipeData();
-		$allRecipes = $this->createAllRecipeData($knownRecipes);
-		//$allRecipes = $knownRecipes;
-		
-		foreach ($ESO_RECIPELIST_INFO as $recipeListIndex => $listInfo)
-		{
-			$listCount = $listInfo[0];
-			$listName = $listInfo[1];
-			$listIcon = $listInfo[2];
-			$listQuality = $listInfo[3];
-			$qualityClass = "";
-			$knownCount = 0;
-			if ($listQuality >= 1 && $listQuality <= 5) $qualityClass = "ecdItemQuality$listQuality";
-			
-			if ($allRecipes[$listName] == null) continue;
-			
-			usort($allRecipes[$listName], array("EsoBuildDataViewer", "SortRecipeListByName"));
-			
-			foreach ($allRecipes[$listName] as $resultId => $recipeData)
-			{
-				if ($recipeData['known']) ++$knownCount;
-			}
-			
-			if ($listCount == 0) $listCount = "?";
-			$output .= "<div class='ecdRecipeTitle'>$listName ($knownCount / $listCount Known)<div class='ecdRecipeTitleArrow'>&#9660;</div></div>";
-			$output .= "<div class='ecdRecipeList' style='display: none;'>";
-			
-			foreach ($allRecipes[$listName] as $resultId => $recipeData)
-			{
-				$name = $recipeData['name'];
-				$known = $recipeData['known'];
-				$itemId = $recipeData['recipe'];
-				$quality = $recipeData['quality'];
-				$extraClass = "";
-				if ($known) $extraClass = "ecdRecipeKnown";
-				
-				if ($quality >= 1 && $quality <= 5) 
-					$qualityClass = "ecdItemQuality$quality";
-				else
-					$qualityClass = "ecdItemQuality$listQuality";
-				
-				if ($itemId == null || $itemId <= 0) $itemId = $recipeData['result'];
-				
-				$output .= "<div class='ecdRecipeItem eso_item_link $extraClass $qualityClass' itemid='$itemId' inttype='1' intlevel='1'>$name</div>";
-			}
-			
-			$output .= "</div>";
-		}
-		
-		$output .= "</div>";
-		return $output;
+		return "";
 	}
 	
 	
 	public function getCharSkillMotifContentHtml()
 	{
-		$output  = "<div id='ecdSkill_Motifs' class='ecdSkillData ecdScrollContent' style='display: none;'>\n";
-		$output .= "<div id='ecdSkillContentTitle'>Crafting Motifs</div>";
-		$output1 = "";
-		
-		$craftData = array();
-		
-		foreach ($this->characterData['stats'] as $key => $value)
-		{
-			$matches = array();
-			$result = preg_match("/Crafting:(.*)/", $key, $matches);
-			if ($result == 0) continue; 
-
-			$styleName = $matches[1];
-			$rawData = $value['value'];
-			$rawValues = explode(',', $rawData);
-			$styleData = '';
-			$unknownChapters = "";
-			$knownCount = 0;
-			$unknownCount = 14;
-			
-			if ($styleName == "Akatosh") continue;
-			if ($styleName == "Grim Arlequin") $styleName = "Grim Harlequin";
-			
-			$craftData[$styleName] = array();
-			
-			if (count($rawValues) > 1)
-			{
-				$styleArray = array();
-				$unknownArray = array();
-				
-				for ($i = 0; $i < 14; ++$i)
-				{
-					$name = $this->ESO_MOTIF_CHAPTERNAMES[$i];
-					
-					if ($rawValues[$i] == 1)
-					{
-						$styleArray[] = $name;
-						$craftData[$styleName][$name] = true;
-					}
-					else
-					{
-						$unknownArray[] = $name;
-						$craftData[$styleName][$name] = false;
-					}					
-				}
-				
-				$styleData = implode(', ', $styleArray);
-				$unknownChapters = implode(', ', $unknownArray);
-				$unknownCount = count($unknownArray);
-				$knownCount = 14 - $unknownCount;
-			}
-			elseif ($rawData == '1')
-			{
-				$styleData = 'All Known';
-				$knownCount = 14;
-				$unknownCount = 0;
-								
-				foreach ($this->ESO_MOTIF_CHAPTERNAMES as $name)
-				{
-					$craftData[$styleName][$name] = true;
-				}
-			}
-			elseif ($rawData == '0')
-			{
-				$styleData = 'None Known';
-				$unknownChapters =  implode(', ', $this->ESO_MOTIF_CHAPTERNAMES);
-				$knownCount = 0;
-				$unknownCount = 14;
-				
-				foreach ($this->ESO_MOTIF_CHAPTERNAMES as $name)
-				{
-					$craftData[$styleName][$name] = false;
-				}
-			}
-			else
-			{
-				continue;
-			}
-			
-			$extraClass = "";
-			$tooltip = "";
-				
-			if ($unknownChapters != "")
-			{
-				$tooltip = " tooltip='" . $unknownChapters . "'";
-				$extraClass = "ecdTraitTooltip ecdMotifTooltip";
-			}
-							
-			$output1 .= "<div class='ecdSkillDataBox ecdClickToCopyTooltip $extraClass' $tooltip>\n";
-			$output1 .= "<div class='ecdSkillNameCraft'>$styleName:</div>";
-			$output1 .= "<div class='ecdSkillValueCraft'>($knownCount/14) $styleData</div>";
-			$output1 .= "</div>\n";
-		}
-		
-		$output .= $this->getCharSkillMotifTableHtml($craftData);
-		$output .= "<p/><br/>";
-		$output .= $output1;
-		$output .= "</div>\n";
-		return $output;
+		return "";
 	}
 	
 	
