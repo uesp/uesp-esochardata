@@ -3069,7 +3069,7 @@ EOT;
 		$output .= "<input type='text' size='10' maxlength='32' id='ecdSkillRecipesSearchInput' placeholder='Find Recipes'/>";
 		$output .= "<button onclick='OnEsoCharDataSearchRecipe();'>Find...</button>";
 		$output .= "</div>";
-		$output .= "<div id='ecdSkillContentTitle'>Recipes<small> ($knownCount / $totalCount Known)</small></div>";
+		$output .= "<div class='ecdSkillContentTitle'>Recipes<small> ($knownCount / $totalCount Known)</small></div>";
 		$output .= "<br/>";
 		
 		$knownRecipes = $this->getCharRecipeData();
@@ -3126,10 +3126,98 @@ EOT;
 	}
 	
 	
+	public function getCharSkillHirelingsContentHtml() 
+	{
+		$blackHireling = intval($this->getCharStatField('HirelingMailTime:Blacksmithing', 0));
+		$clothHireling = intval($this->getCharStatField('HirelingMailTime:Clothier', 0));
+		$enchantHireling = intval($this->getCharStatField('HirelingMailTime:Enchanting', 0));
+		$provHireling = intval($this->getCharStatField('HirelingMailTime:Provisioning', 0));
+		$woodHireling = intval($this->getCharStatField('HirelingMailTime:Woodworking', 0));
+			
+		$blackSkill = intval($this->getCharStatField('HirelingSkill:Blacksmithing', 0));
+		$clothSkilll = intval($this->getCharStatField('HirelingSkill:Clothier', 0));
+		$enchantSkill = intval($this->getCharStatField('HirelingSkill:Enchanting', 0));
+		$provSkill = intval($this->getCharStatField('HirelingSkill:Provisioning', 0));
+		$woodSkill = intval($this->getCharStatField('HirelingSkill:Woodworking', 0));
+		
+		$blackTime = (($blackSkill >= 3) ? 12 : 24) * 3600 + $blackHireling;
+		$clothTime = (($clothSkilll >= 3) ? 12 : 24) * 3600 + $clothHireling;
+		$enchantTime = (($enchantSkill >= 3) ? 12 : 24) * 3600 + $enchantHireling;
+		$provTime = (($provSkill >= 3) ? 12 : 24) * 3600 + $provHireling;
+		$woodTime = (($woodSkill >= 3) ? 12 : 24) * 3600 + $woodHireling;
+		
+		$currentTime = time(); 
+		
+		$blackTimeFmt = "None";
+		$clothTimeFmt = "None";
+		$enchantTimeFmt = "None";
+		$provTimeFmt = "None";
+		$woodTimeFmt = "None";
+		
+		$blackHireLevel = str_repeat("I", $blackSkill);
+		$clothHireLevel = str_repeat("I", $clothSkilll);
+		$enchantHireLevel = str_repeat("I", $enchantSkill);
+		$provHireLevel = str_repeat("I", $provSkill);
+		$woodHireLevel = str_repeat("I", $woodSkill);
+		
+		if ($blackHireling > 0) 
+		{
+			if ($blackTime > $currentTime)
+				$blackTimeFmt = $this->formatTimeLeft($blackTime - $currentTime);
+			else
+				$blackTimeFmt = "Ready!";
+		}
+		
+		if ($clothHireling > 0)
+		{
+			if ($clothTime > $currentTime)
+				$clothTimeFmt = $this->formatTimeLeft($clothTime - $currentTime);
+			else
+				$clothTimeFmt = "Ready!";
+		}
+		
+		if ($enchantHireling > 0)
+		{
+			if ($enchantTime > $currentTime)
+				$enchantTimeFmt = $this->formatTimeLeft($enchantTime - $currentTime);
+			else
+				$enchantTimeFmt = "Ready!";
+		}
+		
+		if ($provHireling > 0)
+		{
+			if ($provTime > $currentTime)
+				$provTimeFmt = $this->formatTimeLeft($provTime - $currentTime);
+			else
+				$provTimeFmt = "Ready!";
+		}
+		
+		if ($woodHireling > 0)
+		{
+			if ($woodTime > $currentTime)
+				$woodTimeFmt = $this->formatTimeLeft($woodTime - $currentTime);
+			else
+				$woodTimeFmt = "Ready!";
+		}
+		
+		$output  = "<div id='ecdSkill_Hirelings' class='ecdSkillData ecdScrollContent' style='display: none;'>\n";
+		$output .= "<div class='ecdSkillContentTitle'>Craft Hirelings</div><br/>";
+		
+		$output .= "<div class='ecdHirelingTitle'>Blacksmithing $blackHireLevel:</div> <div class='ecdHirelingTime'>$blackTimeFmt</div><br/>";
+		$output .= "<div class='ecdHirelingTitle'>Clothing $clothHireLevel:</div> <div class='ecdHirelingTime'>$clothTimeFmt</div><br/>";
+		$output .= "<div class='ecdHirelingTitle'>Enchanting $enchantHireLevel:</div> <div class='ecdHirelingTime'>$enchantTimeFmt</div><br/>";
+		$output .= "<div class='ecdHirelingTitle'>Provisioning $provHireLevel:</div> <div class='ecdHirelingTime'>$provTimeFmt</div><br/>";
+		$output .= "<div class='ecdHirelingTitle'>Woodworking $woodHireLevel:</div> <div class='ecdHirelingTime'>$woodTimeFmt</div><br/>";
+		
+		$output .= "</div>";
+		return $output;
+	}
+	
+	
 	public function getCharSkillMotifContentHtml()
 	{
 		$output  = "<div id='ecdSkill_Motifs' class='ecdSkillData ecdScrollContent' style='display: none;'>\n";
-		$output .= "<div id='ecdSkillContentTitle'>Crafting Motifs</div>";
+		$output .= "<div class='ecdSkillContentTitle'>Crafting Motifs</div>";
 		$output1 = "";
 		
 		$craftData = array();

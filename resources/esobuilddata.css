@@ -697,7 +697,7 @@ tr.eso_item_link {
 	vertical-align: top;	
 }
 
-#ecdSkillContentTitle {
+.ecdSkillContentTitle {
     font-size: 24px;
     font-weight: bold;
     color: WHITE;
@@ -3360,4 +3360,20 @@ thead.ecdFixedHeader tr {
     left: 100px;
     position: absolute;
     z-index: 99;
+}
+
+.ecdHirelingTitle {
+	font-size: 20px;
+    font-weight: bold;
+    color: #C5C29E;
+    display: inline-block;
+    padding-top: 5px;
+    width: 150px;
+}
+
+.ecdHirelingTime {
+	font-size: 18px;
+    font-weight: bold;
+    color: white;
+    display: inline-block;
 }
