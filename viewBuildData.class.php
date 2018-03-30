@@ -2624,9 +2624,9 @@ class EsoBuildDataViewer
 		{
 			if ($this->hasResearchOutput)
 			{
-				$output .= "<div class='ecdSkillTreeName2'>Motifs</div>\n";
-				$output .= "<div class='ecdSkillTreeName2'>Research</div>\n";
 				$output .= "<div class='ecdSkillTreeName2'>Hirelings</div>\n";
+				$output .= "<div class='ecdSkillTreeName2'>Motifs</div>\n";
+				$output .= "<div class='ecdSkillTreeName2'>Research</div>\n";				
 			}
 			
 			if ($this->hasRecipeOutput) $output .= "<div class='ecdSkillTreeName2'>Recipes</div>\n";
