@@ -1122,6 +1122,22 @@ thead.ecdFixedHeader tr {
 .ecdItemTable {
 	border-collapse: collapse;
 	background: none;
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+}
+
+.ecdItemTable td,
+.ecdSkillMotifsTable td,
+.ecdSkillResearchTable td {
+	border: none !important;
+}
+
+.ecdItemTable th,
+.ecdSkillMotifsTable th,
+.ecdSkillResearchTable th {
+	border: none !important;
+	background: none !important;
+	background-color: transparent !important;
 }
 
 .ecdItemQuality0 { color: #888 !important; }
@@ -2192,6 +2208,7 @@ thead.ecdFixedHeader tr {
 	border-radius: 4px;
 	border: 1px solid #8a843e;
 	display: inline-block;
+	background-image: none;
 	cursor: pointer;
 	color: #000000;
 	font-family: "EsoFontStyle", Arial, sans-serif;
@@ -2252,6 +2269,7 @@ thead.ecdFixedHeader tr {
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 	border-radius: 4px;
+	background-image: none;
 	border: 1px solid #8a843e;
 	display: inline-block;
 	cursor: pointer;
@@ -2651,6 +2669,7 @@ thead.ecdFixedHeader tr {
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
+    background-image: none;
     border: 1px solid #8a843e;
     display: inline-block;
     cursor: pointer;
@@ -2703,6 +2722,7 @@ thead.ecdFixedHeader tr {
     padding-bottom: 0;
     margin-bottom: -7px;
     padding-top: 5px;
+	display: inline-block;
 }
 
 #ecdGuilds li {
