@@ -1232,6 +1232,7 @@ class EsoBuildDataViewer
 		$charNames = array();
 		
 		$charNames[-1] = "Bank";
+		$charNames[-2] = "Craft Bag";
 		$charNames[-7] = "Storage Coffer, Fortified";
 		$charNames[-8] = "Storage Chest, Fortified";
 		$charNames[-9] = "Storage Coffer, Oaken";
@@ -1939,7 +1940,7 @@ class EsoBuildDataViewer
 			foreach (self::$ARMOR_TRAITS as $trait)
 			{
 				$trait = str_replace("-fitted", "-Fitted", $trait);
-				$output .= "<th><div class='ecdSkillRotateHeader'>$trait</div></th>";	
+				$output .= "<th class='ecdSkillRotateHeader'><div><span>$trait</span></div></th>";	
 			}
 			
 			$output .= "<th></th></tr>";
@@ -1986,7 +1987,7 @@ class EsoBuildDataViewer
 				
 			foreach (self::$WEAPON_TRAITS as $trait)
 			{
-				$output .= "<th><div class='ecdSkillRotateHeader'>$trait</div></th>";
+				$output .= "<th class='ecdSkillRotateHeader'><div><span>$trait</span></div></th>";
 			}
 				
 			$output .= "</tr>";
@@ -2291,7 +2292,7 @@ class EsoBuildDataViewer
 		
 		foreach ($this->ESO_MOTIF_CHAPTERNAMES as $name)
 		{
-			$output .= "<th><div class='ecdSkillRotateHeader'>$name</div></th>";
+			$output .= "<th class='ecdSkillRotateHeader'><div><span>$name</span></div></th>";
 		}
 		
 		foreach ($craftData as $style => $styleData)
