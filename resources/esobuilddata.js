@@ -1626,13 +1626,16 @@ function FormatEsoTimeLeft(timeLeft)
 function UpdateEsoCharDataHirelingTime(index, element)
 {
 	var nowTime = Math.floor(Date.now() / 1000);
-	var baseTime = +$(this).attr("timestamp");
-	var skillLevel = +$(this).attr("skill");
+	var baseTime = $(this).attr("timestamp");
+	var skillLevel = $(this).attr("skill");
 	
-	if (baseTime <= 0 || skillLevel <= 0) return;
+	if (baseTime == null || skillLevel == null || baseTime <= 0 || skillLevel <= 0) return;
 	
+	baseTime = +baseTime;
+	skillLevel = +skillLevel;
+		
 	var newTime = ((skillLevel >= 3) ? 12 : 24) * 3600 + baseTime;
-	
+		
 	if (newTime > nowTime)
 		$(this).text(FormatEsoTimeLeft(newTime - nowTime));
 	else
@@ -1643,9 +1646,11 @@ function UpdateEsoCharDataHirelingTime(index, element)
 function UpdateEsoCharDataRidingTime(index, element)
 {
 	var nowTime = Math.floor(Date.now() / 1000);
-	var baseTime = +$(this).attr("timestamp");
+	var baseTime = $(this).attr("timestamp");
 	
-	if (baseTime <= 0) return;
+	if (baseTime == null || baseTime <= 0) return;
+	
+	baseTime = +baseTime;
 	
 	if (baseTime > nowTime)
 		$(this).text(FormatEsoTimeLeft(baseTime - nowTime));
@@ -1657,7 +1662,7 @@ function UpdateEsoCharDataRidingTime(index, element)
 function OnEsoCharDataTimeUpdate()
 {
 	$(".ecdHirelingTime").each(UpdateEsoCharDataHirelingTime);
-	$(".ecdRidingValue").each(UpdateEsoCharDataRidingTime);	
+	$(".ecdRidingTime").each(UpdateEsoCharDataRidingTime);	
 }
 
 

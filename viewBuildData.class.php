@@ -2174,11 +2174,11 @@ class EsoBuildDataViewer
 			
 			if ($ridingTimeDone < 0)
 			{
-				$output .= "<div class='ecdRidingStat'><div class='ecdRidingValue' timestamp='$ridingTimeDone'></div> ?</div>";
+				$output .= "<div class='ecdRidingStat'><div class='ecdRidingValue ecdRidingTime' timestamp='$ridingTimeDone'></div> ?</div>";
 			}
 			else if ($timeLeft <= 0)
 			{
-				$output .= "<div class='ecdRidingStat'><div class='ecdRidingValue' timestamp='$ridingTimeDone'></div> <img src='{$this->baseResourceUrl}resources/ridingskill_ready.png'>Ready to Train!</div>";
+				$output .= "<div class='ecdRidingStat'><div class='ecdRidingValue ecdRidingTime' timestamp='$ridingTimeDone'></div> <img src='{$this->baseResourceUrl}resources/ridingskill_ready.png'>Ready to Train!</div>";
 			}
 			else
 			{
@@ -2187,7 +2187,7 @@ class EsoBuildDataViewer
 				$seconds = $timeLeft % 60;
 				
 				$timeFmt = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
-				$output .= "<div class='ecdRidingStat'><div class='ecdRidingValue' timestamp='$ridingTimeDone'>$timeFmt</div> <img src='{$this->baseResourceUrl}resources/timer_64.png'> to Next Training!</div>";
+				$output .= "<div class='ecdRidingStat'><div class='ecdRidingValue ecdRidingTime' timestamp='$ridingTimeDone'>$timeFmt</div> <img src='{$this->baseResourceUrl}resources/timer_64.png'> to Next Training!</div>";
 			}
 		}
 		
@@ -2463,7 +2463,7 @@ class EsoBuildDataViewer
 		if ($skillData['type'] == 'passive') 
 		{
 			$className = 'ecdSkillPassiveIconBox';
-			$outputRank = '(' . $rank . ')';
+			$outputRank = '' . $rank . '';
 		}
 		
 		$output .= "<div class='$className ecdTooltipTrigger'>\n";
