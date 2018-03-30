@@ -1057,7 +1057,7 @@ EOT;
 			$woodHireling = intval($this->getAccountStatsField($charId, 'HirelingMailTime:Woodworking', 0));
 			
 			$blackSkill = intval($this->getAccountStatsField($charId, 'HirelingSkill:Blacksmithing', 0));
-			$clothSkilll = intval($this->getAccountStatsField($charId, 'HirelingSkill:Clothier', 0));
+			$clothSkill = intval($this->getAccountStatsField($charId, 'HirelingSkill:Clothier', 0));
 			$enchantSkill = intval($this->getAccountStatsField($charId, 'HirelingSkill:Enchanting', 0));
 			$provSkill = intval($this->getAccountStatsField($charId, 'HirelingSkill:Provisioning', 0));
 			$woodSkill = intval($this->getAccountStatsField($charId, 'HirelingSkill:Woodworking', 0));
@@ -1066,7 +1066,7 @@ EOT;
 			$timePlayedFmt = $this->formatTimeLeft($secondsPlayed);
 			
 			$blackTime = (($blackSkill >= 3) ? 12 : 24) * 3600 + $blackHireling;
-			$clothTime = (($clothSkilll >= 3) ? 12 : 24) * 3600 + $clothHireling;
+			$clothTime = (($clothSkill >= 3) ? 12 : 24) * 3600 + $clothHireling;
 			$enchantTime = (($enchantSkill >= 3) ? 12 : 24) * 3600 + $enchantHireling;
 			$provTime = (($provSkill >= 3) ? 12 : 24) * 3600 + $provHireling;
 			$woodTime = (($woodSkill >= 3) ? 12 : 24) * 3600 + $woodHireling;
@@ -3135,13 +3135,13 @@ EOT;
 		$woodHireling = intval($this->getCharStatField('HirelingMailTime:Woodworking', 0));
 			
 		$blackSkill = intval($this->getCharStatField('HirelingSkill:Blacksmithing', 0));
-		$clothSkilll = intval($this->getCharStatField('HirelingSkill:Clothier', 0));
+		$clothSkill = intval($this->getCharStatField('HirelingSkill:Clothier', 0));
 		$enchantSkill = intval($this->getCharStatField('HirelingSkill:Enchanting', 0));
 		$provSkill = intval($this->getCharStatField('HirelingSkill:Provisioning', 0));
 		$woodSkill = intval($this->getCharStatField('HirelingSkill:Woodworking', 0));
 		
 		$blackTime = (($blackSkill >= 3) ? 12 : 24) * 3600 + $blackHireling;
-		$clothTime = (($clothSkilll >= 3) ? 12 : 24) * 3600 + $clothHireling;
+		$clothTime = (($clothSkill >= 3) ? 12 : 24) * 3600 + $clothHireling;
 		$enchantTime = (($enchantSkill >= 3) ? 12 : 24) * 3600 + $enchantHireling;
 		$provTime = (($provSkill >= 3) ? 12 : 24) * 3600 + $provHireling;
 		$woodTime = (($woodSkill >= 3) ? 12 : 24) * 3600 + $woodHireling;
@@ -3155,7 +3155,7 @@ EOT;
 		$woodTimeFmt = "None";
 		
 		$blackHireLevel = str_repeat("I", $blackSkill);
-		$clothHireLevel = str_repeat("I", $clothSkilll);
+		$clothHireLevel = str_repeat("I", $clothSkill);
 		$enchantHireLevel = str_repeat("I", $enchantSkill);
 		$provHireLevel = str_repeat("I", $provSkill);
 		$woodHireLevel = str_repeat("I", $woodSkill);
@@ -3203,11 +3203,11 @@ EOT;
 		$output  = "<div id='ecdSkill_Hirelings' class='ecdSkillData ecdScrollContent' style='display: none;'>\n";
 		$output .= "<div class='ecdSkillContentTitle'>Craft Hirelings</div><br/>";
 		
-		$output .= "<div class='ecdHirelingTitle'>Blacksmithing $blackHireLevel:</div> <div class='ecdHirelingTime'>$blackTimeFmt</div><br/>";
-		$output .= "<div class='ecdHirelingTitle'>Clothing $clothHireLevel:</div> <div class='ecdHirelingTime'>$clothTimeFmt</div><br/>";
-		$output .= "<div class='ecdHirelingTitle'>Enchanting $enchantHireLevel:</div> <div class='ecdHirelingTime'>$enchantTimeFmt</div><br/>";
-		$output .= "<div class='ecdHirelingTitle'>Provisioning $provHireLevel:</div> <div class='ecdHirelingTime'>$provTimeFmt</div><br/>";
-		$output .= "<div class='ecdHirelingTitle'>Woodworking $woodHireLevel:</div> <div class='ecdHirelingTime'>$woodTimeFmt</div><br/>";
+		$output .= "<div class='ecdHirelingTitle'>Blacksmithing $blackHireLevel:</div> <div class='ecdHirelingTime' timestamp='$blackHireling' skill='$blackSkill'>$blackTimeFmt</div><br/>";
+		$output .= "<div class='ecdHirelingTitle'>Clothing $clothHireLevel:</div> <div class='ecdHirelingTime' timestamp='$clothHireling' skill='$clothSkill'>$clothTimeFmt</div><br/>";
+		$output .= "<div class='ecdHirelingTitle'>Enchanting $enchantHireLevel:</div> <div class='ecdHirelingTime' timestamp='$enchantHireling' skill='$enchantSkill'>$enchantTimeFmt</div><br/>";
+		$output .= "<div class='ecdHirelingTitle'>Provisioning $provHireLevel:</div> <div class='ecdHirelingTime' timestamp='$provHireling' skill='$provSkill'>$provTimeFmt</div><br/>";
+		$output .= "<div class='ecdHirelingTitle'>Woodworking $woodHireLevel:</div> <div class='ecdHirelingTime' timestamp='$woodHireling' skill='$woodSkill'>$woodTimeFmt</div><br/>";
 		
 		$output .= "</div>";
 		return $output;
