@@ -1599,8 +1599,65 @@ function AddEsoCharDataAsyncHandlers(parent)
 	$parent.find(".ecdBookCategory").first().trigger("click");
 	$parent.find(".ecdCollectibleCategory").first().trigger("click");
 	$parent.find(".ecdQuestZoneTitle").first().trigger("click");
-	 	
+		 	
 	if (!DoesEsoItemLinkHaveEvent() || !$parent.is($(document))) $parent.find('.eso_item_link').hover(OnEsoItemLinkEnter, OnEsoItemLinkLeave);
+}
+
+
+function FormatEsoTimeLeft(timeLeft)
+{
+	var days = Math.floor(timeLeft / 3600 / 24);
+	var hours = Math.floor(timeLeft / 3600) % 24;
+	var minutes = Math.floor(timeLeft / 60) % 60;
+	var seconds = timeLeft % 60;
+	var timeFmt = "";
+	
+	if (days > 1)
+		timeFmt = '' + days.toString() + ' days '+ hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0')
+	else if (days > 0)
+		timeFmt = '' + days.toString() + ' day '+ hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0')
+	else
+		timeFmt = '' + hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0')
+	
+	return timeFmt;
+}
+
+
+function UpdateEsoCharDataHirelingTime(index, element)
+{
+	var nowTime = Math.floor(Date.now() / 1000);
+	var baseTime = +$(this).attr("timestamp");
+	var skillLevel = +$(this).attr("skill");
+	
+	if (baseTime <= 0 || skillLevel <= 0) return;
+	
+	var newTime = ((skillLevel >= 3) ? 12 : 24) * 3600 + baseTime;
+	
+	if (newTime > nowTime)
+		$(this).text(FormatEsoTimeLeft(newTime - nowTime));
+	else
+		$(this).text("Ready!");
+}
+
+
+function UpdateEsoCharDataRidingTime(index, element)
+{
+	var nowTime = Math.floor(Date.now() / 1000);
+	var baseTime = +$(this).attr("timestamp");
+	
+	if (baseTime <= 0) return;
+	
+	if (baseTime > nowTime)
+		$(this).text(FormatEsoTimeLeft(baseTime - nowTime));
+	else
+		$(this).text("Ready!");
+}
+
+
+function OnEsoCharDataTimeUpdate()
+{
+	$(".ecdHirelingTime").each(UpdateEsoCharDataHirelingTime);
+	$(".ecdRidingValue").each(UpdateEsoCharDataRidingTime);	
 }
 
 
@@ -1628,6 +1685,8 @@ function onDocReady()
 	$(".ecdActionBar2").click(OnBuildActionBar2Click);
 	$(".ecdActionBar3").click(OnBuildActionBar3Click);
 	$(".ecdActionBar4").click(OnBuildActionBar4Click);
+	
+	setInterval(OnEsoCharDataTimeUpdate, 1000);
 	
 	AddEsoCharDataAsyncHandlers(document);
 	
