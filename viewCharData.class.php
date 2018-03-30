@@ -288,6 +288,7 @@ EOT;
 		return number_format(intval($crystals));
 	}
 	
+	
 	public function getAccountInventoryGold() 
 	{ 
 		$ap = $this->getCharStatField('AccountGold');
