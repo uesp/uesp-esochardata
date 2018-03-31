@@ -76,6 +76,7 @@ class EsoBuildDataViewer
 	public $inputSearchRace = "";
 	public $inputSearchBuildType = "";
 	public $inputSearchSpecial = "";
+	public $inputShowSummaryFor = -1;
 	
 	public $characterData = array();
 	public $skillData = array();
@@ -396,6 +397,12 @@ class EsoBuildDataViewer
 		if (array_key_exists('account', $this->inputParams)) $this->formAccount = $this->inputParams['account'];
 		if (array_key_exists('filter', $this->inputParams)) $this->inputFilter = $this->inputParams['filter'];
 		
+		if (array_key_exists('summaryfor', $this->inputParams)) 
+		{
+			$this->inputShowSummaryFor = intval($this->inputParams['summaryfor']);
+			if ($this->inputShowSummaryFor > 0) $this->viewMyBuilds = true;
+		}
+		
 		if (array_key_exists('findbuild', $this->inputParams)) 
 		{
 			$this->inputSearch = trim($this->inputParams['findbuild']);
@@ -479,7 +486,18 @@ class EsoBuildDataViewer
 				
 		if ($this->viewMyBuilds)
 		{
-			if ($this->wikiContext != null)
+			if ($this->inputShowSummaryFor > 0)
+			{
+				$this->characterId = $this->inputShowSummaryFor; 
+				if (!$this->loadSingleCharacter()) return $this->reportError("Failed to load character #{$this->inputShowSummaryFor}!");
+				
+				$wikiName = $this->characterData['wikiUserName'];
+				if ($wikiName == "") return $this->reportError("Character has no wiki username set!");
+				
+				$wikiName = $this->db->real_escape_string($wikiName);
+				$where[] = "wikiUserName='$wikiName'";
+			}
+			else if ($this->wikiContext != null)
 			{			
 				$user = $this->wikiContext->getUser();
 				
@@ -1310,7 +1328,6 @@ class EsoBuildDataViewer
 	
 	public function isViewingAllBuilds()
 	{
-		//if ($this->viewMyBuilds && $this->wikiContext != null) return false;
 		
 		if ($this->inputSearch != "") return false;
 		if ($this->inputSearchClass != "") return false;
@@ -3503,7 +3520,13 @@ class EsoBuildDataViewer
 			$query[] = "findspecial=$value";
 		}
 		
-		if ($this->viewMyBuilds) $query[] = "filter=mine";
+		if ($this->viewMyBuilds)
+		{
+			if ($this->inputShowSummaryFor > 0)
+				$query[] = "summaryfor=" . $this->inputShowSummaryFor;
+			else
+				$query[] = "filter=mine";
+		}
 						
 		return implode("&", $query);
 	}
