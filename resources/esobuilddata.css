@@ -1580,12 +1580,12 @@ thead.ecdFixedHeader tr {
 }
 
 .ecdSkillRotateHeader {
-	height: 70px;
+	height: 80px;
 	white-space: nowrap;
 }
 
 .ecdSkillRotateHeader div {
-	transform: rotate(-90deg) translate(-60px, 0px);
+	transform: rotate(-90deg) translate(-35px, 0px);
     width: 15px;
     text-align: right;
     font-size: 14px;
