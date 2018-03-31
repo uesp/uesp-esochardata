@@ -642,7 +642,7 @@ function ShowItemOwnerWindow(element, itemData)
 	ecdItemOwnerWindow.show();
 	
 	var top = element.offset().top + 30;
-    var left = element.offset().left + 100;
+    var left = element.offset().left + 350;
     
     ecdItemOwnerWindow.offset({ top: top, left: left });
 }
