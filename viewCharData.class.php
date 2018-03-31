@@ -1128,6 +1128,12 @@ EOT;
 			$totalAchPoints += $achPoints;
 			$totalSecondsPlayed += $secondsPlayed;
 			
+			$gold = number_format($gold);
+			$telvar = number_format($telvar);
+			$ap = number_format($ap);
+			$voucher = number_format($voucher);
+			$achPoints = number_format($achPoints);
+			
 			$output .= "<tr>";
 			$output .= "<td>$charName</td>";
 			$output .= "<td>$gold</td>";
@@ -1165,6 +1171,11 @@ EOT;
 		$totalInvUsed += $invUsed;
 		$totalInv += $invTotal;
 		
+		$gold = number_format($gold);
+		$telvar = number_format($telvar);
+		$ap = number_format($ap);
+		$voucher = number_format($voucher);
+		
 		$output .= "<tr>";
 		$output .= "<td>Bank</td>";
 		$output .= "<td>$gold</td>";
@@ -1186,7 +1197,17 @@ EOT;
 		$output .= "</tr>";
 		
 		$timePlayedFmt = $this->formatTimeLeft($totalSecondsPlayed);
-		$transmuteCrystals = intval($this->getAccountStatsField($maxCharId, 'TransmuteCrystals', 0));
+		$transmuteCrystals = number_format($this->getAccountStatsField($maxCharId, 'TransmuteCrystals', 0));
+		
+		$totalGold = number_format($totalGold);
+		$totalAP = number_format($totalAP);
+		$totalTelvar = number_format($totalTelvar);
+		$totalVouchers = number_format($totalVouchers);
+		$transmuteCrystals = number_format($transmuteCrystals);
+		$totalAchPoints = number_format($totalAchPoints);
+		$totalInvUsed = number_format($totalInvUsed);
+		$totalInv = number_format($totalInv);
+		$totalSkillPoints = number_format($totalSkillPoints);
 		
 		$output .= "<tr>";
 		$output .= "<th>Account</th>";
