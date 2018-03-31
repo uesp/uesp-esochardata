@@ -34,7 +34,6 @@ function adjustSkillTooltipPosition(tooltip, parent)
     var toolTipHeight = tooltip.height();
     var elementHeight = parent.height();
     var elementWidth = parent.width();
-    var viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     var NARROW_WINDOW_WIDTH = 800;
      
     var top = parent.offset().top - 50;
