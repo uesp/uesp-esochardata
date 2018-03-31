@@ -14,8 +14,6 @@ function onTooltipHoverShow()
 {
 	ecdLastTooltip = $(this).find('.ecdTooltip');
 	
-	EsoBuildLog("onTooltipHoverShow", ecdLastTooltip);
-	
 	if (ecdLastTooltip) 
 	{
 		ecdLastTooltip.css('display', 'inline-block');
@@ -77,7 +75,6 @@ function adjustSkillTooltipPosition(tooltip, parent)
 
 function onTooltipHoverHide()
 {
-	EsoBuildLog("onTooltipHoverHide");
 	if (ecdLastTooltip) ecdLastTooltip.hide();
 }
 
