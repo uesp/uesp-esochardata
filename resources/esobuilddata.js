@@ -14,6 +14,8 @@ function onTooltipHoverShow()
 {
 	ecdLastTooltip = $(this).find('.ecdTooltip');
 	
+	EsoBuildLog("onTooltipHoverShow", ecdLastTooltip);
+	
 	if (ecdLastTooltip) 
 	{
 		ecdLastTooltip.css('display', 'inline-block');
@@ -26,42 +28,57 @@ function adjustSkillTooltipPosition(tooltip, parent)
 {
 	if (tooltip == null || tooltip[0] == null) return;
 	
-     var windowWidth = $(window).width();
-     var windowHeight = $(window).height();
-     var toolTipWidth = tooltip.width();
-     var toolTipHeight = tooltip.height();
-     var elementHeight = parent.height();
-     var elementWidth = parent.width();
+	var windowWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+	var windowHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    var toolTipWidth = tooltip.width();
+    var toolTipHeight = tooltip.height();
+    var elementHeight = parent.height();
+    var elementWidth = parent.width();
+    var viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    var NARROW_WINDOW_WIDTH = 800;
      
-     var top = parent.offset().top - 50;
-     var left = parent.offset().left + parent.outerWidth() + 3;
+    var top = parent.offset().top - 50;
+    var left = parent.offset().left + parent.outerWidth() + 3;
+        
+    if (windowWidth < NARROW_WINDOW_WIDTH)
+    {
+    	top = parent.offset().top - 25 - toolTipHeight;
+    	left = parent.offset().left - toolTipWidth/2 + elementWidth/2;
+    }
+    
+    tooltip.offset({ top: top, left: left });
+    
+    var viewportTooltip = tooltip[0].getBoundingClientRect();
      
-     tooltip.offset({ top: top, left: left });
-     
-     var viewportTooltip = tooltip[0].getBoundingClientRect();
-     
-     if (viewportTooltip.bottom > windowHeight) 
-     {
-    	 var deltaHeight = viewportTooltip.bottom - windowHeight + 10;
-         top = top - deltaHeight
-     }
-     else if (viewportTooltip.top < 0)
-     {
-    	 var deltaHeight = viewportTooltip.top - 10;
-         top = top - deltaHeight
-     }
+    if (viewportTooltip.bottom > windowHeight) 
+    {
+    	var deltaHeight = viewportTooltip.bottom - windowHeight + 10;
+        top = top - deltaHeight
+    }
+    else if (viewportTooltip.top < 0)
+    {
+    	var deltaHeight = viewportTooltip.top - 10;
+    	
+    	if (windowWidth < NARROW_WINDOW_WIDTH) deltaHeight = -toolTipHeight - elementHeight - 30;
+    	
+        top = top - deltaHeight
+    }
          
-     if (viewportTooltip.right > windowWidth) 
-     {
-         left = left - toolTipWidth - parent.width() - 28;
-     }
+    if (viewportTooltip.right > windowWidth) 
+    {
+    	if (windowWidth < NARROW_WINDOW_WIDTH)
+    		left = left + windowWidth - viewportTooltip.right - 10;
+    	else
+    		left = left - toolTipWidth - parent.width() - 28;
+    }
      
-     tooltip.offset({ top: top, left: left });    
+	tooltip.offset({ top: top, left: left });    
 }
 
 
 function onTooltipHoverHide()
 {
+	EsoBuildLog("onTooltipHoverHide");
 	if (ecdLastTooltip) ecdLastTooltip.hide();
 }
 
