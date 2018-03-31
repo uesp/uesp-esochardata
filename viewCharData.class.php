@@ -2080,7 +2080,13 @@ EOT;
 		
 		$output = "<div id='ecdTrail'>";
 	
-		if ($this->characterId > 0)
+		if ($this->inputShowSummaryFor > 0)
+		{
+			$charName = $this->escape($this->characterData['name']);
+			$output .= "<a href='$baseLink'>&laquo; View All Characters</a>";
+			$output .= " : Viewing Account Characters for <b>$charName</b>";
+		}
+		else if ($this->characterId > 0)
 		{
 			$charLink = $this->getCharacterLink($this->characterId);
 				
