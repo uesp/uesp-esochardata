@@ -198,8 +198,8 @@ class EsoCharDataSubmitter
 		<li>Choose a backup build data file created by uespLogMonitor (ex: if there were errors uploading the data with the program).</li>
 		<li>(Optional) Enter your UESP wiki username to associate your wiki account with the build.</li>
 		<li>Submit file.</li>
-		<li>After submitting you can run the game command em>"/uespreset builddata"</em> (or <em>"/uespsavebuild clear"</em> in ESO to clear the build data. Character is always overwritten so there is no need to reset/clear it.</li>
-		<li>It is safe to submit duplicate files or build entries...the parser detects and ignore duplicate build submissions.</li>
+		<li>After submitting you can run the game command em>"/uespreset builddata"</em> (or <em>"/uespsavebuild clear"</em> in ESO to clear the build data. Character data is always overwritten so there is no need to reset it.</li>
+		<li>It is safe to submit duplicate files or build entries...the parser detects and ignores duplicate build submissions.</li>
 		</ul>
 		<p />
 		Note: Maximum file upload size is 40MB.
