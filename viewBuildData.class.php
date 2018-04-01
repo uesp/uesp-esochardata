@@ -77,6 +77,7 @@ class EsoBuildDataViewer
 	public $inputSearchBuildType = "";
 	public $inputSearchSpecial = "";
 	public $inputShowSummaryFor = -1;
+	public $showSummaryForWikiUser = "";
 	
 	public $characterData = array();
 	public $skillData = array();
@@ -494,6 +495,7 @@ class EsoBuildDataViewer
 				$wikiName = $this->characterData['wikiUserName'];
 				if ($wikiName == "") return $this->reportError("Character has no wiki username set!");
 				
+				$this->showSummaryForWikiUser = $wikiName;
 				$wikiName = $this->db->real_escape_string($wikiName);
 				$where[] = "wikiUserName='$wikiName'";
 			}
@@ -3591,7 +3593,11 @@ class EsoBuildDataViewer
 	
 	public function doesBuildMatchFilter($buildData)
 	{
-		if ($this->viewMyBuilds && !$this->doesOwnBuild($buildData)) return false;
+		if ($this->viewMyBuilds) 
+		{
+			if ($this->showSummaryForWikiUser != "") return true;
+			if (!$this->doesOwnBuild($buildData)) return false;
+		}
 		
 		if ($this->inputSearch != "" && !$this->doesBuildMatchSearch($buildData)) return false;
 		
