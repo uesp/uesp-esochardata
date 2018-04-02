@@ -17,3 +17,4 @@ dest = content3.uesp.net:/home/uesp/www/esobuilddata/
 dest = files1.uesp.net:/home/uesp/esochardata.static/
 
 chmod_dest = g+rw -R {dest}
+chown_dest = -R apache {dest}screenshots

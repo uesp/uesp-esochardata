@@ -1,8 +1,8 @@
 <div class='ecdHeader'>
-	{characterLink}
+	{charMenu}
 	{trail}
 </div>
-<div id='ecdRoot'>
+<div id='ecdRoot' {rootBackgroundImage}>
 	<div id='ecdTitleBar'>
 		<div class='ecdLevelInfo'>
 				<div class='ecdLevelBar'>{levelTitle} <div class='ecdLevel'>{level}</div></div>
@@ -114,7 +114,7 @@
 	</div>
 	<div id='ecdEquipSlots'>
 		<div id='ecdEquipSlotTitle'>EQUIPMENT</div>
-		<img id='ecdEquipSlotBar1' src='{baseResourceUrl}resources/eso_equip_bar.png' />
+		<img id='ecdEquipSlotBar1' src='{baseResourceUrl}resources/eso_equip_bar.png'  width='350' />
 		<div id='ecdEquipSlotSubtitle1'>APPAREL</div>
 		<div id='ecdEquipSlotHead'>{equipHead}</div>
 		<div id='ecdEquipSlotShoulder'>{equipShoulder}</div>
@@ -124,13 +124,13 @@
 		<div id='ecdEquipSlotBelt'>{equipBelt}</div>
 		<div id='ecdEquipSlotLeg'>{equipLeg}</div>
 		<div id='ecdEquipSlotFeet'>{equipFeet}</div>
-		<img id='ecdEquipSlotBar2' src='{baseResourceUrl}resources/eso_equip_bar.png' />
+		<img id='ecdEquipSlotBar2' src='{baseResourceUrl}resources/eso_equip_bar.png'  width='350' />
 		<div id='ecdEquipSlotSubtitle2'>ACCESSORIES</div>
 		<div id='ecdEquipSlotCostume' style='display:none;'>{equipCostume}</div>
 		<div id='ecdEquipSlotNeck'>{equipNeck}</div>
 		<div id='ecdEquipSlotRing1'>{equipRing1}</div>
 		<div id='ecdEquipSlotRing2'>{equipRing2}</div>
-		<img id='ecdEquipSlotBar3' src='{baseResourceUrl}resources/eso_equip_bar.png' />
+		<img id='ecdEquipSlotBar3' src='{baseResourceUrl}resources/eso_equip_bar.png'  width='350' />
 		<div id='ecdEquipSlotSubtitle3'>WEAPONS</div>
 			<div id='ecdWeaponBar1' class='{activeWeaponClass1}'>
 			<div id='ecdEquipSlotWeapon11'>{equipWeapon11}</div>

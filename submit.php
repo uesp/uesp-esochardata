@@ -71,10 +71,10 @@ class EsoCharDataSubmitter
 					$this->fileErrorMsg = "No file was uploaded.";
 					break;
 				case UPLOAD_ERR_NO_TMP_DIR:
-					$this->fileErrorMsg = "Missing a temporary folder. Introduced in PHP 4.3.10 and PHP 5.0.3.";
+					$this->fileErrorMsg = "Missing a temporary folder.";
 					break;
 				case UPLOAD_ERR_CANT_WRITE:
-					$this->fileErrorMsg = "Failed to write file to disk. Introduced in PHP 5.1.0.";
+					$this->fileErrorMsg = "Failed to write file to disk.";
 					break;
 				case UPLOAD_ERR_EXTENSION:
 					$this->fileErrorMsg = "Unknown PHP extension error.";
@@ -91,8 +91,6 @@ class EsoCharDataSubmitter
 	
 	public function reportError ($errorMsg)
 	{
-		//print("Error: " . $errorMsg . "\n");
-		
 		$this->fileErrorMsg .= $errorMsg . "<br/>";
 		$this->fileError = 10;
 		
@@ -165,6 +163,7 @@ class EsoCharDataSubmitter
 <?php
 	}
 	
+	
 	public function outputForm ()
 	{
 ?>
@@ -174,6 +173,8 @@ class EsoCharDataSubmitter
 	<title>UESP -- Submit ESO Character & Build Data</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<link rel="stylesheet" href="submit.css" />
+	<script type="text/javascript" src="resources/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="submit.js"></script>
 </head>
 <body>
 
@@ -190,14 +191,14 @@ class EsoCharDataSubmitter
 		Only character and build data is parsed and saved with this form. To parse/save all uespLog data use the <a href='//esolog.uesp.net/submit.php'>esolog.uesp.net/submit.php</a> form.
 		<p />
 		<ul>
-		<li>Choose your uespLog saved variable file. This is usually in your <em>"Documents"</em> folder as one of the following:<br />
+		<li>Click on <em>Choose File</em> and select your uespLog saved variable file. This is usually in your <em>"Documents"</em> folder as one of the following:<br />
 			<em style="margin-left: 52px;">Documents\Elder Scrolls Online\live\SavedVariables\uespLog.lua</em><br /> 
 			<em style="margin-left: 52px;">Documents\Elder Scrolls Online\liveeu\SavedVariables\uespLog.lua</em>
 			<br/>	
 			<b>&nbsp; &nbsp; or</b></li>
 		<li>Choose a backup build data file created by uespLogMonitor (ex: if there were errors uploading the data with the program).</li>
 		<li>(Optional) Enter your UESP wiki username to associate your wiki account with the build.</li>
-		<li>Submit file.</li>
+		<li>Click the <em>Upload</em> button to submit your file.</li>
 		<li>After submitting you can run the game command em>"/uespreset builddata"</em> (or <em>"/uespsavebuild clear"</em> in ESO to clear the build data. Character data is always overwritten so there is no need to reset it.</li>
 		<li>It is safe to submit duplicate files or build entries...the parser detects and ignores duplicate build submissions.</li>
 		</ul>
@@ -217,12 +218,16 @@ class EsoCharDataSubmitter
 	</td>
 </tr><tr>
 	<td>
-		<input type="submit" id="submitbutton" />
+		<input type="submit" id="submitbutton" value="Upload!" onclick="return OnSubmitEsoDataFile();"/>
 	</td>
 	
 </table>
 
 </form>
+
+<div id='esosubmituploadscreen' style='display: none;'>
+Uploading Data...
+</div>
 
 </body>
 </html>

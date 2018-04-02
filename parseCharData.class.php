@@ -205,7 +205,6 @@ class EsoCharDataParser extends EsoBuildDataParser
 		$result->data_seek(0);
 		$this->accountData = array_merge($this->accountData, $result->fetch_assoc());
 		
-		//$this->log("Loaded account '$account' with password hash '".$this->accountData['passwordHash']."'!");
 		return true;
 	}
 	
@@ -327,15 +326,14 @@ class EsoCharDataParser extends EsoBuildDataParser
 	}
 	
 	
-	public function saveCharData($newCharData)
+	public function saveCharData($newCharData, $oldCharData)
 	{
-		$charData = $this->loadCharacterByAccountName($newCharData['CharName'], $newCharData['UniqueAccountName']);
-		if ($charData == null) return $this->saveNewCharData($newCharData);
+		if ($oldCharData == null) return $this->saveNewCharData($newCharData);
 		
-		$newCharData['id'] = $charData['id'];
+		$newCharData['id'] = $oldCharData['id'];
 		if (!$this->updateCharacter($newCharData)) return false;
 		
-		$this->deleteExistingCharData($charData);
+		$this->deleteExistingCharData($oldCharData);
 		
 		$this->currentCharacterStats = array();
 		$result = True;
@@ -368,6 +366,8 @@ class EsoCharDataParser extends EsoBuildDataParser
 		$level = $this->getSafeFieldInt($charData, 'Level');
 		$createTime = $this->getSafeFieldInt($charData, 'TimeStamp');
 		$charIndex = $this->getSafeFieldInt($charData, 'CharIndex');
+		$gameCharId = $this->getSafeFieldStr($charData, 'CharId');
+		if ($gameCharId == '') $gameCharId = 0;
 		$special = '';
 		$championPoints = 0;
 		
@@ -391,7 +391,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		
 		$query  = "UPDATE characters SET ";
 		$query .= "name=\"$name\", buildName=\"$buildName\", wikiUserName=\"$wikiUserName\", class=\"$class\", race=\"$race\", buildType=\"$buildType\", level=$level, ";
-		$query .= "createTime=$createTime, championPoints=$championPoints, special=\"$special\", uploadTimestamp=now(), alliance=\"$alliance\", charIndex=$charIndex ";
+		$query .= "createTime=$createTime, championPoints=$championPoints, special=\"$special\", uploadTimestamp=now(), alliance=\"$alliance\", charIndex='$charIndex', charId='$gameCharId' ";
 		$query .= "WHERE id=$charId;";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
@@ -436,36 +436,34 @@ class EsoCharDataParser extends EsoBuildDataParser
 	}
 	
 	
-	public function canUpdateAccountData()
+	public function canUpdateCharacterData($charData, $oldCharData)
 	{
-		$passwordHash = $this->accountData['passwordHash'];
-		
-		if ($passwordHash == null || $passwordHash == "0") 
+		if ($oldCharData == null) 
 		{
-			$this->log("Access Granted...no password on account!");
+			$this->log("Character access Granted...new character!");
 			return true;
 		}
 		
-		foreach ($this->accountData['passwords'] as $password)
+		if ($oldCharData['charId'] == null) 
 		{
-			if (crypt($password, $passwordHash) == $passwordHash)
-			{
-				$this->log("Access Granted...password match!");
-				return true;
-			}
+			$this->log("Character access Granted...old character has no charId!");
+			return true;
 		}
 		
-		foreach ($this->accountData['oldPasswords'] as $password)
+		if ($oldCharData['charId'] == 0) 
 		{
-			if (crypt($password, $passwordHash) == $passwordHash)
-			{
-				$this->log("Access Granted...old password match!");
-				return true;
-			}
+			$this->log("Character access Granted...old character has a 0 charId!");
+			return true;
 		}
 		
-		$this->log("Access Denied...no password found to match!");
-		return false;
+		if ($charData['CharId'] != $oldCharData['charId']) 
+		{
+			$this->log("Character access Denied...character IDs do not match! {$charData['CharId']} != {$oldCharData['charId']}");
+			return false;
+		}
+		
+		$this->log("Character access Granted...character ID matches!");
+		return true;
 	}
 	
 	
@@ -476,36 +474,74 @@ class EsoCharDataParser extends EsoBuildDataParser
 		$account = $this->findAccountFromRawData();
 		$this->loadAccount($account);
 		
-		if (!$this->canUpdateAccountData())
-		{
-			$this->formResponseErrorMsg = "Access Denied!";
-			header('X-PHP-Response-Code: 500', true, 500);
-			header('X-Uesp-Error: ' . $this->formResponseErrorMsg, false);
-			$this->log("Access denied for character data upload on account '$account'!");
-			return false;
-		}
-	
+		$bankKey = -1;
+		$craftBagKey = -1;
+		$charKeysToParse = array();
+		$hasValidCharData = false;
+		
 		foreach ($this->parsedBuildData as $key => &$charData)
 		{
 			if ($charData["IsBank"] != 0)
 			{
-				$thisResult = $this->saveBankData($charData);
-				$result &= $thisResult;
+				$bankKey = $key;
 			}
 			else if ($charData["IsCraftBag"] != 0)
 			{
-				$thisResult = $this->saveCraftBagData($charData);
-				$result &= $thisResult;
+				$craftBagKey = $key;
 			}
 			else 
 			{
-				$this->characterCount += 1;
-				$thisResult  = $this->saveCharData($charData);
-				$thisResult &= $this->saveCharacterCurrency();
-				$thisResult &= $this->saveCharacterInventorySpace();
-				$thisResult &= $thisResult;
-				if ($thisResult) $this->savedCharacters += 1;
+				$charKeysToParse[] = $key;
 			}
+		}
+	
+		foreach ($charKeysToParse as $key)
+		{
+			$charData = &$this->parsedBuildData[$key];
+			$oldCharData = $this->loadCharacterByAccountName($charData['CharName'], $charData['UniqueAccountName']);
+			
+			if (!$this->canUpdateCharacterData($charData, $oldCharData))
+			{
+				$name = $charData['CharName'];
+				$this->log("Access denied for character '$name' update on account '$account'!");
+				$this->formResponseErrorMsg .= "Access Denied for character $name!";
+				header('X-Uesp-Error: ' . $this->formResponseErrorMsg, false);
+				continue;
+			}
+			
+			$this->characterCount += 1;
+			
+			$thisResult  = $this->saveCharData($charData, $oldCharData);
+			$thisResult &= $this->saveCharacterCurrency();
+			$thisResult &= $this->saveCharacterInventorySpace();
+			
+			if ($thisResult) 
+			{
+				$hasValidCharData = true;
+				$this->savedCharacters += 1;
+			}
+		}
+		
+		if (!$hasValidCharData)
+		{
+			header('X-PHP-Response-Code: 500', true, 500);
+			$this->formResponseErrorMsg .= "Access Denied for all characters!";
+			header('X-Uesp-Error: ' . $this->formResponseErrorMsg, false);
+			return false;
+		}
+		
+		if ($bankKey >= 0 && $hasValidCharData)
+		{
+			$charData = &$this->parsedBuildData[$bankKey];
+			$thisResult = $this->saveBankData($charData);
+			$result &= $thisResult;
+		}
+		
+		if ($craftBagKey >= 0 && $hasValidCharData)
+		{
+			$charData = &$this->parsedBuildData[$craftBagKey];
+			$thisResult = $this->saveCraftBagData($charData);
+			$result &= $thisResult;
 		}
 		
 		$result &= $this->saveAccount();

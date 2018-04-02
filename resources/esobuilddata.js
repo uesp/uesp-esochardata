@@ -1679,6 +1679,35 @@ function OnEsoCharDataTimeUpdate()
 }
 
 
+function OnCharMenuHoverIn()
+{
+	$("#ecdCharacterMenu").slideDown();
+	$("#ecdCharMenuArrow").html("&#x25B2;");
+}
+
+
+function OnCharMenuHoverOut()
+{
+	$("#ecdCharacterMenu").slideUp();
+	$("#ecdCharMenuArrow").html("&#x25BC;");
+}
+
+
+function OnChangeCharScreenshot()
+{
+	var selectedImage = $("#ecdScreenshotList").val();
+	
+	if (selectedImage == "" || selectedImage == "blank")
+	{
+		$("#ecdRoot").css("background-image", "none");
+		return;
+	}
+	
+	selectedImage = "url(//esochar.uesp.net/screenshots/" + selectedImage + ")"; 
+	$("#ecdRoot").css("background-image", selectedImage);
+}
+
+
 function onDocReady()
 {  
 	$(".ecdTooltipTrigger").hover(onTooltipHoverShow, onTooltipHoverHide, onTooltipMouseMove);
@@ -1703,6 +1732,9 @@ function onDocReady()
 	$(".ecdActionBar2").click(OnBuildActionBar2Click);
 	$(".ecdActionBar3").click(OnBuildActionBar3Click);
 	$(".ecdActionBar4").click(OnBuildActionBar4Click);
+	
+	$("#ecdCharacterMenuRoot").click(OnCharMenuHoverIn);
+	$("#ecdCharacterMenuRoot").hover(null, OnCharMenuHoverOut);
 	
 	setInterval(OnEsoCharDataTimeUpdate, 1000);
 	

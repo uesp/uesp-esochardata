@@ -20,6 +20,8 @@ class EsoBuildDataViewer
 	public $ORNATE_ICON = "resources/ornate.png";
 	public $INTRICATE_ICON = "resources/intricate.png";
 	
+	public $SCREENSHOT_BASE_URL = "//esobuilds.uesp.net/screenshots/";
+	
 	public $MAX_BUILD_DISPLAY = 100;
 	
 	public $hasCharacterInventory = false;
@@ -78,6 +80,7 @@ class EsoBuildDataViewer
 	public $inputSearchSpecial = "";
 	public $inputShowSummaryFor = -1;
 	public $showSummaryForWikiUser = "";
+	public $selectedBackgroundImage = "blank";
 	
 	public $characterData = array();
 	public $skillData = array();
@@ -205,7 +208,7 @@ class EsoBuildDataViewer
 		}
 	
 		$this->db = new mysqli($uespEsoBuildDataWriteDBHost, $uespEsoBuildDataWriteUser, $uespEsoBuildDataWritePW, $uespEsoBuildDataDatabase);
-		if ($db->connect_error) return $this->reportError("Could not connect to mysql database!");
+		if ($this->db == null || $this->db->connect_error) return $this->reportError("Could not connect to mysql database!");
 	
 		$this->dbReadInitialized = true;
 		$this->dbWriteInitialized = true;
@@ -884,6 +887,10 @@ class EsoBuildDataViewer
 					$arrayData[] = $row;
 				}
 			}
+			else if ($table == "screenshots")
+			{
+				$arrayData[$row['id']] = $row;
+			}
 			else
 			{
 				$arrayData[$row['name']] = $row;
@@ -1064,6 +1071,75 @@ class EsoBuildDataViewer
 		
 		return $level1;
 	}
+	
+	
+	public function getLeftCharacterMenuHtml()
+	{
+		$output = "<div id='ecdCharacterMenuRoot'>";
+		$output .= "<div class='ecdCharacterMenuTitle'>Build Menu <div id='ecdCharMenuArrow'>&#x25BC;</div></div>";
+		$output .= "<div class='ecdCharacterMenu' id='ecdCharacterMenu' style='display: none;'>";
+		$output .= "<a href='//en.uesp.net/wiki/UESPWiki:EsoCharData'>Help</a>";
+		$output .= "<a href='//en.uesp.net/wiki/UESPWiki_talk:EsoCharData'>Feedback</a>";
+		$output .= "<a href='//esobuilds.uesp.net/submit.php'>Submit Data</a>";
+		
+		if ($this->characterId > 0)
+		{
+			$output .= "<a href='//esobuilds.uesp.net/submitScreenshot.php?buildid={$this->characterId}' target='_blank'>Submit Screenshot</a>";
+			$charLink = $this->ESO_SHORT_LINK_URL . "b/" . $this->characterId;
+			$output .= "<a href='$charLink'>Link to Build</a>";
+		}
+		else
+		{
+			$output .= "<a href='' class='ecdMenuDisabled' onclick='return false;'>Submit Screenshot</a>";
+			$output .= "<a href='' class='ecdMenuDisabled' onclick='return false;'>Link to Build</a>";
+		}
+		
+		$output .= "</div>";
+		$output .= "</div>";
+		
+		$output .= $this->getCharacterScreenshotMenuHtml();
+		
+		return $output;
+	}
+	
+	
+	public function getCharacterScreenshotMenuHtml()
+	{
+		$screenshots = $this->characterData['screenshots'];
+		if ($screenshots == null) return "";
+		
+		$output = "";
+		$selectOutput = "";
+		
+		foreach ($screenshots as $screenshot)
+		{
+			$name = $this->escape($screenshot['caption']);
+			if ($name == "") $name = $this->escape($screenshot['origFilename']);
+			$value = $this->escapeAttr($screenshot['filename']);
+			
+			if ($value == "" || $name == "") continue;
+			$selected = "";
+			if ($this->selectedBackgroundImage == $screenshot['filename']) $selected = " selected";
+		
+			$selectOutput .= "<option value='$value' $selected>$name</option>";		
+		}
+		
+		if ($selectOutput == "") return "";
+		
+		$selectOutput .= "<option value=''></option>";
+		
+		$output = "<div id='ecdScreenshotMenu'> Background ";
+		$output .= "<select onchange='OnChangeCharScreenshot();' id='ecdScreenshotList'>";
+		
+		$selected = "";
+		if ($this->selectedBackgroundImage == "blank") $selected = " selected";
+		$output .= "<option value='blank' $selected>Blank</option>";
+		
+		$output .= $selectOutput;
+		$output .= "</select>";
+		$output .= "</div>";
+		return $output;
+	}
 		
 	
 	public function createCharacterOutput()
@@ -1209,6 +1285,8 @@ class EsoBuildDataViewer
 					'{mountContents}' => $this->getMountContentsHtml(),
 					'{cpContents}' => $this->getCPContentsHtml(),
 					'{collectibleContents}' => $this->getCollectibleContentsHtml(),
+					'{rootBackgroundImage}' => $this->getRootBackgroundImage(),
+					'{charMenu}' => $this->getLeftCharacterMenuHtml(),
 			);
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
@@ -1216,6 +1294,24 @@ class EsoBuildDataViewer
 		$this->CreateCharacterCache($this->outputHtml);
 			
 		return true;
+	}
+	
+	
+	public function getRootBackgroundImage() 
+	{
+		$screenshots = $this->characterData['screenshots'];
+		if ($screenshots == null) return "";
+		
+		$screenshot = reset($screenshots);
+		if ($screenshot == null) return "";
+		
+		$this->selectedBackgroundImage = $screenshot['filename'];
+		
+		$imageFile = $this->escapeAttr($screenshot['filename']);
+		$imageUrl = $this->SCREENSHOT_BASE_URL . $imageFile;
+		$output = "style='background-image: url($imageUrl);'";
+		
+		return $output;
 	}
 	
 	
@@ -3218,6 +3314,8 @@ class EsoBuildDataViewer
 	
 	public function checkCharacterRawKeyName($keyName)
 	{
+		if ($keyName === 'CharId') return false;
+		if ($keyName === 'charId') return false;
 		if ($keyName === 'IPAddress') return false;
 		if ($keyName === 'password') return false;
 		if ($keyName === 'uniqueAccountName') return false;
@@ -3311,6 +3409,8 @@ class EsoBuildDataViewer
 		$firstRow = true;
 		$colNames = array();
 		
+		$count = count($data);
+				
 		foreach ($data as $key => $arrayData)
 		{
 			$skipRow = false;
@@ -3355,6 +3455,11 @@ class EsoBuildDataViewer
 				{
 				 	$className = 'ecdRawCharHeader';
 				 	$safeValue = $this->escape($value);
+				}
+				elseif ($name == 'screenshots' && $col == 'filename')
+				{
+					$filename = $this->escape($value);
+					$safeValue = "<a href='{$this->SCREENSHOT_BASE_URL}$filename'>$filename</a>"; 
 				}
 				else
 				{
@@ -4213,8 +4318,6 @@ EOT;
 		
 		if ($this->action == 'delete')
 			$this->createDeleteOutput();
-		else if ($this->action == 'changePassword')
-			$this->createChangePasswordOutput();
 		else if ($this->characterId > 0)
 			$this->createCharacterOutput();
 		else if ($this->useBuildTable)
