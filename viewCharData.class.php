@@ -39,6 +39,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		$this->ESO_HTML_TEMPLATE = "templates/esochardata_embed_template.txt";
 		$this->ESO_SHORT_LINK_URL = "//esochars.uesp.net/";
 		$this->baseUrl = "viewCharData.php";
+		$this->SCREENSHOT_BASE_URL = "//esochar.uesp.net/screenshots/";
 		
 		$this->hasCharacterInventory = true;
 		$this->hasCharacterBank      = true;
@@ -59,7 +60,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		if ($this->dbReadInitialized || $this->dbWriteInitialized) return true;
 	
 		$this->db = new mysqli($uespEsoCharDataReadDBHost, $uespEsoCharDataReadUser, $uespEsoCharDataReadPW, $uespEsoCharDataDatabase);
-		if ($db->connect_error) return $this->reportError("Could not connect to mysql database!");
+		if ($this->db == null || $this->db->connect_error) return $this->reportError("Could not connect to mysql database!");
 	
 		$this->dbReadInitialized = true;
 		$this->dbWriteInitialized = false;
@@ -85,7 +86,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		}
 	
 		$this->db = new mysqli($uespEsoCharDataWriteDBHost, $uespEsoCharDataWriteUser, $uespEsoCharDataWritePW, $uespEsoCharDataDatabase);
-		if ($db->connect_error) return $this->reportError("Could not connect to mysql database!");
+		if ($this->db == null || $this->db->connect_error) return $this->reportError("Could not connect to mysql database!");
 	
 		$this->dbReadInitialized = true;
 		$this->dbWriteInitialized = true;
@@ -2031,7 +2032,6 @@ EOT;
 				$output .= "<input type='hidden' name='id' value ='{$buildData['id']}'>";
 				$output .= "<input type='hidden' name='account' value ='{$buildData['uniqueAccountName']}'>";
 				$output .= "<button type='submit' name='action' value='delete'>Delete Character</button> ";
-				$output .= "<button type='submit' name='action' value='changePassword'>Change Password</button> ";
 				$output .= "</form>\n";
 			}
 				
@@ -2130,18 +2130,50 @@ EOT;
 		{
 			$output .= "<a href='$baseLink'>&laquo; View All Characters</a>";
 			$output .= " : Viewing My Characters";
-			$output .= "<a href='//en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
-			$output .= "<a href='//esochars.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
+			//$output .= "<a href='//en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
+			//$output .= "<a href='//esochars.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
 		}
 		else
 		{
 			$output .= "Viewing all characters. ";
 			if ($canViewMyChars) $output .= " : <a href='$myLink'>View My Characters</a>";
-			$output .= "<a href='//en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
-			$output .= "<a href='//esochars.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
+			//$output .= "<a href='//en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
+			//$output .= "<a href='//esochars.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
 		}
 	
 		$output .= "</div>";
+		return $output;
+	}
+	
+	
+	public function getLeftCharacterMenuHtml()
+	{
+		$output = "<div id='ecdCharacterMenuRoot'>";
+		$output .= "<div class='ecdCharacterMenuTitle'>Character Menu <div id='ecdCharMenuArrow'>&#x25BC;</div></div>";
+		$output .= "<div class='ecdCharacterMenu' id='ecdCharacterMenu' style='display: none;'>";
+		$output .= "<a href='//en.uesp.net/wiki/UESPWiki:EsoCharData'>Help</a>";
+		$output .= "<a href='//en.uesp.net/wiki/UESPWiki_talk:EsoCharData'>Feedback</a>";
+		$output .= "<a href='//esochars.uesp.net/submit.php'>Submit Data</a>";
+		
+		if ($this->characterId > 0)
+		{
+			$output .= "<a href='//esochars.uesp.net/submitScreenshot.php?charid={$this->characterId}' target='_blank'>Submit Screenshot</a>";
+			$output .= "<a href='?copytobuild={$this->characterId}'>Copy to New Build</a>";
+			$charLink = $this->ESO_SHORT_LINK_URL . "c/" . $this->characterId;
+			$output .= "<a href='$charLink'>Link to Character</a>";
+		}
+		else
+		{
+			$output .= "<a href='' class='ecdMenuDisabled' onclick='return false;'>Submit Screenshot</a>";
+			$output .= "<a href='' class='ecdMenuDisabled' onclick='return false;'>Copy to New Build</a>";
+			$output .= "<a href='' class='ecdMenuDisabled' onclick='return false;'>Link to Character</a>";
+		}
+		
+		$output .= "</div>";
+		$output .= "</div>";
+		
+		$output .= $this->getCharacterScreenshotMenuHtml();
+		
 		return $output;
 	}
 	
@@ -2427,6 +2459,35 @@ EOT;
 	}
 	
 	
+	public function createNewBuildScreenshots($buildId)
+	{
+		// Can't rename screenshot images if not running on content3
+		return true;
+		
+		foreach ($this->characterData['screenshots'] as $data)
+		{
+			$newFilename = preg_replace("/^char-/", "build-", $data['filename']);
+			
+			$srcFilename = "/home/uesp/www/esobuilddata/screenshots/{$data['filename']}";
+			$destFilename = "/home/uesp/www/esobuilddata/screenshots/$newFilename";
+			
+			$filename = $this->db->real_escape_string($newFilename);
+			$origFilename = $this->db->real_escape_string($data['origFilename']);
+			$caption = $this->db->real_escape_string($data['caption']);
+			$uploadTimestamp = $this->db->real_escape_string($data['uploadTimestamp']);
+			
+			$query = "INSERT INTO screenshots(characterId, filename, origFilename, caption, uploadTimestamp) ";
+			$query .= "VALUES($buildId, '$filename', '$origFilename', '$caption', '$uploadTimestamp');";
+			$this->lastQuery = $query;
+	
+			$result = $this->db->query($query);
+			if ($result === FALSE) $this->reportError("Failed to save new build record actionBars data!");
+		}
+		
+		return true;
+	}
+	
+	
 	public function redirectToNewBuild($buildId)
 	{
 		header("Location: //esobuilds.uesp.net/b/$buildId");
@@ -2452,6 +2513,7 @@ EOT;
 		$this->createNewBuildStats($buildId);
 		$this->createNewBuildEquipment($buildId);
 		$this->createNewBuildActionBars($buildId);
+		$this->createNewBuildScreenshots($buildId);
 		
 		$this->redirectToNewBuild($buildId);
 		$this->outputHtml .= "<p/>Created <a href='//esobuilds.uesp.net/b/$buildId'><b>New Build!</b></a>";

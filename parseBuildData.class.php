@@ -93,8 +93,7 @@ class EsoBuildDataParser
 		if ($this->dbLog->connect_error) return $this->ReportError("Could not connect to mysql database!");
 		
 		return true;
-	}
-	
+	}	
 	
 	
 	public function initDatabase ()
@@ -161,6 +160,7 @@ class EsoBuildDataParser
 						editTimestamp TIMESTAMP NOT NULL DEFAULT 0,
 						uploadTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 						charIndex TINYINT NOT NULL,
+						charId BIGINT NOT NULL DEFAULT 0,
 						PRIMARY KEY (id),
 						INDEX index_name(name(32)),
 						INDEX index_class(class(10)),
@@ -309,6 +309,7 @@ class EsoBuildDataParser
 						filename TEXT NOT NULL,
 						origFilename TEXT NOT NULL,
 						caption TEXT NOT NULL,
+						uploadTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 						PRIMARY KEY (id),
 						INDEX index_characterId(characterId)
 					);";
@@ -606,6 +607,8 @@ class EsoBuildDataParser
 		$level = $this->getSafeFieldInt($buildData, 'Level');
 		$createTime = $this->getSafeFieldInt($buildData, 'TimeStamp');
 		$charIndex = $this->getSafeFieldInt($buildData, 'CharIndex');
+		$gameCharId = $this->getSafeFieldStr($buildData, 'CharId');
+		if ($gameCharId == '') $gameCharId = 0;
 		$special = '';
 		$championPoints = 0;
 		
@@ -632,8 +635,8 @@ class EsoBuildDataParser
 		
 		if ($this->checkBuffWerewolf($buildData)) $special = "Werewolf";
 				
-		$query  = "INSERT INTO characters(name, buildName, accountName, uniqueAccountName, wikiUserName, class, race, buildType, level, createTime, championPoints, special, alliance, charIndex) ";
-		$query .= "VALUES(\"$name\", \"$buildName\", \"$accountName\", \"$uniqueAccountName\", \"$wikiUserName\", \"$class\", \"$race\", \"$buildType\", $level, $createTime, $championPoints, \"$special\", \"$alliance\", $charIndex);";
+		$query  = "INSERT INTO characters(name, buildName, accountName, uniqueAccountName, wikiUserName, class, race, buildType, level, createTime, championPoints, special, alliance, charIndex, charId) ";
+		$query .= "VALUES('$name', '$buildName', '$accountName', '$uniqueAccountName', '$wikiUserName', '$class', '$race', '$buildType', $level, $createTime, $championPoints, '$special', '$alliance', '$charIndex', '$gameCharId');";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		
