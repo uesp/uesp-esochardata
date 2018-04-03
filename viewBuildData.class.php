@@ -3524,6 +3524,7 @@ class EsoBuildDataViewer
 		
 		if ($this->currentCharacterPage > 0)
 		{
+			$query = $this->getBuildTableFindQuery();
 			$page = $this->currentCharacterPage - 1 + 1;
 			$output .= "<tr class='ecdBuildNextPrevRow'><td colspan='10' align='center'>";				
 			$output .= "<a href='?$query&page=$page'><b>Previous Builds...</b></a>";
@@ -3540,6 +3541,7 @@ class EsoBuildDataViewer
 	
 		if ($this->currentCharacterPage < $this->totalCharacterPages - 1)
 		{
+			$query = $this->getBuildTableFindQuery();
 			$page = $this->currentCharacterPage + 1 + 1;
 			$output .= "<tr class='ecdBuildNextPrevRow'><td colspan='10' align='center'>";
 			$output .= "<a href='?$query&page=$page'><b>More Builds...</b></a> ";
@@ -3552,7 +3554,6 @@ class EsoBuildDataViewer
 
 	public function createBuildTableHtml()
 	{
-		// Fuzzfoot Pouchfiller, Level 50 CP160 Stamina Nightblade Woodelf, AD, Vampire
 		if (!$this->loadBuilds()) return false;
 		
 		$this->outputHtml .= $this->getBreadcrumbTrailHtml() . "<p />\n";
