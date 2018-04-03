@@ -1029,6 +1029,10 @@ tr.eso_item_link {
 	padding-bottom: 5px;
 }
 
+#ecdTrail a {
+	white-space: nowrap;
+}
+
 .ecdShortCharLink {
 	float: right;
     padding-left: 20px;
