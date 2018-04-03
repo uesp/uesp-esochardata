@@ -1708,6 +1708,18 @@ function OnChangeCharScreenshot()
 }
 
 
+function OnToggleCharBackgroundImage()
+{
+	$("#ecdTitleBar").toggle();
+	$("#ecdRightData").toggle();
+	$("#ecdEquipSlots").toggle();
+	$("#ecdStatsandBuffs").toggle();
+	$("#ecdActionBar").toggle();
+	$("#ecdRawLink").toggle();
+	$("#ecdCreateDate").toggle();
+}
+
+
 function onDocReady()
 {  
 	$(".ecdTooltipTrigger").hover(onTooltipHoverShow, onTooltipHoverHide, onTooltipMouseMove);
@@ -1735,6 +1747,7 @@ function onDocReady()
 	
 	$("#ecdCharacterMenuRoot").click(OnCharMenuHoverIn);
 	$("#ecdCharacterMenuRoot").hover(null, OnCharMenuHoverOut);
+	$("#ecdRoot").click(OnToggleCharBackgroundImage);
 	
 	setInterval(OnEsoCharDataTimeUpdate, 1000);
 	

@@ -245,6 +245,8 @@ class EsoCharDataParser extends EsoBuildDataParser
 				$result &= $this->saveCharacterStatData($charData, $key, $value);
 		}
 		
+		$result &= $this->saveCharacterScreenshots($charData, false);
+		
 		$this->newCharacterCount += 1;
 		return $result;
 	}
@@ -345,6 +347,8 @@ class EsoCharDataParser extends EsoBuildDataParser
 			else
 				$result &= $this->saveCharacterStatData($newCharData, $key, $value);
 		}
+		
+		$result &= $this->saveCharacterScreenshots($newCharData, false);
 		
 		$result &= $this->updateAccountData($newCharData);
 		return $result;
