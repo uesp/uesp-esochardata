@@ -79,6 +79,7 @@ class EsoBuildDataViewer
 	public $inputSearchBuildType = "";
 	public $inputSearchSpecial = "";
 	public $inputShowSummaryFor = -1;
+	public $inputManageScreenshots = -1;
 	public $showSummaryForWikiUser = "";
 	public $selectedBackgroundImage = "blank";
 	
@@ -405,6 +406,11 @@ class EsoBuildDataViewer
 		{
 			$this->inputShowSummaryFor = intval($this->inputParams['summaryfor']);
 			if ($this->inputShowSummaryFor > 0) $this->viewMyBuilds = true;
+		}
+		
+		if (array_key_exists('managescreenshots', $this->inputParams)) 
+		{
+			$this->inputManageScreenshots = intval($this->inputParams['managescreenshots']);
 		}
 		
 		if (array_key_exists('findbuild', $this->inputParams)) 
@@ -1085,12 +1091,14 @@ class EsoBuildDataViewer
 		if ($this->characterId > 0)
 		{
 			$output .= "<a href='//esobuilds.uesp.net/submitScreenshot.php?buildid={$this->characterId}' target='_blank'>Submit Screenshot</a>";
+			$output .= "<a href='?managescreenshots={$this->characterId}'>Manage Screenshots</a>";
 			$charLink = $this->ESO_SHORT_LINK_URL . "b/" . $this->characterId;
 			$output .= "<a href='$charLink'>Link to Build</a>";
 		}
 		else
 		{
 			$output .= "<a href='' class='ecdMenuDisabled' onclick='return false;'>Submit Screenshot</a>";
+			$output .= "<a href='' class='ecdMenuDisabled' onclick='return false;'>Manage Screenshots</a>";
 			$output .= "<a href='' class='ecdMenuDisabled' onclick='return false;'>Link to Build</a>";
 		}
 		

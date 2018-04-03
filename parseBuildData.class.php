@@ -12,6 +12,7 @@ class EsoBuildDataParser
 	public $ECD_OUTPUTLOG_FILENAME = "/home/uesp/esobuilddata/builddata.log";
 	public $ECD_OUTPUT_BUILDDATA_PATH = "/home/uesp/esobuilddata/";
 	public $ECD_OUTPUT_BUILDDATA_PREFIX = "builddata-";
+	public $ECD_OUTPUT_SCREENSHOT_PATH = "/home/uesp/www/esobuilddata/screenshots/";
 	public $ECD_MINIMUM_BUILDDATA_SIZE = 24;
 	
 	public $hasCharacterInventory = false;
@@ -40,6 +41,9 @@ class EsoBuildDataParser
 	public $lastQuery = "";
 	public $skipCreateTables = false;
 	public $formResponseErrorMsg = "";
+	public $inputScreenshots = array();
+	public $inputScreenshotFilenames = array();
+	public $inputScreenshotOrigFilenames = array();
 	
 	public $itemDataDB = array();
 	
@@ -321,7 +325,7 @@ class EsoBuildDataParser
 		$query = "CREATE TABLE IF NOT EXISTS cache (
 						characterId INTEGER NOT NULL,
 						html MEDIUMTEXT NOT NULL,
-						createTimestamp BITINT NOT NULL DEFAULT 0,
+						createTimestamp BIGINT NOT NULL DEFAULT 0,
 						PRIMARY KEY (characterId)
 					);";
 		
@@ -702,8 +706,101 @@ class EsoBuildDataParser
 				$result &= $this->saveCharacterStatData($buildData, $key, $value);
 		}
 		
+		$result &= $this->saveCharacterScreenshots($buildData);
+		
 		$this->newCharacterCount += 1;
 		return $result;
+	}
+	
+	
+	public function saveCharacterScreenshots(&$buildData, $isBuild = true)
+	{
+		$name = $buildData['CharName'];
+		$this->log("Saving screenshots for character $name...");
+		
+		if (count($this->inputScreenshots) <= 0) return true;
+		if (count($this->inputScreenshotFilenames) <= 0) return true;
+		if (count($this->inputScreenshotOrigFilenames) <= 0) return true;
+		
+		$charScreenshot = $buildData['ScreenShot'];
+		if ($charScreenshot == null || $charScreenshot == "") return true;
+		
+		$this->log("Looking for screenshot match for '$charScreenshot'...");
+		
+		foreach ($this->inputScreenshots as $index => $rawScreenshotData)
+		{
+			$filename = $this->inputScreenshotFilenames[$index];
+			if ($filename == null || $filename == "") continue;
+			
+			$origFilename = $this->inputScreenshotOrigFilenames[$index];
+			if ($origFilename == null || $origFilename == "") continue;
+
+			if ($origFilename != $charScreenshot) continue;
+			
+			$this->log("Found screenshot match at character #$index!");
+			return $this->saveCharacterScreenshot($buildData, $rawScreenshotData, $filename, $origFilename, $isBuild);
+		}
+		
+		return true;
+	}
+	
+	
+	public function saveCharacterScreenshot(&$buildData, $rawScreenshotData, $filename, $origFilename, $isBuild = true)
+	{
+		$charId = $buildData['id'];
+		$charType = "build";
+		if (!$isBuild) $charType = "char"; 
+		
+		$filename = str_replace('\\', '/', $filename);
+		$pathInfo = pathinfo($filename);
+		
+		$this->log("Saving original screenshot image $filename for $charType #$charId!");
+		
+		$baseOutputFile = "$charType-$charId-" . $pathInfo['basename'];
+		$outputFilename = $this->ECD_OUTPUT_SCREENSHOT_PATH . $baseOutputFile;
+				
+		$imageData = base64_decode($rawScreenshotData);
+		
+		$fileTmpName = tempnam("/tmp", "eso-screenshot-");
+		
+		$result = file_put_contents($fileTmpName, $imageData);
+		
+		if (!$result)
+		{
+			$this->log("Failed saving image data to $fileTmpName!");
+			return false;
+		}
+		
+		$safeInput = escapeshellarg($fileTmpName);
+		$safeOutput = escapeshellarg($outputFilename);
+		$cmd = "convert $safeInput -quality 35 $safeOutput";
+		
+		$lastOutput = exec($cmd, $output, $result);
+		$output = implode("<br/>", $output);
+		
+		if ($result) 
+		{
+			$this->log("Failed to convert/save input file as a JPEG image file!\nShell Command: $cmd\nOutput: $output\nResult: $result");
+			return false;
+		}
+		
+		$this->log("Saved screenshot image data to $outputFilename!");
+		
+		$baseOutputFile = $this->db->real_escape_string($baseOutputFile);
+		$origFilename = $this->db->real_escape_string(basename($origFilename));
+		
+		$query  = "INSERT INTO screenshots(characterId, filename, origFilename, caption) ";
+		$query .= "VALUES('$charId', '$baseOutputFile', '$origFilename', '');";
+		
+		$result = $this->db->query($query);
+		
+		if ($result === false) 
+		{
+			$this->log("Failed to insert entry into screenshot table!");
+			return false;
+		}
+		
+		return true;
 	}
 	
 	
@@ -1456,6 +1553,27 @@ class EsoBuildDataParser
 		
 		$this->rawBuildData = $this->parseRawBuildData($this->inputParams['chardata']); 
 		print("Found character data " . strlen($this->rawBuildData) . " bytes in size.");
+		
+		if (array_key_exists('screenshot', $this->inputParams))
+		{
+			$this->inputScreenshots = $this->inputParams['screenshot'];
+			$count = count($this->inputScreenshots);
+			$this->log("Found $count screenshots in input form data!");
+		}
+		
+		if (array_key_exists('ssfilename', $this->inputParams))
+		{
+			$this->inputScreenshotFilenames = $this->inputParams['ssfilename'];
+			$count = count($this->inputScreenshotFilenames);
+			$this->log("Found $count screenshot filenames in input form data!");
+		}
+		
+		if (array_key_exists('origfilename', $this->inputParams))
+		{
+			$this->inputScreenshotOrigFilenames = $this->inputParams['origfilename'];
+			$count = count($this->inputScreenshotOrigFilenames);
+			$this->log("Found $count screenshot original filenames in input form data!");
+		}
 		
 		if (strlen($this->rawBuildData) < $this->ECD_MINIMUM_BUILDDATA_SIZE)
 		{

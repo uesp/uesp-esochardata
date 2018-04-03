@@ -2158,6 +2158,7 @@ EOT;
 		if ($this->characterId > 0)
 		{
 			$output .= "<a href='//esochars.uesp.net/submitScreenshot.php?charid={$this->characterId}' target='_blank'>Submit Screenshot</a>";
+			$output .= "<a href='?managescreenshots={$this->characterId}'>Manage Screenshots</a>";
 			$output .= "<a href='?copytobuild={$this->characterId}'>Copy to New Build</a>";
 			$charLink = $this->ESO_SHORT_LINK_URL . "c/" . $this->characterId;
 			$output .= "<a href='$charLink'>Link to Character</a>";
@@ -2165,6 +2166,7 @@ EOT;
 		else
 		{
 			$output .= "<a href='' class='ecdMenuDisabled' onclick='return false;'>Submit Screenshot</a>";
+			$output .= "<a href='' class='ecdMenuDisabled' onclick='return false;'>Manage Screenshots</a>";
 			$output .= "<a href='' class='ecdMenuDisabled' onclick='return false;'>Copy to New Build</a>";
 			$output .= "<a href='' class='ecdMenuDisabled' onclick='return false;'>Link to Character</a>";
 		}
