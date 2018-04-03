@@ -428,17 +428,31 @@ Uploading Data...
 		
 		if ($this->inputCharacterId > 0)
 		{
-			$baseFilename = "char-" . $this->inputCharacterId . "-" . $this->fileName;
-			$pathInfo = pathinfo($baseFilename);
-			$baseFilename = $pathInfo['filename'] . '.jpg';
+			$basePath = "char-" . $this->inputCharacterId;
+			
+			if (!is_dir($this->BASE_BUILDDATA_SCREENSHOT_PATH . $basePath))
+			{
+				$result = mkdir($this->BASE_BUILDDATA_SCREENSHOT_PATH . $basePath);
+				if (!$result) return $this->ReportError("Failed to create the path '$basePath'!");
+			}
+			
+			$pathInfo = pathinfo($this->fileName);
+			$baseFilename = $basePath . "/" . $pathInfo['filename'] . '.jpg';
 			
 			$destFilename = $this->BASE_CHARDATA_SCREENSHOT_PATH . $baseFilename;
 		}
 		elseif ($this->inputBuildId > 0)
 		{
-			$baseFilename = "build-" . $this->inputBuildId . "-" . $this->fileName;
-			$pathInfo = pathinfo($baseFilename);
-			$baseFilename = $pathInfo['filename'] . '.jpg';
+			$basePath = "build-" . $this->inputBuildId;
+			
+			if (!is_dir($this->BASE_BUILDDATA_SCREENSHOT_PATH . $basePath))
+			{
+				$result = mkdir($this->BASE_BUILDDATA_SCREENSHOT_PATH . $basePath);
+				if (!$result) return $this->ReportError("Failed to create the path '$basePath'!");
+			}
+			
+			$pathInfo = pathinfo($this->fileName);
+			$baseFilename = $basePath . "/" . $pathInfo['filename'] . '.jpg';
 			
 			$destFilename = $this->BASE_BUILDDATA_SCREENSHOT_PATH . $baseFilename;
 		}

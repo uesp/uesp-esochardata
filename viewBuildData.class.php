@@ -24,6 +24,9 @@ class EsoBuildDataViewer
 	
 	public $MAX_BUILD_DISPLAY = 100;
 	
+	public $BUILD_TYPE = "build";
+	public $BUILD_TYPE_SHORT = "build";
+	
 	public $hasCharacterInventory = false;
 	public $hasCharacterBank      = false;
 	public $hasCharacterCraftBag  = false;
@@ -79,7 +82,6 @@ class EsoBuildDataViewer
 	public $inputSearchBuildType = "";
 	public $inputSearchSpecial = "";
 	public $inputShowSummaryFor = -1;
-	public $inputManageScreenshots = -1;
 	public $showSummaryForWikiUser = "";
 	public $selectedBackgroundImage = "blank";
 	
@@ -406,11 +408,6 @@ class EsoBuildDataViewer
 		{
 			$this->inputShowSummaryFor = intval($this->inputParams['summaryfor']);
 			if ($this->inputShowSummaryFor > 0) $this->viewMyBuilds = true;
-		}
-		
-		if (array_key_exists('managescreenshots', $this->inputParams)) 
-		{
-			$this->inputManageScreenshots = intval($this->inputParams['managescreenshots']);
 		}
 		
 		if (array_key_exists('findbuild', $this->inputParams)) 
@@ -1091,7 +1088,7 @@ class EsoBuildDataViewer
 		if ($this->characterId > 0)
 		{
 			$output .= "<a href='//esobuilds.uesp.net/submitScreenshot.php?buildid={$this->characterId}' target='_blank'>Submit Screenshot</a>";
-			$output .= "<a href='?managescreenshots={$this->characterId}'>Manage Screenshots</a>";
+			$output .= "<a href='?id={$this->characterId}&action=managescreenshots'>Manage Screenshots</a>";
 			$charLink = $this->ESO_SHORT_LINK_URL . "b/" . $this->characterId;
 			$output .= "<a href='$charLink'>Link to Build</a>";
 		}
@@ -3976,7 +3973,7 @@ EOT;
 	
 	public function createDeleteOutput()
 	{
-		if ($this->characterId <= 0) return $this->reportError("Missing valid character ID!");
+		if ($this->characterId <= 0) return $this->reportError("Missing valid character/build ID!");
 		if ($this->nonConfirm != '') return $this->createBuildTableHtml();
 		if ($this->confirm != '') return $this->doBuildDelete();
 		
@@ -3990,6 +3987,78 @@ EOT;
 		$this->outputHtml .= $this->getDeleteConfirmOutput($buildName, $charName, $id); 
 		
 		return true;
+	}
+	
+	
+	public function createManageScreenshotsOutput()
+	{
+		global $_SESSION;
+		
+		$_SESSION['UESP_ESO_canEditScreenshotsCharId'] = -1;
+		$_SESSION['UESP_ESO_canEditScreenshots'] = -2;
+		
+		if ($this->characterId <= 0) return $this->reportError("Missing valid character/build ID!");
+		
+		if (!$this->loadCharacter()) return false;
+		if (!$this->canWikiUserEdit()) return $this->reportError("Permission denied!");
+		
+		$this->outputHtml .= $this->getManageScreenshotsTableOutput();
+		
+		$_SESSION['UESP_ESO_canEditScreenshotsCharId'] = $this->characterData['id'];
+		$_SESSION['UESP_ESO_canEditScreenshots'] = 1;
+		
+		return true;
+	}
+	
+	
+	public function getManageScreenshotsTableOutput()
+	{
+		$charName = $this->escape($this->characterData['name']);
+		if ($charName == "") $charName = "#" . $this->characterData['id'];
+	
+		$output = $this->getBreadcrumbTrailHtml();
+		$output .= "Managing screenshots for {$this->BUILD_TYPE} $charName:<br/><br/>";
+		$output .= "<table class='ecdScreenshotsTable'>";		
+		$output .= "<tr>";
+		$output .= "<th>Filename</th>";
+		$output .= "<th>Original Filename</th>";
+		$output .= "<th>Caption</th>";
+		$output .= "<th>Upload Time</th>";
+		$output .= "<th></th>";
+		$output .= "</tr>";
+		
+		foreach ($this->characterData['screenshots'] as $id => $screenshot)
+		{
+			$filename = $this->escape($screenshot['filename']);
+			$origFilename = $this->escape($screenshot['origFilename']);
+			$caption = $this->escapeAttr($screenshot['caption']);
+			$uploadTime = $screenshot['uploadTimestamp'];
+			$fileUri = $this->escapeAttr($screenshot['filename']);
+			
+			$imageTag = "<img src='//esobuilds.uesp.net/screenshots/$fileUri' class='ecdScreenshotPreview'>";
+			$imageLink = "<a href='//esobuilds.uesp.net/screenshots/$fileUri'>$filename<br/>$imageTag</a>";
+			
+			$captionInput  = "<input type='text' value='$caption' size='24' class='ecdScreenshotCaption'/>";
+			$captionInput .= "<button class='ecdScreenshotCaptionButton' screenshotid='$id' buildtype='{$this->BUILD_TYPE_SHORT}'  charid='{$this->characterData['id']}' >Update</button>";
+			
+			$output .= "<tr screenshotid='$id' buildtype='{$this->BUILD_TYPE_SHORT}'>";
+			$output .= "<td>$imageLink</td>";
+			$output .= "<td>$origFilename</td>";
+			$output .= "<td>$captionInput<br/><div class='ecdScreenshotStatus'></div></td>";
+			$output .= "<td>$uploadTime</td>";
+			$output .= "<td>";
+			$output .= "<button class='ecdScreenshotDeleteButton' screenshotid='$id' buildtype='{$this->BUILD_TYPE_SHORT}' charid='{$this->characterData['id']}'>Delete</button>";
+			$output .= "</td>";
+			$output .= "</tr>";
+		}
+		
+		$output .= "<tr screenshotid='-1'>";
+		$output .= "<td colspan='5' align='center'><a href='//esobuilds.uesp.net/submitScreenshot.php?{$this->BUILD_TYPE_SHORT}id={$this->characterData['id']}' target='_blank'>Upload Screenshot</a></td>";
+		$output .= "</tr>";
+		$output .= "</table><br/>";
+		$output .= "<div id='ecdScreenshotStatus'></div>";
+				
+		return $output;
 	}
 	
 	
@@ -4326,6 +4395,8 @@ EOT;
 		
 		if ($this->action == 'delete')
 			$this->createDeleteOutput();
+		elseif ($this->action == 'managescreenshots')
+			$this->createManageScreenshotsOutput();
 		else if ($this->characterId > 0)
 			$this->createCharacterOutput();
 		else if ($this->useBuildTable)
@@ -4386,3 +4457,4 @@ function CompareEsoSkillTypeName($a, $b)
 
 	return $SKILLTYPES[$a] - $SKILLTYPES[$b];
 }
+
