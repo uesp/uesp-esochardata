@@ -32,14 +32,16 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		);
 	
 	
-	public function __construct ()
+	public function __construct ($isEmbedded = false, $initDbWrite = false)
 	{
-		parent::__construct();
+		parent::__construct($isEmbedded, $initDbWrite);
 		
 		$this->ESO_HTML_TEMPLATE = "templates/esochardata_embed_template.txt";
 		$this->ESO_SHORT_LINK_URL = "//esochars.uesp.net/";
 		$this->baseUrl = "viewCharData.php";
 		$this->SCREENSHOT_BASE_URL = "//esochar.uesp.net/screenshots/";
+		$this->BUILD_TYPE = "character";
+		$this->BUILD_TYPE_SHORT = "char";
 		
 		$this->hasCharacterInventory = true;
 		$this->hasCharacterBank      = true;
@@ -2117,6 +2119,12 @@ EOT;
 				if ($canViewMyChars) $output .= " : <a href='$myLink'>View My Characters</a>";
 				$output .= " : <a href='$charLink'>View Normal Character</a>";
 			}
+			elseif ($this->action == "managescreenshots")
+			{
+				$output .= "<a href='$baseLink'>&laquo; View All Characters</a>";
+				if ($canViewMyChars) $output .= " : <a href='$myLink'>View My Characters</a>";
+				$output .= " : <a href='$charLink'>View Character</a>";
+			}
 			else
 			{
 				$output .= "<a href='$baseLink'>&laquo; View All Characters</a>";
@@ -2158,7 +2166,7 @@ EOT;
 		if ($this->characterId > 0)
 		{
 			$output .= "<a href='//esochars.uesp.net/submitScreenshot.php?charid={$this->characterId}' target='_blank'>Submit Screenshot</a>";
-			$output .= "<a href='?managescreenshots={$this->characterId}'>Manage Screenshots</a>";
+			$output .= "<a href='?id={$this->characterId}&action=managescreenshots'>Manage Screenshots</a>";
 			$output .= "<a href='?copytobuild={$this->characterId}'>Copy to New Build</a>";
 			$charLink = $this->ESO_SHORT_LINK_URL . "c/" . $this->characterId;
 			$output .= "<a href='$charLink'>Link to Character</a>";

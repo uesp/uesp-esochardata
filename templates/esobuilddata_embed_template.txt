@@ -4,6 +4,9 @@
 	{trail}
 </div>
 <div id='ecdRoot' {rootBackgroundImage}>
+	<div id='ecdBackgroundFocus'>
+		<img src='{baseResourceUrl}resources/tradinghouse_browse_tabicon_down.png'>
+	</div>
 	<div id='ecdTitleBar'>
 		<div class='ecdLevelInfo'>
 				<div class='ecdLevelBar'>{levelTitle} <div class='ecdLevel'>{level}</div></div>
@@ -27,9 +30,9 @@
 	</div>
 	<div id='ecdRightData'>
 		<div id='ecdRightTitleBar'>
-			<div class='ecdSkillTitleButton ecdRightTitleButtonEnabled' id='ecdSkillsButton' onclick="OnEsoRightTitleClick('Skills', this);"><div title="Skills" class='ecdTopLevelIcon ecdTopLevelIcon_Skills'></div> SKILLS</div>
+			<div class='ecdSkillTitleButton ecdRightTitleButtonEnabled' id='ecdSkillsButton' onclick="OnEsoRightTitleClick('Skills', this);" style="padding-right: 20px;"><div title="Skills" class='ecdTopLevelIcon ecdTopLevelIcon_Skills'></div> SKILLS</div>
 			&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  
-			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdCPButton' onclick="OnEsoRightTitleClick('CP', this);"><div title="Champion Points" class='ecdTopLevelIcon ecdTopLevelIcon_CP'></div> CHAMPION POINTS</div>
+			<div class='ecdSkillTitleButton ecdRightTitleButtonDisabled' id='ecdCPButton' onclick="OnEsoRightTitleClick('CP', this);" style="padding-right: 20px;"><div title="Champion Points" class='ecdTopLevelIcon ecdTopLevelIcon_CP'></div> CHAMPION POINTS</div>
 		</div>
 		<div id='ecdSkills' class='ecdRightDataArea'>
 			<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='290' /><img class='3' src='{baseResourceUrl}resources/eso_equip_bar.png' width='290' />

@@ -1720,6 +1720,114 @@ function OnToggleCharBackgroundImage()
 }
 
 
+function OnClickEsoScreenshotCaptionButton()
+{
+	var queryParams = {}
+	var charId = $(this).attr("charid");
+	var buildType = $(this).attr("buildtype");
+	var screenshotId = $(this).attr("screenshotid");
+	var caption = $(this).prev(".ecdScreenshotCaption").val();
+	var statusElement = $(this).siblings(".ecdScreenshotStatus"); 
+	
+	statusElement.html("");
+	
+	if (charId == null || buildType == null || screenshotId == null) return false;
+	
+	if (buildType == "char")
+		queryParams['charid'] = charId;
+	else
+		queryParams['buildid'] = charId;
+	
+	queryParams['screenshotid'] = screenshotId;
+	queryParams['caption'] = caption;
+	queryParams['action'] = "editcaption";
+	
+	$.ajax("//esochars.uesp.net/manageScreenshots.php", {
+			data: queryParams,
+			xhrFields: { withCredentials: true },
+		}).
+		done(function(data, status, xhr) { OnEsoCharEditScreenshotCaptionSaved(data, screenshotId, statusElement, status, xhr); }).
+		fail(function(xhr, status, errorMsg) { OnEsoCharEditScreenshotCaptionError(xhr, screenshotId, statusElement, status, errorMsg); });
+	
+	return true;
+}
+
+
+function OnEsoCharEditScreenshotCaptionSaved(data, screenshotId, statusElement, status, xhr)
+{
+	if (data.result > 0)
+	{
+		statusElement.html("Caption saved for screenshot " + screenshotId + "!");
+	}
+	else
+	{
+		var errorMsg = "";
+		if (data.errorMsg) errorMsg = data.errorMsg.join("<br/>");
+		statusElement.html("Error saving caption for screenshot " + screenshotId + "!</br>" + errorMsg);
+	}	
+}
+
+
+function OnEsoCharEditScreenshotCaptionError(xhr, screenshotId, statusElement, status, errorMsg)
+{
+	$("#ecdScreenshotStatus").html("Error saving caption for screenshot " + screenshotId +"!<br/>" + errorMsg)
+}
+
+
+function OnClickEsoScreenshotDeleteButton()
+{
+	var queryParams = {}
+	var charId = $(this).attr("charid");
+	var buildType = $(this).attr("buildtype");
+	var screenshotId = $(this).attr("screenshotid");
+	var caption = $(this).prev(".ecdScreenshotCaption").val();
+	var statusElement = $(this).parentsUntil("tr").find(".ecdScreenshotStatus");
+	
+	$("#ecdScreenshotStatus").html("");
+	if (charId == null || buildType == null || screenshotId == null) return false;
+	
+	if (buildType == "char")
+		queryParams['charid'] = charId;
+	else
+		queryParams['buildid'] = charId;
+	
+	queryParams['screenshotid'] = screenshotId;
+	queryParams['action'] = "delete";
+	
+	$.ajax("//esochars.uesp.net/manageScreenshots.php", {
+			data: queryParams,
+			xhrFields: { withCredentials: true },
+		}).
+		done(function(data, status, xhr) { OnEsoCharEditScreenshotDeleted(data, screenshotId, statusElement, status, xhr); }).
+		fail(function(xhr, status, errorMsg) { OnEsoCharEditScreenshotDeleteError(xhr, screenshotId, statusElement, status, errorMsg); });
+	
+	return true;
+}
+
+
+function OnEsoCharEditScreenshotDeleted(data, screenshotId, statusElement, status, xhr)
+{
+	if (data.result > 0)
+	{
+		$("#ecdScreenshotStatus").html("Screenshot " + screenshotId + " deleted!");
+		$(".ecdScreenshotsTable tr[screenshotid='" + screenshotId + "']").replaceWith("");
+	}
+	else
+	{
+		var errorMsg = "";
+		if (data.errorMsg) errorMsg = data.errorMsg.join("<br/>");
+		statusElement.html("Error deleting screenshot " + screenshotId + "!</br>" + errorMsg);
+	}
+}
+
+
+function OnEsoCharEditScreenshotDeleteError(xhr, screenshotId, statusElement, status, errorMsg)
+{
+	statusElement.html("Error deleting screenshot " + screenshotId + "!<br/>" + errorMsg)
+}
+
+
+
 function onDocReady()
 {  
 	$(".ecdTooltipTrigger").hover(onTooltipHoverShow, onTooltipHoverHide, onTooltipMouseMove);
@@ -1747,7 +1855,10 @@ function onDocReady()
 	
 	$("#ecdCharacterMenuRoot").click(OnCharMenuHoverIn);
 	$("#ecdCharacterMenuRoot").hover(null, OnCharMenuHoverOut);
-	$("#ecdRoot").click(OnToggleCharBackgroundImage);
+	$("#ecdBackgroundFocus").click(OnToggleCharBackgroundImage);
+	
+	$(".ecdScreenshotCaptionButton").click(OnClickEsoScreenshotCaptionButton);
+	$(".ecdScreenshotDeleteButton").click(OnClickEsoScreenshotDeleteButton);
 	
 	setInterval(OnEsoCharDataTimeUpdate, 1000);
 	

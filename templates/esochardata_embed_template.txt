@@ -3,6 +3,9 @@
 	{trail}
 </div>
 <div id='ecdRoot' {rootBackgroundImage}>
+	<div id='ecdBackgroundFocus'>
+		<img src='{baseResourceUrl}resources/tradinghouse_browse_tabicon_down.png'>
+	</div>
 	<div id='ecdTitleBar'>
 		<div class='ecdLevelInfo'>
 				<div class='ecdLevelBar'>{levelTitle} <div class='ecdLevel'>{level}</div></div>

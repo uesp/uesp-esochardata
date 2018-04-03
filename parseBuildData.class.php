@@ -42,6 +42,7 @@ class EsoBuildDataParser
 	public $skipCreateTables = false;
 	public $formResponseErrorMsg = "";
 	public $inputScreenshots = array();
+	public $inputScreenshotCaptions = array();
 	public $inputScreenshotFilenames = array();
 	public $inputScreenshotOrigFilenames = array();
 	
@@ -734,18 +735,21 @@ class EsoBuildDataParser
 			
 			$origFilename = $this->inputScreenshotOrigFilenames[$index];
 			if ($origFilename == null || $origFilename == "") continue;
+			
+			$caption = $this->inputScreenshotCaptions[$index];
+			if ($caption == null) $caption = "";
 
 			if ($origFilename != $charScreenshot) continue;
 			
 			$this->log("Found screenshot match at character #$index!");
-			return $this->saveCharacterScreenshot($buildData, $rawScreenshotData, $filename, $origFilename, $isBuild);
+			return $this->saveCharacterScreenshot($buildData, $rawScreenshotData, $filename, $origFilename, $caption, $isBuild);
 		}
 		
 		return true;
 	}
 	
 	
-	public function saveCharacterScreenshot(&$buildData, $rawScreenshotData, $filename, $origFilename, $isBuild = true)
+	public function saveCharacterScreenshot(&$buildData, $rawScreenshotData, $filename, $origFilename, $caption, $isBuild = true)
 	{
 		$charId = $buildData['id'];
 		$charType = "build";
@@ -756,13 +760,23 @@ class EsoBuildDataParser
 		
 		$this->log("Saving original screenshot image $filename for $charType #$charId!");
 		
-		$baseOutputFile = "$charType-$charId-" . $pathInfo['basename'];
+		$basePath = "$charType-$charId";
+		$baseOutputFile = "$basePath/" . $pathInfo['basename'];
 		$outputFilename = $this->ECD_OUTPUT_SCREENSHOT_PATH . $baseOutputFile;
+		
+		if (!is_dir($this->ECD_OUTPUT_SCREENSHOT_PATH . $basePath))
+		{
+			$result = mkdir($this->ECD_OUTPUT_SCREENSHOT_PATH . $basePath);
+			
+			if (!$result) 
+			{
+				$this->log("Failed to create the path '$basePath'!");
+				return false;
+			}			
+		}
 				
 		$imageData = base64_decode($rawScreenshotData);
-		
 		$fileTmpName = tempnam("/tmp", "eso-screenshot-");
-		
 		$result = file_put_contents($fileTmpName, $imageData);
 		
 		if (!$result)
@@ -788,9 +802,11 @@ class EsoBuildDataParser
 		
 		$baseOutputFile = $this->db->real_escape_string($baseOutputFile);
 		$origFilename = $this->db->real_escape_string(basename($origFilename));
+		$caption = $this->db->real_escape_string($caption);
 		
 		$query  = "INSERT INTO screenshots(characterId, filename, origFilename, caption) ";
-		$query .= "VALUES('$charId', '$baseOutputFile', '$origFilename', '');";
+		$query .= "VALUES('$charId', '$baseOutputFile', '$origFilename', '$caption');";
+		$this->log($query);
 		
 		$result = $this->db->query($query);
 		
@@ -1566,6 +1582,13 @@ class EsoBuildDataParser
 			$this->inputScreenshotFilenames = $this->inputParams['ssfilename'];
 			$count = count($this->inputScreenshotFilenames);
 			$this->log("Found $count screenshot filenames in input form data!");
+		}
+		
+		if (array_key_exists('sscaption', $this->inputParams))
+		{
+			$this->inputScreenshotCaptions = $this->inputParams['sscaption'];
+			$count = count($this->inputScreenshotCaptions);
+			$this->log("Found $count screenshot captions in input form data!");
 		}
 		
 		if (array_key_exists('origfilename', $this->inputParams))

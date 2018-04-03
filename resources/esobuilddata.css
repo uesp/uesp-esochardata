@@ -3469,3 +3469,60 @@ thead.ecdFixedHeader tr {
 #ecdScreenshotMenu option:empty {
 	display: none;
 }
+
+.ecdScreenshotsTable {
+	border: solid thin;
+    border-collapse: collapse;	
+}
+
+.ecdScreenshotsTable th {
+	border: solid thin;
+    padding: 2px;
+    font-size: 15px;
+    background-color: #f5deb3;
+    font-weight: bold;
+}
+
+.ecdScreenshotsTable td {
+	border: solid thin;
+    padding: 2px;
+}
+
+.ecdScreenshotsTable td:first-child {
+	text-align: center;
+}
+
+#ecdScreenshotStatus, .ecdScreenshotStatus {
+	min-height: 20px;
+}
+
+#ecdScreenshotList {
+	width: 200px;	
+}
+
+.ecdScreenshotPreview {
+	width: 400px;
+}
+
+#ecdBackgroundFocus {
+    position: absolute;
+    z-index: 90;
+    top: 0px;
+    left: 0px;
+    border-radius: 15px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+#ecdBackgroundFocus:hover {
+	background-color: rgba(255,255,255,0.5);
+    box-shadow: 0px 0px 5px 5px rgba(255,255,255,0.5);
+}
+
+#ecdBackgroundFocus img {
+	width: 48px;
+	position: relative;
+    top: -5px;
+    left: -5px;
+}
