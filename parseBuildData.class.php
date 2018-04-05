@@ -907,7 +907,11 @@ class EsoBuildDataParser
 		{
 			if (is_numeric($key))
 			{
-				$result &= $this->saveCharacterHouseStorageBox($charId, $accountName, $key, $value);
+				$result &= $this->saveCharacterHouseStorageBox($charId, $accountName, $key, $value, $buildData);
+			}
+			else
+			{
+				$result &= $this->saveCharacterStatData($buildData, "HouseStorage:$key", $value);
 			}
 		}
 	
@@ -919,7 +923,7 @@ class EsoBuildDataParser
 	}
 	
 		
-	public function saveCharacterHouseStorageBox($charId, $account, $boxId, $contents)
+	public function saveCharacterHouseStorageBox($charId, $account, $boxId, $contents, $buildData)
 	{
 		$boxCharId = -$boxId;
 		$result = true;
@@ -929,10 +933,12 @@ class EsoBuildDataParser
 			if ($key == "Size")
 			{
 				$result &= $this->saveCharacterInventoryExtraRawData($boxCharId, $account, "__TotalSpace", $value);
+				$result &= $this->saveCharacterStatData($buildData, "HouseStorage:$boxId:Size", $value);
 			}
 			else if ($key == "UsedSize")
 			{
 				$result &= $this->saveCharacterInventoryExtraRawData($boxCharId, $account, "__UsedSpace", $value);
+				$result &= $this->saveCharacterStatData($buildData, "HouseStorage:$boxId:UsedSize", $value);
 			}
 			else if ($key == "CollectId")
 			{
