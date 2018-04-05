@@ -1163,6 +1163,15 @@ thead.ecdFixedHeader tr {
 	background-color: transparent !important;
 }
 
+.ecdItemTable td:nth-child(2) {
+	vertical-align: bottom;
+	font-size: 17px;
+}
+
+.ecdItemTable td:nth-child(3) {
+	font-size: 17px;
+}
+
 .ecdItemQuality0 { color: #888 !important; }
 .ecdItemQuality1 { color: #FFF !important; }
 .ecdItemQuality2 { color: #2DC50E !important; }
