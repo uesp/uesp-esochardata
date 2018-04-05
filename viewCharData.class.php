@@ -853,8 +853,7 @@ EOT;
 		return $output;
 	}
 	
-	
-		
+			
 	public function getBankContentHtml()
 	{
 		if ($this->useAsyncLoad) return $this->GetAsyncLoadContentsHtml();
@@ -1188,6 +1187,31 @@ EOT;
 		$output .= "<td>-</td>";
 		$output .= "<td>$invUsed</td>";
 		$output .= "<td>$invTotal</td>";
+		$output .= "<td>-</td>";
+		$output .= "<td>-</td>";
+		$output .= "<td>-</td>";
+		$output .= "<td>-</td>";
+		$output .= "<td>-</td>";
+		$output .= "<td>-</td>";
+		$output .= "<td>-</td>";
+		$output .= "<td>-</td>";
+		$output .= "<td>-</td>";
+		$output .= "</tr>";
+		
+		$invHomeUsed = $this->getAccountStatsField($maxCharId, 'HouseStorage:TotalUsedSize');
+		$invHomeTotal = $this->getAccountStatsField($maxCharId, 'HouseStorage:TotalSize');
+		$totalInvUsed += $invHomeUsed;
+		$totalInv += $invHomeTotal;
+		
+		$output .= "<tr>";
+		$output .= "<td>Home</td>";
+		$output .= "<td>-</td>";
+		$output .= "<td>-</td>";
+		$output .= "<td>-</td>";
+		$output .= "<td>-</td>";
+		$output .= "<td>-</td>";
+		$output .= "<td>$invHomeUsed</td>";
+		$output .= "<td>$invHomeTotal</td>";
 		$output .= "<td>-</td>";
 		$output .= "<td>-</td>";
 		$output .= "<td>-</td>";
