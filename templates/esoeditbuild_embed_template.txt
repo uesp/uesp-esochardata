@@ -57,6 +57,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<div class="esotbStatLabel">In Cyrodiil</div> <input type="checkbox" id="esotbCyrodiil" name="esotbCyrodiil" statid="Cyrodiil" {cyrodiil}>
 			<br/>
 			<div class="esotbStatLabel">Enable CP</div> <input type="checkbox" id="esotbEnableCP" name="esotbEnableCP" statid="EnableCP" {enableCP}>
+			<br/>
+			<div class="esotbStatLabel">Update 18 Rules</div> <input type="checkbox" id="esotbUpdate18Rules" name="esotbUpdate18Rules" statid="UseUpdate18Rules" {useUpdate18Rules}>
+			Use rules from Update 18 (Summerset) which includes: Count 2H weapons as 2 slots for set bonuses, Skill/CP data.
+			
 			<p>
 			<div id="esotbAttributes">
 				<div class="esotbAttrTitle">Attributes <div id="esotbAttrTotal" statid="AttributeTotal" class="esotbAttributeInput">{attributeTotal} / 64</div></div>
@@ -1097,6 +1101,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>16 April 2018</b>
+			<ul>
+				<li>Added the "Update 18 Rules" check on the general tab that lets you use a limited subset of changes available in update 18 (Summerset). Currently this
+					only includes counting 2H weapons as 2 slots for set bonuses.</li>
+			</ul>
+			<p>
 			<b>22 February 2018</b>
 			<ul>
 				<li>Added a bunch of toggled set effects to work when on the off-bar. If you find a set effect that works differently in game than on the builder just let us know!</li>

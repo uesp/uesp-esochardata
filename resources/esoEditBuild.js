@@ -6175,6 +6175,9 @@ function GetEsoInputValues(mergeComputedStats)
 	inputValues.max = Math.max;
 	inputValues.min = Math.min;
 	
+	inputValues.UseUpdate18Rules = false;
+	if ($("#esotbUpdate18Rules").prop("checked"))inputValues.UseUpdate18Rules = true;
+			
 	inputValues.Race = $("#esotbRace").val();
 	inputValues.Class = $("#esotbClass").val();
 	
@@ -6305,7 +6308,7 @@ function GetEsoInputValues(mergeComputedStats)
 	if (inputValues.ArmorHeavy  > 0) ++inputValues.ArmorTypes;
 	AddEsoInputStatSource("ArmorTypes", { source: "Worn Armor", value: inputValues.ArmorTypes });
 	
-	UpdateEsoItemSets();
+	UpdateEsoItemSets(inputValues);
 	GetEsoInputSetValues(inputValues);
 	
 		/* Update weapon enchantments */
@@ -7827,7 +7830,7 @@ function GetEsoInputItemEnchantOtherHandWeaponValues(inputValues, slotId, itemDa
 }
 
 
-function UpdateEsoItemSets()
+function UpdateEsoItemSets(inputValues)
 {
 	g_EsoBuildSetData = {};
 	
@@ -7835,6 +7838,13 @@ function UpdateEsoItemSets()
 	{
 		var isOtherHand = false;
 		var isCurrentHand = false;
+		var is2HWeapon = false;
+		
+		var itemData = g_EsoBuildItemData[key];
+		var setName = itemData.setName;
+		
+		is2HWeapon = itemData.weaponType ==  4 || itemData.weaponType ==  5 || itemData.weaponType ==  6 ||
+					 itemData.weaponType ==  9 || itemData.weaponType == 12 || itemData.weaponType == 13 || itemData.weaponType == 15;    
 		
 		if (key == "MainHand2" || key == "OffHand2" || key == "Poison2")
 		{
@@ -7850,9 +7860,6 @@ function UpdateEsoItemSets()
 			else
 				isCurrentHand = true;
 		}
-		
-		var itemData = g_EsoBuildItemData[key];
-		var setName = itemData.setName;
 		
 		if (itemData.enabled === false) continue;
 		if (setName == null || setName == "") continue;
@@ -7872,12 +7879,19 @@ function UpdateEsoItemSets()
 		if (isOtherHand)
 		{
 			++g_EsoBuildSetData[setName].otherCount;
+			if (inputValues.UseUpdate18Rules && is2HWeapon) ++g_EsoBuildSetData[setName].otherCount; 
 			g_EsoBuildSetData[setName].unequippedItems.push(itemData);
 		}
 		else
 		{
 			++g_EsoBuildSetData[setName].count;
-			if (!isCurrentHand) ++g_EsoBuildSetData[setName].otherCount;
+			if (inputValues.UseUpdate18Rules && is2HWeapon) ++g_EsoBuildSetData[setName].count;
+			
+			if (!isCurrentHand) 
+			{
+				++g_EsoBuildSetData[setName].otherCount;
+				if (inputValues.UseUpdate18Rules && is2HWeapon) ++g_EsoBuildSetData[setName].otherCount;
+			}
 			
 			g_EsoBuildSetData[setName].items.push(itemData);
 			AddEsoItemRawOutput(itemData, "Set." + setName, 1);
@@ -15068,6 +15082,7 @@ function esotbOnDocReady()
 	$("#esotbStealth").click(OnEsoClickStealth);	
 	$("#esotbCyrodiil").click(OnEsoClickCyrodiil);
 	$("#esotbEnableCP").click(OnEsoClickEnableCP);
+	$("#esotbUpdate18Rules").click(OnEsoClickEnableCP);
 	
 	$(".esotbInputValue").on('input', function(e) { OnEsoInputChange.call(this, e); });
 	
