@@ -412,7 +412,7 @@ function MatchFilterString(filterText, item)
 
 
 var g_EsoCharLastItemFilter = null;
-var ESO_ITEMFILTER_UPDATEMS = 250;
+var ESO_ITEMFILTER_UPDATEMS = 400;
 var g_EsoItemFilterIsUpdating = false;
 
 
@@ -456,13 +456,34 @@ function DoItemFilter()
 }
 
 
+var ESO_ITEMFILTER_UPDATE_MINTIME = 0.4;
+var g_EsoCharUpdateItemFilterFlag = false;
+var g_EsoCharUpdateItemLastRequest = 0;
+
+
 function UpdateItemFilter()
 {
+	g_EsoCharUpdateItemFilterFlag = true;
+	g_EsoCharUpdateItemLastRequest = (new Date().getTime())/1000;
 	
-	if (!g_EsoItemFilterIsUpdating)
+	setTimeout(CheckEsoCharUpdateItemFilter, ESO_ITEMFILTER_UPDATE_MINTIME*501);
+}
+
+
+function CheckEsoCharUpdateItemFilter()
+{
+	if (!g_EsoCharUpdateItemFilterFlag) return;
+	
+	var currentTime = (new Date().getTime())/1000;
+	
+	if (currentTime - g_EsoCharUpdateItemLastRequest > ESO_ITEMFILTER_UPDATE_MINTIME)
 	{
-		g_EsoItemFilterIsUpdating = true;
-		setTimeout(DoItemFilter, ESO_ITEMFILTER_UPDATEMS);
+		g_EsoCharUpdateItemFilterFlag = false;
+		DoItemFilter();
+	}
+	else
+	{
+		setTimeout(CheckEsoCharUpdateItemFilter, ESO_ITEMFILTER_UPDATE_MINTIME*501);
 	}
 }
 
@@ -1825,7 +1846,6 @@ function OnEsoCharEditScreenshotDeleteError(xhr, screenshotId, statusElement, st
 {
 	statusElement.html("Error deleting screenshot " + screenshotId + "!<br/>" + errorMsg)
 }
-
 
 
 function onDocReady()
