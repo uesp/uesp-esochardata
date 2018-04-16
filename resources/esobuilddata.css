@@ -1751,6 +1751,7 @@ thead.ecdFixedHeader tr {
 
 #ecdSkill_Recipes {
 	position: relative;
+	width: 440px;
 }
 
 .ecdRecipeItem {
