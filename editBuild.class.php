@@ -4646,6 +4646,14 @@ class EsoBuildDataEditor
 	}
 	
 	
+	public function GetUpdate18RulesCheckState()
+	{
+		$flag = $this->getCharStatField("UseUpdate18Rules", "0");
+		if ($flag > 0) return "checked";
+		return "";
+	}
+	
+	
 	public function getCharTargetResist()
 	{
 		$resist = $this->getCharStatField("Target:Resistance", "18200");
@@ -4801,6 +4809,7 @@ class EsoBuildDataEditor
 				'{stealth}' => $this->GetStealthCheckState(),
 				'{cyrodiil}' => $this->GetCyrodiilCheckState(),
 				'{enableCP}' => $this->GetEnableCPCheckState(),
+				'{useUpdate18Rules}' => $this->GetUpdate18RulesCheckState(),  
 				'{setNamesJson}' => $this->GetSetNamesJson(),
 		);
 		
