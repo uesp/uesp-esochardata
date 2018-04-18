@@ -64,6 +64,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 			"Glass",
 			"Hlaalu",
 			"Hollowjack",
+			"Imperial",
 			"Malacath",
 			"Mazzatun",
 			"Mercenary",
@@ -1303,6 +1304,181 @@ EOT;
 		}
 		
 		return round($numRecipesKnown/$totalRecipes * $this->MAX_PROVISIONING_MASTERWRIT_CHANCE + $this->MIN_MASTERWRIT_CHANCE) . "%";
+	}
+	
+	
+	public function getCharSkillAlchemyExtraContent() 
+	{
+		$currentTime = time();
+		$output = "<br/></br>";
+		
+		$alchemyLevel = $this->getCharSkillsField("Craft:Alchemy:Solvent Proficiency", "rank", 0);
+		$alchemyMRChance = $this->getCharAlchemyMasterWritChance(-1, $alchemyLevel);
+		
+		if ($alchemyMRChance > 0)
+		{
+			$output .= "<div class='ecdSkillMasterWritTitle'>Master Writ Chance:</div> <div class='ecdSkillMasterWritChance'>$alchemyMRChance</div><br/><br/>";
+		}
+		
+		return $output; 
+	}
+	
+	
+	public function getCharSkillBlacksmithingExtraContent() 
+	{
+		$currentTime = time();
+		$output = "<br/></br>";
+		
+		$blackHireling = intval($this->getCharStatField('HirelingMailTime:Blacksmithing', 0));
+		$blackSkill = intval($this->getCharStatField('HirelingSkill:Blacksmithing', 0));
+		$blackTime = (($blackSkill >= 3) ? 12 : 24) * 3600 + $blackHireling;
+		
+		if ($blackHireling > 0) 
+		{
+			if ($blackTime > $currentTime)
+				$blackTimeFmt = $this->formatTimeLeft($blackTime - $currentTime);
+			else
+				$blackTimeFmt = "Ready!";
+			
+			$output .= "<div class='ecdSkillHirelingTitle'>Hireling:</div> <div class='ecdHirelingTime' timestamp='$blackHireling' skill='$blackSkill'>$blackTimeFmt</div><br/><br/>";
+		}
+		
+		$blackLevel = $this->getCharSkillsField("Craft:Blacksmithing:Metalworking", "rank", 0);
+		$motifsKnown = $this->getCharMasterWritMotifsKnown($charId);
+		$blackMRChance = $this->getCharBlacksmithingMasterWritChance(-1, $blackLevel, $motifsKnown);
+		
+		if ($blackMRChance > 0)
+		{
+			$output .= "<div class='ecdSkillMasterWritTitle'>Master Writ Chance:</div> <div class='ecdSkillMasterWritChance'>$blackMRChance</div><br/><br/>";
+		}
+				
+		return $output; 
+	}
+	
+	
+	public function getCharSkillClothingExtraContent() 
+	{
+		$currentTime = time();
+		$output = "<br/></br>";
+		
+		$clothHireling = intval($this->getCharStatField('HirelingMailTime:Clothier', 0));
+		$clothSkill = intval($this->getCharStatField('HirelingSkill:Clothier', 0));
+		$clothTime = (($clothSkill >= 3) ? 12 : 24) * 3600 + $clothHireling;
+		
+		if ($clothHireling > 0)
+		{
+			if ($clothTime > $currentTime)
+				$clothTimeFmt = $this->formatTimeLeft($clothTime - $currentTime);
+			else
+				$clothTimeFmt = "Ready!";
+			
+			$output .= "<div class='ecdSkillHirelingTitle'>Hireling:</div> <div class='ecdHirelingTime' timestamp='$clothHireling' skill='$clothSkill'>$clothTimeFmt</div><br/><br/>";
+		}
+		
+		$motifsKnown = $this->getCharMasterWritMotifsKnown($charId);
+		$clothLevel = $this->getCharSkillsField("Craft:Clothing:Tailoring", "rank", 0);
+		$clothMRChance = $this->getCharClothingMasterWritChance(-1, $clothLevel, $motifsKnown);
+		
+		if ($clothMRChance > 0)
+		{
+			$output .= "<div class='ecdSkillMasterWritTitle'>Master Writ Chance:</div> <div class='ecdSkillMasterWritChance'>$clothMRChance</div><br/><br/>";
+		}
+		
+		return $output; 
+	}
+	
+	
+	public function getCharSkillEnchantingExtraContent() 
+	{
+		$currentTime = time();
+		$output = "<br/></br>";
+		
+		$enchantHireling = intval($this->getCharStatField('HirelingMailTime:Enchanting', 0));
+		$enchantSkill = intval($this->getCharStatField('HirelingSkill:Enchanting', 0));
+		$enchantTime = (($enchantSkill >= 3) ? 12 : 24) * 3600 + $enchantHireling;
+		
+		if ($enchantHireling > 0)
+		{
+			if ($enchantTime > $currentTime)
+				$enchantTimeFmt = $this->formatTimeLeft($enchantTime - $currentTime);
+			else
+				$enchantTimeFmt = "Ready!";
+			
+			$output .= "<div class='ecdSkillHirelingTitle'>Hireling:</div> <div class='ecdHirelingTime' timestamp='$enchantHireling' skill='$enchantSkill'>$enchantTimeFmt</div><br/><br/>";
+		}
+				
+		$enchantLevel = $this->getCharSkillsField("Craft:Enchanting:Potency Improvement", "rank", 0);
+		$enchantMRChance = $this->getCharEnchantingMasterWritChance(-1, $enchantLevel);;
+		
+		if ($enchantMRChance > 0)
+		{
+			$output .= "<div class='ecdSkillMasterWritTitle'>Master Writ Chance:</div> <div class='ecdSkillMasterWritChance'>$enchantMRChance</div><br/><br/>";
+		}
+		
+		return $output; 
+	}
+	
+	
+	public function getCharSkillProvisioningExtraContent() 
+	{
+		$currentTime = time();
+		$output = "<br/></br>";
+		
+		$provHireling = intval($this->getCharStatField('HirelingMailTime:Provisioning', 0));
+		$provSkill = intval($this->getCharStatField('HirelingSkill:Provisioning', 0));
+		$provTime = (($provSkill >= 3) ? 12 : 24) * 3600 + $provHireling;
+		
+		if ($provHireling > 0)
+		{
+			if ($provTime > $currentTime)
+				$provTimeFmt = $this->formatTimeLeft($provTime - $currentTime);
+			else
+				$provTimeFmt = "Ready!";
+			
+			$output .= "<div class='ecdSkillHirelingTitle'>Hireling:</div> <div class='ecdHirelingTime' timestamp='$provHireling' skill='$provSkill'>$provTimeFmt</div><br/><br/>";
+		}
+		
+		$provLevel = $this->getCharSkillsField($charId, "Craft:Provisioning:Recipe Improvement", "rank", 0);
+		$provMRChance = $this->getCharProvisioningMasterWritChance(-1, $provLevel);
+		
+		if ($provMRChance > 0)
+		{
+			$output .= "<div class='ecdSkillMasterWritTitle'>Master Writ Chance:</div> <div class='ecdSkillMasterWritChance'>$provMRChance</div><br/><br/>";
+		}
+		
+		return $output; 
+	}
+	
+	
+	public function getCharSkillWoodworkingExtraContent() 
+	{
+		$currentTime = time();
+		$output = "<br/></br>";
+		
+		$woodHireling = intval($this->getCharStatField('HirelingMailTime:Woodworking', 0));
+		$woodSkill = intval($this->getCharStatField('HirelingSkill:Woodworking', 0));
+		$woodTime = (($woodSkill >= 3) ? 12 : 24) * 3600 + $woodHireling;
+		
+		if ($woodHireling > 0)
+		{
+			if ($woodTime > $currentTime)
+				$woodTimeFmt = $this->formatTimeLeft($woodTime - $currentTime);
+			else
+				$woodTimeFmt = "Ready!";
+			
+			$output .= "<div class='ecdSkillHirelingTitle'>Hireling:</div> <div class='ecdHirelingTime' timestamp='$woodHireling' skill='$woodSkill'>$woodTimeFmt</div><br/><br/>";
+		}
+		
+		$motifsKnown = $this->getCharMasterWritMotifsKnown($charId);
+		$woodLevel = $this->getCharSkillsField("Craft:Woodworking:Woodworking", "rank", 0);
+		$woodMRChance = $this->getCharWoodworkingMasterWritChance(-1, $woodLevel, $motifsKnown);
+		
+		if ($provMRChance > 0)
+		{
+			$output .= "<div class='ecdSkillMasterWritTitle'>Master Writ Chance:</div> <div class='ecdSkillMasterWritChance'>$woodMRChance</div><br/><br/>";
+		}
+		
+		return $output; 
 	}
 	
 	

@@ -3420,7 +3420,17 @@ thead.ecdFixedHeader tr {
     width: 150px;
 }
 
-.ecdHirelingTime {
+.ecdSkillHirelingTitle,
+.ecdSkillMasterWritTitle {
+	font-size: 20px;
+    font-weight: bold;
+    color: #C5C29E;
+    display: inline-block;
+    padding-top: 5px;
+}
+
+.ecdHirelingTime,
+.ecdSkillMasterWritChance {
 	font-size: 18px;
     font-weight: bold;
     color: white;

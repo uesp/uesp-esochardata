@@ -2492,6 +2492,8 @@ class EsoBuildDataViewer
 	
 	public function getAccountStatsField ($charId, $stat, $default = '')
 	{
+		if ($charId <= 0) return $this->getCharStatField($stat, $default);
+		
 		if ($this->accountStats[$charId] === null) return $default;
 		if ($this->accountStats[$charId][$stat] === null) return $default;
 		if ($this->accountStats[$charId][$stat]['value'] === null) return $default;
@@ -2502,11 +2504,23 @@ class EsoBuildDataViewer
 	
 	public function getAccountSkillsField ($charId, $stat, $stat2, $default = '')
 	{
+		if ($charId <= 0) return $this->getCharSkillsField($stat, $default);
+		
 		if ($this->accountSkills[$charId] === null) return $default;
 		if ($this->accountSkills[$charId][$stat] === null) return $default;
 		if ($this->accountSkills[$charId][$stat][$stat2] === null) return $default;
 		
 		return $this->escape($this->accountSkills[$charId][$stat][$stat2]);
+	}
+	
+	
+	public function getCharSkillsField ($stat, $stat2, $default = '')
+	{
+		if ($this->characterData['skills'] === null) return $default;
+		if ($this->characterData['skills'][$stat] === null) return $default;
+		if ($this->characterData['skills'][$stat][$stat2] === null) return $default;
+		
+		return $this->escape($this->characterData['skills'][$stat][$stat2]);
 	}
 	
 
@@ -2567,8 +2581,29 @@ class EsoBuildDataViewer
 			$output .= $this->getCharSkillContentHtml3($i, $skillData[$i]);
 		}
 		
+		if ($skillLine == "Alchemy")
+			$output .= $this->getCharSkillAlchemyExtraContent();
+		elseif ($skillLine == "Blacksmithing")
+			$output .= $this->getCharSkillBlacksmithingExtraContent();
+		elseif ($skillLine == "Clothing")
+			$output .= $this->getCharSkillClothingExtraContent();
+		elseif ($skillLine == "Enchanting")
+			$output .= $this->getCharSkillEnchantingExtraContent();
+		elseif ($skillLine == "Provisioning")
+			$output .= $this->getCharSkillProvisioningExtraContent();
+		elseif ($skillLine == "Woodworking")
+			$output .= $this->getCharSkillWoodworkingExtraContent();
+		
 		return $output;
 	}
+	
+	
+	public function getCharSkillAlchemyExtraContent() { return ""; }
+	public function getCharSkillBlacksmithingExtraContent() { return ""; } 
+	public function getCharSkillClothingExtraContent()  { return ""; }
+	public function getCharSkillEnchantingExtraContent()  { return ""; }
+	public function getCharSkillProvisioningExtraContent()  { return ""; }
+	public function getCharSkillWoodworkingExtraContent()  { return ""; }
 	
 	
 	public function getCharSkillContentHtmlCP(&$skillData)
