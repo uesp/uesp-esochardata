@@ -7843,7 +7843,7 @@ function UpdateEsoItemSets(inputValues)
 		var itemData = g_EsoBuildItemData[key];
 		var setName = itemData.setName;
 		
-		is2HWeapon = itemData.weaponType ==  4 || itemData.weaponType ==  5 || itemData.weaponType ==  6 ||
+		is2HWeapon = itemData.weaponType ==  4 || itemData.weaponType ==  5 || itemData.weaponType ==  6 || itemData.weaponType ==  8 ||
 					 itemData.weaponType ==  9 || itemData.weaponType == 12 || itemData.weaponType == 13 || itemData.weaponType == 15;    
 		
 		if (key == "MainHand2" || key == "OffHand2" || key == "Poison2")

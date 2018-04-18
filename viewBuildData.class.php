@@ -91,6 +91,7 @@ class EsoBuildDataViewer
 	public $accountData = array();
 	public $accountCharacters = array();
 	public $accountStats = array();
+	public $accountSkills = array();
 	public $accountBuffs = array();
 	
 	public $characterId = 0;
@@ -947,6 +948,37 @@ class EsoBuildDataViewer
 			$charId = intval($row['characterId']);
 			if ($this->accountStats[$charId] === null) $this->accountStats[$charId] = array();
 			$this->accountStats[$charId][$row['name']] = $row;
+		}
+		
+		return true;
+	}
+	
+	
+	public function loadAccountSkills()
+	{
+		$charIds = array();
+		
+		foreach ($this->buildData as $build)
+		{
+			$charIds[] = $build['id'];	
+		}
+		
+		if (count($charIds) == 0) return false;
+		
+		$this->lastQuery = "SELECT * FROM skills WHERE characterId IN (" . implode(",", $charIds) . ");";
+		$result = $this->db->query($this->lastQuery);
+		if ($result === FALSE) return $this->reportError("Failed to load stats data for account $accountName!");
+		
+		$result->data_seek(0);
+		$this->accountSkills = array();
+		$count = 0;
+		
+		while (($row = $result->fetch_assoc()))
+		{
+			++$count;
+			$charId = intval($row['characterId']);
+			if ($this->accountSkills[$charId] === null) $this->accountSkills[$charId] = array();
+			$this->accountSkills[$charId][$row['name']] = $row;
 		}
 		
 		return true;
@@ -2468,6 +2500,16 @@ class EsoBuildDataViewer
 	}
 	
 	
+	public function getAccountSkillsField ($charId, $stat, $stat2, $default = '')
+	{
+		if ($this->accountSkills[$charId] === null) return $default;
+		if ($this->accountSkills[$charId][$stat] === null) return $default;
+		if ($this->accountSkills[$charId][$stat][$stat2] === null) return $default;
+		
+		return $this->escape($this->accountSkills[$charId][$stat][$stat2]);
+	}
+	
+
 	public function getCharSkillContentHtml2($skillName, &$skillData)
 	{
 		$safeName = $this->escape($skillName);

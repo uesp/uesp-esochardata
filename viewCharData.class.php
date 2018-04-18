@@ -32,6 +32,135 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 		);
 	
 	
+	public $MAX_PROVISIONING_MASTERWRIT_CHANCE = 14;
+	public $MAX_ALCHEMY_MASTERWRIT_CHANCE = 14;
+	public $MAX_ENCHANTING_MASTERWRIT_CHANCE = 14;
+	public $MAX_SMITHING_MASTERWRIT_CHANCE = 14;
+	public $MIN_MASTERWRIT_CHANCE = 1;
+	
+	public $MOTIFS_FOR_MASTERWRITS = array(
+			"Abah's Watch",
+			"Akaviri",
+			"Aldmeri Dominion",
+			"Ancient Elf",
+			"Ancient Orc",
+			"Apostle",
+			"Ashlander",
+			"Assassins League",
+			"Barbaric",
+			"Bloodforge",
+			"Buoyant Armiger",
+			"Celestial",
+			"Daedric",
+			"Daggerfall Covenant",
+			"Dark Brotherhood",
+			"Draugr",
+			"Dreadhorn",
+			"Dro-m'Athra",
+			"Dwemer",
+			"Ebonheart Pact",
+			"Ebonshadow",
+			"Ebony",
+			"Glass",
+			"Hlaalu",
+			"Hollowjack",
+			"Malacath",
+			"Mazzatun",
+			"Mercenary",
+			"Militant Ordinator",
+			"Minotaur",
+			"Morag Tong",
+			"Order of the Hour",
+			"Outlaw",
+			"Primal",
+			"Ra Gada",
+			"Redoran",
+			"Silken Ring",
+			"Skinchanger",
+			"Telvanni",
+			"Thieves Guild",
+			"Trinimac",
+			"Worm Cult",
+			"Xivkyn",
+			"Yokudan",
+	);
+	
+	public $PROVISIONING_MASTERWRIT_RECIPEIDS = array(
+			57080,
+			57081,
+			57082,
+			57084,
+			33802,
+			33594,
+			33856,
+			55922,
+			33886,
+			33892,
+			28331,
+			57110,
+			33808,
+			33868,
+			33919,
+			33862,
+			33796,
+			43128,
+			33928,
+			33910,
+			33904,
+			33922,
+			28333,
+			43089,
+			43143,
+			33898,
+			57153,
+			68251,
+			68252,
+			68253,
+			68254,
+			57155,
+			57156,
+			57157,
+			34027,
+			33434,
+			33694,
+			33979,
+			33739,
+			33436,
+			33456,
+			28514,
+			34072,
+			33459,
+			28518,
+			33438,
+			33603,
+			28403,
+			33440,
+			33454,
+			46057,
+			33982,
+			28483,
+			33699,
+			28510,
+			33646,
+			34033,
+			46059,
+			68273,
+			68274,
+			68275,
+			68276,
+			64221,
+			133556,
+			120076,
+			120763,
+			87699,
+			101879,
+			87697,
+			87690,
+			71059,
+			133555,
+			120764,
+	);
+	
 	public function __construct ($isEmbedded = false, $initDbWrite = false)
 	{
 		parent::__construct($isEmbedded, $initDbWrite);
@@ -930,10 +1059,10 @@ EOT;
 		if ($this->buildData[0] != null)
 		{
 			$this->loadAccountStats($this->buildData[0]['accountName']);
+			$this->loadAccountSkills($this->buildData[0]['accountName']);
 			$this->loadAccountBuffs($this->buildData[0]['accountName']);			
 		}
 		
-		//usort($this->buildData, array('EsoCharDataViewer', 'SortBuildsByName'));
 		uasort($this->buildData, array('EsoCharDataViewer', 'SortBuildsByCharIndexAndName'));
 	
 		$this->outputHtml .= $this->getBreadcrumbTrailHtml() . "<p />\n";
@@ -971,6 +1100,8 @@ EOT;
 		if (!$this->viewMyBuilds) return "";
 		
 		$output .= $this->createCharInventorySummaryHtml();
+		$output .= $this->createCharHirelingSummaryHtml();		
+		$output .= $this->createCharWritSummaryHtml();
 		$output .= $this->createCharRidingSummaryHtml();
 		$output .= $this->createCharResearchSummaryHtml();
 		$output .= $this->createCharMotifSummaryHtml();
@@ -979,79 +1110,224 @@ EOT;
 	}
 	
 	
-	public function createCharInventorySummaryHtml()
+	public function createCharWritSummaryHtml()
 	{
 		$output  = "<p><br/>";
-		$output .= "<h2>Character Summary</h2>";
+		$output .= "<h2>Writ Summary</h2>";
+		
+		$output .= "<table id='ecdCharSummaryInventory' class='ecdCharSummaryTable'>";
+		$output .= "<tr>";
+		$output .= "<th rowspan='2'>Character</th>";
+		$output .= "<th colspan='6'>Crafting Level</th>";
+		$output .= "<td></td>";
+		$output .= "<th colspan='6'>Master Writ Chance (Estimate)</th>";
+		$output .= "</tr>";
+		$output .= "<tr>";
+		$output .= "<th>Alchemy</th>";
+		$output .= "<th>Black</th>";
+		$output .= "<th>Cloth</th>";
+		$output .= "<th>Enchant</th>";
+		$output .= "<th>Prov</th>";
+		$output .= "<th>Wood</th>";
+		$output .= "<td></td>";
+		$output .= "<th>Alchemy</th>";
+		$output .= "<th>Black</th>";
+		$output .= "<th>Cloth</th>";
+		$output .= "<th>Enchant</th>";
+		$output .= "<th>Prov</th>";
+		$output .= "<th>Wood</th>";
+		$output .= "</tr>";
+		
+		foreach ($this->buildData as $build)
+		{
+			$charId = intval($build['id']);
+			$charName = $this->escape($build['name']);
+						
+			$charSkills = $this->accountSkills[$charId];
+			if ($charSkills == null) continue;
+			
+			$alchemyLevel = $this->getAccountSkillsField($charId, "Craft:Alchemy:Solvent Proficiency", "rank", 0);
+			$blackLevel = $this->getAccountSkillsField($charId, "Craft:Blacksmithing:Metalworking", "rank", 0);
+			$clothLevel = $this->getAccountSkillsField($charId, "Craft:Clothing:Tailoring", "rank", 0);
+			$enchantLevel = $this->getAccountSkillsField($charId, "Craft:Enchanting:Potency Improvement", "rank", 0);
+			$provLevel = $this->getAccountSkillsField($charId, "Craft:Provisioning:Recipe Improvement", "rank", 0);
+			$woodLevel = $this->getAccountSkillsField($charId, "Craft:Woodworking:Woodworking", "rank", 0);
+			
+			$motifsKnown = $this->getCharMasterWritMotifsKnown($charId);
+			
+			$alchemyMRChance = $this->getCharAlchemyMasterWritChance($charId, $alchemyLevel);
+			$blackMRChance = $this->getCharBlacksmithingMasterWritChance($charId, $blackLevel, $motifsKnown);
+			$clothMRChance = $this->getCharClothingMasterWritChance($charId, $clothLevel, $motifsKnown);
+			$enchantMRChance = $this->getCharEnchantingMasterWritChance($charId, $enchantLevel);;
+			$provMRChance = $this->getCharProvisioningMasterWritChance($charId, $provLevel);
+			$woodMRChance = $this->getCharWoodworkingMasterWritChance($charId, $woodLevel, $motifsKnown);
+			
+			$output .= "<tr>";
+			$output .= "<td>$charName</td>";
+			$output .= "<td>$alchemyLevel</td>";
+			$output .= "<td>$blackLevel</td>";
+			$output .= "<td>$clothLevel</td>";
+			$output .= "<td>$enchantLevel</td>";
+			$output .= "<td>$provLevel</td>";
+			$output .= "<td>$woodLevel</td>";
+			$output .= "<td></td>";
+			$output .= "<td>$alchemyMRChance</td>";
+			$output .= "<td>$blackMRChance</td>";
+			$output .= "<td>$clothMRChance</td>";
+			$output .= "<td>$enchantMRChance</td>";
+			$output .= "<td>$provMRChance</td>";
+			$output .= "<td>$woodMRChance</td>";
+			$output .= "</tr>";
+		}
+		
+		$output .= "</table>";
+		
+		return $output;
+	}
+	
+		
+	public function getCharMasterWritMotifsKnown($charId)
+	{
+		$knownMotifs = 0;
+		$totalMotifs = count($this->MOTIFS_FOR_MASTERWRITS);
+		
+		foreach ($this->MOTIFS_FOR_MASTERWRITS as $motif)
+		{
+			$isKnown = $this->getAccountStatsField($charId, "Crafting:$motif", "0");
+			if ($isKnown === "1") ++$knownMotifs;
+		}
+		
+		return $knownMotifs / $totalMotifs;
+	}
+	
+	
+	public function getCharBlacksmithingMasterWritChance($charId, $level, $motifsKnown)
+	{
+		if ($level < 10) return "";
+		
+		$knownTraits = $this->getAccountStatsField($charId, "Research:Blacksmithing:Trait:Known", "0");
+		$totalTraits = $this->getAccountStatsField($charId, "Research:Blacksmithing:Trait:Total", "1");
+		
+		$writChance = $this->MIN_MASTERWRIT_CHANCE;
+		$writChance += $knownTraits/$totalTraits * $this->MAX_SMITHING_MASTERWRIT_CHANCE/2;
+		$writChance += $motifsKnown * $this->MAX_SMITHING_MASTERWRIT_CHANCE/2;
+		
+		return round($writChance) . "%";
+	}
+	
+	
+	public function getCharClothingMasterWritChance($charId, $level, $motifsKnown)
+	{
+		if ($level < 10) return "";
+		
+		$knownTraits = $this->getAccountStatsField($charId, "Research:Clothier:Trait:Known", "0");
+		$totalTraits = $this->getAccountStatsField($charId, "Research:Clothier:Trait:Total", "1");
+		
+		$writChance = $this->MIN_MASTERWRIT_CHANCE;
+		$writChance += $knownTraits/$totalTraits * $this->MAX_SMITHING_MASTERWRIT_CHANCE/2;
+		$writChance += $motifsKnown * $this->MAX_SMITHING_MASTERWRIT_CHANCE/2;
+		
+		return round($writChance) . "%";
+	}
+
+	
+	public function getCharWoodworkingMasterWritChance($charId, $level, $motifsKnown)
+	{
+		if ($level < 10) return "";
+		
+		$knownTraits = $this->getAccountStatsField($charId, "Research:Woodworking:Trait:Known", "0");
+		$totalTraits = $this->getAccountStatsField($charId, "Research:Woodworking:Trait:Total", "1");
+		
+		$writChance = $this->MIN_MASTERWRIT_CHANCE;
+		$writChance += $knownTraits/$totalTraits * $this->MAX_SMITHING_MASTERWRIT_CHANCE/2;
+		$writChance += $motifsKnown * $this->MAX_SMITHING_MASTERWRIT_CHANCE/2;
+		
+		return round($writChance) . "%";
+	}
+	
+	
+	public function getCharEnchantingMasterWritChance($charId, $enchantLevel)
+	{
+		if ($enchantLevel < 10) return "";
+		
+			// 788 - 5
+			// 781 - 17
+			// 779 - 14
+			// 780 - 14
+			// 1317 - 5
+		$achData1 = explode(",", $this->getAccountStatsField($charId, "Achievement:788", "0,0"));
+		$achData2 = explode(",", $this->getAccountStatsField($charId, "Achievement:781", "0,0"));
+		$achData3 = explode(",", $this->getAccountStatsField($charId, "Achievement:779", "0,0"));
+		$achData4 = explode(",", $this->getAccountStatsField($charId, "Achievement:780", "0,0"));
+		$achData5 = explode(",", $this->getAccountStatsField($charId, "Achievement:1317", "0,0"));
+		
+		$runesKnown = 0;
+		$runesKnown += substr_count(decbin($achData1[0]), '1');
+		$runesKnown += substr_count(decbin($achData2[0]), '1');
+		$runesKnown += substr_count(decbin($achData3[0]), '1');
+		$runesKnown += substr_count(decbin($achData4[0]), '1');
+		$runesKnown += substr_count(decbin($achData5[0]), '1');
+		
+		return round($runesKnown/(4 + 17 + 14 + 14 + 5) * $this->MAX_ENCHANTING_MASTERWRIT_CHANCE + $this->MIN_MASTERWRIT_CHANCE) . "%";
+	}
+	
+	
+	public function getCharAlchemyMasterWritChance($charId, $alchemyLevel)
+	{
+		if ($alchemyLevel < 8) return "";
+		
+			// 1045 - 18
+			// 1464 - 8
+		$achData1 = explode(",", $this->getAccountStatsField($charId, "Achievement:1045", "0,0"));
+		$achData2 = explode(",", $this->getAccountStatsField($charId, "Achievement:1464", "0,0"));
+		
+		$reagentsKnown = 0;
+		$reagentsKnown += substr_count(decbin($achData1[0]), '1');
+		$reagentsKnown += substr_count(decbin($achData2[0]), '1');
+		
+		return round($reagentsKnown/(18 + 8) * $this->MAX_ALCHEMY_MASTERWRIT_CHANCE + $this->MIN_MASTERWRIT_CHANCE) . "%";
+	}
+	
+	
+	public function getCharProvisioningMasterWritChance($charId, $provLevel)
+	{
+		if ($provLevel < 6) return "";
+		
+		$numRecipesKnown = 0;
+		$totalRecipes = count($this->PROVISIONING_MASTERWRIT_RECIPEIDS);
+		
+		foreach ($this->PROVISIONING_MASTERWRIT_RECIPEIDS as $recipeId)
+		{
+			$isKnown = $this->getAccountStatsField($charId, "Recipe:$recipeId", 0);
+			if ($isKnown) ++$numRecipesKnown;
+		}
+		
+		return round($numRecipesKnown/$totalRecipes * $this->MAX_PROVISIONING_MASTERWRIT_CHANCE + $this->MIN_MASTERWRIT_CHANCE) . "%";
+	}
+	
+	
+	public function createCharHirelingSummaryHtml()
+	{
+		$output  = "<p><br/>";
+		$output .= "<h2>Hireling Summary</h2>";
 		
 		$output .= "<table id='ecdCharSummaryInventory' class='ecdCharSummaryTable'>";
 		$output .= "<tr>";
 		$output .= "<th>Character</th>";
-		$output .= "<th>Gold</th>";
-		$output .= "<th>AP</th>";
-		$output .= "<th>Telvar</th>";
-		$output .= "<th>Vouchers</th>";
-		$output .= "<th>Transmute</th>";
-		$output .= "<th>Inv Used</th>";
-		$output .= "<th>Inv Total</th>";
-		$output .= "<th>Skill Points</th>";
-		$output .= "<th>Achievement<br>Points</th>";
-		$output .= "<th>Mundus</th>";
 		$output .= "<th>Blacksmith<br/>Hireling</th>";
 		$output .= "<th>Clothier<br/>Hireling</th>";
 		$output .= "<th>Enchanter<br/>Hireling</th>";
 		$output .= "<th>Provisioner<br/>Hireling</th>";
 		$output .= "<th>Woodworker<br/>Hireling</th>";
-		$output .= "<th>Time Played</th>";
 		$output .= "</tr>";
 		
-		//InventorySize
-		//InventoryUsedSize
-		//Money
-		//TelvarStones
-		//AlliancePoints
-		//WritVoucher
-		
-		//BankSize
-		//BankUsedSize
-		//BankedMoney
-		//BankedTelvarStones
-		$totalGold = 0;
-		$totalAP = 0;
-		$totalTelvar = 0;
-		$totalVouchers = 0;
-		$totalInvUsed = 0;
-		$totalInv = 0;
-		$totalSkillPoints = 0;
-		$totalAchPoints = 0;
-		$totalSecondsPlayed = 0;
 		$currentTime = time();
-		$maxTimestamp = 0;
-		$maxCharId = 0;
 		
 		foreach ($this->buildData as $build)
 		{
 			$charId = intval($build['id']);
 			$charName = $this->escape($build['name']);
 			if ($this->accountStats[$charId] == null) continue;
-			
-			$timestamp = $this->getAccountStatsField($charId, 'TimeStamp', 0);
-			
-			if ($timestamp > $maxTimestamp)
-			{
-				$maxTimestamp = $timestamp;
-				$maxCharId = $charId;
-			}
-			
-			$gold = intval($this->getAccountStatsField($charId, 'Money', 0));
-			$telvar = intval($this->getAccountStatsField($charId, 'TelvarStones', 0));
-			$ap = intval($this->getAccountStatsField($charId, 'AlliancePoints', 0));
-			$voucher = intval($this->getAccountStatsField($charId, 'WritVoucher', 0));
-			$invUsed = intval($this->getAccountStatsField($charId, 'InventoryUsedSize', 0));
-			$invTotal = intval($this->getAccountStatsField($charId, 'InventorySize', 0));
-			$skillPoints = intval($this->getAccountStatsField($charId, 'SkillPointsTotal', 0));
-			$achPoints = intval($this->getAccountStatsField($charId, 'AchievementEarnedPoints', 0));
-			$mundus = $this->escape($this->GetAccountCharMundus($charId));
 			
 			$blackHireling = intval($this->getAccountStatsField($charId, 'HirelingMailTime:Blacksmithing', 0));
 			$clothHireling = intval($this->getAccountStatsField($charId, 'HirelingMailTime:Clothier', 0));
@@ -1064,9 +1340,6 @@ EOT;
 			$enchantSkill = intval($this->getAccountStatsField($charId, 'HirelingSkill:Enchanting', 0));
 			$provSkill = intval($this->getAccountStatsField($charId, 'HirelingSkill:Provisioning', 0));
 			$woodSkill = intval($this->getAccountStatsField($charId, 'HirelingSkill:Woodworking', 0));
-			
-			$secondsPlayed = intval($this->getAccountStatsField($charId, 'SecondsPlayed', 0));
-			$timePlayedFmt = $this->formatTimeLeft($secondsPlayed);
 			
 			$blackTime = (($blackSkill >= 3) ? 12 : 24) * 3600 + $blackHireling;
 			$clothTime = (($clothSkill >= 3) ? 12 : 24) * 3600 + $clothHireling;
@@ -1120,6 +1393,94 @@ EOT;
 					$woodTimeFmt = "Ready!";
 			}
 			
+			$output .= "<tr>";
+			$output .= "<td>$charName</td>";
+			$output .= "<td>$blackTimeFmt</td>";
+			$output .= "<td>$clothTimeFmt</td>";
+			$output .= "<td>$enchantTimeFmt</td>";
+			$output .= "<td>$provTimeFmt</td>";
+			$output .= "<td>$woodTimeFmt</td>";
+			$output .= "</tr>";
+		}
+		
+		$output .= "</table>";
+		
+		return $output;
+	}
+	
+	
+	public function createCharInventorySummaryHtml()
+	{
+		$output  = "<p><br/>";
+		$output .= "<h2>Character Summary</h2>";
+		
+		$output .= "<table id='ecdCharSummaryInventory' class='ecdCharSummaryTable'>";
+		$output .= "<tr>";
+		$output .= "<th>Character</th>";
+		$output .= "<th>Gold</th>";
+		$output .= "<th>AP</th>";
+		$output .= "<th>Telvar</th>";
+		$output .= "<th>Vouchers</th>";
+		$output .= "<th>Transmute</th>";
+		$output .= "<th>Inv Used</th>";
+		$output .= "<th>Inv Total</th>";
+		$output .= "<th>Skill Points</th>";
+		$output .= "<th>Achievement<br>Points</th>";
+		$output .= "<th>Mundus</th>";
+		$output .= "<th>Time Played</th>";
+		$output .= "</tr>";
+		
+		//InventorySize
+		//InventoryUsedSize
+		//Money
+		//TelvarStones
+		//AlliancePoints
+		//WritVoucher
+		
+		//BankSize
+		//BankUsedSize
+		//BankedMoney
+		//BankedTelvarStones
+		$totalGold = 0;
+		$totalAP = 0;
+		$totalTelvar = 0;
+		$totalVouchers = 0;
+		$totalInvUsed = 0;
+		$totalInv = 0;
+		$totalSkillPoints = 0;
+		$totalAchPoints = 0;
+		$totalSecondsPlayed = 0;
+		$currentTime = time();
+		$maxTimestamp = 0;
+		$maxCharId = 0;
+		
+		foreach ($this->buildData as $build)
+		{
+			$charId = intval($build['id']);
+			$charName = $this->escape($build['name']);
+			if ($this->accountStats[$charId] == null) continue;
+			
+			$timestamp = $this->getAccountStatsField($charId, 'TimeStamp', 0);
+			
+			if ($timestamp > $maxTimestamp)
+			{
+				$maxTimestamp = $timestamp;
+				$maxCharId = $charId;
+			}
+			
+			$gold = intval($this->getAccountStatsField($charId, 'Money', 0));
+			$telvar = intval($this->getAccountStatsField($charId, 'TelvarStones', 0));
+			$ap = intval($this->getAccountStatsField($charId, 'AlliancePoints', 0));
+			$voucher = intval($this->getAccountStatsField($charId, 'WritVoucher', 0));
+			$invUsed = intval($this->getAccountStatsField($charId, 'InventoryUsedSize', 0));
+			$invTotal = intval($this->getAccountStatsField($charId, 'InventorySize', 0));
+			$skillPoints = intval($this->getAccountStatsField($charId, 'SkillPointsTotal', 0));
+			$achPoints = intval($this->getAccountStatsField($charId, 'AchievementEarnedPoints', 0));
+			$mundus = $this->escape($this->GetAccountCharMundus($charId));
+			
+			$secondsPlayed = intval($this->getAccountStatsField($charId, 'SecondsPlayed', 0));
+			$timePlayedFmt = $this->formatTimeLeft($secondsPlayed);
+			
 			$totalGold += $gold;
 			$totalAP += $ap;
 			$totalTelvar += $telvar;
@@ -1148,11 +1509,6 @@ EOT;
 			$output .= "<td>$skillPoints</td>";
 			$output .= "<td>$achPoints</td>";
 			$output .= "<td>$mundus</td>";
-			$output .= "<td>$blackTimeFmt</td>";
-			$output .= "<td>$clothTimeFmt</td>";
-			$output .= "<td>$enchantTimeFmt</td>";
-			$output .= "<td>$provTimeFmt</td>";
-			$output .= "<td>$woodTimeFmt</td>";
 			$output .= "<td>$timePlayedFmt</td>";
 			$output .= "</tr>";			
 		}
@@ -1191,11 +1547,6 @@ EOT;
 		$output .= "<td>-</td>";
 		$output .= "<td>-</td>";
 		$output .= "<td>-</td>";
-		$output .= "<td>-</td>";
-		$output .= "<td>-</td>";
-		$output .= "<td>-</td>";
-		$output .= "<td>-</td>";
-		$output .= "<td>-</td>";
 		$output .= "</tr>";
 		
 		$invHomeUsed = $this->getAccountStatsField($maxCharId, 'HouseStorage:TotalUsedSize');
@@ -1212,11 +1563,6 @@ EOT;
 		$output .= "<td>-</td>";
 		$output .= "<td>$invHomeUsed</td>";
 		$output .= "<td>$invHomeTotal</td>";
-		$output .= "<td>-</td>";
-		$output .= "<td>-</td>";
-		$output .= "<td>-</td>";
-		$output .= "<td>-</td>";
-		$output .= "<td>-</td>";
 		$output .= "<td>-</td>";
 		$output .= "<td>-</td>";
 		$output .= "<td>-</td>";
@@ -1247,11 +1593,6 @@ EOT;
 		$output .= "<th>$totalInv</th>";
 		$output .= "<th>$totalSkillPoints</th>";
 		$output .= "<th>$totalAchPoints</th>";
-		$output .= "<th>-</th>";
-		$output .= "<th>-</th>";
-		$output .= "<th>-</th>";
-		$output .= "<th>-</th>";
-		$output .= "<th>-</th>";
 		$output .= "<th>-</th>";
 		$output .= "<th>$timePlayedFmt</th>";
 		$output .= "</tr>";
