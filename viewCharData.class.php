@@ -61,6 +61,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 			"Ebonheart Pact",
 			"Ebonshadow",
 			"Ebony",
+			//"Fang Lair", // TODO18
 			"Glass",
 			"Hlaalu",
 			"Hollowjack",
@@ -74,8 +75,11 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 			"Order of the Hour",
 			"Outlaw",
 			"Primal",
+			//"Psijic Order", // TODO18
 			"Ra Gada",
 			"Redoran",
+			//"Sapiarch", // TODO18
+			//"Scalecaller", // TODO18
 			"Silken Ring",
 			"Skinchanger",
 			"Telvanni",
