@@ -2593,6 +2593,8 @@ class EsoBuildDataViewer
 			$output .= $this->getCharSkillProvisioningExtraContent();
 		elseif ($skillLine == "Woodworking")
 			$output .= $this->getCharSkillWoodworkingExtraContent();
+		elseif ($skillLine == "Jewelry Crafting")
+			$output .= $this->getCharSkillJewelryExtraContent();			
 		
 		return $output;
 	}
@@ -3441,7 +3443,9 @@ class EsoBuildDataViewer
 	{
 		if ($icon == null || $icon == "") return "";
 		
-		$pngIcon = preg_replace("/\.dds$/", ".png", $icon);
+		$pngIcon = preg_replace('/\.dds$/', ".png", $icon);
+		
+		if ($icon[0] != '/') return self::ESO_ICON_URL ."/" . $icon;
 		return self::ESO_ICON_URL . $pngIcon;
 	}
 	
