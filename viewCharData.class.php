@@ -31,11 +31,12 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 			"Shoes" => "(L) Shoes",
 		);
 	
-	
+		// TODO18
 	public $MAX_PROVISIONING_MASTERWRIT_CHANCE = 14;
 	public $MAX_ALCHEMY_MASTERWRIT_CHANCE = 14;
 	public $MAX_ENCHANTING_MASTERWRIT_CHANCE = 14;
 	public $MAX_SMITHING_MASTERWRIT_CHANCE = 14;
+	public $MAX_JEWELRY_MASTERWRIT_CHANCE = 14;
 	public $MIN_MASTERWRIT_CHANCE = 1;
 	
 	public $MOTIFS_FOR_MASTERWRITS = array(
@@ -164,6 +165,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 			71059,
 			133555,
 			120764,
+			//TODO18
 	);
 	
 	public function __construct ($isEmbedded = false, $initDbWrite = false)
@@ -1132,6 +1134,7 @@ EOT;
 		$output .= "<th>Black</th>";
 		$output .= "<th>Cloth</th>";
 		$output .= "<th>Enchant</th>";
+		$output .= "<th>Jewel</th>";
 		$output .= "<th>Prov</th>";
 		$output .= "<th>Wood</th>";
 		$output .= "<td></td>";
@@ -1139,6 +1142,7 @@ EOT;
 		$output .= "<th>Black</th>";
 		$output .= "<th>Cloth</th>";
 		$output .= "<th>Enchant</th>";
+		$output .= "<th>Jewel</th>";
 		$output .= "<th>Prov</th>";
 		$output .= "<th>Wood</th>";
 		$output .= "</tr>";
@@ -1155,6 +1159,7 @@ EOT;
 			$blackLevel = $this->getAccountSkillsField($charId, "Craft:Blacksmithing:Metalworking", "rank", 0);
 			$clothLevel = $this->getAccountSkillsField($charId, "Craft:Clothing:Tailoring", "rank", 0);
 			$enchantLevel = $this->getAccountSkillsField($charId, "Craft:Enchanting:Potency Improvement", "rank", 0);
+			$jewelryLevel = $this->getAccountSkillsField($charId, "Craft:Jewelry:Potency Improvement", "rank", 0);
 			$provLevel = $this->getAccountSkillsField($charId, "Craft:Provisioning:Recipe Improvement", "rank", 0);
 			$woodLevel = $this->getAccountSkillsField($charId, "Craft:Woodworking:Woodworking", "rank", 0);
 			
@@ -1164,6 +1169,7 @@ EOT;
 			$blackMRChance = $this->getCharBlacksmithingMasterWritChance($charId, $blackLevel, $motifsKnown);
 			$clothMRChance = $this->getCharClothingMasterWritChance($charId, $clothLevel, $motifsKnown);
 			$enchantMRChance = $this->getCharEnchantingMasterWritChance($charId, $enchantLevel);;
+			$jewelryMRChance = $this->getCharJewelryMasterWritChance($charId, $enchantLevel);;
 			$provMRChance = $this->getCharProvisioningMasterWritChance($charId, $provLevel);
 			$woodMRChance = $this->getCharWoodworkingMasterWritChance($charId, $woodLevel, $motifsKnown);
 			
@@ -1173,6 +1179,7 @@ EOT;
 			$output .= "<td>$blackLevel</td>";
 			$output .= "<td>$clothLevel</td>";
 			$output .= "<td>$enchantLevel</td>";
+			$output .= "<td>$jewelryLevel</td>";
 			$output .= "<td>$provLevel</td>";
 			$output .= "<td>$woodLevel</td>";
 			$output .= "<td></td>";
@@ -1180,6 +1187,7 @@ EOT;
 			$output .= "<td>$blackMRChance</td>";
 			$output .= "<td>$clothMRChance</td>";
 			$output .= "<td>$enchantMRChance</td>";
+			$output .= "<td>$jewelryMRChance</td>";
 			$output .= "<td>$provMRChance</td>";
 			$output .= "<td>$woodMRChance</td>";
 			$output .= "</tr>";
@@ -1217,7 +1225,7 @@ EOT;
 		$writChance += $knownTraits/$totalTraits * $this->MAX_SMITHING_MASTERWRIT_CHANCE/2;
 		$writChance += $motifsKnown * $this->MAX_SMITHING_MASTERWRIT_CHANCE/2;
 		
-		return round($writChance) . "%";
+		return round($writChance, 1) . "%";
 	}
 	
 	
@@ -1232,7 +1240,7 @@ EOT;
 		$writChance += $knownTraits/$totalTraits * $this->MAX_SMITHING_MASTERWRIT_CHANCE/2;
 		$writChance += $motifsKnown * $this->MAX_SMITHING_MASTERWRIT_CHANCE/2;
 		
-		return round($writChance) . "%";
+		return round($writChance, 1) . "%";
 	}
 
 	
@@ -1247,7 +1255,20 @@ EOT;
 		$writChance += $knownTraits/$totalTraits * $this->MAX_SMITHING_MASTERWRIT_CHANCE/2;
 		$writChance += $motifsKnown * $this->MAX_SMITHING_MASTERWRIT_CHANCE/2;
 		
-		return round($writChance) . "%";
+		return round($writChance, 1) . "%";
+	}
+	
+	
+	public function getCharJewelryMasterWritChance($charId, $level, $motifsKnown)
+	{
+		if ($level < 5) return "";
+		
+		$knownTraits = $this->getAccountStatsField($charId, "Research:Jewelry:Trait:Known", "0");
+		$totalTraits = $this->getAccountStatsField($charId, "Research:Jewelry:Trait:Total", "1");
+		
+		$writChance = $this->MIN_MASTERWRIT_CHANCE + $knownTraits/$totalTraits * $this->MAX_JEWELRY_MASTERWRIT_CHANCE;
+		
+		return round($writChance, 1) . "%";
 	}
 	
 	
@@ -1273,7 +1294,7 @@ EOT;
 		$runesKnown += substr_count(decbin($achData4[0]), '1');
 		$runesKnown += substr_count(decbin($achData5[0]), '1');
 		
-		return round($runesKnown/(4 + 17 + 14 + 14 + 5) * $this->MAX_ENCHANTING_MASTERWRIT_CHANCE + $this->MIN_MASTERWRIT_CHANCE) . "%";
+		return round($runesKnown/(5 + 17 + 14 + 14 + 5) * $this->MAX_ENCHANTING_MASTERWRIT_CHANCE + $this->MIN_MASTERWRIT_CHANCE, 1) . "%";
 	}
 	
 	
@@ -1290,7 +1311,7 @@ EOT;
 		$reagentsKnown += substr_count(decbin($achData1[0]), '1');
 		$reagentsKnown += substr_count(decbin($achData2[0]), '1');
 		
-		return round($reagentsKnown/(18 + 8) * $this->MAX_ALCHEMY_MASTERWRIT_CHANCE + $this->MIN_MASTERWRIT_CHANCE) . "%";
+		return round($reagentsKnown/(18 + 8) * $this->MAX_ALCHEMY_MASTERWRIT_CHANCE + $this->MIN_MASTERWRIT_CHANCE, 1) . "%";
 	}
 	
 	
@@ -1307,7 +1328,7 @@ EOT;
 			if ($isKnown) ++$numRecipesKnown;
 		}
 		
-		return round($numRecipesKnown/$totalRecipes * $this->MAX_PROVISIONING_MASTERWRIT_CHANCE + $this->MIN_MASTERWRIT_CHANCE) . "%";
+		return round($numRecipesKnown/$totalRecipes * $this->MAX_PROVISIONING_MASTERWRIT_CHANCE + $this->MIN_MASTERWRIT_CHANCE, 1) . "%";
 	}
 	
 	
@@ -1412,11 +1433,28 @@ EOT;
 		}
 				
 		$enchantLevel = $this->getCharSkillsField("Craft:Enchanting:Potency Improvement", "rank", 0);
-		$enchantMRChance = $this->getCharEnchantingMasterWritChance(-1, $enchantLevel);;
+		$enchantMRChance = $this->getCharEnchantingMasterWritChance(-1, $enchantLevel);
 		
 		if ($enchantMRChance > 0)
 		{
 			$output .= "<div class='ecdSkillMasterWritTitle'>Master Writ Chance:</div> <div class='ecdSkillMasterWritChance'>$enchantMRChance</div><br/><br/>";
+		}
+		
+		return $output; 
+	}
+	
+	
+	public function getCharSkillJewelryExtraContent() 
+	{
+		$currentTime = time();
+		$output = "<br/></br>";
+		
+		$jewelryLevel = $this->getCharSkillsField("Craft:Jewelry:Potency Improvement", "rank", 0);
+		$jewelryMRChance = $this->getCharJewelryMasterWritChance(-1, $jewelryLevel);
+		
+		if ($jewelryMRChance > 0)
+		{
+			$output .= "<div class='ecdSkillMasterWritTitle'>Master Writ Chance:</div> <div class='ecdSkillMasterWritChance'>$jewelryMRChance</div><br/><br/>";
 		}
 		
 		return $output; 
@@ -3086,7 +3124,7 @@ EOT;
 		$output  = "<div id='ecdAchievementContents'>";
 		$output .= $this->achievements->GetAchievementContentHtml();
 		$output .= "</div>";
-		$output .= "<div id='ecdAchievementTree'>";
+		$output .= "<div id='ecdAchievementTree' class='ecdScrollContent'>";
 		$output .= "<div class='ecdFindAchTextBox'>";
 		$output .= "<input type='text' size='16' maxsize='32' value='' id='ecdFindAchInput' placeholder='Find Achievement' />";
 		$output .= "<button onclick='OnFindEsoCharAchievement(this);'>Find...</button>"; 

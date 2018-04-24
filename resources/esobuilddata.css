@@ -1774,18 +1774,19 @@ thead.ecdFixedHeader tr {
 }
 
 #ecdAchievementTree {
-	width: 220px;
-	height: 510px;
+	width: 215px;
+	height: 565px;
     display: inline-block;
     margin-top: 5px;
+	overflow-y: auto;
 }
 
 #ecdAchievementContents {
-	width: 420px;
+	width: 435px;
 	height: 580px;
     display: inline-block;
     float: right;
-    padding: 3px;
+    padding: 0px;
     overflow-x: hidden;
 }
 
@@ -1793,7 +1794,7 @@ thead.ecdFixedHeader tr {
 }
 
 .ecdAchTreeName1 {
-	font-size: 18px;
+	font-size: 16px;
     font-weight: bold;
     color: #C5C29E;
     padding: 4px;
@@ -1801,7 +1802,7 @@ thead.ecdFixedHeader tr {
     margin-left: 0px;
     cursor: pointer;
     border-radius: 15px;
-    height: 22px;
+    height: 20px;
 	padding-top: 0px;
 	padding-bottom: 5px;
 }
@@ -2244,7 +2245,7 @@ thead.ecdFixedHeader tr {
     font-size: 12px;
     padding: 3px;
     text-decoration: none;
-    width: 70px;
+    width: 65px;
     height: 24px;
 }
 
