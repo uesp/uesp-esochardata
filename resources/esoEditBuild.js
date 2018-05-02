@@ -8172,7 +8172,7 @@ function GetEsoInputCPValues(inputValues)
 	
 	if (!inputValues.CP.Enabled) 
 	{
-		if (inputValues.EffectiveLevel > 50) inputValues.EffectiveLevel = 50;
+		//if (inputValues.EffectiveLevel > 50) inputValues.EffectiveLevel = 50;
 		return;
 	}
 	
