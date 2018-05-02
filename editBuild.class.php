@@ -3110,9 +3110,9 @@ class EsoBuildDataEditor
 							//"round(0.0129965*Magicka + 0.520247*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) - 1.1641)",	//Update 12
 							//"round((0.0130319*Magicka + 0.519646*SpellDamage - 0.890172)*3)",		//Update 11pts
 							//"round((0.013*Magicka + 0.52*SpellDamage - 0.26)*3)",					//Update 10
-							"1 + CP.HAStaffDamage + CP.ShockDamageDone + CP.DotDamageDone",
+							"1 + CP.LAStaffDamage + CP.ShockDamageDone + CP.DotDamageDone",
 							"*",
-							"Skill2.HADamage",
+							"Skill2.LADamage",
 							"+",
 							"1 + Skill.HADamage + Set.HADamage + Skill.ShockDamageDone + Buff.Empower + Skill.DamageDone + Skill.AOEDamageDone",
 							"*",
@@ -3128,7 +3128,15 @@ class EsoBuildDataEditor
 							"round(0.0161002*Magicka + 0.643855*SpellDamage - 0.692667)", 		// Update 14
 							//"round(0.0139076*Magicka + 0.560231*SpellDamage + 0.0163755)", 	// Update 12
 							//"round(0.0140*Magicka + 0.56*SpellDamage - 0.60)", 				// Update 10?
-							"1 + CP.LAStaffDamage + Set.LADamage + Buff.Empower + Skill.FlameDamageDone + Skill.DamageDone + Skill.SingleTargetDamageDone + CP.DirectDamageDone",
+							
+							//"1 + CP.LAStaffDamage + Set.LADamage + Buff.Empower + Skill.FlameDamageDone + Skill.DamageDone + Skill.SingleTargetDamageDone + CP.DirectDamageDone",
+							//"*",
+							
+							"1 + CP.LAStaffDamage + CP.FlameDamageDone + CP.DirectDamageDone",
+							"*",
+							"Skill2.LADamage",
+							"+",
+							"1 + Skill.LADamage + Set.LADamage + Skill.FlameDamageDone + Buff.Empower + Skill.DamageDone + Skill.SingleTargetDamageDone",
 							"*",
 					),
 			),
@@ -3141,7 +3149,14 @@ class EsoBuildDataEditor
 							"round(0.0161002*Magicka + 0.643855*SpellDamage - 0.692667)", 		// Update 14
 							//"round(0.0139076*Magicka + 0.560231*SpellDamage + 0.0163755)", 	// Update 12
 							//"round(0.0140*Magicka + 0.56*SpellDamage - 0.60)",
-							"1 + CP.LAStaffDamage + Set.LADamage + Buff.Empower + Skill.ColdDamageDone + Skill.DamageDone + CP.DirectDamageDone",
+							//"1 + CP.LAStaffDamage + Set.LADamage + Buff.Empower + Skill.ColdDamageDone + Skill.DamageDone + CP.DirectDamageDone",
+							//"*",
+							
+							"1 + CP.LAStaffDamage + CP.ColdDamageDone + CP.DirectDamageDone",
+							"*",
+							"Skill2.LADamage",
+							"+",
+							"1 + Skill.LADamage + Set.LADamage + Skill.ColdDamageDone + Buff.Empower + Skill.DamageDone + Skill.SingleTargetDamageDone",
 							"*",
 					),
 			),
@@ -3154,7 +3169,14 @@ class EsoBuildDataEditor
 							"round((0.0407852*Magicka + 1.63171*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) - 1.76576)/3)", 		// Update 14
 							//"round(0.0139076*Magicka + 0.560231*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) + 0.0163755)", 	// Update 12
 							//"round(0.0140*Magicka + 0.56*SpellDamage - 0.60)",
-							"1 + CP.LAStaffDamage + Set.LADamage + Buff.Empower + Skill.DamageDone + CP.DotDamageDone",
+							//"1 + CP.LAStaffDamage + Set.LADamage + Buff.Empower + Skill.DamageDone + CP.DotDamageDone",
+							//"*",
+							
+							"1 + CP.LAStaffDamage + CP.ShockDamageDone + CP.DotDamageDone",
+							"*",
+							"Skill2.LADamage",
+							"+",
+							"1 + Skill.HADamage + Set.HADamage + Skill.ShockDamageDone + Buff.Empower + Skill.DamageDone + Skill.AOEDamageDone",
 							"*",
 					),
 			),
