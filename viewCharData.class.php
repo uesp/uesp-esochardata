@@ -1168,8 +1168,8 @@ EOT;
 			$alchemyMRChance = $this->getCharAlchemyMasterWritChance($charId, $alchemyLevel);
 			$blackMRChance = $this->getCharBlacksmithingMasterWritChance($charId, $blackLevel, $motifsKnown);
 			$clothMRChance = $this->getCharClothingMasterWritChance($charId, $clothLevel, $motifsKnown);
-			$enchantMRChance = $this->getCharEnchantingMasterWritChance($charId, $enchantLevel);;
-			$jewelryMRChance = $this->getCharJewelryMasterWritChance($charId, $enchantLevel);;
+			$enchantMRChance = $this->getCharEnchantingMasterWritChance($charId, $enchantLevel);
+			$jewelryMRChance = $this->getCharJewelryMasterWritChance($charId, $jewelryLevel);
 			$provMRChance = $this->getCharProvisioningMasterWritChance($charId, $provLevel);
 			$woodMRChance = $this->getCharWoodworkingMasterWritChance($charId, $woodLevel, $motifsKnown);
 			

@@ -6382,38 +6382,26 @@ function GetEsoInputValues(mergeComputedStats)
 function GetEsoInputFoodValues(inputValues)
 {
 	var buffDesc = g_EsoBuildItemData['Food'].abilityDesc;
+	var itemType = g_EsoBuildItemData['Food'].type;
  
 	inputValues.FoodBuff = 0;
 	inputValues.DrinkBuff = 0;
 	
 	if (g_EsoBuildItemData['Food'].enabled === false) return;
 	if (buffDesc == null) return;
-	
-	
-	if (buffDesc.indexOf("Max ") >= 0)
+		
+	if (buffDesc.indexOf("Max ") >= 0 || itemType == 4)
 	{
 		inputValues.FoodBuff = 1;
 		AddEsoInputStatSource("FoodBuff", { source: "Food", value: 1 });
 	}
 	
-	if (buffDesc.indexOf(" Recovery ") >= 0)
+	if (buffDesc.indexOf(" Recovery ") >= 0 || itemType == 12)
 	{
 		inputValues.DrinkBuff = 1;
 		AddEsoInputStatSource("DrinkBuff", { source: "Drink", value: 1 });
 	}
 	
-	/*
-	if (g_EsoBuildItemData.Food.type == 4 && g_EsoBuildItemData.Food.enabled !== false)
-	{
-		inputValues.FoodBuff = 1;
-		AddEsoInputStatSource("FoodBuff", { source: "Food", value: 1 });
-	}
-	else if (g_EsoBuildItemData.Food.type == 12 && g_EsoBuildItemData.Food.enabled !== false)
-	{
-		inputValues.DrinkBuff = 1;
-		AddEsoInputStatSource("DrinkBuff", { source: "Drink", value: 1 });
-	} */
-
 }
 
 
