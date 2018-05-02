@@ -859,9 +859,17 @@ g_EsoBuildBuffData =
 			statId : "WeaponDamage",
 			icon : "/esoui/art/icons/ability_werewolf_004_b.png",
 		},
+		"Powerful Assault" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 164,
+			category: "Item",
+			statIds : ["SpellDamage", "WeaponDamage"],
+			icon : "/esoui/art/icons/ability_healer_019.png",
+		},
 		
 			/* Target Buffs */
-
 		"Alkosh (Target)" : 
 		{
 			//Reduces the Physical and Spell Resistance of any enemy hit by 35-3010 for 10 seconds.
@@ -5457,22 +5465,24 @@ ESO_SETEFFECT_MATCHES = [
 		statId: "HealthRegen",
 		match: /While you have a damage shield on you, your Health Recovery is increased by ([0-9]+)/i,
 	},
-	{
+	/*{
 		id: "Powerful Assault",
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "SpellDamage",
+		//statId: "SpellDamage",
 		match: /When you cast an Assault ability, you increase the Weapon and Spell Damage of up to [0-9]+ friendly targets within [0-9]+ meters by ([0-9]+)/i,
-	},
+	}, // */
 	{
 		id: "Powerful Assault",
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "WeaponDamage",
+		//statId: "WeaponDamage",
+		buffId: "Powerful Assault",
+		updateBuffValue: true,
 		match: /When you cast an Assault ability, you increase the Weapon and Spell Damage of up to [0-9]+ friendly targets within [0-9]+ meters by ([0-9]+)/i,
 	},
 	{

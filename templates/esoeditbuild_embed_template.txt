@@ -1109,7 +1109,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Fixed several food/drink that incorrectly had set bonus data.</li>
 				<li>When CP is disabled your effective level stays at whatever it was (usually CP160). This matches what happens in-game with stats that change based on your effective level.</li>
 				<li>Fixed channeled/cast time abilities that were not being affected by class weapon/spell damage bonuses (Innate Axoim set).</li>
-				<li>Fixed several destruction light attack computed values that were not including a few effects such as the Maelstrom bonus damage.</li> 
+				<li>Fixed several destruction light attack computed values that were not including a few effects such as the Maelstrom bonus damage.</li>
+				<li>Turned the 5 piece Powerful Assault set bonus into a toggleable buff.</li> 
 			</ul>
 			<p>
 			<b>16 April 2018</b>

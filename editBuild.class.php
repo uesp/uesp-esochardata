@@ -12,7 +12,9 @@
  *  	- Nightblade - Siphoning: Soul Siphoner (scales from Siphoning abilities slotted)
  *  	- Sorcerer - Storm Calling: Expert Mage (scales from Storm abilities slotted)
  *  	- Adjust all Durations in tooltips?
- *  	- Increases healing with Restoration Staff spells by 5% 
+ *  	- Increases healing with Restoration Staff spells by 5%
+ *  	- Overall "X damage taken" type state (Flame damage for vampires).
+ *  	- Quick Item Setup: Nirnhoned items that don't exist? 
  */
 
 require_once("/home/uesp/secrets/esolog.secrets");
