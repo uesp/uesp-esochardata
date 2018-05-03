@@ -5,7 +5,6 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #cfc; display: flex;'>
-Note: The builder has been updated for the Dragon Bones DLC! 
 If you can't save builds &nbsp; <a href="http://en.uesp.net/wiki/UESPWiki:EsoBuildEditor#Can.27t_Save_Build_.28Error_Saving_Build.29">see here</a> &nbsp; for details on how to fix it. 
 </div>
 {saveNote}
@@ -265,6 +264,20 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<div class="esotbItemDisableButton esotbItemButton">-</div>
 					<div class="esotbItemDetailsButton esotbItemButton">...</div>
 					<div class="esotbItemEnchantButton esotbItemButton">*</div>
+					<div class="esotbItemTransmute">
+						<select id="esotbItemTransmuteNeck" slotid="Neck" class="esotbItemTransmuteList">
+							<option value="0" hidden>No Trait</option>
+							<option value="22">Arcane</option>
+							<option value="31">Bloodthirsty</option>
+							<option value="29">Harmony</option>
+							<option value="21">Healthy</option>					
+							<option value="33">Infused</option>
+							<option value="32">Protective</option>
+							<option value="23">Robust</option>
+							<option value="28">Swift</option>
+							<option value="30">Triune</option>
+						</select>
+					</div>
 				</div>
 				<div class="esotbItemSlotLabel">Rings</div>
 				<div class="esotbItem " id="esotbItemRing1" slotid="Ring1" equiptype="12" itemtype="2">
@@ -273,6 +286,20 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<div class="esotbItemDisableButton esotbItemButton">-</div>
 					<div class="esotbItemDetailsButton esotbItemButton">...</div>
 					<div class="esotbItemEnchantButton esotbItemButton">*</div>
+					<div class="esotbItemTransmute">
+						<select id="esotbItemTransmuteRing1" slotid="Ring1" class="esotbItemTransmuteList">
+							<option value="0" hidden>No Trait</option>
+							<option value="22">Arcane</option>
+							<option value="31">Bloodthirsty</option>
+							<option value="29">Harmony</option>
+							<option value="21">Healthy</option>					
+							<option value="33">Infused</option>
+							<option value="32">Protective</option>
+							<option value="23">Robust</option>
+							<option value="28">Swift</option>
+							<option value="30">Triune</option>
+						</select>
+					</div>
 				</div>
 				<div class="esotbItem " id="esotbItemRing2" slotid="Ring2" equiptype="12" itemtype="2">
 					<img class="esotbItemIcon eso_item_link" {itemDataRing2} alt="">
@@ -280,6 +307,20 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<div class="esotbItemDisableButton esotbItemButton">-</div>
 					<div class="esotbItemDetailsButton esotbItemButton">...</div>
 					<div class="esotbItemEnchantButton esotbItemButton">*</div>
+					<div class="esotbItemTransmute">
+						<select id="esotbItemTransmuteRing2" slotid="Ring2" class="esotbItemTransmuteList">
+							<option value="0" hidden>No Trait</option>
+							<option value="22">Arcane</option>
+							<option value="31">Bloodthirsty</option>
+							<option value="29">Harmony</option>
+							<option value="21">Healthy</option>					
+							<option value="33">Infused</option>
+							<option value="32">Protective</option>
+							<option value="23">Robust</option>
+							<option value="28">Swift</option>
+							<option value="30">Triune</option>
+						</select>
+					</div>
 				</div>
 				<hr>
 				<div id="esotbWeaponBar1" class="{weaponBarClass1}">
@@ -1110,7 +1151,9 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>When CP is disabled your effective level stays at whatever it was (usually CP160). This matches what happens in-game with stats that change based on your effective level.</li>
 				<li>Fixed channeled/cast time abilities that were not being affected by class weapon/spell damage bonuses (Innate Axoim set).</li>
 				<li>Fixed several destruction light attack computed values that were not including a few effects such as the Maelstrom bonus damage.</li>
-				<li>Turned the 5 piece Powerful Assault set bonus into a toggleable buff.</li> 
+				<li>Turned the 5 piece Powerful Assault set bonus into a toggleable buff.</li>
+				<li>Added most new items pieces from the Summerset update 18 PTS.</li>
+				<li>Added the new jewelry traits and the ability to transmute necklaces and rings.</li> 
 			</ul>
 			<p>
 			<b>16 April 2018</b>

@@ -7168,7 +7168,7 @@ function GetEsoInputOtherHandItemValues(inputValues, slotId)
 	var transmuteFactor = 1;
 	
 		// Infused
-	if (itemData.trait == 16 || itemData.trait == 4)
+	if (itemData.trait == 16 || itemData.trait == 4 || itemData.trait == 33)
 	{
 		var rawDesc = RemoveEsoDescriptionFormats(itemData.traitDesc);
 		var results = rawDesc.match(/([0-9]+\.?[0-9]*\%?)/g);
@@ -7479,7 +7479,6 @@ function GetEsoInputItemValues(inputValues, slotId)
 	else if (itemData.trait == 21) //Healthy
 	{
 		inputValues.Item.Health += traitValue;
-		itemData.rawOutput["Item.Health"] = traitValue;
 		AddEsoItemRawOutput(itemData, "Item.Health", traitValue);
 		AddEsoInputStatSource("Item.Health", { item: itemData, value: traitValue, slotId:slotId });
 	}
@@ -7545,7 +7544,52 @@ function GetEsoInputItemValues(inputValues, slotId)
 	}
 	else if (itemData.trait == 8) //Decisive
 	{
-		// TODO?
+	}
+	else if (itemData.trait == 31) //Jewelry Bloodthirsty
+	{
+		inputValues.Item.ExecuteBonus += traitValue/100;
+		AddEsoItemRawOutput(itemData, "Item.ExecuteBonus", traitValue/100);
+		AddEsoInputStatSource("Item.ExecuteBonus", { item: itemData, value: traitValue/100, slotId:slotId });
+	}
+	else if (itemData.trait == 29) //Jewelry Harmony
+	{
+		inputValues.Item.SynergyBonus += traitValue/100;
+		AddEsoItemRawOutput(itemData, "Item.SynergyBonus", traitValue/100);
+		AddEsoInputStatSource("Item.SynergyBonus", { item: itemData, value: traitValue/100, slotId:slotId });
+	}
+	else if (itemData.trait == 33) //Jewelry Infused
+	{
+		//TODO
+	}
+	else if (itemData.trait == 32) //Jewelry Protective
+	{
+		inputValues.Item.SpellResist += traitValue;
+		AddEsoItemRawOutput(itemData, "Item.SpellResist", traitValue);
+		AddEsoInputStatSource("Item.SpellResist", { item: itemData, value: traitValue, slotId:slotId });
+		
+		inputValues.Item.PhysicalResist += traitValue;
+		AddEsoItemRawOutput(itemData, "Item.PhysicalResist", traitValue);
+		AddEsoInputStatSource("Item.PhysicalResist", { item: itemData, value: traitValue, slotId:slotId });		
+	}
+	else if (itemData.trait == 28) //Jewelry Swift
+	{
+		inputValues.Item.MovementSpeed += traitValue/100;
+		AddEsoItemRawOutput(itemData, "Item.MovementSpeed", traitValue/100);
+		AddEsoInputStatSource("Item.MovementSpeed", { item: itemData, value: traitValue/100, slotId:slotId });
+	}
+	else if (itemData.trait == 30) //Jewelry Triune
+	{
+		inputValues.Item.Magicka += traitValue;
+		AddEsoItemRawOutput(itemData, "Item.Magicka", traitValue);
+		AddEsoInputStatSource("Item.Magicka", { item: itemData, value: traitValue, slotId:slotId });
+		
+		inputValues.Item.Health += traitValue;
+		AddEsoItemRawOutput(itemData, "Item.Health", traitValue);
+		AddEsoInputStatSource("Item.Health", { item: itemData, value: traitValue, slotId:slotId });
+		
+		inputValues.Item.Stamina += traitValue;
+		AddEsoItemRawOutput(itemData, "Item.Stamina", traitValue);
+		AddEsoInputStatSource("Item.Stamina", { item: itemData, value: traitValue, slotId:slotId });
 	}
 	
 	GetEsoInputItemEnchantValues(inputValues, slotId, false);
@@ -7581,7 +7625,7 @@ function GetEsoInputItemEnchantValues(inputValues, slotId, doWeaponUpdate)
 	var transmuteFactor = 1;
 	
 		// Fix original infused item that is transmuted
-	if (itemData.transmuteTrait > 0 && (itemData.origTrait == 16 || itemData.origTrait == 4) && itemData.transmuteTrait != itemData.origTrait)
+	if (itemData.transmuteTrait > 0 && (itemData.origTrait == 16 || itemData.origTrait == 4 || itemData.origTrait == 33) && itemData.transmuteTrait != itemData.origTrait)
 	{
 		var rawDesc = RemoveEsoDescriptionFormats(itemData.origTraitDesc);
 		var results = rawDesc.match(/([0-9]+\.?[0-9]*\%?)/g);
@@ -7595,7 +7639,7 @@ function GetEsoInputItemEnchantValues(inputValues, slotId, doWeaponUpdate)
 	}
 	
 		// Infused
-	if (itemData.trait == 16 || itemData.trait == 4)
+	if (itemData.trait == 16 || itemData.trait == 4 || itemData.trait == 33)
 	{
 		var rawDesc = RemoveEsoDescriptionFormats(itemData.traitDesc);
 		var results = rawDesc.match(/([0-9]+\.?[0-9]*\%?)/g);
@@ -9638,7 +9682,20 @@ function OnEsoItemDataReceive(data, status, xhr, element, origItemData)
 	var slotId = $(element).attr("slotId");
 	if (slotId == null || slotId == "") return false;
 	
-	if (data.minedItem == null || data.minedItem[0] == null) return false;
+	if (data.minedItem == null || data.minedItem[0] == null) 
+	{
+		if (origItemData.internalLevel != 1 && origItemData.internalSubtype != 1)
+		{
+			var newItemData = jQuery.extend({}, origItemData);
+			
+			newItemData.internalLevel = 1;
+			newItemData.internalSubtype = 1;
+			
+			RequestEsoItemData(newItemData, element);
+		}
+		
+		return false;
+	}
 	
 	g_EsoBuildItemData[slotId] = data.minedItem[0];
 	

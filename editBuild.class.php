@@ -204,7 +204,8 @@ class EsoBuildDataEditor
 			"Item.EnchantCooldown",
 			"Set.ClassSpellDamage",
 			"Set.ClassWeaponDamage",
-			
+			"Item.SynergyBonus",
+			"Item.ExecuteBonus",
 	);
 	
 	
@@ -561,6 +562,14 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Item.SynergyBonus" => array(
+					"display" => "%",
+			),
+			
+			"Item.ExecuteBonus" => array(
+					"display" => "%",
+			),
+			
 			"SkillCost.Mages_Guild" => array(
 					"display" => "%",
 			),			
@@ -814,6 +823,10 @@ class EsoBuildDataEditor
 			),
 			
 			"CP.MovementSpeed" => array(
+					"display" => "%",
+			),
+			
+			"Item.MovementSpeed" => array(
 					"display" => "%",
 			),
 			
@@ -2425,6 +2438,8 @@ class EsoBuildDataEditor
 							"1 + Buff.MovementSpeed",
 							"Skill.MovementSpeed",
 							"+",
+							"Item.MovementSpeed",
+							"+",
 							"Mundus.MovementSpeed",
 							"+",
 							"*",
@@ -2443,6 +2458,8 @@ class EsoBuildDataEditor
 							"Set.SprintSpeed",
 							"+",
 							"Buff.MovementSpeed",
+							"+",
+							"Item.MovementSpeed",
 							"+",
 							"Buff.SprintSpeed",
 							"+",
@@ -2471,6 +2488,8 @@ class EsoBuildDataEditor
 							"1 + Buff.MovementSpeed",
 							"Mundus.MovementSpeed",
 							"+",
+							"Item.MovementSpeed",
+							"+",
 							"CP.MovementSpeed",
 							"+",
 							"*",
@@ -2493,6 +2512,8 @@ class EsoBuildDataEditor
 							"Skill.MovementSpeed",
 							"+",
 							"Mundus.MovementSpeed",
+							"+",
+							"Item.MovementSpeed",
 							"+",
 							"*",
 							"1 + Skill2.SneakSpeed",
