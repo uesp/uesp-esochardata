@@ -1210,10 +1210,12 @@ ESO_ACTIVEEFFECT_MATCHES = [
 	{
 		buffId : "Major Sorcery",
 		match: /grants you Major Sorcery/i,
+		ignoreSkills: { "Bull Netch" : 1, "Betty Netch" : 1, "Blue Betty" : 1 },
 	},
 	{
 		buffId : "Major Brutality",
 		match: /grants you Major Sorcery and Major Brutality/i,
+		ignoreSkills: { "Bull Netch" : 1, "Betty Netch" : 1, "Blue Betty" : 1 },
 	},
 	
 		/* Begin Other Effects */
@@ -1286,6 +1288,23 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		factorValue: -1,
 		display: "%",
 		match: /Leeching Strikes also reduces your Weapon Power and Spell Power by ([0-9]+\.?[0-9]*)% while toggled/i
+	},
+	{
+		id: "Betty Netch",
+		baseSkillId: 86053,
+		toggle: true,
+		enabled: false,
+		buffId: "Major Sorcery",
+		match: /grants you Major Sorcery/i
+	},
+	{
+		id: "Betty Netch",
+		displayName: "Bull Netch",
+		baseSkillId: 86053,
+		toggle: true,
+		enabled: false,
+		buffId: "Major Brutality",
+		match: /grants you Major Sorcery and Major Brutality/i
 	},
 	{
 		id: "Bound Armor",
@@ -6900,6 +6919,12 @@ function ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData,
 	if (matchData.skillRank != null)
 	{
 		if (abilityData.rank != matchData.skillRank) return false;
+	}
+	
+	if (matchData.ignoreSkills != null)
+	{
+		if (matchData.ignoreSkills[abilityData.name] != null) return false;
+		if (matchData.ignoreSkills[abilityData.id] != null) return false;
 	}
 			
 	if (matchData.toggle === true && matchData.id != null)
