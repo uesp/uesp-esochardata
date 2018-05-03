@@ -1144,6 +1144,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<hr>
 			<b>2 May 2018</b>
 			<ul>
+				<li>Made Betty Netch and its morph a toggleable ability.</li>
+			</ul>
+			<p>
+			<b>2 May 2018</b>
+			<ul>
 				<li>Spring-Loaded Infusion now shows up in the item search at all levels.</li>
 				<li>Adjusted which foods are considered food/drink that active set bonuses like Bone-Pirate Tatters. There doesn't seem to be a clear pattern as to which food/drink
 					activates these bonuses and which don't so if you find something in-game that doesn't match the build editor let us know!</li>
