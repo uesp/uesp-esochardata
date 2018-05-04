@@ -10228,6 +10228,7 @@ function ShowEsoSkillDetailsPopup(abilityId)
 	
 	var skillData = g_SkillsData[abilityId];
 	if (skillData == null) return false;
+	var displayId = skillData['displayId'];
 	
 	GetEsoSkillDescription(abilityId, null, false);
 	GetEsoSkillCost(abilityId, null);
@@ -10295,7 +10296,7 @@ function ShowEsoSkillDetailsPopup(abilityId)
 	
 	detailsHtml += "<h4>Raw Ability Data</h4>";
 	detailsHtml += "<div class='esotbSkillDetailsOther'>";
-	detailsHtml += "abilityId = " + abilityId + "<br/>";
+	detailsHtml += "abilityId = " + displayId + "<br/>";
 	detailsHtml += "skillType = " + skillData.skillTypeName.split("::")[0] + "<br/>";
 	detailsHtml += "skillLine = " + skillData.skillLine + "<br/>";
 	detailsHtml += "type = " + skillData.type + "<br/>";
