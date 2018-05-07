@@ -3506,6 +3506,13 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		factorValue: -1,
 		match: /Reduces the cost of your Psijic Order abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
+	{
+		category: "SkillCost",
+		statId: "Undo_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of your Psijic Order abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
 	/*
 	{
 		statRequireId: "WeaponBow",
