@@ -1256,7 +1256,40 @@ ESO_ACTIVEEFFECT_MATCHES = [
 	},
 		/* End Other Effects */
 	
+		/* Psijic Order */
+	{
+		buffId: "Minor Protection",
+		match: /While slotted you gain Minor Protection/i
+	},
+	
 		/* Begin Toggled Abilities */
+	{
+		id: "Accelerate",
+		baseSkillId: 40103503,
+		toggle: true,
+		enabled: false,
+		buffId: "Major Expedition",
+		match: /to gain Major Expedition/i
+	},
+	{
+		id: "Accelerate",
+		baseSkillId: 40103503,
+		toggle: true,
+		enabled: false,
+		buffId: "Minor Force",
+		match: /and Minor Force for/i
+	},
+	{
+		id: "Accelerate",
+		displayName: "Race Against Time",
+		baseSkillId: 40103503,
+		toggle: true,
+		enabled: false,
+		factorValue: -1,
+		statId: "SprintCost",
+		display: "%",
+		match: /Reduces the Cost of Sprint by ([0-9]+\.?[0-9]*)%/i
+	},
 	{
 		id: "Leeching Strikes",
 		matchSkillName: true,
@@ -3464,6 +3497,15 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		//match: /WITH BOW EQUIPPED[\s\S]*?Your successful Light and Heavy Attacks increase the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i
 		match: /WITH A BOW EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack increases the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i,
 	},
+	
+		/* Psijic Order */
+	{
+		category: "SkillCost",
+		statId: "Psijic_Order_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of your Psijic Order abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
 	/*
 	{
 		statRequireId: "WeaponBow",
@@ -4156,6 +4198,10 @@ ESO_SETEFFECT_MATCHES = [
 	{
 		buffId: "Major Sorcery",
 		match: /Gain Major Sorcery at all times/i,
+	},
+	{
+		buffId : "Major Brutality",
+		match: /Gain Major Brutality at all times/i,
 	},
 	{
 		buffId: "Major Ward",
@@ -12850,7 +12896,7 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 	saveData.Build['buildType'] = "Other";
 	saveData.Build['level'] = "" + inputValues.EffectiveLevel;
 	saveData.Build['alliance'] = $("#esotbAlliance").val();
-	
+		
 	saveData.Build['championPoints'] = "" + inputValues.CP.TotalPoints;
 	if (inputValues.CP.UsedPoints > inputValues.CP.TotalPoints)	saveData.Build['championPoints'] = "" + inputValues.CP.UsedPoints;
 		
@@ -12868,6 +12914,7 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 	saveData.Stats['CP:Level'] = inputValues.CP.TotalPoints;
 	saveData.Stats['CP:Used'] = inputValues.CP.UsedPoints;
 	saveData.Stats['CP:Enabled'] = inputValues.CP.Enabled;
+	saveData.Stats['UseUpdate18Rules'] = inputValues.UseUpdate18Rules;
 		
 	inputValues.CPLevel = Math.floor(inputValues.CP.TotalPoints/10);
 	if (inputValues.CPLevel > ESO_MAX_CPLEVEL) inputValues.CPLevel = ESO_MAX_CPLEVEL;
