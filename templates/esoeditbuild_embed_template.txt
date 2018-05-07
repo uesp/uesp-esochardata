@@ -58,7 +58,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<div class="esotbStatLabel">Enable CP</div> <input type="checkbox" id="esotbEnableCP" name="esotbEnableCP" statid="EnableCP" {enableCP}>
 			<br/>
 			<div class="esotbStatLabel">Update 18 Rules</div> <input type="checkbox" id="esotbUpdate18Rules" name="esotbUpdate18Rules" statid="UseUpdate18Rules" {useUpdate18Rules}>
-			Use rules from Update 18 (Summerset) which includes: Count 2H weapons as 2 slots for set bonuses, Skill/CP data.
+			Use rules from Update 18 (Summerset) which includes (save build and reload to take complete effect):
+			<ul style="margin-left: 170px; margin-top: -5px;">
+				<li>Count 2H weapons as 2 slots for set bonuses.</li>
+				<li>Updated skill and CP data.</li>
+				<li>New skill coefficients for Light and Heavy attacks.</li>
+			</ul>
 			
 			<p>
 			<div id="esotbAttributes">
@@ -1142,9 +1147,16 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>7 May 2018</b>
+			<ul>
+				<li>Fixed the Dreugh King Slayer set 5 piece bonus which grants you Major Brutality.</li>
+				<li>Using the update 18 rules skill/CP is loaded from PTS and Light/Heavy attacks use the new skill coefficients (all from patch 4.0.2).</li>
+				<li>Added parsing for most of the new Psijic Order skills.</li>
+			</ul>
+			<p>
 			<b>2 May 2018</b>
 			<ul>
-				<li>Made Betty Netch and its morph a toggleable ability.</li>
+				<li>Made Betty Netch and its morphs a toggleable ability.</li>
 			</ul>
 			<p>
 			<b>2 May 2018</b>
