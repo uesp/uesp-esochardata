@@ -579,6 +579,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"SkillCost.Psijic_Order_Cost" => array(
+					"display" => "%",
+			),
+			
 			"CP.CritDamage" => array(
 					"display" => "%",
 			),
