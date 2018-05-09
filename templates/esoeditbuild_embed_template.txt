@@ -1149,6 +1149,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<hr>
 			<b>7 May 2018</b>
 			<ul>
+				<li>Added a bunch of missing items from the Summerset PTS.</li>
+			</ul>
+			<p>
+			<b>7 May 2018</b>
+			<ul>
 				<li>Fixed the Dreugh King Slayer set 5 piece bonus which grants you Major Brutality.</li>
 				<li>Using the update 18 rules skill/CP is loaded from PTS and Light/Heavy attacks use the new skill coefficients (all from patch 4.0.2).</li>
 				<li>Added parsing for most of the new Psijic Order skills.</li>
