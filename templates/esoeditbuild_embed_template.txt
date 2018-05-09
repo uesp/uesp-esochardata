@@ -1147,6 +1147,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>9 May 2018</b>
+			<ul>
+				<li>Fixed the skill coefficients of most ultimates and stamina skills when using the 18pts ruleset.</li>
+				<li>Fixed element specific destruction skills when using the 18pts ruleset.</li>
+			</ul>
+			<p>
 			<b>7 May 2018</b>
 			<ul>
 				<li>Added a bunch of missing items from the Summerset PTS.</li>
