@@ -787,6 +787,14 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"DefenseSpellMitigation" => array(
+					"display" => "%",
+			),					
+			
+			"DefensePhysicalMitigation" => array(
+					"display" => "%",
+			),
+			
 			"Skill.UltimateCost" => array(
 					"display" => "%",
 			),
@@ -3578,6 +3586,28 @@ class EsoBuildDataEditor
 							"1 + Target.AttackBonus",
 							"*",
 							"1 + PhysicalDamageTaken",
+							"*",
+					),
+			),
+			
+			"DefenseSpellAoEMitigation" => array(
+					"title" => "Defending Spell AOE Mitigation",
+					"display" => "%",
+					"depends" => array("DefenseSpellMitigation"),
+					"compute" => array(
+							"1 + Skill.AOEDamageTaken",
+							"DefensePhysicalMitigation",
+							"*",
+					),
+			),
+				
+			"DefensePhysicalAoeMitigation" => array(
+					"title" => "Defending Phys AOE Mitigation",
+					"display" => "%",
+					"depends" => array("DefensePhysicalMitigation"),
+					"compute" => array(
+							"1 + Skill.AOEDamageTaken",
+							"DefensePhysicalMitigation",
 							"*",
 					),
 			),

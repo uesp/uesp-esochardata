@@ -1508,6 +1508,19 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		match: /The razors also shield you from shrapnel, reducing the damage you take from area of effect attacks by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
+		id: "Blade Cloak",
+		statRequireId: "Weapon1H",
+		statRequireValue: 2,
+		baseSkillId: 40633,
+		factorValue: -1,
+		toggle: true,
+		enabled: false,
+		display: "%",
+		buffId: "Blade Cloak",
+		rawInputMatch: /(The razors shield you from shrapnel, reducing the damage you take from area of effect attacks by [0-9]+\.?[0-9]*%\.)/i,
+		match: /The razors shield you from shrapnel, reducing the damage you take from area of effect attacks by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
 		id: "Hircine's Rage",
 		//displayName: "Hircine's Rage",
 		matchSkillName: true,
