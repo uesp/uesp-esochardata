@@ -531,7 +531,7 @@ g_EsoBuildBuffData =
 			statDesc : "Increases the power of your next attack by ",
 			icon : "/esoui/art/icons/ability_warrior_012.png",
 		},
-		"Spell Power Cure" :			//TODO: Check how its added to other SD/WD stats 
+		"Major Courage" :			//TODO: Check how its added to other SD/WD stats 
 		{
 			enabled: false,
 			skillEnabled : false,
@@ -5413,6 +5413,16 @@ ESO_SETEFFECT_MATCHES = [
 		match: /chance to summon a shadow orb for [0-9]+ seconds that increases the Physical and Spell Resistance of you and your allies within [0-9]+ meters by ([0-9]+)/i,
 	},
 	{
+		id: "Mantle of Siroria",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "SpellDamage",
+		maxTimes: 20,
+		match: /Standing in the ring grants you a stack of Siroria's Boon for [0-9]+ seconds. Each stack increases your Spell Damage by ([0-9]+)\./i,
+	},
+	{
 		id: "Mechanical Acuity",
 		setBonusCount: 5,
 		toggle: true,
@@ -5565,7 +5575,6 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		//statId: "WeaponDamage",
 		buffId: "Powerful Assault",
 		updateBuffValue: true,
 		match: /When you cast an Assault ability, you increase the Weapon and Spell Damage of up to [0-9]+ friendly targets within [0-9]+ meters by ([0-9]+)/i,
@@ -5687,10 +5696,20 @@ ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		buffId: "Spell Power Cure",
+		buffId: "Major Courage",
 		updateBuffValue : true,
 		match: /When you heal a friendly target that is at [0-9]+% Health, you have a [0-9]+% chance to increase their Weapon and Spell Damage by ([0-9]+)/i,
 	},
+	{
+		id: "Spell Power Cure",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		buffId: "Major Courage",
+		updateBuffValue : true,				//TODO18
+		match: /You and your allies in the circle gain Major Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+) /i,
+	},	
 	{
 		id: "Swamp Raider",
 		setBonusCount: 4,
@@ -5812,6 +5831,16 @@ ESO_SETEFFECT_MATCHES = [
 		category: "Skill2",
 		statId: "HADamage",		
 		match: /When you use an ability that costs Stamina, your Light Attacks deal an additional [0-9]+ damage and Heavy Attacks deal an additional ([0-9]+) damage/i,
+	},
+	{
+		id: "Vestment of Olorime",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		buffId: "Major Courage",
+		updateBuffValue : true,
+		match: /You and your allies in the circle gain Major Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+) /i,
 	},
 	{
 		id: "Warrior's Fury",
