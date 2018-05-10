@@ -713,6 +713,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<div class="esotbItemSetupTitle">Equip Set</div>
 				
 				<select id="esotbItemSetupEquipSet" style="width: 150px;">
+					<option>Adept Rider</option>
+					<option>Aegis of Galanwe</option>
 					<option>Affliction</option>
 					<option>Agility</option>
 					<option>Akaviri Dragonguard</option>
@@ -727,6 +729,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Armor of the Veiled Heritance</option>
 					<option>Armor of Truth</option>
 					<option>Arms of Infernace</option>
+					<option>Arms of Relequen</option>
 					<option>Arms of the Ancestors</option>
 					<option>Ashen Grip</option>
 					<option>Aspect of Mazzatun</option>
@@ -789,8 +792,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Galerion's Revenge</option>
 					<option>Glorious Defender</option>
 					<option>Gossamer</option>
+					<option>Grace of Gloom</option>
 					<option>Grace of the Ancients</option>
 					<option>Green Pact</option>
+					<option>Gryphon's Ferocity</option>
 					<option>Hand of Mephala</option>
 					<option>Hargraven's Garden</option>
 					<option>Hatchling's Shell</option>
@@ -832,6 +837,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Mad Tinkerer</option>
 					<option>Magicka Furnace</option>
 					<option>Magnus' Gift</option>
+					<option>Mantle of Siroria</option>
 					<option>Mark of the Pariah</option>
 					<option>Marksman's Crest</option>
 					<option>Master Architect</option>
@@ -851,6 +857,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Nikulas' Heavy Armor</option>
 					<option>Noble Duelist's Silks</option>
 					<option>Noble's Conquest</option>
+					<option>Nocturnal's Favor</option>
 					<option>Oblivion's Edge</option>
 					<option>Oblivion's Foe</option>
 					<option>Order of Diagna</option>
@@ -902,6 +909,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Silks of the Sun</option>
 					<option>Sithis' Touch</option>
 					<option>Skooma Smuggler</option>
+					<option>Sload's Semblance</option>
 					<option>Song of Lamae</option>
 					<option>Soulshine</option>
 					<option>Spectre's Eye</option>
@@ -954,6 +962,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Vanguard's Challenge</option>
 					<option>Varen's Legacy</option>
 					<option>Vengeance Leech</option>
+					<option>Vestment of Olorime</option>
 					<option>Vestments of the Warlock</option>
 					<option>Vicecanon of Venom</option>
 					<option>Vicious Death</option>
@@ -974,6 +983,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Willow's Path</option>
 					<option>Willpower</option>
 					<option>Winterborn</option>
+					<option>Wisdom of Vanus</option>
 					<option>Wise Mage</option>
 					<option>Witchman Armor</option>
 					<option>Wizard's Riposte</option>
@@ -1151,6 +1161,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<ul>
 				<li>Fixed Blade Cloak skill toggle.</li>
 				<li>Added the "Defending Spell AOE Mitigation" and "Defending Phys AOE Mitigation" computed stats.</li>
+				<li>Added new sets from Summerset.</li>
+				<li>Changed the Spell Power Cure buff to Major Courage.</li>
 			<p>			
 			<b>12 January 2018</b>
 			<ul>

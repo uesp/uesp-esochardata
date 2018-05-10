@@ -4629,6 +4629,8 @@ class EsoBuildDataEditor
 			$enabled = $buff['enabled'];
 			if ($enabled == 0) $enabled = 1;
 			
+			if ($buffName == "Spell Power Cure") $buffName = "Major Courage";
+			
 			$this->initialBuffData[$buffName] = $enabled;	
 		}
 	}
