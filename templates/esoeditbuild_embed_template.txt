@@ -1147,79 +1147,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
-			<b>9 May 2018</b>
+			<b>10 May 2018</b>
 			<ul>
-				<li>Fixed the skill coefficients of most ultimates and stamina skills when using the 18pts ruleset.</li>
-				<li>Fixed element specific destruction skills when using the 18pts ruleset.</li>
-			</ul>
-			<p>
-			<b>7 May 2018</b>
-			<ul>
-				<li>Added a bunch of missing items from the Summerset PTS.</li>
-			</ul>
-			<p>
-			<b>7 May 2018</b>
-			<ul>
-				<li>Fixed the Dreugh King Slayer set 5 piece bonus which grants you Major Brutality.</li>
-				<li>Using the update 18 rules skill/CP is loaded from PTS and Light/Heavy attacks use the new skill coefficients (all from patch 4.0.2).</li>
-				<li>Added parsing for most of the new Psijic Order skills.</li>
-			</ul>
-			<p>
-			<b>2 May 2018</b>
-			<ul>
-				<li>Made Betty Netch and its morphs a toggleable ability.</li>
-			</ul>
-			<p>
-			<b>2 May 2018</b>
-			<ul>
-				<li>Spring-Loaded Infusion now shows up in the item search at all levels.</li>
-				<li>Adjusted which foods are considered food/drink that active set bonuses like Bone-Pirate Tatters. There doesn't seem to be a clear pattern as to which food/drink
-					activates these bonuses and which don't so if you find something in-game that doesn't match the build editor let us know!</li>
-				<li>Fixed several food/drink that incorrectly had set bonus data.</li>
-				<li>When CP is disabled your effective level stays at whatever it was (usually CP160). This matches what happens in-game with stats that change based on your effective level.</li>
-				<li>Fixed channeled/cast time abilities that were not being affected by class weapon/spell damage bonuses (Innate Axoim set).</li>
-				<li>Fixed several destruction light attack computed values that were not including a few effects such as the Maelstrom bonus damage.</li>
-				<li>Turned the 5 piece Powerful Assault set bonus into a toggleable buff.</li>
-				<li>Added most new items pieces from the Summerset update 18 PTS.</li>
-				<li>Added the new jewelry traits and the ability to transmute necklaces and rings.</li> 
-			</ul>
-			<p>
-			<b>16 April 2018</b>
-			<ul>
-				<li>Added the "Update 18 Rules" check on the general tab that lets you use a limited subset of changes available in update 18 (Summerset). Currently this
-					only includes counting 2H weapons as 2 slots for set bonuses.</li>
-			</ul>
-			<p>
-			<b>22 February 2018</b>
-			<ul>
-				<li>Added a bunch of toggled set effects to work when on the off-bar. If you find a set effect that works differently in game than on the builder just let us know!</li>
-				<li>The DamageTaken stat for sets, abilities, and buffs is now calculated multiplicatively instead of additively. % values are rounded to 2 decimal places during this calculation.</li>
-			</ul>
-			<p>
-			<b>21 February 2018</b>
-			<ul>
-				<li>Reverted change to Dodge Roll cost (seems to be still 4040 base).</li>
-				<li>Added the Werewolf Light Attack stat (not yet confirmed).</li>
-			</ul>
-			<p>
-			<b>20 February 2018</b>
-			<ul>
-				<li>Skills, champion points, and item data have been updated for the Dragon Bones DLC (update 17). </li>
-				<li>Updated the block cost calculation. Note that it has only been verified at max level so far.</li>
-				<li>Added the new sets to the "Quick Item Setup" lists.</li>
-				<li>Added the 5 piece effect for the Ulfnor's Favor set. Note that it is not yet verified how this effect combines with other effects that increase your Magicka/Stamina restored from heavy attacks.</li>
-				<li>The Warden's Betty abilities now grant you the appropriate buff when slotted.</li>
-				<li>Fixed the 5 piece bonus for the Clever Alchemist set.</li>
-				<li>Tweaked the message output for the quick item setup commands.</li>
-				<li>Added a toggled buff effect for the 5 piece bonus of the Roar of Alkosh set.</li>
-				<li>Fixed the quick item setup set commands that would sometimes equip an item from the wrong set.</li>
-				<li>All (or most) skills and sets updated in the Dragon Bones DLC (update 17) should now be working.</li>
-				<li>Fixed a few Green Balance healing skills that were not being modified by +Healing effects.</li>
-				<li>Caustic Arrow (Master Bow set) should now work from the off-bar.</li>
-				<li>Vampire stage skill cost reduction now affects the Vampire ultimates.</li>+
-				<li>Added the 5 piece bonus from the Mechanical Acuity set as a buff and toggled set ability.</li>
-				<li>Updated the base cost of Roll Dodge to 3200.</li>
-			</ul>
+				<li>Fixed Blade Cloak skill toggle.</li>
+				<li>Added the "Defending Spell AOE Mitigation" and "Defending Phys AOE Mitigation" computed stats.</li>
 			<p>			
 			<b>12 January 2018</b>
 			<ul>
