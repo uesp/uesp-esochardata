@@ -4,8 +4,8 @@
 	<button id="esotbCreateCopyButton" {createCopyButtonDisabled}>Create Copy</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #cfc; display: flex;'>
-If you can't save builds &nbsp; <a href="http://en.uesp.net/wiki/UESPWiki:EsoBuildEditor#Can.27t_Save_Build_.28Error_Saving_Build.29">see here</a> &nbsp; for details on how to fix it. 
+<div style='background-color: #fcc; display: flex;'>
+Note: The build editor is not yet completely updated for the Summerset DLC. If you can't save builds &nbsp; <a href="http://en.uesp.net/wiki/UESPWiki:EsoBuildEditor#Can.27t_Save_Build_.28Error_Saving_Build.29">see here</a> &nbsp; for details on how to fix it. 
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -1157,6 +1157,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>10 May 2018</b>
+			<ul>
+				<li>Fixed the Templar Piercing Spear and Spear Wall passives.</li>
+			</ul>
+			<p>
 			<b>10 May 2018</b>
 			<ul>
 				<li>Fixed Blade Cloak skill toggle.</li>

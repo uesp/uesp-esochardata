@@ -521,7 +521,7 @@ g_EsoBuildBuffData =
 			statId : "HealingTaken",
 			icon : "/esoui/art/icons/ability_healer_004.png",
 		},
-		"Empower" : 
+		"Empower" : 	//TODO18
 		{
 			enabled: false,
 			skillEnabled : false,
@@ -2989,6 +2989,12 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		requireSkillLine: "AEDRIC SPEAR",
 		statId: "CritDamage",
 		display: "%",
+		match: /WITH AN AEDRIC SPEAR ABILITY SLOTTED[\s]*Increases your Critical Damage by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		requireSkillLine: "AEDRIC SPEAR",
+		statId: "CritDamage",
+		display: "%",
 		match: /Increases your Critical Damage done and your damage against blocking targets by ([0-9]+\.?[0-9]*)% while you have an Aedric Spear ability slotted/i
 	},
 	{
@@ -3001,6 +3007,12 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		requireSkillLine: "AEDRIC SPEAR",
 		statId: "OtherEffects",
 		display: "%",
+		match: /WITH AN AEDRIC SPEAR ABILITY SLOTTED[\s\S]*?Increases your damage done to blocking targets by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		requireSkillLine: "AEDRIC SPEAR",
+		statId: "OtherEffects",
+		display: "%",
 		match: /Increases the amount of damage you can block against melee attacks by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
@@ -3008,6 +3020,12 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "OtherEffects",
 		display: "%",
 		match: /Increases the amount of damage you can block from melee attacks by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		requireSkillLine: "AEDRIC SPEAR",
+		statId: "OtherEffects",
+		display: "%",
+		match: /Increases the amount of damage you block from melee attacks by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		requireSkillLine: "AEDRIC SPEAR",
