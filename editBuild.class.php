@@ -3151,7 +3151,7 @@ class EsoBuildDataEditor
 							"*",
 							"Skill2.LADamage",
 							"+",
-							"1 + Skill.HADamage + Set.HADamage + Skill.ShockDamageDone + Buff.Empower + Skill.DamageDone + Skill.AOEDamageDone",
+							"1 + Skill.HADamage + Set.HADamage + Skill.ShockDamageDone + Buff.Empower + Skill.DamageDone + Skill.AOEDamageDone",	 //TODO: Include + Skill.LADamage?
 							"*",
 								
 					),
