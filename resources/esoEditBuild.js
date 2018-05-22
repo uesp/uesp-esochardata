@@ -6318,7 +6318,7 @@ function GetEsoInputValues(mergeComputedStats)
 	inputValues.min = Math.min;
 	
 	inputValues.UseUpdate18Rules = false;
-	if ($("#esotbUpdate18Rules").prop("checked"))inputValues.UseUpdate18Rules = true;
+	if ($("#esotbUpdate18Rules").prop("checked")) inputValues.UseUpdate18Rules = true;
 			
 	inputValues.Race = $("#esotbRace").val();
 	inputValues.Class = $("#esotbClass").val();
@@ -8059,18 +8059,18 @@ function UpdateEsoItemSets(inputValues)
 		if (isOtherHand)
 		{
 			++g_EsoBuildSetData[setName].otherCount;
-			if (inputValues.UseUpdate18Rules && is2HWeapon) ++g_EsoBuildSetData[setName].otherCount; 
+			if (is2HWeapon) ++g_EsoBuildSetData[setName].otherCount; 
 			g_EsoBuildSetData[setName].unequippedItems.push(itemData);
 		}
 		else
 		{
 			++g_EsoBuildSetData[setName].count;
-			if (inputValues.UseUpdate18Rules && is2HWeapon) ++g_EsoBuildSetData[setName].count;
+			if (is2HWeapon) ++g_EsoBuildSetData[setName].count;
 			
 			if (!isCurrentHand) 
 			{
 				++g_EsoBuildSetData[setName].otherCount;
-				if (inputValues.UseUpdate18Rules && is2HWeapon) ++g_EsoBuildSetData[setName].otherCount;
+				if (is2HWeapon) ++g_EsoBuildSetData[setName].otherCount;
 			}
 			
 			g_EsoBuildSetData[setName].items.push(itemData);
