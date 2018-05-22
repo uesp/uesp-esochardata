@@ -31,7 +31,6 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 			"Shoes" => "(L) Shoes",
 		);
 	
-		// TODO18
 	public $MAX_PROVISIONING_MASTERWRIT_CHANCE = 14;
 	public $MAX_ALCHEMY_MASTERWRIT_CHANCE = 14;
 	public $MAX_ENCHANTING_MASTERWRIT_CHANCE = 14;
@@ -62,7 +61,7 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 			"Ebonheart Pact",
 			"Ebonshadow",
 			"Ebony",
-			//"Fang Lair", // TODO18
+			"Fang Lair",
 			"Glass",
 			"Hlaalu",
 			"Hollowjack",
@@ -76,11 +75,11 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 			"Order of the Hour",
 			"Outlaw",
 			"Primal",
-			//"Psijic Order", // TODO18
+			"Psijic Order",
 			"Ra Gada",
 			"Redoran",
-			//"Sapiarch", // TODO18
-			//"Scalecaller", // TODO18
+			"Sapiarch",
+			"Scalecaller",
 			"Silken Ring",
 			"Skinchanger",
 			"Telvanni",
@@ -165,7 +164,8 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 			71059,
 			133555,
 			120764,
-			//TODO18
+			139018,
+			139016,
 	);
 	
 	public function __construct ($isEmbedded = false, $initDbWrite = false)
