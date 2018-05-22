@@ -1217,6 +1217,24 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		match: /grants you Major Sorcery and Major Brutality/i,
 		ignoreSkills: { "Bull Netch" : 1, "Betty Netch" : 1, "Blue Betty" : 1 },
 	},
+	{
+		statId: "Stamina",
+		display: "%",
+		match: /While slotted, your Max Stamina is increased by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		buffId : "Minor Ward",
+		match: /you gain Minor Ward and Minor Resolve/i,
+	},
+	{
+		buffId : "Minor Resolve",
+		match: /you gain Minor Ward and Minor Resolve/i,
+	},
+	{
+		statId: "LADamage",
+		display: "%",
+		match: /and light attack damage is increased by ([0-9]+\.?[0-9]*)%/i,
+	},
 	
 		/* Begin Other Effects */
 	{
@@ -1347,6 +1365,15 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		enabled: false,
 		display: "%",
 		match: /The armor increases your Max Magicka by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		id: "Bound Armor",
+		baseSkillId: 30418,
+		statId: "BlockMitigation",
+		toggle: true,
+		enabled: false,
+		display: "%",
+		match: /that increases your block mitigation by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		id: "Bound Armor",

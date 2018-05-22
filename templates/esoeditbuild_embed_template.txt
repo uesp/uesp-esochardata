@@ -1162,6 +1162,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<ul>
 				<li>Updated skill coefficients for Light/Heavy attacks.</li>
 				<li>Two-handed weapons now count as 2 items for set bonuses.</li>
+				<li>Fixed the skill coefficients for Elude and Unstoppable.</li>
+				<li>Fixed the Bound Armor and morphs from being just a toggled skill to a combined slotted/toggled ability.</li>
 			</ul>
 			<p>
 			<b>21 May 2018</b>
