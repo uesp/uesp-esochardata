@@ -2606,6 +2606,7 @@ class EsoBuildDataViewer
 	public function getCharSkillEnchantingExtraContent()  { return ""; }
 	public function getCharSkillProvisioningExtraContent()  { return ""; }
 	public function getCharSkillWoodworkingExtraContent()  { return ""; }
+	public function getCharSkillJewelryExtraContent()  { return ""; }
 	
 	
 	public function getCharSkillContentHtmlCP(&$skillData)
