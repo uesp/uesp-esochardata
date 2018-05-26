@@ -180,7 +180,7 @@ class EsoBuildDataSaver
 		$sessionName = session_name();
 		$cookie = $_COOKIE[$sessionName];
 		
-		$output = "EsoBuildSession: $currentDate\n";
+		$output = "EsoBuildSession Save: $currentDate\n";
 		$output .= "\tsessionId = $sessionId\n";
 		$output .= "\tsessionName = $sessionName\n";
 		$output .= "\tsessionCookie = $cookie\n";

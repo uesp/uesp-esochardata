@@ -4964,11 +4964,13 @@ class EsoBuildDataEditor
 		$output .= "\tsessionCookie = $cookie\n";
 		$output .= "\tsessionDomain = {$cookieParams['domain']}\n";
 		$output .= "\tbuildId = {$this->buildId}\n";
-		//$output .= "\torigBuildId = {$this->origBuildId}\n";
+		$output .= "\torigBuildId = {$this->origBuildId}\n";
 		$output .= "\twikiUser = $wikiUser\n";
-		//$output .= "\tcanEditBuilds = {$this->canEditBuilds}\n";
-		//$output .= "\tcanDeleteBuilds = {$this->canDeleteBuilds}\n";
-		//$output .= "\tcanCreateBuilds = {$this->canCreateBuilds}\n";
+		$output .= "\tcanEditBuilds = {$_SESSION['UESP_ESO_canEditBuild']}\n";
+		$output .= "\tcanDeleteBuilds = {$_SESSION['UESP_ESO_canDeleteBuild']}\n";
+		$output .= "\tcanCreateBuilds = {$_SESSION['UESP_ESO_canCreateBuild']}\n";
+		$output .= "\tUESP_EsoMap_canEdit = {$_SESSION['UESP_EsoMap_canEdit']}\n";
+		$output .= "\tuesp_eso_morrowind = {$_SESSION['uesp_eso_morrowind']}\n";
 	
 		foreach ($_COOKIE as $name => $val)
 		{
