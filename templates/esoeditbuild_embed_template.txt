@@ -4,10 +4,10 @@
 	<button id="esotbCreateCopyButton" {createCopyButtonDisabled}>Create Copy</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #fcc; display: flex;'>
+<div style='background-color: #fcc; margin-right: 225px;'>
 Note: The build editor is not yet completely updated for the Summerset DLC. Skills and CP have been updated but changed skills may not yet be working correctly.
 Item data is partially updated but some items have incorrect stats (39% too high for most items with IDs over 92000). 
-If you can't save builds &nbsp; <a href="http://en.uesp.net/wiki/UESPWiki:EsoBuildEditor#Can.27t_Save_Build_.28Error_Saving_Build.29">see here</a> &nbsp; for details on how to fix it. 
+If you can't save builds <a href="http://en.uesp.net/wiki/UESPWiki:EsoBuildEditor#Can.27t_Save_Build_.28Error_Saving_Build.29">see here</a> for details on how to fix it. 
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
