@@ -521,14 +521,14 @@ g_EsoBuildBuffData =
 			statId : "HealingTaken",
 			icon : "/esoui/art/icons/ability_healer_004.png",
 		},
-		"Empower" : 	//TODO18
+		"Empower" :
 		{
 			enabled: false,
 			skillEnabled : false,
 			value : 0.20,
 			display : "%",
 			statId : "Empower",
-			statDesc : "Increases the power of your next attack by ",
+			statDesc : "Increases the damage of your next Light Attack by ",
 			icon : "/esoui/art/icons/ability_warrior_012.png",
 		},
 		"Major Courage" :			//TODO: Check how its added to other SD/WD stats 
@@ -5752,9 +5752,29 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		buffId: "Major Courage",
-		updateBuffValue : true,				//TODO18
-		match: /You and your allies in the circle gain Major Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+) /i,
+		updateBuffValue : true,
+		match: /You and your allies in the circle gain Major Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+)/i,
+	},
+	{
+		id: "Spell Power Cure",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		buffId: "Major Courage",
+		updateBuffValue : true,
+		match: /you have a [0-9]+% chance to give them Major Courage for [0-9]+ seconds which increase their Weapon and Spell Damage by ([0-9]+)/i,
 	},	
+	{
+		id: "Spell Power Cure",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		buffId: "Major Courage",
+		updateBuffValue : true,				//TODO18
+		match: /you have a [0-9]+% chance to give them Major Courage for [0-9]+ seconds which increases their Weapon and Spell Damage by ([0-9]+)/i,
+	},
 	{
 		id: "Swamp Raider",
 		setBonusCount: 4,
@@ -11810,7 +11830,7 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
 		Dot				: inputValues.DotDamageDone,
 		Direct			: inputValues.DirectDamageDone,
 		All				: inputValues.DamageDone,
-		Empower			: inputValues.Buff.Empower,
+		Empower			: 0,	// Update18: Empower changed to affect Light Attacks only
 		MaelstromDamage : 0,
 		AOE				: inputValues.Skill.AOEDamageDone,
 		SingleTarget	: inputValues.Skill.SingleTargetDamageDone,
