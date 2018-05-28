@@ -5,7 +5,9 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #fcc; display: flex;'>
-Note: The build editor is not yet completely updated for the Summerset DLC. If you can't save builds &nbsp; <a href="http://en.uesp.net/wiki/UESPWiki:EsoBuildEditor#Can.27t_Save_Build_.28Error_Saving_Build.29">see here</a> &nbsp; for details on how to fix it. 
+Note: The build editor is not yet completely updated for the Summerset DLC. Skills and CP have been updated but changed skills may not yet be working correctly.
+Item data is partially updated but some items have incorrect stats (39% too high for most items with IDs over 92000). 
+If you can't save builds &nbsp; <a href="http://en.uesp.net/wiki/UESPWiki:EsoBuildEditor#Can.27t_Save_Build_.28Error_Saving_Build.29">see here</a> &nbsp; for details on how to fix it. 
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -1162,6 +1164,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<ul>
 				<li>Empower no longer affects all abilities, only Light Attacks.</li>
 				<li>Updated the Spell Power Cure set 5 piece bonus.</li>
+				<li>Fixed the Elude tooltip duration.</li>
 			</ul>
 			<p>
 			<b>26 May 2018</b>
