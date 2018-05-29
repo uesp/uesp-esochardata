@@ -1160,6 +1160,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>29 May 2018</b>
+			<ul>
+				<li>Molten Whip now increases Spell Damage for Ardent Flame abilities while slotted.</li>
+			</ul>
+			<p>
 			<b>28 May 2018</b>
 			<ul>
 				<li>Empower no longer affects all abilities, only Light Attacks.</li>
