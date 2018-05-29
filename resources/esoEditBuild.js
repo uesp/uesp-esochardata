@@ -1235,6 +1235,12 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		display: "%",
 		match: /and light attack damage is increased by ([0-9]+\.?[0-9]*)%/i,
 	},
+	{
+		category: "SkillLineSpellDmg",
+		statId: "Ardent Flame",
+		rawInputMatch: /(While slotted, your Spell and Weapon Damage is increased by [0-9]+ for Ardent Flame abilities)/i,
+		match: /While slotted, your Spell and Weapon Damage is increased by ([0-9]+) for Ardent Flame abilities/i
+	},
 	
 		/* Begin Other Effects */
 	{
@@ -1242,11 +1248,6 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		display: "%",
 		rawInputMatch: /(While slotted, blocking any attack increases the damage of your next Power Slam by [0-9]+\.?[0-9]*% for [0-9]+ seconds)/i,
 		match: /While slotted, blocking any attack increases the damage of your next Power Slam by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds/i
-	},
-	{
-		statId: "OtherEffects",		//TODO?
-		rawInputMatch: /(While slotted, your Spell and Weapon Damage is increased by [0-9]+ for Ardent Flame abilities)/i,
-		match: /While slotted, your Spell and Weapon Damage is increased by ([0-9]+) for Ardent Flame abilities/i
 	},
 	{
 		statId: "OtherEffects",
