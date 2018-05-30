@@ -845,9 +845,9 @@ g_EsoBuildBuffData =
 		{
 			enabled: false,
 			skillEnabled : false,
-			value : 0.12,
+			value : -0.04,
 			display: '%',
-			statId : "StaminaRegen",
+			statId : "StaminaCost",
 			icon : "/esoui/art/icons/gear_artifactsaviorhidemd_head_a.png",
 		},
 		"Hircines Rage" : 
@@ -921,6 +921,7 @@ g_EsoBuildBuffData =
 			icon : "/esoui/art/icons/ability_armor_001.png",
 		},
 		
+		/* Changed in update 18 to be Major Fracture 
 		"Night Mothers Gaze (Target)" :
 		{
 			//When you deal Critical Damage, you reduce the enemy's Physical Resistance by 30-2580 for 6 seconds.
@@ -946,7 +947,7 @@ g_EsoBuildBuffData =
 			statIds : [ "PhysicalDebuff" ],
 			statDesc : "Reduces the target's Physical Resistance by ",
 			icon : "/esoui/art/icons/ability_mage_065.png",
-		},
+		}, */
 		"Major Fracture (Target)" : 
 		{
 			enabled: false,
@@ -4387,6 +4388,11 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Gain Minor Force at all times, increasing your Critical Damage done by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+		buffId: "Minor Force",
+		display: "%",
+		match: /Gain Minor Force at all times, increasing your Critical Damage by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
 		statId: "StaminaCost",
 		factorValue: -1,
 		display: "%",
@@ -4405,11 +4411,8 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Increases the damage you deal with bleed damage over time effects by ([0-9]+\.?[0-9]*)%/i,
 	},	 
 	{
-		//category: "Skill",
-		//statId: "StaminaRegen",
-		//display: "%",
 		buffId: "Hircines Veneer",
-		match: /Increases your Stamina Recovery by ([0-9]+)% for you and up to 11 other group members/i,
+		match: /Reduce the cost of your Stamina abilities by ([0-9]+)% for you and up to [0-9]+ other group members/i,
 	},
 	{
 		statId: "HealingDone",
@@ -4479,10 +4482,22 @@ ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		statId: "CritDamage",
+		display: "%",
+		match: /Increases your Critical Damage by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "CritDamage",
 		statRequireId: "Stealthed",
 		statRequireValue: 1,
 		display: "%",
 		match: /Increases your Critical Damage done by an additional ([0-9]+\.?[0-9]*)% when attacking from Sneak or invisibility/i,
+	},
+	{
+		statId: "CritDamage",
+		statRequireId: "Stealthed",
+		statRequireValue: 1,
+		display: "%",
+		match: /Increases your Critical Damage by an additional ([0-9]+\.?[0-9]*)% when attacking from Sneak or invisibility/i,
 	},
 	{
 		statId: "UltimateCost",
@@ -5579,7 +5594,7 @@ ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		buffId: "Mechanical Acuity",
-		match: /When you deal damage, you have a [0-9]+% chance to gain unerring mechanical vision for [0-9]+ seconds, causing your attacks to always be a Critical Strike/i,
+		match: /When you deal direct damage, you have a [0-9]+% chance to gain unerring mechanical vision for [0-9]+ seconds, causing your attacks to always be a Critical Strike/i,
 	},
 	{
 		id: "Meritorious Service",
@@ -11891,7 +11906,7 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
 	
 	g_LastSkillInputValues.SkillLineCost = inputValues.SkillCost;
 	g_LastSkillInputValues.DamageShield = inputValues.DamageShield;
-	g_LastSkillInputValues.SkillDirectDamage = inputValues.SkillDirectDamage;
+	g_LastSkillInputValues.SkillDirectDamage = inputValues.SkillDirectDamage;	//TODO: Implement on skill tooltip
 	
 	g_LastSkillInputValues.MagickaCost = 
 	{
