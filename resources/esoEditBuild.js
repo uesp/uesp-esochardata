@@ -1475,6 +1475,26 @@ ESO_ACTIVEEFFECT_MATCHES = [
 	},
 	{
 		id: "Lightning Form",
+		baseSkillId: 30235,
+		matchSkillName: true,
+		displayName: "Hurricane",
+		buffId : "Major Resolve",
+		toggle: true,
+		enabled: false,
+		match: /While in this form you gain Major Resolve, Major Ward,/i,
+	},
+	{
+		id: "Lightning Form",
+		baseSkillId: 30235,
+		matchSkillName: true,
+		displayName: "Hurricane",
+		buffId : "Major Ward",
+		toggle: true,
+		enabled: false,
+		match: /While in this form you gain Major Resolve, Major Ward,/i,
+	},
+	{
+		id: "Lightning Form",
 		displayName: "Hurricane",
 		baseSkillId: 30235,
 		matchSkillName: true,
@@ -1557,6 +1577,18 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		match: /increasing your Weapon Damage by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		id: "Evil Hunter",
+		matchSkillName: true,
+		baseSkillId: 42610,
+		toggle: true,
+		enabled: false,
+		category: "SkillCost",
+		statId: "Fighters_Guild_Cost",
+		factorValue: -1,
+		display: "%",
+		match: /While active the Stamina costs of your Fighters Guild abilities are reduced by ([0-9]+\.?[0-9]*)%/i
 	},
 		/* End Toggled Abilities */
 	
@@ -2279,6 +2311,13 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statRequireId: "WeaponFlameStaff",
 		statRequireValue: 1,
+		statId: "HADamage",
+		display: "%",
+		match: /Fully-charged Flame Staff Heavy Attacks deal ([0-9]+\.?[0-9]*)% additional damage/i,
+	},
+	{
+		statRequireId: "WeaponFlameStaff",
+		statRequireValue: 1,
 		statId: "SingleTargetDamageDone",
 		display: "%",
 		match: /Flame Staff increases your damage done with single target abilities by ([0-9]+\.?[0-9]*)%/i,
@@ -2313,6 +2352,15 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		match: /WITH TWO-HANDED WEAPON EQUIPPED[\s]*Reduces the cost of Two-Handed abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statRequireId: "Weapon2H",
+		statRequireValue: 1,
+		category: "SkillCost",
+		statId: "Two_Handed_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /WITH TWO-HANDED WEAPON EQUIPPED[\s]*Reduces the Stamina cost of your Two-Handed abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statRequireId: "Weapon2H",
@@ -2680,6 +2728,26 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		category: "SkillDuration",
+		statId: "Sun Fire",
+		match: /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Nova",
+		match: /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Eclipse",
+		match: /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Solar Flare",
+		match: /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		category: "SkillDuration",
 		statId: "Negate Magic",
 		display: "%",
 		match: /Increases the duration of Dark Magic abilities by ([0-9]+\.?[0-9]*)%/i,
@@ -2799,6 +2867,11 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases the amount of damage you can block by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
+		statId: "BlockMitigation",
+		display: "%",
+		match: /^Increases the amount of damage you block by ([0-9]+)%/i,
+	},
+	{
 		statId: "SpellResist",
 		match: /Increases Spell Resistance by ([0-9]+)/i,
 	},
@@ -2857,6 +2930,12 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "CritDamage",
 		display: "%",
 		match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases your Critical Damage done by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		requireSkillLine: "Assassination",
+		statId: "CritDamage",
+		display: "%",
+		match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases your Critical Damage by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		factorSkillLine: "Assassination",
@@ -3394,6 +3473,14 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		match: /WITH RESTORATION STAFF EQUIPPED[\s\S]*?Restores an additional ([0-9]+\.?[0-9]*)% Magicka when you complete a heavy attack/i,
 	},
 	{
+		statRequireId: "WeaponRestStaff",
+		statRequireValue: 1,
+		category: "SkillHealing",
+		statId: "Restoration Staff",
+		display: "%",
+		match: /WITH RESTORATION STAFF EQUIPPED[\s\S]*?Increases healing with Restoration Staff spells by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
 		statId: "HealingDone",
 		display: "%",
 		match: /Increases your healing done and healing received by ([0-9]+\.?[0-9]*)%/i,
@@ -3439,6 +3526,13 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "Green Balance",
 		display: "%",
 		match: /Increase Healing Done for Green Balance abilities by ([0-9]+\.?[0-9]*)% for each Green Balance ability slotted/i,
+	},
+	{
+		factorSkillLine: "GREEN BALANCE",
+		category: "SkillHealing",
+		statId: "Green Balance",
+		display: "%",
+		match: /Increases your healing done with Green Balance abilities by ([0-9]+\.?[0-9]*)% for each Green Balance ability slotted/i,
 	},
 	{
 		factorSkillLine: "Winter's Embrace",
@@ -3523,6 +3617,16 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		enabled: false,
 		display: "%",
 		match: /Increases your healing received by ([0-9]+\.?[0-9]*)% while a Draconic Power ability is active./i
+	},
+	{
+		id: "Burning Heart",
+		//requireSkillLine: "DRACONIC POWER",
+		baseSkillId: 29457,
+		statId: "HealingReceived",
+		toggle: true,
+		enabled: false,
+		display: "%",
+		match: /While a Draconic Power ability is active, your healing received is increased by ([0-9]+\.?[0-9]*)%\./i
 	},	
 	{
 		id: "Expert Summoner",

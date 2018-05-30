@@ -1355,10 +1355,6 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
-			"SkillDuration.Eclipse" => array(
-					"display" => "%",
-			),
-			
 			"SkillDuration.Entropy" => array(
 					"display" => "%",
 			),
@@ -1368,14 +1364,6 @@ class EsoBuildDataEditor
 			),
 			
 			"SkillDuration.Magelight" => array(
-					"display" => "%",
-			),
-			
-			"SkillDuration.Nova" => array(
-					"display" => "%",
-			),
-			
-			"SkillDuration.Sun Fire" => array(
 					"display" => "%",
 			),
 			
@@ -1708,6 +1696,10 @@ class EsoBuildDataEditor
 			),
 			
 			"SkillHealing.Green Balance" => array(
+					"display" => "%",
+			),
+			
+			"SkillHealing.Restoration Staff" => array(
 					"display" => "%",
 			),
 			

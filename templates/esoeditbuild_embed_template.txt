@@ -5,8 +5,8 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #fcc; margin-right: 225px;'>
-Note: The build editor is not yet completely updated for the Summerset DLC. Skills and CP have been updated but changed skills may not yet be working correctly.
-Item data is partially updated but some items have incorrect stats (39% too high for most items with IDs over 92000). 
+Note: The build editor is not yet completely updated for the Summerset DLC.
+Item data is partially updated but some items have incorrect stats. 
 If you can't save builds <a href="http://en.uesp.net/wiki/UESPWiki:EsoBuildEditor#Can.27t_Save_Build_.28Error_Saving_Build.29">see here</a> for details on how to fix it. 
 </div>
 {saveNote}
@@ -1163,6 +1163,19 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>29 May 2018</b>
 			<ul>
 				<li>Molten Whip now increases Spell Damage for Ardent Flame abilities while slotted.</li>
+				<li>Fixed the Dragonknight's Iron Skin and Burning Heart passives.</li>
+				<li>Fixed the Nightblade's Hemorrhage passive.</li>
+				<li>Hurricane now provides all 3 buffs.</li>
+				<li>Fixed the Templar's Enduring Rays passive.</li>
+				<li>Fixed the Warden's Emerld Moss passive.</li>
+				<li>Fixed the Two Handed Balanced Blade passive.</li>
+				<li>Removed element specific abilities from the visible Destruction Staff line. They should correctly switch elements on your skill bar depending on on what type of staff you have equipped.</li>
+				<li>Fixed the Destruction Staff Tri-Focus passive for Flame Staffs.</li>
+				<li>Fixed the Destruction Staff Ancient Knowledge passive for Shock Staffs.</li>
+				<li>Fixed the Restoration Staff passive Restoration Master.</li>
+				<li>Fixed display of Werewolf morph skills.</li>
+				<li>The Fighters Guild Evil Hunter skill is now a toggleable ability that reduces the cost of the skill line.</li>
+				<li>All skills have been tested and should now be working.</li>
 			</ul>
 			<p>
 			<b>28 May 2018</b>
