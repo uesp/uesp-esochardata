@@ -1,6 +1,9 @@
 /*
  * TODO:
  * 		- Description of input types (plain, percent, special, etc...)
+ * 		- Poison buffs
+ * 		- Hide skill lines, auto-purchase free skills.
+ * 		- Skill point count bug.
  */
 
 ESO_TESTBUILD_SHOWALLRAWINPUTS = false;
@@ -14725,8 +14728,9 @@ var ESO_SETPROCDAMAGE_DATA =
 		"selene" : {
 			// (2 items) When you deal direct melee damage, you have a 15% chance call on a primal spirit that mauls the closest enemy in front
 			// of you for 139-12000 Physical Damage. This effect can occur once every 4 seconds.
-			isAoE : true,
+			isAoE : false,
 			isDoT : false,
+			singleTarget : true,
 			index : 2,
 			items : 2,
 		},
@@ -14979,7 +14983,7 @@ var ESO_SETPROC_UNKNOWN = {
 };
 
 
-function UpdateEsoSetDamageDataReplace(match, prefixWord, damageValue, damageType, extraSpace, setDamageData, matchCount)
+function UpdateEsoSetDamageDataReplace(match, prefixWord, div1, damageValue, div2, damageType, extraSpace, setDamageData, matchCount)
 {
 	var damageFactor = 1;
 	var damageMod;
@@ -15052,12 +15056,12 @@ function UpdateEsoSetDamageDataReplace(match, prefixWord, damageValue, damageTyp
 		damageValue = Math.floor(damageValue * damageFactor);
 	}
 	
-	return " " + prefixWord + " " + damageValue + " " + damageType + extraSpace + "damage ";
+	return " " + prefixWord + " " + div1 + damageValue + div2 + " " + damageType + extraSpace + "damage ";
 }
 
 
 
-function UpdateEsoSetDamageShieldReplace(match, damageShieldValue)
+function UpdateEsoSetDamageShieldReplace(match, div1, damageShieldValue, div2)
 {
 	// damage shield that absorbs 140-12040 damage
 	// damage shield every 2 seconds that absorbs 27-2399 damage
@@ -15073,7 +15077,7 @@ function UpdateEsoSetDamageShieldReplace(match, damageShieldValue)
 		damageShieldValue = Math.floor(damageShieldValue * shieldFactor);
 	}
 	
-	return " absorbs " + damageShieldValue + " damage";
+	return " absorbs " + div1 + damageShieldValue + div2 + " damage";
 }
 
 
@@ -15108,9 +15112,9 @@ function UpdateEsoBuildSetDamageData(setDesc, setDamageData)
 	
 	//EsoBuildLog("UpdateEsoBuildSetDamageData", setDesc, setDamageData);
 	
-	newDesc = newDesc.replace(/ ([A-Za-z]+) ([0-9]+) ((?:[a-zA-Z]+)|)( |)damage/gi, function(match, prefixWord, damageValue, damageType, extraSpace) {
+	newDesc = newDesc.replace(/ ([A-Za-z]+) ((?:\<div[^>]*\>)|)([0-9]+)((?:\<\/div\>)|) ((?:[a-zA-Z]+)|)( |)damage/gi, function(match, prefixWord, div1, damageValue, div2, damageType, extraSpace) {
 		++matchCount;
-		return UpdateEsoSetDamageDataReplace(match, prefixWord, damageValue, damageType, extraSpace, setDamageData, matchCount);
+		return UpdateEsoSetDamageDataReplace(match, prefixWord, div1, damageValue, div2, damageType, extraSpace, setDamageData, matchCount);
 	});
 	
 	return newDesc;
@@ -15124,9 +15128,9 @@ function UpdateEsoBuildSetDamageShield(setDesc)
 	
 	//EsoBuildLog("UpdateEsoBuildSetDamageShieldData", setDesc);
 	
-	newDesc = newDesc.replace(/ absorbs ([0-9]+) damage/gi, function(match, damageValue) {
+	newDesc = newDesc.replace(/ absorbs ((?:\<div[^>]*\>)|)([0-9]+)((?:\<\/div\>)|) damage/gi, function(match, div1, damageValue, div2) {
 		++matchCount;
-		return UpdateEsoSetDamageShieldReplace(match, damageValue, matchCount);
+		return UpdateEsoSetDamageShieldReplace(match, div1, damageValue, div2, matchCount);
 	});
 	
 	return newDesc;
@@ -15157,6 +15161,8 @@ function UpdateEsoBuildSetAllData(setDesc, setDamageData)
 	newDesc = UpdateEsoBuildSetDamageData(newDesc, setDamageData);
 	newDesc = UpdateEsoBuildSetDamageShield(newDesc);
 	newDesc = UpdateEsoBuildSetHealing(newDesc);
+	
+	//EsoBuildLog("UpdateEsoBuildSetAllData", newDesc, setDesc, setDamageData);
 	
 	return newDesc;
 }

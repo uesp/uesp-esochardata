@@ -1174,6 +1174,9 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Removed the Night Mother's Gaze (Target) and Sunderflame (Target) buffs.</li>
 				<li>Added the perfect versions of the Galenwe, Relequen, Siroria, and Olorime sets to the quick item setup.</li>
 				<li>All sets have been tested and should now be working.</li>
+				<li>Added Soul Trap and Werewolf Transformation as free skills.</li>
+				<li>The Psijic Order ability Mend Wounds is now affected by healing modifiers.</li>
+				<li>Fixe dthe set tooltip modifiers for damage and damage shield numbers.</li>
 			</ul>
 			<p>
 			<b>29 May 2018</b>
