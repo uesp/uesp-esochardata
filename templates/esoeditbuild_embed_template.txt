@@ -621,7 +621,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<div class="esptbItemSetup esptbItemSetupBoxBorder">
 				<div class="esotbItemSetupTitle">Equip Monster Set</div>
 				
-				<select id="esotbItemSetupMonsterSet" style="width: 150px;">
+				<select id="esotbItemSetupMonsterSet" style="width: 200px;">
 					<option>Blood Spawn</option>
 					<option>Chokethorn</option>
 					<option>Domihaus</option>
@@ -715,9 +715,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<div class="esptbItemSetup esptbItemSetupBoxBorder">
 				<div class="esotbItemSetupTitle">Equip Set</div>
 				
-				<select id="esotbItemSetupEquipSet" style="width: 150px;">
+				<select id="esotbItemSetupEquipSet" style="width: 200px;">
 					<option>Adept Rider</option>
-					<option>Aegis of Galanwe</option>
+					<option>Aegis of Galenwe</option>
+					<option value="Perfect Aegis of Galenwe">Aegis of Galenwe (Perfect)</option>
 					<option>Affliction</option>
 					<option>Agility</option>
 					<option>Akaviri Dragonguard</option>
@@ -733,6 +734,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Armor of Truth</option>
 					<option>Arms of Infernace</option>
 					<option>Arms of Relequen</option>
+					<option value="Perfect Arms of Relequen">Arms of Relequen (Perfect)</option>
 					<option>Arms of the Ancestors</option>
 					<option>Ashen Grip</option>
 					<option>Aspect of Mazzatun</option>
@@ -841,6 +843,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Magicka Furnace</option>
 					<option>Magnus' Gift</option>
 					<option>Mantle of Siroria</option>
+					<option value="Perfect Mantle of Siroria">Mantle of Siroria (Perfect)</option>
 					<option>Mark of the Pariah</option>
 					<option>Marksman's Crest</option>
 					<option>Master Architect</option>
@@ -966,6 +969,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Varen's Legacy</option>
 					<option>Vengeance Leech</option>
 					<option>Vestment of Olorime</option>
+					<option value="Perfect Vestment of Olorime">Vestment of Olorime (Perfect)</option>
 					<option>Vestments of the Warlock</option>
 					<option>Vicecanon of Venom</option>
 					<option>Vicious Death</option>
@@ -1160,6 +1164,18 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>30 May 2018</b>
+			<ul>
+				<li>Fixed mispelling of Aegis of Galenwe set in the quick item setups.</li>
+				<li>Fixed the 5 piece bonus of the Archer's Mind set.</li>
+				<li>Updated the 5 piece bonus of the Hircine's Veneer set.</li>
+				<li>Fixed the 5 piece bonus of the Mechanical Acuity set.</li>
+				<li>Fixed the 5 piece bonus of the Medusa set.</li>
+				<li>Removed the Night Mother's Gaze (Target) and Sunderflame (Target) buffs.</li>
+				<li>Added the perfect versions of the Galenwe, Relequen, Siroria, and Olorime sets to the quick item setup.</li>
+				<li>All sets have been tested and should now be working.</li>
+			</ul>
+			<p>
 			<b>29 May 2018</b>
 			<ul>
 				<li>Molten Whip now increases Spell Damage for Ardent Flame abilities while slotted.</li>
