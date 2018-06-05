@@ -2226,7 +2226,7 @@ EOT;
 				++$knownCount;
 				$output .= "$trait $item research is finished!<br/>";
 				$extraTraits[$item] = $trait;
-				$this->nextResearchFinished[] = array("time" => 0, "name" => "$charName has finished research for $craftType $trait $item!");
+				$this->researchFinished[] = array('charId' => $charId, 'craftType' => $craftType, 'charName' => $charName, 'openSlots' => $openSlots, "time" => 0, "name" => "$charName has finished research for $craftType $trait $item!");
 			}
 			else
 			{
@@ -2255,7 +2255,7 @@ EOT;
 		if ($finishedCount < $openSlots && $knownCount < $totalCount)
 		{
 			$openSlots -= $finishedCount;
-			$this->nextResearchFinished[] = array("time" => 0, "name" => "$charName has $openSlots $craftType research slots available!");
+			$this->researchFinished[] = array('charId' => $charId, 'craftType' => $craftType, 'charName' => $charName, 'openSlots' => $openSlots, "time" => 0, "name" => "$charName has $openSlots $craftType research slots available!");
 		}
 		
 		$output .= "$knownCount / $totalCount traits known";
@@ -2278,18 +2278,22 @@ EOT;
 		$blacksmithData = array();
 		$clothingData = array();
 		$woodworkData = array();
+		$jewelryData = array();
 		$this->nextResearchFinished = array();
+		$this->researchFinished = array();
 		
 		foreach ($this->buildData as $build)
 		{
 			$charId = intval($build['id']);
 			$blacksmithData[$charId] = $this->getAccountResearchData($charId, "Blacksmithing");
 			$clothingData[$charId] = $this->getAccountResearchData($charId, "Clothier", $this->CLOTHING_SLOT_DISPLAYNAMES);
+			$jewelryData[$charId] = $this->getAccountResearchData($charId, "Jewelry");
 			$woodworkData[$charId] = $this->getAccountResearchData($charId, "Woodworking");
 		}
 		
 		$blacksmithSum = $this->sumResearchArray($blacksmithData);
 		$clothingSum = $this->sumResearchArray($clothingData);
+		$jewelrySum = $this->sumResearchArray($jewelryData);
 		$woodworkSum = $this->sumResearchArray($woodworkData);
 		$numChars = count($this->buildData);
 		
@@ -2299,6 +2303,7 @@ EOT;
 		$output .= "<th></th>";
 		$output .= "<th>Blacksmithing</th>";
 		$output .= "<th>Clothing</th>";
+		$output .= "<th>Jewelry</th>";
 		$output .= "<th>Woodworking</th>";
 		$output .= "</tr>";
 		
@@ -2311,6 +2316,7 @@ EOT;
 			$output .= "<td>$charName</td>";
 			$output .= "<td>" . $this->createAccountResearchSlotData($charId, "Blacksmithing", $charName) . "</td>";
 			$output .= "<td>" . $this->createAccountResearchSlotData($charId, "Clothier", $charName) . "</td>";
+			$output .= "<td>" . $this->createAccountResearchSlotData($charId, "Jewelry", $charName) . "</td>";
 			$output .= "<td>" . $this->createAccountResearchSlotData($charId, "Woodworking", $charName) . "</td>";
 			$output .= "</tr>";
 		}
@@ -2318,19 +2324,62 @@ EOT;
 		$output .= "</table>";
 		$output .= "<p><br/>";
 		
+		if (count($this->researchFinished) > 0)
+		{
+			$charResearch = array();
+			
+			foreach ($this->researchFinished as $i => $research)
+			{
+				$charId = $research['charId'];
+				$charName = $research['charName'];
+				$craftType = $research['craftType'];
+				
+				if ($charResearch[$charName] == null) $charResearch[$charName] = array();
+				if ($charResearch[$charName][$craftType] == null) $charResearch[$charName][$craftType] = 0;
+				$charResearch[$charName][$craftType]++;
+			}
+			
+			$output .= "<h3>Open Research Slots</h3>";
+			$output .= "<ol>";
+			
+			foreach ($this->buildData as $build)
+			{
+				$charName = $build['name'];
+				$research = $charResearch[$charName];
+				if ($research == null) continue;
+				
+				$totalSlots = 0;
+				$craftCounts = array();
+				
+				foreach ($research as $craftType => $slotCount)
+				{
+					$totalSlots += $slotCount;
+					$craftCounts[] = "$slotCount $craftType";
+				}
+				
+				$charName = $this->escape($charName);
+				$craftOutput = implode(", ", $craftCounts);
+				$output .= "<li>$charName has $totalSlots research slots available ($craftOutput)</li>";
+			}
+				
+			$output .= "</ol><p/><br/>";
+		}				
+		
 		if (count($this->nextResearchFinished) > 0)
 		{
 			usort($this->nextResearchFinished, array("EsoCharDataViewer", "SortNextResearchByTime"));
-			
 			$output .= "<h3>Next Research Finished</h3>";
 			$output .= "<ol>";
 			
 			for ($i = 0; $i < 10 && $i < count($this->nextResearchFinished); ++$i)
 			{
 				$research = $this->nextResearchFinished[$i];
-				$output .= "<li>{$research['name']}</li>";
+				$researchOutput = $this->escape($research['name']);
+				$output .= "<li>$researchOutput</li>";
 			}
 			
+			$remainingSlots = count($this->nextResearchFinished) - 10;
+			if ($remainingSlots > 0) $output .= "<li>$remainingSlots more research slots in progress...</li>";
 			$output .= "</ol><p/><br/>";
 		}
 		
@@ -2437,6 +2486,40 @@ EOT;
 			$output .= "</tr>";
 		}
 		
+		$output .= "</table><p><br/>";
+		
+		$output .= "<h3>Jewelry</h3>";
+		$output .= "<table class='ecdCharSummaryTable'>";
+		$output .= "<tr>";
+		$output .= "<th></th>";
+				
+		foreach (self::$JEWELRY_TRAITS as $trait)
+		{
+			$output .= "<th>$trait</th>";
+		}
+		
+		$output .= "<th></th>";
+		$output .= "</tr>";
+		
+		foreach ($jewelrySum['armor'] as $slotName => $traitData)
+		{
+			$output .= "<tr>";
+			$output .= "<td>$slotName</td>";
+			$totalCount = 0;
+				
+			foreach (self::$JEWELRY_TRAITS as $trait)
+			{
+				$count = $traitData[$trait]['count'] ? : 0;
+				$totalCount += $count;
+				$title = implode(", ", $traitData[$trait]['known']). "\n\nUnknown: " . implode(", ", $traitData[$trait]['unknown']);
+				$title = $this->escapeAttr($title);
+				$output .= "<td title='$title'>$count</td>";
+			}
+				
+			$output .= "<td>$totalCount / $maxTraits</td>";
+			$output .= "</tr>";
+		}
+
 		$output .= "</table><p><br/>";
 		
 		$output .= "<h3>Woodworking</h3>";

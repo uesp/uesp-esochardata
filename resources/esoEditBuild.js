@@ -6176,6 +6176,21 @@ ESO_ENCHANT_ARMOR_MATCHES = [
 		factorValue: -1,
 		match: /Reduce cost of blocking by ([0-9]+\.?[0-9]*)/i,
 	},
+	{
+		statId: "BashCost",
+		factorValue: -1,
+		match: /Reduce the cost of bash by ([0-9]+\.?[0-9]*)/i,
+	},
+	{
+		statId: "BlockCost",
+		factorValue: -1,
+		match: /Reduce the cost of block by ([0-9]+\.?[0-9]*)/i,
+	},
+	{
+		statId: "BlockCost",
+		factorValue: -1,
+		match: /and the cost of block by ([0-9]+\.?[0-9]*)/i,
+	},
 	
 ];
 
@@ -9477,9 +9492,9 @@ function UnequipEsoEnchantSlot(slotId, update)
 	var iconElement = $(element).find(".esotbItemIcon");
 	var labelElement = $(element).find(".esotbItemLabel");
 	
-	iconElement.attr("enchantid", "");
-	iconElement.attr("enchantintlevel", "");
-	iconElement.attr("enchantinttype", "");
+	iconElement.attr("enchantid", "0");
+	iconElement.attr("enchantintlevel", "0");
+	iconElement.attr("enchantinttype", "0");
 
 	g_EsoBuildEnchantData[slotId] = {};
 	
@@ -10735,9 +10750,9 @@ function OnEsoSelectItemEnchant(itemData, element)
 	
 	if ($.isEmptyObject(itemData))
 	{
-		iconElement.attr("enchantid", "");
-		iconElement.attr("enchantintlevel", "");
-		iconElement.attr("enchantinttype", "");
+		iconElement.attr("enchantid", "0");
+		iconElement.attr("enchantintlevel", "0");
+		iconElement.attr("enchantinttype", "0");
 		g_EsoBuildEnchantData[slotId] = {};
 		
 		UpdateEsoComputedStatsList(true);

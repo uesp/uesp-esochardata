@@ -1164,6 +1164,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>31 May 2018</b>
+			<ul>
+				<li>Fixed the Glyph of Shielding effects.</li>
+			</ul>
+			<p>
 			<b>30 May 2018</b>
 			<ul>
 				<li>Fixed mispelling of Aegis of Galenwe set in the quick item setups.</li>
