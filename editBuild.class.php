@@ -14,7 +14,8 @@
  *  	- Adjust all Durations in tooltips?
  *  	- Increases healing with Restoration Staff spells by 5%
  *  	- Overall "X damage taken" type state (Flame damage for vampires).
- *  	- Quick Item Setup: Nirnhoned items that don't exist? 
+ *  	- Quick Item Setup: Nirnhoned items that don't exist?
+ *  	- Swift Warrior melee attack for class abilities. 
  */
 
 require_once("/home/uesp/secrets/esolog.secrets");

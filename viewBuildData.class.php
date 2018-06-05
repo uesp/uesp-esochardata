@@ -10,6 +10,7 @@ require_once("/home/uesp/esolog.static/viewCps.class.php");
 class EsoBuildDataViewer
 {
 	static $ARMOR_TRAITS = array("Divines", "Impenetrable", "Infused", "Nirnhoned", "Invigorating", "Reinforced", "Sturdy", "Training", "Well-fitted");
+	static $JEWELRY_TRAITS = array("Arcane", "Robust", "Healthy", "Bloodthirsty", "Harmony",  "Infused", "Protective", "Swift", "Triune" );
 	static $WEAPON_TRAITS = array("Charged", "Decisive", "Defending", "Infused", "Nirnhoned",  "Precise", "Powered", "Sharpened", "Training" );
 	static $WEAPONS = array("Axe" => 1, "Battle Axe" => 1, "Dagger" => 1, "Greatsword" => 1, "Mace" => 1, "Maul" => 1, "Sword" => 1, "Bow" => 1,
 			"Ice Staff" => 1, "Inferno Staff" => 1, "Lightning Staff" => 1, "Restoration Staff" => 1);
