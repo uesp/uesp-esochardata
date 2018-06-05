@@ -1444,12 +1444,12 @@ EOT;
 	}
 	
 	
-	public function getCharSkillJewelryExtraContent() 
+	public function getCharSkillJewelryExtraContent()
 	{
 		$currentTime = time();
 		$output = "<br/></br>";
 		
-		$jewelryLevel = $this->getCharSkillsField("Craft:Jewelry:Potency Improvement", "rank", 0);
+		$jewelryLevel = $this->getCharSkillsField("Craft:Jewelry:Engraver", "rank", 0);
 		$jewelryMRChance = $this->getCharJewelryMasterWritChance(-1, $jewelryLevel);
 		
 		if ($jewelryMRChance > 0)

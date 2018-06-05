@@ -14,6 +14,7 @@ class EsoBuildDataViewer
 	static $WEAPON_TRAITS = array("Charged", "Decisive", "Defending", "Infused", "Nirnhoned",  "Precise", "Powered", "Sharpened", "Training" );
 	static $WEAPONS = array("Axe" => 1, "Battle Axe" => 1, "Dagger" => 1, "Greatsword" => 1, "Mace" => 1, "Maul" => 1, "Sword" => 1, "Bow" => 1,
 			"Ice Staff" => 1, "Inferno Staff" => 1, "Lightning Staff" => 1, "Restoration Staff" => 1);
+	static $JEWELRY = array("Neck" => 1, "Necklace" => 1, "Ring" => 1);
 	
 	public $ESO_HTML_TEMPLATE = "templates/esobuilddata_embed_template.txt";
 	public $ESO_SHORT_LINK_URL = "//esobuilds.uesp.net/";
@@ -1827,6 +1828,7 @@ class EsoBuildDataViewer
 		
 		$output .= $this->getResearchContentHtml("Blacksmithing");
 		$output .= $this->getResearchContentHtml("Clothier");
+		$output .= $this->getResearchContentHtml("Jewelry");
 		$output .= $this->getResearchContentHtml("Woodworking");
 		
 		$output .= "</div>\n";
@@ -1956,6 +1958,7 @@ class EsoBuildDataViewer
 		$knownCount = 0;
 		$armorTraits = array();
 		$weaponTraits = array();
+		$jewelryTraits = array();
 		$prefix = "Research:$craftType";
 		$timestamp = $this->getCharStatField("Research:Timestamp");
 		$research = array();
@@ -2058,6 +2061,31 @@ class EsoBuildDataViewer
 					}
 				}
 			}
+			elseif (self::$JEWELRY[$slotName])
+			{
+				$jewelryTraits[$slotName] = array();
+				
+				$value = 0;
+				if ($knownTraitCount == $totalTraits) $value = 1;
+				
+				foreach (self::$JEWELRY_TRAITS as $trait)
+				{
+					$jewelryTraits[$slotName][$trait] = $value;
+				}
+				
+				foreach ($traits as $trait)
+				{
+					if (preg_match("#\[([a-zA-Z 0-9\&\-]+)\]#", $trait, $matches))
+					{
+						$jewelryTraits[$slotName][$matches[1]] = 2;
+						$trait = $matches[1];
+					}
+					else
+					{
+						$jewelryTraits[$slotName][$trait] = 1;
+					}
+				}
+			}			
 			else
 			{
 				$armorTraits[$slotName] = array();
@@ -2104,6 +2132,53 @@ class EsoBuildDataViewer
 				$output .= "<td>$slot</td>";
 								
 				foreach (self::$ARMOR_TRAITS as $trait)
+				{
+					$value = "";
+					$researchNote = "";
+					
+					if ($slotTraits[$trait] == 1)
+					{
+						$value = "X";
+					}
+					else if ($slotTraits[$trait] == 2)
+					{
+						$value = "?";
+						
+						if ($research[$slot] != null && $research[$slot][$trait] != null)
+						{
+							$researchNote = " " . $this->FormatResearchTime($research[$slot][$trait], $timestamp);
+						}
+					}
+					
+					$title = $this->escapeAttr("$trait$researchNote");
+					$output .= "<td title='$title'>$value</td>";
+				}
+				
+				$output .= "<td>{$knownCounts[$slot]}/9</td>";
+				$output .= "</tr>";
+			}
+			
+			$output .= "</table>";
+		}
+		
+		if (count($jewelryTraits) > 0)
+		{
+			$output .= "<table class='ecdSkillResearchTable'>";
+			$output .= "<tr><td></td>";
+			
+			foreach (self::$JEWELRY_TRAITS as $trait)
+			{
+				$output .= "<th class='ecdSkillRotateHeader'><div><span>$trait</span></div></th>";	
+			}
+			
+			$output .= "<th></th></tr>";
+			
+			foreach ($jewelryTraits as $slot => $slotTraits)
+			{
+				$output .= "<tr>";
+				$output .= "<td>$slot</td>";
+								
+				foreach (self::$JEWELRY_TRAITS as $trait)
 				{
 					$value = "";
 					$researchNote = "";
