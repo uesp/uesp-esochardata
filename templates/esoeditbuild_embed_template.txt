@@ -5,9 +5,6 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #fcc; margin-right: 225px;'>
-Note: The build editor is not yet completely updated for the Summerset DLC.
-Item data is partially updated but some items have incorrect stats. 
-If you can't save builds <a href="http://en.uesp.net/wiki/UESPWiki:EsoBuildEditor#Can.27t_Save_Build_.28Error_Saving_Build.29">see here</a> for details on how to fix it. 
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
