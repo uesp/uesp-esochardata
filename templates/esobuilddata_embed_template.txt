@@ -62,7 +62,7 @@
 		<div id='ecdEquipSlotFeet'>{equipFeet}</div>
 		<img id='ecdEquipSlotBar2' alt='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='350' />
 		<div id='ecdEquipSlotSubtitle2'>ACCESSORIES</div>
-		<div id='ecdEquipSlotCostume'>{equipCostume}</div>
+		<div id='ecdEquipSlotCostume' style="display:none;">{equipCostume}</div>
 		<div id='ecdEquipSlotNeck'>{equipNeck}</div>
 		<div id='ecdEquipSlotRing1'>{equipRing1}</div>
 		<div id='ecdEquipSlotRing2'>{equipRing2}</div>
