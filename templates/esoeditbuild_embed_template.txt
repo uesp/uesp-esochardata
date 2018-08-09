@@ -1161,6 +1161,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>9 August 2018</b>
+			<ul>
+				<li>The heal in the Sorcerer's Summon Winged Twilight skill and morphs are now affected by any +healing effects.</li>
+			</ul>
+			<p>
 			<b>31 May 2018</b>
 			<ul>
 				<li>Fixed the Glyph of Shielding effects.</li>
