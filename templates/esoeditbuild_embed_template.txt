@@ -1169,6 +1169,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>31 May 2018</b>
 			<ul>
 				<li>Fixed the Glyph of Shielding effects.</li>
+				<li>Fixed the item data of Jorvuld's Guidance Rings which was causing editor issues/crashes.</li>
 			</ul>
 			<p>
 			<b>30 May 2018</b>
