@@ -1326,6 +1326,7 @@ class EsoBuildDataViewer
 					'{collectibleContents}' => $this->getCollectibleContentsHtml(),
 					'{rootBackgroundImage}' => $this->getRootBackgroundImage(),
 					'{charMenu}' => $this->getLeftCharacterMenuHtml(),
+					'{backgroundFocusStyle}' => $this->getBackgroundFocusStyle(),
 			);
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
@@ -1333,6 +1334,18 @@ class EsoBuildDataViewer
 		$this->CreateCharacterCache($this->outputHtml);
 			
 		return true;
+	}
+	
+	
+	public function getBackgroundFocusStyle()
+	{
+		$screenshots = $this->characterData['screenshots'];
+		if ($screenshots == null) return 'display: none';
+		
+		$screenshot = reset($screenshots);
+		if ($screenshot == null) return 'display: none';
+	
+		return '';
 	}
 	
 	
