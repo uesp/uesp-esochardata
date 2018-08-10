@@ -3,7 +3,7 @@
 	{trail}
 </div>
 <div id='ecdRoot' {rootBackgroundImage}>
-	<div id='ecdBackgroundFocus'>
+	<div id='ecdBackgroundFocus' style='{backgroundFocusStyle}'>
 		<img src='{baseResourceUrl}resources/tradinghouse_browse_tabicon_down.png'>
 	</div>
 	<div id='ecdTitleBar'>
