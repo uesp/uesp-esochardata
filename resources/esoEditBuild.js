@@ -5591,6 +5591,16 @@ ESO_SETEFFECT_MATCHES = [
 		match: /Standing in the ring grants you a stack of Siroria's Boon for [0-9]+ seconds. Each stack increases your Spell Damage by ([0-9]+)\./i,
 	},
 	{
+		id: "Perfect Mantle of Siroria",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "SpellDamage",
+		maxTimes: 20,
+		match: /Standing in the ring grants you a stack of Siroria's Boon for [0-9]+ seconds. Each stack increases your Spell Damage by ([0-9]+)\./i,
+	},
+	{
 		id: "Mechanical Acuity",
 		setBonusCount: 5,
 		toggle: true,
