@@ -4,6 +4,7 @@
 
 name = uesp.esochardata
 staged = true
+backup = false
 
 ignore = .hg*
 ignore = *.deploy

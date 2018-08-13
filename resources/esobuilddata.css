@@ -3555,3 +3555,15 @@ thead.ecdFixedHeader tr {
     top: -5px;
     left: -5px;
 }
+
+.ecdStatValue2 {
+	display: inline-block;
+    position: absolute;
+    left: 220px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.ecdStatValue2:hover {
+	background-color: #555;
+}
