@@ -85,9 +85,10 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 			"Telvanni",
 			"Thieves Guild",
 			"Trinimac",
+			//"Welkynar",
 			"Worm Cult",
 			"Xivkyn",
-			"Yokudan",
+			"Yokudan",			
 	);
 	
 	public $PROVISIONING_MASTERWRIT_RECIPEIDS = array(
