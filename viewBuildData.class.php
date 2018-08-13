@@ -3288,18 +3288,18 @@ class EsoBuildDataViewer
 		$output .= $this->getCharBasicStatHtml('Health Recovery', $prefix.'HealthRegenCombat');
 		$output .= $this->getCharBasicStatHtml('Stamina Recovery', $prefix.'StaminaRegenCombat');
 		$output .= "<br />";
-		$output .= $this->getCharBasicStatHtml('Spell Damage', $prefix.'SpellPower');
-		$output .= $this->getCharBasicStatHtml('Spell Critical', $prefix.'SpellCritical', $this->getCharCriticalFactor(), '%', $baseCrit);
+		$output .= $this->getCharBasicStatHtml('Spell Damage', $prefix.'SpellPower', "Computed:".$prefix.'EffectiveSpellPower', 1, '', 0, 'Effective Spell Damage');
+		$output .= $this->getCharBasicStatHtml('Spell Critical', $prefix.'SpellCritical', "Computed:".$prefix.'SpellCritDamage', $this->getCharCriticalFactor(), '%', $baseCrit, 'Spell Critical Damage', '%', 100);
 		
 		$weaponPower = $this->getCharStatField($prefix."WeaponPower");
 		$power = $this->getCharStatField($prefix."Power");
 		
 		if ($power == 0)
-			$output .= $this->getCharBasicStatHtml('Weapon Damage', $prefix.'WeaponPower');
+			$output .= $this->getCharBasicStatHtml('Weapon Damage', $prefix.'WeaponPower', "Computed:".$prefix.'EffectiveWeaponPower', 1, '', 0, 'Effective Weapon Damage');
 		else
-			$output .= $this->getCharBasicStatHtml('Weapon Damage', $prefix.'Power');
+			$output .= $this->getCharBasicStatHtml('Weapon Damage', $prefix.'Power', "Computed:".$prefix.'EffectiveWeaponPower', 1, '', 0, 'Effective Weapon Damage');
 		
-		$output .= $this->getCharBasicStatHtml('Weapon Critical', $prefix.'CriticalStrike', $this->getCharCriticalFactor(), '%', $baseCrit);
+		$output .= $this->getCharBasicStatHtml('Weapon Critical', $prefix.'CriticalStrike', "Computed:".$prefix.'WeaponCritDamage', $this->getCharCriticalFactor(), '%', $baseCrit, 'Weapon Critical Damage', '%', 100);
 		$output .= "<br />";
 		$output .= $this->getCharBasicStatHtml('Spell Resistance', $prefix.'SpellResist');
 		$output .= $this->getCharBasicStatHtml('Physical Resistance', $prefix.'PhysicalResist');
@@ -3315,15 +3315,25 @@ class EsoBuildDataViewer
 	}
 	
 	
-	public function getCharBasicStatHtml($title, $field, $factor = 1, $suffix = '', $offset = 0)
+	public function getCharBasicStatHtml($title, $field, $field2 = null, $factor = 1, $suffix = '', $offset = 0, $field2Tooltip = '', $field2Suffix = '', $field2Factor = 1)
 	{
 		$title = $this->escape($title);
 		$rawValue = (intval(($this->characterData['stats'][$field]['value'] * $factor + $offset) * 10)) / 10;
 		$value = $this->escape($rawValue);
+		$value2 = null;
+		
+		if ($field2 != null && $this->characterData['stats'][$field2] != null)
+		{
+			$rawValue2 = intval($this->characterData['stats'][$field2]['value'] * $field2Factor * 10) / 10;
+			$value2 = $this->escape($rawValue2);
+		}
 		
 		$output  = "<div class='ecdStat'>"; 
 		$output .= "<div class='ecdStatTitle'>$title</div>";
 		$output .= "<div class='ecdStatValue'>$value$suffix</div>";
+		
+		if ($value2 != null) $output .= "<div title='$field2Tooltip' class='ecdStatValue2'>$value2$field2Suffix</div>";
+		
 		$output .= "</div>\n";
 		
 		return $output;	
