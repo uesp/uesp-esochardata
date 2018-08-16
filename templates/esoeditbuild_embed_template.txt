@@ -1162,6 +1162,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>16 August 2018</b>
+			<ul>
+				<li>Updated the Werewolf buff and passives to correctly give the right stats while in Werewolf form.</li>
+			</ul>
+			<p>
 			<b>13 August 2018</b>
 			<ul>
 				<li>Skills and CP data updated from the Wolfhunter DLC.</li>
