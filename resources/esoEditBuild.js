@@ -375,6 +375,15 @@ g_EsoBuildBuffData =
 			statId : "PhysicalResist",
 			icon : "/esoui/art/icons/ability_warrior_021.png",
 		},
+		"Major Resolve (Bonus)" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 2640,
+			category : "Skill",
+			statId : "PhysicalResist",
+			icon : "/esoui/art/icons/ability_warrior_021.png",
+		},
 		"Minor Resolve" : 
 		{
 			enabled: false,
@@ -389,6 +398,15 @@ g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			value : 5280,
+			category : "Skill",
+			statId : "SpellResist",
+			icon : "/esoui/art/icons/ability_mage_069.png",
+		},
+		"Major Ward (Bonus)" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : 2640,
 			category : "Skill",
 			statId : "SpellResist",
 			icon : "/esoui/art/icons/ability_mage_069.png",
@@ -1594,7 +1612,66 @@ ESO_ACTIVEEFFECT_MATCHES = [
 		display: "%",
 		match: /While active the Stamina costs of your Fighters Guild abilities are reduced by ([0-9]+\.?[0-9]*)%/i
 	},
+	{
+		id: "Rune Focus",
+		matchSkillName: false,
+		baseSkillId: 23970,
+		toggle: true,
+		enabled: false,
+		buffId : "Major Ward",
+		match: /the rune grants you Major Resolve and Major Ward/i
+	},
+	{
+		id: "Rune Focus",
+		matchSkillName: false,
+		baseSkillId: 23970,
+		toggle: true,
+		enabled: false,
+		buffId : "Major Resolve",
+		match: /the rune grants you Major Resolve and Major Ward/i
+	},
+	{
+		id: "Rune Focus",
+		matchSkillName: false,
+		baseSkillId: 23985,
+		toggle: true,
+		enabled: false,
+		buffId : "Minor Vitality",
+		match: /You also gain Minor Vitality and Minor Protection/i
+	},
+	{
+		id: "Rune Focus",
+		matchSkillName: false,
+		baseSkillId: 23985,
+		toggle: true,
+		enabled: false,
+		buffId : "Minor Protection",
+		match: /You also gain Minor Vitality and Minor Protection/i
+	},	
+	{
+		id: "Rune Focus Standing",
+		displayName: "Rune Focus (Standing)",
+		matchSkillName: false,
+		baseSkillId: 23970,
+		toggle: true,
+		enabled: false,
+		buffId : "Major Resolve (Bonus)",
+		match: /the rune grants you Major Resolve and Major Ward/i,
+		rawInputMatch: /(Standing within the rune increases Physical Resistance and Spell Resistance granted by [0-9]+\.?[0-9]*%\.)/i,
+	},
+	{
+		id: "Rune Focus Standing",
+		displayName: "Rune Focus (Standing)",
+		matchSkillName: false,
+		baseSkillId: 23970,
+		toggle: true,
+		enabled: false,
+		buffId : "Major Ward (Bonus)",
+		match: /the rune grants you Major Resolve and Major Ward/i,
+		rawInputMatch: /(Standing within the rune increases Physical Resistance and Spell Resistance granted by [0-9]+\.?[0-9]*%\.)/i,
+	},
 		/* End Toggled Abilities */
+		
 	
 ];
 
@@ -11252,6 +11329,8 @@ function AddEsoBuildToggledSkillData(skillEffectData, isPassive)
 		g_EsoBuildToggledSkillData[id].matchData = skillEffectData;
 		g_EsoBuildToggledSkillData[id].baseSkillId = skillEffectData.baseSkillId;
 		g_EsoBuildToggledSkillData[id].statIds = [];
+		g_EsoBuildToggledSkillData[id].rawInputMatch = skillEffectData.rawInputMatch; 
+		g_EsoBuildToggledSkillData[id].displayName = skillEffectData.displayName;
 	}
 	
 	g_EsoBuildToggledSkillData[id].id = id;
@@ -11259,7 +11338,7 @@ function AddEsoBuildToggledSkillData(skillEffectData, isPassive)
 	g_EsoBuildToggledSkillData[id].valid = false;
 	g_EsoBuildToggledSkillData[id].enabled = skillEffectData.enabled;
 	g_EsoBuildToggledSkillData[id].count = 0;
-	g_EsoBuildToggledSkillData[id].maxTimes = skillEffectData.maxTimes;
+	g_EsoBuildToggledSkillData[id].maxTimes = skillEffectData.maxTimes;	
 	
 	if (skillEffectData.statId != null)
 		g_EsoBuildToggledSkillData[id].statIds.push(skillEffectData.statId);
@@ -11794,14 +11873,14 @@ function CreateEsoBuildToggleSkillHtml(skillData)
 	
 	var displayName = skillData.id;
 	var activeData = g_EsoSkillActiveData[skillData.baseSkillId];
-	
-	if (skillData.displayName != null) displayName = skillData.displayName;
-	
+			
 	if (activeData != null && activeData.abilityId != null)
 	{
 		var abilityData = g_SkillsData[activeData.abilityId];
 		if (abilityData != null && abilityData.name != null) displayName = abilityData.name;
-	}	
+	}
+	
+	if (skillData.displayName != null) displayName = skillData.displayName;
 	
 	output += "<input type='checkbox' class='esotbToggleSkillCheck'  " + checked + " >";
 	
@@ -11810,8 +11889,16 @@ function CreateEsoBuildToggleSkillHtml(skillData)
 		output += "<input type='number' class='esotbToggleSkillNumber'  value='" + skillData.count + "' >";
 	}
 	
+	var skillDesc = skillData.desc;
+	
+	if (skillData.rawInputMatch != null)
+	{
+		var rawInputMatches = skillDesc.match(skillData.rawInputMatch);
+		if (rawInputMatches != null) skillDesc = rawInputMatches[1];
+	}
+	
 	output += "<div class='esotbToggleSkillTitle'>" + displayName + ":</div> ";
-	output += "<div class='esotbToggleSkillDesc'>" + skillData.desc + "</div>";
+	output += "<div class='esotbToggleSkillDesc'>" + skillDesc + "</div>";
 	
 	output += "</div>";
 	return output;

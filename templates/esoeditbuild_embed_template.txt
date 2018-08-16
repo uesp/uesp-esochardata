@@ -1165,6 +1165,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>16 August 2018</b>
 			<ul>
 				<li>Updated the Werewolf buff and passives to correctly give the right stats while in Werewolf form.</li>
+				<li>Added two toggled skills for the Templar's Rune Focus skill and morphs. One toggle for the main buffs and one toggle for the bonus while
+						standing in the rune circle.</li>
 			</ul>
 			<p>
 			<b>13 August 2018</b>
