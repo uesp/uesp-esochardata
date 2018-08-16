@@ -749,10 +749,10 @@ g_EsoBuildBuffData =
 			skillEnabled : false,
 			visible : false,
 			toggleVisible : true,
-			displays : [ "", "", "%", "%", "%", "%" ],
-			categories : [ "Skill", "Skill", "Buff", "Buff", "Buff", "Skill" ],
-			values : [ 9966, 9966, 0.30, 0.15, 0.10, 0.25 ],
-			statIds : [ "SpellResist", "PhysicalResist", "Stamina", "StaminaRegen", "SprintSpeed", "PoisonDamageTaken" ],
+			displays : [ "%", "%" ],
+			categories : [ "Skill", "Skill" ],
+			values : [ 0.30, 0.25 ],
+			statIds : [ "Stamina", "PoisonDamageTaken" ],
 			icon: "/esoui/art/icons/ability_werewolf_001.png",
 		},
 		"Mechanical Acuity" : 
@@ -3402,6 +3402,25 @@ ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "WeaponDamage",
 		display: "%",
 		match: /WHILE YOU ARE IN WEREWOLF FORM[\s\S]*?Increases your Weapon Damage by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		statRequireId: "WerewolfStage",
+		statRequireValue: 2,
+		statId: "MovementSpeed",
+		display: "%",
+		match: /WHILE YOU ARE IN WEREWOLF FORM[\s\S]*?Increases your Movement Speed by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statRequireId: "WerewolfStage",
+		statRequireValue: 2,
+		statId: "SpellResistance",
+		match: /WHILE YOU ARE IN WEREWOLF FORM[\s\S]*?Increases your Spell and Physical Resistance by ([0-9]+)/i,
+	},
+	{
+		statRequireId: "WerewolfStage",
+		statRequireValue: 2,
+		statId: "PhysicalResistance",
+		match: /WHILE YOU ARE IN WEREWOLF FORM[\s\S]*?Increases your Spell and Physical Resistance by ([0-9]+)/i,
 	},
 	{
 		statId: "PhysicalDamageDone",
