@@ -5660,7 +5660,7 @@ ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		id: "Lord Warden",
-		setBonusCount: 2,
+		setBonusCount: 3,
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
@@ -5669,7 +5669,7 @@ ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		id: "Lord Warden",
-		setBonusCount: 2,
+		setBonusCount: 3,
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
