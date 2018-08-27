@@ -4,8 +4,8 @@
 	<button id="esotbCreateCopyButton" {createCopyButtonDisabled}>Create Copy</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #fcc; margin-right: 225px;'>
-Note: This editor is not yet completely updated for the Wolfhunter (update 19) patch. Skills and CP data have been updated.
+<div style='background-color: #cfc; margin-right: 225px;'>
+Note: This editor is now mostly updated for the Wolfhunter (update 19) patch. Skills, CP and item data have been updated.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -1162,6 +1162,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>27 August 2018</b>
+			<ul>
+				<li>Finally finished updating item data.</li>
+			</ul>
+			<p>
 			<b>16 August 2018</b>
 			<ul>
 				<li>Updated the Werewolf buff and passives to correctly give the right stats while in Werewolf form.</li>
