@@ -1165,6 +1165,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>27 August 2018</b>
 			<ul>
 				<li>Finally finished updating item data.</li>
+				<li>Fixed the Lord Warden set toggle.</li>
 			</ul>
 			<p>
 			<b>16 August 2018</b>
