@@ -620,6 +620,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<div class="esotbItemSetupTitle">Equip Monster Set</div>
 				
 				<select id="esotbItemSetupMonsterSet" style="width: 200px;">
+					<option>Balorgh</option>
 					<option>Blood Spawn</option>
 					<option>Chokethorn</option>
 					<option>Domihaus</option>
@@ -651,6 +652,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>The Troll King</option>
 					<option>Valkyn Skoria</option>
 					<option>Velidreth</option>
+					<option>Vykosa</option>
 					<option>Zaan</option> 
 				</select>
 				
@@ -746,6 +748,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Berserking Warrior</option>
 					<option>Black Rose</option>
 					<option>Blessing of the Potentates</option>
+					<option>Blood Moon</option>
 					<option>Blooddrinker</option>
 					<option>Bloodthorn's Touch</option>
 					<option>Bone Pirate's Tatters</option>
@@ -800,8 +803,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Green Pact</option>
 					<option>Gryphon's Ferocity</option>
 					<option>Hand of Mephala</option>
+					<option>Hanu's Compassion</option>
 					<option>Hargraven's Garden</option>
 					<option>Hatchling's Shell</option>
+					<option>Haven of Ursus</option>
 					<option>Hawk's Eye</option>
 					<option>Healer's Habit</option>
 					<option>Healing Mage</option>
@@ -820,6 +825,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Inventor's Guard</option>
 					<option>Ironblood</option>
 					<option>Jailbreaker</option>
+					<option>Jailer's Tenacity</option>
 					<option>Jolting Arms</option>
 					<option>Jorvuld's Guidance</option>
 					<option>Kagrenac's Hope</option>
@@ -850,6 +856,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Meridia's Blessed Armor</option>
 					<option>Meritorious Service</option>
 					<option>Moondancer</option>
+					<option>Moon Hunter</option>
 					<option>Morkuldin</option>
 					<option>Mother's Sorrow</option>
 					<option>Necropotence</option>
@@ -895,6 +902,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Robes of Transmutation</option>
 					<option>Salvation</option>
 					<option>Sanctuary</option>
+					<option>Savage Werewolf</option>
 					<option>Scathing Mage</option>
 					<option>Senche's Bite</option>
 					<option>Sentry</option>
@@ -1166,6 +1174,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<ul>
 				<li>Finally finished updating item data.</li>
 				<li>Fixed the Lord Warden set toggle.</li>
+				<li>Added 8 new item sets to the quick item setup.</li>
+				<li>Added a toggle for the Moon Hunter 5 piece bonus. Note that Light Attack speed is not yet included in the computed stats.</li>
+				<li>Added a toggle for the Blood Moon 5 piece bonus.</li>
+				<li>Added a toggle for the Balorgh 2 piece bonus. To use enable the toggled set and enter the amount of ultimate used.</li>
 			</ul>
 			<p>
 			<b>16 August 2018</b>

@@ -301,6 +301,7 @@ class EsoBuildDataEditor
 			"LAWeaponDamage",
 			"LABowDamage",
 			"LAStaffDamage",
+			"LASpeed",
 			"ShieldDamageDone",
 			"FearDuration",
 			"SnareDuration",
@@ -1573,6 +1574,10 @@ class EsoBuildDataEditor
 			),			
 			
 			"Set.LADamage" => array(
+					"display" => "%",
+			),
+			
+			"Set.LASpeed" => array(
 					"display" => "%",
 			),
 			
