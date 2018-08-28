@@ -46,6 +46,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<div class="esotbStatLabel">Level</div> <input id="esotbLevel" class="esotbLevelInput esotbInputValue esotbInputSize3" statid="Level" type="number" size="2" value="{level}">
 			<div class="esotbStatLabel">Total CPs</div> <input id="esotbCPTotalPoints" class="esotbLevelInput esotbInputValue esotbInputSize3" statid="CP.TotalPoints" type="number" size="2" value="{CPTotalPoints}">
 			<div class="esotbStatLabel">Effective Level</div> <div id="esotbEffectiveLevel" class="esotbInputValueRO esotbInputSize3" statid="EffectiveLevel">{effectiveLevel}</div>
+			<br/>
+			<div class="esotbStatLabel">&nbsp;</div>Note: This editor is only accurate for max level (CP160) builds since One Tamriel introduced level scaling.
 			<p/>
 			<div class="esotbStatLabel">Vampire Stage</div> <select id="esotbVampireStage" class="esotbInputSize1" name="esotbVampireStage" statid="VampireStage">{vampireList}</select>
 			<div class="esotbStatLabel">Werewolf Stage</div> <select id="esotbWerewolfStage" class="esotbInputSize1" name="esotbWerewolfStage" statid="Werewolf">{werewolfList}</select>
@@ -715,7 +717,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<div class="esptbItemSetup esptbItemSetupBoxBorder">
 				<div class="esotbItemSetupTitle">Equip Set</div>
 				
-				<select id="esotbItemSetupEquipSet" style="width: 200px;">
+				<input type="text" id="esotbItemSetupEquipSet" list="esotbItemSetupEquipSetList" style="width: 200px;">
+				<datalist id="esotbItemSetupEquipSetList" style="width: 200px;">
 					<option>Adept Rider</option>
 					<option>Aegis of Galenwe</option>
 					<option value="Perfect Aegis of Galenwe">Aegis of Galenwe (Perfect)</option>
@@ -1003,7 +1006,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Wrath of the Imperium</option>
 					<option>Wyrd Tree's Blessing</option>
 					<option>Ysgramor's Birthright</option>				
-				</select>
+				</datalist>
 				
 				<button id="esotbItemSetupEquipSetButton" onclick="OnEsoEditBuildSetupEquipSet(this);">Change</button>
 				<div id="esotbItemSetupEquipSetMsg" class="esotbItemSetupMsg"></div>

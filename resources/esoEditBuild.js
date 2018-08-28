@@ -15683,6 +15683,10 @@ function esotbOnDocReady()
 	
 	$(document).on("esoTooltipUpdate", OnEsoTooltipUpdate);
 	
+	$('#esotbItemSetupEquipSet').focusin(function() {
+	    	$('#esotbItemSetupEquipSet').val('');
+	 });
+	
 	$(document).keyup(function(e) {
 	    if (e.keyCode == 27) OnEsoBuildEscapeKey(e);
 	});
