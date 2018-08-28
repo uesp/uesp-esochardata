@@ -5355,7 +5355,7 @@ ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		statId: "SpellDamage",
 		factorValue: 2,
-		maxTimes: 300,
+		maxTimes: 500,
 		match: /When you use an Ultimate ability, you gain Weapon and Spell Damage for [0-9]+ seconds equal to twice the amount of total Ultimate consumed\./i,
 	},
 	{
@@ -5366,7 +5366,7 @@ ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		statId: "WeaponDamage",
 		factorValue: 2,
-		maxTimes: 300,
+		maxTimes: 500,
 		match: /When you use an Ultimate ability, you gain Weapon and Spell Damage for [0-9]+ seconds equal to twice the amount of total Ultimate consumed\./i,
 	},
 	{

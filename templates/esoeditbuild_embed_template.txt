@@ -1170,6 +1170,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>28 August 2018</b>
+			<ul>
+				<li>Fixed armor glyphs.</li>
+			</ul>
+			<p>
 			<b>27 August 2018</b>
 			<ul>
 				<li>Finally finished updating item data.</li>
