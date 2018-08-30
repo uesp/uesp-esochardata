@@ -6688,6 +6688,7 @@ function GetEsoInputValues(mergeComputedStats)
 	inputValues.NormalSneakSpeed = 0;
 	inputValues.MountSpeedBonus = parseInt($("#esotbMountSpeedBonus").val()) / 100;
 	inputValues.BaseWalkSpeed = parseFloat($("#esotbBaseWalkSpeed").val()); // 3.0 m/s estimated
+	inputValues.BuildDescription = $("#esotbBuildDescription").val();
 	
 	if ($("#esotbStealth").prop("checked")) 
 	{
@@ -13385,6 +13386,8 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 	saveData.Stats['SkillPointsTotal'] = g_EsoSkillPointsUsed;
 	
 	saveData.Stats['UseZeroBaseCrit'] = 1;
+	
+	saveData.Stats['BuildDescription'] = inputValues.BuildDescription;
 	
 	return saveData;
 }

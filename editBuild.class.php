@@ -208,6 +208,7 @@ class EsoBuildDataEditor
 			"Set.ClassWeaponDamage",
 			"Item.SynergyBonus",
 			"Item.ExecuteBonus",
+			"BuildDescription",
 	);
 	
 	
@@ -4933,6 +4934,7 @@ class EsoBuildDataEditor
 				'{enableCP}' => $this->GetEnableCPCheckState(),
 				'{useUpdate18Rules}' => $this->GetUpdate18RulesCheckState(),  
 				'{setNamesJson}' => $this->GetSetNamesJson(),
+				'{BuildDescription}' => $this->getCharStatField("BuildDescription", ""),
 		);
 		
 		$output = strtr($this->htmlTemplate, $replacePairs);

@@ -87,6 +87,9 @@
 			{buffs}
 		</div>
 	</div>
+	<div id='ecdBuildDescription'>
+		{BuildDescription}
+	</div>
 	<div id='ecdActionBar'>
 		<div class='ecdActionBar1 {activeBarClass1}' activeweaponbar="1">
 			<div class='ecdActionBarTitle'>Bar 1</div>
