@@ -103,6 +103,9 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				
 				<div class="esotbStatLabel">Base Walk Speed</div> <input id="esotbBaseWalkSpeed" class="esotbInputValue esotbMiscInput" statid="BaseWalkSpeed" type="number" size="2" value="{BaseWalkSpeed}"> m/s
 				(Estimated value is 3.0 m/s)<br/>
+				
+				<div class="esotbStatLabel">Build Description</div> <textarea id="esotbBuildDescription" statid="BuildDescription" rows="10" cols="80" wrap="soft" maxlength="1024" placeholder="Enter a brief description/explanation of the build here...">{BuildDescription}</textarea> 
+				<br/>
 			</div>
 		</div>
 		<div id="esotbStatBlockItems" class="esotbStatBlock" style="display: none;">

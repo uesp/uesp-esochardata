@@ -1327,6 +1327,7 @@ class EsoBuildDataViewer
 					'{rootBackgroundImage}' => $this->getRootBackgroundImage(),
 					'{charMenu}' => $this->getLeftCharacterMenuHtml(),
 					'{backgroundFocusStyle}' => $this->getBackgroundFocusStyle(),
+					'{BuildDescription}' => $this->getCharStatField('BuildDescription', ''),
 			);
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);

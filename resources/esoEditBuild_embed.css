@@ -1149,3 +1149,9 @@ button.esotbWeaponSelect {
 	height 16px;
 	display: inline-block;
 }
+
+#esotbBuildDescription {
+    width: 600px;
+    display: inline-block;
+    vertical-align: top;	
+}
