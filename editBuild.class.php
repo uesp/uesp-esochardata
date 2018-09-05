@@ -846,6 +846,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Set.MovementSpeed" => array(
+					"display" => "%",
+			),
+			
 			"CP.MountSpeed" => array(
 					"display" => "%",
 			),
@@ -2452,6 +2456,8 @@ class EsoBuildDataEditor
 							"+",
 							"Item.MovementSpeed",
 							"+",
+							"Set.MovementSpeed",
+							"+",
 							"Mundus.MovementSpeed",
 							"+",
 							"*",
@@ -2472,6 +2478,8 @@ class EsoBuildDataEditor
 							"Buff.MovementSpeed",
 							"+",
 							"Item.MovementSpeed",
+							"+",
+							"Set.MovementSpeed",
 							"+",
 							"Buff.SprintSpeed",
 							"+",
@@ -2502,6 +2510,8 @@ class EsoBuildDataEditor
 							"+",
 							"Item.MovementSpeed",
 							"+",
+							"Set.MovementSpeed",
+							"+",
 							"CP.MovementSpeed",
 							"+",
 							"*",
@@ -2526,6 +2536,8 @@ class EsoBuildDataEditor
 							"Mundus.MovementSpeed",
 							"+",
 							"Item.MovementSpeed",
+							"+",
+							"Set.MovementSpeed",
 							"+",
 							"*",
 							"1 + Skill2.SneakSpeed",

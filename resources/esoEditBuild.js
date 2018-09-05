@@ -3490,13 +3490,13 @@ ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statRequireId: "WerewolfStage",
 		statRequireValue: 2,
-		statId: "SpellResistance",
+		statId: "SpellResist",
 		match: /WHILE YOU ARE IN WEREWOLF FORM[\s\S]*?Increases your Spell and Physical Resistance by ([0-9]+)/i,
 	},
 	{
 		statRequireId: "WerewolfStage",
 		statRequireValue: 2,
-		statId: "PhysicalResistance",
+		statId: "PhysicalResist",
 		match: /WHILE YOU ARE IN WEREWOLF FORM[\s\S]*?Increases your Spell and Physical Resistance by ([0-9]+)/i,
 	},
 	{
@@ -5609,6 +5609,7 @@ ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		statId: "MovementSpeed",
 		factorValue: -1,
+		display: '%',
 		match: /When you take damage, you have an [0-9]+% chance to turn your blood into pure iron and gain Major Protection for [0-9]+ seconds, reducing your damage taken by [0-9]+%, but your Movement Speed is reduced by ([0-9]+)%/i,
 	},
 	{

@@ -1176,6 +1176,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>5 September 2018</b>
+			<ul>
+				<li>Fixed the Werewolf Savage Strength passive.</li>
+				<li>The Ironblood set toggle now correctly modifies movement speed.</li>
+			</ul>
+			<p>
 			<b>28 August 2018</b>
 			<ul>
 				<li>Fixed armor glyphs.</li>
