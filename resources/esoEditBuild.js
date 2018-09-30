@@ -11224,6 +11224,7 @@ function ComputeEsoBuildSetDataAverages(setData)
 			
 			for (var k = 0; k < setData.parsedNumbers[i][j].length; ++k)
 			{
+				if (setData.parsedNumbers[i][j][k] == null) continue;
 				var number = parseFloat(setData.parsedNumbers[i][j][k]);
 				
 				if (thisSum[k] == null) 
