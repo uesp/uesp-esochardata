@@ -5,7 +5,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #fcc; margin-right: 225px;'>
-Note: There is a current issue with saving builds due to a wiki software upgrade. This should be fixed within the next few days. 
+Note: We've been playing with how CSS/JavaScript load on the site. If you have issues with the editor you may have to do a forced reload of the page (Shift+F5 or Ctrl+F5) to update those files.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -1176,6 +1176,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>15 October 2018</b>
+			<ul>
+				<li>Streamlined how scripts and CSS are loaded in the wiki to reduce number of round-trips and page load time.</li>
+			</ul>
+			<p>
 			<b>19 September 2018</b>
 			<ul>
 				<li>Fixed from bad item data causing Infernal Guardian sets to crash.</li>

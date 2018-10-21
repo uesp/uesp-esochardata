@@ -1,4 +1,8 @@
-var ecdLastTooltip = null;
+window.ecdLastTooltip = null;
+
+window.lastEsoBookSearchText = "";
+window.lastEsoBookSearchPos = -1;
+window.lastEsoBookSearchElement = null;
 
 
 function EsoBuildLog()
@@ -102,15 +106,15 @@ function onTooltipMouseMove(e)
 }
 
 
-var EsoSkillTree_LastOpenTree = null;
-var EsoSkillTree_LastOpenTreeName = null;
-var EsoSkillTree_LastSkillContentName = null;
-var EsoSkillTree_LastSkillContent = null;
+window.EsoSkillTree_LastOpenTree = null;
+window.EsoSkillTree_LastOpenTreeName = null;
+window.EsoSkillTree_LastSkillContentName = null;
+window.EsoSkillTree_LastSkillContent = null;
 
-var EsoAchTree_LastOpenTree = null;
-var EsoAchTree_LastOpenTreeName = null;
-var EsoAchTree_LastContentName = null;
-var EsoAchTree_LastContent = null;
+window.EsoAchTree_LastOpenTree = null;
+window.EsoAchTree_LastOpenTreeName = null;
+window.EsoAchTree_LastContentName = null;
+window.EsoAchTree_LastContent = null;
 
 
 function OnEsoSkillTreeName1Click(e)
@@ -388,7 +392,7 @@ function ItemFilter_Junk(item)
 }
 
 
-var ITEM_FILTER_FUNCTIONS = {
+window.ITEM_FILTER_FUNCTIONS = {
 		"ALL" 			: ItemFilter_All,
 		"WEAPON" 		: ItemFilter_Weapon,
 		"ARMOR" 		: ItemFilter_Armor,
@@ -411,9 +415,9 @@ function MatchFilterString(filterText, item)
 }
 
 
-var g_EsoCharLastItemFilter = null;
-var ESO_ITEMFILTER_UPDATEMS = 400;
-var g_EsoItemFilterIsUpdating = false;
+window.g_EsoCharLastItemFilter = null;
+window.ESO_ITEMFILTER_UPDATEMS = 400;
+window.g_EsoItemFilterIsUpdating = false;
 
 
 function DoItemFilter()
@@ -456,9 +460,9 @@ function DoItemFilter()
 }
 
 
-var ESO_ITEMFILTER_UPDATE_MINTIME = 0.4;
-var g_EsoCharUpdateItemFilterFlag = false;
-var g_EsoCharUpdateItemLastRequest = 0;
+window.ESO_ITEMFILTER_UPDATE_MINTIME = 0.4;
+window.g_EsoCharUpdateItemFilterFlag = false;
+window.g_EsoCharUpdateItemLastRequest = 0;
 
 
 function UpdateItemFilter()
@@ -847,9 +851,9 @@ function SelectFoundAchievement(element)
 }
 
 
-var lastRecipeSearchText = "";
-var lastRecipeSearchPos = -1;
-var lastRecipeSearchElement = null;
+window.lastRecipeSearchText = "";
+window.lastRecipeSearchPos = -1;
+window.lastRecipeSearchElement = null;
 
 
 function OnEsoCharDataSearchRecipe(event)
@@ -1072,9 +1076,9 @@ function UpdateFirstQuestDetails()
 }
 
 
-var lastEsoAllQuestSearchText = "";
-var lastEsoAllQuestSearchPos = -1;
-var lastEsoAllQuestSearchElement = null;
+window.lastEsoAllQuestSearchText = "";
+window.lastEsoAllQuestSearchPos = -1;
+window.lastEsoAllQuestSearchElement = null;
 
 
 function OnEsoCharDataSearchAllQuests()
@@ -1205,12 +1209,6 @@ function OnEsoBookCategoryClick(e)
 	$(".ecdBookCollectionSelected").removeClass("ecdBookCollectionSelected");
 	firstBook.addClass("ecdBookCollectionSelected");	
 }
-
-
-
-var lastEsoBookSearchText = "";
-var lastEsoBookSearchPos = -1;
-var lastEsoBookSearchElement = null;
 
 
 function OnEsoCharDataSearchBooks()
