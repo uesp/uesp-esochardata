@@ -6,31 +6,33 @@
  * 		- Skill point count bug.
  */
 
-ESO_TESTBUILD_SHOWALLRAWINPUTS = false;
+window.TestCache = 456;
 
-ESO_ICON_URL = "//esoicons.uesp.net";
+window.ESO_TESTBUILD_SHOWALLRAWINPUTS = false;
 
-ESO_MAX_ATTRIBUTES = 64;
-ESO_MAX_LEVEL = 50;
-ESO_MAX_CPLEVEL = 16;
-ESO_MAX_EFFECTIVELEVEL = 66;
+window.ESO_ICON_URL = "//esoicons.uesp.net";
+
+window.ESO_MAX_ATTRIBUTES = 64;
+window.ESO_MAX_LEVEL = 50;
+window.ESO_MAX_CPLEVEL = 16;
+window.ESO_MAX_EFFECTIVELEVEL = 66;
 
  	// Time between an input change and a stat update in seconds
-ESO_BUILD_UPDATE_MINTIME = 0.5;	 
+window.ESO_BUILD_UPDATE_MINTIME = 0.5;	 
 
-g_EsoBuildLastUpdateRequest = 0;
-g_EsoBuildRebuildStatFlag = false;
-g_EsoBuildEnableUpdates = true;
-g_EsoBuildClickWallLinkElement = null;
-g_EsoBuildDumpSetData = "";
+window.g_EsoBuildLastUpdateRequest = 0;
+window.g_EsoBuildRebuildStatFlag = false;
+window.g_EsoBuildEnableUpdates = true;
+window.g_EsoBuildClickWallLinkElement = null;
+window.g_EsoBuildDumpSetData = "";
 
-g_EsoBuildItemData = {};
-g_EsoBuildEnchantData = {};
-g_EsoBuildSetData = {};
-g_EsoBuildSetMaxData = {};
-g_EsoBuildToggledSetData = {};
-g_EsoBuildToggledSkillData = {};
-g_EsoBuildLastInputValues = {};
+window.g_EsoBuildItemData = {};
+window.g_EsoBuildEnchantData = {};
+window.g_EsoBuildSetData = {};
+window.g_EsoBuildSetMaxData = {};
+window.g_EsoBuildToggledSetData = {};
+window.g_EsoBuildToggledSkillData = {};
+window.g_EsoBuildLastInputValues = {};
 
 g_EsoBuildItemData.Head = {};
 g_EsoBuildItemData.Shoulders = {};
@@ -66,13 +68,13 @@ g_EsoBuildEnchantData.OffHand1 = {};
 g_EsoBuildEnchantData.MainHand2 = {};
 g_EsoBuildEnchantData.OffHand2 = {};
 
-g_EsoFormulaInputValues = {};
-g_EsoInputStatSources = {};
+window.g_EsoFormulaInputValues = {};
+window.g_EsoInputStatSources = {};
 
-g_EsoBuildUpdatedOffBarEnchantFactor = false;
+window.g_EsoBuildUpdatedOffBarEnchantFactor = false;
 
 
-var ESO_ITEMQUALITYLEVEL_INTTYPEMAP = 
+window.ESO_ITEMQUALITYLEVEL_INTTYPEMAP = 
 {
 		 1 : [1,  30,  31,  32,  33,  34],
 		 4 : [1,  25,  26,  27,  28,  29],
@@ -96,7 +98,7 @@ var ESO_ITEMQUALITYLEVEL_INTTYPEMAP =
 		66 : [1, 366, 367, 368, 369, 370],
 };
 
-var ESO_ITEMQUALITYLEVEL_INTTYPEMAP_JEWELRY = 
+window.ESO_ITEMQUALITYLEVEL_INTTYPEMAP_JEWELRY = 
 {
 		 1 : [1,  30,  31,  32,  33,  34],
 		 4 : [1,  25,  26,  27,  28,  29],
@@ -121,7 +123,7 @@ var ESO_ITEMQUALITYLEVEL_INTTYPEMAP_JEWELRY =
 };
 
 
-ESO_MUNDUS_BUFF_DATA = 
+window.ESO_MUNDUS_BUFF_DATA = 
 {
 	"The Apprentice" : {
 		abilityId: 13979,
@@ -193,7 +195,7 @@ ESO_MUNDUS_BUFF_DATA =
 };
 
 
-ESOBUILD_SLOTID_TO_EQUIPSLOT = 
+window.ESOBUILD_SLOTID_TO_EQUIPSLOT = 
 {
 		"Head" : 0,
 		"Shoulders" : 3,
@@ -214,7 +216,7 @@ ESOBUILD_SLOTID_TO_EQUIPSLOT =
 };
 
 
-ESOBUILD_SLOTID_TO_EQUIPTYPE = 
+window.ESOBUILD_SLOTID_TO_EQUIPTYPE = 
 {
 		"Head" : 1,
 		"Shoulders" : 4,
@@ -235,7 +237,7 @@ ESOBUILD_SLOTID_TO_EQUIPTYPE =
 };
 
 
-ESOBUILD_SKILLTYPES = 
+window.ESOBUILD_SKILLTYPES = 
 {
 		0 : "",
 		1 : "Class",
@@ -250,7 +252,7 @@ ESOBUILD_SKILLTYPES =
 };
 
 
-g_EsoBuildBuffData =
+window.g_EsoBuildBuffData =
 {
 		
 		"Warhorn" : 
@@ -1084,7 +1086,7 @@ g_EsoBuildBuffData =
 };
 
 
-ESO_ACTIVEEFFECT_MATCHES = [
+window.ESO_ACTIVEEFFECT_MATCHES = [
 
     {
 		statId: "BlockMitigation",
@@ -1676,7 +1678,7 @@ ESO_ACTIVEEFFECT_MATCHES = [
 ];
 
 
-ESO_PASSIVEEFFECT_MATCHES = [
+window.ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		factorStatId: "ArmorLight",
 		statId: "MagickaCost",
@@ -3995,7 +3997,7 @@ ESO_PASSIVEEFFECT_MATCHES = [
 ];
 
 
-ESO_SETEFFECT_MATCHES = [
+window.ESO_SETEFFECT_MATCHES = [
                          
 	// Reduces your damage taken from environmental traps by 40%.
 	// Reduces your damage taken from Players by 5%.
@@ -6221,7 +6223,7 @@ ESO_SETEFFECT_MATCHES = [
 ];		// End of Toggled Sets
 
 	
-ESO_ENCHANT_ARMOR_MATCHES = [
+window.ESO_ENCHANT_ARMOR_MATCHES = [
 	{
 		statId: "Health",
 		match: /Adds ([0-9]+) Maximum Health/i,
@@ -6354,7 +6356,7 @@ ESO_ENCHANT_ARMOR_MATCHES = [
 ];
 
 
-ESO_ENCHANT_OTHERHAND_WEAPON_MATCHES = 
+window.ESO_ENCHANT_OTHERHAND_WEAPON_MATCHES = 
 [
 	{
 		statId: "OtherEffects",
@@ -6365,7 +6367,7 @@ ESO_ENCHANT_OTHERHAND_WEAPON_MATCHES =
 ];
 
 
-ESO_ENCHANT_WEAPON_MATCHES = [
+window.ESO_ENCHANT_WEAPON_MATCHES = [
 	{
 		statId: "SpellDamage",
 		match: /Adds ([0-9]+) Spell Damage/i,
@@ -6541,7 +6543,7 @@ ESO_ENCHANT_WEAPON_MATCHES = [
 ];
 
 
-ESO_ABILITYDESC_MATCHES = [
+window.ESO_ABILITYDESC_MATCHES = [
 	{
 		statId: "Health",
 		match: /Max Health by ([0-9]+)/i,
@@ -6614,7 +6616,7 @@ ESO_ABILITYDESC_MATCHES = [
 
 
 
-ESOBUILD_RAWOUTPUT_LABELSUFFIX = 
+window.ESOBUILD_RAWOUTPUT_LABELSUFFIX = 
 {
 	"SkillBonusWeaponDmg" : "WeaponDamage",
 	"SkillBonusSpellDmg" : "SpellDamage",
@@ -6623,7 +6625,7 @@ ESOBUILD_RAWOUTPUT_LABELSUFFIX =
 };
 
 
-function GetEsoInputValues(mergeComputedStats)
+window.GetEsoInputValues = function (mergeComputedStats)
 {
 	//if (console && console.time) console.time('GetEsoInputValues');
 	
@@ -6866,7 +6868,7 @@ function GetEsoInputValues(mergeComputedStats)
 
 
 
-function GetEsoInputFoodValues(inputValues)
+window.GetEsoInputFoodValues = function (inputValues)
 {
 	var buffDesc = g_EsoBuildItemData['Food'].abilityDesc;
 	var itemType = g_EsoBuildItemData['Food'].type;
@@ -6892,7 +6894,7 @@ function GetEsoInputFoodValues(inputValues)
 }
 
 
-function GetEsoInputBuffValues(inputValues)
+window.GetEsoInputBuffValues = function (inputValues)
 {
 	for (var buffName in g_EsoBuildBuffData)
 	{
@@ -6903,7 +6905,7 @@ function GetEsoInputBuffValues(inputValues)
 }
 
 
-function GetEsoInputBuffValue(inputValues, buffName, buffData)
+window.GetEsoInputBuffValue = function (inputValues, buffName, buffData)
 {
 	var statId = buffData.statId;
 	var statIds = buffData.statIds;
@@ -6951,7 +6953,7 @@ function GetEsoInputBuffValue(inputValues, buffName, buffData)
 }
 
 
-function GetEsoInputSpecialValues(inputValues)
+window.GetEsoInputSpecialValues = function (inputValues)
 {
 	inputValues.VampireStage = parseInt($("#esotbVampireStage").val());
 	
@@ -7026,7 +7028,7 @@ function GetEsoInputSpecialValues(inputValues)
 }
 
 
-function GetEsoInputSetValues(inputValues)
+window.GetEsoInputSetValues = function (inputValues)
 {
 	for (var setName in g_EsoBuildSetData)
 	{
@@ -7037,7 +7039,7 @@ function GetEsoInputSetValues(inputValues)
 }
 
 
-function GetEsoInputSetDataValues(inputValues, setData)
+window.GetEsoInputSetDataValues = function (inputValues, setData)
 {
 	if (setData == null || (setData.count <= 0 && setData.otherCount <= 0)) return;
 	setData.rawOutput = [];
@@ -7075,7 +7077,7 @@ function GetEsoInputSetDataValues(inputValues, setData)
 }
 
 
-function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData, onlyEnableToggles)
+window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount, setData, onlyEnableToggles)
 {
 	var foundMatch = false;
 	var addFinalEffect = false;
@@ -7216,7 +7218,7 @@ function GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData, 
 }
 
 
-function UpdateEsoBuildSetOtherEffectDesc()
+window.UpdateEsoBuildSetOtherEffectDesc = function ()
 {
 	for (var setName in g_EsoBuildSetData)
 	{
@@ -7243,7 +7245,7 @@ function UpdateEsoBuildSetOtherEffectDesc()
 }
 
 
-function GetEsoEnchantData(slotId)
+window.GetEsoEnchantData = function (slotId)
 {
 	var itemData = null;
 	var enchantData = {};
@@ -7276,7 +7278,7 @@ function GetEsoEnchantData(slotId)
 }
 
 
-function GetEsoInputGeneralValues(inputValues, outputId, slotId)
+window.GetEsoInputGeneralValues = function (inputValues, outputId, slotId)
 {
 	var itemData = g_EsoBuildItemData[slotId];
 	if (itemData == null || itemData.itemId == null || itemData.itemId == "") return false;
@@ -7288,7 +7290,7 @@ function GetEsoInputGeneralValues(inputValues, outputId, slotId)
 }
 
 
-function GetEsoInputAbilityDescValues(inputValues, outputId, itemData, slotId)
+window.GetEsoInputAbilityDescValues = function (inputValues, outputId, itemData, slotId)
 {
 	if (itemData.enabled === false) return;
 	
@@ -7316,7 +7318,7 @@ function GetEsoInputAbilityDescValues(inputValues, outputId, itemData, slotId)
 }
 
 
-function GetEsoInputSkillPassives(inputValues)
+window.GetEsoInputSkillPassives = function (inputValues)
 {
 	var skillInputValues = GetEsoTestBuildSkillInputValues();
 	
@@ -7328,7 +7330,7 @@ function GetEsoInputSkillPassives(inputValues)
 }
 
 
-function GetEsoInputSkillActiveBar(inputValues)
+window.GetEsoInputSkillActiveBar = function (inputValues)
 {
 	var skillInputValues = GetEsoTestBuildSkillInputValues();
 	var skillBar = g_EsoSkillBarData[g_EsoBuildActiveAbilityBar - 1];
@@ -7348,7 +7350,7 @@ function GetEsoInputSkillActiveBar(inputValues)
 }
 
 
-function ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData, isPassive)
+window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, abilityData, isPassive)
 {
 	var statValue = 0;
 	var statFactor = 1;
@@ -7498,7 +7500,7 @@ function ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData,
 }
 
 
-function ResetEsoBuffSkillEnabled()
+window.ResetEsoBuffSkillEnabled = function ()
 {
 	for (var buffName in g_EsoBuildBuffData)
 	{
@@ -7512,7 +7514,7 @@ function ResetEsoBuffSkillEnabled()
 }
 
 
-function UpdateEsoBuffSkillEnabled()
+window.UpdateEsoBuffSkillEnabled = function ()
 {
 	
 	for (var buffName in g_EsoBuildBuffData)
@@ -7562,7 +7564,7 @@ function UpdateEsoBuffSkillEnabled()
 }
 
 
-function GetEsoInputSkillPassiveValues(inputValues, skillInputValues, skillData)
+window.GetEsoInputSkillPassiveValues = function (inputValues, skillInputValues, skillData)
 {
 	var abilityData = g_SkillsData[skillData.abilityId];
 	var skillDesc = GetEsoSkillDescription(skillData.abilityId, skillInputValues, false, true);
@@ -7580,7 +7582,7 @@ function GetEsoInputSkillPassiveValues(inputValues, skillInputValues, skillData)
 }
 
 
-function GetEsoInputSkillActiveValues(inputValues, skillInputValues, skillData)
+window.GetEsoInputSkillActiveValues = function (inputValues, skillInputValues, skillData)
 {
 	var abilityData = g_SkillsData[skillData.abilityId];
 	var skillDesc = GetEsoSkillDescription(skillData.abilityId, skillInputValues, false, true);
@@ -7598,7 +7600,7 @@ function GetEsoInputSkillActiveValues(inputValues, skillInputValues, skillData)
 }
 
 
-function ResetEsoAllSkillRawOutputs()
+window.ResetEsoAllSkillRawOutputs = function ()
 {
 	
 	for (var skillId in g_SkillsData)
@@ -7609,7 +7611,7 @@ function ResetEsoAllSkillRawOutputs()
 }
 
 
-function AddEsoItemRawOutput(itemData, statId, value)
+window.AddEsoItemRawOutput = function (itemData, statId, value)
 {
 	if (itemData.rawOutput == null) itemData.rawOutput = {};
 	if (itemData.rawOutput[statId] == null)	itemData.rawOutput[statId] = "";
@@ -7617,7 +7619,7 @@ function AddEsoItemRawOutput(itemData, statId, value)
 }
 
 
-function AddEsoItemRawOutputString(itemData, statId, value)
+window.AddEsoItemRawOutputString = function (itemData, statId, value)
 {
 	if (itemData.rawOutput == null) itemData.rawOutput = {};
 	
@@ -7628,14 +7630,14 @@ function AddEsoItemRawOutputString(itemData, statId, value)
 }
 
 
-function AddEsoItemRawOutputData(itemData, statId, data)
+window.AddEsoItemRawOutputData = function (itemData, statId, data)
 {
 	if (itemData.rawOutput == null) itemData.rawOutput = {};
 	itemData.rawOutput[statId] = data;
 }
 
 
-function GetEsoInputOtherHandItemValues(inputValues, slotId)
+window.GetEsoInputOtherHandItemValues = function (inputValues, slotId)
 {
 	var itemData = g_EsoBuildItemData[slotId];
 	if (itemData == null || itemData.itemId == null || itemData.itemId == "") return false;
@@ -7673,7 +7675,7 @@ function GetEsoInputOtherHandItemValues(inputValues, slotId)
 }
 
 
-function GetEsoInputItemValues(inputValues, slotId)
+window.GetEsoInputItemValues = function (inputValues, slotId)
 {
 	var itemData = g_EsoBuildItemData[slotId];
 	if (itemData == null || itemData.itemId == null || itemData.itemId == "") return false;
@@ -8079,7 +8081,7 @@ function GetEsoInputItemValues(inputValues, slotId)
 }
 
 
-function IsEsoItemArmor(itemData)
+window.IsEsoItemArmor = function (itemData)
 {
 	if (itemData.type == 1 && itemData.weaponType == 14) return true;
 	if (itemData.type != 2) return false;
@@ -8087,7 +8089,7 @@ function IsEsoItemArmor(itemData)
 }
 
 
-function IsEsoItemWeapon(itemData)
+window.IsEsoItemWeapon = function (itemData)
 {
 	if (itemData.type != 1) return false;
 	if (itemData.weaponType == 14) return false;
@@ -8095,7 +8097,7 @@ function IsEsoItemWeapon(itemData)
 }
 
 
-function GetEsoInputItemEnchantValues(inputValues, slotId, doWeaponUpdate)
+window.GetEsoInputItemEnchantValues = function (inputValues, slotId, doWeaponUpdate)
 {
 	var itemData = g_EsoBuildItemData[slotId];
 	if (itemData == null || itemData.itemId == null || itemData.itemId == "") return false;
@@ -8185,7 +8187,7 @@ function GetEsoInputItemEnchantValues(inputValues, slotId, doWeaponUpdate)
 }
 
 
-function GetEsoInputItemEnchantArmorValues(inputValues, slotId, itemData, enchantData, enchantFactor, transmuteFactor)
+window.GetEsoInputItemEnchantArmorValues = function (inputValues, slotId, itemData, enchantData, enchantFactor, transmuteFactor)
 {
 	var rawDesc = RemoveEsoDescriptionFormats(enchantData.enchantDesc);
 	var isTransmuted = (itemData.transmuteTrait > 0 && itemData.transmuteTrait != itemData.origTrait)
@@ -8212,21 +8214,21 @@ function GetEsoInputItemEnchantArmorValues(inputValues, slotId, itemData, enchan
 }
 
 
-function RemoveEsoDescriptionFormats(text)
+window.RemoveEsoDescriptionFormats = function (text)
 {
 	if (text == null) return "";
 	return text.replace(/\|c[a-fA-F0-9]{6}([^|]*)\|r/g, '$1');
 }
 
 
-function ReplaceEsoWeaponMatch(match, p1, offset, string, enchantFactor)
+window.ReplaceEsoWeaponMatch = function (match, p1, offset, string, enchantFactor)
 {
 	var newValue = Math.floor(parseFloat(p1) * enchantFactor);
 	return match.replace(p1, newValue);
 }
 
 
-function GetEsoInputItemEnchantWeaponValues(inputValues, slotId, itemData, enchantData, enchantFactor, transmuteFactor)
+window.GetEsoInputItemEnchantWeaponValues = function (inputValues, slotId, itemData, enchantData, enchantFactor, transmuteFactor)
 {
 	var rawDesc = RemoveEsoDescriptionFormats(enchantData.enchantDesc);
 	var addFinalEffect = false;
@@ -8297,7 +8299,7 @@ function GetEsoInputItemEnchantWeaponValues(inputValues, slotId, itemData, encha
 }
 
 
-function GetEsoInputItemEnchantOtherHandWeaponValues(inputValues, slotId, itemData, enchantData, enchantFactor, transmuteFactor)
+window.GetEsoInputItemEnchantOtherHandWeaponValues = function (inputValues, slotId, itemData, enchantData, enchantFactor, transmuteFactor)
 {
 	var rawDesc = RemoveEsoDescriptionFormats(enchantData.enchantDesc);
 	var addFinalEffect = false;
@@ -8355,7 +8357,7 @@ function GetEsoInputItemEnchantOtherHandWeaponValues(inputValues, slotId, itemDa
 }
 
 
-function UpdateEsoItemSets(inputValues)
+window.UpdateEsoItemSets = function (inputValues)
 {
 	g_EsoBuildSetData = {};
 	
@@ -8429,7 +8431,7 @@ function UpdateEsoItemSets(inputValues)
 }
 
 
-function ParseEsoBuildFloat(value, defaultValue)
+window.ParseEsoBuildFloat = function (value, defaultValue)
 {
 	var result = parseFloat(value);
 	
@@ -8439,7 +8441,7 @@ function ParseEsoBuildFloat(value, defaultValue)
 }
 
 
-function GetEsoInputTargetValues(inputValues)
+window.GetEsoInputTargetValues = function (inputValues)
 {
 	inputValues.Target.SpellResist = ParseEsoBuildFloat($("#esotbTargetResistance").val());
 	inputValues.Target.PhysicalResist = inputValues.Target.SpellResist;
@@ -8455,13 +8457,13 @@ function GetEsoInputTargetValues(inputValues)
 }
 
 
-function GetEsoInputMiscValues(inputValues)
+window.GetEsoInputMiscValues = function (inputValues)
 {
 	inputValues.Misc.SpellCost = parseFloat($("#esotbMiscSpellCost").val());
 }
 
 
-function GetEsoInputMundusValues(inputValues)
+window.GetEsoInputMundusValues = function (inputValues)
 {
 	inputValues.Mundus.Name = $("#esotbMundus").val();
 	GetEsoInputMundusNameValues(inputValues, inputValues.Mundus.Name);
@@ -8479,7 +8481,7 @@ function GetEsoInputMundusValues(inputValues)
 }
 
 
-function GetEsoInputMundusNameValues(inputValues, mundusName)
+window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 {
 	var divines = inputValues.Item.Divines;
 	
@@ -8689,7 +8691,7 @@ function GetEsoInputMundusNameValues(inputValues, mundusName)
 }
 
 
-function GetEsoInputCPValues(inputValues)
+window.GetEsoInputCPValues = function (inputValues)
 {
 	inputValues.CP.Enabled = true;
 	if (!$("#esotbEnableCP").prop("checked")) inputValues.CP.Enabled = false;
@@ -8866,7 +8868,7 @@ function GetEsoInputCPValues(inputValues)
 }
 
 
-function ConvertEsoFlatCritToPercent(flatCrit, inputValues)
+window.ConvertEsoFlatCritToPercent = function (flatCrit, inputValues)
 {
 	var effectiveLevel = parseInt($("#esotbEffectiveLevel").text());
 	if (inputValues != null) effectiveLevel = parseInt(inputValues.EffectiveLevel);
@@ -8876,7 +8878,7 @@ function ConvertEsoFlatCritToPercent(flatCrit, inputValues)
 }
 
 
-function ConvertEsoPercentCritToFlat(percentCrit, inputValues)
+window.ConvertEsoPercentCritToFlat = function (percentCrit, inputValues)
 {
 	var effectiveLevel = parseInt($("#esotbEffectiveLevel").text());
 	if (inputValues != null) effectiveLevel = parseInt(inputValues.EffectiveLevel);
@@ -8886,7 +8888,7 @@ function ConvertEsoPercentCritToFlat(percentCrit, inputValues)
 }
 
 
-function ParseEsoCPValue(inputValues, statIds, abilityId, discId, unlockLevel, statFactor, category)
+window.ParseEsoCPValue = function (inputValues, statIds, abilityId, discId, unlockLevel, statFactor, category)
 {
 	var cpDesc = $("#descskill_" + abilityId);
 	if (cpDesc.length == 0) return false;
@@ -8934,7 +8936,7 @@ function ParseEsoCPValue(inputValues, statIds, abilityId, discId, unlockLevel, s
 }
 
 
-function AddEsoInputStatSource(statId, data)
+window.AddEsoInputStatSource = function (statId, data)
 {
 	if (g_EsoInputStatSources[statId] == null) g_EsoInputStatSources[statId] = [];
 	
@@ -8959,7 +8961,7 @@ function AddEsoInputStatSource(statId, data)
 }
 
 
-function UpdateEsoComputedStatsList(realUpdate)
+window.UpdateEsoComputedStatsList = function (realUpdate)
 {
 	if (!g_EsoBuildEnableUpdates) return;
 	
@@ -8983,7 +8985,7 @@ function UpdateEsoComputedStatsList(realUpdate)
 }
 
 
-function CheckEsoComputeStatUpdate()
+window.CheckEsoComputeStatUpdate = function ()
 {
 	if (!g_EsoBuildRebuildStatFlag) return;
 	
@@ -9001,7 +9003,7 @@ function CheckEsoComputeStatUpdate()
 }
 
 
-function UpdateEsoComputedStatsList_Real(keepSaveResults)
+window.UpdateEsoComputedStatsList_Real = function (keepSaveResults)
 {
 	if (console && console.time) console.time('UpdateEsoComputedStatsList_Real');
 	
@@ -9069,7 +9071,7 @@ function UpdateEsoComputedStatsList_Real(keepSaveResults)
 }
 
 
-function UpdateEsoComputedStatsSpecial()
+window.UpdateEsoComputedStatsSpecial = function ()
 {
 	
 	if (g_EsoBuildSetData["Pelinal's Aptitude"] != null && g_EsoBuildSetData["Pelinal's Aptitude"].count >= 5)
@@ -9099,7 +9101,7 @@ function UpdateEsoComputedStatsSpecial()
 }
 
 
-function UpdateEsoReadOnlyStats(inputValues)
+window.UpdateEsoReadOnlyStats = function (inputValues)
 {
 	
 	if (inputValues == null) inputValues = GetEsoInputValues();
@@ -9108,7 +9110,7 @@ function UpdateEsoReadOnlyStats(inputValues)
 }
 
 
-function UpdateEsoComputedStat(statId, stat, inputValues, saveResult)
+window.UpdateEsoComputedStat = function (statId, stat, inputValues, saveResult)
 {
 	var stack = [];
 	var error = "";
@@ -9227,7 +9229,7 @@ function UpdateEsoComputedStat(statId, stat, inputValues, saveResult)
 }
 
 
-function DisplayEsoComputedStat(statId, inputValues)
+window.DisplayEsoComputedStat = function (statId, inputValues)
 {
 	var stat = g_EsoComputedStats[statId];
 	if (stat == null) return false;
@@ -9285,7 +9287,7 @@ function DisplayEsoComputedStat(statId, inputValues)
 }
 
 
-function ConvertEsoFlatResistToPercent(flatResist, inputValues)
+window.ConvertEsoFlatResistToPercent = function (flatResist, inputValues)
 {
 	var level = parseInt($("#esotbEffectiveLevel").text());
 	if (inputValues != null) level = inputValues.EffectiveLevel;
@@ -9297,7 +9299,7 @@ function ConvertEsoFlatResistToPercent(flatResist, inputValues)
 }
 
 
-function ConvertEsoElementResistToPercent(flatResist, inputValues)
+window.ConvertEsoElementResistToPercent = function (flatResist, inputValues)
 {
 	var level = parseInt($("#esotbEffectiveLevel").text());
 	if (inputValues != null) level = inputValues.EffectiveLevel;
@@ -9309,7 +9311,7 @@ function ConvertEsoElementResistToPercent(flatResist, inputValues)
 }
 
 
-function ConvertEsoCritResistToPercent(flatResist, inputValues)
+window.ConvertEsoCritResistToPercent = function (flatResist, inputValues)
 {
 	var level = parseInt($("#esotbEffectiveLevel").text());
 	if (inputValues != null) level = inputValues.EffectiveLevel;
@@ -9321,7 +9323,7 @@ function ConvertEsoCritResistToPercent(flatResist, inputValues)
 }
 
 
-function CreateEsoComputedStats()
+window.CreateEsoComputedStats = function ()
 {
 	for (var statId in g_EsoComputedStats)
 	{
@@ -9331,7 +9333,7 @@ function CreateEsoComputedStats()
 }
 
 
-function CreateEsoComputedStat(statId, stat)
+window.CreateEsoComputedStat = function (statId, stat)
 {
 	var element;
 	
@@ -9384,7 +9386,7 @@ function CreateEsoComputedStat(statId, stat)
 }
 
 
-function CreateEsoComputedStatItems(computeData, parentElement)
+window.CreateEsoComputedStatItems = function (computeData, parentElement)
 {
 	
 	for (var i = 0; i < computeData.length; ++i)
@@ -9423,7 +9425,7 @@ function CreateEsoComputedStatItems(computeData, parentElement)
 }
 
 
-function OnEsoInputChange(e)
+window.OnEsoInputChange = function (e)
 {
 	var id = $(this).attr("id");
 	
@@ -9440,7 +9442,7 @@ function OnEsoInputChange(e)
 }
 
 
-function OnEsoAttributeChange(e)
+window.OnEsoAttributeChange = function (e)
 {
 	var $this = $(this);
 	var value = parseInt($this.val()) || 0;
@@ -9463,7 +9465,7 @@ function OnEsoAttributeChange(e)
 }
 
 
-function OnEsoLevelChange(e)
+window.OnEsoLevelChange = function (e)
 {
 	var $this = $(this);
 	var value = $this.val();
@@ -9473,7 +9475,7 @@ function OnEsoLevelChange(e)
 }
 
 
-function OnEsoCPTotalPointsChange(e)
+window.OnEsoCPTotalPointsChange = function (e)
 {
 	var $this = $(this);
 	var value = $this.val();
@@ -9482,14 +9484,14 @@ function OnEsoCPTotalPointsChange(e)
 }
 
 
-function OnEsoClickStatRow(e)
+window.OnEsoClickStatRow = function (e)
 {
 	var computeItems = $(this).find(".esotbComputeItems");
 	computeItems.slideToggle();
 }
 
 
-function OnEsoClickStatWarningButton(e)
+window.OnEsoClickStatWarningButton = function (e)
 {
 	var parent = $(this).parent(".esotbStatRow");
 	var statId = parent.attr("statid");
@@ -9502,7 +9504,7 @@ function OnEsoClickStatWarningButton(e)
 }
 
 
-function FixupEsoRacialSkills(raceName, abilityIds)
+window.FixupEsoRacialSkills = function (raceName, abilityIds)
 {
 	for (var i = 0; i < abilityIds.length; ++i)
 	{
@@ -9517,7 +9519,7 @@ function FixupEsoRacialSkills(raceName, abilityIds)
 }
 
 
-function OnEsoRaceChange(e)
+window.OnEsoRaceChange = function (e)
 {
 	var newRace = $(this).val();
 	
@@ -9529,7 +9531,7 @@ function OnEsoRaceChange(e)
 }
 
 
-function OnEsoClassChange(e)
+window.OnEsoClassChange = function (e)
 {
 	var newClass = $(this).val();
 	
@@ -9543,7 +9545,7 @@ function OnEsoClassChange(e)
 }
 
 
-function OnEsoVampireChange(e)
+window.OnEsoVampireChange = function (e)
 {
 	if ($("#esotbVampireStage").val() > 0)
 	{
@@ -9554,7 +9556,7 @@ function OnEsoVampireChange(e)
 }
 
 
-function OnEsoWerewolfChange(e)
+window.OnEsoWerewolfChange = function (e)
 {
 	if ($("#esotbWerewolfStage").val() > 0)
 	{
@@ -9566,25 +9568,25 @@ function OnEsoWerewolfChange(e)
 }
 
 
-function OnEsoClickStealth(e)
+window.OnEsoClickStealth = function (e)
 {
 	UpdateEsoComputedStatsList("async");
 }
 
 
-function OnEsoClickCyrodiil(e)
+window.OnEsoClickCyrodiil = function (e)
 {
 	UpdateEsoComputedStatsList("async");
 }
 
 
-function OnEsoClickEnableCP(e)
+window.OnEsoClickEnableCP = function (e)
 {
 	UpdateEsoComputedStatsList("async");
 }
 
 
-function OnEsoMundusChange(e)
+window.OnEsoMundusChange = function (e)
 {
 	var mundus1 = $("#esotbMundus").val();
 	var mundus2 = $("#esotbMundus2").val();
@@ -9598,7 +9600,7 @@ function OnEsoMundusChange(e)
 }
 
 
-function OnEsoClickItem(e)
+window.OnEsoClickItem = function (e)
 {
 	var $this = $(this);
 	var id = $this.attr("id");
@@ -9606,7 +9608,7 @@ function OnEsoClickItem(e)
 	SelectEsoItem($this);
 }
 
-function OnEsoClickItemIcon(e)
+window.OnEsoClickItemIcon = function (e)
 {
 	var $this = $(this).parent();
 	var id = $this.attr("id");
@@ -9615,7 +9617,7 @@ function OnEsoClickItemIcon(e)
 }
 
 
-function UnequipEsoItemSlot(slotId, update)
+window.UnequipEsoItemSlot = function (slotId, update)
 {
 	if (g_EsoBuildItemData[slotId] == null) return false;
 	
@@ -9644,7 +9646,7 @@ function UnequipEsoItemSlot(slotId, update)
 }
 
 
-function UnequipEsoEnchantSlot(slotId, update)
+window.UnequipEsoEnchantSlot = function (slotId, update)
 {
 	if (g_EsoBuildEnchantData[slotId] == null) return false;
 	
@@ -9663,7 +9665,7 @@ function UnequipEsoEnchantSlot(slotId, update)
 }
 
 
-function OnEsoSelectItem(itemData, element)
+window.OnEsoSelectItem = function (itemData, element)
 {
 	var iconElement = $(element).find(".esotbItemIcon");
 	var labelElement = $(element).find(".esotbItemLabel");
@@ -9703,7 +9705,7 @@ function OnEsoSelectItem(itemData, element)
 }
 
 
-function UpdateWeaponEquipSlots(itemData, slotId)
+window.UpdateWeaponEquipSlots = function (itemData, slotId)
 {
 	
 	if (itemData.equipType == 6)
@@ -9727,7 +9729,7 @@ function UpdateWeaponEquipSlots(itemData, slotId)
 }
 
 
-function GetEsoIntDataFromLevelQuality(level, quality, equipType)
+window.GetEsoIntDataFromLevelQuality = function (level, quality, equipType)
 {
 	level = parseInt(level);
 	quality = parseInt(quality)
@@ -9758,7 +9760,7 @@ function GetEsoIntDataFromLevelQuality(level, quality, equipType)
 }
 
 
-function GetEsoIntTypeFromLevelQuality(level, quality, equipType)
+window.GetEsoIntTypeFromLevelQuality = function (level, quality, equipType)
 {
 	level = parseInt(level);
 	quality = parseInt(quality);
@@ -9783,7 +9785,7 @@ function GetEsoIntTypeFromLevelQuality(level, quality, equipType)
 }
 
 
-function RequestEsoChangeItemLevelData(itemData, level, slotId, msgElement)
+window.RequestEsoChangeItemLevelData = function (itemData, level, slotId, msgElement)
 {
 	if (itemData.itemId == null || itemData.itemId == "") return false;
 	if (itemData.level == null || itemData.level == "") return false;
@@ -9812,7 +9814,7 @@ function RequestEsoChangeItemLevelData(itemData, level, slotId, msgElement)
 }
 
 
-function RequestEsoChangeEnchantLevelData(itemData, level, slotId, msgElement)
+window.RequestEsoChangeEnchantLevelData = function (itemData, level, slotId, msgElement)
 {
 	if (itemData.itemId == null || itemData.itemId == "") return false;
 	if (itemData.level == null || itemData.level == "") return false;
@@ -9841,7 +9843,7 @@ function RequestEsoChangeEnchantLevelData(itemData, level, slotId, msgElement)
 }
 
 
-function RequestEsoChangeItemQualityData(itemData, quality, slotId, msgElement)
+window.RequestEsoChangeItemQualityData = function (itemData, quality, slotId, msgElement)
 {
 	if (itemData.itemId == null || itemData.itemId == "") return false;
 	if (itemData.level == null || itemData.level == "") return false;
@@ -9870,7 +9872,7 @@ function RequestEsoChangeItemQualityData(itemData, quality, slotId, msgElement)
 }
 
 
-function RequestEsoChangeEnchantQualityData(itemData, quality, slotId, msgElement)
+window.RequestEsoChangeEnchantQualityData = function (itemData, quality, slotId, msgElement)
 {
 	if (itemData.itemId == null || itemData.itemId == "") return false;
 	if (itemData.level == null || itemData.level == "") return false;
@@ -9899,7 +9901,7 @@ function RequestEsoChangeEnchantQualityData(itemData, quality, slotId, msgElemen
 }
 
 
-function RequestEsoChangeArmorTypeData(itemData, armorType, slotId)
+window.RequestEsoChangeArmorTypeData = function (itemData, armorType, slotId)
 {
 	if (itemData.itemId == null || itemData.itemId == "") return false;
 	if (itemData.level == null || itemData.level == "") return false;
@@ -9929,7 +9931,7 @@ function RequestEsoChangeArmorTypeData(itemData, armorType, slotId)
 }
 
 
-function RequestEsoFindSetItemData(slotId, monsterSet, equipType, armorType, weaponType, level, quality, trait, msgElement)
+window.RequestEsoFindSetItemData = function (slotId, monsterSet, equipType, armorType, weaponType, level, quality, trait, msgElement)
 {
 	var queryParams = {
 			"text" : monsterSet,
@@ -9952,21 +9954,21 @@ function RequestEsoFindSetItemData(slotId, monsterSet, equipType, armorType, wea
 }
 
 
-function OnEsoChangeArmorTypeError(xhr, status, errorMsg, armorType, slotId)
+window.OnEsoChangeArmorTypeError = function (xhr, status, errorMsg, armorType, slotId)
 {
 	var text = $("#esotbItemSetupArmorTypeMsg").text();
 	$("#esotbItemSetupArmorTypeMsg").text(text + " No " + slotId + " item found! ")
 }
 
 
-function OnEsoFindSetItemError(xhr, status, errorMsg, monsterSet, armorType, msgElement)
+window.OnEsoFindSetItemError = function (xhr, status, errorMsg, monsterSet, armorType, msgElement)
 {
 	var text = msgElement.text();
 	msgElement.text(text + " No " + monsterSet + " set with armor type " + armorType + " found! ")
 }
 
 
-function RequestEsoChangeTraitData(itemData, newTrait, slotId, msgElement)
+window.RequestEsoChangeTraitData = function (itemData, newTrait, slotId, msgElement)
 {
 	if (itemData.itemId == null || itemData.itemId == "") return false;
 	if (itemData.level == null || itemData.level == "") return false;
@@ -9996,14 +9998,14 @@ function RequestEsoChangeTraitData(itemData, newTrait, slotId, msgElement)
 }
 
 
-function OnEsoRequestChangeTraitError(xhr, status, errorMsg, slotId, newTrait, msgElement)
+window.OnEsoRequestChangeTraitError = function (xhr, status, errorMsg, slotId, newTrait, msgElement)
 {
 	var text = $(msgElement).text();
 	$(msgElement).text(text + " No " + slotId + " item found! ")
 }
 
 
-function OnEsoRequestChangeTraitReceive(data, status, xhr, slotId, origItemData, newTrait, msgElement)
+window.OnEsoRequestChangeTraitReceive = function (data, status, xhr, slotId, origItemData, newTrait, msgElement)
 {
 	if (slotId == null || slotId == "") return false;
 	
@@ -10037,7 +10039,7 @@ function OnEsoRequestChangeTraitReceive(data, status, xhr, slotId, origItemData,
 }
 
 
-function OnEsoRequestChangeArmorTypeReceive(data, status, xhr, slotId, origItemData, armorType)
+window.OnEsoRequestChangeArmorTypeReceive = function (data, status, xhr, slotId, origItemData, armorType)
 {
 	if (slotId == null || slotId == "") return false;
 	
@@ -10070,7 +10072,7 @@ function OnEsoRequestChangeArmorTypeReceive(data, status, xhr, slotId, origItemD
 }
 
 
-function OnEsoRequestFindSetItemReceive(data, status, xhr, slotId, monsterSet, equipType, armorType, weaponType, level, quality, trait, msgElement)
+window.OnEsoRequestFindSetItemReceive = function (data, status, xhr, slotId, monsterSet, equipType, armorType, weaponType, level, quality, trait, msgElement)
 {
 	if (slotId == null || slotId == "") return false;
 	
@@ -10130,7 +10132,7 @@ function OnEsoRequestFindSetItemReceive(data, status, xhr, slotId, monsterSet, e
 }
 
 
-function RequestEsoItemData(itemData, element)
+window.RequestEsoItemData = function (itemData, element)
 {	
 	if (itemData.itemId == null || itemData.itemId == "") return false;
 	if (itemData.level == null || itemData.level == "") return false;
@@ -10160,7 +10162,7 @@ function RequestEsoItemData(itemData, element)
 }
 
 
-function OnEsoItemDataReceive(data, status, xhr, element, origItemData)
+window.OnEsoItemDataReceive = function (data, status, xhr, element, origItemData)
 {
 	var slotId = $(element).attr("slotId");
 	if (slotId == null || slotId == "") return false;
@@ -10194,7 +10196,7 @@ function OnEsoItemDataReceive(data, status, xhr, element, origItemData)
 }
 
 
-function GetEsoSetMaxData(itemData)
+window.GetEsoSetMaxData = function (itemData)
 {
 	if (itemData == null) return;
 	
@@ -10219,7 +10221,7 @@ function GetEsoSetMaxData(itemData)
 }
 
 
-function OnEsoSetMaxDataReceive(data, status, xhr)
+window.OnEsoSetMaxDataReceive = function (data, status, xhr)
 {
 	if (data.minedItem != null && data.minedItem[0] != null)
 	{
@@ -10238,12 +10240,12 @@ function OnEsoSetMaxDataReceive(data, status, xhr)
 }
 
 
-function OnEsoItemDataError(xhr, status, errorMsg)
+window.OnEsoItemDataError = function (xhr, status, errorMsg)
 {
 }
 
 
-function SelectEsoItem(element)
+window.SelectEsoItem = function (element)
 {
 	var equipType = element.attr("equiptype");
 	var itemType = element.attr("itemtype");
@@ -10263,7 +10265,7 @@ function SelectEsoItem(element)
 }
 
 
-function ShowEsoBuildClickWall(parentElement)
+window.ShowEsoBuildClickWall = function (parentElement)
 {
 	$(".eso_item_link_popup").hide();
 	$("#esotbClickWall").show();
@@ -10271,7 +10273,7 @@ function ShowEsoBuildClickWall(parentElement)
 }
 
 
-function HideEsoBuildClickWall()
+window.HideEsoBuildClickWall = function ()
 {
 	$("#esotbClickWall").hide();
 	
@@ -10283,13 +10285,13 @@ function HideEsoBuildClickWall()
 }
 
 
-function OnEsoClickBuildWall(e)
+window.OnEsoClickBuildWall = function (e)
 {
 	HideEsoBuildClickWall();
 }
 
 
-function OnEsoClickComputeItems(e)
+window.OnEsoClickComputeItems = function (e)
 {
 	var parent = $(this).parent(".esotbStatRow");
 	var statId = parent.attr("statid");
@@ -10301,7 +10303,7 @@ function OnEsoClickComputeItems(e)
 }
 
 
-function OnEsoClickStatDetails(e)
+window.OnEsoClickStatDetails = function (e)
 {
 	var parent = $(this).parent(".esotbStatRow");
 	var statId = parent.attr("statid");
@@ -10314,7 +10316,7 @@ function OnEsoClickStatDetails(e)
 
 
 
-function ConvertEsoFormulaToPrefix(computeItems)
+window.ConvertEsoFormulaToPrefix = function (computeItems)
 {
 	var equation = "";
 	var stack = [];
@@ -10362,7 +10364,7 @@ function ConvertEsoFormulaToPrefix(computeItems)
 }
 
 
-function OnEsoFormulaInputChange(e)
+window.OnEsoFormulaInputChange = function (e)
 {
 	var statId = $(this).attr("statid");
 	if (statId == null || statId == "") return;
@@ -10419,7 +10421,7 @@ function OnEsoFormulaInputChange(e)
 }
 
 
-function ShowEsoFormulaPopup(statId)
+window.ShowEsoFormulaPopup = function (statId)
 {
 	var formulaPopup = $("#esotbFormulaPopup");
 	var stat = g_EsoComputedStats[statId];
@@ -10449,7 +10451,7 @@ function ShowEsoFormulaPopup(statId)
 }
 
 
-function MakeEsoFormulaInputs(statId)
+window.MakeEsoFormulaInputs = function (statId)
 {
 	var output = "";
 	var stat = g_EsoComputedStats[statId];
@@ -10546,7 +10548,7 @@ function MakeEsoFormulaInputs(statId)
 }
 
 
-function SetEsoInputValue(name, value, inputValues)
+window.SetEsoInputValue = function (name, value, inputValues)
 {
 	var ids = name.split(".");
 	var data = inputValues;
@@ -10569,7 +10571,7 @@ function SetEsoInputValue(name, value, inputValues)
 }
 
 
-function GetEsoInputValue(name, inputValues)
+window.GetEsoInputValue = function (name, inputValues)
 {
 	var ids = name.split(".");
 	var data = inputValues;
@@ -10589,14 +10591,14 @@ function GetEsoInputValue(name, inputValues)
 }
 
 
-function CloseEsoFormulaPopup()
+window.CloseEsoFormulaPopup = function ()
 {
 	$("#esotbFormulaPopup").hide();
 	HideEsoBuildClickWall();
 }
 
 
-function OnEsoClickBuildStatTab(e)
+window.OnEsoClickBuildStatTab = function (e)
 {
 	var tabId = $(this).attr("tabid");
 	if (tabId == null || tabId == "") return;
@@ -10620,19 +10622,19 @@ function OnEsoClickBuildStatTab(e)
 }
 
 
-function OnEsoBuildCpUpdate(e)
+window.OnEsoBuildCpUpdate = function (e)
 {
 	UpdateEsoComputedStatsList();
 }
 
 
-function OnEsoItemSearchPopupClose(e)
+window.OnEsoItemSearchPopupClose = function (e)
 {
 	HideEsoBuildClickWall();
 }
 
 
-function OnEsoSkillDetailsClick(e)
+window.OnEsoSkillDetailsClick = function (e)
 {
 	var skillId = $(this).parent().attr("skillid");
 	if (skillId == null || skillId == "") return;
@@ -10645,7 +10647,7 @@ function OnEsoSkillDetailsClick(e)
 }
 
 
-function OnEsoItemDetailsClick(e)
+window.OnEsoItemDetailsClick = function (e)
 {
 	var slotId = $(this).parent().attr("slotId");
 	if (slotId == null || slotId == "") return;
@@ -10654,7 +10656,7 @@ function OnEsoItemDetailsClick(e)
 }
 
 
-function MakeEsoBuildItemLink(slotId)
+window.MakeEsoBuildItemLink = function (slotId)
 {
 	var itemData = g_EsoBuildItemData[slotId];
 	if (itemData == null) return "";
@@ -10680,7 +10682,7 @@ function MakeEsoBuildItemLink(slotId)
 }
 
 
-function ShowEsoSkillDetailsPopup(abilityId)
+window.ShowEsoSkillDetailsPopup = function (abilityId)
 {
 	var detailsPopup = $("#esotbItemDetailsPopup");
 	
@@ -10784,7 +10786,7 @@ function ShowEsoSkillDetailsPopup(abilityId)
 }
 
 
-function ShowEsoItemDetailsPopup(slotId)
+window.ShowEsoItemDetailsPopup = function (slotId)
 {
 	var detailsPopup = $("#esotbItemDetailsPopup");
 	
@@ -10826,14 +10828,14 @@ function ShowEsoItemDetailsPopup(slotId)
 }
 
 
-function CloseEsoItemDetailsPopup()
+window.CloseEsoItemDetailsPopup = function ()
 {
 	$("#esotbItemDetailsPopup").hide();
 	HideEsoBuildClickWall();
 }
 
 
-function OnEsoItemEnchantClick(e)
+window.OnEsoItemEnchantClick = function (e)
 {
 	var parent = $(this).parent();
 	
@@ -10841,7 +10843,7 @@ function OnEsoItemEnchantClick(e)
 }
 
 
-function OnEsoItemDisableClick(e)
+window.OnEsoItemDisableClick = function (e)
 {
 	var parent = $(this).parent();
 	var slotId = parent.attr("slotId");
@@ -10858,7 +10860,7 @@ function OnEsoItemDisableClick(e)
 }
 
 
-function SelectEsoItemEnchant(element)
+window.SelectEsoItemEnchant = function (element)
 {
 	var slotId = element.attr("slotid");
 	if (slotId == null || slotId == "") return false;
@@ -10900,7 +10902,7 @@ function SelectEsoItemEnchant(element)
 }
 
 
-function OnEsoSelectItemEnchant(itemData, element)
+window.OnEsoSelectItemEnchant = function (itemData, element)
 {
 	var iconElement = $(element).find(".esotbItemIcon");
 	var labelElement = $(element).find(".esotbItemLabel");
@@ -10928,7 +10930,7 @@ function OnEsoSelectItemEnchant(itemData, element)
 }
 
 
-function RequestEsoEnchantData(itemData, element)
+window.RequestEsoEnchantData = function (itemData, element)
 {	
 	if (itemData.itemId == null || itemData.itemId == "") return false;
 	if (itemData.level == null || itemData.level == "") return false;
@@ -10950,7 +10952,7 @@ function RequestEsoEnchantData(itemData, element)
 }
 
 
-function OnEsoEnchantDataReceive(data, status, xhr, element, origItemData)
+window.OnEsoEnchantDataReceive = function (data, status, xhr, element, origItemData)
 {
 	var slotId = $(element).attr("slotId");
 	if (slotId == null || slotId == "") return false;
@@ -10969,7 +10971,7 @@ function OnEsoEnchantDataReceive(data, status, xhr, element, origItemData)
 }
 
 
-function OnEsoEnchantDataError(xhr, status, errorMsg, element)
+window.OnEsoEnchantDataError = function (xhr, status, errorMsg, element)
 {
 	
 	if (element != null && $(element).attr("slotId") == "allarmor")
@@ -10979,7 +10981,7 @@ function OnEsoEnchantDataError(xhr, status, errorMsg, element)
 }
 
 
-function OnEsoWeaponBarSelect1()
+window.OnEsoWeaponBarSelect1 = function ()
 {
 	SetEsoBuildActiveWeaponBar(1);
 	SetEsoBuildActiveSkillBar(1);
@@ -10987,7 +10989,7 @@ function OnEsoWeaponBarSelect1()
 }
 
 
-function OnEsoWeaponBarSelect2()
+window.OnEsoWeaponBarSelect2 = function ()
 {
 	SetEsoBuildActiveWeaponBar(2);
 	SetEsoBuildActiveSkillBar(2);
@@ -10995,7 +10997,7 @@ function OnEsoWeaponBarSelect2()
 }
 
 
-function UpdateEsoBuildRawInputs()
+window.UpdateEsoBuildRawInputs = function ()
 {
 	var rawInputs = $("#esotbRawInputs");
 	var output = "";
@@ -11016,7 +11018,7 @@ function UpdateEsoBuildRawInputs()
 }
 
 
-function HasEsoBuildRawInputSources(sourceData)
+window.HasEsoBuildRawInputSources = function (sourceData)
 {
 	if (sourceData == null) return false;
 	
@@ -11029,7 +11031,7 @@ function HasEsoBuildRawInputSources(sourceData)
 }
 
 
-function GetEsoBuildRawInputSourcesHtml(sourceName, sourceData)
+window.GetEsoBuildRawInputSourcesHtml = function (sourceName, sourceData)
 {
 	if (sourceData.length <= 0) return "";
 	if (!ESO_TESTBUILD_SHOWALLRAWINPUTS && sourceName.indexOf(".") >= 0) return "";
@@ -11049,7 +11051,7 @@ function GetEsoBuildRawInputSourcesHtml(sourceName, sourceData)
 }
 
 
-function GetEsoBuildRawInputSourceItemHtml(sourceItem)
+window.GetEsoBuildRawInputSourceItemHtml = function (sourceItem)
 {
 	var output = "<div class='esotbRawInputValue'>";
 	var value = sourceItem.value;
@@ -11133,7 +11135,7 @@ function GetEsoBuildRawInputSourceItemHtml(sourceItem)
 }
 
 
-function ComputeEsoBuildAllSetData()
+window.ComputeEsoBuildAllSetData = function ()
 {
 	for (var setName in g_EsoBuildSetData)
 	{
@@ -11154,7 +11156,7 @@ function ComputeEsoBuildAllSetData()
 }
 
 
-function ComputeEsoBuildSetData(setData)
+window.ComputeEsoBuildSetData = function (setData)
 {
 	setData.parsedNumbers = [];
 	setData.averageNumbers = [];
@@ -11178,7 +11180,7 @@ function ComputeEsoBuildSetData(setData)
 }
 
 
-function UpdateEsoBuildSetDesc(setData)
+window.UpdateEsoBuildSetDesc = function (setData)
 {
 	setData.averageDesc = [];
 	if (setData.items.length == 0) return;
@@ -11203,7 +11205,7 @@ function UpdateEsoBuildSetDesc(setData)
 }
 
 
-function ComputeEsoBuildSetDataAverages(setData)
+window.ComputeEsoBuildSetDataAverages = function (setData)
 {
 	var sums = [];
 	setData.averageNumbers = [];
@@ -11280,7 +11282,7 @@ function ComputeEsoBuildSetDataAverages(setData)
 }
 
 
-function ComputeEsoBuildSetDataItem(setData, item)
+window.ComputeEsoBuildSetDataItem = function (setData, item)
 {
 	ParseEsoBuildSetDesc(setData, 0, item.setBonusDesc1);
 	ParseEsoBuildSetDesc(setData, 1, item.setBonusDesc2);
@@ -11290,7 +11292,7 @@ function ComputeEsoBuildSetDataItem(setData, item)
 }
 
 
-function ParseEsoBuildSetDesc(setData, descIndex, description)
+window.ParseEsoBuildSetDesc = function (setData, descIndex, description)
 {
 	var rawDesc = RemoveEsoDescriptionFormats(description);
 	var results = rawDesc.match(/[0-9]+\.?[0-9]*/g);
@@ -11301,7 +11303,7 @@ function ParseEsoBuildSetDesc(setData, descIndex, description)
 }
 
 
-function IsTwiceBornStarEnabled()
+window.IsTwiceBornStarEnabled = function ()
 {
 	if (g_EsoInputStatSources.TwiceBornStar == null) return false;
 	if (g_EsoInputStatSources.TwiceBornStar[0] == null) return false;
@@ -11310,7 +11312,7 @@ function IsTwiceBornStarEnabled()
 }
 
 
-function UpdateEsoBuildMundusList2()
+window.UpdateEsoBuildMundusList2 = function ()
 {
 	var isEnabled = IsTwiceBornStarEnabled();
 	
@@ -11326,7 +11328,7 @@ function UpdateEsoBuildMundusList2()
 }
 
 
-function UpdateEsoBuildSetInfo()
+window.UpdateEsoBuildSetInfo = function ()
 {
 	var setInfoElement = $("#esotbSetInfo");
 	var output = GetEsoBuildSetInfoHtml(); 
@@ -11335,7 +11337,7 @@ function UpdateEsoBuildSetInfo()
 }
 
 
-function GetEsoBuildSetInfoHtml()
+window.GetEsoBuildSetInfoHtml = function ()
 {
 	var output = "";
 	
@@ -11373,7 +11375,7 @@ function GetEsoBuildSetInfoHtml()
 }
 
 
-function AddEsoBuildToggledSkillData(skillEffectData, isPassive)
+window.AddEsoBuildToggledSkillData = function (skillEffectData, isPassive)
 {
 	var id = skillEffectData.id;
 	
@@ -11402,7 +11404,7 @@ function AddEsoBuildToggledSkillData(skillEffectData, isPassive)
 }
 
 
-function CreateEsoBuildToggledSkillData()
+window.CreateEsoBuildToggledSkillData = function ()
 {
 	g_EsoBuildToggledSkillData = {};
 	
@@ -11424,7 +11426,7 @@ function CreateEsoBuildToggledSkillData()
 }
 
 
-function CreateEsoBuildToggledSetData()
+window.CreateEsoBuildToggledSetData = function ()
 {
 	g_EsoBuildToggledSetData = {};
 	
@@ -11468,47 +11470,47 @@ function CreateEsoBuildToggledSetData()
 }
 
 
-function IsEsoBuildToggledSkillEnabled(skillId)
+window.IsEsoBuildToggledSkillEnabled = function (skillId)
 {
 	if (g_EsoBuildToggledSkillData[skillId] == null) return false;
 	return g_EsoBuildToggledSkillData[skillId].valid && g_EsoBuildToggledSkillData[skillId].enabled;
 }
 
 
-function SetEsoBuildToggledSkillValid(skillId, valid)
+window.SetEsoBuildToggledSkillValid = function (skillId, valid)
 {
 	if (g_EsoBuildToggledSkillData[skillId] != null) g_EsoBuildToggledSkillData[skillId].valid = valid;
 }
 
 
-function SetEsoBuildToggledSkillDesc(skillId, desc)
+window.SetEsoBuildToggledSkillDesc = function (skillId, desc)
 {
 	if (g_EsoBuildToggledSkillData[skillId] != null) g_EsoBuildToggledSkillData[skillId].desc = desc;
 }
 
 
-function SetEsoBuildToggledSkillEnable(skillId, enable)
+window.SetEsoBuildToggledSkillEnable = function (skillId, enable)
 {
 	if (g_EsoBuildToggledSkillData[skillId] == null) return false;
 	g_EsoBuildToggledSkillData[skillId].enabled = enable;
 }
 
 
-function SetEsoBuildToggledSkillCount(skillId, value)
+window.SetEsoBuildToggledSkillCount = function (skillId, value)
 {
 	if (g_EsoBuildToggledSkillData[skillId] == null) return false;
 	g_EsoBuildToggledSkillData[skillId].count = parseInt(value);
 }
 
 
-function SetEsoBuildToggledSetCount(skillId, value)
+window.SetEsoBuildToggledSetCount = function (skillId, value)
 {
 	if (g_EsoBuildToggledSetData[skillId] == null) return false;
 	g_EsoBuildToggledSetData[skillId].count = parseInt(value);
 }
 
 
-function IsEsoBuildToggledSetEnabled(setId)
+window.IsEsoBuildToggledSetEnabled = function (setId)
 {
 	if (g_EsoBuildToggledSetData[setId] == null) return false;
 	var isEnabled = g_EsoBuildToggledSetData[setId].valid && g_EsoBuildToggledSetData[setId].enabled;
@@ -11517,27 +11519,27 @@ function IsEsoBuildToggledSetEnabled(setId)
 }
 
 
-function SetEsoBuildToggledSetValid(setId, valid)
+window.SetEsoBuildToggledSetValid = function (setId, valid)
 {
 	if (g_EsoBuildToggledSetData[setId] != null) g_EsoBuildToggledSetData[setId].valid = valid;
 	//if (g_EsoBuildToggledSetData[setId+"2"] != null) g_EsoBuildToggledSetData[setId+"2"].valid = valid;
 }
 
 
-function SetEsoBuildToggledSetDesc(setId, desc)
+window.SetEsoBuildToggledSetDesc = function (setId, desc)
 {
 	if (g_EsoBuildToggledSetData[setId] != null) g_EsoBuildToggledSetData[setId].desc = desc;
 }
 
 
-function SetEsoBuildToggledSetEnable(setId, enable)
+window.SetEsoBuildToggledSetEnable = function (setId, enable)
 {
 	if (g_EsoBuildToggledSetData[setId] == null) return false;
 	g_EsoBuildToggledSetData[setId].enabled = enable;
 }
 
 
-function UpdateEsoBuildToggledSkillData(inputValues)
+window.UpdateEsoBuildToggledSkillData = function (inputValues)
 {
 	
 	for (var skillId in g_EsoBuildToggledSkillData)
@@ -11616,7 +11618,7 @@ function UpdateEsoBuildToggledSkillData(inputValues)
 }
 
 
-function FindMatchingEsoPassiveSkillDescription(matchData)
+window.FindMatchingEsoPassiveSkillDescription = function (matchData)
 {
 	if (matchData == null) return "";
 	
@@ -11653,7 +11655,7 @@ function FindMatchingEsoPassiveSkillDescription(matchData)
 }
 
 
-function UpdateEsoBuildToggledSetData()
+window.UpdateEsoBuildToggledSetData = function ()
 {
 	
 	for (var setId in g_EsoBuildToggledSetData)
@@ -11721,7 +11723,7 @@ function UpdateEsoBuildToggledSetData()
 }
 
 
-function UpdateEsoBuildToggleSets()
+window.UpdateEsoBuildToggleSets = function ()
 {
 	var element = $("#esotbToggledSetInfo");
 	var output = "";
@@ -11742,14 +11744,14 @@ function UpdateEsoBuildToggleSets()
 }
 
 
-function OnEsoBuildToggleSetNumberClick(e)
+window.OnEsoBuildToggleSetNumberClick = function (e)
 {
 	e.stopPropagation();
 	return false;
 }
 
 
-function OnEsoBuildToggleSet(e)
+window.OnEsoBuildToggleSet = function (e)
 {
 	OnEsoBuildToggleSetChanged($(this));
 	
@@ -11760,7 +11762,7 @@ function OnEsoBuildToggleSet(e)
 }
 
 
-function OnEsoBuildToggleSetClick(e)
+window.OnEsoBuildToggleSetClick = function (e)
 {
 	var checkBox = $(this).find(".esotbToggleSetCheck");
 	checkBox.prop("checked", !checkBox.prop("checked"));
@@ -11773,7 +11775,7 @@ function OnEsoBuildToggleSetClick(e)
 }
 
 
-function OnEsoBuildToggleSetChanged(checkBox)
+window.OnEsoBuildToggleSetChanged = function (checkBox)
 {
 	var parent = checkBox.parent();
 	var setId = parent.attr("setid");
@@ -11803,7 +11805,7 @@ function OnEsoBuildToggleSetChanged(checkBox)
 }
 
 
-function CreateEsoBuildToggleSetHtml(setData)
+window.CreateEsoBuildToggleSetHtml = function (setData)
 {
 	var checked = setData.enabled ? "checked" : "";
 	var extraClass = "";
@@ -11829,7 +11831,7 @@ function CreateEsoBuildToggleSetHtml(setData)
 }
 
 
-function OnEsoBuildToggleSkill(e)
+window.OnEsoBuildToggleSkill = function (e)
 {
 	var skillId = $(this).parent().attr("skillId");
 	if (skillId == null || skillId == "") return;
@@ -11841,7 +11843,7 @@ function OnEsoBuildToggleSkill(e)
 }
 
 
-function OnEsoBuildToggleSkillClick(e)
+window.OnEsoBuildToggleSkillClick = function (e)
 {
 	var checkbox = $(this).find(".esotbToggleSkillCheck");
 	checkbox.prop("checked", !checkbox.prop("checked"));
@@ -11857,7 +11859,7 @@ function OnEsoBuildToggleSkillClick(e)
 }
 
 
-function OnEsoBuildToggleSkillNumber(e)
+window.OnEsoBuildToggleSkillNumber = function (e)
 {
 	var skillId = $(this).parent().attr("skillId");
 	if (skillId == null || skillId == "") return;
@@ -11874,7 +11876,7 @@ function OnEsoBuildToggleSkillNumber(e)
 }
 
 
-function OnEsoBuildToggleSetNumber(e)
+window.OnEsoBuildToggleSetNumber = function (e)
 {
 	var setName = $(this).parent().attr("setid");
 	if (setName == null || setName == "") return;
@@ -11891,7 +11893,7 @@ function OnEsoBuildToggleSetNumber(e)
 }
 
 
-function UpdateEsoBuildToggleSkills()
+window.UpdateEsoBuildToggleSkills = function ()
 {
 	var element = $("#esotbToggledSkillInfo");
 	var output = "";
@@ -11911,14 +11913,14 @@ function UpdateEsoBuildToggleSkills()
 }
 
 
-function OnEsoBuildToggleSkillNumberClick(e)
+window.OnEsoBuildToggleSkillNumberClick = function (e)
 {
 	e.stopPropagation();
 	return false;
 }
 
 
-function CreateEsoBuildToggleSkillHtml(skillData)
+window.CreateEsoBuildToggleSkillHtml = function (skillData)
 {
 	var checked = skillData.enabled ? "checked" : "";
 	var extraClass = "";
@@ -11960,7 +11962,7 @@ function CreateEsoBuildToggleSkillHtml(skillData)
 }
 
 
-function UpdateEsoBuildItemLinkSetCounts()
+window.UpdateEsoBuildItemLinkSetCounts = function ()
 {
 	UpdateEsoBuildItemLinkSetCount("Head");
 	UpdateEsoBuildItemLinkSetCount("Shoulders");
@@ -11979,7 +11981,7 @@ function UpdateEsoBuildItemLinkSetCounts()
 }
 
 
-function UpdateEsoBuildItemLinkSetCount(slotId)
+window.UpdateEsoBuildItemLinkSetCount = function (slotId)
 {
 	var itemElement = $(".esotbItem[slotid='" + slotId + "']");
 	var iconElement = itemElement.children(".esotbItemIcon");
@@ -11998,7 +12000,7 @@ function UpdateEsoBuildItemLinkSetCount(slotId)
 }
 
 
-function UpdateEsoBuildWeaponEnchantFactor(slotId, inputValues)
+window.UpdateEsoBuildWeaponEnchantFactor = function (slotId, inputValues)
 {
 	var itemElement = $(".esotbItem[slotid='" + slotId + "']");
 	var iconElement = itemElement.children(".esotbItemIcon");
@@ -12029,26 +12031,26 @@ function UpdateEsoBuildWeaponEnchantFactor(slotId, inputValues)
 }
 
 
-function OnEsoBuildEscapeKey(e) 
+window.OnEsoBuildEscapeKey = function (e) 
 {
 	HideEsoBuildClickWall();
 }
 
 
-function GetEsoTestBuildStat(statId)
+window.GetEsoTestBuildStat = function (statId)
 {
 	if (g_EsoComputedStats[statId] != null) return g_EsoComputedStats[statId];
 	return g_EsoInputStats[statId];
 }
 
 
-function GetEsoTestBuildSkillInputValues(inputValues)
+window.GetEsoTestBuildSkillInputValues = function (inputValues)
 {
 	return g_LastSkillInputValues;
 }
 
 
-function UpdateEsoTestBuildSkillInputValues(inputValues)
+window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
 {
 	if (inputValues == null) return;
 	
@@ -12214,7 +12216,7 @@ function UpdateEsoTestBuildSkillInputValues(inputValues)
 }
 
 
-function EsoBuildCreateSkillBonusDamage(lineSourceDmg, sourceDmg, baseDmg, factorDmg)
+window.EsoBuildCreateSkillBonusDamage = function (lineSourceDmg, sourceDmg, baseDmg, factorDmg)
 {
 	var bonusDmg = {};
 	
@@ -12238,7 +12240,7 @@ function EsoBuildCreateSkillBonusDamage(lineSourceDmg, sourceDmg, baseDmg, facto
 }
 
 
-function SetEsoBuildActiveWeaponBar(barIndex)
+window.SetEsoBuildActiveWeaponBar = function (barIndex)
 {
 	if (barIndex == 1)
 	{
@@ -12258,14 +12260,14 @@ function SetEsoBuildActiveWeaponBar(barIndex)
 }
 
 
-function SetEsoBuildActiveSkillBar(skillBarIndex)
+window.SetEsoBuildActiveSkillBar = function (skillBarIndex)
 {
 	SetEsoSkillBarSelect(skillBarIndex);
 	g_EsoBuildActiveAbilityBar = skillBarIndex;
 }
 
 
-function OnEsoBuildSkillBarSwap(e, skillBarIndex, weaponBarIndex)
+window.OnEsoBuildSkillBarSwap = function (e, skillBarIndex, weaponBarIndex)
 {
 	g_EsoBuildActiveAbilityBar = skillBarIndex;
 	
@@ -12287,21 +12289,21 @@ function OnEsoBuildSkillBarSwap(e, skillBarIndex, weaponBarIndex)
 }
 
 
-function OnEsoBuildSkillUpdate(e)
+window.OnEsoBuildSkillUpdate = function (e)
 {
 	CopyEsoSkillsToItemTab();
 	UpdateEsoComputedStatsList("async");
 }
 
 
-function OnEsoBuildSkillBarUpdate(e)
+window.OnEsoBuildSkillBarUpdate = function (e)
 {
 	CopyEsoSkillsToItemTab();
 	UpdateEsoComputedStatsList();
 }
 
 
-function IsEsoSkillOnActiveBar(abilityId)
+window.IsEsoSkillOnActiveBar = function (abilityId)
 {
 	var skillBar = g_EsoSkillBarData[g_EsoBuildActiveAbilityBar - 1];
 	if (skillBar == null) return false;
@@ -12323,7 +12325,7 @@ function IsEsoSkillOnActiveBar(abilityId)
 }
 
 
-function IsEsoOrigSkillOnActiveBar(abilityId)
+window.IsEsoOrigSkillOnActiveBar = function (abilityId)
 {
 	var skillBar = g_EsoSkillBarData[g_EsoBuildActiveAbilityBar - 1];
 	if (skillBar == null) return false;
@@ -12340,7 +12342,7 @@ function IsEsoOrigSkillOnActiveBar(abilityId)
 }
 
 
-function CountEsoBarSkillsWithSkillLine(skillLine)
+window.CountEsoBarSkillsWithSkillLine = function (skillLine)
 {
 	var skillBar = g_EsoSkillBarData[g_EsoBuildActiveAbilityBar - 1];
 	var count = 0;
@@ -12363,7 +12365,7 @@ function CountEsoBarSkillsWithSkillLine(skillLine)
 }
 
 
-function CountEsoBarSkillsWithSkillType(skillType)
+window.CountEsoBarSkillsWithSkillType = function (skillType)
 {
 	var skillBar = g_EsoSkillBarData[g_EsoBuildActiveAbilityBar - 1];
 	var count = 0;
@@ -12386,7 +12388,7 @@ function CountEsoBarSkillsWithSkillType(skillType)
 }
 
 
-function UpdateEsoBuildRawInputOtherEffects()
+window.UpdateEsoBuildRawInputOtherEffects = function ()
 {
 	for (var key in g_EsoInputStatSources.OtherEffects)
 	{
@@ -12408,7 +12410,7 @@ function UpdateEsoBuildRawInputOtherEffects()
 }
 
 
-function CreateEsoBuildBuffElements()
+window.CreateEsoBuildBuffElements = function ()
 {
 	var buffElement = $("#esotbBuffInfo");
 	var output = "";
@@ -12425,7 +12427,7 @@ function CreateEsoBuildBuffElements()
 }
 
 
-function CreateEsoBuildBuffHtml(buffName, buffData)
+window.CreateEsoBuildBuffHtml = function (buffName, buffData)
 {
 	var icon = buffData.icon;
 	var extraAttributes = "";
@@ -12473,7 +12475,7 @@ if (Array.prototype.fill == null)
 }
 
 
-function CreateEsoBuildBuffDescHtml(buffData)
+window.CreateEsoBuildBuffDescHtml = function (buffData)
 {
 	var statId = buffData.statId;
 	var statIds = buffData.statIds;
@@ -12541,7 +12543,7 @@ function CreateEsoBuildBuffDescHtml(buffData)
 }
 
 
-function UpdateEsoBuildVisibleBuffs()
+window.UpdateEsoBuildVisibleBuffs = function ()
 {
 	
 	for (var buffName in g_EsoBuildBuffData)
@@ -12567,7 +12569,7 @@ function UpdateEsoBuildVisibleBuffs()
 }
 
 
-function UpdateEsoBuffItem(element)
+window.UpdateEsoBuffItem = function (element)
 {
 	if (element.hasClass("esotbBuffDisable")) return;
 	var checked = element.find(".esotbBuffCheck").prop("checked");
@@ -12579,7 +12581,7 @@ function UpdateEsoBuffItem(element)
 }
 
 
-function OnEsoBuildBuffClick(e)
+window.OnEsoBuildBuffClick = function (e)
 {
 	var checkElement = $(this).find(".esotbBuffCheck");
 	var buffId = $(this).attr("buffid");
@@ -12599,7 +12601,7 @@ function OnEsoBuildBuffClick(e)
 }
 
 
-function OnEsoBuildBuffCheckClick(e)
+window.OnEsoBuildBuffCheckClick = function (e)
 {
 	var parent = $(this).parent();
 	var buffId = parent.attr("buffid");
@@ -12618,14 +12620,14 @@ function OnEsoBuildBuffCheckClick(e)
 }
 
 
-function AddEsoBuildSkillDetailsButtons()
+window.AddEsoBuildSkillDetailsButtons = function ()
 {
 	var skillDetails = "<div class='esotbItemButton esotbSkillDetailsButton'>...</div>";
 	$(".esovsSkillContentBlock").children(".esovsAbilityBlock").append(skillDetails);
 }
 
 
-function CreateEsoBuildClickWall()
+window.CreateEsoBuildClickWall = function ()
 {
 	$("<div/>").attr("id", "esotbClickWall")
 		.attr("style", "display:none;")
@@ -12634,7 +12636,7 @@ function CreateEsoBuildClickWall()
 }
 
 
-function CreateEsoBuildItemDetailsPopup()
+window.CreateEsoBuildItemDetailsPopup = function ()
 {
 	$("<div/>").attr("id", "esotbItemDetailsPopup")
 		.attr("style", "display:none;")
@@ -12643,7 +12645,7 @@ function CreateEsoBuildItemDetailsPopup()
 }
 
 
-function CreateEsoBuildFormulaPopup()
+window.CreateEsoBuildFormulaPopup = function ()
 {
 	$("<div/>").attr("id", "esotbFormulaPopup")
 		.attr("style", "display:none;")
@@ -12659,7 +12661,7 @@ function CreateEsoBuildFormulaPopup()
 }
 
 
-function SetEsoInitialData(destData, srcData)
+window.SetEsoInitialData = function (destData, srcData)
 {
 	
 	for (var key in srcData)
@@ -12671,7 +12673,7 @@ function SetEsoInitialData(destData, srcData)
 }
 
 
-function UpdateEsoSetMaxData()
+window.UpdateEsoSetMaxData = function ()
 {
 	
 	for (var setName in g_EsoBuildSetMaxData)
@@ -12691,7 +12693,7 @@ function UpdateEsoSetMaxData()
 }
 
 
-function UpdateEsoInitialBuffData()
+window.UpdateEsoInitialBuffData = function ()
 {
 	for (var buffName in g_EsoInitialBuffData)
 	{
@@ -12706,7 +12708,7 @@ function UpdateEsoInitialBuffData()
 }
 
 
-function UpdateEsoInitialToggleSetData()
+window.UpdateEsoInitialToggleSetData = function ()
 {
 	for (var setName in g_EsoInitialToggleSetData)
 	{
@@ -12721,7 +12723,7 @@ function UpdateEsoInitialToggleSetData()
 }
 
 
-function UpdateEsoInitialToggleSkillData()
+window.UpdateEsoInitialToggleSkillData = function ()
 {
 	for (var skillName in g_EsoInitialToggleSkillData)
 	{
@@ -12736,7 +12738,7 @@ function UpdateEsoInitialToggleSkillData()
 }
 
 
-function OnEsoBuildAbilityBlockClick(e)
+window.OnEsoBuildAbilityBlockClick = function (e)
 {
 	var $openList = $('.esovsAbilityBlockList:visible');
 	var $element = $(this).next('.esovsAbilityBlockList');
@@ -12756,7 +12758,7 @@ function OnEsoBuildAbilityBlockClick(e)
 }
 
 
-function RequestEsoBuildSave()
+window.RequestEsoBuildSave = function ()
 {
 	var saveData = CreateEsoBuildSaveData();
 	
@@ -12773,7 +12775,7 @@ function RequestEsoBuildSave()
 }
 
 
-function RequestEsoBuildCreateCopy()
+window.RequestEsoBuildCreateCopy = function ()
 {
 	var saveData = CreateEsoBuildSaveData();
 	
@@ -12791,7 +12793,7 @@ function RequestEsoBuildCreateCopy()
 }
 
 
-function OnEsoBuildSaved(data, status, xhr)
+window.OnEsoBuildSaved = function (data, status, xhr)
 {
 	if (!data.success)
 	{
@@ -12815,7 +12817,7 @@ function OnEsoBuildSaved(data, status, xhr)
 }
 
 
-function OnEsoBuildCopy(data, status, xhr)
+window.OnEsoBuildCopy = function (data, status, xhr)
 {
 	if (!data.success)
 	{
@@ -12833,25 +12835,25 @@ function OnEsoBuildCopy(data, status, xhr)
 }
 
 
-function OnEsoBuildCopyError(xhr, status, errorMsg)
+window.OnEsoBuildCopyError = function (xhr, status, errorMsg)
 {
 	SetEsoBuildSaveResults("ERROR copying build!");
 }
 
 
-function OnEsoBuildSaveError(xhr, status, errorMsg)
+window.OnEsoBuildSaveError = function (xhr, status, errorMsg)
 {
 	SetEsoBuildSaveResults("ERROR saving build!");
 }
 
 
-function UpdateEsoBuildNewId(newId)
+window.UpdateEsoBuildNewId = function (newId)
 {
 	g_EsoBuildData.id = newId;
 }
 
 
-function CreateEsoBuildSaveData()
+window.CreateEsoBuildSaveData = function ()
 {
 	var saveData = {};
 
@@ -12877,7 +12879,7 @@ function CreateEsoBuildSaveData()
 }
 
 
-function CreateEsoBuildSetToggleSaveData(saveData, inputValues)
+window.CreateEsoBuildSetToggleSaveData = function (saveData, inputValues)
 {
 	
 	for (var name in g_EsoBuildToggledSetData)
@@ -12897,14 +12899,14 @@ function CreateEsoBuildSetToggleSaveData(saveData, inputValues)
 }
 
 
-function ConvertBoolToInt(value)
+window.ConvertBoolToInt = function (value)
 {
 	if (value == null) return 0;
 	return value ? 1 : 0;
 }
 
 
-function CreateEsoBuildSkillToggleSaveData(saveData, inputValues)
+window.CreateEsoBuildSkillToggleSaveData = function (saveData, inputValues)
 {
 
 	for (var name in g_EsoBuildToggledSkillData)
@@ -12924,7 +12926,7 @@ function CreateEsoBuildSkillToggleSaveData(saveData, inputValues)
 }
 
 
-function CreateEsoAbilityRangeString(abilityData)
+window.CreateEsoAbilityRangeString = function (abilityData)
 {
 	if (abilityData == null) return "";
 	var rangeStr = "";
@@ -12940,7 +12942,7 @@ function CreateEsoAbilityRangeString(abilityData)
 }
 
 
-function CreateEsoAbilityAreaString(abilityData)
+window.CreateEsoAbilityAreaString = function (abilityData)
 {
 	if (abilityData == null) return "";
 	var areaStr = "";
@@ -12954,7 +12956,7 @@ function CreateEsoAbilityAreaString(abilityData)
 }
 
 
-function CreateEsoBuildActionBarSaveData(saveData, inputValues)
+window.CreateEsoBuildActionBarSaveData = function (saveData, inputValues)
 {
 	saveData.ActionBars = {};
 	
@@ -13011,7 +13013,7 @@ function CreateEsoBuildActionBarSaveData(saveData, inputValues)
 }
 
 
-function CreateEsoBuildCPSaveData(saveData, inputValues)
+window.CreateEsoBuildCPSaveData = function (saveData, inputValues)
 {
 	saveData.ChampionPoints = {};
 	
@@ -13045,7 +13047,7 @@ function CreateEsoBuildCPSaveData(saveData, inputValues)
 }
 
 
-function CreateEsoBuildBuffSaveData(saveData, inputValues)
+window.CreateEsoBuildBuffSaveData = function (saveData, inputValues)
 {
 	var data = {};
 	saveData.Buffs = {};
@@ -13163,7 +13165,7 @@ function CreateEsoBuildBuffSaveData(saveData, inputValues)
 }
 
 
-function CreateEsoBuildSkillSaveData(saveData, inputValues)
+window.CreateEsoBuildSkillSaveData = function (saveData, inputValues)
 {
 	saveData.Skills = {};
 	
@@ -13189,7 +13191,7 @@ function CreateEsoBuildSkillSaveData(saveData, inputValues)
 }
 
 
-function CreateEsoBuildSaveDataForSkill(saveData, abilityData, skillData)
+window.CreateEsoBuildSaveDataForSkill = function (saveData, abilityData, skillData)
 {
 	//EsoBuildLog("CreateEsoBuildSaveDataForSkill", abilityData, skillData);
 	
@@ -13226,7 +13228,7 @@ function CreateEsoBuildSaveDataForSkill(saveData, abilityData, skillData)
 }
 
 
-function CreateEsoBuildItemSaveData(saveData, inputValues)
+window.CreateEsoBuildItemSaveData = function (saveData, inputValues)
 {
 	saveData.EquipSlots = {};
 	
@@ -13308,7 +13310,7 @@ function CreateEsoBuildItemSaveData(saveData, inputValues)
 }
 
 
-function CreateEsoBuildGeneralSaveData(saveData, inputValues)
+window.CreateEsoBuildGeneralSaveData = function (saveData, inputValues)
 {
 	saveData.Build = g_EsoBuildData;
 	saveData.Build.buildName = $("#esotbBuildName").val().trim();
@@ -13395,19 +13397,19 @@ function CreateEsoBuildGeneralSaveData(saveData, inputValues)
 }
 
 
-function HasEsoBuildThirdSkillBar()
+window.HasEsoBuildThirdSkillBar = function ()
 {
 	return $("#esotbClass").val() == "Sorcerer";
 }
 
 
-function HasEsoBuildForthSkillBar()
+window.HasEsoBuildForthSkillBar = function ()
 {
 	return parseInt($("#esotbWerewolfStage").val()) > 0;
 }
 
 
-function SetEsoBuildActiveWeaponMatchingSkillBar(skillBar)
+window.SetEsoBuildActiveWeaponMatchingSkillBar = function (skillBar)
 {
 	if (skillBar == 1)
 	{
@@ -13465,7 +13467,7 @@ function SetEsoBuildActiveWeaponMatchingSkillBar(skillBar)
 }
 
 
-function CreateEsoBuildOffBarSaveData(saveData, inputValues)
+window.CreateEsoBuildOffBarSaveData = function (saveData, inputValues)
 {
 	var CurrentActiveBar = g_EsoBuildActiveAbilityBar;
 	var CurrentWeaponBar = g_EsoBuildActiveWeapon;
@@ -13510,7 +13512,7 @@ function CreateEsoBuildOffBarSaveData(saveData, inputValues)
 }
 
 
-function CreateEsoBuildComputedSaveData(saveData, inputValues, barIndex)
+window.CreateEsoBuildComputedSaveData = function (saveData, inputValues, barIndex)
 {
 	var prefix = "";
 	
@@ -13564,7 +13566,7 @@ function CreateEsoBuildComputedSaveData(saveData, inputValues, barIndex)
 }
 
 
-function GetEsoBuildSetCount(setName)
+window.GetEsoBuildSetCount = function (setName)
 {
 	if (setName == null || setName == "") return 0;
 	if (g_EsoBuildSetData[setName] == null) return 0;
@@ -13572,7 +13574,7 @@ function GetEsoBuildSetCount(setName)
 }
 
 
-function AddEsoBuildComputedStatToSaveData(saveData, name, outName, addComputed, type)
+window.AddEsoBuildComputedStatToSaveData = function (saveData, name, outName, addComputed, type)
 {
 	var statData = g_EsoComputedStats[name];
 	if (statData == null) return;
@@ -13596,13 +13598,13 @@ function AddEsoBuildComputedStatToSaveData(saveData, name, outName, addComputed,
 }
 
 
-function SetEsoBuildSaveResults(text)
+window.SetEsoBuildSaveResults = function (text)
 {
 	$("#esotbSaveResults").html(text);
 }
 
 
-function OnEsoBuildSave(e)
+window.OnEsoBuildSave = function (e)
 {
 	SetEsoBuildSaveResults("Saving build...");
 	
@@ -13610,7 +13612,7 @@ function OnEsoBuildSave(e)
 }
 
 
-function OnEsoBuildCreateCopy(e)
+window.OnEsoBuildCreateCopy = function (e)
 {
 	var buildName = $("#esotbBuildName").val().trim();
 	if (!buildName.endsWith(" (Copy)")) $("#esotbBuildName").val(buildName + " (Copy)");
@@ -13621,7 +13623,7 @@ function OnEsoBuildCreateCopy(e)
 }
 
 
-function EsoBuildLog()
+window.EsoBuildLog = function ()
 {
 	if (console == null) return;
 	if (console.log == null) return;
@@ -13633,7 +13635,7 @@ function EsoBuildLog()
 var g_EsoBuildLastSetIndex = -1;
 
 
-function EsoBuildFindSetName(setName)
+window.EsoBuildFindSetName = function (setName)
 {
 	setName = setName.toLowerCase();
 	
@@ -13649,7 +13651,7 @@ function EsoBuildFindSetName(setName)
 }
 
 
-function EsoBuildEquipSet(setIndexOrName)
+window.EsoBuildEquipSet = function (setIndexOrName)
 {
 	if (g_EsoBuildSetNames.length <= 0) return EsoBuildLog("Error: No set names currently loaded!");
 	
@@ -13699,7 +13701,7 @@ function EsoBuildEquipSet(setIndexOrName)
 }
 
 
-function EquipSetItem(setName, slotId, level, quality)
+window.EquipSetItem = function (setName, slotId, level, quality)
 {
 	UnequipEsoItemSlot(slotId, false);
 	
@@ -13723,7 +13725,7 @@ function EquipSetItem(setName, slotId, level, quality)
 }
 
 
-function OnEsoSetItemDataReceive(data, status, xhr, slotId)
+window.OnEsoSetItemDataReceive = function (data, status, xhr, slotId)
 {
 	//EsoBuildLog("OnEsoSetItemDataReceive", itemData);
 	
@@ -13763,13 +13765,13 @@ function OnEsoSetItemDataReceive(data, status, xhr, slotId)
 }
 
 
-function OnEsoSetItemDataError(xhr, status, errorMsg, slotId)
+window.OnEsoSetItemDataError = function (xhr, status, errorMsg, slotId)
 {
 	EsoBuildLog("OnEsoSetItemDataError", errorMsg);
 }
 
 
-function EsoEditBuildChangeAllArmorEnchants(itemId, internalType, internalLevel, element)
+window.EsoEditBuildChangeAllArmorEnchants = function (itemId, internalType, internalLevel, element)
 {
 	var itemData = {};
 	
@@ -13784,7 +13786,7 @@ function EsoEditBuildChangeAllArmorEnchants(itemId, internalType, internalLevel,
 }
 
 
-function OnEsoEditBuildSetupArmorEnchant(element)
+window.OnEsoEditBuildSetupArmorEnchant = function (element)
 {
 	var form = $("#esotbItemSetupArmorEnchant");
 	var formValue = form.val();
@@ -13817,7 +13819,7 @@ function OnEsoEditBuildSetupArmorEnchant(element)
 }
 
 
-function UpdateAllArmorEnchantData(itemData)
+window.UpdateAllArmorEnchantData = function (itemData)
 {
 	updateCount = 7;
 		
@@ -13836,7 +13838,7 @@ function UpdateAllArmorEnchantData(itemData)
 }
 
 
-function UpdateEnchantSlotData(slotId, itemData, element)
+window.UpdateEnchantSlotData = function (slotId, itemData, element)
 {
 	var itemId = itemData.itemId;
 	var level = itemData.internalLevel;
@@ -13856,7 +13858,7 @@ function UpdateEnchantSlotData(slotId, itemData, element)
 }
 
 
-function OnEsoEditBuildSetupArmorTrait(element)
+window.OnEsoEditBuildSetupArmorTrait = function (element)
 {
 	var form = $("#esotbItemSetupArmorTrait");
 	var formValue = form.val();
@@ -13867,7 +13869,7 @@ function OnEsoEditBuildSetupArmorTrait(element)
 }
 
 
-function OnEsoEditBuildSetupJewelryTrait(element)
+window.OnEsoEditBuildSetupJewelryTrait = function (element)
 {
 	var form = $("#esotbItemSetupJewelryTrait");
 	var formValue = form.val();
@@ -13878,7 +13880,7 @@ function OnEsoEditBuildSetupJewelryTrait(element)
 }
 
 
-function OnEsoEditBuildSetupWeaponTrait(element)
+window.OnEsoEditBuildSetupWeaponTrait = function (element)
 {
 	var form = $("#esotbItemSetupWeaponTrait");
 	var formValue = form.val();
@@ -13889,7 +13891,7 @@ function OnEsoEditBuildSetupWeaponTrait(element)
 }
 
 
-function EsoEditBuildChangeAllArmorTraits(newTrait)
+window.EsoEditBuildChangeAllArmorTraits = function (newTrait)
 {
 	var msgElement = $("#esotbItemSetupArmorTraitMsg");
 	var count = 0;
@@ -13916,7 +13918,7 @@ function EsoEditBuildChangeAllArmorTraits(newTrait)
 }
 
 
-function EsoEditBuildChangJewelryTraits(newTrait)
+window.EsoEditBuildChangJewelryTraits = function (newTrait)
 {
 	var msgElement = $("#esotbItemSetupJewelryTraitMsg");
 	var count = 0;
@@ -13929,7 +13931,7 @@ function EsoEditBuildChangJewelryTraits(newTrait)
 }
 
 
-function EsoEditBuildChangWeaponTraits(newTrait)
+window.EsoEditBuildChangWeaponTraits = function (newTrait)
 {
 	var msgElement = $("#esotbItemSetupWeaponTraitMsg");
 	var count = 0;
@@ -13951,7 +13953,7 @@ function EsoEditBuildChangWeaponTraits(newTrait)
 }
 
 
-function EsoBuildChangeSlotTrait(slotId, newTrait, msgElement)
+window.EsoBuildChangeSlotTrait = function (slotId, newTrait, msgElement)
 {
 	if (g_EsoBuildItemData[slotId] == null) return false;
 	if (g_EsoBuildItemData[slotId].itemId == null) return false;
@@ -13961,7 +13963,7 @@ function EsoBuildChangeSlotTrait(slotId, newTrait, msgElement)
 }
 
 
-function OnEsoEditBuildSetupArmorTypes(element)
+window.OnEsoEditBuildSetupArmorTypes = function (element)
 {
 	var form = $("#esotbItemSetupArmorTypes");
 	var formValue = form.val();
@@ -13975,7 +13977,7 @@ function OnEsoEditBuildSetupArmorTypes(element)
 }
 
 
-function EsoEditBuildChangeArmorTypes(numLight, numMedium, numHeavy)
+window.EsoEditBuildChangeArmorTypes = function (numLight, numMedium, numHeavy)
 {
 	// 1 => "Light",
 	// 2 => "Medium",
@@ -14014,7 +14016,7 @@ function EsoEditBuildChangeArmorTypes(numLight, numMedium, numHeavy)
 }
 
 
-function EsoBuildChangeArmorType(slotId, armorType)
+window.EsoBuildChangeArmorType = function (slotId, armorType)
 {
 	if (g_EsoBuildItemData[slotId] == null) return false;
 	if (g_EsoBuildItemData[slotId].itemId == null) return false;
@@ -14024,7 +14026,7 @@ function EsoBuildChangeArmorType(slotId, armorType)
 }
 
 
-function OnEsoEditBuildSetupAllQualities(element)
+window.OnEsoEditBuildSetupAllQualities = function (element)
 {
 	var form = $("#esotbItemSetupAllQualities");
 	var formValue = form.val();
@@ -14035,7 +14037,7 @@ function OnEsoEditBuildSetupAllQualities(element)
 }
 
 
-function OnEsoEditBuildSetupWeaponQualities(element)
+window.OnEsoEditBuildSetupWeaponQualities = function (element)
 {
 	var form = $("#esotbItemSetupWeaponQualities");
 	var formValue = form.val();
@@ -14046,7 +14048,7 @@ function OnEsoEditBuildSetupWeaponQualities(element)
 }
 
 
-function OnEsoEditBuildSetupArmorQualities(element)
+window.OnEsoEditBuildSetupArmorQualities = function (element)
 {
 	var form = $("#esotbItemSetupArmorQualities");
 	var formValue = form.val();
@@ -14057,7 +14059,7 @@ function OnEsoEditBuildSetupArmorQualities(element)
 }
 
 
-function OnEsoEditBuildSetupEnchantQualities(element)
+window.OnEsoEditBuildSetupEnchantQualities = function (element)
 {
 	var form = $("#esotbItemSetupEnchantQualities");
 	var formValue = form.val();
@@ -14068,7 +14070,7 @@ function OnEsoEditBuildSetupEnchantQualities(element)
 }
 
 
-function OnEsoEditBuildSetupJewelryQualities(element)
+window.OnEsoEditBuildSetupJewelryQualities = function (element)
 {
 	var form = $("#esotbItemSetupJewelryQualities");
 	var formValue = form.val();
@@ -14079,7 +14081,7 @@ function OnEsoEditBuildSetupJewelryQualities(element)
 }
 
 
-function EsoEditBuildChangeAllQualities(newQuality)
+window.EsoEditBuildChangeAllQualities = function (newQuality)
 {
 	var msgElement = $("#esotbItemSetupAllQualitiesMsg");
 	var count = 0;
@@ -14122,7 +14124,7 @@ function EsoEditBuildChangeAllQualities(newQuality)
 }
 
 
-function EsoEditBuildChangeJewelryQualities(newQuality)
+window.EsoEditBuildChangeJewelryQualities = function (newQuality)
 {
 	var msgElement = $("#esotbItemSetupJewelryQualitiesMsg");
 	var count = 0;
@@ -14135,7 +14137,7 @@ function EsoEditBuildChangeJewelryQualities(newQuality)
 }
 
 
-function EsoEditBuildChangeArmorQualities(newQuality)
+window.EsoEditBuildChangeArmorQualities = function (newQuality)
 {
 	var msgElement = $("#esotbItemSetupArmorQualitiesMsg");
 	var count = 0;
@@ -14162,7 +14164,7 @@ function EsoEditBuildChangeArmorQualities(newQuality)
 }
 
 
-function EsoEditBuildChangeWeaponQualities(newQuality)
+window.EsoEditBuildChangeWeaponQualities = function (newQuality)
 {
 	var msgElement = $("#esotbItemSetupWeaponQualitiesMsg");
 	var count = 0;
@@ -14184,7 +14186,7 @@ function EsoEditBuildChangeWeaponQualities(newQuality)
 }
 
 
-function EsoEditBuildChangeEnchantQualities(newQuality)
+window.EsoEditBuildChangeEnchantQualities = function (newQuality)
 {
 	var msgElement = $("#esotbItemSetupEnchantQualitiesMsg");
 	var count = 0;
@@ -14210,7 +14212,7 @@ function EsoEditBuildChangeEnchantQualities(newQuality)
 }
 
 
-function EsoBuildChangeSlotLevel(slotId, newLevel, msgElement)
+window.EsoBuildChangeSlotLevel = function (slotId, newLevel, msgElement)
 {
 	if (g_EsoBuildItemData[slotId] == null) return false;
 	if (g_EsoBuildItemData[slotId].itemId == null) return false;
@@ -14220,7 +14222,7 @@ function EsoBuildChangeSlotLevel(slotId, newLevel, msgElement)
 }
 
 
-function EsoBuildChangeEnchantLevel(slotId, newLevel, msgElement)
+window.EsoBuildChangeEnchantLevel = function (slotId, newLevel, msgElement)
 {
 	if (g_EsoBuildEnchantData[slotId] == null) return false;
 	if (g_EsoBuildEnchantData[slotId].itemId == null) return false;
@@ -14230,7 +14232,7 @@ function EsoBuildChangeEnchantLevel(slotId, newLevel, msgElement)
 }
 
 
-function EsoBuildChangeSlotQuality(slotId, newQuality, msgElement)
+window.EsoBuildChangeSlotQuality = function (slotId, newQuality, msgElement)
 {
 	if (g_EsoBuildItemData[slotId] == null) return false;
 	if (g_EsoBuildItemData[slotId].itemId == null) return false;
@@ -14240,7 +14242,7 @@ function EsoBuildChangeSlotQuality(slotId, newQuality, msgElement)
 }
 
 
-function EsoBuildChangeEnchantQuality(slotId, newQuality, msgElement)
+window.EsoBuildChangeEnchantQuality = function (slotId, newQuality, msgElement)
 {
 	if (g_EsoBuildEnchantData[slotId] == null) return false;
 	if (g_EsoBuildEnchantData[slotId].itemId == null) return false;
@@ -14250,7 +14252,7 @@ function EsoBuildChangeEnchantQuality(slotId, newQuality, msgElement)
 }
 
 
-function OnEsoEditBuildSetupAllLevel(element)
+window.OnEsoEditBuildSetupAllLevel = function (element)
 {
 	var form = $("#esotbItemSetupAllLevel");
 	var formValue = form.val();
@@ -14261,7 +14263,7 @@ function OnEsoEditBuildSetupAllLevel(element)
 }
 
 
-function OnEsoEditBuildSetupMonsterSet(element)
+window.OnEsoEditBuildSetupMonsterSet = function (element)
 {
 	var msgElement = $("#esotbItemSetupMonsterSetMsg");
 	var count = 0;
@@ -14287,7 +14289,7 @@ function OnEsoEditBuildSetupMonsterSet(element)
 }
 
 
-function OnEsoEditBuildSetupEquipSet(element)
+window.OnEsoEditBuildSetupEquipSet = function (element)
 {
 	var msgElement = $("#esotbItemSetupEquipSetMsg");
 	var count = 0;
@@ -14570,7 +14572,7 @@ function OnEsoEditBuildSetupEquipSet(element)
 }
 
 
-function EsoEditBuildChangeAllLevel(newLevel)
+window.EsoEditBuildChangeAllLevel = function (newLevel)
 {
 	var msgElement = $("#esotbItemSetupAllLevelMsg");
 	var count = 0;
@@ -14613,7 +14615,7 @@ function EsoEditBuildChangeAllLevel(newLevel)
 }
 
 
-function UpdateEsoSkillBarDisplay()
+window.UpdateEsoSkillBarDisplay = function ()
 {
 	if (HasEsoBuildThirdSkillBar())
 		$(".esovsSkillBar[skillbar='3']").show()
@@ -14627,7 +14629,7 @@ function UpdateEsoSkillBarDisplay()
 }
 
 
-function CopyEsoSkillsToItemTab()
+window.CopyEsoSkillsToItemTab = function ()
 {
 	$("#esotbItemSkillCopy").html($("#esovsSkillBar").html());
 
@@ -14637,7 +14639,7 @@ function CopyEsoSkillsToItemTab()
 }
 
 
-function UpdateEsoTooltipEnchantDamage(match, divData, enchantValue, damageType)
+window.UpdateEsoTooltipEnchantDamage = function (match, divData, enchantValue, damageType)
 {
 	var enchantFactor = 1;
 	var damageMod;
@@ -14666,7 +14668,7 @@ function UpdateEsoTooltipEnchantDamage(match, divData, enchantValue, damageType)
 }
 
 
-function UpdateEsoTooltipEnchantHealing(match, divData, enchantValue)
+window.UpdateEsoTooltipEnchantHealing = function (match, divData, enchantValue)
 {
 	var enchantFactor = 1;
 	var healingMod;
@@ -14683,7 +14685,7 @@ function UpdateEsoTooltipEnchantHealing(match, divData, enchantValue)
 }
 
 
-function UpdateEsoTooltipEnchantDamageShield(match, divData, enchantValue)
+window.UpdateEsoTooltipEnchantDamageShield = function (match, divData, enchantValue)
 {
 	var enchantFactor = 1;
 	var shieldMod;
@@ -14700,7 +14702,7 @@ function UpdateEsoTooltipEnchantDamageShield(match, divData, enchantValue)
 }
 
 
-function UpdateEsoBuildTooltipEnchant(enchantBlock, tooltip)
+window.UpdateEsoBuildTooltipEnchant = function (enchantBlock, tooltip)
 {
 	var enchantHtml = enchantBlock.html();
 	var newEnchantHtml = enchantHtml;
@@ -14713,7 +14715,7 @@ function UpdateEsoBuildTooltipEnchant(enchantBlock, tooltip)
 }
 
 
-var ESO_SETPROCDAMAGE_DATA = 
+window.ESO_SETPROCDAMAGE_DATA = 
 {
 		"affliction" : {
 			// (5 items) When you deal damage, you have a 50% chance to deal an additional 33-2838 Disease Damage
@@ -15128,7 +15130,7 @@ var ESO_SETPROCDAMAGE_DATA =
 };
 
 
-var ESO_SETPROC_UNKNOWN = {
+window.ESO_SETPROC_UNKNOWN = {
 		"infallible mage" : {	// Not affected
 			// (5 items) Your fully-charged Heavy Attacks deal an additional 10-903 damage
 			// Enemies you damage with fully-charged Heavy Attacks are afflicted with Minor Vulnerability for 10 seconds, increasing their damage taken by 8%.
@@ -15171,7 +15173,7 @@ var ESO_SETPROC_UNKNOWN = {
 };
 
 
-function UpdateEsoSetDamageDataReplace(match, prefixWord, div1, damageValue, div2, damageType, extraSpace, setDamageData, matchCount)
+window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damageValue, div2, damageType, extraSpace, setDamageData, matchCount)
 {
 	var damageFactor = 1;
 	var damageMod;
@@ -15249,7 +15251,7 @@ function UpdateEsoSetDamageDataReplace(match, prefixWord, div1, damageValue, div
 
 
 
-function UpdateEsoSetDamageShieldReplace(match, div1, damageShieldValue, div2)
+window.UpdateEsoSetDamageShieldReplace = function (match, div1, damageShieldValue, div2)
 {
 	// damage shield that absorbs 140-12040 damage
 	// damage shield every 2 seconds that absorbs 27-2399 damage
@@ -15269,7 +15271,7 @@ function UpdateEsoSetDamageShieldReplace(match, div1, damageShieldValue, div2)
 }
 
 
-function UpdateEsoSetHealReplace(match, prefixWord, div1, healValue, div2)
+window.UpdateEsoSetHealReplace = function (match, prefixWord, div1, healValue, div2)
 {
 	// heal for 23-2000 Health
 	// collecting the essence heals you 50-4300 Health
@@ -15293,7 +15295,7 @@ function UpdateEsoSetHealReplace(match, prefixWord, div1, healValue, div2)
 
 
 
-function UpdateEsoBuildSetDamageData(setDesc, setDamageData)
+window.UpdateEsoBuildSetDamageData = function (setDesc, setDamageData)
 {
 	var newDesc = setDesc;
 	var matchCount = 0;
@@ -15309,7 +15311,7 @@ function UpdateEsoBuildSetDamageData(setDesc, setDamageData)
 }
 
 
-function UpdateEsoBuildSetDamageShield(setDesc)
+window.UpdateEsoBuildSetDamageShield = function (setDesc)
 {
 	var newDesc = setDesc;
 	var matchCount = 0;
@@ -15325,7 +15327,7 @@ function UpdateEsoBuildSetDamageShield(setDesc)
 }
 
 
-function UpdateEsoBuildSetHealing(setDesc)
+window.UpdateEsoBuildSetHealing = function (setDesc)
 {
 	var newDesc = setDesc;
 	var matchCount = 0;
@@ -15342,7 +15344,7 @@ function UpdateEsoBuildSetHealing(setDesc)
 }
 
 
-function UpdateEsoBuildSetAllData(setDesc, setDamageData)
+window.UpdateEsoBuildSetAllData = function (setDesc, setDamageData)
 {
 	var newDesc = setDesc;
 	
@@ -15356,7 +15358,7 @@ function UpdateEsoBuildSetAllData(setDesc, setDamageData)
 }
  
 
-function UpdateEsoBuildSetAllFullText(setText)
+window.UpdateEsoBuildSetAllFullText = function (setText)
 {
 	var matchResult;
 	var setName = "";
@@ -15372,7 +15374,7 @@ function UpdateEsoBuildSetAllFullText(setText)
 }
 
 
-function UpdateEsoBuildSetAll(setName, setDesc)
+window.UpdateEsoBuildSetAll = function (setName, setDesc)
 {
 	var matchResult;
 	var setDamageData = null;
@@ -15382,7 +15384,7 @@ function UpdateEsoBuildSetAll(setName, setDesc)
 }
 
 
-function UpdateEsoBuildTooltipSet(setBlock, tooltip)
+window.UpdateEsoBuildTooltipSet = function (setBlock, tooltip)
 {
 	var setHtml = setBlock.html();
 	var newSetHtml;
@@ -15393,7 +15395,7 @@ function UpdateEsoBuildTooltipSet(setBlock, tooltip)
 }
 
 
-function UpdateEsoBuildTooltip(tooltip)
+window.UpdateEsoBuildTooltip = function (tooltip)
 {
 	var enchantBlock = $(tooltip).find("#esoil_itemenchantblock");
 	var setBlock = $(tooltip).find("#esoil_itemsetblock");
@@ -15403,14 +15405,14 @@ function UpdateEsoBuildTooltip(tooltip)
 }
 
 
-function OnEsoTooltipUpdate(event, tooltip)
+window.OnEsoTooltipUpdate = function (event, tooltip)
 {
 	//EsoBuildLog("OnEsoTooltipUpdate");
 	UpdateEsoBuildTooltip(tooltip);	
 }
 
 
-function UpdateEsoBuildSlottedDestructionSkills()
+window.UpdateEsoBuildSlottedDestructionSkills = function ()
 {
 	var changed = false;
 	
@@ -15462,7 +15464,7 @@ function UpdateEsoBuildSlottedDestructionSkills()
 }
 
 
-function UpdateAllEsoItemTraitLists()
+window.UpdateAllEsoItemTraitLists = function ()
 {
 	for (var slotId in ESOBUILD_SLOTID_TO_EQUIPSLOT)
 	{
@@ -15481,7 +15483,7 @@ function UpdateAllEsoItemTraitLists()
 }
 
 
-function UpdateEsoItemTraitList(slotId, trait)
+window.UpdateEsoItemTraitList = function (slotId, trait)
 {
 	if (trait === null || trait === undefined || trait < 0) return false;
 	
@@ -15495,7 +15497,7 @@ function UpdateEsoItemTraitList(slotId, trait)
 }
 
 
-function OnEsoTransmuteListChange(e)
+window.OnEsoTransmuteListChange = function (e)
 {
 	var $this = $(this);
 	var slotId = $this.attr("slotid");
@@ -15523,7 +15525,7 @@ function OnEsoTransmuteListChange(e)
 }
 
 
-function RequestEsoTransmuteTraitData(itemData, newTrait, element)
+window.RequestEsoTransmuteTraitData = function (itemData, newTrait, element)
 {	
 	if (itemData.itemId == null || itemData.itemId == "") return false;
 	if (itemData.level == null || itemData.level == "") return false;
@@ -15547,7 +15549,7 @@ function RequestEsoTransmuteTraitData(itemData, newTrait, element)
 }
 
 
-function OnEsoTransmuteTraitDataReceive(data, status, xhr, element, origItemData)
+window.OnEsoTransmuteTraitDataReceive = function (data, status, xhr, element, origItemData)
 {
 	var slotId = $(element).attr("slotId");
 	if (slotId == null || slotId == "") return false;
@@ -15564,12 +15566,12 @@ function OnEsoTransmuteTraitDataReceive(data, status, xhr, element, origItemData
 }
 
 
-function OnEsoTransmuteTraitDataError(xhr, status, errorMsg)
+window.OnEsoTransmuteTraitDataError = function (xhr, status, errorMsg)
 {
 }
 
 
-function UpdateEsoOffHandTransmuteTraitList(slotId)
+window.UpdateEsoOffHandTransmuteTraitList = function (slotId)
 {
 	var item = g_EsoBuildItemData[slotId];
 	
@@ -15600,7 +15602,7 @@ function UpdateEsoOffHandTransmuteTraitList(slotId)
 }
 
 
-function esotbOnDocReady()
+window.esotbOnDocReady = function ()
 {
 	GetEsoSkillInputValues = GetEsoTestBuildSkillInputValues;
 	

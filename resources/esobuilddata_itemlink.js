@@ -1,9 +1,9 @@
-var EsoItemLinkPopup = null;
-var EsoItemLinkPopup_Visible = false;
-var EsoItemLinkPopup_LastItemId = -1;
-var EsoItemLinkPopup_LastIntLevel = -1;
-var EsoItemLinkPopup_LastIntType = -1;
-var EsoItemLinkPopup_LastItemLink = '';
+window.EsoItemLinkPopup = null;
+window.EsoItemLinkPopup_Visible = false;
+window.EsoItemLinkPopup_LastItemId = -1;
+window.EsoItemLinkPopup_LastIntLevel = -1;
+window.EsoItemLinkPopup_LastIntType = -1;
+window.EsoItemLinkPopup_LastItemLink = '';
 
 
 function CreateEsoItemLinkPopup()
