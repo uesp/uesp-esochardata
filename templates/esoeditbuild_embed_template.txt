@@ -4,8 +4,9 @@
 	<button id="esotbCreateCopyButton" {createCopyButtonDisabled}>Create Copy</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #fcc; margin-right: 225px;'>
-Note: The editor is not yet completely updated for the Murkmire DLC (update 20). Skills and CP data have been updated.
+<div style='background-color: #cfc; margin-right: 225px;'>
+Note: The editor is mostly updated for the Murkmire DLC (update 20). Skills, CP, anbd item data have been updated. Some updated skills/items may not yet be working correctly.
+Do a forced page reload (Ctrl+F5 or Shift+F5 in most browsers) to ensure you have the latest Javascript files. 
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -749,6 +750,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Bahraha's Curse</option>
 					<option>Barkskin</option>
 					<option>Bastion of the Heartland</option>
+					<option>Battalion Defender</option>
+					<option>Battlefield Acrobat</option>
 					<option>Beckoning Steel</option>
 					<option>Beekeeper's Gear</option>
 					<option>Berserking Warrior</option>
@@ -760,9 +763,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Bone Pirate's Tatters</option>
 					<option>Brands of Imperium</option>
 					<option>Briarheart</option>
+					<option>Bright-Throat's Boast</option>
 					<option>Buffer of the Swift</option>
 					<option>Burning Spellweave</option>
 					<option>Caluurion's Legacy</option>
+					<option>Champion of the Hist</option>
 					<option>Clever Alchemist</option>
 					<option>Combat Physician</option>
 					<option>Coward's Gear</option>
@@ -772,6 +777,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Curse of Doylemish</option>
 					<option>Daedric Trickery</option>
 					<option>Darkstride</option>
+					<option>Dead-Water's Guile</option>
 					<option>Deadly Strike</option>
 					<option>Death's Wind</option>
 					<option>Defending Warrior</option>
@@ -802,10 +808,13 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Footman's Fortune</option>
 					<option>Fortified Brass</option>
 					<option>Galerion's Revenge</option>
+					<option>Gallant Charge</option>
+					<option value="Perfect Gallant Charge">Gallant Charge (Perfect)</option>
 					<option>Glorious Defender</option>
 					<option>Gossamer</option>
 					<option>Grace of Gloom</option>
 					<option>Grace of the Ancients</option>
+					<option>Grave-Stake Collector</option>
 					<option>Green Pact</option>
 					<option>Gryphon's Ferocity</option>
 					<option>Hand of Mephala</option>
@@ -826,6 +835,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Immortal Warrior</option>
 					<option>Imperial Physique</option>
 					<option>Impregnable Armor</option>
+					<option>Indomitable Fury</option>
 					<option>Infallible Mage</option>
 					<option>Innate Axiom</option>
 					<option>Inventor's Guard</option>
@@ -859,12 +869,16 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Master Architect</option>
 					<option>Mechanical Acuity</option>
 					<option>Medusa</option>
+					<option>Mender's Ward</option>
+					<option value="Perfect Mender's Ward">Mender's Ward (Perfect)</option>
 					<option>Meridia's Blessed Armor</option>
 					<option>Meritorious Service</option>
+					<option>Might of the Lost Legion</option>
 					<option>Moondancer</option>
 					<option>Moon Hunter</option>
 					<option>Morkuldin</option>
 					<option>Mother's Sorrow</option>
+					<option>Naga Shaman</option>
 					<option>Necropotence</option>
 					<option>Netch's Touch</option>
 					<option>Night Mother's Embrace</option>
@@ -893,6 +907,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Prisoner's Rags</option>
 					<option>Queen's Elegance</option>
 					<option>Quick Serpent</option>
+					<option>Radial Uppercut</option>
+					<option value="Perfect Radial Uppercut">Radial Uppercut (Perfect)</option>			
 					<option>Ranger's Gait</option>
 					<option>Rattlecage</option>
 					<option>Ravager</option>
@@ -928,14 +944,19 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Sithis' Touch</option>
 					<option>Skooma Smuggler</option>
 					<option>Sload's Semblance</option>
+					<option>Soldier of Anguish</option>
 					<option>Song of Lamae</option>
 					<option>Soulshine</option>
+					<option>Spectral Cloak</option>
+					<option value="Perfect Spectral Cloak">Spectral Cloak (Perfect)</option>
 					<option>Spectre's Eye</option>
 					<option>Spell Power Cure</option>
+					<option>Spell Strategist</option>
 					<option>Spelunker</option>
 					<option>Spider Cultist Cowl</option>
 					<option>Spinner's Garments</option>
 					<option>Spriggan's Thorns</option>
+					<option>Steadfast Hero</option>
 					<option>Stendarr's Embrace</option>
 					<option>Storm Knight's Plate</option>
 					<option>Storm Master</option>
@@ -987,6 +1008,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Vicious Death</option>
 					<option>Vicious Serpent</option>
 					<option>Viper's Sting</option>
+					<option>Virulent Shot</option>
+					<option value="Perfect Virulent Shot">Virulent Shot (Perfect)</option>
 					<option>War Machine</option>
 					<option>War Maiden</option>
 					<option>Ward of Cyrodiil</option>
@@ -998,6 +1021,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Way of the Arena</option>
 					<option>Whitestrake's Retribution</option>
 					<option>Widowmaker</option>
+					<option>Wild Impulse</option>
+					<option value="Perfect Wild Impulse">Wild Impulse (Perfect)</option>
 					<option>Wilderqueen's Arch</option>
 					<option>Willow's Path</option>
 					<option>Willpower</option>
@@ -1176,7 +1201,37 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
-			<b>2 October 2018</b>
+			<b>12 November 2018</b>
+			<ul>
+				<li>Base penetration changed to 0.
+			</ul>
+			<p>
+			<b>9 November 2018</b>
+			<ul>
+				<li>Fixed a crash in the set data averages that would sometimes prevent a set from working correctly.</li>
+				<li>Fixed the updated 5 piece bonus of the Swamp Raider set. It is no longer a toggle.</li>
+				<li>Updated the changes in several of the Minor buffs.</li>
+			</ul>
+			<p>
+			<b>7 November 2018</b>
+			<ul>
+				<li>Fixed the skill scaling of Hardened Ward.</li>
+				<li>Fixed the parsing of snare effectiveness from the Grace passive.</li>
+				<li>Fixed skill coefficients of the Light Armor passives.</li>
+			</ul>
+			<p>
+			<b>2 November 2018</b>
+			<ul>
+				<li>Updated item data for Murkmire (update 20).</li>
+				<li>Added the 18 new sets to the quick item setup.</li>
+				<li>Fixed the 5 piece bonus of the Bright-Throat's Boast set.</li>
+				<li>Fixed the 2 piece bonus of the Gallant Charge set.</li>
+				<li>Fixed the 2 piece bonus of the Wild Impulse set.</li>
+				<li>Added a toggle for the 5 piece bonus of the Spell Strategist set.</li>
+				<li>Fixed the 2 piece bonus of the Alessian Order set.</li>
+			</ul>
+			<p>
+			<b>24 October 2018</b>
 			<ul>
 				<li>Updated skill and champion point data for Murkmire (update 20).</li>
 			</ul>
