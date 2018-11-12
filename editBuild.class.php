@@ -582,7 +582,15 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"SkillCost.Shield_Charge_Cost" => array(
+					"display" => "%",
+			),			
+			
 			"SkillCost.Psijic_Order_Cost" => array(
+					"display" => "%",
+			),
+			
+			"SkillCost.Impulse_Cost" => array(
 					"display" => "%",
 			),
 			
@@ -2113,9 +2121,7 @@ class EsoBuildDataEditor
 			"SpellPenetration" => array(
 					"title" => "Spell Penetration",
 					"compute" => array(
-							"100",
 							"Item.SpellPenetration",
-							"+",
 							"Set.SpellPenetration",
 							"+",
 							"Skill.SpellPenetration",
@@ -2136,9 +2142,7 @@ class EsoBuildDataEditor
 					"title" => "Physical Penetration",
 					"addClass" => "esotbStatDividerLite",
 					"compute" => array(
-							"100",
 							"Item.PhysicalPenetration",
-							"+",
 							"Set.PhysicalPenetration",
 							"+",
 							"Skill.PhysicalPenetration",

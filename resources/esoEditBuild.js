@@ -4,9 +4,10 @@
  * 		- Poison buffs
  * 		- Hide skill lines, auto-purchase free skills.
  * 		- Skill point count bug.
+ * 		- Dark Veil passive affect tooltip durations (durations within the tooltip text).
  */
 
-window.TestCache = 456;
+window.TestCache = 789;
 
 window.ESO_TESTBUILD_SHOWALLRAWINPUTS = false;
 
@@ -345,7 +346,7 @@ window.g_EsoBuildBuffData =
 		{
 			enabled: false,
 			skillEnabled : false,
-			value : 0.05,
+			value : 0.10,
 			display: "%",
 			statId : "SpellDamage",
 			icon : "/esoui/art/icons/ability_sorcerer_surge.png",
@@ -363,7 +364,7 @@ window.g_EsoBuildBuffData =
 		{
 			enabled: false,
 			skillEnabled : false,
-			value : 0.05,
+			value : 0.10,
 			display: "%",
 			statId : "WeaponDamage",
 			icon : "/esoui/art/icons/ability_warrior_012.png",
@@ -434,7 +435,7 @@ window.g_EsoBuildBuffData =
 		{
 			enabled: false,
 			skillEnabled : false,
-			value : 657,
+			value : 1314,
 			statId : "WeaponCrit",
 			icon : "/esoui/art/icons/ability_warrior_005.png",
 		},
@@ -450,7 +451,7 @@ window.g_EsoBuildBuffData =
 		{
 			enabled: false,
 			skillEnabled : false,
-			value : 657,
+			value : 1314,
 			statId : "SpellCrit",
 			icon : "/esoui/art/icons/ability_mage_042.png",
 		},
@@ -568,18 +569,20 @@ window.g_EsoBuildBuffData =
 		{
 			enabled: false,
 			skillEnabled : false,
-			value : 0.15,
+			value : 0.25,
 			display : "%",
-			statId : "DodgeChance",
+			category: "Skill",
+			statId : "AOEDamageTaken",
 			icon : "/esoui/art/icons/ability_rogue_037.png",
 		},
 		"Minor Evasion" : 
 		{
 			enabled: false,
 			skillEnabled : false,
-			value : 0.05,
+			value : 0.10,
 			display : "%",
-			statId : "DodgeChance",
+			category: "Skill",
+			statId : "AOEDamageTaken",
 			icon : "/esoui/art/icons/ability_rogue_035.png",
 		},
 		"Major Berserk" : 
@@ -3653,6 +3656,12 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Reduce the effectiveness of snares applied to you by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+		statId: "SnareEffect",
+		factorValue: -1,
+		display: '%',
+		match: /Reduces the effectiveness of snares applied to you by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
 		statId: "MagicDamageDone",
 		display: '%',
 		match: /Increases your Magic and Frost Damage by ([0-9]+\.?[0-9]*)%/i,
@@ -4137,6 +4146,18 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /While you have a drink buff active, your Max Stamina is increased by [0-9]+ and Stamina Recovery by ([0-9]+)/i,
 	},
 	{
+		statRequireId: "DrinkBuff",
+		statRequireValue: 1,
+		statId: "Magicka",
+		match: /While you have a drink buff active, your Max Magicka is increased by ([0-9]+)/i,
+	},
+	{
+		statRequireId: "DrinkBuff",
+		statRequireValue: 1,
+		statId: "MagickaRegen",
+		match: /While you have a drink buff active, your Max Magicka is increased by [0-9]+ and Magicka Recovery by ([0-9]+)/i,
+	},
+	{
 		category: "SkillDamage",
 		statId: "Soul Trap",
 		display: "%",
@@ -4186,6 +4207,20 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		match: /Reduce cost of bow abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{	
+		category: "SkillCost",
+		statId: "Shield_Charge_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of Shield Charge by ([0-9]+)%/i,
+	},
+	{	
+		category: "SkillCost",
+		statId: "Impulse_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduce the cost of Impulse by ([0-9]+)%/i,
 	},
 	{
 		buffId: "Minor Toughness",
@@ -5013,6 +5048,10 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Increases the immunity to disabling effects after using Break Free by ([0-9]+\.?[0-9]*) seconds/i,
 	},
 	{
+		statId: "BreakFreeDuration",
+		match: /Increases the duration of crowd control immunity granted by Break Free or when a crowd control effect expires by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
 		id: "Innate Axiom",
 		setBonusCount: 5,
 		enabled: false,
@@ -5291,6 +5330,28 @@ window.ESO_SETEFFECT_MATCHES = [
 		category: "SkillDirectDamage",
 		statId: "Destructive Touch",
 		match: /Reduces the cost of Destructive Touch by [0-9]+% and increases the direct damage it deals by ([0-9]+)./i,
+	},
+	{
+		id: "Swamp Raider",
+		setBonusCount: 4,
+		toggle: false,
+		enabled: false,
+		enableOffBar : true,
+		category: "SkillBonusWeaponDmg",
+		statId: "Poison",
+		//match: /When you deal damage with a Magicka ability, your Poison and Disease Damage abilities gain an additional ([0-9]+) Weapon Damage/i,
+		match: /Adds ([0-9]+) Weapon Damage to your Poison and Disease Damage abilities./i,
+	},
+	{
+		id: "Swamp Raider",
+		setBonusCount: 4,
+		toggle: false,
+		enabled: false,
+		enableOffBar : true,
+		category: "SkillBonusWeaponDmg",
+		statId: "Disease",
+		//match: /When you deal damage with a Magicka ability, your Poison and Disease Damage abilities gain an additional ([0-9]+) Weapon Damage/i,
+		match: /Adds ([0-9]+) Weapon Damage to your Poison and Disease Damage abilities./i,
 	},
 		
 		// Optionally toggled set effects
@@ -6060,24 +6121,13 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /you have a [0-9]+% chance to give them Major Courage for [0-9]+ seconds which increases their Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
-		id: "Swamp Raider",
+		id: "Spell Strategist",
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		category: "SkillBonusWeaponDmg",
-		statId: "Poison",
-		match: /When you deal damage with a Magicka ability, your Poison and Disease Damage abilities gain an additional ([0-9]+) Weapon Damage/i,
-	},
-	{
-		id: "Swamp Raider",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		category: "SkillBonusWeaponDmg",
-		statId: "Disease",
-		match: /When you deal damage with a Magicka ability, your Poison and Disease Damage abilities gain an additional ([0-9]+) Weapon Damage/i,
+		statId: "SpellDamage",
+		match: /When you deal damage with a Light Attack, you place a mark over your target for 5 seconds, granting you ([0-9]+) Spell Damage against your marked target/i,
 	},
 	{
 		id: "The Brute",
@@ -11271,7 +11321,7 @@ window.ComputeEsoBuildSetDataAverages = function (setData)
 				var delta = maxNumber / 86;		// Best estimate so far
 				setData.averageNumbers[i][j] = Math.round(Math.floor(setData.averageNumbers[i][j] / delta) * delta);
 			}
-			else
+			else if (setData.parsedNumbers[i] != null && setData.parsedNumbers[i][0] != null && setData.parsedNumbers[i][0][j] != null)
 			{
 				setData.averageNumbers[i][j] = setData.parsedNumbers[i][0][j];
 			}			

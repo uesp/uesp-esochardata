@@ -5,7 +5,7 @@ window.lastEsoBookSearchPos = -1;
 window.lastEsoBookSearchElement = null;
 
 
-function EsoBuildLog()
+window.EsoBuildLog = function()
 {
 	if (console == null) return;
 	if (console.log == null) return;
@@ -14,7 +14,7 @@ function EsoBuildLog()
 }
 
 
-function onTooltipHoverShow()
+window.onTooltipHoverShow = function()
 {
 	ecdLastTooltip = $(this).find('.ecdTooltip');
 	
@@ -26,7 +26,7 @@ function onTooltipHoverShow()
 }
 
 
-function adjustSkillTooltipPosition(tooltip, parent)
+window.adjustSkillTooltipPosition = function(tooltip, parent)
 {
 	if (tooltip == null || tooltip[0] == null) return;
 	
@@ -77,13 +77,13 @@ function adjustSkillTooltipPosition(tooltip, parent)
 }
 
 
-function onTooltipHoverHide()
+window.onTooltipHoverHide = function()
 {
 	if (ecdLastTooltip) ecdLastTooltip.hide();
 }
 
 
-function onTooltipMouseMove(e)
+window.onTooltipMouseMove = function(e)
 {
 	if (ecdLastTooltip == null) return;
 	
@@ -117,7 +117,7 @@ window.EsoAchTree_LastContentName = null;
 window.EsoAchTree_LastContent = null;
 
 
-function OnEsoSkillTreeName1Click(e)
+window.OnEsoSkillTreeName1Click = function(e)
 {
 	EsoSkillTree_LastOpenTreeName = $('.ecdSkillTreeName1.ecdSkillTreeNameHighlight').first();
 	EsoSkillTree_LastOpenTree = EsoSkillTree_LastOpenTreeName.next(".ecdSkillTreeContent1");
@@ -141,13 +141,13 @@ function OnEsoSkillTreeName1Click(e)
 }
 
 
-function OnEsoSkillTreeName2Click(e)
+window.OnEsoSkillTreeName2Click = function(e)
 {
 	SelectEsoSkillTreeContents($(this));
 }
 
 
-function SelectEsoSkillTreeContents(object)
+window.SelectEsoSkillTreeContents = function(object)
 {
 	EsoSkillTree_LastSkillContentName = $('.ecdSkillTreeNameHighlight2').first();
 	EsoSkillTree_LastSkillContent = $('.ecdSkillData:visible').first();
@@ -166,7 +166,7 @@ function SelectEsoSkillTreeContents(object)
 }
 
 
-function OnEsoAchievementTreeName1Click(e)
+window.OnEsoAchievementTreeName1Click = function(e)
 {
 	EsoAchTree_LastOpenTreeName = $('.ecdAchTreeName1.ecdAchTreeNameHighlight').first();
 	EsoAchTree_LastOpenTree = EsoAchTree_LastOpenTreeName.next(".ecdAchTreeContent1");
@@ -193,13 +193,13 @@ function OnEsoAchievementTreeName1Click(e)
 }
 
 
-function OnEsoAchievementTreeName2Click(e)
+window.OnEsoAchievementTreeName2Click = function(e)
 {
 	SelectEsoAchievementTreeContents($(this));
 }
 
 
-function SelectEsoAchievementTreeContents(object)
+window.SelectEsoAchievementTreeContents = function(object)
 {
 	EsoAchTree_LastContentName = $('.ecdAchTreeNameHighlight2').first();
 	EsoAchTree_LastContent = $('.ecdAchData:visible').first();
@@ -224,7 +224,7 @@ function SelectEsoAchievementTreeContents(object)
 }
 
 
-function OnEsoRightTitleClick(name, self)
+window.OnEsoRightTitleClick = function(name, self)
 {
 	$('.ecdRightTitleButtonEnabled').addClass("ecdRightTitleButtonDisabled").removeClass("ecdRightTitleButtonEnabled");
 	$('.ecdTopLevelIcon').removeClass('selected');
@@ -246,7 +246,7 @@ function OnEsoRightTitleClick(name, self)
 }
 
 
-function CheckEsoContentForAsyncLoad(element, contentId)
+window.CheckEsoContentForAsyncLoad = function(element, contentId)
 {
 	var asyncLoadElement = $(element).children(".ecdAsyncLoad");
 	
@@ -284,7 +284,7 @@ function CheckEsoContentForAsyncLoad(element, contentId)
 }
 
 
-function OnEsoCharDataContentRequest(data, contentId, element, status, xhr)
+window.OnEsoCharDataContentRequest = function(data, contentId, element, status, xhr)
 {
 	var parent = $(element).parent();
 	
@@ -293,25 +293,25 @@ function OnEsoCharDataContentRequest(data, contentId, element, status, xhr)
 }
 
 
-function OnEsoCharDataContentError(xhr, contentId, element, status, errorMsg)
+window.OnEsoCharDataContentError = function(xhr, contentId, element, status, errorMsg)
 {
 	EsoBuildLog("Error requesting char data content '" + contentId + "'!", errorMsg);
 }
 
 
-function OnEsoCharDataJsonRequest(data, contentId, status, xhr)
+window.OnEsoCharDataJsonRequest = function(data, contentId, status, xhr)
 {
 	if (contentId == "AllInventoryJS") ecdAllInventory = data;	
 }
 
 
-function OnEsoCharDataJsonError(xhr, contentId, status, errorMsg)
+window.OnEsoCharDataJsonError = function(xhr, contentId, status, errorMsg)
 {
 	EsoBuildLog("Error requesting char data JSON '" + contentId + "'!", errorMsg);
 }
 	
 
-function OnItemFilter(name)
+window.OnItemFilter = function(name)
 {
 	$('.ecdItemFilterContainer').removeClass("selected");
 	
@@ -335,25 +335,25 @@ function OnItemFilter(name)
 }
 
 
-function ItemFilter_All(item)
+window.ItemFilter_All = function(item)
 {
 	return true;
 }
 
 
-function ItemFilter_Armor(item)
+window.ItemFilter_Armor = function(item)
 {
 	return item.type == 2 || (item.type == 1 && item.weaponType == 14);
 }
 
 
-function ItemFilter_Weapon(item)
+window.ItemFilter_Weapon = function(item)
 {
 	return item.type == 1 && item.weaponType != 14;
 }
 
 
-function ItemFilter_Consumable(item)
+window.ItemFilter_Consumable = function(item)
 {
 	return item.consumable != 0 && (
 		item.type ==  7 || item.type ==  4 || item.type ==  9 || item.type == 12 || item.type == 29 || item.type == 55 || 
@@ -362,7 +362,7 @@ function ItemFilter_Consumable(item)
 }
 
 
-function ItemFilter_Material(item)
+window.ItemFilter_Material = function(item)
 {
 	return item.type == 10 || item.type == 44 || item.type == 53 || item.type == 45 || item.type == 33 || item.type == 31 || 
            item.type == 39 || item.type == 37 || item.type == 35 || item.type == 38 || item.type == 40 || item.type == 52 ||
@@ -371,7 +371,7 @@ function ItemFilter_Material(item)
 }
 
 
-function ItemFilter_Misc(item)
+window.ItemFilter_Misc = function(item)
 {
 	return item.type == 56 || item.type == 48 || item.type == 19 || item.type == 9 || item.type == 29 || item.type == 55 || 
            item.type == 57 || item.type == 30 || item.type == 18 || item.type == 5 || item.type == 47 || item.type ==  6 ||
@@ -379,14 +379,14 @@ function ItemFilter_Misc(item)
 }
 
 
-function ItemFilter_Quest(item)
+window.ItemFilter_Quest = function(item)
 {
 	//TODO
 	return false;
 }
 
 
-function ItemFilter_Junk(item)
+window.ItemFilter_Junk = function(item)
 {
 	return item.junk != 0;
 }
@@ -404,7 +404,7 @@ window.ITEM_FILTER_FUNCTIONS = {
 }
 
 
-function MatchFilterString(filterText, item)
+window.MatchFilterString = function(filterText, item)
 {
 	if (filterText == "") return true;
 	
@@ -420,7 +420,7 @@ window.ESO_ITEMFILTER_UPDATEMS = 400;
 window.g_EsoItemFilterIsUpdating = false;
 
 
-function DoItemFilter()
+window.DoItemFilter = function()
 {
 	var filterName = $(".ecdItemFilterContainer.selected").attr('itemfilter').toUpperCase();
 	var filterText = $(".ecdItemFilterTextInput:visible").val().toLowerCase();
@@ -465,7 +465,7 @@ window.g_EsoCharUpdateItemFilterFlag = false;
 window.g_EsoCharUpdateItemLastRequest = 0;
 
 
-function UpdateItemFilter()
+window.UpdateItemFilter = function()
 {
 	g_EsoCharUpdateItemFilterFlag = true;
 	g_EsoCharUpdateItemLastRequest = (new Date().getTime())/1000;
@@ -474,7 +474,7 @@ function UpdateItemFilter()
 }
 
 
-function CheckEsoCharUpdateItemFilter()
+window.CheckEsoCharUpdateItemFilter = function()
 {
 	if (!g_EsoCharUpdateItemFilterFlag) return;
 	
@@ -492,20 +492,20 @@ function CheckEsoCharUpdateItemFilter()
 }
 
 
-function copyToClipboard(self)
+window.copyToClipboard = function(self)
 {
 	var textToCopy = $(self).text();
 	copyTextToClipboard(textToCopy);
 }
 
 
-function OnBuildTableAnchorClick(e)
+window.OnBuildTableAnchorClick = function(e)
 {
 	e.stopPropagation();
 }
 
 
-function OnBuildTableRowClick(e)
+window.OnBuildTableRowClick = function(e)
 {
 	var anchor = $(this).parent().find(".ecdBuildLink");
 	if (anchor.length == 0) return;
@@ -514,7 +514,7 @@ function OnBuildTableRowClick(e)
 }
 
 
-function copyTextToClipboard(textToCopy)
+window.copyTextToClipboard = function(textToCopy)
 {
 	$("body")
 		.append($('<input type="text" name="fname" class="textToCopyInput" style="opacity: 0; position: absolute;" />' )
@@ -536,7 +536,7 @@ function copyTextToClipboard(textToCopy)
 }
 
 
-function ActivateBuildActionBar(barIndex)
+window.ActivateBuildActionBar = function(barIndex)
 {
 	
 	if (barIndex >= 1 && barIndex <= 4)
@@ -571,46 +571,46 @@ function ActivateBuildActionBar(barIndex)
 }
 
 
-function OnBuildWeaponBar1Click(e)
+window.OnBuildWeaponBar1Click = function(e)
 {
 	ActivateBuildActionBar(1);
 }
 
 
-function OnBuildWeaponBar2Click(e)
+window.OnBuildWeaponBar2Click = function(e)
 {
 	ActivateBuildActionBar(2);
 }
 
 
-function OnBuildActionBar1Click(e)
+window.OnBuildActionBar1Click = function(e)
 {
 	ActivateBuildActionBar(1);
 }
 
 
-function OnBuildActionBar2Click(e)
+window.OnBuildActionBar2Click = function(e)
 {
 	ActivateBuildActionBar(2);
 }
 
 
-function OnBuildActionBar3Click(e)
+window.OnBuildActionBar3Click = function(e)
 {
 	ActivateBuildActionBar(3);
 }
 
 
-function OnBuildActionBar4Click(e)
+window.OnBuildActionBar4Click = function(e)
 {
 	ActivateBuildActionBar(4);
 }
 
 
-var ecdItemOwnerWindow = null;
+window.ecdItemOwnerWindow = null;
 
 
-function CreateItemOwnerWindow()
+window.CreateItemOwnerWindow = function()
 {
 	if (ecdItemOwnerWindow != null) return;
 	
@@ -624,7 +624,7 @@ function CreateItemOwnerWindow()
 }
 
 
-function CreateItemOwnerHtml(itemData)
+window.CreateItemOwnerHtml = function(itemData)
 {
 	var output = "";
 	var summaryData = {};
@@ -656,7 +656,7 @@ function CreateItemOwnerHtml(itemData)
 }
 
 
-function ShowItemOwnerWindow(element, itemData)
+window.ShowItemOwnerWindow = function(element, itemData)
 {
 	CreateItemOwnerWindow();
 	
@@ -670,7 +670,7 @@ function ShowItemOwnerWindow(element, itemData)
 }
 
 
-function OnItemRowClick(e)
+window.OnItemRowClick = function(e)
 {
 	
 	var localId = $(this).attr("localid");
@@ -683,13 +683,13 @@ function OnItemRowClick(e)
 }
 
 
-function OnItemRowLeave(e)
+window.OnItemRowLeave = function(e)
 {
 	if (ecdItemOwnerWindow) ecdItemOwnerWindow.hide();
 }
 
 
-function DoesEsoItemLinkHaveEvent()
+window.DoesEsoItemLinkHaveEvent = function()
 {
 	if (ShowEsoItemLinkPopup != null) return true; 
 	
@@ -700,13 +700,13 @@ function DoesEsoItemLinkHaveEvent()
 }
 
 
-function OnSlideAchievementComplete()
+window.OnSlideAchievementComplete = function()
 {
 	SlideAchievementIntoView($(this).parent());
 }
 
 
-function SlideAchievementIntoView(element, instant)
+window.SlideAchievementIntoView = function(element, instant)
 {
 	var offsetTop = element.position().top;
 	var parent = element.parent(".ecdAchData");
@@ -731,7 +731,7 @@ function SlideAchievementIntoView(element, instant)
 }
 
 
-function OnAchievementClick()
+window.OnAchievementClick = function()
 {
 	var dataBlock = $(this).children(".ecdAchDataBlock");
 	dataBlock.slideToggle(400, OnSlideAchievementComplete);
@@ -740,12 +740,12 @@ function OnAchievementClick()
 }
 
 
-var lastAchSearchText = "";
-var lastAchSearchPos = -1;
-var lastAchSearchElement = null;
+window.lastAchSearchText = "";
+window.lastAchSearchPos = -1;
+window.lastAchSearchElement = null;
 
 
-function OnFindEsoCharAchievement(element)
+window.OnFindEsoCharAchievement = function(element)
 {
 	var text = $("#ecdFindAchInput").val().trim().toLowerCase();
 	if (text == "") return;
@@ -761,7 +761,7 @@ function OnFindEsoCharAchievement(element)
 }
 
 
-function FindEsoCharNextAchievement()
+window.FindEsoCharNextAchievement = function()
 {
 	var isFound = false;
 	
@@ -803,7 +803,7 @@ function FindEsoCharNextAchievement()
 }
 
 
-function SelectFoundAchievement(element)
+window.SelectFoundAchievement = function(element)
 {
 	var achievement = $(element).closest(".ecdAchievement1");
 	var parent = $(element).closest(".ecdAchData");
@@ -856,7 +856,7 @@ window.lastRecipeSearchPos = -1;
 window.lastRecipeSearchElement = null;
 
 
-function OnEsoCharDataSearchRecipe(event)
+window.OnEsoCharDataSearchRecipe = function(event)
 {
 	var searchText = $("#ecdSkillRecipesSearchInput").val().trim().toLowerCase();
 	if (searchText == "") return;
@@ -873,7 +873,7 @@ function OnEsoCharDataSearchRecipe(event)
 
 
 
-function FindEsoCharNextRecipe()
+window.FindEsoCharNextRecipe = function()
 {
 	var isFound = false;
 	
@@ -913,7 +913,7 @@ function FindEsoCharNextRecipe()
 }
 
 
-function SelectFoundEsoCharRecipe(element, instant)
+window.SelectFoundEsoCharRecipe = function(element, instant)
 {
 	element.addClass("ecdRecipeSearchHighlight");
 	
@@ -948,13 +948,13 @@ function SelectFoundEsoCharRecipe(element, instant)
 }
 
 
-function OnEsoRecipeScroll(event)
+window.OnEsoRecipeScroll = function(event)
 {
 	$("#ecdSkillRecipesSearchBlock").css('top', $("#ecdSkill_Recipes").scrollTop());
 }
 
 
-function UpdateEsoInventoryShownSpace()
+window.UpdateEsoInventoryShownSpace = function()
 {
 	$(".ecdInvShowSpaceLabel").text("");
 	
@@ -962,7 +962,7 @@ function UpdateEsoInventoryShownSpace()
 }
 
 
-function UpdateEsoInventoryShownSpace_Async()
+window.UpdateEsoInventoryShownSpace_Async = function()
 {	
 	var shownItems = $(".ecdItemTable tr.eso_item_link:visible");
 	var numItems = 0;
@@ -992,7 +992,7 @@ function UpdateEsoInventoryShownSpace_Async()
 }
 
 
-function OnRecipeTitleClick(e)
+window.OnRecipeTitleClick = function(e)
 {
 	var recipeList = $(this).next(".ecdRecipeList");
 
@@ -1002,7 +1002,7 @@ function OnRecipeTitleClick(e)
 }
 
 
-function SetRecipeTitleArrow(element, visible)
+window.SetRecipeTitleArrow = function(element, visible)
 {
 	var recipeArrow = $(element).children(".ecdRecipeTitleArrow");
 	
@@ -1014,7 +1014,7 @@ function SetRecipeTitleArrow(element, visible)
 }
 
 
-function OnQuestZoneTitleClick(e)
+window.OnQuestZoneTitleClick = function(e)
 {
 	var lastOpenQuestZone = $(".ecdQuestZoneTitle.ecdQuestSelected").first();
 	if (lastOpenQuestZone.is($(this))) return;
@@ -1042,14 +1042,14 @@ function OnQuestZoneTitleClick(e)
 }
 
 
-function OnQuestZoneTitle1Click(e)
+window.OnQuestZoneTitle1Click = function(e)
 {
 	var questList = $(this).next(".ecdQuestZoneList1");
 	questList.slideToggle();
 }
 
 
-function OnQuestNameClick(e)
+window.OnQuestNameClick = function(e)
 {
 	var lastOpenQuest = $(".ecdQuestName.ecdQuestSelected").first();
 	if (lastOpenQuest.is($(this))) return;
@@ -1068,7 +1068,7 @@ function OnQuestNameClick(e)
 }
 
 
-function UpdateFirstQuestDetails()
+window.UpdateFirstQuestDetails = function()
 {
 	var firstQuest = $(".ecdQuestZoneTitle.ecdQuestSelected").next(".ecdQuestZoneList").children(".ecdQuestName").first()[0];
 	
@@ -1081,7 +1081,7 @@ window.lastEsoAllQuestSearchPos = -1;
 window.lastEsoAllQuestSearchElement = null;
 
 
-function OnEsoCharDataSearchAllQuests()
+window.OnEsoCharDataSearchAllQuests = function()
 {
 	var text = $("#ecdQuestAllSearchText").val().trim().toLowerCase();
 	if (text == "") return;
@@ -1097,7 +1097,7 @@ function OnEsoCharDataSearchAllQuests()
 }
 
 
-function FindEsoCharNextAllQuest()
+window.FindEsoCharNextAllQuest = function()
 {
 	var isFound = false;
 	
@@ -1135,7 +1135,7 @@ function FindEsoCharNextAllQuest()
 }
 
 
-function SelectFoundEsoAllQuest(quest)
+window.SelectFoundEsoAllQuest = function(quest)
 {
 	var questList = $(quest).parent(".ecdQuestZoneList1");
 	
@@ -1147,7 +1147,7 @@ function SelectFoundEsoAllQuest(quest)
 }
 
 
-function SlideEsoQuestIntoView(element, instant)
+window.SlideEsoQuestIntoView = function(element, instant)
 {
 	var offsetTop = element.position().top - 200;
 	var parent = element.parents(".ecdQuestDetail");
@@ -1172,7 +1172,7 @@ function SlideEsoQuestIntoView(element, instant)
 }
 
 
-function OnEsoBookCollectionClick(e)
+window.OnEsoBookCollectionClick = function(e)
 {
 	var categoryIndex = $(this).attr("categoryindex");
 	var collectionIndex = $(this).attr("collectionindex");
@@ -1185,7 +1185,7 @@ function OnEsoBookCollectionClick(e)
 }
 
 
-function OnEsoBookCategoryClick(e)
+window.OnEsoBookCategoryClick = function(e)
 {
 	var currentCategory = $(".ecdBookCategorySelected").first();
 	if ($(this).is(currentCategory)) return;
@@ -1211,7 +1211,7 @@ function OnEsoBookCategoryClick(e)
 }
 
 
-function OnEsoCharDataSearchBooks()
+window.OnEsoCharDataSearchBooks = function()
 {
 	var text = $("#ecdBookSearchText").val().trim().toLowerCase();
 	if (text == "") return;
@@ -1227,7 +1227,7 @@ function OnEsoCharDataSearchBooks()
 }
 
 
-function FindEsoCharNextBook()
+window.FindEsoCharNextBook = function()
 {
 	var isFound = false;
 	
@@ -1265,7 +1265,7 @@ function FindEsoCharNextBook()
 }
 
 
-function SelectFoundEsoBook(book)
+window.SelectFoundEsoBook = function(book)
 {
 	var bookList = $(book).parent(".ecdBookList");
 	
@@ -1304,7 +1304,7 @@ function SelectFoundEsoBook(book)
 }
 
 
-function SlideEsoBookIntoView(element, instant)
+window.SlideEsoBookIntoView = function(element, instant)
 {
 	var offsetTop = element.position().top - 200;
 	var parent = element.parent(".ecdBookList");
@@ -1329,7 +1329,7 @@ function SlideEsoBookIntoView(element, instant)
 }
 
 
-function SlideEsoBookCollectionIntoView(element, instant)
+window.SlideEsoBookCollectionIntoView = function(element, instant)
 {
 	var offsetTop = element.position().top - 200;
 	var parent = element.parents(".ecdBookTree");
@@ -1354,7 +1354,7 @@ function SlideEsoBookCollectionIntoView(element, instant)
 }
 
 
-function OnEsoBookClick(e)
+window.OnEsoBookClick = function(e)
 {
 	var queryParams = {}
 	var bookId = $(this).attr("bookid");
@@ -1372,19 +1372,19 @@ function OnEsoBookClick(e)
 }
 
 
-function OnEsoBookDataRequest(data, status, xhr)
+window.OnEsoBookDataRequest = function(data, status, xhr)
 {
 	ShowEsoBook(data.book[0]);
 }
 
 
-function OnEsoBookDataError(xhr, status, errorMsg)
+window.OnEsoBookDataError = function(xhr, status, errorMsg)
 {
 	EsoBuildLog("Error requesting book data!", errorMsg);
 }
 
 
-function ShowEsoBook(book)
+window.ShowEsoBook = function(book)
 {
 	var bookRoot = $("#ecdBookRoot");
 	var bookContents = $("#ecdBookContents");
@@ -1401,14 +1401,14 @@ function ShowEsoBook(book)
 }
 
 
-function OnEsoBookCloseClick()
+window.OnEsoBookCloseClick = function()
 {
 	var bookRoot = $("#ecdBookRoot");
 	bookRoot.hide(0);
 }
 
 
-function OnEsoBookClickDocument()
+window.OnEsoBookClickDocument = function()
 {
 	var bookRoot = $("#ecdBookRoot");
 	bookRoot.hide(0);
@@ -1416,7 +1416,7 @@ function OnEsoBookClickDocument()
 }
 
 
-function OnEsoCategoryCollectibleClick()
+window.OnEsoCategoryCollectibleClick = function()
 {
 	var lastCategory = $(".ecdCollectibleCategorySelected").first();
 	if ($(this).is(lastCategory)) return;
@@ -1453,7 +1453,7 @@ function OnEsoCategoryCollectibleClick()
 }
 
 
-function OnEsoSubcategoryCollectibleClick()
+window.OnEsoSubcategoryCollectibleClick = function()
 {
 	var lastSubcategory = $(".ecdCollectibleSubcategorySelected").first();
 	if ($(this).is(lastSubcategory)) return;
@@ -1471,7 +1471,7 @@ function OnEsoSubcategoryCollectibleClick()
 }
 
 
-function OnEsoCollectionsMenuItemClick()
+window.OnEsoCollectionsMenuItemClick = function()
 {
 	var collectible = $(this).attr("collectid");
 	var title = $(this).attr("title");
@@ -1486,7 +1486,7 @@ function OnEsoCollectionsMenuItemClick()
 }
 
 
-function OnEsoCategoryOutfitClick()
+window.OnEsoCategoryOutfitClick = function()
 {
 	var lastCategory = $(".ecdOutfitCategorySelected").first();
 	if ($(this).is(lastCategory)) return;
@@ -1513,7 +1513,7 @@ function OnEsoCategoryOutfitClick()
 }
 
 
-function OnEsoSubcategoryOutfitClick()
+window.OnEsoSubcategoryOutfitClick = function()
 {
 	var lastSubcategory = $(".ecdOutfitSubcategorySelected").first();
 	if ($(this).is(lastSubcategory)) return;
@@ -1531,7 +1531,7 @@ function OnEsoSubcategoryOutfitClick()
 }
 
 
-function AddEsoCharDataAsyncHandlers(parent)
+window.AddEsoCharDataAsyncHandlers = function(parent)
 {
 	var $parent = $(parent);
 	
@@ -1636,7 +1636,7 @@ function AddEsoCharDataAsyncHandlers(parent)
 }
 
 
-function FormatEsoTimeLeft(timeLeft)
+window.FormatEsoTimeLeft = function(timeLeft)
 {
 	var days = Math.floor(timeLeft / 3600 / 24);
 	var hours = Math.floor(timeLeft / 3600) % 24;
@@ -1655,7 +1655,7 @@ function FormatEsoTimeLeft(timeLeft)
 }
 
 
-function UpdateEsoCharDataHirelingTime(index, element)
+window.UpdateEsoCharDataHirelingTime = function(index, element)
 {
 	var nowTime = Math.floor(Date.now() / 1000);
 	var baseTime = $(this).attr("timestamp");
@@ -1675,7 +1675,7 @@ function UpdateEsoCharDataHirelingTime(index, element)
 }
 
 
-function UpdateEsoCharDataRidingTime(index, element)
+window.UpdateEsoCharDataRidingTime = function(index, element)
 {
 	var nowTime = Math.floor(Date.now() / 1000);
 	var baseTime = $(this).attr("timestamp");
@@ -1691,28 +1691,28 @@ function UpdateEsoCharDataRidingTime(index, element)
 }
 
 
-function OnEsoCharDataTimeUpdate()
+window.OnEsoCharDataTimeUpdate = function()
 {
 	$(".ecdHirelingTime").each(UpdateEsoCharDataHirelingTime);
 	$(".ecdRidingTime").each(UpdateEsoCharDataRidingTime);	
 }
 
 
-function OnCharMenuHoverIn()
+window.OnCharMenuHoverIn = function()
 {
 	$("#ecdCharacterMenu").slideDown();
 	$("#ecdCharMenuArrow").html("&#x25B2;");
 }
 
 
-function OnCharMenuHoverOut()
+window.OnCharMenuHoverOut = function()
 {
 	$("#ecdCharacterMenu").slideUp();
 	$("#ecdCharMenuArrow").html("&#x25BC;");
 }
 
 
-function OnChangeCharScreenshot()
+window.OnChangeCharScreenshot = function()
 {
 	var selectedImage = $("#ecdScreenshotList").val();
 	
@@ -1727,7 +1727,7 @@ function OnChangeCharScreenshot()
 }
 
 
-function OnToggleCharBackgroundImage()
+window.OnToggleCharBackgroundImage = function()
 {
 	$("#ecdTitleBar").toggle();
 	$("#ecdRightData").toggle();
@@ -1739,7 +1739,7 @@ function OnToggleCharBackgroundImage()
 }
 
 
-function OnClickEsoScreenshotCaptionButton()
+window.OnClickEsoScreenshotCaptionButton = function()
 {
 	var queryParams = {}
 	var charId = $(this).attr("charid");
@@ -1772,7 +1772,7 @@ function OnClickEsoScreenshotCaptionButton()
 }
 
 
-function OnEsoCharEditScreenshotCaptionSaved(data, screenshotId, statusElement, status, xhr)
+window.OnEsoCharEditScreenshotCaptionSaved = function(data, screenshotId, statusElement, status, xhr)
 {
 	if (data.result > 0)
 	{
@@ -1787,13 +1787,13 @@ function OnEsoCharEditScreenshotCaptionSaved(data, screenshotId, statusElement, 
 }
 
 
-function OnEsoCharEditScreenshotCaptionError(xhr, screenshotId, statusElement, status, errorMsg)
+window.OnEsoCharEditScreenshotCaptionError = function(xhr, screenshotId, statusElement, status, errorMsg)
 {
 	$("#ecdScreenshotStatus").html("Error saving caption for screenshot " + screenshotId +"!<br/>" + errorMsg)
 }
 
 
-function OnClickEsoScreenshotDeleteButton()
+window.OnClickEsoScreenshotDeleteButton = function()
 {
 	var queryParams = {}
 	var charId = $(this).attr("charid");
@@ -1824,7 +1824,7 @@ function OnClickEsoScreenshotDeleteButton()
 }
 
 
-function OnEsoCharEditScreenshotDeleted(data, screenshotId, statusElement, status, xhr)
+window.OnEsoCharEditScreenshotDeleted = function(data, screenshotId, statusElement, status, xhr)
 {
 	if (data.result > 0)
 	{
@@ -1840,13 +1840,13 @@ function OnEsoCharEditScreenshotDeleted(data, screenshotId, statusElement, statu
 }
 
 
-function OnEsoCharEditScreenshotDeleteError(xhr, screenshotId, statusElement, status, errorMsg)
+window.OnEsoCharEditScreenshotDeleteError = function(xhr, screenshotId, statusElement, status, errorMsg)
 {
 	statusElement.html("Error deleting screenshot " + screenshotId + "!<br/>" + errorMsg)
 }
 
 
-function onDocReady()
+window.onEsoBuildDataDocReady = function()
 {  
 	$(".ecdTooltipTrigger").hover(onTooltipHoverShow, onTooltipHoverHide, onTooltipMouseMove);
 	$(".ecdTooltip").hover(onTooltipHoverHide, onTooltipHoverHide, onTooltipHoverHide);
@@ -1887,6 +1887,6 @@ function onDocReady()
 }
 
 
-$(document).ready(onDocReady);
+$(document).ready(onEsoBuildDataDocReady);
 
 
