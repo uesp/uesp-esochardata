@@ -1534,6 +1534,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"SkillDuration.Veiled Strike" => array(
+					"display" => "%",
+			),
+			
 			"SkillDuration.Path of Darkness" => array(
 					"display" => "%",
 			),

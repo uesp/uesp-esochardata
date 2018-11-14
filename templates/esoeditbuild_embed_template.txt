@@ -1201,9 +1201,14 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>14 November 2018</b>
+			<ul>
+				<li>The Nightblade Dark Veil passive now updates the the tooltip duration values.</li>
+			</ul>
+			<p>
 			<b>12 November 2018</b>
 			<ul>
-				<li>Base penetration changed to 0.
+				<li>Base penetration changed to 0.</li>
 			</ul>
 			<p>
 			<b>9 November 2018</b>
