@@ -4469,10 +4469,38 @@ class EsoBuildDataEditor
 	}
 	
 	
+	public function CreateNewInitialSkillData()
+	{
+		global $ESO_FREE_SKILLS;
+			
+		foreach ($ESO_FREE_SKILLS as $skillId => $skillType)
+		{
+			$this->initialSkillData[$skillId] = 1;
+			
+			$skillCharData = array();
+			$skillCharData['type'] = $skillType;
+			$skillCharData['abilityId'] = $skillId;
+			$skillCharData['description'] = "";
+			$skillCharData['rank'] = 1;
+		
+			if ($skillType == "passive")
+				$this->initialPassiveSkillData[$skillId] = $skillCharData;
+			else
+				$this->initialActiveSkillData[$skillId] = $skillCharData;
+		}
+	
+		$this->viewSkills->initialData = $this->initialSkillData;
+		$this->viewSkills->activeData = $this->initialActiveSkillData;
+		$this->viewSkills->passiveData = $this->initialPassiveSkillData;
+	}
+	
+	
 	public function CreateInitialSkillData()
 	{
-		$this->viewSkills->displayClass = $this->getCharField('class');
-		$this->viewSkills->displayRace = $this->getCharField('race');
+		$isNew = ($this->buildId <= 0 || $this->buildId == null);
+		
+		$this->viewSkills->displayClass = $this->getCharField('class', 'Dragonknight');
+		$this->viewSkills->displayRace = $this->getCharField('race', 'Argonian');
 		
 		if ($this->viewSkills->displayClass == "Dragonknight")
 			$this->viewSkills->highlightSkillId = 33963;
@@ -4489,6 +4517,12 @@ class EsoBuildDataEditor
 		$this->initialSkillData['UsedPoints'] = $this->getCharStatField("SkillPointsUsed", 0);
 		$this->initialSkillData['UnusedPoints'] = $this->getCharStatField("SkillPointsUnused", 0);
 		$this->initialSkillData['TotalPoints'] = $this->getCharStatField("SkillPointsTotal", 0);
+		
+		if ($isNew) 
+		{
+			$this->CreateNewInitialSkillData();
+			return;
+		}
 		
 		foreach ($this->buildDataViewer->characterData['skills'] as $skillName => $skillData)
 		{
@@ -4620,7 +4654,12 @@ class EsoBuildDataEditor
 	
 	public function LoadBuild()
 	{
-		if ($this->buildId === null) return true;
+		if ($this->buildId === null) 
+		{
+			$this->CreateInitialSkillData();
+			return true;
+		}
+		
 		$this->buildDataViewer->characterId = $this->buildId;
 		
 		if (!$this->buildDataViewer->loadCharacter()) return false;
