@@ -1160,7 +1160,7 @@ EOT;
 			$blackLevel = $this->getAccountSkillsField($charId, "Craft:Blacksmithing:Metalworking", "rank", 0);
 			$clothLevel = $this->getAccountSkillsField($charId, "Craft:Clothing:Tailoring", "rank", 0);
 			$enchantLevel = $this->getAccountSkillsField($charId, "Craft:Enchanting:Potency Improvement", "rank", 0);
-			$jewelryLevel = $this->getAccountSkillsField($charId, "Craft:Jewelry:Potency Improvement", "rank", 0);
+			$jewelryLevel = $this->getAccountSkillsField($charId, "Craft:Jewelry Crafting:Engraver", "rank", 0);
 			$provLevel = $this->getAccountSkillsField($charId, "Craft:Provisioning:Recipe Improvement", "rank", 0);
 			$woodLevel = $this->getAccountSkillsField($charId, "Craft:Woodworking:Woodworking", "rank", 0);
 			
@@ -1450,7 +1450,7 @@ EOT;
 		$currentTime = time();
 		$output = "<br/></br>";
 		
-		$jewelryLevel = $this->getCharSkillsField("Craft:Jewelry:Engraver", "rank", 0);
+		$jewelryLevel = $this->getCharSkillsField("Craft:Jewelry Crafting:Engraver", "rank", 0);
 		$jewelryMRChance = $this->getCharJewelryMasterWritChance(-1, $jewelryLevel);
 		
 		if ($jewelryMRChance > 0)
