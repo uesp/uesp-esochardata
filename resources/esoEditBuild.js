@@ -876,6 +876,7 @@ window.g_EsoBuildBuffData =
 			statId : "StaminaCost",
 			icon : "/esoui/art/icons/gear_artifactsaviorhidemd_head_a.png",
 		},
+		/*
 		"Hircines Rage" : 
 		{
 			enabled: false,
@@ -884,7 +885,7 @@ window.g_EsoBuildBuffData =
 			display: '%',
 			statId : "WeaponDamage",
 			icon : "/esoui/art/icons/ability_werewolf_004_b.png",
-		},
+		}, */
 		"Powerful Assault" : 
 		{
 			enabled: false,
@@ -1600,7 +1601,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		//displayName: "Hircine's Rage",
 		matchSkillName: true,
 		baseSkillId: 58316,
-		buffId: "Hircines Rage",
+		buffId: "Major Brutality",
 		toggle: true,
 		enabled: false,
 		match: /increasing your Weapon Damage by ([0-9]+\.?[0-9]*)%/i
