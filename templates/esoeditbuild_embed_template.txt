@@ -1201,6 +1201,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>9 January 2018</b>
+			<ul>
+				<li>Hircine's Rage Werewolf skill now correctly grants you Major Brutality.</li>
+			</ul>
+			<p>
 			<b>15 November 2018</b>
 			<ul>
 				<li>Added the Werewolf Devour passive as a free skill.</li>
