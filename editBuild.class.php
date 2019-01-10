@@ -209,6 +209,8 @@ class EsoBuildDataEditor
 			"Item.SynergyBonus",
 			"Item.ExecuteBonus",
 			"BuildDescription",
+			"Skill.PoisonStaminaCost",
+			"Skill.FlameAOEDamageDone",
 	);
 	
 	
@@ -663,6 +665,14 @@ class EsoBuildDataEditor
 			),
 			
 			"Skill.AOEDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"Skill.PoisonStaminaCost" => array(
+					"display" => "%",
+			),
+			
+			"Skill.FlameAOEDamageDone" => array(
 					"display" => "%",
 			),
 			
