@@ -5,6 +5,7 @@
  * 		- Hide skill lines, auto-purchase free skills.
  * 		- Skill point count bug.
  * 		- Dark Veil passive affect tooltip durations (durations within the tooltip text).
+ * 		- World in Ruin DK passive effects.
  */
 
 window.TestCache = 789;
@@ -3677,6 +3678,22 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "ColdDamageDone",
 		display: '%',
 		match: /Increases your Magic and Frost Damage by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "ColdDamageDone",
+		display: '%',
+		match: /Increases your Magic and Frost Damage by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "FlameAOEDamageDone",
+		display: '%',
+		match: /Increases the damage of your Flame area of effect abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "PoisonStaminaCost",
+		display: '%',
+		factorValue: -1,
+		match: /Decreases the cost of your Stamina Poison abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	
 		/* Begin Toggled Passives */
@@ -10696,6 +10713,13 @@ window.OnEsoSkillDetailsClick = function (e)
 	var skillId = $(this).parent().attr("skillid");
 	if (skillId == null || skillId == "") return;
 	
+		/* Check for destruction elemental specific skills */
+	if (g_EsoSkillDestructionData && g_EsoSkillDestructionData[skillId] != null && g_EsoSkillDestructionElement != "")
+	{
+		var newSkillId = g_EsoSkillDestructionData[skillId][g_EsoSkillDestructionElement];
+		if (newSkillId) skillId = newSkillId;
+	}
+		
 	ShowEsoSkillDetailsPopup(skillId);
 	
 	e.preventDefault();
@@ -12217,6 +12241,8 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
  	g_LastSkillInputValues.SkillLineDamage = inputValues.SkillLineDamage;
  	g_LastSkillInputValues.SkillHealing = inputValues.SkillHealing;
  	g_LastSkillInputValues.useMaelstromDamage = false;
+ 	g_LastSkillInputValues.PoisonStaminaCost = inputValues.Skill.PoisonStaminaCost;
+ 	g_LastSkillInputValues.FlameAOEDamageDone = inputValues.Skill.FlameAOEDamageDone;
  	
  	var SpellDamageFactor = 1 + inputValues.Skill.SpellDamage + inputValues.Buff.SpellDamage;
  	var WeaponDamageFactor = 1 + inputValues.Skill.WeaponDamage + inputValues.Buff.WeaponDamage;
