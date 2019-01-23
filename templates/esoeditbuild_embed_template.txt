@@ -5,6 +5,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #cfc; margin-right: 225px;'>
+Changes from PTS update 21 can be enabled by choosing the <em>"Update 21 Ruleset"</em> on the <em>General</em> tab and saving/reloading the build.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -1197,6 +1198,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>23 January 2018</b>
+			<ul>
+				<li>Fixed Major/Minor Evasion to reduce your AOE damage taken instead of increasing it.</li>
+			</ul>
+			<p>
 			<b>22 January 2018</b>
 			<ul>
 				<li>Added the Update 21 rule set (General Tab).</li>

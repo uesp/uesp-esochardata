@@ -572,7 +572,7 @@ window.g_EsoBuildBuffData =
 		{
 			enabled: false,
 			skillEnabled : false,
-			value : 0.25,
+			value : -0.25,
 			display : "%",
 			category: "Skill",
 			statId : "AOEDamageTaken",
@@ -582,7 +582,7 @@ window.g_EsoBuildBuffData =
 		{
 			enabled: false,
 			skillEnabled : false,
-			value : 0.10,
+			value : -0.10,
 			display : "%",
 			category: "Skill",
 			statId : "AOEDamageTaken",
