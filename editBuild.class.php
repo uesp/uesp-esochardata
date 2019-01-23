@@ -211,6 +211,24 @@ class EsoBuildDataEditor
 			"BuildDescription",
 			"Skill.PoisonStaminaCost",
 			"Skill.FlameAOEDamageDone",
+			"Skill.RestorationExperience",
+			"Skill.TwoHandedExperience",
+			"Skill.BowExperience",
+			"Skill.DestructionExperience",
+			"Skill.OneHandandShieldExperience",
+			"Skill.LightArmorExperience",
+			"Skill.MediumArmorExperience",
+			"Skill.HeavyArmorExperience",
+			"Skill.DualWieldExperience",
+			"Skill.AlliancePointsGained",
+			"Skill.ExperienceGained",
+			"Skill.InspirationGained",
+			"Skill.GoldGained",
+			"Skill.PickPocketChance",
+			"Skill.LavaDamage",
+			"Skill.FoodDuration",
+			"Skill.DrinkDuration",
+			"Skill.FallDamageTaken",
 	);
 	
 	
@@ -1744,6 +1762,23 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Skill.RestorationExperience" => array( "display" => "%" ),
+			"Skill.TwoHandedExperience" => array( "display" => "%" ),
+			"Skill.BowExperience" => array( "display" => "%" ),
+			"Skill.DestructionExperience" => array( "display" => "%" ),
+			"Skill.OneHandandShieldExperience" => array( "display" => "%" ),
+			"Skill.LightArmorExperience" => array( "display" => "%" ),
+			"Skill.MediumArmorExperience" => array( "display" => "%" ),
+			"Skill.HeavyArmorExperience" => array( "display" => "%" ),
+			"Skill.DualWieldExperience" => array( "display" => "%" ),
+			"Skill.AlliancePointsGained" => array( "display" => "%" ),
+			"Skill.ExperienceGained" => array( "display" => "%" ),
+			"Skill.InspirationGained" => array( "display" => "%" ),
+			"Skill.GoldGained" => array( "display" => "%" ),
+			"Skill.PickPocketChance" => array( "display" => "%" ),
+			"Skill.LavaDamage" => array( "display" => "%" ),
+			"Skill.FallDamageTaken" => array( "display" => "%" ),
+			
 	);
 	
 	
@@ -1924,6 +1959,8 @@ class EsoBuildDataEditor
 							"Item.SpellDamage",
 							"Set.SpellDamage",
 							"+",
+							"Skill2.SpellDamage",
+							"+",
 							"Mundus.SpellDamage",
 							"+",
 							"1 + Skill.SpellDamage + Buff.SpellDamage",
@@ -1941,6 +1978,8 @@ class EsoBuildDataEditor
 					"compute" => array(
 							"Item.WeaponDamage",
 							"Set.WeaponDamage",
+							"+",
+							"Skill2.WeaponDamage",
 							"+",
 							"Mundus.WeaponDamage",
 							"+",
@@ -4680,6 +4719,12 @@ class EsoBuildDataEditor
 			//$this->viewCps->version = "18pts";
 		}
 		
+		if ($this->getCharStatField("UseUpdate21Rules", 0)) 
+		{
+			$this->viewSkills->version = "21pts";
+			$this->viewCps->version = "21pts";
+		}
+		
 		$this->viewSkills->LoadData();
 		
 		$this->FixupBuildForPts();
@@ -4831,6 +4876,14 @@ class EsoBuildDataEditor
 	}
 	
 	
+	public function GetUpdate21RulesCheckState()
+	{
+		$flag = $this->getCharStatField("UseUpdate21Rules", "0");
+		if ($flag > 0) return "checked";
+		return "";
+	}
+	
+	
 	public function getCharTargetResist()
 	{
 		$resist = $this->getCharStatField("Target:Resistance", "18200");
@@ -4847,6 +4900,7 @@ class EsoBuildDataEditor
 	public function FixupBuildForPts()
 	{
 		if (!$this->getCharStatField("UseUpdate18Rules", 0)) return false;
+		if (!$this->getCharStatField("UseUpdate21Rules", 0)) return false;
 		
 		$this->FixupComputedStatsForPts();
 		
@@ -5002,6 +5056,7 @@ class EsoBuildDataEditor
 				'{cyrodiil}' => $this->GetCyrodiilCheckState(),
 				'{enableCP}' => $this->GetEnableCPCheckState(),
 				'{useUpdate18Rules}' => $this->GetUpdate18RulesCheckState(),  
+				'{useUpdate21Rules}' => $this->GetUpdate21RulesCheckState(),
 				'{setNamesJson}' => $this->GetSetNamesJson(),
 				'{BuildDescription}' => $this->getCharStatField("BuildDescription", ""),
 		);

@@ -70,6 +70,8 @@ g_EsoBuildEnchantData.OffHand1 = {};
 g_EsoBuildEnchantData.MainHand2 = {};
 g_EsoBuildEnchantData.OffHand2 = {};
 
+window.g_EsoCurrentTooltipSlot = "";
+
 window.g_EsoFormulaInputValues = {};
 window.g_EsoInputStatSources = {};
 
@@ -3696,6 +3698,318 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Decreases the cost of your Stamina Poison abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	
+		/* Minor Passive Effects */
+	{
+		statId: "RestorationExperience",
+		display: '%',
+		match: /Increases your experience gain with the Restoration Staff skill line by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "DestructionExperience",
+		display: '%',
+		match: /Increases your experience gain with the Destruction Staff skill line by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "OneHandandShieldExperience",
+		display: '%',
+		match: /Increases your experience gain with the One Hand and Shield skill line by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "DualWieldExperience",
+		display: '%',
+		match: /Increases your experience gain with the Dual Wield skill line by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "TwoHandedExperience",
+		display: '%',
+		match: /Increases your experience gain with the Two Handed skill line by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "BowExperience",
+		display: '%',
+		match: /Increases your experience gain with the Bow skill line by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "LightArmorExperience",
+		display: '%',
+		match: /Increases your experience gain with the Light Armor skill line by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "MediumArmorExperience",
+		display: '%',
+		match: /Increases your experience gain with the Medium Armor skill line by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "HeavyArmorExperience",
+		display: '%',
+		match: /Increases your experience gain with the Heavy Armor skill line by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "AlliancePointsGained",
+		display: '%',
+		match: /Increases your Alliance Points gained by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "ExperienceGained",
+		display: '%',
+		match: /Increases your experience gained by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "InspirationGained",
+		display: '%',
+		match: /Increases your crafting inspiration gained by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "GoldGained",
+		display: '%',
+		match: /Increases your gold gained by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "LavaDamage",
+		display: '%',
+		match: /Reduces your damage taken from environmental lava by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "PickPocketChance",
+		display: '%',
+		match: /Increases your chance to successfully pickpocket by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "DrinkDuration",
+		match: /Increases the duration of any consumed drink by ([0-9]+\.?[0-9]*) minutes/i,
+	},
+	{
+		statId: "FoodDuration",
+		match: /Increases the duration of any eaten food by ([0-9]+\.?[0-9]*) minutes/i,
+	},
+	{
+		statId: "FallDamageTaken",
+		display: '%',
+		factorValue: -1,
+		match: /Decreases your fall damage taken by ([0-9]+\.?[0-9]*) minutes/i,
+	},
+	
+		/* Update 21 */
+	{
+		statId: "HealingDone",
+		display: '%',
+		match: /Increases your healing done by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "HealingReceived",
+		display: '%',
+		match: /Increases your healing received by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "Health",
+		category: "Item",
+		match: /Increases your Max Health by ([0-9]+)/i,
+	},
+	{
+		statId: "Magicka",
+		category: "Item",
+		match: /Increases your Max Magicka by ([0-9]+)/i,
+	},
+	{
+		statId: "Stamina",
+		category: "Item",
+		match: /Increases your Max Stamina by ([0-9]+)/i,
+	},
+	{
+		statId: "Magicka",
+		category: "Item",
+		match: /Increases your Max Magicka and Max Stamina by ([0-9]+)/i,
+	},
+	{
+		statId: "Health",
+		category: "Item",
+		match: /Increases your Max Health and Max Stamina by ([0-9]+)/i,
+	},
+	{
+		statId: "Stamina",
+		category: "Item",
+		match: /Increases your Max Health and Max Stamina by ([0-9]+)/i,
+	},
+	{
+		statId: "Stamina",
+		category: "Item",
+		match: /Increases your Max Magicka and Max Stamina by ([0-9]+)/i,
+	},
+	{
+		statId: "Health",
+		category: "Item",
+		match: /Increase your Maximum Health, Magicka, and Stamina by ([0-9]+)/i,
+	},
+	{
+		statId: "Magicka",
+		category: "Item",
+		match: /Increase your Maximum Health, Magicka, and Stamina by ([0-9]+)/i,
+	},
+	{
+		statId: "Stamina",
+		category: "Item",
+		match: /Increase your Maximum Health, Magicka, and Stamina by ([0-9]+)/i,
+	},
+	{
+		statId: "DiseaseResist",
+		match: /and Disease Resistance by ([0-9]+)/i,
+	},
+	{
+		statId: "PoisonResist",
+		match: /and Poison Resistance by ([0-9]+)/i,
+	},
+	{
+		statId: "SpellResist",
+		match: /Increases your Spell Resistance by ([0-9]+)/i,
+	},
+	{
+		statId: "SpellResist",
+		match: /Increases your Physical and Spell Resistance by ([0-9]+)/i,
+	},
+	{
+		statId: "PhysicalResist",
+		match: /Increases your Physical and Spell Resistance by ([0-9]+)/i,
+	},
+	{
+		statId: "MagickaRegen",
+		category: "Item",
+		match: /and your Magicka Recovery by ([0-9]+)/i,
+	},
+	{
+		statId: "HealthRegen",
+		category: "Item",
+		match: /Increases your Health Recovery by ([0-9]+)/i,
+	},
+	{
+		statId: "MagickaRegen",
+		category: "Item",
+		match: /and your Stamina and Magicka Recovery by ([0-9]+)/i,
+	},
+	{
+		statId: "StaminaRegen",
+		category: "Item",
+		match: /and your Stamina and Magicka Recovery by ([0-9]+)/i,
+	},
+	{
+		statId: "StaminaRegen",
+		category: "Item",
+		match: /Increases your Stamina Recovery by ([0-9]+)/i,
+	},
+	{
+		statId: "SpellDamage",
+		category: "Skill2",
+		match: /Increases your Spell Damage by ([0-9]+)/i,
+	},
+	{
+		statId: "SpellDamage",
+		category: "Skill2",
+		match: /Increases your Weapon and Spell Damage by ([0-9]+)/i,
+	},
+	{
+		statId: "WeaponDamage",
+		category: "Skill2",
+		match: /Increases your Weapon and Spell Damage by ([0-9]+)/i,
+	},
+	{
+		statId: "WeaponDamage",
+		category: "Skill2",
+		match: /Increases your Weapon Damage by ([0-9]+)/i,
+	},
+	{
+		statId: "BashCost",
+		display: '%',
+		factorValue: -1,
+		match: /Reduces the cost of your Block and Bash abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "BlockCost",
+		display: '%',
+		factorValue: -1,
+		match: /Reduces the cost of your Block and Bash abilities by ([0-9]+\.?[0-9]*)%/i,
+	},	 
+	{
+		statId: "SpellCrit",
+		category: "Skill2",
+		match: /Increases your Weapon and Spell Critical rating by ([0-9]+)/i,
+	},
+	{
+		statId: "WeaponCrit",
+		category: "Skill2",
+		match: /Increases your Weapon and Spell Critical rating by ([0-9]+)/i,
+	},
+	{
+		statId: "SneakRange",
+		category: "Skill2",
+		factor: -1,
+		match: /Decreases your detection radius in Stealth by ([0-9]+) meters./i,
+	},
+	{
+		statId: "SneakDetectRange",
+		category: "Skill2",
+		match: /Increases your stealth detection radius by ([0-9]+) meters./i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Two_Handed_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "One_Hand_and_Shield_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Dual_Wield_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Bow_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Destruction_Staff_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Restoration_Staff_Cost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		id: "Spell Recharge",
+		baseSkillId: 35993,
+		statId: "DamageTaken",
+		display: "%",
+		factorValue: -1,
+		toggle: true,
+		enabled: false,
+		match: /When you are using an ability with a channel or cast time, you take ([0-9]+\.?[0-9]*)% less damage/i,
+	},	
+	{
+		id: "Hunter's Eye",
+		baseSkillId: 36022,
+		statId: "MovementSpeed",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /Increases your movement speed by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds after you use Roll Dodge./i,
+	},
+	
 		/* Begin Toggled Passives */
 	{
 		id: "Slaughter",
@@ -6738,7 +7052,9 @@ window.GetEsoInputValues = function (mergeComputedStats)
 	inputValues.min = Math.min;
 	
 	inputValues.UseUpdate18Rules = false;
+	inputValues.UseUpdate21Rules = false;
 	if ($("#esotbUpdate18Rules").prop("checked")) inputValues.UseUpdate18Rules = true;
+	if ($("#esotbUpdate21Rules").prop("checked")) inputValues.UseUpdate21Rules = true;
 			
 	inputValues.Race = $("#esotbRace").val();
 	inputValues.Class = $("#esotbClass").val();
@@ -8312,6 +8628,15 @@ window.GetEsoInputItemEnchantWeaponValues = function (inputValues, slotId, itemD
 	if (itemData.type != 1) return false;
 	if (inputValues.Set.EnchantPotency != null && itemData.weaponType != 14) enchantFactor *= (1 + inputValues.Set.EnchantPotency);
 	
+		// TODO: Remove check after update 21 goes live
+	if (g_EsoBuildLastInputValues.UseUpdate21Rules)
+	{
+		if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
+		{
+			enchantFactor *= 0.5;
+		}
+	}
+	
 	for (var i = 0; i < ESO_ENCHANT_WEAPON_MATCHES.length; ++i)
 	{
 		var matchData = ESO_ENCHANT_WEAPON_MATCHES[i];
@@ -8388,6 +8713,15 @@ window.GetEsoInputItemEnchantOtherHandWeaponValues = function (inputValues, slot
 	if (g_EsoBuildSetData["Torug's Pact"] != null && g_EsoBuildSetData["Torug's Pact"].count < 5 && g_EsoBuildSetData["Torug's Pact"].otherCount >= 5)
 	{
 		enchantFactor *= (1 + 0.3);
+	}
+	
+		// TODO: Remove check after update 21 goes live
+	if (g_EsoBuildLastInputValues.UseUpdate21Rules)
+	{
+		if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
+		{
+			enchantFactor *= 0.5;
+		}
 	}
 	
 	for (var i = 0; i < ESO_ENCHANT_OTHERHAND_WEAPON_MATCHES.length; ++i)
@@ -9654,7 +9988,7 @@ window.OnEsoClickCyrodiil = function (e)
 }
 
 
-window.OnEsoClickEnableCP = function (e)
+window.OnEsoUpdateStats = function (e)
 {
 	UpdateEsoComputedStatsList("async");
 }
@@ -13423,6 +13757,7 @@ window.CreateEsoBuildGeneralSaveData = function (saveData, inputValues)
 	saveData.Stats['CP:Used'] = inputValues.CP.UsedPoints;
 	saveData.Stats['CP:Enabled'] = inputValues.CP.Enabled;
 	saveData.Stats['UseUpdate18Rules'] = inputValues.UseUpdate18Rules;
+	saveData.Stats['UseUpdate21Rules'] = inputValues.UseUpdate21Rules;
 		
 	inputValues.CPLevel = Math.floor(inputValues.CP.TotalPoints/10);
 	if (inputValues.CPLevel > ESO_MAX_CPLEVEL) inputValues.CPLevel = ESO_MAX_CPLEVEL;
@@ -14727,7 +15062,8 @@ window.UpdateEsoTooltipEnchantDamage = function (match, divData, enchantValue, d
 	var enchantFactor = 1;
 	var damageMod;
 	var checkDamageType = damageType;
-	
+	var itemData = g_EsoBuildItemData[g_EsoCurrentTooltipSlot];
+		
 	if (checkDamageType == "Frost") checkDamageType = "Cold";
 	
 	damageMod = g_EsoBuildLastInputValues[checkDamageType + "DamageDone"];
@@ -14741,6 +15077,15 @@ window.UpdateEsoTooltipEnchantDamage = function (match, divData, enchantValue, d
 	
 	damageMod = g_EsoBuildLastInputValues.CP.DirectDamageDone;
 	if (damageMod != null && damageMod !== 0) enchantFactor *= (1 + damageMod);
+	
+		// TODO: Remove check after update 21 goes live
+	if (g_EsoBuildLastInputValues.UseUpdate21Rules)
+	{
+		if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
+		{
+			enchantFactor *= 0.5;
+		}
+	}
 
 	if (enchantFactor != 0)
 	{
@@ -14755,9 +15100,19 @@ window.UpdateEsoTooltipEnchantHealing = function (match, divData, enchantValue)
 {
 	var enchantFactor = 1;
 	var healingMod;
+	var itemData = g_EsoBuildItemData[g_EsoCurrentTooltipSlot];
 	
 	healingMod = g_EsoBuildLastInputValues["HealingDone"];
 	if (healingMod != null && healingMod !== 0) enchantFactor *= (1 + healingMod);
+	
+		// TODO: Remove check after update 21 goes live
+	if (g_EsoBuildLastInputValues.UseUpdate21Rules)
+	{
+		if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
+		{
+			enchantFactor *= 0.5;
+		}
+	}
 	
 	if (enchantFactor != 0)
 	{
@@ -14772,9 +15127,19 @@ window.UpdateEsoTooltipEnchantDamageShield = function (match, divData, enchantVa
 {
 	var enchantFactor = 1;
 	var shieldMod;
+	var itemData = g_EsoBuildItemData[g_EsoCurrentTooltipSlot];
 	
 	shieldMod = g_EsoBuildLastInputValues["DamageShield"];
 	if (shieldMod != null && shieldMod !== 0) enchantFactor *= (1 + shieldMod);
+	
+		// TODO: Remove check after update 21 goes live
+	if (g_EsoBuildLastInputValues.UseUpdate21Rules)
+	{
+		if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
+		{
+			enchantFactor *= 0.5;
+		}
+	}
 	
 	if (enchantFactor != 0)
 	{
@@ -14785,14 +15150,44 @@ window.UpdateEsoTooltipEnchantDamageShield = function (match, divData, enchantVa
 }
 
 
-window.UpdateEsoBuildTooltipEnchant = function (enchantBlock, tooltip)
+window.UpdateEsoTooltipEnchantOther = function (match, header, enchantValue, footer)
+{
+	var enchantFactor = 1;
+	var itemData = g_EsoBuildItemData[g_EsoCurrentTooltipSlot];
+
+		// TODO: Remove check after update 21 goes live
+	if (g_EsoBuildLastInputValues.UseUpdate21Rules)
+	{
+		if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
+		{
+			enchantFactor *= 0.5;
+		}
+	}
+	
+	if (enchantFactor != 0)
+	{
+		enchantValue = Math.floor(enchantValue * enchantFactor);
+	}
+	
+	return header + enchantValue + footer;
+}
+
+
+window.UpdateEsoBuildTooltipEnchant = function (enchantBlock, tooltip, parent)
 {
 	var enchantHtml = enchantBlock.html();
 	var newEnchantHtml = enchantHtml;
 	
+	g_EsoCurrentTooltipSlot = $(parent).parent().attr("slotid");
+	
 	newEnchantHtml = newEnchantHtml.replace(/Deals \<div([^>]*)\>([0-9]+)\<\/div\> ([A-Za-z]+) Damage/gi, UpdateEsoTooltipEnchantDamage);
 	newEnchantHtml = newEnchantHtml.replace(/restores \<div([^>]*)\>([0-9]+)\<\/div\> Health/gi, UpdateEsoTooltipEnchantHealing);
 	newEnchantHtml = newEnchantHtml.replace(/Grants a \<div([^>]*)\>([0-9]+)\<\/div\> point Damage shield/gi, UpdateEsoTooltipEnchantDamageShield);
+	
+	newEnchantHtml = newEnchantHtml.replace(/(restores \<div[^>]*\>)([0-9]+)(\<\/div\> Stamina)/gi, UpdateEsoTooltipEnchantOther);
+	newEnchantHtml = newEnchantHtml.replace(/(restores \<div[^>]*\>)([0-9]+)(\<\/div\> Magicka)/gi, UpdateEsoTooltipEnchantOther);
+	newEnchantHtml = newEnchantHtml.replace(/(Spell Resistance by \<div[^>]*\>)([0-9]+)(\<\/div\> for)/gi, UpdateEsoTooltipEnchantOther);
+	newEnchantHtml = newEnchantHtml.replace(/(Spell Damage by \<div[^>]*\>)([0-9]+)(\<\/div\> for)/gi, UpdateEsoTooltipEnchantOther);
 	
 	if (newEnchantHtml != enchantHtml) enchantBlock.html(newEnchantHtml);
 }
@@ -15467,7 +15862,7 @@ window.UpdateEsoBuildSetAll = function (setName, setDesc)
 }
 
 
-window.UpdateEsoBuildTooltipSet = function (setBlock, tooltip)
+window.UpdateEsoBuildTooltipSet = function (setBlock, tooltip, parent)
 {
 	var setHtml = setBlock.html();
 	var newSetHtml;
@@ -15478,20 +15873,20 @@ window.UpdateEsoBuildTooltipSet = function (setBlock, tooltip)
 }
 
 
-window.UpdateEsoBuildTooltip = function (tooltip)
+window.UpdateEsoBuildTooltip = function (tooltip, parent)
 {
 	var enchantBlock = $(tooltip).find("#esoil_itemenchantblock");
 	var setBlock = $(tooltip).find("#esoil_itemsetblock");
 	
-	UpdateEsoBuildTooltipEnchant(enchantBlock, tooltip);
-	UpdateEsoBuildTooltipSet(setBlock, tooltip);
+	UpdateEsoBuildTooltipEnchant(enchantBlock, tooltip, parent);
+	UpdateEsoBuildTooltipSet(setBlock, tooltip, parent);
 }
 
 
-window.OnEsoTooltipUpdate = function (event, tooltip)
+window.OnEsoTooltipUpdate = function (event, tooltip, parent)
 {
-	//EsoBuildLog("OnEsoTooltipUpdate");
-	UpdateEsoBuildTooltip(tooltip);	
+	//EsoBuildLog("OnEsoTooltipUpdate", tooltip, parent);
+	UpdateEsoBuildTooltip(tooltip, parent);	
 }
 
 
@@ -15722,8 +16117,9 @@ window.esotbOnDocReady = function ()
 	$(".esotbStatNoteButton").click(OnEsoClickStatWarningButton);
 	$("#esotbStealth").click(OnEsoClickStealth);	
 	$("#esotbCyrodiil").click(OnEsoClickCyrodiil);
-	$("#esotbEnableCP").click(OnEsoClickEnableCP);
-	$("#esotbUpdate18Rules").click(OnEsoClickEnableCP);
+	$("#esotbEnableCP").click(OnEsoUpdateStats);
+	$("#esotbUpdate18Rules").click(OnEsoUpdateStats);
+	$("#esotbUpdate21Rules").click(OnEsoUpdateStats);
 	
 	$(".esotbInputValue").on('input', function(e) { OnEsoInputChange.call(this, e); });
 	
