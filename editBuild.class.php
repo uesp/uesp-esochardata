@@ -229,6 +229,13 @@ class EsoBuildDataEditor
 			"Skill.FoodDuration",
 			"Skill.DrinkDuration",
 			"Skill.FallDamageTaken",
+			"Set.PlayerDamageTaken",
+			"Set.PlayerAOEDamageTaken",
+			"Set.SiegeDamageTaken",
+			"Set.TrapDamageTaken",
+			"Set.AOEDamageTaken",
+			"Set.AOEDamageDone",
+			"Set.AOEHealingDone",
 	);
 	
 	
@@ -1778,6 +1785,13 @@ class EsoBuildDataEditor
 			"Skill.PickPocketChance" => array( "display" => "%" ),
 			"Skill.LavaDamage" => array( "display" => "%" ),
 			"Skill.FallDamageTaken" => array( "display" => "%" ),
+			"Set.PlayerDamageTaken" => array( "display" => "%" ),
+			"Set.PlayerAOEDamageTaken" => array( "display" => "%" ),
+			"Set.SiegeDamageTaken" => array( "display" => "%" ),
+			"Set.TrapDamageTaken" => array( "display" => "%" ),
+			"Set.AOEDamageTaken" => array( "display" => "%" ),		
+			"Set.AOEDamageDone" => array( "display" => "%" ),
+			"Set.AOEHealingDone" => array( "display" => "%" ),
 			
 	);
 	
@@ -3634,6 +3648,8 @@ class EsoBuildDataEditor
 							"*",
 							"1 + MagicDamageTaken",
 							"*",
+							"1 + DamageTaken",
+							"*",
 					),
 			),
 				
@@ -3655,6 +3671,8 @@ class EsoBuildDataEditor
 							"*",
 							"1 + PhysicalDamageTaken",
 							"*",
+							"1 + DamageTaken",
+							"*",
 					),
 			),
 			
@@ -3675,6 +3693,28 @@ class EsoBuildDataEditor
 					"depends" => array("DefensePhysicalMitigation"),
 					"compute" => array(
 							"1 + Skill.AOEDamageTaken",
+							"DefensePhysicalMitigation",
+							"*",
+					),
+			),
+			
+			"DefenseSpellDDMitigation" => array(
+					"title" => "Defending Spell DD Mitigation",
+					"display" => "%",
+					"depends" => array("DefenseSpellMitigation"),
+					"compute" => array(
+							"1 + Skill.DirectDamageTaken",
+							"DefensePhysicalMitigation",
+							"*",
+					),
+			),
+				
+			"DefensePhysicalDDMitigation" => array(
+					"title" => "Defending Phys DD Mitigation",
+					"display" => "%",
+					"depends" => array("DefensePhysicalMitigation"),
+					"compute" => array(
+							"1 + Skill.DirectDamageTaken",
 							"DefensePhysicalMitigation",
 							"*",
 					),

@@ -1198,9 +1198,16 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>25 January 2018</b>
+			<ul>
+				<li>Fixed the passive parsing for update 21 which was causing duplicate stats for some skills.</li>
+			</ul>
+			<p>
 			<b>23 January 2018</b>
 			<ul>
 				<li>Fixed Major/Minor Evasion to reduce your AOE damage taken instead of increasing it.</li>
+				<li>Added the DamageTaken stat to the various Mitigation computed stats.</li>
+				<li>Added the Defending Spell/Physical DD Mitigation computed stats.</li>
 			</ul>
 			<p>
 			<b>22 January 2018</b>
