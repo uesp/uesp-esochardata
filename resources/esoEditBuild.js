@@ -3569,6 +3569,13 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases damage done while in stealth by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+		statRequireId: "Stealthed",
+		statRequireValue: 1,
+		statId: "DamageDone",
+		display: "%",
+		match: /Increases your damage done while in stealth by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
 		category: "Skill",
 		statId: "LADamage",
 		display: "%",
@@ -3786,7 +3793,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "FallDamageTaken",
 		display: '%',
 		factorValue: -1,
-		match: /Decreases your fall damage taken by ([0-9]+\.?[0-9]*) minutes/i,
+		match: /Decreases your fall damage taken by ([0-9]+\.?[0-9]*)%/i,
 	},
 	
 		/* Update 21 */
@@ -3798,57 +3805,67 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "HealingReceived",
 		display: '%',
-		match: /Increases your healing received by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increases your healing received by ([0-9]+\.?[0-9]*)%\./i,
 	},
 	{
 		statId: "Health",
 		category: "Item",
-		match: /Increases your Max Health by ([0-9]+)/i,
-	},
-	{
-		statId: "Magicka",
-		category: "Item",
-		match: /Increases your Max Magicka by ([0-9]+)/i,
-	},
-	{
-		statId: "Stamina",
-		category: "Item",
-		match: /Increases your Max Stamina by ([0-9]+)/i,
-	},
-	{
-		statId: "Magicka",
-		category: "Item",
-		match: /Increases your Max Magicka and Max Stamina by ([0-9]+)/i,
+		match: /Increases your Max Health by ([0-9]+)\./i,
 	},
 	{
 		statId: "Health",
 		category: "Item",
-		match: /Increases your Max Health and Max Stamina by ([0-9]+)/i,
-	},
-	{
-		statId: "Stamina",
-		category: "Item",
-		match: /Increases your Max Health and Max Stamina by ([0-9]+)/i,
-	},
-	{
-		statId: "Stamina",
-		category: "Item",
-		match: /Increases your Max Magicka and Max Stamina by ([0-9]+)/i,
-	},
-	{
-		statId: "Health",
-		category: "Item",
-		match: /Increase your Maximum Health, Magicka, and Stamina by ([0-9]+)/i,
+		match: /Increases your Max Health by ([0-9]+) and/i,
 	},
 	{
 		statId: "Magicka",
 		category: "Item",
-		match: /Increase your Maximum Health, Magicka, and Stamina by ([0-9]+)/i,
+		match: /Increases your Max Magicka by ([0-9]+)\./i,
 	},
 	{
 		statId: "Stamina",
 		category: "Item",
-		match: /Increase your Maximum Health, Magicka, and Stamina by ([0-9]+)/i,
+		match: /Increases your Max Stamina by ([0-9]+)\./i,
+	},
+	{
+		statId: "Stamina",
+		category: "Item",
+		match: /Increases your Max Stamina by ([0-9]+) and/i,
+	},
+	{
+		statId: "Magicka",
+		category: "Item",
+		match: /Increases your Max Magicka and Max Stamina by ([0-9]+)\./i,
+	},
+	{
+		statId: "Health",
+		category: "Item",
+		match: /Increases your Max Health and Max Stamina by ([0-9]+)\./i,
+	},
+	{
+		statId: "Stamina",
+		category: "Item",
+		match: /Increases your Max Health and Max Stamina by ([0-9]+)\./i,
+	},
+	{
+		statId: "Stamina",
+		category: "Item",
+		match: /Increases your Max Magicka and Max Stamina by ([0-9]+)\./i,
+	},
+	{
+		statId: "Health",
+		category: "Item",
+		match: /Increase your Maximum Health, Magicka, and Stamina by ([0-9]+)\./i,
+	},
+	{
+		statId: "Magicka",
+		category: "Item",
+		match: /Increase your Maximum Health, Magicka, and Stamina by ([0-9]+)\./i,
+	},
+	{
+		statId: "Stamina",
+		category: "Item",
+		match: /Increase your Maximum Health, Magicka, and Stamina by ([0-9]+)\./i,
 	},
 	{
 		statId: "DiseaseResist",
@@ -3860,7 +3877,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		statId: "SpellResist",
-		match: /Increases your Spell Resistance by ([0-9]+)/i,
+		match: /Increases your Spell Resistance by ([0-9]+) and/i,
 	},
 	{
 		statId: "SpellResist",
@@ -3878,22 +3895,22 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "HealthRegen",
 		category: "Item",
-		match: /Increases your Health Recovery by ([0-9]+)/i,
+		match: /Increases your Health Recovery by ([0-9]+) and/i,
 	},
 	{
 		statId: "MagickaRegen",
 		category: "Item",
-		match: /and your Stamina and Magicka Recovery by ([0-9]+)/i,
+		match: /and your Stamina and Magicka Recovery by ([0-9]+)\./i,
 	},
 	{
 		statId: "StaminaRegen",
 		category: "Item",
-		match: /and your Stamina and Magicka Recovery by ([0-9]+)/i,
+		match: /and your Stamina and Magicka Recovery by ([0-9]+)\./i,
 	},
 	{
 		statId: "StaminaRegen",
 		category: "Item",
-		match: /Increases your Stamina Recovery by ([0-9]+)/i,
+		match: /Increases your Stamina Recovery by ([0-9]+)\./i,
 	},
 	{
 		statId: "SpellDamage",
@@ -4346,10 +4363,8 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 
 window.ESO_SETEFFECT_MATCHES = [
                          
-	// Reduces your damage taken from environmental traps by 40%.
-	// Reduces your damage taken from Players by 5%.
-	// Reduces your damage taken from Siege Weapons and Player Area of Effect abilities by 20%.
-	// Reduces your damage taken from area of effect abilities by 25%, but the damage and healing of your own area of effect abilities is also reduced by 25%.
+	// 40%.
+	// 25%, 25%.
 	// increases the damage of your Bow abilities against Players by 8%.
 	// When you dodge an attack, your Light and Heavy Attacks deal an additional 1225 damage for 8 seconds.
 	// Ignore the Movement Speed penalty of Sneak.
@@ -4358,7 +4373,49 @@ window.ESO_SETEFFECT_MATCHES = [
 	
 	// Increases the duration of your Flame Damage abilities by 2 seconds.
 	// When your target is under 25% Health, add 1800 Weapon Damage to your Light and Heavy Attacks.
-		
+	
+	{
+		category: "Set",
+		statId: "AOEDamageTaken",
+		combineAs: "*%",
+		match: /Reduces your damage taken from area of effect abilities by ([0-9]+)%/i,
+	},
+	{
+		category: "Set",
+		statId: "AOEDamageDone",
+		factorValue: -1,
+		match: /but the damage and healing of your own area of effect abilities is also reduced by ([0-9]+)%/i,
+	},
+	{
+		category: "Set",
+		statId: "AOEHealingDone",
+		factorValue: -1,
+		match: /but the damage and healing of your own area of effect abilities is also reduced by ([0-9]+)%/i,
+	},
+	{
+		category: "Set",
+		statId: "TrapDamageTaken",
+		combineAs: "*%",
+		match: /Reduces your damage taken from environmental traps by ([0-9]+)%/i,
+	},
+	{
+		category: "Set",
+		statId: "SiegeDamageTaken",
+		combineAs: "*%",
+		match: /Reduces your damage taken from Siege Weapons and Player Area of Effect abilities by ([0-9]+)%/i,
+	},
+	{
+		category: "Set",
+		statId: "PlayerAOEDamageTaken",
+		combineAs: "*%",
+		match: /Reduces your damage taken from Siege Weapons and Player Area of Effect abilities by ([0-9]+)%/i,
+	},
+	{
+		category: "Set",
+		statId: "PlayerDamageTaken",
+		combineAs: "*%",
+		match: /Reduces your damage taken from Players by ([0-9]+)%/i,
+	},
 	{
 		category: "Item",
 		statId: "ChannelSpellDamage",
