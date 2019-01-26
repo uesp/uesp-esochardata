@@ -275,7 +275,7 @@ window.g_EsoBuildBuffData =
 			value : -0.05,
 			display: "%",
 			combineAs: "*%",
-			statId : "DamageTaken",
+			statId : "DungeonDamageTaken",
 			category: "Buff",
 			icon : "/esoui/art/icons/ability_warrior_030.png",
 		},
@@ -668,6 +668,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			value : -5280,
+			category: "Skill",
 			statId : "PhysicalResist",
 			icon : "/esoui/art/icons/ability_1handed_002_a.png",
 		},
@@ -676,6 +677,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			value : -1320,
+			category: "Skill",
 			statId : "PhysicalResist",
 			icon : "/esoui/art/icons/ability_1handed_002.png",
 			//icon : "/esoui/art/icons/ability_warrior_016.png",
@@ -685,6 +687,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			value : -5280,
+			category: "Skill",
 			statId : "SpellResist",
 			icon : "/esoui/art/icons/ability_mage_039.png",
 			//icon : "/esoui/art/icons/ability_1handed_002_b.png",			
@@ -694,6 +697,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			value : -1320,
+			category: "Skill",
 			statId : "SpellResist",
 			icon : "/esoui/art/icons/ability_mage_053.png",
 		},
@@ -1679,6 +1683,22 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		match: /the rune grants you Major Resolve and Major Ward/i,
 		rawInputMatch: /(Standing within the rune increases Physical Resistance and Spell Resistance granted by [0-9]+\.?[0-9]*%\.)/i,
 	},
+	{
+		id: "Mist Form",
+		statRequireId: "Vampire",
+		statRequireValue: 1,
+		matchSkillName: false,
+		baseSkillId: 41809,
+		statId: "DamageTaken",
+		factorValue: -1,
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /Dissolve into a dark mist, reducing your damage taken by ([0-9]+\.?[0-9]*)%/i,
+		rawInputMatch: /(Dissolve into a dark mist, reducing your damage taken by [0-9]+\.?[0-9]*%)/i,
+	},
+	
+ 
 		/* End Toggled Abilities */
 		
 	
@@ -2469,6 +2489,14 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Reduces the cost of One Hand and Shield abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statRequireId: "Weapon1HShield",
+		statRequireValue: 1,
+		statId: "RangedDamageTaken",
+		display: "%",
+		factorValue: -1,
+		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Increases the amount of damage you can block from projectiles and ranged attacks by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statRequireId: "Weapon1HShield",
@@ -3890,7 +3918,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "MagickaRegen",
 		category: "Item",
-		match: /and your Magicka Recovery by ([0-9]+)/i,
+		match: /and your Magicka Recovery by ([0-9]+)\./i,
 	},
 	{
 		statId: "HealthRegen",
@@ -3915,22 +3943,22 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "SpellDamage",
 		category: "Skill2",
-		match: /Increases your Spell Damage by ([0-9]+)/i,
+		match: /Increases your Spell Damage by ([0-9]+)\./i,
 	},
 	{
 		statId: "SpellDamage",
 		category: "Skill2",
-		match: /Increases your Weapon and Spell Damage by ([0-9]+)/i,
+		match: /Increases your Weapon and Spell Damage by ([0-9]+)\./i,
 	},
 	{
 		statId: "WeaponDamage",
 		category: "Skill2",
-		match: /Increases your Weapon and Spell Damage by ([0-9]+)/i,
+		match: /Increases your Weapon and Spell Damage by ([0-9]+)\./i,
 	},
 	{
 		statId: "WeaponDamage",
 		category: "Skill2",
-		match: /Increases your Weapon Damage by ([0-9]+)/i,
+		match: /Increases your Weapon Damage by ([0-9]+)\./i,
 	},
 	{
 		statId: "BashCost",
@@ -4028,6 +4056,20 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	
 		/* Begin Toggled Passives */
+	{
+		id: "Undeath",
+		baseSkillId: 33096,
+		statRequireId: "VampireStage",
+		statRequireValue: 3,
+		category: "Skill",
+		statId: "DamageTaken",
+		display: "%",
+		factorValue: -1,
+		toggle: true,
+		enabled: false,
+		maxTimes: 33,
+		match: /WHILE YOU HAVE VAMPIRISM STAGE 3 OR HIGHER[\s\S]*?Reduces your damage taken by up to [0-9]+\.?[0-9]*% based on your missing Health/i,
+	},
 	{
 		id: "Slaughter",
 		baseSkillId: 18929,
@@ -4312,6 +4354,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		match: /WITH TWO-HANDED WEAPON EQUIPPED[\s\S]*?Increases your Stamina Recovery by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds after killing a target/i,
 	},
+	
 		/* End Toggled Passives */
 	
 
@@ -4345,7 +4388,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	//WHILE DUAL WIELDING Increases damage with Dual Wield abilities by 20% against enemies with under 25% Health.
 	
 		// One Hand and Shield
-	//WITH ONE HAND WEAPON AND SHIELD EQUIPPED Increases the amount of damage you can block from projectiles and ranged attacks by 15%.
 	//WITH ONE HAND WEAPON AND SHIELD EQUIPPED Increases your Movement Speed while blocking by 60%
 	
 		// Two Handed
@@ -7388,7 +7430,7 @@ window.GetEsoInputBuffValue = function (inputValues, buffName, buffData)
 			if (inputValues[category][statId] == null) inputValues[category][statId] = 0;
 			
 			if (combineAs == "*%")
-				inputValues[category][statId] = +((1 + inputValues[category][statId]) * (1 + statValue) - 1).toFixed(2);
+				inputValues[category][statId] = +((1 + inputValues[category][statId]) * (1 + statValue) - 1);
 			else
 				inputValues[category][statId] += statValue;
 			
@@ -7648,7 +7690,7 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 		if (inputValues[category][matchData.statId] == null) inputValues[category][matchData.statId] = 0;
 		
 		if (matchData.combineAs == "*%")
-			inputValues[category][matchData.statId] = +((1 + inputValues[category][matchData.statId]) * (1 + statValue) - 1).toFixed(2);
+			inputValues[category][matchData.statId] = +((1 + inputValues[category][matchData.statId]) * (1 + statValue) - 1);
 		else
 			inputValues[category][matchData.statId] += statValue;
 		
@@ -7755,7 +7797,7 @@ window.GetEsoInputAbilityDescValues = function (inputValues, outputId, itemData,
 		if (inputValues[outputId][matchData.statId] == null) inputValues[outputId][matchData.statId] = 0;
 		
 		if (matchData.combineAs == "*%")
-			inputValues[outputId][matchData.statId] = +((1 + inputValues[outputId][matchData.statId]) * (1 + statValue) - 1).toFixed(2);
+			inputValues[outputId][matchData.statId] = +((1 + inputValues[outputId][matchData.statId]) * (1 + statValue) - 1);
 		else
 			inputValues[outputId][matchData.statId] += statValue;
 		
@@ -7931,7 +7973,7 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 		if (inputValues[category][matchData.statId] == null) inputValues[category][matchData.statId] = 0;
 		
 		if (matchData.combineAs == "*%")
-			inputValues[category][matchData.statId] = +((1 + inputValues[category][matchData.statId]) * (1 + statValue) - 1).toFixed(2);
+			inputValues[category][matchData.statId] = +((1 + inputValues[category][matchData.statId]) * (1 + statValue) - 1);
 		else
 			inputValues[category][matchData.statId] += statValue;
 		
@@ -9526,6 +9568,7 @@ window.UpdateEsoComputedStatsList_Real = function (keepSaveResults)
 	UpdateEsoBuildToggleSets();
 	UpdateEsoBuildToggleSkills();
 	UpdateEsoBuildItemLinkSetCounts();
+	UpdateEsoMitigation();
 	
 	UpdateEsoBuildVisibleBuffs();
 	UpdateEsoBuffSkillEnabled();
@@ -11510,6 +11553,8 @@ window.GetEsoBuildRawInputSourcesHtml = function (sourceName, sourceData)
 	
 	var output = "<div class='esotbRawInputItem'>";
 	var sourceValue = "";
+	
+	sourceName = sourceName.replace(/_/g, " ").replace(/([0-9]*[A-Z]+)/g, ' $1').replace(/  /g, ' ').trim();
 	
 	output += "<div class='esotbRawInputName'>" + sourceName + ":</div>";
 	
@@ -16137,6 +16182,154 @@ window.UpdateEsoOffHandTransmuteTraitList = function (slotId)
 }
 
 
+window.ESO_MITIGATION_ELEMENTTYPES = {
+	1 : "Physical",
+	2 : "Poison",
+	3 : "Disease",
+	4 : "Magic",
+	5 : "Flame",
+	6 : "Frost",
+	7 : "Shock",
+};
+
+window.ESO_STATMULTVALUE_CATEGORIES = ['Item', 'Buff', 'Skill', 'Skill2', 'Food', 'Mundus', 'Set', 'CP'];
+
+
+window.ESO_RESIST_CAP = 33000;
+
+
+window.UpdateEsoMitigation = function()
+{
+	var isPlayer = g_EsoBuildLastInputValues.Cyrodiil != 0;
+	var isBlocking = $("#esotbMitigationBlock").is(":checked");
+	
+	$("#esotbMitigationPVP").prop("checked", isPlayer);
+	
+	for (var i in ESO_MITIGATION_ELEMENTTYPES) 
+	{
+		var elementType = ESO_MITIGATION_ELEMENTTYPES[i];
+		
+		UpdateEsoMitigationCell($("#esotbMitTable" + i + "1"), elementType, "Direct", "Melee", isPlayer, isBlocking)
+		UpdateEsoMitigationCell($("#esotbMitTable" + i + "2"), elementType, "Direct", "Ranged", isPlayer, isBlocking)
+		UpdateEsoMitigationCell($("#esotbMitTable" + i + "3"), elementType, "Direct", "AOE", isPlayer, isBlocking)
+		UpdateEsoMitigationCell($("#esotbMitTable" + i + "4"), elementType, "Direct", "LA", isPlayer, isBlocking)
+		UpdateEsoMitigationCell($("#esotbMitTable" + i + "5"), elementType, "Dot", "Melee", isPlayer, isBlocking)
+		UpdateEsoMitigationCell($("#esotbMitTable" + i + "6"), elementType, "Dot", "Ranged", isPlayer, isBlocking)
+		UpdateEsoMitigationCell($("#esotbMitTable" + i + "7"), elementType, "Dot", "AOE", isPlayer, isBlocking)
+		UpdateEsoMitigationCell($("#esotbMitTable" + i + "8"), elementType, "Direct", "LA", isPlayer, isBlocking)
+	}
+	
+}
+
+
+window.GetEsoComputedStatValue = function(key, defaultValue = 0)
+{
+	var obj = g_EsoComputedStats[key];
+	if (obj) return obj.value;
+	return defaultValue;
+}
+
+
+window.GetEsoInputStatMultValue = function(stat, factor = 1)
+{
+	var value = 1;
+	
+	for (var i in ESO_STATMULTVALUE_CATEGORIES)
+	{
+		var obj = g_EsoBuildLastInputValues[ESO_STATMULTVALUE_CATEGORIES[i]][stat];
+	
+		if (obj != null)
+		{
+			//EsoBuildLog("\t", ESO_STATMULTVALUE_CATEGORIES[i], obj);
+			value *= (1 + obj * factor);
+		}
+	}	
+	
+	//EsoBuildLog("GetEsoComputedStatMultValue", stat, value);
+	return value;
+}
+
+
+window.UpdateEsoMitigationCell = function(element, elementType, damageType1, damageType2, isPlayer, isBlocking)
+{
+	var resistType = "SpellResist";
+	var extraResist = 0;
+	var resistance = 0;
+	var mitigation = 1;
+	var damageTaken = 1;
+	var damage1Taken = 1;
+	var damage2Taken = 1;
+	var elementDamageTaken = 1;
+	var blockDamageTaken = 0;
+	var playerDamageTaken = 1;
+	var playerAOEDamageTaken = 1;
+	var dungeonDamageTaken = 1;
+	var mitigationText = "";
+	
+	if (elementType == "Physical" || elementType == "Poison" || elementType == "Disease") resistType = "PhysicalResist";
+		
+	if (elementType != "Physical") extraResist = GetEsoComputedStatValue(elementType + "Resist");
+	
+	resistance = g_EsoComputedStats[resistType].value + extraResist;
+	if (resistance > ESO_RESIST_CAP) resistance = ESO_RESIST_CAP;
+	
+	damageTaken = GetEsoInputStatMultValue("DamageTaken");
+	elementDamageTaken = GetEsoInputStatMultValue(elementType + "DamageTaken");
+	damage1Taken = GetEsoInputStatMultValue(damageType1 + "DamageTaken");
+	
+	damage2Taken = GetEsoInputStatMultValue(damageType2 + "DamageTaken");
+	if (damageType2 == "LA" && !isPlayer) damage2Taken = 1;
+	
+	if (isBlocking)
+	{
+		blockDamageTaken = GetEsoComputedStatValue("BlockMitigation");
+	}
+	
+	if (isPlayer)
+	{
+		playerDamageTaken = GetEsoInputStatMultValue("PlayerDamageTaken");
+		if (damageType2 == "AOE") playerAOEDamageTaken = GetEsoInputStatMultValue("PlayerAOEDamageTaken");		
+	}
+	else
+	{
+		dungeonDamageTaken = GetEsoInputStatMultValue("DungeonDamageTaken");
+	}
+	
+		/* Mitigation calculation */
+	mitigation *= (1 - (resistance - 100) / 660 / 100); 
+	mitigation *= damageTaken;
+	mitigation *= damage1Taken;
+	mitigation *= damage2Taken;
+	mitigation *= elementDamageTaken;
+	mitigation *= (1 - blockDamageTaken);
+	mitigation *= playerDamageTaken;
+	mitigation *= playerAOEDamageTaken;
+	mitigation *= dungeonDamageTaken;
+	
+		/* Convert to nice number for display */
+	mitigation = (100 * mitigation).toFixed(1);
+	mitigationText = "" + (100 - mitigation).toFixed(1);
+	
+	element.text(mitigationText + "%");
+}
+
+
+window.OnEsoClickMitigationBlock = function()
+{
+	UpdateEsoMitigation();
+}
+
+
+window.OnEsoClickMitigationPVP = function()
+{
+	var isPlayer = $("#esotbMitigationPVP").is(":checked");
+	
+	$("#esotbCyrodiil").prop("checked", isPlayer);
+	
+	OnEsoClickCyrodiil();
+}
+
+
 window.esotbOnDocReady = function ()
 {
 	GetEsoSkillInputValues = GetEsoTestBuildSkillInputValues;
@@ -16174,6 +16367,8 @@ window.esotbOnDocReady = function ()
 	$(".esotbStatNoteButton").click(OnEsoClickStatWarningButton);
 	$("#esotbStealth").click(OnEsoClickStealth);	
 	$("#esotbCyrodiil").click(OnEsoClickCyrodiil);
+	$("#esotbMitigationBlock").click(OnEsoClickMitigationBlock);
+	$("#esotbMitigationPVP").click(OnEsoClickMitigationPVP);
 	$("#esotbEnableCP").click(OnEsoUpdateStats);
 	$("#esotbUpdate18Rules").click(OnEsoUpdateStats);
 	$("#esotbUpdate21Rules").click(OnEsoUpdateStats);
