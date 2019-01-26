@@ -236,6 +236,8 @@ class EsoBuildDataEditor
 			"Set.AOEDamageTaken",
 			"Set.AOEDamageDone",
 			"Set.AOEHealingDone",
+			"Buff.DungeonDamageTaken",
+			"Skill.RangedDamageTaken",
 	);
 	
 	
@@ -1792,6 +1794,8 @@ class EsoBuildDataEditor
 			"Set.AOEDamageTaken" => array( "display" => "%" ),		
 			"Set.AOEDamageDone" => array( "display" => "%" ),
 			"Set.AOEHealingDone" => array( "display" => "%" ),
+			"Buff.DungeonDamageTaken" => array( "display" => "%" ),
+			"Skill.RangedDamageTaken" => array( "display" => "%" ),
 			
 	);
 	
@@ -2120,6 +2124,8 @@ class EsoBuildDataEditor
 					"title" => "Spell Resistance",
 					"display" => "resist",
 					"round" => "floor",
+					"min" => 0,
+					"max" => 33000,
 					"compute" => array(
 							"Item.SpellResist",
 							"Skill2.SpellResist",
@@ -2144,6 +2150,8 @@ class EsoBuildDataEditor
 					"title" => "Physical Resistance",
 					"display" => "resist",
 					"round" => "floor",
+					"min" => 0,
+					"max" => 33000,
 					"compute" => array(
 							"Item.PhysicalResist",
 							"Skill2.PhysicalResist",

@@ -25,6 +25,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<div class="esotbStatTab" tabid="esotbStatBlockBuffs">Buffs</div>
 			<div class="esotbStatTab" tabid="esotbStatBlockCPs">CPs</div>
 			<div class="esotbStatTab" tabid="esotbStatBlockRawData">Raw Data</div>
+			<div class="esotbStatTab" tabid="esotbStatBlockMitigation">Mitigation</div>
 			<div class="esotbStatTab" tabid="esotbStatBlockHelp">Help</div>
 			<div class="esotbStatTabSpacer"></div>
 		</div>
@@ -1151,6 +1152,122 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				</div>
 			</div>
 		</div>
+		<div id="esotbStatBlockMitigation" class="esotbStatBlock" style="display: none;">
+			<div id="esotbMitigation">
+				Summary of mitigation stats for the current build.
+				<ul>
+					<li>This section is currently under development and all numbers may not be correct.</li>
+					<li>Mitigation values go from 0% (take all damage from attacker) to 100% (take no damage).</li>
+					<li>Negative mitigation values mean you take more damage. For example -25% mitigation means you take 25% more damage (x1.25) than normal.</li>
+					<li>The displayed values are shown to 1 decimal point for convienence. In-game the mitigation decimals are truncated (so 41.9% would be 41% in-game).</li>
+				</ul>
+				<p/><br/>
+				<b>Blocking</b> <input type="checkbox" id="esotbMitigationBlock" name="esotbMitigationBlock" statid="MitigationBlock">
+				&nbsp; &nbsp; &nbsp;
+				<b>PVP</b> <input type="checkbox" id="esotbMitigationPVP" name="esotbMitigationPVP" statid="MitigationPVP">
+				<p/><br/>
+				<table class="esotbMitigationTable">
+					<tr>
+						<th rowspan="2">Damage Type</th>
+						<th colspan="4">Direct Damage (DD)</th>
+						<th colspan="4">Damage over Time (DOT)</th>
+					</tr>
+					<tr>
+						<th>Melee</th>
+						<th>Ranged</th>
+						<th>AOE</th>
+						<th>LA/HA</th>
+						<th>Melee</th>
+						<th>Ranged</th>
+						<th>AOE</th>
+						<th>LA/HA</th>
+					</tr>
+					<tr>
+						<th>Physical</th>
+						<td id="esotbMitTable11"></td>
+						<td id="esotbMitTable12"></td>
+						<td id="esotbMitTable13"></td>
+						<td id="esotbMitTable14"></td>
+						<td id="esotbMitTable15"></td>
+						<td id="esotbMitTable16"></td>
+						<td id="esotbMitTable17"></td>
+						<td id="esotbMitTable18"></td>
+					</tr>
+					<tr>
+						<th>Poison</th>
+						<td id="esotbMitTable21"></td>
+						<td id="esotbMitTable22"></td>
+						<td id="esotbMitTable23"></td>
+						<td id="esotbMitTable24"></td>
+						<td id="esotbMitTable25"></td>
+						<td id="esotbMitTable26"></td>
+						<td id="esotbMitTable27"></td>
+						<td id="esotbMitTable28"></td>
+					</tr>
+					<tr>
+						<th>Disease</th>
+						<td id="esotbMitTable31"></td>
+						<td id="esotbMitTable32"></td>
+						<td id="esotbMitTable33"></td>
+						<td id="esotbMitTable34"></td>
+						<td id="esotbMitTable35"></td>
+						<td id="esotbMitTable36"></td>
+						<td id="esotbMitTable37"></td>
+						<td id="esotbMitTable38"></td>
+					</tr>
+					<tr>
+						<th>Magic</th>
+						<td id="esotbMitTable41"></td>
+						<td id="esotbMitTable42"></td>
+						<td id="esotbMitTable43"></td>
+						<td id="esotbMitTable44"></td>
+						<td id="esotbMitTable45"></td>
+						<td id="esotbMitTable46"></td>
+						<td id="esotbMitTable47"></td>
+						<td id="esotbMitTable48"></td>
+					</tr>
+					<tr>
+						<th>Flame</th>
+						<td id="esotbMitTable51"></td>
+						<td id="esotbMitTable52"></td>
+						<td id="esotbMitTable53"></td>
+						<td id="esotbMitTable54"></td>
+						<td id="esotbMitTable55"></td>
+						<td id="esotbMitTable56"></td>
+						<td id="esotbMitTable57"></td>
+						<td id="esotbMitTable58"></td>
+					</tr>
+					<tr>
+						<th>Frost</th>
+						<td id="esotbMitTable61"></td>
+						<td id="esotbMitTable62"></td>
+						<td id="esotbMitTable63"></td>
+						<td id="esotbMitTable64"></td>
+						<td id="esotbMitTable65"></td>
+						<td id="esotbMitTable66"></td>
+						<td id="esotbMitTable67"></td>
+						<td id="esotbMitTable68"></td>
+					</tr>
+					<tr>
+						<th>Shock</th>
+						<td id="esotbMitTable71"></td>
+						<td id="esotbMitTable72"></td>
+						<td id="esotbMitTable73"></td>
+						<td id="esotbMitTable74"></td>
+						<td id="esotbMitTable75"></td>
+						<td id="esotbMitTable76"></td>
+						<td id="esotbMitTable77"></td>
+						<td id="esotbMitTable78"></td>
+					</tr>
+				</table>
+				<p/><br/>
+				<div class="esotbMitigationFooter">
+					Some information and calculation details have come from 
+					<a href="https://forums.elderscrollsonline.com/en/discussion/279426/damage-mitigation-explanation-updated-for-morrowind-new-calculator/p1">Damage Mitigation: Explanation!</a>
+					thread on the ESO forums by paulsimonps and his <a href="https://jscalc.io/calc/3OJGVPl8vmhIsek3">Mitigation Calculator</a>.
+				</div>
+			</div>
+		</div>
 		<div id="esotbStatBlockHelp" class="esotbStatBlock" style="display: none;">
 			This is a yet another character builder/planner for Elder Scrolls Online. The design goal behind the builder is to be able to see 
 			all the various calculations and stat sources to be able to better understand how one thing or another affects your character's
@@ -1198,9 +1315,23 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>26 January 2018</b>
+			<ul>
+				<li>Fixed a few doubly parsed skills caused by the new racial passives.</li>
+			</ul>
+			<p>
 			<b>25 January 2018</b>
 			<ul>
 				<li>Fixed the passive parsing for update 21 which was causing duplicate stats for some skills.</li>
+				<li>Fixed the Major/Minor Breach/Facture buffs.</li>
+				<li>Spell and Physical Resistance now is limited to the range 0-33,000.</li>
+				<li>Stats that combine multiplicatively (ex: DamageTaken) are not rounded at each stage to match how the game does its calculations.</li>
+				<li>Added the Mitigation tab.</li>
+				<li>Changed Minor Aegis to DungeonDamageTaken so it will work correctly with the mitigation tab.</li>
+				<li>Added a toggleable state for the Mist Form skill.</li>
+				<li>Added the RangeDamageTaken stat from the One Hand and Shield Defect Bolts passive.</li>
+				<li>Formatted section titles a bit nicer in the Raw Data tab.</li>
+				<li>Added the Vampire Undeath passive as a toggled ability.</li>
 			</ul>
 			<p>
 			<b>23 January 2018</b>

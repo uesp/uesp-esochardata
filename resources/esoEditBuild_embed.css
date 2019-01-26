@@ -1155,3 +1155,18 @@ button.esotbWeaponSelect {
     display: inline-block;
     vertical-align: top;	
 }
+
+.esotbMitigationTable {
+	border: 1px #aaa solid;
+    border-collapse: collapse;
+}
+
+.esotbMitigationTable > tr > th, 
+.esotbMitigationTable > tr > td, 
+.esotbMitigationTable > * > tr > th, 
+.esotbMitigationTable > * > tr > td {
+    border: 1px #aaa solid;
+    padding: 0.2em;
+    width: 75px;
+	text-align: center;
+}
