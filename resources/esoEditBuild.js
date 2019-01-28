@@ -3917,27 +3917,27 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		statId: "MagickaRegen",
-		category: "Item",
+		category: "Food",
 		match: /and your Magicka Recovery by ([0-9]+)\./i,
 	},
 	{
 		statId: "HealthRegen",
-		category: "Item",
+		category: "Food",
 		match: /Increases your Health Recovery by ([0-9]+) and/i,
 	},
 	{
 		statId: "MagickaRegen",
-		category: "Item",
+		category: "Food",
 		match: /and your Stamina and Magicka Recovery by ([0-9]+)\./i,
 	},
 	{
 		statId: "StaminaRegen",
-		category: "Item",
+		category: "Food",
 		match: /and your Stamina and Magicka Recovery by ([0-9]+)\./i,
 	},
 	{
 		statId: "StaminaRegen",
-		category: "Item",
+		category: "Food",
 		match: /Increases your Stamina Recovery by ([0-9]+)\./i,
 	},
 	{

@@ -1315,6 +1315,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>28 January 2018</b>
+			<ul>
+				<li>Fixed the new update 21 recovery bonuses (CP/Skill/Buffs no longer affect them).</li>
+			</ul>
+			<p>
 			<b>26 January 2018</b>
 			<ul>
 				<li>Fixed a few doubly parsed skills caused by the new racial passives.</li>
