@@ -1317,6 +1317,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>28 January 2018</b>
 			<ul>
 				<li>Fixed tooltips not correctly using Weapon/Spell damage values from the new update 21 Racial passives.</li>
+				<li>New builds will no longer have all the free passives for all races initially enabled.</li>
 			</ul>
 			<p>
 			<b>28 January 2018</b>
