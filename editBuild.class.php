@@ -4580,9 +4580,13 @@ class EsoBuildDataEditor
 	public function CreateNewInitialSkillData()
 	{
 		global $ESO_FREE_SKILLS;
+		global $ESO_FREE_RACIAL_SKILLS;
 			
 		foreach ($ESO_FREE_SKILLS as $skillId => $skillType)
 		{
+			$race = $ESO_FREE_RACIAL_SKILLS[$skillId];
+			if ($race != null && $race != $this->viewSkills->displayRace) continue;
+			
 			$this->initialSkillData[$skillId] = 1;
 			
 			$skillCharData = array();
