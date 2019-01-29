@@ -16556,13 +16556,13 @@ window.UpdateEsoMitigationTableElement = function(elementId)
 	output += CreateMitigationRawDataBlock("DamageTaken - Vulnerability Mitigation", rawData.damageTaken + rawData.vulnerability + rawData.elementVulnerability, "mitigation", mitigation);
 	mitigation *= rawData.damageTaken + rawData.vulnerability + rawData.elementVulnerability;
 	
-	output += CreateMitigationRawDataBlock(rawData.elementType + " Mitigation", rawData.damage1Taken, "mitigation", mitigation);
+	output += CreateMitigationRawDataBlock(rawData.damageType1 + " Mitigation", rawData.damage1Taken, "mitigation", mitigation);
 	mitigation *= rawData.damage1Taken;
 	
-	output += CreateMitigationRawDataBlock(rawData.damageType1 + " Mitigation", rawData.damage2Taken, "mitigation", mitigation);
+	output += CreateMitigationRawDataBlock(rawData.damageType2 + " Mitigation", rawData.damage2Taken, "mitigation", mitigation);
 	mitigation *= rawData.damage2Taken;
 	
-	output += CreateMitigationRawDataBlock(rawData.damageType2 + " Mitigation", rawData.elementDamageTaken, "mitigation", mitigation);
+	output += CreateMitigationRawDataBlock(rawData.elementDamageTaken + " Mitigation", rawData.elementDamageTaken, "mitigation", mitigation);
 	mitigation *= rawData.elementDamageTaken;
 	
 	output += CreateMitigationRawDataBlock("Block Mitigation", rawData.blockDamageTaken, "mitigation", mitigation);
