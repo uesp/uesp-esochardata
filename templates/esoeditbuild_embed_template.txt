@@ -1260,6 +1260,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					</tr>
 				</table>
 				<p/><br/>
+				Click on a cell in the above table to show calculation details.
+				<div id="esotbMitigationDetails">
+					&nbsp;				
+				</div>
+				<p/><br/>
 				<div class="esotbMitigationFooter">
 					Some information and calculation details have come from 
 					<a href="https://forums.elderscrollsonline.com/en/discussion/279426/damage-mitigation-explanation-updated-for-morrowind-new-calculator/p1">Damage Mitigation: Explanation!</a>
@@ -1318,6 +1323,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<ul>
 				<li>Fixed tooltips not correctly using Weapon/Spell damage values from the new update 21 Racial passives.</li>
 				<li>New builds will no longer have all the free passives for all races initially enabled.</li>
+				<li>Added calculation details on the mitigation tab when you click a table cell.</li>
 			</ul>
 			<p>
 			<b>28 January 2018</b>

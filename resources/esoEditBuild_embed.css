@@ -1170,3 +1170,37 @@ button.esotbWeaponSelect {
     width: 75px;
 	text-align: center;
 }
+
+.esotbMitigationTable > tr > td:hover,
+.esotbMitigationTable > * > tr > td:hover {
+	cursor: pointer;
+	background-color: #ccc;
+}
+
+#esotbMitigationDetails {
+   border-radius: 5px;
+   border: 1px solid gray;
+}
+
+.esotbMitRawDataTitle {
+	display: inline-block;
+	text-align: right;
+	width: 300px;
+	font-weight: bold;
+}
+
+.esotbMitRawDataHeader {
+	font-weight: bold;
+	background-color: lightgray;
+	border-radius: 4px 4px 0 0;
+    padding: 3px;
+}
+
+.esotbMitTableSelected {
+	background-color: yellow;
+}
+
+.esotbMitRawDataCumulative {
+	color: #777;
+	display: inline-block;
+}

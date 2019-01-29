@@ -16316,6 +16316,9 @@ window.ESO_STATMULTVALUE_CATEGORIES = ['Item', 'Buff', 'Skill', 'Skill2', 'Food'
 
 window.ESO_RESIST_CAP = 33000;
 
+window.rawEsoMitigationData = {};
+window.currentEsoMitigationRawDataElementId = null;
+
 
 window.UpdateEsoMitigation = function()
 {
@@ -16323,6 +16326,8 @@ window.UpdateEsoMitigation = function()
 	var isBlocking = $("#esotbMitigationBlock").is(":checked");
 	
 	$("#esotbMitigationPVP").prop("checked", isPlayer);
+	
+	window.rawEsoMitigationData = {};
 	
 	for (var i in ESO_MITIGATION_ELEMENTTYPES) 
 	{
@@ -16338,13 +16343,14 @@ window.UpdateEsoMitigation = function()
 		UpdateEsoMitigationCell($("#esotbMitTable" + i + "8"), elementType, "Direct", "LA", isPlayer, isBlocking)
 	}
 	
+	if (currentEsoMitigationRawDataElementId) UpdateEsoMitigationTableElement(currentEsoMitigationRawDataElementId);
 }
 
 
 window.GetEsoComputedStatValue = function(key, defaultValue = 0)
 {
 	var obj = g_EsoComputedStats[key];
-	if (obj) return obj.value;
+	if (obj && obj.value != null) return obj.value;
 	return defaultValue;
 }
 
@@ -16398,10 +16404,19 @@ window.UpdateEsoMitigationCell = function(element, elementType, damageType1, dam
 	var mitigationText = "";
 	var elementVulnerability = 1;
 	var vulnerability = 1;
+	var rawData = {};
 	
 	if (elementType == "Physical" || elementType == "Poison" || elementType == "Disease") resistType = "PhysicalResist";
-		
 	if (elementType != "Physical") extraResist = GetEsoComputedStatValue(elementType + "Resist");
+	
+	rawData.id = element.attr("id");
+	rawData.resistType = resistType;
+	rawData.elementType = elementType;
+	rawData.damageType1 = damageType1;
+	rawData.damageType2 = damageType2;
+	
+	rawData.baseResistance = g_EsoComputedStats[resistType].value;
+	rawData.extraResist = extraResist;
 	
 	resistance = g_EsoComputedStats[resistType].value + extraResist;
 	if (resistance > ESO_RESIST_CAP) resistance = ESO_RESIST_CAP;
@@ -16431,22 +16446,39 @@ window.UpdateEsoMitigationCell = function(element, elementType, damageType1, dam
 		dungeonDamageTaken = GetEsoInputStatMultValue("DungeonDamageTaken");
 	}
 	
+	rawData.resistance = resistance;
+	rawData.resistanceDamageTaken = (1 - Math.max(0, resistance - 100) / 660 / 100);
+	rawData.elementVulnerability = elementVulnerability;
+	rawData.vulnerability = vulnerability;
+	rawData.damageTaken = damageTaken;
+	rawData.damage1Taken = damage1Taken;
+	rawData.damage2Taken = damage2Taken;
+	rawData.elementDamageTaken = elementDamageTaken;
+	rawData.blockDamageTaken = 1 - blockDamageTaken;
+	rawData.playerDamageTaken = playerDamageTaken;
+	rawData.playerAOEDamageTaken = playerAOEDamageTaken;
+	rawData.dungeonDamageTaken = dungeonDamageTaken;
+	
 		/* Mitigation calculation */
 	mitigation *= (1 - Math.max(0, resistance - 100) / 660 / 100); 
 	mitigation *= damageTaken + elementVulnerability + vulnerability;
 	mitigation *= damage1Taken;
 	mitigation *= damage2Taken;
 	mitigation *= elementDamageTaken;
-	mitigation *= (1 - blockDamageTaken);
+	mitigation *= 1 - blockDamageTaken;
 	mitigation *= playerDamageTaken;
 	mitigation *= playerAOEDamageTaken;
 	mitigation *= dungeonDamageTaken;
+	
+	rawData.mitigation = mitigation;
 	
 		/* Convert to nice number for display */
 	mitigation = (100 * mitigation).toFixed(1);
 	mitigationText = "" + (100 - mitigation).toFixed(1);
 	
 	element.text(mitigationText + "%");
+	
+	rawEsoMitigationData[element.attr("id")] = rawData;
 }
 
 
@@ -16463,6 +16495,138 @@ window.OnEsoClickMitigationPVP = function()
 	$("#esotbCyrodiil").prop("checked", isPlayer);
 	
 	OnEsoClickCyrodiil();
+}
+
+window.OnEsoShowMitigationDetails = function()
+{
+	$("#esotbMitigationDetails").toggle();
+}
+
+
+window.OnEsoMitigationTableClick = function()
+{
+	var elementId = $(this).attr("id");
+	UpdateEsoMitigationTableElement(elementId);
+}
+
+
+window.UpdateEsoMitigationTableElement = function(elementId)
+{
+	var rawData = rawEsoMitigationData[elementId];
+	var output = "";
+	var mitigation = 1;
+	
+	$(".esotbMitTableSelected").removeClass("esotbMitTableSelected");
+	$("#" + elementId).addClass("esotbMitTableSelected");
+	currentEsoMitigationRawDataElementId = elementId;
+	
+	output += "<div class='esotbMitRawDataHeader'> " + rawData.resistType + ", " + rawData.elementType + ", " + rawData.damageType1 + ", " + rawData.damageType2 + "</div>";
+	
+	if (rawData == null)
+	{
+		output += "Error: Missing raw data for table element '" + elementId + "'!";
+		$("#esotbMitigationDetails").html(output);
+		return;
+	}
+	
+	if (rawData.mitigation == 1)
+	{
+		output += "<div class='esotbMitRawData'><div class='esotbMitRawDataTitle'>Final Mitigation:</div> 0.0%</div>";
+		$("#esotbMitigationDetails").html(output);
+		return;
+	}	
+	
+	
+	if (rawData.extraResist != 0) 
+	{
+		output += CreateMitigationRawDataBlock("Base Resistance", rawData.baseResistance, "resist");
+		output += CreateMitigationRawDataBlock("Extra Resistance", rawData.extraResist, "resist");
+	}
+	
+	output += CreateMitigationRawDataBlock("Resistance", rawData.resistance, "resist");
+	output += CreateMitigationRawDataBlock("DamageTaken Mitigation", rawData.damageTaken, "mitigation");
+	output += CreateMitigationRawDataBlock("Vulnerability", rawData.vulnerability, "vulnerability");
+	output += CreateMitigationRawDataBlock(rawData.elementType + " Vulnerability", rawData.elementVulnerability, "vulnerability");
+	output += "<hr/>";
+	output += " Each of the following mitigation values combine multiplicatively<sup>*</sup>:<p><br/>"
+		
+	output += CreateMitigationRawDataBlock("Resistance Mitigation", rawData.resistanceDamageTaken, "mitigation", mitigation);
+	mitigation *= rawData.resistanceDamageTaken;
+	
+	output += CreateMitigationRawDataBlock("DamageTaken - Vulnerability Mitigation", rawData.damageTaken + rawData.vulnerability + rawData.elementVulnerability, "mitigation", mitigation);
+	mitigation *= rawData.damageTaken + rawData.vulnerability + rawData.elementVulnerability;
+	
+	output += CreateMitigationRawDataBlock(rawData.elementType + " Mitigation", rawData.damage1Taken, "mitigation", mitigation);
+	mitigation *= rawData.damage1Taken;
+	
+	output += CreateMitigationRawDataBlock(rawData.damageType1 + " Mitigation", rawData.damage2Taken, "mitigation", mitigation);
+	mitigation *= rawData.damage2Taken;
+	
+	output += CreateMitigationRawDataBlock(rawData.damageType2 + " Mitigation", rawData.elementDamageTaken, "mitigation", mitigation);
+	mitigation *= rawData.elementDamageTaken;
+	
+	output += CreateMitigationRawDataBlock("Block Mitigation", rawData.blockDamageTaken, "mitigation", mitigation);
+	mitigation *= rawData.blockDamageTaken;
+	
+	output += CreateMitigationRawDataBlock("Player Mitigation", rawData.playerDamageTaken, "mitigation", mitigation);
+	mitigation *= rawData.playerDamageTaken;
+	
+	output += CreateMitigationRawDataBlock("PlayerAOE Mitigation", rawData.playerAOEDamageTaken, "mitigation", mitigation);
+	mitigation *= rawData.playerAOEDamageTaken;
+	
+	output += CreateMitigationRawDataBlock("Dungeon Mitigation", rawData.dungeonDamageTaken, "mitigation", mitigation);
+	mitigation *= rawData.dungeonDamageTaken;	
+	
+	output += "<p><br/>"
+	output += CreateMitigationRawDataBlock("Final Mitigation", rawData.mitigation, "mitigation");
+	
+	output += "<p><br/>"
+	output += " <sup>*</sup>Multiplicative combination of mitigations works as follows:</br>";
+	output += "<pre>Mitigation #1 = 5%<br/>";
+	output += "Mitigation #2 = 31%<br/>";
+	output += "Combined = (1 - (1 - 5/100) * (1 - 31/100) ) * 100 = 34.4%</pre>";
+
+	$("#esotbMitigationDetails").html(output);
+}
+
+
+window.CreateMitigationRawDataBlock = function(title, value, type, cumulativeMitigation)
+{
+	var output = "";
+	
+	if (type == "mitigation"    && value == 1) return "";
+	if (type == "vulnerability" && value == 0) return "";
+	if (type == "resist"        && value == 0) return "";
+	
+	output += "<div class='esotbMitRawData'>";
+	output += "<div class='esotbMitRawDataTitle'>" + title + ":</div> ";
+	
+	if (type == "mitigation")
+	{
+		output += (100*(1 - value)).toFixed(1) + "%";
+	}
+	else if (type == "stat")
+	{
+		output += "<b>" + value + "</b>";
+	}
+	else if (type == "vulnerability")
+	{
+		output += (100*value).toFixed(1) + "%";
+	}
+	else
+	{
+		output += value;	
+	}
+	
+	if (cumulativeMitigation != null)
+	{
+		var mitigation = ((1 - cumulativeMitigation * value)*100).toFixed(1);
+		output += " <div class='esotbMitRawDataCumulative'>(" + (100 - cumulativeMitigation*100).toFixed(1) + "% * " + (100 - value*100).toFixed(1) + "% = " + mitigation + "%)</div>";
+	}
+			
+	output += "</div>";
+	
+	return output;
 }
 
 
@@ -16566,6 +16730,9 @@ window.esotbOnDocReady = function ()
 	    if (e.keyCode == 27) OnEsoBuildEscapeKey(e);
 	});
 	
+	$("#esotbMitigationShowDetails").click(OnEsoShowMitigationDetails);
+	$(".esotbMitigationTable td").click(OnEsoMitigationTableClick)
+	
 	// UpdateEsoComputedStatsList(true);
 	CopyEsoSkillsToItemTab();
 	UpdateEsoCpData();
@@ -16575,3 +16742,4 @@ window.esotbOnDocReady = function ()
 
 $( document ).ready(esotbOnDocReady);
 
+;
