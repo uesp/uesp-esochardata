@@ -83,7 +83,7 @@ window.ESO_ITEMQUALITYLEVEL_INTTYPEMAP =
 		 1 : [1,  30,  31,  32,  33,  34],
 		 4 : [1,  25,  26,  27,  28,  29],
 		 6 : [1,  20,  21,  22,  23,  24],
-		50 : [1,  20,  21,  22,  23,  24], //?
+		50 : [1,  20,  21,  22,  23,  24], // ?
 		51 : [1, 125, 135, 145, 155, 156],
 		52 : [1, 126, 136, 146, 156, 166],
 		53 : [1, 127, 137, 147, 157, 167],
@@ -107,7 +107,7 @@ window.ESO_ITEMQUALITYLEVEL_INTTYPEMAP_JEWELRY =
 		 1 : [1,  30,  31,  32,  33,  34],
 		 4 : [1,  25,  26,  27,  28,  29],
 		 6 : [1,  20,  21,  22,  23,  24],
-		50 : [1,  20,  21,  22,  23,  24],  //?
+		50 : [1,  20,  21,  22,  23,  24],  // ?
 		51 : [1, 125, 135, 145, 155, 156],
 		52 : [1, 126, 136, 146, 156, 166],
 		53 : [1, 127, 137, 147, 157, 167],
@@ -122,7 +122,7 @@ window.ESO_ITEMQUALITYLEVEL_INTTYPEMAP_JEWELRY =
 		62 : [1, 254, 255, 256, 257, 258],
 		63 : [1, 272, 273, 274, 275, 276],
 		64 : [1, 290, 291, 292, 293, 294],
-		65 : [1, 308, 309, 310, 311, 312], //TODO: and previous levels
+		65 : [1, 308, 309, 310, 311, 312], // TODO: and previous levels
 		66 : [1, 365, 359, 362, 363, 364],
 };
 
@@ -142,13 +142,13 @@ window.ESO_MUNDUS_BUFF_DATA =
 	"The Lady" : {
 		abilityId: 13976,
 		icon : "/esoui/art/icons/ability_mundusstones_005.png",
-		//description: "Increases your Physical Resistance.",
+		// description: "Increases your Physical Resistance.",
 		description: "Increases your Spell and Physical Resistance by 2752.",
 	},
 	"The Lover" : {
 		abilityId: 13981,
 		icon : "/esoui/art/icons/ability_mundusstones_011.png",
-		//description: "Increases your Spell Resistance.",
+		// description: "Increases your Spell Resistance.",
 		description: "Increases your Spell and Physical Penetration by 2752.",
 	},
 	"The Lord" : {
@@ -232,11 +232,11 @@ window.ESOBUILD_SLOTID_TO_EQUIPTYPE =
 		"Neck" : 2,
 		"Ring1" : 12,
 		"Ring2" : 12,
-		"MainHand1" : 14, 	//5,6
-		"OffHand1" : 7,		//5
+		"MainHand1" : 14, 	// 5,6
+		"OffHand1" : 7,		// 5
 		"Poison1" : 15,
-		"MainHand2" : 14,	//5,6
-		"OffHand2" : 7,		//5
+		"MainHand2" : 14,	// 5,6
+		"OffHand2" : 7,		// 5
 		"Poison2" : 15,
 };
 
@@ -558,7 +558,8 @@ window.g_EsoBuildBuffData =
 			statDesc : "Increases the damage of your next Light Attack by ",
 			icon : "/esoui/art/icons/ability_warrior_012.png",
 		},
-		"Major Courage" :			//TODO: Check how its added to other SD/WD stats 
+		"Major Courage" :			// TODO: Check how its added to other SD/WD
+									// stats
 		{
 			enabled: false,
 			skillEnabled : false,
@@ -616,7 +617,7 @@ window.g_EsoBuildBuffData =
 			statId : "DamageTaken",
 			icon : "/esoui/art/icons/ability_templar_sun_shield.png",
 		},
-		//Minor Lifesteal: Heal 2% damage done
+		// Minor Lifesteal: Heal 2% damage done
 		"Minor Protection" : 
 		{
 			enabled: false,
@@ -680,7 +681,7 @@ window.g_EsoBuildBuffData =
 			category: "Skill",
 			statId : "PhysicalResist",
 			icon : "/esoui/art/icons/ability_1handed_002.png",
-			//icon : "/esoui/art/icons/ability_warrior_016.png",
+			// icon : "/esoui/art/icons/ability_warrior_016.png",
 		},
 		"Major Breach" : 
 		{
@@ -690,7 +691,7 @@ window.g_EsoBuildBuffData =
 			category: "Skill",
 			statId : "SpellResist",
 			icon : "/esoui/art/icons/ability_mage_039.png",
-			//icon : "/esoui/art/icons/ability_1handed_002_b.png",			
+			// icon : "/esoui/art/icons/ability_1handed_002_b.png",
 		},
 		"Minor Breach" : 
 		{
@@ -725,7 +726,8 @@ window.g_EsoBuildBuffData =
 			skillEnabled : false,
 			value : 0.08,
 			display: "%",
-			statId : "DamageTaken",
+			statId : "Vulnerability",
+			category: "Buff",
 			combineAs: "*%",
 			icon : "/esoui/art/icons/death_recap_poison_ranged.png",
 		},
@@ -780,9 +782,9 @@ window.g_EsoBuildBuffData =
 			visible : false,
 			toggleVisible : true,
 			displays : [ "%", "%" ],
-			categories : [ "Skill", "Skill" ],
+			categories : [ "Skill", "Buff" ],
 			values : [ 0.30, 0.25 ],
-			statIds : [ "Stamina", "PoisonDamageTaken" ],
+			statIds : [ "Stamina", "PoisonVulnerability" ],
 			icon: "/esoui/art/icons/ability_werewolf_001.png",
 		},
 		"Mechanical Acuity" : 
@@ -790,7 +792,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			values : [ 21910, 21910 ],
-			//displays: [ "%", "%" ],
+			// displays: [ "%", "%" ],
 			statIds : [ "SpellCrit", "WeaponCrit" ],
 			icon : "/esoui/art/icons/gear_clockwork_medium_head_a.png",
 		},
@@ -853,7 +855,7 @@ window.g_EsoBuildBuffData =
 			display: "%",
 			category: "Skill",
 			statId : "AOEDamageTaken",
-			//statDesc : "Decreases AOE damage taken by ",
+			// statDesc : "Decreases AOE damage taken by ",
 			icon : "/esoui/art/icons/ability_dualwield_004.png",
 		},
 		"Minor Toughness" : 
@@ -872,7 +874,11 @@ window.g_EsoBuildBuffData =
 			value : -0.04,
 			display: '%',
 			statId : "MagickaCost",
-			icon : "/esoui/art/icons/gear_artifactwormcultlight_head_a.png", //TODO: Not the correct one?
+			icon : "/esoui/art/icons/gear_artifactwormcultlight_head_a.png", // TODO:
+																				// Not
+																				// the
+																				// correct
+																				// one?
 		},
 		"Hircines Veneer" : 
 		{
@@ -884,15 +890,10 @@ window.g_EsoBuildBuffData =
 			icon : "/esoui/art/icons/gear_artifactsaviorhidemd_head_a.png",
 		},
 		/*
-		"Hircines Rage" : 
-		{
-			enabled: false,
-			skillEnabled : false,
-			value : 0.10,
-			display: '%',
-			statId : "WeaponDamage",
-			icon : "/esoui/art/icons/ability_werewolf_004_b.png",
-		}, */
+		 * "Hircines Rage" : { enabled: false, skillEnabled : false, value :
+		 * 0.10, display: '%', statId : "WeaponDamage", icon :
+		 * "/esoui/art/icons/ability_werewolf_004_b.png", },
+		 */
 		"Powerful Assault" : 
 		{
 			enabled: false,
@@ -906,7 +907,8 @@ window.g_EsoBuildBuffData =
 			/* Target Buffs */
 		"Alkosh (Target)" : 
 		{
-			//Reduces the Physical and Spell Resistance of any enemy hit by 35-3010 for 10 seconds.
+			// Reduces the Physical and Spell Resistance of any enemy hit by
+			// 35-3010 for 10 seconds.
 			enabled: false,
 			skillEnabled : false,
 			values : [ -3010, -3010 ],
@@ -917,11 +919,12 @@ window.g_EsoBuildBuffData =
 		},
 		"Crusher Enchantment (Target)" :
 		{
-			//Reduce the target's Spell Resist and Physical Resist by 1622 for 5 seconds.
+			// Reduce the target's Spell Resist and Physical Resist by 1622 for
+			// 5 seconds.
 			enabled: false,
 			skillEnabled : false,
-			//visible : false,
-			//toggleVisible : true,
+			// visible : false,
+			// toggleVisible : true,
 			values : [ -1622, -1622 ],
 			category: "Target",
 			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
@@ -930,11 +933,12 @@ window.g_EsoBuildBuffData =
 		},
 		"Crusher Enchantment Infused (Target)" :
 		{
-			//Reduce the target's Spell Resist and Physical Resist by 1946 for 5 seconds.
+			// Reduce the target's Spell Resist and Physical Resist by 1946 for
+			// 5 seconds.
 			enabled: false,
 			skillEnabled : false,
-			//visible : false,
-			//toggleVisible : true,
+			// visible : false,
+			// toggleVisible : true,
 			values : [ -2108, -2108 ],
 			category: "Target",
 			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
@@ -943,11 +947,12 @@ window.g_EsoBuildBuffData =
 		},
 		"Crusher Enchantment Infused + Torug (Target)" :
 		{
-			//Reduce the target's Spell Resist and Physical Resist by 1946 for 5 seconds.
+			// Reduce the target's Spell Resist and Physical Resist by 1946 for
+			// 5 seconds.
 			enabled: false,
 			skillEnabled : false,
-			//visible : false,
-			//toggleVisible : true,
+			// visible : false,
+			// toggleVisible : true,
 			values : [ -2741, -2741 ],
 			category: "Target",
 			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
@@ -955,33 +960,21 @@ window.g_EsoBuildBuffData =
 			icon : "/esoui/art/icons/ability_armor_001.png",
 		},
 		
-		/* Changed in update 18 to be Major Fracture 
-		"Night Mothers Gaze (Target)" :
-		{
-			//When you deal Critical Damage, you reduce the enemy's Physical Resistance by 30-2580 for 6 seconds.
-			enabled: false,
-			skillEnabled : false,
-			//visible : false,
-			//toggleVisible : true,
-			values : [ -2580 ],
-			category: "Target",
-			statIds : [ "PhysicalDebuff" ],
-			statDesc : "Reduces the target's Physical Resistance by ",
-			icon : "/esoui/art/icons/ability_mage_065.png",
-		},
-		"Sunderflame (Target)" :
-		{
-			//reduce the enemy's Physical Resistance by 40-3440 for 8 seconds.
-			enabled: false,
-			skillEnabled : false,
-			//visible : false,
-			//toggleVisible : true,
-			values : [ -3440 ],
-			category: "Target",
-			statIds : [ "PhysicalDebuff" ],
-			statDesc : "Reduces the target's Physical Resistance by ",
-			icon : "/esoui/art/icons/ability_mage_065.png",
-		}, */
+		/*
+		 * Changed in update 18 to be Major Fracture "Night Mothers Gaze
+		 * (Target)" : { //When you deal Critical Damage, you reduce the enemy's
+		 * Physical Resistance by 30-2580 for 6 seconds. enabled: false,
+		 * skillEnabled : false, //visible : false, //toggleVisible : true,
+		 * values : [ -2580 ], category: "Target", statIds : [ "PhysicalDebuff" ],
+		 * statDesc : "Reduces the target's Physical Resistance by ", icon :
+		 * "/esoui/art/icons/ability_mage_065.png", }, "Sunderflame (Target)" : {
+		 * //reduce the enemy's Physical Resistance by 40-3440 for 8 seconds.
+		 * enabled: false, skillEnabled : false, //visible : false,
+		 * //toggleVisible : true, values : [ -3440 ], category: "Target",
+		 * statIds : [ "PhysicalDebuff" ], statDesc : "Reduces the target's
+		 * Physical Resistance by ", icon :
+		 * "/esoui/art/icons/ability_mage_065.png", },
+		 */
 		"Major Fracture (Target)" : 
 		{
 			enabled: false,
@@ -1419,7 +1412,9 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		display: "%",
-		//match: /The armor increases your damage with Heavy Attacks by ([0-9]+\.?[0-9]*)% and increases your Max Stamina by [0-9]+\.?[0-9]*%/i
+		// match: /The armor increases your damage with Heavy Attacks by
+		// ([0-9]+\.?[0-9]*)% and increases your Max Stamina by
+		// [0-9]+\.?[0-9]*%/i
 		match: /The armor increases your Max Stamina by [0-9]+\.?[0-9]*% and your damage done with Heavy Attacks by ([0-9]+\.?[0-9]*%)/i,
 	},
 	{
@@ -1430,7 +1425,9 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		display: "%",
-		//match: /The armor increases your damage with Heavy Attacks by [0-9]+\.?[0-9]*% and increases your Max Stamina by ([0-9]+\.?[0-9]*)%/i
+		// match: /The armor increases your damage with Heavy Attacks by
+		// [0-9]+\.?[0-9]*% and increases your Max Stamina by
+		// ([0-9]+\.?[0-9]*)%/i
 		match: /The armor increases your Max Stamina by ([0-9]+\.?[0-9]*)% and your damage done with Heavy Attacks by [0-9]+\.?[0-9]*%/i,
 	},
 	{
@@ -1551,7 +1548,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 	{
 		id: "Molten Weapons",
 		displayName: "Molten Armaments",
-		//baseSkillId: 32173,
+		// baseSkillId: 32173,
 		baseSkillId: 32156,
 		toggle: true,
 		enabled: false,
@@ -1605,7 +1602,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 	},
 	{
 		id: "Hircine's Rage",
-		//displayName: "Hircine's Rage",
+		// displayName: "Hircine's Rage",
 		matchSkillName: true,
 		baseSkillId: 58316,
 		buffId: "Major Brutality",
@@ -2276,12 +2273,12 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /and increases the movement speed bonus of sprint by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		statId: "HAMeleeDamage", //TODO: Verify
+		statId: "HAMeleeDamage", // TODO: Verify
 		display: "%",
 		match: /Increases your damage done with melee attacks by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		statId: "LAMeleeDamage", //TODO: Verify
+		statId: "LAMeleeDamage", // TODO: Verify
 		display: "%",
 		match: /Increases your damage done with melee attacks by ([0-9]+\.?[0-9]*)%/i,
 	},
@@ -2382,16 +2379,16 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /WITH BOW EQUIPPED[\s\S]*?Increases Weapon Critical rating by ([0-9]+)/i,
 	},
 	{
-		//statRequireId: "WeaponDestStaff",
-		//statRequireValue: 1,
+		// statRequireId: "WeaponDestStaff",
+		// statRequireValue: 1,
 		category: "Skill",
 		statId: "DestructionPenetration",
 		display: "%",
 		match: /WITH DESTRUCTION STAFF EQUIPPED[\s\S]*?Allows your Destruction Staff spells to ignore ([0-9]+)% of an enemy's Spell Resistance/i,
 	},
 	{
-		//statRequireId: "WeaponDestStaff",
-		//statRequireValue: 1,
+		// statRequireId: "WeaponDestStaff",
+		// statRequireValue: 1,
 		category: "Skill",
 		statId: "DestructionPenetration",
 		display: "%",
@@ -3068,8 +3065,11 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statValue: 219,
 		skillName: "Pressure Points",
 		skillRank: 1,
-		//match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
-		//Increases your Weapon and Spell Critical ratings by 438 for each Assassination ability slotted. Current bonus: 0.
+		// match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases
+		// Critical Strike and Spell Critical ratings for each Assassination
+		// ability slotted/i
+		// Increases your Weapon and Spell Critical ratings by 438 for each
+		// Assassination ability slotted. Current bonus: 0.
 	},
 	{
 		factorSkillLine: "Assassination",
@@ -3078,7 +3078,9 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statValue: 219,
 		skillName: "Pressure Points",
 		skillRank: 1,
-		//match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
+		// match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases
+		// Critical Strike and Spell Critical ratings for each Assassination
+		// ability slotted/i
 	},
 	{
 		factorSkillLine: "Assassination",
@@ -3087,7 +3089,9 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statValue: 438,
 		skillName: "Pressure Points",
 		skillRank: 2,
-		//match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
+		// match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases
+		// Critical Strike and Spell Critical ratings for each Assassination
+		// ability slotted/i
 	},
 	{
 		factorSkillLine: "Assassination",
@@ -3096,7 +3100,9 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statValue: 438,
 		skillName: "Pressure Points",
 		skillRank: 2,
-		//match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
+		// match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases
+		// Critical Strike and Spell Critical ratings for each Assassination
+		// ability slotted/i
 	},
 	{
 		statRequireId: "Stealthed",
@@ -4108,7 +4114,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	},
 {
 		id: "Burning Heart",
-		//requireSkillLine: "DRACONIC POWER",
+		// requireSkillLine: "DRACONIC POWER",
 		baseSkillId: 29457,
 		statId: "HealingReceived",
 		toggle: true,
@@ -4118,7 +4124,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		id: "Burning Heart",
-		//requireSkillLine: "DRACONIC POWER",
+		// requireSkillLine: "DRACONIC POWER",
 		baseSkillId: 29457,
 		statId: "HealingReceived",
 		toggle: true,
@@ -4128,7 +4134,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		id: "Burning Heart",
-		//requireSkillLine: "DRACONIC POWER",
+		// requireSkillLine: "DRACONIC POWER",
 		baseSkillId: 29457,
 		statId: "HealingReceived",
 		toggle: true,
@@ -4165,7 +4171,9 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		enabled: false,
 		display: "%",
 		maxTimes: 5,
-		//match: /WITH BOW EQUIPPED[\s\S]*?Your successful Light and Heavy Attacks increase the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i
+		// match: /WITH BOW EQUIPPED[\s\S]*?Your successful Light and Heavy
+		// Attacks increase the damage of your Bow abilities by
+		// ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i
 		match: /WITH A BOW EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack increases the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i,
 	},
 	
@@ -4185,97 +4193,46 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Reduces the cost of your Psijic Order abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	/*
-	{
-		statRequireId: "WeaponBow",
-		statRequireValue: 1,
-		id: "Hawk Eye",
-		baseSkillId: 30936,
-		category: "SkillLineDamage",
-		statId: "Bow",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		maxTimes: 5,
-		match: /WITH A BOW EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack increases the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i
-	},
-	{
-		statRequireId: "WeaponBow",
-		statRequireValue: 1,
-		id: "Hawk Eye",
-		baseSkillId: 30936,
-		category: "SkillDamage",
-		statId: "Rapid Fire",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		maxTimes: 5,
-		match: /WITH A BOW EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack increases the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i
-	},
-	{
-		statRequireId: "WeaponBow",
-		statRequireValue: 1,
-		id: "Hawk Eye",
-		baseSkillId: 30936,
-		category: "SkillDamage",
-		statId: "Snipe",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		maxTimes: 5,
-		match: /WITH A BOW EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack increases the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i
-	},
-	{
-		statRequireId: "WeaponBow",
-		statRequireValue: 1,
-		id: "Hawk Eye",
-		baseSkillId: 30936,
-		category: "SkillDamage",
-		statId: "Volley",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		maxTimes: 5,
-		match: /WITH A BOW EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack increases the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i
-	},
-	{
-		statRequireId: "WeaponBow",
-		statRequireValue: 1,
-		id: "Hawk Eye",
-		baseSkillId: 30936,
-		category: "SkillDamage",
-		statId: "Scatter Shot",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		maxTimes: 5,
-		match: /WITH A BOW EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack increases the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i
-	},
-	{
-		statRequireId: "WeaponBow",
-		statRequireValue: 1,
-		id: "Hawk Eye",
-		baseSkillId: 30936,
-		category: "SkillDamage",
-		statId: "Arrow Spray",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		maxTimes: 5,
-		match: /WITH A BOW EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack increases the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i
-	},
-	{
-		statRequireId: "WeaponBow",
-		statRequireValue: 1,
-		id: "Hawk Eye",
-		baseSkillId: 30936,
-		category: "SkillDamage",
-		statId: "Poison Arrow",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		maxTimes: 5,
-		match: /WITH A BOW EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack increases the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i
-	}, //*/
+	 * { statRequireId: "WeaponBow", statRequireValue: 1, id: "Hawk Eye",
+	 * baseSkillId: 30936, category: "SkillLineDamage", statId: "Bow", toggle:
+	 * true, enabled: false, display: "%", maxTimes: 5, match: /WITH A BOW
+	 * EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack increases the
+	 * damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds,
+	 * stacking up to [0-9]+ times/i }, { statRequireId: "WeaponBow",
+	 * statRequireValue: 1, id: "Hawk Eye", baseSkillId: 30936, category:
+	 * "SkillDamage", statId: "Rapid Fire", toggle: true, enabled: false,
+	 * display: "%", maxTimes: 5, match: /WITH A BOW EQUIPPED[\s\S]*?Dealing
+	 * damage with a Light or Heavy Attack increases the damage of your Bow
+	 * abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+
+	 * times/i }, { statRequireId: "WeaponBow", statRequireValue: 1, id: "Hawk
+	 * Eye", baseSkillId: 30936, category: "SkillDamage", statId: "Snipe",
+	 * toggle: true, enabled: false, display: "%", maxTimes: 5, match: /WITH A
+	 * BOW EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack increases
+	 * the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+
+	 * seconds, stacking up to [0-9]+ times/i }, { statRequireId: "WeaponBow",
+	 * statRequireValue: 1, id: "Hawk Eye", baseSkillId: 30936, category:
+	 * "SkillDamage", statId: "Volley", toggle: true, enabled: false, display:
+	 * "%", maxTimes: 5, match: /WITH A BOW EQUIPPED[\s\S]*?Dealing damage with
+	 * a Light or Heavy Attack increases the damage of your Bow abilities by
+	 * ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i }, {
+	 * statRequireId: "WeaponBow", statRequireValue: 1, id: "Hawk Eye",
+	 * baseSkillId: 30936, category: "SkillDamage", statId: "Scatter Shot",
+	 * toggle: true, enabled: false, display: "%", maxTimes: 5, match: /WITH A
+	 * BOW EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack increases
+	 * the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+
+	 * seconds, stacking up to [0-9]+ times/i }, { statRequireId: "WeaponBow",
+	 * statRequireValue: 1, id: "Hawk Eye", baseSkillId: 30936, category:
+	 * "SkillDamage", statId: "Arrow Spray", toggle: true, enabled: false,
+	 * display: "%", maxTimes: 5, match: /WITH A BOW EQUIPPED[\s\S]*?Dealing
+	 * damage with a Light or Heavy Attack increases the damage of your Bow
+	 * abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+
+	 * times/i }, { statRequireId: "WeaponBow", statRequireValue: 1, id: "Hawk
+	 * Eye", baseSkillId: 30936, category: "SkillDamage", statId: "Poison
+	 * Arrow", toggle: true, enabled: false, display: "%", maxTimes: 5, match:
+	 * /WITH A BOW EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack
+	 * increases the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for
+	 * [0-9]+ seconds, stacking up to [0-9]+ times/i }, //
+	 */
 	
 	{
 		id: "Continuous Attack",
@@ -4363,43 +4320,59 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	
 
 		// Dragonknight
-	//Increases the damage of your Flame and Poison area of effect abilities by 6%.
-	//Increases the damage of your Burning and Poisoned status effects by 66%.
+	// Increases the damage of your Flame and Poison area of effect abilities by
+	// 6%.
+	// Increases the damage of your Burning and Poisoned status effects by 66%.
 	
 		// Templar
-	//Gives you a 25% chance to cause an extra 1803 Damage any time you hit with an Aedric Spear ability. Deals Physical Damage and scales with Weapon Damage, or deals Magic Damage and scales with Spell Damage, based on whichever is higher.
+	// Gives you a 25% chance to cause an extra 1803 Damage any time you hit
+	// with an Aedric Spear ability. Deals Physical Damage and scales with
+	// Weapon Damage, or deals Magic Damage and scales with Spell Damage, based
+	// on whichever is higher.
 	
 		// Restoration Staff
-	//WITH RESTORATION STAFF EQUIPPED Increases your healing by 15% on allies under 30% Health.
-	//WITH RESTORATION STAFF EQUIPPED Restores 540 Magicka when you block a spell.
-	//WITH RESTORATION STAFF EQUIPPED Increases healing with Restoration Staff spells by 5%.
+	// WITH RESTORATION STAFF EQUIPPED Increases your healing by 15% on allies
+	// under 30% Health.
+	// WITH RESTORATION STAFF EQUIPPED Restores 540 Magicka when you block a
+	// spell.
+	// WITH RESTORATION STAFF EQUIPPED Increases healing with Restoration Staff
+	// spells by 5%.
 	
 		// Destruction Staff
-	//Grants bonus effects based on the element used:
-		//Fully charged heavy fire attacks deal 12% additional damage.
-		//Fully charged heavy frost attacks grant a damage shield that absorbs 1809 damage.
-		//Fully charged heavy shock attacks damage nearby enemies for 100% of the damage done.
-	//Increases your chance to apply the Burning, Concussion, and Chilled status effects by 100% while you have a Destruction Staff equipped.
+	// Grants bonus effects based on the element used:
+		// Fully charged heavy fire attacks deal 12% additional damage.
+		// Fully charged heavy frost attacks grant a damage shield that absorbs
+		// 1809 damage.
+		// Fully charged heavy shock attacks damage nearby enemies for 100% of
+		// the damage done.
+	// Increases your chance to apply the Burning, Concussion, and Chilled
+	// status effects by 100% while you have a Destruction Staff equipped.
 	
 		// Bow
-	//WITH BOW ABILITIES Gives you a damage bonus of up to 12% against enemies at longer range.
+	// WITH BOW ABILITIES Gives you a damage bonus of up to 12% against enemies
+	// at longer range.
 	
 		// Dual Wield
-	//WHILE DUAL WIELDING Increases damage with Dual Wield abilities by 20% against enemies with under 25% Health.
+	// WHILE DUAL WIELDING Increases damage with Dual Wield abilities by 20%
+	// against enemies with under 25% Health.
 	
 		// One Hand and Shield
-	//WITH ONE HAND WEAPON AND SHIELD EQUIPPED Increases your Movement Speed while blocking by 60%
+	// WITH ONE HAND WEAPON AND SHIELD EQUIPPED Increases your Movement Speed
+	// while blocking by 60%
 	
 		// Two Handed
-	//Grants a bonus based on the type of weapon equipped:
-		//Axes grant your melee attacks 16% chance to apply a bleed dealing 5635 Physical Damage over 6 seconds.
+	// Grants a bonus based on the type of weapon equipped:
+		// Axes grant your melee attacks 16% chance to apply a bleed dealing
+		// 5635 Physical Damage over 6 seconds.
 	
 		// Racial
-	//Gives your melee attacks a 10% chance to restore 854 Health.
-	//Restores 361 Stamina whenever you damage an enemy with a melee attack. This can happen no more than once every 3 seconds.
+	// Gives your melee attacks a 10% chance to restore 854 Health.
+	// Restores 361 Stamina whenever you damage an enemy with a melee attack.
+	// This can happen no more than once every 3 seconds.
 	
 		// Emperor
-	//WHILE YOU ARE EMPEROR Increases your damage done with Siege Weapons to keeps and other Siege Weapons by 100% while in your campaign.
+	// WHILE YOU ARE EMPEROR Increases your damage done with Siege Weapons to
+	// keeps and other Siege Weapons by 100% while in your campaign.
 ];
 
 
@@ -4408,13 +4381,15 @@ window.ESO_SETEFFECT_MATCHES = [
 	// 40%.
 	// 25%, 25%.
 	// increases the damage of your Bow abilities against Players by 8%.
-	// When you dodge an attack, your Light and Heavy Attacks deal an additional 1225 damage for 8 seconds.
+	// When you dodge an attack, your Light and Heavy Attacks deal an additional
+	// 1225 damage for 8 seconds.
 	// Ignore the Movement Speed penalty of Sneak.
 	// Increases your damage done to Sneaking enemies by 20%.
 	// Reduces your damage taken from Guards by 20%.
 	
 	// Increases the duration of your Flame Damage abilities by 2 seconds.
-	// When your target is under 25% Health, add 1800 Weapon Damage to your Light and Heavy Attacks.
+	// When your target is under 25% Health, add 1800 Weapon Damage to your
+	// Light and Heavy Attacks.
 	
 	{
 		category: "Set",
@@ -4573,7 +4548,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statRequireId: "DrinkBuff",
 		statRequireValue: 1,
 		statId: "Stamina",
-		//category: "Skill2",  // As of patch 3.1.2 this is still normal +set 
+		// category: "Skill2", // As of patch 3.1.2 this is still normal +set
 		match: /While you have a drink buff active, your Max Stamina is increased by ([0-9]+)/i,
 	},
 	{
@@ -4612,11 +4587,10 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		match: /Reduces the cost and increases the damage of your Bow abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
-	/* {
-		statId: "BowDamageDone",
-		display: "%",
-		match: /Reduces the cost and increases the damage of your Bow abilities by ([0-9]+)%/i,
-	}, //*/
+	/*
+	 * { statId: "BowDamageDone", display: "%", match: /Reduces the cost and
+	 * increases the damage of your Bow abilities by ([0-9]+)%/i, }, //
+	 */
 	{
 		category: "SkillCost",
 		statId: "Bow_Cost",
@@ -4874,7 +4848,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Reduces the cost of all of your abilities by ([0-9]+)%/i,
 	},
 	{
-		statId: "BreakFreeCost",	//Assumed
+		statId: "BreakFreeCost",	// Assumed
 		factorValue: -1,
 		display: "%",
 		match: /Reduces the cost of all of your abilities by ([0-9]+)%/i,
@@ -5017,8 +4991,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Reduces the cost of your Restoration Staff abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{		// Ebon Set
-		//statId: "Health",
-		//category: "Skill2",
+		// statId: "Health",
+		// category: "Skill2",
 		buffId: "Ebon Armory",
 		updateBuffValue : true,
 		match: /Increases your Max Health by ([0-9]+)/i,
@@ -5222,9 +5196,9 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Reduce all costs by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		//statId: "MagickaCost",
-		//display: '%',
-		//factorValue: -1,
+		// statId: "MagickaCost",
+		// display: '%',
+		// factorValue: -1,
 		buffId: "Worms Raiment",
 		match: /Reduces the cost of your Magicka abilities by ([0-9]+\.?[0-9]*)% for you and up to /i,
 	},
@@ -5776,7 +5750,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		category: "SkillBonusWeaponDmg",
 		statId: "Poison",
-		//match: /When you deal damage with a Magicka ability, your Poison and Disease Damage abilities gain an additional ([0-9]+) Weapon Damage/i,
+		// match: /When you deal damage with a Magicka ability, your Poison and
+		// Disease Damage abilities gain an additional ([0-9]+) Weapon Damage/i,
 		match: /Adds ([0-9]+) Weapon Damage to your Poison and Disease Damage abilities./i,
 	},
 	{
@@ -5787,7 +5762,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		category: "SkillBonusWeaponDmg",
 		statId: "Disease",
-		//match: /When you deal damage with a Magicka ability, your Poison and Disease Damage abilities gain an additional ([0-9]+) Weapon Damage/i,
+		// match: /When you deal damage with a Magicka ability, your Poison and
+		// Disease Damage abilities gain an additional ([0-9]+) Weapon Damage/i,
 		match: /Adds ([0-9]+) Weapon Damage to your Poison and Disease Damage abilities./i,
 	},
 		
@@ -6387,15 +6363,12 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "HealthRegen",
 		match: /While you have a damage shield on you, your Health Recovery is increased by ([0-9]+)/i,
 	},
-	/*{
-		id: "Powerful Assault",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		//statId: "SpellDamage",
-		match: /When you cast an Assault ability, you increase the Weapon and Spell Damage of up to [0-9]+ friendly targets within [0-9]+ meters by ([0-9]+)/i,
-	}, // */
+	/*
+	 * { id: "Powerful Assault", setBonusCount: 4, toggle: true, enabled: false,
+	 * enableOffBar : true, //statId: "SpellDamage", match: /When you cast an
+	 * Assault ability, you increase the Weapon and Spell Damage of up to [0-9]+
+	 * friendly targets within [0-9]+ meters by ([0-9]+)/i, }, //
+	 */
 	{
 		id: "Powerful Assault",
 		setBonusCount: 4,
@@ -6554,7 +6527,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		buffId: "Major Courage",
-		updateBuffValue : true,				//TODO18
+		updateBuffValue : true,				// TODO18
 		match: /you have a [0-9]+% chance to give them Major Courage for [0-9]+ seconds which increases their Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
@@ -6863,11 +6836,10 @@ window.ESO_ENCHANT_WEAPON_MATCHES = [
 		statId: "WeaponDamage",
 		match: /Adds ([0-9]+) Weapon Damage/i,
 	},
-	/*{			// Unused?
-		modValue: 0.5,
-		statId: "WeaponDamage",
-		match: /grants ([0-9]+) additional Weapon Damage/i,
-	}, //*/
+	/*
+	 * { // Unused? modValue: 0.5, statId: "WeaponDamage", match: /grants
+	 * ([0-9]+) additional Weapon Damage/i, }, //
+	 */
 	{
 		statId: "WeaponDamage",
 		match: /increases Weapon Damage by ([0-9]+)/i,
@@ -7114,7 +7086,7 @@ window.ESOBUILD_RAWOUTPUT_LABELSUFFIX =
 
 window.GetEsoInputValues = function (mergeComputedStats)
 {
-	//if (console && console.time) console.time('GetEsoInputValues');
+	// if (console && console.time) console.time('GetEsoInputValues');
 	
 	ResetEsoBuffSkillEnabled();
 	ResetEsoAllSkillRawOutputs();
@@ -7179,7 +7151,9 @@ window.GetEsoInputValues = function (mergeComputedStats)
 	inputValues.Stealthed = 0;
 	inputValues.NormalSneakSpeed = 0;
 	inputValues.MountSpeedBonus = parseInt($("#esotbMountSpeedBonus").val()) / 100;
-	inputValues.BaseWalkSpeed = parseFloat($("#esotbBaseWalkSpeed").val()); // 3.0 m/s estimated
+	inputValues.BaseWalkSpeed = parseFloat($("#esotbBaseWalkSpeed").val()); // 3.0
+																			// m/s
+																			// estimated
 	inputValues.BuildDescription = $("#esotbBuildDescription").val();
 	
 	if ($("#esotbStealth").prop("checked")) 
@@ -7205,7 +7179,7 @@ window.GetEsoInputValues = function (mergeComputedStats)
 		g_EsoBuildBuffData['Offensive Scroll Bonus'].visible = true;
 		g_EsoBuildBuffData['Defensive Scroll Bonus'].visible = true;
 		
-		//g_EsoBuildBuffData['Lycanthropy'].skillAbilities.push(g_SkillsData[42358]);
+		// g_EsoBuildBuffData['Lycanthropy'].skillAbilities.push(g_SkillsData[42358]);
 		AddEsoItemRawOutputString(g_EsoBuildBuffData['Battle Spirit'], "Active Skill", "Character State");
 	}
 	else
@@ -7351,7 +7325,7 @@ window.GetEsoInputValues = function (mergeComputedStats)
 	
 	g_EsoBuildLastInputValues = inputValues;
 	
-	//if (console && console.time) console.timeEnd('GetEsoInputValues');
+	// if (console && console.time) console.timeEnd('GetEsoInputValues');
 	return inputValues;
 }
 
@@ -7485,8 +7459,8 @@ window.GetEsoInputSpecialValues = function (inputValues)
 		
 		if (flameDamageValue != 0)
 		{
-			inputValues.Skill.FlameDamageTaken += flameDamageValue;
-			AddEsoInputStatSource("Skill.FlameDamageTaken", { source: "Vampire Stage " + inputValues.VampireStage, value: flameDamageValue });
+			inputValues.Buff.FlameVulnerability += flameDamageValue;
+			AddEsoInputStatSource("Buff.FlameVulnerability", { source: "Vampire Stage " + inputValues.VampireStage, value: flameDamageValue });
 		}
 		
 		if (costReduction != 0)
@@ -7542,9 +7516,10 @@ window.GetEsoInputSetDataValues = function (inputValues, setData)
 		else if (setData.unequippedItems[0])
 			setBonusCount = parseInt(setData.unequippedItems[0]['setBonusCount' + (i+1)]);
 		
-		//if (setBonusCount > setData.count) continue;
+		// if (setBonusCount > setData.count) continue;
 		if (setBonusCount > setData.count && setBonusCount > setData.otherCount) continue;
-		//if (setBonusCount > setData.count && setData.enableOffBar === false) continue;
+		// if (setBonusCount > setData.count && setData.enableOffBar === false)
+		// continue;
 		
 		var onlyEnableToggles = false;
 		if (setBonusCount > setData.count) onlyEnableToggles = true;
@@ -8311,8 +8286,8 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 				// Shield expert
 		if (itemData.weaponType == 14 && g_EsoCpData['Shield Expert'] != null && g_EsoCpData['Shield Expert'].isUnlocked)
 		{
-			//var extraBonus = factor * 0.75;
-			//factor *= 1.75;
+			// var extraBonus = factor * 0.75;
+			// factor *= 1.75;
 		}
 		
 		var transmuteTraitMatch = null;
@@ -8344,12 +8319,16 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 		
 		if (itemData.trait == 13)	// Reinforced
 		{
-			//factor *= 1 + traitValue/100;		// Now included in the raw item data when mined
+			// factor *= 1 + traitValue/100; // Now included in the raw item
+			// data when mined
 		}
 		else if (itemData.trait == 25) // Armor Nirnhoned
 		{
-			//bonusResist = Math.floor(itemData.armorRating*traitValue/100*factor);	// Pre Update 11
-			//bonusResist = Math.floor(traitValue);		// Update 15?: Now included in the raw item data when mined
+			// bonusResist =
+			// Math.floor(itemData.armorRating*traitValue/100*factor); // Pre
+			// Update 11
+			// bonusResist = Math.floor(traitValue); // Update 15?: Now included
+			// in the raw item data when mined
 		}
 		
 		var armorRating = +itemData.armorRating;
@@ -8391,7 +8370,8 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 		
 		if (itemData.trait == 26)	// Weapon nirnhoned
 		{
-			//weaponPower = Math.floor(weaponPower * (1 + traitValue/100));		// Now included in raw weapon data
+			// weaponPower = Math.floor(weaponPower * (1 + traitValue/100)); //
+			// Now included in raw weapon data
 		}
 				
 		inputValues.Item.WeaponDamage += weaponPower;
@@ -8413,9 +8393,10 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 	else if (itemData.trait == 17) // Prosperous/Invigorating
 	{
 			/* Pre update 15 */
-		//inputValues.Item.Prosperous += traitValue/100;
-		//AddEsoItemRawOutput(itemData, "Item.Prosperous", traitValue/100);
-		//AddEsoInputStatSource("Item.Prosperous", { item: itemData, value: traitValue/100, slotId:slotId });
+		// inputValues.Item.Prosperous += traitValue/100;
+		// AddEsoItemRawOutput(itemData, "Item.Prosperous", traitValue/100);
+		// AddEsoInputStatSource("Item.Prosperous", { item: itemData, value:
+		// traitValue/100, slotId:slotId });
 		
 			/* Update 15 */
 		traitValue = Math.floor(traitValue);
@@ -8432,43 +8413,43 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 		AddEsoItemRawOutput(itemData, "Item.StaminaRegen", traitValue);
 		AddEsoInputStatSource("Item.StaminaRegen", { item: itemData, value: traitValue, slotId:slotId });
 	}
-	else if (itemData.trait == 12) //Impenetrable
+	else if (itemData.trait == 12) // Impenetrable
 	{
 		inputValues.Item.CritResist += traitValue;
 		AddEsoItemRawOutput(itemData, "Item.CritResist", traitValue);
 		AddEsoInputStatSource("Item.CritResist", { item: itemData, value: traitValue, slotId:slotId });
 	}
-	else if (itemData.trait == 11) //Sturdy
+	else if (itemData.trait == 11) // Sturdy
 	{
 		inputValues.Item.Sturdy += traitValue/100;
 		AddEsoItemRawOutput(itemData, "Item.Sturdy", traitValue/100);
 		AddEsoInputStatSource("Item.Sturdy", { item: itemData, value: traitValue/100, slotId:slotId });
 	}
-	else if (itemData.trait == 15 || itemData == 6) //Training
+	else if (itemData.trait == 15 || itemData == 6) // Training
 	{
 		inputValues.Item.Training += traitValue/100;
 		AddEsoItemRawOutput(itemData, "Item.Training", traitValue/100);
 		AddEsoInputStatSource("Item.Training", { item: itemData, value: traitValue/100, slotId:slotId });
 	}
-	else if (itemData.trait == 21) //Healthy
+	else if (itemData.trait == 21) // Healthy
 	{
 		inputValues.Item.Health += traitValue;
 		AddEsoItemRawOutput(itemData, "Item.Health", traitValue);
 		AddEsoInputStatSource("Item.Health", { item: itemData, value: traitValue, slotId:slotId });
 	}
-	else if (itemData.trait == 22) //Arcane
+	else if (itemData.trait == 22) // Arcane
 	{
 		inputValues.Item.Magicka += traitValue;
 		AddEsoItemRawOutput(itemData, "Item.Magicka", traitValue);
 		AddEsoInputStatSource("Item.Magicka", { item: itemData, value: traitValue, slotId:slotId });
 	}
-	else if (itemData.trait == 23) //Robust
+	else if (itemData.trait == 23) // Robust
 	{
 		inputValues.Item.Stamina += traitValue;
 		AddEsoItemRawOutput(itemData, "Item.Stamina", traitValue);
 		AddEsoInputStatSource("Item.Stamina", { item: itemData, value: traitValue, slotId:slotId });
 	}	
-	else if (itemData.trait == 14) //Well Fitted
+	else if (itemData.trait == 14) // Well Fitted
 	{
 		inputValues.Item.SprintCost -= traitValue/100;
 		inputValues.Item.RollDodgeCost -= traitValue/100;
@@ -8477,7 +8458,7 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 		AddEsoInputStatSource("Item.SprintCost", { item: itemData, value: -traitValue/100, slotId:slotId });
 		AddEsoInputStatSource("Item.RollDodgeCost", { item: itemData, value: -traitValue/100, slotId:slotId });
 	}
-	else if (itemData.trait == 7) //Sharpened
+	else if (itemData.trait == 7) // Sharpened
 	{
 		inputValues.Item.SpellPenetration += traitValue;
 		inputValues.Item.PhysicalPenetration += traitValue;
@@ -8486,7 +8467,7 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 		AddEsoInputStatSource("Item.SpellPenetration", { item: itemData, value: traitValue, slotId:slotId });
 		AddEsoInputStatSource("Item.PhysicalPenetration", { item: itemData, value: traitValue, slotId:slotId });
 	}
-	else if (itemData.trait == 3) //Precise
+	else if (itemData.trait == 3) // Precise
 	{
 		inputValues.Item.SpellCrit += traitValue/100;
 		inputValues.Item.WeaponCrit += traitValue/100;
@@ -8495,7 +8476,7 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 		AddEsoInputStatSource("Item.SpellCrit", { item: itemData, value: traitValue/100, slotId:slotId });
 		AddEsoInputStatSource("Item.WeaponCrit", { item: itemData, value: traitValue/100, slotId:slotId });
 	}
-	else if (itemData.trait == 5) //Defending
+	else if (itemData.trait == 5) // Defending
 	{
 		inputValues.Item.SpellResist += traitValue;
 		inputValues.Item.PhysicalResist += traitValue;
@@ -8504,38 +8485,38 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 		AddEsoItemRawOutput(itemData, "Item.PhysicalResist", traitValue);
 		AddEsoInputStatSource("Item.PhysicalResist", { item: itemData, value: traitValue, slotId:slotId });
 	}
-	else if (itemData.trait == 2) //Charged
+	else if (itemData.trait == 2) // Charged
 	{
 	}
-	else if (itemData.trait == 4) //Infused
+	else if (itemData.trait == 4) // Infused
 	{
 	}
-	else if (itemData.trait == 1) //Powered
+	else if (itemData.trait == 1) // Powered
 	{
 		inputValues.Item.HealingDone += traitValue/100;
 		AddEsoItemRawOutput(itemData, "Item.HealingDone", traitValue/100);
 		AddEsoInputStatSource("Item.HealingDone", { item: itemData, value: traitValue/100, slotId:slotId });
 	}
-	else if (itemData.trait == 8) //Decisive
+	else if (itemData.trait == 8) // Decisive
 	{
 	}
-	else if (itemData.trait == 31) //Jewelry Bloodthirsty
+	else if (itemData.trait == 31) // Jewelry Bloodthirsty
 	{
 		inputValues.Item.ExecuteBonus += traitValue/100;
 		AddEsoItemRawOutput(itemData, "Item.ExecuteBonus", traitValue/100);
 		AddEsoInputStatSource("Item.ExecuteBonus", { item: itemData, value: traitValue/100, slotId:slotId });
 	}
-	else if (itemData.trait == 29) //Jewelry Harmony
+	else if (itemData.trait == 29) // Jewelry Harmony
 	{
 		inputValues.Item.SynergyBonus += traitValue/100;
 		AddEsoItemRawOutput(itemData, "Item.SynergyBonus", traitValue/100);
 		AddEsoInputStatSource("Item.SynergyBonus", { item: itemData, value: traitValue/100, slotId:slotId });
 	}
-	else if (itemData.trait == 33) //Jewelry Infused
+	else if (itemData.trait == 33) // Jewelry Infused
 	{
-		//TODO
+		// TODO
 	}
-	else if (itemData.trait == 32) //Jewelry Protective
+	else if (itemData.trait == 32) // Jewelry Protective
 	{
 		inputValues.Item.SpellResist += traitValue;
 		AddEsoItemRawOutput(itemData, "Item.SpellResist", traitValue);
@@ -8545,13 +8526,13 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 		AddEsoItemRawOutput(itemData, "Item.PhysicalResist", traitValue);
 		AddEsoInputStatSource("Item.PhysicalResist", { item: itemData, value: traitValue, slotId:slotId });		
 	}
-	else if (itemData.trait == 28) //Jewelry Swift
+	else if (itemData.trait == 28) // Jewelry Swift
 	{
 		inputValues.Item.MovementSpeed += traitValue/100;
 		AddEsoItemRawOutput(itemData, "Item.MovementSpeed", traitValue/100);
 		AddEsoInputStatSource("Item.MovementSpeed", { item: itemData, value: traitValue/100, slotId:slotId });
 	}
-	else if (itemData.trait == 30) //Jewelry Triune
+	else if (itemData.trait == 30) // Jewelry Triune
 	{
 		inputValues.Item.Magicka += traitValue;
 		AddEsoItemRawOutput(itemData, "Item.Magicka", traitValue);
@@ -8954,7 +8935,8 @@ window.GetEsoInputTargetValues = function (inputValues)
 	inputValues.Target.PhysicalResist = inputValues.Target.SpellResist;
 	inputValues.Target.CritResistFlat = ParseEsoBuildFloat($("#esotbTargetCritResistFlat").val());
 	inputValues.Target.EffectiveLevel = parseInt(ParseEsoBuildFloat($("#esotbTargetEffectiveLevel").val()));
-	//inputValues.Target.CritResistFactor = ParseEsoBuildFloat($("#esotbTargetCritResistFactor").val()) / 100;
+	// inputValues.Target.CritResistFactor =
+	// ParseEsoBuildFloat($("#esotbTargetCritResistFactor").val()) / 100;
 	inputValues.Target.PenetrationFlat = ParseEsoBuildFloat($("#esotbTargetPenetrationFlat").val());
 	inputValues.Target.PenetrationFactor = ParseEsoBuildFloat($("#esotbTargetPenetrationFactor").val()) / 100;
 	inputValues.Target.DefenseBonus = ParseEsoBuildFloat($("#esotbTargetDefenseBonus").val()) / 100;
@@ -8995,8 +8977,9 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	if (mundusName == "The Lady")
 	{
 			// Preupdate 15
-		//inputValues.Mundus.PhysicalResist = 1980; //30*66
-		//AddEsoInputStatSource("Mundus.PhysicalResist", { mundus: mundusName, value: inputValues.Mundus.PhysicalResist });
+		// inputValues.Mundus.PhysicalResist = 1980; //30*66
+		// AddEsoInputStatSource("Mundus.PhysicalResist", { mundus: mundusName,
+		// value: inputValues.Mundus.PhysicalResist });
 		
 			// Update 15
 		inputValues.Mundus.PhysicalResist = 2752;
@@ -9019,8 +9002,9 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	else if (mundusName == "The Lover")
 	{
 			// Preupdate 15
-		//inputValues.Mundus.SpellResist = 1980;	// 30*66
-		//AddEsoInputStatSource("Mundus.SpellResist", { mundus: mundusName, value: inputValues.Mundus.SpellResist });
+		// inputValues.Mundus.SpellResist = 1980; // 30*66
+		// AddEsoInputStatSource("Mundus.SpellResist", { mundus: mundusName,
+		// value: inputValues.Mundus.SpellResist });
 		
 			// Update 15
 		inputValues.Mundus.SpellPenetration = 2752;
@@ -9041,7 +9025,7 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	}
 	else if (mundusName == "The Lord")
 	{
-		//inputValues.Mundus.Health = 1452;			// 22*66
+		// inputValues.Mundus.Health = 1452; // 22*66
 		inputValues.Mundus.Health = 2231;			// Update 15
 		AddEsoInputStatSource("Mundus.Health", { mundus: mundusName, value: inputValues.Mundus.Health });
 		
@@ -9054,7 +9038,7 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	}
 	else if (mundusName == "The Mage")
 	{
-		//inputValues.Mundus.Magicka = 1320;		// 20*66
+		// inputValues.Mundus.Magicka = 1320; // 20*66
 		inputValues.Mundus.Magicka = 2028;			// Update 15
 		AddEsoInputStatSource("Mundus.Magicka", { mundus: mundusName, value: inputValues.Mundus.Magicka });
 		
@@ -9067,7 +9051,7 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	}
 	else if (mundusName == "The Tower")
 	{
-		//inputValues.Mundus.Stamina = 1320;		// 20*66
+		// inputValues.Mundus.Stamina = 1320; // 20*66
 		inputValues.Mundus.Stamina = 2028;			// Update 15
 		AddEsoInputStatSource("Mundus.Stamina", { mundus: mundusName, value: inputValues.Mundus.Stamina });
 		
@@ -9080,7 +9064,7 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	}
 	else if (mundusName == "The Atronach")
 	{
-		//inputValues.Mundus.MagickaRegen = 198;		// 3*66
+		// inputValues.Mundus.MagickaRegen = 198; // 3*66
 		inputValues.Mundus.MagickaRegen = 238;			// Update 15
 		AddEsoInputStatSource("Mundus.MagickaRegen", { mundus: mundusName, value: inputValues.Mundus.MagickaRegen });
 		
@@ -9093,7 +9077,7 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	}
 	else if (mundusName == "The Serpent")
 	{
-		//inputValues.Mundus.StaminaRegen = 198;		// 3*66
+		// inputValues.Mundus.StaminaRegen = 198; // 3*66
 		inputValues.Mundus.StaminaRegen = 238;			// Update 15
 		AddEsoInputStatSource("Mundus.StaminaRegen", { mundus: mundusName, value: inputValues.Mundus.StaminaRegen });
 		
@@ -9106,7 +9090,7 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	}
 	else if (mundusName == "The Shadow")
 	{
-		//inputValues.Mundus.CritDamage = 0.12;
+		// inputValues.Mundus.CritDamage = 0.12;
 		inputValues.Mundus.CritDamage = 0.09;		// Update 15
 		AddEsoInputStatSource("Mundus.CritDamage", { mundus: mundusName, value: inputValues.Mundus.CritDamage });
 		
@@ -9131,8 +9115,8 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	}
 	else if (mundusName == "The Thief")
 	{
-		//inputValues.Mundus.SpellCrit = 0.11;		// Preupdate 15
-		//inputValues.Mundus.WeaponCrit = 0.11;
+		// inputValues.Mundus.SpellCrit = 0.11; // Preupdate 15
+		// inputValues.Mundus.WeaponCrit = 0.11;
 		inputValues.Mundus.SpellCrit = 0.07;		// Update 15
 		inputValues.Mundus.WeaponCrit = 0.07;
 		AddEsoInputStatSource("Mundus.SpellCrit", { mundus: mundusName, value: inputValues.Mundus.SpellCrit });
@@ -9151,7 +9135,7 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	}
 	else if (mundusName == "The Warrior")
 	{
-		//inputValues.Mundus.WeaponDamage = 167;	// Preupdate 15
+		// inputValues.Mundus.WeaponDamage = 167; // Preupdate 15
 		inputValues.Mundus.WeaponDamage = 238;		// Update 15
 		AddEsoInputStatSource("Mundus.WeaponDamage", { mundus: mundusName, value: inputValues.Mundus.WeaponDamage });
 		
@@ -9164,7 +9148,7 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	}
 	else if (mundusName == "The Apprentice")
 	{
-		//inputValues.Mundus.SpellDamage = 167; 	// Preupdate 15
+		// inputValues.Mundus.SpellDamage = 167; // Preupdate 15
 		inputValues.Mundus.SpellDamage = 238; 		// Update 15
 		AddEsoInputStatSource("Mundus.SpellDamage", { mundus: mundusName, value: inputValues.Mundus.SpellDamage });
 		
@@ -9177,7 +9161,7 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	}
 	else if (mundusName == "The Steed")
 	{
-		//inputValues.Mundus.HealthRegen = 198;		// 3*66, preupdate 15
+		// inputValues.Mundus.HealthRegen = 198; // 3*66, preupdate 15
 		inputValues.Mundus.HealthRegen = 238;		// Update 15
 		inputValues.Mundus.MovementSpeed = 0.05;
 		AddEsoInputStatSource("Mundus.HealthRegen",   { mundus: mundusName, value: inputValues.Mundus.HealthRegen });
@@ -9218,7 +9202,7 @@ window.GetEsoInputCPValues = function (inputValues)
 	
 	if (!inputValues.CP.Enabled) 
 	{
-		//if (inputValues.EffectiveLevel > 50) inputValues.EffectiveLevel = 50;
+		// if (inputValues.EffectiveLevel > 50) inputValues.EffectiveLevel = 50;
 		return;
 	}
 	
@@ -9230,8 +9214,10 @@ window.GetEsoInputCPValues = function (inputValues)
 		/* Tower (1) */
 	ParseEsoCPValue(inputValues, "BashCost", 58899, null, null, -1);
 	ParseEsoCPValue(inputValues, "SprintCost", 64077, null, null, -1);
-	//ParseEsoCPValue(inputValues, "MagickaCost", 63861, null, null, -1);	// Pre Update 14
-	//ParseEsoCPValue(inputValues, "StaminaCost", 63862, null, null, -1);	// Pre Update 14
+	// ParseEsoCPValue(inputValues, "MagickaCost", 63861, null, null, -1); //
+	// Pre Update 14
+	// ParseEsoCPValue(inputValues, "StaminaCost", 63862, null, null, -1); //
+	// Pre Update 14
 	ParseEsoCPValue(inputValues, "TargetRecovery", 92425, null, null, -1);
 	ParseEsoCPValue(inputValues, "BreakFreeCost", 92431, null, null, -1);
 	ParseEsoCPValue(inputValues, "InspirationGained", 60494, "the_tower", 30);
@@ -9310,7 +9296,8 @@ window.GetEsoInputCPValues = function (inputValues)
 	
 		/* Steed (4) */
 	if (inputValues.ArmorMedium >= 5) ParseEsoCPValue(inputValues, "PhysicalResist", 59120);
-	//ParseEsoCPValue(inputValues, "BlockCost", 60649, null, null, -1);  // Pre Update 14
+	// ParseEsoCPValue(inputValues, "BlockCost", 60649, null, null, -1); // Pre
+	// Update 14
 	ParseEsoCPValue(inputValues, "DirectDamageTaken", 92423, null, null, -1);
 	ParseEsoCPValue(inputValues, "SpellResist", 62760);
 	ParseEsoCPValue(inputValues, "CritResist", 60384);
@@ -9323,10 +9310,12 @@ window.GetEsoInputCPValues = function (inputValues)
 	ParseEsoCPValue(inputValues, "WeaponCrit", 59418, "the_ritual", 30);
 	
 		/* Atronach (6) */
-	//ParseEsoCPValue(inputValues, ["HAWeaponDamage", "LAWeaponDamage"], 60565);  // Pre Update 14
+	// ParseEsoCPValue(inputValues, ["HAWeaponDamage", "LAWeaponDamage"],
+	// 60565); // Pre Update 14
 	ParseEsoCPValue(inputValues, ["HAWeaponDamage", "LAWeaponDamage"], 92424);
 	ParseEsoCPValue(inputValues, "ShieldDamageDone", 60662);
-	//ParseEsoCPValue(inputValues, ["HABowDamage", "LABowDamage"], 60546);		  // Pre Update 14
+	// ParseEsoCPValue(inputValues, ["HABowDamage", "LABowDamage"], 60546); //
+	// Pre Update 14
 	ParseEsoCPValue(inputValues, "DirectDamageDone", 92134);
 	ParseEsoCPValue(inputValues, ["HAStaffDamage", "LAStaffDamage"], 60503);
 	
@@ -9361,10 +9350,14 @@ window.GetEsoInputCPValues = function (inputValues)
 		/* Shadow (8) */
 	ParseEsoCPValue(inputValues, "HealingReduction", 59298, null, null, null, null);
 	ParseEsoCPValue(inputValues, "SneakCost", 61548, null, null, -1);
-	//ParseEsoCPValue(inputValues, ["FearDuration", "StunDuration", "DisorientDuration", "SnareDuration"], 59353, null, null, -1);
-	//ParseEsoCPValue(inputValues, ["RollDodgeCost", "BreakFreeCost"], 63863, null, null, -1);
-	ParseEsoCPValue(inputValues, "BlockCost", 60649, null, null, -1);		// Update 14
-	ParseEsoCPValue(inputValues, "RollDodgeCost", 63863, null, null, -1);	// Update 14
+	// ParseEsoCPValue(inputValues, ["FearDuration", "StunDuration",
+	// "DisorientDuration", "SnareDuration"], 59353, null, null, -1);
+	// ParseEsoCPValue(inputValues, ["RollDodgeCost", "BreakFreeCost"], 63863,
+	// null, null, -1);
+	ParseEsoCPValue(inputValues, "BlockCost", 60649, null, null, -1);		// Update
+																			// 14
+	ParseEsoCPValue(inputValues, "RollDodgeCost", 63863, null, null, -1);	// Update
+																			// 14
 	
 		/* Lover (9) */
 	ParseEsoCPValue(inputValues, "StaminaRegen", 59346);
@@ -9556,7 +9549,8 @@ window.UpdateEsoComputedStatsList_Real = function (keepSaveResults)
 		inputValues[name] = g_EsoComputedStats[name].value;
 	}
 	
-	//if (console && console.time) console.time('UpdateEsoComputedStatsList_Real:Update');
+	// if (console && console.time)
+	// console.time('UpdateEsoComputedStatsList_Real:Update');
 	
 	UpdateEsoTestBuildSkillInputValues(inputValues);
 	UpdateEsoBuildRawInputOtherEffects();
@@ -9574,7 +9568,8 @@ window.UpdateEsoComputedStatsList_Real = function (keepSaveResults)
 	UpdateEsoBuffSkillEnabled();
 	UpdateEsoAllSkillCost(false);
 	
-	//if (console && console.time) console.timeEnd('UpdateEsoComputedStatsList_Real:Update');
+	// if (console && console.time)
+	// console.timeEnd('UpdateEsoComputedStatsList_Real:Update');
 	if (console && console.timeEnd) console.timeEnd('UpdateEsoComputedStatsList_Real');
 }
 
@@ -10204,7 +10199,7 @@ window.OnEsoSelectItem = function (itemData, element)
 	iconElement.attr("extraarmor", "0");
 	iconElement.attr("trait", "0");
 	
-	//UpdateEsoItemTraitList(slotId, 0);
+	// UpdateEsoItemTraitList(slotId, 0);
 	UpdateWeaponEquipSlots(itemData, slotId);
 	
 	g_EsoBuildItemData[slotId] = itemData;
@@ -10517,7 +10512,7 @@ window.OnEsoRequestChangeTraitReceive = function (data, status, xhr, slotId, ori
 {
 	if (slotId == null || slotId == "") return false;
 	
-	//EsoBuildLog("OnEsoRequestChangeTraitReceive", slotId, data.length, data);
+	// EsoBuildLog("OnEsoRequestChangeTraitReceive", slotId, data.length, data);
 	
 	var text = $(msgElement).text();
 	var itemData = data[0];
@@ -10551,7 +10546,8 @@ window.OnEsoRequestChangeArmorTypeReceive = function (data, status, xhr, slotId,
 {
 	if (slotId == null || slotId == "") return false;
 	
-	//EsoBuildLog("OnEsoRequestChangeArmorTypeReceive", slotId, data.length, data);
+	// EsoBuildLog("OnEsoRequestChangeArmorTypeReceive", slotId, data.length,
+	// data);
 	
 	var itemData = data[0];
 	var text = $("#esotbItemSetupArmorTypeMsg").text();
@@ -10584,7 +10580,7 @@ window.OnEsoRequestFindSetItemReceive = function (data, status, xhr, slotId, mon
 {
 	if (slotId == null || slotId == "") return false;
 	
-	//EsoBuildLog("OnEsoRequestFindSetItemReceive", slotId, data.length, data);
+	// EsoBuildLog("OnEsoRequestFindSetItemReceive", slotId, data.length, data);
 	
 	var itemData = data[0];
 	var text = msgElement.text();
@@ -11123,7 +11119,7 @@ window.OnEsoClickBuildStatTab = function (e)
 	}
 	else if (tabId == "esotbStatBlockSkils")
 	{
-		//UpdateEsoAllSkillDescription();
+		// UpdateEsoAllSkillDescription();
 		UpdateEsoAllSkillCost(false);
 	}
 	
@@ -11667,7 +11663,7 @@ window.ComputeEsoBuildAllSetData = function ()
 		for (var i in g_EsoBuildSetData[setName].averageDesc)
 		{
 			var desc = g_EsoBuildSetData[setName].averageDesc[i];
-			//EsoBuildLog("" + i + ") " + desc);
+			// EsoBuildLog("" + i + ") " + desc);
 		}
 	}
 }
@@ -12039,7 +12035,8 @@ window.IsEsoBuildToggledSetEnabled = function (setId)
 window.SetEsoBuildToggledSetValid = function (setId, valid)
 {
 	if (g_EsoBuildToggledSetData[setId] != null) g_EsoBuildToggledSetData[setId].valid = valid;
-	//if (g_EsoBuildToggledSetData[setId+"2"] != null) g_EsoBuildToggledSetData[setId+"2"].valid = valid;
+	// if (g_EsoBuildToggledSetData[setId+"2"] != null)
+	// g_EsoBuildToggledSetData[setId+"2"].valid = valid;
 }
 
 
@@ -12071,16 +12068,17 @@ window.UpdateEsoBuildToggledSkillData = function (inputValues)
 		if (abilityData == null)
 		{
 			abilityData = g_EsoSkillActiveData[abilityId];
-			//if (abilityData == null) continue;
+			// if (abilityData == null) continue;
 		}
 
 		if (toggleSkillData.matchData == null) continue;
 		
 		if (toggleSkillData.matchData.matchSkillName === true)
 		{
-			//var data = g_SkillsData[abilityId];
-			//if (data == null) continue;
-			//if (toggleSkillData.matchData.id.toUpperCase() != data.name.toUpperCase()) continue;
+			// var data = g_SkillsData[abilityId];
+			// if (data == null) continue;
+			// if (toggleSkillData.matchData.id.toUpperCase() !=
+			// data.name.toUpperCase()) continue;
 			
 			if (abilityData == null) continue;
 			var data = g_SkillsData[abilityData.abilityId];
@@ -12188,7 +12186,8 @@ window.UpdateEsoBuildToggledSetData = function ()
 		var setData = g_EsoBuildSetData[setName];
 		if (setData == null) continue;
 		
-		//if (setData.averageDesc == null || setData.items[0] == null) continue;
+		// if (setData.averageDesc == null || setData.items[0] == null)
+		// continue;
 		
 		if (toggleData.matchData.statRequireId != null)
 		{
@@ -12614,7 +12613,11 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
 	
 	g_LastSkillInputValues.SkillLineCost = inputValues.SkillCost;
 	g_LastSkillInputValues.DamageShield = inputValues.DamageShield;
-	g_LastSkillInputValues.SkillDirectDamage = inputValues.SkillDirectDamage;	//TODO: Implement on skill tooltip
+	g_LastSkillInputValues.SkillDirectDamage = inputValues.SkillDirectDamage;	// TODO:
+																				// Implement
+																				// on
+																				// skill
+																				// tooltip
 	
 	g_LastSkillInputValues.MagickaCost = 
 	{
@@ -12658,7 +12661,8 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
 		Dot				: inputValues.DotDamageDone,
 		Direct			: inputValues.DirectDamageDone,
 		All				: inputValues.DamageDone,
-		Empower			: 0,	// Update18: Empower changed to affect Light Attacks only
+		Empower			: 0,	// Update18: Empower changed to affect Light
+								// Attacks only
 		MaelstromDamage : 0,
 		AOE				: inputValues.Skill.AOEDamageDone,
 		SingleTarget	: inputValues.Skill.SingleTargetDamageDone,
@@ -12682,8 +12686,8 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
  	
  	var SpellDamageFactor = 1 + inputValues.Skill.SpellDamage + inputValues.Buff.SpellDamage;
  	var WeaponDamageFactor = 1 + inputValues.Skill.WeaponDamage + inputValues.Buff.WeaponDamage;
- 	var BaseSpellDamage = inputValues.Item.SpellDamage + inputValues.Set.SpellDamage + inputValues.Mundus.SpellDamage;
- 	var BaseWeaponDamage = inputValues.Item.WeaponDamage + inputValues.Set.WeaponDamage + inputValues.Mundus.WeaponDamage;
+ 	var BaseSpellDamage = inputValues.Item.SpellDamage + inputValues.Set.SpellDamage + inputValues.Mundus.SpellDamage + inputValues.Skill2.SpellDamage;
+ 	var BaseWeaponDamage = inputValues.Item.WeaponDamage + inputValues.Set.WeaponDamage + inputValues.Mundus.WeaponDamage + inputValues.Skill2.WeaponDamage;
  	
  		/* TODO: Check if this works correctly for buffs */
 	if (g_EsoBuildSetData["Pelinal's Aptitude"] != null && g_EsoBuildSetData["Pelinal's Aptitude"].count >= 5)
@@ -13712,7 +13716,7 @@ window.CreateEsoBuildSkillSaveData = function (saveData, inputValues)
 
 window.CreateEsoBuildSaveDataForSkill = function (saveData, abilityData, skillData)
 {
-	//EsoBuildLog("CreateEsoBuildSaveDataForSkill", abilityData, skillData);
+	// EsoBuildLog("CreateEsoBuildSaveDataForSkill", abilityData, skillData);
 	
 	var data = {};
 	var abilityId = abilityData.abilityId;
@@ -13893,7 +13897,8 @@ window.CreateEsoBuildGeneralSaveData = function (saveData, inputValues)
 	saveData.Stats['Target:Resistance'] = "" + inputValues.Target.SpellResist;
 	saveData.Stats['Target:CritResistFlat'] = "" + inputValues.Target.CritResistFlat;
 	saveData.Stats['Target:EffectiveLevel'] = "" + inputValues.Target.EffectiveLevel;
-	//saveData.Stats['Target:CritResistFactor'] = "" + (inputValues.Target.CritResistFactor * 100) + "%";
+	// saveData.Stats['Target:CritResistFactor'] = "" +
+	// (inputValues.Target.CritResistFactor * 100) + "%";
 	saveData.Stats['Target:CritDamage'] = "" + (inputValues.Target.CritDamage * 100) + "%";
 	saveData.Stats['Target:CritChance'] = "" + (inputValues.Target.CritChance * 100) + "%";
 	saveData.Stats['Misc:SpellCost'] = "" + inputValues.Misc.SpellCost;
@@ -14204,7 +14209,7 @@ window.EsoBuildEquipSet = function (setIndexOrName)
 	var setName = g_EsoBuildSetNames[setIndex];
 	
 	g_EsoBuildDumpSetData = setName;
-	//EsoBuildLog("Loading items for set '" + setName + "'...");
+	// EsoBuildLog("Loading items for set '" + setName + "'...");
 	
 	EquipSetItem(setName, "Chest", 66, 5);
 	EquipSetItem(setName, "Waist", 66, 5);
@@ -14247,7 +14252,7 @@ window.EquipSetItem = function (setName, slotId, level, quality)
 
 window.OnEsoSetItemDataReceive = function (data, status, xhr, slotId)
 {
-	//EsoBuildLog("OnEsoSetItemDataReceive", itemData);
+	// EsoBuildLog("OnEsoSetItemDataReceive", itemData);
 	
 	if (data.minedItem == null || data.minedItem[0] == null) return EsoBuildLog("No item data received for slot '" + slotId + "'!");
 	if (slotId == null || slotId == "") return EsoBuildLog("Invalid slotId '" + slotId + "' received!");
@@ -14505,7 +14510,8 @@ window.EsoEditBuildChangeArmorTypes = function (numLight, numMedium, numHeavy)
 	var slots = [ "Chest", "Legs", "Head", "Feet", "Shoulders", "Hands", "Waist" ];
 	var count = 0;
 	
-	//EsoBuildLog("EsoEditBuildChangeArmorTypes", numLight, numMedium, numHeavy);
+	// EsoBuildLog("EsoEditBuildChangeArmorTypes", numLight, numMedium,
+	// numHeavy);
 	
 	for (var i in slots)
 	{
@@ -15298,7 +15304,8 @@ window.UpdateEsoBuildTooltipEnchant = function (enchantBlock, tooltip, parent)
 window.ESO_SETPROCDAMAGE_DATA = 
 {
 		"affliction" : {
-			// (5 items) When you deal damage, you have a 50% chance to deal an additional 33-2838 Disease Damage
+			// (5 items) When you deal damage, you have a 50% chance to deal an
+			// additional 33-2838 Disease Damage
 			// This effect can occur once every 4 seconds.
 			isAoE : false,
 			isDoT : false,
@@ -15306,7 +15313,9 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"ashen grip" : {
-			// (5 items) When you deal direct melee damage, you have a 10% chance to breath fire to all enemies in front of you for 13-1118 Flame Damage
+			// (5 items) When you deal direct melee damage, you have a 10%
+			// chance to breath fire to all enemies in front of you for 13-1118
+			// Flame Damage
 			// This effect can occur once every 4 seconds.
 			isAoE : true,
 			isDoT : false,
@@ -15314,15 +15323,20 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"bahraha's curse" : {
-			// (5 items) When you deal damage, you have a 25% chance to create desecrated ground for 5 seconds, which reduces the Movement Speed of enemies within by 70%, 
-			// damages them for 10-860 Magic Damage every 1 second, and heals you for 100% of the damage done.
+			// (5 items) When you deal damage, you have a 25% chance to create
+			// desecrated ground for 5 seconds, which reduces the Movement Speed
+			// of enemies within by 70%,
+			// damages them for 10-860 Magic Damage every 1 second, and heals
+			// you for 100% of the damage done.
 			isAoE : true,
 			isDoT : true,
 			index : 5,
 			items : 5,
 		},
 		"defending warrior" : {
-			// (5 items) When you block an attack, you deal 46-4000 Magic Damage to all enemies within 10 meters of you and heal for 100% of the damage done
+			// (5 items) When you block an attack, you deal 46-4000 Magic Damage
+			// to all enemies within 10 meters of you and heal for 100% of the
+			// damage done
 			// This effect can occur once every 10 seconds.
 			isAoE : true,
 			isDoT : false,
@@ -15330,24 +15344,31 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"destructive mage" : {
-			// (5 items) When you deal damage with a fully-charged Heavy Attack, you place a bomb on the enemy for 10 seconds
-			// When another player hits the same enemy with a fully-charged Heavy Attack they detonate the bomb, dealing 87-7500 Magic Damage 
-			// all enemies within 8 meters. This effect can occur once every 10 seconds.
+			// (5 items) When you deal damage with a fully-charged Heavy Attack,
+			// you place a bomb on the enemy for 10 seconds
+			// When another player hits the same enemy with a fully-charged
+			// Heavy Attack they detonate the bomb, dealing 87-7500 Magic Damage
+			// all enemies within 8 meters. This effect can occur once every 10
+			// seconds.
 			isAoE : true,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"embershield" : {
-			// (5 items) When you deal damage with a fully-charged Heavy Attack, you have a 50% chance increase your Spell Resistance by 40-3440 and 
-			// deal 12-1032 Flame Damage to all enemies within 5 meters of you every 1 second for 6 seconds.
+			// (5 items) When you deal damage with a fully-charged Heavy Attack,
+			// you have a 50% chance increase your Spell Resistance by 40-3440
+			// and
+			// deal 12-1032 Flame Damage to all enemies within 5 meters of you
+			// every 1 second for 6 seconds.
 			isAoE : true,
 			isDoT : true,
 			index : 4,
 			items : 5,
 		},
 		"eternal hunt" : {
-			// (5 items) When you use Roll Dodge, you leave behind a rune that detonates when enemies come close, dealing 85-7335 Poison Damage 
+			// (5 items) When you use Roll Dodge, you leave behind a rune that
+			// detonates when enemies come close, dealing 85-7335 Poison Damage
 			// and immobilizing them for 1.5 seconds.
 			isAoE : false,
 			isDoT : false,
@@ -15355,24 +15376,32 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"galerion's revenge" : {
-			// (5 items) When you deal damage with a Light or Heavy Attack, you put a Mark of Revenge on the enemy for 15 seconds
-			// After stacking 6 Marks of Revenge on an enemy they detonate for 55-4730 Magic Damage.
+			// (5 items) When you deal damage with a Light or Heavy Attack, you
+			// put a Mark of Revenge on the enemy for 15 seconds
+			// After stacking 6 Marks of Revenge on an enemy they detonate for
+			// 55-4730 Magic Damage.
 			isAoE : true,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"grothdarr" : {
-			// (2 items) When you deal damage, you have a 10% chance create lava pools that swirl around you, dealing 23-2000 Flame Damage to all 
-			// enemies within 8 meters of you every 1 second for 5 seconds. This effect can occur once every 10 seconds.
+			// (2 items) When you deal damage, you have a 10% chance create lava
+			// pools that swirl around you, dealing 23-2000 Flame Damage to all
+			// enemies within 8 meters of you every 1 second for 5 seconds. This
+			// effect can occur once every 10 seconds.
 			isAoE : true,
 			isDoT : true,
 			index : 2,
 			items : 2,
 		},
 		"hand of mephala" : {
-			// (5 items) When you take damage, you have a 10% chance to cast a web around you for 5 seconds, reducing the Movement Speed of enemies within by 50%
-			// After 5 seconds the webs burst into venom, dealing 30-2580 Poison Damage and applying Minor Fracture to any enemy hit for 5 seconds, 
+			// (5 items) When you take damage, you have a 10% chance to cast a
+			// web around you for 5 seconds, reducing the Movement Speed of
+			// enemies within by 50%
+			// After 5 seconds the webs burst into venom, dealing 30-2580 Poison
+			// Damage and applying Minor Fracture to any enemy hit for 5
+			// seconds,
 			// reducing their Physical Resistance by 1320.
 			isAoE : true,
 			isDoT : false,
@@ -15380,15 +15409,19 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"hide of morihaus" : {
-			// (5 items) When you Roll Dodge through an enemy, you deal 160-1840 Physical Damage and knock them down for 3 seconds.
+			// (5 items) When you Roll Dodge through an enemy, you deal 160-1840
+			// Physical Damage and knock them down for 3 seconds.
 			isAoE : false,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"ilambris" : {
-			// (2 items) When you deal Flame or Shock Damage, you have a 10% chance to summon a meteor shower of that damage type that deals 15-1300 Damage to 
-			// all enemies within 4 meters every 1 second for 5 seconds. Each effect can occur once every 8 seconds.
+			// (2 items) When you deal Flame or Shock Damage, you have a 10%
+			// chance to summon a meteor shower of that damage type that deals
+			// 15-1300 Damage to
+			// all enemies within 4 meters every 1 second for 5 seconds. Each
+			// effect can occur once every 8 seconds.
 			isAoE : true,
 			isDoT : true,			
 			damageType : "Shock",
@@ -15396,8 +15429,11 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 2,
 		},
 		"infernal guardian" : {
-			// (2 items) When you use a damage shield ability, you have a 50% chance to lob 3 mortars over 2 seconds at the furthest enemy from you
-			// that each deal 63-5500 Flame Damage to all enemies within 5 meters of the blast area
+			// (2 items) When you use a damage shield ability, you have a 50%
+			// chance to lob 3 mortars over 2 seconds at the furthest enemy from
+			// you
+			// that each deal 63-5500 Flame Damage to all enemies within 5
+			// meters of the blast area
 			// This effect can occur once every 6 seconds.
 			isAoE : true,
 			isDoT : true,
@@ -15405,15 +15441,18 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 2,
 		},
 		"jolting arms" : {
-			// (5 items) When you block an attack, you have a 50% chance to charge your arms, causing your next Bash ability to deal an 
-			// additional 67-5805 Shock Damage and increase your Spell Resistance by 75-6450 for 6 seconds.
+			// (5 items) When you block an attack, you have a 50% chance to
+			// charge your arms, causing your next Bash ability to deal an
+			// additional 67-5805 Shock Damage and increase your Spell
+			// Resistance by 75-6450 for 6 seconds.
 			isAoE : false,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"kra'gh" : {
-			// (2 items) When you deal damage, you have a 10% chance to spawn dreugh limbs that create shockwaves in front of you 
+			// (2 items) When you deal damage, you have a 10% chance to spawn
+			// dreugh limbs that create shockwaves in front of you
 			// dealing 15-1300 Physical Damage every 0.4 seconds for 1.2 seconds
 			// This effect can occur once every 3 seconds.
 			isAoE : true,
@@ -15422,15 +15461,19 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 2,
 		},
 		"leeching plate" : {
-			// (5 items) When you take damage, you have a 8% chance to summon a cloud of leeching poison under the attacker that 
-			// deals 14-1204 Poison Damage in a 4 meter radius every 1 second for 5 seconds and heals you for 100% of the damage caused.
+			// (5 items) When you take damage, you have a 8% chance to summon a
+			// cloud of leeching poison under the attacker that
+			// deals 14-1204 Poison Damage in a 4 meter radius every 1 second
+			// for 5 seconds and heals you for 100% of the damage caused.
 			isAoE : true,
 			isDoT : true,
 			index : 4,
 			items : 5,
 		},
 		"maw of the infernal" : {
-			// (2 items) When you deal damage with a Light or Heavy Attack, you have a 10% chance to summon a fire breathing Daedroth for 15 seconds
+			// (2 items) When you deal damage with a Light or Heavy Attack, you
+			// have a 10% chance to summon a fire breathing Daedroth for 15
+			// seconds
 			// The Daedroth's basic attacks deal 49-4257 Physical Damage
 			// This effect can occur once every 15 seconds.
 			isAoE : false,
@@ -15439,23 +15482,28 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 2,
 		},
 		"morkuldin" : {
-			// (5 items) When you deal damage with a Light or Heavy Attack, you have a 10% chance to summon an animated weapon to attack 
-			// your enemies for 15 seconds. The animated weapon's basic attacks deal 47-4108 Physical Damage.
+			// (5 items) When you deal damage with a Light or Heavy Attack, you
+			// have a 10% chance to summon an animated weapon to attack
+			// your enemies for 15 seconds. The animated weapon's basic attacks
+			// deal 47-4108 Physical Damage.
 			isAoE : false,
 			isDoT : true,
 			index : 4,
 			items : 5,
 		},
 		"nerien'eth" : {
-			// (2 items) When you deal direct damage, you have a 10% chance to summon a Lich crystal that explodes after 3 seconds, dealing 
-			// 85-7335 Magic Damage to all enemies within 4 meters. This effect can occur once every 3 seconds.
+			// (2 items) When you deal direct damage, you have a 10% chance to
+			// summon a Lich crystal that explodes after 3 seconds, dealing
+			// 85-7335 Magic Damage to all enemies within 4 meters. This effect
+			// can occur once every 3 seconds.
 			isAoE : true,
 			isDoT : false,
 			index : 2,
 			items : 2,
 		},
 		"night terror" : {
-			// (5 items) When you take melee damage, you deal 23-2000 Poison Damage to the attacker
+			// (5 items) When you take melee damage, you deal 23-2000 Poison
+			// Damage to the attacker
 			// This effect can occur once every 1 second.
 			isAoE : false,
 			isDoT : false,
@@ -15463,16 +15511,20 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"overwhelming surge" : {
-			// (5 items) When you activate a Class ability, you have a 15% chance to surround yourself with a torrent that deals 
-			// 22-1892 Shock Damage to the closest enemy within 12 meters of you every 1 second for 6 seconds.
+			// (5 items) When you activate a Class ability, you have a 15%
+			// chance to surround yourself with a torrent that deals
+			// 22-1892 Shock Damage to the closest enemy within 12 meters of you
+			// every 1 second for 6 seconds.
 			isAoE : false,
 			isDoT : true,
 			index : 4,
 			items : 5,
 		},
 		"phoenix" : {
-			// (5 items) When you die, you instead become immune to all negative effects and healing for 3 seconds
-			// When the effect ends, you heal for 200-17200 Health and explode for 100-8600 Flame Damage to all enemies within 8 meters
+			// (5 items) When you die, you instead become immune to all negative
+			// effects and healing for 3 seconds
+			// When the effect ends, you heal for 200-17200 Health and explode
+			// for 100-8600 Flame Damage to all enemies within 8 meters
 			// This effect can occur once every 10 minutes.
 			isAoE : true,
 			isDoT : false,
@@ -15480,24 +15532,32 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"poisonous serpent" : {
-			// (5 items) When you deal damage with a Light or Heavy Attack against an enemy who has a Poison Damage ability on them, you 
-			// have a 25% chance to deal an additional 79-6800 Poison Damage. This effect can occur once every 1 second.
+			// (5 items) When you deal damage with a Light or Heavy Attack
+			// against an enemy who has a Poison Damage ability on them, you
+			// have a 25% chance to deal an additional 79-6800 Poison Damage.
+			// This effect can occur once every 1 second.
 			isAoE : false,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"roar of alkosh" : {
-			// (5 items) When you activate a synergy, you send a shockwave from your position that deals 20-1720 Physical Damage and an additional 
-			// 140-12040 Physical Damage over 10 seconds. Reduces the Physical and Spell Resistance of any enemy hit by 35-3010 for 10 seconds.
+			// (5 items) When you activate a synergy, you send a shockwave from
+			// your position that deals 20-1720 Physical Damage and an
+			// additional
+			// 140-12040 Physical Damage over 10 seconds. Reduces the Physical
+			// and Spell Resistance of any enemy hit by 35-3010 for 10 seconds.
 			isAoE : true,
 			isDoT : true,
 			index : 4,
 			items : 5,
 		},
 		"selene" : {
-			// (2 items) When you deal direct melee damage, you have a 15% chance call on a primal spirit that mauls the closest enemy in front
-			// of you for 139-12000 Physical Damage. This effect can occur once every 4 seconds.
+			// (2 items) When you deal direct melee damage, you have a 15%
+			// chance call on a primal spirit that mauls the closest enemy in
+			// front
+			// of you for 139-12000 Physical Damage. This effect can occur once
+			// every 4 seconds.
 			isAoE : false,
 			isDoT : false,
 			singleTarget : true,
@@ -15505,8 +15565,10 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 2,
 		},
 		"sellistrix" : {
-			// (2 items) When you deal damage, you have a 10% chance to create an earthquake under the enemy that erupts after 2 seconds, 
-			// dealing 45-3870 Physical Damage to all enemies within 4 meters and stunning them for 3 seconds
+			// (2 items) When you deal damage, you have a 10% chance to create
+			// an earthquake under the enemy that erupts after 2 seconds,
+			// dealing 45-3870 Physical Damage to all enemies within 4 meters
+			// and stunning them for 3 seconds
 			// This effect can occur once every 5 seconds.
 			isAoE : true,
 			isDoT : false,
@@ -15514,7 +15576,8 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 2,
 		},
 		"shadow of the red mountain" : {
-			// (5 items) When you deal damage with a Weapon ability, you have a 10% chance to deal an additional 272-8000 Flame Damage
+			// (5 items) When you deal damage with a Weapon ability, you have a
+			// 10% chance to deal an additional 272-8000 Flame Damage
 			// This effect can occur once every 2 seconds.
 			isAoE : false,
 			isDoT : false,
@@ -15522,8 +15585,11 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"shadowrend" : {
-			// (2 items) When you deal damage, you have a 5% chance to summon a shadowy Clannfear for 15 seconds
-			// The Clannfear's basic attacks deal 40-3440 Physical Damage and apply Minor Maim to any enemy hit for 5 seconds, reducing their damage done by 15%
+			// (2 items) When you deal damage, you have a 5% chance to summon a
+			// shadowy Clannfear for 15 seconds
+			// The Clannfear's basic attacks deal 40-3440 Physical Damage and
+			// apply Minor Maim to any enemy hit for 5 seconds, reducing their
+			// damage done by 15%
 			// This effect can occur once every 15 seconds.
 			isAoE : false,
 			isDoT : false,
@@ -15532,7 +15598,8 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 2,
 		},
 		"sheer venom" : {
-			// (5 items) When you deal damage with an Execute ability you infect the enemy, dealing 98-8428 Poison Damage over 6 seconds
+			// (5 items) When you deal damage with an Execute ability you infect
+			// the enemy, dealing 98-8428 Poison Damage over 6 seconds
 			// This effect can occur once every 6 seconds.
 			isAoE : false,
 			isDoT : true,
@@ -15540,7 +15607,8 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"shield breaker" : {
-			// (5 items) When you deal damage with a Light or Heavy Attack against a Player with a damage shield, you deal an
+			// (5 items) When you deal damage with a Light or Heavy Attack
+			// against a Player with a damage shield, you deal an
 			// additional 25-2150 Oblivion Damage to them.
 			isAoE : false,
 			isDoT : false,
@@ -15548,7 +15616,9 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"song of lamae" : {
-			// (5 items) When you take damage while you are under 30% Health, you deal 45-3870 Magic Damage to the attacker and heal for 45-3870 Health
+			// (5 items) When you take damage while you are under 30% Health,
+			// you deal 45-3870 Magic Damage to the attacker and heal for
+			// 45-3870 Health
 			// This effect can occur once every 30 seconds.
 			isAoE : false,
 			isDoT : false,
@@ -15556,30 +15626,38 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"spawn of mephala" : {
-			// (2 items) When you deal damage with a fully-charged Heavy Attack, you create a web for 10 seconds that deals 12-1044 Poison Damage
-			// every 1 second and reduces the Movement Speed of enemies within by 50%. This effect can occur once every 10 seconds.
+			// (2 items) When you deal damage with a fully-charged Heavy Attack,
+			// you create a web for 10 seconds that deals 12-1044 Poison Damage
+			// every 1 second and reduces the Movement Speed of enemies within
+			// by 50%. This effect can occur once every 10 seconds.
 			isAoE : true,
 			isDoT : true,
 			items : 2,
 		},
 		"storm knight's plate" : {
-			// (5 items) When you take non-physical damage, you have a 10% chance to deal 50-4373 Shock Damage all enemies within 5 meters 
-			// of you every 2 seconds for 6 seconds. This effect can occur once every 6 seconds.
+			// (5 items) When you take non-physical damage, you have a 10%
+			// chance to deal 50-4373 Shock Damage all enemies within 5 meters
+			// of you every 2 seconds for 6 seconds. This effect can occur once
+			// every 6 seconds.
 			isAoE : true,
 			isDoT : true,
 			index : 4,
 			items : 5,
 		},
 		"storm master" : {
-			// (5 items) When you deal Critical Damage with a fully-charged Heavy Attack, your Light Attacks deal an additional 15-1333 Shock Damage for 20 seconds.
+			// (5 items) When you deal Critical Damage with a fully-charged
+			// Heavy Attack, your Light Attacks deal an additional 15-1333 Shock
+			// Damage for 20 seconds.
 			isAoE : false,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"stormfist" : {
-			// (2 items) When you deal damage, you have a 10% chance to create a thunderfist to crush the enemy, dealing 17-1500 Shock Damage 
-			// every 1 second for 3 seconds to all enemies within 4 meters and a final 93-8000 Physical Damage when the fist closes
+			// (2 items) When you deal damage, you have a 10% chance to create a
+			// thunderfist to crush the enemy, dealing 17-1500 Shock Damage
+			// every 1 second for 3 seconds to all enemies within 4 meters and a
+			// final 93-8000 Physical Damage when the fist closes
 			// This effect can occur once every 8 seconds.
 			isAoE : true,
 			isDoT : [true, false],
@@ -15587,7 +15665,8 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 2,
 		},
 		"sunderflame" : {
-			// (5 items) When you deal damage with a fully-charged Heavy Attack, you deal an additional 9-774 Flame Damage and reduce the enemy's 
+			// (5 items) When you deal damage with a fully-charged Heavy Attack,
+			// you deal an additional 9-774 Flame Damage and reduce the enemy's
 			// Physical Resistance by 40-3440 for 8 seconds.
 			isAoE : false,
 			isDoT : false,
@@ -15595,8 +15674,11 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"syvarra's scales" : {
-			// (5 items) When you deal damage, you have a 5% chance to cause a burst of lamia poison that deals 11-967 Poison Damage in a 5 meter radius 
-			// and an additional 66-5802 Poison Damage over 6 seconds to all enemies hit
+			// (5 items) When you deal damage, you have a 5% chance to cause a
+			// burst of lamia poison that deals 11-967 Poison Damage in a 5
+			// meter radius
+			// and an additional 66-5802 Poison Damage over 6 seconds to all
+			// enemies hit
 			// This effect can occur once every 6.5 seconds.
 			isAoE : [true, true],
 			isDoT : [false, true],
@@ -15604,15 +15686,19 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"the ice furnace" : {
-			// (5 items) When you deal direct damage with a Frost Damage ability, you have a 50% chance to deal an additional 34-997 Flame Damage to all
-			// enemies within 8 meters around the initial target. This effect can occur once every 1 second.
+			// (5 items) When you deal direct damage with a Frost Damage
+			// ability, you have a 50% chance to deal an additional 34-997 Flame
+			// Damage to all
+			// enemies within 8 meters around the initial target. This effect
+			// can occur once every 1 second.
 			isAoE : true,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"thunderbug's carapace" : {
-			// (5 items) When you take Physical Damage, you have a 50% chance to deal 60-5160 Shock Damage in a 5 meter radius around you
+			// (5 items) When you take Physical Damage, you have a 50% chance to
+			// deal 60-5160 Shock Damage in a 5 meter radius around you
 			// This effect can occur once every 3 seconds.
 			isAoE : true,
 			isDoT : false,
@@ -15620,8 +15706,10 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"tremorscale" : {
-			// (2 items) When you taunt an enemy, you have a 50% chance to cause a duneripper to burst from the ground beneath them, dealing 
-			// 68-5850 Physical Damage to all enemies within 4 meters and reducing their Movement Speed by 70% for 8 seconds
+			// (2 items) When you taunt an enemy, you have a 50% chance to cause
+			// a duneripper to burst from the ground beneath them, dealing
+			// 68-5850 Physical Damage to all enemies within 4 meters and
+			// reducing their Movement Speed by 70% for 8 seconds
 			// This effect can occur once every 4 seconds.
 			isAoE : true,
 			isDoT : false,
@@ -15629,8 +15717,10 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 2,
 		},
 		"trinimac's valor" : {
-			// (5 items) When you cast a damage shield on an ally, you have a 20% chance to call down a fragment of Trinimac that heals you 
-			// and your allies for 42-3667 Health and damages enemies for 42-3667 Magic Damage in a 5 meter radius
+			// (5 items) When you cast a damage shield on an ally, you have a
+			// 20% chance to call down a fragment of Trinimac that heals you
+			// and your allies for 42-3667 Health and damages enemies for
+			// 42-3667 Magic Damage in a 5 meter radius
 			// This effect can occur once every 5 seconds.
 			isAoE : true,
 			isDoT : false,
@@ -15638,7 +15728,9 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"twin sisters" : {
-			// (5 items) When you block an attack, you have a 20% chance to cause all enemies within 5 meters of you to bleed for 100-8600 Physical Damage 
+			// (5 items) When you block an attack, you have a 20% chance to
+			// cause all enemies within 5 meters of you to bleed for 100-8600
+			// Physical Damage
 			// over 8 seconds. This effect can occur once every 8 seconds.
 			isAoE : true,
 			isDoT : true,
@@ -15646,23 +15738,30 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"valkyn skoria" : {
-			// (2 items) When you deal damage with a damage over time effect, you have a 8% chance to summon a meteor that deals 104-9000 Flame Damage 
-			// to the target and 46-4000 Flame Damage to all other enemies within 5 meters.  This effect can occur once every 5 seconds.
+			// (2 items) When you deal damage with a damage over time effect,
+			// you have a 8% chance to summon a meteor that deals 104-9000 Flame
+			// Damage
+			// to the target and 46-4000 Flame Damage to all other enemies
+			// within 5 meters. This effect can occur once every 5 seconds.
 			isAoE : [false, true],
 			isDoT : false,
 			index : 2,
 			items : 2,
 		},
 		"velidreth" : {
-			// (2 items) When you deal damage, you have a 20% chance to spawn 3 disease spores in front of you that deal 120-10320 Disease Damage 
-			// to the first enemy they hit. This effect can occur once every 9 seconds.
+			// (2 items) When you deal damage, you have a 20% chance to spawn 3
+			// disease spores in front of you that deal 120-10320 Disease Damage
+			// to the first enemy they hit. This effect can occur once every 9
+			// seconds.
 			isAoE : false,
 			isDoT : false,
 			index : 2,
 			items : 2,
 		},
 		"vicecanon of venom" : {
-			// (5 items) When you deal Critical Damage to an enemy from Sneak, you inject a leeching poison that deals 160-13760 Poison Damage over 
+			// (5 items) When you deal Critical Damage to an enemy from Sneak,
+			// you inject a leeching poison that deals 160-13760 Poison Damage
+			// over
 			// 15 seconds to them and heals you for 100% of the damage done.
 			isAoE : false,
 			isDoT : true,
@@ -15670,14 +15769,16 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"vicious death" : {
-			// (5 items) When you kill a Player, they violently explode for 183-15815 Flame Damage to all other enemies in a 4 meter radius.
+			// (5 items) When you kill a Player, they violently explode for
+			// 183-15815 Flame Damage to all other enemies in a 4 meter radius.
 			isAoE : true,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"viper's sting" : {
-			// (5 items) When you deal damage with a melee attack, you deal an additional 74-6400 Poison Damage
+			// (5 items) When you deal damage with a melee attack, you deal an
+			// additional 74-6400 Poison Damage
 			// This effect can occur once every 4 seconds.
 			isAoE : false,
 			isDoT : false,
@@ -15685,7 +15786,8 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"way of fire" : {
-			// (5 items) When you deal damage with a Weapon ability, you have a 20% chance to deal an additional 46-4000 Flame Damage
+			// (5 items) When you deal damage with a Weapon ability, you have a
+			// 20% chance to deal an additional 46-4000 Flame Damage
 			// This effect can occur once every 2 seconds.
 			isAoE : false,
 			isDoT : false,
@@ -15693,15 +15795,20 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"widowmaker" : {
-			// (5 items) When your alchemical poison fires, deal 90-7740 Poison Damage to all enemies within 5 meters of you.
+			// (5 items) When your alchemical poison fires, deal 90-7740 Poison
+			// Damage to all enemies within 5 meters of you.
 			isAoE : true,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"winterborn" : {
-			// (5 items) When you deal damage with a Cold Damage ability, you have a 8% chance to summon an ice pillar that deals 70-6020 Frost Damage 
-			// to all enemies in a 3 meter radius. The ice pillar persists for 2 seconds and reduces the Movement Speed of all enemies within the radius by 60%.
+			// (5 items) When you deal damage with a Cold Damage ability, you
+			// have a 8% chance to summon an ice pillar that deals 70-6020 Frost
+			// Damage
+			// to all enemies in a 3 meter radius. The ice pillar persists for 2
+			// seconds and reduces the Movement Speed of all enemies within the
+			// radius by 60%.
 			isAoE : true,
 			isDoT : false,
 			index : 4,
@@ -15712,22 +15819,27 @@ window.ESO_SETPROCDAMAGE_DATA =
 
 window.ESO_SETPROC_UNKNOWN = {
 		"infallible mage" : {	// Not affected
-			// (5 items) Your fully-charged Heavy Attacks deal an additional 10-903 damage
-			// Enemies you damage with fully-charged Heavy Attacks are afflicted with Minor Vulnerability for 10 seconds, increasing their damage taken by 8%.
+			// (5 items) Your fully-charged Heavy Attacks deal an additional
+			// 10-903 damage
+			// Enemies you damage with fully-charged Heavy Attacks are afflicted
+			// with Minor Vulnerability for 10 seconds, increasing their damage
+			// taken by 8%.
 			isAoE : false,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},	
 		"noble duelist's silks" : {	// Not affected
-			// (5 items) When you dodge an attack, your Light and Heavy Attacks deal an additional 14-1225 damage for 8 seconds.
+			// (5 items) When you dodge an attack, your Light and Heavy Attacks
+			// deal an additional 14-1225 damage for 8 seconds.
 			isAoE : false,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"undaunted infiltrator" : {	// Not affected
-			// (5 items) When you use an ability that costs Magicka, your Light Attacks deal an additional 9-774 damage and Heavy Attacks deal an
+			// (5 items) When you use an ability that costs Magicka, your Light
+			// Attacks deal an additional 9-774 damage and Heavy Attacks deal an
 			// additional 13-1161 damage for 10 seconds.
 			isAoE : false,
 			isDoT : false,
@@ -15735,7 +15847,8 @@ window.ESO_SETPROC_UNKNOWN = {
 			items : 5,
 		},
 		"undaunted unweaver" : { // Not affected
-			// (5 items) When you use an ability that costs Stamina, your Light Attacks deal an additional 9-774 damage and Heavy Attacks deal an
+			// (5 items) When you use an ability that costs Stamina, your Light
+			// Attacks deal an additional 9-774 damage and Heavy Attacks deal an
 			// additional 13-1161 damage for 10 seconds.
 			isAoE : false,
 			isDoT : false,
@@ -15743,7 +15856,8 @@ window.ESO_SETPROC_UNKNOWN = {
 			items : 5,
 		},
 		"varen's legacy" : {	// Not affected
-			// (5 items) When you block an attack, you have a 10% chance to cause your next direct damage area of effect attack to deal an 
+			// (5 items) When you block an attack, you have a 10% chance to
+			// cause your next direct damage area of effect attack to deal an
 			// additional 300-3450 damage.
 			isAoE : true,
 			isDoT : false,
@@ -15790,7 +15904,8 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 		if (setDamageData.damageType != null) checkDamageType = setDamageData.damageType;
 	}
 	
-	//EsoBuildLog("UpdateEsoSetDamageData", match, isAoE, isDoT, damageValue, damageType);
+	// EsoBuildLog("UpdateEsoSetDamageData", match, isAoE, isDoT, damageValue,
+	// damageType);
 	
 	damageMod = g_EsoBuildLastInputValues[checkDamageType + "DamageDone"];
 	if (damageMod != null && damageMod !== 0) damageFactor *= (1 + damageMod);	
@@ -15855,7 +15970,8 @@ window.UpdateEsoSetHealReplace = function (match, prefixWord, div1, healValue, d
 {
 	// heal for 23-2000 Health
 	// collecting the essence heals you 50-4300 Health
-	// ? When you take damage, you have a 6% chance to create a beam that steals 63-5805 Health over 4 seconds from the attacker
+	// ? When you take damage, you have a 6% chance to create a beam that steals
+	// 63-5805 Health over 4 seconds from the attacker
 	
 	var healFactor = 1;
 	var healMod;
@@ -15880,7 +15996,7 @@ window.UpdateEsoBuildSetDamageData = function (setDesc, setDamageData)
 	var newDesc = setDesc;
 	var matchCount = 0;
 	
-	//EsoBuildLog("UpdateEsoBuildSetDamageData", setDesc, setDamageData);
+	// EsoBuildLog("UpdateEsoBuildSetDamageData", setDesc, setDamageData);
 	
 	newDesc = newDesc.replace(/ ([A-Za-z]+) ((?:\<div[^>]*\>)|)([0-9]+)((?:\<\/div\>)|) ((?:[a-zA-Z]+)|)( |)damage/gi, function(match, prefixWord, div1, damageValue, div2, damageType, extraSpace) {
 		++matchCount;
@@ -15896,7 +16012,7 @@ window.UpdateEsoBuildSetDamageShield = function (setDesc)
 	var newDesc = setDesc;
 	var matchCount = 0;
 	
-	//EsoBuildLog("UpdateEsoBuildSetDamageShieldData", setDesc);
+	// EsoBuildLog("UpdateEsoBuildSetDamageShieldData", setDesc);
 	
 	newDesc = newDesc.replace(/ absorbs ((?:\<div[^>]*\>)|)([0-9]+)((?:\<\/div\>)|) damage/gi, function(match, div1, damageValue, div2) {
 		++matchCount;
@@ -15912,7 +16028,7 @@ window.UpdateEsoBuildSetHealing = function (setDesc)
 	var newDesc = setDesc;
 	var matchCount = 0;
 	
-	//EsoBuildLog("UpdateEsoBuildSetHealing", setDesc);
+	// EsoBuildLog("UpdateEsoBuildSetHealing", setDesc);
 	
 	newDesc = newDesc.replace(/ (for|you|steals) ((?:\<div[^>]*\>)|)([0-9]+)((?:\<\/div\>)|) Health/gi, function(match, prefixWord, div1, healValue, div2) {
 		++matchCount;
@@ -15932,7 +16048,7 @@ window.UpdateEsoBuildSetAllData = function (setDesc, setDamageData)
 	newDesc = UpdateEsoBuildSetDamageShield(newDesc);
 	newDesc = UpdateEsoBuildSetHealing(newDesc);
 	
-	//EsoBuildLog("UpdateEsoBuildSetAllData", newDesc, setDesc, setDamageData);
+	// EsoBuildLog("UpdateEsoBuildSetAllData", newDesc, setDesc, setDamageData);
 	
 	return newDesc;
 }
@@ -15947,7 +16063,8 @@ window.UpdateEsoBuildSetAllFullText = function (setText)
 	matchResult = setText.match(/PART OF THE ([A-Za-z0-9_\'\- ]+) SET/i);
 	if (matchResult && matchResult[1]) setName = matchResult[1].toLowerCase();
 	
-	//EsoBuildLog("UpdateEsoBuildSetAllFullText", matchResult, setName, ESO_SETPROCDAMAGE_DATA[setName], setText);
+	// EsoBuildLog("UpdateEsoBuildSetAllFullText", matchResult, setName,
+	// ESO_SETPROCDAMAGE_DATA[setName], setText);
 	
 	setDamageData = ESO_SETPROCDAMAGE_DATA[setName];
 	return UpdateEsoBuildSetAllData(setText, setDamageData);
@@ -15987,7 +16104,7 @@ window.UpdateEsoBuildTooltip = function (tooltip, parent)
 
 window.OnEsoTooltipUpdate = function (event, tooltip, parent)
 {
-	//EsoBuildLog("OnEsoTooltipUpdate", tooltip, parent);
+	// EsoBuildLog("OnEsoTooltipUpdate", tooltip, parent);
 	UpdateEsoBuildTooltip(tooltip, parent);	
 }
 
@@ -15996,7 +16113,8 @@ window.UpdateEsoBuildSlottedDestructionSkills = function ()
 {
 	var changed = false;
 	
-	//if (g_EsoSkillDestructionElementPrev == g_EsoSkillDestructionElement) return;
+	// if (g_EsoSkillDestructionElementPrev == g_EsoSkillDestructionElement)
+	// return;
 	if (g_EsoSkillDestructionData == null) return;
 	if (g_EsoSkillDestructionElement == null) return;
 	
@@ -16029,7 +16147,8 @@ window.UpdateEsoBuildSlottedDestructionSkills = function ()
 		if (newSkillId == null) return;
 		if (newSkillId == skillId) return;
 		
-		//console.log("Switching destruction skill abilities", skillId, newSkillId, origSkillId);
+		// console.log("Switching destruction skill abilities", skillId,
+		// newSkillId, origSkillId);
 		
 		if (g_SkillsData[newSkillId] != null)
 		{
@@ -16099,9 +16218,9 @@ window.OnEsoTransmuteListChange = function (e)
 	
 	RequestEsoTransmuteTraitData(g_EsoBuildItemData[slotId], newTrait, element);
 	
-	//EsoBuildLog("OnEsoTransmuteListChange", newTrait, slotId, this, e);
+	// EsoBuildLog("OnEsoTransmuteListChange", newTrait, slotId, this, e);
 	
-	//UpdateEsoComputedStatsList(true);
+	// UpdateEsoComputedStatsList(true);
 }
 
 
@@ -16140,7 +16259,7 @@ window.OnEsoTransmuteTraitDataReceive = function (data, status, xhr, element, or
 	
 	g_EsoBuildItemData[slotId].traitDesc = itemData.traitDesc;
 	
-	//EsoBuildLog("Received Transmute Trait Desc", itemData.traitDesc, data);
+	// EsoBuildLog("Received Transmute Trait Desc", itemData.traitDesc, data);
 	
 	UpdateEsoComputedStatsList(true);
 }
@@ -16230,6 +16349,18 @@ window.GetEsoComputedStatValue = function(key, defaultValue = 0)
 }
 
 
+window.GetEsoInputStatValue = function(category, key, defaultValue = 0)
+{
+	var obj1 = g_EsoBuildLastInputValues[category];
+	if (obj1 == null) return defaultValue;
+	
+	var obj2 = obj1[key];
+	if (obj2 == null) return defaultValue;
+	
+	return obj2;
+}
+
+
 window.GetEsoInputStatMultValue = function(stat, factor = 1)
 {
 	var value = 1;
@@ -16240,12 +16371,12 @@ window.GetEsoInputStatMultValue = function(stat, factor = 1)
 	
 		if (obj != null)
 		{
-			//EsoBuildLog("\t", ESO_STATMULTVALUE_CATEGORIES[i], obj);
+			// EsoBuildLog("\t", ESO_STATMULTVALUE_CATEGORIES[i], obj);
 			value *= (1 + obj * factor);
 		}
 	}	
 	
-	//EsoBuildLog("GetEsoComputedStatMultValue", stat, value);
+	// EsoBuildLog("GetEsoComputedStatMultValue", stat, value);
 	return value;
 }
 
@@ -16265,6 +16396,8 @@ window.UpdateEsoMitigationCell = function(element, elementType, damageType1, dam
 	var playerAOEDamageTaken = 1;
 	var dungeonDamageTaken = 1;
 	var mitigationText = "";
+	var elementVulnerability = 1;
+	var vulnerability = 1;
 	
 	if (elementType == "Physical" || elementType == "Poison" || elementType == "Disease") resistType = "PhysicalResist";
 		
@@ -16272,6 +16405,9 @@ window.UpdateEsoMitigationCell = function(element, elementType, damageType1, dam
 	
 	resistance = g_EsoComputedStats[resistType].value + extraResist;
 	if (resistance > ESO_RESIST_CAP) resistance = ESO_RESIST_CAP;
+	
+	vulnerability = GetEsoInputStatValue("Buff", "Vulnerability");
+	elementVulnerability = GetEsoInputStatValue("Buff", elementType + "Vulnerability");
 	
 	damageTaken = GetEsoInputStatMultValue("DamageTaken");
 	elementDamageTaken = GetEsoInputStatMultValue(elementType + "DamageTaken");
@@ -16296,8 +16432,8 @@ window.UpdateEsoMitigationCell = function(element, elementType, damageType1, dam
 	}
 	
 		/* Mitigation calculation */
-	mitigation *= (1 - (resistance - 100) / 660 / 100); 
-	mitigation *= damageTaken;
+	mitigation *= (1 - Math.max(0, resistance - 100) / 660 / 100); 
+	mitigation *= damageTaken + elementVulnerability + vulnerability;
 	mitigation *= damage1Taken;
 	mitigation *= damage2Taken;
 	mitigation *= elementDamageTaken;
@@ -16413,7 +16549,8 @@ window.esotbOnDocReady = function ()
 	}
 	else
 	{
-		//$(".esovsSkillContentBlock").find(".esovsAbilityBlockIcon ").click(OnEsoBuildAbilityIconBlockClick);
+		// $(".esovsSkillContentBlock").find(".esovsAbilityBlockIcon
+		// ").click(OnEsoBuildAbilityIconBlockClick);
 	}
 	
 	$("#esotbSaveButton").click(OnEsoBuildSave);
@@ -16429,7 +16566,7 @@ window.esotbOnDocReady = function ()
 	    if (e.keyCode == 27) OnEsoBuildEscapeKey(e);
 	});
 	
-	//UpdateEsoComputedStatsList(true);
+	// UpdateEsoComputedStatsList(true);
 	CopyEsoSkillsToItemTab();
 	UpdateEsoCpData();
 	UpdateAllEsoItemTraitLists();
