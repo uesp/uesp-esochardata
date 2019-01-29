@@ -238,6 +238,9 @@ class EsoBuildDataEditor
 			"Set.AOEHealingDone",
 			"Buff.DungeonDamageTaken",
 			"Skill.RangedDamageTaken",
+			"Buff.Vulnerability",
+			"Buff.FlameVulnerability",
+			"Buff.PoisonVulnerability",
 	);
 	
 	
@@ -1796,7 +1799,9 @@ class EsoBuildDataEditor
 			"Set.AOEHealingDone" => array( "display" => "%" ),
 			"Buff.DungeonDamageTaken" => array( "display" => "%" ),
 			"Skill.RangedDamageTaken" => array( "display" => "%" ),
-			
+			"Buff.Vulnerability" => array( "display" => "%" ),
+			"Buff.FlameVulnerability" => array( "display" => "%" ),
+			"Buff.PoisonVulnerability" => array( "display" => "%" ),			
 	);
 	
 	
@@ -2915,9 +2920,11 @@ class EsoBuildDataEditor
 					"display" => "%",
 					"round" => "floor",
 					"compute" => array(
-							"CP.PhysicalDamageTaken",
-							"Skill.PhysicalDamageTaken",
-							"+",
+							"1 + CP.PhysicalDamageTaken",
+							"1 + Skill.PhysicalDamageTaken",
+							"*",
+							"1",
+							"-",
 					),
 			),
 			
@@ -2961,15 +2968,19 @@ class EsoBuildDataEditor
 					"display" => "%",
 					"round" => "floor",
 					"compute" => array(
-							"CP.DamageTaken",
-							"Skill.DamageTaken",
+							"1 + CP.DamageTaken",
+							"1 + Skill.DamageTaken",
+							"*",
+							"1 + Buff.DamageTaken",
+							"*",
+							"1 + Item.DamageTaken",
+							"*",
+							"1 + Set.DamageTaken",
+							"*",
+							"Buff.Vulnerability",
 							"+",
-							"Buff.DamageTaken",
-							"+",
-							"Item.DamageTaken",
-							"+",
-							"Set.DamageTaken",
-							"+",
+							"1",
+							"-",
 					),
 			),
 			

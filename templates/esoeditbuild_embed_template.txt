@@ -1159,7 +1159,6 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<li>This section is currently under development and all numbers may not be correct.</li>
 					<li>Mitigation values go from 0% (take all damage from attacker) to 100% (take no damage).</li>
 					<li>Negative mitigation values mean you take more damage. For example -25% mitigation means you take 25% more damage (x1.25) than normal.</li>
-					<li>The displayed values are shown to 1 decimal point for convienence. In-game the mitigation decimals are truncated (so 41.9% would be 41% in-game).</li>
 				</ul>
 				<p/><br/>
 				<b>Blocking</b> <input type="checkbox" id="esotbMitigationBlock" name="esotbMitigationBlock" statid="MitigationBlock">
@@ -1317,7 +1316,15 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<hr>
 			<b>28 January 2018</b>
 			<ul>
+				<li>Fixed tooltips not correctly using Weapon/Spell damage values from the new update 21 Racial passives.</li>
+			</ul>
+			<p>
+			<b>28 January 2018</b>
+			<ul>
 				<li>Fixed the new update 21 recovery bonuses (CP/Skill/Buffs no longer affect them).</li>
+				<li>Changed Vulnerabilities (Minor Vulnerability, Vampire/Werewolf debuffs) from DamageTaken to custom Buff.Vulnerability, Buff.FlameVulnerability, and 
+						Buff.PoisonVulnerability for more correct mitigation calculations.</li>
+				<li>Updated the DamageTaken computed stat to be multiplicative from all sources.</li>
 			</ul>
 			<p>
 			<b>26 January 2018</b>
