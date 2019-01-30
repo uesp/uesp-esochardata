@@ -1319,6 +1319,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>30 January 2018</b>
+			<ul>
+				<li>The new Redguard passive now affects the cost of Weapon ultimates.</li>
+			</ul>
+			<p>
 			<b>28 January 2018</b>
 			<ul>
 				<li>Fixed tooltips not correctly using Weapon/Spell damage values from the new update 21 Racial passives.</li>
