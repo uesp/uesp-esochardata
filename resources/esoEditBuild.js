@@ -16585,7 +16585,6 @@ window.UpdateEsoMitigationTableElement = function(elementId)
 		return;
 	}	
 	
-	
 	if (rawData.extraResist != 0) 
 	{
 		output += CreateMitigationRawDataBlock("Base Resistance", rawData.baseResistance, "resist");
