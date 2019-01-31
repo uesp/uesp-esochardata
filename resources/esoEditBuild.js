@@ -9839,7 +9839,10 @@ window.ConvertEsoFlatResistToPercent = function (flatResist, inputValues)
 	
 	if (level <= 0) return 0;
 	
-	var result = (flatResist - 100)/(level*10);
+	flatResist = Math.min(33000, flatResist);
+	flatResist = Math.max(0, flatResist);	
+	
+	var result = Math.max(0, (flatResist - 100)/(level*10));
 	return Math.round(result);
 }
 
@@ -9851,7 +9854,10 @@ window.ConvertEsoElementResistToPercent = function (flatResist, inputValues)
 	
 	if (level <= 0) return 0;
 	
-	var result = flatResist/(level*10);
+	flatResist = Math.min(33000, flatResist);
+	flatResist = Math.max(0, flatResist);
+	
+	var result = Math.max(0, flatResist/(level*10));
 	return Math.round(result);
 }
 
@@ -16462,6 +16468,7 @@ window.UpdateEsoMitigationCell = function(element, elementType, damageType1, dam
 	
 	resistance = g_EsoComputedStats[resistType].value + extraResist;
 	if (resistance > ESO_RESIST_CAP) resistance = ESO_RESIST_CAP;
+	if (resistance < 0) resistance = 0;
 	
 	vulnerability = GetEsoInputStatValue("Buff", "Vulnerability");
 	elementVulnerability = GetEsoInputStatValue("Buff", elementType + "Vulnerability");
