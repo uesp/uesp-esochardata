@@ -16510,10 +16510,10 @@ window.UpdateEsoMitigationCell = function(element, elementType, damageType1, dam
 	
 		/* Mitigation calculation */
 	mitigation *= (1 - Math.max(0, resistance - 100) / 660 / 100); 
-	mitigation *= damageTaken + elementVulnerability + vulnerability;
-	mitigation *= damage1Taken;
-	mitigation *= damage2Taken;
-	mitigation *= elementDamageTaken;
+	mitigation *= damageTaken * damage1Taken * damage2Taken * elementDamageTaken + elementVulnerability + vulnerability;
+	//mitigation *= damage1Taken;
+	//mitigation *= damage2Taken;
+	//mitigation *= elementDamageTaken;
 	mitigation *= 1 - blockDamageTaken;
 	mitigation *= playerDamageTaken;
 	mitigation *= playerAOEDamageTaken;
@@ -16594,6 +16594,9 @@ window.UpdateEsoMitigationTableElement = function(elementId)
 	
 	output += CreateMitigationRawDataBlock("Resistance", rawData.resistance, "resist");
 	output += CreateMitigationRawDataBlock("DamageTaken Mitigation", rawData.damageTaken, "mitigation");
+	output += CreateMitigationRawDataBlock(rawData.damageType1 + " Mitigation", rawData.damage1Taken, "mitigation");
+	output += CreateMitigationRawDataBlock(rawData.damageType2 + " Mitigation", rawData.damage2Taken, "mitigation");
+	output += CreateMitigationRawDataBlock(rawData.elementDamageTaken + " Mitigation", rawData.elementDamageTaken, "mitigation");
 	output += CreateMitigationRawDataBlock("Vulnerability", rawData.vulnerability, "vulnerability");
 	output += CreateMitigationRawDataBlock(rawData.elementType + " Vulnerability", rawData.elementVulnerability, "vulnerability");
 	output += "<hr/>";
@@ -16602,17 +16605,18 @@ window.UpdateEsoMitigationTableElement = function(elementId)
 	output += CreateMitigationRawDataBlock("Resistance Mitigation", rawData.resistanceDamageTaken, "mitigation", mitigation);
 	mitigation *= rawData.resistanceDamageTaken;
 	
-	output += CreateMitigationRawDataBlock("DamageTaken - Vulnerability Mitigation", rawData.damageTaken + rawData.vulnerability + rawData.elementVulnerability, "mitigation", mitigation);
+	var damageTaken = rawData.damageTaken * rawData.damage1Taken * rawData.damage2Taken * rawData.elementDamageTaken + rawData.vulnerability + rawData.elementVulnerability;
+	output += CreateMitigationRawDataBlock("DamageTaken - Vulnerability Mitigation", damageTaken, "mitigation", mitigation);
 	mitigation *= rawData.damageTaken + rawData.vulnerability + rawData.elementVulnerability;
 	
-	output += CreateMitigationRawDataBlock(rawData.damageType1 + " Mitigation", rawData.damage1Taken, "mitigation", mitigation);
-	mitigation *= rawData.damage1Taken;
+	/*output += CreateMitigationRawDataBlock(rawData.damageType1 + " Mitigation", rawData.damage1Taken, "mitigation", mitigation);
+	mitigation *= rawData.damage1Taken;*/
 	
-	output += CreateMitigationRawDataBlock(rawData.damageType2 + " Mitigation", rawData.damage2Taken, "mitigation", mitigation);
-	mitigation *= rawData.damage2Taken;
+	/*output += CreateMitigationRawDataBlock(rawData.damageType2 + " Mitigation", rawData.damage2Taken, "mitigation", mitigation);
+	mitigation *= rawData.damage2Taken;*/
 	
-	output += CreateMitigationRawDataBlock(rawData.elementDamageTaken + " Mitigation", rawData.elementDamageTaken, "mitigation", mitigation);
-	mitigation *= rawData.elementDamageTaken;
+	/*output += CreateMitigationRawDataBlock(rawData.elementDamageTaken + " Mitigation", rawData.elementDamageTaken, "mitigation", mitigation);
+	mitigation *= rawData.elementDamageTaken;*/
 	
 	output += CreateMitigationRawDataBlock("Block Mitigation", rawData.blockDamageTaken, "mitigation", mitigation);
 	mitigation *= rawData.blockDamageTaken;
