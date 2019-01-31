@@ -1319,6 +1319,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>31 January 2018</b>
+			<ul>
+				<li>Removed the Spell/Physical Resistance cap and moved the cap check to the mitigation calculations.</li>
+			</ul>
+			<p>
 			<b>30 January 2018</b>
 			<ul>
 				<li>The new Redguard passive now affects the cost of Weapon ultimates.</li>

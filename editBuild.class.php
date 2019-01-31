@@ -2130,7 +2130,6 @@ class EsoBuildDataEditor
 					"display" => "resist",
 					"round" => "floor",
 					"min" => 0,
-					"max" => 33000,
 					"compute" => array(
 							"Item.SpellResist",
 							"Skill2.SpellResist",
@@ -2156,7 +2155,6 @@ class EsoBuildDataEditor
 					"display" => "resist",
 					"round" => "floor",
 					"min" => 0,
-					"max" => 33000,
 					"compute" => array(
 							"Item.PhysicalResist",
 							"Skill2.PhysicalResist",
@@ -3581,7 +3579,7 @@ class EsoBuildDataEditor
 					"min" => 0,
 					"max" => 1,
 					"compute" => array(
-							"Target.SpellResist",
+							"min(33000, Target.SpellResist)",
 							"Target.SpellDebuff",
 							"+",
 							"1 - Skill2.SpellPenetration",
@@ -3604,7 +3602,7 @@ class EsoBuildDataEditor
 					"min" => 0,
 					"max" => 1,
 					"compute" => array(
-							"Target.PhysicalResist",
+							"min(33000, Target.PhysicalResist)",
 							"Target.PhysicalDebuff",
 							"+",
 							"1 - Skill2.PhysicalPenetration",
@@ -3654,7 +3652,7 @@ class EsoBuildDataEditor
 					"display" => "%",
 					"depends" => array("SpellResist", "MagicDamageTaken"),
 					"compute" => array(
-							"SpellResist",
+							"min(33000, SpellResist)",
 							"1 - Target.PenetrationFactor",
 							"*",
 							"Target.PenetrationFlat",
@@ -3677,7 +3675,7 @@ class EsoBuildDataEditor
 					"display" => "%",
 					"depends" => array("PhysicalResist", "PhysicalDamageTaken"),
 					"compute" => array(
-							"PhysicalResist",
+							"min(33000, PhysicalResist)",
 							"1 - Target.PenetrationFactor",
 							"*",
 							"Target.PenetrationFlat",
