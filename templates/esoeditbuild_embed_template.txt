@@ -65,7 +65,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<ul style="margin-left: 170px; margin-top: -5px;">
 				<li>Updated racial passives.</li>
 				<li>Half-effect enchantments on 1H weapons.</li>
-				<li>Updated skills and CPs.</li>				
+				<li>Updated skills and CPs.</li>
 			</ul>			
 			<p>
 			<div id="esotbAttributes">
@@ -1323,6 +1323,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<ul>
 				<li>Removed the Spell/Physical Resistance cap and moved the cap check to the mitigation calculations.</li>
 				<li>Changed the new racial stat passives from Item to Skill2 as they are not affected by CP bonuses.</li>
+				<li>Fixed old racial passives not being cleared when using the Update 21 Ruleset (new High Elf and Khajiit passives in particular).</li>
 			</ul>
 			<p>
 			<b>30 January 2018</b>
