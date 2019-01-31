@@ -1322,6 +1322,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>31 January 2018</b>
 			<ul>
 				<li>Removed the Spell/Physical Resistance cap and moved the cap check to the mitigation calculations.</li>
+				<li>Changed the new racial stat passives from Item to Skill2 as they are not affected by CP bonuses.</li>
 			</ul>
 			<p>
 			<b>30 January 2018</b>
