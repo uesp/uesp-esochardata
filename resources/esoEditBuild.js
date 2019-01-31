@@ -16597,6 +16597,10 @@ window.UpdateEsoMitigationTableElement = function(elementId)
 	output += CreateMitigationRawDataBlock(rawData.damageType1 + " Mitigation", rawData.damage1Taken, "mitigation");
 	output += CreateMitigationRawDataBlock(rawData.damageType2 + " Mitigation", rawData.damage2Taken, "mitigation");
 	output += CreateMitigationRawDataBlock(rawData.elementDamageTaken + " Mitigation", rawData.elementDamageTaken, "mitigation");
+	
+	var damageTaken = rawData.damageTaken * rawData.damage1Taken * rawData.damage2Taken * rawData.elementDamageTaken;
+	output += CreateMitigationRawDataBlock("Total DamageTaken Mitigation", damageTaken, "mitigation");
+	
 	output += CreateMitigationRawDataBlock("Vulnerability", rawData.vulnerability, "vulnerability");
 	output += CreateMitigationRawDataBlock(rawData.elementType + " Vulnerability", rawData.elementVulnerability, "vulnerability");
 	output += "<hr/>";
@@ -16605,7 +16609,7 @@ window.UpdateEsoMitigationTableElement = function(elementId)
 	output += CreateMitigationRawDataBlock("Resistance Mitigation", rawData.resistanceDamageTaken, "mitigation", mitigation);
 	mitigation *= rawData.resistanceDamageTaken;
 	
-	var damageTaken = rawData.damageTaken * rawData.damage1Taken * rawData.damage2Taken * rawData.elementDamageTaken + rawData.vulnerability + rawData.elementVulnerability;
+	damageTaken += rawData.vulnerability + rawData.elementVulnerability;
 	output += CreateMitigationRawDataBlock("DamageTaken - Vulnerability Mitigation", damageTaken, "mitigation", mitigation);
 	mitigation *= rawData.damageTaken + rawData.vulnerability + rawData.elementVulnerability;
 	
