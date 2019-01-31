@@ -10137,6 +10137,13 @@ window.OnEsoUpdateStats = function (e)
 }
 
 
+window.OnEsoUpdate21Click = function (e)
+{
+	//RemovePurchasedEsoRaceSkills();
+	UpdateEsoComputedStatsList("async");
+}
+
+
 window.OnEsoMundusChange = function (e)
 {
 	var mundus1 = $("#esotbMundus").val();
@@ -16727,7 +16734,7 @@ window.esotbOnDocReady = function ()
 	$("#esotbMitigationPVP").click(OnEsoClickMitigationPVP);
 	$("#esotbEnableCP").click(OnEsoUpdateStats);
 	$("#esotbUpdate18Rules").click(OnEsoUpdateStats);
-	$("#esotbUpdate21Rules").click(OnEsoUpdateStats);
+	$("#esotbUpdate21Rules").click(OnEsoUpdate21Click);
 	
 	$(".esotbInputValue").on('input', function(e) { OnEsoInputChange.call(this, e); });
 	

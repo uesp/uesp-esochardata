@@ -32,6 +32,9 @@ class EsoBuildDataEditor
 	
 	public $TEMPLATE_FILE = "";
 	
+		/* Set to false when update 21 goes live */
+	public $REMOVE_NEW_UPDATE21_RACIALS = true;
+	
 	public $db = null;
 	public $htmlTemplate = "";
 	public $version = "";
@@ -1801,7 +1804,11 @@ class EsoBuildDataEditor
 			"Skill.RangedDamageTaken" => array( "display" => "%" ),
 			"Buff.Vulnerability" => array( "display" => "%" ),
 			"Buff.FlameVulnerability" => array( "display" => "%" ),
-			"Buff.PoisonVulnerability" => array( "display" => "%" ),			
+			"Buff.PoisonVulnerability" => array( "display" => "%" ),
+			"SkillCost.Lacerate_Cost" => array( "display" => "%" ),
+			"SkillCost.Berserker_Strike_Cost" => array( "display" => "%" ),
+			"SkillCost.Elemental_Storm_Cost" => array( "display" => "%" ),
+			"SkillCost.Shield_Wall_Cost" => array( "display" => "%" ),
 	);
 	
 	
@@ -4958,12 +4965,60 @@ class EsoBuildDataEditor
 	}
 	
 	
+	public function FixupUpdate21PtsRacialSkills()
+	{
+		$currentRace = $this->getCharField('race');
+		
+			/* Remove old racial passives */
+		if ($this->getCharStatField("UseUpdate21Rules", 0))
+		{
+			if ($currentRace == "High Elf")	
+				$this->RemoveSkillsFromBuild(array(35995 => 1, 45259 => 1, 45260 => 1));
+			else if ($currentRace == "Khajiit") 
+				$this->RemoveSkillsFromBuild(array(36022 => 1, 45295 => 1, 45296 => 1));
+		}
+			/* Remove new racial passives */	
+		else if ($this->REMOVE_NEW_UPDATE21_RACIALS)
+		{
+			if ($currentRace == "High Elf") 
+				$this->RemoveSkillsFromBuild(array(117968 => 1, 117969 => 1, 117970 => 1));
+			else if ($currentRace == "Khajiit") 
+				$this->RemoveSkillsFromBuild(array(117846 => 1, 117847 => 1, 117848 => 1));
+		}
+
+	}
+	
+	
+	public function RemoveSkillsFromBuild($skillsToRemove)
+	{
+		$skillsToDelete = array();
+		
+		foreach ($this->buildDataViewer->characterData['skills'] as $skillName => $skillData)
+		{
+			$abilityId = $skillData['abilityId'];
+	
+			if ($skillsToRemove[$abilityId])
+			{
+				$skillsToDelete[] = $skillName;
+			}
+		}
+		
+		foreach ($skillsToDelete as $skillName)
+		{
+			unset($this->buildDataViewer->characterData['skills'][$skillName]);
+		}
+	}
+	
+	
 	public function FixupBuildForPts()
 	{
-		if (!$this->getCharStatField("UseUpdate18Rules", 0)) return false;
+		$this->FixupUpdate21PtsRacialSkills();
+		
+		//if (!$this->getCharStatField("UseUpdate18Rules", 0)) return false;
 		if (!$this->getCharStatField("UseUpdate21Rules", 0)) return false;
 		
 		$this->FixupComputedStatsForPts();
+		
 		
 		return true;
 	}
