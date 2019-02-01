@@ -1324,6 +1324,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Removed the Spell/Physical Resistance cap and moved the cap check to the mitigation calculations.</li>
 				<li>Changed the new racial stat passives from Item to Skill2 as they are not affected by CP bonuses.</li>
 				<li>Fixed old racial passives not being cleared when using the Update 21 Ruleset (new High Elf and Khajiit passives in particular).</li>
+				<li>Changed the category of the 5 piece bonus of the Destruction Mastery and Bone Pirate's Tatters sets from Set to Skill2.</li>
+				<li>Changed the category of the 5 piece Health Regen bonus of the Bright Throat's Boast set from Set to Food.</li>
 			</ul>
 			<p>
 			<b>30 January 2018</b>
