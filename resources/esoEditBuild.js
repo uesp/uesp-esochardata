@@ -4584,31 +4584,35 @@ window.ESO_SETEFFECT_MATCHES = [
 		statRequireId: "FoodBuff",
 		statRequireValue: 1,
 		statId: "HealthRegen",
+		category: "Food",
 		match: /While you have a food buff active, your Max Health is increased by [0-9]+ and Health Recovery by ([0-9]+)/i,
 	},
 	{
 		statRequireId: "DrinkBuff",
 		statRequireValue: 1,
 		statId: "Stamina",
-		// category: "Skill2", // As of patch 3.1.2 this is still normal +set
+		category: "Skill2", // As of patch 3.1.2 this is still normal +set?
 		match: /While you have a drink buff active, your Max Stamina is increased by ([0-9]+)/i,
 	},
 	{
 		statRequireId: "DrinkBuff",
 		statRequireValue: 1,
 		statId: "StaminaRegen",
+		category: "Food",
 		match: /While you have a drink buff active, your Max Stamina is increased by [0-9]+ and Stamina Recovery by ([0-9]+)/i,
 	},
 	{
 		statRequireId: "DrinkBuff",
 		statRequireValue: 1,
 		statId: "Magicka",
+		category: "Skill2",
 		match: /While you have a drink buff active, your Max Magicka is increased by ([0-9]+)/i,
 	},
 	{
 		statRequireId: "DrinkBuff",
 		statRequireValue: 1,
 		statId: "MagickaRegen",
+		category: "Food",
 		match: /While you have a drink buff active, your Max Magicka is increased by [0-9]+ and Magicka Recovery by ([0-9]+)/i,
 	},
 	{
@@ -5580,6 +5584,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statRequireId: "WeaponDestStaff",
 		statRequireValue: 1,
 		statId: "Magicka",
+		category: "Skill2",
 		match: /While you have a Destruction Staff equipped, your Max Magicka is increased by ([0-9]+)/i,
 	},
 	{
