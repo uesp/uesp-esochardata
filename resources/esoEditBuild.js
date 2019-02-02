@@ -4428,8 +4428,6 @@ window.ESO_SETEFFECT_MATCHES = [
 	// Ignore the Movement Speed penalty of Sneak.
 	// Increases your damage done to Sneaking enemies by 20%.
 	// Reduces your damage taken from Guards by 20%.
-	
-	// Increases the duration of your Flame Damage abilities by 2 seconds.
 	// When your target is under 25% Health, add 1800 Weapon Damage to your
 	// Light and Heavy Attacks.
 	
@@ -5587,6 +5585,11 @@ window.ESO_SETEFFECT_MATCHES = [
 		category: "Skill2",
 		match: /While you have a Destruction Staff equipped, your Max Magicka is increased by ([0-9]+)/i,
 	},
+	{
+		statId: "ElfBaneDuration",
+		category: "Set",
+		match: /Increases the duration of your Flame Damage abilities by ([0-9]+) seconds/i,
+	},	
 	{
 		statId: "SnareDuration",
 		display: "%",
@@ -11335,6 +11338,7 @@ window.ShowEsoSkillDetailsPopup = function (abilityId)
 	detailsHtml += "learnedLevel = " + skillData.learnedLevel + "<br/>";
 	detailsHtml += "target = " + skillData.target + "<br/>";
 	detailsHtml += "maxCost = " + skillData.cost + "<br/>";
+	detailsHtml += "internalId = " + skillData.abilityId + "<br/>";
 	detailsHtml += "</div>";
 	detailsHtml += "<div class='esotbSkillDetailsOther'>";
 	detailsHtml += "duration = " + skillData.duration + "<br/>";
@@ -12673,11 +12677,8 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
 	
 	g_LastSkillInputValues.SkillLineCost = inputValues.SkillCost;
 	g_LastSkillInputValues.DamageShield = inputValues.DamageShield;
-	g_LastSkillInputValues.SkillDirectDamage = inputValues.SkillDirectDamage;	// TODO:
-																				// Implement
-																				// on
-																				// skill
-																				// tooltip
+	g_LastSkillInputValues.SkillDirectDamage = inputValues.SkillDirectDamage;	// TODO: Implement on skill tooltip
+	g_LastSkillInputValues.ElfBaneDuration = inputValues.Set.ElfBaneDuration;
 	
 	g_LastSkillInputValues.MagickaCost = 
 	{
