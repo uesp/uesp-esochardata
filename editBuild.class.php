@@ -244,6 +244,7 @@ class EsoBuildDataEditor
 			"Buff.Vulnerability",
 			"Buff.FlameVulnerability",
 			"Buff.PoisonVulnerability",
+			"Set.ElfBaneDuration",
 	);
 	
 	
