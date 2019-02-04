@@ -1319,6 +1319,18 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>4 February 2018</b>
+			<ul>
+				<li>Fixed the new Nord Rugged passive from giving extra resistances from some other unrelated passives.</li>
+				<li>The 5 piece bonus of the Elf Bane set will now increase duration of Flame Damage abilities. This is currently undergoing
+					testing and may not be perfect.</li>
+			</ul>
+			<p>
+			<b>1 February 2018</b>
+			<ul>
+				<li>Fixed the Bone Pirate's Tatters set which was not correctly adding Stamina after the last fix.</li>
+			</ul>
+			<p>
 			<b>31 January 2018</b>
 			<ul>
 				<li>Removed the Spell/Physical Resistance cap and moved the cap check to the mitigation calculations.</li>
