@@ -3915,11 +3915,11 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		statId: "SpellResist",
-		match: /Increases your Physical and Spell Resistance by ([0-9]+)/i,
+		match: /Increases your Physical and Spell Resistance by ([0-9]+)\./i,
 	},
 	{
 		statId: "PhysicalResist",
-		match: /Increases your Physical and Spell Resistance by ([0-9]+)/i,
+		match: /Increases your Physical and Spell Resistance by ([0-9]+)\./i,
 	},
 	{
 		statId: "MagickaRegen",
@@ -11264,9 +11264,9 @@ window.ShowEsoSkillDetailsPopup = function (abilityId)
 	if (skillData == null) return false;
 	var displayId = skillData['displayId'];
 	
-	GetEsoSkillDescription(abilityId, null, false);
 	GetEsoSkillCost(abilityId, null);
 	GetEsoSkillDuration(abilityId, null);
+	GetEsoSkillDescription(abilityId, null, false);	
 	
 	var detailsHtml = "";
 	
@@ -16174,8 +16174,6 @@ window.UpdateEsoBuildSlottedDestructionSkills = function ()
 {
 	var changed = false;
 	
-	// if (g_EsoSkillDestructionElementPrev == g_EsoSkillDestructionElement)
-	// return;
 	if (g_EsoSkillDestructionData == null) return;
 	if (g_EsoSkillDestructionElement == null) return;
 	

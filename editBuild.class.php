@@ -1899,6 +1899,8 @@ class EsoBuildDataEditor
 							"+",
 							"Mundus.Stamina",
 							"+",
+							"Skill2.Stamina",
+							"+",
 							"1 + Skill.Stamina + Buff.Stamina",
 							"*",
 					),
