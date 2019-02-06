@@ -65,7 +65,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<ul style="margin-left: 170px; margin-top: -5px;">
 				<li>Updated racial passives.</li>
 				<li>Half-effect enchantments on 1H weapons.</li>
-				<li>Updated skills and CPs.</li>
+				<li>The Shadow changed to 13% Critical Damage.</li>
+				<li>Updated skills and CPs as of patch v4.3.2.</li>
 			</ul>			
 			<p>
 			<div id="esotbAttributes">
@@ -1319,6 +1320,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>6 February 2018</b>
+			<ul>
+				<li>Changed The Shadow Mundus to 13% Critical Damage when using the Update 21 ruleset.</li>
+			</ul>
+			<p>
 			<b>4 February 2018</b>
 			<ul>
 				<li>Fixed the new Nord Rugged passive from giving extra resistances from some other unrelated passives.</li>

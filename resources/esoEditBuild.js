@@ -199,6 +199,15 @@ window.ESO_MUNDUS_BUFF_DATA =
 };
 
 
+window.ESO_MUNDUS_BUFF_DATA_UPDATE21 = {
+	"The Shadow" : {
+		abilityId: 13984,
+		icon : "/esoui/art/icons/ability_mundusstones_012.png",
+		description: "Increases your Critical Strike Damage by 13%.",
+	},	
+};
+
+
 window.ESOBUILD_SLOTID_TO_EQUIPSLOT = 
 {
 		"Head" : 0,
@@ -9142,6 +9151,8 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	{
 		// inputValues.Mundus.CritDamage = 0.12;
 		inputValues.Mundus.CritDamage = 0.09;		// Update 15
+		if (inputValues.UseUpdate21Rules) inputValues.Mundus.CritDamage = 0.13;		// Update 21
+		
 		AddEsoInputStatSource("Mundus.CritDamage", { mundus: mundusName, value: inputValues.Mundus.CritDamage });
 		
 		if (divines > 0)
@@ -16697,8 +16708,19 @@ window.CreateMitigationRawDataBlock = function(title, value, type, cumulativeMit
 }
 
 
+window.FixupEsoBuildDataUpdate21 = function()
+{
+	Object.assign(window.ESO_MUNDUS_BUFF_DATA, window.ESO_MUNDUS_BUFF_DATA_UPDATE21);
+}
+
+
 window.esotbOnDocReady = function ()
 {
+	if ($("#esotbUpdate21Rules").prop("checked"))
+	{
+		FixupEsoBuildDataUpdate21();
+	}
+	
 	GetEsoSkillInputValues = GetEsoTestBuildSkillInputValues;
 	
 	SetEsoInitialData(g_EsoBuildItemData, g_EsoInitialItemData);
