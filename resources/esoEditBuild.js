@@ -3838,6 +3838,26 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		factorValue: -1,
 		match: /Decreases your fall damage taken by ([0-9]+\.?[0-9]*)%/i,
 	},
+	{
+		statId: "DiseaseImmunity",
+		value: 1,
+		match: /Gain immunity to the Diseased status effect/i,
+	},
+	{
+		statId: "BurningImmunity",
+		value: 1,
+		match: /Gain immunity to the Burning status effect/i,
+	},
+	{
+		statId: "ChilledImmunity",
+		value: 1,
+		match: /Gain immunity to the Chilled status effect/i,
+	},
+	{
+		statId: "PoisonImmunity",
+		value: 1,
+		match: /Gain immunity to the Poisoned status effect/i,
+	},
 	
 		/* Update 21 */
 	{
@@ -3919,6 +3939,10 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /and Poison Resistance by ([0-9]+)/i,
 	},
 	{
+		statId: "FlameResist",
+		match: /Increases your Flame Resistance by ([0-9]+)\./i,
+	},
+	{
 		statId: "SpellResist",
 		match: /Increases your Spell Resistance by ([0-9]+) and/i,
 	},
@@ -3929,6 +3953,11 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "PhysicalResist",
 		match: /Increases your Physical and Spell Resistance by ([0-9]+)\./i,
+	},
+	{
+		statId: "MagickaRegen",
+		category: "Food",
+		match: /Increases your Magicka Recovery by ([0-9]+)\./i,
 	},
 	{
 		statId: "MagickaRegen",
@@ -4091,25 +4120,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		match: /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		id: "Spell Recharge",
-		baseSkillId: 35993,
-		statId: "DamageTaken",
-		display: "%",
-		factorValue: -1,
-		toggle: true,
-		enabled: false,
-		match: /When you are using an ability with a channel or cast time, you take ([0-9]+\.?[0-9]*)% less damage/i,
-	},	
-	{
-		id: "Hunter's Eye",
-		baseSkillId: 36022,
-		statId: "MovementSpeed",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		match: /Increases your movement speed by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds after you use Roll Dodge./i,
 	},
 	
 		/* Begin Toggled Passives */
@@ -4361,6 +4371,50 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		enabled: false,
 		display: "%",
 		match: /WITH TWO-HANDED WEAPON EQUIPPED[\s\S]*?Increases your Stamina Recovery by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds after killing a target/i,
+	},
+		// Update 21
+	{	
+		id: "Spell Attunement",
+		baseSkillId: 36266,
+		statId: "SpellResist",
+		toggle: true,
+		enabled: false,
+		match: /Increases your Spell Resistance by ([0-9]+)\.\s*While you are afflicted with Burning, Chilled, or Concussed, this effect is doubled\./i,
+	},
+	{
+		id: "Spell Recharge",
+		baseSkillId: 35993,
+		statId: "DamageTaken",
+		display: "%",
+		factorValue: -1,
+		toggle: true,
+		enabled: false,
+		match: /When you are using an ability with a channel or cast time, you take ([0-9]+\.?[0-9]*)% less damage/i,
+	},	
+	{
+		id: "Hunter's Eye",
+		baseSkillId: 36022,
+		statId: "MovementSpeed",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /Increases your movement speed by ([0-9]+\.?[0-9]*)% and your Physical and Spell Penetration by [0-9]+ for [0-9]+ seconds after you use Roll Dodge./i,
+	},
+	{
+		id: "Hunter's Eye",
+		baseSkillId: 36022,
+		statId: "SpellPenetration",
+		toggle: true,
+		enabled: false,
+		match: /Increases your movement speed by [0-9]+\.?[0-9]*% and your Physical and Spell Penetration by ([0-9]+) for [0-9]+ seconds after you use Roll Dodge./i,
+	},
+	{
+		id: "Hunter's Eye",
+		baseSkillId: 36022,
+		statId: "PhysicalPenetration",
+		toggle: true,
+		enabled: false,
+		match: /Increases your movement speed by [0-9]+\.?[0-9]*% and your Physical and Spell Penetration by ([0-9]+) for [0-9]+ seconds after you use Roll Dodge./i,
 	},
 	
 		/* End Toggled Passives */
@@ -11314,7 +11368,7 @@ window.ShowEsoSkillDetailsPopup = function (abilityId)
 		else if (statDetails.display == '%') 
 		{
 			suffix = "%";
-			value = value * 100;
+			value = (value * 100).toFixed(1);
 		}
 		else if (statDetails.display == "flatcrit")
 		{

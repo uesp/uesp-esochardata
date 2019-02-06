@@ -245,6 +245,10 @@ class EsoBuildDataEditor
 			"Buff.FlameVulnerability",
 			"Buff.PoisonVulnerability",
 			"Set.ElfBaneDuration",
+			"Skill.DiseaseImmunity",
+			"Skill.BurningImmunity",
+			"Skill.ChilledImmunity",
+			"Skill.PoisonImmunity",
 	);
 	
 	
@@ -3868,7 +3872,101 @@ class EsoBuildDataEditor
 			// 50% cap on element + spell resistance
 			//Flat Crit = 2 * (effectiveLevel) * (100 + effectiveLevel)
 
-	); 
+	);
+	
+	public $COMPUTED_STATS_LIST_UPDATE21 = array(
+			
+			/* 
+			 * Health Confirmed:
+			 * Note that there is a bug with Undaunted Mettle on live which messes up the in-game value sometimes.
+			 */
+			"Health" => array(
+					"title" => "Health",
+					"round" => "floor",
+					"warning" => "Note: Currently in testing.",
+					"compute" => array(
+							"156 * Level + 944",
+							"122 * Attribute.Health",
+							"+",
+							"Item.Health",
+							"+",
+							"Set.Health",
+							"+",
+							//"1 + pow(CP.Health, 0.56432)/100",	
+							"1 + 0.004 * min(CP.Health, 100) - 0.00002 * pow(min(CP.Health, 100), 2)", // Update 14
+							"*",
+							"Food.Health",
+							"+",
+							"Skill2.Health",
+							"+",
+							"Mundus.Health",
+							"+",
+							"1 + Skill.Health + Buff.Health",
+							"*",
+					),
+			),
+			
+			/* 
+			 * Magicka Confirmed:
+			 * Note that there is a bug with Undaunted Mettle on live which messes up the in-game value sometimes.
+			 */
+			"Magicka" => array(
+					"title" => "Magicka",
+					"round" => "floor",
+					"warning" => "Note: Currently in testing.",
+					"compute" => array(
+							"142 * Level + 858",
+							"111 * Attribute.Magicka",
+							"+",
+							"Item.Magicka",
+							"+",
+							"Set.Magicka",
+							"+",
+							//"1 + pow(CP.Magicka, 0.56432)/100",
+							"1 + 0.004 * min(CP.Magicka, 100) - 0.00002 * pow(min(CP.Magicka, 100), 2)",	// Update 14
+							"*",
+							"Food.Magicka",
+							"+",
+							"Mundus.Magicka",
+							"+",
+							"Skill2.Magicka",
+							"+",
+							"1 + Skill.Magicka + Buff.Magicka",
+							"*",
+					),
+			),
+			
+			/* 
+			 * Stamina Confirmed:
+			 * Note that there is a bug with Undaunted Mettle on live which messes up the in-game value sometimes.
+			 */
+			"Stamina" => array(
+					"title" => "Stamina",
+					"round" => "floor",
+					"addClass" => "esotbStatDividerLite",
+					"warning" => "Note: Currently in testing.",
+					"compute" => array(
+							"142 * Level + 858",
+							"111 * Attribute.Stamina",
+							"+",						
+							"Item.Stamina",
+							"+",
+							"Set.Stamina",
+							"+",
+							//"1 + pow(CP.Stamina, 0.56432)/100",
+							"1 + 0.004 * min(CP.Stamina, 100) - 0.00002 * pow(min(CP.Stamina, 100), 2)",	// Update 14
+							"*",
+							"Food.Stamina",
+							"+",
+							"Mundus.Stamina",
+							"+",
+							"Skill2.Stamina",
+							"+",
+							"1 + Skill.Stamina + Buff.Stamina",
+							"*",
+					),
+			),
+	);
 	
 	
 	public function __construct()
@@ -4965,6 +5063,7 @@ class EsoBuildDataEditor
 	
 	public function FixupComputedStatsForPts()
 	{
+		$this->COMPUTED_STATS_LIST = array_merge($this->COMPUTED_STATS_LIST, $this->COMPUTED_STATS_LIST_UPDATE21);
 	}
 	
 	
