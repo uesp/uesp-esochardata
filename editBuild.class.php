@@ -3883,7 +3883,7 @@ class EsoBuildDataEditor
 			"Health" => array(
 					"title" => "Health",
 					"round" => "floor",
-					"warning" => "Note: Currently in testing.",
+					"warning" => "Note: Not yet confirmed (waiting for PTS).",
 					"compute" => array(
 							"156 * Level + 944",
 							"122 * Attribute.Health",
@@ -3892,9 +3892,6 @@ class EsoBuildDataEditor
 							"+",
 							"Set.Health",
 							"+",
-							//"1 + pow(CP.Health, 0.56432)/100",	
-							"1 + 0.004 * min(CP.Health, 100) - 0.00002 * pow(min(CP.Health, 100), 2)", // Update 14
-							"*",
 							"Food.Health",
 							"+",
 							"Skill2.Health",
@@ -3903,6 +3900,9 @@ class EsoBuildDataEditor
 							"+",
 							"1 + Skill.Health + Buff.Health",
 							"*",
+							//"1 + pow(CP.Health, 0.56432)/100",	
+							"1 + 0.004 * min(CP.Health, 100) - 0.00002 * pow(min(CP.Health, 100), 2)", // Update 14
+							"*",							
 					),
 			),
 			
@@ -3913,7 +3913,7 @@ class EsoBuildDataEditor
 			"Magicka" => array(
 					"title" => "Magicka",
 					"round" => "floor",
-					"warning" => "Note: Currently in testing.",
+					"warning" => "Note: Not yet confirmed (waiting for PTS).",
 					"compute" => array(
 							"142 * Level + 858",
 							"111 * Attribute.Magicka",
@@ -3922,9 +3922,6 @@ class EsoBuildDataEditor
 							"+",
 							"Set.Magicka",
 							"+",
-							//"1 + pow(CP.Magicka, 0.56432)/100",
-							"1 + 0.004 * min(CP.Magicka, 100) - 0.00002 * pow(min(CP.Magicka, 100), 2)",	// Update 14
-							"*",
 							"Food.Magicka",
 							"+",
 							"Mundus.Magicka",
@@ -3933,6 +3930,9 @@ class EsoBuildDataEditor
 							"+",
 							"1 + Skill.Magicka + Buff.Magicka",
 							"*",
+							//"1 + pow(CP.Magicka, 0.56432)/100",
+							"1 + 0.004 * min(CP.Magicka, 100) - 0.00002 * pow(min(CP.Magicka, 100), 2)",	// Update 14
+							"*",							
 					),
 			),
 			
@@ -3944,7 +3944,7 @@ class EsoBuildDataEditor
 					"title" => "Stamina",
 					"round" => "floor",
 					"addClass" => "esotbStatDividerLite",
-					"warning" => "Note: Currently in testing.",
+					"warning" => "Note: Not yet confirmed (waiting for PTS).",
 					"compute" => array(
 							"142 * Level + 858",
 							"111 * Attribute.Stamina",
@@ -3953,9 +3953,6 @@ class EsoBuildDataEditor
 							"+",
 							"Set.Stamina",
 							"+",
-							//"1 + pow(CP.Stamina, 0.56432)/100",
-							"1 + 0.004 * min(CP.Stamina, 100) - 0.00002 * pow(min(CP.Stamina, 100), 2)",	// Update 14
-							"*",
 							"Food.Stamina",
 							"+",
 							"Mundus.Stamina",
@@ -3964,6 +3961,9 @@ class EsoBuildDataEditor
 							"+",
 							"1 + Skill.Stamina + Buff.Stamina",
 							"*",
+							//"1 + pow(CP.Stamina, 0.56432)/100",
+							"1 + 0.004 * min(CP.Stamina, 100) - 0.00002 * pow(min(CP.Stamina, 100), 2)",	// Update 14
+							"*",							
 					),
 			),
 	);
