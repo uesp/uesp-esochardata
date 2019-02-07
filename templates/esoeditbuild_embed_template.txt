@@ -1325,6 +1325,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<ul>
 				<li>Fixed the element specific destruction skills that wouldn't correctly show up or save.</li>
 				<li>Fixed the Shock and Frost versions of the Wall of Elements ability that were reversed.</li>
+				<li>When dragging destruction abilities to the offhand skill bar it will use that bar's destruction staff element.</li>
 			</ul>
 			<p>
 			<b>6 February 2018</b>
