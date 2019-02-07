@@ -7339,6 +7339,9 @@ window.GetEsoInputValues = function (mergeComputedStats)
 		GetEsoInputItemValues(inputValues, "MainHand1");
 		GetEsoInputItemValues(inputValues, "OffHand1");
 		GetEsoInputItemValues(inputValues, "Poison1");
+		
+		GetEsoInputItemOffHandValues(inputValues, "MainHand2");
+		GetEsoInputItemOffHandValues(inputValues, "OffHand2");
 	}
 	else
 	{
@@ -7353,10 +7356,14 @@ window.GetEsoInputValues = function (mergeComputedStats)
 		GetEsoInputItemValues(inputValues, "MainHand2");
 		GetEsoInputItemValues(inputValues, "OffHand2");
 		GetEsoInputItemValues(inputValues, "Poison2");
+		
+		GetEsoInputItemOffHandValues(inputValues, "MainHand1");
+		GetEsoInputItemOffHandValues(inputValues, "OffHand1");
 	}
 	
 	g_EsoSkillDestructionElementPrev = g_EsoSkillDestructionElement;
 	g_EsoSkillDestructionElement = "";
+	g_EsoSkillDestructionOffHandElement = "";
 	
 	if (inputValues.WeaponColdStaff > 0)
 		g_EsoSkillDestructionElement = "frost";	
@@ -7364,6 +7371,13 @@ window.GetEsoInputValues = function (mergeComputedStats)
 		g_EsoSkillDestructionElement = "shock";
 	else if (inputValues.WeaponFlameStaff > 0)
 		g_EsoSkillDestructionElement = "flame";
+	
+	if (inputValues.WeaponOffHandColdStaff > 0)
+		g_EsoSkillDestructionOffHandElement = "frost";	
+	else if (inputValues.WeaponOffHandShockStaff > 0)
+		g_EsoSkillDestructionOffHandElement = "shock";
+	else if (inputValues.WeaponOffHandFlameStaff > 0)
+		g_EsoSkillDestructionOffHandElement = "flame";
 	
 	UpdateEsoBuildSlottedDestructionSkills();
 	
@@ -8249,6 +8263,67 @@ window.GetEsoInputOtherHandItemValues = function (inputValues, slotId)
 	}
 
 	return true;
+}
+
+
+window.GetEsoInputItemOffHandValues = function (inputValues, slotId)
+{
+	var itemData = g_EsoBuildItemData[slotId];
+	if (itemData == null || itemData.itemId == null || itemData.itemId == "") return false;
+	if (itemData.enabled === false) return false;
+	
+	itemData.rawOutput = {};
+	
+	switch (parseInt(itemData.weaponType))
+	{
+	case 1:
+		++inputValues.WeaponOffHandAxe;
+		++inputValues.WeaponOffHand1H;
+		break;
+	case 2:
+		++inputValues.WeaponOffHandMace;
+		++inputValues.WeaponOffHand1H;
+		break;
+	case 3:
+		++inputValues.WeaponOffHandSword;
+		++inputValues.WeaponOffHand1H;
+		break;
+	case 4:
+		++inputValues.WeaponOffHandSword;
+		++inputValues.WeaponOffHand2H;
+		break;
+	case 5:
+		++inputValues.WeaponOffHandAxe;
+		++inputValues.WeaponOffHand2H;
+		break;
+	case 6:
+		++inputValues.WeaponOffHandMace;
+		++inputValues.WeaponOffHand2H;
+		break;
+	case 8:
+		++inputValues.WeaponOffHandBow;
+		break;
+	case 9:
+		++inputValues.WeaponOffHandRestStaff;
+		break;
+	case 11:
+		++inputValues.WeaponOffHandDagger;
+		++inputValues.WeaponOffHand1H;
+		break;
+	case 12:
+		++inputValues.WeaponOffHandDestStaff;
+		++inputValues.WeaponOffHandFlameStaff;
+		break;
+	case 13:
+		++inputValues.WeaponOffHandDestStaff;
+		++inputValues.WeaponOffHandColdStaff;
+		break;
+	case 15:
+		++inputValues.WeaponOffHandDestStaff;
+		++inputValues.WeaponOffHandShockStaff;
+		break;
+	}
+	
 }
 
 
