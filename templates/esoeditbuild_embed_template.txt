@@ -66,6 +66,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Updated racial passives.</li>
 				<li>Half-effect enchantments on 1H weapons.</li>
 				<li>The Shadow changed to 13% Critical Damage.</li>
+				<li>New CP bonus to health/magicka/stamina (not yet verified).</li>
 				<li>Updated skills and CPs as of patch v4.3.2.</li>
 			</ul>			
 			<p>
@@ -1320,11 +1321,18 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>7 February 2018</b>
+			<ul>
+				<li>Fixed the element specific destruction skills that wouldn't correctly show up or save.</li>
+				<li>Fixed the Shock and Frost versions of the Wall of Elements ability that were reversed.</li>
+			</ul>
+			<p>
 			<b>6 February 2018</b>
 			<ul>
 				<li>Changed The Shadow Mundus to 13% Critical Damage when using the Update 21 ruleset.</li>
 				<li>Added the bonus Spell Resistance from the Berton's new Spell Attunement passive as a toggled ability.</li>
 				<li>Updated the new racial passives from PTS patch v4.3.2.</li>
+				<li>Added a guess of the new CP formulas for Health/Magicka/Stamina (not entirely implemented on PTS yet).</li>
 			</ul>
 			<p>
 			<b>4 February 2018</b>
