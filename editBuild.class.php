@@ -104,6 +104,8 @@ class EsoBuildDataEditor
 			"WeaponBow",
 			"Weapon1H",
 			"Weapon2H",
+			"Update18Rules",
+			"Update21Rules",
 			"WeaponRestStaff",
 			"WeaponDestStaff",
 			"WeaponFlameStaff",
@@ -262,6 +264,9 @@ class EsoBuildDataEditor
 			"Skill.BurningImmunity",
 			"Skill.ChilledImmunity",
 			"Skill.PoisonImmunity",
+			"Skill.BurningDamage",
+			"Skill.PoisonedDamage",
+			"Skill.StatusEffectChance",
 	);
 	
 	
@@ -1787,6 +1792,18 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"SkillHealing.Green Balance Healing" => array(
+					"display" => "%",
+			),
+			
+			"SkillHealing.Restoration Staff Healing" => array(
+					"display" => "%",
+			),
+			
+			"SkillHealing.Restoring Light Healing" => array(
+					"display" => "%",
+			),
+			
 			"Skill.MagicDamageDone" => array(
 					"display" => "%",
 			),
@@ -1827,6 +1844,9 @@ class EsoBuildDataEditor
 			"SkillCost.Berserker_Strike_Cost" => array( "display" => "%" ),
 			"SkillCost.Elemental_Storm_Cost" => array( "display" => "%" ),
 			"SkillCost.Shield_Wall_Cost" => array( "display" => "%" ),
+			"Skill.BurningDamage" => array( "display" => "%" ),
+			"Skill.PoisonedDamage" => array( "display" => "%" ),
+			"Skill.StatusEffectChance" => array( "display" => "%" ), 
 	);
 	
 	

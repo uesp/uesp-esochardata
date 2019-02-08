@@ -1321,6 +1321,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>8 February 2018</b>
+			<ul>
+				<li>Fixed several broken passives and added a bunch of new ones for minor effects including several toggleable effects
+						for extra damage/healing under various circumstances.</li>
+			</ul>
+			<p>
 			<b>7 February 2018</b>
 			<ul>
 				<li>Fixed the element specific destruction skills that wouldn't correctly show up or save.</li>

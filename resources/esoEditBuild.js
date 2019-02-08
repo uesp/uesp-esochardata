@@ -1712,6 +1712,26 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 
 
 window.ESO_PASSIVEEFFECT_MATCHES = [
+                                    
+	// Increases the range of long-range abilities by 2 meters while near a keep. Any ability with a range greater than 28 meters is affected.
+	
+	{
+		statId: "StatusEffectChance",
+		display: "%",
+		statRequireId: "WeaponDestStaff",
+		statRequireValue: 1,
+		match: /With Destruction Staff Equipped\sIncreases your chance to apply the Burning, Concussion, and Chilled status effects by ([0-9]+\.?[0-9]*)%/i,
+	},
+ 	{
+		statId: "BurningDamage",
+		display: "%",
+		match: /Increases the damage of your Burning and Poisoned status effects by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "PoisonedDamage",
+		display: "%",
+		match: /Increases the damage of your Burning and Poisoned status effects by ([0-9]+\.?[0-9]*)%/i,
+	},
 	{
 		factorStatId: "ArmorLight",
 		statId: "MagickaCost",
@@ -1787,6 +1807,12 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		factorStatId: "ArmorMedium",
 		statId: "StaminaRegen",
 		display: '%',
+		match: /Increases your Stamina Recovery by ([0-9]+\.?[0-9]*)% for each piece of Medium Armor equipped/i,
+	},
+	{
+		factorStatId: "ArmorMedium",
+		statId: "StaminaRegen",
+		display: '%',
 		match: /Increases your Stamina Recovery by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
 	},
 	{
@@ -1802,6 +1828,13 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: '%',
 		factorValue: -1,
 		match: /Reduces the Stamina cost of your abilities by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
+	},
+	{
+		factorStatId: "ArmorMedium",
+		statId: "StaminaCost",
+		display: '%',
+		factorValue: -1,
+		match: /Reduces the Stamina cost of your abilities by ([0-9]+\.?[0-9]*)% for each piece of Medium Armor equipped/i,
 	},
 	{
 		factorStatId: "ArmorMedium",
@@ -2033,6 +2066,11 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "Magicka",
 		display: "%",
 		match: /Increases your Max Magicka by ([0-9]+\.?[0-9]*)%\./i,
+	},
+	{	// Bug in Argonian Rank 2 passive text, missing a .
+		statId: "Magicka",
+		display: "%",
+		match: /Increases your Max Magicka by ([0-9]+\.?[0-9]*)%\sWhen you drink a potion/i,
 	},
 	{
 		statId: "Health",
@@ -2714,6 +2752,21 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		category: "SkillDuration",
+		statId: "Fiery Breath",
+		match: /Increases the duration of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Searing Strike",
+		match: /Increases the duration of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Dragonknight Standard",
+		match: /Increases the duration of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i,
+	},	
+	{
+		category: "SkillDuration",
 		statId: "Consuming Darkness",
 		display: "%",
 		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
@@ -2859,22 +2912,22 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		category: "SkillDuration",
 		statId: "Sun Fire",
-		match: /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) seconds/i,
+		match: /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) second/i,
 	},
 	{
 		category: "SkillDuration",
 		statId: "Nova",
-		match: /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) seconds/i,
+		match: /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) second/i,
 	},
 	{
 		category: "SkillDuration",
 		statId: "Eclipse",
-		match: /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) seconds/i,
+		match: /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) second/i,
 	},
 	{
 		category: "SkillDuration",
 		statId: "Solar Flare",
-		match: /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) seconds/i,
+		match: /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) second/i,
 	},
 	{
 		category: "SkillDuration",
@@ -3074,11 +3127,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statValue: 219,
 		skillName: "Pressure Points",
 		skillRank: 1,
-		// match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases
-		// Critical Strike and Spell Critical ratings for each Assassination
-		// ability slotted/i
-		// Increases your Weapon and Spell Critical ratings by 438 for each
-		// Assassination ability slotted. Current bonus: 0.
+		match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
 	},
 	{
 		factorSkillLine: "Assassination",
@@ -3087,9 +3136,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statValue: 219,
 		skillName: "Pressure Points",
 		skillRank: 1,
-		// match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases
-		// Critical Strike and Spell Critical ratings for each Assassination
-		// ability slotted/i
+		match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
 	},
 	{
 		factorSkillLine: "Assassination",
@@ -3098,9 +3145,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statValue: 438,
 		skillName: "Pressure Points",
 		skillRank: 2,
-		// match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases
-		// Critical Strike and Spell Critical ratings for each Assassination
-		// ability slotted/i
+		match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
 	},
 	{
 		factorSkillLine: "Assassination",
@@ -3109,9 +3154,19 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statValue: 438,
 		skillName: "Pressure Points",
 		skillRank: 2,
-		// match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases
-		// Critical Strike and Spell Critical ratings for each Assassination
-		// ability slotted/i
+		match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
+	},
+	{
+		factorSkillLine: "Assassination",
+		category: "Skill2",
+		statId: "WeaponCrit",
+		match: /Increases your Weapon and Spell Critical ratings by ([0-9]+) for each Assassination ability slotted/i
+	},	 
+	{
+		factorSkillLine: "Assassination",
+		category: "Skill2",
+		statId: "SpellCrit",
+		match: /Increases your Weapon and Spell Critical ratings by ([0-9]+) for each Assassination ability slotted/i
 	},
 	{
 		statRequireId: "Stealthed",
@@ -3641,7 +3696,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireId: "WeaponRestStaff",
 		statRequireValue: 1,
 		category: "SkillHealing",
-		statId: "Restoration Staff",
+		statId: "Restoration Staff Healing",
 		display: "%",
 		match: /WITH RESTORATION STAFF EQUIPPED[\s\S]*?Increases healing with Restoration Staff spells by ([0-9]+\.?[0-9]*)%/i,
 	},
@@ -3688,17 +3743,25 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		factorSkillLine: "GREEN BALANCE",
 		category: "SkillHealing",
-		statId: "Green Balance",
+		statId: "Green Balance Healing",
 		display: "%",
 		match: /Increase Healing Done for Green Balance abilities by ([0-9]+\.?[0-9]*)% for each Green Balance ability slotted/i,
 	},
 	{
 		factorSkillLine: "GREEN BALANCE",
 		category: "SkillHealing",
-		statId: "Green Balance",
+		statId: "Green Balance Healing",
 		display: "%",
 		match: /Increases your healing done with Green Balance abilities by ([0-9]+\.?[0-9]*)% for each Green Balance ability slotted/i,
 	},
+	{
+		factorSkillLine: "GREEN BALANCE",
+		category: "SkillHealing",
+		statId: "Green Balance Healing",
+		display: "%",
+		match: /Increase your healing done with Green Balance abilities by ([0-9]+\.?[0-9]*)% for each Green Balance ability slotted/i,
+	},
+
 	{
 		factorSkillLine: "Winter's Embrace",
 		statId: "PhysicalResist",
@@ -3840,22 +3903,22 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		statId: "DiseaseImmunity",
-		value: 1,
+		statValue: 1,
 		match: /Gain immunity to the Diseased status effect/i,
 	},
 	{
 		statId: "BurningImmunity",
-		value: 1,
+		statValue: 1,
 		match: /Gain immunity to the Burning status effect/i,
 	},
 	{
 		statId: "ChilledImmunity",
-		value: 1,
+		statValue: 1,
 		match: /Gain immunity to the Chilled status effect/i,
 	},
 	{
 		statId: "PoisonImmunity",
-		value: 1,
+		statValue: 1,
 		match: /Gain immunity to the Poisoned status effect/i,
 	},
 	
@@ -4123,6 +4186,140 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	
 		/* Begin Toggled Passives */
+	{
+		id: "Skilled Tracker",
+		baseSkillId: 40393,
+		category: "SkillLineDamage",
+		statId: "Fighters Guild Damage",
+		maxTimes: 6,
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /Your Fighters Guild abilities deal an additional ([0-9]+\.?[0-9]*)% damage to Undead, Daedra and Werewolves/i,
+	},
+	{
+		id: "Mending",
+		baseSkillId: 31751,
+		category: "SkillHealing",
+		statId: "Restoring Light Healing",
+		maxTimes: 12,
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /Increases the healing effects from your Restoring Light abilities by up to [0-9]+\.?[0-9]*%, in proportion to the severity of the target's wounds/i,
+	},
+	{
+		id: "Persistence",
+		baseSkillId: 31378,
+		statId: "MagickaCost",
+		factorValue: -1,
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /After blocking an attack, your next Magicka or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i,
+	},
+	{
+		id: "Persistence",
+		baseSkillId: 31378,
+		statId: "StaminaCost",
+		factorValue: -1,
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /After blocking an attack, your next Magicka or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i,
+	},
+	{
+		id: "Restoration Expert",
+		baseSkillId: 30980,
+		statRequireId: "WeaponRestStaff",
+		statRequireValue: 1,
+		statId: "HealingDone",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /WITH RESTORATION STAFF EQUIPPED\sIncreases your healing by ([0-9]+\.?[0-9]*)% on allies under [0-9]+\.?[0-9]*% Health/i,
+	},
+	{
+		id: "Essence Drain",
+		baseSkillId: 30973,
+		statRequireId: "WeaponRestStaff",
+		statRequireValue: 1,
+		buffId: "Major Mending",
+		toggle: true,
+		enabled: false,
+		match: /WITH RESTORATION STAFF EQUIPPED\sYou gain Major Mending for [0-9]+\.?[0-9]* seconds after completing a fully-charged Heavy Attack/i,
+	},
+	{
+		id: "Long Shots",
+		baseSkillId: 30923,
+		statRequireId: "WeaponBow",
+		statRequireValue: 1,
+		category: "SkillLineDamage",
+		statId: "Bow Damage",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		maxTimes: 6,
+		match: /WITH BOW ABILITIES\sGives you a damage bonus of up to [0-9]+% against enemies at longer range./i,
+	},
+	{
+		id: "Hasty Retreat",
+		baseSkillId: 30923,
+		statRequireId: "WeaponBow",
+		statRequireValue: 1,
+		buffId: "Major Expedition",
+		toggle: true,
+		enabled: false,
+		match: /WITH BOW EQUIPPED\sGrants you Major Expedition for [0-9]+ seconds after you use Roll Dodge/i,
+	},
+	{
+		id: "Mountain's Blessing",
+		baseSkillId: 29473,
+		buffId: "Minor Brutality",
+		toggle: true,
+		enabled: false,
+		match: /When you cast an Earthen Heart ability, you and your group members gain Minor Brutality for [0-9]+ seconds/i,
+	},
+	{
+		id: "Follow Up",
+		baseSkillId: 29389,
+		statRequireId: "Weapon2H",
+		statRequireValue: 1,
+		category: "Skill",
+		statId: "DamageDone",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /WITH TWO-HANDED WEAPON EQUIPPED\s*When you deal damage with a fully-charged Heavy Attack, your next direct damage attack used within [0-9]+ seconds deals an additional ([0-9]+\.?[0-9]*)% damage/i,
+	},
+	{
+		id: "Shadow Barrier",
+		baseSkillId: 18866,
+		buffId: "Major Resolve",
+		toggle: true,
+		enabled: false,
+		match: /Casting a Shadow ability grants you Major Resolve and Major Ward for [0-9]+ seconds/i,
+	},
+	{
+		id: "Shadow Barrier",
+		baseSkillId: 18866,
+		buffId: "Major Ward",
+		toggle: true,
+		enabled: false,
+		match: /Casting a Shadow ability grants you Major Resolve and Major Ward for [0-9]+ seconds/i,
+	},
+	{
+		id: "Ruffian",
+		baseSkillId: 21114,
+		statRequireId: "Weapon1H",
+		statRequireValue: 2,
+		category: "Skill",
+		statId: "DamageDone",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /WHILE USING DUAL WIELD ATTACKS\s*Gives you a(?:n|) ([0-9]+\.?[0-9]*)% damage bonus when attacking stunned, immobilized, disoriented, or silenced enemies/i,
+	},
 	{
 		id: "Undeath",
 		baseSkillId: 33096,
@@ -7187,7 +7384,6 @@ window.ESO_ABILITYDESC_MATCHES = [
 ];
 
 
-
 window.ESOBUILD_RAWOUTPUT_LABELSUFFIX = 
 {
 	"SkillBonusWeaponDmg" : "WeaponDamage",
@@ -7197,18 +7393,8 @@ window.ESOBUILD_RAWOUTPUT_LABELSUFFIX =
 };
 
 
-window.GetEsoInputValues = function (mergeComputedStats)
+window.InitializeEsoBuildInputValues = function (inputValues)
 {
-	// if (console && console.time) console.time('GetEsoInputValues');
-	
-	ResetEsoBuffSkillEnabled();
-	ResetEsoAllSkillRawOutputs();
-	
-	var inputValues = {};
-	if (mergeComputedStats == null) mergeComputedStats = false;
-	
-	g_EsoInputStatSources = {};
-	
 	for (var key in g_EsoInputStats)
 	{
 		var object = g_EsoInputStats[key];
@@ -7237,6 +7423,23 @@ window.GetEsoInputValues = function (mergeComputedStats)
 	
 	inputValues.UseUpdate18Rules = false;
 	inputValues.UseUpdate21Rules = false;
+}
+
+
+window.GetEsoInputValues = function (mergeComputedStats)
+{
+	// if (console && console.time) console.time('GetEsoInputValues');
+	
+	ResetEsoBuffSkillEnabled();
+	ResetEsoAllSkillRawOutputs();
+	
+	var inputValues = {};
+	if (mergeComputedStats == null) mergeComputedStats = false;
+	
+	g_EsoInputStatSources = {};
+	
+	InitializeEsoBuildInputValues(inputValues);
+		
 	if ($("#esotbUpdate18Rules").prop("checked")) inputValues.UseUpdate18Rules = true;
 	if ($("#esotbUpdate21Rules").prop("checked")) inputValues.UseUpdate21Rules = true;
 			
@@ -7941,7 +8144,7 @@ window.GetEsoInputSkillActiveBar = function (inputValues)
 }
 
 
-window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, abilityData, isPassive)
+window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, abilityData, isPassive, testMatch)
 {
 	var statValue = 0;
 	var statFactor = 1;
@@ -8047,10 +8250,14 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 		var buffData = g_EsoBuildBuffData[matchData.buffId];
 		if (buffData == null) return false;
 		
-		buffData.skillEnabled = true;
-		buffData.skillAbilities.push(abilityData);
-		AddEsoItemRawOutputString(abilityData, "Adds Buff", matchData.buffId);
-		AddEsoItemRawOutputString(buffData, (isPassive ? "Passive Skill" : "Active Skill"), abilityData.name);
+		if (!testMatch)
+		{
+			buffData.skillEnabled = true;
+			buffData.skillAbilities.push(abilityData);
+			AddEsoItemRawOutputString(buffData, (isPassive ? "Passive Skill" : "Active Skill"), abilityData.name);
+		}
+		
+		AddEsoItemRawOutputString(abilityData, "Adds Buff", matchData.buffId);		
 	}
 	else if (matchData.statId == "OtherEffects")
 	{
@@ -8065,10 +8272,13 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 		
 		AddEsoItemRawOutputData(abilityData, "PassiveEffect", { abilityData: abilityData, rawInputMatch: matchData.rawInputMatch, value: rawInputDesc });
 		
-		if (isPassive)
-			AddEsoInputStatSource("OtherEffects", { other: true, passive: abilityData, value: rawInputDesc, rawInputMatch: matchData.rawInputMatch });
-		else
-			AddEsoInputStatSource("OtherEffects", { other: true, active: abilityData, value: rawInputDesc, rawInputMatch: matchData.rawInputMatch });
+		if (!testMatch)
+		{
+			if (isPassive)
+				AddEsoInputStatSource("OtherEffects", { other: true, passive: abilityData, value: rawInputDesc, rawInputMatch: matchData.rawInputMatch });
+			else
+				AddEsoInputStatSource("OtherEffects", { other: true, active: abilityData, value: rawInputDesc, rawInputMatch: matchData.rawInputMatch });
+		}
 	}
 	else 
 	{
@@ -8081,10 +8291,13 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 		
 		AddEsoItemRawOutput(abilityData, category + "." + matchData.statId, statValue);
 		
-		if (isPassive)
-			AddEsoInputStatSource(category + "." + matchData.statId, { passive: abilityData, value: statValue, rawInputMatch: matchData.rawInputMatch });
-		else
-			AddEsoInputStatSource(category + "." + matchData.statId, { active: abilityData, value: statValue, rawInputMatch: matchData.rawInputMatch });
+		if (!testMatch)
+		{
+			if (isPassive)
+				AddEsoInputStatSource(category + "." + matchData.statId, { passive: abilityData, value: statValue, rawInputMatch: matchData.rawInputMatch });
+			else
+				AddEsoInputStatSource(category + "." + matchData.statId, { active: abilityData, value: statValue, rawInputMatch: matchData.rawInputMatch });
+		}
 	}
 	
 	return true;
@@ -16843,6 +17056,176 @@ window.FixupEsoBuildDataUpdate21 = function()
 }
 
 
+window.g_EsoBuildTestSkills = {};
+
+
+window.TestAllEsoSkills = function ()
+{
+	var inputValues = {};
+	
+	g_EsoBuildTestSkills = {};
+	
+	for (var abilityId in g_SkillsData)
+	{
+		inputValues = {};
+		InitializeEsoBuildInputValues(inputValues);
+		
+		TestEsoSkill(abilityId, g_SkillsData[abilityId], inputValues);
+	}
+	
+	CheckEsoTestSkillResults();
+}
+
+
+window.CheckEsoTestSkillResults = function ()
+{
+	EsoBuildLog("Showing Results for Skill Tests:")
+	EsoBuildLog("Checking passive skills...");
+	
+	for (var abilityId in g_EsoBuildTestSkills)
+	{
+		var abilityData = g_SkillsData[abilityId];
+		var testData = g_EsoBuildTestSkills[abilityId];
+		
+		if (!testData.isPassive) continue; 
+
+		if (testData.numMatches <= 0)
+		{
+			var desc = testData.desc.replace("\n", " ");
+			//EsoBuildLog("Passive Skill has NO matches!", testData.name, testData, abilityData);
+			EsoBuildLog(`     ${testData.name} (${testData.id}) passive has NO matches!\n\t${desc}`);
+		}
+	
+	}
+	
+	EsoBuildLog("Checking active skills...");
+		
+	for (var abilityId in g_EsoBuildTestSkills)
+	{
+		var abilityData = g_SkillsData[abilityId];
+		var testData = g_EsoBuildTestSkills[abilityId];
+		
+		if (testData.isPassive) continue;
+		
+		if (testData.numMatches > 0)
+		{
+			var desc = testData.desc.replace("\n", " ");
+			//EsoBuildLog("Active Skill has " + testData.numMatches + " matches!", testData.name, testData, abilityData);
+			EsoBuildLog(`     ${testData.name} (${testData.id}) active has ${testData.numMatches} matches!\n\t${desc}`, testData);
+		}
+	}
+	
+	EsoBuildLog("Checking for duplicate parsing...");
+	
+	for (var abilityId in g_EsoBuildTestSkills)
+	{
+		var abilityData = g_SkillsData[abilityId];
+		var testData = g_EsoBuildTestSkills[abilityId];
+		var rawOutputKeys = {};
+		
+		for (var i = 0; i < testData.rawOutput.length; ++i)
+		{
+			var key = testData.rawOutput[i];
+			rawOutputKeys[key] += 1;
+		}
+		
+		for (var key in rawOutputKeys)
+		{
+			var count = rawOutputKeys[key];
+			
+			if (count > 0)	EsoBuildLog(`     ${testData.name} (${testData.id}) skill has potential multiple parsing (${count})!`);
+		}
+	}
+	
+}
+
+
+window.TestEsoSkill = function (abilityId, abilityData, inputValues)
+{
+	var skillDesc = GetEsoSkillDescription(abilityId, inputValues, false, true);
+	
+	var rawDesc = RemoveEsoDescriptionFormats(skillDesc);
+	if (rawDesc == "" || abilityData == null) return;
+	
+	var matchArray = ESO_ACTIVEEFFECT_MATCHES;
+	if (abilityData.isPassive) matchArray = ESO_PASSIVEEFFECT_MATCHES;
+	
+	var rawOutput = [];
+	
+	g_EsoBuildTestSkills[abilityId] = {};
+	
+	g_EsoBuildTestSkills[abilityId].id = abilityId;
+	g_EsoBuildTestSkills[abilityId].name = abilityData.name;
+	g_EsoBuildTestSkills[abilityId].desc = rawDesc;
+	g_EsoBuildTestSkills[abilityId].isPassive = (abilityData.isPassive != 0);
+	g_EsoBuildTestSkills[abilityId].numMatches = 0;
+	g_EsoBuildTestSkills[abilityId].numTested = matchArray.length;
+	
+	for (var i = 0; i < matchArray.length; ++i)
+	{
+		var matchData = matchArray[i];
+		var statValue = 0;
+		var statFactor = 1;
+		var matches = null;
+
+		if (matchData.statValue !== undefined) statValue = matchData.statValue;
+		
+		if (matchData.match == null) continue;
+		
+		matches = rawDesc.match(matchData.match);
+		if (matches == null) continue;
+		
+		var newStatValue = parseFloat(matches[1]);
+		
+		if (isNaN(newStatValue) && matchData.statValue === undefined) 
+			statValue = 1;
+		else if (!isNaN(newStatValue))
+			statValue = newStatValue;
+		
+		var category = "Skill";
+		if (matchData.category != null) category = matchData.category;
+		
+		if (matchData.buffId != null)
+		{
+			var buffData = g_EsoBuildBuffData[matchData.buffId];
+			if (buffData == null) continue;
+
+			rawOutput.push({
+				key: "Buff",
+				value: matchData.buffId
+			});
+		}
+		else if (matchData.statId == "OtherEffects")
+		{
+			var rawInputDesc = rawDesc;
+			
+			if (matchData.rawInputMatch != null)
+			{
+				var rawInputMatches = rawDesc.match(matchData.rawInputMatch);
+				if (rawInputMatches != null) rawInputDesc = rawInputMatches[1];
+				if (rawInputDesc == null) rawInputDesc = rawDesc;
+			}
+			
+			rawOutput.push({
+				key: "OtherEffects",
+				value: rawInputDesc
+			});
+		}
+		else 
+		{
+			rawOutput.push({
+				key:  category + "." + matchData.statId,
+				value: statValue
+			});
+		}
+		
+		g_EsoBuildTestSkills[abilityId].numMatches++;		
+	}
+		
+	g_EsoBuildTestSkills[abilityId].rawOutput = rawOutput;
+}
+
+
 window.esotbOnDocReady = function ()
 {
 	if ($("#esotbUpdate21Rules").prop("checked"))
@@ -16960,4 +17343,3 @@ window.esotbOnDocReady = function ()
 
 $( document ).ready(esotbOnDocReady);
 
-;
