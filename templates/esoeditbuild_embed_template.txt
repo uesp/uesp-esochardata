@@ -1328,6 +1328,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Updated skills/CP for PTS from the 4.3.3 patch (with the Update 21 Ruleset turned on).</li>
 				<li>Updated the new Imperial and Khajhiit passives from PTS.</li>
 				<li>Added the CritHealing stat. Added effect to The Shadow mundus and relevant CP lines.</li>
+				<li>Updated the new CP calculation for update 21 (CP effect is additive with skill/buff effects).</li>
 			</ul>
 			<p>
 			<b>11 February 2018</b>

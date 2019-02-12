@@ -4025,9 +4025,8 @@ class EsoBuildDataEditor
 							"Mundus.Health",
 							"+",
 							"1 + Skill.Health + Buff.Health",
-							"*",
-							//"1 + pow(CP.Health, 0.56432)/100",	
-							"1 + 0.004 * min(CP.Health, 100) - 0.00002 * pow(min(CP.Health, 100), 2)", // Update 14
+							"0.004 * min(CP.Health, 100) - 0.00002 * pow(min(CP.Health, 100), 2)", // Update 14
+							"+",
 							"*",							
 					),
 			),
@@ -4055,9 +4054,8 @@ class EsoBuildDataEditor
 							"Skill2.Magicka",
 							"+",
 							"1 + Skill.Magicka + Buff.Magicka",
-							"*",
-							//"1 + pow(CP.Magicka, 0.56432)/100",
-							"1 + 0.004 * min(CP.Magicka, 100) - 0.00002 * pow(min(CP.Magicka, 100), 2)",	// Update 14
+							"0.004 * min(CP.Magicka, 100) - 0.00002 * pow(min(CP.Magicka, 100), 2)",	// Update 14
+							"+",
 							"*",							
 					),
 			),
@@ -4086,9 +4084,8 @@ class EsoBuildDataEditor
 							"Skill2.Stamina",
 							"+",
 							"1 + Skill.Stamina + Buff.Stamina",
-							"*",
-							//"1 + pow(CP.Stamina, 0.56432)/100",
-							"1 + 0.004 * min(CP.Stamina, 100) - 0.00002 * pow(min(CP.Stamina, 100), 2)",	// Update 14
+							"0.004 * min(CP.Stamina, 100) - 0.00002 * pow(min(CP.Stamina, 100), 2)",	// Update 14
+							"+",
 							"*",							
 					),
 			),
