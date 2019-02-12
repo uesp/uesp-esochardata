@@ -86,6 +86,7 @@ class EsoBuildDataViewer
 	public $inputShowSummaryFor = -1;
 	public $showSummaryForWikiUser = "";
 	public $selectedBackgroundImage = "blank";
+	public $inputOwnedBy = "";
 	
 	public $characterData = array();
 	public $skillData = array();
@@ -418,6 +419,11 @@ class EsoBuildDataViewer
 			$this->inputSearch = trim($this->inputParams['findbuild']);
 		}
 		
+		if (array_key_exists('ownedby', $this->inputParams)) 
+		{
+			$this->inputOwnedBy = trim($this->inputParams['ownedby']);
+		}
+		
 		if (array_key_exists('findclass', $this->inputParams))
 		{
 			$this->inputSearchClass = trim($this->inputParams['findclass']);
@@ -468,6 +474,12 @@ class EsoBuildDataViewer
 		{
 			$value = $this->db->real_escape_string($this->inputSearchClass);
 			$where[] = "class='$value'";
+		}
+		
+		if ($this->inputOwnedBy != "")
+		{
+			$value = $this->db->real_escape_string($this->inputOwnedBy);
+			$where[] = "wikiUserName='$value'";
 		}
 		
 		if ($this->inputSearchRace != "")

@@ -6,6 +6,7 @@
  * 		- Skill point count bug.
  * 		- Dark Veil passive affect tooltip durations (durations within the tooltip text).
  * 		- World in Ruin DK passive effects.
+ * 
  */
 
 window.TestCache = 789;
@@ -2013,10 +2014,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Poison and Disease Resistance by ([0-9]+)/i,
 	},
 	{
-		statId: "DiseaseResist",
-		match: /Poison and Disease Resistance by ([0-9]+)/i,
-	},
-	{
 		statId: "HealingReceived",
 		display: "%",
 		match: /Increases the effectiveness of healing on you by ([0-9]+\.?[0-9]*)%/i,
@@ -2516,15 +2513,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		factorValue: -1,
 		match: /WITH TWO-HANDED WEAPON EQUIPPED[\s]*Reduces the Stamina cost of your Two-Handed abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
-	{
-		statRequireId: "Weapon2H",
-		statRequireValue: 1,
-		category: "SkillCost",
-		statId: "Two_Handed_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /WITH TWO-HANDED WEAPON EQUIPPED[\s]*Reduces the Stamina cost of your Two-Handed abilities by ([0-9]+\.?[0-9]*)%/i,
-	},	
 	{
 		statRequireId: "Weapon1HShield",
 		statRequireValue: 1,
@@ -3795,11 +3783,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases your Magic and Frost Damage by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		statId: "ColdDamageDone",
-		display: '%',
-		match: /Increases your Magic and Frost Damage by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
 		statId: "FlameAOEDamageDone",
 		display: '%',
 		match: /Increases the damage of your Flame area of effect abilities by ([0-9]+\.?[0-9]*)%/i,
@@ -3926,12 +3909,12 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "HealingDone",
 		display: '%',
-		match: /Increases your healing done by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increases your healing done by ([0-9]+\.?[0-9]*)%\./i,
 	},
 	{
 		statId: "HealingReceived",
 		display: '%',
-		match: /Increases your healing received by ([0-9]+\.?[0-9]*)%\./i,
+		match: /^Increases your healing received by ([0-9]+\.?[0-9]*)%\./i,
 	},
 	{
 		statId: "Health",
@@ -4680,16 +4663,15 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 
 window.ESO_SETEFFECT_MATCHES = [
                          
-	// 40%.
-	// 25%, 25%.
-	// increases the damage of your Bow abilities against Players by 8%.
-	// When you dodge an attack, your Light and Heavy Attacks deal an additional
-	// 1225 damage for 8 seconds.
-	// Ignore the Movement Speed penalty of Sneak.
-	// Increases your damage done to Sneaking enemies by 20%.
-	// Reduces your damage taken from Guards by 20%.
-	// When your target is under 25% Health, add 1800 Weapon Damage to your
-	// Light and Heavy Attacks.
+//Stygian: (5 items) While you are Sneaking or invisible, your damage done with Magicka abilities is increased by 20%.
+//Noble Duelist's Silks: (5 items) When you dodge an attack, your Light and Heavy Attacks deal an additional 1225 damage for 8 seconds.
+//Knight-Errant's Mail: (5 items) Adds 200 Weapon Damage to your One Hand and Shield abilities. When you use a One Hand and Shield ability, you heal for 1250 Health.
+//The Morag Tong: (5 items) When you deal direct damage, you cause the enemy to take 10% more damage from all Poison Damage abilities for 5 seconds.
+//Way of Martial Knowledge: (5 items) When you deal damage, you cause the enemy to take 10% additional damage from the next attack. This effect can occur once every 4 seconds.
+//Stinging Slashes: (2 items) Increases the bleed damage Twin Slashes deals by 1350 each tick.
+//Trial By Fire: (5 items) When you take elemental damage, gain 7727 Resistance to that element for 4 seconds. You can only be resistant to one element at a time.
+//Kvatch Gladiator: (5 items) When your target is under 25% Health, add 1800 Weapon Damage to your Light and Heavy Attacks.
+//Armor of the Code: (1 item) Armor of the Code: Increase your Weapon and Spell Critical Rating against targets with a lower % of health than you by 2051.
 	
 	{
 		category: "Set",
@@ -4872,12 +4854,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "MagickaRegen",
 		category: "Food",
 		match: /While you have a drink buff active, your Max Magicka is increased by [0-9]+ and Magicka Recovery by ([0-9]+)/i,
-	},
-	{
-		category: "SkillDamage",
-		statId: "Soul Trap",
-		display: "%",
-		match: /Increases the damage of your Soul Trap ability by ([0-9]+)%/i,
 	},
 	{
 		category: "SkillDamage",
@@ -16959,7 +16935,7 @@ window.UpdateEsoMitigationTableElement = function(elementId)
 	output += CreateMitigationRawDataBlock("DamageTaken Mitigation", rawData.damageTaken, "mitigation");
 	output += CreateMitigationRawDataBlock(rawData.damageType1 + " Mitigation", rawData.damage1Taken, "mitigation");
 	output += CreateMitigationRawDataBlock(rawData.damageType2 + " Mitigation", rawData.damage2Taken, "mitigation");
-	output += CreateMitigationRawDataBlock(rawData.elementDamageTaken + " Mitigation", rawData.elementDamageTaken, "mitigation");
+	output += CreateMitigationRawDataBlock(rawData.elementType + " Mitigation", rawData.elementDamageTaken, "mitigation");
 	
 	var damageTaken = rawData.damageTaken * rawData.damage1Taken * rawData.damage2Taken * rawData.elementDamageTaken;
 	output += CreateMitigationRawDataBlock("Total DamageTaken Mitigation", damageTaken, "mitigation");
@@ -17125,7 +17101,13 @@ window.CheckEsoTestSkillResults = function ()
 		
 		for (var i = 0; i < testData.rawOutput.length; ++i)
 		{
-			var key = testData.rawOutput[i];
+			var data = testData.rawOutput[i];
+			var key = data.key;
+			var value = data.value;
+			
+			if (key == "Buff") key = "Buff: " + value;
+			
+			if (rawOutputKeys[key] == null) rawOutputKeys[key] = 0;
 			rawOutputKeys[key] += 1;
 		}
 		
@@ -17133,7 +17115,11 @@ window.CheckEsoTestSkillResults = function ()
 		{
 			var count = rawOutputKeys[key];
 			
-			if (count > 0)	EsoBuildLog(`     ${testData.name} (${testData.id}) skill has potential multiple parsing (${count})!`);
+			if (count > 1) 
+			{
+				EsoBuildLog(`     ${testData.name} (${testData.id}) skill has potential multiple parsing (${count})!`);
+				EsoBuildLog("          " + key);
+			}
 		}
 	}
 	
@@ -17223,6 +17209,251 @@ window.TestEsoSkill = function (abilityId, abilityData, inputValues)
 	}
 		
 	g_EsoBuildTestSkills[abilityId].rawOutput = rawOutput;
+}
+
+
+window.g_EsoLoadedAllSetData = false;
+window.g_EsoBuildAllSetData = [];
+
+
+window.RequestEsoAllSetData = function ()
+{	
+	var queryParams = 
+	{
+			"table" : "setSummary",
+	};
+	
+	g_EsoLoadedAllSetData = false;
+	
+	$.ajax("//esolog.uesp.net/exportJson.php", {
+			data: queryParams,
+		}).
+		done(function(data, status, xhr) { OnEsoAllSetDataReceive(data, status, xhr); }).
+		fail(function(xhr, status, errorMsg) { OnEsoAllSetDataError(xhr, status, errorMsg); });
+}
+
+
+window.OnEsoAllSetDataReceive = function(data, status, xhr)
+{
+	var setData = data.setSummary;
+	var rangeRegex = /([0-9]+)\-([0-9]+)/g;
+	var rangeReplace = "$2";
+	
+	if (setData == null || setData.length == 0) 
+	{
+		EsoBuildLog("Failed to load all set data! No data returned!");
+		return;
+	}
+	
+	g_EsoBuildAllSetData = setData;
+	g_EsoLoadedAllSetData = true;
+	
+	for (var i = 0; i < g_EsoBuildAllSetData.length; ++i)
+	{
+		var setData = g_EsoBuildAllSetData[i];
+		
+		setData.setBonusDesc = setData.setBonusDesc.replace(rangeRegex, rangeReplace);
+		setData.setBonusDesc1 = setData.setBonusDesc1.replace(rangeRegex, rangeReplace);
+		setData.setBonusDesc2 = setData.setBonusDesc2.replace(rangeRegex, rangeReplace);
+		setData.setBonusDesc3 = setData.setBonusDesc3.replace(rangeRegex, rangeReplace);
+		setData.setBonusDesc4 = setData.setBonusDesc4.replace(rangeRegex, rangeReplace);
+		setData.setBonusDesc5 = setData.setBonusDesc5.replace(rangeRegex, rangeReplace);
+	}
+	
+	EsoBuildLog("Loaded data for " + g_EsoBuildAllSetData.length + " sets!");
+}
+
+
+window.OnEsoAllSetDataError = function(xhr, status, errorMsg)
+{
+	EsoBuildLog("Failed to load all set data!", errorMsg, status);
+	g_EsoLoadedAllSetData = false;
+}
+
+
+window.g_EsoBuildTestSets = {}; 
+
+
+window.TestAllEsoSets = function()
+{
+	if (!g_EsoLoadedAllSetData)
+	{
+		EsoBuildLog("Loading all set data first...");
+		RequestEsoAllSetData();		
+		return;
+	}
+	
+	window.g_EsoBuildTestSets = {};
+	
+	for (var i = 0; i < g_EsoBuildAllSetData.length; ++i)
+	{
+		TestEsoSet(g_EsoBuildAllSetData[i]);
+	}
+
+	CheckEsoSetTestResults();
+}
+
+
+window.TestEsoSet = function(setData)
+{
+	var descs = setData.setBonusDesc.split("\n");
+	var setName = setData.setName;
+	
+	if (g_EsoBuildTestSets[setName] != null) EsoBuildLog("Duplicate set " + setName + " found!");
+	
+	g_EsoBuildTestSets[setName] = {};
+	g_EsoBuildTestSets[setName].name = setName;
+	g_EsoBuildTestSets[setName].descResults = [];
+	g_EsoBuildTestSets[setName].desc = [];
+	g_EsoBuildTestSets[setName].data = setData;
+	g_EsoBuildTestSets[setName].rawOutput = [];
+
+	for (var i = 0; i < descs.length; ++i)
+	{
+		g_EsoBuildTestSets[setName].rawOutput[i] = [];
+		
+		var result = TestEsoSetBonus(descs[i], g_EsoBuildTestSets[setName].rawOutput[i]);
+		
+		g_EsoBuildTestSets[setName].descResults[i] = result;		
+		g_EsoBuildTestSets[setName].desc[i] = descs[i];
+	}
+	
+	return true;
+}
+
+
+window.TestEsoSetBonus = function(setDesc, rawOutput)
+{
+	var foundMatch = false;
+	
+	if (setDesc == null || setDesc == "") return true;
+	
+	for (var i = 0; i < ESO_SETEFFECT_MATCHES.length; ++i)
+	{
+		var matchData = ESO_SETEFFECT_MATCHES[i];
+		var matches = setDesc.match(matchData.match);
+		
+		if (matches == null) continue;
+		
+		if (matchData.ignore === true) 
+		{
+			foundMatch = true;
+			continue;
+		}
+		
+		foundMatch = true;
+		
+		if (matchData.buffId != null)
+		{
+			rawOutput.push({
+				key: "Buff",
+				value: matchData.buffId
+			});
+			continue;
+		}
+		
+		if (matchData.statId == "OtherEffects")
+		{
+			if (matchData.rawInputMatch != null)
+			{
+				var rawInputMatches = setDesc.match(matchData.rawInputMatch);
+				if (rawInputMatches != null) rawInputDesc = rawInputMatches[1];
+				if (rawInputDesc == null) rawInputDesc = setDesc;
+			}
+			
+			rawOutput.push({
+				key: "OtherEffects",
+				value: rawInputDesc
+			});
+			
+			continue;
+		}
+		
+		var statValue = parseFloat(matches[1]);
+		var statFactor = 1;
+		if (isNaN(statValue)) statValue = 1;
+				
+		if (matchData.factorValue != null)
+		{
+			statFactor = statFactor * matchData.factorValue;
+		}
+		
+		statValue = statValue * statFactor;
+	
+		if (matchData.round == "floor") statValue = Math.floor(statValue);
+		if (matchData.display == "%") statValue = statValue/100;
+					
+		var category = matchData.category || "Set";
+		
+		rawOutput.push({ 
+			key: category + "." + matchData.statId, 
+			value: statValue
+		});
+	}
+	
+	return foundMatch;
+}
+
+
+window.CheckEsoSetTestResults = function()
+{
+	EsoBuildLog("Test Results for All Sets:");
+	
+ 	EsoBuildLog("Checking for set effects not parsed...");
+ 	
+	for (var setName in g_EsoBuildTestSets)
+	{
+		var testResult = g_EsoBuildTestSets[setName];
+		
+		for (var i = 0; i < testResult.descResults.length; ++i)
+		{
+			var result = testResult.descResults[i];
+			var desc   = testResult.desc[i];
+			var rawOutput = testResult.rawOutput[i]; 
+			
+			if (!result || rawOutput.length == 0)
+			{
+				EsoBuildLog("\t" + setName + ": " + desc);				
+			}
+		}
+	}
+	
+	EsoBuildLog("Checking for duplicate set effects...");
+	
+	for (var setName in g_EsoBuildTestSets)
+	{
+		var testResult = g_EsoBuildTestSets[setName];
+		
+		for (var i = 0; i < testResult.descResults.length; ++i)
+		{
+			var result = testResult.descResults[i];
+			var desc   = testResult.desc[i];
+			var rawOutput = testResult.rawOutput[i];
+			var rawOutputKeys = {};
+			
+			for (var j = 0; j < rawOutput.length; ++j)
+			{
+				var key = rawOutput[j].key;
+				var value =rawOutput[j].value
+				
+				if (key == "Buff") key += ": " + value;
+				
+				if (rawOutputKeys[key] == null) rawOutputKeys[key] = 0;
+				rawOutputKeys[key]++;
+			}
+
+			for (var key in rawOutputKeys)
+			{
+				if ( rawOutputKeys[key] > 1)
+				{
+					EsoBuildLog("\t" + setName + ": " + desc);
+					EsoBuildLog("\t\tx" + rawOutputKeys[key] + ": " + key);
+				}
+			}
+			
+		}
+	}
+	
 }
 
 

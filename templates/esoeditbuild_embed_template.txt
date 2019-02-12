@@ -1321,6 +1321,19 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>11 February 2018</b>
+			<ul>
+				<li>Fixed Effective Weapon/Spell Power stats after changes to mitigation stats.</li>
+			</ul>
+			<p>
+			<b>11 February 2018</b>
+			<ul>
+				<li>Fixed several abilities that had duplicate effects: Shadow Barrier, Mending, Balanced Blade, Resist Affliction, Argonian Resistance, Soul Siphoner, and Piercing Cold.</li>
+				<li>Added a few missing set effects.</li>
+				<li>Fixed duplicate parsing of the Oblivion's Foe 5 piece bonus.</li>
+				<li>Fixed calculated Mitigation values. Changed Mitigation values to their normally used valuies (0% = take full damage, 100% = take no damage).</li>
+			</ul>
+			<p>
 			<b>8 February 2018</b>
 			<ul>
 				<li>Fixed several broken passives and added a bunch of new ones for minor effects including several toggleable effects
