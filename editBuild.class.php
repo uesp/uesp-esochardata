@@ -2295,7 +2295,7 @@ class EsoBuildDataEditor
 							"*",
 							"1 + CP.MagicDamageDone",
 							"*",
-							"AttackSpellMitigation",
+							"1 - AttackSpellMitigation",
 							"*",
 							"1 + Target.DamageTaken",
 							"*",
@@ -2319,7 +2319,7 @@ class EsoBuildDataEditor
 							"*",
 							"1 + CP.PhysicalDamageDone",
 							"*",
-							"AttackPhysicalMitigation",
+							"1 - AttackPhysicalMitigation",
 							"*",
 							"1 + Target.DamageTaken",
 							"*",
@@ -2952,18 +2952,20 @@ class EsoBuildDataEditor
 			"MagicDamageTaken" => array(
 					"title" => "Magic Damage Taken",
 					"display" => "%",
-					"round" => "floor",
+					//"round" => "floor",
 					"compute" => array(
-							"CP.MagicDamageTaken",
-							"Skill.MagicDamageTaken",
-							"+",
+							"1 + CP.MagicDamageTaken",
+							"1 + Skill.MagicDamageTaken",
+							"*",
+							"1",
+							"-",
 					),
 			),
 			
 			"PhysicalDamageTaken" => array(
 					"title" => "Physical Damage Taken",
 					"display" => "%",
-					"round" => "floor",
+					//"round" => "floor",
 					"compute" => array(
 							"1 + CP.PhysicalDamageTaken",
 							"1 + Skill.PhysicalDamageTaken",
@@ -3011,7 +3013,7 @@ class EsoBuildDataEditor
 			"DamageTaken" => array(
 					"title" => "Damage Taken",
 					"display" => "%",
-					"round" => "floor",
+					//"round" => "floor",
 					"compute" => array(
 							"1 + CP.DamageTaken",
 							"1 + Skill.DamageTaken",
@@ -3639,6 +3641,10 @@ class EsoBuildDataEditor
 							"+",
 							"1 - Target.DefenseBonus",
 							"*",
+							"-1",
+							"*",
+							"1",
+							"+",
 					),
 			),
 				
@@ -3662,6 +3668,10 @@ class EsoBuildDataEditor
 							"+",
 							"1 - Target.DefenseBonus",
 							"*",
+							"-1",
+							"*",
+							"1",
+							"+",
 					),
 			),
 			
@@ -3714,6 +3724,10 @@ class EsoBuildDataEditor
 							"*",
 							"1 + DamageTaken",
 							"*",
+							"-1",
+							"*",
+							"1",
+							"+",
 					),
 			),
 				
@@ -3737,6 +3751,10 @@ class EsoBuildDataEditor
 							"*",
 							"1 + DamageTaken",
 							"*",
+							"-1",
+							"*",
+							"1",
+							"+",							
 					),
 			),
 			
@@ -3746,8 +3764,12 @@ class EsoBuildDataEditor
 					"depends" => array("DefenseSpellMitigation"),
 					"compute" => array(
 							"1 + Skill.AOEDamageTaken",
-							"DefensePhysicalMitigation",
+							"1 - DefensePhysicalMitigation",
 							"*",
+							"-1",
+							"*",
+							"1",
+							"+",
 					),
 			),
 				
@@ -3757,8 +3779,12 @@ class EsoBuildDataEditor
 					"depends" => array("DefensePhysicalMitigation"),
 					"compute" => array(
 							"1 + Skill.AOEDamageTaken",
-							"DefensePhysicalMitigation",
+							"1 - DefensePhysicalMitigation",
 							"*",
+							"-1",
+							"*",
+							"1",
+							"+",
 					),
 			),
 			
@@ -3768,8 +3794,12 @@ class EsoBuildDataEditor
 					"depends" => array("DefenseSpellMitigation"),
 					"compute" => array(
 							"1 + Skill.DirectDamageTaken",
-							"DefensePhysicalMitigation",
+							"1 - DefensePhysicalMitigation",
 							"*",
+							"-1",
+							"*",
+							"1",
+							"+",
 					),
 			),
 				
@@ -3779,8 +3809,12 @@ class EsoBuildDataEditor
 					"depends" => array("DefensePhysicalMitigation"),
 					"compute" => array(
 							"1 + Skill.DirectDamageTaken",
-							"DefensePhysicalMitigation",
+							"1 - DefensePhysicalMitigation",
 							"*",
+							"-1",
+							"*",
+							"1",
+							"+",
 					),
 			),
 			
