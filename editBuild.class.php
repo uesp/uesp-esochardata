@@ -267,6 +267,8 @@ class EsoBuildDataEditor
 			"Skill.BurningDamage",
 			"Skill.PoisonedDamage",
 			"Skill.StatusEffectChance",
+			"CP.WeaponCritHealing",
+			"CP.SpellCritHealing",
 	);
 	
 	
@@ -398,6 +400,7 @@ class EsoBuildDataEditor
 			"BossDamageDone",
 			"BossDamageTaken",
 			"BleedDamage",
+			"CritHealing",
 	);
 	
 	
@@ -1847,6 +1850,10 @@ class EsoBuildDataEditor
 			"Skill.BurningDamage" => array( "display" => "%" ),
 			"Skill.PoisonedDamage" => array( "display" => "%" ),
 			"Skill.StatusEffectChance" => array( "display" => "%" ), 
+			"Skill.CritHealing" => array( "display" => "%" ),
+			"Mundus.CritHealing" => array( "display" => "%" ),
+			"CP.WeaponCritHealing" => array( "display" => "%" ),
+			"CP.SpellCritHealing" => array( "display" => "%" ),
 	);
 	
 	
@@ -2149,7 +2156,6 @@ class EsoBuildDataEditor
 					"title" => "Weapon Critical Damage",
 					"display" => "%2",
 					"min" => 0,
-					"addClass" => "esotbStatDividerLite",
 					"compute" => array(
 							"CP.WeaponCritDamage",
 							"Skill.CritDamage",
@@ -2165,6 +2171,59 @@ class EsoBuildDataEditor
 							"0.5",
 							"+",
 							"1 + Skill2.CritDamage",
+							"*",
+					),
+			),
+			
+			/*
+			 * SpellCritHealing ?
+			 */
+			"SpellCritHealing" => array(
+					"title" => "Spell Critical Healing",
+					"display" => "%2",
+					"min" => 0,
+					"compute" => array(
+							"CP.SpellCritHealing",
+							"Skill.CritHealing",
+							"+",
+							"Mundus.CritHealing",
+							"+",
+							"Set.CritHealing",
+							"+",
+							"Item.CritHealing",
+							"+",
+							"Buff.CritHealing",
+							"+",
+							"0.5",
+							"+",
+							"1 + Skill2.CritHealing",
+							"*",
+					),
+			),
+			
+			/*
+			 * WeaponCritHealing ?
+			 */
+			"WeaponCritHealing" => array(
+					"title" => "Weapon Critical Healing",
+					"display" => "%2",
+					"min" => 0,
+					"addClass" => "esotbStatDividerLite",
+					"compute" => array(
+							"CP.WeaponCritHealing",
+							"Skill.CritHealing",
+							"+",
+							"Mundus.CritHealing",
+							"+",
+							"Set.CritHealing",
+							"+",
+							"Item.CritHealing",
+							"+",
+							"Buff.CritHealing",
+							"+",
+							"0.5",
+							"+",
+							"1 + Skill2.CritHealing",
 							"*",
 					),
 			),
