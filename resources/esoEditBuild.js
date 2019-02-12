@@ -175,7 +175,7 @@ window.ESO_MUNDUS_BUFF_DATA =
 	"The Shadow" : {
 		abilityId: 13984,
 		icon : "/esoui/art/icons/ability_mundusstones_012.png",
-		description: "Increases your Critical Strike Damage by 9%.",
+		description: "Increases your Critical Damage and Healing by 9%.",
 	},
 	"The Steed" : {
 		abilityId: 13977,
@@ -204,7 +204,7 @@ window.ESO_MUNDUS_BUFF_DATA_UPDATE21 = {
 	"The Shadow" : {
 		abilityId: 13984,
 		icon : "/esoui/art/icons/ability_mundusstones_012.png",
-		description: "Increases your Critical Strike Damage by 13%.",
+		description: "Increases your Critical Damage and Healing by 13%.",
 	},	
 };
 
@@ -4167,8 +4167,58 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		factorValue: -1,
 		match: /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
+	{
+		statId: "MagickaCost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "StaminaCost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "UltimateCost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "CritDamage",
+		display: "%",
+		match: /Increases your Critical Damage and Critical healing by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "CritHealing",
+		display: "%",
+		match: /Increases your Critical Damage and Critical healing by ([0-9]+\.?[0-9]*)%/i,
+	},
+	
 	
 		/* Begin Toggled Passives */
+	{
+		id: "Amplitude",
+		baseSkillId: 31422,
+		statId: "DamageDone",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		maxTimes: 10,
+		match: /Increases your damage done against enemies by [0-9]+% for every [0-9]+% current Health they have/i,
+	},
+	{
+		id: "Combat Medic",
+		baseSkillId: 39259,
+		statRequireId: "Cyrodiil",
+		statRequireValue: 1,
+		statId: "HealingDone",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /Increases your healing done by ([0-9]+\.?[0-9]*)% when you are near a Keep/i,
+	},
 	{
 		id: "Skilled Tracker",
 		baseSkillId: 40393,
@@ -9468,16 +9518,28 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	else if (mundusName == "The Shadow")
 	{
 		// inputValues.Mundus.CritDamage = 0.12;
-		inputValues.Mundus.CritDamage = 0.09;		// Update 15
-		if (inputValues.UseUpdate21Rules) inputValues.Mundus.CritDamage = 0.13;		// Update 21
 		
-		AddEsoInputStatSource("Mundus.CritDamage", { mundus: mundusName, value: inputValues.Mundus.CritDamage });
+		inputValues.Mundus.CritDamage  = 0.09;		// Update 15
+		inputValues.Mundus.CritHealing = 0.09;		
+		
+		if (inputValues.UseUpdate21Rules) 
+		{
+			inputValues.Mundus.CritDamage  = 0.13;		// Update 21
+			inputValues.Mundus.CritHealing = 0.13;
+		}
+		
+		AddEsoInputStatSource("Mundus.CritDamage",  { mundus: mundusName, value: inputValues.Mundus.CritDamage });
+		AddEsoInputStatSource("Mundus.CritHealing", { mundus: mundusName, value: inputValues.Mundus.CritHealing });
 		
 		if (divines > 0)
 		{
 			var extra = Math.floor(inputValues.Mundus.CritDamage * 1000 * divines) / 1000;
-			inputValues.Mundus.CritDamage += extra;
-			AddEsoInputStatSource("Mundus.CritDamage", { source: mundusName + " Divines bonus", value: extra });
+			
+			inputValues.Mundus.CritDamage  += extra;
+			inputValues.Mundus.CritHealing += extra;
+			
+			AddEsoInputStatSource("Mundus.CritDamage",  { source: mundusName + " Divines bonus", value: extra });
+			AddEsoInputStatSource("Mundus.CritHealing", { source: mundusName + " Divines bonus", value: extra });
 		}
 	}
 	else if (mundusName == "The Ritual")
@@ -9683,7 +9745,7 @@ window.GetEsoInputCPValues = function (inputValues)
 	
 		/* Ritual (5) */
 	ParseEsoCPValue(inputValues, "DotDamageDone", 63847);
-	ParseEsoCPValue(inputValues, "WeaponCritDamage", 59105);
+	ParseEsoCPValue(inputValues, ["WeaponCritDamage", "WeaponCritHealing"], 59105);
 	ParseEsoCPValue(inputValues, "PhysicalPenetration", 61546);
 	ParseEsoCPValue(inputValues, ["PhysicalDamageDone", "PoisonDamageDone", "DiseaseDamageDone"], 63868);
 	ParseEsoCPValue(inputValues, "WeaponCrit", 59418, "the_ritual", 30);
@@ -9722,7 +9784,7 @@ window.GetEsoInputCPValues = function (inputValues)
 		/* Apprentice (7) */
 	ParseEsoCPValue(inputValues, ["MagicDamageDone", "FlameDamageDone", "ColdDamageDone", "ShockDamageDone"], 63848);
 	ParseEsoCPValue(inputValues, "SpellPenetration", 61555);
-	ParseEsoCPValue(inputValues, "SpellCritDamage", 61680);
+	ParseEsoCPValue(inputValues, ["SpellCritDamage", "SpellCritHealing"], 61680);
 	ParseEsoCPValue(inputValues, "HealingDone", 59630);
 	ParseEsoCPValue(inputValues, "SpellCrit", 59626, "the_apprentice", 30);
 	
