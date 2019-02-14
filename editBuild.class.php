@@ -273,6 +273,7 @@ class EsoBuildDataEditor
 			"Set.GuardDamage",
 			"Set.PoisonDuration",
 			"Set.MagickaAbilityDamageDone",
+			"Set.HealingAbilityCost",
 	);
 	
 	
@@ -1859,7 +1860,8 @@ class EsoBuildDataEditor
 			"CP.WeaponCritHealing" => array( "display" => "%" ),
 			"CP.SpellCritHealing" => array( "display" => "%" ),
 			"Set.GuardDamage" => array( "display" => "%" ),
-			"Set.MagickaAbilityDamageDone" => array( "display" => "%" ),			
+			"Set.MagickaAbilityDamageDone" => array( "display" => "%" ),
+			"Set.HealingAbilityCost" => array( "display" => "%" ),
 	);
 	
 	
@@ -3002,6 +3004,8 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"compute" => array(
 							"CP.DirectDamageDone",
+							"Skill.DirectDamageDone",
+							"+",
 					),
 			),
 						
