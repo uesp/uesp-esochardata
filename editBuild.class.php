@@ -109,7 +109,7 @@ class EsoBuildDataEditor
 			"WeaponRestStaff",
 			"WeaponDestStaff",
 			"WeaponFlameStaff",
-			"WeaponColdStaff",
+			"WeaponFrostStaff",
 			"WeaponShockStaff",
 			"Weapon1HShield",
 			"WeaponOffHandDamage",
@@ -123,7 +123,7 @@ class EsoBuildDataEditor
 			"WeaponOffHandRestStaff",
 			"WeaponOffHandDestStaff",
 			"WeaponOffHandFlameStaff",
-			"WeaponOffHandColdStaff",
+			"WeaponOffHandFrostStaff",
 			"WeaponOffHandShockStaff",
 			"WeaponOffHand1HShield",
 			"Level",
@@ -269,6 +269,10 @@ class EsoBuildDataEditor
 			"Skill.StatusEffectChance",
 			"CP.WeaponCritHealing",
 			"CP.SpellCritHealing",
+			"Set.TwinSlashBleedDamage",
+			"Set.GuardDamage",
+			"Set.PoisonDuration",
+			"Set.MagickaAbilityDamageDone",
 	);
 	
 	
@@ -301,7 +305,7 @@ class EsoBuildDataEditor
 			"SpellResist",
 			"PhysicalResist",
 			"FlameResist",
-			"ColdResist",
+			"FrostResist",
 			"PoisonResist",
 			"DiseaseResist",
 			"ShockResist",
@@ -341,14 +345,14 @@ class EsoBuildDataEditor
 			"PhysicalDamageDone",
 			"ShockDamageDone",
 			"FlameDamageDone",
-			"ColdDamageDone",
+			"FrostDamageDone",
 			"PoisonDamageDone",
 			"DiseaseDamageDone",
 			"MagicDamageTaken",
 			"PhysicalDamageTaken",
 			"ShockDamageTaken",
 			"FlameDamageTaken",
-			"ColdDamageTaken",
+			"FrostDamageTaken",
 			"PoisonDamageTaken",
 			"DiseaseDamageTaken",
 			"DirectDamageTaken",
@@ -1343,7 +1347,7 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
-			"CP.ColdDamageDone" => array(
+			"CP.FrostDamageDone" => array(
 					"display" => "%",
 			),
 			
@@ -1355,7 +1359,7 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),				
 			
-			"Skill.ColdDamageDone" => array(
+			"Skill.FrostDamageDone" => array(
 					"display" => "%",
 			),
 			
@@ -1383,7 +1387,7 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
-			"CP.ColdDamageTaken" => array(
+			"CP.FrostDamageTaken" => array(
 					"display" => "%",
 			),
 			
@@ -1854,6 +1858,8 @@ class EsoBuildDataEditor
 			"Mundus.CritHealing" => array( "display" => "%" ),
 			"CP.WeaponCritHealing" => array( "display" => "%" ),
 			"CP.SpellCritHealing" => array( "display" => "%" ),
+			"Set.GuardDamage" => array( "display" => "%" ),
+			"Set.MagickaAbilityDamageDone" => array( "display" => "%" ),			
 	);
 	
 	
@@ -2387,12 +2393,12 @@ class EsoBuildDataEditor
 					),
 			),
 			
-			"ColdResist" => array(
-					"title" => "Cold Resistance",
+			"FrostResist" => array(
+					"title" => "Frost Resistance",
 					"display" => "elementresist",
 					"compute" => array(
-							"Item.ColdResist",
-							"Skill.ColdResist",
+							"Item.FrostResist",
+							"Skill.FrostResist",
 							"+",
 					),
 			),
@@ -3158,19 +3164,19 @@ class EsoBuildDataEditor
 					),
 			),
 			
-			"ColdDamageDone" => array(
-					"title" => "Cold Damage Done",
+			"FrostDamageDone" => array(
+					"title" => "Frost Damage Done",
 					"display" => "%",
 					"round" => "floor",
 					"compute" => array(
-							"CP.ColdDamageDone",
-							"Skill.ColdDamageDone",
+							"CP.FrostDamageDone",
+							"Skill.FrostDamageDone",
 							"+",
-							"Buff.ColdDamageDone",
+							"Buff.FrostDamageDone",
 							"+",
-							"Item.ColdDamageDone",
+							"Item.FrostDamageDone",
 							"+",
-							"Set.ColdDamageDone",
+							"Set.FrostDamageDone",
 							"+",
 					),
 			),
@@ -3386,8 +3392,8 @@ class EsoBuildDataEditor
 					),
 			),
 			
-			"LAColdStaff" => array(
-					"title" => "Light Attack Cold Staff",
+			"LAFrostStaff" => array(
+					"title" => "Light Attack Frost Staff",
 					"round" => "floor",
 					"depends" => array("Magicka", "SpellDamage"),
 					"compute" => array(
@@ -3395,14 +3401,14 @@ class EsoBuildDataEditor
 							//"round(0.0161002*Magicka + 0.643855*SpellDamage - 0.692667)", 		// Update 14
 							//"round(0.0139076*Magicka + 0.560231*SpellDamage + 0.0163755)", 	// Update 12
 							//"round(0.0140*Magicka + 0.56*SpellDamage - 0.60)",
-							//"1 + CP.LAStaffDamage + Set.LADamage + Buff.Empower + Skill.ColdDamageDone + Skill.DamageDone + CP.DirectDamageDone",
+							//"1 + CP.LAStaffDamage + Set.LADamage + Buff.Empower + Skill.FrostDamageDone + Skill.DamageDone + CP.DirectDamageDone",
 							//"*",
 							
-							"1 + CP.LAStaffDamage + CP.ColdDamageDone + CP.DirectDamageDone",
+							"1 + CP.LAStaffDamage + CP.FrostDamageDone + CP.DirectDamageDone",
 							"*",
 							"Skill2.LADamage",
 							"+",
-							"1 + Skill.LADamage + Set.LADamage + Skill.ColdDamageDone + Buff.Empower + Skill.DamageDone + Skill.SingleTargetDamageDone",
+							"1 + Skill.LADamage + Set.LADamage + Skill.FrostDamageDone + Buff.Empower + Skill.DamageDone + Skill.SingleTargetDamageDone",
 							"*",
 					),
 			),
@@ -3521,8 +3527,8 @@ class EsoBuildDataEditor
 					),
 			),
 			
-			"HAColdStaff" => array(
-					"title" => "Heavy Attack Cold Staff",
+			"HAFrostStaff" => array(
+					"title" => "Heavy Attack Frost Staff",
 					"round" => "floor",
 					"depends" => array("Magicka", "SpellDamage"),
 					"compute" => array(
@@ -3531,11 +3537,11 @@ class EsoBuildDataEditor
 							//"round(0.0550432*Magicka + 2.19972*SpellDamage - 0.864784)",		//Update 12
 							//"round(0.0549025*Magicka + 2.20013*SpellDamage - 0.481141)",		//Update 11pts
 							//"round(0.055*Magicka + 2.20*SpellDamage - 0.67)",					//Update 10
-							"1 + CP.HAStaffDamage + CP.ColdDamageDone + CP.DirectDamageDone",
+							"1 + CP.HAStaffDamage + CP.FrostDamageDone + CP.DirectDamageDone",
 							"*",
 							"Skill2.HADamage",
 							"+",
-							"1 + Skill.HADamage + Set.HADamage + Skill.ColdDamageDone + Skill.DamageDone",
+							"1 + Skill.HADamage + Set.HADamage + Skill.FrostDamageDone + Skill.DamageDone",
 							"*",
 					),
 			),
