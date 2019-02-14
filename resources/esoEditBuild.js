@@ -4328,7 +4328,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireId: "Weapon2H",
 		statRequireValue: 1,
 		category: "Skill",
-		statId: "DamageDone",
+		statId: "DirectDamageDone",
 		display: "%",
 		toggle: true,
 		enabled: false,
@@ -4720,7 +4720,6 @@ window.ESO_SETEFFECT_MATCHES = [
 //Vanguard's Challenge: (5 items) When you taunt an enemy Player, they deal 50% less damage to all other Players but 100% more damage to you for 15 seconds. 
 //Jorvuld's Guidance: (5 items) Increases the duration of all Major buffs, Minor buffs, and damage shields you apply to yourself and allies by 40%.
 //Piercing Spray (Perfected): (2 items) When you deal damage with Arrow Spray, you cause enemies hit to take 50% more damage from the direct damage portion of your next Snipe, Scatter Shot, or Poison Arrow used within 6 seconds.
-//Timeless Blessing (Perfected): (2 items) When you cast Blessing of Protection, the cost of your Magicka and Stamina healing abilities are reduced by 30% for 3 seconds.
 
 	{	// Stygian
 		statRequireId: "Stealthed",
@@ -6123,6 +6122,26 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 		
 		// Optionally toggled set effects
+	{	
+		id: "Timeless Blessing",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "HealingAbilityCost",
+		factorValue: -1,
+		display: "%",
+		match: /When you cast Blessing of Protection, the cost of your Magicka and Stamina healing abilities are reduced by ([0-9]+)% for/i,
+	},
+	{	
+		id: "Timeless Blessing (Perfected)",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "HealingAbilityCost",
+		factorValue: -1,
+		display: "%",
+		match: /When you cast Blessing of Protection, the cost of your Magicka and Stamina healing abilities are reduced by ([0-9]+)% for/i,
+	},
 	{	
 		id: "Puncturing Remedy",
 		setBonusCount: 1,
@@ -13258,7 +13277,8 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
  	g_LastSkillInputValues.PoisonStaminaCost = inputValues.Skill.PoisonStaminaCost;
  	g_LastSkillInputValues.FlameAOEDamageDone = inputValues.Skill.FlameAOEDamageDone;
  	g_LastSkillInputValues.TwinSlashBleedDamage = inputValues.Set.TwinSlashBleedDamage;
- 	g_LastSkillInputValues.MagickaAbilityDamageDone = inputValues.Set.MagickaAbilityDamageDone; 	
+ 	g_LastSkillInputValues.MagickaAbilityDamageDone = inputValues.Set.MagickaAbilityDamageDone;
+ 	g_LastSkillInputValues.HealingAbilityCost = inputValues.Set.HealingAbilityCost;
  	
  	var SpellDamageFactor = 1 + inputValues.Skill.SpellDamage + inputValues.Buff.SpellDamage;
  	var WeaponDamageFactor = 1 + inputValues.Skill.WeaponDamage + inputValues.Buff.WeaponDamage;

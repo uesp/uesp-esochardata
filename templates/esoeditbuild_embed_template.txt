@@ -1320,13 +1320,15 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
-			<b>14 February 2018</b>
+			<b>14 February 2019</b>
 			<ul>
 				<li>Added the 5 piece bonus from the Stygian set.</li>
 				<li>Added the 2 piece bonus from the Puncturing Remedy set.</li>					
+				<li>Added the 2 piece bonus from the Timeless Blessing set.</li>
+				<li>Fixed some abilities that were not correctly affected by healing effects.</li>
 			</ul>
 			<p>
-			<b>13 February 2018</b>
+			<b>13 February 2019</b>
 			<ul>
 				<li>Added the debuff from the Healing Mage set.</li>
 				<li>Added the 1 piece bonus from the Armor of the Code set.</li>
@@ -1341,7 +1343,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				
 			</ul>
 			<p>
-			<b>11 February 2018</b>
+			<b>11 February 2019</b>
 			<ul>
 				<li>Fixed Effective Weapon/Spell Power stats after changes to mitigation stats.</li>
 				<li>Added a toggle for the Combat Medic and Amplitude passives.</li>
@@ -1352,28 +1354,28 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Renamed all "Cold" stats to "Frost" to match the current ingame name.</li>
 			</ul>
 			<p>
-			<b>11 February 2018</b>
+			<b>11 February 2019</b>
 			<ul>
 				<li>Fixed several abilities that had duplicate effects: Shadow Barrier, Mending, Balanced Blade, Resist Affliction, Argonian Resistance, Soul Siphoner, and Piercing Cold.</li>
 				<li>Added a few missing set effects.</li>
 				<li>Fixed duplicate parsing of the Oblivion's Foe 5 piece bonus.</li>
-				<li>Fixed calculated Mitigation values. Changed Mitigation values to their normally used valuies (0% = take full damage, 100% = take no damage).</li>
+				<li>Fixed calculated Mitigation values. Changed Mitigation values to their normally used values (0% = take full damage, 100% = take no damage).</li>
 			</ul>
 			<p>
-			<b>8 February 2018</b>
+			<b>8 February 2019</b>
 			<ul>
 				<li>Fixed several broken passives and added a bunch of new ones for minor effects including several toggleable effects
 						for extra damage/healing under various circumstances.</li>
 			</ul>
 			<p>
-			<b>7 February 2018</b>
+			<b>7 February 2019</b>
 			<ul>
 				<li>Fixed the element specific destruction skills that wouldn't correctly show up or save.</li>
 				<li>Fixed the Shock and Frost versions of the Wall of Elements ability that were reversed.</li>
 				<li>When dragging destruction abilities to the offhand skill bar it will use that bar's destruction staff element.</li>
 			</ul>
 			<p>
-			<b>6 February 2018</b>
+			<b>6 February 2019</b>
 			<ul>
 				<li>Changed The Shadow Mundus to 13% Critical Damage when using the Update 21 ruleset.</li>
 				<li>Added the bonus Spell Resistance from the Berton's new Spell Attunement passive as a toggled ability.</li>
@@ -1381,19 +1383,19 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Added a guess of the new CP formulas for Health/Magicka/Stamina (not entirely implemented on PTS yet).</li>
 			</ul>
 			<p>
-			<b>4 February 2018</b>
+			<b>4 February 2019</b>
 			<ul>
 				<li>Fixed the new Nord Rugged passive from giving extra resistances from some other unrelated passives.</li>
 				<li>The 5 piece bonus of the Elf Bane set will now increase duration of Flame Damage abilities. This is currently undergoing
 					testing and may not be perfect.</li>
 			</ul>
 			<p>
-			<b>1 February 2018</b>
+			<b>1 February 2019</b>
 			<ul>
 				<li>Fixed the Bone Pirate's Tatters set which was not correctly adding Stamina after the last fix.</li>
 			</ul>
 			<p>
-			<b>31 January 2018</b>
+			<b>31 January 2019</b>
 			<ul>
 				<li>Removed the Spell/Physical Resistance cap and moved the cap check to the mitigation calculations.</li>
 				<li>Changed the new racial stat passives from Item to Skill2 as they are not affected by CP bonuses.</li>
@@ -1402,19 +1404,19 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Changed the category of the 5 piece Health Regen bonus of the Bright Throat's Boast set from Set to Food.</li>
 			</ul>
 			<p>
-			<b>30 January 2018</b>
+			<b>30 January 2019</b>
 			<ul>
 				<li>The new Redguard passive now affects the cost of Weapon ultimates.</li>
 			</ul>
 			<p>
-			<b>28 January 2018</b>
+			<b>28 January 2019</b>
 			<ul>
 				<li>Fixed tooltips not correctly using Weapon/Spell damage values from the new update 21 Racial passives.</li>
 				<li>New builds will no longer have all the free passives for all races initially enabled.</li>
 				<li>Added calculation details on the mitigation tab when you click a table cell.</li>
 			</ul>
 			<p>
-			<b>28 January 2018</b>
+			<b>28 January 2019</b>
 			<ul>
 				<li>Fixed the new update 21 recovery bonuses (CP/Skill/Buffs no longer affect them).</li>
 				<li>Changed Vulnerabilities (Minor Vulnerability, Vampire/Werewolf debuffs) from DamageTaken to custom Buff.Vulnerability, Buff.FlameVulnerability, and 
@@ -1422,12 +1424,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Updated the DamageTaken computed stat to be multiplicative from all sources.</li>
 			</ul>
 			<p>
-			<b>26 January 2018</b>
+			<b>26 January 2019</b>
 			<ul>
 				<li>Fixed a few doubly parsed skills caused by the new racial passives.</li>
 			</ul>
 			<p>
-			<b>25 January 2018</b>
+			<b>25 January 2019</b>
 			<ul>
 				<li>Fixed the passive parsing for update 21 which was causing duplicate stats for some skills.</li>
 				<li>Fixed the Major/Minor Breach/Facture buffs.</li>
@@ -1441,14 +1443,14 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Added the Vampire Undeath passive as a toggled ability.</li>
 			</ul>
 			<p>
-			<b>23 January 2018</b>
+			<b>23 January 2019</b>
 			<ul>
 				<li>Fixed Major/Minor Evasion to reduce your AOE damage taken instead of increasing it.</li>
 				<li>Added the DamageTaken stat to the various Mitigation computed stats.</li>
 				<li>Added the Defending Spell/Physical DD Mitigation computed stats.</li>
 			</ul>
 			<p>
-			<b>22 January 2018</b>
+			<b>22 January 2019</b>
 			<ul>
 				<li>Added the Update 21 rule set (General Tab).</li>
 				<li>Added support for the new racial passives from update 21.</li>
@@ -1457,14 +1459,14 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>One handed weapons have half the enchantment value (only with the Update 21 rule set checked until it goes live).</li>
 			</ul>
 			<p>
-			<b>10 January 2018</b>
+			<b>10 January 2019</b>
 			<ul>
 				<li>Skill details for Destruction abilities now show the elemental version of the ability when a Destruction staff is equipped.</li>
 				<li>The DK's World in Ruin passive now applies both of its effects to the relevant skills.</li>
 				<li>Damage Shields are now properly capped at 40/50% health when modified by CP/sets.</li>
 			</ul>
 			<p>
-			<b>9 January 2018</b>
+			<b>9 January 2019</b>
 			<ul>
 				<li>Hircine's Rage Werewolf skill now correctly grants you Major Brutality.</li>
 			</ul>
