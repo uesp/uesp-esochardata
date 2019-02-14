@@ -1315,12 +1315,32 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Weapon enchantments are not currently affected by +damage modifiers.</li>
 				<li>Master destruction staffs don't modify the Destructive Touch damage on skill tooltips.</li>
 				<li>Weapon enchantment cooldown time is not modified by Infused or Torug's Pact effects.</li>
-				<li>The Elf Bane 5 piece bonus does not update the skill durations of flame abilities.</li>
 				<li>The IE browser can cause issues with stats updating and saving builds due to very slow JS execution in some cases. Using Chrome, FF, or Edge browsers is recommended.</li>
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>14 February 2018</b>
+			<ul>
+				<li>Added the 5 piece bonus from the Stygian set.</li>
+				<li>Added the 2 piece bonus from the Puncturing Remedy set.</li>					
+			</ul>
+			<p>
+			<b>13 February 2018</b>
+			<ul>
+				<li>Added the debuff from the Healing Mage set.</li>
+				<li>Added the 1 piece bonus from the Armor of the Code set.</li>
+				<li>Added the 5 piece bonus from the Kvatch Gladiator set.</li>
+				<li>Added the 5 piece bonus from the Way of Martial Knowledge set.</li>
+				<li>Fixed the 5 piece bonus from the Knight-Errant's Mail set.</li> 
+				<li>Added the 5 piece bonus from the Trial by Fire set.</li>
+				<li>Added the 5 piece bonus from the Stinging Slashes set.</li>
+				<li>Fixed the 5 piece bonus from the Vestment of Olorime set.</li>
+				<li>Added the 5 piece bonus from the Assassin's Guile set.</li>
+				<li>Added the 5 piece bonus from the Syvarra's Scales set.</li>
+				
+			</ul>
+			<p>
 			<b>11 February 2018</b>
 			<ul>
 				<li>Fixed Effective Weapon/Spell Power stats after changes to mitigation stats.</li>
@@ -1329,6 +1349,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Updated the new Imperial and Khajhiit passives from PTS.</li>
 				<li>Added the CritHealing stat. Added effect to The Shadow mundus and relevant CP lines.</li>
 				<li>Updated the new CP calculation for update 21 (CP effect is additive with skill/buff effects).</li>
+				<li>Renamed all "Cold" stats to "Frost" to match the current ingame name.</li>
 			</ul>
 			<p>
 			<b>11 February 2018</b>

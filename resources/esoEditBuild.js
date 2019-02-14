@@ -269,6 +269,15 @@ window.ESOBUILD_SKILLTYPES =
 window.g_EsoBuildBuffData =
 {
 		
+		"Healing Mage (Debuff)" : 
+		{
+			enabled: false,
+			skillEnabled : false,
+			value : -430,
+			category: "Skill2",
+			statId : "WeaponDamage",
+			icon : "/esoui/art/icons/ability_mage_065.png",
+		},
 		"Warhorn" : 
 		{
 			enabled: false,
@@ -2152,7 +2161,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases your flame damage by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		statId: "ColdDamageDone",
+		statId: "FrostDamageDone",
 		display: "%",
 		match: /Increases your frost and shock damage by ([0-9]+\.?[0-9]*)%/i,
 	},
@@ -2172,7 +2181,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases your flame, frost, and shock damage by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		statId: "ColdDamageDone",
+		statId: "FrostDamageDone",
 		display: "%",
 		match: /Increases your flame, frost, and shock damage by ([0-9]+\.?[0-9]*)%/i,
 	},
@@ -2263,11 +2272,11 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases your Weapon Critical by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		statId: "ColdResist",
+		statId: "FrostResist",
 		match: /Increases Cold Resistance by ([0-9]+)/i,
 	},
 	{
-		statId: "ColdResist",
+		statId: "FrostResist",
 		match: /and Cold Resistance by ([0-9]+)\./i,
 	},
 	{
@@ -2481,7 +2490,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Lightning Staff increases your damage done with area of effect abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		statRequireId: "WeaponColdStaff",
+		statRequireId: "WeaponFrostStaff",
 		statRequireValue: 1,
 		statId: "BlockCost",
 		display: "%",
@@ -2489,7 +2498,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Frost Staff reduces the cost of blocking by ([0-9]+\.?[0-9]*)% and increases the amount of damage you block by [0-9]+\.?[0-9]*%/i,
 	},
 	{
-		statRequireId: "WeaponColdStaff",
+		statRequireId: "WeaponFrostStaff",
 		statRequireValue: 1,
 		statId: "BlockMitigation",
 		display: "%",
@@ -3633,7 +3642,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases your Damage with Flame effects by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		statId: "ColdDamageDone",
+		statId: "FrostDamageDone",
 		display: "%",
 		match: /Increases your Damage with Frost, Fire, and Shock effects by ([0-9]+\.?[0-9]*)%/i,
 	},
@@ -3778,7 +3787,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases your Magic and Frost Damage by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		statId: "ColdDamageDone",
+		statId: "FrostDamageDone",
 		display: '%',
 		match: /Increases your Magic and Frost Damage by ([0-9]+\.?[0-9]*)%/i,
 	},
@@ -4655,8 +4664,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	
 
 		// Dragonknight
-	// Increases the damage of your Flame and Poison area of effect abilities by
-	// 6%.
+	// Increases the damage of your Flame and Poison area of effect abilities by 6%.
 	// Increases the damage of your Burning and Poisoned status effects by 66%.
 	
 		// Templar
@@ -4666,12 +4674,9 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	// on whichever is higher.
 	
 		// Restoration Staff
-	// WITH RESTORATION STAFF EQUIPPED Increases your healing by 15% on allies
-	// under 30% Health.
-	// WITH RESTORATION STAFF EQUIPPED Restores 540 Magicka when you block a
-	// spell.
-	// WITH RESTORATION STAFF EQUIPPED Increases healing with Restoration Staff
-	// spells by 5%.
+	// WITH RESTORATION STAFF EQUIPPED Increases your healing by 15% on allies under 30% Health.
+	// WITH RESTORATION STAFF EQUIPPED Restores 540 Magicka when you block a spell.
+	// WITH RESTORATION STAFF EQUIPPED Increases healing with Restoration Staff spells by 5%.
 	
 		// Destruction Staff
 	// Grants bonus effects based on the element used:
@@ -4680,20 +4685,16 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		// 1809 damage.
 		// Fully charged heavy shock attacks damage nearby enemies for 100% of
 		// the damage done.
-	// Increases your chance to apply the Burning, Concussion, and Chilled
-	// status effects by 100% while you have a Destruction Staff equipped.
+	// Increases your chance to apply the Burning, Concussion, and Chilled status effects by 100% while you have a Destruction Staff equipped.
 	
 		// Bow
-	// WITH BOW ABILITIES Gives you a damage bonus of up to 12% against enemies
-	// at longer range.
+	// WITH BOW ABILITIES Gives you a damage bonus of up to 12% against enemies at longer range.
 	
 		// Dual Wield
-	// WHILE DUAL WIELDING Increases damage with Dual Wield abilities by 20%
-	// against enemies with under 25% Health.
+	// WHILE DUAL WIELDING Increases damage with Dual Wield abilities by 20% against enemies with under 25% Health.
 	
 		// One Hand and Shield
-	// WITH ONE HAND WEAPON AND SHIELD EQUIPPED Increases your Movement Speed
-	// while blocking by 60%
+	// WITH ONE HAND WEAPON AND SHIELD EQUIPPED Increases your Movement Speed while blocking by 60%
 	
 		// Two Handed
 	// Grants a bonus based on the type of weapon equipped:
@@ -4706,23 +4707,43 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	// This can happen no more than once every 3 seconds.
 	
 		// Emperor
-	// WHILE YOU ARE EMPEROR Increases your damage done with Siege Weapons to
-	// keeps and other Siege Weapons by 100% while in your campaign.
+	// WHILE YOU ARE EMPEROR Increases your damage done with Siege Weapons to keeps and other Siege Weapons by 100% while in your campaign.
 ];
 
 
 window.ESO_SETEFFECT_MATCHES = [
                          
-//Stygian: (5 items) While you are Sneaking or invisible, your damage done with Magicka abilities is increased by 20%.
 //Noble Duelist's Silks: (5 items) When you dodge an attack, your Light and Heavy Attacks deal an additional 1225 damage for 8 seconds.
-//Knight-Errant's Mail: (5 items) Adds 200 Weapon Damage to your One Hand and Shield abilities. When you use a One Hand and Shield ability, you heal for 1250 Health.
 //The Morag Tong: (5 items) When you deal direct damage, you cause the enemy to take 10% more damage from all Poison Damage abilities for 5 seconds.
-//Way of Martial Knowledge: (5 items) When you deal damage, you cause the enemy to take 10% additional damage from the next attack. This effect can occur once every 4 seconds.
-//Stinging Slashes: (2 items) Increases the bleed damage Twin Slashes deals by 1350 each tick.
-//Trial By Fire: (5 items) When you take elemental damage, gain 7727 Resistance to that element for 4 seconds. You can only be resistant to one element at a time.
-//Kvatch Gladiator: (5 items) When your target is under 25% Health, add 1800 Weapon Damage to your Light and Heavy Attacks.
-//Armor of the Code: (1 item) Armor of the Code: Increase your Weapon and Spell Critical Rating against targets with a lower % of health than you by 2051.
-	
+//Alessia's Bulwark: (5 items) When you take damage from a melee attack, you have a 15% chance to reduce the attacker's Weapon Damage by 10% for 5 seconds.
+//Grand Rejuvenation: (2 items) The initial heal of Grand Healing restores 258 Stamina to each friendly target affected.
+//Vanguard's Challenge: (5 items) When you taunt an enemy Player, they deal 50% less damage to all other Players but 100% more damage to you for 15 seconds. 
+//Jorvuld's Guidance: (5 items) Increases the duration of all Major buffs, Minor buffs, and damage shields you apply to yourself and allies by 40%.
+//Piercing Spray (Perfected): (2 items) When you deal damage with Arrow Spray, you cause enemies hit to take 50% more damage from the direct damage portion of your next Snipe, Scatter Shot, or Poison Arrow used within 6 seconds.
+//Timeless Blessing (Perfected): (2 items) When you cast Blessing of Protection, the cost of your Magicka and Stamina healing abilities are reduced by 30% for 3 seconds.
+
+	{	// Stygian
+		statRequireId: "Stealthed",
+		statRequireValue: 1,
+		statId: "MagickaAbilityDamageDone",
+		display: "%",
+		match: /While you are Sneaking or invisible, your damage done with Magicka abilities is increased by ([0-9]+)%/i,
+	},
+	{	// Syvarra's Scales
+		statId: "GuardDamage",
+		factorValue: -1,
+		display: "%",
+		match: /Reduces your damage taken from Guards by ([0-9]+)%/i,
+	},
+	{	// Assassin's Guile
+		statId: "PoisonDuration",
+		match: /Increases the duration of your alchemical poisons by ([0-9]+) seconds/i,
+	},
+	{	// Stinging Slashes
+		category: "Set",	
+		statId: "TwinSlashBleedDamage",
+		match: /Increases the bleed damage Twin Slashes deals by ([0-9]+) each tick/i,
+	},
 	{
 		category: "Set",
 		statId: "AOEDamageTaken",
@@ -4777,12 +4798,12 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		category: "SkillBonusSpellDmg",
-		statId: "Cold",
+		statId: "Frost",
 		match: /Adds ([0-9]+) Spell Damage to your Cold Damage abilities/i,
 	},
 	{
 		category: "SkillBonusSpellDmg",
-		statId: "Cold",
+		statId: "Frost",
 		match: /Adds ([0-9]+) Spell Damage to your Frost Damage abilities/i,
 	},
 	{
@@ -4823,7 +4844,7 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		category: "SkillLineWeaponDmg",
 		statId: "One Hand and Shield ",
-		match: /Adds ([0-9]+) Weapon Damage to your One Hand and Shield  abilities/i,
+		match: /Adds ([0-9]+) Weapon Damage to your One Hand and Shield abilities/i,
 	},
 	{
 		category: "SkillLineSpellDmg",
@@ -6086,8 +6107,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		category: "SkillBonusWeaponDmg",
 		statId: "Poison",
-		// match: /When you deal damage with a Magicka ability, your Poison and
-		// Disease Damage abilities gain an additional ([0-9]+) Weapon Damage/i,
+		// match: /When you deal damage with a Magicka ability, your Poison and Disease Damage abilities gain an additional ([0-9]+) Weapon Damage/i,
 		match: /Adds ([0-9]+) Weapon Damage to your Poison and Disease Damage abilities./i,
 	},
 	{
@@ -6098,12 +6118,107 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		category: "SkillBonusWeaponDmg",
 		statId: "Disease",
-		// match: /When you deal damage with a Magicka ability, your Poison and
-		// Disease Damage abilities gain an additional ([0-9]+) Weapon Damage/i,
+		// match: /When you deal damage with a Magicka ability, your Poison and Disease Damage abilities gain an additional ([0-9]+) Weapon Damage/i,
 		match: /Adds ([0-9]+) Weapon Damage to your Poison and Disease Damage abilities./i,
 	},
 		
 		// Optionally toggled set effects
+	{	
+		id: "Puncturing Remedy",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "SpellResist",
+		match: /When you deal damage with Puncture, you heal for ([0-9]+) Health and gain Spell and Physical Resistance equal to the amount healed/i,
+	},
+	{	
+		id: "Puncturing Remedy",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "PhysicalResist",
+		match: /When you deal damage with Puncture, you heal for ([0-9]+) Health and gain Spell and Physical Resistance equal to the amount healed/i,
+	},
+	{
+		id: "Trial By Fire (Frost)",
+		setId: "Trial by Fire",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		category: "Item",
+		statId: "FrostResist",
+		disableSetIds: [ "Trial By Fire (Flame)", "Trial By Fire (Shock)" ],
+		match: /When you take elemental damage, gain ([0-9]+) Resistance to that element for [0-9]+ seconds/i,
+	},	
+	{
+		id: "Trial By Fire (Flame)",
+		setId: "Trial by Fire",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		category: "Item",
+		statId: "FlameResist",
+		disableSetIds: [ "Trial By Fire (Frost)", "Trial By Fire (Shock)" ],
+		match: /When you take elemental damage, gain ([0-9]+) Resistance to that element for [0-9]+ seconds/i,
+	},
+	{
+		id: "Trial By Fire (Shock)",
+		setId: "Trial by Fire",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		category: "Item",
+		statId: "ShockResist",
+		disableSetIds: [ "Trial By Fire (Flame)", "Trial By Fire (Frost)" ],
+		match: /When you take elemental damage, gain ([0-9]+) Resistance to that element for [0-9]+ seconds/i,
+	},	
+	{
+		id: "Way of Martial Knowledge",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : false,
+		category: "Target",
+		statId: "DamageTaken",
+		display: "%",
+		match: /When you deal damage, you cause the enemy to take ([0-9]+\.?[0-9]*)% additional damage from the next attack/i,
+	},
+	{
+		id: "Kvatch Gladiator",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : false,
+		statId: "LAWeaponDamage",
+		match: /When your target is under [0-9]+% Health, add ([0-9]+) Weapon Damage to your Light and Heavy Attacks/i,
+	},
+	{
+		id: "Kvatch Gladiator",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : false,
+		statId: "HAWeaponDamage",
+		match: /When your target is under [0-9]+% Health, add ([0-9]+) Weapon Damage to your Light and Heavy Attacks/i,
+	},
+	{
+		id: "Armor of the Code",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		enableOffBar : false,
+		statId: "WeaponCrit",
+		match: /Increase your Weapon and Spell Critical Rating against targets with a lower % of health than you by ([0-9]+)/i,
+	},
+	{
+		id: "Armor of the Code",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		enableOffBar : false,
+		statId: "SpellCrit",
+		match: /Increase your Weapon and Spell Critical Rating against targets with a lower % of health than you by ([0-9]+)/i,
+	},
 	{
 		id: "Armor Master",
 		setBonusCount: 4,
@@ -6364,7 +6479,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		category: "SkillBonusSpellDmg",
-		statId: "Cold",
+		statId: "Frost",
 		disableSetIds: [ "Elemental Succession (Shock)", "Elemental Succession (Flame)" ],
 		match: /Your attacks dealing damage with the active element gain ([0-9]+) Spell Damage/i,
 	},
@@ -6988,6 +7103,16 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /You and your allies in the circle gain Major Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+) /i,
 	},
 	{
+		id: "Vestment of Olorime",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		buffId: "Major Courage",
+		updateBuffValue : true,
+		match: /You and your allies standing in the circle gain Major Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+) /i,
+	},
+	{
 		id: "Warrior's Fury",
 		setBonusCount: 4,
 		toggle: true,
@@ -7073,7 +7198,7 @@ window.ESO_ENCHANT_ARMOR_MATCHES = [
 		match: /Adds ([0-9]+) Flame Resistance/i,
 	},
 	{
-		statId: "ColdResist",
+		statId: "FrostResist",
 		match: /Adds ([0-9]+) Cold Resistance/i,
 	},
 	{
@@ -7594,14 +7719,14 @@ window.GetEsoInputValues = function (mergeComputedStats)
 	g_EsoSkillDestructionElement = "";
 	g_EsoSkillDestructionOffHandElement = "";
 	
-	if (inputValues.WeaponColdStaff > 0)
+	if (inputValues.WeaponFrostStaff > 0)
 		g_EsoSkillDestructionElement = "frost";	
 	else if (inputValues.WeaponShockStaff > 0)
 		g_EsoSkillDestructionElement = "shock";
 	else if (inputValues.WeaponFlameStaff > 0)
 		g_EsoSkillDestructionElement = "flame";
 	
-	if (inputValues.WeaponOffHandColdStaff > 0)
+	if (inputValues.WeaponOffHandFrostStaff > 0)
 		g_EsoSkillDestructionOffHandElement = "frost";	
 	else if (inputValues.WeaponOffHandShockStaff > 0)
 		g_EsoSkillDestructionOffHandElement = "shock";
@@ -8555,7 +8680,7 @@ window.GetEsoInputItemOffHandValues = function (inputValues, slotId)
 		break;
 	case 13:
 		++inputValues.WeaponOffHandDestStaff;
-		++inputValues.WeaponOffHandColdStaff;
+		++inputValues.WeaponOffHandFrostStaff;
 		break;
 	case 15:
 		++inputValues.WeaponOffHandDestStaff;
@@ -8688,9 +8813,9 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 		AddEsoItemRawOutput(itemData, "WeaponDestStaff", 1);
 		AddEsoInputStatSource("WeaponDestStaff", { item: itemData, value: 1, slotId: slotId });
 		
-		++inputValues.WeaponColdStaff;
-		AddEsoItemRawOutput(itemData, "WeaponColdStaff", 1);
-		AddEsoInputStatSource("WeaponColdStaff", { item: itemData, value: 1, slotId: slotId });
+		++inputValues.WeaponFrostStaff;
+		AddEsoItemRawOutput(itemData, "WeaponFrostStaff", 1);
+		AddEsoInputStatSource("WeaponFrostStaff", { item: itemData, value: 1, slotId: slotId });
 		break;
 	case 15:
 		++inputValues.WeaponDestStaff;
@@ -9673,7 +9798,7 @@ window.GetEsoInputCPValues = function (inputValues)
 	if (inputValues.ArmorLight >= 5) ParseEsoCPValue(inputValues, "PhysicalResist", 60502);
 	ParseEsoCPValue(inputValues, "DotDamageTaken", 63850, null, null, -1);
 	ParseEsoCPValue(inputValues, ["PhysicalDamageTaken", "PoisonDamageTaken", "DiseaseDamageTaken"], 63844, null, null, -1);
-	ParseEsoCPValue(inputValues, ["MagicDamageTaken", "FlameDamageTaken", "ColdDamageTaken", "ShockDamageTaken"], 63843, null, null, -1);
+	ParseEsoCPValue(inputValues, ["MagicDamageTaken", "FlameDamageTaken", "FrostDamageTaken", "ShockDamageTaken"], 63843, null, null, -1);
 	
 	var itemData = g_EsoBuildItemData.OffHand1;
 	var weaponData = g_EsoBuildItemData.MainHand1;
@@ -9782,7 +9907,7 @@ window.GetEsoInputCPValues = function (inputValues)
 	}
 		
 		/* Apprentice (7) */
-	ParseEsoCPValue(inputValues, ["MagicDamageDone", "FlameDamageDone", "ColdDamageDone", "ShockDamageDone"], 63848);
+	ParseEsoCPValue(inputValues, ["MagicDamageDone", "FlameDamageDone", "FrostDamageDone", "ShockDamageDone"], 63848);
 	ParseEsoCPValue(inputValues, "SpellPenetration", 61555);
 	ParseEsoCPValue(inputValues, ["SpellCritDamage", "SpellCritHealing"], 61680);
 	ParseEsoCPValue(inputValues, "HealingDone", 59630);
@@ -9795,10 +9920,8 @@ window.GetEsoInputCPValues = function (inputValues)
 	// "DisorientDuration", "SnareDuration"], 59353, null, null, -1);
 	// ParseEsoCPValue(inputValues, ["RollDodgeCost", "BreakFreeCost"], 63863,
 	// null, null, -1);
-	ParseEsoCPValue(inputValues, "BlockCost", 60649, null, null, -1);		// Update
-																			// 14
-	ParseEsoCPValue(inputValues, "RollDodgeCost", 63863, null, null, -1);	// Update
-																			// 14
+	ParseEsoCPValue(inputValues, "BlockCost", 60649, null, null, -1);		// Update 14
+	ParseEsoCPValue(inputValues, "RollDodgeCost", 63863, null, null, -1);	// Update 14
 	
 		/* Lover (9) */
 	ParseEsoCPValue(inputValues, "StaminaRegen", 59346);
@@ -13107,14 +13230,13 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
 		Magic			: inputValues.MagicDamageDone,
 		Shock			: inputValues.ShockDamageDone,
 		Flame			: inputValues.FlameDamageDone,
-		Cold			: inputValues.ColdDamageDone,
+		Frost			: inputValues.FrostDamageDone,
 		Poison			: inputValues.PoisonDamageDone,
 		Disease			: inputValues.DiseaseDamageDone,
 		Dot				: inputValues.DotDamageDone,
 		Direct			: inputValues.DirectDamageDone,
 		All				: inputValues.DamageDone,
-		Empower			: 0,	// Update18: Empower changed to affect Light
-								// Attacks only
+		Empower			: 0,	// Update18: Empower changed to affect Light Attacks only
 		MaelstromDamage : 0,
 		AOE				: inputValues.Skill.AOEDamageDone,
 		SingleTarget	: inputValues.Skill.SingleTargetDamageDone,
@@ -13135,6 +13257,8 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
  	g_LastSkillInputValues.useMaelstromDamage = false;
  	g_LastSkillInputValues.PoisonStaminaCost = inputValues.Skill.PoisonStaminaCost;
  	g_LastSkillInputValues.FlameAOEDamageDone = inputValues.Skill.FlameAOEDamageDone;
+ 	g_LastSkillInputValues.TwinSlashBleedDamage = inputValues.Set.TwinSlashBleedDamage;
+ 	g_LastSkillInputValues.MagickaAbilityDamageDone = inputValues.Set.MagickaAbilityDamageDone; 	
  	
  	var SpellDamageFactor = 1 + inputValues.Skill.SpellDamage + inputValues.Buff.SpellDamage;
  	var WeaponDamageFactor = 1 + inputValues.Skill.WeaponDamage + inputValues.Buff.WeaponDamage;
@@ -14249,7 +14373,7 @@ window.CreateEsoBuildItemSaveData = function (saveData, inputValues)
 	saveData.Stats["DestStaffWeaponCount"] = "" + inputValues.WeaponDestStaff;
 	saveData.Stats["FlameStaffWeaponCount"] = "" + inputValues.WeaponFlameStaff;
 	saveData.Stats["ShockStaffWeaponCount"] = "" + inputValues.WeaponShockStaff;
-	saveData.Stats["ColdStaffWeaponCount"] = "" + inputValues.WeaponColdStaff;
+	saveData.Stats["FrostStaffWeaponCount"] = "" + inputValues.WeaponFrostStaff;
 	saveData.Stats["1HShieldWeaponCount"] = "" + inputValues.Weapon1HShield;
 	saveData.Stats["LightArmorCount"] = "" + inputValues.ArmorLight;
 	saveData.Stats["MediumArmorCount"] = "" + inputValues.ArmorMedium;
@@ -14526,7 +14650,7 @@ window.CreateEsoBuildComputedSaveData = function (saveData, inputValues, barInde
 	AddEsoBuildComputedStatToSaveData(saveData, "SpellResist", prefix + "SpellResist");
 	AddEsoBuildComputedStatToSaveData(saveData, "PhysicalResist", prefix + "PhysicalResist");
 	AddEsoBuildComputedStatToSaveData(saveData, "CritResist", prefix + "CriticalResistance");
-	AddEsoBuildComputedStatToSaveData(saveData, "ColdResist", prefix + "DamageResistCold");
+	AddEsoBuildComputedStatToSaveData(saveData, "FrostResist", prefix + "DamageResistFrost");
 	AddEsoBuildComputedStatToSaveData(saveData, "DiseaseResist", prefix + "DamageResistDisease");
 	AddEsoBuildComputedStatToSaveData(saveData, "FlameResist", prefix + "DamageResistFire");
 	AddEsoBuildComputedStatToSaveData(saveData, "SpellResist", prefix + "DamageResistMagic");
@@ -15624,8 +15748,6 @@ window.UpdateEsoTooltipEnchantDamage = function (match, divData, enchantValue, d
 	var checkDamageType = damageType;
 	var itemData = g_EsoBuildItemData[g_EsoCurrentTooltipSlot];
 		
-	if (checkDamageType == "Frost") checkDamageType = "Cold";
-	
 	damageMod = g_EsoBuildLastInputValues[checkDamageType + "DamageDone"];
 	if (damageMod != null && damageMod !== 0) enchantFactor *= (1 + damageMod);	
 	
@@ -16331,8 +16453,6 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 	if (prefixWord == "absorbs") return match;
 	if (damageType == "Spell") return match;
 	if (damageType == "Weapon") return match;
-	
-	if (checkDamageType == "Frost") checkDamageType = "Cold";
 	
 	if (setDamageData != null)
 	{
