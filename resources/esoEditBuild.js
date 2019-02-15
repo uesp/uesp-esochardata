@@ -17414,6 +17414,7 @@ window.TestEsoSkillHealing = function (abilityId, skillData)
 {
 	var numMatches = 0;
 	var matches = [];
+	var matchCount = {};
 	
 	if (skillData.baseAbilityId == 31642) return false;
 	
@@ -17426,6 +17427,11 @@ window.TestEsoSkillHealing = function (abilityId, skillData)
 		{
 			matches.push(result[0]);
 			numMatches++;
+			
+			var subResult = result[0].match(/\|c[a-fA-F0-9]{6}[0-9]+\|r/);
+				
+			if (matchCount[subResult[0]] == null) matchCount[subResult[0]] = [];
+			matchCount[subResult[0]].push(result[0]);
 		}
 	}
 	
@@ -17434,11 +17440,21 @@ window.TestEsoSkillHealing = function (abilityId, skillData)
 		EsoBuildLog("\t" + skillData.name + ": Missing healing match!");
 		EsoBuildLog("\t\t" + skillData.description);
 	}
-	else if (numMatches > 1)
+	
+	for (var match in matchCount)
 	{
-		EsoBuildLog("\t" + skillData.name + ": Duplicate healing match (" + numMatches + ")!");
-		//EsoBuildLog("\t\t" + skillData.description);
-		EsoBuildLog("\t\t Matches: ", matches);
+		var matches = matchCount[match];
+		
+		if (matches.length > 1)
+		{
+			EsoBuildLog("\t" + skillData.name + ": Duplicate healing match (" + matches.length + ")!");
+			//EsoBuildLog("\t\t" + skillData.description);
+			
+			for (var i = 0; i < matches.length; ++i)
+			{
+				EsoBuildLog("\t\t", matches[i]);
+			}
+		}
 	}
 	
 	return numMatches;
