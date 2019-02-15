@@ -17252,19 +17252,196 @@ window.g_EsoBuildTestSkills = {};
 
 window.TestAllEsoSkills = function ()
 {
-	var inputValues = {};
-	
 	g_EsoBuildTestSkills = {};
 	
 	for (var abilityId in g_SkillsData)
 	{
-		inputValues = {};
+		var inputValues = {};
 		InitializeEsoBuildInputValues(inputValues);
 		
 		TestEsoSkill(abilityId, g_SkillsData[abilityId], inputValues);
 	}
 	
 	CheckEsoTestSkillResults();
+	TestAllEsoSkillsBleed();
+	TestAllEsoSkillsDamageShield();
+	TestAllEsoSkillsHealing();
+}
+
+
+window.TestAllEsoSkillsBleed = function ()
+{
+	EsoBuildLog("Testing All Skills Bleed Damage");
+	
+	for (var abilityId in g_SkillsData)
+	{
+		var skillData = g_SkillsData[abilityId];
+		
+		if (skillData.description.match(/bleed /) != null)
+		{
+			TestEsoSkillBleed(abilityId, skillData);
+		}
+	}
+
+}
+
+
+window.TestEsoSkillBleed = function (abilityId, skillData)
+{
+	var numMatches = 0;
+	
+	for (var i = 0; i < ESO_SKILL_BLEEDMATCHES.length; ++i)
+	{
+		var match = ESO_SKILL_BLEEDMATCHES[i];
+		
+		if (skillData.description.match(match) != null) numMatches++;
+	}
+	
+	if (numMatches == 0)
+	{
+		EsoBuildLog("\t" + skillData.name + ": Missing bleed damage match!");
+		EsoBuildLog("\t\t" + skillData.description);
+	}
+	else if (numMatches > 1)
+	{
+		EsoBuildLog("\t" + skillData.name + ": Duplicate bleed damage match (" + numMatches + ")!");
+		EsoBuildLog("\t\t" + skillData.description);
+	}
+	
+	return numMatches;
+}
+
+
+window.TestAllEsoSkillsDamageShield = function ()
+{
+	EsoBuildLog("Testing All Skills Damage Shield");
+	
+	for (var abilityId in g_SkillsData)
+	{
+		var skillData = g_SkillsData[abilityId];
+		
+		if (skillData.description.match(/damage shield/i) != null ||
+				skillData.description.match(/absorbing damage to allies /i) != null ||
+				skillData.description.match(/absorbing damage equivalent /i) != null ||
+				skillData.description.match(/a ward to absorb /i) != null ||
+				skillData.description.match(/absorb up to /i) != null ||
+				skillData.description.match(/absorbing up to /i) != null)
+			
+		{
+			TestEsoSkillDamageShield(abilityId, skillData);
+		}
+	}
+	
+}
+
+
+window.TestEsoSkillDamageShield = function (abilityId, skillData)
+{
+	var numMatches = 0;
+	var matches = [];
+	
+	if (skillData.baseAbilityId == 31642) return false;
+	
+	for (var i = 0; i < ESO_SKILL_DAMAGESHIELDMATCHES.length; ++i)
+	{
+		var match = ESO_SKILL_DAMAGESHIELDMATCHES[i].match;
+		var result = skillData.description.match(match);
+		
+		if (result != null) 
+		{
+			matches.push(result[0]);
+			numMatches++;
+		}
+	}
+	
+	if (numMatches == 0)
+	{
+		EsoBuildLog("\t" + skillData.name + ": Missing damage shield match!");
+		EsoBuildLog("\t\t" + skillData.description);
+	}
+	else if (numMatches > 1)
+	{
+		EsoBuildLog("\t" + skillData.name + ": Duplicate damage shield match (" + numMatches + ")!");
+		//EsoBuildLog("\t\t" + skillData.description);
+		EsoBuildLog("\t\t Matches: ", matches);
+	}
+	
+	return numMatches;
+}
+
+
+window.TestAllEsoSkillsHealing = function ()
+{
+	EsoBuildLog("Testing All Skills Healing");
+	
+	for (var abilityId in g_SkillsData)
+	{
+		var skillData = g_SkillsData[abilityId];
+		
+		/*
+			heals
+			heal you
+			heal for
+			healed for
+			the heal the
+			heal the target
+			you siphon
+			to restore * health
+			restoring * health
+			restores * health
+			additional * health
+			nearby allies for * Health
+		 */
+		
+		if (skillData.description.match(/healing (?!received|done|taken|for the |by |effects |ritual |with )/i) != null ||
+				skillData.description.match(/heal (?!Absorption |an ally |on yourself |yourself or an ally |youself or an ally)/i) != null ||
+				skillData.description.match(/heals /i) != null ||
+				skillData.description.match(/healed (?!and |under )/i) != null ||
+				skillData.description.match(/you siphon /i) != null ||
+				skillData.description.match(/to restore \|c[a-fA-F0-9]{6}[0-9]+\|r Health/i) != null ||
+				skillData.description.match(/additional \|c[a-fA-F0-9]{6}[0-9]+\|r Health/i) != null ||
+				skillData.description.match(/nearby allies for \|c[a-fA-F0-9]{6}[0-9]+\|r Health/i) != null)
+			
+		{
+			TestEsoSkillHealing(abilityId, skillData);
+		}
+	}
+	
+}
+
+
+window.TestEsoSkillHealing = function (abilityId, skillData)
+{
+	var numMatches = 0;
+	var matches = [];
+	
+	if (skillData.baseAbilityId == 31642) return false;
+	
+	for (var i = 0; i < ESO_SKILL_HEALINGMATCHES.length; ++i)
+	{
+		var match = ESO_SKILL_HEALINGMATCHES[i].match;
+		var result = skillData.description.match(match);
+		
+		if (result != null)
+		{
+			matches.push(result[0]);
+			numMatches++;
+		}
+	}
+	
+	if (numMatches == 0)
+	{
+		EsoBuildLog("\t" + skillData.name + ": Missing healing match!");
+		EsoBuildLog("\t\t" + skillData.description);
+	}
+	else if (numMatches > 1)
+	{
+		EsoBuildLog("\t" + skillData.name + ": Duplicate healing match (" + numMatches + ")!");
+		//EsoBuildLog("\t\t" + skillData.description);
+		EsoBuildLog("\t\t Matches: ", matches);
+	}
+	
+	return numMatches;
 }
 
 
