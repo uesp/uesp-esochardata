@@ -1862,6 +1862,7 @@ class EsoBuildDataEditor
 			"Set.GuardDamage" => array( "display" => "%" ),
 			"Set.MagickaAbilityDamageDone" => array( "display" => "%" ),
 			"Set.HealingAbilityCost" => array( "display" => "%" ),
+			"Set.BleedDamage" => array( "display" => "%" ),
 	);
 	
 	

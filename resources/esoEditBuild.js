@@ -4681,10 +4681,8 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		// Destruction Staff
 	// Grants bonus effects based on the element used:
 		// Fully charged heavy fire attacks deal 12% additional damage.
-		// Fully charged heavy frost attacks grant a damage shield that absorbs
-		// 1809 damage.
-		// Fully charged heavy shock attacks damage nearby enemies for 100% of
-		// the damage done.
+		// Fully charged heavy frost attacks grant a damage shield that absorbs 1809 damage.
+		// Fully charged heavy shock attacks damage nearby enemies for 100% of the damage done.
 	// Increases your chance to apply the Burning, Concussion, and Chilled status effects by 100% while you have a Destruction Staff equipped.
 	
 		// Bow
@@ -4698,8 +4696,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	
 		// Two Handed
 	// Grants a bonus based on the type of weapon equipped:
-		// Axes grant your melee attacks 16% chance to apply a bleed dealing
-		// 5635 Physical Damage over 6 seconds.
+		// Axes grant your melee attacks 16% chance to apply a bleed dealing 5635 Physical Damage over 6 seconds.
 	
 		// Racial
 	// Gives your melee attacks a 10% chance to restore 854 Health.
@@ -5305,6 +5302,7 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		statId: "BleedDamage",
+		display: "%",
 		match: /Increases the damage you deal with bleed damage over time effects by ([0-9]+\.?[0-9]*)%/i,
 	},	 
 	{
@@ -13290,6 +13288,7 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
  	g_LastSkillInputValues.useMaelstromDamage = false;
  	g_LastSkillInputValues.PoisonStaminaCost = inputValues.Skill.PoisonStaminaCost;
  	g_LastSkillInputValues.FlameAOEDamageDone = inputValues.Skill.FlameAOEDamageDone;
+ 	g_LastSkillInputValues.BleedDamage = inputValues.Set.BleedDamage;
  	g_LastSkillInputValues.TwinSlashBleedDamage = inputValues.Set.TwinSlashBleedDamage;
  	g_LastSkillInputValues.MagickaAbilityDamageDone = inputValues.Set.MagickaAbilityDamageDone;
  	g_LastSkillInputValues.HealingAbilityCost = inputValues.Set.HealingAbilityCost;
