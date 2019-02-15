@@ -1320,12 +1320,18 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>15 February 2019</b>
+			<ul>
+				<li>Fixed some more abilities that were not correctly affected by healing modifiers.</li>
+				<li>Fixed some abilities that were not correctly affected by damage shield modifiers.</li>
+			</ul>
+			<p>
 			<b>14 February 2019</b>
 			<ul>
 				<li>Added the 5 piece bonus from the Stygian set.</li>
 				<li>Added the 2 piece bonus from the Puncturing Remedy set.</li>					
 				<li>Added the 2 piece bonus from the Timeless Blessing set.</li>
-				<li>Fixed some abilities that were not correctly affected by healing effects.</li>
+				<li>Fixed some abilities that were not correctly affected by healing modifiers.</li>
 			</ul>
 			<p>
 			<b>13 February 2019</b>

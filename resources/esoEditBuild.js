@@ -10096,7 +10096,11 @@ window.UpdateEsoComputedStatsList_Real = function (keepSaveResults)
 	var inputValues = GetEsoInputValues();
 	var deferredStats = [];
 	
+	if (console && console.timeLog) console.timeLog('UpdateEsoComputedStatsList_Real');
+	
 	UpdateEsoTestBuildSkillInputValues(inputValues);
+	
+	if (console && console.timeLog) console.timeLog('UpdateEsoComputedStatsList_Real');
 		
 	for (var statId in g_EsoComputedStats)
 	{
@@ -10108,7 +10112,11 @@ window.UpdateEsoComputedStatsList_Real = function (keepSaveResults)
 			UpdateEsoComputedStat(statId, g_EsoComputedStats[statId], inputValues);
 	}
 	
+	if (console && console.timeLog) console.timeLog('UpdateEsoComputedStatsList_Real');
+	
 	UpdateEsoComputedStatsSpecial();
+	
+	if (console && console.timeLog) console.timeLog('UpdateEsoComputedStatsList_Real');
 	
 	for (var j = 0; j <= 10; ++j)
 	{
@@ -10127,6 +10135,8 @@ window.UpdateEsoComputedStatsList_Real = function (keepSaveResults)
 		}
 	}
 	
+	if (console && console.timeLog) console.timeLog('UpdateEsoComputedStatsList_Real');
+	
 	for (var name in g_EsoComputedStats)
 	{
 		inputValues[name] = g_EsoComputedStats[name].value;
@@ -10139,6 +10149,8 @@ window.UpdateEsoComputedStatsList_Real = function (keepSaveResults)
 	UpdateEsoBuildRawInputOtherEffects();
 	UpdateEsoBuildSetOtherEffectDesc();
 	
+	if (console && console.timeLog) console.timeLog('UpdateEsoComputedStatsList_Real');
+	
 	UpdateEsoReadOnlyStats(inputValues);
 	UpdateEsoBuildMundusList2();
 	UpdateEsoBuildSetInfo();
@@ -10146,6 +10158,8 @@ window.UpdateEsoComputedStatsList_Real = function (keepSaveResults)
 	UpdateEsoBuildToggleSkills();
 	UpdateEsoBuildItemLinkSetCounts();
 	UpdateEsoMitigation();
+	
+	if (console && console.timeLog) console.timeLog('UpdateEsoComputedStatsList_Real');
 	
 	UpdateEsoBuildVisibleBuffs();
 	UpdateEsoBuffSkillEnabled();
