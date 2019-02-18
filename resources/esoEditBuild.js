@@ -16571,7 +16571,7 @@ window.UpdateEsoSetDamageShieldReplace = function (match, div1, damageShieldValu
 }
 
 
-window.UpdateEsoSetHealReplace = function (match, prefixWord, div1, healValue, div2)
+window.UpdateEsoSetHealReplace = function (match, prefixWord, div1, healValue, div2, suffixWord)
 {
 	// heal for 23-2000 Health
 	// collecting the essence heals you 50-4300 Health
@@ -16591,7 +16591,7 @@ window.UpdateEsoSetHealReplace = function (match, prefixWord, div1, healValue, d
 		healValue = Math.floor(healValue * healFactor);
 	}
 	
-	return " " + prefixWord + " " + div1 + healValue + div2 + " Health";
+	return " " + prefixWord + " " + div1 + healValue + div2 + suffixWord;
 }
 
 
@@ -16635,11 +16635,10 @@ window.UpdateEsoBuildSetHealing = function (setDesc)
 	
 	// EsoBuildLog("UpdateEsoBuildSetHealing", setDesc);
 	
-	newDesc = newDesc.replace(/ (for|you|steals) ((?:\<div[^>]*\>)|)([0-9]+)((?:\<\/div\>)|) Health/gi, function(match, prefixWord, div1, healValue, div2) {
+	newDesc = newDesc.replace(/ (for|you|steals) ((?:\<div[^>]*\>)|)([0-9]+)((?:\<\/div\>)|)( Health|\.)/gi, function(match, prefixWord, div1, healValue, div2, suffixWord) {
 		++matchCount;
-		return UpdateEsoSetHealReplace(match, prefixWord, div1, healValue, div2, matchCount);
+		return UpdateEsoSetHealReplace(match, prefixWord, div1, healValue, div2, suffixWord, matchCount);
 	});
-	
 	
 	return newDesc;
 }
