@@ -1320,6 +1320,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>18 February 2019</b>
+			<ul>
+				<li>Healing done will now modify the 5 piece bonus of the Battalion Defender set.</li>
+			</ul>
+			<p>
 			<b>15 February 2019</b>
 			<ul>
 				<li>Fixed some more abilities that were not correctly affected by healing modifiers.</li>
