@@ -274,6 +274,11 @@ class EsoBuildDataEditor
 			"Set.PoisonDuration",
 			"Set.MagickaAbilityDamageDone",
 			"Set.HealingAbilityCost",
+			"Set.PhysicalDotDamageDone",
+			"Set.PoisonDotDamageDone",
+			"Set.DiseaseDotDamageDone",
+			"Set.HealthRegenResistFactor",
+			"Set.RangedDamageTaken",
 	);
 	
 	
@@ -1863,6 +1868,11 @@ class EsoBuildDataEditor
 			"Set.MagickaAbilityDamageDone" => array( "display" => "%" ),
 			"Set.HealingAbilityCost" => array( "display" => "%" ),
 			"Set.BleedDamage" => array( "display" => "%" ),
+			"Set.PhysicalDotDamageDone" => array( "display" => "%" ),
+			"Set.DiseaseDotDamageDone" => array( "display" => "%" ),
+			"Set.PoisonDotDamageDone" => array( "display" => "%" ),
+			"Set.HealthRegenResistFactor" => array( "display" => "%" ),
+			"Set.RangedDamageTaken" => array( "display" => "%" ),
 	);
 	
 	
@@ -1965,12 +1975,18 @@ class EsoBuildDataEditor
 			"HealthRegen" => array(
 					"title" => "Health Recovery",
 					"round" => "floor",
+					"deferLevel" => 2,
+					"depends" => array("PhysicalResist", "SpellResist"),
 					"compute" => array(
 							"round(5.592 * Level + 29.4)",
 							"Item.HealthRegen",
 							"+",
 							"Set.HealthRegen",
 							"+",
+											// Alessian Order set in update 21
+							"floor(Set.HealthRegenResistFactor * (PhysicalResist + SpellResist))",
+							"+",
+							
 							"Mundus.HealthRegen",
 							"+",
 							"Food.HealthRegen",

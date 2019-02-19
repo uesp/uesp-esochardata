@@ -4718,6 +4718,28 @@ window.ESO_SETEFFECT_MATCHES = [
 //Jorvuld's Guidance: (5 items) Increases the duration of all Major buffs, Minor buffs, and damage shields you apply to yourself and allies by 40%.
 //Piercing Spray (Perfected): (2 items) When you deal damage with Arrow Spray, you cause enemies hit to take 50% more damage from the direct damage portion of your next Snipe, Scatter Shot, or Poison Arrow used within 6 seconds.
 
+
+
+	{	// Deadly strike
+		statId: "PhysicalDotDamageDone",
+		display: "%",
+		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time abilities do by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{	// Deadly strike
+		statId: "DiseaseDotDamageDone",
+		display: "%",
+		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time abilities do by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{	// Deadly strike
+		statId: "PoisonDotDamageDone",
+		display: "%",
+		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time abilities do by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{	// Deadly strike
+		statId: "BleedDamage",
+		display: "%",
+		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time abilities do by ([0-9]+\.?[0-9]*)%/i,
+	},
 	{	// Stygian
 		statRequireId: "Stealthed",
 		statRequireValue: 1,
@@ -5786,7 +5808,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "TwiceBornStar",
 		match: /You can have two Mundus Stone boons at the same time./i,
 	},	
-	{
+	{	// Mark of the Pariah: TODO?
 		statId: "SpellResist",
 		factorValue: 0.233,
 		round: "floor",
@@ -5806,6 +5828,11 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "BreakFreeDuration",
 		match: /Increases the immunity to disabling effects after using Break Free by ([0-9]+\.?[0-9]*) seconds/i,
 	},
+	{
+		statId: "HealthRegenResistFactor",
+		display: "%",
+		match: /Increases your Health Recovery by ([0-9]+\.?[0-9]*)% of your sum total Physical and Spell Resistance/i,
+	},	 
 	{
 		statId: "BreakFreeDuration",
 		match: /Increases the duration of crowd control immunity granted by Break Free or when a crowd control effect expires by ([0-9]+\.?[0-9]*) seconds/i,
@@ -6120,6 +6147,26 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 		
 		// Optionally toggled set effects
+	 {	
+		id: "Beckoning Steel",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "RangedDamageTaken",
+		factorStatValue: -1,
+		display: "%",
+		match: /Generate an aura that causes you and [0-9] group members within the aura to take ([0-9]+)% less damage from projectiles/i,
+	},
+	{	
+		id: "Tzogvin's Warband",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponCrit",
+		maxTimes: 10,
+		enableBuffAtMax: "Minor Force",
+		match: /When you deal Critical Damage with a Light or Heavy Attack, you gain a stack of Precision, increasing your Weapon Critical by ([0-9]+) for [0-9]+ seconds, up to [0-9]+ stacks max/i,
+	},
 	{	
 		id: "Timeless Blessing",
 		setBonusCount: 1,
@@ -8145,7 +8192,24 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 		if (matchData.maxTimes != null)
 		{
 			var toggleData = g_EsoBuildToggledSetData[matchData.id];
-			if (toggleData != null && toggleData.count != null) statFactor = toggleData.count;
+			
+			if (toggleData != null && toggleData.count != null) 
+			{
+				statFactor = toggleData.count;
+				
+				if (matchData.enableBuffAtMax && toggleData.count >= matchData.maxTimes)
+				{
+					var buffData = g_EsoBuildBuffData[matchData.enableBuffAtMax];
+					
+					if (buffData)
+					{
+						buffData.skillEnabled = true;
+						buffData.skillAbilities.push(setData);
+						AddEsoItemRawOutputString(setData, "Adds Buff", matchData.enableBuffAtMax);
+						AddEsoItemRawOutputString(buffData, "Set Effect", setData.name + " set");
+					}
+				}
+			}
 		}
 		
 		if (matchData.factorValue != null)
@@ -8154,6 +8218,12 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 		}
 		
 		statValue = statValue * statFactor;
+		
+		if (matchData.factorStatId != null)
+		{
+			var factorStat = inputValues[matchData.factorStatId];
+			if (factorStat != null) statFactor += parseFloat(factorStat);			
+		}
 	
 		if (matchData.round == "floor") statValue = Math.floor(statValue);
 		if (matchData.display == "%") statValue = statValue/100;
@@ -8182,6 +8252,8 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 
 window.UpdateEsoBuildSetOtherEffectDesc = function ()
 {
+	g_EsoCurrentTooltipSlot = "";
+	
 	for (var setName in g_EsoBuildSetData)
 	{
 		var setData = g_EsoBuildSetData[setName];
@@ -11906,6 +11978,27 @@ window.ShowEsoSkillDetailsPopup = function (abilityId)
 }
 
 
+window.UpdateEsoItemDetails = function (slotId, itemData)
+{
+	UpdateEsoBuildTooltip(null, null, slotId);
+	/*
+	UpdateEsoBuildTooltip(null, null, "Head");
+	UpdateEsoBuildTooltip(null, null, "Shoulders");
+	UpdateEsoBuildTooltip(null, null, "Chest");
+	UpdateEsoBuildTooltip(null, null, "Hands");
+	UpdateEsoBuildTooltip(null, null, "Waist");
+	UpdateEsoBuildTooltip(null, null, "Legs");
+	UpdateEsoBuildTooltip(null, null, "Feet");
+	UpdateEsoBuildTooltip(null, null, "Neck");
+	UpdateEsoBuildTooltip(null, null, "Ring1");
+	UpdateEsoBuildTooltip(null, null, "Ring2");
+	UpdateEsoBuildTooltip(null, null, "MainHand1");
+	UpdateEsoBuildTooltip(null, null, "MainHand2");
+	UpdateEsoBuildTooltip(null, null, "OffHand1");
+	UpdateEsoBuildTooltip(null, null, "OffHand2"); */
+}
+
+
 window.ShowEsoItemDetailsPopup = function (slotId)
 {
 	var detailsPopup = $("#esotbItemDetailsPopup");
@@ -11913,6 +12006,8 @@ window.ShowEsoItemDetailsPopup = function (slotId)
 	var itemData = g_EsoBuildItemData[slotId];
 	if (itemData == null) return false;
 	if (itemData.rawOutput == null) return false;
+	
+	UpdateEsoItemDetails(slotId, itemData);
 	
 	var detailsHtml = "";
 	
@@ -13292,6 +13387,11 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
  	g_LastSkillInputValues.TwinSlashBleedDamage = inputValues.Set.TwinSlashBleedDamage;
  	g_LastSkillInputValues.MagickaAbilityDamageDone = inputValues.Set.MagickaAbilityDamageDone;
  	g_LastSkillInputValues.HealingAbilityCost = inputValues.Set.HealingAbilityCost;
+ 	
+ 	g_LastSkillInputValues.DotDamageDone = {};
+ 	g_LastSkillInputValues.DotDamageDone.Physical = inputValues.Set.PhysicalDotDamageDone;
+ 	g_LastSkillInputValues.DotDamageDone.Poison = inputValues.Set.PoisonDotDamageDone;
+ 	g_LastSkillInputValues.DotDamageDone.Disease = inputValues.Set.DiseaseDotDamageDone;
  	
  	var SpellDamageFactor = 1 + inputValues.Skill.SpellDamage + inputValues.Buff.SpellDamage;
  	var WeaponDamageFactor = 1 + inputValues.Skill.WeaponDamage + inputValues.Buff.WeaponDamage;
@@ -15779,19 +15879,41 @@ window.UpdateEsoTooltipEnchantDamage = function (match, divData, enchantValue, d
 	var enchantFactor = 1;
 	var damageMod;
 	var checkDamageType = damageType;
-	var itemData = g_EsoBuildItemData[g_EsoCurrentTooltipSlot];
+	var itemData = g_EsoBuildItemData[g_EsoCurrentTooltipSlot] || {};
+	
+	if (itemData.rawOutput == null) itemData.rawOutput = {};
 		
 	damageMod = g_EsoBuildLastInputValues[checkDamageType + "DamageDone"];
-	if (damageMod != null && damageMod !== 0) enchantFactor *= (1 + damageMod);	
+	
+	if (damageMod != null && damageMod !== 0) 
+	{
+		itemData.rawOutput["Enchantment " + checkDamageType + "DamageDone"] = (damageMod * 100).toFixed(1) + "%";
+		enchantFactor *= (1 + damageMod);	
+	}
 	
 	damageMod = g_EsoBuildLastInputValues.DamageDone;
-	if (damageMod != null && damageMod !== 0) enchantFactor *= (1 + damageMod);
+	
+	if (damageMod != null && damageMod !== 0) 
+	{
+		itemData.rawOutput["Enchantment DamageDone"] = (damageMod * 100).toFixed(1) + "%";
+		enchantFactor *= (1 + damageMod);
+	}
 	
 	damageMod = g_EsoBuildLastInputValues.Skill.SingleTargetDamageDone;
-	if (damageMod != null && damageMod !== 0) enchantFactor *= (1 + damageMod);
+	
+	if (damageMod != null && damageMod !== 0) 
+	{
+		itemData.rawOutput["Enchantment SingleTargetDamageDone"] = (damageMod * 100).toFixed(1) + "%";
+		enchantFactor *= (1 + damageMod);
+	}
 	
 	damageMod = g_EsoBuildLastInputValues.CP.DirectDamageDone;
-	if (damageMod != null && damageMod !== 0) enchantFactor *= (1 + damageMod);
+	
+	if (damageMod != null && damageMod !== 0) 
+	{
+		itemData.rawOutput["Enchantment CP.DirectDamageDon"] = (damageMod * 100).toFixed(1) + "%";
+		enchantFactor *= (1 + damageMod);
+	}
 	
 		// TODO: Remove check after update 21 goes live
 	if (g_EsoBuildLastInputValues.UseUpdate21Rules)
@@ -15799,6 +15921,7 @@ window.UpdateEsoTooltipEnchantDamage = function (match, divData, enchantValue, d
 		if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
 		{
 			enchantFactor *= 0.5;
+			itemData.rawOutput["Enchantment 1H Weapon"] = "50%";
 		}
 	}
 
@@ -15815,10 +15938,17 @@ window.UpdateEsoTooltipEnchantHealing = function (match, divData, enchantValue)
 {
 	var enchantFactor = 1;
 	var healingMod;
-	var itemData = g_EsoBuildItemData[g_EsoCurrentTooltipSlot];
+	var itemData = g_EsoBuildItemData[g_EsoCurrentTooltipSlot] || {};
 	
+	if (itemData.rawOutput == null) itemData.rawOutput = {};
+		
 	healingMod = g_EsoBuildLastInputValues["HealingDone"];
-	if (healingMod != null && healingMod !== 0) enchantFactor *= (1 + healingMod);
+	
+	if (healingMod != null && healingMod !== 0) 
+	{
+		itemData.rawOutput["Enchantment HealingDone"] = (healingMod*100).toFixed(1) + "%";
+		enchantFactor *= (1 + healingMod);
+	}
 	
 		// TODO: Remove check after update 21 goes live
 	if (g_EsoBuildLastInputValues.UseUpdate21Rules)
@@ -15826,6 +15956,7 @@ window.UpdateEsoTooltipEnchantHealing = function (match, divData, enchantValue)
 		if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
 		{
 			enchantFactor *= 0.5;
+			itemData.rawOutput["Enchantment 1H Weapon"] = "50%";
 		}
 	}
 	
@@ -15842,10 +15973,17 @@ window.UpdateEsoTooltipEnchantDamageShield = function (match, divData, enchantVa
 {
 	var enchantFactor = 1;
 	var shieldMod;
-	var itemData = g_EsoBuildItemData[g_EsoCurrentTooltipSlot];
+	var itemData = g_EsoBuildItemData[g_EsoCurrentTooltipSlot] || {};
+	
+	if (itemData.rawOutput == null) itemData.rawOutput = {};
 	
 	shieldMod = g_EsoBuildLastInputValues["DamageShield"];
-	if (shieldMod != null && shieldMod !== 0) enchantFactor *= (1 + shieldMod);
+	
+	if (shieldMod != null && shieldMod !== 0) 
+	{
+		itemData.rawOutput["Enchantment DamageShield"] = (shieldMod*100).toFixed(1) + "%";
+		enchantFactor *= (1 + shieldMod);
+	}
 	
 		// TODO: Remove check after update 21 goes live
 	if (g_EsoBuildLastInputValues.UseUpdate21Rules)
@@ -15853,6 +15991,7 @@ window.UpdateEsoTooltipEnchantDamageShield = function (match, divData, enchantVa
 		if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
 		{
 			enchantFactor *= 0.5;
+			itemData.rawOutput["Enchantment 1H Weapon"] = "50%";
 		}
 	}
 	
@@ -15868,7 +16007,9 @@ window.UpdateEsoTooltipEnchantDamageShield = function (match, divData, enchantVa
 window.UpdateEsoTooltipEnchantOther = function (match, header, enchantValue, footer)
 {
 	var enchantFactor = 1;
-	var itemData = g_EsoBuildItemData[g_EsoCurrentTooltipSlot];
+	var itemData = g_EsoBuildItemData[g_EsoCurrentTooltipSlot] || {};
+	
+	if (itemData.rawOutput == null) itemData.rawOutput = {};
 
 		// TODO: Remove check after update 21 goes live
 	if (g_EsoBuildLastInputValues.UseUpdate21Rules)
@@ -15876,6 +16017,7 @@ window.UpdateEsoTooltipEnchantOther = function (match, header, enchantValue, foo
 		if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
 		{
 			enchantFactor *= 0.5;
+			itemData.rawOutput["Enchantment 1H Weapon"] = "50%";
 		}
 	}
 	
@@ -15888,23 +16030,45 @@ window.UpdateEsoTooltipEnchantOther = function (match, header, enchantValue, foo
 }
 
 
-window.UpdateEsoBuildTooltipEnchant = function (enchantBlock, tooltip, parent)
+window.UpdateEsoBuildTooltipEnchant = function (enchantBlock, tooltip, parent, slotId)
 {
-	var enchantHtml = enchantBlock.html();
+	var enchantHtml = "";
+		
+	if (tooltip)
+	{
+		enchantHtml = enchantBlock.html();
+		g_EsoCurrentTooltipSlot = $(parent).parent().attr("slotid");
+	}
+	else if (slotId)
+	{
+		g_EsoCurrentTooltipSlot = slotId;
+		
+		var enchant = g_EsoBuildEnchantData[g_EsoCurrentTooltipSlot];
+		var item  = g_EsoBuildItemData[g_EsoCurrentTooltipSlot];
+		
+		if (item != null) enchantHtml = item.enchantDesc;
+		if (enchant != null && enchant.enchantDesc) enchantHtml = enchant.enchantDesc;
+		
+		if (enchantHtml == "") return;
+		enchantHtml = RemoveEsoDescriptionFormats(enchantHtml);
+	}
+	else
+	{
+		return;
+	}
+	
 	var newEnchantHtml = enchantHtml;
 	
-	g_EsoCurrentTooltipSlot = $(parent).parent().attr("slotid");
+	newEnchantHtml = newEnchantHtml.replace(/Deals (?:\<div([^>]*)\>|)([0-9]+)(?:\<\/div\>|) ([A-Za-z]+) Damage/gi, UpdateEsoTooltipEnchantDamage);
+	newEnchantHtml = newEnchantHtml.replace(/restores (?:\<div([^>]*)\>|)([0-9]+)(?:\<\/div\>|) Health/gi, UpdateEsoTooltipEnchantHealing);
+	newEnchantHtml = newEnchantHtml.replace(/Grants a (?:\<div([^>]*)\>|)([0-9]+)(?:\<\/div\>|) point Damage shield/gi, UpdateEsoTooltipEnchantDamageShield);
 	
-	newEnchantHtml = newEnchantHtml.replace(/Deals \<div([^>]*)\>([0-9]+)\<\/div\> ([A-Za-z]+) Damage/gi, UpdateEsoTooltipEnchantDamage);
-	newEnchantHtml = newEnchantHtml.replace(/restores \<div([^>]*)\>([0-9]+)\<\/div\> Health/gi, UpdateEsoTooltipEnchantHealing);
-	newEnchantHtml = newEnchantHtml.replace(/Grants a \<div([^>]*)\>([0-9]+)\<\/div\> point Damage shield/gi, UpdateEsoTooltipEnchantDamageShield);
+	newEnchantHtml = newEnchantHtml.replace(/(restores (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|) Stamina)/gi, UpdateEsoTooltipEnchantOther);
+	newEnchantHtml = newEnchantHtml.replace(/(restores (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|) Magicka)/gi, UpdateEsoTooltipEnchantOther);
+	newEnchantHtml = newEnchantHtml.replace(/(Spell Resistance by (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|) for)/gi, UpdateEsoTooltipEnchantOther);
+	newEnchantHtml = newEnchantHtml.replace(/(Spell Damage by (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|) for)/gi, UpdateEsoTooltipEnchantOther);
 	
-	newEnchantHtml = newEnchantHtml.replace(/(restores \<div[^>]*\>)([0-9]+)(\<\/div\> Stamina)/gi, UpdateEsoTooltipEnchantOther);
-	newEnchantHtml = newEnchantHtml.replace(/(restores \<div[^>]*\>)([0-9]+)(\<\/div\> Magicka)/gi, UpdateEsoTooltipEnchantOther);
-	newEnchantHtml = newEnchantHtml.replace(/(Spell Resistance by \<div[^>]*\>)([0-9]+)(\<\/div\> for)/gi, UpdateEsoTooltipEnchantOther);
-	newEnchantHtml = newEnchantHtml.replace(/(Spell Damage by \<div[^>]*\>)([0-9]+)(\<\/div\> for)/gi, UpdateEsoTooltipEnchantOther);
-	
-	if (newEnchantHtml != enchantHtml) enchantBlock.html(newEnchantHtml);
+	if (tooltip && newEnchantHtml != enchantHtml) enchantBlock.html(newEnchantHtml);
 }
 
 
@@ -16482,6 +16646,9 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 	var isAoE = false;
 	var isSingleTarget = false;
 	var isDoT = false;
+	var itemData = g_EsoBuildItemData[g_EsoCurrentTooltipSlot] || {};
+	
+	if (itemData.rawOutput == null) itemData.rawOutput = {};
 	
 	if (prefixWord == "absorbs") return match;
 	if (damageType == "Spell") return match;
@@ -16509,36 +16676,65 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 		if (setDamageData.damageType != null) checkDamageType = setDamageData.damageType;
 	}
 	
-	// EsoBuildLog("UpdateEsoSetDamageData", match, isAoE, isDoT, damageValue,
-	// damageType);
+	// EsoBuildLog("UpdateEsoSetDamageData", match, isAoE, isDoT, damageValue, damageType);
 	
 	damageMod = g_EsoBuildLastInputValues[checkDamageType + "DamageDone"];
-	if (damageMod != null && damageMod !== 0) damageFactor *= (1 + damageMod);	
+	
+	if (damageMod != null && damageMod !== 0) 
+	{
+		itemData.rawOutput["Set " + checkDamageType + "DamageDone"] = (damageMod * 100).toFixed(1) + "%";
+		damageFactor *= (1 + damageMod);	
+	}
 	
 	damageMod = g_EsoBuildLastInputValues.DamageDone;
-	if (damageMod != null && damageMod !== 0) damageFactor *= (1 + damageMod);
+	
+	if (damageMod != null && damageMod !== 0) 
+	{
+		itemData.rawOutput["Set DamageDone"] = (damageMod * 100).toFixed(1) + "%";
+		damageFactor *= (1 + damageMod);
+	}
 	
 	if (isAoE)
 	{
 		damageMod = g_EsoBuildLastInputValues.Skill.AOEDamageDone;
-		if (damageMod != null && damageMod !== 0) damageFactor *= (1 + damageMod);
+		
+		if (damageMod != null && damageMod !== 0) 
+		{
+			itemData.rawOutput["Set AOEDamageDone"] = (damageMod * 100).toFixed(1) + "%";
+			damageFactor *= (1 + damageMod);
+		}
 	}
 	else if (isSingleTarget)
 	{
 		damageMod = g_EsoBuildLastInputValues.Skill.SingleTargetDamageDone;
-		if (damageMod != null && damageMod !== 0) damageFactor *= (1 + damageMod);
+		
+		if (damageMod != null && damageMod !== 0) 
+		{
+			itemData.rawOutput["Set SingleTargetDamageDone"] = (damageMod * 100).toFixed(1) + "%";
+			damageFactor *= (1 + damageMod);
+		}
 	}
 	
 	if (isDoT)
 	{
 		damageMod = g_EsoBuildLastInputValues.Skill.DotDamageDone;
-		if (damageMod != null && damageMod !== 0) damageFactor *= (1 + damageMod);
+		
+		if (damageMod != null && damageMod !== 0) 
+		{
+			itemData.rawOutput["Set DotDamageDone"] = (damageMod * 100).toFixed(1) + "%";
+			damageFactor *= (1 + damageMod);
+		}
 	}
 	else
 	{
 			// TODO: Confirm
 		damageMod = g_EsoBuildLastInputValues.Skill.DirectDamageDone;
-		if (damageMod != null && damageMod !== 0) damageFactor *= (1 + damageMod);
+		
+		if (damageMod != null && damageMod !== 0) 
+		{
+			itemData.rawOutput["Set DirectDamageDone"] = (damageMod * 100).toFixed(1) + "%";
+			damageFactor *= (1 + damageMod);
+		}
 	}
 
 	if (damageFactor != 0)
@@ -16558,9 +16754,17 @@ window.UpdateEsoSetDamageShieldReplace = function (match, div1, damageShieldValu
 
 	var shieldFactor = 1;
 	var shieldMod;
+	var itemData = g_EsoBuildItemData[g_EsoCurrentTooltipSlot] || {};
+	
+	if (itemData.rawOutput == null) itemData.rawOutput = {};
 	
 	shieldMod = g_EsoBuildLastInputValues["DamageShield"];
-	if (shieldMod != null && shieldMod !== 0) shieldFactor *= (1 + shieldMod);
+	
+	if (shieldMod != null && shieldMod !== 0) 
+	{
+		itemData.rawOutput["Set DamageShield"] = (shieldMod * 100).toFixed(1) + "%";
+		shieldFactor *= (1 + shieldMod);
+	}
 	
 	if (shieldFactor != 0)
 	{
@@ -16580,11 +16784,19 @@ window.UpdateEsoSetHealReplace = function (match, prefixWord, div1, healValue, d
 	
 	var healFactor = 1;
 	var healMod;
+	var itemData = g_EsoCurrentTooltipSlot[g_EsoCurrentTooltipSlot] || {};
+	
+	if (itemData.rawOutput == null) itemData.rawOutput = {};
 	
 	if (prefixWord != "for" && prefixWord != "you" && prefixWord != "steals") return match;
 	
 	healMod = g_EsoBuildLastInputValues["HealingDone"];
-	if (healMod != null && healMod !== 0) healFactor *= (1 + healMod);
+	
+	if (healMod != null && healMod !== 0) 
+	{
+		itemData.rawOutput["Set HealingDone"] = (healMod * 100).toFixed(1) + "%";
+		healFactor *= (1 + healMod);
+	}
 	
 	if (healFactor != 0)
 	{
@@ -16667,8 +16879,7 @@ window.UpdateEsoBuildSetAllFullText = function (setText)
 	matchResult = setText.match(/PART OF THE ([A-Za-z0-9_\'\- ]+) SET/i);
 	if (matchResult && matchResult[1]) setName = matchResult[1].toLowerCase();
 	
-	// EsoBuildLog("UpdateEsoBuildSetAllFullText", matchResult, setName,
-	// ESO_SETPROCDAMAGE_DATA[setName], setText);
+	// EsoBuildLog("UpdateEsoBuildSetAllFullText", matchResult, setName, ESO_SETPROCDAMAGE_DATA[setName], setText);
 	
 	setDamageData = ESO_SETPROCDAMAGE_DATA[setName];
 	return UpdateEsoBuildSetAllData(setText, setDamageData);
@@ -16685,31 +16896,56 @@ window.UpdateEsoBuildSetAll = function (setName, setDesc)
 }
 
 
-window.UpdateEsoBuildTooltipSet = function (setBlock, tooltip, parent)
+window.UpdateEsoBuildTooltipSet = function (setBlock, tooltip, parent, slotId)
 {
-	var setHtml = setBlock.html();
+	var setHtml = "";
 	var newSetHtml;
+	
+	if (tooltip)
+	{
+		setHtml = setBlock.html();
+		g_EsoCurrentTooltipSlot = $(parent).parent().attr("slotid");
+	}
+	else if (slotId)
+	{
+		g_EsoCurrentTooltipSlot = slotId;
+		
+		var item  = g_EsoBuildItemData[g_EsoCurrentTooltipSlot];
+		if (item == null || item.setName == "") return;
+		
+		setHtml = item.setName + "\n" + item.setBonusDesc1 + "\n" + item.setBonusDesc2 + "\n" + item.setBonusDesc3 + "\n" + item.setBonusDesc4 + "\n" + item.setBonusDesc5 + "\n";
+	}
+	else
+	{
+		return;
+	}
 	
 	newSetHtml = UpdateEsoBuildSetAllFullText(setHtml);
 	
-	if (newSetHtml != setHtml) setBlock.html(newSetHtml);
+	if (tooltip && newSetHtml != setHtml) setBlock.html(newSetHtml);
 }
 
 
-window.UpdateEsoBuildTooltip = function (tooltip, parent)
+window.UpdateEsoBuildTooltip = function (tooltip, parent, slotId)
 {
-	var enchantBlock = $(tooltip).find("#esoil_itemenchantblock");
-	var setBlock = $(tooltip).find("#esoil_itemsetblock");
+	var enchantBlock = null;
+	var setBlock = null;
 	
-	UpdateEsoBuildTooltipEnchant(enchantBlock, tooltip, parent);
-	UpdateEsoBuildTooltipSet(setBlock, tooltip, parent);
+	if (tooltip)
+	{
+		enchantBlock = $(tooltip).find("#esoil_itemenchantblock");
+		setBlock = $(tooltip).find("#esoil_itemsetblock");
+	}
+	
+	UpdateEsoBuildTooltipEnchant(enchantBlock, tooltip, parent, slotId);
+	UpdateEsoBuildTooltipSet(setBlock, tooltip, parent, slotId);
 }
 
 
 window.OnEsoTooltipUpdate = function (event, tooltip, parent)
 {
 	// EsoBuildLog("OnEsoTooltipUpdate", tooltip, parent);
-	UpdateEsoBuildTooltip(tooltip, parent);	
+	UpdateEsoBuildTooltip(tooltip, parent, null);	
 }
 
 
