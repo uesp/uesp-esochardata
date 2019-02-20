@@ -67,7 +67,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Half-effect enchantments on 1H weapons.</li>
 				<li>The Shadow changed to 13% Critical Damage.</li>
 				<li>New CP bonus to health/magicka/stamina (not yet verified).</li>
-				<li>Updated skills and CPs as of patch v4.3.2.</li>
+				<li>Updated skills and CPs as of patch v4.3.3.</li>
 			</ul>			
 			<p>
 			<div id="esotbAttributes">
@@ -817,9 +817,9 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Grave-Stake Collector</option>
 					<option>Green Pact</option>
 					<option>Gryphon's Ferocity</option>
+					<option>Hagraven's Garden</option>
 					<option>Hand of Mephala</option>
-					<option>Hanu's Compassion</option>
-					<option>Hargraven's Garden</option>
+					<option>Hanu's Compassion</option>					
 					<option>Hatchling's Shell</option>
 					<option>Haven of Ursus</option>
 					<option>Hawk's Eye</option>
@@ -1320,6 +1320,13 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>20 February 2019</b>
+			<ul>
+				<li>Fixed many set "proc" tooltips to be modified by the correct modifiers.</li>
+				<li>Turned the 5 piece bonus from the Beckoning Steel set into a buff.</li>
+				<li>Fixed the mispelling of "Hagraven's Garden" set in the quick equip setup. Added toggle for the 5 piece bonus of this set.</li>
+			</ul>			
+			<p>
 			<b>19 February 2019</b>
 			<ul>
 				<li>Added support for new/updated sets from update 21: Tzogvin's Warband, Deadly strike, Alessian Order, and Beckoning Steel.</li>
