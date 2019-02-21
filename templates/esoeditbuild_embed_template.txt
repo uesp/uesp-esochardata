@@ -1312,8 +1312,6 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<ul>
 				<li>Do a forced reload of the page in your browser to ensure you have the latest JavaScript files.</li>
 				<li>The builder does not yet implement auto-levelling as introduced in One Tamriel. As such it is only accurate for CP160 builds.</li>
-				<li>Weapon enchantments are not currently affected by +damage modifiers.</li>
-				<li>Weapon enchantment cooldown time is not modified by Infused or Torug's Pact effects.</li>
 				<li>The IE browser can cause issues with stats updating and saving builds due to very slow JS execution in some cases. Using Chrome, FF, or Edge browsers is recommended.</li>
 			</ul>
 			<p>
