@@ -1320,6 +1320,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>21 February 2019</b>
+			<ul>
+				<li>The tooltips for the 5 piece bonus of the Thews of Harbringer and Alessian Order sets are now updated based on the current stats.</li>
+			</ul>			
+			<p>
 			<b>20 February 2019</b>
 			<ul>
 				<li>Fixed many set "proc" tooltips to be modified by the correct modifiers.</li>

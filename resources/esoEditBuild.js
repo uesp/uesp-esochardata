@@ -16918,7 +16918,7 @@ window.UpdateEsoSetHealReplace = function (match, prefixWord, div1, healValue, d
 	
 	var healFactor = 1;
 	var healMod;
-	var itemData = g_EsoCurrentTooltipSlot[g_EsoCurrentTooltipSlot] || {};
+	var itemData = g_EsoBuildItemData[g_EsoCurrentTooltipSlot] || {};
 	
 	if (itemData.rawOutput == null) itemData.rawOutput = {};
 	
@@ -16949,7 +16949,7 @@ window.UpdateEsoBuildSetDamageData = function (setDesc, setDamageData)
 	
 	// EsoBuildLog("UpdateEsoBuildSetDamageData", setDesc, setDamageData);
 	
-	newDesc = newDesc.replace(/ ([A-Za-z]+) ((?:\<div[^>]*\>)|)([0-9]+)((?:\<\/div\>)|) ((?:[a-zA-Z]+)|)( |)damage/gi, function(match, prefixWord, div1, damageValue, div2, damageType, extraSpace) {
+	newDesc = newDesc.replace(/ ([A-Za-z\:]+) ((?:\<div[^>]*\>)|)([0-9]+)((?:\<\/div\>)|) ((?:[a-zA-Z]+)|)( |)damage/gi, function(match, prefixWord, div1, damageValue, div2, damageType, extraSpace) {
 		++matchCount;
 		return UpdateEsoSetDamageDataReplace(match, prefixWord, div1, damageValue, div2, damageType, extraSpace, setDamageData, matchCount);
 	});
@@ -16990,14 +16990,40 @@ window.UpdateEsoBuildSetHealing = function (setDesc)
 }
 
 
+window.UpdateEsoBuildSetOther = function (setDesc)
+{
+	var newDesc = setDesc;
+	var itemData = g_EsoBuildItemData[g_EsoCurrentTooltipSlot] || {};
+	
+	if (itemData.rawOutput == null) itemData.rawOutput = {};
+	
+		// TODO: Test for update21, Alessian Order
+	newDesc = newDesc.replace(/(\(5 items\) Increase your Health Recovery by )([0-9]+)(% of your sum total Physical and Spell Resistance.\sCurrent Bonus Health Recovery: )([0-9]+)/i, function(match, prefix, percent, middle, healthRegen) {
+		healthRegen = Math.floor((g_EsoBuildLastInputValues.SpellResist + g_EsoBuildLastInputValues.PhysicalResist) * percent / 100);
+		itemData.rawOutput["Tooltip: Set HealthRegen"] = "(" + g_EsoBuildLastInputValues.SpellResist + " + " + g_EsoBuildLastInputValues.PhysicalResisthealthRegen + ") * " + percent + "% = " + healthRegen;
+		return prefix + percent + middle + healthRegen;
+	});
+	
+		// Thews of the Harbinger
+	newDesc = newDesc.replace(/(\(5 items\) When you block a direct damage attack, you deal damage to your attacker equal to )([0-9]+)(% of your current Health. Current value: )([0-9]+)/i, function(match, prefix, percent, middle, damage) {
+		damage = Math.floor(g_EsoBuildLastInputValues.Health * percent / 100);
+		itemData.rawOutput["Tooltip: Set Damage"] = "" + g_EsoBuildLastInputValues.Health + " * " + percent + "% = " + damage;
+		return prefix + percent + middle + damage;
+	});
+	
+	return newDesc;
+}
+
+
 window.UpdateEsoBuildSetAllData = function (setDesc, setDamageData)
 {
 	var newDesc = setDesc;
 	
+	newDesc = UpdateEsoBuildSetOther(newDesc);
 	newDesc = UpdateEsoBuildSetDamageData(newDesc, setDamageData);
 	newDesc = UpdateEsoBuildSetDamageShield(newDesc);
-	newDesc = UpdateEsoBuildSetHealing(newDesc);
-	
+	newDesc = UpdateEsoBuildSetHealing(newDesc);	
+		
 	// EsoBuildLog("UpdateEsoBuildSetAllData", newDesc, setDesc, setDamageData);
 	
 	return newDesc;
