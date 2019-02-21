@@ -9008,6 +9008,11 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 	{
 		var weaponPower = parseFloat(itemData.weaponPower);
 		
+		var transmuteTraitMatch = null;
+		var transmuteTraitValue = 0;
+		if (itemData.origTraitDesc != null) transmuteTraitMatch = itemData.origTraitDesc.match(/[0-9]+.?[0-9]*/);
+		if (transmuteTraitMatch != null && transmuteTraitMatch[0] != null) transmuteTraitValue = parseFloat(transmuteTraitMatch[0]);
+		
 		if (slotId == "OffHand1" || slotId == "OffHand2") 
 		{
 			inputValues.WeaponOffHandDamage = weaponPower;
@@ -9017,7 +9022,7 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 			// Fix original nirnhoned trait for transmuted weapons
 		if (itemData.origTrait == 26 && itemData.transmuteTrait > 0 && itemData.transmuteTrait != 26)
 		{
-			weaponPower = Math.floor(weaponPower / (1 + traitValue/100));
+			weaponPower = Math.floor(weaponPower / (1 + transmuteTraitValue/100));
 		}
 		
 			// Fix transmuted nirnhoned trait
