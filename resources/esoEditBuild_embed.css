@@ -1204,3 +1204,15 @@ button.esotbWeaponSelect {
 	color: #777;
 	display: inline-block;
 }
+
+.esotbBuffGroup {
+	border-bottom: solid 1px lightgray;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.esotbBuffDisabled {
+    pointer-events: none;
+    opacity: 0.5;
+    background: #CCC;
+}

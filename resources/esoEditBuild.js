@@ -3,9 +3,6 @@
  * 		- Description of input types (plain, percent, special, etc...)
  * 		- Poison buffs
  * 		- Hide skill lines, auto-purchase free skills.
- * 		- Skill point count bug.
- * 		- Dark Veil passive affect tooltip durations (durations within the tooltip text).
- * 		- World in Ruin DK passive effects.
  * 
  */
 
@@ -269,8 +266,74 @@ window.ESOBUILD_SKILLTYPES =
 window.g_EsoBuildBuffData =
 {
 		
+		"Ravage Magicka" : 
+		{
+			group: "Poison",
+			enabled: false,
+			skillEnabled : false,
+			value : 0.10,
+			display: "%",
+			category: "Buff",
+			statId : "MagickaCost",
+			icon : "/esoui/art/icons/crafting_poison_001_blue_005.png",
+		},
+		"Ravage Stamina" : 
+		{
+			group: "Poison",
+			enabled: false,
+			skillEnabled : false,
+			value : 0.10,
+			display: "%",
+			category: "Buff",
+			statId : "StaminaCost",
+			icon : "/esoui/art/icons/crafting_poison_001_green_005.png",
+		},
+		"Hindrance" : 
+		{
+			group: "Poison",
+			enabled: false,
+			skillEnabled : false,
+			value : -0.40,
+			display: "%",
+			category: "Buff",
+			statId : "MovementSpeed",
+			icon : "/esoui/art/icons/ability_debuff_minor_cowardice.png",
+		},
+		"Minor Cowardice" : 
+		{
+			group: "Poison",
+			enabled: false,
+			skillEnabled : false,
+			value : 0.60,
+			display: "%",
+			category: "Buff",
+			statId : "UltimateCost",
+			icon : "/esoui/art/icons/ability_debuff_minor_cowardice.png",
+		},
+		"Minor Uncertainty" : 
+		{
+			group: "Poison",
+			enabled: false,
+			skillEnabled : false,
+			value : -0.10,
+			display: "%",
+			category: "Buff",
+			statId : "CritDamage",
+			icon : "/esoui/art/icons/ability_debuff_minor_uncertainty.png",
+		},
+		"Minor Enervation" : 
+		{
+			group: "Poison",
+			enabled: false,
+			skillEnabled : false,
+			value : -1320,
+			category: "Buff",
+			statIds : [ "SpellCrit", "WeaponCrit" ],
+			icon : "/esoui/art/icons/ability_debuff_minor_enervation.png",
+		},
 		"Beckoning Steel" : 
 		{
+			group: "Set",
 			enabled: false,
 			skillEnabled : false,
 			value : -0.10,
@@ -281,6 +344,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Healing Mage (Debuff)" : 
 		{
+			group: "Set",
 			enabled: false,
 			skillEnabled : false,
 			value : -430,
@@ -290,6 +354,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Warhorn" : 
 		{
+			group: "Skill",
 			enabled: false,
 			skillEnabled : false,
 			values : [0.10, 0.10],
@@ -299,6 +364,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Aegis" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : -0.05,
@@ -310,6 +376,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Slayer" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.05,
@@ -320,6 +387,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Slayer" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.15,
@@ -330,6 +398,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Force" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.15,
@@ -340,6 +409,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Force" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.10,
@@ -349,6 +419,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Mending" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.25,
@@ -358,6 +429,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Mending" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.08,
@@ -367,6 +439,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Sorcery" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.20,
@@ -376,6 +449,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Sorcery" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.10,
@@ -385,6 +459,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Brutality" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.20,
@@ -394,6 +469,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Brutality" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.10,
@@ -403,6 +479,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Resolve" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : 5280,
@@ -412,6 +489,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Resolve (Bonus)" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : 2640,
@@ -421,6 +499,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Resolve" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : 1320,
@@ -430,6 +509,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Ward" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : 5280,
@@ -439,6 +519,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Ward (Bonus)" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : 2640,
@@ -448,6 +529,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Ward" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : 1320,
@@ -457,6 +539,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Savagery" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : 2191,
@@ -465,6 +548,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Savagery" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : 1314,
@@ -473,6 +557,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Prophecy" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : 2191,
@@ -481,6 +566,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Prophecy" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : 1314,
@@ -489,6 +575,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Fortitude" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.20,
@@ -498,6 +585,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Fortitude" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.10,
@@ -507,6 +595,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Intellect" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.20,
@@ -516,6 +605,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Intellect" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.10,
@@ -525,6 +615,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Endurance" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.20,
@@ -534,6 +625,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Endurance" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.10,
@@ -543,6 +635,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Expedition" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.30,
@@ -552,6 +645,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Expedition" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.10,
@@ -561,6 +655,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Vitality" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.30,
@@ -570,6 +665,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Vitality" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.08,
@@ -579,6 +675,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Empower" :
 		{
+			group: "Other",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.20,
@@ -587,9 +684,9 @@ window.g_EsoBuildBuffData =
 			statDesc : "Increases the damage of your next Light Attack by ",
 			icon : "/esoui/art/icons/ability_warrior_012.png",
 		},
-		"Major Courage" :			// TODO: Check how its added to other SD/WD
-									// stats
+		"Major Courage" :			// TODO: Check how its added to other SD/WD stats
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : 258,
@@ -600,6 +697,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Evasion" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : -0.25,
@@ -610,6 +708,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Evasion" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : -0.10,
@@ -620,6 +719,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Berserk" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.25,
@@ -629,6 +729,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Berserk" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.08,
@@ -638,6 +739,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Protection" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : -0.30,
@@ -646,9 +748,18 @@ window.g_EsoBuildBuffData =
 			statId : "DamageTaken",
 			icon : "/esoui/art/icons/ability_templar_sun_shield.png",
 		},
-		// Minor Lifesteal: Heal 2% damage done
+ 		"Minor Lifesteal" : 
+		{
+			group: "Minor",
+			enabled: false,
+			skillEnabled : false,
+			value : "Heals you and your allies for 600 Health every 1 second when damaging them.",
+			statId : "OtherEffects",
+			icon : "/esoui/art/icons/ability_buff_minor_lifesteal.png",
+		},  
 		"Minor Protection" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : -0.08,
@@ -659,6 +770,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Defile" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : -0.30,
@@ -669,6 +781,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Defile" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : -0.15,
@@ -679,6 +792,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Heroism" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : "Grants you 3 Ultimate every 1 second for 9 seconds.",
@@ -687,6 +801,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Heroism" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : "Grants you 1 Ultimate every 1.5 seconds for 9 seconds.",
@@ -695,6 +810,7 @@ window.g_EsoBuildBuffData =
 		},  
 		"Major Fracture" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : -5280,
@@ -704,6 +820,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Fracture" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : -1320,
@@ -714,6 +831,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Breach" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : -5280,
@@ -724,6 +842,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Breach" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : -1320,
@@ -733,6 +852,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Maim" : 
 		{
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			value : -0.30,
@@ -742,6 +862,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Maim" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : -0.15,
@@ -751,6 +872,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Vulnerability" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.08,
@@ -760,8 +882,9 @@ window.g_EsoBuildBuffData =
 			combineAs: "*%",
 			icon : "/esoui/art/icons/death_recap_poison_ranged.png",
 		},
-		"Exploiter Off-Balance (Target)" : 
+		"Exploiter Off-Balance" : 
 		{
+			group: "Target",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.10,
@@ -771,6 +894,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Weapon Damage Enchantment" :
 		{
+			group: "Other",
 			enabled: false,
 			skillEnabled : false,
 			visible : false,
@@ -782,6 +906,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Maelstrom DW Enchantment" :
 		{
+			group: "Set",
 			enabled: false,
 			skillEnabled : false,
 			visible : false,
@@ -794,6 +919,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Maelstrom Destruction Enchantment" :
 		{
+			group: "Set",
 			enabled: false,
 			skillEnabled : false,
 			visible : false,
@@ -806,6 +932,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Lycanthropy" :
 		{
+			group: "Skill",
 			enabled: false,
 			skillEnabled : false,
 			visible : false,
@@ -818,6 +945,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Mechanical Acuity" : 
 		{
+			group: "Set",
 			enabled: false,
 			skillEnabled : false,
 			values : [ 21910, 21910 ],
@@ -827,6 +955,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Ayleid Health Bonus" : 
 		{
+			group: "Other",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.10,
@@ -836,6 +965,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Yokudan Might" : 
 		{
+			group: "Set",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.08,
@@ -846,6 +976,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Magicka Attunement" : 
 		{
+			group: "Other",
 			enabled: false,
 			skillEnabled : false,
 			value : 1320,
@@ -856,6 +987,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Nirncrux Infusion" : 
 		{
+			group: "Other",
 			enabled: false,
 			skillEnabled : false,
 			value : 1320,
@@ -866,6 +998,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Firelight" : 
 		{
+			group: "Other",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.05,
@@ -878,6 +1011,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Blade Cloak" : 
 		{
+			group: "Skill",
 			enabled: false,
 			skillEnabled : false,
 			value : -0.25,
@@ -889,6 +1023,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Toughness" : 
 		{
+			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			value : 0.10,
@@ -898,19 +1033,17 @@ window.g_EsoBuildBuffData =
 		},
 		"Worms Raiment" : 
 		{
+			group: "Set",
 			enabled: false,
 			skillEnabled : false,
 			value : -0.04,
 			display: '%',
 			statId : "MagickaCost",
-			icon : "/esoui/art/icons/gear_artifactwormcultlight_head_a.png", // TODO:
-																				// Not
-																				// the
-																				// correct
-																				// one?
+			icon : "/esoui/art/icons/gear_artifactwormcultlight_head_a.png", // TODO: Not the correct one?
 		},
 		"Hircines Veneer" : 
 		{
+			group: "Set",
 			enabled: false,
 			skillEnabled : false,
 			value : -0.04,
@@ -925,6 +1058,7 @@ window.g_EsoBuildBuffData =
 		 */
 		"Powerful Assault" : 
 		{
+			group: "Set",
 			enabled: false,
 			skillEnabled : false,
 			value : 164,
@@ -936,8 +1070,8 @@ window.g_EsoBuildBuffData =
 			/* Target Buffs */
 		"Alkosh (Target)" : 
 		{
-			// Reduces the Physical and Spell Resistance of any enemy hit by
-			// 35-3010 for 10 seconds.
+			// Reduces the Physical and Spell Resistance of any enemy hit by 35-3010 for 10 seconds.
+			group: "Target",
 			enabled: false,
 			skillEnabled : false,
 			values : [ -3010, -3010 ],
@@ -948,8 +1082,8 @@ window.g_EsoBuildBuffData =
 		},
 		"Crusher Enchantment (Target)" :
 		{
-			// Reduce the target's Spell Resist and Physical Resist by 1622 for
-			// 5 seconds.
+			// Reduce the target's Spell Resist and Physical Resist by 1622 for 5 seconds.
+			group: "Target",
 			enabled: false,
 			skillEnabled : false,
 			// visible : false,
@@ -962,8 +1096,8 @@ window.g_EsoBuildBuffData =
 		},
 		"Crusher Enchantment Infused (Target)" :
 		{
-			// Reduce the target's Spell Resist and Physical Resist by 1946 for
-			// 5 seconds.
+			// Reduce the target's Spell Resist and Physical Resist by 1946 for 5 seconds.
+			group: "Target",
 			enabled: false,
 			skillEnabled : false,
 			// visible : false,
@@ -976,8 +1110,8 @@ window.g_EsoBuildBuffData =
 		},
 		"Crusher Enchantment Infused + Torug (Target)" :
 		{
-			// Reduce the target's Spell Resist and Physical Resist by 1946 for
-			// 5 seconds.
+			// Reduce the target's Spell Resist and Physical Resist by 1946 for 5 seconds.
+			group: "Target",
 			enabled: false,
 			skillEnabled : false,
 			// visible : false,
@@ -988,6 +1122,17 @@ window.g_EsoBuildBuffData =
 			statDescs : [ "Reduces the target's Physical Resistance by ", "Reduces the target's Spell Resistance by " ],
 			icon : "/esoui/art/icons/ability_armor_001.png",
 		},
+		"Ebon Armory" : 
+		{
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			category: "Item",
+			statId : "Health",
+			value : 1118,
+			icon : "/esoui/art/icons/ability_warrior_028.png",
+		},
+		
 		
 		/*
 		 * Changed in update 18 to be Major Fracture "Night Mothers Gaze
@@ -1006,6 +1151,7 @@ window.g_EsoBuildBuffData =
 		 */
 		"Major Fracture (Target)" : 
 		{
+			group: "Target",
 			enabled: false,
 			skillEnabled : false,
 			value : -5280,
@@ -1016,6 +1162,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Fracture (Target)" : 
 		{
+			group: "Target",
 			enabled: false,
 			skillEnabled : false,
 			value : -1320,
@@ -1026,6 +1173,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Major Breach (Target)" : 
 		{
+			group: "Target",
 			enabled: false,
 			skillEnabled : false,
 			value : -5280,
@@ -1036,6 +1184,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Breach (Target)" : 
 		{
+			group: "Target",
 			enabled: false,
 			skillEnabled : false,
 			value : -1320,
@@ -1046,6 +1195,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Maim (Target)" : 
 		{
+			group: "Target",
 			enabled: false,
 			skillEnabled : false,
 			category: "Target",
@@ -1057,6 +1207,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Minor Vulnerability (Target)" : 
 		{
+			group: "Target",
 			enabled: false,
 			skillEnabled : false,
 			category: "Target",
@@ -1066,19 +1217,11 @@ window.g_EsoBuildBuffData =
 			combineAs: "*%",
 			icon : "/esoui/art/icons/death_recap_poison_ranged.png",
 		},
-		"Ebon Armory" : 
-		{
-			enabled: false,
-			skillEnabled : false,
-			category: "Item",
-			statId : "Health",
-			value : 1118,
-			icon : "/esoui/art/icons/ability_warrior_028.png",
-		},
 		
 			/* Cyrodiil */
 		"Offensive Scroll Bonus" : 
 		{
+			group: "Cyrodiil",
 			visible : false,
 			toggleVisible : true,
 			enabled: false,
@@ -1091,6 +1234,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Defensive Scroll Bonus" : 
 		{
+			group: "Cyrodiil",
 			visible : false,
 			toggleVisible : true,
 			enabled: false,
@@ -1103,6 +1247,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Battle Spirit" :
 		{
+			group: "Cyrodiil",
 			visible : false,
 			toggleVisible : true,
 			enabled: false,
@@ -13668,13 +13813,34 @@ window.CreateEsoBuildBuffElements = function ()
 {
 	var buffElement = $("#esotbBuffInfo");
 	var output = "";
+	var groupOutputs = {};
 	var keys = Object.keys(g_EsoBuildBuffData).sort();
+	
+		/* Predefine to set display order */
+	groupOutputs["Cyrodiil"] = "";
+	groupOutputs["Major"] = "";
+	groupOutputs["Minor"] = "";
+	groupOutputs["Poison"] = "";
+	groupOutputs["Skill"] = "";
+	groupOutputs["Set"] = "";
+	groupOutputs["Target"] = "";
+	groupOutputs["Other"] = "";	
 	
 	for (var i = 0; i < keys.length; ++i)
 	{
 		var buffName = keys[i];
 		var buffData = g_EsoBuildBuffData[buffName];
-		output += CreateEsoBuildBuffHtml(buffName, buffData);
+		var group = buffData.group || "Other";
+		
+		if (groupOutputs[group] == null) groupOutputs[group] = "";
+		groupOutputs[group] += CreateEsoBuildBuffHtml(buffName, buffData);
+	}
+	
+	for (var group in groupOutputs)
+	{
+		output += "<div class='esotbBuffGroup'>" + group + "</div>";
+		output += groupOutputs[group];
+		output += "";
 	}
 	
 	buffElement.html(output);
@@ -13685,6 +13851,7 @@ window.CreateEsoBuildBuffHtml = function (buffName, buffData)
 {
 	var icon = buffData.icon;
 	var extraAttributes = "";
+	var extraClass = "";
 	var checked = "";
 	
 	buffData.name = buffName;
@@ -13692,10 +13859,10 @@ window.CreateEsoBuildBuffHtml = function (buffName, buffData)
 	if (icon == null) icon = "/unknown.png";
 	icon = ESO_ICON_URL + icon;
 	
-	if (buffData.visible === false) extraAttributes = "style='display: none;'";
+	if (buffData.visible === false) extraClass = "esotbBuffDisabled";
 	if (buffData.enabled) checked = "checked";
 	
-	var output = "<div class='esotbBuffItem' " + extraAttributes + " buffid='" + buffName + "'>";
+	var output = "<div class='esotbBuffItem " + extraClass + "' " + extraAttributes + " buffid='" + buffName + "'>";
 	
 	output += "<input class='esotbBuffCheck' type='checkbox' buffid='" + buffName + "' " + checked + "> ";
 	output += "<img class='esotbBuffIcon' src='" + icon + "'>";
@@ -13807,12 +13974,12 @@ window.UpdateEsoBuildVisibleBuffs = function ()
 		
 		if (buffData.toggleVisible === true && buffData.visible)
 		{
-			element.show();
+			element.removeClass("esotbBuffDisabled");
 			element.find(".esotbBuffDesc").html(CreateEsoBuildBuffDescHtml(buffData));
 		}
 		else if (buffData.toggleVisible === true && !buffData.visible)
 		{
-			element.hide();
+			element.addClass("esotbBuffDisabled");
 		}
 		else if (buffData.forceUpdate)
 		{
