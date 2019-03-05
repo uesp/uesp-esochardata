@@ -952,9 +952,9 @@ button.esotbWeaponSelect {
 
 .esotbBuffDisable,
 .esotbBuffDisable:hover {
-	background-color: #ddd !important;
+	background-color: #ccf !important;
     border-radius: 15px !important;
-    color: #777 !important;
+    color: #000 !important;
 }
 
 .esotbBuffItemSelect {

@@ -172,8 +172,8 @@ window.ESO_MUNDUS_BUFF_DATA =
 	"The Shadow" : {
 		abilityId: 13984,
 		icon : "/esoui/art/icons/ability_mundusstones_012.png",
-		description: "Increases your Critical Damage and Healing by 9%.",
-	},
+		description: "Increases your Critical Damage and Healing by 13%.",
+	},	
 	"The Steed" : {
 		abilityId: 13977,
 		icon : "/esoui/art/icons/ability_mundusstones_006.png",
@@ -194,15 +194,6 @@ window.ESO_MUNDUS_BUFF_DATA =
 		icon : "/esoui/art/icons/ability_mundusstones_001.png",
 		description: "Increases your Weapon Damage by 238.",
 	},
-};
-
-
-window.ESO_MUNDUS_BUFF_DATA_UPDATE21 = {
-	"The Shadow" : {
-		abilityId: 13984,
-		icon : "/esoui/art/icons/ability_mundusstones_012.png",
-		description: "Increases your Critical Damage and Healing by 13%.",
-	},	
 };
 
 
@@ -1878,7 +1869,9 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 
 window.ESO_PASSIVEEFFECT_MATCHES = [
                                     
-	// Increases the range of long-range abilities by 2 meters while near a keep. Any ability with a range greater than 28 meters is affected.
+	// Reach: Increases the range of long-range abilities by 2 meters while near a keep. Any ability with a range greater than 28 meters is affected.
+	// WHILE YOU ARE EMPEROR Increases your damage done with Siege Weapons to keeps and other Siege Weapons by 100% while in your campaign.
+
 	
 	{
 		statId: "StatusEffectChance",
@@ -5986,7 +5979,7 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		statId: "HealthRegenResistFactor",
 		display: "%",
-		match: /Increases your Health Recovery by ([0-9]+\.?[0-9]*)% of your sum total Physical and Spell Resistance/i,
+		match: /Increase your Health Recovery by ([0-9]+\.?[0-9]*)% of your sum total Physical and Spell Resistance/i,
 	},	 
 	{
 		statId: "BreakFreeDuration",
@@ -6305,7 +6298,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 4,
 		buffId: "Beckoning Steel",
 		enableOffBar : true,
-		match: /Generate an aura that causes you and [0-9] group members within the aura to take ([0-9]+)% less damage from projectiles/i,
+		match: /Generate an aura that causes you and [0-9]+ group members within the aura to take ([0-9]+)% less damage from projectiles/i,
 	},
 		
 		// Optionally toggled set effects
@@ -6327,7 +6320,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "WeaponCrit",
 		maxTimes: 10,
 		enableBuffAtMax: "Minor Force",
-		match: /When you deal Critical Damage with a Light or Heavy Attack, you gain a stack of Precision, increasing your Weapon Critical by ([0-9]+) for [0-9]+ seconds, up to [0-9]+ stacks max/i,
+		match: /When you deal Critical Damage, you gain a stack of Precision, increasing your Weapon Critical by ([0-9]+) for [0-9]+ seconds, up to [0-9]+ stacks max/i,
 	},
 	{	
 		id: "Timeless Blessing",
@@ -6744,6 +6737,14 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "WeaponDamage",
 		match: /Adds ([0-9]+) Weapon Damage to your damaging abilities when you use them to attack an enemy from behind/i,
+	},
+	{
+		id: "Flanking Strategist",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: /Adds ([0-9]+) Weapon Damage to your damaging abilities when you attack an enemy from behind or their sides/i,
 	},
 	{
 		id: "Ironblood",
@@ -9322,7 +9323,7 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 	}
 	else if (itemData.trait == 33) // Jewelry Infused
 	{
-		// TODO
+		// Implemented elsewhere
 	}
 	else if (itemData.trait == 32) // Jewelry Protective
 	{
@@ -9516,13 +9517,9 @@ window.GetEsoInputItemEnchantWeaponValues = function (inputValues, slotId, itemD
 	if (itemData.type != 1) return false;
 	if (inputValues.Set.EnchantPotency != null && itemData.weaponType != 14) enchantFactor *= (1 + inputValues.Set.EnchantPotency);
 	
-		// TODO: Remove check after update 21 goes live
-	if (g_EsoBuildLastInputValues.UseUpdate21Rules)
+	if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
 	{
-		if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
-		{
-			enchantFactor *= 0.5;
-		}
+		enchantFactor *= 0.5;
 	}
 	
 	for (var i = 0; i < ESO_ENCHANT_WEAPON_MATCHES.length; ++i)
@@ -9603,13 +9600,9 @@ window.GetEsoInputItemEnchantOtherHandWeaponValues = function (inputValues, slot
 		enchantFactor *= (1 + 0.3);
 	}
 	
-		// TODO: Remove check after update 21 goes live
-	if (g_EsoBuildLastInputValues.UseUpdate21Rules)
+	if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
 	{
-		if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
-		{
-			enchantFactor *= 0.5;
-		}
+		enchantFactor *= 0.5;
 	}
 	
 	for (var i = 0; i < ESO_ENCHANT_OTHERHAND_WEAPON_MATCHES.length; ++i)
@@ -9900,14 +9893,11 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	{
 		// inputValues.Mundus.CritDamage = 0.12;
 		
-		inputValues.Mundus.CritDamage  = 0.09;		// Update 15
-		inputValues.Mundus.CritHealing = 0.09;		
+		//inputValues.Mundus.CritDamage  = 0.09;		// Update 15
+		//inputValues.Mundus.CritHealing = 0.09;		
 		
-		if (inputValues.UseUpdate21Rules) 
-		{
-			inputValues.Mundus.CritDamage  = 0.13;		// Update 21
-			inputValues.Mundus.CritHealing = 0.13;
-		}
+		inputValues.Mundus.CritDamage  = 0.13;		// Update 21
+		inputValues.Mundus.CritHealing = 0.13;
 		
 		AddEsoInputStatSource("Mundus.CritDamage",  { mundus: mundusName, value: inputValues.Mundus.CritDamage });
 		AddEsoInputStatSource("Mundus.CritHealing", { mundus: mundusName, value: inputValues.Mundus.CritHealing });
@@ -13484,7 +13474,7 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
 	
 	g_LastSkillInputValues.SkillLineCost = inputValues.SkillCost;
 	g_LastSkillInputValues.DamageShield = inputValues.DamageShield;
-	g_LastSkillInputValues.SkillDirectDamage = inputValues.SkillDirectDamage;	// TODO: Implement on skill tooltip
+	g_LastSkillInputValues.SkillDirectDamage = inputValues.SkillDirectDamage;
 	g_LastSkillInputValues.ElfBaneDuration = inputValues.Set.ElfBaneDuration;
 	
 	g_LastSkillInputValues.MagickaCost = 
@@ -16104,14 +16094,10 @@ window.UpdateEsoTooltipEnchantDamage = function (match, divData, enchantValue, d
 		enchantFactor *= (1 + damageMod);
 	}
 	
-		// TODO: Remove check after update 21 goes live
-	if (g_EsoBuildLastInputValues.UseUpdate21Rules)
+	if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
 	{
-		if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
-		{
-			enchantFactor *= 0.5;
-			itemData.rawOutput["Tooltip: Enchantment 1H Weapon"] = "50%";
-		}
+		enchantFactor *= 0.5;
+		itemData.rawOutput["Tooltip: Enchantment 1H Weapon"] = "50%";
 	}
 
 	if (enchantFactor != 0)
@@ -16139,14 +16125,10 @@ window.UpdateEsoTooltipEnchantHealing = function (match, divData, enchantValue)
 		enchantFactor *= (1 + healingMod);
 	}
 	
-		// TODO: Remove check after update 21 goes live
-	if (g_EsoBuildLastInputValues.UseUpdate21Rules)
+	if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
 	{
-		if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
-		{
-			enchantFactor *= 0.5;
-			itemData.rawOutput["Tooltip: Enchantment 1H Weapon"] = "50%";
-		}
+		enchantFactor *= 0.5;
+		itemData.rawOutput["Tooltip: Enchantment 1H Weapon"] = "50%";
 	}
 	
 	if (enchantFactor != 0)
@@ -16174,14 +16156,10 @@ window.UpdateEsoTooltipEnchantDamageShield = function (match, divData, enchantVa
 		enchantFactor *= (1 + shieldMod);
 	}
 	
-		// TODO: Remove check after update 21 goes live
-	if (g_EsoBuildLastInputValues.UseUpdate21Rules)
+	if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
 	{
-		if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
-		{
-			enchantFactor *= 0.5;
-			itemData.rawOutput["Tooltip: Enchantment 1H Weapon"] = "50%";
-		}
+		enchantFactor *= 0.5;
+		itemData.rawOutput["Tooltip: Enchantment 1H Weapon"] = "50%";
 	}
 	
 	if (enchantFactor != 0)
@@ -16200,14 +16178,10 @@ window.UpdateEsoTooltipEnchantOther = function (match, header, enchantValue, foo
 	
 	if (itemData.rawOutput == null) itemData.rawOutput = {};
 
-		// TODO: Remove check after update 21 goes live
-	if (g_EsoBuildLastInputValues.UseUpdate21Rules)
+	if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
 	{
-		if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
-		{
-			enchantFactor *= 0.5;
-			itemData.rawOutput["Tooltip: Enchantment 1H Weapon"] = "50%";
-		}
+		enchantFactor *= 0.5;
+		itemData.rawOutput["Tooltip: Enchantment 1H Weapon"] = "50%";
 	}
 	
 	if (enchantFactor != 0)
@@ -17168,9 +17142,9 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 	var itemData = g_EsoBuildItemData[g_EsoCurrentTooltipSlot] || {};
 	
 	if (itemData.rawOutput == null) itemData.rawOutput = {};
-	
-		// TODO: Test for update21, Alessian Order
-	newDesc = newDesc.replace(/(\(5 items\) Increase your Health Recovery by )([0-9]+)(% of your sum total Physical and Spell Resistance.\sCurrent Bonus Health Recovery: )([0-9]+)/i, function(match, prefix, percent, middle, healthRegen) {
+
+		// Alessian Order
+	newDesc = newDesc.replace(/(\(5 items\) Increase your Health Recovery by \<div.*\>)([0-9]+)(\<\/div\>% of your sum total Physical and Spell Resistance\..*Current Bonus Health Recovery: )([0-9]+)/i, function(match, prefix, percent, middle, healthRegen) {
 		healthRegen = Math.floor((g_EsoBuildLastInputValues.SpellResist + g_EsoBuildLastInputValues.PhysicalResist) * percent / 100);
 		itemData.rawOutput["Tooltip: Set HealthRegen"] = "(" + g_EsoBuildLastInputValues.SpellResist + " + " + g_EsoBuildLastInputValues.PhysicalResisthealthRegen + ") * " + percent + "% = " + healthRegen;
 		return prefix + percent + middle + healthRegen;
@@ -17810,7 +17784,7 @@ window.CreateMitigationRawDataBlock = function(title, value, type, cumulativeMit
 
 window.FixupEsoBuildDataUpdate21 = function()
 {
-	Object.assign(window.ESO_MUNDUS_BUFF_DATA, window.ESO_MUNDUS_BUFF_DATA_UPDATE21);
+	//Object.assign(window.ESO_MUNDUS_BUFF_DATA, window.ESO_MUNDUS_BUFF_DATA_UPDATE21);
 }
 
 
@@ -17995,10 +17969,12 @@ window.TestEsoSkillHealing = function (abilityId, skillData)
 			matches.push(result[0]);
 			numMatches++;
 			
-			var subResult = result[0].match(/\|c[a-fA-F0-9]{6}[0-9]+\|r/);
-				
-			if (matchCount[subResult[0]] == null) matchCount[subResult[0]] = [];
-			matchCount[subResult[0]].push(result[0]);
+			if (matchCount[result[0]] == null) matchCount[result[0]] = [];
+			matchCount[result[0]].push(result[0]);
+			
+			//var subResult = result[0].match(/\|c[a-fA-F0-9]{6}[0-9]+\|r/);
+			//if (matchCount[subResult[0]] == null) matchCount[subResult[0]] = [];
+			//matchCount[subResult[0]].push(result[0]);
 		}
 	}
 	
@@ -18107,6 +18083,9 @@ window.TestEsoSkill = function (abilityId, abilityData, inputValues)
 	
 	var rawDesc = RemoveEsoDescriptionFormats(skillDesc);
 	if (rawDesc == "" || abilityData == null) return;
+	
+		/* Ignore crafting passives */
+	if (abilityData.skillType == 8) return true;
 	
 	var matchArray = ESO_ACTIVEEFFECT_MATCHES;
 	if (abilityData.isPassive) matchArray = ESO_PASSIVEEFFECT_MATCHES;
@@ -18301,6 +18280,8 @@ window.TestEsoSetBonus = function(setDesc, rawOutput)
 {
 	var foundMatch = false;
 	
+	if (setDesc == "") return true;
+	
 	if (setDesc == null || setDesc == "") return true;
 	
 	for (var i = 0; i < ESO_SETEFFECT_MATCHES.length; ++i)
@@ -18370,11 +18351,124 @@ window.TestEsoSetBonus = function(setDesc, rawOutput)
 }
 
 
+window.TEST_ESOSETS_SKIPMATCHES = [
+		
+	/chance to spawn a volcano/i,
+	/remove up to 5 negative effects/i,
+	/(When|While) you deal direct damage, you restore/i,
+	/(When|While) (you|using) [a-zA-Z\-, ]+ you (restore|generate|deal|heal|grant them|apply|will deal)/i,
+	/(When|While) you [a-zA-Z\-, ]+ you have a [0-9]+% chance to (deal|cause|grant|blind|reflect|apply|surround|restore|heal|gain|create|summon|draw|call|overload|become|breath|reduce|spawn)/i,
+	/(When|While) you [a-zA-Z\-, ]+ you have a [0-9]+% chance to cause/i,	
+	/(When|While) you [a-zA-Z\-, ]+ under [0-9]+% (Health|Stamina|Magicka), (you |)(knockdown|gain a damage shield|deal|summon|knockback|heal|restore)/i,
+	/(When|While) you [a-zA-Z\-, ]+ dealing/i,
+	/Gain a damage shield equal to/i,
+	/When an enemy within [0-9]+ meters of you dies, (you| )(gain|heal)/i,
+	/Your Bow abilities reduce the Movement Speed of any enemy/i,
+	/gain Major Expedition/i,
+	/gain Major Evasion/i,
+	/gain Stealth Detection/i,
+	/with Minor Vulnerability/i,
+	/apply Minor Defile/i,
+	/gain Major Protection/i,
+	/gain Major Aegis/i,
+	/gain Major Slayer/i,
+	/gain Major Mending/i,
+	/gain Minor Force/i,
+	/gain Major Heroism/i,
+	/gain Major Vitality/i,
+	/applying Major Maim/i,
+	/gain Minor Mending/i,
+	/gain Major Resolve/i,
+	/gain Minor Protection/i,
+	/your Light and Heavy Attacks deal an additional/i,
+	/your Light Attacks deal an additional/i,
+	/When you [a-zA-Z\-, ]+ under [0-9]+% Magicka, (you |)restore/i,
+	/(When|While) you are under [0-9]+% Health, (you knockback|dealing damage)/i,
+	/When you kill an enemy, you (heal|fill)/i,
+	/When an enemy dies within 2 seconds of being damaged by you, you gain/,
+	/When you cast a Magicka ability, you (have an|gain)/i,
+	/When an enemy within [0-9]+ meters of you dies, (heal|you gain)/i,
+	/remove up to [0-9]+ negative effects /i,
+	/After successfully blocking, (you |)(heal|have|gain)/i,
+	/When you die/i,
+	/you place a bomb on the enemy/i,
+	/Increases the direct damage/i,
+	/Grand Healing/i,
+	/Low Slash/i,
+	/Critical Charge/i,
+	/Volley/i,
+	/Uppercut/i,
+	/Blade Cloak/i,
+	/Scatter Shot/i,
+	/Steadfast Ward/i,
+	/you create a web for/i,
+	/Gain a damage shield that absorbs /i,
+	/When your pets attack an enemy/i,
+	/When you dodge an attack/i,
+	/you leave behind a rune/i,
+	/When an ally activates your synergy/i,
+	/When you activate a synergy/i,
+	/they violently explode/i,
+	/Mark of Revenge/,
+	/inject a leeching poison/i,
+	/to cast a web around/i,
+	/drop a poisonous spore/i,
+	/pull the enemy to you/i,
+	/dreugh limbs/i,
+	/furthest enemy from you that each deal/i,
+	/create lava pools/i,
+	/random Major Buffs/i,
+	/summon a Hunger/i,
+	/deal an additional/i,
+	/pool of quenching blood/i,
+	/launch a Fire, Ice, Shock, or Disease ball/i,
+	/summon a Skeever corpse/i,
+	/Increases the duration of all Major buffs/i,
+	/When you deal damage with Whirlwind/i,
+	/When you deal damage with Arrow Spray/i,
+	/cast of Force Shock/i,
+	/Whenever you successfully Dodge, heal/i,
+	/Current Bonus Health Recovery/i,
+	/You can only be affected by one instance of Beckoning Steel/i,
+	/While you are Sneaking or invisible and are not moving, heal/i,
+	/circle of consecrated ground/i,
+	/fire a Shadow Pearl/i,
+	/Harmful winds deal/i,
+	/Armor of the Code/i,
+	/causing your enemy to bleed/i,
+	/drop a grave-stake/i,
+	/place a ring on the ground/i,
+	/non-reflectable Ice Wraith/i,
+	/gain an energy Charge/i,
+	/Summon a blizzard/i,
+	/Scavenging Maw/i,
+	/summon a cone of lightning/i,
+	/grant them Meridia's Favor/i,
+	
+];
+
+
+window.IsSkipSetTest = function(setDesc)
+{
+	if (setDesc == "") return true;
+	
+	for (var i = 0; i < TEST_ESOSETS_SKIPMATCHES.length; ++i)
+	{
+		var result = setDesc.match(TEST_ESOSETS_SKIPMATCHES[i]);
+		if (result) return true;
+	}
+	
+	return false;
+}
+
+
 window.CheckEsoSetTestResults = function()
 {
-	EsoBuildLog("Test Results for All Sets:");
+	var duplicateCount = 0;
+	var badCount = 0;
 	
- 	EsoBuildLog("Checking for set effects not parsed...");
+	EsoBuildLog("Test Results for All Sets:");
+	EsoBuildLog("Checking for set effects not parsed...");
  	
 	for (var setName in g_EsoBuildTestSets)
 	{
@@ -18384,15 +18478,18 @@ window.CheckEsoSetTestResults = function()
 		{
 			var result = testResult.descResults[i];
 			var desc   = testResult.desc[i];
-			var rawOutput = testResult.rawOutput[i]; 
+			var rawOutput = testResult.rawOutput[i];
+			
+			if (IsSkipSetTest(desc)) continue;
 			
 			if (!result || rawOutput.length == 0)
 			{
+				badCount++;
 				EsoBuildLog("\t" + setName + ": " + desc);				
 			}
 		}
 	}
-	
+	EsoBuildLog("Found " + badCount + " skipped sets!")
 	EsoBuildLog("Checking for duplicate set effects...");
 	
 	for (var setName in g_EsoBuildTestSets)
@@ -18423,11 +18520,14 @@ window.CheckEsoSetTestResults = function()
 				{
 					EsoBuildLog("\t" + setName + ": " + desc);
 					EsoBuildLog("\t\tx" + rawOutputKeys[key] + ": " + key);
+					duplicateCount++;
 				}
 			}
 			
 		}
 	}
+	
+	EsoBuildLog("Found " + duplicateCount + " duplicate sets!")
 	
 }
 
@@ -18436,7 +18536,7 @@ window.esotbOnDocReady = function ()
 {
 	if ($("#esotbUpdate21Rules").prop("checked"))
 	{
-		FixupEsoBuildDataUpdate21();
+		//FixupEsoBuildDataUpdate21();
 	}
 	
 	GetEsoSkillInputValues = GetEsoTestBuildSkillInputValues;
