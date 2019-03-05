@@ -7041,12 +7041,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "HealthRegen",
 		match: /While you have a damage shield on you, your Health Recovery is increased by ([0-9]+)/i,
 	},
-	/*
-	 * { id: "Powerful Assault", setBonusCount: 4, toggle: true, enabled: false,
-	 * enableOffBar : true, //statId: "SpellDamage", match: /When you cast an
-	 * Assault ability, you increase the Weapon and Spell Damage of up to [0-9]+
-	 * friendly targets within [0-9]+ meters by ([0-9]+)/i, }, //
-	 */
 	{
 		id: "Powerful Assault",
 		setBonusCount: 4,
@@ -7367,7 +7361,79 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "SpellDamage",
 		match: /When you use Roll Dodge, your Weapon and Spell Damage is increased by ([0-9]+)/i,
 	},
-
+	{
+		id: "Ilambris (Flame)",
+		setId: "Ilambris",
+		setBonusCount: 2,
+		toggle: true,
+		enabled: false,
+		statId: "OtherEffects",
+		damageType: "Flame",
+		disableSetId: "Ilambris (Shock)",
+		rawInputMatch: /(When you deal Flame or Shock Damage, you have a [0-9]+% chance to summon a meteor shower of that damage type that deals [0-9]+ Damage to all enemies within [0-9]+ meters every [0-9]+ second for [0-9]+ seconds\.)/,
+		match: /When you deal Flame or Shock Damage, you have a [0-9]+% chance to summon a meteor shower of that damage type that deals [0-9]+ Damage to all enemies within [0-9]+ meters every [0-9]+ second for [0-9]+ seconds\./i,
+	},
+	{
+		id: "Ilambris (Shock)",
+		setId: "Ilambris",
+		setBonusCount: 2,
+		toggle: true,
+		enabled: false,
+		statId: "OtherEffects",
+		damageType: "Shock",
+		disableSetId: "Ilambris (Flame)",
+		rawInputMatch: /(When you deal Flame or Shock Damage, you have a [0-9]+% chance to summon a meteor shower of that damage type that deals [0-9]+ Damage to all enemies within [0-9]+ meters every [0-9]+ second for [0-9]+ seconds\.)/,
+		match: /When you deal Flame or Shock Damage, you have a [0-9]+% chance to summon a meteor shower of that damage type that deals [0-9]+ Damage to all enemies within [0-9]+ meters every [0-9]+ second for [0-9]+ seconds\./i,
+	},
+	{
+		id: "Caluurion's Legacy (Flame)",
+		setId: "Caluurion's Legacy",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "OtherEffects",
+		damageType: "Flame",
+		disableSetIds: ["Caluurion's Legacy (Frost)", "Caluurion's Legacy (Shock)", "Caluurion's Legacy (Disease)"],
+		rawInputMatch: /(When you deal Critical Damage with a single target Magicka ability, you launch a Fire, Ice, Shock, or Disease ball at your target that deals [0-9]+ damage and applies a status effect\.)/,
+		match: /When you deal Critical Damage with a single target Magicka ability, you launch a Fire, Ice, Shock, or Disease ball at your target that deals [0-9]+ damage and applies a status effect\./i,
+	},
+	{
+		id: "Caluurion's Legacy (Frost)",
+		setId: "Caluurion's Legacy",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "OtherEffects",
+		damageType: "Frost",
+		disableSetIds: ["Caluurion's Legacy (Flame)", "Caluurion's Legacy (Shock)", "Caluurion's Legacy (Disease)"],
+		rawInputMatch: /(When you deal Critical Damage with a single target Magicka ability, you launch a Fire, Ice, Shock, or Disease ball at your target that deals [0-9]+ damage and applies a status effect\.)/,
+		match: /When you deal Critical Damage with a single target Magicka ability, you launch a Fire, Ice, Shock, or Disease ball at your target that deals [0-9]+ damage and applies a status effect\./i,
+	},
+	{
+		id: "Caluurion's Legacy (Shock)",
+		setId: "Caluurion's Legacy",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "OtherEffects",
+		damageType: "Shock",
+		disableSetIds: ["Caluurion's Legacy (Frost)", "Caluurion's Legacy (Flame)", "Caluurion's Legacy (Disease)"],
+		rawInputMatch: /(When you deal Critical Damage with a single target Magicka ability, you launch a Fire, Ice, Shock, or Disease ball at your target that deals [0-9]+ damage and applies a status effect\.)/,
+		match: /When you deal Critical Damage with a single target Magicka ability, you launch a Fire, Ice, Shock, or Disease ball at your target that deals [0-9]+ damage and applies a status effect\./i,
+	},
+	{
+		id: "Caluurion's Legacy (Disease)",
+		setId: "Caluurion's Legacy",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "OtherEffects",
+		damageType: "Disease",
+		disableSetIds: ["Caluurion's Legacy (Frost)", "Caluurion's Legacy (Flame)", "Caluurion's Legacy (Shock)"],
+		rawInputMatch: /(When you deal Critical Damage with a single target Magicka ability, you launch a Fire, Ice, Shock, or Disease ball at your target that deals [0-9]+ damage and applies a status effect\.)/,
+		match: /When you deal Critical Damage with a single target Magicka ability, you launch a Fire, Ice, Shock, or Disease ball at your target that deals [0-9]+ damage and applies a status effect\./i,
+	},
+	
 ];		// End of Toggled Sets
 
 	
@@ -8302,6 +8368,20 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 		
 		foundMatch = true;
 		
+		if (matchData.damageType)
+		{
+			var setId = matchData.id;
+			if (matchData.setId) setId = matchData.setId;
+			var procSetId = setId.toLowerCase();
+			var procData = ESO_SETPROCDAMAGE_DATA[procSetId];
+			
+			if (procData)
+			{
+				procData.damageType = matchData.damageType;
+				AddEsoItemRawOutputString(setData, "Using Damage Type", matchData.damageType);
+			}			
+		}
+		
 		if (matchData.buffId != null)
 		{
 			var buffData = g_EsoBuildBuffData[matchData.buffId];
@@ -8400,8 +8480,11 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 		else
 			inputValues[category][matchData.statId] += statValue;
 		
-		AddEsoItemRawOutput(setData, category + "." + matchData.statId, statValue);
-		AddEsoInputStatSource(category + "." + matchData.statId, { set: setData, setBonusCount: setBonusCount, value: statValue });
+		if (matchData.statId)
+		{
+			AddEsoItemRawOutput(setData, category + "." + matchData.statId, statValue);
+			AddEsoInputStatSource(category + "." + matchData.statId, { set: setData, setBonusCount: setBonusCount, value: statValue });
+		}
 	}
 	
 	if ((!foundMatch && !onlyEnableToggles) || addFinalEffect)
@@ -12820,6 +12903,7 @@ window.CreateEsoBuildToggledSetData = function ()
 			g_EsoBuildToggledSetData[id].displayName = setEffectData.displayName;
 			g_EsoBuildToggledSetData[id].disableSetId = setEffectData.disableSetId;
 			g_EsoBuildToggledSetData[id].disableSetIds = setEffectData.disableSetIds;
+			g_EsoBuildToggledSetData[id].damageType = setEffectData.damageType;
 		}
 		
 		g_EsoBuildToggledSetData[id].id = id;
@@ -13167,7 +13251,7 @@ window.OnEsoBuildToggleSetChanged = function (checkBox)
 	
 	if (toggleData.disableSetId != null)
 	{
-		$(".esotbToggledSetItem[setid='" + toggleData.disableSetId + "']").find(".esotbToggleSetCheck").prop("checked", false);
+		$(".esotbToggledSetItem[setid=\"" + toggleData.disableSetId + "\"]").find(".esotbToggleSetCheck").prop("checked", false);
 	}
 	
 	if (toggleData.disableSetIds != null)
@@ -13175,7 +13259,7 @@ window.OnEsoBuildToggleSetChanged = function (checkBox)
 		for (var i in toggleData.disableSetIds)
 		{
 			var disableSetId = toggleData.disableSetIds[i];
-			$(".esotbToggledSetItem[setid='" + disableSetId + "']").find(".esotbToggleSetCheck").prop("checked", false);
+			$(".esotbToggledSetItem[setid=\"" + disableSetId + "\"]").find(".esotbToggleSetCheck").prop("checked", false);
 		}
 	}
 	
@@ -16293,7 +16377,7 @@ window.ESO_SETPROCDAMAGE_DATA =
 			// your target that deals 150-12900 damage and applies a status effect. This effect can occur once every 10 seconds.
 			isAoE : false,
 			isDoT : false,
-			damageType: "Shock", //TODO ?
+			damageType: "Shock",
 			index : 4,
 			items : 5,
 		},
@@ -16424,7 +16508,7 @@ window.ESO_SETPROCDAMAGE_DATA =
 			// 15-1300 Damage to all enemies within 4 meters every 1 second for 5 seconds. Each effect can occur once every 8 seconds.
 			isAoE : true,
 			isDoT : true,			
-			damageType : "Shock",	// TODO ?
+			damageType : "Shock",
 			index : 2,
 			items : 2,
 		},
@@ -16946,6 +17030,11 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 	}
 	
 	// EsoBuildLog("UpdateEsoSetDamageData", match, isAoE, isDoT, damageValue, damageType);
+	
+	if (checkDamageType)
+	{
+		itemData.rawOutput["Tooltip: Set Using DamageType"] = checkDamageType;
+	}
 	
 	damageMod = g_EsoBuildLastInputValues[checkDamageType + "DamageDone"];
 	

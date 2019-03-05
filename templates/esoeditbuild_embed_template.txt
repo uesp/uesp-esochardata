@@ -1335,6 +1335,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Changed color of buffs enabled by skills/sets to make it more obvious.</li>
 				<li>Fixed the tooltip and parsing of the 5 piece bonus from the Alessian Order set.</li>
 				<li>Fixed the Flanking Strategist set toggle.</li>
+				<li>Added toggle for the Ilambris and Caluurion's Legacy sets that lets you choose the damage type that is applied to the tooltip.</li>
 			</ul>			
 			<p>
 			<b>27 February 2019</b>
