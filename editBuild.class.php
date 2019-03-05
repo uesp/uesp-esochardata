@@ -33,7 +33,7 @@ class EsoBuildDataEditor
 	public $TEMPLATE_FILE = "";
 	
 		/* Set to false when update 21 goes live */
-	public $REMOVE_NEW_UPDATE21_RACIALS = true;
+	public $REMOVE_NEW_UPDATE21_RACIALS = false;
 	
 	public $db = null;
 	public $htmlTemplate = "";
@@ -1885,7 +1885,7 @@ class EsoBuildDataEditor
 			"Health" => array(
 					"title" => "Health",
 					"round" => "floor",
-					//"warning" => "Note: Currently there is a bug on Live with the Undaunted Mettle passive that sometimes causes incorrect health/magica/stamina values to be displayed. Logging out and back in should reset the display issue.",
+					//"warning" => "Note: Not yet confirmed (waiting for PTS).",
 					"compute" => array(
 							"156 * Level + 944",
 							"122 * Attribute.Health",
@@ -1894,9 +1894,6 @@ class EsoBuildDataEditor
 							"+",
 							"Set.Health",
 							"+",
-							//"1 + pow(CP.Health, 0.56432)/100",	
-							"1 + 0.004 * min(CP.Health, 100) - 0.00002 * pow(min(CP.Health, 100), 2)", // Update 14
-							"*",
 							"Food.Health",
 							"+",
 							"Skill2.Health",
@@ -1904,7 +1901,9 @@ class EsoBuildDataEditor
 							"Mundus.Health",
 							"+",
 							"1 + Skill.Health + Buff.Health",
-							"*",
+							"0.004 * min(CP.Health, 100) - 0.00002 * pow(min(CP.Health, 100), 2)", // Update 14
+							"+",
+							"*",							
 					),
 			),
 			
@@ -1915,7 +1914,7 @@ class EsoBuildDataEditor
 			"Magicka" => array(
 					"title" => "Magicka",
 					"round" => "floor",
-					//"warning" => "Note: Currently there is a bug on Live with the Undaunted Mettle passive that sometimes causes incorrect health/magica/stamina values to be displayed. Logging out and back in should reset the display issue.",
+					//"warning" => "Note: Not yet confirmed (waiting for PTS).",
 					"compute" => array(
 							"142 * Level + 858",
 							"111 * Attribute.Magicka",
@@ -1924,9 +1923,6 @@ class EsoBuildDataEditor
 							"+",
 							"Set.Magicka",
 							"+",
-							//"1 + pow(CP.Magicka, 0.56432)/100",
-							"1 + 0.004 * min(CP.Magicka, 100) - 0.00002 * pow(min(CP.Magicka, 100), 2)",	// Update 14
-							"*",
 							"Food.Magicka",
 							"+",
 							"Mundus.Magicka",
@@ -1934,7 +1930,9 @@ class EsoBuildDataEditor
 							"Skill2.Magicka",
 							"+",
 							"1 + Skill.Magicka + Buff.Magicka",
-							"*",
+							"0.004 * min(CP.Magicka, 100) - 0.00002 * pow(min(CP.Magicka, 100), 2)",	// Update 14
+							"+",
+							"*",							
 					),
 			),
 			
@@ -1946,7 +1944,7 @@ class EsoBuildDataEditor
 					"title" => "Stamina",
 					"round" => "floor",
 					"addClass" => "esotbStatDividerLite",
-					//"warning" => "Note: Currently there is a bug on Live with the Undaunted Mettle passive that sometimes causes incorrect health/magica/stamina values to be displayed. Logging out and back in should reset the display issue.",
+					//"warning" => "Note: Not yet confirmed (waiting for PTS).",
 					"compute" => array(
 							"142 * Level + 858",
 							"111 * Attribute.Stamina",
@@ -1955,9 +1953,6 @@ class EsoBuildDataEditor
 							"+",
 							"Set.Stamina",
 							"+",
-							//"1 + pow(CP.Stamina, 0.56432)/100",
-							"1 + 0.004 * min(CP.Stamina, 100) - 0.00002 * pow(min(CP.Stamina, 100), 2)",	// Update 14
-							"*",
 							"Food.Stamina",
 							"+",
 							"Mundus.Stamina",
@@ -1965,10 +1960,12 @@ class EsoBuildDataEditor
 							"Skill2.Stamina",
 							"+",
 							"1 + Skill.Stamina + Buff.Stamina",
-							"*",
+							"0.004 * min(CP.Stamina, 100) - 0.00002 * pow(min(CP.Stamina, 100), 2)",	// Update 14
+							"+",
+							"*",							
 					),
 			),
-			
+				
 			/* 
 			 * HealthRegen Confirmed:
 			 */
@@ -5040,13 +5037,14 @@ class EsoBuildDataEditor
 		
 		if ($this->getCharStatField("UseUpdate21Rules", 0)) 
 		{
-			$this->viewSkills->version = "21pts";
-			$this->viewCps->version = "21pts";
+			//$this->viewSkills->version = "21pts";
+			//$this->viewCps->version = "21pts";
 		}
 		
 		$this->viewSkills->LoadData();
 		
 		$this->FixupBuildForPts();
+		$this->FixupUpdate21RacialSkills();
 	
 		$this->CreateInitialItemData();
 		$this->CreateInitialBuffData();
@@ -5236,6 +5234,57 @@ class EsoBuildDataEditor
 				$this->RemoveSkillsFromBuild(array(117968 => 1, 117969 => 1, 117970 => 1));
 			else if ($currentRace == "Khajiit") 
 				$this->RemoveSkillsFromBuild(array(117846 => 1, 117847 => 1, 117848 => 1));
+		}
+
+	}
+	
+	
+	public function FixupUpdate21RacialSkills()
+	{
+		$currentRace = $this->getCharField('race');
+		
+		if ($currentRace == "High Elf")	
+			$this->ReplaceSkillsFromBuild(array(35995 => 117968, 45259 => 117969, 45260 => 117970));
+		else if ($currentRace == "Khajiit") 
+			$this->ReplaceSkillsFromBuild(array(36022 => 117846, 45295 => 117847, 45296 => 117848));
+	}
+	
+	
+	public function ReplaceSkillsFromBuild($skillsToReplace)
+	{
+		$skillsToDelete = array();
+		$newSkills = array();
+		
+		foreach ($this->buildDataViewer->characterData['skills'] as $skillName => $skillData)
+		{
+			$abilityId = $skillData['abilityId'];
+			$newAbilityId = $skillsToReplace[$abilityId];
+	
+			if ($newAbilityId == null) continue;
+			$abilityData = $this->viewSkills->skillIds[$newAbilityId];
+			if ($abilityData == null) continue;
+			
+			$skillsToDelete[] = $skillName;
+			
+			$newSkill = $skillData;
+			$newName = str_replace("::", ":", $abilityData['skillTypeName'] . "::" . $abilityData['name']);
+			error_log($newName);
+			$newSkill['name'] = $newName;
+			$newSkill['description'] = $abilityData['description'];
+			$newSkill['icon'] = $abilityData['icon'];
+			$newSkill['abilityId'] = $abilityData['abilityId'];
+		
+			$newSkills[$newName] = $newSkill;
+		}
+		
+		foreach ($skillsToDelete as $skillName)
+		{
+			unset($this->buildDataViewer->characterData['skills'][$skillName]);
+		}
+		
+		foreach ($newSkills as $skillName => $skillData)
+		{
+			$this->buildDataViewer->characterData['skills'][$skillName] = $skillData;
 		}
 
 	}

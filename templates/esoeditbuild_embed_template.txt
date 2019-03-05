@@ -5,7 +5,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #cfc; margin-right: 225px;'>
-Changes from PTS update 21 can be enabled by choosing the <em>"Update 21 Ruleset"</em> on the <em>General</em> tab and saving/reloading the build.
+Note: Editor is mostly updated for Wrathstone. Items, skills and CP data have been updated.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -60,7 +60,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<br/>
 			<div class="esotbStatLabel">Enable CP</div> <input type="checkbox" id="esotbEnableCP" name="esotbEnableCP" statid="EnableCP" {enableCP}>
 			<br/>
-			<div class="esotbStatLabel">Update 21 Rules</div> <input type="checkbox" id="esotbUpdate21Rules" name="esotbUpdate21Rules" statid="UseUpdate21Rules" {useUpdate21Rules}>
+			<!-- <div class="esotbStatLabel">Update 21 Rules</div> <input type="checkbox" id="esotbUpdate21Rules" name="esotbUpdate21Rules" statid="UseUpdate21Rules" {useUpdate21Rules}>
 			Use rules from Update 21 (Wrathstone) which includes (save build and reload to take effect):
 			<ul style="margin-left: 170px; margin-top: -5px;">
 				<li>Updated racial passives.</li>
@@ -68,8 +68,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>The Shadow changed to 13% Critical Damage.</li>
 				<li>New CP bonus to health/magicka/stamina (not yet verified).</li>
 				<li>Updated skills and CPs as of patch v4.3.3.</li>
-			</ul>			
-			<p>
+			</ul>
+			<p> -->
 			<div id="esotbAttributes">
 				<div class="esotbAttrTitle">Attributes <div id="esotbAttrTotal" statid="AttributeTotal" class="esotbAttributeInput">{attributeTotal} / 64</div></div>
 				<div class="esotbAttrLabel">Health</div> <input id="esotbAttrHea" statid="AttributeHealth" class="esotbAttributeInput esotbInputValue" type="number" size="2" value="{attributeHealth}">
@@ -651,8 +651,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Shadowrend</option>
 					<option>Slimecraw</option>
 					<option>Spawn of Mephala</option>
+					<option>Stonekeeper</option>
 					<option>Stormfist</option>
 					<option>Swarm Mother</option>
+					<option>Symphony of Blades</option>
 					<option>Thurvokun</option>
 					<option>Tremorscale</option>
 					<option>The Troll King</option>
@@ -746,6 +748,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Ashen Grip</option>
 					<option>Aspect of Mazzatun</option>
 					<option>Assassin's Guile</option>
+					<option>Auroran's Thunder</option>
 					<option>Automated Defense</option>
 					<option>Bahraha's Curse</option>
 					<option>Barkskin</option>
@@ -807,6 +810,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Flanking Strategist</option>
 					<option>Footman's Fortune</option>
 					<option>Fortified Brass</option>
+					<option>Frozen Watcher</option>
 					<option>Galerion's Revenge</option>
 					<option>Gallant Charge</option>
 					<option value="Perfect Gallant Charge">Gallant Charge (Perfect)</option>
@@ -832,6 +836,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Hist Bark</option>
 					<option>Hunding's Rage</option>
 					<option>Hunt Leader</option>
+					<option>Icy Conjuror</option>
 					<option>Immortal Warrior</option>
 					<option>Imperial Physique</option>
 					<option>Impregnable Armor</option>
@@ -874,6 +879,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Meridia's Blessed Armor</option>
 					<option>Meritorious Service</option>
 					<option>Might of the Lost Legion</option>
+					<option>Mighty Glacier</option>
 					<option>Moondancer</option>
 					<option>Moon Hunter</option>
 					<option>Morkuldin</option>
@@ -926,6 +932,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Sanctuary</option>
 					<option>Savage Werewolf</option>
 					<option>Scathing Mage</option>
+					<option>Scavenging Demise</option>
 					<option>Senche's Bite</option>
 					<option>Sentry</option>
 					<option>Sergeant's Mail</option>
@@ -990,6 +997,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Twilight Remedy</option>
 					<option>Twilight's Embrace</option>
 					<option>Twin Sisters</option>
+					<option>Tzogvin's Warband</option>
 					<option>Ulfnor's Favor</option>
 					<option>Undaunted Bastion</option>
 					<option>Undaunted Infiltrator</option>
@@ -1317,6 +1325,35 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>5 March 2019</b>
+			<ul>
+				<li>Item data updated for Wrathstone (update 21).</li>
+				<li>Old High Elf and Dark Elf racial passives will now be transformed to their new passives when loading a build.</li>
+				<li>Added new sets to the quick item setups.</li>
+				<li>Fixed the Tzogvin's Warbard toggled 5 piece bonus.</li>
+				<li>Fixed the 5 piece bonus on the Beckoning Steel set.</li>
+				<li>Changed color of buffs enabled by skills/sets to make it more obvious.</li>
+				<li>Fixed the tooltip and parsing of the 5 piece bonus from the Alessian Order set.</li>
+				<li>Fixed the Flanking Strategist set toggle.</li>
+			</ul>			
+			<p>
+			<b>27 February 2019</b>
+			<ul>
+				<li>Changes for update 21 now apply to all builds:
+					<ul>
+						<li>1H enchantments have half value.</li>
+						<li>Change to Health/Magicka/Stamina CP calculation.</li>
+						<li>Shadow Mundus changed to +13%.</li>
+						<li>Old racials should be changed to new racials when the build is loaded.</li>
+					</ul>
+				</li>
+			</u/l>			
+			<p>
+			<b>26 February 2019</b>
+			<ul>
+				<li>Skill and CP data updated for Wrathstone (update 21).</li>
+			</ul>			
+			<p>
 			<b>22 February 2019</b>
 			<ul>
 				<li>Added some poison buffs/debuffs.</li>
