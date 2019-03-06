@@ -1476,6 +1476,19 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 	
 		/* Begin Toggled Abilities */
 	{
+		id: "Thrive in Chaos",
+		baseSkillId: 86370,
+		category: "Skill",
+		statId: "DamageDone",
+		statRequireId: "Weapon1H",
+		statRequireValue: 2,
+		display: "%",
+		toggle: true,
+		enabled: false,
+		maxTimes: 6,
+		match: /Each enemy hit increases your damage done by ([0-9]+)% for the duration, up to a maximum of [0-9]+% more damage done/i,
+	},
+	{
 		id: "Accelerate",
 		baseSkillId: 40103503,
 		toggle: true,
@@ -4454,7 +4467,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		id: "Hasty Retreat",
-		baseSkillId: 30923,
+		baseSkillId: 45497,
 		statRequireId: "WeaponBow",
 		statRequireValue: 1,
 		buffId: "Major Expedition",
@@ -4619,9 +4632,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		enabled: false,
 		display: "%",
 		maxTimes: 5,
-		// match: /WITH BOW EQUIPPED[\s\S]*?Your successful Light and Heavy
-		// Attacks increase the damage of your Bow abilities by
-		// ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i
 		match: /WITH A BOW EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack increases the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i,
 	},
 	
