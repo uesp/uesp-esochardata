@@ -1330,6 +1330,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Fixed the skill tooltip scaling on DamageDone (e.g. Minor Berserk) to be additive with other damage effects as confirmed in-game.</li>
 				<li>Skill tooltip healing modifiers now stack additively.</li>
 				<li>Fixed enchantment and set effect tooltips to use additive stacking.</li>
+				<li>Added a toggle for the Thrive in Chaos damage done effect.</li>
+				<li>Fixed a few dozen skills to have the correct Single Target/AOE/DOT damage done modifiers apply to the tooltips.</li>
 			</ul>			
 			<p>
 			<b>5 March 2019</b>
