@@ -16151,7 +16151,7 @@ window.UpdateEsoTooltipEnchantDamage = function (match, divData, enchantValue, d
 	if (checkDamageType != "" && damageMod != null && damageMod !== 0) 
 	{
 		itemData.rawOutput["Tooltip: Enchantment " + checkDamageType + "DamageDone"] = (damageMod * 100).toFixed(1) + "%";
-		enchantFactor *= (1 + damageMod);	
+		enchantFactor += damageMod;	
 	}
 	
 	damageMod = g_EsoBuildLastInputValues.DamageDone;
@@ -16159,7 +16159,7 @@ window.UpdateEsoTooltipEnchantDamage = function (match, divData, enchantValue, d
 	if (damageMod != null && damageMod !== 0) 
 	{
 		itemData.rawOutput["Tooltip: Enchantment DamageDone"] = (damageMod * 100).toFixed(1) + "%";
-		enchantFactor *= (1 + damageMod);
+		enchantFactor += damageMod;
 	}
 	
 	damageMod = g_EsoBuildLastInputValues.Skill.SingleTargetDamageDone;
@@ -16167,7 +16167,7 @@ window.UpdateEsoTooltipEnchantDamage = function (match, divData, enchantValue, d
 	if (damageMod != null && damageMod !== 0) 
 	{
 		itemData.rawOutput["Tooltip: Enchantment SingleTargetDamageDone"] = (damageMod * 100).toFixed(1) + "%";
-		enchantFactor *= (1 + damageMod);
+		enchantFactor += damageMod;
 	}
 	
 	damageMod = g_EsoBuildLastInputValues.CP.DirectDamageDone;
@@ -16175,7 +16175,7 @@ window.UpdateEsoTooltipEnchantDamage = function (match, divData, enchantValue, d
 	if (damageMod != null && damageMod !== 0) 
 	{
 		itemData.rawOutput["Tooltip: Enchantment CP.DirectDamageDone"] = (damageMod * 100).toFixed(1) + "%";
-		enchantFactor *= (1 + damageMod);
+		enchantFactor += damageMod;
 	}
 	
 	if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
@@ -16206,7 +16206,7 @@ window.UpdateEsoTooltipEnchantHealing = function (match, divData, enchantValue)
 	if (healingMod != null && healingMod !== 0) 
 	{
 		itemData.rawOutput["Tooltip: Enchantment HealingDone"] = (healingMod*100).toFixed(1) + "%";
-		enchantFactor *= (1 + healingMod);
+		enchantFactor += healingMod;
 	}
 	
 	if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
@@ -16237,7 +16237,7 @@ window.UpdateEsoTooltipEnchantDamageShield = function (match, divData, enchantVa
 	if (shieldMod != null && shieldMod !== 0) 
 	{
 		itemData.rawOutput["Tooltip: Enchantment DamageShield"] = (shieldMod*100).toFixed(1) + "%";
-		enchantFactor *= (1 + shieldMod);
+		enchantFactor += shieldMod;
 	}
 	
 	if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
@@ -17041,7 +17041,7 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 	if (checkDamageType != "" && damageMod != null && damageMod !== 0) 
 	{
 		itemData.rawOutput["Tooltip: Set " + checkDamageType + "DamageDone"] = (damageMod * 100).toFixed(1) + "%";
-		damageFactor *= (1 + damageMod);	
+		damageFactor += damageMod;	
 	}
 	
 	damageMod = g_EsoBuildLastInputValues.DamageDone;
@@ -17049,7 +17049,7 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 	if (damageMod != null && damageMod !== 0) 
 	{
 		itemData.rawOutput["Tooltip: Set DamageDone"] = (damageMod * 100).toFixed(1) + "%";
-		damageFactor *= (1 + damageMod);
+		damageFactor += damageMod;
 	}
 	
 	if (isAoE)
@@ -17059,7 +17059,7 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 		if (damageMod != null && damageMod !== 0) 
 		{
 			itemData.rawOutput["Tooltip: Set AOEDamageDone"] = (damageMod * 100).toFixed(1) + "%";
-			damageFactor *= (1 + damageMod);
+			damageFactor += damageMod;
 		}
 	}
 	else if (isSingleTarget)
@@ -17069,7 +17069,7 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 		if (damageMod != null && damageMod !== 0) 
 		{
 			itemData.rawOutput["Tooltip: Set SingleTargetDamageDone"] = (damageMod * 100).toFixed(1) + "%";
-			damageFactor *= (1 + damageMod);
+			damageFactor += damageMod;
 		}
 	}
 	
@@ -17080,7 +17080,7 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 		if (damageMod != null && damageMod !== 0) 
 		{
 			itemData.rawOutput["Tooltip: Set DotDamageDone"] = (damageMod * 100).toFixed(1) + "%";
-			damageFactor *= (1 + damageMod);
+			damageFactor += damageMod;
 		}
 	}
 	else
@@ -17091,7 +17091,7 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 		if (damageMod != null && damageMod !== 0) 
 		{
 			itemData.rawOutput["Tooltip: Set DirectDamageDone"] = (damageMod * 100).toFixed(1) + "%";
-			damageFactor *= (1 + damageMod);
+			damageFactor += damageMod;
 		}
 	}
 	
@@ -17102,7 +17102,7 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 		if (damageMod != null && damageMod !== 0) 
 		{
 			itemData.rawOutput["Tooltip: Set BleedDamage"] = (damageMod * 100).toFixed(1) + "%";
-			damageFactor *= (1 + damageMod);
+			damageFactor += damageMod;
 		}
 	}
 
@@ -17132,7 +17132,7 @@ window.UpdateEsoSetDamageShieldReplace = function (match, div1, damageShieldValu
 	if (shieldMod != null && shieldMod !== 0) 
 	{
 		itemData.rawOutput["Tooltip: Set DamageShield"] = (shieldMod * 100).toFixed(1) + "%";
-		shieldFactor *= (1 + shieldMod);
+		shieldFactor += shieldMod;
 	}
 	
 	if (shieldFactor != 0)
@@ -17164,7 +17164,7 @@ window.UpdateEsoSetHealReplace = function (match, prefixWord, div1, healValue, d
 	if (healMod != null && healMod !== 0) 
 	{
 		itemData.rawOutput["Tooltip: Set HealingDone"] = (healMod * 100).toFixed(1) + "%";
-		healFactor *= (1 + healMod);
+		healFactor += healMod;
 	}
 	
 	if (healFactor != 0)

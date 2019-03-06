@@ -1325,6 +1325,13 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>6 March 2019</b>
+			<ul>
+				<li>Fixed the skill tooltip scaling on DamageDone (e.g. Minor Berserk) to be additive with other damage effects as confirmed in-game.</li>
+				<li>Skill tooltip healing modifiers now stack additively.</li>
+				<li>Fixed enchantment and set effect tooltips to use additive stacking.</li>
+			</ul>			
+			<p>
 			<b>5 March 2019</b>
 			<ul>
 				<li>Item data updated for Wrathstone (update 21).</li>
