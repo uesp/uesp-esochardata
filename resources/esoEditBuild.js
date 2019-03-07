@@ -1400,6 +1400,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		rawInputMatch: /(While slotted, your Movement Speed while Sneaking or invisible is increased by [0-9]+\.?[0-9]*%\.)/i,
 		match: /While slotted, your Movement Speed while Sneaking or invisible is increased by ([0-9]+\.?[0-9]*)%/i
 	},
+	/*
 	{
 		buffId : "Major Sorcery",
 		match: /grants you Major Sorcery/i,
@@ -1409,7 +1410,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		buffId : "Major Brutality",
 		match: /grants you Major Sorcery and Major Brutality/i,
 		ignoreSkills: { "Bull Netch" : 1, "Betty Netch" : 1, "Blue Betty" : 1 },
-	},
+	},*/
 	{
 		statId: "Stamina",
 		display: "%",
@@ -1546,6 +1547,14 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		factorValue: -1,
 		display: "%",
 		match: /Leeching Strikes also reduces your Weapon Power and Spell Power by ([0-9]+\.?[0-9]*)% while toggled/i
+	},
+	{
+		id: "Entropy",
+		baseSkillId: 28567,
+		toggle: true,
+		enabled: false,
+		buffId: "Major Sorcery",
+		match: /Grants you Major Sorcery, /i
 	},
 	{
 		id: "Betty Netch",
