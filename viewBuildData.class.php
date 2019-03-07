@@ -5,6 +5,7 @@ require_once("/home/uesp/secrets/esobuilddata.secrets");
 require("/home/uesp/secrets/esolog.secrets");
 require_once("/home/uesp/esolog.static/esoCommon.php");
 require_once("/home/uesp/esolog.static/viewCps.class.php");
+require_once("/home/uesp/esolog.static/esoSkillRankData.php");
 
 
 class EsoBuildDataViewer
@@ -90,6 +91,7 @@ class EsoBuildDataViewer
 	
 	public $characterData = array();
 	public $skillData = array();
+	public $skillRanks = array();
 	public $buildData = array();
 	public $accountData = array();
 	public $accountCharacters = array();
@@ -885,6 +887,25 @@ class EsoBuildDataViewer
 		
 		while (($row = $result->fetch_assoc()))
 		{
+			if ($table == "skills")
+			{
+				$this->skillRanks[$row['abilityId']] = $row['rank'];
+				$row['abilityId'] = $this->transformAbilityId($row['abilityId'], $row['rank']);
+			}
+			else if ($table == "actionBars")
+			{
+				$rank = $row['rank'];
+				
+				if ($rank <= 0) 
+				{
+					$rank = $this->skillRanks[$row['abilityId']];
+					if ($rank == null) $rank = 0;
+					$row['rank'] = $rank;
+				}
+				
+				$row['abilityId'] = $this->transformAbilityId($row['abilityId'], $rank);
+			}
+			
 			if ($table == "equipSlots" || $table == "actionBars")
 			{
 				$arrayData[$row['index']] = $row;
@@ -968,6 +989,27 @@ class EsoBuildDataViewer
 	}
 	
 	
+	public function transformAbilityId($abilityId, $rank)
+	{
+		global $ESO_BASESKILL_RANKDATA;
+		global $ESO_SKILL_RANKDATA;
+		
+		if ($abilityId == null) return 0;
+		if ($rank == null) return $abilityId;
+		
+		if ($rank > 8) $rank -= 8;
+		if ($rank > 4) $rank -= 4; 
+		
+		$baseSkill = $ESO_BASESKILL_RANKDATA[$abilityId];
+		if ($baseSkill == null) return $abilityId;
+		
+		$realAbilityId = $baseSkill[$rank];
+		if ($realAbilityId == null) return $abilityId;
+		
+		return $realAbilityId;
+	}
+	
+	
 	public function loadAccountSkills()
 	{
 		$charIds = array();
@@ -992,6 +1034,9 @@ class EsoBuildDataViewer
 			++$count;
 			$charId = intval($row['characterId']);
 			if ($this->accountSkills[$charId] === null) $this->accountSkills[$charId] = array();
+			
+			$row['abilityId'] = $this->transformAbilityId($row['abilityId'], $row['rank']);
+
 			$this->accountSkills[$charId][$row['name']] = $row;
 		}
 		
@@ -2970,7 +3015,7 @@ class EsoBuildDataViewer
 		
 		return $output;
 	}
-	
+		
 	
 	public function parseCharSkillData()
 	{

@@ -1327,6 +1327,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<hr>
 			<b>6 March 2019</b>
 			<ul>
+				<li>Made Major Sorcery from Entropy into a toggled ability.</li>
+				<li>Fixed builds saved from the game having active skills of all rank 1.</li>
+			</ul>
+			<p>
+			<b>6 March 2019</b>
+			<ul>
 				<li>Fixed the skill tooltip scaling on DamageDone (e.g. Minor Berserk) to be additive with other damage effects as confirmed in-game.</li>
 				<li>Skill tooltip healing modifiers now stack additively.</li>
 				<li>Fixed enchantment and set effect tooltips to use additive stacking.</li>

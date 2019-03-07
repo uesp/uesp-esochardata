@@ -3,6 +3,8 @@
 
 require_once("/home/uesp/secrets/esobuilddata.secrets");
 require_once("/home/uesp/secrets/esolog.secrets");
+//require_once("/home/uesp/esolog.static/esoCommon.php");
+require_once("/home/uesp/esolog.static/esoSkillRankData.php");
 
 
 class EsoBuildDataParser
@@ -46,6 +48,7 @@ class EsoBuildDataParser
 	public $inputScreenshotFilenames = array();
 	public $inputScreenshotOrigFilenames = array();
 	
+	public $characterSkillRanks = array();
 	public $itemDataDB = array();
 	
 	public $accountCharacters = array();
@@ -300,6 +303,7 @@ class EsoBuildDataParser
 						channelTime INTEGER NOT NULL,
 						duration INTEGER NOT NULL,
 						target TINYTEXT NOT NULL,
+						rank TINYINT NOT NULL,
 						PRIMARY KEY (id),
 						INDEX index_characterId(characterId)
 					);";
@@ -469,6 +473,7 @@ class EsoBuildDataParser
 		}
 		
 		$this->mergeCommonData();
+		$this->matchupActionBarSkillRanks();
 	
 		return true;
 	}
@@ -840,7 +845,42 @@ class EsoBuildDataParser
 		$this->currentCharacterStats[$name] = $data;
 		return true;
 	}
+	
+	
+	public function matchupActionBarSkillRanks()
+	{
+		foreach ($this->parsedBuildData as $key => &$buildData)
+		{
+			$this->characterSkillRanks[$key] = array();
+			
+			$skills = $buildData['Skills'];
+			$actionBar = $buildData['ActionBar'];
+			
+			if ($skills == null) continue;
+			if ($actionBar == null) continue;
+			
+			$newSkills = array();
+			
+			foreach ($skills as $skillTypeName => $skillData)
+			{
+				$id = $skillData['id'];
+				$newSkills[$id] = $skillData['rank'];
+			}
+			
+			$this->characterSkillRanks[$key] = $newSkills;
+			
+			foreach ($actionBar as $slotId => $barData)
+			{
+				$id = $barData['id'];
+				$rank = $newSkills[$id];
+				
+				if ($rank == null) $rank = 0;
+				$buildData["ActionBar"][$slotId]["rank"] = $rank;					
+			}
+		}
 		
+	}
+	
 	
 	public function saveCharacterArrayData(&$buildData, $name, &$arrayData)
 	{
@@ -1235,11 +1275,18 @@ class EsoBuildDataParser
 	
 	public function saveCharacterActionBar($buildData, $index, $arrayData)
 	{
+		$abilityId = $arrayData['id'];
+		$rank = $arrayData['rank'];
+		if ($rank == null) $rank = 0;
+		$realAbilityId = $this->transformAbilityId($abilityId, $rank);
+		$safeAbilityId = $this->db->real_escape_string($realAbilityId);
+		$safeRank = $this->db->real_escape_string($rank);
+		//$abilityId = $this->getSafeFieldInt($arrayData, 'id');
+		
 		$charId = $buildData['id'];
 		$name = $this->getSafeFieldStr($arrayData, 'name');
 		$icon = $this->getSafeFieldStr($arrayData, 'icon');
 		$description = $this->getSafeFieldStr($arrayData, 'desc');
-		$abilityId = $this->getSafeFieldInt($arrayData, 'id');
 		$area = $this->getSafeFieldStr($arrayData, 'area');
 		$cost = $this->getSafeFieldStr($arrayData, 'cost');
 		$range = $this->getSafeFieldStr($arrayData, 'range');
@@ -1250,8 +1297,8 @@ class EsoBuildDataParser
 		$target = $this->getSafeFieldStr($arrayData, 'target');
 		$index = $this->db->real_escape_string($index);
 		
-		$query  = "INSERT INTO actionBars(characterId, name, description, icon, abilityId, `index`, area, cost, `range`, radius, castTime, channelTime, duration, target) ";
-		$query .= "VALUES($charId, \"$name\", \"$description\", \"$icon\", $abilityId, $index, \"$area\", \"$cost\", \"$range\", $radius, $castTime, $channelTime, $duration, \"$target\");";
+		$query  = "INSERT INTO actionBars(characterId, name, description, icon, abilityId, `index`, area, cost, `range`, radius, castTime, channelTime, duration, target, rank) ";
+		$query .= "VALUES($charId, \"$name\", \"$description\", \"$icon\", $safeAbilityId, $index, \"$area\", \"$cost\", \"$range\", $radius, $castTime, $channelTime, $duration, \"$target\", $safeRank);";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 	
@@ -1281,15 +1328,41 @@ class EsoBuildDataParser
 	}
 	
 	
+	public function transformAbilityId($abilityId, $rank)
+	{
+		global $ESO_BASESKILL_RANKDATA;
+		global $ESO_SKILL_RANKDATA;
+		
+		if ($abilityId == null) return 0;
+		if ($rank == null) return $abilityId;
+		
+		if ($rank > 8) $rank -= 8;
+		if ($rank > 4) $rank -= 4; 
+		
+		$baseSkill = $ESO_BASESKILL_RANKDATA[$abilityId];
+		if ($baseSkill == null) return $abilityId;
+		
+		$realAbilityId = $baseSkill[$rank];
+		if ($realAbilityId == null) return $abilityId;
+		
+		return $realAbilityId;
+	}
+	
+	
 	public function saveCharacterSkill($buildData, $name, $arrayData)
 	{
+		$abilityId = $arrayData['id'];
+		$rank = $arrayData['rank'];
+		$realAbilityId = $this->transformAbilityId($abilityId, $rank);
+		$safeAbilityId = $this->db->real_escape_string($realAbilityId);
+		//$abilityId = $this->getSafeFieldInt($arrayData, 'id');
+		
 		$charId = $buildData['id'];
 		$name = preg_replace("#\^[a-zA-Z]*#", "", $name);
 		$safeName = $this->db->real_escape_string($name);
 		$icon = $this->getSafeFieldStr($arrayData, 'icon');
 		$type = $this->getSafeFieldStr($arrayData, 'type');
 		$description = $this->getSafeFieldStr($arrayData, 'desc');
-		$abilityId = $this->getSafeFieldInt($arrayData, 'id');
 		$index = $this->getSafeFieldInt($arrayData, 'index');
 		$rank = $this->getSafeFieldInt($arrayData, 'rank');
 		$area = $this->getSafeFieldStr($arrayData, 'area');
@@ -1302,7 +1375,7 @@ class EsoBuildDataParser
 		$target = $this->getSafeFieldStr($arrayData, 'target');
 	
 		$query  = "INSERT INTO skills(characterId, name, type, description, icon, abilityId, `index`, `rank`, area, cost, `range`, radius, castTime, channelTime, duration, target) ";
-		$query .= "VALUES($charId, \"$name\", \"$type\", \"$description\", \"$icon\", $abilityId, $index, $rank, \"$area\", \"$cost\", \"$range\", $radius, $castTime, $channelTime, $duration, \"$target\");";
+		$query .= "VALUES($charId, \"$name\", \"$type\", \"$description\", \"$icon\", $safeAbilityId, $index, $rank, \"$area\", \"$cost\", \"$range\", $radius, $castTime, $channelTime, $duration, \"$target\");";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 	
