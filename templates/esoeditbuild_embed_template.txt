@@ -1325,6 +1325,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>8 March 2019</b>
+			<ul>
+				<li>Fixed the Viper's String 5 piece bonus to be a DOT.</li>
+			</ul>
+			<p>
 			<b>6 March 2019</b>
 			<ul>
 				<li>Made Major Sorcery from Entropy into a toggled ability.</li>
