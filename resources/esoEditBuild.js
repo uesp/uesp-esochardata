@@ -16898,16 +16898,14 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"viper's sting" : {
-			// (5 items) When you deal damage with a melee attack, you deal an additional 74-6400 Poison Damage
-			// This effect can occur once every 4 seconds.
+			// (5 items)  When you deal damage with a melee attack, you deal an additional 7040 Poison damage over 4 seconds. This effect can occur once every 4 seconds.
 			isAoE : false,
-			isDoT : false,
+			isDoT : true,
 			index : 4,
 			items : 5,
 		},
 		"way of fire" : {
-			// (5 items) When you deal damage with a Weapon ability, you have a 20% chance to deal an additional 46-4000 Flame Damage
-			// This effect can occur once every 2 seconds.
+			// (5 items) When you deal damage with a Weapon ability, you have a 20% chance to deal an additional 46-4000 Flame Damage This effect can occur once every 2 seconds.
 			isAoE : false,
 			isDoT : false,
 			index : 4,
