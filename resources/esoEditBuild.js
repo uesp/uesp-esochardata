@@ -6321,6 +6321,23 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 		
 		// Optionally toggled set effects
+	
+	{	
+		id: "Mighty Glacier",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		buffId: "Major Resolve",
+		match: /you and up to [0-9]+ group members gain Major Resolve and Major Ward for [0-9]+ seconds/i,
+	},
+	{	
+		id: "Mighty Glacier",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		buffId: "Major Ward",
+		match: /you and up to [0-9]+ group members gain Major Resolve and Major Ward for [0-9]+ seconds/i,
+	},
 	{	
 		id: "Hagraven's Garden",
 		setBonusCount: 4,
@@ -10185,7 +10202,7 @@ window.GetEsoInputCPValues = function (inputValues)
 		
 		var element = $(".esotbItem[slotid='" + slotId + "']");
 		var iconElement = element.find(".esotbItemIcon");
-		iconElement.attr("extraArmor", extraBonus);
+		//iconElement.attr("extraArmor", extraBonus);
 		
 		AddEsoItemRawOutputString(itemData, "SpellResist from Shield Expert", extraBonus);
 		AddEsoItemRawOutputString(itemData, "PhysicalResist from Shield Expert", extraBonus);
@@ -10202,7 +10219,7 @@ window.GetEsoInputCPValues = function (inputValues)
 		
 		var element = $(".esotbItem[slotid='" + slotId + "']");
 		var iconElement = element.find(".esotbItemIcon");
-		iconElement.attr("extraArmor", extraBonus);
+		//iconElement.attr("extraArmor", extraBonus);
 		
 		AddEsoItemRawOutputString(itemData, "SpellResist from Bulwark", extraBonus);
 		AddEsoItemRawOutputString(itemData, "PhysicalResist from Bulwark", extraBonus);
@@ -11056,6 +11073,8 @@ window.OnEsoClickItemIcon = function (e)
 	var id = $this.attr("id");
 	
 	SelectEsoItem($this);
+	
+	e.stopPropagation();
 }
 
 
@@ -17446,6 +17465,12 @@ window.UpdateEsoItemTraitList = function (slotId, trait)
 }
 
 
+window.OnEsoItemButtonClick = function(e)
+{
+	e.stopPropagation();
+}
+
+
 window.OnEsoTransmuteListChange = function (e)
 {
 	var $this = $(this);
@@ -17541,10 +17566,12 @@ window.UpdateEsoOffHandTransmuteTraitList = function (slotId)
 		if ((isShield && isWeaponTrait) || (!isShield && !isWeaponTrait))
 		{
 			$this.hide();
+			$this.prop("hidden", true);
 		}
 		else
 		{
 			$this.show();
+			$this.removeAttr("hidden");
 		}
 	});
 	
@@ -18719,6 +18746,9 @@ window.esotbOnDocReady = function ()
 	$(".esotbBuffItem").click(OnEsoBuildBuffClick);
 	
 	$(".esotbItemTransmuteList").change(OnEsoTransmuteListChange);
+	
+	$(".esotbItemButton").click(OnEsoItemButtonClick);
+	$(".esotbItemTransmute").click(OnEsoItemButtonClick);	
 	
 	if ((g_EsoSkillIsMobile == null || !g_EsoSkillIsMobile) && window.skin != "minerva")
 	{

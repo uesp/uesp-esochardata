@@ -1325,6 +1325,15 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>11 March 2019</b>
+			<ul>
+				<li>The Bulwark CP bonus no longer displays the 1500 resistance on the shield tooltip to match that in-game. This also fixes a bug
+					where this CP would show more resistance than actually given on a Reinforced shield.</li>
+				<li>Fixed transmuting traits on off-hand items after changing it to a shield.</li>
+				<li>Clicking on main-hand/off-hand icon/button will no longer swap weapon bars. Click on the open area around the weapon/buttons or a skill bar to swap.</li>
+				<li>Added a toggle for the 5 piece bonus from the Mighty Glacier set.</li>
+			</ul>
+			<p>
 			<b>8 March 2019</b>
 			<ul>
 				<li>Fixed the Viper's String 5 piece bonus to be a DOT.</li>
