@@ -6321,7 +6321,6 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 		
 		// Optionally toggled set effects
-	
 	{	
 		id: "Mighty Glacier",
 		setBonusCount: 5,
