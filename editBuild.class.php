@@ -4252,7 +4252,7 @@ class EsoBuildDataEditor
 			else if ($count == 2)
 			{
 				$statBase = $statList[0];
-				if ($this->INPUT_STATS_LIST[$statBase] === null) $this->INPUT_STATS_LIST[$statBase] = array();
+				if (!array_key_exists($statBase, $this->INPUT_STATS_LIST) || $this->INPUT_STATS_LIST[$statBase] === null) $this->INPUT_STATS_LIST[$statBase] = array();
 				$this->INPUT_STATS_LIST[$statBase][$statList[1]] = 0;
 			}			
 		}
@@ -4264,7 +4264,7 @@ class EsoBuildDataEditor
 		
 		foreach ($this->STATS_TYPE_LIST as $statBase)
 		{
-			if ($this->INPUT_STATS_LIST[$statBase] === null) $this->INPUT_STATS_LIST[$statBase] = array();
+			if (!array_key_exists($statBase, $this->INPUT_STATS_LIST) || $this->INPUT_STATS_LIST[$statBase] === null) $this->INPUT_STATS_LIST[$statBase] = array();
 			
 			foreach ($this->STATS_BASE_LIST as $stat)
 			{
@@ -4301,7 +4301,7 @@ class EsoBuildDataEditor
 	public function getCharField($field, $default = "")
 	{
 		if ($this->buildDataViewer->characterData === null) return $default;
-		if ($this->buildDataViewer->characterData[$field] === null) return $default;
+		if (!array_key_exists($field, $this->buildDataViewer->characterData) || $this->buildDataViewer->characterData[$field] === null) return $default;
 		return $this->buildDataViewer->escape($this->buildDataViewer->characterData[$field]);
 	}
 	
@@ -4309,8 +4309,9 @@ class EsoBuildDataEditor
 	public function getCharStatField($field, $default = "")
 	{
 		if ($this->buildDataViewer->characterData === null) return $default;
-		if ($this->buildDataViewer->characterData['stats'] === null)  return $default;
-		if ($this->buildDataViewer->characterData['stats'][$field]['value'] === null) return $default;
+		if (!array_key_exists('stats', $this->buildDataViewer->characterData) || $this->buildDataViewer->characterData['stats'] === null)  return $default;
+		if (!array_key_exists($field, $this->buildDataViewer->characterData['stats']) || $this->buildDataViewer->characterData['stats'][$field] === null) return $default;
+		if (!array_key_exists('value', $this->buildDataViewer->characterData['stats'][$field]) || $this->buildDataViewer->characterData['stats'][$field]['value'] === null) return $default;
 		return $this->buildDataViewer->escape($this->buildDataViewer->characterData['stats'][$field]['value']);
 	}
 	
@@ -4481,6 +4482,7 @@ class EsoBuildDataEditor
 	public function GetCharacterEquippedItem($slotIndex) 
 	{
 		if ($slotIndex === null) return null;
+		if (!array_key_exists($slotIndex, $this->buildDataViewer->characterData['equipSlots'])) return null;
 		return $this->buildDataViewer->characterData['equipSlots'][$slotIndex];
 	}
 	
@@ -4600,7 +4602,7 @@ class EsoBuildDataEditor
 	public function LoadInitialSetMaxData($setName, $linkData)
 	{
 				/* Only load it once */
-		if ($this->initialSetMaxData[$setName] != null) return true;
+		if (!array_key_exists($setName, $this->initialSetMaxData) || $this->initialSetMaxData[$setName] != null) return true;
 		
 		$itemId = (int) $linkData['itemId'];
 		$intLevel = 50;
@@ -4791,11 +4793,13 @@ class EsoBuildDataEditor
 			if (!$result) continue;
 			
 			$names = explode(":", $name);
-			$skillName = $names[1];
-			$count = $names[2];
 			$value = $record['value'];
+			$skillName = $names[1];
 			
-			if ($this->initialToggleSkillData[$skillName] == null) $this->initialToggleSkillData[$skillName] = array();
+			$count = null;
+			if (array_key_exists(2, $names)) $count = $names[2];			
+			
+			if (!array_key_exists($skillName, $this->initialToggleSkillData) || $this->initialToggleSkillData[$skillName] == null) $this->initialToggleSkillData[$skillName] = array();
 			
 			if ($count !== null)
 				$this->initialToggleSkillData[$skillName]['count'] = $value;
@@ -4816,10 +4820,12 @@ class EsoBuildDataEditor
 				
 			$names = explode(":", $name);
 			$setName = $names[1];
-			$count = $names[2];
 			$value = $record['value'];
-				
-			if ($this->initialToggleSetData[$setName] == null) $this->initialToggleSetData[$setName] = array();
+			
+			$count = null;
+			if (array_key_exists(2, $names)) $count = $names[2];
+							
+			if (!array_key_exists($setName, $this->initialToggleSetData) || $this->initialToggleSetData[$setName] == null) $this->initialToggleSetData[$setName] = array();
 			$this->initialToggleSetData[$setName]['enabled'] = $value;
 			
 			if ($count !== null)

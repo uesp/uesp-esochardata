@@ -887,6 +887,7 @@ class EsoBuildDataViewer
 		
 		while (($row = $result->fetch_assoc()))
 		{
+			
 			if ($table == "skills")
 			{
 				$this->skillRanks[$row['abilityId']] = $row['rank'];
@@ -895,10 +896,12 @@ class EsoBuildDataViewer
 			else if ($table == "actionBars")
 			{
 				$rank = $row['rank'];
-				
+				$abilityId = $row['abilityId'];
+			
 				if ($rank <= 0) 
 				{
-					$rank = $this->skillRanks[$row['abilityId']];
+					$rank = 0;
+					if (array_key_exists($abilityId, $this->skillRanks)) $rank = $this->skillRanks[$abilityId];
 					if ($rank == null) $rank = 0;
 					$row['rank'] = $rank;
 				}
@@ -1000,6 +1003,7 @@ class EsoBuildDataViewer
 		if ($rank > 8) $rank -= 8;
 		if ($rank > 4) $rank -= 4; 
 		
+		if (!array_key_exists($abilityId, $ESO_BASESKILL_RANKDATA)) return $abilityId;
 		$baseSkill = $ESO_BASESKILL_RANKDATA[$abilityId];
 		if ($baseSkill == null) return $abilityId;
 		
