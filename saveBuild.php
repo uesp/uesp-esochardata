@@ -160,7 +160,7 @@ class EsoBuildDataSaver
 		if ($this->dbWriteInitialized) return true;
 	
 		$this->db = new mysqli($uespEsoBuildDataWriteDBHost, $uespEsoBuildDataWriteUser, $uespEsoBuildDataWritePW, $uespEsoBuildDataDatabase);
-		if ($db->connect_error) return $this->ReportError("Could not connect to mysql database!");
+		if ($this->db->connect_error) return $this->ReportError("Could not connect to mysql database!");
 	
 		$this->dbWriteInitialized = true;
 		return true;
@@ -378,7 +378,7 @@ class EsoBuildDataSaver
 		
 		foreach ($this->statsData as $name => $value)
 		{
-			if ($this->parsedBuildData['Stats'][$name] === null)
+			if (!array_key_exists($name, $this->parsedBuildData['Stats']))
 			{
 				$this->parsedBuildData['Stats'][$name] = $value;
 			}
@@ -396,6 +396,8 @@ class EsoBuildDataSaver
 		
 		foreach ($FIELDS as $field => $fieldType)
 		{
+			if (!array_key_exists($field, $data)) continue;
+			
 			$value = $data[$field];
 			
 			if ($fieldType == "id")
