@@ -3575,3 +3575,14 @@ thead.ecdFixedHeader tr {
     background-color: rgba(0,0,0,0.8);
     box-shadow: 0px 0px 10px 10px rgba(0,0,0,0.8);
 }
+
+.ecdBuildLinkButton {
+	padding: 3px;
+	background: #eee;
+	border: solid 1px gray;
+	border-radius: 2px;
+}
+
+.ecdBuildLinkButton:hover {
+	background: #ccc;
+}

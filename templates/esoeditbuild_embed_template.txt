@@ -1325,6 +1325,17 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>8 April 2019</b>
+			<ul>
+				<li>Updated the Steed mundus to be +10% movement speed.</li>
+				<li>Added the One-Hand versions of the Crusher enchantment debuff to buffs.</li>
+				<li>Added a toggle to the Mark of the Pariah set 5 piece bonus to increase Spell/Physical resist when you have less than 100% health. The bonus at 100% health is confirmed to be 23.256% of the tooltip
+					and scales to 100% at 0% health.</li>
+				<li>Changed the Edit and Create New Build buttons into links which permits opening in a new tab and other things.</li>
+				<li>Added the missing "WHEN SOUL ABILITY IS SLOTTED" header to the Soul Shatter passive.</li>
+				<li>Fixed Channel specific Spell/Weapon damage modifiers which weren't being correctly applied for class skills.</li>
+			</ul>
+			<p>
 			<b>12 March 2019</b>
 			<ul>
 				<li>Fixed armor passives to have exact values per piece of armor equipped which prevents off-by-1 rounded values.</li>

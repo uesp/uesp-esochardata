@@ -3,6 +3,8 @@
  * 		- Description of input types (plain, percent, special, etc...)
  * 		- Poison buffs
  * 		- Hide skill lines, auto-purchase free skills.
+ * 		- Include specific Spell/Weapon damage values in raw data and effective power.
+ * 		- View window enchantment/set effect modifiers.
  * 
  */
 
@@ -177,7 +179,7 @@ window.ESO_MUNDUS_BUFF_DATA =
 	"The Steed" : {
 		abilityId: 13977,
 		icon : "/esoui/art/icons/ability_mundusstones_006.png",
-		description: "Increases your Movement Speed by 5% and Health Recovery by 238.",
+		description: "Increases your Movement Speed by 10% and Health Recovery by 238.",
 	},
 	"The Thief" : {
 		abilityId: 13975,
@@ -1108,6 +1110,48 @@ window.g_EsoBuildBuffData =
 			// visible : false,
 			// toggleVisible : true,
 			values : [ -2741, -2741 ],
+			category: "Target",
+			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
+			statDescs : [ "Reduces the target's Physical Resistance by ", "Reduces the target's Spell Resistance by " ],
+			icon : "/esoui/art/icons/ability_armor_001.png",
+		},
+		"Crusher Enchantment One-Hand (Target)" :
+		{
+			// Reduce the target's Spell Resist and Physical Resist by 1622 for 5 seconds.
+			group: "Target",
+			enabled: false,
+			skillEnabled : false,
+			// visible : false,
+			// toggleVisible : true,
+			values : [ -811, -811 ],
+			category: "Target",
+			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
+			statDescs : [ "Reduces the target's Physical Resistance by ", "Reduces the target's Spell Resistance by " ],
+			icon : "/esoui/art/icons/ability_armor_001.png",
+		},
+		"Crusher Enchantment Infused One-Hand (Target)" :
+		{
+			// Reduce the target's Spell Resist and Physical Resist by 1946 for 5 seconds.
+			group: "Target",
+			enabled: false,
+			skillEnabled : false,
+			// visible : false,
+			// toggleVisible : true,
+			values : [ -1054, -1054 ],
+			category: "Target",
+			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
+			statDescs : [ "Reduces the target's Physical Resistance by ", "Reduces the target's Spell Resistance by " ],
+			icon : "/esoui/art/icons/ability_armor_001.png",
+		},
+		"Crusher Enchantment Infused + Torug One-Hand (Target)" :
+		{
+			// Reduce the target's Spell Resist and Physical Resist by 1946 for 5 seconds.
+			group: "Target",
+			enabled: false,
+			skillEnabled : false,
+			// visible : false,
+			// toggleVisible : true,
+			values : [ -1370, -1370 ],
 			category: "Target",
 			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
 			statDescs : [ "Reduces the target's Physical Resistance by ", "Reduces the target's Spell Resistance by " ],
@@ -5975,18 +6019,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "TwiceBornStar",
 		match: /You can have two Mundus Stone boons at the same time./i,
 	},	
-	{	// Mark of the Pariah: TODO?
-		statId: "SpellResist",
-		factorValue: 0.233,
-		round: "floor",
-		match: /Increases your Physical and Spell Resistance by up to ([0-9]+) based on your missing Health/i,
-	},
-	{
-		statId: "PhysicalResist",
-		factorValue: 0.233,
-		round: "floor",
-		match: /Increases your Physical and Spell Resistance by up to ([0-9]+) based on your missing Health/i,
-	},
 	{
 		statId: "BreakFreeDuration",
 		match: /Immunity duration after using Break Free increased by ([0-9]+\.?[0-9]*) seconds/i,
@@ -6319,8 +6351,40 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		match: /Generate an aura that causes you and [0-9]+ group members within the aura to take ([0-9]+)% less damage from projectiles/i,
 	},
+	{		// Mark of the Pariah
+		statId: "SpellResist",
+		factorValue: 0.23256,	// Update 22 - Value at 100% health
+		round: "floor",
+		match: /Increases your Physical and Spell Resistance by up to ([0-9]+) based on your missing Health/i,
+	},
+	{
+		statId: "PhysicalResist",
+		factorValue: 0.23256,
+		round: "floor",
+		match: /Increases your Physical and Spell Resistance by up to ([0-9]+) based on your missing Health/i,
+	},
 		
 		// Optionally toggled set effects
+	{	id: "Mark of the Pariah",
+		setBonusCount: 4,
+		statId: "SpellResist",
+		maxTimes: 100,
+		factorValue: 0.0076744,
+		toggle: true,
+		enabled: false,
+		round: "floor",
+		match: /Increases your Physical and Spell Resistance by up to ([0-9]+) based on your missing Health/i,
+	},
+	{	id: "Mark of the Pariah",
+		setBonusCount: 4,
+		statId: "PhysicalResist",
+		maxTimes: 100,
+		factorValue: 0.0076744,
+		toggle: true,
+		enabled: false,
+		round: "floor",
+		match: /Increases your Physical and Spell Resistance by up to ([0-9]+) based on your missing Health/i,
+	},
 	{	
 		id: "Mighty Glacier",
 		setBonusCount: 5,
@@ -10094,6 +10158,7 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 		// inputValues.Mundus.HealthRegen = 198; // 3*66, preupdate 15
 		inputValues.Mundus.HealthRegen = 238;		// Update 15
 		inputValues.Mundus.MovementSpeed = 0.05;
+		inputValues.Mundus.MovementSpeed = 0.10;	// Update 21/22?
 		AddEsoInputStatSource("Mundus.HealthRegen",   { mundus: mundusName, value: inputValues.Mundus.HealthRegen });
 		AddEsoInputStatSource("Mundus.MovementSpeed", { mundus: mundusName, value: inputValues.Mundus.MovementSpeed });
 		
@@ -13713,11 +13778,11 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
  	
  	g_LastSkillInputValues.SkillSpellDamage["Channel"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Item.ChannelSpellDamage + inputValues.Item.MaelstromDamage, SpellDamageFactor);
  	g_LastSkillInputValues.SkillSpellDamage["Class"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Set.ClassSpellDamage + inputValues.Item.MaelstromDamage, SpellDamageFactor);
- 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Set.ClassSpellDamage + inputValues.Item.MaelstromDamage, SpellDamageFactor);
+ 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Set.ClassSpellDamage + inputValues.Item.ChannelSpellDamage, SpellDamageFactor);
  	 	
  	g_LastSkillInputValues.SkillWeaponDamage["Channel"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage, WeaponDamageFactor);
  	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.Set.ClassWeaponDamage, WeaponDamageFactor);
- 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.Set.ClassWeaponDamage, WeaponDamageFactor);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.ChannelSpellDamage + inputValues.Set.ClassWeaponDamage, WeaponDamageFactor);
  	
  	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Set.ClassSpellDamage + inputValues.Item.ChannelSpellDamage + inputValues.Item.MaelstromDamage, SpellDamageFactor);
  	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.Set.ClassWeaponDamage, WeaponDamageFactor);
