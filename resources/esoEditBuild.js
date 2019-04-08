@@ -17335,7 +17335,7 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 		// Alessian Order
 	newDesc = newDesc.replace(/(\(5 items\) Increase your Health Recovery by \<div.*\>)([0-9]+)(\<\/div\>% of your sum total Physical and Spell Resistance\..*Current Bonus Health Recovery: )([0-9]+)/i, function(match, prefix, percent, middle, healthRegen) {
 		healthRegen = Math.floor((g_EsoBuildLastInputValues.SpellResist + g_EsoBuildLastInputValues.PhysicalResist) * percent / 100);
-		itemData.rawOutput["Tooltip: Set HealthRegen"] = "(" + g_EsoBuildLastInputValues.SpellResist + " + " + g_EsoBuildLastInputValues.HealthRegenResistFactor + ") * " + percent + "% = " + healthRegen;
+		itemData.rawOutput["Tooltip: Set HealthRegen"] = "(" + g_EsoBuildLastInputValues.SpellResist + " + " + g_EsoBuildLastInputValues.PhysicalResist + ") * " + percent + "% = " + healthRegen;
 		return prefix + percent + middle + healthRegen;
 	});
 	
