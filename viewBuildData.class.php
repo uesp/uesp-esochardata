@@ -3752,7 +3752,8 @@ class EsoBuildDataViewer
 				
 			$output .= "<tr class='ecdBuildCreateNewRow'><td colspan='10' align='center'>";
 			$output .= "	<form method='get' action='$editLink'>";
-			$output .= "		<input type='submit' value='Create New Build'>";
+			//$output .= "		<input type='submit' value='Create New Build'>";
+			$output .= "        <a href='$editLink' class='ecdBuildLinkButton'>Create New Build</a>";
 			$output .= "	</form>";
 			$output .= "</td></tr>";
 		}
@@ -4379,11 +4380,18 @@ EOT;
 			
 			$output .= "<form method='get' action='/wiki/Special:EsoBuildEditor'>";
 			$output .= "<input type='hidden' name='id' value ='{$buildData['id']}'>";
+			$editLink = $this->getEditLink();
 			
 			if ($this->canWikiUserEditBuild($buildData))
-				$output .= "<input type='submit' value='Edit'>";
+			{
+				//$output .= "<input type='submit' value='Edit'>";
+				$output .= "<a href='$editLink?id={$buildData['id']}' class='ecdBuildLinkButton'>Edit</a>";
+			}
 			else
-				$output .= "<input type='submit' value='Create Copy'>";
+			{
+				//$output .= "<input type='submit' value='Create Copy'>";
+				$output .= "<a href='$editLink?id={$buildData['id']}' class='ecdBuildLinkButton'>Create Copy</a>";
+			}
 			
 			$output .= "</form>\n &nbsp &nbsp";
 							

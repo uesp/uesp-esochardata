@@ -424,7 +424,7 @@ class EsoBuildDataEditor
 			"The Ritual" 		=> "Healing",
 			"The Serpent" 		=> "Stamina Recovery",
 			"The Shadow" 		=> "Crit Damage",
-			"The Steed" 		=> "Run/Health Recovery",
+			"The Steed" 		=> "Health Recovery/Movement Speed",
 			"The Thief" 		=> "Crit Chance",
 			"The Tower" 		=> "Stamina",
 			"The Warrior" 		=> "Weapon Damage",
