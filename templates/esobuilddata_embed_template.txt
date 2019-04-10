@@ -135,3 +135,8 @@
 	<div class='ecdRawLink'><a href="{rawLink}">View Raw Data</a></div>
 	<div class='ecdCreateDate'>{editDateNote}</div>
 </div>
+
+<script type="text/javascript">
+	var g_EsoBuildStatData = {buildStatDataJson};
+</script>
+

@@ -5,7 +5,6 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #cfc; margin-right: 225px;'>
-Note: Editor is mostly updated for Wrathstone. Items, skills and CP data have been updated.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -1325,6 +1324,26 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>10 April 2019</b>
+			<ul>
+				<li>Fixed the magicka return value of the Healing Springs ability.</li>
+			</ul>
+			<b>9 April 2019</b>
+			<ul>
+				<li>Build/character views will now display the correct enchantment tooltips for one-handed weapons.</li>
+				<li>Added a few Damage/Healing computed values.</li>
+				<li>Fixed set/enchantment tooltips to use all sources of damage done.</li>
+				<li>Added WalkSpeed computed value (renamed the previous value RunSpeed).</li>
+				<li>Fixed parsing/update of the Alessian Order 5 piece bonus tooltip.</li>
+				<li>Set and enchantment tooltips on the build/character displays should display more accurate values based on modifiers. Note that builds saved from the game will not have 
+					accurate tooltips as these modifiers are not available from the game itself (load and save a build to update values). Some modifiers will need to have the build
+					re-saved in order to update their values.</li>
+				<li>The 5 piece bonus from the Deadly Strike set will now actually affect skill tooltip values. Removed the double-effect from bleed damage.</li>
+				<li>Added Unarmed and Bash Damage computed stats (not yet tested in-game).</li>
+				<li>Updated all Light and Heavy attack calculations based on some PTS testing.</li>
+				<li>Fixed the value of the Empower buff to 40%.</li>
+			</ul>
+			<p>
 			<b>8 April 2019</b>
 			<ul>
 				<li>Updated the Steed mundus to be +10% movement speed.</li>

@@ -206,4 +206,5 @@
 	var ecdAllInventory = {allInventoryJS};
 	var ecdCharacterNames = {characterNamesJS};
 	var ecdCharacterId = {characterId};
+	var g_EsoBuildStatData = {buildStatDataJson};
 </script>
