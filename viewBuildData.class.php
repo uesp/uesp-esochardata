@@ -1240,6 +1240,20 @@ class EsoBuildDataViewer
 		$output .= "</div>";
 		return $output;
 	}
+	
+	
+	public function getBuildStatDataJson()
+	{		
+		$statData = array();
+		
+		foreach ($this->characterData['stats'] as $field => $data)
+		{
+			$value = $data['value'];
+			$statData[$field] = $value;
+		}		
+
+		return json_encode($statData);
+	}	
 		
 	
 	public function createCharacterOutput()
@@ -1389,6 +1403,7 @@ class EsoBuildDataViewer
 					'{charMenu}' => $this->getLeftCharacterMenuHtml(),
 					'{backgroundFocusStyle}' => $this->getBackgroundFocusStyle(),
 					'{BuildDescription}' => $this->getCharStatField('BuildDescription', ''),
+					'{buildStatDataJson}' => $this->getBuildStatDataJson(),
 			);
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
