@@ -106,6 +106,7 @@ class EsoBuildDataEditor
 			"Weapon2H",
 			"Update18Rules",
 			"Update21Rules",
+			"Update22Rules",
 			"WeaponRestStaff",
 			"WeaponDestStaff",
 			"WeaponFlameStaff",
@@ -188,6 +189,11 @@ class EsoBuildDataEditor
 			"SkillCost.Support_Cost",
 			"SkillCost.Fighters_Guild_Cost",
 			"SkillCost.Psijic_Order_Cost",
+			"SkillCost.Blastbones_Cost",
+			"SkillCost.Blighted_Blastbones_Cost",
+			"SkillCost.Stalking_Blastbones_Cost",
+			"SkillCost.Skeletal_Mage_Cost",
+			"SkillCost.Spirit_Mender_Cost",
 			"Stealthed",
 			"Skill.HAMagRestoreRestStaff",
 			"Skill.HAStaRestoreWerewolf",
@@ -280,6 +286,7 @@ class EsoBuildDataEditor
 			"Set.BleedDotDamageDone",
 			"Set.HealthRegenResistFactor",
 			"Set.RangedDamageTaken",
+			"Skill.HealCrit",
 	);
 	
 	
@@ -495,6 +502,7 @@ class EsoBuildDataEditor
 	
 	public $CLASS_TYPES = array(
 			"Dragonknight",
+			"Necromancer",
 			"Nightblade",
 			"Sorcerer",
 			"Templar",
@@ -648,7 +656,43 @@ class EsoBuildDataEditor
 			
 			"SkillCost.Mages_Guild" => array(
 					"display" => "%",
-			),			
+			),
+			
+			"SkillCost.Blastbones_Cost" => array(
+					"display" => "%",
+			),
+			
+			"SkillCost.Blighted_Blastbones_Cost" => array(
+					"display" => "%",
+			),
+			
+			"SkillCost.Stalking_Blastbones_Cost" => array(
+					"display" => "%",
+			),
+			
+			"SkillCost.Skeletal_Mage_Cost" => array(
+					"display" => "%",
+			),
+			
+			"SkillCost.Skeletal_Archer_Cost" => array(
+					"display" => "%",
+			),
+			
+			"SkillCost.Skeletal_Arcanist_Cost" => array(
+					"display" => "%",
+			),
+			
+			"SkillCost.Spirit_Mender_Cost" => array(
+					"display" => "%",
+			),
+			
+			"SkillCost.Spirit_Guardian_Cost" => array(
+					"display" => "%",
+			),
+			
+			"SkillCost.Spirit_Intensive_Cost" => array(
+					"display" => "%",
+			),
 			
 			"SkillCost.Destructive_Touch_Cost" => array(
 					"display" => "%",
@@ -735,6 +779,10 @@ class EsoBuildDataEditor
 			),
 			
 			"Skill.AOEDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"Skill.HealCrit" => array(
 					"display" => "%",
 			),
 			
@@ -1427,6 +1475,10 @@ class EsoBuildDataEditor
 			),
 			
 			"CP.DotDamageTaken" => array(
+					"display" => "%",
+			),
+			
+			"Skill.DotDamageTaken" => array(
 					"display" => "%",
 			),
 			
@@ -3056,6 +3108,8 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"compute" => array(
 							"CP.DotDamageTaken",
+							"Skill.DotDamageTaken",
+							"+",
 					),
 			),
 			
@@ -3065,6 +3119,8 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"compute" => array(
 							"CP.DotDamageDone",
+							"Skill.DotDamageDone",
+							"+",
 					),
 			),
 			
@@ -5166,6 +5222,8 @@ class EsoBuildDataEditor
 			$this->viewSkills->highlightSkillId = 23784;		
 		else if ($this->viewSkills->displayClass == "Warden")
 			$this->viewSkills->highlightSkillId = 85985;
+		else if ($this->viewSkills->displayClass == "Necromancer")
+			$this->viewSkills->highlightSkillId = 115001;
 		
 		$this->initialSkillData = array();
 		$this->initialSkillData['UsedPoints'] = $this->getCharStatField("SkillPointsUsed", 0);
@@ -5330,6 +5388,12 @@ class EsoBuildDataEditor
 			//$this->viewCps->version = "21pts";
 		}
 		
+		if ($this->getCharStatField("UseUpdate22Rules", 0)) 
+		{
+			$this->viewSkills->version = "22pts";
+			$this->viewCps->version = "22pts";
+		}
+		
 		$this->viewSkills->LoadData();
 		
 		$this->FixupBuildForPts();
@@ -5490,6 +5554,14 @@ class EsoBuildDataEditor
 	}
 	
 	
+	public function GetUpdate22RulesCheckState()
+	{
+		$flag = $this->getCharStatField("UseUpdate22Rules", "0");
+		if ($flag > 0) return "checked";
+		return "";
+	}
+	
+	
 	public function getCharTargetResist()
 	{
 		$resist = $this->getCharStatField("Target:Resistance", "18200");
@@ -5500,7 +5572,7 @@ class EsoBuildDataEditor
 	
 	public function FixupComputedStatsForPts()
 	{
-		$this->COMPUTED_STATS_LIST = array_merge($this->COMPUTED_STATS_LIST, $this->COMPUTED_STATS_LIST_UPDATE21);
+		//$this->COMPUTED_STATS_LIST = array_merge($this->COMPUTED_STATS_LIST, $this->COMPUTED_STATS_LIST_UPDATE21);
 	}
 	
 	
@@ -5605,7 +5677,8 @@ class EsoBuildDataEditor
 		$this->FixupUpdate21PtsRacialSkills();
 		
 		//if (!$this->getCharStatField("UseUpdate18Rules", 0)) return false;
-		if (!$this->getCharStatField("UseUpdate21Rules", 0)) return false;
+		//if (!$this->getCharStatField("UseUpdate21Rules", 0)) return false;
+		if (!$this->getCharStatField("UseUpdate22Rules", 0)) return false;
 		
 		$this->FixupComputedStatsForPts();
 		
@@ -5763,6 +5836,7 @@ class EsoBuildDataEditor
 				'{enableCP}' => $this->GetEnableCPCheckState(),
 				'{useUpdate18Rules}' => $this->GetUpdate18RulesCheckState(),  
 				'{useUpdate21Rules}' => $this->GetUpdate21RulesCheckState(),
+				'{useUpdate22Rules}' => $this->GetUpdate22RulesCheckState(),
 				'{setNamesJson}' => $this->GetSetNamesJson(),
 				'{BuildDescription}' => $this->getCharStatField("BuildDescription", ""),
 		);
