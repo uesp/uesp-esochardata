@@ -5,6 +5,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #cfc; margin-right: 225px;'>
+Build editor is partially updated for the Elsweyr (Update 22) PTS patch. Choose the "Update 22 Rules" on the general tab and save/reload build.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -59,16 +60,13 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<br/>
 			<div class="esotbStatLabel">Enable CP</div> <input type="checkbox" id="esotbEnableCP" name="esotbEnableCP" statid="EnableCP" {enableCP}>
 			<br/>
-			<!-- <div class="esotbStatLabel">Update 21 Rules</div> <input type="checkbox" id="esotbUpdate21Rules" name="esotbUpdate21Rules" statid="UseUpdate21Rules" {useUpdate21Rules}>
-			Use rules from Update 21 (Wrathstone) which includes (save build and reload to take effect):
+			<div class="esotbStatLabel">Update 22 Rules</div> <input type="checkbox" id="esotbUpdate22Rules" name="esotbUpdate22Rules" statid="UseUpdate22Rules" {useUpdate22Rules}>
+			Use rules from Update 22 (Elsweyr) which includes (save build and reload to take effect when changing this setting):
 			<ul style="margin-left: 170px; margin-top: -5px;">
-				<li>Updated racial passives.</li>
-				<li>Half-effect enchantments on 1H weapons.</li>
-				<li>The Shadow changed to 13% Critical Damage.</li>
-				<li>New CP bonus to health/magicka/stamina (not yet verified).</li>
-				<li>Updated skills and CPs as of patch v4.3.3.</li>
+				<li>Necromancer class.</li>
+				<li>Updated skills and CPs as of PTS patch v5.0.0.</li>
 			</ul>
-			<p> -->
+			<p>
 			<div id="esotbAttributes">
 				<div class="esotbAttrTitle">Attributes <div id="esotbAttrTotal" statid="AttributeTotal" class="esotbAttributeInput">{attributeTotal} / 64</div></div>
 				<div class="esotbAttrLabel">Health</div> <input id="esotbAttrHea" statid="AttributeHealth" class="esotbAttributeInput esotbInputValue" type="number" size="2" value="{attributeHealth}">
@@ -1324,10 +1322,28 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>24 April 2019</b>
+			<ul>
+				<li>Fixed transmuting of Infused gear with non-default enchantments having the incorrect enchantment value.</li>
+			</ul>
+			<p>
+			<b>18 April 2019</b>
+			<ul>
+				<li>Added the "Update 22 Rules" option.</li>
+				<li>Added the Necromancer class and enabled parsing of all active and passive skills.</li>
+				<li>Added the skills/CPs from PTS update 22.</li>
+			</ul>
+			<p>
+			<b>15 April 2019</b>
+			<ul>
+				<li>Added the "Update 22 Ruleset" for the new PTS patch.</li>
+			</ul>
+			<p>
 			<b>10 April 2019</b>
 			<ul>
 				<li>Fixed the magicka return value of the Healing Springs ability.</li>
 			</ul>
+			<p>
 			<b>9 April 2019</b>
 			<ul>
 				<li>Build/character views will now display the correct enchantment tooltips for one-handed weapons.</li>

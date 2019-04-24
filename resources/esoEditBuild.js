@@ -1517,7 +1517,94 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		match: /While slotted you gain Minor Protection/i
 	},
 	
+		/* Necromancer */
+	// TODO: Hitting your Skeletal Mage or Spirit Mender enhances them for 5 seconds, increasing their effectiveness by 40%.?
+	// TODO: You grant the target Spell and Physical Resistance equal to half the amount healed for 3 seconds. ?
+	{
+		category: "Skill",
+		statId: "DamageTaken",
+		display: "%",
+		factorValue: -1,
+		match: /While slotted, your damage taken is reduced by ([0-9]+)%/i
+	},
+	{
+		category: "Skill",
+		statId: "DamageDone",
+		display: "%",
+		match: /While slotted, your damage done is increased by ([0-9]+)%/i
+	},
+	{
+		category: "Skill",
+		statId: "MagickaCost",
+		display: "%",
+		factorValue: -1,
+		match: /While slotted, the cost of all your abilities are reduced by ([0-9]+)%/i
+	},
+	{
+		category: "Skill",
+		statId: "StaminaCost",
+		display: "%",
+		factorValue: -1,
+		match: /While slotted, the cost of all your abilities are reduced by ([0-9]+)%/i
+	},
+	{
+		category: "Skill",
+		statId: "UltimateCost",
+		display: "%",
+		factorValue: -1,
+		match: /While slotted, the cost of all your abilities are reduced by ([0-9]+)%/i
+	},
+	{
+		category: "Skill",
+		statId: "HealingDone",
+		display: "%",
+		match: /While slotted, your healing done is increased by ([0-9]+)%/i
+	},
+	
+	
 		/* Begin Toggled Abilities */
+	{
+		id: "Bone Goliath Transformation",
+		baseSkillId: 40115001,
+		category: "Skill2",
+		statId: "Health",
+		toggle: true,
+		enabled: false,
+		match: /Goliath, increasing your Max Health by ([0-9]+) for/i
+	},
+	{
+		id: "Summoner's Armor",
+		baseSkillId: 40115206,
+		category: "SkillCost",
+		statId: "Blastbones_Cost",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		factorValue: -1,
+		match: /While active, reduce the cost of Blastbones, Skeletal Mage, and Spirit Mender by ([0-9]+)%/i
+	},
+	{
+		id: "Summoner's Armor",
+		baseSkillId: 40115206,
+		category: "SkillCost",
+		statId: "Skeletal_Mage_Cost",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		factorValue: -1,
+		match: /While active, reduce the cost of Blastbones, Skeletal Mage, and Spirit Mender by ([0-9]+)%/i
+	},
+	{
+		id: "Summoner's Armor",
+		baseSkillId: 40115206,
+		category: "SkillCost",
+		statId: "Spirit_Mender_Cost",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		factorValue: -1,
+		match: /While active, reduce the cost of Blastbones, Skeletal Mage, and Spirit Mender by ([0-9]+)%/i
+	},
 	{
 		id: "Thrive in Chaos",
 		baseSkillId: 86370,
@@ -2229,6 +2316,11 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "Health",
 		display: '%',
 		match: /^Increases your Max Health by ([0-9]+\.?[0-9]*)% and/i,
+	},
+	{
+		category: "Skill2",
+		statId: "Health",
+		match: /^Increase your Max Health by ([0-9]+\.?[0-9]*)/i,
 	},
 	{
 		statId: "PoisonResist",
@@ -4296,7 +4388,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "SneakRange",
 		category: "Skill2",
-		factor: -1,
+		factorValue: -1,
 		match: /Decreases your detection radius in Stealth by ([0-9]+) meters./i,
 	},
 	{
@@ -4417,8 +4509,109 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases your Critical Damage and Critical healing by ([0-9]+\.?[0-9]*)%/i,
 	},
 	
+		// Necromancer
+	{
+		id: "Health Avarice",
+		baseSkillId: 116269,
+		statId: "HealingReceived",
+		factorSkillLine: "BONE TYRANT",
+		display: "%",
+		match: /Increase your Healing Received by ([0-9]+)% for each Bone Tyrant ability slotted/i,
+	},
+	{
+		statId: "DotDamageDone",
+		display: "%",
+		match: /Increases your damage done with damage over time effects by ([0-9]+)%/i,
+	},
+	
 	
 		/* Begin Toggled Passives */
+	{
+		id: "Disdain Harm",
+		baseSkillId: 116239,
+		statId: "DotDamageTaken",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		factorValue: -1,
+		match: /Reduce the damage you take from damage over time abilities by ([0-9]+)% while you have a Bone Tyrant ability active/i,
+	},
+	{
+		id: "Death Knell",
+		baseSkillId: 116197,
+		statId: "SpellCrit",
+		factorSkillLine: "GRAVE LORD",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /Increases your Critical Strike Chance against enemies under [0-9]+% Health by ([0-9]+)% for each Grave Lord ability slotted/i,
+	},
+	{
+		id: "Death Knell",
+		baseSkillId: 116197,
+		statId: "WeaponCrit",
+		factorSkillLine: "GRAVE LORD",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /Increases your Critical Strike Chance against enemies under [0-9]+% Health by ([0-9]+)% for each Grave Lord ability slotted/i,
+	},
+	{
+		id: "Dismember",
+		baseSkillId: 116192,
+		statId: "SpellPenetration",
+		toggle: true,
+		enabled: false,
+		match: /While a Grave Lord ability is active, your Spell and Physical Penetration are increased by ([0-9]+)/i,
+	},
+	{
+		id: "Dismember",
+		baseSkillId: 116192,
+		statId: "PhysicalPenetration",
+		toggle: true,
+		enabled: false,
+		match: /While a Grave Lord ability is active, your Spell and Physical Penetration are increased by ([0-9]+)/i,
+	},
+	{
+		id: "Curative Curse",
+		baseSkillId: 116286,
+		statId: "HealingDone",
+		toggle: true,
+		enabled: false,
+		display: '%',
+		match: /While you have a negative effect on you, your healing done is increased by ([0-9]+)%/i,
+	},
+	{
+		id: "Near-Death Experience",
+		baseSkillId: 116273,
+		requireSkillLine: "LIVING DEATH",
+		category: "Skill",
+		statId: "HealCrit",
+		display: "%",
+		maxTimes: 20,
+		statValue: 1,
+		toggle: true,
+		enabled: false,
+		match: /While you have a Living Death ability slotted, your Critical Strike Chance with all healing abilities is increased by up to [0-9]+% in proportion to the severity of the target's wounds/i,
+	},
+	{
+		id: "Undead Confederate",
+		baseSkillId: 116282,
+		category: "Item",
+		statId: "MagickaRegen",
+		toggle: true,
+		enabled: false,
+		match: /While you have a Necromancer summon active, your Magicka and Stamina Recovery is increased by ([0-9]+)/i,
+	},
+	{
+		id: "Undead Confederate",
+		baseSkillId: 116282,
+		category: "Item",
+		statId: "StaminaRegen",
+		toggle: true,
+		enabled: false,
+		match: /While you have a Necromancer summon active, your Magicka and Stamina Recovery is increased by ([0-9]+)/i,
+	},
 	{
 		id: "Amplitude",
 		baseSkillId: 31422,
@@ -7964,6 +8157,7 @@ window.InitializeEsoBuildInputValues = function (inputValues)
 	
 	inputValues.UseUpdate18Rules = false;
 	inputValues.UseUpdate21Rules = false;
+	inputValues.UseUpdate22Rules = false;
 }
 
 
@@ -7983,6 +8177,7 @@ window.GetEsoInputValues = function (mergeComputedStats)
 		
 	if ($("#esotbUpdate18Rules").prop("checked")) inputValues.UseUpdate18Rules = true;
 	if ($("#esotbUpdate21Rules").prop("checked")) inputValues.UseUpdate21Rules = true;
+	if ($("#esotbUpdate22Rules").prop("checked")) inputValues.UseUpdate22Rules = true;
 			
 	inputValues.Race = $("#esotbRace").val();
 	inputValues.Class = $("#esotbClass").val();
@@ -9569,7 +9764,7 @@ window.GetEsoInputItemEnchantValues = function (inputValues, slotId, doWeaponUpd
 	var transmuteFactor = 1;
 	
 		// Fix original infused item that is transmuted
-	if (itemData.transmuteTrait > 0 && (itemData.origTrait == 16 || itemData.origTrait == 4 || itemData.origTrait == 33) && itemData.transmuteTrait != itemData.origTrait)
+	if (enchantData.isDefaultEnchant && itemData.transmuteTrait > 0 && (itemData.origTrait == 16 || itemData.origTrait == 4 || itemData.origTrait == 33) && itemData.transmuteTrait != itemData.origTrait)
 	{
 		var rawDesc = RemoveEsoDescriptionFormats(itemData.origTraitDesc);
 		var results = rawDesc.match(/([0-9]+\.?[0-9]*\%?)/g);
@@ -11101,6 +11296,13 @@ window.OnEsoUpdateStats = function (e)
 
 
 window.OnEsoUpdate21Click = function (e)
+{
+	//RemovePurchasedEsoRaceSkills();
+	UpdateEsoComputedStatsList("async");
+}
+
+
+window.OnEsoUpdate22Click = function (e)
 {
 	//RemovePurchasedEsoRaceSkills();
 	UpdateEsoComputedStatsList("async");
@@ -13639,6 +13841,8 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
 			AnimalCompanionSkills : CountEsoBarSkillsWithSkillLine("Animal Companions"),
 			GreenBalanceSkills : CountEsoBarSkillsWithSkillLine("Green Balance"),
 			WintersEmbraceSkills : CountEsoBarSkillsWithSkillLine("Winter's Embrace"),
+			BoneTyrantSkills : CountEsoBarSkillsWithSkillLine("Bone Tyrant"),
+			GraveLordSkills : CountEsoBarSkillsWithSkillLine("Grave Lord"),
 	};
 	
 	g_LastSkillInputValues.SkillLineCost = inputValues.SkillCost;
@@ -14922,6 +15126,7 @@ window.CreateEsoBuildGeneralSaveData = function (saveData, inputValues)
 	saveData.Stats['CP:Enabled'] = inputValues.CP.Enabled;
 	saveData.Stats['UseUpdate18Rules'] = inputValues.UseUpdate18Rules;
 	saveData.Stats['UseUpdate21Rules'] = inputValues.UseUpdate21Rules;
+	saveData.Stats['UseUpdate22Rules'] = inputValues.UseUpdate22Rules;
 		
 	inputValues.CPLevel = Math.floor(inputValues.CP.TotalPoints/10);
 	if (inputValues.CPLevel > ESO_MAX_CPLEVEL) inputValues.CPLevel = ESO_MAX_CPLEVEL;
@@ -16764,6 +16969,11 @@ window.FixupEsoBuildDataUpdate21 = function()
 }
 
 
+window.FixupEsoBuildDataUpdate22 = function()
+{
+}
+
+
 window.g_EsoBuildTestSkills = {};
 
 
@@ -17510,9 +17720,9 @@ window.CheckEsoSetTestResults = function()
 
 window.esotbOnDocReady = function ()
 {
-	if ($("#esotbUpdate21Rules").prop("checked"))
+	if ($("#esotbUpdate22Rules").prop("checked"))
 	{
-		//FixupEsoBuildDataUpdate21();
+		FixupEsoBuildDataUpdate22();
 	}
 	
 	GetEsoSkillInputValues = GetEsoTestBuildSkillInputValues;
@@ -17555,6 +17765,7 @@ window.esotbOnDocReady = function ()
 	$("#esotbEnableCP").click(OnEsoUpdateStats);
 	$("#esotbUpdate18Rules").click(OnEsoUpdateStats);
 	$("#esotbUpdate21Rules").click(OnEsoUpdate21Click);
+	$("#esotbUpdate22Rules").click(OnEsoUpdate22Click);
 	
 	$(".esotbInputValue").on('input', function(e) { OnEsoInputChange.call(this, e); });
 	
