@@ -1322,6 +1322,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>29 April 2019</b>
+			<ul>
+				<li>Fixed missing skill coefficient in a few of the bow skills.</li>
+			</ul>
+			<p>
 			<b>24 April 2019</b>
 			<ul>
 				<li>Fixed transmuting of Infused gear with non-default enchantments having the incorrect enchantment value.</li>
