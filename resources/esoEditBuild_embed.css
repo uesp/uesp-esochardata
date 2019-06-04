@@ -1037,7 +1037,8 @@ button.esotbWeaponSelect {
 }
 
 #esotbSaveButton,
-#esotbCreateCopyButton {
+#esotbCreateCopyButton,
+#esotbDeleteButton {
 	margin-left: 15px;
 }
 
@@ -1216,4 +1217,8 @@ button.esotbWeaponSelect {
     pointer-events: none;
     opacity: 0.5;
     background: #CCC;
+}
+
+#esotbDeleteButton {
+	background-color: #fcc;
 }

@@ -686,6 +686,17 @@ window.g_EsoBuildBuffData =
 			statDesc : "Increases your Weapon and Spell Damage by ",
 			icon : "/esoui/art/icons/ability_mage_045.png",
 		},
+		"Minor Courage" :			// TODO: Check how its added to other SD/WD stats
+		{
+			group: "Minor",
+			enabled: false,
+			skillEnabled : false,
+			value : 129,
+			category: "Set",
+			statIds : [ "WeaponDamage", "SpellDamage" ],
+			statDesc : "Increases your Weapon and Spell Damage by ",
+			icon : "/esoui/art/icons/ability_mage_045.png",
+		},
 		"Major Evasion" : 
 		{
 			group: "Major",
@@ -861,6 +872,18 @@ window.g_EsoBuildBuffData =
 			statId : "DamageDone",
 			icon : "/esoui/art/icons/ability_fightersguild_004.png",
 		},
+		"Major Vulnerability" : 
+		{
+			group: "Major",
+			enabled: false,
+			skillEnabled : false,
+			value : 0.30,
+			display: "%",
+			statId : "Vulnerability",
+			category: "Buff",
+			combineAs: "*%",
+			icon : "/esoui/art/icons/ability_debuff_major_vulnerability.png",
+		},
 		"Minor Vulnerability" : 
 		{
 			group: "Minor",
@@ -871,7 +894,7 @@ window.g_EsoBuildBuffData =
 			statId : "Vulnerability",
 			category: "Buff",
 			combineAs: "*%",
-			icon : "/esoui/art/icons/death_recap_poison_ranged.png",
+			icon : "/esoui/art/icons/ability_debuff_minor_vulnerability.png",
 		},
 		"Exploiter Off-Balance" : 
 		{
@@ -1107,7 +1130,7 @@ window.g_EsoBuildBuffData =
 			skillEnabled : false,
 			// visible : false,
 			// toggleVisible : true,
-			values : [ -2741, -2741 ],
+			values : [ -2740, -2740 ],
 			category: "Target",
 			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
 			statDescs : [ "Reduces the target's Physical Resistance by ", "Reduces the target's Spell Resistance by " ],
@@ -1238,6 +1261,18 @@ window.g_EsoBuildBuffData =
 			statDesc : "Reduces the target's damage done by ",
 			icon : "/esoui/art/icons/ability_fightersguild_004.png",
 		},
+		"Major Vulnerability (Target)" : 
+		{
+			group: "Target",
+			enabled: false,
+			skillEnabled : false,
+			category: "Target",
+			value : 0.30,
+			display: "%",
+			statId : "DamageTaken",
+			combineAs: "*%",
+			icon : "/esoui/art/icons/ability_debuff_major_vulnerability.png",
+		},
 		"Minor Vulnerability (Target)" : 
 		{
 			group: "Target",
@@ -1248,7 +1283,7 @@ window.g_EsoBuildBuffData =
 			display: "%",
 			statId : "DamageTaken",
 			combineAs: "*%",
-			icon : "/esoui/art/icons/death_recap_poison_ranged.png",
+			icon : "/esoui/art/icons/ability_debuff_minor_vulnerability.png",
 		},
 		
 			/* Cyrodiil */
@@ -1292,7 +1327,124 @@ window.g_EsoBuildBuffData =
 			combineAses: [ '', '', "*%", '' ],
 			icon: "/esoui/art/icons/ability_templar_002.png",
 		},
-
+		"Enemy Keep Bonus 1" :
+		{
+			group: "Cyrodiil",
+			visible : false,
+			toggleVisible : true,
+			enabled: false,
+			skillEnabled : false,
+			displays : [ "%", "%" ],
+			categories : [ "Skill", "Skill" ],
+			values : [ 0.01, 0.01 ],
+			statIds : [ "WeaponCrit", "SpellCrit" ],
+			icon: "/esoui/art/icons/ability_dragonknight_024.png",
+		},
+		"Enemy Keep Bonus 2" :
+		{
+			group: "Cyrodiil",
+			visible : false,
+			toggleVisible : true,
+			enabled: false,
+			skillEnabled : false,
+			displays : [ "%", "%" ],
+			categories : [ "Skill", "Skill" ],
+			values : [ 0.02, 0.02 ],
+			statIds : [ "WeaponCrit", "SpellCrit" ],
+			icon: "/esoui/art/icons/ability_dragonknight_034.png",
+		},
+		"Enemy Keep Bonus 3" :
+		{
+			group: "Cyrodiil",
+			visible : false,
+			toggleVisible : true,
+			enabled: false,
+			skillEnabled : false,
+			displays : [ "%", "%" ],
+			categories : [ "Skill", "Skill" ],
+			values : [ 0.03, 0.03 ],
+			statIds : [ "WeaponCrit", "SpellCrit" ],
+			icon: "/esoui/art/icons/ability_dragonknight_024.png",
+		},
+		"Enemy Keep Bonus 4" :
+		{
+			group: "Cyrodiil",
+			visible : false,
+			toggleVisible : true,
+			enabled: false,
+			skillEnabled : false,
+			displays : [ "%", "%" ],
+			categories : [ "Skill", "Skill" ],
+			values : [ 0.04, 0.04 ],
+			statIds : [ "WeaponCrit", "SpellCrit" ],
+			icon: "/esoui/art/icons/ability_dragonknight_024.png",
+		},
+		"Enemy Keep Bonus 5" :
+		{
+			group: "Cyrodiil",
+			visible : false,
+			toggleVisible : true,
+			enabled: false,
+			skillEnabled : false,
+			displays : [ "%", "%" ],
+			categories : [ "Skill", "Skill" ],
+			values : [ 0.05, 0.05 ],
+			statIds : [ "WeaponCrit", "SpellCrit" ],
+			icon: "/esoui/art/icons/ability_dragonknight_024.png",
+		},
+		"Enemy Keep Bonus 6" :
+		{
+			group: "Cyrodiil",
+			visible : false,
+			toggleVisible : true,
+			enabled: false,
+			skillEnabled : false,
+			displays : [ "%", "%" ],
+			categories : [ "Skill", "Skill" ],
+			values : [ 0.06, 0.06 ],
+			statIds : [ "WeaponCrit", "SpellCrit" ],
+			icon: "/esoui/art/icons/ability_dragonknight_024.png",
+		},
+		"Enemy Keep Bonus 7" :
+		{
+			group: "Cyrodiil",
+			visible : false,
+			toggleVisible : true,
+			enabled: false,
+			skillEnabled : false,
+			displays : [ "%", "%" ],
+			categories : [ "Skill", "Skill" ],
+			values : [ 0.07, 0.07 ],
+			statIds : [ "WeaponCrit", "SpellCrit" ],
+			icon: "/esoui/art/icons/ability_dragonknight_024.png",
+		},
+		"Enemy Keep Bonus 8" :
+		{
+			group: "Cyrodiil",
+			visible : false,
+			toggleVisible : true,
+			enabled: false,
+			skillEnabled : false,
+			displays : [ "%", "%" ],
+			categories : [ "Skill", "Skill" ],
+			values : [ 0.08, 0.08 ],
+			statIds : [ "WeaponCrit", "SpellCrit" ],
+			icon: "/esoui/art/icons/ability_dragonknight_024.png",
+		},
+		"Enemy Keep Bonus 9" :
+		{
+			group: "Cyrodiil",
+			visible : false,
+			toggleVisible : true,
+			enabled: false,
+			skillEnabled : false,
+			displays : [ "%", "%" ],
+			categories : [ "Skill", "Skill" ],
+			values : [ 0.09, 0.09 ],
+			statIds : [ "WeaponCrit", "SpellCrit" ],
+			icon: "/esoui/art/icons/ability_dragonknight_024.png",
+		},
+		
 
 };
 
@@ -1564,6 +1716,17 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 	
 		/* Begin Toggled Abilities */
 	{
+		id: "Grim Focus",
+		baseSkillId: 62096,
+		statId: "DamageTaken",
+		toggle: true,
+		enabled: false,
+		maxTimes: 5,
+		factorValue: -1,
+		display: "%",
+		match: /Focus your senses for [0-9]+ seconds, reducing your damage taken by ([0-9]+)% with every Light or Heavy Attack/i
+	},
+	{
 		id: "Bone Goliath Transformation",
 		baseSkillId: 40115001,
 		category: "Skill2",
@@ -1604,7 +1767,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		enabled: false,
 		factorValue: -1,
 		match: /While active, reduce the cost of Blastbones, Skeletal Mage, and Spirit Mender by ([0-9]+)%/i
-	},
+	},	
 	{
 		id: "Thrive in Chaos",
 		baseSkillId: 86370,
@@ -3134,6 +3297,61 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		category: "SkillDuration",
+		statId: "Consuming Darkness",
+		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Shadow Cloak",
+		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Path of Darkness",
+		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Aspect of Terror",
+		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Summon Shade",
+		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Consuming Darkness",
+		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Shadow Cloak",
+		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Veiled Strike",
+		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Path of Darkness",
+		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Aspect of Terror",
+		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Summon Shade",
+		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
+	},
+	{
+		category: "SkillDuration",
 		statId: "Magma Armor",
 		display: "%",
 		match: /Increases the duration of Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
@@ -3996,6 +4214,13 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statRequireId: "WeaponRestStaff",
 		statRequireValue: 1,
+		statId: "HAMagRestoreRestStaff",
+		display: "%",
+		match: /WITH RESTORATION STAFF EQUIPPED[\s\S]*?Your fully-charged Heavy Attacks restore ([0-9]+\.?[0-9]*)% more Magicka/i,
+	},
+	{
+		statRequireId: "WeaponRestStaff",
+		statRequireValue: 1,
 		category: "SkillHealing",
 		statId: "Restoration Staff Healing",
 		display: "%",
@@ -4243,6 +4468,11 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "Magicka",
 		category: "Skill2",
 		match: /Increases your Max Magicka by ([0-9]+)\./i,
+	},
+	{
+		statId: "Magicka",
+		category: "Skill2",
+		match: /Increases your Max Magicka by ([0-9]+) /i,
 	},
 	{
 		statId: "Stamina",
@@ -4527,6 +4757,40 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	
 		/* Begin Toggled Passives */
 	{
+		id: "Reusable Parts",
+		baseSkillId: 116186,
+		category: "SkillCost",
+		statId: "Skeletal_Mage_Cost",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		factorValue: -1,
+		match: /When your Blastbones, Skeletal Mage, or Spirit Mender dies, the cost of your next Blastbones, Skeletal Mage, or Spirit Mender is reduced by ([0-9]+)%/i
+	},
+	{
+		id: "Reusable Parts",
+		baseSkillId: 116186,
+		category: "SkillCost",
+		statId: "Spirit_Mender_Cost",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		factorValue: -1,
+		match: /When your Blastbones, Skeletal Mage, or Spirit Mender dies, the cost of your next Blastbones, Skeletal Mage, or Spirit Mender is reduced by ([0-9]+)%/i
+	},
+	{
+		id: "Reusable Parts",
+		baseSkillId: 116186,
+		category: "SkillCost",
+		statId: "Blastbones_Cost",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		factorValue: -1,
+		match: /When your Blastbones, Skeletal Mage, or Spirit Mender dies, the cost of your next Blastbones, Skeletal Mage, or Spirit Mender is reduced by ([0-9]+)%/i
+	},
+
+	{
 		id: "Disdain Harm",
 		baseSkillId: 116239,
 		statId: "DotDamageTaken",
@@ -4611,6 +4875,24 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		match: /While you have a Necromancer summon active, your Magicka and Stamina Recovery is increased by ([0-9]+)/i,
+	},
+	{
+		id: "Undead Confederate",
+		baseSkillId: 116282,
+		category: "Item",
+		statId: "MagickaRegen",
+		toggle: true,
+		enabled: false,
+		match: /While you have a Blastbones, Skeletal Mage, or Spirit Mender active, your Magicka and Stamina Recovery is increased by ([0-9]+)/i,
+	},
+	{
+		id: "Undead Confederate",
+		baseSkillId: 116282,
+		category: "Item",
+		statId: "StaminaRegen",
+		toggle: true,
+		enabled: false,
+		match: /While you have a Blastbones, Skeletal Mage, or Spirit Mender active, your Magicka and Stamina Recovery is increased by ([0-9]+)/i,
 	},
 	{
 		id: "Amplitude",
@@ -6555,7 +6837,126 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Increases your Physical and Spell Resistance by up to ([0-9]+) based on your missing Health/i,
 	},
 		
+	
 		// Optionally toggled set effects
+	{	id: "Perfected Claw of Yolnahkriin",
+		setBonusCount: 5,
+		buffId: "Minor Courage",
+		toggle: true,
+		enabled: false,
+		match: /When you taunt an enemy, you give yourself and [0-9]+ group members Minor Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+)\./i,
+	},
+	{	id: "Claw of Yolnahkriin",
+		setBonusCount: 4,
+		buffId: "Minor Courage",
+		toggle: true,
+		enabled: false,
+		match: /When you taunt an enemy, you give yourself and [0-9]+ group members Minor Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+)\./i,
+	},
+	{	id: "Perfected Eye of Nahviintaas",
+		setBonusCount: 5,
+		statId: "MagickaCost",
+		display: "%",
+		factorValue: -1,
+		toggle: true,
+		enabled: false,
+		match: /When an ally activates one of your synergies, you and the ally who activated the synergy get ([0-9]+)% cost reduction for non-Ultimate abilities/i,
+	},
+	{	id: "Perfected Eye of Nahviintaas",
+		setBonusCount: 5,
+		statId: "StaminaCost",
+		display: "%",
+		factorValue: -1,
+		toggle: true,
+		enabled: false,
+		match: /When an ally activates one of your synergies, you and the ally who activated the synergy get ([0-9]+)% cost reduction for non-Ultimate abilities/i,
+	},	
+	{	id: "Eye of Nahviintaas",
+		setBonusCount: 4,
+		statId: "MagickaCost",
+		display: "%",
+		factorValue: -1,
+		toggle: true,
+		enabled: false,
+		match: /When an ally activates one of your synergies, you and the ally who activated the synergy get ([0-9]+)% cost reduction for non-Ultimate abilities/i,
+	},
+	{	id: "Eye of Nahviintaas",
+		setBonusCount: 4,
+		statId: "StaminaCost",
+		display: "%",
+		factorValue: -1,
+		toggle: true,
+		enabled: false,
+		match: /When an ally activates one of your synergies, you and the ally who activated the synergy get ([0-9]+)% cost reduction for non-Ultimate abilities/i,
+	},
+	{	id: "Perfected Tooth of Lokkestiiz",
+		setBonusCount: 5,
+		buffId: "Major Slayer",
+		toggle: true,
+		enabled: false,
+		match: /When you activate a synergy, gain Major Slayer for /i,
+	},
+	{	id: "Tooth of Lokkestiiz",
+		setBonusCount: 4,
+		buffId: "Major Slayer",
+		toggle: true,
+		enabled: false,
+		match: /When you activate a synergy, gain Major Slayer for /i,
+	},
+	{	id: "Vastarie's Tutelage",
+		setBonusCount: 5,
+		statId: "WeaponDamage",
+		toggle: true,
+		enabled: false,
+		match: /When you resurrect an ally, you and your ally gain ([0-9]+) Weapon and Spell Damage and [0-9]+% cost reduction to non-Ultimate abilities/i,
+	},
+	{	id: "Vastarie's Tutelage",
+		setBonusCount: 5,
+		statId: "SpellDamage",
+		toggle: true,
+		enabled: false,
+		match: /When you resurrect an ally, you and your ally gain ([0-9]+) Weapon and Spell Damage and [0-9]+% cost reduction to non-Ultimate abilities/i,
+	},
+	{	id: "Vastarie's Tutelage",
+		setBonusCount: 5,
+		statId: "MagickaCost",
+		display: "%",
+		factorValue: -1,
+		toggle: true,
+		enabled: false,
+		match: /When you resurrect an ally, you and your ally gain [0-9]+ Weapon and Spell Damage and ([0-9]+)% cost reduction to non-Ultimate abilities/i,
+	},
+	{	id: "Vastarie's Tutelage",
+		setBonusCount: 5,
+		statId: "StaminaCost",
+		display: "%",
+		factorValue: -1,
+		toggle: true,
+		enabled: false,
+		match: /When you resurrect an ally, you and your ally gain [0-9]+ Weapon and Spell Damage and ([0-9]+)% cost reduction to non-Ultimate abilities/i,
+	},
+	{	id: "Senche-raht's Grit",
+		setBonusCount: 4,
+		statId: "HealingReceived",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /After being damaged by a damage over time ability, increase your Healing Received by ([0-9]+)% and your Physical and Spell Resistance by [0-9]+ /i,
+	},
+	{	id: "Senche-raht's Grit",
+		setBonusCount: 4,
+		statId: "PhysicalResist",
+		toggle: true,
+		enabled: false,
+		match: /After being damaged by a damage over time ability, increase your Healing Received by [0-9]+% and your Physical and Spell Resistance by ([0-9]+) /i,
+	},
+	{	id: "Senche-raht's Grit",
+		setBonusCount: 4,
+		statId: "SpellResist",
+		toggle: true,
+		enabled: false,
+		match: /After being damaged by a damage over time ability, increase your Healing Received by [0-9]+% and your Physical and Spell Resistance by ([0-9]+) /i,
+	},
 	{	id: "Mark of the Pariah",
 		setBonusCount: 4,
 		statId: "SpellResist",
@@ -6836,7 +7237,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /When you gain [0-9]+ stacks, you become Frenzied for [0-9]+ seconds, increasing your melee Light Attack damage by [0-9]+% and attack speed by ([0-9]+)%/i,
 	},
 	{
-		id: "Blood Spawn",
+		id: "Bloodspawn",
 		setBonusCount: 2,
 		toggle: true,
 		enabled: false,
@@ -6845,7 +7246,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /and increase your Physical and Spell Resistance by ([0-9]+) for/i,
 	},
 	{
-		id: "Blood Spawn",
+		id: "Bloodspawn",
 		setBonusCount: 2,
 		toggle: true,
 		enabled: false,
@@ -8231,6 +8632,16 @@ window.GetEsoInputValues = function (mergeComputedStats)
 		g_EsoBuildBuffData['Offensive Scroll Bonus'].visible = true;
 		g_EsoBuildBuffData['Defensive Scroll Bonus'].visible = true;
 		
+		g_EsoBuildBuffData['Enemy Keep Bonus 1'].visible = true;
+		g_EsoBuildBuffData['Enemy Keep Bonus 2'].visible = true;
+		g_EsoBuildBuffData['Enemy Keep Bonus 3'].visible = true;
+		g_EsoBuildBuffData['Enemy Keep Bonus 4'].visible = true;
+		g_EsoBuildBuffData['Enemy Keep Bonus 5'].visible = true;
+		g_EsoBuildBuffData['Enemy Keep Bonus 6'].visible = true;
+		g_EsoBuildBuffData['Enemy Keep Bonus 7'].visible = true;
+		g_EsoBuildBuffData['Enemy Keep Bonus 8'].visible = true;
+		g_EsoBuildBuffData['Enemy Keep Bonus 9'].visible = true;
+		
 		// g_EsoBuildBuffData['Lycanthropy'].skillAbilities.push(g_SkillsData[42358]);
 		AddEsoItemRawOutputString(g_EsoBuildBuffData['Battle Spirit'], "Active Skill", "Character State");
 	}
@@ -8242,6 +8653,16 @@ window.GetEsoInputValues = function (mergeComputedStats)
 		
 		g_EsoBuildBuffData['Offensive Scroll Bonus'].visible = false;
 		g_EsoBuildBuffData['Defensive Scroll Bonus'].visible = false;
+		
+		g_EsoBuildBuffData['Enemy Keep Bonus 1'].visible = false;
+		g_EsoBuildBuffData['Enemy Keep Bonus 2'].visible = false;
+		g_EsoBuildBuffData['Enemy Keep Bonus 3'].visible = false;
+		g_EsoBuildBuffData['Enemy Keep Bonus 4'].visible = false;
+		g_EsoBuildBuffData['Enemy Keep Bonus 5'].visible = false;
+		g_EsoBuildBuffData['Enemy Keep Bonus 6'].visible = false;
+		g_EsoBuildBuffData['Enemy Keep Bonus 7'].visible = false;
+		g_EsoBuildBuffData['Enemy Keep Bonus 8'].visible = false;
+		g_EsoBuildBuffData['Enemy Keep Bonus 9'].visible = false;
 	}
 		
 	GetEsoInputSpecialValues(inputValues);
@@ -15187,7 +15608,8 @@ window.CreateEsoBuildGeneralSaveData = function (saveData, inputValues)
 
 window.HasEsoBuildThirdSkillBar = function ()
 {
-	return $("#esotbClass").val() == "Sorcerer";
+	return false;
+	//return $("#esotbClass").val() == "Sorcerer";
 }
 
 
@@ -15397,6 +15819,29 @@ window.OnEsoBuildSave = function (e)
 	SetEsoBuildSaveResults("Saving build...");
 	
 	setTimeout(RequestEsoBuildSave, 50);
+}
+
+
+window.OnEsoBuildDelete = function (e)
+{
+	var $form = $('<form>', {
+        action: '//en.uesp.net/wiki/Special:EsoBuildData',
+        method: 'post'
+    });
+	
+    $('<input>').attr({
+             type: "hidden",
+             name: "id",
+             value: g_EsoBuildData.id
+         }).appendTo($form);
+    
+    $('<input>').attr({
+        type: "hidden",
+        name: "action",
+        value: "delete"
+    }).appendTo($form);
+
+    $form.appendTo('body').submit();
 }
 
 
@@ -17083,12 +17528,12 @@ window.TestEsoSkillDamageShield = function (abilityId, skillData)
 	
 	if (numMatches == 0)
 	{
-		EsoBuildLog("\t" + skillData.name + ": Missing damage shield match!");
+		EsoBuildLog("===== " + skillData.name + ": Missing damage shield match! ===== ");
 		EsoBuildLog("\t\t" + skillData.description);
 	}
 	else if (numMatches > 1)
 	{
-		EsoBuildLog("\t" + skillData.name + ": Duplicate damage shield match (" + numMatches + ")!");
+		EsoBuildLog("===== " + skillData.name + ": Duplicate damage shield match (" + numMatches + ")! ===== ");
 		//EsoBuildLog("\t\t" + skillData.description);
 		EsoBuildLog("\t\t Matches: ", matches);
 	}
@@ -17166,7 +17611,7 @@ window.TestEsoSkillHealing = function (abilityId, skillData)
 	
 	if (numMatches == 0)
 	{
-		EsoBuildLog("\t" + skillData.name + ": Missing healing match!");
+		EsoBuildLog("===== " + skillData.name + ": Missing healing match! ===== ");
 		EsoBuildLog("\t\t" + skillData.description);
 	}
 	
@@ -17206,7 +17651,7 @@ window.CheckEsoTestSkillResults = function ()
 		{
 			var desc = testData.desc.replace("\n", " ");
 			//EsoBuildLog("Passive Skill has NO matches!", testData.name, testData, abilityData);
-			EsoBuildLog(`     ${testData.name} (${testData.id}) passive has NO matches!\n\t${desc}`);
+			EsoBuildLog(`===== ${testData.name} (${testData.id}) passive has NO matches! =====\n\t${desc}`);
 		}
 	
 	}
@@ -17224,7 +17669,7 @@ window.CheckEsoTestSkillResults = function ()
 		{
 			var desc = testData.desc.replace("\n", " ");
 			//EsoBuildLog("Active Skill has " + testData.numMatches + " matches!", testData.name, testData, abilityData);
-			EsoBuildLog(`     ${testData.name} (${testData.id}) active has ${testData.numMatches} matches!\n\t${desc}`, testData);
+			EsoBuildLog(`===== ${testData.name} (${testData.id}) active has ${testData.numMatches} matches!=====\n\t${desc}`, testData);
 		}
 	}
 	
@@ -17254,7 +17699,7 @@ window.CheckEsoTestSkillResults = function ()
 			
 			if (count > 1) 
 			{
-				EsoBuildLog(`     ${testData.name} (${testData.id}) skill has potential multiple parsing (${count})!`);
+				EsoBuildLog(`===== ${testData.name} (${testData.id}) skill has potential multiple parsing (${count})! =====`);
 				EsoBuildLog("          " + key);
 			}
 		}
@@ -17816,6 +18261,7 @@ window.esotbOnDocReady = function ()
 	
 	$("#esotbSaveButton").click(OnEsoBuildSave);
 	$("#esotbCreateCopyButton").click(OnEsoBuildCreateCopy);
+	$("#esotbDeleteButton").click(OnEsoBuildDelete);
 	
 	$('#esotbItemSetupEquipSet').focusin(function() {
 	    	$('#esotbItemSetupEquipSet').val('');

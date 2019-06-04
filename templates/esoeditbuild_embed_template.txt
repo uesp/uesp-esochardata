@@ -2,10 +2,11 @@
 <div id="esotbButtons">
 	<button id="esotbSaveButton" {saveButtonDisabled}>Save Build</button>
 	<button id="esotbCreateCopyButton" {createCopyButtonDisabled}>Create Copy</button>
+	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #cfc; margin-right: 225px;'>
-Build editor is partially updated for the Elsweyr (Update 22) PTS patch. Choose the "Update 22 Rules" on the general tab and save/reload build.
+Build editor should now be updated for the Elsweyr (Update 22) patch. Items, skills and CP have been updated.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -59,13 +60,14 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<div class="esotbStatLabel">In Cyrodiil</div> <input type="checkbox" id="esotbCyrodiil" name="esotbCyrodiil" statid="Cyrodiil" {cyrodiil}>
 			<br/>
 			<div class="esotbStatLabel">Enable CP</div> <input type="checkbox" id="esotbEnableCP" name="esotbEnableCP" statid="EnableCP" {enableCP}>
+			<!--
 			<br/>
 			<div class="esotbStatLabel">Update 22 Rules</div> <input type="checkbox" id="esotbUpdate22Rules" name="esotbUpdate22Rules" statid="UseUpdate22Rules" {useUpdate22Rules}>
 			Use rules from Update 22 (Elsweyr) which includes (save build and reload to take effect when changing this setting):
 			<ul style="margin-left: 170px; margin-top: -5px;">
 				<li>Necromancer class.</li>
 				<li>Updated skills and CPs as of PTS patch v5.0.0.</li>
-			</ul>
+			</ul> -->
 			<p>
 			<div id="esotbAttributes">
 				<div class="esotbAttrTitle">Attributes <div id="esotbAttrTotal" statid="AttributeTotal" class="esotbAttributeInput">{attributeTotal} / 64</div></div>
@@ -624,7 +626,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				
 				<select id="esotbItemSetupMonsterSet" style="width: 200px;">
 					<option>Balorgh</option>
-					<option>Blood Spawn</option>
+					<option>Bloodspawn</option>
 					<option>Chokethorn</option>
 					<option>Domihaus</option>
 					<option>Earthgore</option>					
@@ -766,11 +768,16 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Bright-Throat's Boast</option>
 					<option>Buffer of the Swift</option>
 					<option>Burning Spellweave</option>
+					<option>Call of the Undertaker</option>
 					<option>Caluurion's Legacy</option>
 					<option>Champion of the Hist</option>
+					<option>Claw of Yolnahkriin</option>
+					<option value="Perfected Claw of Yolnahkriin">Claw of Yolnahkriin (Perfect)</option>
 					<option>Clever Alchemist</option>
+					<option>Coldharbour's Favorite</option>
 					<option>Combat Physician</option>
 					<option>Coward's Gear</option>
+					<option>Crafty Alfiq</option>
 					<option>Crest of Cyrodiil</option>
 					<option>Crusader</option>
 					<option>Curse Eater</option>
@@ -800,7 +807,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Essence Thief</option>
 					<option>Eternal Hunt</option>
 					<option>Eternal Warrior</option>
+					<option>Eye of Nahviintaas</option>
+					<option value="Perfected Eye of Nahviintaas">Eye of Nahviintaas (Perfect)</option>
 					<option>Eyes of Mara</option>
+					<option>False God's Devotion</option>
+					<option value="Perfected False God's Devotion">False God's Devotion (Perfect)</option>
 					<option>Fasalla's Guile</option>
 					<option>Fiord's Legacy</option>
 					<option>Flame Blossom</option>
@@ -931,6 +942,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Scathing Mage</option>
 					<option>Scavenging Demise</option>
 					<option>Senche's Bite</option>
+					<option>Senche-Raht's Grit</option>
 					<option>Sentry</option>
 					<option>Sergeant's Mail</option>
 					<option>Seventh Legion Brute</option>
@@ -981,6 +993,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>The Worm's Raiment</option>
 					<option>Thews of the Harbinger</option>
 					<option>Thunderbug's Carapace</option>
+					<option>Tooth of Lokkestiiz</option>
+					<option value="Perfected Tooth of Lokkestiiz">Tooth of Lokkestiiz (Perfect)</option>
 					<option>Toothrow</option>
 					<option>Tormentor</option>
 					<option>Torug's Pact</option>
@@ -1005,10 +1019,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Vampire's Kiss</option>
 					<option>Vanguard's Challenge</option>
 					<option>Varen's Legacy</option>
+					<option>Vastarie's Tutelage</option>
 					<option>Vengeance Leech</option>
 					<option>Vestment of Olorime</option>
 					<option value="Perfect Vestment of Olorime">Vestment of Olorime (Perfect)</option>
 					<option>Vestments of the Warlock</option>
+					<option>Vesture of Darloc Brae</option>
 					<option>Vicecanon of Venom</option>
 					<option>Vicious Death</option>
 					<option>Vicious Serpent</option>
@@ -1322,6 +1338,42 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>3 June 2019</b>
+			<ul>
+				<li>Fixed the new spelling of the Bloodspawn set. This fixes the set toggle and the quick item setup.</li>
+				<li>Added toggle for the new effect of Grim Focus.</li>
+				<li>Fixed the Twin Blade and Blunt passive with the Dagger weapon critical stat.</li>
+				<li>Added the Major Vulnerability buff and updated icon for Minor Vulnerability.</li>
+				<li>Added the Enemy Keep Bonus 1-9 buffs.</li> 
+				<li>Removed the Overload skill bar.</li>
+				<li>Added a Delete button to the top-right corner.</li>
+				<li>Imbue Weapon and morphs are now considered a Single Target ability.</li>
+			</ul>
+			<p>
+			<b>3 June 2019</b>
+			<ul>
+				<li>Added and tested all new sets in the quick-item setups.</li>
+				<li>Added toggle for the 5 piece bonus from the Senche-raht's Grit set.</li>
+				<li>Added toggle for the 5 piece bonus from the Vastarie's Tutelage set.</li>
+				<li>Fixed the database records for the last 3 set bonuses of Vastarie's Tutelage in order for the toggle to work correctly.</li>
+				<li>Added toggle for the 5 piece bonus from the Tooth of Lokkestiiz set.</li>
+				<li>Added toggle for the 5 piece bonus from the Eye of Nahviintaas set.</li>
+				<li>Added the Minor Courage buff.</li>
+				<li>Added toggle for the 5 piece bonus from the Claw of Yolnahkriin set.</li>				
+			</ul>
+			<p>
+			<b>31 May 2019</b>
+			<ul>
+				<li>Updated item data.</li>
+			</ul>
+			<p>
+			<b>22 May 2019</b>
+			<ul>
+				<li>Removed update 22 PTS checkbox.</li>
+				<li>Updated skill and CP data from update 22 patch (Elsweyr).</li>
+				<li>Fixed a bunch of new/updated skills.</li>
+			</ul>
+			<p>
 			<b>29 April 2019</b>
 			<ul>
 				<li>Fixed missing skill coefficient in a few of the bow skills.</li>
