@@ -834,6 +834,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Skill.DotDamageDone" => array(
+					"display" => "%",
+			),
+			
 			"Buff.HealingTaken" => array(
 					"display" => "%",
 			),			
@@ -5390,8 +5394,8 @@ class EsoBuildDataEditor
 		
 		if ($this->getCharStatField("UseUpdate22Rules", 0)) 
 		{
-			$this->viewSkills->version = "22pts";
-			$this->viewCps->version = "22pts";
+			//$this->viewSkills->version = "22pts";
+			//$this->viewCps->version = "22pts";
 		}
 		
 		$this->viewSkills->LoadData();
@@ -5461,6 +5465,18 @@ class EsoBuildDataEditor
 			$canCreate = $this->buildDataViewer->canWikiUserCreate();
 		
 		if (!$canCreate || $this->buildId <= 0) return "disabled";
+		return "";
+	}
+	
+	
+	public function GetDeleteButtonDisabled()
+	{
+		if ($this->buildId < 0)
+			$canDelete = false;
+		else
+			$canDelete = $this->buildDataViewer->canWikiUserDelete();
+		
+		if (!$canDelete || $this->buildId <= 0) return "disabled";
 		return "";
 	}
 	
@@ -5829,6 +5845,7 @@ class EsoBuildDataEditor
 				'{activeSkillBar}' =>  $this->GetActiveAbilityBar(),
 				'{saveButtonDisabled}' => $this->GetSaveButtonDisabled(),
 				'{createCopyButtonDisabled}' => $this->GetCreateCopyButtonDisabled(),
+				'{deleteButtonDisabled}' => $this->GetDeleteButtonDisabled(),
 				'{saveNote}' => $this->GetSaveNote(),
 				'{trail}' => $this->GetBreadcrumbTrailHtml(),
 				'{stealth}' => $this->GetStealthCheckState(),
