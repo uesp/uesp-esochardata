@@ -3006,6 +3006,12 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 		return prefix + percent + middle + healthRegen;
 	});
 	
+	newDesc = newDesc.replace(/(\(5 items\) Increase your Health Recovery by (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|)% of your sum total Physical Resistance and Spell Resistance\..*\s*Current Bonus Health Recovery: )([0-9]+)/i, function(match, prefix, percent, middle, healthRegen) {
+		healthRegen = Math.floor((+g_EsoBuildLastInputValues.SpellResist + g_EsoBuildLastInputValues.PhysicalResist) * percent / 100);
+		itemData.rawOutput["Tooltip: Set HealthRegen"] = "(" + g_EsoBuildLastInputValues.SpellResist + " + " + g_EsoBuildLastInputValues.PhysicalResist + ") * " + percent + "% = " + healthRegen;
+		return prefix + percent + middle + healthRegen;
+	});
+	
 		// Thews of the Harbinger
 	newDesc = newDesc.replace(/(\(5 items\) When you block a direct damage attack, you deal damage to your attacker equal to )([0-9]+)(% of your current Health. Current value: )([0-9]+)/i, function(match, prefix, percent, middle, damage) {
 		damage = Math.floor(+g_EsoBuildLastInputValues.Health * percent / 100);
