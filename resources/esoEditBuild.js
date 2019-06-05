@@ -6501,10 +6501,17 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Increases the immunity to disabling effects after using Break Free by ([0-9]+\.?[0-9]*) seconds/i,
 	},
 	{
+			// Alessian Order
 		statId: "HealthRegenResistFactor",
 		display: "%",
 		match: /Increase your Health Recovery by ([0-9]+\.?[0-9]*)% of your sum total Physical and Spell Resistance/i,
 	},	 
+	{
+		// Alessian Order
+		statId: "HealthRegenResistFactor",
+		display: "%",
+		match: /Increase your Health Recovery by ([0-9]+\.?[0-9]*)% of your sum total Physical Resistance and Spell Resistance/i,
+	},
 	{
 		statId: "BreakFreeDuration",
 		match: /Increases the duration of crowd control immunity granted by Break Free or when a crowd control effect expires by ([0-9]+\.?[0-9]*) seconds/i,
