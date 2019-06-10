@@ -419,6 +419,7 @@ class EsoBuildDataEditor
 			"BossDamageTaken",
 			"BleedDamage",
 			"CritHealing",
+			"OverloadDamage",
 	);
 	
 	
@@ -1615,6 +1616,14 @@ class EsoBuildDataEditor
 			),
 			
 			"CP.LAStaffDamage" => array(
+					"display" => "%",
+			),
+			
+			"CP.OverloadDamage" => array(
+					"display" => "%",
+			),
+			
+			"Set.OverloadDamage" => array(
 					"display" => "%",
 			),
 			
@@ -4009,7 +4018,6 @@ class EsoBuildDataEditor
 					"title" => "Heavy Attack Werewolf",
 					"round" => "floor",
 					"depends" => array("Stamina", "WeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
-					"addClass" => "esotbStatDivider",
 					"compute" => array(
 							"round(0.0719181*Stamina + 0.755647*WeaponDamage + 1.35513)",		// Update 21
 							//"round(0.0719815*Stamina + 0.755865*WeaponDamage + 0.20861)",		// Update 18
@@ -4030,6 +4038,23 @@ class EsoBuildDataEditor
 							"*",
 							"1 + Skill.HADamage + Set.HADamage + PhysicalDamageDone + Skill.HAMeleeDamage + DamageDone + DirectDamageDone - CP.PhysicalDamageDone - CP.DirectDamageDone",
 							"*", */
+					),
+			),
+			
+			
+			"OverloadDamage" => array(
+					"title" => "Overload Damage Modifier",
+					"round" => "floor",
+					"display" => "%",
+					"addClass" => "esotbStatDivider",
+					"compute" => array(
+							"CP.OverloadDamage",
+							"Skill.OverloadDamage",
+							"+",
+							"Set.OverloadDamage",
+							"+",
+							"Buff.OverloadDamage",
+							"+",
 					),
 			),
 			
