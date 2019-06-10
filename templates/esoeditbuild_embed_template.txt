@@ -1338,10 +1338,21 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
-			 
+			<b>10 June 2019</b>
+			<ul>
+				<li>Added the Volendrung skills to the Alliance War category.</li>
+			</ul>
+			<p>
+			<b>6 June 2019</b>
+			<ul>
+				<li>Fixed the Burning Spellweave 5 piece bonus toggle.</li>
+			</ul>
+			<p>
 			<b>5 June 2019</b>
 			<ul>
 				<li>Fixed the Alessian Order 5 piece bonus.</li>
+				<li>The Staff Expert CP now applies to Overload damage/tooltips.</li>
+				<li>Added the "Overload Damage Modifier" computed stat. Currently only the Staff Expert CP and the Queen's Elegance set affects this stat.</li>
 			</ul>
 			<p>
 			<b>4 June 2019</b>

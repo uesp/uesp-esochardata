@@ -5928,8 +5928,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Increases your Light and Heavy Attack damage by ([0-9]+)%/i,
 	},
 	{
-		statId: "Overload",
-		category: "SkillDamage",
+		statId: "OverloadDamage",		
 		display: "%",
 		match: /Increases your Light and Heavy Attack damage by ([0-9]+)%/i,
 	},
@@ -7278,6 +7277,15 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		statId: "SpellDamage",
 		match: /When you deal damage with a Flame Damage ability, you have a [0-9]+% chance apply the Burning status effect to the enemy and increase your Spell Damage by ([0-9]+)/i,
+	},
+	{
+		id: "Burning Spellweave",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "SpellDamage",
+		match: /When you deal damage with a Flame Damage ability, you have a [0-9]+% chance to apply the Burning status effect to the enemy and increase your Spell Damage by ([0-9]+) /i,
 	},
 	{
 		id: "Caustic Arrow",
@@ -10933,7 +10941,7 @@ window.GetEsoInputCPValues = function (inputValues)
 	// ParseEsoCPValue(inputValues, ["HABowDamage", "LABowDamage"], 60546); //
 	// Pre Update 14
 	ParseEsoCPValue(inputValues, "DirectDamageDone", 92134);
-	ParseEsoCPValue(inputValues, ["HAStaffDamage", "LAStaffDamage"], 60503);
+	ParseEsoCPValue(inputValues, ["HAStaffDamage", "LAStaffDamage", "OverloadDamage"], 60503);
 	
 	if (inputValues.Weapon1H >= 1 || inputValues.Weapon2H >= 1) 
 	{
@@ -14324,6 +14332,7 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
 		MaelstromDamage : 0,
 		AOE				: inputValues.AOEDamageDone,
 		SingleTarget	: inputValues.SingleTargetDamageDone,
+		Overload		: inputValues.OverloadDamage,
 	};
 	
 	g_LastSkillInputValues.Healing =
