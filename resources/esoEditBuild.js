@@ -669,10 +669,10 @@ window.g_EsoBuildBuffData =
 			group: "Other",
 			enabled: false,
 			skillEnabled : false,
-			value : 0.40,
+			values : [0.40, 0.40],
 			display : "%",
-			statId : "Empower",
-			statDesc : "Increases the damage of your next Light Attack by ",
+			statIds : ["Empower", "OverloadDamage"],
+			statDescs : ["Increases the damage of your next Light Attack by ", "Increases the damage of your next Overload attack by ", ],
 			icon : "/esoui/art/icons/ability_warrior_012.png",
 		},
 		"Major Courage" :			// TODO: Check how its added to other SD/WD stats
@@ -1611,6 +1611,11 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		match: /While slotted, your Max Stamina is increased by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+		statId: "OverloadDamage",
+		display: "%",
+		match: /and light attack damage is increased by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
 		buffId : "Minor Ward",
 		match: /you gain Minor Ward and Minor Resolve/i,
 	},
@@ -1891,9 +1896,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		display: "%",
-		// match: /The armor increases your damage with Heavy Attacks by
-		// ([0-9]+\.?[0-9]*)% and increases your Max Stamina by
-		// [0-9]+\.?[0-9]*%/i
+		// match: /The armor increases your damage with Heavy Attacks by ([0-9]+\.?[0-9]*)% and increases your Max Stamina by [0-9]+\.?[0-9]*%/i
 		match: /The armor increases your Max Stamina by [0-9]+\.?[0-9]*% and your damage done with Heavy Attacks by ([0-9]+\.?[0-9]*%)/i,
 	},
 	{
@@ -1904,9 +1907,6 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		display: "%",
-		// match: /The armor increases your damage with Heavy Attacks by
-		// [0-9]+\.?[0-9]*% and increases your Max Stamina by
-		// ([0-9]+\.?[0-9]*)%/i
 		match: /The armor increases your Max Stamina by ([0-9]+\.?[0-9]*)% and your damage done with Heavy Attacks by [0-9]+\.?[0-9]*%/i,
 	},
 	{
@@ -7435,6 +7435,16 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "DamageDone",
 		display: "%",
 		match: /increases your damage by ([0-9]+\.?[0-9]*)% for/i,
+	},
+	{
+		id: "Essence Thief",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "DamageDone",
+		display: "%",
+		match: /increases your damage done by ([0-9]+\.?[0-9]*)% for/i,
 	},
 	{
 		id: "Flanking Strategist",

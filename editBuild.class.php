@@ -1175,6 +1175,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Set.DamageDone" => array(
+					"display" => "%",
+			),
+			
 			"Skill.DamageDone" => array(
 					"display" => "%",
 			),
@@ -1620,6 +1624,14 @@ class EsoBuildDataEditor
 			),
 			
 			"CP.OverloadDamage" => array(
+					"display" => "%",
+			),
+			
+			"Skill.OverloadDamage" => array(
+					"display" => "%",
+			),
+			
+			"Buff.OverloadDamage" => array(
 					"display" => "%",
 			),
 			
