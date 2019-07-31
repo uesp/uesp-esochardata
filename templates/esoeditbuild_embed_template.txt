@@ -1346,6 +1346,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Maelstrom DW and Destruction set effects can now be enabled/used on the off-weapon bar.</li>
 				<li>Added detailed hit data to bottom of Rapid Strikes tooltip.</li>
 				<li>Redguards shouldn't have their old racial passive anymore in old builds.</li>
+				<li>Fixed tooltip duration for Dark Cloak and probably a few other skills.</li>
 			</ul>
 			<p>
 			<b>10 June 2019</b>
