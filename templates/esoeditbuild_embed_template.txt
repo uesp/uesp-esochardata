@@ -1338,6 +1338,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>31 July 2019</b>
+			<ul>
+				<li>Fixed the Troll King, Spell Power Cure, and Shroud of the Lich set toggles.</li>
+			</ul>
+			<p>
 			<b>10 June 2019</b>
 			<ul>
 				<li>Added the Volendrung skills to the Alliance War category.</li>
