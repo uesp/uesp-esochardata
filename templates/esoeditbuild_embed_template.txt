@@ -1345,6 +1345,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Fixed the Death Knell skill tooltip.</li>
 				<li>Maelstrom DW and Destruction set effects can now be enabled/used on the off-weapon bar.</li>
 				<li>Added detailed hit data to bottom of Rapid Strikes tooltip.</li>
+				<li>Redguards shouldn't have their old racial passive anymore in old builds.</li>
 			</ul>
 			<p>
 			<b>10 June 2019</b>
