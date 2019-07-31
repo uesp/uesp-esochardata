@@ -1211,6 +1211,7 @@ button.esotbWeaponSelect {
 	border-bottom: solid 1px lightgray;
 	font-weight: bold;
 	font-size: 16px;
+	margin-top: 10px;
 }
 
 .esotbBuffDisabled {
