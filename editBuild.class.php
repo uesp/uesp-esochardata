@@ -5634,12 +5634,14 @@ class EsoBuildDataEditor
 		$currentRace = $this->getCharField('race');
 		
 			/* Remove old racial passives */
-		if ($this->getCharStatField("UseUpdate21Rules", 0))
+		if (true || $this->getCharStatField("UseUpdate21Rules", 0))
 		{
 			if ($currentRace == "High Elf")	
 				$this->RemoveSkillsFromBuild(array(35995 => 1, 45259 => 1, 45260 => 1));
-			else if ($currentRace == "Khajiit") 
+			else if ($currentRace == "Khajiit")
 				$this->RemoveSkillsFromBuild(array(36022 => 1, 45295 => 1, 45296 => 1));
+			else if ($currentRace == "Redguard")
+				$this->RemoveSkillsFromBuild(array(36153 => 1, 45279 => 1, 45280 => 1));
 		}
 			/* Remove new racial passives */	
 		else if ($this->REMOVE_NEW_UPDATE21_RACIALS)
@@ -5648,6 +5650,8 @@ class EsoBuildDataEditor
 				$this->RemoveSkillsFromBuild(array(117968 => 1, 117969 => 1, 117970 => 1));
 			else if ($currentRace == "Khajiit") 
 				$this->RemoveSkillsFromBuild(array(117846 => 1, 117847 => 1, 117848 => 1));
+			else if ($currentRace == "Redguard")
+				$this->RemoveSkillsFromBuild(array(117752 => 1, 117753 => 1, 117754 => 1));
 		}
 
 	}
