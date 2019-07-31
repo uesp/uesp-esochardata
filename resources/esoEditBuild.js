@@ -7831,7 +7831,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "MagickaRegen",
-		match: /When you fall below [0-9]+\.?[0-9]*% Magicka increase your Magicka Recovery by ([0-9]+) /i,
+		//match: /When you fall below [0-9]+\.?[0-9]*% Magicka increase your Magicka Recovery by ([0-9]+) /i,
+		match: /When you cast an ability that costs resources while under [0-9]+\.?[0-9]*% Magicka, your Magicka Recovery is increased by ([0-9]+) /i,
 	},
 	{
 		id: "Shroud of the Lich",
@@ -7886,7 +7887,9 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		buffId: "Major Courage",
 		updateBuffValue : true,
-		match: /When you heal a friendly target that is at [0-9]+% Health, you have a [0-9]+% chance to increase their Weapon and Spell Damage by ([0-9]+)/i,
+		//match: /When you heal a friendly target that is at [0-9]+% Health, you have a [0-9]+% chance to increase their Weapon and Spell Damage by ([0-9]+)/i,
+		match: /When you heal yourself or an ally that is at [0-9]+% Health, you have a [0-9]+% chance to give the target Major Courage for [0-9]+ seconds which increase(?:s|) their Weapon and Spell Damage by ([0-9]+)/i,
+		
 	},
 	{
 		id: "Spell Power Cure",
@@ -7961,8 +7964,10 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "HealthRegen",
-		match: /When you heal a friendly target, if they are still below [0-9]+% Health, their Health Recovery is increased by ([0-9]+)/
+		//match: /When you heal a friendly target, if they are still below [0-9]+% Health, their Health Recovery is increased by ([0-9]+)/
+		match: /When you heal yourself or an ally, if they are still below [0-9]+% Health, their Health Recovery is increased by ([0-9]+) /
 	},	
+	
 	{
 		id: "Twice-Fanged Serpent",
 		setBonusCount: 4,
