@@ -1342,6 +1342,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<ul>
 				<li>Fixed the Troll King, Spell Power Cure, and Shroud of the Lich set toggles.</li>
 				<li>Added the Major Aegis buff.</li>
+				<li>Fixed the Death Knell skill tooltip.</li>
+				<li>Maelstrom DW and Destruction set effects can now be enabled/used on the off-weapon bar.</li>
 			</ul>
 			<p>
 			<b>10 June 2019</b>
