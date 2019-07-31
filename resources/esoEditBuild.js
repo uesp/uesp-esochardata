@@ -6793,6 +6793,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		buffId: "Maelstrom DW Enchantment",
 		updateBuffValue : true,
+		enableOffBar : true,
 		match: /When you deal damage with Flurry, your next single target damage over time ability used within [0-9]+ seconds gains ([0-9]+) Spell and Weapon Damage/i,
 	},
 	{
@@ -7351,6 +7352,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		buffId : "Maelstrom Destruction Enchantment",
 		updateBuffValue : true,
+		enableOffBar : true,
 		match: /Your Light and Heavy Attacks deal an additional ([0-9]+) damage to enemies in your Wall of Elements/i,
 	},	
 	{
@@ -8478,12 +8480,14 @@ window.ESO_ENCHANT_WEAPON_MATCHES = [
 		statId: "OtherEffects",
 		match: /Your Flurry grants ([0-9]+) additional Weapon and Spell Damage/i,
 		buffId : "Maelstrom DW Enchantment",
+		enableOffBar : true,
 		updateBuffValue : true,
 	},
 	{
 		statId: "OtherEffects",
 		match: /Targets affected by Wall of Elements take ([0-9]+) additional damage/i,
 		buffId : "Maelstrom Destruction Enchantment",
+		enableOffBar : true,
 		updateBuffValue : true,
 	},
 ];
