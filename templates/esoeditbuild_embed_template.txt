@@ -1341,6 +1341,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>31 July 2019</b>
 			<ul>
 				<li>Fixed the Troll King, Spell Power Cure, and Shroud of the Lich set toggles.</li>
+				<li>Added the Major Aegis buff.</li>
 			</ul>
 			<p>
 			<b>10 June 2019</b>

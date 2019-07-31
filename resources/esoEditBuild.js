@@ -365,6 +365,18 @@ window.g_EsoBuildBuffData =
 			category: "Buff",
 			icon : "/esoui/art/icons/ability_warrior_030.png",
 		},
+		"Major Aegis" : 
+		{
+			group: "Major",
+			enabled: false,
+			skillEnabled : false,
+			value : -0.15,
+			display: "%",
+			combineAs: "*%",
+			statId : "DungeonDamageTaken",
+			category: "Buff",
+			icon : "/esoui/art/icons/procs_004.png",
+		},
 		"Minor Slayer" : 
 		{
 			group: "Minor",
