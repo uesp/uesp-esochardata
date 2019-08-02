@@ -1651,6 +1651,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"SkillDamage.Molten Whip" => array(
+					"display" => "%",
+			),
+			
 			"SkillDamage.Overload" => array(
 					"display" => "%",
 			),

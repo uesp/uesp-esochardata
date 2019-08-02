@@ -1341,6 +1341,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>2 August 2019</b>
 			<ul>
 				<li>Added the Raid Dummy Buffs & Debuffs to the Other buff group which adds all buffs/debuffs that the new raid dummy supplies.</li>
+				<li>Fixed about 60 items that were missing.</li>
+				<li>Added the Molten Whip active skill toggle.</li>
 			</ul>
 			<p>
 			<b>1 August 2019</b>

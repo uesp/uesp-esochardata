@@ -1848,6 +1848,37 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 	
 		/* Begin Toggled Abilities */
 	{
+		id: "Molten Whip",
+		baseSkillId: 23811,
+		category: "Skill2",
+		statId: "SpellDamage",
+		toggle: true,
+		enabled: false,
+		maxTimes: 3,
+		match: /While slotted, whenever you activate a different Ardent Flame ability, you gain a stack of Seething Fury, which increases the damage of your next Molten Whip by [0-9]+% and your Weapon and Spell Damage by ([0-9]+) /i
+	},
+	{
+		id: "Molten Whip",
+		baseSkillId: 23811,
+		category: "Skill2",
+		statId: "WeaponDamage",
+		toggle: true,
+		enabled: false,
+		maxTimes: 3,
+		match: /While slotted, whenever you activate a different Ardent Flame ability, you gain a stack of Seething Fury, which increases the damage of your next Molten Whip by [0-9]+% and your Weapon and Spell Damage by ([0-9]+) /i
+	},
+	{
+		id: "Molten Whip",
+		baseSkillId: 23811,
+		category: "SkillDamage",
+		statId: "Molten Whip",
+		toggle: true,
+		enabled: false,
+		maxTimes: 3,
+		display: "%",
+		match: /While slotted, whenever you activate a different Ardent Flame ability, you gain a stack of Seething Fury, which increases the damage of your next Molten Whip by ([0-9]+)% and your Weapon and Spell Damage by [0-9]+ /i
+	},
+	{
 		id: "Grim Focus",
 		baseSkillId: 62096,
 		statId: "DamageTaken",
