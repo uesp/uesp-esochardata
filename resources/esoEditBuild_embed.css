@@ -935,6 +935,7 @@ button.esotbWeaponSelect {
 .esotbBuffDesc {
 	display: inline-block;
 	vertical-align: top;
+	padding-left: 20px;
 }
 
 .esotbBuffItem {

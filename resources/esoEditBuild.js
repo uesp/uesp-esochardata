@@ -256,11 +256,21 @@ window.ESOBUILD_SKILLTYPES =
 
 window.g_EsoBuildBuffData =
 {
-		
+		"Raid Dummy Buffs & Debuffs" :
+		{
+			group: "Other",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			buffIds: [ "Warhorn", "Major Force", "Hircine's Veneer", "Worm's Raiment", "Minor Toughness", "Minor Berserk", "Minor Brutality", "Minor Sorcery", "Minor Savagery", "Major Courage", "Minor Prophecy",
+			           "Crusher Enchantment (Target)", "Engulfing Flames (Target)", "Major Breach (Target)", "Minor Breach (Target)", "Major Fracture (Target)", "Minor Fracture (Target)", "Minor Vulnerability (Target)", "Alkosh (Target)"],
+			icon : "/esoui/art/icons/crafting_poison_001_blue_005.png",			
+		},		
 		"Ravage Magicka" : 
 		{
 			group: "Poison",
 			enabled: false,
+			buffEnabled: false,
 			skillEnabled : false,
 			value : 0.10,
 			display: "%",
@@ -273,6 +283,7 @@ window.g_EsoBuildBuffData =
 			group: "Poison",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.10,
 			display: "%",
 			category: "Buff",
@@ -284,6 +295,7 @@ window.g_EsoBuildBuffData =
 			group: "Poison",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -0.40,
 			display: "%",
 			category: "Buff",
@@ -295,6 +307,7 @@ window.g_EsoBuildBuffData =
 			group: "Poison",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.60,
 			display: "%",
 			category: "Buff",
@@ -306,6 +319,7 @@ window.g_EsoBuildBuffData =
 			group: "Poison",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -0.10,
 			display: "%",
 			category: "Buff",
@@ -317,6 +331,7 @@ window.g_EsoBuildBuffData =
 			group: "Poison",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -1320,
 			category: "Buff",
 			statIds : [ "SpellCrit", "WeaponCrit" ],
@@ -327,6 +342,7 @@ window.g_EsoBuildBuffData =
 			group: "Set",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -0.10,
 			display: "%",
 			category: "Set",
@@ -338,6 +354,7 @@ window.g_EsoBuildBuffData =
 			group: "Set",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -430,
 			category: "Skill2",
 			statId : "WeaponDamage",
@@ -348,6 +365,7 @@ window.g_EsoBuildBuffData =
 			group: "Skill",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			values : [0.10, 0.10],
 			display: "%",
 			statIds : ["Magicka", "Stamina"],
@@ -358,6 +376,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -0.05,
 			display: "%",
 			combineAs: "*%",
@@ -370,6 +389,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -0.15,
 			display: "%",
 			combineAs: "*%",
@@ -382,6 +402,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.05,
 			display: "%",
 			statId : "DamageDone",
@@ -393,6 +414,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.15,
 			display: "%",
 			statId : "DamageDone",
@@ -404,6 +426,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.15,
 			display: "%",
 			statId : "CritDamage",
@@ -415,6 +438,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.10,
 			display: "%",
 			statId : "CritDamage",
@@ -425,6 +449,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.25,
 			display: "%",
 			statId : "HealingDone",
@@ -435,6 +460,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.08,
 			display: "%",
 			statId : "HealingDone",
@@ -445,6 +471,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.20,
 			display: "%",
 			statId : "SpellDamage",
@@ -455,6 +482,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.10,
 			display: "%",
 			statId : "SpellDamage",
@@ -465,6 +493,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.20,
 			display: "%",
 			statId : "WeaponDamage",
@@ -475,6 +504,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.10,
 			display: "%",
 			statId : "WeaponDamage",
@@ -485,6 +515,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 5280,
 			category : "Skill",
 			statId : "PhysicalResist",
@@ -495,6 +526,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 2640,
 			category : "Skill",
 			statId : "PhysicalResist",
@@ -505,6 +537,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 1320,
 			category : "Skill",
 			statId : "PhysicalResist",
@@ -515,6 +548,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 5280,
 			category : "Skill",
 			statId : "SpellResist",
@@ -525,6 +559,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 2640,
 			category : "Skill",
 			statId : "SpellResist",
@@ -535,6 +570,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 1320,
 			category : "Skill",
 			statId : "SpellResist",
@@ -545,6 +581,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 2191,
 			statId : "WeaponCrit",
 			icon : "/esoui/art/icons/ability_warrior_022.png",
@@ -554,6 +591,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 1314,
 			statId : "WeaponCrit",
 			icon : "/esoui/art/icons/ability_warrior_005.png",
@@ -563,6 +601,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 2191,
 			statId : "SpellCrit",
 			icon : "/esoui/art/icons/ability_mage_017.png",
@@ -572,6 +611,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 1314,
 			statId : "SpellCrit",
 			icon : "/esoui/art/icons/ability_mage_042.png",
@@ -581,6 +621,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.20,
 			display : "%",
 			statId : "HealthRegen",
@@ -591,6 +632,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.10,
 			display : "%",
 			statId : "HealthRegen",
@@ -601,6 +643,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.20,
 			display : "%",
 			statId : "MagickaRegen",
@@ -611,6 +654,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.10,
 			display : "%",
 			statId : "MagickaRegen",
@@ -619,8 +663,9 @@ window.g_EsoBuildBuffData =
 		"Major Endurance" : 
 		{
 			group: "Major",
-			enabled: false,
+			enabled: false,			
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.20,
 			display : "%",
 			statId : "StaminaRegen",
@@ -631,6 +676,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.10,
 			display : "%",
 			statId : "StaminaRegen",
@@ -641,6 +687,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.30,
 			display : "%",
 			statIds : ["MovementSpeed", "MountSpeed"],
@@ -651,6 +698,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.10,
 			display : "%",
 			statIds : ["MovementSpeed"],
@@ -661,6 +709,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.30,
 			display : "%",
 			statId : "HealingTaken",
@@ -671,6 +720,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.08,
 			display : "%",
 			statId : "HealingTaken",
@@ -681,6 +731,7 @@ window.g_EsoBuildBuffData =
 			group: "Other",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			values : [0.40, 0.40],
 			display : "%",
 			statIds : ["Empower", "OverloadDamage"],
@@ -692,6 +743,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 258,
 			category: "Set",
 			statIds : [ "WeaponDamage", "SpellDamage" ],
@@ -703,6 +755,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 129,
 			category: "Set",
 			statIds : [ "WeaponDamage", "SpellDamage" ],
@@ -714,6 +767,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -0.25,
 			display : "%",
 			category: "Skill",
@@ -725,6 +779,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -0.10,
 			display : "%",
 			category: "Skill",
@@ -736,6 +791,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.25,
 			display: "%",
 			statId : "DamageDone",
@@ -746,6 +802,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.08,
 			display: "%",
 			statId : "DamageDone",
@@ -756,6 +813,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -0.30,
 			display: "%",
 			combineAs: "*%",
@@ -767,6 +825,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : "Heals you and your allies for 600 Health every 1 second when damaging them.",
 			statId : "OtherEffects",
 			icon : "/esoui/art/icons/ability_buff_minor_lifesteal.png",
@@ -776,6 +835,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -0.08,
 			display: "%",
 			statId : "DamageTaken",
@@ -787,6 +847,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -0.30,
 			display: "%",
 			categories : [  "Buff", "Skill2" ],
@@ -798,6 +859,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -0.15,
 			display: "%",
 			categories : [ "Buff", "Skill2" ],
@@ -809,6 +871,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : "Grants you 3 Ultimate every 1 second for 9 seconds.",
 			statId : "OtherEffects",
 			icon : "/esoui/art/icons/ability_templar_breath_of_life.png",
@@ -818,6 +881,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : "Grants you 1 Ultimate every 1.5 seconds for 9 seconds.",
 			statId : "OtherEffects",
 			icon : "/esoui/art/icons/ability_templar_honor_the_dead.png",
@@ -827,6 +891,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -5280,
 			category: "Skill",
 			statId : "PhysicalResist",
@@ -837,6 +902,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -1320,
 			category: "Skill",
 			statId : "PhysicalResist",
@@ -848,6 +914,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -5280,
 			category: "Skill",
 			statId : "SpellResist",
@@ -859,6 +926,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -1320,
 			category: "Skill",
 			statId : "SpellResist",
@@ -869,6 +937,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -0.30,
 			display: "%",
 			statId : "DamageDone",
@@ -879,6 +948,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -0.15,
 			display: "%",
 			statId : "DamageDone",
@@ -889,6 +959,7 @@ window.g_EsoBuildBuffData =
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.30,
 			display: "%",
 			statId : "Vulnerability",
@@ -901,6 +972,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.08,
 			display: "%",
 			statId : "Vulnerability",
@@ -913,6 +985,7 @@ window.g_EsoBuildBuffData =
 			group: "Target",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.10,
 			display: "%",
 			statId : "DamageDone",
@@ -923,6 +996,7 @@ window.g_EsoBuildBuffData =
 			group: "Other",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			visible : false,
 			toggleVisible : true,
 			value : 348,
@@ -935,6 +1009,7 @@ window.g_EsoBuildBuffData =
 			group: "Set",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			visible : false,
 			toggleVisible : true,
 			value : 2003,
@@ -948,6 +1023,7 @@ window.g_EsoBuildBuffData =
 			group: "Set",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			visible : false,
 			toggleVisible : true,
 			value : 1341,
@@ -961,6 +1037,7 @@ window.g_EsoBuildBuffData =
 			group: "Skill",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			visible : false,
 			toggleVisible : true,
 			displays : [ "%", "%" ],
@@ -974,6 +1051,7 @@ window.g_EsoBuildBuffData =
 			group: "Set",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			values : [ 21910, 21910 ],
 			// displays: [ "%", "%" ],
 			statIds : [ "SpellCrit", "WeaponCrit" ],
@@ -984,6 +1062,7 @@ window.g_EsoBuildBuffData =
 			group: "Other",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.10,
 			display: "%",
 			statId : "Health",
@@ -994,6 +1073,7 @@ window.g_EsoBuildBuffData =
 			group: "Set",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.08,
 			display: "%",
 			statId : "DamageDone",
@@ -1005,6 +1085,7 @@ window.g_EsoBuildBuffData =
 			group: "Other",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 1320,
 			category: "Item",
 			statId : "SpellResist",
@@ -1016,6 +1097,7 @@ window.g_EsoBuildBuffData =
 			group: "Other",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 1320,
 			category: "Item",
 			statId : "PhysicalResist",
@@ -1027,6 +1109,7 @@ window.g_EsoBuildBuffData =
 			group: "Other",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.05,
 			display: "%",
 			category: "Buff",
@@ -1040,6 +1123,7 @@ window.g_EsoBuildBuffData =
 			group: "Skill",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -0.25,
 			display: "%",
 			category: "Skill",
@@ -1052,6 +1136,7 @@ window.g_EsoBuildBuffData =
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 0.10,
 			display: "%",
 			statId : "Health",
@@ -1062,6 +1147,7 @@ window.g_EsoBuildBuffData =
 			group: "Set",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -0.04,
 			display: '%',
 			statId : "MagickaCost",
@@ -1072,6 +1158,7 @@ window.g_EsoBuildBuffData =
 			group: "Set",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -0.04,
 			display: '%',
 			statId : "StaminaCost",
@@ -1087,6 +1174,7 @@ window.g_EsoBuildBuffData =
 			group: "Set",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : 164,
 			category: "Item",
 			statIds : ["SpellDamage", "WeaponDamage"],
@@ -1100,6 +1188,7 @@ window.g_EsoBuildBuffData =
 			group: "Target",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			values : [ -3010, -3010 ],
 			category: "Target",
 			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
@@ -1112,6 +1201,7 @@ window.g_EsoBuildBuffData =
 			group: "Target",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			// visible : false,
 			// toggleVisible : true,
 			values : [ -1622, -1622 ],
@@ -1126,6 +1216,7 @@ window.g_EsoBuildBuffData =
 			group: "Target",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			// visible : false,
 			// toggleVisible : true,
 			values : [ -2108, -2108 ],
@@ -1140,6 +1231,7 @@ window.g_EsoBuildBuffData =
 			group: "Target",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			// visible : false,
 			// toggleVisible : true,
 			values : [ -2740, -2740 ],
@@ -1154,6 +1246,7 @@ window.g_EsoBuildBuffData =
 			group: "Target",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			// visible : false,
 			// toggleVisible : true,
 			values : [ -811, -811 ],
@@ -1168,6 +1261,7 @@ window.g_EsoBuildBuffData =
 			group: "Target",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			// visible : false,
 			// toggleVisible : true,
 			values : [ -1054, -1054 ],
@@ -1182,6 +1276,7 @@ window.g_EsoBuildBuffData =
 			group: "Target",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			// visible : false,
 			// toggleVisible : true,
 			values : [ -1370, -1370 ],
@@ -1195,6 +1290,7 @@ window.g_EsoBuildBuffData =
 			group: "Set",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			category: "Item",
 			statId : "Health",
 			value : 1118,
@@ -1222,6 +1318,7 @@ window.g_EsoBuildBuffData =
 			group: "Target",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -5280,
 			category: "Target",
 			statId : "PhysicalDebuff",
@@ -1233,6 +1330,7 @@ window.g_EsoBuildBuffData =
 			group: "Target",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -1320,
 			category: "Target",
 			statId : "PhysicalDebuff",
@@ -1244,6 +1342,7 @@ window.g_EsoBuildBuffData =
 			group: "Target",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -5280,
 			category: "Target",
 			statId : "SpellDebuff",
@@ -1255,6 +1354,7 @@ window.g_EsoBuildBuffData =
 			group: "Target",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			value : -1320,
 			category: "Target",
 			statId : "SpellDebuff",
@@ -1266,6 +1366,7 @@ window.g_EsoBuildBuffData =
 			group: "Target",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			category: "Target",
 			value : -0.15,
 			display: "%",
@@ -1278,6 +1379,7 @@ window.g_EsoBuildBuffData =
 			group: "Target",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			category: "Target",
 			value : 0.30,
 			display: "%",
@@ -1290,6 +1392,7 @@ window.g_EsoBuildBuffData =
 			group: "Target",
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			category: "Target",
 			value : 0.08,
 			display: "%",
@@ -1306,6 +1409,7 @@ window.g_EsoBuildBuffData =
 			toggleVisible : true,
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			category: "Buff",
 			value : 0.05,
 			display: "%",
@@ -1319,6 +1423,7 @@ window.g_EsoBuildBuffData =
 			toggleVisible : true,
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			category: "Buff",
 			value : 0.05,
 			display: "%",
@@ -1332,6 +1437,7 @@ window.g_EsoBuildBuffData =
 			toggleVisible : true,
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			displays : [ "", "%", "%", "%" ],
 			categories : [ "Skill2", "Skill2", "Buff", "Buff" ],
 			values : [ 5000, -0.50, -0.50, -0.50 ],
@@ -1346,6 +1452,7 @@ window.g_EsoBuildBuffData =
 			toggleVisible : true,
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			displays : [ "%", "%" ],
 			categories : [ "Skill", "Skill" ],
 			values : [ 0.01, 0.01 ],
@@ -1359,6 +1466,7 @@ window.g_EsoBuildBuffData =
 			toggleVisible : true,
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			displays : [ "%", "%" ],
 			categories : [ "Skill", "Skill" ],
 			values : [ 0.02, 0.02 ],
@@ -1372,6 +1480,7 @@ window.g_EsoBuildBuffData =
 			toggleVisible : true,
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			displays : [ "%", "%" ],
 			categories : [ "Skill", "Skill" ],
 			values : [ 0.03, 0.03 ],
@@ -1385,6 +1494,7 @@ window.g_EsoBuildBuffData =
 			toggleVisible : true,
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			displays : [ "%", "%" ],
 			categories : [ "Skill", "Skill" ],
 			values : [ 0.04, 0.04 ],
@@ -1398,6 +1508,7 @@ window.g_EsoBuildBuffData =
 			toggleVisible : true,
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			displays : [ "%", "%" ],
 			categories : [ "Skill", "Skill" ],
 			values : [ 0.05, 0.05 ],
@@ -1411,6 +1522,7 @@ window.g_EsoBuildBuffData =
 			toggleVisible : true,
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			displays : [ "%", "%" ],
 			categories : [ "Skill", "Skill" ],
 			values : [ 0.06, 0.06 ],
@@ -1424,6 +1536,7 @@ window.g_EsoBuildBuffData =
 			toggleVisible : true,
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			displays : [ "%", "%" ],
 			categories : [ "Skill", "Skill" ],
 			values : [ 0.07, 0.07 ],
@@ -1437,6 +1550,7 @@ window.g_EsoBuildBuffData =
 			toggleVisible : true,
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			displays : [ "%", "%" ],
 			categories : [ "Skill", "Skill" ],
 			values : [ 0.08, 0.08 ],
@@ -1450,6 +1564,7 @@ window.g_EsoBuildBuffData =
 			toggleVisible : true,
 			enabled: false,
 			skillEnabled : false,
+			buffEnabled: false,
 			displays : [ "%", "%" ],
 			categories : [ "Skill", "Skill" ],
 			values : [ 0.09, 0.09 ],
@@ -8890,12 +9005,43 @@ window.GetEsoInputFoodValues = function (inputValues)
 }
 
 
-window.GetEsoInputBuffValues = function (inputValues)
+window.UpdateEsoInputBuffToggles = function (buffData)
 {
 	for (var buffName in g_EsoBuildBuffData)
 	{
 		var buffData = g_EsoBuildBuffData[buffName];
-		if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled)) continue;
+		if (buffData == null) continue;
+		if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled)) continue;
+		
+		var buffIds = buffData.buffIds;
+		if (buffIds == null) buffIds = [ buffData.buffIds ];
+		
+		for (var i in buffIds)
+		{
+			var buffId = buffIds[i];
+			if (buffId == null) continue;
+			
+			var targetBuff = g_EsoBuildBuffData[buffId];
+			if (targetBuff == null) continue;
+			
+			targetBuff.buffEnabled = true;
+			targetBuff.buffAbilities.push(buffName);
+			
+			AddEsoItemRawOutputString(buffData, "Adds Buff", buffId);
+		}
+	}
+}
+
+
+window.GetEsoInputBuffValues = function (inputValues)
+{
+	UpdateEsoInputBuffToggles();
+	
+	for (var buffName in g_EsoBuildBuffData)
+	{
+		var buffData = g_EsoBuildBuffData[buffName];
+		if (buffData == null) continue;
+		if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled)) continue;
 		GetEsoInputBuffValue(inputValues, buffName, buffData);
 	}
 }
@@ -9556,9 +9702,11 @@ window.ResetEsoBuffSkillEnabled = function ()
 		var buffData = g_EsoBuildBuffData[buffName];
 		if (buffData.visible == null) buffData.visible = true;
 		if (buffData.toggleVisible === true) buffData.visible = false;
+		buffData.buffEnabled = false;
 		buffData.skillEnabled = false;
 		buffData.rawOutput = {};
 		buffData.skillAbilities = [];
+		buffData.buffAbilities = [];
 	}
 }
 
@@ -9596,6 +9744,54 @@ window.UpdateEsoBuffSkillEnabled = function ()
 			parent.addClass("esotbBuffDisable");
 			parent.removeClass("esotbBuffItemSelect");
 			element.text(" (Enabled by " + abilityDesc + ")");
+		}
+		else if (buffData.enabled)
+		{
+			parent.addClass("esotbBuffItemSelect");
+			parent.removeClass("esotbBuffDisable");
+		}
+		else
+		{
+			parent.removeClass("esotbBuffItemSelect");
+			parent.removeClass("esotbBuffDisable");
+			element.text("");
+		}
+	}
+	
+}
+
+
+window.UpdateEsoBuffBuffEnabled = function ()
+{
+	
+	for (var buffName in g_EsoBuildBuffData)
+	{
+		var buffData = g_EsoBuildBuffData[buffName];
+		var parent = $(".esotbBuffItem[buffid='" + buffName + "']");
+		var element = parent.find(".esotbBuffSkillEnable");
+		
+		if (buffData.buffEnabled)
+		{
+			var buffName = buffData.buffAbilities[0];
+			var buffDesc = "";
+			
+			if (buffName != null)
+			{
+				buffDesc = buffName;
+				
+				if (buffData.buffAbilities.length == 2) 
+					buffDesc += " and 1 other";
+				else if (buffData.buffAbilities.length > 2)
+					buffDesc += " and " + (buffData.buffAbilities.length - 1) + " others";
+			}
+			else if (buffData.rawOutput != null && buffData.rawOutput["Buff"] != null)
+			{
+				buffDesc = buffData.rawOutput["Buff"];
+			}
+			
+			parent.addClass("esotbBuffDisable");
+			parent.removeClass("esotbBuffItemSelect");
+			element.text(" (Enabled by " + buffDesc + ")");
 		}
 		else if (buffData.enabled)
 		{
@@ -11233,6 +11429,7 @@ window.UpdateEsoComputedStatsList_Real = function (keepSaveResults)
 	
 	UpdateEsoBuildVisibleBuffs();
 	UpdateEsoBuffSkillEnabled();
+	UpdateEsoBuffBuffEnabled();
 	UpdateEsoAllSkillCost(false);
 	
 	// if (console && console.time)
@@ -14649,9 +14846,9 @@ window.CreateEsoBuildBuffElements = function ()
 	var keys = Object.keys(g_EsoBuildBuffData).sort();
 	
 		/* Predefine to set display order */
-	groupOutputs["Cyrodiil"] = "";
 	groupOutputs["Major"] = "";
 	groupOutputs["Minor"] = "";
+	groupOutputs["Cyrodiil"] = "";
 	groupOutputs["Poison"] = "";
 	groupOutputs["Skill"] = "";
 	groupOutputs["Set"] = "";
@@ -14732,6 +14929,8 @@ window.CreateEsoBuildBuffDescHtml = function (buffData)
 {
 	var statId = buffData.statId;
 	var statIds = buffData.statIds;
+	var buffId = buffData.buffId;
+	var buffIds = buffData.buffIds;
 	var category = buffData.category;;
 	var categories = buffData.categories;
 	var statValue = buffData.value;
@@ -14750,7 +14949,8 @@ window.CreateEsoBuildBuffDescHtml = function (buffData)
 	if (category == null) category = "";
 	if (display == null) display = "";
 	
-	if (statIds == null) statIds = [ statId ];
+	if (buffIds == null) buffIds = [ buffId ];
+	if (statIds == null) statIds = [ statId ];	
 	if (statValues == null) statValues = [].fill.call({ length: statIds.length }, statValue);
 	if (categories == null) categories = [].fill.call({ length: statIds.length }, category);
 	if (displays == null) displays = [].fill.call({ length: statIds.length }, display);
@@ -14758,6 +14958,8 @@ window.CreateEsoBuildBuffDescHtml = function (buffData)
 			
 	for (var i = 0; i < statIds.length; ++i)
 	{
+		if (statIds[i] == null) continue;
+		
 		statId = statIds[i].replace(/([A-Z])/g, ' $1').trim().replace("A O E ", " AOE ");
 		statValue = statValues[i];
 		category = categories[i];
@@ -14790,6 +14992,14 @@ window.CreateEsoBuildBuffDescHtml = function (buffData)
 			else
 				buffData.desc += statValue + "<br/>";
 		}
+	}
+	
+	var buffDesc = buffIds.filter(Boolean).join(", ");
+	
+	if (buffDesc != "")
+	{
+		if (buffData.desc != "") buffData.desc += "<br/>";
+		buffData.desc += "Adds Buffs: " + buffDesc;
 	}
 	
 	return buffData.desc;
@@ -14956,6 +15166,7 @@ window.UpdateEsoInitialBuffData = function ()
 		
 		buffData.enabled      = ((parseInt(enabled) & 1) != 0); 
 		buffData.skillEnabled = ((parseInt(enabled) & 2) != 0);
+		buffData.buffEnabled  = ((parseInt(enabled) & 4) != 0);
 	}
 	
 }
@@ -15308,7 +15519,7 @@ window.CreateEsoBuildBuffSaveData = function (saveData, inputValues)
 	for (var buffName in g_EsoBuildBuffData)
 	{
 		var buffData = g_EsoBuildBuffData[buffName];
-		if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled)) continue;
+		if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled)) continue;
 		
 		data = {};
 		
@@ -15320,6 +15531,7 @@ window.CreateEsoBuildBuffSaveData = function (saveData, inputValues)
 		data.enabled = 0;
 		if (buffData.enabled) data.enabled += 1;
 		if (buffData.skillEnabled) data.enabled += 2;
+		if (buffData.buffEnabled) data.enabled += 2;
 		
 		saveData.Buffs[buffName] = data;
 	}
