@@ -5,7 +5,7 @@
  * 		- Hide skill lines, auto-purchase free skills.
  * 		- Include specific Spell/Weapon damage values in raw data and effective power.
  * 		- View window enchantment/set effect modifiers.
- * 
+ *  
  */
 
 window.TestCache = 789;
