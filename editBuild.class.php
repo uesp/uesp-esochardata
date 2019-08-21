@@ -287,6 +287,7 @@ class EsoBuildDataEditor
 			"Set.HealthRegenResistFactor",
 			"Set.RangedDamageTaken",
 			"Skill.HealCrit",
+
 	);
 	
 	
@@ -332,6 +333,8 @@ class EsoBuildDataEditor
 			"HealingTotal",
 			"HealingReduction",
 			"BashCost",
+			"BashWeaponDamage",
+			"BashSpellDamage",
 			"BashDamage",
 			"BlockCost",
 			"BlockMitigation",
@@ -588,6 +591,10 @@ class EsoBuildDataEditor
 			),
 			
 			"Skill.HealthRegen" => array(
+					"display" => "%",
+			),
+			
+			"Skill.BashCost" => array(
 					"display" => "%",
 			),
 			
@@ -919,6 +926,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Skill.HealthCost" => array(
+					"display" => "%",
+			),
+			
 			"CP.StaminaCost" => array(
 					"display" => "%",
 			),
@@ -952,6 +963,10 @@ class EsoBuildDataEditor
 			),
 			
 			"Target.HealingReceived" => array(
+					"display" => "%",
+			),
+			
+			"Target.LADamageTaken" => array(
 					"display" => "%",
 			),
 			
@@ -2969,15 +2984,29 @@ class EsoBuildDataEditor
 			),
 			
 			/*
-			 * BashCost: Confirmed Update 15
+			 * BashDamage: Confirmed Update 15
 			 */
-			"BashDamage" => array(
-					"warning" => "This is the base damage for bashing a non-casting opponent.",
-					"title" => "Bash Damage",
+			"WeaponBashDamage" => array(
+					"warning" => "This is the base damage for bashing a non-casting opponent with a physical weapon.",
+					"title" => "Weapon Bash Damage",
 					"round" => "floor",
-					"depends" => array("DamageDone", "DirectDamageDone"),
+					"depends" => array("DamageDone", "DirectDamageDone", "WeaponDamage"),
 					"compute" => array(
-							"floor((WeaponDamage + Item.BashDamage)*0.5)",
+							"floor((WeaponDamage + Item.BashWeaponDamage + Skill.BashWeaponDamage)*0.5)",
+							"1 + Skill.BashDamage",
+							"*",
+							"1 + DirectDamageDone + CP.PhysicalDamageDone + Skill.PhysicalDamageDone + DamageDone",
+							"*",
+					),
+			),
+			
+			"SpellBashDamage" => array(
+					"warning" => "This is the base damage for bashing a non-casting opponent with a magical weapon.",
+					"title" => "Spell Bash Damage",
+					"round" => "floor",
+					"depends" => array("DamageDone", "DirectDamageDone", "SpellDamage"),
+					"compute" => array(
+							"floor((SpellDamage + Item.BashSpellDamage + Skill.BashSpellDamage)*0.5)",
 							"1 + Skill.BashDamage",
 							"*",
 							"1 + DirectDamageDone + CP.PhysicalDamageDone + Skill.PhysicalDamageDone + DamageDone",

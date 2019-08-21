@@ -5,8 +5,8 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #cfc; margin-right: 225px;'>
-Build editor should now be updated for the Elsweyr (Update 22) patch. Items, skills and CP have been updated.
+<div style='background-color: #fcc; margin-right: 225px;'>
+The build editor is *not* yet completely updated for the Scalebreaker patch (update 23). Items, skills and CP data have been updated. New/updated skills and set have not been updated.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -632,11 +632,13 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Earthgore</option>					
 					<option>Engine Guardian</option>
 					<option>Grothdarr</option>
+					<option>Grundwulf</option>
 					<option>Iceheart</option>
 					<option>Ilambris</option>
 					<option>Infernal Guardian</option>
 					<option>Kra'gh</option>
 					<option>Lord Warden</option>
+					<option>Maarselok</option>
 					<option>Maw of the Infernal</option>
 					<option>Mighty Chudan</option>
 					<option>Molag Kena</option>
@@ -749,6 +751,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Assassin's Guile</option>
 					<option>Auroran's Thunder</option>
 					<option>Automated Defense</option>
+					<option>Azureblight Reaper</option>
 					<option>Bahraha's Curse</option>
 					<option>Barkskin</option>
 					<option>Bastion of the Heartland</option>
@@ -791,11 +794,13 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Defiler</option>
 					<option>Desert Rose</option>
 					<option>Destructive Mage</option>
+					<option>Dragon's Defilement</option>
 					<option>Draugr Hulk</option>
 					<option>Draugr's Heritage</option>
 					<option>Draugr's Rest</option>
 					<option>Dreamer's Mantle</option>
 					<option>Dreugh King Slayer</option>
+					<option>Dro'Zakar's Claws</option>
 					<option>Duneripper's Scales</option>
 					<option>Durok's Bane</option>
 					<option>Eagle Eye</option>
@@ -842,6 +847,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Hide of the Werewolf</option>
 					<option>Hircine's Veneer</option>
 					<option>Hist Bark</option>
+					<option>Hollowfang Thirst</option>
 					<option>Hunding's Rage</option>
 					<option>Hunt Leader</option>
 					<option>Icy Conjuror</option>
@@ -930,6 +936,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Redistributor</option>
 					<option>Relics of the Physician, Ansur</option>
 					<option>Relics of the Rebellion</option>
+					<option>Renald's Resolve</option>
 					<option>Roar of Alkosh</option>
 					<option>Robes of Alteration Mastery</option>
 					<option>Robes of Destruction Mastery</option>
@@ -1054,7 +1061,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Wizard's Riposte</option>
 					<option>Wrath of the Imperium</option>
 					<option>Wyrd Tree's Blessing</option>
-					<option>Ysgramor's Birthright</option>				
+					<option>Ysgramor's Birthright</option>
+					<option>Z'en's Redress</option>				
 				</datalist>
 				
 				<button id="esotbItemSetupEquipSetButton" onclick="OnEsoEditBuildSetupEquipSet(this);">Change</button>
@@ -1337,7 +1345,41 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>21 August 2019</b>
+			<ul>
+				<li>Item data updated.</li>
+				<li>Fixed the Armor of the Veiled Heritance 5 piece set bonus toggle.</li>
+				<li>Fixed the Cruel Flurry toggled set bonus.</li>
+				<li>Added a toggle for the Dro'Zakar's Claws 5 piece set bonus.</li>
+				<li>Fixed the Elemental Succession 5 piece set bonus toggle.</li>
+				<li>Added the 5 piece bonus effect from the Oblivion's Foe set.</li>
+				<li>Fixed the Powerful Assault toggled set bonus.</li>
+				<li>Fixed the Ravager toggled set bonus.</li>
+				<li>Added a toggle for the Renald's Resolve 5 piece set bonus.</li>
+				<li>Fixed the Senche's Bite set toggle.</li>
+				<li>Fixed the Seventh Legion Brute set toggle.</li>
+				<li>Fixed the Torug's Pact 5 piece set bonus.</li>
+				<li>Fixed the Warrior's Fury set toggle.</li>
+				<li>Fixed the Way of Martial Knowledge set toggle.</li>
+				<li>Fixed the Duneripper's Scales set toggle.</li>
+				<li>Fixed the Meritorious Service set toggle.</li>
+				<li>Fixed the Shield Breaker 5 piece set bonus.</li>
+				<li>Added the Robes of Transmutation buff and fixed the set toggle.</li>
+				<li>Added toggle for the Perfect Vestment of Olorime 5 piece set bonus. Fixed the toggle for the Vestment of Olorime set.</li>
+				<li>Seperated bash damage into weapon and spell categories. Added effect from the Deadly Bash passive.</li>
+				<li>Fixed the Controlled Fury passive.</li>
+				<li>Fixed the Persistence passive toggle.</li>
+				<li>Fixed the Unholy Knowledge passive.</li>
+				<li>Fixed the Restoring Spirit passive.</li>
+				<li>Fixed healing modifiers in skill tooltips for a bunch of skills.</li>
+			</ul>
+			<p>
 			<hr>
+			<b>12 August 2019</b>
+			<ul>
+				<li>Skill and CP data updated.</li>
+			</ul>
+			<p>
 			<b>2 August 2019</b>
 			<ul>
 				<li>Added the Raid Dummy Buffs & Debuffs to the Other buff group which adds all buffs/debuffs that the new raid dummy supplies.</li>
