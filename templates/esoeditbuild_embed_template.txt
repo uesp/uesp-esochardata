@@ -5,8 +5,8 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #fcc; margin-right: 225px;'>
-The build editor is *not* yet completely updated for the Scalebreaker patch (update 23). Items, skills and CP data have been updated. New/updated skills and set have not been updated.
+<div style='background-color: #cfc; margin-right: 225px;'>
+The build editor is now updated for the Scalebreaker patch (update 23).
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
