@@ -4895,6 +4895,7 @@ class EsoBuildDataEditor
 	public function GetCharacterEquippedItem($slotIndex) 
 	{
 		if ($slotIndex === null) return null;
+		if ($this->buildDataViewer->characterData['equipSlots'] == null) return null;
 		if (!array_key_exists($slotIndex, $this->buildDataViewer->characterData['equipSlots'])) return null;
 		return $this->buildDataViewer->characterData['equipSlots'][$slotIndex];
 	}
