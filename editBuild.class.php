@@ -4978,12 +4978,15 @@ class EsoBuildDataEditor
 				
 				if ($result) 
 				{
-					$this->ReportError("Failed to load item data for transmute item $transmuteItemId:$intLevel:$intType!");
 					$row = $result->fetch_assoc();
 					
 					$this->initialItemData[$slotId]["traitDesc"] = $row['traitDesc'];
 					$this->initialItemData[$slotId]["transmuteTrait"] = $linkData['transmuteTrait'];
-				}								
+				}
+				else
+				{
+					$this->ReportError("Failed to load item data for transmute item $transmuteItemId:$intLevel:$intType!");
+				}
 			}
 		}
 		
