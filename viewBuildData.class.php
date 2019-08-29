@@ -4005,8 +4005,8 @@ class EsoBuildDataViewer
 	
 	public function deleteBuild()
 	{
-		if ($this->characterId <= 0) return $this->reportError("Missing valid character ID!");
-		if (!$this->initDatabaseWrite()) return $this->reportError("Database error!");
+		if ($this->characterId <= 0) return $this->reportError("Missing valid character ID for delete build!");
+		if (!$this->initDatabaseWrite()) return $this->reportError("Database error deleting build {$this->characterId}!");
 		
 		$id = $this->characterId;
 		
@@ -4050,7 +4050,7 @@ class EsoBuildDataViewer
 	{
 		if ($this->characterId <= 0) return $this->reportError("Missing valid character ID!");
 		if (!$this->loadSingleCharacter()) return false;
-		if (!$this->canWikiUserDelete()) return $this->reportError("Permission denied!");
+		if (!$this->canWikiUserDelete()) return $this->reportError("Delete Build Permission denied! BuildId = {$this->characterId}, WikiUser = {$_SESSION['wsUserName']}");
 		
 		$buildName = $this->getCharField('buildName');
 		$charName = $this->getCharField('name');
