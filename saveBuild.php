@@ -26,6 +26,7 @@ class EsoBuildDataSaver
 	public $isNew = false;
 	
 	public $errorMessages = array();
+	public $wikiUserName = "";
 	
 	public $db = null;
 	public $dbWriteInitialized = false;
@@ -207,6 +208,8 @@ class EsoBuildDataSaver
 		$this->canEditBuilds   = $_SESSION['UESP_ESO_canEditBuild'];
 		$this->canDeleteBuilds = $_SESSION['UESP_ESO_canDeleteBuild'];
 		$this->canCreateBuilds = $_SESSION['UESP_ESO_canCreateBuild'];
+		
+		$this->wikiUserName = $_SESSION['wsUserName'];
 		
 		if ($this->canEditBuilds   === null) $this->canEditBuilds   = false;
 		if ($this->canDeleteBuilds === null) $this->canDeleteBuilds = false;
@@ -505,14 +508,14 @@ class EsoBuildDataSaver
 		
 		if ($this->buildId <= 0)
 		{
-			if (!$this->canCreateBuilds) return $this->ReportError("Permission Denied!");
+			if (!$this->canCreateBuilds) return $this->ReportError("Create Build: Permission Denied! WikiUser = {$this->wikiUserName}");
 						
 			$this->parsedBuildData['Build']['createTime'] = time();
 			$this->parsedBuildData['Build']['uploadTimestamp'] = date('Y-m-d G:i:s');
 		}
 		else
 		{
-			if (!$this->canEditBuilds) return $this->ReportError("Permission Denied!");
+			if (!$this->canEditBuilds) return $this->ReportError("Edit Build: Permission Denied! BuildId = {$this->buildId}, WikiUser = {$this->wikiUserName}");
 		}
 		
 		$this->parsedBuildData['Build']['editTimestamp'] = date('Y-m-d G:i:s');
@@ -521,7 +524,7 @@ class EsoBuildDataSaver
 		if ($query === false || $query == "") return $this->ReportError("Failed to create query for build data!");
 		
 		$result = $this->Query($query);
-		if (!$result) return $this->ReportError("Failed to save data for build!");
+		if (!$result) return $this->ReportError("Failed to save data for build!  BuildId = {$this->buildId}, WikiUser = {$this->wikiUserName}");
 		
 		if ($this->buildId <= 0)
 		{

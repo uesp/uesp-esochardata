@@ -15432,7 +15432,7 @@ window.OnEsoBuildSaved = function (data, status, xhr)
 	else if (data.isnew)
 	{
 		UpdateEsoBuildNewId(data.id);
-		SetEsoBuildSaveResults("Successfully created new build!");
+		SetEsoBuildSaveResults("Successfully created new build! Reloading....");
 		
 		var currentUrl = window.location.href.split('?')[0];
 		var newUrl = currentUrl + "?id=" + data.id;
@@ -15456,7 +15456,7 @@ window.OnEsoBuildCopy = function (data, status, xhr)
 	}
 	
 	UpdateEsoBuildNewId(data.id);
-	SetEsoBuildSaveResults("Successfully created new build!");
+	SetEsoBuildSaveResults("Successfully created new build! Reloading...");
 	
 	var currentUrl = window.location.href.split('?')[0];
 	var newUrl = currentUrl + "?id=" + data.id;
