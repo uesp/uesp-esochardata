@@ -1345,6 +1345,27 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<hr>
+			<b>26 September 2019</b>
+			<ul>
+				<li>Fixed racial skills not showing when first loaded.</li>
+				<li>Corrected JavaScript load order which was causing a bunch of random issues and things not working.</li>
+			</ul>
+			<p>			
+			<b>20 September 2019</b>
+			<ul>
+				<li>Updated skill data.</li>
+				<li>Fixed a few Shacklebreak items that had bad enchantment data.</li>
+				<li>Fixed CP10 legendary items from using/showing CP20 item data.</li>
+			</ul>
+			<p>
+			<b>10 September 2019</b>
+			<ul>
+				<li>Fixed sets that toggle buffs to work correctly.</li>
+				<li>The Elemental Succession set now permits you to have all 3 element effects at the same time.</li>
+				<li>The Bewitched Sugar Skulls food will now give the correct Magicka and Stamina.</li>
+			</ul>
+			<p>
 			<b>21 August 2019</b>
 			<ul>
 				<li>Item data updated.</li>
@@ -1374,7 +1395,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Fixed healing modifiers in skill tooltips for a bunch of skills.</li>
 			</ul>
 			<p>
-			<hr>
+
 			<b>12 August 2019</b>
 			<ul>
 				<li>Skill and CP data updated.</li>

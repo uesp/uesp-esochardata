@@ -82,7 +82,7 @@ window.ESO_ITEMQUALITYLEVEL_INTTYPEMAP =
 		 4 : [1,  25,  26,  27,  28,  29],
 		 6 : [1,  20,  21,  22,  23,  24],
 		50 : [1,  20,  21,  22,  23,  24], // ?
-		51 : [1, 125, 135, 145, 155, 156],
+		51 : [1, 125, 135, 145, 155, 165],
 		52 : [1, 126, 136, 146, 156, 166],
 		53 : [1, 127, 137, 147, 157, 167],
 		54 : [1, 128, 138, 148, 158, 168],
@@ -106,7 +106,7 @@ window.ESO_ITEMQUALITYLEVEL_INTTYPEMAP_JEWELRY =
 		 4 : [1,  25,  26,  27,  28,  29],
 		 6 : [1,  20,  21,  22,  23,  24],
 		50 : [1,  20,  21,  22,  23,  24],  // ?
-		51 : [1, 125, 135, 145, 155, 156],
+		51 : [1, 125, 135, 145, 155, 165],
 		52 : [1, 126, 136, 146, 156, 166],
 		53 : [1, 127, 137, 147, 157, 167],
 		54 : [1, 128, 138, 148, 158, 168],
@@ -7596,7 +7596,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		category: "SkillBonusSpellDmg",
 		statId: "Flame",
-		disableSetIds: [ "Elemental Succession (Shock)", "Elemental Succession (Cold)" ],
+		//disableSetIds: [ "Elemental Succession (Shock)", "Elemental Succession (Cold)" ],
 		//match: /Your attacks dealing damage with the active element gain ([0-9]+) Spell Damage/i,
 		match: /Whenever you deal Flame, Shock, or Frost Damage, you gain ([0-9]+) Spell Damage /i,
 	},
@@ -7608,7 +7608,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		category: "SkillBonusSpellDmg",
 		statId: "Shock",
-		disableSetIds: [ "Elemental Succession (Cold)", "Elemental Succession (Flame)" ],
+		//disableSetIds: [ "Elemental Succession (Cold)", "Elemental Succession (Flame)" ],
 		//match: /Your attacks dealing damage with the active element gain ([0-9]+) Spell Damage/i,
 		match: /Whenever you deal Flame, Shock, or Frost Damage, you gain ([0-9]+) Spell Damage /i,
 	},
@@ -7620,7 +7620,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		category: "SkillBonusSpellDmg",
 		statId: "Frost",
-		disableSetIds: [ "Elemental Succession (Shock)", "Elemental Succession (Flame)" ],
+		//disableSetIds: [ "Elemental Succession (Shock)", "Elemental Succession (Flame)" ],
 		//match: /Your attacks dealing damage with the active element gain ([0-9]+) Spell Damage/i,
 		match: /Whenever you deal Flame, Shock, or Frost Damage, you gain ([0-9]+) Spell Damage /i,
 	},
@@ -8843,6 +8843,14 @@ window.ESO_ABILITYDESC_MATCHES = [
 		statId: "MagickaRegen",
 		match: /Increase Magicka Recovery and Stamina Recovery by ([0-9]+)/i,
 	},
+	{
+		statId: "Magicka",
+		match: /Max Stamina and Magicka by ([0-9]+)/i,
+	},
+	{
+		statId: "Stamina",
+		match: /Max Stamina and Magicka by ([0-9]+)/i,
+	},
 ];
 
 
@@ -9909,6 +9917,7 @@ window.UpdateEsoBuffSkillEnabled = function ()
 			
 			parent.addClass("esotbBuffDisable");
 			parent.removeClass("esotbBuffItemSelect");
+			
 			element.text(" (Enabled by " + abilityDesc + ")");
 		}
 		else if (buffData.enabled)
@@ -9961,14 +9970,14 @@ window.UpdateEsoBuffBuffEnabled = function ()
 		}
 		else if (buffData.enabled)
 		{
-			parent.addClass("esotbBuffItemSelect");
-			parent.removeClass("esotbBuffDisable");
+			//parent.addClass("esotbBuffItemSelect");
+			//parent.removeClass("esotbBuffDisable");
 		}
 		else
 		{
-			parent.removeClass("esotbBuffItemSelect");
-			parent.removeClass("esotbBuffDisable");
-			element.text("");
+			//parent.removeClass("esotbBuffItemSelect");
+			//parent.removeClass("esotbBuffDisable");
+			//element.text("");
 		}
 	}
 	
@@ -18590,6 +18599,7 @@ window.CheckEsoSetTestResults = function()
 
 window.esotbOnDocReady = function ()
 {
+
 	if ($("#esotbUpdate22Rules").prop("checked"))
 	{
 		FixupEsoBuildDataUpdate22();
@@ -18674,14 +18684,13 @@ window.esotbOnDocReady = function ()
 	$(".esotbItemButton").click(OnEsoItemButtonClick);
 	$(".esotbItemTransmute").click(OnEsoItemButtonClick);	
 	
-	if ((g_EsoSkillIsMobile == null || !g_EsoSkillIsMobile) && window.skin != "minerva")
+	if ((window.g_EsoSkillIsMobile == null || !window.g_EsoSkillIsMobile) && window.skin != "minerva")
 	{
 		$(".esovsSkillContentBlock").children(".esovsAbilityBlock").click(OnEsoBuildAbilityBlockClick);
 	}
 	else
 	{
-		// $(".esovsSkillContentBlock").find(".esovsAbilityBlockIcon
-		// ").click(OnEsoBuildAbilityIconBlockClick);
+		// $(".esovsSkillContentBlock").find(".esovsAbilityBlockIcon").click(OnEsoBuildAbilityIconBlockClick);
 	}
 	
 	$("#esotbSaveButton").click(OnEsoBuildSave);
@@ -18698,11 +18707,12 @@ window.esotbOnDocReady = function ()
 	
 	$("#esotbMitigationShowDetails").click(OnEsoShowMitigationDetails);
 	$(".esotbMitigationTable td").click(OnEsoMitigationTableClick)
-	
-	// UpdateEsoComputedStatsList(true);
+		
 	CopyEsoSkillsToItemTab();
 	UpdateEsoCpData();
 	UpdateAllEsoItemTraitLists();
+	
+	UpdateEsoComputedStatsList(true);
 }
 
 
