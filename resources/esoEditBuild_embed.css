@@ -1047,8 +1047,9 @@ button.esotbWeaponSelect {
 	margin-left: 15px;
 	padding: 3px;
 	width: 200px;
-	height: 20px;
+	height: 31px;
 	overflow: hidden;
+    line-height: 1.2em;
 }
 
 #esotbTrail {
@@ -1130,7 +1131,7 @@ button.esotbWeaponSelect {
 
 .esotbItemTransmute {
 	position: absolute;
-	top: 0px;
+	top: -15px;
 	left: 117px;
 	height: 18px;
 }
