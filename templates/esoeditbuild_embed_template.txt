@@ -1347,10 +1347,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
-			
 			<b>27 September 2019</b>
 			<ul>
 				<li>Add toggle for the Flawless Dawnbreaker ultimate.</li>
+				<li>Fixed Jewelry being level 1 when the PTS Rules are enabled.</li>
 			</ul>
 			<p>
 			<b>27 September 2019</b>
