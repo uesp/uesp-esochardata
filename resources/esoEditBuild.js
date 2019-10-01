@@ -1859,6 +1859,15 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 	
 		/* Begin Toggled Abilities */
 	{
+		id: "Flawless Dawnbreaker",
+		baseSkillId: "42566",
+		category: "Skill2",
+		statId: "WeaponDamage",
+		toggle: true,
+		enabled: false,
+		match: /After activating, your Weapon Damage is increased by ([0-9]+) for /i
+	},
+	{
 		id: "Molten Whip",
 		baseSkillId: 23811,
 		category: "Skill2",
