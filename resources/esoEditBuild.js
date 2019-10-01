@@ -6383,6 +6383,14 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Adds ([0-9]+) Spell Resistance/i,
 	},
 	{
+		statId: "SpellResist",
+		match: /Adds ([0-9]+) Armor/i,
+	},
+	{
+		statId: "PhysicalResist",
+		match: /Adds ([0-9]+) Armor/i,
+	},
+	{
 		statId: "HealingTaken",
 		display: '%',
 		match: /Adds ([0-9]+\.?[0-9]*)% Healing Taken/i,
@@ -8487,6 +8495,16 @@ window.ESO_ENCHANT_ARMOR_MATCHES = [
 		match: /Adds ([0-9]+) Weapon Damage to your bash ability/i,
 	},
 	{
+		category: "Item",
+		statId: "BashWeaponDamage",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your bash ability/i,
+	},
+	{
+		category: "Item",
+		statId: "BashSpellDamage",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your bash ability/i,
+	},
+	{
 		statId: "PhysicalResist",
 		match: /Adds ([0-9]+) Physical Resistance/i,
 	},
@@ -8891,9 +8909,7 @@ window.InitializeEsoBuildInputValues = function (inputValues)
 	inputValues.max = Math.max;
 	inputValues.min = Math.min;
 	
-	inputValues.UseUpdate18Rules = false;
-	inputValues.UseUpdate21Rules = false;
-	inputValues.UseUpdate22Rules = false;
+	inputValues.UsePtsRules = false;
 }
 
 
@@ -8911,9 +8927,7 @@ window.GetEsoInputValues = function (mergeComputedStats)
 	
 	InitializeEsoBuildInputValues(inputValues);
 		
-	if ($("#esotbUpdate18Rules").prop("checked")) inputValues.UseUpdate18Rules = true;
-	if ($("#esotbUpdate21Rules").prop("checked")) inputValues.UseUpdate21Rules = true;
-	if ($("#esotbUpdate22Rules").prop("checked")) inputValues.UseUpdate22Rules = true;
+	if ($("#esotbUsePtsRules").prop("checked")) inputValues.UsePtsRules = true;
 			
 	inputValues.Race = $("#esotbRace").val();
 	inputValues.Class = $("#esotbClass").val();
@@ -9145,12 +9159,30 @@ window.GetEsoInputValues = function (mergeComputedStats)
 		}
 	}
 	
+	if (inputValues.UsePtsRules != g_EsoBuildLastInputValues.UsePtsRules) 
+	{
+		UpdateEsoItemLinkVersion(inputValues.UsePtsRules ? g_EsoBuildPtsVersion : "");
+	}
+	
 	g_EsoBuildLastInputValues = inputValues;
 	
 	// if (console && console.time) console.timeEnd('GetEsoInputValues');
 	return inputValues;
 }
 
+
+window.UpdateEsoItemLinkVersion = function(version)
+{
+	if (version == null || version == "")
+	{
+		$(".eso_item_link").removeAttr("version");
+	}
+	else
+	{
+		$(".eso_item_link").attr("version", version);
+	}
+	
+}
 
 
 window.GetEsoInputFoodValues = function (inputValues)
@@ -12484,6 +12516,8 @@ window.RequestEsoChangeArmorTypeData = function (itemData, armorType, slotId)
 			"inttype" : itemData.internalSubtype,
 			"trait" : itemData.trait,
 	};
+	
+	if (g_EsoBuildLastInputValues.UsePtsRules) queryParams.version = g_EsoBuildPtsVersion;
 
 	$.ajax("//esolog.uesp.net/esoItemSearchPopup.php", {
 			data: queryParams,
@@ -12507,6 +12541,8 @@ window.RequestEsoFindSetItemData = function (slotId, monsterSet, equipType, armo
 			"level" : level,
 			"trait" : trait,
 	};
+	
+	if (g_EsoBuildLastInputValues.UsePtsRules) queryParams.version = g_EsoBuildPtsVersion;
 
 	$.ajax("//esolog.uesp.net/esoItemSearchPopup.php", {
 			data: queryParams,
@@ -12551,6 +12587,8 @@ window.RequestEsoChangeTraitData = function (itemData, newTrait, slotId, msgElem
 			"inttype" : itemData.internalSubtype,
 			"trait" : newTrait,
 	};
+	
+	if (g_EsoBuildLastInputValues.UsePtsRules) queryParams.version = g_EsoBuildPtsVersion;
 
 	$.ajax("//esolog.uesp.net/esoItemSearchPopup.php", {
 			data: queryParams,
@@ -12711,6 +12749,8 @@ window.RequestEsoItemData = function (itemData, element)
 			"limit" : 1,
 	};
 	
+	if (g_EsoBuildLastInputValues.UsePtsRules) queryParams.version = g_EsoBuildPtsVersion;
+	
 	if (itemData.type == 4 || itemData.type == 12)
 	{
 		queryParams.intlevel = null;
@@ -12778,6 +12818,8 @@ window.GetEsoSetMaxData = function (itemData)
 			"limit" : 1,
 	};
 	
+	if (g_EsoBuildLastInputValues.UsePtsRules) queryParams.version = g_EsoBuildPtsVersion;
+	
 	$.ajax("//esolog.uesp.net/exportJson.php", {
 			data: queryParams,
 		}).
@@ -12821,6 +12863,8 @@ window.SelectEsoItem = function (element)
 		itemType: itemType,
 		xoffset: -190,
 	};
+	
+	if (g_EsoBuildLastInputValues.UsePtsRules) data.version = g_EsoBuildPtsVersion;
 	
 	if (equipType  != null) data.equipType  = equipType;
 	if (weaponType != null) data.weaponType = weaponType;
@@ -13476,6 +13520,8 @@ window.SelectEsoItemEnchant = function (element)
 		xoffset: -190,
 	};
 	
+	if (g_EsoBuildLastInputValues.UsePtsRules) data.version = g_EsoBuildPtsVersion;
+	
 	var rootSearchPopup = UESP.showEsoItemSearchPopup(element, data);
 	ShowEsoBuildClickWall(rootSearchPopup);
 	
@@ -13524,6 +13570,8 @@ window.RequestEsoEnchantData = function (itemData, element)
 			"inttype" : itemData.internalSubtype,
 			"limit" : 1,
 	};
+	
+	if (g_EsoBuildLastInputValues.UsePtsRules) queryParams.version = g_EsoBuildPtsVersion;
 	
 	$.ajax("//esolog.uesp.net/exportJson.php", {
 			data: queryParams,
@@ -15979,9 +16027,7 @@ window.CreateEsoBuildGeneralSaveData = function (saveData, inputValues)
 	saveData.Stats['CP:Level'] = inputValues.CP.TotalPoints;
 	saveData.Stats['CP:Used'] = inputValues.CP.UsedPoints;
 	saveData.Stats['CP:Enabled'] = inputValues.CP.Enabled;
-	saveData.Stats['UseUpdate18Rules'] = inputValues.UseUpdate18Rules;
-	saveData.Stats['UseUpdate21Rules'] = inputValues.UseUpdate21Rules;
-	saveData.Stats['UseUpdate22Rules'] = inputValues.UseUpdate22Rules;
+	saveData.Stats['UsePtsRules'] = inputValues.UsePtsRules;
 		
 	inputValues.CPLevel = Math.floor(inputValues.CP.TotalPoints/10);
 	if (inputValues.CPLevel > ESO_MAX_CPLEVEL) inputValues.CPLevel = ESO_MAX_CPLEVEL;
@@ -16015,8 +16061,7 @@ window.CreateEsoBuildGeneralSaveData = function (saveData, inputValues)
 	saveData.Stats['Target:Resistance'] = "" + inputValues.Target.SpellResist;
 	saveData.Stats['Target:CritResistFlat'] = "" + inputValues.Target.CritResistFlat;
 	saveData.Stats['Target:EffectiveLevel'] = "" + inputValues.Target.EffectiveLevel;
-	// saveData.Stats['Target:CritResistFactor'] = "" +
-	// (inputValues.Target.CritResistFactor * 100) + "%";
+	// saveData.Stats['Target:CritResistFactor'] = "" + (inputValues.Target.CritResistFactor * 100) + "%";
 	saveData.Stats['Target:CritDamage'] = "" + (inputValues.Target.CritDamage * 100) + "%";
 	saveData.Stats['Target:CritChance'] = "" + (inputValues.Target.CritChance * 100) + "%";
 	saveData.Stats['Misc:SpellCost'] = "" + inputValues.Misc.SpellCost;
@@ -16384,6 +16429,8 @@ window.EquipSetItem = function (setName, slotId, level, quality)
 			"setname" : setName,
 	};
 	
+	if (g_EsoBuildLastInputValues.UsePtsRules) queryParams.version = g_EsoBuildPtsVersion;
+		
 	$.ajax("//esolog.uesp.net/getSetItemData.php", {
 			data: queryParams,
 		}).
@@ -17442,6 +17489,8 @@ window.RequestEsoTransmuteTraitData = function (itemData, newTrait, element)
 			"limit" : 1,
 	};
 	
+	if (g_EsoBuildLastInputValues.UsePtsRules) queryParams.version = g_EsoBuildPtsVersion;
+	
 	$.ajax("//esolog.uesp.net/exportJson.php", {
 			data: queryParams,
 		}).
@@ -18241,6 +18290,8 @@ window.RequestEsoAllSetData = function ()
 	{
 			"table" : "setSummary",
 	};
+	
+	if (g_EsoBuildLastInputValues.UsePtsRules) queryParams.version = g_EsoBuildPtsVersion;
 	
 	g_EsoLoadedAllSetData = false;
 	
