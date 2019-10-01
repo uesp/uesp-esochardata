@@ -60,14 +60,15 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<div class="esotbStatLabel">In Cyrodiil</div> <input type="checkbox" id="esotbCyrodiil" name="esotbCyrodiil" statid="Cyrodiil" {cyrodiil}>
 			<br/>
 			<div class="esotbStatLabel">Enable CP</div> <input type="checkbox" id="esotbEnableCP" name="esotbEnableCP" statid="EnableCP" {enableCP}>
-			<!--
 			<br/>
-			<div class="esotbStatLabel">Update 22 Rules</div> <input type="checkbox" id="esotbUpdate22Rules" name="esotbUpdate22Rules" statid="UseUpdate22Rules" {useUpdate22Rules}>
-			Use rules from Update 22 (Elsweyr) which includes (save build and reload to take effect when changing this setting):
+			<div class="esotbStatLabel">Use PTS Rules</div> <input type="checkbox" id="esotbUsePtsRules" name="esotbUsePtsRules" statid="UsePtsRules" {usePtsRulesCheck}>
+			Current version is Update 24 v5.2.1
 			<ul style="margin-left: 170px; margin-top: -5px;">
-				<li>Necromancer class.</li>
-				<li>Updated skills and CPs as of PTS patch v5.0.0.</li>
-			</ul> -->
+				<li><b>Currently very experimental.</b></li>
+				<li>Save and reload build after changing this setting.</li>
+				<li>Uses skill, CP, and item data from the PTS server.</li>
+				<li>Only gold CP160 item data is available (existing items upgrade automatically).</li>
+			</ul>
 			<p>
 			<div id="esotbAttributes">
 				<div class="esotbAttrTitle">Attributes <div id="esotbAttrTotal" statid="AttributeTotal" class="esotbAttributeInput">{attributeTotal} / 64</div></div>
@@ -1346,6 +1347,13 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>27 September 2019</b>
+			<ul>
+				<li>Added the "Use PTS Rules" option in the general tab.</li>
+				<li>Add support for the new "Armor" set effect from PTS.</li>
+				<li>The updated Bashing Enchantment from PTS is now parsed correctly.</li>
+			</ul>
+			<p>
 			<b>26 September 2019</b>
 			<ul>
 				<li>Fixed racial skills not showing when first loaded.</li>
@@ -2825,6 +2833,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 	g_EsoBuildActiveWeapon = {activeWeaponBar};
 	g_EsoBuildActiveAbilityBar = {activeSkillBar};
 	g_EsoBuildSetNames = {setNamesJson};
+	g_EsoBuildPtsVersion = "{ptsVersion}";
 </script>
 
 

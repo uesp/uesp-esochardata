@@ -28,6 +28,8 @@ require_once(__DIR__."/viewBuildData.class.php");
 
 class EsoBuildDataEditor 
 {
+	public $PTS_VERSION = "24pts";
+	
 	public $SESSION_DEBUG_FILENAME = "/var/log/httpd/esoeditbuild_sessions.log";
 	
 	public $TEMPLATE_FILE = "";
@@ -64,6 +66,8 @@ class EsoBuildDataEditor
 	public $initialToggleSetData = array();
 	
 	public $wikiContext = null;
+	
+	public $ITEM_TABLE_SUFFIX = "";
 	
 	
 	public $GEARSLOT_BASEICONS = array(
@@ -104,9 +108,7 @@ class EsoBuildDataEditor
 			"WeaponBow",
 			"Weapon1H",
 			"Weapon2H",
-			"Update18Rules",
-			"Update21Rules",
-			"Update22Rules",
+			"UsePtsRules",
 			"WeaponRestStaff",
 			"WeaponDestStaff",
 			"WeaponFlameStaff",
@@ -4943,10 +4945,27 @@ class EsoBuildDataEditor
 		$itemId = (int) $linkData['itemId'];
 		$intLevel = (int) $linkData['itemIntLevel'];
 		$intType = (int) $linkData['itemIntType'];
-		
+				
 		if ($itemId === null || $intLevel === null || $intType === null || $itemId <= 0) return false;
 		
-		$query = "SELECT * FROM minedItem WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
+		if ($this->getCharStatField("UsePtsRules", 0))
+		{
+			if ($intLevel == 1)
+			{
+				$intType = 1;
+			}
+			else if ($intLevel == 50)
+			{
+				$intType = 370;
+			}
+			else
+			{
+				$intLevel = 50;
+				$intType = 370;
+			}
+		}
+		
+		$query = "SELECT * FROM minedItem{$this->ITEM_TABLE_SUFFIX} WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
 		$result = $this->db->query($query);
 		if (!$result) return $this->ReportError("Failed to load item data for $slotId!");
 		
@@ -4954,7 +4973,7 @@ class EsoBuildDataEditor
 		{
 			$intLevel = 1;
 			$intType = 1;
-			$query = "SELECT * FROM minedItem WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
+			$query = "SELECT * FROM minedItem{$this->ITEM_TABLE_SUFFIX} WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
 			$result = $this->db->query($query);
 			if (!$result) return $this->ReportError("Failed to load item data for $slotId!");
 			if ($result->num_rows == 0) return false;
@@ -4973,7 +4992,7 @@ class EsoBuildDataEditor
 			
 			if ($transmuteItemId != null) 
 			{
-				$query = "SELECT traitDesc, trait, internalLevel, internalSubtype FROM minedItem WHERE itemId='$transmuteItemId' AND internalLevel='$intLevel' AND internalSubtype='$intType' LIMIT 1;";
+				$query = "SELECT traitDesc, trait, internalLevel, internalSubtype FROM minedItem{$this->ITEM_TABLE_SUFFIX} WHERE itemId='$transmuteItemId' AND internalLevel='$intLevel' AND internalSubtype='$intType' LIMIT 1;";
 				$result = $this->db->query($query);
 				
 				if ($result) 
@@ -5004,8 +5023,25 @@ class EsoBuildDataEditor
 		$intType = (int) $linkData['enchantIntType1'];
 	
 		if ($itemId === null || $intLevel === null || $intType === null || $itemId <= 0) return false;
+		
+		if ($this->getCharStatField("UsePtsRules", 0))
+		{
+			if ($intLevel == 1)
+			{
+				$intType = 1;
+			}
+			else if ($intLevel == 50)
+			{
+				$intType = 370;
+			}
+			else
+			{
+				$intLevel = 50;
+				$intType = 370;
+			}
+		}
 	
-		$query = "SELECT * FROM minedItem WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
+		$query = "SELECT * FROM minedItem{$this->ITEM_TABLE_SUFFIX} WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
 		$result = $this->db->query($query);
 		if (!$result) return $this->ReportError("Failed to load enchantment data for $slotId!");
 		if ($result->num_rows == 0) return false;
@@ -5027,7 +5063,7 @@ class EsoBuildDataEditor
 	
 		if ($itemId === null || $intLevel === null || $intType === null || $itemId <= 0) return false;
 	
-		$query = "SELECT * FROM minedItem WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
+		$query = "SELECT * FROM minedItem{$this->ITEM_TABLE_SUFFIX} WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
 		$result = $this->db->query($query);
 		if (!$result) return $this->ReportError("Failed to load set max data for $setName!");
 		if ($result->num_rows == 0) return false;
@@ -5454,22 +5490,11 @@ class EsoBuildDataEditor
 		
 		if (!$this->buildDataViewer->loadCharacter()) return false;
 		
-		if ($this->getCharStatField("UseUpdate18Rules", 0)) 
+		if ($this->getCharStatField("UsePtsRules", 0)) 
 		{
-			//$this->viewSkills->version = "18pts";
-			//$this->viewCps->version = "18pts";
-		}
-		
-		if ($this->getCharStatField("UseUpdate21Rules", 0)) 
-		{
-			//$this->viewSkills->version = "21pts";
-			//$this->viewCps->version = "21pts";
-		}
-		
-		if ($this->getCharStatField("UseUpdate22Rules", 0)) 
-		{
-			//$this->viewSkills->version = "22pts";
-			//$this->viewCps->version = "22pts";
+			$this->viewSkills->version = $this->PTS_VERSION;
+			$this->viewCps->version = $this->PTS_VERSION;
+			$this->ITEM_TABLE_SUFFIX = $this->PTS_VERSION;
 		}
 		
 		$this->viewSkills->LoadData();
@@ -5628,29 +5653,12 @@ class EsoBuildDataEditor
 	}
 	
 	
-	public function GetUpdate18RulesCheckState()
+	public function GetUsePtsRulesCheckState()
 	{
-		$flag = $this->getCharStatField("UseUpdate18Rules", "0");
+		$flag = $this->getCharStatField("UsePtsRules", "0");
 		if ($flag > 0) return "checked";
 		return "";
 	}
-	
-	
-	public function GetUpdate21RulesCheckState()
-	{
-		$flag = $this->getCharStatField("UseUpdate21Rules", "0");
-		if ($flag > 0) return "checked";
-		return "";
-	}
-	
-	
-	public function GetUpdate22RulesCheckState()
-	{
-		$flag = $this->getCharStatField("UseUpdate22Rules", "0");
-		if ($flag > 0) return "checked";
-		return "";
-	}
-	
 	
 	public function getCharTargetResist()
 	{
@@ -5665,35 +5673,7 @@ class EsoBuildDataEditor
 		//$this->COMPUTED_STATS_LIST = array_merge($this->COMPUTED_STATS_LIST, $this->COMPUTED_STATS_LIST_UPDATE21);
 	}
 	
-	
-	public function FixupUpdate21PtsRacialSkills()
-	{
-		$currentRace = $this->getCharField('race');
-		
-			/* Remove old racial passives */
-		if (true || $this->getCharStatField("UseUpdate21Rules", 0))
-		{
-			if ($currentRace == "High Elf")	
-				$this->RemoveSkillsFromBuild(array(35995 => 1, 45259 => 1, 45260 => 1));
-			else if ($currentRace == "Khajiit")
-				$this->RemoveSkillsFromBuild(array(36022 => 1, 45295 => 1, 45296 => 1));
-			else if ($currentRace == "Redguard")
-				$this->RemoveSkillsFromBuild(array(36153 => 1, 45279 => 1, 45280 => 1));
-		}
-			/* Remove new racial passives */	
-		else if ($this->REMOVE_NEW_UPDATE21_RACIALS)
-		{
-			if ($currentRace == "High Elf") 
-				$this->RemoveSkillsFromBuild(array(117968 => 1, 117969 => 1, 117970 => 1));
-			else if ($currentRace == "Khajiit") 
-				$this->RemoveSkillsFromBuild(array(117846 => 1, 117847 => 1, 117848 => 1));
-			else if ($currentRace == "Redguard")
-				$this->RemoveSkillsFromBuild(array(117752 => 1, 117753 => 1, 117754 => 1));
-		}
 
-	}
-	
-	
 	public function FixupUpdate21RacialSkills()
 	{
 		$currentRace = $this->getCharField('race');
@@ -5702,6 +5682,8 @@ class EsoBuildDataEditor
 			$this->ReplaceSkillsFromBuild(array(35995 => 117968, 45259 => 117969, 45260 => 117970));
 		else if ($currentRace == "Khajiit") 
 			$this->ReplaceSkillsFromBuild(array(36022 => 117846, 45295 => 117847, 45296 => 117848));
+		else if ($currentRace == "Redguard")
+			$this->RemoveSkillsFromBuild(array(36153 => 117752, 45279 => 117753, 45280 => 117754));
 	}
 	
 	
@@ -5768,14 +5750,9 @@ class EsoBuildDataEditor
 	
 	public function FixupBuildForPts()
 	{
-		$this->FixupUpdate21PtsRacialSkills();
-		
-		//if (!$this->getCharStatField("UseUpdate18Rules", 0)) return false;
-		//if (!$this->getCharStatField("UseUpdate21Rules", 0)) return false;
-		if (!$this->getCharStatField("UseUpdate22Rules", 0)) return false;
+		if (!$this->getCharStatField("UsePtsRules", 0)) return false;
 		
 		$this->FixupComputedStatsForPts();
-		
 		
 		return true;
 	}
@@ -5929,11 +5906,11 @@ class EsoBuildDataEditor
 				'{stealth}' => $this->GetStealthCheckState(),
 				'{cyrodiil}' => $this->GetCyrodiilCheckState(),
 				'{enableCP}' => $this->GetEnableCPCheckState(),
-				'{useUpdate18Rules}' => $this->GetUpdate18RulesCheckState(),  
-				'{useUpdate21Rules}' => $this->GetUpdate21RulesCheckState(),
-				'{useUpdate22Rules}' => $this->GetUpdate22RulesCheckState(),
+				'{usePtsRules}' => $this->getCharStatField("UsePtsRules", "0"),
+				'{usePtsRulesCheck}' => $this->GetUsePtsRulesCheckState(),
 				'{setNamesJson}' => $this->GetSetNamesJson(),
 				'{BuildDescription}' => $this->getCharStatField("BuildDescription", ""),
+				'{ptsVersion}' => $this->PTS_VERSION,
 		);
 		
 		$output = strtr($this->htmlTemplate, $replacePairs);
