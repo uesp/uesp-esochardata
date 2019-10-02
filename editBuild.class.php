@@ -4940,7 +4940,53 @@ class EsoBuildDataEditor
 	}
 	
 	
-	public function LoadInitialItemData($slotId, $linkData)
+	public function TransformItemDataForPts(&$intLevel, &$intType)
+	{
+		global $ESO_ITEMINTTYPE_QUALITYMAP;
+		
+		if (!$this->getCharStatField("UsePtsRules", 0)) return false;
+		
+		if ($intLevel == 1)
+		{
+			$intType = 1;
+		}
+		else if ($intLevel == 50)
+		{
+			$quality = $ESO_ITEMINTTYPE_QUALITYMAP[$intType];
+			
+			if ($quality == 1)
+				$intType = 366;
+			else if ($quality == 2)
+				$intType = 367;
+			else if ($quality == 3)
+				$intType = 368;
+			else if ($quality == 4)
+				$intType = 369;
+			else
+				$intType = 370;
+		}
+		else
+		{
+			$intLevel = 50;
+			$quality = $ESO_ITEMINTTYPE_QUALITYMAP[$intType];
+			
+			if ($quality == 1)
+				$intType = 366;
+			else if ($quality == 2)
+				$intType = 367;
+			else if ($quality == 3)
+				$intType = 368;
+			else if ($quality == 4)
+				$intType = 369;
+			else
+				$intType = 370;
+		}
+		
+		return true;
+	}
+	
+	
+	public function LoadInitialItemData($slotId, &$linkData)
 	{
 		$itemId = (int) $linkData['itemId'];
 		$intLevel = (int) $linkData['itemIntLevel'];
@@ -4948,23 +4994,8 @@ class EsoBuildDataEditor
 				
 		if ($itemId === null || $intLevel === null || $intType === null || $itemId <= 0) return false;
 		
-		if ($this->getCharStatField("UsePtsRules", 0))
-		{
-			if ($intLevel == 1)
-			{
-				$intType = 1;
-			}
-			else if ($intLevel == 50)
-			{
-				$intType = 370;
-			}
-			else
-			{
-				$intLevel = 50;
-				$intType = 370;
-			}
-		}
-		
+		$this->TransformItemDataForPts($intLevel, $intType);
+				
 		$query = "SELECT * FROM minedItem{$this->ITEM_TABLE_SUFFIX} WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
 		$result = $this->db->query($query);
 		if (!$result) return $this->ReportError("Failed to load item data for $slotId!");
@@ -5009,6 +5040,9 @@ class EsoBuildDataEditor
 			}
 		}
 		
+		$linkData['itemIntLevel'] = $intLevel;
+		$linkData['itemIntType'] = $intType;		
+		
 		$setName = $this->initialItemData[$slotId]['setName'];
 		if ($setName != "") return $this->LoadInitialSetMaxData($setName, $linkData);
 		
@@ -5016,7 +5050,7 @@ class EsoBuildDataEditor
 	}
 	
 	
-	public function LoadInitialEnchantData($slotId, $linkData)
+	public function LoadInitialEnchantData($slotId, &$linkData)
 	{
 		$itemId = (int) $linkData['enchantId1'];
 		$intLevel = (int) $linkData['enchantIntLevel1'];
@@ -5024,23 +5058,11 @@ class EsoBuildDataEditor
 	
 		if ($itemId === null || $intLevel === null || $intType === null || $itemId <= 0) return false;
 		
-		if ($this->getCharStatField("UsePtsRules", 0))
-		{
-			if ($intLevel == 1)
-			{
-				$intType = 1;
-			}
-			else if ($intLevel == 50)
-			{
-				$intType = 370;
-			}
-			else
-			{
-				$intLevel = 50;
-				$intType = 370;
-			}
-		}
-	
+		$this->TransformItemDataForPts($intLevel, $intType);
+		
+		$linkData['itemIntLevel'] = $intLevel;
+		$linkData['itemIntType'] = $intType;
+		
 		$query = "SELECT * FROM minedItem{$this->ITEM_TABLE_SUFFIX} WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
 		$result = $this->db->query($query);
 		if (!$result) return $this->ReportError("Failed to load enchantment data for $slotId!");
@@ -5096,6 +5118,9 @@ class EsoBuildDataEditor
 		$linkData = $this->ParseItemLink($item['itemLink']);
 		$setCount = $item['setCount'];
 		
+		$this->LoadInitialItemData($slotId, $linkData);
+		$this->LoadInitialEnchantData($slotId, $linkData);
+		
 		$output .= " setcount=\"$setCount\"";
 		$output .= " itemid=\"{$linkData['itemId']}\"";
 		$output .= " intlevel=\"{$linkData['itemIntLevel']}\"";
@@ -5104,9 +5129,7 @@ class EsoBuildDataEditor
 		$output .= " enchantintlevel=\"{$linkData['enchantIntLevel1']}\"";
 		$output .= " enchantinttype=\"{$linkData['enchantIntType1']}\"";
 		$output .= " trait=\"{$linkData['transmuteTrait']}\"";
-		
-		$this->LoadInitialItemData($slotId, $linkData);
-		$this->LoadInitialEnchantData($slotId, $linkData);
+				
 		return $output;
 	}
 	

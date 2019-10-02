@@ -62,12 +62,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<div class="esotbStatLabel">Enable CP</div> <input type="checkbox" id="esotbEnableCP" name="esotbEnableCP" statid="EnableCP" {enableCP}>
 			<br/>
 			<div class="esotbStatLabel">Use PTS Rules</div> <input type="checkbox" id="esotbUsePtsRules" name="esotbUsePtsRules" statid="UsePtsRules" {usePtsRulesCheck}>
-			Current version is Update 24 v5.2.1
+			Current version is Update 24 v5.2.2
 			<ul style="margin-left: 170px; margin-top: -5px;">
 				<li><b>Currently very experimental.</b></li>
 				<li>Save and reload build after changing this setting.</li>
 				<li>Uses skill, CP, and item data from the PTS server.</li>
-				<li>Only gold CP160 item data is available (existing items upgrade automatically).</li>
+				<li>Only CP160 item data is available (lower level items upgrade to CP160 automatically).</li>
 			</ul>
 			<p>
 			<div id="esotbAttributes">
@@ -1347,6 +1347,13 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>2 October 2019</b>
+			<ul>
+				<li>Updated skill, CP, and item data from PTS.</li>
+				<li>Fixed set data of sets having 6/7 bonuses from PTS.</li>
+				<li>PTS items can now be CP160 of any quality.</li>
+			</ul>
+			<p>
 			<b>27 September 2019</b>
 			<ul>
 				<li>Add toggle for the Flawless Dawnbreaker ultimate.</li>
