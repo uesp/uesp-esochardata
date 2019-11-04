@@ -219,7 +219,7 @@ class CEsoCharManageScreenshots
 		$this->ParseInputParams();
 		
 		if (!$this->HasEditPermission())
-			$this->ReportError("Permission denied!");
+			$this->ReportError("Manage screenshots permission denied! Action = {$this->inputAction}, BuildId = {$this->inputCharacterId}, WikiUser = {$_SESSION['wsUserName']}");
 		elseif ($this->inputAction == "editcaption")
 			$this->DoEditCaption();
 		elseif ($this->inputAction == "delete")

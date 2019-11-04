@@ -6,7 +6,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #cfc; margin-right: 225px;'>
-The build editor is now updated for the Scalebreaker patch (update 23).
+The build editor is *mostly* updated for the Dragonhold patch (update 24). 
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -62,7 +62,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<div class="esotbStatLabel">Enable CP</div> <input type="checkbox" id="esotbEnableCP" name="esotbEnableCP" statid="EnableCP" {enableCP}>
 			<br/>
 			<div class="esotbStatLabel">Use PTS Rules</div> <input type="checkbox" id="esotbUsePtsRules" name="esotbUsePtsRules" statid="UsePtsRules" {usePtsRulesCheck}>
-			Current version is Update 24 v5.2.2
+			Current version is Update 24 v5.2.3
 			<ul style="margin-left: 170px; margin-top: -5px;">
 				<li><b>Currently very experimental.</b></li>
 				<li>Save and reload build after changing this setting.</li>
@@ -737,6 +737,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Alessian Order</option>
 					<option>Almalexia's Mercy</option>
 					<option>Amber Plasm</option>
+					<option>Ancient Dragonguard</option>
 					<option>Archer's Mind</option>
 					<option>Armor Master</option>
 					<option>Armor of the Seducer</option>
@@ -788,6 +789,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Curse of Doylemish</option>
 					<option>Daedric Trickery</option>
 					<option>Darkstride</option>
+					<option>Daring Corsair</option>
 					<option>Dead-Water's Guile</option>
 					<option>Deadly Strike</option>
 					<option>Death's Wind</option>
@@ -796,6 +798,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Desert Rose</option>
 					<option>Destructive Mage</option>
 					<option>Dragon's Defilement</option>
+					<option>Dragonguard Elite</option>
 					<option>Draugr Hulk</option>
 					<option>Draugr's Heritage</option>
 					<option>Draugr's Rest</option>
@@ -887,6 +890,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Mark of the Pariah</option>
 					<option>Marksman's Crest</option>
 					<option>Master Architect</option>
+					<option>Marauder's Haste</option>
 					<option>Mechanical Acuity</option>
 					<option>Medusa</option>
 					<option>Mender's Ward</option>
@@ -902,6 +906,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Naga Shaman</option>
 					<option>Necropotence</option>
 					<option>Netch's Touch</option>
+					<option>New Moon Acolyte</option>
 					<option>Night Mother's Embrace</option>
 					<option>Night Mother's Gaze</option>
 					<option>Night Terror</option>
@@ -949,6 +954,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Savage Werewolf</option>
 					<option>Scathing Mage</option>
 					<option>Scavenging Demise</option>
+					<option>Senchal Defender</option>
 					<option>Senche's Bite</option>
 					<option>Senche-Raht's Grit</option>
 					<option>Sentry</option>
@@ -1074,6 +1080,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					Locations <select id="esotbItemSetupEquipSetLocation" style="width=150px;">
 						<option value="1">x5 Body</option>
 						<option value="2">x3 Jewelry + x2 Weapon</option>
+						<option value="3">x3 Jewelry</option>
+						<option value="4">x2 Weapon</option>
 					</select>
 					<p/>
 					
@@ -1347,6 +1355,65 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>1 November 2019</b>
+			<ul>
+				<li>Updated item data for update 24.</li>
+				<li>New Moon Acolyte 5 piece set bonus is now parsed correctly.</li> 
+				<li>Daring Corsair 5 piece set bonus now modifies weapon ability cost.</li>
+				<li>Added two toggles for the Ancient Dragonguard 5 piece set bonus.</li>
+				<li>Added toggle for the Marauder's Haste 5 piece set bonus.</li>
+				<li>Added toggle for the Dragonguard Elite 5 piece set bonus.</li>
+				<li>Updated quick item setups with new sets.</li>
+				<li>Updated all New Moon Acolyte items due to parsing issue with the last set bonus.</li>
+				<li>Fixed the player damage taken modifier from the Bless of the Potentates set.</li>
+				<li>Changed the 3 piece bonuses from Eagle Eye and Wrath of the Imperium into toggles.</li>
+				<li>Added "x3 Jewelry" and "x2 Weapon" as options in the quick item setup.</li>
+				<li>Fixed the Ember Shield set toggle.</li>
+				<li>Fixed the Deadly Strike set toggle.</li>
+				<li>Fixed the Powerful Assault set toggle.</li>
+			</ul>
+			<p>
+			<b>30 October 2019</b>
+			<ul>
+				<li>Added collapsible sections to the computed stats table.</li> 
+			</ul>
+			<p>
+			<b>29 October 2019</b>
+			<ul>
+				<li>Weapon training trait is now correctly parsed.</li> 
+			</ul>
+			<p>
+			<b>28 October 2019</b>
+			<ul>
+				<li>Fixed some bleed damage modifiers that were not being correctly applied to skill tooltips.</li>
+				<li>Fixed the updated Blessing of the Potentates 2 piece bonus.</li>
+				<li>Updated Major/Minor Resolve and removed Major/Minor Ward buffs.</li>
+				<li>Fixed the Major/Minor Vitality buffs to modify Healing Received.</li>
+				<li>Infused Jewelry should now affect all types of enchantments.</li>
+				<li>Fixed offbar weapon sets toggles having blank descriptions before swapping bars.</li> 
+			</ul>
+			<p>
+			<b>22 October 2019</b>
+			<ul>
+				<li>Updated skill data from Live v5.2.5 to fix data truncation issue.</li>
+				<li>Fixed the updated Searing Heat DK passive.</li>
+				<li>The Eternal Mountains DK passive now affects Stonefist.</li>
+				<li>Fixed the updated Dark Veil NB passive.</li>
+				<li>Fixed some healing tooltips that were not being correctly modified by healing effects.</li>
+				<li>Added seperate computed fields for all LA/HA spell and weapon damage.</li>
+				<li>The 5 piece bonus from the Kvatch Gladiator set now affects LA/HA damage when toggled.</li>
+			</ul>
+			<p>
+			<b>21 October 2019</b>
+			<ul>
+				<li>Updated skill and CP data from Live v5.2.5.</li>
+			</ul>
+			<p>
+			<b>10 October 2019</b>
+			<ul>
+				<li>Updated skill, CP, and item data from PTS v5.2.3.</li>
+			</ul>
+			<p>
 			<b>2 October 2019</b>
 			<ul>
 				<li>Updated skill, CP, and item data from PTS.</li>

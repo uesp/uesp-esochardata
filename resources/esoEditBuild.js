@@ -529,7 +529,7 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			value : 5280,
 			category : "Skill",
-			statId : "PhysicalResist",
+			statIds : [ "PhysicalResist", "SpellResist" ],
 			icon : "/esoui/art/icons/ability_warrior_021.png",
 		},
 		"Major Resolve (Bonus)" : 
@@ -540,7 +540,7 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			value : 2640,
 			category : "Skill",
-			statId : "PhysicalResist",
+			statIds : [ "PhysicalResist", "SpellResist" ],
 			icon : "/esoui/art/icons/ability_warrior_021.png",
 		},
 		"Minor Resolve" : 
@@ -551,9 +551,11 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			value : 1320,
 			category : "Skill",
-			statId : "PhysicalResist",
+			statIds : [ "PhysicalResist", "SpellResist" ],
 			icon : "/esoui/art/icons/ability_warrior_033.png",
 		},
+		
+		/* Removed in Update 24 
 		"Major Ward" : 
 		{
 			group: "Major",
@@ -586,7 +588,8 @@ window.g_EsoBuildBuffData =
 			category : "Skill",
 			statId : "SpellResist",
 			icon : "/esoui/art/icons/ability_mage_038.png",
-		},
+		}, //*/
+		
 		"Major Savagery" : 
 		{
 			group: "Major",
@@ -723,7 +726,7 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			value : 0.30,
 			display : "%",
-			statId : "HealingTaken",
+			statId : "Healing Received",
 			icon : "/esoui/art/icons/ability_healer_018.png",
 		},
 		"Minor Vitality" : 
@@ -734,7 +737,7 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			value : 0.08,
 			display : "%",
-			statId : "HealingTaken",
+			statId : "HealingReceived",
 			icon : "/esoui/art/icons/ability_healer_004.png",
 		},
 		"Empower" :
@@ -3345,250 +3348,67 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		category: "SkillDuration",
 		statId: "Fiery Breath",
-		match: /Increases the duration of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i,
+		match: /Increases the damage over time of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i,
 	},
 	{
 		category: "SkillDuration",
 		statId: "Searing Strike",
-		match: /Increases the duration of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i,
+		match: /Increases the damage over time of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i,
 	},
 	{
 		category: "SkillDuration",
 		statId: "Dragonknight Standard",
-		match: /Increases the duration of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i,
+		match: /Increases the damage over time of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i,
 	},
 	{
-		category: "SkillDuration",
-		statId: "Fiery Breath",
-		match: /Increases the damage of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Searing Strike",
-		match: /Increases the damage of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Dragonknight Standard",
-		match: /Increases the damage of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i,
-	},
-	{
-		category: "SkillDamage",
+		category: "SkillDotDamage",
 		statId: "Fiery Breath",
 		display: "%",
-		match: /Increases the damage of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increases the damage over time of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)% and the duration by [0-9]+\.?[0-9]* seconds/i,
 	},
 	{
-		category: "SkillDamage",
+		category: "SkillDotDamage",
 		statId: "Searing Strike",
 		display: "%",
-		match: /Increases the damage of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increases the damage over time of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)% and the duration by [0-9]+\.?[0-9]* seconds/i,
 	},
 	{
-		category: "SkillDamage",
+		category: "SkillDotDamage",
 		statId: "Dragonknight Standard",
 		display: "%",
-		match: /Increases the damage of Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increases the damage over time of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)% and the duration by [0-9]+\.?[0-9]* seconds/i,
 	},
 	{
 		category: "SkillDuration",
-		statId: "Fiery Breath",
-		match: /Increases the damage of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i,
+		statId: "Consuming Darkness",
+		match: /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) seconds/i,		
 	},
 	{
 		category: "SkillDuration",
-		statId: "Searing Strike",
-		match: /Increases the damage of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i,
+		statId: "Veiled Strike",
+		match: /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) seconds/i,
 	},
 	{
 		category: "SkillDuration",
-		statId: "Dragonknight Standard",
-		match: /Increases the damage of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i,
+		statId: "Path of Darkness",
+		match: /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) seconds/i,
 	},
 	{
-		category: "SkillDamage",
-		statId: "Fiery Breath",
+		category: "SkillDuration",
+		statId: "Aspect of Terror",
+		match: /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Summon Shade",
+		match: /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Stonefist",
 		display: "%",
-		match: /Increases the damage of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDamage",
-		statId: "Searing Strike",
-		display: "%",
-		match: /Increases the damage of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDamage",
-		statId: "Dragonknight Standard",
-		display: "%",
-		match: /Increases the damage of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Fiery Breath",
-		match: /Increases the duration of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Searing Strike",
-		match: /Increases the duration of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Dragonknight Standard",
-		match: /Increases the duration of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i,
+		match: /Increases duration of your Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
 	},	
-	{
-		category: "SkillDuration",
-		statId: "Consuming Darkness",
-		display: "%",
-		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Shadow Cloak",
-		display: "%",
-		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Path of Darkness",
-		display: "%",
-		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Aspect of Terror",
-		display: "%",
-		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Summon Shade",
-		display: "%",
-		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Consuming Darkness",
-		display: "%",
-		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Shadow Cloak",
-		display: "%",
-		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Veiled Strike",
-		display: "%",
-		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Path of Darkness",
-		display: "%",
-		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Aspect of Terror",
-		display: "%",
-		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Summon Shade",
-		display: "%",
-		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Consuming Darkness",
-		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Shadow Cloak",
-		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Path of Darkness",
-		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Aspect of Terror",
-		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Summon Shade",
-		match: /Increases duration of Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Consuming Darkness",
-		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Shadow Cloak",
-		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Veiled Strike",
-		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Path of Darkness",
-		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Aspect of Terror",
-		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Summon Shade",
-		match: /Increases the duration of your Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Magma Armor",
-		display: "%",
-		match: /Increases the duration of Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Molten Weapons",
-		display: "%",
-		match: /Increases duration of Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Obsidian Shield",
-		display: "%",
-		match: /Increases duration of Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Petrify",
-		display: "%",
-		match: /Increases duration of Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Ash Cloud",
-		display: "%",
-		match: /Increases duration of Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
 	{
 		category: "SkillDuration",
 		statId: "Magma Armor",
@@ -5629,22 +5449,22 @@ window.ESO_SETEFFECT_MATCHES = [
 	{	// Deadly strike
 		statId: "PhysicalDotDamageDone",
 		display: "%",
-		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time abilities do by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities abilities do by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{	// Deadly strike
 		statId: "DiseaseDotDamageDone",
 		display: "%",
-		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time abilities do by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities abilities do by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{	// Deadly strike
 		statId: "PoisonDotDamageDone",
 		display: "%",
-		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time abilities do by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities abilities do by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{	// Deadly strike -- Note that bleeds are all DoTs so ignore this to prevent a double effect
 		statId: "BleedDotDamageDone",
 		display: "%",
-		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time abilities do by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities abilities do by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{	// Stygian
 		statRequireId: "Stealthed",
@@ -5707,7 +5527,9 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		category: "Set",
 		statId: "PlayerDamageTaken",
+		display: "%",
 		combineAs: "*%",
+		factorValue: -1,
 		match: /Reduces your damage taken from Players by ([0-9]+)%/i,
 	},
 	{
@@ -6224,8 +6046,16 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Adds ([0-9]+) Weapon Damage$/i,
 	},
 	{
+		statId: "WeaponDamage",
+		match: /Adds ([0-9]+) Weapon Damage[\n]/i,
+	},
+	{
 		statId: "SpellDamage",
 		match: /Adds ([0-9]+) Spell Damage$/i,
+	},
+	{
+		statId: "SpellDamage",
+		match: /Adds ([0-9]+) Spell Damage[/n]/i,
 	},
 	{
 		statId: "BleedDamage",
@@ -6341,11 +6171,19 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		statId: "SpellCrit",
-		match: /Adds ([0-9]+) Spell Critical/i,
+		match: /Adds ([0-9]+) Spell Critical$/i,
+	},
+	{
+		statId: "SpellCrit",
+		match: /Adds ([0-9]+) Spell Critical[\n]/i,
 	},
 	{
 		statId: "WeaponCrit",
-		match: /Adds ([0-9]+) Weapon Critical/i,
+		match: /Adds ([0-9]+) Weapon Critical$/i,
+	},
+	{
+		statId: "WeaponCrit",
+		match: /Adds ([0-9]+) Weapon Critical[\n]/i,
 	},
 	{
 		statId: "Health",
@@ -7067,6 +6905,71 @@ window.ESO_SETEFFECT_MATCHES = [
 		round: "floor",
 		match: /Increases your Physical and Spell Resistance by up to ([0-9]+) based on your missing Health/i,
 	},
+	{
+		statId: "MagickaCost",
+		display: "%",
+		match: /Increases the cost of your active abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "StaminaCost",
+		display: "%",
+		match: /Increases the cost of your active abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "HealthCost",
+		display: "%",
+		match: /Increases the cost of your active abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "WeaponDamage",
+		match: /Adds ([0-9]+) Weapon and Spell Damage\./i,
+	},
+	{
+		statId: "SpellDamage",
+		match: /Adds ([0-9]+) Weapon and Spell Damage\./i,
+	},
+	{		//TODO: Ultimate costs?
+		category: "SkillCost",
+		display: "%",
+		factorValue: -1,
+		statId: "Two_Handed_Cost",
+		match: /Reduce the cost of your Weapon abilities by ([0-9]+\.?[0-9]*)% Magicka or Stamina/i,
+	},
+	{
+		category: "SkillCost",
+		display: "%",
+		factorValue: -1,
+		statId: "One_Hand_and_Shield_Cost", 
+		match: /Reduce the cost of your Weapon abilities by ([0-9]+\.?[0-9]*)% Magicka or Stamina/i,
+	},
+	{
+		category: "SkillCost",
+		display: "%",
+		factorValue: -1,
+		statId: "Dual_Wield_Cost",
+		match: /Reduce the cost of your Weapon abilities by ([0-9]+\.?[0-9]*)% Magicka or Stamina/i,
+	},
+	{
+		category: "SkillCost",
+		display: "%",
+		factorValue: -1,
+		statId: "Bow_Cost",
+		match: /Reduce the cost of your Weapon abilities by ([0-9]+\.?[0-9]*)% Magicka or Stamina/i,
+	},
+	{
+		category: "SkillCost",
+		display: "%",
+		factorValue: -1,
+		statId: "Destruction_Staff_Cost",
+		match: /Reduce the cost of your Weapon abilities by ([0-9]+\.?[0-9]*)% Magicka or Stamina/i,
+	},
+	{
+		category: "SkillCost",
+		display: "%",
+		factorValue: -1,
+		statId: "Restoration_Staff_Cost", 
+		match: /Reduce the cost of your Weapon abilities by ([0-9]+\.?[0-9]*)% Magicka or Stamina/i,
+	},
 		
 	
 		// Optionally toggled set effects
@@ -7331,6 +7234,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : false,
+		category: "Skill2",
 		statId: "LAWeaponDamage",
 		match: /When your target is under [0-9]+% Health, add ([0-9]+) Weapon Damage to your Light and Heavy Attacks/i,
 	},
@@ -7340,6 +7244,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : false,
+		category: "Skill2",
 		statId: "HAWeaponDamage",
 		match: /When your target is under [0-9]+% Health, add ([0-9]+) Weapon Damage to your Light and Heavy Attacks/i,
 	},
@@ -7647,8 +7552,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "SpellResist",
-		match: /chance to increase your Spell Resistance by ([0-9]+)/i,
+		statId: "PhysicalResist",
+		match: /chance to increase your Physical and Spell Resistance by ([0-9]+)/i,
 	},
 	{
 		id: "Embershield",
@@ -7657,7 +7562,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "SpellResist",
-		match: /chance increase your Spell Resistance by ([0-9]+)/i,
+		match: /chance increase your Physical and Spell Resistance by ([0-9]+)/i,
 	},
 	{
 		id: "Essence Thief",
@@ -8017,7 +7922,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		buffId: "Powerful Assault",
 		updateBuffValue: true,
 		//match: /When you cast an Assault ability, you increase the Weapon and Spell Damage of up to [0-9]+ friendly targets within [0-9]+ meters by ([0-9]+)/i,
-		match: /When you cast an Assault ability, you increase your Weapon and Spell Damage and the Weapon and Spell Damage of up to [0-9]+ allies within [0-9]+ meters by ([0-9]+) for/i,
+		//match: /When you cast an Assault ability, you increase your Weapon and Spell Damage and the Weapon and Spell Damage of up to [0-9]+ allies within [0-9]+ meters by ([0-9]+) for/i,
+		match: /When you cast an Assault ability, you and up to [0-9]+ allies within [0-9]+ meters gain ([0-9]+) Weapon and Spell Damage/i,
 	},
 	{
 		id: "Ravager",
@@ -8421,6 +8327,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		rawInputMatch: /(When you deal Flame or Shock Damage, you have a [0-9]+% chance to summon a meteor shower of that damage type that deals [0-9]+ Damage to all enemies within [0-9]+ meters every [0-9]+ second for [0-9]+ seconds\.)/,
 		match: /When you deal Flame or Shock Damage, you have a [0-9]+% chance to summon a meteor shower of that damage type that deals [0-9]+ Damage to all enemies within [0-9]+ meters every [0-9]+ second for [0-9]+ seconds\./i,
 	},
+	/*
 	{
 		id: "Caluurion's Legacy (Flame)",
 		setId: "Caluurion's Legacy",
@@ -8468,8 +8375,89 @@ window.ESO_SETEFFECT_MATCHES = [
 		disableSetIds: ["Caluurion's Legacy (Frost)", "Caluurion's Legacy (Flame)", "Caluurion's Legacy (Shock)"],
 		rawInputMatch: /(When you deal Critical Damage with a single target Magicka ability, you launch a Fire, Ice, Shock, or Disease ball at your target that deals [0-9]+ damage and applies a status effect\.)/,
 		match: /When you deal Critical Damage with a single target Magicka ability, you launch a Fire, Ice, Shock, or Disease ball at your target that deals [0-9]+ damage and applies a status effect\./i,
+	}, //*/
+	{
+		id: "Marauder's Haste",
+		setBonusCount: 4,
+		enabled: false,
+		enableOffBar: true,
+		toggle: true,
+		display: "%",
+		category: "Set",
+		statId: "MovementSpeed",
+		match: /When you cast a damage shield ability, increase your Movement Speed by ([0-9]+\.?[0-9]*)%/i,
 	},
-	
+	{
+		id: "Dragonguard Elite",
+		setBonusCount: 4,
+		enabled: false,
+		enableOffBar: true,
+		toggle: true,
+		maxTimes: 5,
+		category: "Set",
+		statId: "WeaponCrit",
+		match: /Each stack of Dragonguard Tactics increases your Weapon Critical by ([0-9]+)\./i,
+	},
+	{
+		id: "Ancient Dragonguard (Damage)",
+		setId: "Ancient Dragonguard",
+		setBonusCount: 5,
+		enabled: false,
+		toggle: true,
+		disableSetIds: ["Ancient Dragonguard (Resist)"],
+		statId: "WeaponDamage",
+		rawInputMatch: /(Adds [0-9]+ Weapon and Spell Damage while your health is above [0-9]+%\.)/i,
+		match: /Adds ([0-9]+) Weapon and Spell Damage while your health is/i,
+	},
+	{
+		id: "Ancient Dragonguard (Damage)",
+		setId: "Ancient Dragonguard",
+		setBonusCount: 5,
+		enabled: false,
+		toggle: true,
+		disableSetIds: ["Ancient Dragonguard (Resist)"],
+		statId: "SpellDamage",
+		rawInputMatch: /(Adds [0-9]+ Weapon and Spell Damage while your health is above [0-9]+%\.)/i,
+		match: /Adds ([0-9]+) Weapon and Spell Damage while your health is/i,
+	},
+	{
+		id: "Ancient Dragonguard (Resist)",
+		setId: "Ancient Dragonguard",
+		setBonusCount: 5,
+		enabled: false,
+		toggle: true,
+		disableSetIds: ["Ancient Dragonguard (Damage)"],
+		statId: "PhysicalResist", 
+		rawInputMatch: /(Adds [0-9]+ Physical and Spell Resistance while your health is [0-9]+% or less\.)/i,
+		match: /Adds ([0-9]+) Physical and Spell Resistance while your Health is/i,
+	},
+	{
+		id: "Ancient Dragonguard (Resist)",
+		setId: "Ancient Dragonguard",
+		setBonusCount: 5,
+		enabled: false,
+		toggle: true,
+		disableSetIds: ["Ancient Dragonguard (Damage)"],
+		statId: "SpellResist", 
+		rawInputMatch: /(Adds [0-9]+ Physical and Spell Resistance while your health is [0-9]+% or less\.)/i,
+		match: /Adds ([0-9]+) Physical and Spell Resistance while your Health is/i,
+	},
+	{
+		id: "Eagle Eye",
+		setBonusCount: 2,
+		enabled: false,
+		toggle: true,
+		statId: "WeaponCrit",
+		match: /Adds ([0-9]+) Weapon Critical to your ranged direct damage abilities/i,
+	},
+	{
+		id: "Wrath of the Imperium",
+		setBonusCount: 2,
+		enabled: false,
+		toggle: true,
+		statId: "SpellCrit",
+		match: /Adds ([0-9]+) Spell Critical to your ranged direct damage abilities/i,
+	},
 ];		// End of Toggled Sets
 
 	
@@ -10488,7 +10476,7 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 		AddEsoItemRawOutput(itemData, "Item.Sturdy", traitValue/100);
 		AddEsoInputStatSource("Item.Sturdy", { item: itemData, value: traitValue/100, slotId:slotId });
 	}
-	else if (itemData.trait == 15 || itemData == 6) // Training
+	else if (itemData.trait == 15 || itemData.trait == 6) // Training
 	{
 		inputValues.Item.Training += traitValue/100;
 		AddEsoItemRawOutput(itemData, "Item.Training", traitValue/100);
@@ -11695,6 +11683,8 @@ window.UpdateEsoReadOnlyStats = function (inputValues)
 
 window.UpdateEsoComputedStat = function (statId, stat, inputValues, saveResult)
 {
+	if (typeof(stat) == "string") return false;
+	
 	var stack = [];
 	var error = "";
 	var computeIndex = 0;
@@ -11912,8 +11902,13 @@ window.ConvertEsoCritResistToPercent = function (flatResist, inputValues)
 }
 
 
+window.g_EsoBuildComputedStatParent = null;
+
+
 window.CreateEsoComputedStats = function ()
 {
+	g_EsoBuildComputedStatParent = $("#esotbStatList");
+	
 	for (var statId in g_EsoComputedStats)
 	{
 		CreateEsoComputedStat(statId, g_EsoComputedStats[statId]);
@@ -11926,12 +11921,36 @@ window.CreateEsoComputedStat = function (statId, stat)
 {
 	var element;
 	
+	if (typeof(stat) == "string")
+	{
+		if (stat == "EndSection")
+		{
+			g_EsoBuildComputedStatParent = $("#esotbStatList");
+		}
+		else if (stat == "StartSection")
+		{
+			var elementId = statId.replace(/[^a-zA-Z0-9_]+/g, "")
+				
+			$("<div/>").addClass("esotbStatSectionTitle").
+					attr("statid", statId).
+					appendTo("#esotbStatList").
+					text(statId);
+			
+			g_EsoBuildComputedStatParent = $("<div/>").attr("id", "esoidStatSection_" + elementId).
+					attr("statid", statId).
+					addClass("esotbStatSection").
+					appendTo("#esotbStatList");
+		}
+		
+		return;
+	}
+	
 	element = $("<div/>").attr("id", "esoidStat_" + statId).
 		attr("statid", statId).
 		addClass("esotbStatRow").
-		appendTo("#esotbStatList");
+		appendTo(g_EsoBuildComputedStatParent);
 	
-	if (stat["addClass"] != null) element.addClass(stat["addClass"]);
+	if (stat.addClass != null) element.addClass(stat.addClass);
 
 	$("<div/>").addClass("esotbStatName").
 		text(stat.title).
@@ -14343,6 +14362,11 @@ window.UpdateEsoBuildToggledSetData = function ()
 		{
 			setDesc = RemoveEsoDescriptionFormats(toggleData.desc);
 			if (setData.unequippedItems && setData.unequippedItems[0] != null) setCount = setData.unequippedItems[0]['setBonusCount' + toggleData.setBonusCount];
+			
+			if (setDesc == null && setData.unequippedItems[0] != null)
+			{
+				setDesc = RemoveEsoDescriptionFormats(setData.unequippedItems[0]['setBonusDesc' + toggleData.setBonusCount]);
+			}
 		}
 		
 		if (setData.averageDesc[toggleData.setBonusCount - 1] != null) setDesc = setData.averageDesc[toggleData.setBonusCount - 1];
@@ -14350,6 +14374,13 @@ window.UpdateEsoBuildToggledSetData = function ()
 		
 		if (setDesc == null || setCount == null) continue;
 		toggleData.desc = setDesc;
+		
+		if (toggleData.matchData.rawInputMatch != null)
+		{
+			var rawInputMatches = toggleData.desc.match(toggleData.matchData.rawInputMatch);
+			if (rawInputMatches != null) toggleData.desc = rawInputMatches[1];
+		}
+		
 		if (setCount > setData.count && setCount > setData.otherCount) continue;
 		
 		SetEsoBuildToggledSetValid(setId, true);
@@ -14744,6 +14775,7 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
 	g_LastSkillInputValues.SkillLineCost = inputValues.SkillCost;
 	g_LastSkillInputValues.DamageShield = inputValues.DamageShield;
 	g_LastSkillInputValues.SkillDirectDamage = inputValues.SkillDirectDamage;
+	g_LastSkillInputValues.SkillDotDamage = inputValues.SkillDotDamage;
 	g_LastSkillInputValues.ElfBaneDuration = inputValues.Set.ElfBaneDuration;
 	
 	g_LastSkillInputValues.MagickaCost = 
@@ -14774,6 +14806,12 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
 			Skill 	: inputValues.Skill.UltimateCost,
 			Skill2	: inputValues.Skill2.UltimateCost,
 			Buff	: inputValues.Buff.UltimateCost,
+	};
+	
+	g_LastSkillInputValues.HealthCost = 
+	{
+			Set		: inputValues.Set.HealthCost,
+			Skill 	: inputValues.Skill.HealthCost,
 	};
 	
 	g_LastSkillInputValues.Damage =
@@ -14810,7 +14848,7 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
  	g_LastSkillInputValues.useMaelstromDamage = false;
  	g_LastSkillInputValues.PoisonStaminaCost = inputValues.Skill.PoisonStaminaCost;
  	g_LastSkillInputValues.FlameAOEDamageDone = inputValues.Skill.FlameAOEDamageDone;
- 	g_LastSkillInputValues.BleedDamage = inputValues.BleedDamage;
+ 	g_LastSkillInputValues.BleedDamage = inputValues.Set.BleedDamage;
  	g_LastSkillInputValues.TwinSlashBleedDamage = inputValues.Set.TwinSlashBleedDamage;
  	g_LastSkillInputValues.MagickaAbilityDamageDone = inputValues.Set.MagickaAbilityDamageDone;
  	g_LastSkillInputValues.HealingAbilityCost = inputValues.Set.HealingAbilityCost;
@@ -17193,7 +17231,7 @@ window.OnEsoEditBuildSetupEquipSet = function (element)
 		traits[4] = 25;		
 	}
 	
-	if (locationVal == 2)
+	if (locationVal > 1)
 	{
 		if (weaponTypeVal == 0)
 		{
@@ -17288,6 +17326,17 @@ window.OnEsoEditBuildSetupEquipSet = function (element)
 		if (RequestEsoFindSetItemData('Neck',      setName,     2, null, null, 66, qualityVal, traits[0], msgElement)) ++count;
 		if (RequestEsoFindSetItemData('Ring1',     setName,    12, null, null, 66, qualityVal, traits[1], msgElement)) ++count;
 		if (RequestEsoFindSetItemData('Ring2',     setName,    12, null, null, 66, qualityVal, traits[2], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('MainHand1', setName,     5, null, weaponTypes[0], 66, qualityVal, traits[3], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('OffHand1',  setName, "5,7", null, weaponTypes[1], 66, qualityVal, traits[4], msgElement)) ++count;
+	}
+	else if (locationVal == 3)
+	{
+		if (RequestEsoFindSetItemData('Neck',      setName,     2, null, null, 66, qualityVal, traits[0], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('Ring1',     setName,    12, null, null, 66, qualityVal, traits[1], msgElement)) ++count;
+		if (RequestEsoFindSetItemData('Ring2',     setName,    12, null, null, 66, qualityVal, traits[2], msgElement)) ++count;
+	}
+	else if (locationVal == 4)
+	{
 		if (RequestEsoFindSetItemData('MainHand1', setName,     5, null, weaponTypes[0], 66, qualityVal, traits[3], msgElement)) ++count;
 		if (RequestEsoFindSetItemData('OffHand1',  setName, "5,7", null, weaponTypes[1], 66, qualityVal, traits[4], msgElement)) ++count;
 	}
@@ -17897,6 +17946,12 @@ window.CreateMitigationRawDataBlock = function(title, value, type, cumulativeMit
 	output += "</div>";
 	
 	return output;
+}
+
+
+window.OnEsoStatSectionTitleClick = function()
+{
+	$(this).next(".esotbStatSection").slideToggle()
 }
 
 
@@ -18766,7 +18821,9 @@ window.esotbOnDocReady = function ()
 	});
 	
 	$("#esotbMitigationShowDetails").click(OnEsoShowMitigationDetails);
-	$(".esotbMitigationTable td").click(OnEsoMitigationTableClick)
+	$(".esotbMitigationTable td").click(OnEsoMitigationTableClick);
+	
+	$(".esotbStatSectionTitle").click(OnEsoStatSectionTitleClick);
 		
 	CopyEsoSkillsToItemTab();
 	UpdateEsoCpData();
