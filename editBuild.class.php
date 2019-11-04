@@ -208,6 +208,7 @@ class EsoBuildDataEditor
 			"SkillBonusWeaponDmg.base",
 			"SkillBonusSpellDmg.base",
 			"SkillDirectDamage.Placeholder",
+			"SkillDotDamage.Placeholder",
 			"Item.ChannelSpellDamage",
 			"Buff.Empower",
 			"CP.HAActiveDamage",
@@ -289,7 +290,13 @@ class EsoBuildDataEditor
 			"Set.HealthRegenResistFactor",
 			"Set.RangedDamageTaken",
 			"Skill.HealCrit",
-
+			"Skill2.LASpellDamage",
+			"Skill2.HASpellDamage",
+			"SkillBonusSpellDmg.Flame",
+			"SkillBonusSpellDmg.Shock",
+			"SkillBonusSpellDmg.Frost",
+			"SkillBonusSpellDmg.Magic",
+			"SkillBonusWeaponDmg.Physical",
 	);
 	
 	
@@ -929,6 +936,10 @@ class EsoBuildDataEditor
 			),
 			
 			"Skill.HealthCost" => array(
+					"display" => "%",
+			),
+			
+			"Set.HealthCost" => array(
 					"display" => "%",
 			),
 			
@@ -1664,6 +1675,18 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"SkillDotDamage.Searing Strike" => array(
+					"display" => "%",
+			),
+			
+			"SkillDotDamage.Fiery Breath" => array(
+					"display" => "%",
+			),
+			
+			"SkillDotDamage.Dragonknight Standard" => array(
+					"display" => "%",
+			),
+			
 			"SkillDamage.Searing Strike" => array(
 					"display" => "%",
 			),
@@ -1704,6 +1727,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"SkillDuration.Stonefist" => array(
+					"display" => "%",
+			),
+			
 			"SkillDuration.Magma Armor" => array(
 					"display" => "%",
 			),
@@ -1721,30 +1748,6 @@ class EsoBuildDataEditor
 			),
 			
 			"SkillDuration.Ash Cloud" => array(
-					"display" => "%",
-			),
-			
-			"SkillDuration.Consuming Darkness" => array(
-					"display" => "%",
-			),
-			
-			"SkillDuration.Shadow Cloak" => array(
-					"display" => "%",
-			),
-			
-			"SkillDuration.Veiled Strike" => array(
-					"display" => "%",
-			),
-			
-			"SkillDuration.Path of Darkness" => array(
-					"display" => "%",
-			),
-			
-			"SkillDuration.Summon Shade" => array(
-					"display" => "%",
-			),
-			
-			"SkillDuration.Aspect of Terror" => array(
 					"display" => "%",
 			),
 			
@@ -1997,6 +2000,8 @@ class EsoBuildDataEditor
 	
 	
 	public $COMPUTED_STATS_LIST = array(
+			
+			"Basic Stats" => "StartSection",
 			
 			/* 
 			 * Health Confirmed:
@@ -2511,7 +2516,7 @@ class EsoBuildDataEditor
 					"depends" => array("AttackPhysicalMitigation", "WeaponDamage", "Stamina", "WeaponCrit", "AttackWeaponCritDamage", "DamageDone"),
 					"round" => "round",
 					"note" => "Effective Weapon Power is a custom stat that represents your overall power with weapon/stamina attacks and can be used to compare different build setups. A higher number is better.",
-					"addClass" => "esotbStatDivider",
+					//"addClass" => "esotbStatDivider",
 					"compute" => array(
 							"round(Stamina/10.5)",
 							"WeaponDamage",
@@ -2528,6 +2533,8 @@ class EsoBuildDataEditor
 							"*",
 					),
 			),
+			
+			"Elemental Resistances" => "StartSection",
 			
 			"FrostResist" => array(
 					"title" => "Frost Resistance",
@@ -2572,13 +2579,15 @@ class EsoBuildDataEditor
 			"DiseaseResist" => array(
 					"title" => "Disease Resistance",
 					"display" => "elementresist",
-					"addClass" => "esotbStatDivider",
+					//"addClass" => "esotbStatDivider",
 					"compute" => array(
 							"Item.DiseaseResist",
 							"Skill.DiseaseResist",
 							"+",
 					),
 			),
+			
+			"Healing" => "StartSection",
 		
 			/*
 			 * HealingDone Confirmed
@@ -2677,7 +2686,7 @@ class EsoBuildDataEditor
 					"title" => "Resurrect Time",
 					"suffix" => " secs",
 					"round" => "floor2",
-					"addClass" => "esotbStatDivider",
+					//"addClass" => "esotbStatDivider",
 					"compute" => array(
 							"7",
 							"1",
@@ -2694,6 +2703,9 @@ class EsoBuildDataEditor
 							"*",
 					),
 			),
+			
+			
+			"Movement" => "StartSection",
 			
 			/* 
 			 * Sneak Cost Confirmed: 
@@ -2948,7 +2960,7 @@ class EsoBuildDataEditor
 					"title" => "Mount Run Speed",
 					"display" => "round2",
 					"suffix" => " m/s",
-					"addClass" => "esotbStatDivider",
+					//"addClass" => "esotbStatDivider",
 					"compute" => array(
 							"BaseWalkSpeed",
 							"1 + 0.45",
@@ -2965,6 +2977,8 @@ class EsoBuildDataEditor
 							"*",
 					),
 			),
+			
+			"Bash / Block / Dodge / Break Free / Fear" => "StartSection",
 			
 			/*
 			 * BashCost: TODO needs checking
@@ -3015,6 +3029,20 @@ class EsoBuildDataEditor
 							"*",
 					),
 			),
+			
+			"BashDamage" => array(
+					"title" => "Bash Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					//"addClass" => "esotbStatDivider",
+					"compute" => array(
+							"round(0.5*WeaponDamage)",
+							"1 + CP.PhysicalDamageDone + CP.DirectDamageDone",
+							"*",
+							"1 + PhysicalDamageDone + DamageDone + DirectDamageDone - CP.PhysicalDamageDone - CP.DirectDamageDone",
+							"*",
+					),
+			),			
 			
 			/*
 			 * BlockCost Confirmed
@@ -3139,6 +3167,8 @@ class EsoBuildDataEditor
 							"*",
 					),
 			),
+			
+			"Damage Shield" => "StartSection",
 						
 			"DamageShield" => array(
 					"title" => "Damage Shield",
@@ -3156,12 +3186,14 @@ class EsoBuildDataEditor
 					"title" => "Shield Damage Done",
 					"display" => "%",
 					"round" => "floor",
-					"addClass" => "esotbStatDivider",
+					//"addClass" => "esotbStatDivider",
 					"compute" => array(
 							"CP.ShieldDamageDone",
 					),
 			),
-			
+						
+			"Damage Taken" => "StartSection",
+						
 			"DotDamageTaken" => array(
 					"title" => "DOT Damage Taken",
 					"display" => "%",
@@ -3173,49 +3205,7 @@ class EsoBuildDataEditor
 					),
 			),
 			
-			"DotDamageDone" => array(
-					"title" => "DOT Damage Done",
-					"display" => "%",
-					"round" => "floor",
-					"compute" => array(
-							"CP.DotDamageDone",
-							"Skill.DotDamageDone",
-							"+",
-					),
-			),
-			
-			"DirectDamageDone" => array(
-					"title" => "Direct Damage Done",
-					"display" => "%",
-					"round" => "floor",
-					"compute" => array(
-							"CP.DirectDamageDone",
-							"Skill.DirectDamageDone",
-							"+",
-					),
-			),
-			
-			"SingleTargetDamageDone" => array(
-					"title" => "Single Target Damage Done",
-					"display" => "%",
-					"round" => "floor",
-					"compute" => array(
-							"Skill.SingleTargetDamageDone",
-					),
-			),
-			
-			"AOEDamageDone" => array(
-					"title" => "AOE Damage Done",
-					"display" => "%",
-					"round" => "floor",
-					"compute" => array(
-							"Set.AOEDamageDone",
-							"Skill.AOEDamageDone",
-							"+",
-					),
-			),			
-						
-			"DirectDamageTaken" => array(
+							"DirectDamageTaken" => array(
 					"title" => "Direct Damage Taken",
 					"display" => "%",
 					"round" => "floor",
@@ -3268,28 +3258,12 @@ class EsoBuildDataEditor
 					),
 			),			
 			
-			"DamageDone" => array(
-					"title" => "Damage Done",
-					"display" => "%",
-					"round" => "floor",
-					"compute" => array(
-							"CP.DamageDone",
-							"Skill.DamageDone",
-							"+",
-							"Buff.DamageDone",
-							"+",
-							"Item.DamageDone",
-							"+",
-							"Set.DamageDone",
-							"+",
-					),
-			),
-			
 			"DamageTaken" => array(
 					"title" => "Damage Taken",
 					"display" => "%",
 					//"round" => "floor",
-				"compute" => array(
+					//"addClass" => "esotbStatDivider",
+					"compute" => array(
 							"1 + CP.DamageTaken",
 							"1 + Skill.DamageTaken",
 							"*",
@@ -3305,6 +3279,50 @@ class EsoBuildDataEditor
 							"-",
 					),
 			),
+			
+			"Damage Done" => "StartSection",
+			
+			"DotDamageDone" => array(
+					"title" => "DOT Damage Done",
+					"display" => "%",
+					"round" => "floor",
+					"compute" => array(
+							"CP.DotDamageDone",
+							"Skill.DotDamageDone",
+							"+",
+					),
+			),
+			
+			"DirectDamageDone" => array(
+					"title" => "Direct Damage Done",
+					"display" => "%",
+					"round" => "floor",
+					"compute" => array(
+							"CP.DirectDamageDone",
+							"Skill.DirectDamageDone",
+							"+",
+					),
+			),
+			
+			"SingleTargetDamageDone" => array(
+					"title" => "Single Target Damage Done",
+					"display" => "%",
+					"round" => "floor",
+					"compute" => array(
+							"Skill.SingleTargetDamageDone",
+					),
+			),
+			
+			"AOEDamageDone" => array(
+					"title" => "AOE Damage Done",
+					"display" => "%",
+					"round" => "floor",
+					"compute" => array(
+							"Set.AOEDamageDone",
+							"Skill.AOEDamageDone",
+							"+",
+					),
+			),			
 			
 			"MagicDamageDone" => array(
 					"title" => "Magic Damage Done",
@@ -3446,13 +3464,30 @@ class EsoBuildDataEditor
 					"title" => "Bleed Damage",
 					"display" => "%",
 					"round" => "floor",
-					"addClass" => "esotbStatDivider",
 					"compute" => array(
 							"Set.BleedDamage",
 					),
 			),
+
+			"DamageDone" => array(
+					"title" => "Damage Done",
+					"display" => "%",
+					"round" => "floor",
+					//"addClass" => "esotbStatDivider",
+					"compute" => array(
+							"CP.DamageDone",
+							"Skill.DamageDone",
+							"+",
+							"Buff.DamageDone",
+							"+",
+							"Item.DamageDone",
+							"+",
+							"Set.DamageDone",
+							"+",
+					),
+			),			
 			
-			
+			"Heavy Attack Restoration" => "StartSection",
 			
 			/*
 			 * HARestore:
@@ -3578,7 +3613,7 @@ class EsoBuildDataEditor
 			"Constitution" => array(				// TODO: Check?
 					"title" => "Constitution",
 					"round" => "floor",
-					"addClass" => "esotbStatDivider",
+					//"addClass" => "esotbStatDivider",
 					"compute" => array(
 							"floor(2.82 * EffectiveLevel)",
 							"ArmorHeavy",
@@ -3588,12 +3623,79 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			"Light Attacks" => "StartSection",
+			
+			"LAFlameSpellDamage" => array(
+					"title" => "LA Flame Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Flame + Skill2.LASpellDamage",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"LAShockSpellDamage" => array(
+					"title" => "LA Shock Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Shock + Skill2.LASpellDamage + Item.ChannelSpellDamage",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"LAFrostSpellDamage" => array(
+					"title" => "LA Frost Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Frost + Skill2.LASpellDamage",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"LAMagicSpellDamage" => array(
+					"title" => "LA Magic Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Magic + Skill2.LASpellDamage + Item.ChannelSpellDamage",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"LAPhysicalWeaponDamage" => array(
+					"title" => "LA Physical Weapon Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage"),
+					"compute" => array(
+							"WeaponDamage",
+							"SkillBonusWeaponDmg.Physical + Skill2.LAWeaponDamage",
+							"1 + Buff.WeaponDamage + Skill.WeaponDamage",
+							"*",
+							"+",
+					),
+			),			
+			
 			"LAFlameStaff" => array(
 					"title" => "Light Attack Flame Staff",
 					"round" => "floor",
-					"depends" => array("Magicka", "SpellDamage", "SingleTargetDamageDone", "DamageDone", "DirectDamageDone"),
+					"depends" => array("Magicka", "LAFlameSpellDamage", "SingleTargetDamageDone", "DamageDone", "DirectDamageDone"),
 					"compute" => array(
-							"round(0.0449528*Magicka + 0.47223*SpellDamage - 0.210105)", 		// Update 21
+							"round(0.0449528*Magicka + 0.47223*LAFlameSpellDamage - 0.210105)", 		// Update 21
 							//"round(0.0450227*Magicka + 0.472303*SpellDamage - 0.802558)", 	// Update 18
 							//"round(0.0161002*Magicka + 0.643855*SpellDamage - 0.692667)", 	// Update 14
 							//"round(0.0139076*Magicka + 0.560231*SpellDamage + 0.0163755)", 	// Update 12
@@ -3621,9 +3723,9 @@ class EsoBuildDataEditor
 			"LAFrostStaff" => array(
 					"title" => "Light Attack Frost Staff",
 					"round" => "floor",
-					"depends" => array("Magicka", "SpellDamage", "SingleTargetDamageDone", "DamageDone", "DirectDamageDone", "FrostDamageDone"),
+					"depends" => array("Magicka", "LAFrostSpellDamage", "SingleTargetDamageDone", "DamageDone", "DirectDamageDone", "FrostDamageDone"),
 					"compute" => array(
-							"round(0.0449528*Magicka + 0.47223*SpellDamage - 0.210105)", 		// Update 21
+							"round(0.0449528*Magicka + 0.47223*LAFrostSpellDamage - 0.210105)", 		// Update 21
 							//"round(0.0450227*Magicka + 0.472303 *SpellDamage - 0.802558)", 	// Update 18
 							//"round(0.0161002*Magicka + 0.643855*SpellDamage - 0.692667)", 	// Update 14
 							//"round(0.0139076*Magicka + 0.560231*SpellDamage + 0.0163755)", 	// Update 12
@@ -3650,9 +3752,9 @@ class EsoBuildDataEditor
 			"LAShockStaff" => array(
 					"title" => "Light Attack Shock Staff",
 					"round" => "floor",
-					"depends" => array("Magicka", "SpellDamage", "DamageDone", "AOEDamageDone", "DotDamageDone", "ShockDamageDone"),
+					"depends" => array("Magicka", "LAShockSpellDamage", "DamageDone", "AOEDamageDone", "DotDamageDone", "ShockDamageDone"),
 					"compute" => array(
-							"round(0.0241608*Magicka + 0.251379*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) - 1.77615)",		// Update 21
+							"round(0.0241608*Magicka + 0.251379*LAShockSpellDamage - 1.77615)",		// Update 21
 							//"round(0.0240568*Magicka + 0.251298*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) - 0.828837)",	// Update 18
 							//"round(0.0110522*Magicka + 0.441972*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) - 1.04019)",	// Update 14
 							//"round(0.0129965*Magicka + 0.520247*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) - 1.1641)",	// Update 12
@@ -3678,9 +3780,9 @@ class EsoBuildDataEditor
 			"LAResorationStaff" => array(
 					"title" => "Light Attack Restoration",
 					"round" => "floor",
-					"depends" => array("Magicka", "SpellDamage", "DamageDone", "AOEDamageDone", "DotDamageDone", "ShockDamageDone"),
+					"depends" => array("Magicka", "LAMagicSpellDamage", "DamageDone", "AOEDamageDone", "DotDamageDone", "ShockDamageDone"),
 					"compute" => array(
-							"round((0.103388*Magicka + 1.08557*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) - 0.647704)/3)",		// Update 21
+							"round((0.103388*Magicka + 1.08557*LAMagicSpellDamage - 0.647704)/3)",		// Update 21
 							//"round((0.103346*Magicka + 1.08623*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) - 0.562222)/3)", 	// Update 18
 							//"round((0.0407852*Magicka + 1.63171*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) - 1.76576)/3)", 	// Update 14
 							//"round(0.0139076*Magicka + 0.560231*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) + 0.0163755)", 	// Update 12
@@ -3707,9 +3809,9 @@ class EsoBuildDataEditor
 			"LAUnarmed" => array( //16688?
 					"title" => "Light Attack Unarmed",
 					"round" => "floor",
-					"depends" => array("Stamina", "WeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					"depends" => array("Stamina", "LAPhysicalWeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"round(0.0450269*Stamina + 0.472092*WeaponDamage - 0.915352)",		// Update 21
+							"round(0.0450269*Stamina + 0.472092*LAPhysicalWeaponDamage - 0.915352)",		// Update 21
 							"Skill2.LADamage",
 							"+",
 							"1 + CP.LAWeaponDamage + Skill.LADamage + Set.LADamage + Buff.Empower + PhysicalDamageDone + Skill.LAMeleeDamage + DamageDone + DirectDamageDone + SingleTargetDamageDone",
@@ -3720,9 +3822,9 @@ class EsoBuildDataEditor
 			"LAOneHand" => array( // 16499?
 					"title" => "Light Attack One Hand",
 					"round" => "floor",
-					"depends" => array("Stamina", "WeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					"depends" => array("Stamina", "LAPhysicalWeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"round(0.0450269*Stamina + 0.472092*WeaponDamage - 0.915352)",		// Update 21
+							"round(0.0450269*Stamina + 0.472092*LAPhysicalWeaponDamage - 0.915352)",		// Update 21
 							//"round(0.0449953*Stamina + 0.471987*WeaponDamage - 0.232637)",	// Update 18
 							//"round(0.0166857*Stamina + 0.666645*WeaponDamage - 0.749082)",	// Update 14
 							//"round(0.0145129*Stamina + 0.579979*WeaponDamage - 1.0552)",		// Update 12
@@ -3737,9 +3839,9 @@ class EsoBuildDataEditor
 			"LATwoHand" => array( // 16037?
 					"title" => "Light Attack Two Hand",
 					"round" => "floor",
-					"depends" => array("Stamina", "WeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					"depends" => array("Stamina", "LAPhysicalWeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"round(0.0450269*Stamina + 0.472092*WeaponDamage - 0.915352)",		// Update 21
+							"round(0.0450269*Stamina + 0.472092*LAPhysicalWeaponDamage - 0.915352)",		// Update 21
 							//"round(0.0449953*Stamina + 0.471987*WeaponDamage - 0.232637)",	// Update 18
 							//"round(0.0218892*Stamina + 0.873792*WeaponDamage - 1.61325)",		// Update 14
 							//"round(0.019042*Stamina + 0.760103*WeaponDamage - 1.77928)",		// Update 12
@@ -3754,9 +3856,9 @@ class EsoBuildDataEditor
 			"LABow" => array( // 32464?
 					"title" => "Light Attack Bow",
 					"round" => "floor",
-					"depends" => array("Stamina", "WeaponDamage", "DamageDone", "DirectDamageDone", "BowDamageDone", "PhysicalDamageDone"),
+					"depends" => array("Stamina", "LAPhysicalWeaponDamage", "DamageDone", "DirectDamageDone", "BowDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"round(0.0450269*Stamina + 0.472092*WeaponDamage - 0.915352)",		// Update 21
+							"round(0.0450269*Stamina + 0.472092*LAPhysicalWeaponDamage - 0.915352)",		// Update 21
 							//"round(0.0449953*Stamina + 0.471987*WeaponDamage - 0.232637)",	// Update 18
 							//"round(0.0166857*Stamina + 0.666645*WeaponDamage - 0.749082)",	// Update 14
 							//"round(0.0145129*Stamina + 0.579979*WeaponDamage - 1.0552)",		// Update 12
@@ -3772,9 +3874,9 @@ class EsoBuildDataEditor
 			"LADualWield" => array(
 					"title" => "Light Attack Dual Wield",
 					"round" => "floor",
-					"depends" => array("Stamina", "WeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					"depends" => array("Stamina", "LAPhysicalWeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"round(0.0450269*Stamina + 0.472092*WeaponDamage - 0.915352)",		// Update 21
+							"round(0.0450269*Stamina + 0.472092*LAPhysicalWeaponDamage - 0.915352)",		// Update 21
 							//"round(0.0449953*Stamina + 0.471987*WeaponDamage - 0.232637)",	// Update 18
 							//"round(0.0139542*Stamina + 0.557374*WeaponDamage - 0.139753)",	// Update 14?
 							//"round(0.0163232*Stamina + 0.65628*WeaponDamage + 0.555625)",		// Probably not correct?
@@ -3788,10 +3890,10 @@ class EsoBuildDataEditor
 			"LAWerewolf" => array( // 62426?
 					"title" => "Light Attack Werewolf",
 					"round" => "floor",
-					"depends" => array("Stamina", "WeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
-					"addClass" => "esotbStatDivider",
+					"depends" => array("Stamina", "LAPhysicalWeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					//"addClass" => "esotbStatDivider",
 					"compute" => array(
-							"round(0.0450269*Stamina + 0.472092*WeaponDamage - 0.915352)",		// Update 21
+							"round(0.0450269*Stamina + 0.472092*LAPhysicalWeaponDamage - 0.915352)",		// Update 21
 							//"round(0.0449953*Stamina + 0.471987*WeaponDamage - 0.232637)",	// Update 18?
 							//"round(0.0166213*Stamina + 0.666503*WeaponDamage + 0.0462245)",	// Update 17
 							"Skill2.LADamage",
@@ -3801,13 +3903,95 @@ class EsoBuildDataEditor
 					),
 			),
 				
+			"OverloadDamage" => array(
+					"title" => "Overload Damage Modifier",
+					"round" => "floor",
+					"display" => "%",
+					//"addClass" => "esotbStatDivider",
+					"compute" => array(
+							"CP.OverloadDamage",
+							"Skill.OverloadDamage",
+							"+",
+							"Set.OverloadDamage",
+							"+",
+							"Buff.OverloadDamage",
+							"+",
+					),
+			),
+			
+			"Heavy Attacks" => "StartSection",
+			
+			"HAFlameSpellDamage" => array(
+					"title" => "HA Flame Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Flame + Skill2.HASpellDamage",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"HAShockSpellDamage" => array(
+					"title" => "HA Shock Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Shock + Skill2.HASpellDamage + Item.ChannelSpellDamage",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"HAFrostSpellDamage" => array(
+					"title" => "HA Frost Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Frost + Skill2.LASpellDamage",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"HAMagicSpellDamage" => array(
+					"title" => "HA Magic Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Magic + Skill2.HASpellDamage + Item.ChannelSpellDamage",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"HAPhysicalWeaponDamage" => array(
+					"title" => "HA Physical Weapon Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage"),
+					"compute" => array(
+							"WeaponDamage",
+							"SkillBonusWeaponDmg.Physical + Skill2.HAWeaponDamage",
+							"1 + Buff.WeaponDamage + Skill.WeaponDamage",
+							"*",
+							"+",
+					),
+			),				
 			
 			"HAFlameStaff" => array(
 					"title" => "Heavy Attack Fire Staff",
 					"round" => "floor",
-					"depends" => array("Magicka", "SpellDamage", "SingleTargetDamageDone", "DamageDone", "DirectDamageDone", "FlameDamageDone"),
+					"depends" => array("Magicka", "HAFlameSpellDamage", "SingleTargetDamageDone", "DamageDone", "DirectDamageDone", "FlameDamageDone"),
 					"compute" => array(
-							"round(0.0960903 *Magicka + 1.00757*SpellDamage - 1.59257)",		// Update 21
+							"round(0.0960903 *Magicka + 1.00757*HAFlameSpellDamage - 1.59257)",		// Update 21
 							//"round(0.0960395*Magicka + 1.0076*SpellDamage - 1.01795)",		// Update 18
 							//"round(0.0409739*Magicka + 1.63589*SpellDamage - 0.239583)",		// Update 14
 							//"round(0.0550432*Magicka + 2.19972*SpellDamage - 0.864784)",		// Update 12
@@ -3833,9 +4017,9 @@ class EsoBuildDataEditor
 			"HAFrostStaff" => array(
 					"title" => "Heavy Attack Frost Staff",
 					"round" => "floor",
-					"depends" => array("Magicka", "SpellDamage", "DamageDone", "DirectDamageDone", "FrostDamageDone"),
+					"depends" => array("Magicka", "HAFrostSpellDamage", "DamageDone", "DirectDamageDone", "FrostDamageDone"),
 					"compute" => array(
-							"round(0.0960903 *Magicka + 1.00757*SpellDamage - 1.59257)",		// Update 21
+							"round(0.0960903 *Magicka + 1.00757*HAFrostSpellDamage - 1.59257)",		// Update 21
 							//"round(0.0960395*Magicka + 1.0076*SpellDamage - 1.01795)",		// Update 18
 							//"round(0.0409739*Magicka + 1.63589*SpellDamage - 0.239583)",		// Update 14
 							//"round(0.0550432*Magicka + 2.19972*SpellDamage - 0.864784)",		// Update 12
@@ -3861,9 +4045,9 @@ class EsoBuildDataEditor
 			"HAShockStaff" => array(
 					"title" => "Heavy Attack Shock Staff",
 					"round" => "floor",
-					"depends" => array("Magicka", "SpellDamage", "LAShockStaff", "DamageDone", "AOEDamageDone", "DotDamageDone", "ShockDamageDone"),
+					"depends" => array("Magicka", "HAShockSpellDamage", "LAShockStaff", "DamageDone", "AOEDamageDone", "DotDamageDone", "ShockDamageDone"),
 					"compute" => array(
-							"round(0.0399777*Magicka + 0.419722*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) - 0.327807)",		// Update 21
+							"round(0.0399777*Magicka + 0.419722*HAShockSpellDamage - 0.327807)",		// Update 21
 							//"round(0.0399643*Magicka + 0.419512*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) + 0.0136314)",		// Update 18
 							//"round(0.0154345*Magicka + 0.618618*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) + 0.265101)",		// Update 14
 							//"round(0.0182736*Magicka + 0.728039*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) - 2.50684)",		// Update 12
@@ -3927,9 +4111,9 @@ class EsoBuildDataEditor
 			"HAUnarmed" => array(
 					"title" => "Heavy Attack Unarmed",
 					"round" => "floor",
-					"depends" => array("Stamina", "WeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					"depends" => array("Stamina", "HAPhysicalWeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"round(0.0699437*Stamina + 0.73485*WeaponDamage - 0.27499)",		// Update 21
+							"round(0.0699437*Stamina + 0.73485*HAPhysicalWeaponDamage - 0.27499)",		// Update 21
 							
 									/* Update 21 */
 							"Skill2.HADamage",
@@ -3950,9 +4134,9 @@ class EsoBuildDataEditor
 			"HAOneHand" => array(
 					"title" => "Heavy Attack One Hand",
 					"round" => "floor",
-					"depends" => array("Stamina", "WeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					"depends" => array("Stamina", "HAPhysicalWeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"round(0.0699437*Stamina + 0.73485*WeaponDamage - 0.27499)",		// Update 21
+							"round(0.0699437*Stamina + 0.73485*HAPhysicalWeaponDamage - 0.27499)",		// Update 21
 							//"round(0.0699164*Stamina + 0.734938*WeaponDamage + 0.0110695)",	// Update 18
 							//"round(0.0327709*Stamina + 1.31231*WeaponDamage + 0.234536)",		// Update 14
 							//"round(0.038698*Stamina + 1.54378*WeaponDamage - 2.03145)",		// Update 11pts
@@ -3977,9 +4161,9 @@ class EsoBuildDataEditor
 			"HATwoHand" => array(						// TODO: Axe, Mace, Sword 2H passive
 					"title" => "Heavy Attack Two Hand",
 					"round" => "floor",
-					"depends" => array("Stamina", "WeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					"depends" => array("Stamina", "HAPhysicalWeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"round(0.0719181*Stamina + 0.755647*WeaponDamage + 1.35513)",		// Update 21
+							"round(0.0719181*Stamina + 0.755647*HAPhysicalWeaponDamage + 1.35513)",		// Update 21
 							//"round(0.0719815*Stamina + 0.755865*WeaponDamage + 0.20861)",		// Update 18
 							//"round(0.0374172*Stamina + 1.49589*WeaponDamage + 0.256685)",		// Update 14
 							//"round(0.044067*Stamina + 1.7596*WeaponDamage - 0.45188)",		// Update 11pts
@@ -4004,9 +4188,9 @@ class EsoBuildDataEditor
 			"HABow" => array(
 					"title" => "Heavy Attack Bow",
 					"round" => "floor",
-					"depends" => array("Stamina", "WeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone", "BowDamageDone"),
+					"depends" => array("Stamina", "HAPhysicalWeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone", "BowDamageDone"),
 					"compute" => array(
-							"round(0.0939553*Stamina + 0.986829*WeaponDamage - 0.247677)",		// Update 21
+							"round(0.0939553*Stamina + 0.986829*HAPhysicalWeaponDamage - 0.247677)",		// Update 21
 							//"round(0.0940809*Stamina + 0.986539*WeaponDamage - 1.45469)",		// Update 18
 							//"round(0.0421126*Stamina + 1.68265*WeaponDamage - 1.43962)",		// Update 14
 							//"round(0.0550887*Stamina + 2.20001*WeaponDamage - 1.90256)",		// Update 11pts
@@ -4032,10 +4216,10 @@ class EsoBuildDataEditor
 			"HADualWield" => array(						// TODO: Dual wield passive
 					"title" => "Heavy Attack Dual Wield",
 					"round" => "floor",
-					"depends" => array("Stamina", "WeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					"depends" => array("Stamina", "HAPhysicalWeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"round(0.033017*Stamina + 0.346099*WeaponDamage + 0.257098)",		// Update 21
-							"round(0.033017*Stamina + 0.346099*WeaponDamage + 2.2571)",			// Update 21
+							"round(0.033017*Stamina + 0.346099*HAPhysicalWeaponDamage + 0.257098)",		// Update 21
+							"round(0.033017*Stamina + 0.346099*HAPhysicalWeaponDamage + 2.2571)",			// Update 21
 							//"round(0.033036*Stamina + 0.346257*WeaponDamage - 0.228267)",		// Update 18
 							//"round(0.033036*Stamina + 0.346257*WeaponDamage + 1.77173 )",		// Update 18
 							//"round(0.0139542*Stamina + 0.557374*WeaponDamage - 0.139753)",	// Update 14
@@ -4064,9 +4248,9 @@ class EsoBuildDataEditor
 			"HAWerewolf" => array(
 					"title" => "Heavy Attack Werewolf",
 					"round" => "floor",
-					"depends" => array("Stamina", "WeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					"depends" => array("Stamina", "HAPhysicalWeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"round(0.0719181*Stamina + 0.755647*WeaponDamage + 1.35513)",		// Update 21
+							"round(0.0719181*Stamina + 0.755647*HAPhysicalWeaponDamage + 1.35513)",		// Update 21
 							//"round(0.0719815*Stamina + 0.755865*WeaponDamage + 0.20861)",		// Update 18
 							//"round(0.0374172*Stamina + 1.49589*WeaponDamage + 0.256685)",		// Update 14
 							//"round(0.05007*Stamina + 1.99937*WeaponDamage - 0.51345)",		// Update 11pts
@@ -4087,37 +4271,8 @@ class EsoBuildDataEditor
 							"*", */
 					),
 			),
-			
-			
-			"OverloadDamage" => array(
-					"title" => "Overload Damage Modifier",
-					"round" => "floor",
-					"display" => "%",
-					"addClass" => "esotbStatDivider",
-					"compute" => array(
-							"CP.OverloadDamage",
-							"Skill.OverloadDamage",
-							"+",
-							"Set.OverloadDamage",
-							"+",
-							"Buff.OverloadDamage",
-							"+",
-					),
-			),
-			
-			"BashDamage" => array(
-					"title" => "Bash Damage",
-					"round" => "floor",
-					"depends" => array("WeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
-					"addClass" => "esotbStatDivider",
-					"compute" => array(
-							"round(0.5*WeaponDamage)",
-							"1 + CP.PhysicalDamageDone + CP.DirectDamageDone",
-							"*",
-							"1 + PhysicalDamageDone + DamageDone + DirectDamageDone - CP.PhysicalDamageDone - CP.DirectDamageDone",
-							"*",
-					),
-			),
+					
+			"Mitigation" => "StartSection",
 									
 			"AttackSpellMitigation" => array(
 					"title" => "Attacker Spell Mitigation",
@@ -4322,7 +4477,7 @@ class EsoBuildDataEditor
 					"display" => "%",
 					"min" => 0,
 					"max" => 1,
-					"addClass" => "esotbStatDivider",
+					//"addClass" => "esotbStatDivider",
 					"compute" => array(
 							"Target.CritDamage",
 							"CritResist",
@@ -4331,6 +4486,8 @@ class EsoBuildDataEditor
 							"-",
 					),
 			),
+			
+			"Ability Costs" => "StartSection",
 			
 			/*
 			 * MagickaCost Confirmed
@@ -4362,7 +4519,7 @@ class EsoBuildDataEditor
 			"StaminaCost" => array(
 					"title" => "Stamina Ability Cost",
 					"round" => "floor",
-					"addClass" => "esotbStatDivider",
+					//"addClass" => "esotbStatDivider",
 					//"warning" => "Note: Currently there is a bug on Live that randomly results in ability costs 0-2% higher than normal. ",
 					"compute" => array(
 							"Misc.SpellCost",
@@ -4380,6 +4537,8 @@ class EsoBuildDataEditor
 							"*",
 					),
 			),
+			
+			"Traits" => "StartSection",
 			
 			/*
 			 * Divines Confirmed
@@ -5060,8 +5219,8 @@ class EsoBuildDataEditor
 		
 		$this->TransformItemDataForPts($intLevel, $intType);
 		
-		$linkData['itemIntLevel'] = $intLevel;
-		$linkData['itemIntType'] = $intType;
+		$linkData['enchantIntLevel1'] = $intLevel;
+		$linkData['enchantIntType1'] = $intType;
 		
 		$query = "SELECT * FROM minedItem{$this->ITEM_TABLE_SUFFIX} WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
 		$result = $this->db->query($query);
@@ -5728,7 +5887,7 @@ class EsoBuildDataEditor
 			
 			$newSkill = $skillData;
 			$newName = str_replace("::", ":", $abilityData['skillTypeName'] . "::" . $abilityData['name']);
-			error_log($newName);
+
 			$newSkill['name'] = $newName;
 			$newSkill['description'] = $abilityData['description'];
 			$newSkill['icon'] = $abilityData['icon'];

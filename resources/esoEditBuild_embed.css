@@ -1225,3 +1225,21 @@ button.esotbWeaponSelect {
 #esotbDeleteButton {
 	background-color: #fcc;
 }
+
+.esotbStatSection {
+	border: solid 1px #ccc;
+}
+
+.esotbStatSectionTitle {
+	background-color: #E3d5c0;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+    text-align: center;
+}
+
+.esotbStatSectionTitle:hover {
+	background-color: #FFFFF0;
+	cursor: pointer;
+}

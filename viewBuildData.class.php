@@ -43,6 +43,7 @@ class EsoBuildDataViewer
 	public $enableCaching 		  = false;
 	public $useAsyncLoad		  = true;
 	public $useDivImageTags		  = true;
+	public $viewMyBuilds          = false;
 	
 	public $currentCharacterPage = 0;
 	public $totalCharacterCount = 0;
@@ -80,6 +81,7 @@ class EsoBuildDataViewer
 	public $inputFilter = "";
 	public $myMyBuilds = false;
 	public $inputSearch = "";
+	public $inputSearchWikiUser = "";
 	public $inputSearchClass = "";
 	public $inputSearchRace = "";
 	public $inputSearchBuildType = "";
@@ -189,7 +191,7 @@ class EsoBuildDataViewer
 	{
 		global $uespEsoBuildDataReadDBHost, $uespEsoBuildDataReadUser, $uespEsoBuildDataReadPW, $uespEsoBuildDataDatabase;
 	
-		if ($this->dbReadInitialized || $this->dbWriteInitialize) return true;
+		if ($this->dbReadInitialized || $this->dbWriteInitialized) return true;
 	
 		$this->db = new mysqli($uespEsoBuildDataReadDBHost, $uespEsoBuildDataReadUser, $uespEsoBuildDataReadPW, $uespEsoBuildDataDatabase);
 		if ($this->db == null || $this->db->connect_error) return $this->reportError("Could not connect to mysql database!");
@@ -446,6 +448,11 @@ class EsoBuildDataViewer
 			$this->inputSearchSpecial = trim($this->inputParams['findspecial']);
 		}		
 		
+		if (array_key_exists('wikiuser', $this->inputParams))
+		{
+			$this->inputSearchWikiUser = trim($this->inputParams['wikiuser']);
+		}		
+		
 		if ($this->inputFilter == "mine" || $this->inputFilter == "my")
 		{
 			$this->viewMyBuilds = true;
@@ -507,6 +514,12 @@ class EsoBuildDataViewer
 			$value = $this->db->real_escape_string($this->inputSearch);
 			$where[] = "(name LIKE '%$value%' OR buildName LIKE '%$value%' OR class LIKE '%$value%' OR race LIKE '%$value%' OR alliance LIKE '%$value%' OR buildType LIKE '%$value%' OR special LIKE '%$value%')";
 		}
+		
+		if ($this->inputSearchWikiUser != "")
+		{
+			$value = $this->db->real_escape_string($this->inputSearchWikiUser);
+			$where[] = "wikiUserName LIKE '%$value%'";
+		}		
 				
 		if ($this->viewMyBuilds)
 		{
@@ -1575,6 +1588,7 @@ class EsoBuildDataViewer
 		$charLink = $this->getCharacterLink($this->characterId);
 		$canViewMyBuilds = $this->wikiContext != null;
 		$searchText = $this->escape($this->inputSearch);
+		$searchWikiUser = $this->escape($this->inputSearchWikiUser); 
 		
 		$search  = "<br/><form method='GET' action='' id='ecdSearchForm'>";
 		$search .= "	<div class='ecdSearchLabel'>Text</div>";
@@ -1617,6 +1631,8 @@ class EsoBuildDataViewer
 		$search .= $this->getOptionHtml("Vampire", $this->inputSearchSpecial);
 		$search .= $this->getOptionHtml("Werewolf", $this->inputSearchSpecial);
 		$search .= "	</select>";
+		$search .= "	<div class='ecdSearchLabel'>Wiki User</div>";
+		$search .= "	<input name='wikiuser' id='ecdSearchWikiUser' type='text' size='12' value='$searchWikiUser'>";
 		if ($this->viewMyBuilds) $search .= "	<input type='hidden' name='filter' value='mine'>";
 		$search .= "	<input type='submit' id='ecdSearchButton' value='Find Builds'>";
 		$search .= "</form>";
@@ -4050,7 +4066,7 @@ class EsoBuildDataViewer
 	{
 		if ($this->characterId <= 0) return $this->reportError("Missing valid character ID!");
 		if (!$this->loadSingleCharacter()) return false;
-		if (!$this->canWikiUserDelete()) return $this->reportError("Delete Build Permission denied! BuildId = {$this->characterId}, WikiUser = {$_SESSION['wsUserName']}");
+		if (!$this->canWikiUserDelete()) return $this->reportError("Delete build permission denied! BuildId = {$this->characterId}, WikiUser = {$_SESSION['wsUserName']}");
 		
 		$buildName = $this->getCharField('buildName');
 		$charName = $this->getCharField('name');
@@ -4092,7 +4108,7 @@ class EsoBuildDataViewer
 		if ($this->confirm != '') return $this->doBuildChangePassword();
 		
 		if (!$this->loadSingleCharacter()) return false;
-		if (!$this->canWikiUserEdit()) return $this->reportError("Permission denied!");
+		if (!$this->canWikiUserEdit()) return $this->reportError("Change password confirm permission denied! BuildId = {$this->characterId}, WikiUser = {$_SESSION['wsUserName']}");
 		
 		$buildName = $this->getCharField('buildName');
 		$charName = $this->getCharField('name');
@@ -4166,7 +4182,7 @@ EOT;
 		
 		if (!$this->loadSingleCharacter()) return false;
 		if (!$this->loadAccount($this->formAccount)) return false;
-		if (!$this->canWikiUserDelete()) return $this->reportError("Permission denied!");
+		if (!$this->canWikiUserDelete()) return $this->reportError("Change password permission denied! BuildId = {$this->characterId}, WikiUser = {$_SESSION['wsUserName']}");
 			
 		$buildName = $this->getCharField('buildName');
 		$charName = $this->getCharField('name');
@@ -4239,7 +4255,7 @@ EOT;
 		if ($this->confirm != '') return $this->doBuildDelete();
 		
 		if (!$this->loadSingleCharacter()) return false;
-		if (!$this->canWikiUserDelete()) return $this->reportError("Permission denied!");
+		if (!$this->canWikiUserDelete()) return $this->reportError("Delete character permission denied! BuildId = {$this->characterId}, WikiUser = {$_SESSION['wsUserName']}");
 		
 		$buildName = $this->getCharField('buildName');
 		$charName = $this->getCharField('name');
@@ -4261,7 +4277,7 @@ EOT;
 		if ($this->characterId <= 0) return $this->reportError("Missing valid character/build ID!");
 		
 		if (!$this->loadCharacter()) return false;
-		if (!$this->canWikiUserEdit()) return $this->reportError("Permission denied!");
+		if (!$this->canWikiUserEdit()) return $this->reportError("Manage screenshots permission denied! BuildId = {$this->characterId}, WikiUser = {$_SESSION['wsUserName']}");
 		
 		$this->outputHtml .= $this->getManageScreenshotsTableOutput();
 		
