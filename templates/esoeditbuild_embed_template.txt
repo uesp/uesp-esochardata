@@ -1355,6 +1355,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>6 November 2019</b>
+			<ul>
+				<li>Puncturing Strikes and morphs are now considered Direct Damage.</li>
+			</ul>
+			<p>
 			<b>1 November 2019</b>
 			<ul>
 				<li>Updated item data for update 24.</li>
