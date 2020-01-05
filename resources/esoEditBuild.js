@@ -1414,6 +1414,30 @@ window.g_EsoBuildBuffData =
 			combineAs: "*%",
 			icon : "/esoui/art/icons/ability_debuff_minor_vulnerability.png",
 		},
+		"Engulfing Flames (Target)" : 
+		{
+			group: "Target",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 0.10,
+			display: "%",
+			category: "Target",
+			statId : "FlameDamageTaken",
+			icon : "/esoui/art/icons/ability_dragonknight_004_b.png",
+		},
+		"Inner Beast (Target)" : 
+		{
+			group: "Target",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 0.05,
+			display: "%",
+			category: "Target",
+			statId : "DamageTaken",
+			icon : "/esoui/art/icons/ability_undaunted_002_a.png",
+		},
 		
 			/* Cyrodiil */
 		"Offensive Scroll Bonus" : 
@@ -1858,9 +1882,40 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		display: "%",
 		match: /While slotted, your healing done is increased by ([0-9]+)%/i
 	},
-	
-	
+
+		
 		/* Begin Toggled Abilities */
+	{
+		id: "Protective Scale",
+		baseSkillId: 33743,
+		category: "Skill",
+		statId: "RangedDamageTaken",
+		toggle: true,
+		enabled: false,
+		display: "%",
+		factorValue: -1,
+		match: /Flex your scales, reducing your damage taken from projectiles by ([0-9]+)%/i
+	},	
+	{
+		id: "Protective Scale",
+		baseSkillId: 33743,
+		category: "Skill",
+		statId: "RangedDamageTaken",
+		toggle: true,
+		enabled: false,
+		display: "%",
+		factorValue: -1,
+		match: /Flex your scales, reducing damage taken from projectiles by ([0-9]+)%/i
+	},
+	{
+		id: "Engulfing Flames",
+		baseSkillId: "34031",
+		buffId: "Engulfing Flames (Target)",
+		updateBuffValue: true,
+		toggle: true,
+		enabled: false,
+		match: /Affected enemies take more damage from all Flame Damage attacks based on your offensive stats, with a maximum of [0-9]+% bonus damage taken\.[\s]*Current value ([0-9]+)%/i
+	},
 	{
 		id: "Flawless Dawnbreaker",
 		baseSkillId: "42566",
@@ -4632,6 +4687,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "BlockCost",
 		display: '%',
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the cost of your Block and Bash abilities by ([0-9]+\.?[0-9]*)%/i,
 	},	 
 	{
@@ -5069,7 +5125,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		buffId: "Major Resolve",
 		toggle: true,
 		enabled: false,
-		match: /Casting a Shadow ability grants you Major Resolve and Major Ward for [0-9]+ seconds/i,
+		match: /Casting a Shadow ability grants you Major Resolve for [0-9]+ seconds/i,
 	},
 	{
 		id: "Shadow Barrier",
@@ -5077,7 +5133,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		buffId: "Major Ward",
 		toggle: true,
 		enabled: false,
-		match: /Casting a Shadow ability grants you Major Resolve and Major Ward for [0-9]+ seconds/i,
+		match: /Casting a Shadow ability grants you Major Resolve for [0-9]+ seconds/i,
 	},
 	{
 		id: "Ruffian",
@@ -5908,6 +5964,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "BlockCost",
 		factorValue: -1,
 		display: "%",
+		combineAs: "*%",
 		match: /Reduces the cost of all of your abilities by ([0-9]+)%/i,
 	},
 	{
@@ -8869,6 +8926,12 @@ window.ESO_ABILITYDESC_MATCHES = [
 ];
 
 
+window.ESOBUILD_RAWOUTPUT_LABELREPLACEMENT =
+{
+		"CP.Enabled" : "CP Enabled",
+};
+
+
 window.ESOBUILD_RAWOUTPUT_LABELSUFFIX = 
 {
 	"SkillBonusWeaponDmg" : "WeaponDamage",
@@ -10553,9 +10616,9 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 	}
 	else if (itemData.trait == 31) // Jewelry Bloodthirsty
 	{
-		inputValues.Item.ExecuteBonus += traitValue/100;
-		AddEsoItemRawOutput(itemData, "Item.ExecuteBonus", traitValue/100);
-		AddEsoInputStatSource("Item.ExecuteBonus", { item: itemData, value: traitValue/100, slotId:slotId });
+		inputValues.Item.Bloodthirsty += traitValue/100;
+		AddEsoItemRawOutput(itemData, "Item.Bloodthirsty", traitValue/100);
+		AddEsoInputStatSource("Item.Bloodthirsty", { item: itemData, value: traitValue/100, slotId:slotId });
 	}
 	else if (itemData.trait == 29) // Jewelry Harmony
 	{
@@ -11502,10 +11565,16 @@ window.AddEsoInputStatSource = function (statId, data)
 	{
 		var firstStatId = statIds.shift();
 		var newStatId = statIds.join(".");
+		var replaceId = ESOBUILD_RAWOUTPUT_LABELREPLACEMENT[statId];
+		var suffix = ESOBUILD_RAWOUTPUT_LABELSUFFIX[firstStatId];
 		
-		if (ESOBUILD_RAWOUTPUT_LABELSUFFIX[firstStatId] != null)
+		if (replaceId != null) 
 		{
-			newStatId += ESOBUILD_RAWOUTPUT_LABELSUFFIX[firstStatId]; 
+			newStatId = replaceId;
+		}		
+		else if (suffix != null)
+		{
+			newStatId += suffix; 
 		}
 				
 		if (g_EsoInputStatSources[newStatId] == null) g_EsoInputStatSources[newStatId] = [];
@@ -12781,10 +12850,10 @@ window.RequestEsoItemData = function (itemData, element)
 	
 	if (itemData.type == 4 || itemData.type == 12)
 	{
-		queryParams.intlevel = null;
-		queryParams.inttype = null;
-		queryParams.level = null;
-		queryParams.quality = null;
+		//queryParams.intlevel = null;
+		//queryParams.inttype = null;
+		//queryParams.level = null;
+		//queryParams.quality = null;
 	}
 	
 	$.ajax("//esolog.uesp.net/exportJson.php", {
@@ -13250,7 +13319,7 @@ window.OnEsoClickBuildStatTab = function (e)
 	{
 		UpdateEsoBuildRawInputs();		
 	}
-	else if (tabId == "esotbStatBlockSkils")
+	else if (tabId == "esotbStatBlockSkills")
 	{
 		// UpdateEsoAllSkillDescription();
 		UpdateEsoAllSkillCost(false);
@@ -13691,33 +13760,41 @@ window.HasEsoBuildRawInputSources = function (sourceData)
 window.GetEsoBuildRawInputSourcesHtml = function (sourceName, sourceData)
 {
 	if (sourceData.length <= 0) return "";
-	if (!ESO_TESTBUILD_SHOWALLRAWINPUTS && sourceName.indexOf(".") >= 0) return "";
+	
+	if (!ESO_TESTBUILD_SHOWALLRAWINPUTS && sourceName.indexOf(".") >= 0 && !sourceName.startsWith("Target.")) {
+		return "";
+	}
 	
 	var output = "<div class='esotbRawInputItem'>";
 	var sourceValue = "";
 	
-	sourceName = sourceName.replace(/_/g, " ").replace(/([0-9]*[A-Z]+)/g, ' $1').replace(/  /g, ' ').trim();
+	sourceName = sourceName.replace(/[.]/g, ' ').replace(/_/g, " ").replace(/([0-9]*[A-Z]+)/g, ' $1').replace(/  /g, ' ').trim();
 	
 	output += "<div class='esotbRawInputName'>" + sourceName + ":</div>";
+	var content = "";
 	
 	for (var i = 0; i < sourceData.length; ++i)
 	{
-		output += GetEsoBuildRawInputSourceItemHtml(sourceData[i]);
+		content += GetEsoBuildRawInputSourceItemHtml(sourceData[i], sourceName);
 	}
 	
-	output += "</div>";
+	if (content == "") return "";
+		
+	output += content + "</div>";
 	return output;
 }
 
 
-window.GetEsoBuildRawInputSourceItemHtml = function (sourceItem)
+window.GetEsoBuildRawInputSourceItemHtml = function (sourceItem, sourceName)
 {
 	var output = "<div class='esotbRawInputValue'>";
 	var value = sourceItem.value;
 	var statDetails = g_EsoInputStatDetails[sourceItem.origStatId] || {};
 	var suffix = " (" + sourceItem.origStatId + ")";
+	var isTarget = sourceName.startsWith("Target ");
 	
-	if (value == 0) return "";
+	if (!isTarget && sourceItem.origStatId.startsWith("Target.") ) return "";	
+	if (value === null || value == 0) return "";
 	
 	if (statDetails.display == '%') 
 		value = "" + (Math.round(value * 1000)/10) + "%";

@@ -93,6 +93,7 @@ class EsoBuildDataEditor
 	
 	public $STATS_UNIQUE_LIST = array(
 			"Item.Divines",
+			"Item.Bloodthirsty",
 			"Item.Sturdy",
 			//"Item.Prosperous",
 			"Item.Training",
@@ -234,7 +235,6 @@ class EsoBuildDataEditor
 			"Set.ClassSpellDamage",
 			"Set.ClassWeaponDamage",
 			"Item.SynergyBonus",
-			"Item.ExecuteBonus",
 			"BuildDescription",
 			"Skill.PoisonStaminaCost",
 			"Skill.FlameAOEDamageDone",
@@ -667,7 +667,7 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
-			"Item.ExecuteBonus" => array(
+			"Item.Bloodthirsty" => array(
 					"display" => "%",
 			),
 			
@@ -1096,6 +1096,10 @@ class EsoBuildDataEditor
 			),		
 			
 			"Skill.FlameDamageTaken" => array(
+					"display" => "%",
+			),
+			
+			"Target.FlameDamageTaken" => array(
 					"display" => "%",
 			),
 			
@@ -3053,7 +3057,24 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"compute" => array(
 							
-								/* Update 17 */
+								/* */
+							"80 + 25*EffectiveLevel",		// Unknown update, early 2018?
+							"Item.BlockCost",
+							"+",
+							"1 - Item.Sturdy",
+							"*",
+							"1 + CP.BlockCost",
+							"*",
+							"1 + Set.BlockCost",
+							"*",
+							"1 + Skill.BlockCost",
+							"*",
+							"1 + Buff.BlockCost",
+							"*",
+							"1 + Skill2.BlockCost",
+							"*",							
+							
+								/* Update 17 
 							"110 + 25*EffectiveLevel",
 							"Item.BlockCost",
 							"+",
@@ -3070,7 +3091,7 @@ class EsoBuildDataEditor
 							"+",
 							"*",
 							"1 + Skill2.BlockCost",
-							"*",
+							"*", //*/
 							
 								/* Pre Update 17 
 							"180 + 30*EffectiveLevel",
@@ -4582,6 +4603,14 @@ class EsoBuildDataEditor
 					"display" => "%",
 					"compute" => array(
 							"Item.Training",
+					),
+			),
+			
+			"Bloodthirsty" => array(
+					"title" => "Bloodthirsty Trait",
+					"display" => "%",
+					"compute" => array(
+							"Item.Bloodthirsty",
 					),
 			),
 			
