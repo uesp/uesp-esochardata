@@ -1355,6 +1355,24 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>5 January 2019</b>
+			<ul>
+				<li>Updated the base block cost to 1730.</li>
+				<li>Changed block cost calculation to use multiplicative stacking instead of additive (confirmed from PTS).</li>
+			</ul>
+			<p>
+			<b>3 December 2019</b>
+			<ul>
+				<li>Added the Bloodthirsty stat in the Traits section.</li>
+				<li>Added extra tooltip information for Flurry and Bloodthirst skills (like previously done with Rapid Strikes).</li>
+				<li>Fixed the Shadow Barrier toggle for Major Resolve.</li>
+				<li>Tweaked the skill coefficient for the Heavy Armor Resolve passive to match known value with 6 armor pieces.</li>
+				<li>Fixed food parsing for Crusty Bread.</li>
+				<li>Added the "Engulfing Flames (Target)" and "Inner Beast (Target)" buffs. Added toggle for Engulfing Flames.</li>
+				<li>Target effects are now seperated from character effects in the Raw Data tab.</li>
+				<li>The DK Protective Scale skill is now parsed correctly.</li>				
+			</ul>
+			<p>
 			<b>6 November 2019</b>
 			<ul>
 				<li>Puncturing Strikes and morphs are now considered Direct Damage.</li>
