@@ -1355,6 +1355,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>6 January 2019</b>
+			<ul>
+				<li>Fixed Leki's Focus set having incorrect values.</li>
+			</ul>
+			<p>
 			<b>5 January 2019</b>
 			<ul>
 				<li>Updated the base block cost to 1730.</li>
