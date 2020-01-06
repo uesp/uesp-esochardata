@@ -1310,7 +1310,18 @@ window.g_EsoBuildBuffData =
 			value : 1118,
 			icon : "/esoui/art/icons/ability_warrior_028.png",
 		},
-		
+		"Spirit Guardian" : 
+		{
+			group: "Skill",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			category: "Skill",
+			statId : "DamageTaken",
+			value : -0.10,
+			display: "%",
+			icon : "/esoui/art/icons/ability_mage_036.png",
+		},
 		
 		/*
 		 * Changed in update 18 to be Major Fracture "Night Mothers Gaze
@@ -1885,6 +1896,16 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 
 		
 		/* Begin Toggled Abilities */
+	{
+		id: "Spirit Guardian",
+		baseSkillId: 40115710,
+		toggle: true,
+		enabled: false,
+		buffId: "Spirit Guardian",
+		updateBuffValue: true,
+		rawInputMatch: /(While active, [0-9]+% of the damage you take is transferred to the spirit instead\.)/i,
+		match: /While active, ([0-9]+)% of the damage you take is transferred/i
+	},
 	{
 		id: "Protective Scale",
 		baseSkillId: 33743,
