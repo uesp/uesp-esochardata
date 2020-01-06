@@ -5548,36 +5548,42 @@ window.ESO_SETEFFECT_MATCHES = [
 		category: "Set",
 		statId: "AOEDamageTaken",
 		combineAs: "*%",
+		display: "%",
 		match: /Reduces your damage taken from area of effect abilities by ([0-9]+)%/i,
 	},
 	{
 		category: "Set",
 		statId: "AOEDamageDone",
 		factorValue: -1,
+		display: "%",
 		match: /but the damage and healing of your own area of effect abilities is also reduced by ([0-9]+)%/i,
 	},
 	{
 		category: "Set",
 		statId: "AOEHealingDone",
 		factorValue: -1,
+		display: "%",
 		match: /but the damage and healing of your own area of effect abilities is also reduced by ([0-9]+)%/i,
 	},
 	{
 		category: "Set",
 		statId: "TrapDamageTaken",
 		combineAs: "*%",
+		display: "%",
 		match: /Reduces your damage taken from environmental traps by ([0-9]+)%/i,
 	},
 	{
 		category: "Set",
 		statId: "SiegeDamageTaken",
 		combineAs: "*%",
+		display: "%",
 		match: /Reduces your damage taken from Siege Weapons and Player Area of Effect abilities by ([0-9]+)%/i,
 	},
 	{
 		category: "Set",
 		statId: "PlayerAOEDamageTaken",
 		combineAs: "*%",
+		display: "%",
 		match: /Reduces your damage taken from Siege Weapons and Player Area of Effect abilities by ([0-9]+)%/i,
 	},
 	{
@@ -6850,6 +6856,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "HAMagRestore",
 		match: /Fully charged heavy attacks restore ([0-9]+) Magicka/i,
 	},
+	/* Duplicates ?
 	{
 		setBonusCount: 4,
 		category: "Skill",
@@ -6873,7 +6880,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		match: /but the damage and healing of your own area of effect abilities is also reduced by ([0-9]+\.?[0-9]*)%/i,
-	},
+	}, //*/
 	{
 		id: "Infallible Mage",
 		setBonusCount: 4,
