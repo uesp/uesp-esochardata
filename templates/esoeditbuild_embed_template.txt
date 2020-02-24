@@ -6,7 +6,6 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #cfc; margin-right: 225px;'>
-The build editor is *mostly* updated for the Dragonhold patch (update 24). 
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -62,7 +61,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<div class="esotbStatLabel">Enable CP</div> <input type="checkbox" id="esotbEnableCP" name="esotbEnableCP" statid="EnableCP" {enableCP}>
 			<br/>
 			<div class="esotbStatLabel">Use PTS Rules</div> <input type="checkbox" id="esotbUsePtsRules" name="esotbUsePtsRules" statid="UsePtsRules" {usePtsRulesCheck}>
-			Current version is Update 24 v5.2.3
+			Current version is Update 25 v5.3.0
 			<ul style="margin-left: 170px; margin-top: -5px;">
 				<li><b>Currently very experimental.</b></li>
 				<li>Save and reload build after changing this setting.</li>
@@ -1355,14 +1354,24 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
-			<b>6 January 2019</b>
+			<b>24 Febraury 2020</b>
+			<ul>
+				<li>Fixed item searching on PTS enabled builds.</li>
+			</ul>
+			<p>
+			<b>27 January 2020</b>
+			<ul>
+				<li>Updated PTS skill, CP, and item data from update 25.</li>
+			</ul>
+			<p>
+			<b>6 January 2020</b>
 			<ul>
 				<li>Fixed Leki's Focus set having incorrect values.</li>
 				<li>Added a toggle and buff for the Spirit Guardian skill.</li>
 				<li>Fixed the Elemental Ring skill description.</li>
 			</ul>
 			<p>
-			<b>5 January 2019</b>
+			<b>5 January 2020</b>
 			<ul>
 				<li>Updated the base block cost to 1730.</li>
 				<li>Changed block cost calculation to use multiplicative stacking instead of additive (confirmed from PTS).</li>
