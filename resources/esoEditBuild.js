@@ -276,6 +276,7 @@ window.g_EsoBuildBuffData =
 			display: "%",
 			category: "Buff",
 			statId : "MagickaCost",
+			combineAs: "*%",
 			icon : "/esoui/art/icons/crafting_poison_001_blue_005.png",
 		},
 		"Ravage Stamina" : 
@@ -288,6 +289,7 @@ window.g_EsoBuildBuffData =
 			display: "%",
 			category: "Buff",
 			statId : "StaminaCost",
+			combineAs: "*%",
 			icon : "/esoui/art/icons/crafting_poison_001_green_005.png",
 		},
 		"Hindrance" : 
@@ -312,6 +314,7 @@ window.g_EsoBuildBuffData =
 			display: "%",
 			category: "Buff",
 			statId : "UltimateCost",
+			combineAs: "*%",
 			icon : "/esoui/art/icons/ability_debuff_minor_cowardice.png",
 		},
 		"Minor Uncertainty" : 
@@ -348,6 +351,29 @@ window.g_EsoBuildBuffData =
 			category: "Set",
 			statId : "RangedDamageTaken",
 			icon : "/esoui/art/icons/ava_siege_ammo_006.png",
+		},
+		"Grave Guardian" : 
+		{
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 4430,
+			category: "Set",
+			statIds : [ "PhysicalResist", "SpellResist" ],
+			icon : "/esoui/art/icons/ability_warrior_020.png",
+		},
+		"Hitis Hearth" : 
+		{
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : -0.05,
+			display: "%",
+			category: "Set",
+			statIds : [ "SprintCost", "BlockCost", "RollDodgeCost" ],
+			icon : "/esoui/art/icons/ability_mage_010.png",
 		},
 		"Robes of Transmutation" : 
 		{
@@ -1165,6 +1191,7 @@ window.g_EsoBuildBuffData =
 			value : -0.04,
 			display: '%',
 			statId : "MagickaCost",
+			combineAs: "*%",
 			icon : "/esoui/art/icons/gear_artifactwormcultlight_head_a.png", // TODO: Not the correct one?
 		},
 		"Hircines Veneer" : 
@@ -1176,6 +1203,7 @@ window.g_EsoBuildBuffData =
 			value : -0.04,
 			display: '%',
 			statId : "StaminaCost",
+			combineAs: "*%",
 			icon : "/esoui/art/icons/gear_artifactsaviorhidemd_head_a.png",
 		},
 		/*
@@ -1871,6 +1899,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		statId: "MagickaCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /While slotted, the cost of all your abilities are reduced by ([0-9]+)%/i
 	},
 	{
@@ -1878,6 +1907,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		statId: "StaminaCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /While slotted, the cost of all your abilities are reduced by ([0-9]+)%/i
 	},
 	{
@@ -1885,6 +1915,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		statId: "UltimateCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /While slotted, the cost of all your abilities are reduced by ([0-9]+)%/i
 	},
 	{
@@ -2466,6 +2497,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "MagickaCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the Magicka cost of spells by ([0-9]+\.?[0-9]*)% per piece of Light Armor/i,
 	},
 	{
@@ -2473,6 +2505,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "MagickaCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the Magicka cost of your abilities by ([0-9]+\.?[0-9]*)% for each piece of Light Armor/i,
 	},
 	{
@@ -2549,6 +2582,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "StaminaCost",
 		display: '%',
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the Stamina cost of abilities by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
 	},
 	{
@@ -2556,6 +2590,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "StaminaCost",
 		display: '%',
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the Stamina cost of your abilities by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
 	},
 	{
@@ -2563,6 +2598,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "StaminaCost",
 		display: '%',
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the Stamina cost of your abilities by ([0-9]+\.?[0-9]*)% for each piece of Medium Armor equipped/i,
 	},
 	{
@@ -2831,48 +2867,56 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "MagickaCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the Magicka cost of spells by ([0-9]+\.?[0-9]*)%\./i,
 	},
 	{
 		statId: "MagickaCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the Magicka and Stamina costs of your abilities ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "StaminaCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the Magicka and Stamina costs of your abilities ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "StaminaCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the Magicka and Stamina costs of your abilities ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "MagickaCost",
 		display: "%",
 		factorValue: -1,
-		match: /Reduces the Health, Magicka, and Stamina costs of your abilities ([0-9]+\.?[0-9]*)%/i,
+		combineAs: "*%",
+		match: /Reduces the Health, Magicka, and Stamina costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "StaminaCost",
 		display: "%",
 		factorValue: -1,
-		match: /Reduces the Health, Magicka, and Stamina costs of your abilities ([0-9]+\.?[0-9]*)%/i,
+		combineAs: "*%",
+		match: /Reduces the Health, Magicka, and Stamina costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "HealthCost",
 		display: "%",
 		factorValue: -1,
-		match: /Reduces the Health, Magicka, and Stamina costs of your abilities ([0-9]+\.?[0-9]*)%/i,
+		combineAs: "*%",
+		match: /Reduces the Health, Magicka, and Stamina costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "MagickaCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the Magicka cost of your abilities by ([0-9]+\.?[0-9]*)%\./i,
 	},
 	{
@@ -3355,36 +3399,42 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "MagickaCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces Magicka, Stamina, and Ultimate ability costs by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "StaminaCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces Magicka, Stamina, and Ultimate ability costs by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "StaminaCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces Magicka and Stamina costs for all abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "MagickaCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces Magicka and Stamina costs for all abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "UltimateCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces Magicka, Stamina, and Ultimate ability costs by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "UltimateCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		//match: /Reduces the Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
 		match: /Reduces the Health, Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
@@ -3392,6 +3442,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "MagickaCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		//match: /Reduces the Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
 		match: /Reduces the Health, Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
@@ -3399,6 +3450,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "StaminaCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		//match: /Reduces the Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
 		match: /Reduces the Health, Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
@@ -3406,6 +3458,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "HealthCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		//match: /Reduces the Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
 		match: /Reduces the Health, Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
@@ -3413,12 +3466,14 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "UltimateCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the cost of Ultimate abilities by ([0-9]+\.?[0-9]*)%/i,
 	},	
 	{
 		statId: "UltimateCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the cost of your Ultimate abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -3456,28 +3511,43 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		category: "SkillDuration",
+		statId: "Fiery Breath",
+		match: /Increases the duration of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Searing Strike",
+		match: /Increases the duration of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		category: "SkillDuration",
+		statId: "Dragonknight Standard",
+		match: /Increases the duration of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i,
+	},
+	{
+		category: "SkillDuration",
 		statId: "Consuming Darkness",
-		match: /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) seconds/i,		
+		match: /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
 	},
 	{
 		category: "SkillDuration",
 		statId: "Veiled Strike",
-		match: /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) seconds/i,
+		match: /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
 	},
 	{
 		category: "SkillDuration",
 		statId: "Path of Darkness",
-		match: /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) seconds/i,
+		match: /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
 	},
 	{
 		category: "SkillDuration",
 		statId: "Aspect of Terror",
-		match: /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) seconds/i,
+		match: /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
 	},
 	{
 		category: "SkillDuration",
 		statId: "Summon Shade",
-		match: /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) seconds/i,
+		match: /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
 	},
 	{
 		category: "SkillDuration",
@@ -4434,6 +4504,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "PoisonStaminaCost",
 		display: '%',
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Decreases the cost of your Stamina Poison abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	
@@ -4820,18 +4891,21 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "MagickaCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "StaminaCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "UltimateCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -5051,6 +5125,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		toggle: true,
 		enabled: false,
+		combineAs: "*%",
 		//match: /After blocking an attack, your next Magicka or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i,
 		match: /After blocking an attack, your next Health, Magicka, or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i,
 	},
@@ -5062,6 +5137,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		toggle: true,
 		enabled: false,
+		combineAs: "*%",
 		//match: /After blocking an attack, your next Magicka or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i,
 		match: /After blocking an attack, your next Health, Magicka, or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i,
 	},
@@ -5073,6 +5149,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		toggle: true,
 		enabled: false,
+		combineAs: "*%",
 		//match: /After blocking an attack, your next Magicka or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i,
 		match: /After blocking an attack, your next Health, Magicka, or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i,
 	},
@@ -5526,22 +5603,22 @@ window.ESO_SETEFFECT_MATCHES = [
 	{	// Deadly strike
 		statId: "PhysicalDotDamageDone",
 		display: "%",
-		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities abilities do by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{	// Deadly strike
 		statId: "DiseaseDotDamageDone",
 		display: "%",
-		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities abilities do by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{	// Deadly strike
 		statId: "PoisonDotDamageDone",
 		display: "%",
-		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities abilities do by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{	// Deadly strike -- Note that bleeds are all DoTs so ignore this to prevent a double effect
 		statId: "BleedDotDamageDone",
 		display: "%",
-		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities abilities do by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{	// Stygian
 		statRequireId: "Stealthed",
@@ -5973,18 +6050,21 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "MagickaCost",
 		factorValue: -1,
 		display: "%",
+		combineAs: "*%",
 		match: /Reduces the cost of all of your abilities by ([0-9]+)%/i,
 	},
 	{
 		statId: "StaminaCost",
 		factorValue: -1,
 		display: "%",
+		combineAs: "*%",
 		match: /Reduces the cost of all of your abilities by ([0-9]+)%/i,
 	},
 	{
 		statId: "UltimateCost",
 		factorValue: -1,
 		display: "%",
+		combineAs: "*%",
 		match: /Reduces the cost of all of your abilities by ([0-9]+)%/i,
 	},
 	{
@@ -6043,6 +6123,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "StaminaCost",
 		factorValue: -1,
 		display: "%",
+		combineAs: "*%",
 		match: /Reduces the costs of your Stamina abilities by ([0-9]+)%/i,
 	},
 	{
@@ -6123,6 +6204,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "StaminaCost",
 		factorValue: -1,
 		display: "%",
+		combineAs: "*%",
 		match: /Reduces the cost of your Stamina abilities by ([0-9]+)%/i,
 	},
 	{
@@ -6239,6 +6321,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "UltimateCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the cost of your Ultimate abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -6368,42 +6451,45 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "MagickaCost",
 		display: '%',
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduce the Magicka cost of abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "MagickaCost",
 		display: '%',
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduce all costs by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "MagickaCost",
 		display: '%',
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduce Magicka costs for up to [0-9]+ group members by ([0-9]+\.?[0-9]*)%/i,
 	},	
 	{
 		statId: "StaminaCost",
 		display: '%',
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduce the Stamina cost of abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "StaminaCost",
 		display: '%',
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the costs of Stamina abilities by ([0-9]+\.?[0-9]*)%/i,
 	},	
 	{
 		statId: "StaminaCost",
 		display: '%',
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduce all costs by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		// statId: "MagickaCost",
-		// display: '%',
-		// factorValue: -1,
 		buffId: "Worms Raiment",
 		match: /Reduces the cost of your Magicka abilities by ([0-9]+\.?[0-9]*)% for you and up to /i,
 	},
@@ -6411,12 +6497,14 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "MagickaCost",
 		display: '%',
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduces the cost of your Magicka abilities by ([0-9]+\.?[0-9]*)%\./i,
 	},
 	{
 		statId: "UltimateCost",
 		display: '%',
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduce cost of Ultimate abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -6752,6 +6840,11 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Increases the duration of your Flame Damage abilities by ([0-9]+) seconds/i,
 	},	
 	{
+		statId: "ElfBaneDuration",
+		category: "Set",
+		match: /Increases the duration of your Flame Damage over Time abilities by ([0-9]+) seconds/i,
+	},	
+	{
 		statId: "SnareDuration",
 		display: "%",
 		factorValue: -1,
@@ -6803,6 +6896,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "MagickaCost",
 		display: "%",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduce Magicka costs for up to [0-9]+ group members by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -6993,16 +7087,19 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		statId: "MagickaCost",
 		display: "%",
+		combineAs: "*%",
 		match: /Increases the cost of your active abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "StaminaCost",
 		display: "%",
+		combineAs: "*%",
 		match: /Increases the cost of your active abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "HealthCost",
 		display: "%",
+		combineAs: "*%",
 		match: /Increases the cost of your active abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -7055,9 +7152,78 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "Restoration_Staff_Cost", 
 		match: /Reduce the cost of your Weapon abilities by ([0-9]+\.?[0-9]*)% Magicka or Stamina/i,
 	},
+	{
+		statId: "WeaponDamage",
+		match: /Adds ([0-9]+) Weapon Damage and [0-9]+ Physical Penetration/i,
+	},
+	{
+		statId: "PhysicalPenetration",
+		match: /Adds [0-9]+ Weapon Damage and ([0-9]+) Physical Penetration/i,
+	},
 		
 	
 		// Optionally toggled set effects
+	{	
+		id: "Grave Guardian",
+		setBonusCount: 4,
+		buffId: "Grave Guardian",
+		toggle: true,
+		enabled: false,
+		updateBuffValue : true,
+		enableOffBar : false,
+		match: /Summon a stone aura while blocking, hardening you and your nearby group members, increasing your Physical and Spell Resistance by ([0-9]+)\./i,
+	},
+	{	id: "Titanborn Strength x2",
+		setId: "Titanborn Strength",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		factorValue: 0.5,
+		disableSetIds: [ "Titanborn Strength x4" ],
+		statId: "WeaponDamage",
+		match: /This bonus doubles to ([0-9]+) Weapon Damage and [0-9]+ Physical Penetration when you are under/i,
+	},
+	{	id: "Titanborn Strength x2",
+		setId: "Titanborn Strength",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		factorValue: 0.5,
+		disableSetIds: [ "Titanborn Strength x4" ],
+		statId: "PhysicalPenetration",
+		match: /This bonus doubles to [0-9]+ Weapon Damage and ([0-9]+) Physical Penetration when you are under/i,
+	},
+	{	id: "Titanborn Strength x4",
+		setId: "Titanborn Strength",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		factorValue: 0.75,
+		disableSetIds: [ "Titanborn Strength x2" ],
+		statId: "WeaponDamage",
+		match: /This bonus quadruples to ([0-9]+) Weapon Damage and [0-9]+ Physical Penetration when you are under/i,
+	},
+	{	id: "Titanborn Strength x4",
+		setId: "Titanborn Strength",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		factorValue: 0.75,
+		disableSetIds: [ "Titanborn Strength x2" ],
+		statId: "PhysicalPenetration",
+		match: /This bonus quadruples to [0-9]+ Weapon Damage and ([0-9]+) Physical Penetration when you are under/i,
+	},
+	{	id: "Hiti's Hearth",
+		setBonusCount: 4,
+		buffId: "Hitis Hearth",
+		toggle: true,
+		enabled: false,
+		updateBuffValue : true,
+		enableOffBar : false,
+		factorValue: -1,
+		display: "%",
+		match: /and reduce the cost of Sprint, Block, and Roll Dodge by ([0-9]+)%/i,
+	},
 	{	id: "Perfected Claw of Yolnahkriin",
 		setBonusCount: 5,
 		buffId: "Minor Courage",
@@ -7079,6 +7245,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		factorValue: -1,
 		toggle: true,
 		enabled: false,
+		combineAs: "*%",
 		match: /When an ally activates one of your synergies, you and the ally who activated the synergy get ([0-9]+)% cost reduction for non-Ultimate abilities/i,
 	},
 	{	id: "Perfected Eye of Nahviintaas",
@@ -7088,6 +7255,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		factorValue: -1,
 		toggle: true,
 		enabled: false,
+		combineAs: "*%",
 		match: /When an ally activates one of your synergies, you and the ally who activated the synergy get ([0-9]+)% cost reduction for non-Ultimate abilities/i,
 	},	
 	{	id: "Eye of Nahviintaas",
@@ -7097,6 +7265,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		factorValue: -1,
 		toggle: true,
 		enabled: false,
+		combineAs: "*%",
 		match: /When an ally activates one of your synergies, you and the ally who activated the synergy get ([0-9]+)% cost reduction for non-Ultimate abilities/i,
 	},
 	{	id: "Eye of Nahviintaas",
@@ -7106,6 +7275,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		factorValue: -1,
 		toggle: true,
 		enabled: false,
+		combineAs: "*%",
 		match: /When an ally activates one of your synergies, you and the ally who activated the synergy get ([0-9]+)% cost reduction for non-Ultimate abilities/i,
 	},
 	{	id: "Perfected Tooth of Lokkestiiz",
@@ -7143,6 +7313,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		factorValue: -1,
 		toggle: true,
 		enabled: false,
+		combineAs: "*%",
 		match: /When you resurrect an ally, you and your ally gain [0-9]+ Weapon and Spell Damage and ([0-9]+)% cost reduction to non-Ultimate abilities/i,
 	},
 	{	id: "Vastarie's Tutelage",
@@ -7152,6 +7323,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		factorValue: -1,
 		toggle: true,
 		enabled: false,
+		combineAs: "*%",
 		match: /When you resurrect an ally, you and your ally gain [0-9]+ Weapon and Spell Damage and ([0-9]+)% cost reduction to non-Ultimate abilities/i,
 	},
 	{	id: "Senche-raht's Grit",
@@ -7406,6 +7578,15 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		statId: "WeaponDamage",
 		match: /When you set an enemy off balance, your Weapon Damage is increased by ([0-9]+)/i,
+	},
+	{
+		id: "Armor of Truth",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "WeaponDamage",
+		match: /When you deal damage to an enemy who is Off Balance, your Weapon Damage is increased by ([0-9]+) /i,
 	},
 	{
 		id: "Balorgh",
@@ -7869,6 +8050,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		statId: "MagickaCost",
 		display: "%",
+		combineAs: "*%",
 		match: /but also increases the cost of your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -7879,6 +8061,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		statId: "StaminaCost",
 		display: "%",
+		combineAs: "*%",
 		match: /but also increases the cost of your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -8087,7 +8270,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "SpellDamage",
-		match: /When you deal direct Critical Damage, you have a [0-9]+% chance to increase your Spell Damage by ([0-9]+)/i,
+		match: /When you deal direct damage, you have a [0-9]+% chance to increase your Spell Damage by ([0-9]+)/i,
 	},	
 	{
 		id: "Scourge Harvester",
@@ -8645,16 +8828,19 @@ window.ESO_ENCHANT_ARMOR_MATCHES = [
 	{
 		statId: "StaminaCost",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduce Stamina cost of abilities by ([0-9]+\.?[0-9]*)/i,
 	},
 	{
 		statId: "MagickaCost",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduce Magicka cost of abilities by ([0-9]+\.?[0-9]*)/i,
 	},
 	{
 		statId: "MagickaCost",
 		factorValue: -1,
+		combineAs: "*%",
 		match: /Reduce Magicka cost of spells by ([0-9]+\.?[0-9]*)/i,
 	},
 	{
@@ -9597,12 +9783,17 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 				
 				if (matches != null && matches[1] != null) 
 				{
-					if (buffData.value != null) buffData.value = parseFloat(matches[1]);
+					var factorValue = 1;
+					
+					if (matchData.display == "%") factorValue *= 0.01;
+					if (matchData.factorValue) factorValue *= matchData.factorValue;
+					
+					if (buffData.value != null) buffData.value = parseFloat(matches[1]) * factorValue;
 					
 					if (buffData.values) {
 						for (var j = 0; j < buffData.values.length; j++) 
 						{
-							buffData.values[j] = parseFloat(matches[1]);
+							buffData.values[j] = parseFloat(matches[1]) * factorValue;
 						}						
 					}
 				}
@@ -14891,6 +15082,7 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
 			Skill 	: inputValues.Skill.MagickaCost,
 			Skill2	: inputValues.Skill2.MagickaCost,
 			Buff	: inputValues.Buff.MagickaCost,
+			All     : inputValues.MagickaCost,
 	};
 	
 	g_LastSkillInputValues.StaminaCost = 
@@ -14901,6 +15093,7 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
 			Skill 	: inputValues.Skill.StaminaCost,
 			Skill2	: inputValues.Skill2.StaminaCost,
 			Buff	: inputValues.Buff.StaminaCost,
+			All     : inputValues.StaminaCost,
 	};
 	
 	g_LastSkillInputValues.UltimateCost = 
@@ -14911,12 +15104,13 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
 			Skill 	: inputValues.Skill.UltimateCost,
 			Skill2	: inputValues.Skill2.UltimateCost,
 			Buff	: inputValues.Buff.UltimateCost,
+			All     : inputValues.UltimateCost,
 	};
 	
 	g_LastSkillInputValues.HealthCost = 
 	{
 			Set		: inputValues.Set.HealthCost,
-			Skill 	: inputValues.Skill.HealthCost,
+			Skill 	: inputValues.Skill.HealthCost,	
 	};
 	
 	g_LastSkillInputValues.Damage =

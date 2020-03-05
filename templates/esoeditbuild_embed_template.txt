@@ -6,6 +6,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #cfc; margin-right: 225px;'>
+Note: The editor is now updated for Update 25.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -95,8 +96,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<div id="esotbMisc">
 				<div class="esotbAttrTitle">Miscellaneous Stats</div>
 				
-				<div class="esotbStatLabel">Spell/Ability Cost</div> <input id="esotbMiscSpellCost" class="esotbInputValue esotbMiscInput" statid="Misc.SpellCost" type="number" size="2" value="{miscSpellCost}">
-				This value is used to see the effect of cost reduction from all factors.<br/>
+				<!-- <div class="esotbStatLabel">Spell/Ability Cost</div> <input id="esotbMiscSpellCost" class="esotbInputValue esotbMiscInput" statid="Misc.SpellCost" type="number" size="2" value="{miscSpellCost}">
+				This value is used to see the effect of cost reduction from all factors.<br/> -->
 				
 				<div class="esotbStatLabel">Mount Speed Bonus</div> <input id="esotbMountSpeedBonus" class="esotbInputValue esotbMiscInput" statid="MountSpeedBonus" type="number" size="2" value="{MountSpeedBonus}"> %
 				(0-60%)<br/>
@@ -636,12 +637,14 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Iceheart</option>
 					<option>Ilambris</option>
 					<option>Infernal Guardian</option>
+					<option>Kjalnar's Nightmare</option>
 					<option>Kra'gh</option>
 					<option>Lord Warden</option>
 					<option>Maarselok</option>
 					<option>Maw of the Infernal</option>
 					<option>Mighty Chudan</option>
 					<option>Molag Kena</option>
+					<option>Mother Ciannait</option>
 					<option>Nerien'eth</option>
 					<option>Nightflame</option>
 					<option>Pirate Skeleton</option>
@@ -727,6 +730,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<input type="text" id="esotbItemSetupEquipSet" list="esotbItemSetupEquipSetList" style="width: 200px;">
 				<datalist id="esotbItemSetupEquipSetList" style="width: 200px;">
 					<option>Adept Rider</option>
+					<option>Aegis Caller</option>
 					<option>Aegis of Galenwe</option>
 					<option value="Perfect Aegis of Galenwe">Aegis of Galenwe (Perfect)</option>
 					<option>Affliction</option>
@@ -754,6 +758,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Automated Defense</option>
 					<option>Azureblight Reaper</option>
 					<option>Bahraha's Curse</option>
+					<option>Bani's Torment</option>
 					<option>Barkskin</option>
 					<option>Bastion of the Heartland</option>
 					<option>Battalion Defender</option>
@@ -783,12 +788,14 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Coward's Gear</option>
 					<option>Crafty Alfiq</option>
 					<option>Crest of Cyrodiil</option>
+					<option>Critical Riposte</option>
 					<option>Crusader</option>
 					<option>Curse Eater</option>
 					<option>Curse of Doylemish</option>
 					<option>Daedric Trickery</option>
 					<option>Darkstride</option>
 					<option>Daring Corsair</option>
+					<option>Dauntless Combatant</option>
 					<option>Dead-Water's Guile</option>
 					<option>Deadly Strike</option>
 					<option>Death's Wind</option>
@@ -801,6 +808,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Draugr Hulk</option>
 					<option>Draugr's Heritage</option>
 					<option>Draugr's Rest</option>
+					<option>Draugrkin's Grip</option>
 					<option>Dreamer's Mantle</option>
 					<option>Dreugh King Slayer</option>
 					<option>Dro'Zakar's Claws</option>
@@ -834,6 +842,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Gossamer</option>
 					<option>Grace of Gloom</option>
 					<option>Grace of the Ancients</option>
+					<option>Grave Guardian</option>
 					<option>Grave-Stake Collector</option>
 					<option>Green Pact</option>
 					<option>Gryphon's Ferocity</option>
@@ -848,6 +857,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Heem-Jas' Retribution</option>
 					<option>Hide of Morihaus</option>
 					<option>Hide of the Werewolf</option>
+					<option>Hiti's Hearth</option>
 					<option>Hircine's Veneer</option>
 					<option>Hist Bark</option>
 					<option>Hollowfang Thirst</option>
@@ -1006,6 +1016,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>The Worm's Raiment</option>
 					<option>Thews of the Harbinger</option>
 					<option>Thunderbug's Carapace</option>
+					<option>Titanborn Strength</option>
 					<option>Tooth of Lokkestiiz</option>
 					<option value="Perfected Tooth of Lokkestiiz">Tooth of Lokkestiiz (Perfect)</option>
 					<option>Toothrow</option>
@@ -1023,6 +1034,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Twin Sisters</option>
 					<option>Tzogvin's Warband</option>
 					<option>Ulfnor's Favor</option>
+					<option>Unchained Aggressor</option>
 					<option>Undaunted Bastion</option>
 					<option>Undaunted Infiltrator</option>
 					<option>Undaunted Unweaver</option>
@@ -1354,7 +1366,35 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
-			<b>24 Febraury 2020</b>
+			<b>4 March 2020</b>
+			<ul>
+				<li>Updated item data.</li>
+				<li>Added 11 new sets to the quick item setup.<li>
+				<li>Added toggle and buff for the Hiti's Hearth 5 piece set bonus.</li>
+				<li>Added parsing and two toggles for the Titanborn Strength 5 piece set bonus.</li>
+				<li>Added toggle and buff for the Grave Guardian 5 piece set bonus.</li>
+				<li>Fixed the Armor of Truth 5 piece set bonus toggle.</li>
+				<li>Fixed the Elf Bane 5 piece set bonus. The abilities this affects has not yet been checked.</li>
+				<li>Fixed the Deadly Strike 5 piece set bonus.</li>
+				<li>Fixed the Scathing Mage 5 piece set bonus.</li>
+				<li>Fixed the DK's Searing Heat passive.</li>
+				<li>Fixed the Sorc's Unholy Knowledge passive.</li>
+				<li>Fixed the Nightblade's Dark Veil passive when the value is 1 second.</li>
+			</ul>
+			<p>
+			<b>27 February 2020</b>
+			<ul>
+				<li>Added the Ultimate Cost stat.</li>
+				<li>Changed Magicka/Stamina/Ultimate costs to stack multiplicatively instead of additively.</li>
+				<li>Changed the Magicka/Stamina/Ultimate Cost stats to display as percentages.</li>
+			</ul>
+			<p>
+			<b>25 February 2020</b>
+			<ul>
+				<li>Updated skill and CP data for update 25.</li>
+			</ul>
+			<p>
+			<b>24 February 2020</b>
 			<ul>
 				<li>Fixed item searching on PTS enabled builds.</li>
 			</ul>
