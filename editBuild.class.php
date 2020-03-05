@@ -3138,7 +3138,7 @@ class EsoBuildDataEditor
 			),
 			
 			"RollDodgeCost" => array(					// TODO: Check?
-					"title" => "Dodge Roll Cost",
+					"title" => "Roll Dodge Cost",
 					"round" => "floor",
 					"compute" => array(
 							"floor(34 + 5.62*EffectiveLevel)*10", // Old?
@@ -4515,21 +4515,19 @@ class EsoBuildDataEditor
 			 */
 			"MagickaCost" => array(
 					"title" => "Magicka Ability Cost",
-					"round" => "floor",
+					//"round" => "floor",
+					"display" => "%",
 					//"warning" => "Note: Currently there is a bug on Live that randomly results in ability costs 0-2% higher than normal. ",
 					"compute" => array(
-							"Misc.SpellCost",
-							"1 + CP.MagickaCost",
+							//"Misc.SpellCost",
+							//"1 + CP.MagickaCost",							"*",
+							"1 + Item.MagickaCost",
+							//"*",
+							"1 + Skill.MagickaCost",
 							"*",
-							"Item.MagickaCost",
-							"+",
-							"Skill.MagickaCost",
-							"Set.MagickaCost",
-							"+",
-							"Buff.MagickaCost",
-							"+",
-							"1",
-							"+",
+							"1 + Set.MagickaCost",
+							"*",
+							"1 + Buff.MagickaCost",
 							"*",
 					),
 			),
@@ -4539,22 +4537,35 @@ class EsoBuildDataEditor
 			*/
 			"StaminaCost" => array(
 					"title" => "Stamina Ability Cost",
-					"round" => "floor",
+					//"round" => "floor",
+					"display" => "%",
 					//"addClass" => "esotbStatDivider",
 					//"warning" => "Note: Currently there is a bug on Live that randomly results in ability costs 0-2% higher than normal. ",
 					"compute" => array(
-							"Misc.SpellCost",
-							"1 + CP.StaminaCost",
+							//"Misc.SpellCost",
+							//"1 + CP.StaminaCost",							"*",
+							"1 + Item.StaminaCost",
+							//"*",
+							"1 + Skill.StaminaCost",
 							"*",
-							"Item.StaminaCost",
-							"+",
-							"Skill.StaminaCost",
-							"Set.StaminaCost",
-							"+",
-							"Buff.StaminaCost",
-							"+",
-							"1",
-							"+",
+							"1 + Set.StaminaCost",
+							"*",
+							"1 + Buff.StaminaCost",
+							"*",
+					),
+			),
+			
+			/*
+			 * UltimateCost Confirmed
+			 */
+			"UltimateCost" => array(
+					"title" => "Ultimate Ability Cost",
+					"display" => "%",
+					"compute" => array(
+							"1 + Skill.UltimateCost",
+							"1 + Set.UltimateCost",
+							"*",
+							"1 + Buff.UltimateCost",
 							"*",
 					),
 			),
