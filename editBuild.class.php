@@ -297,6 +297,7 @@ class EsoBuildDataEditor
 			"SkillBonusSpellDmg.Frost",
 			"SkillBonusSpellDmg.Magic",
 			"SkillBonusWeaponDmg.Physical",
+			"Set.ExtraBashDamage",
 	);
 	
 	
@@ -3004,8 +3005,6 @@ class EsoBuildDataEditor
 			),
 			
 			/*
-			 * BashDamage: Confirmed Update 15
-			 */
 			"WeaponBashDamage" => array(
 					"warning" => "This is the base damage for bashing a non-casting opponent with a physical weapon.",
 					"title" => "Weapon Bash Damage",
@@ -3017,6 +3016,8 @@ class EsoBuildDataEditor
 							"*",
 							"1 + DirectDamageDone + CP.PhysicalDamageDone + Skill.PhysicalDamageDone + DamageDone",
 							"*",
+							"Set.ExtraBashDamage",
+							"+",
 					),
 			),
 			
@@ -3031,20 +3032,29 @@ class EsoBuildDataEditor
 							"*",
 							"1 + DirectDamageDone + CP.PhysicalDamageDone + Skill.PhysicalDamageDone + DamageDone",
 							"*",
+							"Set.ExtraBashDamage",
+							"+",
 					),
-			),
+			), //*/
 			
+			/*
+			 * BashDamage: Confirmed Update 15
+			 */
 			"BashDamage" => array(
 					"title" => "Bash Damage",
 					"round" => "floor",
-					"depends" => array("WeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					"depends" => array("WeaponDamage", "SpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone", "SingleTargetDamageDone", "Stamina", "Magicka"),
 					//"addClass" => "esotbStatDivider",
 					"compute" => array(
-							"round(0.5*WeaponDamage)",
-							"1 + CP.PhysicalDamageDone + CP.DirectDamageDone",
+							"max(Stamina, Magicka) * 0.02865",				// Update 25
+							"max(WeaponDamage + Item.BashWeaponDamage + Skill.BashWeaponDamage, SpellDamage + Item.BashSpellDamage + Skill.BashSpellDamage) * 0.26515",
+							"+",
+							"-67.875",
+							"+",
+							"1 + PhysicalDamageDone + DamageDone + DirectDamageDone + SingleTargetDamageDone",
 							"*",
-							"1 + PhysicalDamageDone + DamageDone + DirectDamageDone - CP.PhysicalDamageDone - CP.DirectDamageDone",
-							"*",
+							"Set.ExtraBashDamage",
+							"+",
 					),
 			),			
 			
