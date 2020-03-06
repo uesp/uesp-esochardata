@@ -580,6 +580,28 @@ window.g_EsoBuildBuffData =
 			statIds : [ "PhysicalResist", "SpellResist" ],
 			icon : "/esoui/art/icons/ability_warrior_033.png",
 		},
+		"Spell Resistance Potion" : 
+		{
+			group: "Potion",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 5280,
+			category : "Skill",
+			statIds : [ "SpellResist" ],
+			icon : "/esoui/art/icons/consumable_potion_004_type_005.png",
+		},
+		"Physical Resistance Potion" : 
+		{
+			group: "Potion",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 5280,
+			category : "Skill",
+			statIds : [ "PhysicalResist" ],
+			icon : "/esoui/art/icons/consumable_potion_007_type_005.png",
+		},
 		
 		/* Removed in Update 24 
 		"Major Ward" : 
@@ -1927,6 +1949,16 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 
 		
 		/* Begin Toggled Abilities */
+	{
+		id: "Northern Storm",
+		baseSkillId: 86112,
+		toggle: true,
+		enabled: false,
+		display: "%",
+		statId: "Magicka",
+		rawInputMatch: /(and increasing your Max Magicka by [0-9]+% for [0-9]+ seconds)/i,
+		match: /and increasing your Max Magicka by ([0-9]+)% for [0-9]+ seconds/i
+	},
 	{
 		id: "Spirit Guardian",
 		baseSkillId: 40115710,
@@ -5176,7 +5208,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		id: "Long Shots",
-		baseSkillId: 30923,
+		baseSkillId: 30937,
 		statRequireId: "WeaponBow",
 		statRequireValue: 1,
 		category: "SkillLineDamage",
@@ -5184,12 +5216,12 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		toggle: true,
 		enabled: false,
-		maxTimes: 6,
+		maxTimes: 12,
 		match: /WITH BOW ABILITIES\sGives you a damage bonus of up to [0-9]+% against enemies at longer range./i,
 	},
 	{
 		id: "Hasty Retreat",
-		baseSkillId: 45497,
+		baseSkillId: 30923,
 		statRequireId: "WeaponBow",
 		statRequireValue: 1,
 		buffId: "Major Expedition",
@@ -7953,8 +7985,27 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "SpellResist",
-		match: /and increase your Spell Resistance by ([0-9]+)/i,
+		match: /and increase your Physical and Spell Resistance by ([0-9]+)/i,
 	},
+	{
+		id: "Jolting Arms",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "PhysicalResist",
+		match: /and increase your Physical and Spell Resistance by ([0-9]+)/i,
+	},
+	{
+		id: "Jolting Arms",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Set",
+		statId: "ExtraBashDamage",
+		match: /When you block an attack, you have a [0-9]+% chance to charge your arms, causing your next Bash ability to deal an additional ([0-9]+)/i,
+	},	
 	{
 		id: "Light of Cyrodiil",
 		setBonusCount: 4,
@@ -15419,6 +15470,7 @@ window.CreateEsoBuildBuffElements = function ()
 	groupOutputs["Minor"] = "";
 	groupOutputs["Cyrodiil"] = "";
 	groupOutputs["Poison"] = "";
+	groupOutputs["Potion"] = "";
 	groupOutputs["Skill"] = "";
 	groupOutputs["Set"] = "";
 	groupOutputs["Target"] = "";

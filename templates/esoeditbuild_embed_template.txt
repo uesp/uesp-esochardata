@@ -1366,6 +1366,18 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>6 March 2020</b>
+			<ul>
+				<li>Flurry and morphs are now considered Direct Damage skills.</li>
+				<li>Updated the tooltip for Flurry and morphs that shows the 5 hit values based on recent PTS testing.</li>
+				<li>Added a toggle for the Northern Storm ultimate.</li>
+				<li>Fixed the Jolting Arms set toggle.</li>
+				<li>Fixed the Ancient Dragonguard and New Moon Acolyte sets that had incorrect set equip count for some bonuses.</li>
+				<li>Fixed the Long Shot and Hasty Retreat passive skill toggles.</li>
+				<li>Updated the Bash Damage calculation.</li>
+				<li>Added buffs for Spell and Physical Resistance potions.</li>
+			</ul>
+			<p>
 			<b>4 March 2020</b>
 			<ul>
 				<li>Updated item data.</li>
@@ -1380,6 +1392,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Fixed the DK's Searing Heat passive.</li>
 				<li>Fixed the Sorc's Unholy Knowledge passive.</li>
 				<li>Fixed the Nightblade's Dark Veil passive when the value is 1 second.</li>
+				<li>Fixed transmuting to Nirnhoned weapons and armor.</li>
 			</ul>
 			<p>
 			<b>27 February 2020</b>
