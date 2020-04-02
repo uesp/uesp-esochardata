@@ -14503,17 +14503,35 @@ window.SetEsoBuildToggledSkillEnable = function (skillId, enable)
 }
 
 
+window.NiceIntParse = function(value, defaultValue = 0) 
+{
+	var result = parseInt(value);
+	
+	if (isNaN(result)) result = defaultValue;
+	return result;
+}
+
+
+window.NiceFloatParse = function(value, defaultValue = 0) 
+{
+	var result = parseFloat(value);
+	
+	if (isNaN(result)) result = defaultValue;
+	return result;
+}
+
+
 window.SetEsoBuildToggledSkillCount = function (skillId, value)
 {
 	if (g_EsoBuildToggledSkillData[skillId] == null) return false;
-	g_EsoBuildToggledSkillData[skillId].count = parseInt(value);
+	g_EsoBuildToggledSkillData[skillId].count = NiceIntParse(value);
 }
 
 
 window.SetEsoBuildToggledSetCount = function (skillId, value)
 {
 	if (g_EsoBuildToggledSetData[skillId] == null) return false;
-	g_EsoBuildToggledSetData[skillId].count = parseInt(value);
+	g_EsoBuildToggledSetData[skillId].count = NiceIntParse(value);
 }
 
 
@@ -15802,7 +15820,7 @@ window.UpdateEsoInitialToggleSetData = function ()
 		if (setData == null) continue;
 		
 		setData.enabled = (initData.enabled != 0);
-		if (initData.count != null) setData.count = parseInt(initData.count);
+		if (initData.count != null) setData.count = NiceIntParse(initData.count);
 	}
 
 }
@@ -15817,7 +15835,7 @@ window.UpdateEsoInitialToggleSkillData = function ()
 		if (skillData == null) continue;
 		
 		skillData.enabled = (initData.enabled != 0);
-		if (initData.count != null) skillData.count = parseInt(initData.count);
+		if (initData.count != null) skillData.count = NiceIntParse(initData.count);
 	}
 
 }

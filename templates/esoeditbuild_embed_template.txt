@@ -1366,6 +1366,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			<h3>Recent Work</h3>
 			<hr>
+			<b>2 April 2020</b>
+			<ul>
+				<li>Fixed a blank skill/set toggle count resulting in invalid NAN values.</li>
+			</ul>
+			<p>
 			<b>6 March 2020</b>
 			<ul>
 				<li>Flurry and morphs are now considered Direct Damage skills.</li>
