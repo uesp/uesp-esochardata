@@ -6220,7 +6220,11 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		buffId: "Major Resolve",
-		match: /Gain Major Ward and Major Resolve at all times/i,
+		match: /and Major Resolve at all times/i,
+	},
+	{
+		buffId: "Major Resolve",
+		match: /Gain Major Resolve at all times/i,
 	},
 	{
 		buffId: "Minor Force",

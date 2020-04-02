@@ -1369,6 +1369,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>2 April 2020</b>
 			<ul>
 				<li>Fixed a blank skill/set toggle count resulting in invalid NAN values.</li>
+				<li>The Mighty Chudan set now automatically gives you the Major Resolve buff.</li>
 			</ul>
 			<p>
 			<b>6 March 2020</b>
