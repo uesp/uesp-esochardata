@@ -100,7 +100,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 						INDEX index_itemLink(itemLink(64)),
 						INDEX index_account(account(48)),
 						INDEX index_characterId(characterId)
-					);";
+					) ENGINE=MYISAM;";
 	
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
@@ -114,7 +114,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 						wikiUserName TINYTEXT NOT NULL,
 						PRIMARY KEY (id),
 						INDEX index_account(account(48))
-					);";
+					) ENGINE=MYISAM;";
 		
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);

@@ -180,7 +180,7 @@ class EsoBuildDataParser
 						INDEX index_accountName(accountName(32)),
 						INDEX index_uniqueAccountName(uniqueAccountName(48)),
 						INDEX index_createTime(createTime)
-					);";
+					) ENGINE=MYISAM;";
 		
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
@@ -193,7 +193,7 @@ class EsoBuildDataParser
 						value TINYTEXT NOT NULL,
 						PRIMARY KEY (id),
 						INDEX index_characterId(characterId)
-					);";
+					) ENGINE=MYISAM;";
 		
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
@@ -224,7 +224,7 @@ class EsoBuildDataParser
 						PRIMARY KEY (id),
 						INDEX index_characterId(characterId),
 						INDEX index_account(account(48))
-					);";
+					) ENGINE=MYISAM;";
 		
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
@@ -250,7 +250,7 @@ class EsoBuildDataParser
 						target TINYTEXT NOT NULL,
 						PRIMARY KEY (id),
 						INDEX index_characterId(characterId)
-					);";
+					) ENGINE=MYISAM;";
 		
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
@@ -265,7 +265,7 @@ class EsoBuildDataParser
 						abilityId INTEGER NOT NULL,
 						PRIMARY KEY (id),
 						INDEX index_characterId(characterId)
-					);";
+					) ENGINE=MYISAM;";
 		
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
@@ -281,7 +281,7 @@ class EsoBuildDataParser
 						abilityId INTEGER NOT NULL,
 						PRIMARY KEY (id),
 						INDEX index_characterId(characterId)
-					);";
+					) ENGINE=MYISAM;";
 		
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
@@ -306,7 +306,7 @@ class EsoBuildDataParser
 						rank TINYINT NOT NULL,
 						PRIMARY KEY (id),
 						INDEX index_characterId(characterId)
-					);";
+					) ENGINE=MYISAM;";
 		
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
@@ -321,7 +321,7 @@ class EsoBuildDataParser
 						uploadTimestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 						PRIMARY KEY (id),
 						INDEX index_characterId(characterId)
-					);";
+					) ENGINE=MYISAM;";
 		
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
@@ -332,7 +332,7 @@ class EsoBuildDataParser
 						html MEDIUMTEXT NOT NULL,
 						createTimestamp BIGINT NOT NULL DEFAULT 0,
 						PRIMARY KEY (characterId)
-					);";
+					) ENGINE=MYISAM;";
 		
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
