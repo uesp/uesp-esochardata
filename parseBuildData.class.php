@@ -367,7 +367,7 @@ class EsoBuildDataParser
 	}
 	
 	
-	public function createNewAccount($rawCharData)
+	public function createNewAccount()
 	{
 		return true;
 	}
