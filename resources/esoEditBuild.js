@@ -33,6 +33,7 @@ window.g_EsoBuildEnchantData = {};
 window.g_EsoBuildSetData = {};
 window.g_EsoBuildSetMaxData = {};
 window.g_EsoBuildToggledSetData = {};
+window.g_EsoBuildToggledCpData = {};
 window.g_EsoBuildToggledSkillData = {};
 window.g_EsoBuildLastInputValues = {};
 
@@ -854,9 +855,9 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.25,
 			display: "%",
-			statId : "DamageDone",
+			values : [ 0.25, 0.20 ],
+			statIds : [ "DamageDone", "DamageTaken" ],
 			icon : "/esoui/art/icons/ability_rogue_011.png",
 		},
 		"Minor Berserk" : 
@@ -934,8 +935,9 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : "Grants you 3 Ultimate every 1 second for 9 seconds.",
-			statId : "OtherEffects",
+			value: 3,
+			category: "Item",
+			statId : "UltimateRestore",
 			icon : "/esoui/art/icons/ability_templar_breath_of_life.png",
 		},
 		"Minor Heroism" : 
@@ -944,7 +946,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : "Grants you 1 Ultimate every 1.5 seconds for 9 seconds.",
+			value: "Grants you 1 Ultimate every 1.5 seconds for 12 seconds.",
 			statId : "OtherEffects",
 			icon : "/esoui/art/icons/ability_templar_honor_the_dead.png",
 		},  
@@ -1042,6 +1044,7 @@ window.g_EsoBuildBuffData =
 			combineAs: "*%",
 			icon : "/esoui/art/icons/ability_debuff_minor_vulnerability.png",
 		},
+		/* Move to CP toggle 
 		"Exploiter Off-Balance" : 
 		{
 			group: "Target",
@@ -1052,7 +1055,7 @@ window.g_EsoBuildBuffData =
 			display: "%",
 			statId : "DamageDone",
 			icon : "/esoui/art/icons/ability_debuff_offbalance.png",
-		},
+		}, */
 		"Weapon Damage Enchantment" :
 		{
 			group: "Other",
@@ -1065,6 +1068,31 @@ window.g_EsoBuildBuffData =
 			category: "Item",
 			statIds : [ "WeaponDamage", "SpellDamage" ],
 			icon : "/esoui/art/icons/enchantment_weapon_berserking.png",
+		},
+		"Ultimate Restore (LA)" : 
+		{
+			group: "Other",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 3,
+			category: "Item",
+			statId : "UltimateRestore",
+			icon : "/esoui/art/icons/procs_006.png",
+		},
+		"Zens Redress" :
+		{
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 0.05,
+			display: "%",
+			statDesc : "Enemies with the Touch of Z'en take an additional $1 more damage for each damage over time effect you've placed on them, up to 5%.",
+			category: "Target",
+			statId : "DamageTaken",
+			combineAs: "*%",
+			icon : "/esoui/art/icons/ability_mage_065.png",
 		},
 		"Maelstrom DW Enchantment" :
 		{
@@ -1107,6 +1135,46 @@ window.g_EsoBuildBuffData =
 			values : [ 0.30, 0.25 ],
 			statIds : [ "Stamina", "PoisonVulnerability" ],
 			icon: "/esoui/art/icons/ability_werewolf_001.png",
+		},
+		"Kyne`s Wind" :
+		{
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 508,
+			statDesc : "You and allies standing in Kyne's Blessing restore $1 Stamina and Magicka every 1 second.",
+			category: "Set",
+			statIds : [ "MagickaRestore", "StaminaRestore" ],
+			icon : "/esoui/art/icons/ability_healer_015.png",
+		},
+		"Symphony of Blades (Magicka)" :
+		{
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			visible : true,
+			toggleVisible : true,
+			value : 508,
+			statDesc : "Restores $1 Magicka every 1 second.",
+			category: "Set",
+			statIds : [ "MagickaRestore" ],
+			icon : "/esoui/art/icons/ability_debuff_snare.png",
+		},
+		"Symphony of Blades (Stamina)" :
+		{
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			visible : true,
+			toggleVisible : true,
+			value : 508,
+			statDesc : "Restores $1 Stamina every 1 second.",
+			category: "Set",
+			statIds : [ "StaminaRestore" ],
+			icon : "/esoui/art/icons/death_recap_melee_basic.png",
 		},
 		"Mechanical Acuity" : 
 		{
@@ -1246,6 +1314,42 @@ window.g_EsoBuildBuffData =
 		},
 		
 			/* Target Buffs */
+		"Major Defile (Target)" : 
+		{
+			group: "Target",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : -0.30,
+			display: "%",
+			categories : [ "Target", "Target" ],
+			statIds : [ "HealingTaken", "HealthRegen" ],
+			icon : "/esoui/art/icons/ability_nightblade_001_a.png",
+		},
+		"Minor Defile (Target)" : 
+		{
+			group: "Target",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : -0.15,
+			display: "%",
+			categories : [ "Target", "Target" ],
+			statIds : [ "HealingTaken", "HealthRegen" ],
+			icon : "/esoui/art/icons/ability_nightblade_001_b.png",
+		},
+		"Major Maim (Target)" : 
+		{
+			group: "Target",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : -0.30,
+			display: "%",
+			category: "Target",
+			statId : "DamageDone",
+			icon : "/esoui/art/icons/ability_fightersguild_004_a.png",
+		},
 		"Alkosh (Target)" : 
 		{
 			// Reduces the Physical and Spell Resistance of any enemy hit by 35-3010 for 10 seconds.
@@ -1258,6 +1362,31 @@ window.g_EsoBuildBuffData =
 			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
 			statDescs : [ "Reduces the target's Physical Resistance by ", "Reduces the target's Spell Resistance by " ],
 			icon : "/esoui/art/icons/ability_mage_065.png",
+		},
+		"Tremorscale (Target)" : 
+		{
+			group: "Target",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			values : [ -2395 ],
+			category: "Target",
+			statIds : [ "PhysicalDebuff" ],
+			statDescs : [ "Reduces the target's Physical Resistance by " ],
+			icon : "/esoui/art/icons/gear_undauntedsuneripper_head_a.png",
+		},
+		"Weakening Enchantment (Target)" :
+		{
+			//  Reduce target Weapon Damage and Spell Damage by 0-348 for 5 seconds.
+			group: "Target",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : -348,
+			category: "Target",
+			statIds : [ "WeaponDamage", "SpellDamage" ],
+			statDesc : "Reduces the target's Weapon Damage and Spell Damage by ",
+			icon : "/esoui/art/icons/ava_artifact_005.png",
 		},
 		"Crusher Enchantment (Target)" :
 		{
@@ -1676,8 +1805,20 @@ window.g_EsoBuildBuffData =
 
 
 window.ESO_ACTIVEEFFECT_MATCHES = [
-
-    {
+	{
+		statRequireId: "WerewolfStage",
+		statRequireValue: 2,
+		buffId: "Minor Courage",
+		match: /You also grant yourself and nearby allies Minor Courage/i
+	},
+	{
+		statRequireId: "WerewolfStage",
+		statRequireValue: 2,
+		statId: "DamageTaken",
+		display: "%",
+		match: /you take ([0-9]+\.?[0-9]*)% less damage/i
+	},
+	{
 		statId: "BlockMitigation",
 		display: "%",
 		match: /While slotted, the amount of damage you can block is increased by ([0-9]+\.?[0-9]*)%/i
@@ -1832,6 +1973,10 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		ignoreSkills: { "Bull Netch" : 1, "Betty Netch" : 1, "Blue Betty" : 1 },
 	},*/
 	{
+		buffId : "Major Brutality",
+		match: /While slotted you gain Major Brutality/i,
+	},
+	{
 		statId: "Stamina",
 		display: "%",
 		match: /While slotted, your Max Stamina is increased by ([0-9]+\.?[0-9]*)%/i,
@@ -1860,39 +2005,6 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		rawInputMatch: /(While slotted, your Spell and Weapon Damage is increased by [0-9]+ for Ardent Flame abilities)/i,
 		match: /While slotted, your Spell and Weapon Damage is increased by ([0-9]+) for Ardent Flame abilities/i
 	},
-	
-		/* Begin Other Effects */
-	{
-		statId: "OtherEffects",
-		display: "%",
-		rawInputMatch: /(While slotted, blocking any attack increases the damage of your next Power Slam by [0-9]+\.?[0-9]*% for [0-9]+ seconds)/i,
-		match: /While slotted, blocking any attack increases the damage of your next Power Slam by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds/i
-	},
-	{
-		statId: "OtherEffects",
-		rawInputMatch: /(While slotted, any time you kill an enemy you gain [0-9]+ Ultimate\.)/i,
-		match: /While slotted, any time you kill an enemy you gain ([0-9]+) Ultimate/i
-	},
-	{
-		statId: "OtherEffects",
-		rawInputMatch: /(You also prevent the stun and reduce the damage from stealth attacks by [0-9]+% for you and nearby allies\.)/i,
-		match: /You also prevent the stun and reduce the damage from stealth attacks by ([0-9]+)% for you and nearby allies/i
-	},
-	{
-		statId: "OtherEffects",
-		rawInputMatch: /(You also recover ([0-9]+) Magicka every 0\.5 seconds\.)/i,
-		match: /You also recover ([0-9]+) Magicka every 0\.5 seconds/i
-	},
-	{
-		statId: "OtherEffects",
-		match: /While slotted, any time you kill an enemy you gain ([0-9]+) Ultimate\./i
-	},
-	{
-		statId: "OtherEffects",
-		rawInputMatch: /(Critical hits from crouch grant Minor Berserk)/i,
-		match: /Critical hits from crouch grant Minor Berserk/i,
-	},
-		/* End Other Effects */
 	
 		/* Psijic Order */
 	{
@@ -1950,20 +2062,324 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		
 		/* Begin Toggled Abilities */
 	{
+		id: "Equilibrium",
+		baseSkillId: 42251,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		statId: "HealingDone",
+		factorValue: -1,
+		display: "%",
+		rawInputMatch: /(The exchange reduces your healing done and damage shield strength by [0-9]+% for [0-9]+ seconds\.)/,
+		match: /The exchange reduces your healing done and damage shield strength by ([0-9]+)% for /i
+	},
+	{
+		id: "Equilibrium",
+		baseSkillId: 42251,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		statId: "DamageShield",
+		display: "%",
+		factorValue: -1,
+		rawInputMatch: /(The exchange reduces your healing done and damage shield strength by [0-9]+% for [0-9]+ seconds\.)/,
+		match: /The exchange reduces your healing done and damage shield strength by ([0-9]+)% for /i
+	},
+	{
+		id: "Equilibrium",
+		displayName: "Spell Symmetry",
+		baseSkillId: 42251,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		statId: "MagickaCost",
+		factorValue: -1,
+		display: "%",
+		rawInputMatch: /(After the exchange is complete, the cost of your next Magicka ability is reduced by [0-9]+% for [0-9]+ seconds\.)/,
+		match: /After the exchange is complete, the cost of your next Magicka ability is reduced by ([0-9]+)% for/i
+	},
+	{
+		id: "Ferocious Roar",
+		baseSkillId: 42145,
+		matchSkillName: true,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		statId: "HeavyAttackSpeed",
+		display: "%",
+		rawInputMatch: /(Your Heavy Attacks also are [0-9]+% faster for [0-9]+ seconds after casting\.)/,
+		match: /Your Heavy Attacks also are ([0-9]+)% faster for/i
+	},
+	{
+		id: "Hircine's Fortitude",
+		baseSkillId: 58316,
+		matchSkillName: true,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		category: "Item",
+		statId: "HealthRegen",
+		maxTimes: 666,
+		statValue: 1,
+		rawInputMatch: /(increasing your Health and Stamina Recovery by [0-9.]+% of the healing caused for [0-9.]+ seconds, up to a maximum of [0-9.]+\.)/,
+		match: /increasing your Health and Stamina Recovery by [0-9.]+% of the healing caused for [0-9.]+ seconds, up to a maximum of [0-9.]+/i
+	},
+	{
+		id: "Hircine's Fortitude",
+		baseSkillId: 58316,
+		matchSkillName: true,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		category: "Item",
+		statId: "StaminaRegen",
+		maxTimes: 666,
+		statValue: 1,
+		rawInputMatch: /(increasing your Health and Stamina Recovery by [0-9.]+% of the healing caused for [0-9.]+ seconds, up to a maximum of [0-9.]+\.)/,
+		match: /increasing your Health and Stamina Recovery by [0-9.]+% of the healing caused for [0-9.]+ seconds, up to a maximum of [0-9.]+/i
+	},
+	{
+		id: "Daedric Prey",
+		baseSkillId: 30499,
+		matchSkillName: true,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		statId: "PetDamageDone",
+		display: "%",
+		rawInputMatch: /(While the curse is active, your pets deal an additional [0-9.]+% damage to the target\.)/,
+		match: /While the curse is active, your pets deal an additional ([0-9.]+)% damage to the target/i
+	},
+	{
+		id: "Summon Twilight Tormentor",
+		baseSkillId: 30587,
+		matchSkillName: true,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		statId: "PetDamageDone",
+		display: "%",
+		rawInputMatch: /(Once summoned, you can activate the twilight tormentor's special ability for [0-9.]+ Magicka, causing it to deal [0-9.]+% more damage to enemies above [0-9.]+% Health for [0-9.]+ seconds\.)/,
+		match: /you can activate the twilight tormentor's special ability for [0-9.]+ Magicka, causing it to deal ([0-9.]+)% more damage/i
+	},
+	{
+		id: "Surprise Attack",
+		baseSkillId: 36223,
+		matchSkillName: true,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		category: "Target",
+		statId: "PhysicalResistPctReduce",
+		display: "%",
+		rawInputMatch: /(If you are flanking the enemy, shred through a small portion of their armor, reducing their Physical Resistance by ([0-9.]+)% for ([0-9.]+) seconds\.)/,
+		match: /reducing their Physical Resistance by ([0-9.]+)% for/i
+	},
+	{
+		id: "Death Stroke",
+		baseSkillId: 37518,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		category: "Target",
+		statId: "DamageTaken",
+		display: "%",
+		rawInputMatch: /(causing them to take [0-9]+% more damage from your attacks for [0-9.]+ seconds\.)/,
+		match: /causing them to take ([0-9]+)% more damage from your attacks/i
+	},
+	{
+		id: "Brutal Pounce",
+		baseSkillId: 42110,
+		matchSkillName: true,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		category: "Skill2",
+		statId: "WeaponDamage",
+		maxTimes: 6,
+		rawInputMatch: /(Increases your Weapon Damage by [0-9]+ for each enemy hit, up to a maximum of [0-9]+ times\.)/,
+		match: /Increases your Weapon Damage by ([0-9]+) for each enemy hit, up to a maximum of [0-9]+ times/i
+	},
+	{
+		id: "Standard of Might",
+		baseSkillId: 33963,
+		matchSkillName: true,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		category: "Skill",
+		statId: "DamageDone",
+		display: "%",
+		rawInputMatch: /(Standing in the area increases your damage done and reduces damage taken by [0-9]+%\.)/,
+		match: /Standing in the area increases your damage done and reduces damage taken by ([0-9]+)%/i
+	},
+	{
+		id: "Standard of Might",
+		baseSkillId: 28988,
+		matchSkillName: true,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		category: "Skill",
+		statId: "DamageTaken",
+		display: "%",
+		match: /Standing in the area increases your damage done and reduces damage taken by ([0-9]+)%/i
+	},
+	{
+		id: "Blood Frenzy",
+		baseSkillId: 40132141,
+		matchSkillName: true,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		category: "Skill2",
+		statId: "SpellDamage",
+		match: /Allow your monstrous appetites to take hold, increasing your Weapon and Spell Damage by ([0-9]+)\./i
+	},
+	{
+		id: "Blood Frenzy",
+		baseSkillId: 40132141,
+		matchSkillName: true,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		category: "Skill2",
+		statId: "WeaponDamage",
+		match: /Allow your monstrous appetites to take hold, increasing your Weapon and Spell Damage by ([0-9]+)\./i
+	},
+	{
+		id: "Sated Fury",
+		baseSkillId: 40132141,
+		matchSkillName: true,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		category: "Skill2",
+		statId: "SpellDamage",
+		match: /Allow your monstrous appetites to take hold, increasing your Weapon and Spell Damage by ([0-9]+)\./i
+	},
+	{
+		id: "Sated Fury",
+		baseSkillId: 40132141,
+		matchSkillName: true,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		category: "Skill2",
+		statId: "WeaponDamage",
+		match: /Allow your monstrous appetites to take hold, increasing your Weapon and Spell Damage by ([0-9]+)\./i
+	},
+	{
+		id: "Simmering Frenzy",
+		matchSkillName: true,
+		baseSkillId: 40132141,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		category: "Skill2",
+		statId: "SpellDamage",
+		maxTimes: 100,
+		factorValue: 0.1,
+		baseValue: 1.0,
+		match: /Allow your monstrous appetites to take hold, increasing your Weapon and Spell Damage by ([0-9]+)\.[\s\S]*While toggled on, the Health cost of this ability increases by [0-9]+% and Weapon and Spell Damage bonus increases by [0-9]+% every second/i
+	},
+	{
+		id: "Simmering Frenzy",
+		matchSkillName: true,
+		baseSkillId: 40132141,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		category: "Skill2",
+		statId: "WeaponDamage",
+		maxTimes: 100,
+		factorValue: 0.1,
+		baseValue: 1.0,
+		match: /Allow your monstrous appetites to take hold, increasing your Weapon and Spell Damage by ([0-9]+)\.[\s\S]*While toggled on, the Health cost of this ability increases by [0-9]+% and Weapon and Spell Damage bonus increases by [0-9]+% every second/i
+	},
+	{
+		id: "Simmering Frenzy",
+		matchSkillName: true,
+		baseSkillId: 40132141,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		category: "SkillCost",
+		statId: "Simmering_Frenzy_Cost",
+		display: "%",
+		maxTimes: 100,
+		factorValue: 0.2,
+		statValue: 100,
+		match: /Allow your monstrous appetites to take hold, increasing your Weapon and Spell Damage by [0-9]+\.[\s\S]*While toggled on, the Health cost of this ability increases by [0-9]+% and Weapon and Spell Damage bonus increases by [0-9]+% every second/i
+	},
+	{
+		id: "Blood Scion",
+		baseSkillId: 41920,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		category: "Skill2",
+		statId: "Health",
+		match: /While transformed, your Max Health, Magicka, and Stamina is increased by ([0-9]+),/i
+	},
+	{
+		id: "Blood Scion",
+		baseSkillId: 41920,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		category: "Skill2",
+		statId: "Magicka",
+		match: /While transformed, your Max Health, Magicka, and Stamina is increased by ([0-9]+),/i
+	},
+	{
+		id: "Blood Scion",
+		baseSkillId: 41920,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		category: "Skill2",
+		statId: "Stamina",
+		match: /While transformed, your Max Health, Magicka, and Stamina is increased by ([0-9]+),/i
+	},
+	{
+		id: "Blood Scion",
+		displayName: "Perfect Scion",
+		baseSkillId: 41920,
+		//matchSkillName: true,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		category: "Skill",
+		statId: "VampireStage",
+		statValue: 5,
+		match: /You also ascend to Vampire Stage 5, which grants all the benefits of Vampire Stage 4 with none of the drawbacks\./i
+	},
+	{
 		id: "Northern Storm",
 		baseSkillId: 86112,
 		toggle: true,
 		enabled: false,
 		display: "%",
 		statId: "Magicka",
-		rawInputMatch: /(and increasing your Max Magicka by [0-9]+% for [0-9]+ seconds)/i,
+		rawInputMatch: /(and increasing your Max Magicka by [0-9]+% for [0-9]+ seconds\.[\s\S]*You and nearby allies gain Major Protection, reducing your damage taken by [0-9]+%\.)/i,
 		match: /and increasing your Max Magicka by ([0-9]+)% for [0-9]+ seconds/i
+	},
+	{
+		id: "Northern Storm",
+		baseSkillId: 86112,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		buffId: "Major Protection",
+		match: /You and nearby allies gain Major Protection, reducing your damage taken/i
 	},
 	{
 		id: "Spirit Guardian",
 		baseSkillId: 40115710,
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		buffId: "Spirit Guardian",
 		updateBuffValue: true,
 		rawInputMatch: /(While active, [0-9]+% of the damage you take is transferred to the spirit instead\.)/i,
@@ -1976,6 +2392,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		statId: "RangedDamageTaken",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		display: "%",
 		factorValue: -1,
 		match: /Flex your scales, reducing your damage taken from projectiles by ([0-9]+)%/i
@@ -1987,6 +2404,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		statId: "RangedDamageTaken",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		display: "%",
 		factorValue: -1,
 		match: /Flex your scales, reducing damage taken from projectiles by ([0-9]+)%/i
@@ -1998,6 +2416,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		updateBuffValue: true,
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		match: /Affected enemies take more damage from all Flame Damage attacks based on your offensive stats, with a maximum of [0-9]+% bonus damage taken\.[\s]*Current value ([0-9]+)%/i
 	},
 	{
@@ -2007,10 +2426,12 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		statId: "WeaponDamage",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		match: /After activating, your Weapon Damage is increased by ([0-9]+) for /i
 	},
 	{
 		id: "Molten Whip",
+		matchSkillName: true,
 		baseSkillId: 23811,
 		category: "Skill2",
 		statId: "SpellDamage",
@@ -2021,6 +2442,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 	},
 	{
 		id: "Molten Whip",
+		matchSkillName: true,
 		baseSkillId: 23811,
 		category: "Skill2",
 		statId: "WeaponDamage",
@@ -2031,6 +2453,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 	},
 	{
 		id: "Molten Whip",
+		matchSkillName: true,
 		baseSkillId: 23811,
 		category: "SkillDamage",
 		statId: "Molten Whip",
@@ -2046,6 +2469,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		statId: "DamageTaken",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		maxTimes: 5,
 		factorValue: -1,
 		display: "%",
@@ -2058,6 +2482,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		statId: "Health",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		match: /Goliath, increasing your Max Health by ([0-9]+) for/i
 	},
 	{
@@ -2068,6 +2493,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		display: "%",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		factorValue: -1,
 		match: /While active, reduce the cost of Blastbones, Skeletal Mage, and Spirit Mender by ([0-9]+)%/i
 	},
@@ -2079,6 +2505,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		display: "%",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		factorValue: -1,
 		match: /While active, reduce the cost of Blastbones, Skeletal Mage, and Spirit Mender by ([0-9]+)%/i
 	},
@@ -2090,6 +2517,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		display: "%",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		factorValue: -1,
 		match: /While active, reduce the cost of Blastbones, Skeletal Mage, and Spirit Mender by ([0-9]+)%/i
 	},	
@@ -2103,6 +2531,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		display: "%",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		maxTimes: 6,
 		match: /Each enemy hit increases your damage done by ([0-9]+)% for the duration, up to a maximum of [0-9]+% more damage done/i,
 	},
@@ -2111,6 +2540,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 40103503,
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		buffId: "Major Expedition",
 		match: /to gain Major Expedition/i
 	},
@@ -2119,6 +2549,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 40103503,
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		buffId: "Minor Force",
 		match: /and Minor Force for/i
 	},
@@ -2137,19 +2568,10 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		id: "Leeching Strikes",
 		matchSkillName: true,
 		baseSkillId: 37977,
-		statId: "OtherEffects",
-		toggle: true,
-		enabled: false,
-		rawInputMatch: /(Imbue your weapons with soul-stealing power, causing your Light and Heavy Attacks to restore [0-9]+ Magicka, [0-9]+ Stamina, and [0-9]+\.?[0-9]*% of your Max Health while toggled\.)/i,
-		match: /Imbue your weapons with soul-stealing power, causing your Light and Heavy Attacks to restore [0-9]+ Magicka, [0-9]+ Stamina, and ([0-9]+\.?[0-9]*)% of your Max Health while toggled/i
-	},
-	{
-		id: "Leeching Strikes",
-		matchSkillName: true,
-		baseSkillId: 37977,
 		statId: "WeaponDamage",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		factorValue: -1,
 		display: "%",
 		match: /Leeching Strikes also reduces your Weapon Power and Spell Power by ([0-9]+\.?[0-9]*)% while toggled/i
@@ -2161,6 +2583,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		statId: "SpellDamage",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		factorValue: -1,
 		display: "%",
 		match: /Leeching Strikes also reduces your Weapon Power and Spell Power by ([0-9]+\.?[0-9]*)% while toggled/i
@@ -2170,6 +2593,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 28567,
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		buffId: "Major Sorcery",
 		match: /Grants you Major Sorcery, /i
 	},
@@ -2178,6 +2602,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 86053,
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		buffId: "Major Sorcery",
 		match: /grants you Major Sorcery/i
 	},
@@ -2187,6 +2612,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 86053,
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		buffId: "Major Brutality",
 		match: /grants you Major Sorcery and Major Brutality/i
 	},
@@ -2196,6 +2622,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		statId: "Magicka",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		display: "%",
 		match: /The armor increases your Max Magicka by ([0-9]+\.?[0-9]*)%/i
 	},
@@ -2205,6 +2632,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		statId: "BlockMitigation",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		display: "%",
 		match: /that increases your block mitigation by ([0-9]+\.?[0-9]*)%/i
 	},
@@ -2215,8 +2643,8 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		statId: "HADamage",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		display: "%",
-		// match: /The armor increases your damage with Heavy Attacks by ([0-9]+\.?[0-9]*)% and increases your Max Stamina by [0-9]+\.?[0-9]*%/i
 		match: /The armor increases your Max Stamina by [0-9]+\.?[0-9]*% and your damage done with Heavy Attacks by ([0-9]+\.?[0-9]*%)/i,
 	},
 	{
@@ -2226,6 +2654,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		statId: "Stamina",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		display: "%",
 		match: /The armor increases your Max Stamina by ([0-9]+\.?[0-9]*)% and your damage done with Heavy Attacks by [0-9]+\.?[0-9]*%/i,
 	},
@@ -2235,6 +2664,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		buffId : "Minor Resolve",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		match: /Protect yourself with the power of Oblivion, creating a suit of Daedric mail that grants Minor Resolve/i,
 	},
 	{
@@ -2243,6 +2673,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		buffId : "Minor Ward",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		match: /Protect yourself with the power of Oblivion, creating a suit of Daedric mail that grants Minor Resolve and Minor Ward/i,
 	},
 	{
@@ -2251,6 +2682,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		buffId : "Minor Toughness",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		match: /granting Minor Toughness/i,
 	},
 	{
@@ -2259,6 +2691,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		buffId : "Warhorn",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		match: /increasing you and your allies' Max Magicka and Max Stamina by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -2268,6 +2701,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		buffId : "Major Force",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		match: /You and your allies gain Major Force/i,
 	},
 	{
@@ -2277,6 +2711,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		buffId : "Minor Resolve",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		match: /You and your allies gain Minor Resolve and Minor Ward/i,
 	},
 	{
@@ -2286,6 +2721,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		buffId : "Minor Ward",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		match: /You and your allies gain Minor Resolve and Minor Ward/i,
 	},
 	{
@@ -2294,6 +2730,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		buffId : "Major Ward",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		match: /While in this form you also gain Major Resolve and Major Ward/i,
 	},
 	{
@@ -2302,6 +2739,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		buffId : "Major Resolve",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		match: /While in this form you also gain Major Resolve and Major Ward/i,
 	},
 	{
@@ -2312,6 +2750,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		buffId : "Major Resolve",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		match: /While in this form you gain Major Resolve, Major Ward,/i,
 	},
 	{
@@ -2322,6 +2761,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		buffId : "Major Ward",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		match: /While in this form you gain Major Resolve, Major Ward,/i,
 	},
 	{
@@ -2332,6 +2772,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		buffId : "Minor Expedition",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		match: /While in this form you gain Major Resolve, Major Ward, and Minor Expedition/i,
 	},
 	{
@@ -2342,6 +2783,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		buffId : "Major Expedition",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		match: /Activating this grants Major Expedition for a brief period/i,
 	},
 	{
@@ -2351,6 +2793,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 32156,
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		statId: "HADamage",
 		display: "%",
 		match: /Your own damage with fully\-charged Heavy Attacks is increased by ([0-9]+\.?[0-9]*)% while active/i,
@@ -2361,6 +2804,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 32156,
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		buffId : "Major Sorcery",
 		match: /Charge you and your allies' weapons with volcanic power to gain Major Sorcery/i,
 	},
@@ -2370,6 +2814,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 32156,
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		buffId : "Major Brutality",
 		match: /Charge you and your allies' weapons with volcanic power to gain Major Sorcery and Major Brutality/i,
 	},
@@ -2381,6 +2826,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		factorValue: -1,
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		display: "%",
 		buffId: "Blade Cloak",
 		rawInputMatch: /(The razors also shield you from shrapnel, reducing the damage you take from area of effect attacks by [0-9]+\.?[0-9]*%\.)/i,
@@ -2394,6 +2840,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		factorValue: -1,
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		display: "%",
 		buffId: "Blade Cloak",
 		rawInputMatch: /(The razors shield you from shrapnel, reducing the damage you take from area of effect attacks by [0-9]+\.?[0-9]*%\.)/i,
@@ -2407,7 +2854,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		buffId: "Major Brutality",
 		toggle: true,
 		enabled: false,
-		match: /increasing your Weapon Damage by ([0-9]+\.?[0-9]*)%/i
+		match: /While slotted you gain Major Brutality, increasing your Weapon Damage by/i
 	},
 	{
 		id: "Evil Hunter",
@@ -2415,6 +2862,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 42610,
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		category: "SkillCost",
 		statId: "Fighters_Guild_Cost",
 		factorValue: -1,
@@ -2427,6 +2875,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 23970,
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		buffId : "Major Ward",
 		match: /the rune grants you Major Resolve and Major Ward/i
 	},
@@ -2436,6 +2885,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 23970,
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		buffId : "Major Resolve",
 		match: /the rune grants you Major Resolve and Major Ward/i
 	},
@@ -2445,6 +2895,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 23985,
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		buffId : "Minor Vitality",
 		match: /You also gain Minor Vitality and Minor Protection/i
 	},
@@ -2454,6 +2905,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 23985,
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		buffId : "Minor Protection",
 		match: /You also gain Minor Vitality and Minor Protection/i
 	},	
@@ -2464,6 +2916,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 23970,
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		buffId : "Major Resolve (Bonus)",
 		match: /the rune grants you Major Resolve and Major Ward/i,
 		rawInputMatch: /(Standing within the rune increases Physical Resistance and Spell Resistance granted by [0-9]+\.?[0-9]*%\.)/i,
@@ -2475,6 +2928,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		baseSkillId: 23970,
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		buffId : "Major Ward (Bonus)",
 		match: /the rune grants you Major Resolve and Major Ward/i,
 		rawInputMatch: /(Standing within the rune increases Physical Resistance and Spell Resistance granted by [0-9]+\.?[0-9]*%\.)/i,
@@ -2490,23 +2944,28 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		display: "%",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		match: /Dissolve into a dark mist, reducing your damage taken by ([0-9]+\.?[0-9]*)%/i,
 		rawInputMatch: /(Dissolve into a dark mist, reducing your damage taken by [0-9]+\.?[0-9]*%)/i,
 	},
-	
- 
 		/* End Toggled Abilities */
-		
 	
 ];
 
 
 window.ESO_PASSIVEEFFECT_MATCHES = [
-                                    
 	// Reach: Increases the range of long-range abilities by 2 meters while near a keep. Any ability with a range greater than 28 meters is affected.
 	// WHILE YOU ARE EMPEROR Increases your damage done with Siege Weapons to keeps and other Siege Weapons by 100% while in your campaign.
-
-	
+	{
+		statId: "EnableFrostTaunt",
+		statValue: 1,
+		match: /Fully-charged Frost Staff Heavy Attacks taunt the enemy to attack you/i,
+	},
+	{
+		statId: "PotionDuration",
+		display: "%",
+		match: /When using potions, resulting effects last ([0-9]+])% longer/i,
+	},
 	{
 		statId: "StatusEffectChance",
 		display: "%",
@@ -2781,6 +3240,14 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireValue: 4,
 		value: 1,
 		match: /Ignore the movement speed penalty while in crouch/i,
+	},
+	{
+		category: "Skill",
+		statId: "NormalSneakSpeed",
+		statRequireId: "VampireStage",
+		statRequireValue: 1,	//TODO: 26pts ?
+		value: 1,
+		match: /Ignore the movement speed penalty of Sneak/i,
 	},
 	{
 		factorStatId: "ArmorTypes",
@@ -3137,7 +3604,13 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "SprintCost",
 		display: "%",
 		factorValue: -1,
-		match: /Reduces the cost of Sprint by ([0-9]+\.?[0-9]*)%/i,
+		match: /Reduces the cost of Sprint by ([0-9]+\.?[0-9]*)% and/i,
+	},
+	{
+		statId: "SprintCost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of Sprint by ([0-9]+\.?[0-9]*)% per/i,
 	},
 	{
 		statId: "SprintSpeed",
@@ -3177,6 +3650,13 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statRequireId: "Weapon1HShield",
 		statRequireValue: 1,
+		statId: "BlockSpeedPenalty",
+		display: "%",
+		match: /Reduces the Movement Speed penalty of Bracing[\s\S]+Current penalty: ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statRequireId: "Weapon1HShield",
+		statRequireValue: 1,
 		statId: "WeaponDamage",
 		display: "%",
 		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Increases your Weapon Damage by ([0-9]+\.?[0-9]*)%/i,
@@ -3207,6 +3687,20 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		match: /Your Bash attacks gain an additional [0-9]+ Weapon and Spell Damage and cost ([0-9]+)% less Stamina./i,
+	},
+	{
+		statRequireId: "Weapon1HShield",
+		statRequireValue: 1,
+		statId: "BashCost",
+		display: "%",
+		factorValue: -1,
+		match: /Improves your standard bash attacks, causing them to deal [0-9]+ more damage and cost ([0-9.]+)% less Stamina/i,
+	},
+	{
+		statRequireId: "Weapon1HShield",
+		statRequireValue: 1,
+		statId: "ExtraBashDamage",
+		match: /Improves your standard bash attacks, causing them to deal ([0-9]+) more damage and/i,
 	},
 	{
 		statRequireId: "Weapon1H",
@@ -4278,6 +4772,14 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		statRequireId: "VampireStage",
+		statRequireValue: 4,
+		statId: "SprintCost",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of Sprint by ([0-9]+\.?[0-9]*)%\./i,
+	},
+	{
+		statRequireId: "VampireStage",
 		statRequireValue: 2,
 		statId: "MagickaRegen",
 		display: "%",
@@ -4969,6 +5471,60 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	
 		/* Begin Toggled Passives */
 	{
+		id: "Undeath",
+		baseSkillId: 33093,
+		statRequireId: "VampireStage",
+		statRequireValue: 3,
+		category: "Skill",
+		statId: "DamageTaken",
+		display: "%",
+		factorValue: -1,
+		toggle: true,
+		enabled: false,
+		maxTimes: 30,
+		match: /Reduces your damage taken by up to [0-9]+\.?[0-9]*% based on your missing Health/i,
+	},
+	{
+		id: "Strike from the Shadows",
+		baseSkillId: 33096,
+		statRequireId: "VampireStage",
+		statRequireValue: 2,
+		category: "Skill2",
+		statId: "SpellDamage",
+		toggle: true,
+		enabled: false,
+		match: /When you leave Sneak, invisibility, or Mist Form your Weapon and Spell Damage is increased by ([0-9]+) for/i,
+	},
+	{
+		id: "Strike from the Shadows",
+		baseSkillId: 33096,
+		statRequireId: "VampireStage",
+		statRequireValue: 2,
+		category: "Skill2",
+		statId: "WeaponDamage",
+		toggle: true,
+		enabled: false,
+		match: /When you leave Sneak, invisibility, or Mist Form your Weapon and Spell Damage is increased by ([0-9]+) for/i,
+	},
+	{
+		id: "Glacial Presence",
+		baseSkillId: 86191,
+		statId: "CritDamage",
+		toggle: true,
+		enabled: false,
+		display: "%",
+		match: /Enemies and allies who have recently been Chilled take ([0-9.]+)% more Critical Damage and Healing from you/i
+	},
+	{
+		id: "Glacial Presence",
+		baseSkillId: 86191,
+		statId: "CritHealing",
+		toggle: true,
+		enabled: false,
+		display: "%",
+		match: /Enemies and allies who have recently been Chilled take ([0-9.]+)% more Critical Damage and Healing from you/i
+	},
+	{
 		id: "Reusable Parts",
 		baseSkillId: 116186,
 		category: "SkillCost",
@@ -5276,20 +5832,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		match: /WHILE USING DUAL WIELD ATTACKS\s*Gives you a(?:n|) ([0-9]+\.?[0-9]*)% damage bonus when attacking stunned, immobilized, disoriented, or silenced enemies/i,
-	},
-	{
-		id: "Undeath",
-		baseSkillId: 33096,
-		statRequireId: "VampireStage",
-		statRequireValue: 3,
-		category: "Skill",
-		statId: "DamageTaken",
-		display: "%",
-		factorValue: -1,
-		toggle: true,
-		enabled: false,
-		maxTimes: 33,
-		match: /WHILE YOU HAVE VAMPIRISM STAGE 3 OR HIGHER[\s\S]*?Reduces your damage taken by up to [0-9]+\.?[0-9]*% based on your missing Health/i,
 	},
 	{
 		id: "Slaughter",
@@ -5620,8 +6162,31 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 ];
 
 
+window.ESO_CPEFFECT_MATCHES = [
+	{
+		id: "Exploiter",
+		toggle: true,
+		eanble: false,
+		category: "CP",
+		statId: "DamageDone",
+		display: "%",
+		match: /Increases your damage done against Off Balance enemies by ([0-9\.]+)%/i,
+	},
+	{
+		id: "Foresight",
+		toggle: true,
+		eanble: false,
+		category: "CP",
+		statId: "MagickaCost",
+		display: "%",
+		factorValue: -1,
+		match: /When you drink a potion, the cost of your next Magicka ability used within [0-9\.] seconds is reduced by ([0-9\.]+)%/i,
+	},
+];
+
+
 window.ESO_SETEFFECT_MATCHES = [
-                         
+
 //Noble Duelist's Silks: (5 items) When you dodge an attack, your Light and Heavy Attacks deal an additional 1225 damage for 8 seconds.
 //The Morag Tong: (5 items) When you deal direct damage, you cause the enemy to take 10% more damage from all Poison Damage abilities for 5 seconds.
 //Alessia's Bulwark: (5 items) When you take damage from a melee attack, you have a 15% chance to reduce the attacker's Weapon Damage by 10% for 5 seconds.
@@ -5630,8 +6195,11 @@ window.ESO_SETEFFECT_MATCHES = [
 //Jorvuld's Guidance: (5 items) Increases the duration of all Major buffs, Minor buffs, and damage shields you apply to yourself and allies by 40%.
 //Piercing Spray (Perfected): (2 items) When you deal damage with Arrow Spray, you cause enemies hit to take 50% more damage from the direct damage portion of your next Snipe, Scatter Shot, or Poison Arrow used within 6 seconds.
 
-
-
+	{
+		category: "Set",
+		statId: "BuffDuration",
+		match: /Increases the duration of all Major buffs.*by ([0-9]+\.?[0-9]*)%/i,
+	},
 	{	// Deadly strike
 		statId: "PhysicalDotDamageDone",
 		display: "%",
@@ -5649,6 +6217,26 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 	{	// Deadly strike -- Note that bleeds are all DoTs so ignore this to prevent a double effect
 		statId: "BleedDotDamageDone",
+		display: "%",
+		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{	// Deadly strike
+		statId: "PhysicalChannelDamageDone",
+		display: "%",
+		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{	// Deadly strike
+		statId: "DiseaseChannelDamageDone",
+		display: "%",
+		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{	// Deadly strike
+		statId: "PoisonChannelDamageDone",
+		display: "%",
+		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{	// Deadly strike -- Note that bleeds are all DoTs so ignore this to prevent a double effect
+		statId: "BleedChannelDamageDone",
 		display: "%",
 		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
 	},
@@ -5670,9 +6258,14 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Increases the duration of your alchemical poisons by ([0-9]+) seconds/i,
 	},
 	{	// Stinging Slashes
-		category: "Set",	
+		category: "Set",
 		statId: "TwinSlashBleedDamage",
 		match: /Increases the bleed damage Twin Slashes deals by ([0-9]+) each tick/i,
+	},
+	{	// Stinging Slashes
+		category: "Set",
+		statId: "TwinSlashInitialDamage",
+		match: /Twin Slashes deals ([0-9]+) more damage for each hit of the initial attack and bleed/i,
 	},
 	{
 		category: "Set",
@@ -6169,7 +6762,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Increases your Light and Heavy Attack damage by ([0-9]+)%/i,
 	},
 	{
-		statId: "OverloadDamage",		
+		statId: "OverloadDamage",
 		display: "%",
 		match: /Increases your Light and Heavy Attack damage by ([0-9]+)%/i,
 	},
@@ -6340,6 +6933,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Increases your Critical Damage by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+			//Archer's Mind
 		statId: "CritDamage",
 		statRequireId: "Stealthed",
 		statRequireValue: 1,
@@ -6347,6 +6941,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Increases your Critical Damage done by an additional ([0-9]+\.?[0-9]*)% when attacking from Sneak or invisibility/i,
 	},
 	{
+			//Archer's Mind
 		statId: "CritDamage",
 		statRequireId: "Stealthed",
 		statRequireValue: 1,
@@ -6414,15 +7009,23 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		statId: "HealthRegen",
-		match: /Adds ([0-9]+) Health Recovery/i,
+		match: /Adds ([0-9]+) Health Recovery$/i,
 	},
 	{
 		statId: "MagickaRegen",
-		match: /Adds ([0-9]+) Magicka Recovery/i,
+		match: /Adds ([0-9]+) Magicka Recovery$/i,
 	},
 	{
 		statId: "StaminaRegen",
-		match: /Adds ([0-9]+) Stamina Recovery/i,
+		match: /Adds ([0-9]+) Stamina Recovery$/i,
+	},
+	{
+		statId: "MagickaRegen",
+		match: /Adds ([0-9]+) Magicka Recovery[\n\r]+/i,
+	},
+	{
+		statId: "StaminaRegen",
+		match: /Adds ([0-9]+) Stamina Recovery[\n\r]+/i,
 	},
 	{
 		statId: "PhysicalResist",
@@ -6950,6 +7553,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		//match: /Decreases weapon enchantment cooldown and increases potency by ([0-9]+\.?[0-9]*)%/i,
 		match: /Decreases weapon enchantment cooldown and increases non Oblivion Damage enchantment potency by ([0-9]+)%/i,
 	},
+	/*
 	{
 		setBonusCount: 4,
 		category: "Item",
@@ -6967,7 +7571,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		factorValue: -1,
 		//match: /Decreases weapon enchantment cooldown and increases potency by ([0-9]+\.?[0-9]*)%/i,
 		match: /Decreases weapon enchantment cooldown and increases non Oblivion Damage enchantment potency by ([0-9]+)%/i,
-	},
+	}, //*/
 	{
 		setBonusCount: 2,
 		statId: "MountSpeed",
@@ -7035,55 +7639,29 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		id: "Infallible Mage",
 		setBonusCount: 4,
-		enabled: false,
 		category: "Skill2",
 		statId: "HADamage",
 		match: /Your fully-charged Heavy Attacks deal an additional ([0-9]+) damage/i,
 	},
 	{
-		id: "Cruel Flurry",
-		setBonusCount: 1,
-		enabled: false,
-		buffId: "Maelstrom DW Enchantment",
-		updateBuffValue : true,
-		enableOffBar : true,
-		toggle: true,
-		//match: /When you deal damage with Flurry, your next single target damage over time ability used within [0-9]+ seconds gains ([0-9]+) Spell and Weapon Damage/i,
-		match: /When you deal damage with Flurry, your single target damage over time abilities used within [0-9]+ seconds gain ([0-9]+) Spell and Weapon Damage./i,
-	},
-	{
 		id: "Destructive Impact",
 		setBonusCount: 1,
-		enabled: false,
 		category: "SkillCost",
 		statId: "Destructive_Touch_Cost",
 		display: "%",
 		factorValue: -1,
-		match: /Reduces the cost of Destructive Touch by ([0-9]+)% and increases the direct damage it deals by [0-9]+./i,
+		match: /Reduces the cost of Destructive Touch by ([0-9]+)% and /i,
 	},
 	{
 		id: "Destructive Impact",
 		setBonusCount: 1,
-		enabled: false,
 		category: "SkillDirectDamage",
 		statId: "Destructive Touch",
 		match: /Reduces the cost of Destructive Touch by [0-9]+% and increases the direct damage it deals by ([0-9]+)./i,
 	},
 	{
-		id: "Dro'Zakar's Claws",
-		setBonusCount: 4,
-		enabled: false,
-		toggle: true,
-		maxTimes: 7,
-		category: "Set",
-		statId: "WeaponDamage",
-		match: /For every bleed effect you have on an enemy, increase your Weapon Damage by ([0-9]+) against them/i,
-	},
-	{
 		id: "Swamp Raider",
 		setBonusCount: 4,
-		toggle: false,
-		enabled: false,
 		enableOffBar : true,
 		category: "SkillBonusWeaponDmg",
 		statId: "Poison",
@@ -7093,8 +7671,6 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		id: "Swamp Raider",
 		setBonusCount: 4,
-		toggle: false,
-		enabled: false,
 		enableOffBar : true,
 		category: "SkillBonusWeaponDmg",
 		statId: "Disease",
@@ -7196,9 +7772,507 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "PhysicalPenetration",
 		match: /Adds [0-9]+ Weapon Damage and ([0-9]+) Physical Penetration/i,
 	},
-		
+	{
+		category: "Item",
+		statId: "SpellCrit",
+		statValue: -200,
+		match: /You cannot deal critical damage/i,
+	},
+	{
+		category: "Item",
+		statId: "WeaponCrit",
+		statValue: -200,
+		match: /You cannot deal critical damage/i,
+	},
+	{
+		statId: "VampireLord",
+		statValue: 1,
+		match: /Increases the bonuses and penalties of your Vampire Stage, depending on how far you've progressed/i,
+	},
+	{
+		//Leki's Focus
+		statId: "AOEDamageDone",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces your damage done with area of effect attacks by ([0-9.]+)%, but grants Major Evasion at all times/i,
+	},
+	{
+		//Leki's Focus
+		buffId: "Major Evasion",
+		match: /Reduces your damage done with area of effect attacks by ([0-9.]+)%, but grants Major Evasion at all times/i,
+	},
+	
 	
 		// Optionally toggled set effects
+	{
+		id: "Healing Mage",
+		setBonusCount: 4,
+		enableOffBar: true,
+		toggle: true,
+		enabled: false,
+		buffId: "Healing Mage (Debuff)",
+		updateBuffValue: true,
+		match: /you reduce the Weapon Damage of all enemies within [0-9.]+ meters of you by ([0-9.]+) for/i,
+	},
+	{
+		id: "Spectral Cloak",
+		setBonusCount: 1,
+		enableOffBar: true,
+		toggle: true,
+		enabled: false,
+		display: "%",
+		statId: "DamageDone",
+		match: /Dealing damage with Blade Cloak grants you Spectral Cloak for [0-9.]+ seconds, reducing your damage taken and increasing your damage done by ([0-9]+)%/i,
+	},
+	{
+		id: "Spectral Cloak",
+		setBonusCount: 1,
+		enableOffBar: true,
+		toggle: true,
+		enabled: false,
+		factorValue: -1,
+		display: "%",
+		statId: "DamageTaken",
+		match: /Dealing damage with Blade Cloak grants you Spectral Cloak for [0-9.]+ seconds, reducing your damage taken and increasing your damage done by ([0-9]+)%/i,
+	},
+	{
+		id: "Perfected Spectral Cloak",
+		setBonusCount: 2,
+		enableOffBar: true,
+		toggle: true,
+		enabled: false,
+		display: "%",
+		statId: "DamageDone",
+		match: /Dealing damage with Blade Cloak grants you Spectral Cloak for [0-9.]+ seconds, reducing your damage taken and increasing your damage done by ([0-9]+)%/i,
+	},
+	{
+		id: "Perfected Spectral Cloak",
+		setBonusCount: 2,
+		enableOffBar: true,
+		toggle: true,
+		enabled: false,
+		factorValue: -1,
+		display: "%",
+		statId: "DamageTaken",
+		match: /Dealing damage with Blade Cloak grants you Spectral Cloak for [0-9.]+ seconds, reducing your damage taken and increasing your damage done by ([0-9]+)%/i,
+	},
+	{
+		id: "The Morag Tong",
+		setBonusCount: 4,
+		enableOffBar: true,
+		toggle: true,
+		enabled: false,
+		display: "%",
+		category: "Target",
+		statId: "PoisonDamageTaken",
+		match: /you cause the enemy to take ([0-9]+)% more damage from all Poison Damage/i,
+	},
+	{
+		id: "Z'en's Redress",
+		setBonusCount: 4,
+		buffId: "Zens Redress",
+		updateBuffValue: true,
+		enableOffBar: true,
+		toggle: true,
+		enabled: false,
+		maxTimes: 5,
+		display: "%",
+		match: /Enemies with the Touch of Z'en take an additional ([0-9]+)% more damage for each damage over time effect you've placed on them/i,
+	},
+	{
+		id: "Destructive Impact",
+		setBonusCount: 1,
+		statId: "SpellDamage",
+		enableOffBar: true,
+		toggle: true,
+		enabled: false,
+		rawInputMatch: /(increases your Spell Damage by [0-9]+ for [0-9]+ seconds after activating it)/,
+		match: /Reduces the cost of Destructive Touch by [0-9]+% and increases your Spell Damage by ([0-9]+) for [0-9]+ seconds after activating it/i,
+	},
+	{
+		id: "Perfected Destructive Impact",
+		setBonusCount: 2,
+		statId: "SpellDamage",
+		enableOffBar: true,
+		toggle: true,
+		enabled: false,
+		rawInputMatch: /(increases your Spell Damage by [0-9]+ for [0-9]+ seconds after activating it)/,
+		match: /Reduces the cost of Destructive Touch by [0-9]+% and increases your Spell Damage by ([0-9]+) for [0-9]+ seconds after activating it/i,
+	},
+	{
+		id: "Symphony of Blades (Magicka)",
+		setId: "Symphony of Blades",
+		setBonusCount: 2,
+		toggle: true,
+		enabled: false,
+		disableSetIds: [ "Symphony of Blades (Stamina)" ],
+		buffId: "Symphony of Blades (Magicka)",
+		updateBuffValue: true,
+		match: /grant them Meridia's Favor, which restores ([0-9]+) Magicka or Stamina every [0-9]+ sec/i,
+	},
+	{
+		id: "Symphony of Blades (Stamina)",
+		setId: "Symphony of Blades",
+		setBonusCount: 2,
+		toggle: true,
+		enabled: false,
+		disableSetIds: [ "Symphony of Blades (Magicka)" ],
+		buffId: "Symphony of Blades (Stamina)",
+		updateBuffValue: true,
+		match: /grant them Meridia's Favor, which restores ([0-9]+) Magicka or Stamina every [0-9]+ sec/i,
+	},
+	{
+		id: "Engine Guardian (Health)",
+		setId: "Engine Guardian",
+		setBonusCount: 2,
+		toggle: true,
+		enabled: false,
+		disableSetIds: [ "Engine Guardian (Magicka)", "Engine Guardian (Stamina)" ],
+		statId: "HealthRestore",
+		factorValue: 2,
+		match: /chance to summon a dwemer automation to restore [0-9]+ Stamina or Magicka or ([0-9]+) Health to you every/i,
+	},
+	{
+		id: "Engine Guardian (Magicka)",
+		setId: "Engine Guardian",
+		setBonusCount: 2,
+		toggle: true,
+		enabled: false,
+		disableSetIds: [ "Engine Guardian (Health)", "Engine Guardian (Stamina)" ],
+		statId: "MagickaRestore",
+		factorValue: 2,
+		match: /chance to summon a dwemer automation to restore ([0-9]+) Stamina or Magicka or [0-9]+ Health to you every/i,
+	},
+	{
+		id: "Engine Guardian (Stamina)",
+		setId: "Engine Guardian",
+		setBonusCount: 2,
+		toggle: true,
+		enabled: false,
+		disableSetIds: [ "Engine Guardian (Magicka)", "Engine Guardian (Health)" ],
+		statId: "StaminaRestore",
+		factorValue: 2,
+		match: /chance to summon a dwemer automation to restore ([0-9]+) Stamina or Magicka or [0-9]+ Health to you every/i,
+	},
+	{
+		id: "Queen's Elegance",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "MagickaCost",
+		factorValue: -1,
+		display: "%",
+		match: /When you use a Light Attack you reduce the Health, Magicka, or Stamina cost of your next active ability by ([0-9]+)%/i,
+	},
+	{
+		id: "Queen's Elegance",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "StaminaCost",
+		factorValue: -1,
+		display: "%",
+		match: /When you use a Light Attack you reduce the Health, Magicka, or Stamina cost of your next active ability by ([0-9]+)%/i,
+	},
+	{
+		id: "Queen's Elegance",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "HealthCost",
+		factorValue: -1,
+		display: "%",
+		match: /When you use a Light Attack you reduce the Health, Magicka, or Stamina cost of your next active ability by ([0-9]+)%/i,
+	},
+	{
+		id: "Grace of Gloom",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		buffId: "Major Evasion",
+		match: /Heavy Attacks to heal you for [0-9]+ and gaining Major Evasion for /i,
+	},
+	{
+		id: "The Arch-Mage",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "MagickaRegen",
+		match: /Dealing damage with a fully-charged Heavy Attack increases your Magicka Recovery by ([0-9]+) for/i,
+	},
+	{
+		id: "Torc of Tonal Constancy (Magicka)",
+		setId: "Torc of Tonal Constancy",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: true,
+		statId: "MagickaRegen",
+		//disableSetIds: [ "Torc of Tonal Constancy (Stamina)" ],
+		rawInputMatch: /(While your Stamina is less than [0-9]+%, increase your Magicka Recovery by [0-9]+\.)/,
+		match: /While your Stamina is less than [0-9]+%, increase your Magicka Recovery by ([0-9]+)\./i,
+	},
+	{
+		id: "Torc of Tonal Constancy (Stamina)",
+		setId: "Torc of Tonal Constancy",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "StaminaRegen",
+		//disableSetIds: [ "Torc of Tonal Constancy (Magicka)" ],
+		rawInputMatch: /(While your Magicka is less than [0-9]+%, increase your Stamina Recovery by [0-9]+\.)/,
+		match: /While your Magicka is less than [0-9]+%, increase your Stamina Recovery by ([0-9]+)\./i,
+	},
+	{
+		id: "Ring of the Wild Hunt (Combat)",
+		setId: "Ring of the Wild Hunt",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "MovementSpeed",
+		disableSetIds: [ "Ring of the Wild Hunt (Out of Combat)" ],
+		display: "%",
+		rawInputMatch: /(Increases your movement speed by [0-9]+% while in combat\.)/,
+		match: /Increases your movement speed by ([0-9]+)% while in combat/i,
+	},
+	{
+		id: "Ring of the Wild Hunt (Out of Combat)",
+		setId: "Ring of the Wild Hunt",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: true,
+		statId: "MovementSpeed",
+		disableSetIds: [ "Ring of the Wild Hunt (Combat)" ],
+		display: "%",
+		rawInputMatch: /(Increases your movement speed by [0-9]+% while out of combat\.)/,
+		match: /Increases your movement speed by ([0-9]+)% while out of combat/i,
+	},
+	{
+		id: "Thrassian Stranglers",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "SpellDamage",
+		maxTimes: 20,
+		match: /Each stack increases your Spell Damage by ([0-9]+), but also increases your damage taken, reduces your healing taken, and reduces effectiveness of your damage shields by [0-9]+%/i,
+	},
+	{
+		id: "Thrassian Stranglers",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "DamageTaken",
+		maxTimes: 20,
+		display: "%",
+		match: /Each stack increases your Spell Damage by [0-9]+, but also increases your damage taken, reduces your healing taken, and reduces effectiveness of your damage shields by ([0-9]+)%/i,
+	},
+	{
+		id: "Thrassian Stranglers",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "HealingTaken",
+		factorValue: -1,
+		maxTimes: 20,
+		display: "%",
+		match: /Each stack increases your Spell Damage by [0-9]+, but also increases your damage taken, reduces your healing taken, and reduces effectiveness of your damage shields by ([0-9]+)%/i,
+	},
+	{
+		id: "Thrassian Stranglers",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "DamageShield",
+		factorValue: -1,
+		maxTimes: 20,
+		display: "%",
+		match: /Each stack increases your Spell Damage by [0-9]+, but also increases your damage taken, reduces your healing taken, and reduces effectiveness of your damage shields by ([0-9]+)%/i,
+	},
+	{
+		id: "Vrol's Command",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		buffId: "Major Aegis",
+		match: /apply Major Aegis to you and up to [0-9]+ nearby group members for/i,
+	},
+	{
+		id: "Perfected Vrol's Command",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		buffId: "Major Aegis",
+		match: /apply Major Aegis to you and up to [0-9]+ nearby group members for/i,
+	},
+	{
+		id: "Kyne's Wind",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		updateBuffValue: true,
+		buffId: "Kyne`s Wind",
+		match: /You and allies standing in Kyne's Blessing restore ([0-9]+) Stamina and Magicka every [0-9]+ second/i,
+	},
+	{
+		id: "Perfected Kyne's Wind",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		updateBuffValue: true,
+		buffId: "Kyne`s Wind",
+		match: /You and allies standing in Kyne's Blessing restore ([0-9]+) Stamina and Magicka every [0-9]+ second/i,
+	},
+	{
+		id: "Roaring Opportunist",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		buffId: "Major Slayer",
+		match: /grants you and up to [0-9]+ group members Major Slayer/i,
+	},
+	{
+		id: "Perfected Roaring Opportunist",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		buffId: "Major Slayer",
+		match: /grants you and up to [0-9]+ group members Major Slayer/i,
+	},
+	{
+		id: "Yandir's Might (Giant's Endurance)",
+		setId: "Yandir's Might",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		disableSetIds: [ "Yandir's Might (Giant's Might)" ],
+		statId: "StaminaRegen",
+		maxTimes: 5,
+		rawInputMatch: /(Dealing Critical Damage grants you a stack of Giant's Endurance, up to one each second\. Each stack of Giant's Endurance adds [0-9]+ Stamina Recovery, and stacks up to [0-9]+ times\.)/i,
+		match: /Each stack of Giant's Endurance adds ([0-9]+) Stamina Recovery/i,
+	},
+	{
+		id: "Yandir's Might (Giant's Might)",
+		setId: "Yandir's Might",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		disableSetIds: [ "Yandir's Might (Giant's Endurance)" ],
+		statId: "WeaponDamage",
+		maxTimes: 5,
+		rawInputMatch: /(Dealing damage with a Fully Charged Heavy Attack removes Giant's Endurance and grants Giant's Might for [0-9]+ seconds, increasing your Weapon Damage by [0-9]+ per stack removed\.)/i,
+		match: /increasing your Weapon Damage by ([0-9]+) per stack removed/i,
+	},
+	{
+		id: "Perfected Yandir's Might (Giant's Endurance)",
+		setId: "Perfected Yandir's Might",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		disableSetIds: [ "Perfected Yandir's Might (Giant's Might)" ],
+		statId: "StaminaRegen",
+		maxTimes: 5,
+		rawInputMatch: /(Dealing Critical Damage grants you a stack of Giant's Endurance, up to one a second\. Each stack of Giant's Endurance adds [0-9]+ Stamina Recovery, and stacks up to [0-9]+ times\.)/i,
+		match: /Each stack of Giant's Endurance adds ([0-9]+) Stamina Recovery/i,
+	},
+	{
+		id: "Perfected Yandir's Might (Giant's Might)",
+		setId: "Perfected Yandir's Might",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		disableSetIds: [ "Perfected Yandir's Might (Giant's Endurance)" ],
+		statId: "WeaponDamage",
+		maxTimes: 5,
+		rawInputMatch: /(Dealing damage with a Fully Charged Heavy Attack removes Giant's Endurance and grants Giant's Might for [0-9]+ seconds, increasing your Weapon Damage by [0-9]+ per stack removed\.)/i,
+		match: /increasing your Weapon Damage by ([0-9]+) per stack removed/i,
+	},
+	{
+		id: "Eternal Vigor (Magicka + Stamina)",
+		setId: "Eternal Vigor",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: true,
+		disableSetIds: [ "Eternal Vigor (Health)" ],
+		statId: "MagickaRegen",
+		rawInputMatch: /(Adds [0-9]+ Stamina and Magicka Recovery while your Health is above [0-9]+%\.)/,
+		match: /Adds ([0-9]+) Stamina and Magicka Recovery while/i,
+	},
+	{
+		id: "Eternal Vigor (Magicka + Stamina)",
+		setId: "Eternal Vigor",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: true,
+		disableSetIds: [ "Eternal Vigor (Health)" ],
+		statId: "StaminaRegen",
+		rawInputMatch: /(Adds [0-9]+ Stamina and Magicka Recovery while your Health is above [0-9]+%\.)/,
+		match: /Adds ([0-9]+) Stamina and Magicka Recovery while your Health is above/i,
+	},
+	{
+		id: "Eternal Vigor (Health)",
+		setId: "Eternal Vigor",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		disableSetIds: [ "Eternal Vigor (Magicka + Stamina)" ],
+		statId: "HealthRegen",
+		rawInputMatch: /(Adds [0-9]+ Health Recovery while your Health is [0-9]+% or less\.)/,
+		match: /Adds ([0-9]+) Health Recovery while your Health is/i,
+	},
+	{
+		id: "Stuhn's Favor",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "PhysicalPenetration",
+		match: /Off Balance, your Physical and Spell Penetration is increased by ([0-9]+) for/i,
+	},
+	{
+		id: "Stuhn's Favor",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "SpellPenetration",
+		match: /Off Balance, your Physical and Spell Penetration is increased by ([0-9]+) for/i,
+	},
+	{
+		id: "Stuhn's Favor",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		statId: "PhysicalPenetration",
+		match: /an enemey who is Off Balance, your Physical and Spell Penetration is increased by ([0-9]+) for/i,
+	},
+	{
+		id: "Stuhn's Favor",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		statId: "SpellPenetration",
+		match: /an enemey who is Off Balance, your Physical and Spell Penetration is increased by ([0-9]+) for/i,
+	},
+	{
+		id: "Cruel Flurry",
+		setBonusCount: 1,
+		enabled: false,
+		buffId: "Maelstrom DW Enchantment",
+		updateBuffValue : true,
+		enableOffBar : true,
+		toggle: true,
+		//match: /When you deal damage with Flurry, your next single target damage over time ability used within [0-9]+ seconds gains ([0-9]+) Spell and Weapon Damage/i,
+		match: /When you deal damage with Flurry, your single target damage over time abilities used within [0-9]+ seconds gain ([0-9]+) Spell and Weapon Damage./i,
+	},
+	{
+		id: "Dro'Zakar's Claws",
+		setBonusCount: 4,
+		enabled: false,
+		toggle: true,
+		maxTimes: 10,
+		category: "Set",
+		statId: "WeaponDamage",
+		match: /For every bleed effect you have on an enemy, increase your Weapon Damage by ([0-9]+) against them/i,
+	},
 	{	
 		id: "Grave Guardian",
 		setBonusCount: 4,
@@ -7451,8 +8525,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /When you cast Blessing of Protection, the cost of your Magicka and Stamina healing abilities are reduced by ([0-9]+)% for/i,
 	},
 	{	
-		id: "Timeless Blessing (Perfected)",
-		setBonusCount: 1,
+		id: "Perfected Timeless Blessing",
+		setBonusCount: 2,
 		toggle: true,
 		enabled: false,
 		statId: "HealingAbilityCost",
@@ -7475,6 +8549,38 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "PhysicalResist",
 		match: /When you deal damage with Puncture, you heal for ([0-9]+) Health and gain Spell and Physical Resistance equal to the amount healed/i,
+	},
+	{	
+		id: "Puncturing Remedy",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "SpellResist",
+		match: /When you deal damage with Puncture, you heal for ([0-9]+) Health and gain Spell and Physical Resistance equal to the amount of healing/i,
+	},
+	{	
+		id: "Puncturing Remedy",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "PhysicalResist",
+		match: /When you deal damage with Puncture, you heal for ([0-9]+) Health and gain Spell and Physical Resistance equal to the amount of healing/i,
+	},
+	{	
+		id: "Perfected Puncturing Remedy",
+		setBonusCount: 2,
+		toggle: true,
+		enabled: false,
+		statId: "SpellResist",
+		match: /When you deal damage with Puncture, you heal for ([0-9]+) Health and gain Spell and Physical Resistance equal to the amount of healing/i,
+	},
+	{	
+		id: "Perfected Puncturing Remedy",
+		setBonusCount: 2,
+		toggle: true,
+		enabled: false,
+		statId: "PhysicalResist",
+		match: /When you deal damage with Puncture, you heal for ([0-9]+) Health and gain Spell and Physical Resistance equal to the amount of healing/i,
 	},
 	{
 		id: "Trial By Fire (Frost)",
@@ -7516,10 +8622,18 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : false,
 		category: "Target",
-		statId: "LADamageTaken",
+		statId: "DamageTaken",
 		display: "%",
 		//match: /When you deal damage, you cause the enemy to take ([0-9]+\.?[0-9]*)% additional damage from the next attack/i,
 		match: /While your Stamina is below [0-9]+\.?[0-9]*%, your Light Attacks cause the enemy to take ([0-9]+\.?[0-9]*)% additional damage/i,
+	},
+	{
+		id: "Kvatch Gladiator",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: /You gain ([0-9]+) Weapon Damage against targets who are at or below [0-9]+% Health/i,
 	},
 	{
 		id: "Kvatch Gladiator",
@@ -7631,6 +8745,48 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "SpellDamage",
+		maxTimes: 500,
+		match: /When you use an Ultimate ability, you gain Weapon and Spell Damage equal to the amount of total Ultimate consumed, and Physical and Spell Penetration equal to [0-9]+ times the amount for/i,
+	},
+	{
+		id: "Balorgh",
+		setBonusCount: 3,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "WeaponDamage",
+		maxTimes: 500,
+		match: /When you use an Ultimate ability, you gain Weapon and Spell Damage equal to the amount of total Ultimate consumed, and Physical and Spell Penetration equal to [0-9]+ times the amount for/i,
+	},
+	{
+		id: "Balorgh",
+		setBonusCount: 3,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "PhysicalPenetration",
+		factorValue: 23,
+		maxTimes: 500,
+		match: /When you use an Ultimate ability, you gain Weapon and Spell Damage equal to the amount of total Ultimate consumed, and Physical and Spell Penetration equal to [0-9]+ times the amount for/i,
+	},
+	{
+		id: "Balorgh",
+		setBonusCount: 3,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "SpellPenetration",
+		factorValue: 23,
+		maxTimes: 500,
+		match: /When you use an Ultimate ability, you gain Weapon and Spell Damage equal to the amount of total Ultimate consumed, and Physical and Spell Penetration equal to [0-9]+ times the amount for/i,
+	},
+	{
+		id: "Balorgh",
+		setBonusCount: 3,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "SpellDamage",
 		factorValue: 2,
 		maxTimes: 500,
 		match: /When you use an Ultimate ability, you gain Weapon and Spell Damage for [0-9]+ seconds equal to twice the amount of total Ultimate consumed\./i,
@@ -7673,6 +8829,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "LASpeed",
+		factorValue: -1,
 		display: "%",
 		match: /When you gain [0-9]+ stacks, you become Frenzied for [0-9]+ seconds, increasing your melee Light Attack damage by [0-9]+% and attack speed by ([0-9]+)%/i,
 	},
@@ -7683,7 +8840,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "PhysicalResist",
-		match: /and increase your Physical and Spell Resistance by ([0-9]+) for/i,
+		match: /Ultimate and increase your Physical and Spell Resistance by ([0-9]+) for/i,
 	},
 	{
 		id: "Bloodspawn",
@@ -7692,7 +8849,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "SpellResist",
-		match: /and increase your Physical and Spell Resistance by ([0-9]+) for/i,
+		match: /Ultimate and increase your Physical and Spell Resistance by ([0-9]+) for/i,
 	},
 	{
 		id: "Briarheart",
@@ -7724,6 +8881,15 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		id: "Caustic Arrow",
 		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "WeaponDamage",
+		match: /Increases your Weapon Damage by ([0-9]+) against targets affected by your Poison Arrow/i,
+	},
+	{
+		id: "Perfected Caustic Arrow",
+		setBonusCount: 2,
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
@@ -7777,20 +8943,22 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Your Light and Heavy Attacks deal an additional ([0-9]+) damage to enemies in your Wall of Elements/i,
 	},	
 	{
-		id: "Domihaus",
+		id: "Domihaus (Spell Damage)",
+		setId: "Domihaus",
 		setBonusCount: 3,
 		toggle: true,
 		enabled: false,
-		enableOffBar : true,
+		disableSetIds: [ "Domihaus (Weapon Damage)" ],
 		statId: "SpellDamage",
 		match: /Standing within the ring grants you ([0-9]+) Spell Damage /i,
 	},
 	{
-		id: "Domihaus",
+		id: "Domihaus (Weapon Damage)",
+		setId: "Domihaus",
 		setBonusCount: 3,
 		toggle: true,
 		enabled: false,
-		enableOffBar : true,
+		disableSetIds: [ "Domihaus (Spell Damage)" ],
 		statId: "WeaponDamage",
 		match: /Standing within the ring grants you [0-9]+ Spell Damage or ([0-9]+) Weapon Damage/i,
 	},
@@ -7865,6 +9033,24 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		statId: "SpellResist",
 		match: /chance increase your Physical and Spell Resistance by ([0-9]+)/i,
+	},
+	{
+		id: "Embershield",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "PhysicalResist",
+		match: /When you deal damage with a fully-charged Heavy Attack, you increase your Physical and Spell Resistance by ([0-9]+)/i,
+	},
+	{
+		id: "Embershield",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "SpellResist",
+		match: /When you deal damage with a fully-charged Heavy Attack, you increase your Physical and Spell Resistance by ([0-9]+)/i,
 	},
 	{
 		id: "Essence Thief",
@@ -7989,7 +9175,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "SpellResist",
-		match: /and increase your Physical and Spell Resistance by ([0-9]+)/i,
+		match: /your next Bash ability to deal an additional.*and increase your Physical and Spell Resistance by ([0-9]+)/i,
 	},
 	{
 		id: "Jolting Arms",
@@ -7998,7 +9184,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "PhysicalResist",
-		match: /and increase your Physical and Spell Resistance by ([0-9]+)/i,
+		match: /your next Bash ability to deal an additional.*and increase your Physical and Spell Resistance by ([0-9]+)/i,
 	},
 	{
 		id: "Jolting Arms",
@@ -8032,7 +9218,7 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		id: "Lord Warden",
-		setBonusCount: 3,
+		setBonusCount: 2,
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
@@ -8041,7 +9227,7 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		id: "Lord Warden",
-		setBonusCount: 3,
+		setBonusCount: 2,
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
@@ -8059,7 +9245,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Standing in the ring grants you a stack of Siroria's Boon for [0-9]+ seconds. Each stack increases your Spell Damage by ([0-9]+)\./i,
 	},
 	{
-		id: "Perfect Mantle of Siroria",
+		id: "Perfected Mantle of Siroria",
 		setBonusCount: 5,
 		toggle: true,
 		enabled: false,
@@ -8222,10 +9408,37 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : false,
+		statId: "HealthRegen",
+		match: /While you are under [0-9]+% Health, your Health Recovery is increased by ([0-9]+) and your Physical and Spell Resistance is increased by [0-9]+\./i,
+	},
+	{
+		id: "Orgnum's Scales",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : false,
+		statId: "SpellResist",
+		match: /While you are under [0-9]+% Health, your Health Recovery is increased by [0-9]+ and your Physical and Spell Resistance is increased by ([0-9]+)\./i,
+	},
+	{
+		id: "Orgnum's Scales",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : false,
+		statId: "PhysicalResist",
+		match: /While you are under [0-9]+% Health, your Health Recovery is increased by [0-9]+ and your Physical and Spell Resistance is increased by ([0-9]+)\./i,
+	},
+	{
+		id: "Orgnum's Scales",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : false,
 		category: "Skill",
 		statId: "HealthRegen",
-		display: '%',		
-		match: /While you are under 60% Health, your Health Recovery is increased by ([0-9]+\.?[0-9]*)%/i,
+		display: '%',
+		match: /While you are under [0-9]+% Health, your Health Recovery is increased by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		id: "Permafrost",
@@ -8258,7 +9471,17 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "WeaponDamage",
 		//match: /When you deal melee damage, you have a [0-9]+\.?[0-9]*% chance to increase your Weapon Damage by ([0-9]+) for [0-9]+ seconds/i,
 		match: /Each time you attempt to reduce the target's Physical or Spell Resistance, you gain a stack of Ravager for [0-9]+ seconds, increasing your Weapon Damage by ([0-9]+)/i,
-	},	
+	},
+	{
+		id: "Reactive Armor",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "DamageTaken",
+		display: "%",
+		factorValue: -1,
+		match: /After you are affected by a disabling effect, your damage taken is reduced by ([0-9]+\.?[0-9]*)% for /i,
+	},
 	{
 		id: "Reactive Armor",
 		setBonusCount: 4,
@@ -8337,7 +9560,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /While the beam holds gain ([0-9]+\.?[0-9]*)% increased healing received/i,
 	},
 	{
-		id: "Shield Breaker",
+		id: "Shield Breaker",	//Malacath's Band of Brutality
 		setBonusCount: 4,
 		enabled: false,
 		statId: "DamageDone",
@@ -8479,6 +9702,24 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "PhysicalResist",
+		match: /you gain ([0-9]+) Physical and Spell Resistance and taunt/
+	},
+	{
+		id: "Tormentor",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "SpellResist",
+		match: /you gain ([0-9]+) Physical and Spell Resistance and taunt/
+	},
+	{
+		id: "Tormentor",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "PhysicalResist",
 		match: /When you deal damage with a Charge ability, you gain ([0-9]+) Physical and Spell Resistance/
 	},
 	{
@@ -8588,7 +9829,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /You and your allies standing in the circle gain Major Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
-		id: "Perfect Vestment of Olorime",
+		id: "Perfected Vestment of Olorime",
 		setBonusCount: 5,
 		toggle: true,
 		enabled: false,
@@ -8626,79 +9867,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "SpellDamage",
 		match: /When you use Roll Dodge, your Weapon and Spell Damage is increased by ([0-9]+)/i,
 	},
-	{
-		id: "Ilambris (Flame)",
-		setId: "Ilambris",
-		setBonusCount: 2,
-		toggle: true,
-		enabled: false,
-		statId: "OtherEffects",
-		damageType: "Flame",
-		disableSetId: "Ilambris (Shock)",
-		rawInputMatch: /(When you deal Flame or Shock Damage, you have a [0-9]+% chance to summon a meteor shower of that damage type that deals [0-9]+ Damage to all enemies within [0-9]+ meters every [0-9]+ second for [0-9]+ seconds\.)/,
-		match: /When you deal Flame or Shock Damage, you have a [0-9]+% chance to summon a meteor shower of that damage type that deals [0-9]+ Damage to all enemies within [0-9]+ meters every [0-9]+ second for [0-9]+ seconds\./i,
-	},
-	{
-		id: "Ilambris (Shock)",
-		setId: "Ilambris",
-		setBonusCount: 2,
-		toggle: true,
-		enabled: false,
-		statId: "OtherEffects",
-		damageType: "Shock",
-		disableSetId: "Ilambris (Flame)",
-		rawInputMatch: /(When you deal Flame or Shock Damage, you have a [0-9]+% chance to summon a meteor shower of that damage type that deals [0-9]+ Damage to all enemies within [0-9]+ meters every [0-9]+ second for [0-9]+ seconds\.)/,
-		match: /When you deal Flame or Shock Damage, you have a [0-9]+% chance to summon a meteor shower of that damage type that deals [0-9]+ Damage to all enemies within [0-9]+ meters every [0-9]+ second for [0-9]+ seconds\./i,
-	},
-	/*
-	{
-		id: "Caluurion's Legacy (Flame)",
-		setId: "Caluurion's Legacy",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		statId: "OtherEffects",
-		damageType: "Flame",
-		disableSetIds: ["Caluurion's Legacy (Frost)", "Caluurion's Legacy (Shock)", "Caluurion's Legacy (Disease)"],
-		rawInputMatch: /(When you deal Critical Damage with a single target Magicka ability, you launch a Fire, Ice, Shock, or Disease ball at your target that deals [0-9]+ damage and applies a status effect\.)/,
-		match: /When you deal Critical Damage with a single target Magicka ability, you launch a Fire, Ice, Shock, or Disease ball at your target that deals [0-9]+ damage and applies a status effect\./i,
-	},
-	{
-		id: "Caluurion's Legacy (Frost)",
-		setId: "Caluurion's Legacy",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		statId: "OtherEffects",
-		damageType: "Frost",
-		disableSetIds: ["Caluurion's Legacy (Flame)", "Caluurion's Legacy (Shock)", "Caluurion's Legacy (Disease)"],
-		rawInputMatch: /(When you deal Critical Damage with a single target Magicka ability, you launch a Fire, Ice, Shock, or Disease ball at your target that deals [0-9]+ damage and applies a status effect\.)/,
-		match: /When you deal Critical Damage with a single target Magicka ability, you launch a Fire, Ice, Shock, or Disease ball at your target that deals [0-9]+ damage and applies a status effect\./i,
-	},
-	{
-		id: "Caluurion's Legacy (Shock)",
-		setId: "Caluurion's Legacy",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		statId: "OtherEffects",
-		damageType: "Shock",
-		disableSetIds: ["Caluurion's Legacy (Frost)", "Caluurion's Legacy (Flame)", "Caluurion's Legacy (Disease)"],
-		rawInputMatch: /(When you deal Critical Damage with a single target Magicka ability, you launch a Fire, Ice, Shock, or Disease ball at your target that deals [0-9]+ damage and applies a status effect\.)/,
-		match: /When you deal Critical Damage with a single target Magicka ability, you launch a Fire, Ice, Shock, or Disease ball at your target that deals [0-9]+ damage and applies a status effect\./i,
-	},
-	{
-		id: "Caluurion's Legacy (Disease)",
-		setId: "Caluurion's Legacy",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		statId: "OtherEffects",
-		damageType: "Disease",
-		disableSetIds: ["Caluurion's Legacy (Frost)", "Caluurion's Legacy (Flame)", "Caluurion's Legacy (Shock)"],
-		rawInputMatch: /(When you deal Critical Damage with a single target Magicka ability, you launch a Fire, Ice, Shock, or Disease ball at your target that deals [0-9]+ damage and applies a status effect\.)/,
-		match: /When you deal Critical Damage with a single target Magicka ability, you launch a Fire, Ice, Shock, or Disease ball at your target that deals [0-9]+ damage and applies a status effect\./i,
-	}, //*/
 	{
 		id: "Marauder's Haste",
 		setBonusCount: 4,
@@ -8874,11 +10042,14 @@ window.ESO_ENCHANT_ARMOR_MATCHES = [
 	},
 	{
 		statId: "PotionDuration",
-		match: /Increase the duration of potion effects by ([0-9]+\.?[0-9]*) seconds/i,
+		round: "floor10",
+		match: /Increase the duration of potion effects by ([0-9]+\.?[0-9]*) second/i,
 	},
 	{
 		statId: "PotionCooldown",
-		match: /Reduce the cooldown of potions below this item's level by ([0-9]+\.?[0-9]*) seconds/i,
+		round: "floor10",
+		factorValue: -1,
+		match: /Reduce the cooldown of potions below this item's level by ([0-9]+\.?[0-9]*) second/i,
 	},
 	{
 		statId: "StaminaCost",
@@ -8923,6 +10094,24 @@ window.ESO_ENCHANT_ARMOR_MATCHES = [
 		factorValue: -1,
 		match: /and the cost of block by ([0-9]+\.?[0-9]*)/i,
 	},
+	{
+		category: "Item",
+		statId: "HealthCost",
+		factorValue: -1,
+		match: /Reduce Health, Magicka, and Stamina cost of abilities by ([0-9]+)\./i,
+	},
+	{
+		category: "Item",
+		statId: "MagickaCost",
+		factorValue: -1,
+		match: /Reduce Health, Magicka, and Stamina cost of abilities by ([0-9]+)\./i,
+	},
+	{
+		category: "Item",
+		statId: "StaminaCost",
+		factorValue: -1,
+		match: /Reduce Health, Magicka, and Stamina cost of abilities by ([0-9]+)\./i,
+	},
 	
 ];
 
@@ -8937,180 +10126,124 @@ window.ESO_ENCHANT_OTHERHAND_WEAPON_MATCHES =
 	},
 ];
 
+window.ESO_ENCHANT_DAMAGE_COOLDOWN = 4;
+window.ESO_ENCHANT_OTHER_COOLDOWN = 10;
+window.ESO_ENCHANT_OTHER_DURATION = 5;
+
 
 window.ESO_ENCHANT_WEAPON_MATCHES = [
 	{
-		statId: "SpellDamage",
-		match: /Adds ([0-9]+) Spell Damage/i,
-	},
-	{
-		statId: "WeaponDamage",
-		match: /Adds ([0-9]+) Weapon Damage/i,
-	},
-	/*
-	 * { // Unused? modValue: 0.5, statId: "WeaponDamage", match: /grants
-	 * ([0-9]+) additional Weapon Damage/i, }, //
-	 */
-	{
-		statId: "WeaponDamage",
-		match: /increases Weapon Damage by ([0-9]+)/i,
-	},
-	{
-		statId: "WeaponDamage",
-		match: /increase Weapon Damage by ([0-9]+)/i,
-	},
-	{
-		statId: "WeaponDamage",
-		match: /gain ([0-9]+) Weapon Damage/i,
-	},
-	{
-		statId: "SpellDamage",
-		match: /gain ([0-9]+) Spell Damage/i,
-	},
-	{
-		statId: "SpellDamage",
-		match: /grants ([0-9]+) additional Spell Damage/i,
-	},
-	{
-		category: "Set",
-		statId: "SpellCrit",
-		match: /grants ([0-9]+) additional Spell Critical/i,
-	},
-	{
-		statId: "Health",
-		match: /grants ([0-9]+) Max Health/i,
-	},
-	{
-		statId: "Stamina",
-		match: /grants ([0-9]+) Max Stamina/i,
-	},
-	{
-		statId: "Magicka",
-		match: /grants ([0-9]+) Max Magicka/i,
-	},
-	{
-		statId: "Health",
-		match: /increase Max Health by ([0-9]+)/i,
-	},
-	{
-		statId: "Stamina",
-		match: /increase Max Stamina by ([0-9]+)/i,
-	},
-	{
-		statId: "Magicka",
-		match: /increase Max Magicka by ([0-9]+)/i,
-	},
-	{
-		statId: "Health",
-		match: /Max Health increased by ([0-9]+)/i,
-	},
-	{
-		statId: "Stamina",
-		match: /Max Stamina increased by ([0-9]+)/i,
-	},
-	{
-		statId: "Magicka",
-		match: /Max Magicka increased by ([0-9]+)/i,
-	},
-	{
-		statId: "Health",
-		match: /Max Health is increased by ([0-9]+)/i,
-	},
-	{
-		statId: "Stamina",
-		match: /Max Stamina is increased by ([0-9]+)/i,
-	},
-	{
-		statId: "Magicka",
-		match: /Max Magicka is increased by ([0-9]+)/i,
-	},
-	{
-		statId: "Health",
-		match: /Adds ([0-9]+) Maximum Health/i,
-	},
-	{
-		statId: "Stamina",
-		match: /Adds ([0-9]+) Maximum Stamina/i,
-	},
-	{
-		statId: "Magicka",
-		match: /Adds ([0-9]+) Maximum Magicka/i,
-	},
-  	{
 		statId: "OtherEffects",
 		match: /Deals ([0-9]+) Magic Damage/i,
+		duration: 0,
+		cooldown: ESO_ENCHANT_DAMAGE_COOLDOWN,
 	},
 	{
 		statId: "",
+		isHealing: true,
 		match: /and restores ([0-9]+) Health/i,
+		duration: 0,
+		cooldown: ESO_ENCHANT_DAMAGE_COOLDOWN,
 	},
 	{
 		statId: "",
 		match: /and restores ([0-9]+) Magicka/i,
+		duration: 0,
+		cooldown: ESO_ENCHANT_DAMAGE_COOLDOWN,
 	},
 	{
 		statId: "",
 		match: /and restores ([0-9]+) Stamina/i,
+		duration: 0,
+		cooldown: ESO_ENCHANT_DAMAGE_COOLDOWN,
 	},
 	{
 		statId: "OtherEffects",
-		match: /Reduce's targets armor by ([0-9]+) for restores [0-9]+ seconds/i,
+		match: /Reduce the target's Physical and Spell Resistance by ([0-9]+) for/i,
+		duration: ESO_ENCHANT_OTHER_DURATION,
+		cooldown: ESO_ENCHANT_OTHER_COOLDOWN,
 	},
 	{
 		statId: "OtherEffects",
-		match: /Deals ([0-9]+) unresistable damage/i,
+		damageType: "Oblivion",
+		match: /Deals a maximum of ([0-9]+) Oblivion Damage/i,
+		duration: 0,
+		cooldown: ESO_ENCHANT_DAMAGE_COOLDOWN,
 	},
 	{
 		statId: "OtherEffects",
+		damageType: "Flame",
 		match: /Deals ([0-9]+) flame damage/i,
+		duration: 0,
+		cooldown: ESO_ENCHANT_DAMAGE_COOLDOWN,
 	},
 	{
 		statId: "OtherEffects",
+		damageType: "Disease",
 		match: /Deals ([0-9]+) disease damage/i,
+		duration: 0,
+		cooldown: ESO_ENCHANT_DAMAGE_COOLDOWN,
 	},
 	{
 		statId: "OtherEffects",
+		damageType: "Frost",
 		match: /Deals ([0-9]+) cold damage/i,
+		duration: 0,
+		cooldown: ESO_ENCHANT_DAMAGE_COOLDOWN,
 	},
 	{
 		statId: "OtherEffects",
+		damageType: "Frost",
+		match: /Deals ([0-9]+) frost damage/i,
+		duration: 0,
+		cooldown: ESO_ENCHANT_DAMAGE_COOLDOWN,
+	},
+	{
+		statId: "OtherEffects",
+		damageType: "Poison",
 		match: /Deals ([0-9]+) poison damage/i,
+		duration: 0,
+		cooldown: ESO_ENCHANT_DAMAGE_COOLDOWN,
 	},
 	{
 		statId: "OtherEffects",
+		damageType: "Shock",
 		match: /Deals ([0-9]+) shock damage/i,
+		duration: 0,
+		cooldown: ESO_ENCHANT_DAMAGE_COOLDOWN,
 	},
 	{
 		statId: "OtherEffects",
+		damageType: "Magic",
+		//TODO: Toggle?
 		match: /Deals ([0-9]+) Magic Damage to Undead and Daedra/i,
+		duration: 0,
+		cooldown: ESO_ENCHANT_DAMAGE_COOLDOWN,
 	},
 	{
 		statId: "OtherEffects",
-		match: /Grants a ([0-9]+) point Damage Shield for [0-9]+ seconds/i,
+		isDamageShield: true,
+		match: /Grants a ([0-9]+) point Damage Shield for/i,
+		duration: ESO_ENCHANT_OTHER_DURATION,
+		cooldown: ESO_ENCHANT_OTHER_COOLDOWN,
 	},
 	{
 		statId: "OtherEffects",
-		match: /Reduce target Weapon Damage and Spell Damage by ([0-9]+) for [0-9]+ seconds/i,
+		match: /Reduce target Weapon Damage and Spell Damage by ([0-9]+) for /i,
+		buffId : "Weakening Enchantment (Target)",
+		enableOffBar : true,
+		updateBuffValue : true,
+		duration: ESO_ENCHANT_OTHER_DURATION,
+		cooldown: ESO_ENCHANT_OTHER_COOLDOWN,
 	},
 	{
 		statId: "OtherEffects",
-		match: /Increase your Weapon Damage and Spell Damage by ([0-9]+) for [0-9]+ seconds/i,
+		match: /Increase your Weapon Damage and Spell Damage by ([0-9]+) for /i,
 		buffId : "Weapon Damage Enchantment",
 		updateBuffValue : true,
-	},
-	{
-		statId: "OtherEffects",
-		match: /Your Flurry grants ([0-9]+) additional Weapon and Spell Damage/i,
-		buffId : "Maelstrom DW Enchantment",
 		enableOffBar : true,
-		updateBuffValue : true,
-	},
-	{
-		statId: "OtherEffects",
-		match: /Targets affected by Wall of Elements take ([0-9]+) additional damage/i,
-		buffId : "Maelstrom Destruction Enchantment",
-		enableOffBar : true,
-		updateBuffValue : true,
+		duration: ESO_ENCHANT_OTHER_DURATION,
+		cooldown: ESO_ENCHANT_OTHER_COOLDOWN,
 	},
 ];
 
@@ -9119,7 +10252,7 @@ window.ESO_ABILITYDESC_MATCHES = [
 	{
 		statId: "Health",
 		match: /Max Health by ([0-9]+)/i,
-	},                  
+	},
 	{
 		statId: "Magicka",
 		match: /Max Magicka by ([0-9]+)/i,
@@ -9198,6 +10331,7 @@ window.ESO_ABILITYDESC_MATCHES = [
 window.ESOBUILD_RAWOUTPUT_LABELREPLACEMENT =
 {
 		"CP.Enabled" : "CP Enabled",
+		"Skill.HAStaRestoreWerewolf": "HA Stamina Restore Werewolf",
 };
 
 
@@ -9255,7 +10389,7 @@ window.GetEsoInputValues = function (mergeComputedStats)
 	g_EsoInputStatSources = {};
 	
 	InitializeEsoBuildInputValues(inputValues);
-		
+	
 	if ($("#esotbUsePtsRules").prop("checked")) inputValues.UsePtsRules = true;
 			
 	inputValues.Race = $("#esotbRace").val();
@@ -9282,9 +10416,7 @@ window.GetEsoInputValues = function (mergeComputedStats)
 	inputValues.Stealthed = 0;
 	inputValues.NormalSneakSpeed = 0;
 	inputValues.MountSpeedBonus = parseInt($("#esotbMountSpeedBonus").val()) / 100;
-	inputValues.BaseWalkSpeed = parseFloat($("#esotbBaseWalkSpeed").val()); // 3.0
-																			// m/s
-																			// estimated
+	inputValues.BaseWalkSpeed = parseFloat($("#esotbBaseWalkSpeed").val()); // 3.0m/s estimated
 	inputValues.BuildDescription = $("#esotbBuildDescription").val();
 	
 	if ($("#esotbStealth").prop("checked")) 
@@ -9342,8 +10474,6 @@ window.GetEsoInputValues = function (mergeComputedStats)
 		g_EsoBuildBuffData['Enemy Keep Bonus 8'].visible = false;
 		g_EsoBuildBuffData['Enemy Keep Bonus 9'].visible = false;
 	}
-		
-	GetEsoInputSpecialValues(inputValues);
 	
 	GetEsoInputItemValues(inputValues, "Head");
 	GetEsoInputItemValues(inputValues, "Shoulders");
@@ -9443,8 +10573,8 @@ window.GetEsoInputValues = function (mergeComputedStats)
 			/* Update offbar only the first update */
 		if (!g_EsoBuildUpdatedOffBarEnchantFactor)
 		{
-			UpdateEsoBuildWeaponEnchantFactor("MainHand2", inputValues);
-			UpdateEsoBuildWeaponEnchantFactor("OffHand2", inputValues);
+			UpdateEsoBuildWeaponEnchantFactor("MainHand2", null);
+			UpdateEsoBuildWeaponEnchantFactor("OffHand2", null);
 			g_EsoBuildUpdatedOffBarEnchantFactor = true;
 		}
 	}
@@ -9462,20 +10592,23 @@ window.GetEsoInputValues = function (mergeComputedStats)
 			/* Update offbar only the first update */
 		if (!g_EsoBuildUpdatedOffBarEnchantFactor)
 		{
-			UpdateEsoBuildWeaponEnchantFactor("MainHand1", inputValues);
-			UpdateEsoBuildWeaponEnchantFactor("OffHand1", inputValues);
+			UpdateEsoBuildWeaponEnchantFactor("MainHand1", null);
+			UpdateEsoBuildWeaponEnchantFactor("OffHand1", null);
 			g_EsoBuildUpdatedOffBarEnchantFactor = true;
 		}
 	}
+	
+	GetEsoInputSpecialValues(inputValues);
 	
 	GetEsoInputMundusValues(inputValues);
 	GetEsoInputCPValues(inputValues);
 	GetEsoInputTargetValues(inputValues);
 	
 	UpdateEsoBuildToggledSkillData(inputValues);
-	UpdateEsoTestBuildSkillInputValues(inputValues);
+	UpdateEsoBuildSkillInputValues(inputValues);
 	GetEsoInputSkillPassives(inputValues);
 	GetEsoInputSkillActiveBar(inputValues);
+	GetEsoInputSkillOffBars(inputValues);
 	GetEsoInputBuffValues(inputValues);
 	
 	GetEsoInputMiscValues(inputValues);
@@ -9546,7 +10679,7 @@ window.UpdateEsoInputBuffToggles = function (buffData)
 	{
 		var buffData = g_EsoBuildBuffData[buffName];
 		if (buffData == null) continue;
-		if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled)) continue;
+		if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled || buffData.combatEnabled)) continue;
 		
 		var buffIds = buffData.buffIds;
 		if (buffIds == null) buffIds = [ buffData.buffIds ];
@@ -9576,7 +10709,7 @@ window.GetEsoInputBuffValues = function (inputValues)
 	{
 		var buffData = g_EsoBuildBuffData[buffName];
 		if (buffData == null) continue;
-		if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled)) continue;
+		if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled || buffData.combatEnabled)) continue;
 		GetEsoInputBuffValue(inputValues, buffName, buffData);
 	}
 }
@@ -9630,57 +10763,146 @@ window.GetEsoInputBuffValue = function (inputValues, buffName, buffData)
 }
 
 
+window.GetEsoVampireStageStats = function (stage, inputValues)
+{
+	var result = {};
+	
+	if (stage == 1)
+	{
+		result.healthRegenValue = -0.10
+		result.flameDamageValue = 0.05;
+		result.costReduction = -0.06;
+		result.allCostIncrease = 0.03;
+		
+		if (inputValues.Set.VampireLord == 1) {
+			result.flameDamageValue += 0.01;
+			result.costReduction += -0.05;
+			result.allCostIncrease += 0.01;
+		}
+	}
+	else if (stage == 2)
+	{
+		result.healthRegenValue = -0.30;
+		result.flameDamageValue = 0.08;
+		result.costReduction = -0.10;
+		result.allCostIncrease = 0.05;
+		
+		if (inputValues.Set.VampireLord == 1) {
+			result.flameDamageValue += 0.02;
+			result.costReduction += -0.10;
+			result.allCostIncrease += 0.02;
+		}
+	}
+	else if (stage == 3)
+	{
+		result.healthRegenValue = -0.60;
+		result.flameDamageValue = 0.13;
+		result.costReduction = -0.16;
+		result.allCostIncrease = 0.08;
+		
+		if (inputValues.Set.VampireLord == 1) {
+			result.flameDamageValue += 0.04;
+			result.costReduction += -0.15;
+			result.allCostIncrease += 0.04;
+		}
+	}
+	else if (stage == 4)
+	{
+		result.healthRegenValue = -1.00;
+		result.flameDamageValue = 0.20;
+		result.costReduction = -0.24;
+		result.allCostIncrease = 0.12;
+		
+		if (inputValues.Set.VampireLord == 1) {
+			result.flameDamageValue += 0.06;
+			result.costReduction += -0.20;
+			result.allCostIncrease += 0.06;
+		}
+	}
+	else if (stage == 5)		// TODO: Verify which effects are cancelled
+	{
+		//result.healthRegenValue = -1.00;
+		//result.flameDamageValue = 0.20;
+		result.costReduction = -0.24;
+		//result.allCostIncrease = 0.12;
+		
+		if (inputValues.Set.VampireLord == 1) {
+			//result.flameDamageValue += 0.06;
+			result.costReduction += -0.20;
+			//result.allCostIncrease += 0.06;
+		}
+	}
+	
+	return result;
+}
+
+
+window.GetEsoVampireStageStatsOld = function (stage, inputValues)
+{
+	var result = {};
+	
+	if (stage == 1)
+	{
+		result.healthRegenValue = 0;
+		result.flameDamageValue = 0;
+		result.costReduction = 0;
+	}
+	else if (stage == 2)
+	{
+		result.healthRegenValue = -0.25;
+		result.flameDamageValue = 0.15;
+		result.costReduction = -0.07;
+	}
+	else if (stage == 3)
+	{
+		result.healthRegenValue = -0.50;
+		result.flameDamageValue = 0.20;
+		result.costReduction = -0.14;
+	}
+	else if (stage == 4)
+	{
+		result.healthRegenValue = -0.75;
+		result.flameDamageValue = 0.25;
+		result.costReduction = -0.21;
+	}
+	
+	return result;
+}
+
+
 window.GetEsoInputSpecialValues = function (inputValues)
 {
 	inputValues.VampireStage = parseInt($("#esotbVampireStage").val());
+	if (inputValues.Skill.VampireStage > inputValues.VampireStage) inputValues.VampireStage = inputValues.Skill.VampireStage;
 	
 	if (inputValues.VampireStage > 0)
 	{
-		var healthRegenValue = 0;
-		var flameDamageValue = 0;
-		var costReduction = 0;
+		var stats = {};
 		
-		if (inputValues.VampireStage == 1)
+		stats = GetEsoVampireStageStats(inputValues.VampireStage, inputValues);
+		
+		if (stats.healthRegenValue)
 		{
-			healthRegenValue = 0;
-			flameDamageValue = 0;
-			costReduction = 0;
-		}
-		else if (inputValues.VampireStage == 2)
-		{
-			healthRegenValue = -0.25;
-			flameDamageValue = 0.15;
-			costReduction = -0.07;
-		}
-		else if (inputValues.VampireStage == 3)
-		{
-			healthRegenValue = -0.50;
-			flameDamageValue = 0.20;
-			costReduction = -0.14;
-		}
-		else if (inputValues.VampireStage == 4)
-		{
-			healthRegenValue = -0.75;
-			flameDamageValue = 0.25;
-			costReduction = -0.21;
+			inputValues.Skill.HealthRegen += stats.healthRegenValue;
+			AddEsoInputStatSource("Skill.HealthRegen", { source: "Vampire Stage " + inputValues.VampireStage, value: stats.healthRegenValue });
 		}
 		
-		if (healthRegenValue != 0)
+		if (stats.flameDamageValue)
 		{
-			inputValues.Skill.HealthRegen += healthRegenValue;
-			AddEsoInputStatSource("Skill.HealthRegen", { source: "Vampire Stage " + inputValues.VampireStage, value: healthRegenValue });
+			inputValues.Buff.FlameVulnerability += stats.flameDamageValue;
+			AddEsoInputStatSource("Buff.FlameVulnerability", { source: "Vampire Stage " + inputValues.VampireStage, value: stats.flameDamageValue });
 		}
 		
-		if (flameDamageValue != 0)
+		if (stats.costReduction)
 		{
-			inputValues.Buff.FlameVulnerability += flameDamageValue;
-			AddEsoInputStatSource("Buff.FlameVulnerability", { source: "Vampire Stage " + inputValues.VampireStage, value: flameDamageValue });
+			inputValues.SkillCost.Vampire_Cost += stats.costReduction;
+			AddEsoInputStatSource("SkillCost.Vampire_Cost", { source: "Vampire Stage " + inputValues.VampireStage, value: stats.costReduction });
 		}
 		
-		if (costReduction != 0)
+		if (stats.allCostIncrease)
 		{
-			inputValues.SkillCost.Vampire_Cost += costReduction;
-			AddEsoInputStatSource("SkillCost.Vampire_Cost", { source: "Vampire Stage " + inputValues.VampireStage, value: costReduction });
+			inputValues.SkillCost.Regular_Ability_Cost += stats.allCostIncrease;
+			AddEsoInputStatSource("SkillCost.Regular_Ability_Cost", { source: "Vampire Stage " + inputValues.VampireStage, value: stats.allCostIncrease });
 		}
 	}
 	
@@ -9720,6 +10942,8 @@ window.GetEsoInputSetDataValues = function (inputValues, setData)
 {
 	if (setData == null || (setData.count <= 0 && setData.otherCount <= 0)) return;
 	setData.rawOutput = [];
+	setData.isDescValid = [ false, false, false, false, false ];
+	setData.isOffhandDescValid = [ false, false, false, false, false ];
 	
 	for (var i = 0; i < 5; ++i)
 	{
@@ -9730,13 +10954,20 @@ window.GetEsoInputSetDataValues = function (inputValues, setData)
 		else if (setData.unequippedItems[0])
 			setBonusCount = parseInt(setData.unequippedItems[0]['setBonusCount' + (i+1)]);
 		
-		// if (setBonusCount > setData.count) continue;
+		if (setBonusCount <= 0) continue;
 		if (setBonusCount > setData.count && setBonusCount > setData.otherCount) continue;
-		// if (setBonusCount > setData.count && setData.enableOffBar === false)
-		// continue;
 		
 		var onlyEnableToggles = false;
-		if (setBonusCount > setData.count) onlyEnableToggles = true;
+		
+		if (setBonusCount > setData.count) 
+		{
+			onlyEnableToggles = true;
+			setData.isOffhandDescValid[i] = true;
+		}
+		else 
+		{
+			setData.isDescValid[i] = true;
+		}
 		
 		var setDesc = setData.averageDesc[i];
 		
@@ -9832,24 +11063,25 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 			AddEsoItemRawOutputString(setData, "Adds Buff", matchData.buffId);
 			AddEsoItemRawOutputString(buffData, "Set Effect", setData.name + " set");
 			
-			if (matchData.updateBuffValue === true)
+			if (matchData.updateBuffValue === true && matches[1] != null)
 			{
-				var matches = setDesc.match(matchData.match);
+				var factorValue = 1;
 				
-				if (matches != null && matches[1] != null) 
+				if (matchData.display == "%") factorValue *= 0.01;
+				if (matchData.factorValue) factorValue *= matchData.factorValue;
+				
+				if (matchData.maxTimes != null)
 				{
-					var factorValue = 1;
-					
-					if (matchData.display == "%") factorValue *= 0.01;
-					if (matchData.factorValue) factorValue *= matchData.factorValue;
-					
-					if (buffData.value != null) buffData.value = parseFloat(matches[1]) * factorValue;
-					
-					if (buffData.values) {
-						for (var j = 0; j < buffData.values.length; j++) 
-						{
-							buffData.values[j] = parseFloat(matches[1]) * factorValue;
-						}						
+					var toggleData = g_EsoBuildToggledSetData[matchData.id];
+					if (toggleData != null && toggleData.count != null) factorValue *= toggleData.count;
+				}
+				
+				if (buffData.value != null) buffData.value = parseFloat(matches[1]) * factorValue;
+				
+				if (buffData.values) {
+					for (var j = 0; j < buffData.values.length; j++) 
+					{
+						buffData.values[j] = parseFloat(matches[1]) * factorValue;
 					}
 				}
 				
@@ -9873,8 +11105,12 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 			continue;
 		}
 		
-		var statValue = parseFloat(matches[1]);
 		var statFactor = 1;
+		var statValue = 1;
+		var newStatValue = parseFloat(matches[1]);
+		
+		if (matchData.statValue !== undefined) statValue = matchData.statValue;
+		if (!isNaN(newStatValue)) statValue = newStatValue;
 		if (isNaN(statValue)) statValue = 1;
 				
 		if (matchData.maxTimes != null)
@@ -9973,14 +11209,26 @@ window.UpdateEsoBuildSetOtherEffectDesc = function ()
 window.GetEsoEnchantData = function (slotId)
 {
 	var itemData = null;
-	var enchantData = {};
+	var enchantData = g_EsoBuildEnchantData[slotId];
 	
-	if (g_EsoBuildEnchantData[slotId] == null) return null;
-	
-	if ($.isEmptyObject(g_EsoBuildEnchantData[slotId]))
+	if (enchantData == null) return null;
+		
+	if ($.isEmptyObject(enchantData) || enchantData.isDefaultEnchant === true)
 	{
 		itemData = g_EsoBuildItemData[slotId];
 		enchantData.isDefaultEnchant = true;
+		
+		if (itemData == null) return null;
+		
+		enchantData.itemId = itemData.itemId;
+		enchantData.internalLevel = itemData.internalLevel;
+		enchantData.internalSubtype = itemData.internalSubtype;
+		enchantData.enchantId = itemData.enchantId;
+		enchantData.enchantLevel = itemData.enchantLevel;
+		enchantData.enchantSubtype = itemData.enchantSubtype;
+		enchantData.enchantName = itemData.enchantName;
+		enchantData.name = enchantData.enchantName;
+		enchantData.enchantDesc = itemData.enchantDesc; 
 	}
 	else
 	{
@@ -9988,16 +11236,7 @@ window.GetEsoEnchantData = function (slotId)
 		enchantData.isDefaultEnchant = false;
 	}
 	
-	if (itemData == null) return null;
-	
-	enchantData.itemId = itemData.itemId;
-	enchantData.internalLevel = itemData.internalLevel;
-	enchantData.internalSubtype = itemData.internalSubtype;
-	enchantData.enchantId = itemData.enchantId;
-	enchantData.enchantLevel = itemData.enchantLevel;
-	enchantData.enchantSubtype = itemData.enchantSubtype;
-	enchantData.enchantName = itemData.enchantName;
-	enchantData.enchantDesc = itemData.enchantDesc;
+	enchantData.newEnchantDesc = "";
 	
 	return enchantData;
 }
@@ -10069,13 +11308,38 @@ window.GetEsoInputSkillActiveBar = function (inputValues)
 		var activeData = g_EsoSkillActiveData[skillData.origSkillId];
 		if (activeData == null) continue;
 		
-		GetEsoInputSkillActiveValues(inputValues, skillInputValues, activeData);	
+		GetEsoInputSkillActiveValues(inputValues, skillInputValues, activeData);
 	}
 	
 }
 
 
-window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, abilityData, isPassive, testMatch)
+window.GetEsoInputSkillOffBars = function (inputValues)
+{
+	var skillInputValues = GetEsoTestBuildSkillInputValues();
+	
+	for (var j = 0; j < g_EsoSkillBarData.length; ++j)
+	{
+		if (j == g_EsoBuildActiveAbilityBar - 1) continue;
+		
+		var skillBar = g_EsoSkillBarData[j];
+		if (skillBar == null) continue;
+		
+		for (var i = 0; i < skillBar.length; ++i)
+		{
+			var skillData = skillBar[i];
+			if (skillData.origSkillId == null) continue;
+			
+			var activeData = g_EsoSkillActiveData[skillData.origSkillId];
+			if (activeData == null) continue;
+			
+			GetEsoInputSkillActiveValues(inputValues, skillInputValues, activeData, true);
+		}
+	}
+}
+
+
+window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, abilityData, isPassive, testMatch, isOffBar)
 {
 	var statValue = 0;
 	var statFactor = 1;
@@ -10115,6 +11379,10 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 	if (matchData.toggle === true && matchData.id != null)
 	{
 		if (!IsEsoBuildToggledSkillEnabled(matchData.id)) return false;
+	}
+	else if (isOffBar)
+	{
+		return false;
 	}
 	
 	if (matchData.requireSkillLine != null)
@@ -10168,7 +11436,10 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 		statFactor = statFactor * matchData.factorValue;
 	}
 	
-	statValue = statValue * statFactor;
+	if (matchData.baseValue != null) 
+		statValue = statValue * matchData.baseValue + statValue * statFactor;
+	else
+		statValue = statValue * statFactor;	
 	
 	if (matchData.display == '%') statValue = statValue / 100;
 	if (matchData.round == 'floor') statValue = Math.floor(statValue);
@@ -10244,6 +11515,7 @@ window.ResetEsoBuffSkillEnabled = function ()
 		if (buffData.toggleVisible === true) buffData.visible = false;
 		buffData.buffEnabled = false;
 		buffData.skillEnabled = false;
+		buffData.combatEnable = 0;
 		buffData.rawOutput = {};
 		buffData.skillAbilities = [];
 		buffData.buffAbilities = [];
@@ -10257,7 +11529,8 @@ window.UpdateEsoBuffSkillEnabled = function ()
 	for (var buffName in g_EsoBuildBuffData)
 	{
 		var buffData = g_EsoBuildBuffData[buffName];
-		var parent = $(".esotbBuffItem[buffid='" + buffName + "']");
+		var parentId = buffName.replace(/\W/g, "_");
+		var parent = $("#esotbBuff_" + parentId);
 		var element = parent.find(".esotbBuffSkillEnable");
 		
 		if (buffData.skillEnabled)
@@ -10308,7 +11581,8 @@ window.UpdateEsoBuffBuffEnabled = function ()
 	for (var buffName in g_EsoBuildBuffData)
 	{
 		var buffData = g_EsoBuildBuffData[buffName];
-		var parent = $(".esotbBuffItem[buffid='" + buffName + "']");
+		var parentId = buffName.replace(/\W/g, "_");
+		var parent = $("#esotbBuff_" + parentId);
 		var element = parent.find(".esotbBuffSkillEnable");
 		
 		if (buffData.buffEnabled)
@@ -10368,19 +11642,19 @@ window.GetEsoInputSkillPassiveValues = function (inputValues, skillInputValues, 
 }
 
 
-window.GetEsoInputSkillActiveValues = function (inputValues, skillInputValues, skillData)
+window.GetEsoInputSkillActiveValues = function (inputValues, skillInputValues, skillData, isOffBar)
 {
 	var abilityData = g_SkillsData[skillData.abilityId];
 	var skillDesc = GetEsoSkillDescription(skillData.abilityId, skillInputValues, false, true);
 	var rawDesc = RemoveEsoDescriptionFormats(skillDesc);
 	if (rawDesc == "" || abilityData == null) return;
 	
-	abilityData.rawOutput = {};
+	//abilityData.rawOutput = {};
 	
 	for (var i = 0; i < ESO_ACTIVEEFFECT_MATCHES.length; ++i)
 	{
 		var matchData = ESO_ACTIVEEFFECT_MATCHES[i];
-		ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData, false);
+		ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData, false, false, isOffBar);
 	}
 	
 }
@@ -10391,7 +11665,7 @@ window.ResetEsoAllSkillRawOutputs = function ()
 	
 	for (var skillId in g_SkillsData)
 	{
-		g_SkillsData[skillId].rawOutput = {};	
+		g_SkillsData[skillId].rawOutput = {};
 	}
 
 }
@@ -10405,11 +11679,11 @@ window.AddEsoItemRawOutput = function (itemData, statId, value)
 }
 
 
-window.AddEsoItemRawOutputString = function (itemData, statId, value)
+window.AddEsoItemRawOutputString = function (itemData, statId, value, overwrite)
 {
 	if (itemData.rawOutput == null) itemData.rawOutput = {};
 	
-	if (itemData.rawOutput[statId] == null)	
+	if (itemData.rawOutput[statId] == null || overwrite)
 		itemData.rawOutput[statId] = value;
 	else
 		itemData.rawOutput[statId] += ", " + value;
@@ -10659,7 +11933,7 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 		break;
 	}
 	
-	if (itemData.armorRating > 0)
+	if (itemData.armorRating > 0 && (itemData.type == 2 || (itemData.type == 1 && itemData.weaponType == 14)))
 	{
 		var factor = 1;
 		var factor2 = 1;
@@ -10729,7 +12003,7 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 		AddEsoInputStatSource("Item.PhysicalResist", { item: itemData, value: armorRating, slotId:slotId });
 	}
 	
-	if (itemData.weaponPower > 0)
+	if (itemData.weaponPower > 0 && itemData.type == 1)
 	{
 		var weaponPower = parseFloat(itemData.weaponPower);
 		
@@ -10817,25 +12091,25 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 	{
 		inputValues.Item.Training += traitValue/100;
 		AddEsoItemRawOutput(itemData, "Item.Training", traitValue/100);
-		AddEsoInputStatSource("Item.Training", { item: itemData, value: traitValue/100, slotId:slotId });
+		AddEsoInputStatSource("Item.Training", { item: itemData, value: traitValue/100, slotId: slotId });
 	}
 	else if (itemData.trait == 21) // Healthy
 	{
 		inputValues.Item.Health += traitValue;
 		AddEsoItemRawOutput(itemData, "Item.Health", traitValue);
-		AddEsoInputStatSource("Item.Health", { item: itemData, value: traitValue, slotId:slotId });
+		AddEsoInputStatSource("Item.Health", { item: itemData, value: traitValue, slotId: slotId });
 	}
 	else if (itemData.trait == 22) // Arcane
 	{
 		inputValues.Item.Magicka += traitValue;
 		AddEsoItemRawOutput(itemData, "Item.Magicka", traitValue);
-		AddEsoInputStatSource("Item.Magicka", { item: itemData, value: traitValue, slotId:slotId });
+		AddEsoInputStatSource("Item.Magicka", { item: itemData, value: traitValue, slotId: slotId });
 	}
 	else if (itemData.trait == 23) // Robust
 	{
 		inputValues.Item.Stamina += traitValue;
 		AddEsoItemRawOutput(itemData, "Item.Stamina", traitValue);
-		AddEsoInputStatSource("Item.Stamina", { item: itemData, value: traitValue, slotId:slotId });
+		AddEsoInputStatSource("Item.Stamina", { item: itemData, value: traitValue, slotId: slotId });
 	}	
 	else if (itemData.trait == 14) // Well Fitted
 	{
@@ -10844,7 +12118,7 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 		AddEsoItemRawOutput(itemData, "Item.SprintCost", -traitValue/100);
 		AddEsoItemRawOutput(itemData, "Item.RollDodgeCost", -traitValue/100);
 		AddEsoInputStatSource("Item.SprintCost", { item: itemData, value: -traitValue/100, slotId:slotId });
-		AddEsoInputStatSource("Item.RollDodgeCost", { item: itemData, value: -traitValue/100, slotId:slotId });
+		AddEsoInputStatSource("Item.RollDodgeCost", { item: itemData, value: -traitValue/100, slotId: slotId });
 	}
 	else if (itemData.trait == 7) // Sharpened
 	{
@@ -10853,7 +12127,7 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 		AddEsoItemRawOutput(itemData, "Item.SpellPenetration", traitValue);
 		AddEsoItemRawOutput(itemData, "Item.PhysicalPenetration", traitValue);
 		AddEsoInputStatSource("Item.SpellPenetration", { item: itemData, value: traitValue, slotId:slotId });
-		AddEsoInputStatSource("Item.PhysicalPenetration", { item: itemData, value: traitValue, slotId:slotId });
+		AddEsoInputStatSource("Item.PhysicalPenetration", { item: itemData, value: traitValue, slotId: slotId });
 	}
 	else if (itemData.trait == 3) // Precise
 	{
@@ -10862,7 +12136,7 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 		AddEsoItemRawOutput(itemData, "Item.SpellCrit", traitValue/100);
 		AddEsoItemRawOutput(itemData, "Item.WeaponCrit", traitValue/100);
 		AddEsoInputStatSource("Item.SpellCrit", { item: itemData, value: traitValue/100, slotId:slotId });
-		AddEsoInputStatSource("Item.WeaponCrit", { item: itemData, value: traitValue/100, slotId:slotId });
+		AddEsoInputStatSource("Item.WeaponCrit", { item: itemData, value: traitValue/100, slotId: slotId });
 	}
 	else if (itemData.trait == 5) // Defending
 	{
@@ -10871,10 +12145,13 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 		AddEsoItemRawOutput(itemData, "Item.SpellResist", traitValue);
 		AddEsoInputStatSource("Item.SpellResist", { item: itemData, value: traitValue, slotId:slotId });
 		AddEsoItemRawOutput(itemData, "Item.PhysicalResist", traitValue);
-		AddEsoInputStatSource("Item.PhysicalResist", { item: itemData, value: traitValue, slotId:slotId });
+		AddEsoInputStatSource("Item.PhysicalResist", { item: itemData, value: traitValue, slotId: slotId });
 	}
 	else if (itemData.trait == 2) // Charged
 	{
+		inputValues.Item.StatusEffectChance += traitValue/100;
+		AddEsoItemRawOutput(itemData, "Item.StatusEffectChance", traitValue/100);
+		AddEsoInputStatSource("Item.StatusEffectChance", { item: itemData, value: traitValue/100, slotId: slotId });
 	}
 	else if (itemData.trait == 4) // Infused
 	{
@@ -10883,7 +12160,7 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 	{
 		inputValues.Item.HealingDone += traitValue/100;
 		AddEsoItemRawOutput(itemData, "Item.HealingDone", traitValue/100);
-		AddEsoInputStatSource("Item.HealingDone", { item: itemData, value: traitValue/100, slotId:slotId });
+		AddEsoInputStatSource("Item.HealingDone", { item: itemData, value: traitValue/100, slotId: slotId });
 	}
 	else if (itemData.trait == 8) // Decisive
 	{
@@ -10966,6 +12243,7 @@ window.GetEsoInputItemEnchantValues = function (inputValues, slotId, doWeaponUpd
 	
 	var enchantFactor = 1;
 	var transmuteFactor = 1;
+	var isTransmuted = (itemData.transmuteTrait > 0 && itemData.transmuteTrait != itemData.origTrait)
 	
 		// Fix original infused item that is transmuted
 	if (enchantData.isDefaultEnchant && itemData.transmuteTrait > 0 && (itemData.origTrait == 16 || itemData.origTrait == 4 || itemData.origTrait == 33) && itemData.transmuteTrait != itemData.origTrait)
@@ -10991,40 +12269,58 @@ window.GetEsoInputItemEnchantValues = function (inputValues, slotId, doWeaponUpd
 		{
 			var infusedFactor = parseFloat(results[0])/100;
 			if (isNaN(infusedFactor) || infusedFactor < 0) infusedFactor = 0;
-			enchantFactor = enchantFactor * (1 + infusedFactor);
 			
-			if (doWeaponUpdate && (slotId == "MainHand1" || slotId == "OffHand1"))
-			{
-				inputValues.Item.EnchantPotency1 += infusedFactor;
-				AddEsoItemRawOutput(itemData, "Item.EnchantPotency1", infusedFactor);
-				AddEsoInputStatSource("Item.EnchantPotency1", { item: itemData, enchant: enchantData, value: infusedFactor, slotId: slotId });
+				/* Default enchants already include the infused effect */
+			if (!(enchantData.isDefaultEnchant && !isTransmuted)) enchantFactor = enchantFactor * (1 + infusedFactor);
+			
+			if (doWeaponUpdate) {
+				var potency = inputValues['EnchantPotency' + slotId];
+				
+				if (potency != null) {
+					inputValues['EnchantPotency' + slotId] = (1 + inputValues['EnchantPotency' + slotId]) * (1 + infusedFactor) - 1;
+					AddEsoItemRawOutput(itemData, "Enchant Potency Infused", infusedFactor);
+					AddEsoInputStatSource("EnchantPotency" + slotId, { item: itemData, value: infusedFactor, slotId: slotId });
+				}
 			}
-			else if (doWeaponUpdate && (slotId == "MainHand2" || slotId == "OffHand2"))
-			{
-				inputValues.Item.EnchantPotency2 += infusedFactor;
-				AddEsoItemRawOutput(itemData, "Item.EnchantPotency2", infusedFactor);
-				AddEsoInputStatSource("Item.EnchantPotency2", { item: itemData, enchant: enchantData, value: infusedFactor, slotId: slotId });
-			}			
 			
 			if (results.length > 1)
 			{
 				var infusedCooldown = parseFloat(results[1])/100;
 				if (isNaN(infusedCooldown) || infusedCooldown < 0) infusedCooldown = 0;
 				
-				if (doWeaponUpdate && (slotId == "MainHand1" || slotId == "OffHand1"))
-				{
-					inputValues.Item.EnchantCooldown1 += infusedCooldown;
-					AddEsoItemRawOutput(itemData, "Item.EnchantCooldown1", infusedCooldown);
-					AddEsoInputStatSource("Item.EnchantCooldown1", { item: itemData, enchant: enchantData, value: infusedCooldown, slotId: slotId });
-				}
-				else if (doWeaponUpdate && (slotId == "MainHand2" || slotId == "OffHand2"))
-				{
-					inputValues.Item.EnchantCooldown2 += infusedCooldown;
-					AddEsoItemRawOutput(itemData, "Item.EnchantCooldown2", infusedCooldown);
-					AddEsoInputStatSource("Item.EnchantCooldown2", { item: itemData, enchant: enchantData, value: infusedCooldown, slotId: slotId });
+				if (doWeaponUpdate) {
+					var cooldown = inputValues['EnchantCooldown' + slotId];
+					
+					if (cooldown != null) {
+						inputValues['EnchantCooldown' + slotId] = (1 + inputValues['EnchantCooldown' + slotId]) * (1 - infusedCooldown) - 1;
+						AddEsoItemRawOutput(itemData, "Enchant Cooldown Infused", -infusedCooldown);
+						AddEsoInputStatSource("EnchantCooldown" + slotId, { item: itemData, value: -infusedCooldown, slotId: slotId });
+					}
 				}
 			}
 		}
+	}
+	
+	if (IsEsoItemWeapon(itemData) && doWeaponUpdate === true && inputValues.Set.EnchantPotency != 0 && itemData.weaponType != 14) 
+	{
+		var potency = inputValues['EnchantPotency' + slotId];
+		var cooldown = inputValues['EnchantCooldown' + slotId];
+		var isOblivionDamage = (enchantData.enchantDesc.indexOf("Oblivion Damage") >= 0); 
+		
+		if (potency != null && !isOblivionDamage) 
+		{
+			inputValues['EnchantPotency' + slotId] = (1 + inputValues['EnchantPotency' + slotId]) * (1 + inputValues.Set.EnchantPotency) - 1;
+			AddEsoItemRawOutput(itemData, "Enchant Potency Torug", inputValues.Set.EnchantPotency);
+			AddEsoInputStatSource('EnchantPotency' + slotId, { set: g_EsoBuildSetData["Torug's Pact"], setBonusCount: 4, value: inputValues.Set.EnchantPotency, slotId: slotId });
+		}
+		
+		if (cooldown != null && inputValues.Set.EnchantCooldown != 0) {
+			inputValues['EnchantCooldown' + slotId] = (1 + inputValues['EnchantCooldown' + slotId]) * (1 + inputValues.Set.EnchantCooldown) - 1;
+			AddEsoItemRawOutput(itemData, "Enchant Cooldown Torug", inputValues.Set.EnchantCooldown);
+			AddEsoInputStatSource("EnchantCooldown" + slotId, { set: g_EsoBuildSetData["Torug's Pact"], setBonusCount: 4, value: inputValues.Set.EnchantCooldown, slotId: slotId });
+		}
+		
+		if (!isOblivionDamage) enchantFactor *= (1 + inputValues.Set.EnchantPotency);
 	}
 	
 	if (slotId == "Waist" || slotId == "Feet" || slotId == "Shoulders" || slotId == "Hands")
@@ -11063,12 +12359,18 @@ window.GetEsoInputItemEnchantArmorValues = function (inputValues, slotId, itemDa
 		
 		if (matchData.factorValue != null) statValue *= matchData.factorValue;
 		
-		statValue = Math.floor(statValue);
+		if (matchData.round == "floor10")
+			statValue = Math.floor(statValue*10)/10;
+		else
+			statValue = Math.floor(statValue);
 		
 		inputValues.Item[matchData.statId] += statValue;
 		AddEsoItemRawOutput(itemData, "Item." + matchData.statId, statValue);
 		AddEsoInputStatSource("Item." + matchData.statId, { item: itemData, enchant: enchantData, value: statValue, slotId: slotId });
 	}
+	
+	enchantData.enchantFactor = enchantFactor;
+	enchantData.transmuteFactor = transmuteFactor;
 }
 
 
@@ -11079,9 +12381,143 @@ window.RemoveEsoDescriptionFormats = function (text)
 }
 
 
-window.ReplaceEsoWeaponMatch = function (match, p1, offset, string, enchantFactor)
+window.UpdateEsoAllEnchantWeaponValues = function(inputValues)
 {
-	var newValue = Math.floor(parseFloat(p1) * enchantFactor);
+	if (g_EsoBuildActiveWeapon == 1)
+	{
+		UpdateEsoEnchantWeaponValues(inputValues, "MainHand1");
+		UpdateEsoEnchantWeaponValues(inputValues,  "OffHand1");
+	}
+	else
+	{
+		UpdateEsoEnchantWeaponValues(inputValues, "MainHand2");
+		UpdateEsoEnchantWeaponValues(inputValues,  "OffHand2");
+	}
+	
+}
+
+
+window.UpdateEsoEnchantWeaponValues = function(inputValues, slotId)
+{
+	var enchantData = g_EsoBuildEnchantData[slotId];
+	var itemData = g_EsoBuildItemData[slotId];
+	var rawDesc = RemoveEsoDescriptionFormats(enchantData.enchantDesc);
+	var isDescUpdated = false;
+	
+	if (itemData == null || $.isEmptyObject(itemData)) return false;
+	if (itemData.weaponType == 14) return false;
+	if ($.isEmptyObject(enchantData)) return false;
+	if (rawDesc == "") return false;
+	
+	for (var i = 0; i < ESO_ENCHANT_WEAPON_MATCHES.length; ++i)
+	{
+		var matchData = ESO_ENCHANT_WEAPON_MATCHES[i];
+		var matches = rawDesc.match(matchData.match);
+		if (matches == null) continue;
+		
+		rawDesc = rawDesc.replace(matchData.match, function(match, p1, offset, string) { return ReplaceEsoWeaponUpdateMatch(match, p1, itemData, enchantData, matchData, inputValues); });
+		
+		isDescUpdated = true;
+		
+		enchantData.origCooldown = matchData.cooldown;
+		enchantData.origDuration = matchData.duration;
+		enchantData.cooldown = matchData.cooldown;
+		enchantData.duration = matchData.duration;
+		
+		var statId = "EnchantCooldown" + slotId;
+		
+		if (inputValues[statId] != null) 
+		{
+			enchantData.cooldown = Math.floor(enchantData.cooldown * (1 + inputValues[statId]) * 100)/100;
+		}
+	}
+	
+	//AddEsoInputStatSource("OtherEffects", { other: true, item: itemData, enchant: enchantData, value: rawDesc, slotId: slotId });
+	AddEsoItemRawOutputString(itemData, "Orig Enchant", RemoveEsoDescriptionFormats(enchantData.enchantDesc));
+	AddEsoItemRawOutputString(itemData, "Enchantment", rawDesc);
+	
+	enchantData.newEnchantDesc = rawDesc;
+	return true;
+}
+
+
+window.ReplaceEsoWeaponUpdateMatch = function (match, p1, itemData, enchantData, matchData, inputValues)
+{
+	var newValue = parseFloat(p1);
+	
+	if (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11)
+	{
+		AddEsoItemRawOutputString(itemData, "Enchantment 1H Weapon", "50%", true);
+	}
+	
+	if (enchantData.transmuteFactor && enchantData.transmuteFactor != 1) 
+	{
+		newValue = newValue / enchantData.transmuteFactor;
+		AddEsoItemRawOutputString(itemData, "Enchantment Transmute Factor", ((enchantData.transmuteFactor - 1)*100).toFixed(0) + "%", true);
+	}
+	
+	if (enchantData.enchantFactor && enchantData.enchantFactor != 1) 
+	{
+		newValue = newValue * enchantData.enchantFactor;
+		AddEsoItemRawOutputString(itemData, "Final Enchantment Factor", ((enchantData.enchantFactor - 1)*100).toFixed(0) + "%", true);
+	}
+	
+	if (matchData.damageType != null)
+	{
+		var damageTypeDamageDone = inputValues[matchData.damageType + "DamageDone"];
+		
+		if (inputValues.DamageDone) 
+		{
+			newValue *= 1 + inputValues.DamageDone;
+			AddEsoItemRawOutputString(itemData, "Enchantment Damage Done", inputValues.DamageDone*100 + "%");
+		}
+		
+		if (inputValues.DirectDamageDone) 
+		{
+			newValue *= 1 + inputValues.DirectDamageDone;
+			AddEsoItemRawOutputString(itemData, "Enchantment Direct Damage Done", inputValues.DirectDamageDone*100 + "%");
+		}
+		
+		if (inputValues.SingleTargetDamageDone) 
+		{
+			newValue *= 1 + inputValues.SingleTargetDamageDone;
+			AddEsoItemRawOutputString(itemData, "Enchantment Single Target Damage Done", inputValues.SingleTargetDamageDone*100 + "%");
+		}
+		
+		if (damageTypeDamageDone) 
+		{
+			newValue *= 1 + damageTypeDamageDone;
+			AddEsoItemRawOutputString(itemData, "Enchantment " + matchData.damageType + " Damage Done", damageTypeDamageDone*100 + "%");
+		}
+	}
+	else if (matchData.isDamageShield && inputValues.DamageShield)
+	{
+		newValue *= 1 + inputValues.DamageShield;
+		AddEsoItemRawOutputString(itemData, "Enchantment Damage Shield", inputValues.DamageShield*100 + "%");
+	}
+	else if (matchData.isHealing)
+	{
+		if (inputValues.HealingDone) {
+			newValue *= 1 + inputValues.HealingDone;
+			AddEsoItemRawOutputString(itemData, "Enchantment Healing Done", inputValues.HealingDone*100 + "%");
+		}
+		
+		if (inputValues.HealingReceived) {
+			newValue *= 1 + inputValues.HealingReceived;
+			AddEsoItemRawOutputString(itemData, "Enchantment Healing Received", inputValues.HealingReceived*100 + "%");
+		}
+	}
+	
+	newValue = Math.floor(newValue);
+	
+	return match.replace(p1, newValue);
+}
+
+
+
+window.ReplaceEsoWeaponMatch = function (match, p1, offset, string, enchantFactor, transmuteFactor)
+{
+	var newValue = Math.floor(parseFloat(p1) / transmuteFactor * enchantFactor);
 	return match.replace(p1, newValue);
 }
 
@@ -11092,9 +12528,8 @@ window.GetEsoInputItemEnchantWeaponValues = function (inputValues, slotId, itemD
 	var addFinalEffect = false;
 	var isTransmuted = (itemData.transmuteTrait > 0 && itemData.transmuteTrait != itemData.origTrait)
 	
-	if (enchantData.isDefaultEnchant && !isTransmuted) enchantFactor = 1;
+	//if (enchantData.isDefaultEnchant && !isTransmuted) enchantFactor = 1;
 	if (itemData.type != 1) return false;
-	if (inputValues.Set.EnchantPotency != null && itemData.weaponType != 14) enchantFactor *= (1 + inputValues.Set.EnchantPotency);
 	
 	if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
 	{
@@ -11107,15 +12542,16 @@ window.GetEsoInputItemEnchantWeaponValues = function (inputValues, slotId, itemD
 		var matches = rawDesc.match(matchData.match);
 		if (matches == null) continue;
 		
-		var modValue = matchData.modValue || 1;
-		
-		if (matchData.statId == "")
+		if (matchData.damageType != null || matchData.isHealing || matchData.isDamageShield) {
+			// Do nothing...is updated later
+		}
+		else if (matchData.statId  == null || matchData.statId == "")
 		{
-			rawDesc = rawDesc.replace(matchData.match, function(match, p1, offset, string) { return ReplaceEsoWeaponMatch(match, p1, offset, string, enchantFactor); });
+			rawDesc = rawDesc.replace(matchData.match, function(match, p1, offset, string) { return ReplaceEsoWeaponMatch(match, p1, offset, string, enchantFactor, transmuteFactor); });
 		}
 		else if (matchData.statId == "OtherEffects")
 		{
-			rawDesc = rawDesc.replace(matchData.match, function(match, p1, offset, string) { return ReplaceEsoWeaponMatch(match, p1, offset, string, enchantFactor); });
+			rawDesc = rawDesc.replace(matchData.match, function(match, p1, offset, string) { return ReplaceEsoWeaponMatch(match, p1, offset, string, enchantFactor, transmuteFactor); });
 			addFinalEffect = true;
 			
 			if (matchData.buffId != null && matchData.updateBuffValue === true)
@@ -11134,7 +12570,7 @@ window.GetEsoInputItemEnchantWeaponValues = function (inputValues, slotId, itemD
 							for (var j = 0; j < buffData.values.length; j++) 
 							{
 								buffData.values[j] = parseFloat(matches[1]);
-							}						
+							}
 						}
 					}
 					
@@ -11145,7 +12581,7 @@ window.GetEsoInputItemEnchantWeaponValues = function (inputValues, slotId, itemD
 		}
 		else
 		{
-			var statValue = Math.floor(parseFloat(matches[1]) * enchantFactor * modValue);
+			var statValue = Math.floor(parseFloat(matches[1]) * enchantFactor);
 			var category = matchData.category || "Item";
 			
 			inputValues[category][matchData.statId] += statValue;
@@ -11157,8 +12593,12 @@ window.GetEsoInputItemEnchantWeaponValues = function (inputValues, slotId, itemD
 	if (addFinalEffect) 
 	{
 		AddEsoInputStatSource("OtherEffects", { other: true, item: itemData, enchant: enchantData, value: rawDesc, slotId: slotId });
-		AddEsoItemRawOutputString(itemData, "WeaponEnchant", rawDesc);
+		//AddEsoItemRawOutputString(itemData, "WeaponEnchant", rawDesc);
 	}
+	
+	enchantData.newEnchantDesc = rawDesc;
+	enchantData.enchantFactor = enchantFactor;
+	enchantData.transmuteFactor = transmuteFactor;
 }
 
 
@@ -11171,10 +12611,12 @@ window.GetEsoInputItemEnchantOtherHandWeaponValues = function (inputValues, slot
 	if (enchantData.isDefaultEnchant && !isTransmuted) enchantFactor = 1;
 	if (itemData.type != 1) return false;
 	
-	if (inputValues.Set.EnchantPotency != null && itemData.weaponType != 14) enchantFactor *= (1 + inputValues.Set.EnchantPotency);
-	
+	if (inputValues.Set.EnchantPotency != null) 
+	{
+		enchantFactor *= (1 + inputValues.Set.EnchantPotency);
+	}
 		/* Special case for offbar Torug's Pact setup */
-	if (g_EsoBuildSetData["Torug's Pact"] != null && g_EsoBuildSetData["Torug's Pact"].count < 5 && g_EsoBuildSetData["Torug's Pact"].otherCount >= 5)
+	else if (g_EsoBuildSetData["Torug's Pact"] != null && g_EsoBuildSetData["Torug's Pact"].count < 5 && g_EsoBuildSetData["Torug's Pact"].otherCount >= 5)
 	{
 		enchantFactor *= (1 + 0.3);
 	}
@@ -11190,9 +12632,7 @@ window.GetEsoInputItemEnchantOtherHandWeaponValues = function (inputValues, slot
 		var matches = rawDesc.match(matchData.match);
 		if (matches == null) continue;
 		
-		var modValue = matchData.modValue || 1;
-		
-		rawDesc = rawDesc.replace(matchData.match, function(match, p1, offset, string) { return ReplaceEsoWeaponMatch(match, p1, offset, string, enchantFactor); });
+		rawDesc = rawDesc.replace(matchData.match, function(match, p1, offset, string) { return ReplaceEsoWeaponMatch(match, p1, offset, string, enchantFactor, transmuteFactor); });
 		addFinalEffect = true;
 		
 		if (matchData.buffId != null && matchData.updateBuffValue === true)
@@ -11222,6 +12662,9 @@ window.GetEsoInputItemEnchantOtherHandWeaponValues = function (inputValues, slot
 		
 	}
 	
+	enchantData.newEnchantDesc = rawDesc;
+	enchantData.enchantFactor = enchantFactor;
+	enchantData.transmuteFactor = transmuteFactor;
 }
 
 
@@ -11313,7 +12756,7 @@ window.GetEsoInputTargetValues = function (inputValues)
 {
 	inputValues.Target.SpellResist = ParseEsoBuildFloat($("#esotbTargetResistance").val());
 	inputValues.Target.PhysicalResist = inputValues.Target.SpellResist;
-	inputValues.Target.CritResistFlat = ParseEsoBuildFloat($("#esotbTargetCritResistFlat").val());
+	inputValues.Target.CritResist = ParseEsoBuildFloat($("#esotbTargetCritResistFlat").val());
 	inputValues.Target.EffectiveLevel = parseInt(ParseEsoBuildFloat($("#esotbTargetEffectiveLevel").val()));
 	// inputValues.Target.CritResistFactor =
 	// ParseEsoBuildFloat($("#esotbTargetCritResistFactor").val()) / 100;
@@ -11329,6 +12772,8 @@ window.GetEsoInputTargetValues = function (inputValues)
 window.GetEsoInputMiscValues = function (inputValues)
 {
 	inputValues.Misc.SpellCost = parseFloat($("#esotbMiscSpellCost").val());
+	
+	if (inputValues.Skill.BlockSpeedPenalty == 0) inputValues.Skill.BlockSpeedPenalty = 0.60;
 }
 
 
@@ -11475,21 +12920,21 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 		//inputValues.Mundus.CritDamage  = 0.09;		// Update 15
 		//inputValues.Mundus.CritHealing = 0.09;		
 		
-		inputValues.Mundus.CritDamage  = 0.13;		// Update 21
-		inputValues.Mundus.CritHealing = 0.13;
-		
+		inputValues.Mundus.CritDamage  = 0.13;			// Update 21
 		AddEsoInputStatSource("Mundus.CritDamage",  { mundus: mundusName, value: inputValues.Mundus.CritDamage });
-		AddEsoInputStatSource("Mundus.CritHealing", { mundus: mundusName, value: inputValues.Mundus.CritHealing });
+		
+		//inputValues.Mundus.CritHealing = 0.13;		// Update ??
+		//AddEsoInputStatSource("Mundus.CritHealing", { mundus: mundusName, value: inputValues.Mundus.CritHealing });
 		
 		if (divines > 0)
 		{
 			var extra = Math.floor(inputValues.Mundus.CritDamage * 1000 * divines) / 1000;
 			
 			inputValues.Mundus.CritDamage  += extra;
-			inputValues.Mundus.CritHealing += extra;
-			
 			AddEsoInputStatSource("Mundus.CritDamage",  { source: mundusName + " Divines bonus", value: extra });
-			AddEsoInputStatSource("Mundus.CritHealing", { source: mundusName + " Divines bonus", value: extra });
+			
+			//inputValues.Mundus.CritHealing += extra;
+			//AddEsoInputStatSource("Mundus.CritHealing", { source: mundusName + " Divines bonus", value: extra });
 		}
 	}
 	else if (mundusName == "The Ritual")
@@ -11755,6 +13200,60 @@ window.GetEsoInputCPValues = function (inputValues)
 	ParseEsoCPValue(inputValues, "HealthRegen", 60374);
 	ParseEsoCPValue(inputValues, ["HAMagRestore", "HAStaRestore"], 63854);
 	ParseEsoCPValue(inputValues, ["MovementSpeed", "MountSpeed"], 60560, "the_lover", 120);
+	
+	UpdateEsoBuildToggledCpData();
+	
+	for (var id in g_EsoCpData) 
+	{
+		var cpData = g_EsoCpData[id];
+		
+		if (cpData.type != "skill") continue;
+		if (isNaN(id)) continue;
+		
+		GetEsoInputCpToggleValues(inputValues, cpData);
+	}
+	
+}
+
+
+window.GetEsoInputCpToggleValues = function (inputValues, cpData)
+{
+	var desc = cpData.description;
+	
+	if (desc == null || desc == "") return;
+	if (cpData.isUnlocked !== true) return;
+	
+	for (var i = 0; i < ESO_CPEFFECT_MATCHES.length; ++i)
+	{
+		var matchData = ESO_CPEFFECT_MATCHES[i];
+		if (!matchData.toggle) continue;
+		
+		var toggleData = g_EsoBuildToggledCpData[cpData.name];
+		if (toggleData == null) continue;
+		
+		if (!(toggleData.enabled || toggleData.combatEnabled)) continue;
+		
+		var matchResult = desc.match(matchData.match);
+		if (!matchResult) continue;
+		
+		var statValue = 1;
+		if (!isNaN(matchResult[1])) statValue = parseFloat(matchResult[1]); 
+		if (matchData.display == "%") statValue = statValue/100;
+		if (matchData.factorValue != null) statValue = statValue * matchData.factorValue;
+		
+		var category = matchData.category || "CP";
+		
+		if (inputValues[category][matchData.statId] == null) inputValues[category][matchData.statId] = 0;
+		
+		if (matchData.combineAs == "*%")
+			inputValues[category][matchData.statId] = +((1 + inputValues[category][matchData.statId]) * (1 + statValue) - 1);
+		else
+			inputValues[category][matchData.statId] += statValue;
+		
+		AddEsoItemRawOutput(cpData, category + "." + matchData.statId, statValue);
+		AddEsoInputStatSource(category + "." + matchData.statId, { cp: cpData.name, abilityId: cpData.id, value: statValue });
+	}
+	
 }
 
 
@@ -11899,9 +13398,60 @@ window.CheckEsoComputeStatUpdate = function ()
 }
 
 
-window.UpdateEsoComputedStatsList_Real = function (keepSaveResults)
+window.g_EsoProfileData = {};
+
+
+window.EsoProfileStart = function(name)
 {
-	if (console && console.time) console.time('UpdateEsoComputedStatsList_Real');
+	var newProfile = {};
+	
+	newProfile.name = name;
+	newProfile.startTime = Date.now();
+	newProfile.lastTime = newProfile.startTime;
+	newProfile.times = [];
+	newProfile.endTime = -1;
+	
+	g_EsoProfileData[name] = newProfile;
+	
+	return newProfile;
+}
+
+
+window.EsoProfile = function(name, msg)
+{
+	var profile = g_EsoProfileData[name];
+	var newData = {};
+	
+	if (profile == null) profile = EsoProfileStart(name);
+	
+	newData.time = Date.now();
+	newData.msg = msg;
+	if (newData.msg == null) newData.msg = "";
+	
+	var diffTime1 = newData.time - profile.startTime;
+	var diffTime2 = newData.time - profile.lastTime;
+	
+	profile.times.push(newData);
+	profile.lastTime = newData.time;
+	
+	EsoBuildLog("" + diffTime2 + "ms (" + diffTime1 + "ms): " + name + " - " + newData.msg + "");
+}
+
+
+window.EsoProfileEnd = function(name)
+{
+	var profile = g_EsoProfileData[name];
+	if (profile == null) return;
+	
+	EsoProfile(name, "End");
+	
+	profile.endTime = Date.now();
+}
+
+
+window.UpdateEsoComputedStatsList_Real = function (keepSaveResults, noUpdate)
+{
+	EsoProfileStart('UpdateEsoComputedStatsList_Real');
 	
 	g_EsoBuildRebuildStatFlag = false;
 	if (keepSaveResults !== true) SetEsoBuildSaveResults("");
@@ -11909,11 +13459,11 @@ window.UpdateEsoComputedStatsList_Real = function (keepSaveResults)
 	var inputValues = GetEsoInputValues();
 	var deferredStats = [];
 	
-	if (console && console.timeLog) console.timeLog('UpdateEsoComputedStatsList_Real');
+	EsoProfile('UpdateEsoComputedStatsList_Real', 'GetEsoInputValues');
 	
-	UpdateEsoTestBuildSkillInputValues(inputValues);
+	UpdateEsoBuildSkillInputValues(inputValues);
 	
-	if (console && console.timeLog) console.timeLog('UpdateEsoComputedStatsList_Real');
+	EsoProfile('UpdateEsoComputedStatsList_Real', 'UpdateEsoBuildSkillInputValues');
 		
 	for (var statId in g_EsoComputedStats)
 	{
@@ -11925,11 +13475,11 @@ window.UpdateEsoComputedStatsList_Real = function (keepSaveResults)
 			UpdateEsoComputedStat(statId, g_EsoComputedStats[statId], inputValues);
 	}
 	
-	if (console && console.timeLog) console.timeLog('UpdateEsoComputedStatsList_Real');
+	EsoProfile('UpdateEsoComputedStatsList_Real', 'UpdateEsoComputedStat');
 	
 	UpdateEsoComputedStatsSpecial();
 	
-	if (console && console.timeLog) console.timeLog('UpdateEsoComputedStatsList_Real');
+	EsoProfile('UpdateEsoComputedStatsList_Real', 'UpdateEsoComputedStatsSpecial');
 	
 	for (var j = 0; j <= 10; ++j)
 	{
@@ -11948,40 +13498,56 @@ window.UpdateEsoComputedStatsList_Real = function (keepSaveResults)
 		}
 	}
 	
-	if (console && console.timeLog) console.timeLog('UpdateEsoComputedStatsList_Real');
+	EsoProfile('UpdateEsoComputedStatsList_Real', 'UpdateEsoComputedStat - Deferred');
 	
 	for (var name in g_EsoComputedStats)
 	{
 		inputValues[name] = g_EsoComputedStats[name].value;
 	}
 	
-	// if (console && console.time)
-	// console.time('UpdateEsoComputedStatsList_Real:Update');
-	
-	UpdateEsoTestBuildSkillInputValues(inputValues);
+	UpdateEsoBuildSkillInputValues(inputValues);
 	UpdateEsoBuildRawInputOtherEffects();
 	UpdateEsoBuildSetOtherEffectDesc();
+	UpdateEsoAllEnchantWeaponValues(inputValues);
+	EsoBuildUpdateAllSetAverageDesc();
 	
-	if (console && console.timeLog) console.timeLog('UpdateEsoComputedStatsList_Real');
+	EsoProfile('UpdateEsoComputedStatsList_Real', 'Update Misc1');
+	
+	if (noUpdate === true) {
+		EsoProfileEnd('UpdateEsoComputedStatsList_Real');
+		return;
+	}
+	
+	DisplayEsoAllComputedStats(inputValues);
+	
+	EsoProfile('UpdateEsoComputedStatsList_Real', 'Update Display Stats');
 	
 	UpdateEsoReadOnlyStats(inputValues);
 	UpdateEsoBuildMundusList2();
 	UpdateEsoBuildSetInfo();
 	UpdateEsoBuildToggleSets();
+	UpdateEsoBuildToggleCp();	
 	UpdateEsoBuildToggleSkills();
 	UpdateEsoBuildItemLinkSetCounts();
 	UpdateEsoMitigation();
 	
-	if (console && console.timeLog) console.timeLog('UpdateEsoComputedStatsList_Real');
+	EsoProfile('UpdateEsoComputedStatsList_Real', 'Update Misc2');
 	
 	UpdateEsoBuildVisibleBuffs();
 	UpdateEsoBuffSkillEnabled();
 	UpdateEsoBuffBuffEnabled();
+	
+	EsoProfile('UpdateEsoComputedStatsList_Real', 'Update Buffs');
+	
 	UpdateEsoAllSkillCost(false);
 	
-	// if (console && console.time)
-	// console.timeEnd('UpdateEsoComputedStatsList_Real:Update');
-	if (console && console.timeEnd) console.timeEnd('UpdateEsoComputedStatsList_Real');
+	EsoProfile('UpdateEsoComputedStatsList_Real', 'Update Skills');
+	
+	if (window.EsoBuildCombatFixActionData != null) EsoBuildCombatFixActionData();
+	
+	EsoProfile('UpdateEsoComputedStatsList_Real', 'Update Fix Combat Data');
+	
+	EsoProfileEnd('UpdateEsoComputedStatsList_Real');
 }
 
 
@@ -12024,7 +13590,7 @@ window.UpdateEsoReadOnlyStats = function (inputValues)
 }
 
 
-window.UpdateEsoComputedStat = function (statId, stat, inputValues, saveResult)
+window.UpdateEsoComputedStat = function (statId, stat, inputValues, saveResult, updateDisplay)
 {
 	if (typeof(stat) == "string") return false;
 	
@@ -12139,9 +13705,23 @@ window.UpdateEsoComputedStat = function (statId, stat, inputValues, saveResult)
 
 	inputValues[statId] = result;
 	stat.value = result;
-	DisplayEsoComputedStat(statId, inputValues);
+	
+	if (updateDisplay) DisplayEsoComputedStat(statId, inputValues);
 	
 	return result;
+}
+
+
+window.DisplayEsoAllComputedStats = function (inputValues)
+{
+	if (inputValues == null) inputValues = g_EsoBuildLastInputValues;
+
+	for (var statId in g_EsoComputedStats)
+	{
+		var statData = g_EsoComputedStats[statId];
+		if (typeof(statData) != "string") DisplayEsoComputedStat(statId, inputValues);
+	}
+	
 }
 
 
@@ -12503,6 +14083,7 @@ window.OnEsoVampireChange = function (e)
 		$("#esotbWerewolfStage").val("0");
 	}
 	
+	UpdateEsoSkillGroupDisplay();
 	UpdateEsoComputedStatsList("async");
 }
 
@@ -12514,6 +14095,7 @@ window.OnEsoWerewolfChange = function (e)
 		$("#esotbVampireStage").val("0");
 	}
 	
+	UpdateEsoSkillGroupDisplay();
 	UpdateEsoSkillBarDisplay();
 	UpdateEsoComputedStatsList("async");
 }
@@ -12702,6 +14284,13 @@ window.GetEsoIntDataFromLevelQuality = function (level, quality, equipType)
 	quality = parseInt(quality)
 	var result = { type: 1, level: level };
 	var typeMap = ESO_ITEMQUALITYLEVEL_INTTYPEMAP;
+	
+		/* Special case for mythic items */
+	if (quality == 6) {
+		result.level = 1;
+		result.type = 1;
+		return result;
+	}
 	
 	if (result.level > 50) result.level = 50;
 	if (result.level <  1) result.level = 1;
@@ -13166,7 +14755,7 @@ window.OnEsoItemDataReceive = function (data, status, xhr, element, origItemData
 	
 	UpdateEsoItemTraitList(slotId, g_EsoBuildItemData[slotId].trait);	
 	
-	UpdateEsoComputedStatsList(true);
+	UpdateEsoComputedStatsList(false);
 		
 	GetEsoSetMaxData(g_EsoBuildItemData[slotId]);
 }
@@ -13362,7 +14951,7 @@ window.OnEsoFormulaInputChange = function (e)
 	var stat = g_EsoComputedStats[computeStatId];
 	if (stat == null) return;
 	
-	var newValue = UpdateEsoComputedStat(computeStatId, stat, g_EsoFormulaInputValues, false);
+	var newValue = UpdateEsoComputedStat(computeStatId, stat, g_EsoFormulaInputValues, false, true);
 	
 	display = stat.display;
 	var suffix = "";
@@ -13595,8 +15184,21 @@ window.OnEsoClickBuildStatTab = function (e)
 	}
 	else if (tabId == "esotbStatBlockSkills")
 	{
-		// UpdateEsoAllSkillDescription();
 		UpdateEsoAllSkillCost(false);
+		
+		var visibleBlock = $(".esovsSkillContentBlock:visible");
+		
+		if (visibleBlock.length == 0) {
+			var firstVisibleSkillType = $(".esovsSkillType:visible").first();
+			if (firstVisibleSkillType.length == 0) return;
+			
+			var firstSkillLine = firstVisibleSkillType.children(".esovsSkillLineTitle").first();
+			if (firstSkillLine.length == 0) return;
+			
+			var skillTypeId = firstVisibleSkillType.attr("skilltypeid");
+			var skillLineId = firstSkillLine.attr("skilllineid");
+			SelectEsoSkillLine(skillTypeId, skillLineId);
+		}
 	}
 	
 }
@@ -13653,7 +15255,7 @@ window.MakeEsoBuildItemLink = function (slotId)
 	
 	var enchantData = g_EsoBuildEnchantData[slotId];
 	
-	if (enchantData != null && enchantData.itemId != null) 
+	if (enchantData != null && enchantData.itemId != null && !enchantData.isDefaultEnchant) 
 	{
 		itemLink = itemLink.replace(/(\|H[0-9]+:item:[0-9]+:[0-9]+:[0-9]+:)([0-9]+)(:[0-9]+:[0-9]+:)/, "$1" + enchantData.itemId + "$3");
 		itemLink = itemLink.replace(/(\|H[0-9]+:item:[0-9]+:[0-9]+:[0-9]+:[0-9]+:)([0-9]+)(:[0-9]+:)/, "$1" + enchantData.internalSubtype + "$3");
@@ -13967,7 +15569,7 @@ window.OnEsoEnchantDataReceive = function (data, status, xhr, element, origItemD
 		UpdateEnchantSlotData(slotId, data.minedItem[0], element);
 	}
 		
-	UpdateEsoComputedStatsList(true);
+	UpdateEsoComputedStatsList(false);
 }
 
 
@@ -14171,6 +15773,7 @@ window.ComputeEsoBuildSetData = function (setData)
 	setData.parsedNumbers = [];
 	setData.averageNumbers = [];
 	setData.averageDesc = [];
+	setData.isDescValid = [ false, false, false, false, false ];
 	
 	var setMaxData = g_EsoBuildSetMaxData[setData.name];
 	
@@ -14404,6 +16007,7 @@ window.AddEsoBuildToggledSkillData = function (skillEffectData, isPassive)
 	g_EsoBuildToggledSkillData[id].desc = "";
 	g_EsoBuildToggledSkillData[id].valid = false;
 	g_EsoBuildToggledSkillData[id].enabled = skillEffectData.enabled;
+	g_EsoBuildToggledSkillData[id].combatEnabled = false;
 	g_EsoBuildToggledSkillData[id].count = 0;
 	g_EsoBuildToggledSkillData[id].maxTimes = skillEffectData.maxTimes;	
 	
@@ -14464,6 +16068,7 @@ window.CreateEsoBuildToggledSetData = function ()
 		g_EsoBuildToggledSetData[id].desc = "";
 		g_EsoBuildToggledSetData[id].valid = false;
 		g_EsoBuildToggledSetData[id].enabled = setEffectData.enabled;
+		g_EsoBuildToggledSetData[id].combatEnabled = false;
 		g_EsoBuildToggledSetData[id].statIds.push(setEffectData.statId);
 		g_EsoBuildToggledSetData[id].maxTimes = setEffectData.maxTimes;
 		g_EsoBuildToggledSetData[id].count = 0;		
@@ -14476,15 +16081,56 @@ window.CreateEsoBuildToggledSetData = function ()
 		{
 			g_EsoBuildToggledSetData[id].desc = g_EsoBuildSetData[id].averageDesc[setEffectData.setBonusCount];
 		}
+		else if (g_EsoBuildSetData[id] != null && g_EsoBuildSetData[id].unequippedItems[0] != null)
+		{
+			var desc = g_EsoBuildSetData[id].unequippedItems[0]['setBonusDesc' + setEffectData.setBonusCount];
+			if (desc) g_EsoBuildToggledSetData[id].desc = desc;
+		}
+		else if (g_EsoBuildSetData[id] != null && g_EsoBuildSetData[id].items[0] != null)
+		{
+			var desc = g_EsoBuildSetData[id].items[0]['setBonusDesc' + setEffectData.setBonusCount];
+			if (desc) g_EsoBuildToggledSetData[id].desc = desc;
+		}
 	}
 	
+}
+
+
+window.CreateEsoBuildToggledCpData = function ()
+{
+	g_EsoBuildToggledCpData = {};
+	
+	for (var i = 0; i < ESO_CPEFFECT_MATCHES.length; ++i)
+	{
+		var cpEffectData = ESO_CPEFFECT_MATCHES[i];
+		if (cpEffectData.toggle !== true) continue;
+		
+		var id = cpEffectData.id;
+		
+		if (g_EsoBuildToggledCpData[id] == null) 
+		{
+			g_EsoBuildToggledCpData[id] = {};
+			g_EsoBuildToggledCpData[id].statIds = [];
+			g_EsoBuildToggledCpData[id].matchData = cpEffectData;
+			g_EsoBuildToggledCpData[id].displayName = cpEffectData.displayName;
+		}
+		
+		g_EsoBuildToggledCpData[id].id = id;
+		g_EsoBuildToggledCpData[id].valid = false;
+		g_EsoBuildToggledCpData[id].enabled = cpEffectData.enabled;
+		g_EsoBuildToggledCpData[id].combatEnabled = false;
+		if (g_EsoBuildToggledCpData[id].enabled == null) g_EsoBuildToggledCpData[id].enabled = false;
+		g_EsoBuildToggledCpData[id].statIds.push(cpEffectData.statId);
+		g_EsoBuildToggledCpData[id].maxTimes = cpEffectData.maxTimes;
+		g_EsoBuildToggledCpData[id].desc = "";
+	}
 }
 
 
 window.IsEsoBuildToggledSkillEnabled = function (skillId)
 {
 	if (g_EsoBuildToggledSkillData[skillId] == null) return false;
-	return g_EsoBuildToggledSkillData[skillId].valid && g_EsoBuildToggledSkillData[skillId].enabled;
+	return g_EsoBuildToggledSkillData[skillId].valid && (g_EsoBuildToggledSkillData[skillId].enabled || g_EsoBuildToggledSkillData[skillId].combatEnabled);
 }
 
 
@@ -14542,7 +16188,7 @@ window.SetEsoBuildToggledSetCount = function (skillId, value)
 window.IsEsoBuildToggledSetEnabled = function (setId)
 {
 	if (g_EsoBuildToggledSetData[setId] == null) return false;
-	var isEnabled = g_EsoBuildToggledSetData[setId].valid && g_EsoBuildToggledSetData[setId].enabled;
+	var isEnabled = g_EsoBuildToggledSetData[setId].valid && (g_EsoBuildToggledSetData[setId].enabled || g_EsoBuildToggledSetData[setId].combatEnabled);
 	if (isEnabled) return true;
 	return false;
 }
@@ -14569,6 +16215,13 @@ window.SetEsoBuildToggledSetEnable = function (setId, enable)
 }
 
 
+window.SetEsoBuildToggledCpEnable = function (cpId, enable)
+{
+	if (g_EsoBuildToggledCpData[cpId] == null) return false;
+	g_EsoBuildToggledCpData[cpId].enabled = enable;
+}
+
+
 window.UpdateEsoBuildToggledSkillData = function (inputValues)
 {
 	
@@ -14586,7 +16239,7 @@ window.UpdateEsoBuildToggledSkillData = function (inputValues)
 			abilityData = g_EsoSkillActiveData[abilityId];
 			// if (abilityData == null) continue;
 		}
-
+		
 		if (toggleSkillData.matchData == null) continue;
 		
 		if (toggleSkillData.matchData.matchSkillName === true)
@@ -14617,7 +16270,14 @@ window.UpdateEsoBuildToggledSkillData = function (inputValues)
 		
 		if (!toggleSkillData.isPassive)
 		{
-			if (!IsEsoSkillOnActiveBar(abilityId)) continue;
+			if (toggleSkillData.matchData.enableOffBar)
+			{
+				if (!IsEsoSkillOnAnyBar(abilityId)) continue;
+			}
+			else
+			{
+				if (!IsEsoSkillOnActiveBar(abilityId)) continue;
+			}
 			
 			abilityData = g_EsoSkillActiveData[abilityId];
 			if (abilityData == null) continue;
@@ -14629,7 +16289,7 @@ window.UpdateEsoBuildToggledSkillData = function (inputValues)
 			abilityData = g_EsoSkillPassiveData[abilityId];
 			if (abilityData == null) continue;
 			
-			realAbilityId = abilityData.abilityId;			
+			realAbilityId = abilityData.abilityId;
 		}
 		
 		toggleSkillData.valid = true;
@@ -14738,7 +16398,21 @@ window.UpdateEsoBuildToggledSetData = function ()
 			}
 		}
 		
-		if (setData.averageDesc[toggleData.setBonusCount - 1] != null) setDesc = setData.averageDesc[toggleData.setBonusCount - 1];
+		if (setData.averageDesc[toggleData.setBonusCount - 1] != null) 
+		{ 
+			setDesc = setData.averageDesc[toggleData.setBonusCount - 1];
+		}
+		else if (setData.unequippedItems[0] != null)
+		{
+			var desc = setData.unequippedItems[0]['setBonusDesc' + toggleData.setBonusCount];
+			if (desc) setDesc = RemoveEsoDescriptionFormats(desc);
+		}
+		else if (setData.items[0] != null)
+		{
+			var desc = setData.items[0]['setBonusDesc' + toggleData.setBonusCount];
+			if (desc) setDesc = RemoveEsoDescriptionFormats(desc);
+		}
+		
 		if (setData.items[0] != null) setCount = setData.items[0]['setBonusCount' + toggleData.setBonusCount];
 		
 		if (setDesc == null || setCount == null) continue;
@@ -14788,7 +16462,63 @@ window.UpdateEsoBuildToggleSets = function ()
 }
 
 
+window.UpdateEsoBuildToggleCp = function ()
+{
+	var element = $("#esotbToggledCpInfo");
+	var output = "";
+	
+	for (var cpId in g_EsoBuildToggledCpData)
+	{
+		var cpData = g_EsoBuildToggledCpData[cpId];
+		if (!cpData.valid) continue;
+		output += CreateEsoBuildToggleCpHtml(cpData);
+	}
+	
+	element.html(output);
+	
+	//$(".esotbToggleCpNumber").on("input", OnEsoBuildToggleCpNumber);
+	//$(".esotbToggleCpNumber").click(OnEsoBuildToggleSetNumberClick);
+	$(".esotbToggleCpCheck").click(OnEsoBuildToggleCp);
+	$(".esotbToggledCpItem").click(OnEsoBuildToggleCpClick);
+}
+
+
+window.UpdateEsoBuildToggledCpData = function ()
+{
+	
+	for (var cpId in g_EsoBuildToggledCpData)
+	{
+		var toggleData = g_EsoBuildToggledCpData[cpId];
+		if (toggleData == null) continue;
+		
+		toggleData.valid = false;
+		
+		var cpData = g_EsoCpData[cpId];
+		if (cpData == null) continue;
+		
+		toggleData.desc = cpData.description;
+		if (cpData.isUnlocked !== true) continue;
+		
+		toggleData.valid = true;
+		
+		var checkElement = $(".esotbToggledCpItem[cpid=\"" + cpId + "\"]").find(".esotbToggleCpCheck");
+		
+		if (checkElement.length > 0)
+		{
+			SetEsoBuildToggledCpEnable(cpId, checkElement.is(":checked"));
+		}
+	}
+}
+
+
 window.OnEsoBuildToggleSetNumberClick = function (e)
+{
+	e.stopPropagation();
+	return false;
+}
+
+
+window.OnEsoBuildToggleCpNumberClick = function (e)
 {
 	e.stopPropagation();
 	return false;
@@ -14798,6 +16528,17 @@ window.OnEsoBuildToggleSetNumberClick = function (e)
 window.OnEsoBuildToggleSet = function (e)
 {
 	OnEsoBuildToggleSetChanged($(this));
+	
+	UpdateEsoComputedStatsList("async");
+	
+	e.stopPropagation();
+	return true;
+}
+
+
+window.OnEsoBuildToggleCp = function (e)
+{
+	OnEsoBuildToggleCpChanged($(this));
 	
 	UpdateEsoComputedStatsList("async");
 	
@@ -14819,6 +16560,20 @@ window.OnEsoBuildToggleSetClick = function (e)
 }
 
 
+window.OnEsoBuildToggleCpClick = function (e)
+{
+	var checkBox = $(this).find(".esotbToggleCpCheck");
+	checkBox.prop("checked", !checkBox.prop("checked"));
+	
+	OnEsoBuildToggleCpChanged(checkBox);
+	
+	UpdateEsoComputedStatsList("async");
+	
+	return false;
+}
+
+
+
 window.OnEsoBuildToggleSetChanged = function (checkBox)
 {
 	var parent = checkBox.parent();
@@ -14832,13 +16587,12 @@ window.OnEsoBuildToggleSetChanged = function (checkBox)
 	
 	if (toggleData == null) return;
 	
-	if (toggleData.disableSetId != null)
+	if (toggleData.disableSetId != null || toggleData.disableSetIds != null)
 	{
-		$(".esotbToggledSetItem[setid=\"" + toggleData.disableSetId + "\"]").find(".esotbToggleSetCheck").prop("checked", false);
-	}
-	
-	if (toggleData.disableSetIds != null)
-	{
+		if (toggleData.disableSetId) {
+			$(".esotbToggledSetItem[setid=\"" + toggleData.disableSetId + "\"]").find(".esotbToggleSetCheck").prop("checked", false);
+		}
+		
 		for (var i in toggleData.disableSetIds)
 		{
 			var disableSetId = toggleData.disableSetIds[i];
@@ -14846,6 +16600,21 @@ window.OnEsoBuildToggleSetChanged = function (checkBox)
 		}
 	}
 	
+}
+
+
+window.OnEsoBuildToggleCpChanged = function (checkBox)
+{
+	var parent = checkBox.parent();
+	var cpId = parent.attr("cpid");
+	var toggleData = g_EsoBuildToggledCpData[cpId];
+	
+	if (checkBox.prop("checked"))
+		parent.addClass("esotbToggledCpSelect");
+	else
+		parent.removeClass("esotbToggledCpSelect");
+	
+	if (toggleData == null) return;
 }
 
 
@@ -14869,6 +16638,27 @@ window.CreateEsoBuildToggleSetHtml = function (setData)
 	
 	output += "<div class='esotbToggleSetTitle'>" + displayName + ":</div> ";
 	output += "<div class='esotbToggleSetDesc'>" + setData.desc + "</div>";
+	
+	output += "</div>";
+	return output;
+}
+
+
+window.CreateEsoBuildToggleCpHtml = function (cpData)
+{
+	var checked = cpData.enabled ? "checked" : "";
+	var extraClass = "";
+	if (checked) extraClass = 'esotbToggledCpSelect';
+	
+	var displayName = cpData.id;
+	if (cpData.displayName != null) displayName = cpData.displayName;
+	
+	var output = "<div class='esotbToggledCpItem " + extraClass + "' cpid=\"" + cpData.id + "\">";
+	
+	output += "<input type='checkbox' class='esotbToggleCpCheck'  " + checked + " >";
+	
+	output += "<div class='esotbToggleCpTitle'>" + displayName + ":</div> ";
+	output += "<div class='esotbToggleCpDesc'>" + cpData.desc + "</div>";
 	
 	output += "</div>";
 	return output;
@@ -15049,6 +16839,9 @@ window.UpdateEsoBuildWeaponEnchantFactor = function (slotId, inputValues)
 	var itemElement = $(".esotbItem[slotid='" + slotId + "']");
 	var iconElement = itemElement.children(".esotbItemIcon");
 	var itemData = g_EsoBuildItemData[slotId];
+	var enchantData = g_EsoBuildEnchantData[slotId];
+	var enchantDesc = enchantData.enchantDesc ? enchantData.enchantDesc : "";
+	var isOblivionDamage = (enchantDesc.indexOf("Oblivion Damage") >= 0);
 	
 	iconElement.attr("enchantfactor", 0);
 	if (itemData == null) return;
@@ -15059,10 +16852,10 @@ window.UpdateEsoBuildWeaponEnchantFactor = function (slotId, inputValues)
 		return;
 	}
 	
-		/* Manually check for Torug's Pact offbar setup */
+		/* Manually check for Torug's Pact off-bar setup */
 	if (inputValues == null)
 	{
-		if (g_EsoBuildSetData["Torug's Pact"] != null && g_EsoBuildSetData["Torug's Pact"].otherCount >= 5)
+		if (g_EsoBuildSetData["Torug's Pact"] != null && g_EsoBuildSetData["Torug's Pact"].otherCount >= 5 && !isOblivionDamage)
 		{
 			iconElement.attr("enchantfactor", 0.3);
 		}
@@ -15071,7 +16864,7 @@ window.UpdateEsoBuildWeaponEnchantFactor = function (slotId, inputValues)
 	}
 	
 	if (inputValues.Set == null || inputValues.Set.EnchantPotency == null) return;
-	iconElement.attr("enchantfactor", inputValues.Set.EnchantPotency);
+	if (!isOblivionDamage) iconElement.attr("enchantfactor", inputValues.Set.EnchantPotency);
 }
 
 
@@ -15094,7 +16887,7 @@ window.GetEsoTestBuildSkillInputValues = function (inputValues)
 }
 
 
-window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
+window.UpdateEsoBuildSkillInputValues = function (inputValues)
 {
 	if (inputValues == null) return;
 	
@@ -15182,6 +16975,7 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
 	
 	g_LastSkillInputValues.HealthCost = 
 	{
+			Item	: inputValues.Item.HealthCost,
 			Set		: inputValues.Set.HealthCost,
 			Skill 	: inputValues.Skill.HealthCost,	
 	};
@@ -15203,6 +16997,7 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
 		AOE				: inputValues.AOEDamageDone,
 		SingleTarget	: inputValues.SingleTargetDamageDone,
 		Overload		: inputValues.OverloadDamage,
+		Pet				: inputValues.PetDamageDone,
 	};
 	
 	g_LastSkillInputValues.Healing =
@@ -15221,7 +17016,9 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
  	g_LastSkillInputValues.PoisonStaminaCost = inputValues.Skill.PoisonStaminaCost;
  	g_LastSkillInputValues.FlameAOEDamageDone = inputValues.Skill.FlameAOEDamageDone;
  	g_LastSkillInputValues.BleedDamage = inputValues.Set.BleedDamage;
+ 	g_LastSkillInputValues.FlatBleedDamage = inputValues.Skill2.BleedDamage;
  	g_LastSkillInputValues.TwinSlashBleedDamage = inputValues.Set.TwinSlashBleedDamage;
+ 	g_LastSkillInputValues.TwinSlashInitialDamage = inputValues.Set.TwinSlashInitialDamage;
  	g_LastSkillInputValues.MagickaAbilityDamageDone = inputValues.Set.MagickaAbilityDamageDone;
  	g_LastSkillInputValues.HealingAbilityCost = inputValues.Set.HealingAbilityCost;
  	
@@ -15230,6 +17027,12 @@ window.UpdateEsoTestBuildSkillInputValues = function (inputValues)
  	g_LastSkillInputValues.DotDamageDone.Poison = inputValues.Set.PoisonDotDamageDone;
  	g_LastSkillInputValues.DotDamageDone.Disease = inputValues.Set.DiseaseDotDamageDone;
  	g_LastSkillInputValues.DotDamageDone.Bleed = inputValues.Set.BleedDotDamageDone;
+ 	
+ 	g_LastSkillInputValues.ChannelDamageDone = {};
+ 	g_LastSkillInputValues.ChannelDamageDone.Physical = inputValues.Set.PhysicalChannelDamageDone;
+ 	g_LastSkillInputValues.ChannelDamageDone.Poison = inputValues.Set.PoisonChannelDamageDone;
+ 	g_LastSkillInputValues.ChannelDamageDone.Disease = inputValues.Set.DiseaseChannelDamageDone;
+ 	g_LastSkillInputValues.ChannelDamageDone.Bleed = inputValues.Set.BleedChannelDamageDone;
  	
  	var SpellDamageFactor = 1 + inputValues.Skill.SpellDamage + inputValues.Buff.SpellDamage;
  	var WeaponDamageFactor = 1 + inputValues.Skill.WeaponDamage + inputValues.Buff.WeaponDamage;
@@ -15355,6 +17158,7 @@ window.OnEsoBuildSkillBarSwap = function (e, skillBarIndex, weaponBarIndex)
 	}
 	
 	CopyEsoSkillsToItemTab();
+	CopyEsoSkillsToCombatTab();
 	UpdateEsoComputedStatsList("async");
 }
 
@@ -15362,6 +17166,7 @@ window.OnEsoBuildSkillBarSwap = function (e, skillBarIndex, weaponBarIndex)
 window.OnEsoBuildSkillUpdate = function (e)
 {
 	CopyEsoSkillsToItemTab();
+	if (window.CopyEsoSkillsToCombatTab) CopyEsoSkillsToCombatTab();
 	UpdateEsoComputedStatsList("async");
 }
 
@@ -15369,7 +17174,34 @@ window.OnEsoBuildSkillUpdate = function (e)
 window.OnEsoBuildSkillBarUpdate = function (e)
 {
 	CopyEsoSkillsToItemTab();
+	if (window.CopyEsoSkillsToCombatTab) CopyEsoSkillsToCombatTab();
 	UpdateEsoComputedStatsList();
+}
+
+
+window.IsEsoSkillOnAnyBar = function (abilityId)
+{
+	
+	for (var j = 0; j < g_EsoSkillBarData.length; ++j) 
+	{
+		var skillBar = g_EsoSkillBarData[j];
+		if (skillBar == null) continue;
+		
+		for (var i = 0; i < skillBar.length; ++i)
+		{
+			var skillId = skillBar[i].skillId;
+			if (skillId == null || skillId <= 0) continue;
+			
+			if (skillId == abilityId) return true;
+			
+			var origSkillId = skillBar[i].origSkillId;
+			if (origSkillId == null || origSkillId <= 0) continue;
+			
+			if (origSkillId == abilityId) return true;
+		}
+	}
+	
+	return false;
 }
 
 
@@ -15534,7 +17366,10 @@ window.CreateEsoBuildBuffHtml = function (buffName, buffData)
 	if (buffData.visible === false) extraClass = "esotbBuffDisabled";
 	if (buffData.enabled) checked = "checked";
 	
-	var output = "<div class='esotbBuffItem " + extraClass + "' " + extraAttributes + " buffid='" + buffName + "'>";
+	var elementId = "esotbBuff_" + buffName;
+	elementId = elementId.replace(/\W/g, "_");
+	
+	var output = "<div id='" + elementId + "' class='esotbBuffItem " + extraClass + "' " + extraAttributes + " buffid='" + buffName + "'>";
 	
 	output += "<input class='esotbBuffCheck' type='checkbox' buffid='" + buffName + "' " + checked + "> ";
 	output += "<img class='esotbBuffIcon' src='" + icon + "'>";
@@ -15603,6 +17438,9 @@ window.CreateEsoBuildBuffDescHtml = function (buffData)
 	{
 		if (statIds[i] == null) continue;
 		
+		var prefixDesc = "Increases ";
+		var targetDesc = "your ";
+		
 		statId = statIds[i].replace(/([A-Z])/g, ' $1').trim().replace("A O E ", " AOE ");
 		statValue = statValues[i];
 		category = categories[i];
@@ -15623,17 +17461,29 @@ window.CreateEsoBuildBuffDescHtml = function (buffData)
 				statValue = "" + (Math.floor(statValue*1000)/10) + "%";
 			}
 			
-			if (statDescs[i] != null && statDescs[i] != "")
-				buffData.desc += statDescs[i] + statValue + "<br/>";
-			else
+			if (statDescs[i] != null && statDescs[i] != "") {
+				var replaceIndex = statDescs[i].indexOf("$1");
+				
+				if (replaceIndex < 0) {
+					buffData.desc += statDescs[i] + statValue + "<br/>";
+				}
+				else {
+					var output = statDescs[i].replace("$1", statValue);
+					buffData.desc += output + "<br/>";
+				}
+			}
+			else {
 				buffData.desc += prefixDesc + targetDesc + statId + " by " + statValue + "<br/>";
+			}
 		}
 		else
 		{
-			if (statDescs[i] != null && statDescs[i] != "")
+			if (statDescs[i] != null && statDescs[i] != "") {
 				buffData.desc += statDescs[i]+ statValue + "<br/>";
-			else
+			}
+			else {
 				buffData.desc += statValue + "<br/>";
+			}
 		}
 	}
 	
@@ -15655,12 +17505,15 @@ window.UpdateEsoBuildVisibleBuffs = function ()
 	for (var buffName in g_EsoBuildBuffData)
 	{
 		var buffData = g_EsoBuildBuffData[buffName];
-		var element = $(".esotbBuffItem[buffid='" + buffName + "']");
+		var elementId = buffName.replace(/\W/g, "_");
+		var element = $("#esotbBuff_" + elementId);
+		var buffDesc = element.find(".esotbBuffDesc");
 		
 		if (buffData.toggleVisible === true && buffData.visible)
 		{
+			var newHtml = CreateEsoBuildBuffDescHtml(buffData);
 			element.removeClass("esotbBuffDisabled");
-			element.find(".esotbBuffDesc").html(CreateEsoBuildBuffDescHtml(buffData));
+			buffDesc.html(newHtml);
 		}
 		else if (buffData.toggleVisible === true && !buffData.visible)
 		{
@@ -15668,7 +17521,8 @@ window.UpdateEsoBuildVisibleBuffs = function ()
 		}
 		else if (buffData.forceUpdate)
 		{
-			element.find(".esotbBuffDesc").html(CreateEsoBuildBuffDescHtml(buffData));
+			var newHtml = CreateEsoBuildBuffDescHtml(buffData);
+			buffDesc.html(newHtml);
 			buffData.forceUpdate = false;
 		}
 	}
@@ -15807,11 +17661,26 @@ window.UpdateEsoInitialBuffData = function ()
 		var buffData = g_EsoBuildBuffData[buffName];
 		if (buffData == null) continue;
 		
-		buffData.enabled      = ((parseInt(enabled) & 1) != 0); 
-		buffData.skillEnabled = ((parseInt(enabled) & 2) != 0);
-		buffData.buffEnabled  = ((parseInt(enabled) & 4) != 0);
+		buffData.enabled       = ((parseInt(enabled) & 1) != 0); 
+		buffData.skillEnabled  = ((parseInt(enabled) & 2) != 0);
+		buffData.buffEnabled   = ((parseInt(enabled) & 4) != 0);
+		buffData.combatEnabled = false; 
 	}
 	
+}
+
+
+window.UpdateEsoInitialToggleCpData = function()
+{
+	for (var cpName in g_EsoInitialToggleCpData)
+	{
+		var initData = g_EsoInitialToggleCpData[cpName];
+		var cpData = g_EsoBuildToggledCpData[cpName];
+		if (cpData == null) continue;
+		
+		cpData.enabled = (initData.enabled != 0);
+		if (initData.count != null) cpData.count = NiceIntParse(initData.count);
+	}
 }
 
 
@@ -15869,7 +17738,7 @@ window.RequestEsoBuildSave = function ()
 {
 	var saveData = CreateEsoBuildSaveData();
 	
-	$.ajax("//esobuilds.uesp.net/saveBuild.php", {
+	$.ajax("https://esobuilds.uesp.net/saveBuild.php", {
 				type: "POST",
 				data: { 
 					savedata: JSON.stringify(saveData), 
@@ -15886,7 +17755,7 @@ window.RequestEsoBuildCreateCopy = function ()
 {
 	var saveData = CreateEsoBuildSaveData();
 	
-	$.ajax("//esobuilds.uesp.net/saveBuild.php", {
+	$.ajax("https://esobuilds.uesp.net/saveBuild.php", {
 				type: "POST",
 				data: { 
 					savedata: JSON.stringify(saveData), 
@@ -15979,9 +17848,30 @@ window.CreateEsoBuildSaveData = function ()
 	CreateEsoBuildActionBarSaveData(saveData, inputValues);
 	CreateEsoBuildSkillToggleSaveData(saveData, inputValues);
 	CreateEsoBuildSetToggleSaveData(saveData, inputValues);
+	CreateEsoBuildCpToggleSaveData(saveData, inputValues);
+	CreateEsoBuildCombatSaveData(saveData, inputValues);
 	
 	CreateEsoBuildOffBarSaveData(saveData, inputValues);
 		
+	return saveData;
+}
+
+
+window.CreateEsoBuildCpToggleSaveData = function (saveData, inputValues)
+{
+	for (var name in g_EsoBuildToggledCpData)
+	{
+		var toggleData = g_EsoBuildToggledCpData[name];
+		var outName = "ToggleCp:" + name;
+		
+		if (toggleData.maxTimes != null) 
+		{
+			saveData.Stats[outName + ":Count"] = "" + toggleData.count;
+		}
+		
+		saveData.Stats[outName] = "" + ConvertBoolToInt(toggleData.enabled);
+	}
+	
 	return saveData;
 }
 
@@ -16174,7 +18064,7 @@ window.CreateEsoBuildBuffSaveData = function (saveData, inputValues)
 		data.enabled = 0;
 		if (buffData.enabled) data.enabled += 1;
 		if (buffData.skillEnabled) data.enabled += 2;
-		if (buffData.buffEnabled) data.enabled += 2;
+		if (buffData.buffEnabled) data.enabled += 4;
 		
 		saveData.Buffs[buffName] = data;
 	}
@@ -16479,7 +18369,7 @@ window.CreateEsoBuildGeneralSaveData = function (saveData, inputValues)
 	saveData.Stats['Target:DefenseBonus'] = "" + (inputValues.Target.DefenseBonus * 100) + "%";
 	saveData.Stats['Target:AttackBonus'] = "" + (inputValues.Target.AttackBonus * 100) + "%";
 	saveData.Stats['Target:Resistance'] = "" + inputValues.Target.SpellResist;
-	saveData.Stats['Target:CritResistFlat'] = "" + inputValues.Target.CritResistFlat;
+	saveData.Stats['Target:CritResistFlat'] = "" + inputValues.Target.CritResist;
 	saveData.Stats['Target:EffectiveLevel'] = "" + inputValues.Target.EffectiveLevel;
 	// saveData.Stats['Target:CritResistFactor'] = "" + (inputValues.Target.CritResistFactor * 100) + "%";
 	saveData.Stats['Target:CritDamage'] = "" + (inputValues.Target.CritDamage * 100) + "%";
@@ -16508,7 +18398,6 @@ window.CreateEsoBuildGeneralSaveData = function (saveData, inputValues)
 window.HasEsoBuildThirdSkillBar = function ()
 {
 	return false;
-	//return $("#esotbClass").val() == "Sorcerer";
 }
 
 
@@ -16930,7 +18819,7 @@ window.OnEsoEditBuildSetupArmorEnchant = function (element)
 	if (formValue == "none")
 	{
 		UpdateAllArmorEnchantData({});
-		UpdateEsoComputedStatsList(true);
+		UpdateEsoComputedStatsList(false);
 		return;
 	}
 	else if (formValue == "health")
@@ -17398,6 +19287,26 @@ window.OnEsoEditBuildSetupAllLevel = function (element)
 }
 
 
+window.OnEsoEditBuildSetupMythicSet = function (element)
+{
+	var msgElement = $("#esotbItemSetupMythicSetMsg");
+	var count = 0;
+	
+	var mythicSet = $("#esotbItemSetupMythicSet").val();
+	var selected = $("#esotbItemSetupMythicSet").children("option:selected");
+	
+	var slotId = selected.attr("slotid");
+	EsoBuildLog("Mythic Slot Id", slotId);
+	
+	msgElement.text("");
+	
+	//function (slotId, monsterSet, equipType, armorType, weaponType, level, quality, trait, msgElement)
+	if (RequestEsoFindSetItemData(slotId, mythicSet, null, null, null, 66, 6, null, msgElement)) ++count;
+	
+	$(msgElement).text("Updating " + count + " item to mythic set " + mythicSet + "... ");
+}
+
+
 window.OnEsoEditBuildSetupMonsterSet = function (element)
 {
 	var msgElement = $("#esotbItemSetupMonsterSetMsg");
@@ -17761,6 +19670,25 @@ window.EsoEditBuildChangeAllLevel = function (newLevel)
 }
 
 
+window.UpdateEsoSkillGroupDisplay = function()
+{
+	var vampireStage = parseInt($("#esotbVampireStage").val());
+	var werewolfStage = parseInt($("#esotbWerewolfStage").val());
+	
+	var vampSkillLine = $("#esovsSkillTree").children(".esovsSkillType[skilltypeid='World']").children(".esovsSkillLineTitle[skilllineid='Vampire']");
+	var wereSkillLine = $("#esovsSkillTree").children(".esovsSkillType[skilltypeid='World']").children(".esovsSkillLineTitle[skilllineid='Werewolf']");
+	
+	vampSkillLine.toggle(vampireStage > 0);
+	wereSkillLine.toggle(werewolfStage > 0);
+	
+	$("#Vampire").toggle(vampireStage > 0);
+	$("#Werewolf").toggle(werewolfStage > 0);
+	
+	if (vampireStage <= 0) EsoResetSkillLine("Vampire");
+	if (werewolfStage <= 0) EsoResetSkillLine("Werewolf");
+}
+
+
 window.UpdateEsoSkillBarDisplay = function ()
 {
 	if (HasEsoBuildThirdSkillBar())
@@ -17778,7 +19706,11 @@ window.UpdateEsoSkillBarDisplay = function ()
 window.CopyEsoSkillsToItemTab = function ()
 {
 	$("#esotbItemSkillCopy").html($("#esovsSkillBar").html());
-
+	
+	$("#esotbItemSkillCopy #esovsSkillBar1").attr("id", null);
+	$("#esotbItemSkillCopy #esovsSkillBar2").attr("id", null);
+	$("#esotbItemSkillCopy #esovsSkillBar3").attr("id", null);
+	
 	$("#esotbItemSkillCopy .esovsSkillBarIcon[draggable='true']").attr("draggable", "false");
 	$("#esotbItemSkillCopy .esovsSkillBar").click(OnSkillBarSelect);
 	$("#esotbItemSkillCopy .esovsSkillBarIcon").hover(OnHoverEsoSkillBarIcon, OnLeaveEsoSkillBarIcon);
@@ -17920,6 +19852,12 @@ window.RequestEsoTransmuteTraitData = function (itemData, newTrait, element)
 			"limit" : 1,
 	};
 	
+		/* Special case for mythic items */
+	if (itemData.quality == 6) {
+		queryParams.intlevel = 50;
+		queryParams.inttype = 370;
+	}
+	
 	if (g_EsoBuildLastInputValues.UsePtsRules) queryParams.version = g_EsoBuildPtsVersion;
 	
 	$.ajax("//esolog.uesp.net/exportJson.php", {
@@ -18024,7 +19962,7 @@ window.UpdateEsoMitigation = function()
 		UpdateEsoMitigationCell($("#esotbMitTable" + i + "5"), elementType, "Dot", "Melee", isPlayer, isBlocking)
 		UpdateEsoMitigationCell($("#esotbMitTable" + i + "6"), elementType, "Dot", "Ranged", isPlayer, isBlocking)
 		UpdateEsoMitigationCell($("#esotbMitTable" + i + "7"), elementType, "Dot", "AOE", isPlayer, isBlocking)
-		UpdateEsoMitigationCell($("#esotbMitTable" + i + "8"), elementType, "Direct", "LA", isPlayer, isBlocking)
+		UpdateEsoMitigationCell($("#esotbMitTable" + i + "8"), elementType, "Dot", "LA", isPlayer, isBlocking)
 	}
 	
 	if (currentEsoMitigationRawDataElementId) UpdateEsoMitigationTableElement(currentEsoMitigationRawDataElementId);
@@ -18328,17 +20266,6 @@ window.OnEsoStatSectionTitleClick = function()
 }
 
 
-window.FixupEsoBuildDataUpdate21 = function()
-{
-	//Object.assign(window.ESO_MUNDUS_BUFF_DATA, window.ESO_MUNDUS_BUFF_DATA_UPDATE21);
-}
-
-
-window.FixupEsoBuildDataUpdate22 = function()
-{
-}
-
-
 window.g_EsoBuildTestSkills = {};
 
 
@@ -18348,6 +20275,8 @@ window.TestAllEsoSkills = function ()
 	
 	for (var abilityId in g_SkillsData)
 	{
+		if (window.ESOBUILD_UNIQUESKILLID_MAX && abilityId <= ESOBUILD_UNIQUESKILLID_MAX) continue;
+		
 		var inputValues = {};
 		InitializeEsoBuildInputValues(inputValues);
 		
@@ -18639,7 +20568,7 @@ window.TestEsoSkill = function (abilityId, abilityData, inputValues)
 	if (abilityData.skillType == 8) return true;
 	
 	var matchArray = ESO_ACTIVEEFFECT_MATCHES;
-	if (abilityData.isPassive) matchArray = ESO_PASSIVEEFFECT_MATCHES;
+	if (abilityData.isPassive != 0) matchArray = ESO_PASSIVEEFFECT_MATCHES;
 	
 	var rawOutput = [];
 	
@@ -18650,6 +20579,7 @@ window.TestEsoSkill = function (abilityId, abilityData, inputValues)
 	g_EsoBuildTestSkills[abilityId].desc = rawDesc;
 	g_EsoBuildTestSkills[abilityId].isPassive = (abilityData.isPassive != 0);
 	g_EsoBuildTestSkills[abilityId].numMatches = 0;
+	g_EsoBuildTestSkills[abilityId].matches = [];
 	g_EsoBuildTestSkills[abilityId].numTested = matchArray.length;
 	
 	for (var i = 0; i < matchArray.length; ++i)
@@ -18710,7 +20640,8 @@ window.TestEsoSkill = function (abilityId, abilityData, inputValues)
 			});
 		}
 		
-		g_EsoBuildTestSkills[abilityId].numMatches++;		
+		g_EsoBuildTestSkills[abilityId].matches.push(matchData);
+		g_EsoBuildTestSkills[abilityId].numMatches++;
 	}
 		
 	g_EsoBuildTestSkills[abilityId].rawOutput = rawOutput;
@@ -19085,13 +21016,87 @@ window.CheckEsoSetTestResults = function()
 }
 
 
+window.UpdateEso26pts = function() 
+{
+}
+
+
+window.EsoBuildUpdateAllSetAverageDesc = function()
+{
+	for (var setId in g_EsoBuildSetData)
+	{
+		EsoBuildUpdateSetAverageDesc(g_EsoBuildSetData[setId]);
+	}
+}
+
+
+window.EsoBuildUpdateSetAverageDesc = function(setData)
+{
+	var setDamageData = ESO_SETPROCDAMAGE_DATA[setData.name.toLowerCase()];
+	
+	for (i = 0; i < setData.averageDesc.length; ++i)
+	{
+		var newDesc = UpdateEsoBuildSetAllData(setData.averageDesc[i], setDamageData);
+		setData.averageDesc[i] = newDesc;
+	}
+	
+}
+
+
+window.TestAllEsoSetMatches = function()
+{
+	var numMatches = [];
+	var noMatchCount = 0;
+	
+	if (!g_EsoLoadedAllSetData)
+	{
+		EsoBuildLog("Loading all set data first...");
+		RequestEsoAllSetData();
+		return;
+	}
+	
+	for (var i = 0; i < ESO_SETEFFECT_MATCHES.length; ++i)
+	{
+		var matchData = ESO_SETEFFECT_MATCHES[i];
+		var count = TestAllEsoSetMatch(matchData);
+		numMatches.push(count);
+		
+		if (count == 0) 
+		{
+			EsoBuildLog("Set match data had no matches in all current set data!", i, matchData.match)
+			++noMatchCount;
+		}
+	}
+	
+	EsoBuildLog("Found " + noMatchCount + " set match data out of " + ESO_SETEFFECT_MATCHES.length + " that had no matches in all the set data.");
+}
+
+
+window.TestAllEsoSetMatch = function (matchData)
+{
+	var numMatches = 0;
+	
+	for (var i = 0; i < g_EsoBuildAllSetData.length; ++i)
+	{
+		var setData = g_EsoBuildAllSetData[i];
+		
+		if (setData.setBonusDesc1.match(matchData.match)) ++numMatches;
+		if (setData.setBonusDesc2.match(matchData.match)) ++numMatches;
+		if (setData.setBonusDesc3.match(matchData.match)) ++numMatches;
+		if (setData.setBonusDesc4.match(matchData.match)) ++numMatches;
+		if (setData.setBonusDesc5.match(matchData.match)) ++numMatches;
+	}
+	
+	return numMatches;
+}
+
+
+
 window.esotbOnDocReady = function ()
 {
-
-	if ($("#esotbUpdate22Rules").prop("checked"))
-	{
-		FixupEsoBuildDataUpdate22();
-	}
+	clearInterval(g_EsoCharDataTimeUpdateId);
+	
+	UpdateEso26pts();
 	
 	GetEsoSkillInputValues = GetEsoTestBuildSkillInputValues;
 	
@@ -19103,10 +21108,12 @@ window.esotbOnDocReady = function ()
 	UpdateEsoInitialBuffData();
 	
 	CreateEsoBuildToggledSetData();
+	CreateEsoBuildToggledCpData();
 	CreateEsoBuildToggledSkillData();
 	UpdateEsoInitialToggleSetData();
+	UpdateEsoInitialToggleCpData();
 	UpdateEsoInitialToggleSkillData();
-		
+	
 	CreateEsoBuildItemDetailsPopup();
 	CreateEsoBuildFormulaPopup();
 	CreateEsoBuildClickWall();
@@ -19197,11 +21204,12 @@ window.esotbOnDocReady = function ()
 	$(".esotbMitigationTable td").click(OnEsoMitigationTableClick);
 	
 	$(".esotbStatSectionTitle").click(OnEsoStatSectionTitleClick);
-		
+	
 	CopyEsoSkillsToItemTab();
 	UpdateEsoCpData();
 	UpdateAllEsoItemTraitLists();
 	
+	UpdateEsoSkillGroupDisplay();
 	UpdateEsoComputedStatsList(true);
 }
 

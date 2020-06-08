@@ -26,6 +26,7 @@ g_EsoBuildLastInputValues.DotDamageDone = 0;
 g_EsoBuildLastInputValues.AOEDamageDone = 0;
 g_EsoBuildLastInputValues.DirectDamageDone = 0;
 g_EsoBuildLastInputValues.BleedDamage = 0;
+g_EsoBuildLastInputValues.PetDamageDone = 0;
 
 
 window.ESO_SETPROCDAMAGE_DATA = 
@@ -111,6 +112,7 @@ window.ESO_SETPROCDAMAGE_DATA =
 			// dealing 69-6000 Poison Damage and stunning any enemy hit for 5 seconds. This effect can occur once every 5 seconds.
 			isAoE : true,
 			isDoT : false,
+			isPet : true,
 			index : 4,
 			items : 5,
 		},
@@ -258,6 +260,7 @@ window.ESO_SETPROCDAMAGE_DATA =
 			// 116-9999 Shock Damage to all enemies in its path, knocking them into the air, and stunning them for 2 seconds. This effect can occur once every 10 seconds.
 			isAoE : true,
 			isDoT : false,
+			isPet : true,
 			index : 4,
 			items : 5,
 		},
@@ -266,6 +269,7 @@ window.ESO_SETPROCDAMAGE_DATA =
 			// seconds The Daedroth's basic attacks deal 49-4257 Physical Damage This effect can occur once every 15 seconds.
 			isAoE : false,
 			isDoT : false,
+			isPet : true,
 			index : 2,
 			items : 2,
 		},
@@ -281,6 +285,7 @@ window.ESO_SETPROCDAMAGE_DATA =
 			// your enemies for 15 seconds. The animated weapon's basic attacks deal 47-4108 Physical Damage.
 			isAoE : false,
 			isDoT : true,
+			isPet : true,
 			index : 4,
 			items : 5,
 		},
@@ -378,6 +383,7 @@ window.ESO_SETPROCDAMAGE_DATA =
 			// front of you for 139-12000 Physical Damage. This effect can occur once every 4 seconds.
 			isAoE : false,
 			isDoT : false,
+			isPet : true,
 			singleTarget : true,
 			index : 2,
 			items : 2,
@@ -470,6 +476,7 @@ window.ESO_SETPROCDAMAGE_DATA =
 			// This effect can occur once every 8 seconds.
 			isAoE : true,
 			isDoT : [true, false],
+			isPet: true,
 			index : 2,
 			items : 2,
 		},
@@ -1255,6 +1262,7 @@ window.UpdateBuildStatData = function(barIndex)
 	g_EsoBuildLastInputValues.AOEDamageDone /= 100;
 	g_EsoBuildLastInputValues.DirectDamageDone /= 100;
 	g_EsoBuildLastInputValues.BleedDamage /= 100;
+	g_EsoBuildLastInputValues.PetDamageDone /= 100;
 }
 
 
@@ -2581,7 +2589,7 @@ window.UpdateEsoTooltipEnchantDamage = function (match, divData, enchantValue, d
 	
 	if (checkDamageType != "" && damageMod != null && damageMod !== 0) 
 	{
-		itemData.rawOutput["Tooltip: Enchantment " + checkDamageType + "DamageDone"] = (damageMod * 100).toFixed(1) + "%";
+		//itemData.rawOutput["Tooltip: Enchantment " + checkDamageType + "DamageDone"] = (damageMod * 100).toFixed(1) + "%";
 		enchantFactor += +damageMod;	
 	}
 	
@@ -2589,7 +2597,7 @@ window.UpdateEsoTooltipEnchantDamage = function (match, divData, enchantValue, d
 	
 	if (damageMod != null && damageMod !== 0) 
 	{
-		itemData.rawOutput["Tooltip: Enchantment DamageDone"] = (damageMod * 100).toFixed(1) + "%";
+		//itemData.rawOutput["Tooltip: Enchantment DamageDone"] = (damageMod * 100).toFixed(1) + "%";
 		enchantFactor += +damageMod;
 	}
 	
@@ -2597,7 +2605,7 @@ window.UpdateEsoTooltipEnchantDamage = function (match, divData, enchantValue, d
 	
 	if (damageMod != null && damageMod !== 0) 
 	{
-		itemData.rawOutput["Tooltip: Enchantment SingleTargetDamageDone"] = (damageMod * 100).toFixed(1) + "%";
+		//itemData.rawOutput["Tooltip: Enchantment SingleTargetDamageDone"] = (damageMod * 100).toFixed(1) + "%";
 		enchantFactor += +damageMod;
 	}
 	
@@ -2605,14 +2613,14 @@ window.UpdateEsoTooltipEnchantDamage = function (match, divData, enchantValue, d
 	
 	if (damageMod != null && damageMod !== 0) 
 	{
-		itemData.rawOutput["Tooltip: Enchantment DirectDamageDone"] = (damageMod * 100).toFixed(1) + "%";
+		//itemData.rawOutput["Tooltip: Enchantment DirectDamageDone"] = (damageMod * 100).toFixed(1) + "%";
 		enchantFactor += +damageMod;
 	}
 	
 	if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
 	{
 		//enchantFactor *= 0.5;	//Handled by tooltip display
-		itemData.rawOutput["Tooltip: Enchantment 1H Weapon"] = "50%";
+		//itemData.rawOutput["Tooltip: Enchantment 1H Weapon"] = "50%";
 	}
 
 	if (enchantFactor != 1)
@@ -2636,14 +2644,14 @@ window.UpdateEsoTooltipEnchantHealing = function (match, divData, enchantValue)
 	
 	if (healingMod != null && healingMod !== 0) 
 	{
-		itemData.rawOutput["Tooltip: Enchantment HealingDone"] = (healingMod * 100).toFixed(1) + "%";
+		//itemData.rawOutput["Tooltip: Enchantment HealingDone"] = (healingMod * 100).toFixed(1) + "%";
 		enchantFactor += +healingMod;
 	}
 	
 	if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
 	{
 		//enchantFactor *= 0.5;	//Handled by tooltip display
-		itemData.rawOutput["Tooltip: Enchantment 1H Weapon"] = "50%";
+		//itemData.rawOutput["Tooltip: Enchantment 1H Weapon"] = "50%";
 	}
 	
 	if (enchantFactor != 1)
@@ -2667,14 +2675,14 @@ window.UpdateEsoTooltipEnchantDamageShield = function (match, divData, enchantVa
 	
 	if (shieldMod != null && shieldMod !== 0) 
 	{
-		itemData.rawOutput["Tooltip: Enchantment DamageShield"] = (shieldMod*100).toFixed(1) + "%";
+		//itemData.rawOutput["Tooltip: Enchantment DamageShield"] = (shieldMod*100).toFixed(1) + "%";
 		enchantFactor += +shieldMod;
 	}
 	
 	if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
 	{
 		//enchantFactor *= 0.5;	//Handled by tooltip display
-		itemData.rawOutput["Tooltip: Enchantment 1H Weapon"] = "50%";
+		//itemData.rawOutput["Tooltip: Enchantment 1H Weapon"] = "50%";
 	}
 	
 	if (enchantFactor != 1)
@@ -2696,7 +2704,7 @@ window.UpdateEsoTooltipEnchantOther = function (match, header, enchantValue, foo
 	if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
 	{
 		//enchantFactor *= 0.5;	//Handled by tooltip display
-		itemData.rawOutput["Tooltip: Enchantment 1H Weapon"] = "50%";
+		//itemData.rawOutput["Tooltip: Enchantment 1H Weapon"] = "50%";
 	}
 	
 	if (enchantFactor != 1)
@@ -2759,6 +2767,7 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 	var isSingleTarget = false;
 	var isDoT = false;
 	var isBleed = false;
+	var isPet = false;
 	var itemData = (window.g_EsoBuildItemData ? g_EsoBuildItemData[g_EsoCurrentTooltipSlot] : {} ) || {};
 	
 	if (itemData.rawOutput == null) itemData.rawOutput = {};
@@ -2792,6 +2801,11 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 			isSingleTarget = setDamageData.isSingleTarget;
 		else if (setDamageData.isSingleTarget && setDamageData.isSingleTarget[matchCount - 1] != null)
 			isSingleTarget = setDamageData.isSingleTarget[matchCount - 1];
+		
+		if (typeof setDamageData.isPet == 'boolean')
+			isPet = setDamageData.isPet;
+		else if (setDamageData.isPet && setDamageData.isPet[matchCount - 1] != null)
+			isPet = setDamageData.isPet[matchCount - 1];
 		
 		if (setDamageData.damageType != null) checkDamageType = setDamageData.damageType;
 	}
@@ -2872,13 +2886,21 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 			damageFactor += +damageMod;
 		}
 	}
+	
+	damageMod = g_EsoBuildLastInputValues.PetDamageDone;
+	
+	if (isPet && damageMod != null && damageMod !== 0) 
+	{
+		itemData.rawOutput["Tooltip: Pet DamageDone"] = (damageMod * 100).toFixed(1) + "%";
+		damageFactor += +damageMod;
+	}
 
 	if (damageFactor != 0)
 	{
 		damageValue = Math.floor(damageValue * damageFactor);
 	}
 	
-	return " " + prefixWord + " " + div1 + damageValue + div2 + " " + damageType + extraSpace + "damage ";
+	return " " + prefixWord + " " + div1 + damageValue + div2 + " " + damageType + extraSpace + "Damage";
 }
 
 
@@ -3152,7 +3174,7 @@ window.onEsoBuildDataDocReady = function()
 	
 	$(document).on("esoTooltipUpdate", OnEsoTooltipUpdate);
 	
-	setInterval(OnEsoCharDataTimeUpdate, 1000);
+	g_EsoCharDataTimeUpdateId = setInterval(OnEsoCharDataTimeUpdate, 1000);
 	
 	AddEsoCharDataAsyncHandlers(document);
 	

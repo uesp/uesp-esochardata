@@ -337,6 +337,20 @@ class EsoBuildDataParser
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		if ($result === FALSE) return $this->reportError("Failed to create cache table!");
+		
+		
+		$query = "CREATE TABLE IF NOT EXISTS combatActions (
+						id INTEGER NOT NULL AUTO_INCREMENT,
+						characterId INTEGER NOT NULL,
+						rotationName TINYTEXT NOT NULL,
+						playerActions TEXT NOT NULL,
+						PRIMARY KEY (id),
+						INDEX index_characterId(characterId)
+					) ENGINE=MYISAM;";
+		
+		$this->lastQuery = $query;
+		$result = $this->db->query($query);
+		if ($result === FALSE) return $this->reportError("Failed to create combatActions table!");
 				
 		$this->lastQuery = "";
 		return true;

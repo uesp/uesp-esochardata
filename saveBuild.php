@@ -230,6 +230,7 @@ class EsoBuildDataSaver
 		header("Cache-Control: no-cache, no-store, must-revalidate");
 		
 		$origin = $_SERVER['HTTP_ORIGIN'];
+		error_log("Origin: $origin");
 		
 		if (substr($origin, -8) == "uesp.net")
 		{
@@ -503,6 +504,30 @@ class EsoBuildDataSaver
 	}
 	
 	
+	public function SaveCombatActions()
+	{
+		if (!$this->DeleteCharacterData("combatActions")) return false;
+		
+		$combatData = $this->parsedBuildData['Combat'];
+		if ($combatData == null) return true;
+		
+		$charId = $this->buildId;
+		
+		foreach ($combatData as $name => $actions)
+		{
+			$safeName = $this->db->real_escape_string($name);
+			$safeActions = $this->db->real_escape_string($actions);
+			
+			$query = "INSERT INTO combatActions(characterId, rotationName, playerActions) VALUES('$charId', '$safeName', '$safeActions');";
+			
+			$result = $this->Query($query);
+			if (!$result) $this->ReportError("Failed to add new record into combatActions!");
+		}
+		
+		return true;
+	}
+	
+	
 	public function SaveBuild()
 	{
 		
@@ -556,6 +581,7 @@ class EsoBuildDataSaver
 		$result &= $this->SaveTable("championPoints", $this->parsedBuildData['ChampionPoints'], $this->CP_FIELDS);
 		$result &= $this->SaveTable("skills", $this->parsedBuildData['Skills'], $this->SKILL_FIELDS);
 		$result &= $this->SaveTable("equipSlots", $this->parsedBuildData['EquipSlots'], $this->EQUIPSLOT_FIELDS);
+		$result &= $this->SaveCombatActions();
 				
 		if (!$result) return $this->OutputErrorJson();
 		
@@ -566,6 +592,6 @@ class EsoBuildDataSaver
 	
 };
 
-
+error_log("SaveBuilds");
 $buildSaver = new EsoBuildDataSaver();
 $buildSaver->Run();

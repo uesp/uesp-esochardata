@@ -85,10 +85,22 @@ class EsoCharDataViewer extends EsoBuildDataViewer
 			"Telvanni",
 			"Thieves Guild",
 			"Trinimac",
-			//"Welkynar",
 			"Worm Cult",
 			"Xivkyn",
-			"Yokudan",			
+			"Yokudan",
+			
+			"Dremora",
+			"Pyandonean",
+			"Welkynar",
+			"Huntsman",
+			"Silver Dawn",
+			"Dead-Water",
+			"Honor Guard",
+			"Elder Argonian",
+			"Coldsnap",
+			"Meridian",
+			"Anequina",
+			"Pellitine",
 	);
 	
 	public $PROVISIONING_MASTERWRIT_RECIPEIDS = array(

@@ -6,7 +6,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #cfc; margin-right: 225px;'>
-Note: The editor is now updated for Update 25.
+Note: The editor is now *mostly* updated for Update 26 (Greymoor). Skills, item and CP data have been updated. Some new or updated sets/skills may not yet work correctly. 
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -27,6 +27,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<div class="esotbStatTab" tabid="esotbStatBlockCPs">CPs</div>
 			<div class="esotbStatTab" tabid="esotbStatBlockRawData">Raw Data</div>
 			<div class="esotbStatTab" tabid="esotbStatBlockMitigation">Mitigation</div>
+			<div class="esotbStatTab" tabid="esotbStatBlockCombat" id="esotbStatTabCombat" style="display: none;">Combat</div>
 			<div class="esotbStatTab" tabid="esotbStatBlockHelp">Help</div>
 			<div class="esotbStatTabSpacer"></div>
 		</div>
@@ -62,11 +63,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<div class="esotbStatLabel">Enable CP</div> <input type="checkbox" id="esotbEnableCP" name="esotbEnableCP" statid="EnableCP" {enableCP}>
 			<br/>
 			<div class="esotbStatLabel">Use PTS Rules</div> <input type="checkbox" id="esotbUsePtsRules" name="esotbUsePtsRules" statid="UsePtsRules" {usePtsRulesCheck}>
-			Current version is Update 25 v5.3.0
+			Current version is Update 26 v6.0.2
 			<ul style="margin-left: 170px; margin-top: -5px;">
-				<li><b>Currently very experimental.</b></li>
 				<li>Save and reload build after changing this setting.</li>
-				<li>Uses skill, CP, and item data from the PTS server.</li>
+				<li>Uses skill, CP, and item data collected from the PTS server.</li>
 				<li>Only CP160 item data is available (lower level items upgrade to CP160 automatically).</li>
 			</ul>
 			<p>
@@ -128,7 +128,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 							<option value="12">Impenetrable</option>
 							<option value="16">Infused</option>
 							<option value="17">Invigorating</option>
-							<option value="25">Nirnhoned</option>					
+							<option value="25">Nirnhoned</option>
 							<option value="13">Reinforced</option>
 							<option value="11">Sturdy</option>
 							<option value="15">Training</option>
@@ -172,7 +172,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 							<option value="12">Impenetrable</option>
 							<option value="16">Infused</option>
 							<option value="17">Invigorating</option>
-							<option value="25">Nirnhoned</option>					
+							<option value="25">Nirnhoned</option>
 							<option value="13">Reinforced</option>
 							<option value="11">Sturdy</option>
 							<option value="15">Training</option>
@@ -194,7 +194,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 							<option value="12">Impenetrable</option>
 							<option value="16">Infused</option>
 							<option value="17">Invigorating</option>
-							<option value="25">Nirnhoned</option>					
+							<option value="25">Nirnhoned</option>
 							<option value="13">Reinforced</option>
 							<option value="11">Sturdy</option>
 							<option value="15">Training</option>
@@ -216,7 +216,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 							<option value="12">Impenetrable</option>
 							<option value="16">Infused</option>
 							<option value="17">Invigorating</option>
-							<option value="25">Nirnhoned</option>					
+							<option value="25">Nirnhoned</option>
 							<option value="13">Reinforced</option>
 							<option value="11">Sturdy</option>
 							<option value="15">Training</option>
@@ -238,7 +238,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 							<option value="12">Impenetrable</option>
 							<option value="16">Infused</option>
 							<option value="17">Invigorating</option>
-							<option value="25">Nirnhoned</option>					
+							<option value="25">Nirnhoned</option>
 							<option value="13">Reinforced</option>
 							<option value="11">Sturdy</option>
 							<option value="15">Training</option>
@@ -260,7 +260,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 							<option value="12">Impenetrable</option>
 							<option value="16">Infused</option>
 							<option value="17">Invigorating</option>
-							<option value="25">Nirnhoned</option>					
+							<option value="25">Nirnhoned</option>
 							<option value="13">Reinforced</option>
 							<option value="11">Sturdy</option>
 							<option value="15">Training</option>
@@ -282,7 +282,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 							<option value="22">Arcane</option>
 							<option value="31">Bloodthirsty</option>
 							<option value="29">Harmony</option>
-							<option value="21">Healthy</option>					
+							<option value="21">Healthy</option>
 							<option value="33">Infused</option>
 							<option value="32">Protective</option>
 							<option value="23">Robust</option>
@@ -304,7 +304,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 							<option value="22">Arcane</option>
 							<option value="31">Bloodthirsty</option>
 							<option value="29">Harmony</option>
-							<option value="21">Healthy</option>					
+							<option value="21">Healthy</option>
 							<option value="33">Infused</option>
 							<option value="32">Protective</option>
 							<option value="23">Robust</option>
@@ -325,7 +325,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 							<option value="22">Arcane</option>
 							<option value="31">Bloodthirsty</option>
 							<option value="29">Harmony</option>
-							<option value="21">Healthy</option>					
+							<option value="21">Healthy</option>
 							<option value="33">Infused</option>
 							<option value="32">Protective</option>
 							<option value="23">Robust</option>
@@ -348,7 +348,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 								<option value="0" hidden>No Trait</option>
 								<option value="2">Charged</option>
 								<option value="8">Decisive</option>
-								<option value="5">Defending</option>					
+								<option value="5">Defending</option>
 								<option value="4">Infused</option>
 								<option value="26">Nirnhoned</option>
 								<option value="1">Powered</option>
@@ -369,7 +369,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 								<option value="0" hidden>No Trait</option>
 								<option value="2">Charged</option>
 								<option value="8">Decisive</option>
-								<option value="5">Defending</option>					
+								<option value="5">Defending</option>
 								<option value="4">Infused</option>
 								<option value="26">Nirnhoned</option>
 								<option value="1">Powered</option>
@@ -380,7 +380,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 								<option value="12" hidden>Impenetrable</option>
 								<option value="16" hidden>Infused</option>
 								<option value="17" hidden>Invigorating</option>
-								<option value="25" hidden>Nirnhoned</option>					
+								<option value="25" hidden>Nirnhoned</option>
 								<option value="13" hidden>Reinforced</option>
 								<option value="11" hidden>Sturdy</option>
 								<option value="15" hidden>Training</option>
@@ -410,7 +410,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 								<option value="0" hidden>No Trait</option>
 								<option value="2">Charged</option>
 								<option value="8">Decisive</option>
-								<option value="5">Defending</option>					
+								<option value="5">Defending</option>
 								<option value="4">Infused</option>
 								<option value="26">Nirnhoned</option>
 								<option value="1">Powered</option>
@@ -431,7 +431,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 								<option value="0" hidden>No Trait</option>
 								<option value="2">Charged</option>
 								<option value="8">Decisive</option>
-								<option value="5">Defending</option>					
+								<option value="5">Defending</option>
 								<option value="4">Infused</option>
 								<option value="26">Nirnhoned</option>
 								<option value="1">Powered</option>
@@ -442,7 +442,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 								<option value="12" hidden>Impenetrable</option>
 								<option value="16" hidden>Infused</option>
 								<option value="17" hidden>Invigorating</option>
-								<option value="25" hidden>Nirnhoned</option>					
+								<option value="25" hidden>Nirnhoned</option>
 								<option value="13" hidden>Reinforced</option>
 								<option value="11" hidden>Sturdy</option>
 								<option value="15" hidden>Training</option>
@@ -725,6 +725,21 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				</div>				
 			</div>
 			<div class="esptbItemSetup esptbItemSetupBoxBorder">
+				<div class="esotbItemSetupTitle">Equip Mythic Set</div>
+				
+				<select id="esotbItemSetupMythicSet" style="width: 200px;">
+					<option slotid="Chest">Bloodlord's Embrace</option>
+					<option slotid="Ring1">Ring of the Wild Hunt</option>
+					<option slotid="Feet">Snow Treaders</option>
+					<option slotid="Ring2">Malacath's Band of Brutality</option>
+					<option slotid="Hands">Thrassian Stranglers</option>
+					<option slotid="Neck">Torc of Tonal Constancy</option>
+				</select>
+				
+				<button id="esotbItemSetupMonsterSetButton" onclick="OnEsoEditBuildSetupMythicSet(this);">Change</button>
+				<div id="esotbItemSetupMythicSetMsg" class="esotbItemSetupMsg"></div>
+			</div>
+			<div class="esptbItemSetup esptbItemSetupBoxBorder">
 				<div class="esotbItemSetupTitle">Equip Set</div>
 				
 				<input type="text" id="esotbItemSetupEquipSet" list="esotbItemSetupEquipSetList" style="width: 200px;">
@@ -732,7 +747,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Adept Rider</option>
 					<option>Aegis Caller</option>
 					<option>Aegis of Galenwe</option>
-					<option value="Perfect Aegis of Galenwe">Aegis of Galenwe (Perfect)</option>
+					<option value="Perfected Aegis of Galenwe">Aegis of Galenwe (Perfect)</option>
 					<option>Affliction</option>
 					<option>Agility</option>
 					<option>Akaviri Dragonguard</option>
@@ -749,7 +764,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Armor of Truth</option>
 					<option>Arms of Infernace</option>
 					<option>Arms of Relequen</option>
-					<option value="Perfect Arms of Relequen">Arms of Relequen (Perfect)</option>
+					<option value="Perfected Arms of Relequen">Arms of Relequen (Perfect)</option>
 					<option>Arms of the Ancestors</option>
 					<option>Ashen Grip</option>
 					<option>Aspect of Mazzatun</option>
@@ -803,6 +818,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Defiler</option>
 					<option>Desert Rose</option>
 					<option>Destructive Mage</option>
+					<option>Dragon's Appetite</option>
 					<option>Dragon's Defilement</option>
 					<option>Dragonguard Elite</option>
 					<option>Draugr Hulk</option>
@@ -822,6 +838,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Endurance</option>
 					<option>Essence Thief</option>
 					<option>Eternal Hunt</option>
+					<option>Eternal Vigor</option>
 					<option>Eternal Warrior</option>
 					<option>Eye of Nahviintaas</option>
 					<option value="Perfected Eye of Nahviintaas">Eye of Nahviintaas (Perfect)</option>
@@ -837,7 +854,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Frozen Watcher</option>
 					<option>Galerion's Revenge</option>
 					<option>Gallant Charge</option>
-					<option value="Perfect Gallant Charge">Gallant Charge (Perfect)</option>
+					<option value="Perfected Gallant Charge">Gallant Charge (Perfect)</option>
 					<option>Glorious Defender</option>
 					<option>Gossamer</option>
 					<option>Grace of Gloom</option>
@@ -848,7 +865,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Gryphon's Ferocity</option>
 					<option>Hagraven's Garden</option>
 					<option>Hand of Mephala</option>
-					<option>Hanu's Compassion</option>					
+					<option>Hanu's Compassion</option>
 					<option>Hatchling's Shell</option>
 					<option>Haven of Ursus</option>
 					<option>Hawk's Eye</option>
@@ -882,6 +899,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Knightmare</option>
 					<option>Kvatch Gladiator</option>
 					<option>Kyne's Kiss</option>
+					<option>Kyne's Wind</option>
+					<option value="Perfected Kyne's Wind">Kyne's Wind (Perfect)</option>
 					<option>Lamia's Song</option>
 					<option>Law of Julianos</option>
 					<option>Leeching Plate</option>
@@ -895,7 +914,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Magicka Furnace</option>
 					<option>Magnus' Gift</option>
 					<option>Mantle of Siroria</option>
-					<option value="Perfect Mantle of Siroria">Mantle of Siroria (Perfect)</option>
+					<option value="Perfected Mantle of Siroria">Mantle of Siroria (Perfect)</option>
 					<option>Mark of the Pariah</option>
 					<option>Marksman's Crest</option>
 					<option>Master Architect</option>
@@ -903,7 +922,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Mechanical Acuity</option>
 					<option>Medusa</option>
 					<option>Mender's Ward</option>
-					<option value="Perfect Mender's Ward">Mender's Ward (Perfect)</option>
+					<option value="Perfected Mender's Ward">Mender's Ward (Perfect)</option>
 					<option>Meridia's Blessed Armor</option>
 					<option>Meritorious Service</option>
 					<option>Might of the Lost Legion</option>
@@ -943,7 +962,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Queen's Elegance</option>
 					<option>Quick Serpent</option>
 					<option>Radial Uppercut</option>
-					<option value="Perfect Radial Uppercut">Radial Uppercut (Perfect)</option>			
+					<option value="Perfected Radial Uppercut">Radial Uppercut (Perfect)</option>
 					<option>Ranger's Gait</option>
 					<option>Rattlecage</option>
 					<option>Ravager</option>
@@ -953,6 +972,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Relics of the Rebellion</option>
 					<option>Renald's Resolve</option>
 					<option>Roar of Alkosh</option>
+					<option>Roaring Opportunist</option>
+					<option value="Perfected Roaring Opportunist">Roaring Opportunist (Perfect)</option>
 					<option>Robes of Alteration Mastery</option>
 					<option>Robes of Destruction Mastery</option>
 					<option>Robes of the Hist</option>
@@ -987,8 +1008,9 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Song of Lamae</option>
 					<option>Soulshine</option>
 					<option>Spectral Cloak</option>
-					<option value="Perfect Spectral Cloak">Spectral Cloak (Perfect)</option>
+					<option value="Perfected Spectral Cloak">Spectral Cloak (Perfect)</option>
 					<option>Spectre's Eye</option>
+					<option>Spell Parasite</option>
 					<option>Spell Power Cure</option>
 					<option>Spell Strategist</option>
 					<option>Spelunker</option>
@@ -1000,6 +1022,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Storm Knight's Plate</option>
 					<option>Storm Master</option>
 					<option>Strength of the Automaton</option>
+					<option>Stuhn's Favor</option>
 					<option>Stygian</option>
 					<option>Sunderflame</option>
 					<option>Swamp Raider</option>
@@ -1046,8 +1069,9 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Varen's Legacy</option>
 					<option>Vastarie's Tutelage</option>
 					<option>Vengeance Leech</option>
+					<option>Venomous Smite</option>
 					<option>Vestment of Olorime</option>
-					<option value="Perfect Vestment of Olorime">Vestment of Olorime (Perfect)</option>
+					<option value="Perfected Vestment of Olorime">Vestment of Olorime (Perfect)</option>
 					<option>Vestments of the Warlock</option>
 					<option>Vesture of Darloc Brae</option>
 					<option>Vicecanon of Venom</option>
@@ -1055,7 +1079,9 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Vicious Serpent</option>
 					<option>Viper's Sting</option>
 					<option>Virulent Shot</option>
-					<option value="Perfect Virulent Shot">Virulent Shot (Perfect)</option>
+					<option value="Perfected Virulent Shot">Virulent Shot (Perfect)</option>
+					<option>Vrol's Command</option>
+					<option value="Perfected Vrol's Command">Vrol's Command (Perfect)</option>
 					<option>War Machine</option>
 					<option>War Maiden</option>
 					<option>Ward of Cyrodiil</option>
@@ -1068,10 +1094,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Whitestrake's Retribution</option>
 					<option>Widowmaker</option>
 					<option>Wild Impulse</option>
-					<option value="Perfect Wild Impulse">Wild Impulse (Perfect)</option>
+					<option value="Perfected Wild Impulse">Wild Impulse (Perfect)</option>
 					<option>Wilderqueen's Arch</option>
 					<option>Willow's Path</option>
 					<option>Willpower</option>
+					<option>Winter's Respite</option> 
 					<option>Winterborn</option>
 					<option>Wisdom of Vanus</option>
 					<option>Wise Mage</option>
@@ -1079,8 +1106,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Wizard's Riposte</option>
 					<option>Wrath of the Imperium</option>
 					<option>Wyrd Tree's Blessing</option>
+					<option>Yandir's Might</option>
+					<option value="Perfected Yandir's Might">Yandir's Might (Perfect)</option>
 					<option>Ysgramor's Birthright</option>
-					<option>Z'en's Redress</option>				
+					<option>Z'en's Redress</option>
 				</datalist>
 				
 				<button id="esotbItemSetupEquipSetButton" onclick="OnEsoEditBuildSetupEquipSet(this);">Change</button>
@@ -1134,7 +1163,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					Traits <select id="esotbItemSetupEquipSetTraitArmor" style="">
 						<option value="0">Any</option>
 						<option value="1">Divines</option>
-						<option value="2">Divines + Infused</option>					
+						<option value="2">Divines + Infused</option>
 						<option value="3">Infused</option>
 						<option value="4">Reinforced</option>
 						<option value="5">Sturdy</option>
@@ -1144,14 +1173,14 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<select id="esotbItemSetupEquipSetTraitJewelry" style="">
 						<option value="0">Any</option>
 						<option value="1">Healthy</option>
-						<option value="2">Robust</option>					
+						<option value="2">Robust</option>
 						<option value="3">Arcane</option>
 					</select>
 					
 					<select id="esotbItemSetupEquipSetTraitWeapon" style="">
 						<option value="0">Any</option>
 						<option value="1">Sharpened</option>
-						<option value="2">Defending</option>					
+						<option value="2">Defending</option>
 						<option value="3">Nirnhoned</option>
 					</select>
 				</div>				
@@ -1171,6 +1200,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 		</div>
 		<div id="esotbStatBlockCPs" class="esotbStatBlock" style="display: none;">
 			{cpHtml}
+			<h3>Toggled CPs</h3>
+			<hr>
+			The following Champion Point passive effects can be manually enabled as desired.
+			<div id="esotbToggledCpInfo">
+			</div>
 		</div>
 		<div id="esotbStatBlockRawData" class="esotbStatBlock" style="display: none;">
 			<div id="esotbRawInputs">
@@ -1323,6 +1357,204 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				</div>
 			</div>
 		</div>
+		<div id="esotbStatBlockCombat" class="esotbStatBlock" style="display: none;">
+			Note: This is currently under early development and may not be entirely usable yet.
+			<div id="esotbCombatRoot">
+				<div id="esotbCombatBlockTemplate" class="esotbCombatBlock ui-draggable ui-droppable" combatid="-1" style="display:none;" draggable="true">
+					<div class="esovsCombatSkillIcon ui-droppable">
+						<img alt="" src="">
+					</div>
+					<div class="esovsCombatSkillName"></div>
+				</div>
+				<div id="esotbCombatBuffs">
+					<div class='esotbCombatBuffTitle'>Target Status Effects</div>
+					<div id="esotbCombatBuffs_TargetStatus">
+					</div>
+					<div class='esotbCombatBuffTitle'>Target Buffs / Debuffs</div>
+					<div id="esotbCombatBuffs_TargetBuffs">
+					</div>
+					<div class='esotbCombatBuffTitle'>Target DOTs</div>
+					<div id="esotbCombatBuffs_Dots">
+					</div>
+					<div class='esotbCombatBuffTitle'>Pets</div>
+					<div id="esotbCombatBuffs_Pets">
+					</div>
+					<div class='esotbCombatBuffTitle'>Player Buffs / Debuffs</div>
+					<div id="esotbCombatBuffs_PlayerBuffs">
+					</div>
+					<div class='esotbCombatBuffTitle'>Player Status Effects</div>
+					<div id="esotbCombatBuffs_PlayerStatus">
+					</div>
+					<div class='esotbCombatBuffTitle'>Cooldowns</div>
+					<div id="esotbCombatBuffs_Cooldowns">
+					</div>
+					<div class='esotbCombatBuffTitle'>Restore Stats</div>
+					<div id="esotbCombatBuffs_RestoreStats">
+					</div>
+					<div class='esotbCombatBuffTitle'>Toggles</div>
+					<div id="esotbCombatBuffs_Toggles">
+					</div>
+					<div class='esotbCombatBuffTitle'>Counters</div>
+					<div id="esotbCombatBuffs_Counters">
+					</div>
+				</div>
+				<div id="esotbCombatTopArea">
+					<div id="esotbCombatPlayerActions">
+						<div class="esotbCombatAddSlot ui-droppable" id="esotbCombatAddSlot">
+							<img alt="[Add Combat Slot]" src="//esolog.uesp.net/resources/pointsplus_up.png">
+							<div class="esovsCombatSkillName">Add Slot</div>
+						</div>
+					</div>
+					<div id="esotbCombatStats">
+						<div class="esotbCombatStat">
+							<button onclick="OnEsoBuildCombatRun();" id="esotbCombatRunButton">Run Combat</button>
+							<button onclick="OnEsoBuildCombatPause();" id="esotbCombatPauseButton" disabled>Pause Combat</button>
+						</div>
+						<p>
+						<div class="esotbCombatStat">
+							<div class="esotbCombatStatLabel esotbCombatStatBold">DPS</div>
+							<div class="esotbCombatStatValue esotbCombatStatBold" id="esotbCombatStat_DPS"></div>
+						</div>
+						<div class="esotbCombatStat">
+							<div class="esotbCombatStatLabel">Simulation Time</div>
+							<div class="esotbCombatStatValue" id="esotbCombatStat_TotalTime"></div>
+						</div>
+						<div class="esotbCombatStat">
+							<div class="esotbCombatStatLabel">Target Health</div>
+							<div class="esotbCombatStatValue" id="esotbCombatStat_TargetHealth"></div>
+						</div>
+						<div class="esotbCombatStat">
+							<div class="esotbCombatStatLabel">Player Health</div>
+							<div class="esotbCombatStatValue" id="esotbCombatStat_PlayerHealth"></div>
+						</div>
+						<div class="esotbCombatStat">
+							<div class="esotbCombatStatLabel">Player Magicka</div>
+							<div class="esotbCombatStatValue" id="esotbCombatStat_PlayerMagicka"></div>
+						</div>
+						<div class="esotbCombatStat">
+							<div class="esotbCombatStatLabel">Player Stamina</div>
+							<div class="esotbCombatStatValue" id="esotbCombatStat_PlayerStamina"></div>
+						</div>
+						<div class="esotbCombatStat">
+							<div class="esotbCombatStatLabel">Player Ultimate</div>
+							<div class="esotbCombatStatValue" id="esotbCombatStat_PlayerUltimate"></div>
+						</div>
+					</div>
+				</div>
+				<div id="esotbCombatBottomRow">
+					<div id="esotbCombatSkillCopy">
+					</div>
+					<div id="esotbCombatUniqueSkills">
+						<div class="esotbCombatUniqueSkillBar" skillbar="-1" activeweaponbar="-1">
+							<div class="esovsSkillBarTitle">Unique<br/>Skills</div>
+							<div class="esovsCombatSkillBarItem">
+								<img class="esovsSkillBarIcon ui-draggable" alt="[Swap to Bar #1]" draggable="true" id="" skillindex="1" skillbar="-1" skillid="101" origskillid="0" src="//esoicons.uesp.net/esoui/art/icons/ability_warrior_003.png">
+							</div>
+							<div class="esovsCombatSkillBarItem">
+								<img class="esovsSkillBarIcon ui-draggable" alt="[Swap to Bar #2]" draggable="true" id="" skillindex="1" skillbar="-1" skillid="102" origskillid="0" src="//esoicons.uesp.net/esoui/art/icons/ability_warrior_003.png">
+							</div>
+							<div class="esovsCombatSkillBarItem">
+								<img class="esovsSkillBarIcon ui-draggable" alt="[Light Attack]" draggable="true" id="" skillindex="1" skillbar="-1" skillid="121" origskillid="0" src="//esoicons.uesp.net/esoui/art/icons/death_recap_melee_basic.png">
+							</div>
+							<div class="esovsCombatSkillBarItem">
+								<img class="esovsSkillBarIcon ui-draggable" alt="[Heavy Attack]" draggable="true" id="" skillindex="1" skillbar="-1" skillid="141" origskillid="0" src="//esoicons.uesp.net/esoui/art/icons/death_recap_melee_heavy.png">
+							</div>
+							<div class="esovsCombatSkillBarItem">
+								<img class="esovsSkillBarIcon ui-draggable" alt="[Wait X Seconds]" draggable="true" id="" skillindex="1" skillbar="-1" skillid="105" origskillid="0" src="//esoicons.uesp.net/esoui/art/icons/achievement_scalecaller_peak_time.png">
+							</div>
+							<div class="esovsCombatSkillBarItem">
+								<img class="esovsSkillBarIcon ui-draggable" alt="[Use Potion]" draggable="true" id="" skillindex="1" skillbar="-1" skillid="106" origskillid="0" src="//esoicons.uesp.net/esoui/art/icons/consumable_potion_001_type_005.png">
+							</div>
+							<div class="esovsCombatSkillBarItem">
+								<img class="esovsSkillBarIcon ui-draggable" alt="[Roll Dodge]" draggable="true" id="" skillindex="1" skillbar="-1" skillid="107" origskillid="0" src="//esoicons.uesp.net/esoui/art/icons/ability_rogue_035.png">
+							</div>
+							<div class="esovsCombatSkillBarItem">
+								<img class="esovsSkillBarIcon ui-draggable" alt="[Bash]" draggable="true" id="" skillindex="1" skillbar="-1" skillid="108" origskillid="0" src="//esoicons.uesp.net/esoui/art/icons/ability_debuff_stun.png">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="esotbCombatTabs">
+				<div class="esotbCombatTabList">
+					<div class="esotbCombatTabSpacer"></div>
+					<div class="esotbCombatTab esotbCombatTabSelected" tabid="esotbCombatTabGeneral">General</div>
+					<div class="esotbCombatTab" tabid="esotbCombatTabOptions">Options</div>
+					<div class="esotbCombatTab" tabid="esotbCombatTabLog">Log</div>
+					<div class="esotbCombatTab" tabid="esotbCombatTabStatistics">Statistics</div>
+					<div class="esotbCombatTabSpacer"></div>
+				</div>
+				<div class="esotbCombatTabBlock" id="esotbCombatTabGeneral">
+					This is a basic combat simulator for the build editor. Note that it is currently under development and not all features may work correctly yet.
+					<p>
+					<h4>Basic Usage and Tips</h4> 
+					<ul>
+						<li>Edit your skill rotation by add empty slots and then dragging skills from your skill bar to the rotation.</li>
+						<li>Rotation slots can be dragged/dropped to change order. Drag a rotation action outside of the rotation to delete it.</li>
+						<li>The "Unique Skills" bar at the bottom permits you to do special actions like bar swaps, light/heavy attacks, quaff potions, and bash or roll dodge.</li>
+						<li>Bar swaps will be added automatically but can also be added manually by dragging an action from the "Unique Skills" bar.</li>
+						<li>Only enable Buffs, Skills, and Sets that you want to have 100% uptime. Other effects and toggles should be enabled/disabled automatically by the simulator.</li>
+						<li>During the simulation abilities will only be cast if they are valid and you have enough resources to cast them. If an ability cannot be cast for any reason it will be skipped and the 
+								next action in the rotation selected.</li>
+						<li>Select various simulation and output parameters in the "Options" tab.</li>
+						<li>The "Log" tab displays a detailed combat log during the simulation.</li>
+						<li>The "Statistics" tab will update with the current simulation stats when a combat simulation is paused or stopped.</li>
+					</ul>
+					<p>
+					Note that this utility currently only simulates the player's offensive DPS when attacking a target dummy. In particular, it doesn't track or simulate: 
+					<ul>
+						<li>Damage to the player.</li>
+						<li>Heals (only some at the moment).</li>
+						<li>Damage shields.</li>
+						<li>Poisons (not yet supported).</li>
+						<li>Reducing enemy movement speed</li>
+						<li>DOT damage is not updated each tick when character stats are changed (this may be a small loss or gain in damage depending on the build/rotation).</li> 
+						<li>Specific abilities not yet supported include:
+							<ul>
+							<li>Stonefist and morphs: Ensure how this works.</li>
+							<li>Pummeling Goliath: Bash attack not yet working.</li>
+							<li>Venom Skull: Casting any Necro skill does not yet count towards skill.</li>
+							<li>Avid Boneyard: Can't use own synergy yet.</li>
+							<li>Empowering Sweep - Keep empower for the duration not yet working</li>
+							<li>Minor Mangle, reducing their Max Health by 10% for 10 seconds.</li>
+							<li>Healing Springs (Magicka restore not working as heals are not yet tracked)</li>
+							<li>Long Shots: Gives you a damage bonus of up to 12% against enemies at longer range.</li>
+							<li>Deliberation: While you are casting or channeling a Psijic Order ability you gain Major Protection, reducing your damage taken by 30%.</li>
+							<li>Spell Recharge: When you are using an ability with a channel or cast time, you take 5% less damage.</li>
+							</ul>
+						</li>
+						<li>Specific set effects not yet supported include:
+							<ul>
+							<li>Haven of Ursus: Can't use own synergy yet.</li>
+							<li>Sheer Venom: More damage with execute not working,</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<div class="esotbCombatTabBlock" id="esotbCombatTabOptions" style="display: none">
+					<div class="esotbCombatOptionLabel">Use Light Attack Weaving</div> <input type="checkbox" id="esotbCombatOptionUseLAWeaving" name="UseLAWeaving" {useLAWeaving}><br>
+					<div class="esotbCombatOptionLabel">Stay in Overload</div> <input type="checkbox" id="esotbCombatOptionStayInOverload" name="StayInOverload" {stayInOverload}> Stay in Overload mode until all Ultimate is used up<br> 
+					<hr>
+					<h4>Log Options</h4>
+					<div class="esotbCombatOptionLabel">Show Damage Details</div> <input type="checkbox" id="esotbCombatOptionShowDamageDetails" name="ShowDamageDetails" {showDamageDetails}>
+					<div class="esotbCombatOptionLabel">Show Skill Cast</div> <input type="checkbox" id="esotbCombatOptionShowSkillCast" name="ShowSkillCast" {showSkillCast}><br>
+					<div class="esotbCombatOptionLabel">Show Buffs</div> <input type="checkbox" id="esotbCombatOptionShowBuffs" name="ShowBuffs" {showBuffs}>
+					<div class="esotbCombatOptionLabel">Show Toggles</div> <input type="checkbox" id="esotbCombatOptionShowToggles" name="ShowToggles" {showToggles}><br>
+					<div class="esotbCombatOptionLabel">Show Regen</div> <input type="checkbox" id="esotbCombatOptionShowRegen" name="ShowRegen" {showRegen}>
+					<div class="esotbCombatOptionLabel">Show Restore Effects</div> <input type="checkbox" id="esotbCombatOptionShowRestore" name="ShowRestore" {showRestore}><br>
+					<div class="esotbCombatOptionLabel">Show Status Effects</div> <input type="checkbox" id="esotbCombatOptionShowStatusEffects" name="ShowStatusEffects" {showStatusEffects}>
+					<div class="esotbCombatOptionLabel">Show Bar Swaps</div> <input type="checkbox" id="esotbCombatOptionShowBarSwaps" name="ShowBarSwaps" {showBarSwaps}><br>
+					<div class="esotbCombatOptionLabel">Show Roll Dodge</div> <input type="checkbox" id="esotbCombatOptionShowRollDodge" name="ShowRollDodge" {showRollDodge}>
+				</div>
+				<div class="esotbCombatTabBlock" id="esotbCombatTabLog" style="display: none">
+					<input type="text" id="esotbCombatFilterText" value="" size="24"> <button id="esotbCombatFilterButton">Filter</button>
+					<div id="esotbCombatLog"></div>
+				</div>
+				<div class="esotbCombatTabBlock" id="esotbCombatTabStatistics" style="display: none">
+					Statistics...TODO
+				</div>
+			</div>
+		</div>
 		<div id="esotbStatBlockHelp" class="esotbStatBlock" style="display: none;">
 			This is a yet another character builder/planner for Elder Scrolls Online. The design goal behind the builder is to be able to see 
 			all the various calculations and stat sources to be able to better understand how one thing or another affects your character's
@@ -1365,7 +1597,185 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>5 June 2020</b>
+			<ul>
+				<li>Updated skill data from live.</li>
+				<li>Updated the Simmering Frenzy ability to have a larger toggle limit (set to 100) and added the skill cost modifier to the tooltip.</li>
+				<li>Added Channel Damage Done to the Deadly Strike set and added the effect to skill tooltips.</li>
+				<li>Fixed set tooltips not being correctly updated in the "View Build" display. Added Pet Damage Done to the set effect tooltips.</li>
+				<li>Vampire/Werewolf skill lines will now be hidden if you don't have the appropriate stage set on the General tab. Vampire/Werewolf skill lines will be reset if you remove either stage.</li>
+			</ul>
+			<p>
+			<b>4 June 2020</b>
+			<ul>
+				<li>Fixed save issue when using the HTTP version of the editor.</li>
+				<li>Pack Leader now correctly gives Minor Courage.</li>
+				<li>Fixed skills on more than one skill bar missing some of their stats in the raw details view.</li>
+				<li>Fixed a few armor items that incorrectly had weaponPower data set and a few weapon items that had armorRating set.</li>
+			</ul>
+			<p>
+			<b>1 June 2020</b>
+			<ul>
+				<li>Fixed element specific destruction skills that weren't upgrading when changing morphs.</li>
+			</ul>
+			<p>
+			<b>29 May 2020</b>
+			<ul>
+				<li>Added a toggle to Daedric Prey for increasing pet damage. Pet damage in skill and set tooltips should be modified by this value.</li>
+				<li>Fixed toggled skills not showing up on load.</li>
+				<li>Fixed off-bar skill toggles from appearing when they weren't on any bar.</li>
+			</ul>
+			<p>
+			<b>28 May 2020</b>
+			<ul>
+				<li>Fixed the Glacial Presence passive toggle to use the correct values.</li>
+				<li>Fixed toggles for the Perfected versions of the Timeless Blessing, Olorime, and Siroria sets.</li>
+				<li>Removed the 1350 Crit Resistance from Battle Spirit and added it to base Crit Resistance.<li>
+				<li>Jolting Arms and Bloodspawn set toggles no longer have double the effect that they should.</li>
+				<li>Added the ability for some toggled skills to be enabled while not on the active skill bar.</li>
+			</ul>
+			<p>
 			<hr>
+			<b>27 May 2020</b>
+			<ul>
+				<li>Updated all item data from PTS.</li>
+			</ul>
+			<p>
+			<b>26 May 2020</b>
+			<ul>
+				<li>Skill and CP data updated for Greymoor (update 26).</li>
+				<li>Updated stats for all Vampire stages.</li>
+				<li>Added new sets to quick item setup.</li>
+			</ul>
+			<p>
+			<b>25 May 2020</b>
+			<ul>
+				<li>Fixed toggle sets that were supposed to disable other set toggles but didn't in all cases.</li>
+				<li>Fixed description of CritResist in the Battle Spirit buff.</li>
+				<li>Added a toggle for the Spectral Cloak 2 piece set bonus.</li>
+				<li>Fixed a few sets and skills with updated descriptions from the update 26 PTS patch.</li> 
+			</ul>
+			<p>
+			<b>21 May 2020</b>
+			<ul>
+				<li>Fixed toggled sets with no currently equipped items having missing description fields.</li>
+			</ul>
+			<p>
+			<b>20 May 2020</b>
+			<ul>
+				<li>Updated the Restoration Staff to use the new LA/HA damage from PTS (pts rules only).</li>
+			</ul>
+			<p>
+			<b>19 May 2020</b>
+			<ul>
+				<li>The Battlespirit buff now includes 1350 of crit resistance.</li>
+			</ul>
+			<p>
+			<b>18 May 2020</b>
+			<ul>
+				<li>Fixed set toggles with counts always being enabled after loading a build.</li>
+			</ul>
+			<p>
+			<b>16 May 2020</b>
+			<ul>
+				<li>The Werewolf ultimates can now be added to non-werewolf skills bars.</li>
+				<li>The old Sorcerer Overload skillbar is now disabled/hidden when loaded from a Sorcerer build.</li>
+				<li>Skills now upgrade/downgrade automatically on your skill bar when changing morphs.</li>
+				<li>Fixed some Vampire and Werewolf skills that may have been loaded as rank 3 instead of rank 4.</li> 
+			</ul>
+			<p>
+			<b>11 May 2020</b>
+			<ul>
+				<li>Added CP toggles. Removed the Exploiter buff and moved it to a CP toggle. If you have this buff enabled in a build it will automatically be moved to the new toggle.</li>
+			</ul>
+			<p>
+			<b>7 May 2020</b>
+			<ul>
+				<li>Fixed tooltips of infused items with a default enchantment.</li>
+				<li>Oblivion weapon enchantments are no longer modified by the Torug's Pact 5 piece set bonus.</li>
+			</ul>
+			<p>
+			<b>6 May 2020</b>
+			<ul>
+				<li>Re-updated skill data for PTS patch v6.0.2 due to an issue with yesterday's update.</li>
+				<li>Removed the Crit Healing mod from The Shadow mundus.</li>
+				<li>The new Prismatic Cost enchantment now modifies health cost of skills.</li>
+			</ul>
+			<p>
+			<b>5 May 2020</b>
+			<ul>
+				<li>Updated skill and item data for PTS patch v6.0.2.</li>
+				<li>Werewolf skills can now only be dragged onto the Werewolf skill bar.</li>
+			</ul>
+			<p>
+			<b>28 April 2020</b>
+			<ul>
+				<li>The new Prismatic Cost jewelry enchantment should now be working.</li>
+				<li>Transmuting Mythic items will now give the correct trait data.</li>
+				<li>Added a toggle for the new Destructive Impact set bonus (26pts).</li>
+				<li>Added a buff and a toggle for the 5 piece bonus from the Z'en's Redress set.</li>
+				<li>Fixed the updated bonus for the Puncturing Remedy set (26pts).</li>
+				<li>Fixed the updated bonus for the Stinging Slashes Remedy set (26pts). Its not yet verified whether this flat damage increase is modified by anything.</li>
+				<li>Fixed the bonus for the Perfected Caustic Arrow set (26 pts).</li>
+				<li>Updated item data from the latest PTS patch (v6.0.1).</li>
+				<li>The new jewelry glyph of Prismatic Recovery is now working (26pts).</li>
+			</ul>
+			<p>
+			<b>27 April 2020</b>
+			<ul>
+				<li>Added quality and type to the food/drink item search window.</li>
+				<li>Added a toggle to the Standard of Might ultimate.</li>
+				<li>Fixed the Molten Whip skill toggle being displayed for Flame Lash.</li>
+			</ul>
+			<p>
+			<b>25 April 2020</b>
+			<ul>
+				<li>Fixed only White items showing up in food/drink searches.</li>
+			</ul>
+			<p>
+			<b>24 April 2020</b>
+			<ul>
+				<li>Added the Health, Magicka, and Stamina Restoration computed stats.</li>
+				<li>Added buff and toggle for the 5 piece bonus of the Kyne's Wind set (26pts).</li>
+				<li>Added toggle for the 5 piece bonus of the Vrol's Command set (26pts).</li>
+				<li>Using the quick item setup should result in fewer stat updates resulting in a little less lag when equipping multiple items at once.</li>
+				<li>Changed JQuery buff updates from using an attribute selector to an ID selector. This makes the overall recalculation time about twice as fast.</li>
+				<li>Added toggle for the mythic Thrassian Stranglers set (26pts).</li>
+				<li>Added toggles for the mythic Ring of the Wild Hunt set (26pts).</li>
+				<li>The mythic Malacath's Band of Brutality set now sets your Spell/Weapon critical chance to 0% (26pts).</li>
+				<li>Added toggles for the mythic Torc of Tonal Constancy set (26pts).</li>
+				<li>Added Mythic sets to the quick item setup (26pts).</li>
+				<li>Added toggle for the 5 piece bonus of the Grace of Gloom set.</li>
+				<li>Fixed several sets that were changed or broken in update 26pts: Arch-Mage, Grace of Gloom, Kvatch Gladiator, Orgnum's Scales, Queen's Elegance, Reactive Armor,
+					Tormentor, Vampire Lord, Balorgh, Domihaus, Engine Guardian, Lord Warden, and Symphony of Blades.</li>
+				<li>The Warden's Northern Sleet ultimate toggle now includes Major Protection.</li>
+				<li>Added toggle for the Vampire's Blood Scion ultimate (26pts).</li>
+				<li>Added toggle for the Vampire's Blood Frenzy skill (26pts).</li>
+				<li>Fixed the toggle for the Vampire's Undeath passive (26pts).</li>
+				<li>Added toggle for the Vampire's Strike from the Shadows passive (26pts).</li>
+				<li>Fixed the Vampire's Unatrual Movement passive to require Vampire stage 4.</li>
+			</ul>
+			<p>
+			<b>23 April 2020</b>
+			<ul>
+				<li>Mythic items now display in orange to match the in-game color.</li>
+				<li>Fixed parsing of the new Stuhn's Favor set (26pts).</li>
+				<li>Added new sets to the quick item setup (26pts).
+				<li>Fixed Perfect sets that were renamed to Perfected in the quick item setup (26pts).
+				<li>Added toggle for the 5 piece bonus of the Stuhn's Favor set (26pts).</li>
+				<li>Added toggles for the 5 piece bonus of the Eternal Vigor set (26pts).</li>
+				<li>Added toggles for the 5 piece bonus of the Yandir's Might set (26pts).</li>
+				<li>Added toggles for the 5 piece bonus of the Roaring Opportunist set (26pts).</li>
+			</ul>
+			<p>
+			<b>22 April 2020</b>
+			<ul>
+				<li>Uploaded skills, CP, and item data for update 26 PTS.</li>
+				<li>Fixed skill tooltips that are a toggle or cost per duration like Blood Frenzy.</li>
+				<li>Updated the vampire stage stats with the "Use PTS" option on.</li>
+				<li>Fixed item search using the PTS item data instead of of Live item data to populate the list.</li>
+			</ul>
+			<p>
 			<b>2 April 2020</b>
 			<ul>
 				<li>Fixed a blank skill/set toggle count resulting in invalid NAN values.</li>
@@ -2068,7 +2478,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>The heal in the Sorcerer's Summon Winged Twilight skill and morphs are now affected by any +healing effects.</li>
 				<li>Fixed a bunch of corrupt item data.</li>
 				<li>Fixed a bunch of sets that had a max equip count of 4 instead of 5.</li>
-				<li>Added a toggle for the 5 piece bonus from the  Perfect Mantle of Sirori set.</li>
+				<li>Added a toggle for the 5 piece bonus from the Perfect Mantle of Sirori set.</li>
 			</ul>
 			<p>
 			<b>31 May 2018</b>
@@ -3008,6 +3418,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 	g_EsoInitialSkillData = {initialSkillDataJson};
 	g_EsoInitialToggleSkillData = {initialToggleSkillDataJson};
 	g_EsoInitialToggleSetData = {initialToggleSetDataJson};
+	g_EsoInitialToggleCpData = {initialToggleCpDataJson};
+	g_EsoBuildInitialCombatActions = {initialCombatActionsJson};
 	g_EsoBuildActiveWeapon = {activeWeaponBar};
 	g_EsoBuildActiveAbilityBar = {activeSkillBar};
 	g_EsoBuildSetNames = {setNamesJson};

@@ -763,7 +763,8 @@ button.esotbWeaponSelect {
 }
 
 .esotbToggledSetItem,
-.esotbToggledSkillItem {
+.esotbToggledSkillItem,
+.esotbToggledCpItem {
 	margin: 4px;
 	margin-left: 20px;
     padding: 5px;
@@ -775,13 +776,15 @@ button.esotbWeaponSelect {
 	border-radius: 15px;
 }
 
-.esotbToggledSetSelect {
+.esotbToggledSetSelect,
+esotbToggledCpSelect {
 	background-color: #f5deb3;
 	border-radius: 15px;
 }
 
 .esotbToggledSetItem:hover,
-.esotbToggledSkillItem:hover {
+.esotbToggledSkillItem:hover,
+.esotbToggledCpItem:hover {
 	border-radius: 15px;
 	background-color: #E3d5c0;
 	box-shadow: 0px 0px 6px rgba(0,0,0,0.7);
@@ -789,14 +792,16 @@ button.esotbWeaponSelect {
 }
 
 .esotbToggleSetTitle,
-.esotbToggleSkillTitle {
+.esotbToggleSkillTitle,
+.esotbToggleCpTitle {
 	display: inline-block;
 	font-weight: bold;
     font-size: 15px;
 }
 
 .esotbToggleSetDesc,
-.esotbToggleSkillDesc {
+.esotbToggleSkillDesc,
+.esotbToggleCpDesc {
 	display: inline;
 	vertical-align: middle;
 }
@@ -811,7 +816,7 @@ button.esotbWeaponSelect {
 
 /* Skills override */
 #esotbRoot .esovsAbilityBlockName {
-	width: 240px
+	width: 250px;
 	overflow: hidden;
 }
 
@@ -834,7 +839,7 @@ button.esotbWeaponSelect {
 } 
 
 #esotbRoot #esovsSkillContent {
-	width: 520px;
+	width: 550px;
 }
 
 #esotbRoot .esovsSkillLineResetAll {
@@ -1242,4 +1247,309 @@ button.esotbWeaponSelect {
 .esotbStatSectionTitle:hover {
 	background-color: #FFFFF0;
 	cursor: pointer;
+}
+
+#esotbCombatRoot {
+	counter-reset: esocombatitem 0;
+}
+
+.esotbCombatBlock {
+	counter-increment: esocombatitem;
+	padding: 3px;
+	border-radius: 10px;
+}
+
+.esotbCombatBlock:hover {
+	background-color: #E3d5c0;
+	cursor: pointer;
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
+
+.esotbCombatBlockHover {
+}
+
+.esotbCombatBlockHighlight {
+	background-color: #ffff99;
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+} 
+
+.esotbCombatDisable {
+	pointer-events: none;
+}
+
+.esotbCombatBlockDragging {
+	background-color: #E3d5c0;
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
+
+.esotbCombatNoHover {
+	background-color: unset !important;
+	cursor: unset !important;
+	color: unset !important;
+	box-shadow: unset !important;
+}
+
+.esotbCombatBlock:before {
+	content: counter(esocombatitem) ".";
+	margin-right: 5px;
+	width: 1.2em;
+	text-align: center;
+	display: inline-block;
+	font-family: "EsoFontStyleAlt","Arial",sans-serif;
+	display: inline-block;
+	color: black;
+	font-size: 16px;
+	vertical-align: middle;
+}
+
+.esovsCombatSkillIcon {
+	display: inline-block;
+	width: 34px;
+	height: 34px;
+	vertical-align: middle;
+	text-align: center;
+	background-color: black;
+	position: relative;
+}
+
+.esovsCombatSkillIcon:after {
+	background-image: url(//esolog-static.uesp.net/resources/eso_ability_frame.png?2e313);
+	background-size: 100% 100%;
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.esovsCombatSkillIcon img {
+	width: 32px;
+	height: 32px;
+	left: 0px;
+	top: 1px;
+	position: relative;
+	background-color: black;
+}
+
+.esovsCombatSkillName {
+	display: inline-block;
+	width: 300px;
+	overflow: hidden;
+	font-family: "EsoFontStyleAlt","Arial",sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	color: #000000;
+	vertical-align: middle;
+}
+
+.esotbCombatAddSlot {
+	margin: 5px;
+	border-radius: 10px;
+	display: inline-block;
+}
+
+.esotbCombatAddSlot:hover, .esotbCombatAddSlotHover {
+	background-color: #E3d5c0;
+	cursor: pointer;
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
+
+.esotbCombatAddSlot img {
+	vertical-align: middle;
+}
+
+#esotbCombatSkillCopy, #esotbCombatUniqueSkills {
+	font-family: "EsoFontStyleAlt", "Arial", sans-serif;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	white-space: nowrap;
+}
+
+.esotbCombatUniqueSkillBar {
+	border: solid 2px rgba(0,0,0,0);
+	padding: 2px;
+	text-align: left;
+}
+
+
+.esovsCombatSkillBarItem {
+	display: inline-block;
+	width: 68px;
+	height: 68px;
+	background-image: url(//esolog-static.uesp.net/resources/eso_ability_frame.png?2e313);
+	background-size: 100% 100%;
+	vertical-align: middle;
+	text-align: center;
+	background-color: black;
+}
+
+#esotbCombatLog {
+	background: #fff3e3;
+	border: inset 2px;
+	padding: 4px;
+	height: 480px;
+	overflow: auto;
+	margin: 5px;
+}
+
+#esotbCombatLog p {
+	line-height: 1.1em;
+}
+
+#esotbCombatTopArea {
+	overflow: hidden;
+	display: table;
+	max-height: 600px;
+}
+
+#esotbCombatPlayerActions {
+	min-width: 400px;
+	max-height: 600px;
+	overflow: auto;
+	padding: 5px;
+}
+
+#esotbCombatStats {
+	width: 50%;
+	display: table-cell;
+	padding: 5px;
+}
+
+#esotbCombatBuffs {
+	min-width: 300px;
+	max-height: 600px;
+	overflow: auto;
+	padding: 5px;
+	width: 300px;
+	float: right;
+}
+
+.esotbCombatBuffTitle {
+	font-weight: bold;
+	font-size: 14px;
+	border-bottom: 1px solid #999;
+	padding-top: 10px;
+}
+
+#esotbCombatStat {
+	width: 100%;
+}
+
+.esotbCombatStatLabel {
+	text-align: right;
+	width: 150px;
+	display: inline-block;
+}
+
+.esotbCombatStatBold {
+	font-weight: bold;
+}
+
+.esotbCombatStatValue {
+	text-align: left;
+	width: 180px;
+	display: inline-block;
+	margin-left: 5px;
+}
+
+.esotbCombatWaitAction {
+	width: 60px;
+	text-align: right;
+	font-family: "EsoFontStyleAlt","Arial",sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.esotbCombatPotionAction {
+	max-width: 225px;
+	text-align: right;
+	font-family: "EsoFontStyleAlt","Arial",sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#esotbCombatSkillCopy .esovsSkillBarHighlight {
+	width: 600px;
+}
+
+.esotbCombatTab {
+	display: inline-block;
+	width: 75px;
+	padding: 3px;
+	border: solid 1px gray;
+	padding 4px;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: normal;
+	font-size: 14px;
+	border-bottom: none;
+	border-radius: 4px 4px 0px 0px;
+	position: relative;
+    top: 1px;
+}
+
+.esotbCombatTab:hover {
+	background-color: #ccc;
+	cursor: pointer;
+}
+
+.esotbCombatTabSelected {
+	background-color: #FBEFD5;
+	font-weight: bold;
+}
+
+.esotbCombatTabSpacer {
+	display: inline-block;
+	width: 10px;
+}
+
+.esotbCombatTabBlock {
+	min-width: 400px;
+	min-height: 200px;
+	border: solid 1px gray;
+	border-radius: 4px;
+	padding: 8px;
+}
+
+#esotbCombatTabs {
+	padding: 7px;
+	padding-top: 20px;
+	width: auto;
+	overflow: hidden;
+	float: none !important;
+	min-width: 745px;
+}
+
+.esotbCombatOptionLabel {
+	width: 200px;
+	text-align: right;
+	font-weight: bold;
+	display: inline-block;
+	padding: 5px;
+	padding-right: 0;
+}
+
+#esotbCombatFilterText {
+	margin-left: 5px;
+}
+
+.esotbCombatStatLabel2 {
+	text-align: right;
+	width: 300px;
+	display: inline-block;
+	font-weight: bold;
+}
+
+.esotbCombatStatValue2 {
+	text-align: left;
+	width: 400px;
+	display: inline-block;
+	margin-left: 5px;
+}
+
+.esotbCombatStatValue2:after {
+	content:"\a";
+	white-space: pre;
 }

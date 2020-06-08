@@ -630,6 +630,7 @@ class EsoBuildDataViewer
 		if (!$this->loadCharacterArrayData("equipSlots")) return false;
 		if (!$this->loadCharacterArrayData("actionBars")) return false;
 		if (!$this->loadCharacterArrayData("screenshots")) return false;
+		if (!$this->loadCharacterArrayData("combatActions")) return false;
 		
 		if (!$this->loadAccountCharacters()) return false;
 		
@@ -945,6 +946,10 @@ class EsoBuildDataViewer
 			else if ($table == "screenshots")
 			{
 				$arrayData[$row['id']] = $row;
+			}
+			else if ($table == "combatActions")
+			{
+				$arrayData[$row['rotationName']] = $row;
 			}
 			else
 			{
