@@ -1586,17 +1586,41 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					input character data. A red "?" button means there may be issues calculating that particular stat (click to see details).
 					You can click on the <em>"+"</em> button to the right to view details on the inputs and calculation for each tab. More information can be
 					seen by clicking on this list.</li>
+				<li>The <em>"Combat"</em> tab tries to simulate your DPS when attacking a target dummy with a set skill rotation.</li>
 			</ul>
 			<p>
 			<h3>Known Bugs</h3>
 			<hr>
 			<ul>
-				<li>Do a forced reload of the page in your browser to ensure you have the latest JavaScript files.</li>
+				<li>Do a forced reload of the page in your browser to ensure you have the latest JavaScript files (Ctrl+F5 in Chrome/Edge, Shift+F5 in FF).</li>
 				<li>The builder does not yet implement auto-levelling as introduced in One Tamriel. As such it is only accurate for CP160 builds.</li>
 				<li>The IE browser can cause issues with stats updating and saving builds due to very slow JS execution in some cases. Using Chrome, FF, or Edge browsers is recommended.</li>
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>11 June 2020</b>
+			<ul>
+				<li>The Ilambris set will choose the damage type based on your maximum damage bonus done with Flame or Shock damage.</li>
+				<li>Updated data for all set proc effects so tooltips should be more accurate and have the correct damage modifiers applied.</li>
+				<li>Updated item data for a few Sellistrix items that incorrect set data.</li>
+				<li>Fixed trait data for transmuted 1H Charged items.</li> 
+			</ul>
+			<p>
+			<b>10 June 2020</b>
+			<ul>
+				<li>Updated the Warrior's Fury set max stacks to 20.</li>
+				<li>Fixed the editor doing multiple stat updates when first loading and when changing Vampire/Werewolf stages.</li>
+				<li>Fixed the Roaring Opportunist set toggle.</li>
+				<li>The Roaring Opportunist 5 piece set bonus is no longer affected by damage increasing stats.</li>
+				<li>The Caluurion's Legacy should use choose the damage type based on your maximum damage bonus done with Flame, Frost, Shock, or Disease damage.</li> 
+				<li>The Domihaus set will choose the damage type based on your maximum damage bonus done with Flame or Physical damage.</li>
+			</ul>
+			<p>
+			<b>9 June 2020</b>
+			<ul>
+				<li>Finished updating all item data from live.</li>
+			</ul>
+			<p>
 			<b>5 June 2020</b>
 			<ul>
 				<li>Updated skill data from live.</li>

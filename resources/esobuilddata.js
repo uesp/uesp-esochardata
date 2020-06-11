@@ -40,68 +40,99 @@ window.ESO_SETPROCDAMAGE_DATA =
 			isDoT : true,
 			index : 4,
 			items : 5,
-		},			
+		},
+		"aegis caller": {
+			//(5 items) When you deal critical melee damage, summon a Lesser Aegis for 11 seconds. After 2.5 seconds, 
+			//the Lesser Aegis spins its blades, dealing 86-3730 Bleed Damage every 1 second. This effect can occur once every 12 seconds.
+			isAoE: true,
+			isDoT: true,
+			isBleed: true,
+			index: 4,
+			items: 5,
+		},
 		"affliction" : {
-			// (5 items) When you deal damage, you have a 50% chance to deal an additional 33-2838 Disease Damage
-			// This effect can occur once every 4 seconds.
+			// (5 items)  When you deal damage, you have a 50% chance to deal 42-1830 Disease damage to the target.
+			// This damage immediately applies the Diseased status effect, applying Minor Defile to the target, 
+			// reducing their Healing Received and Health Recovery by 15% for 4 seconds.
 			isAoE : false,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"arms of relequen" : {
-			// (5 items)  Your Light and Heavy attacks apply a stack of harmful winds to your target for 
-			// 5 seconds. Harmful winds deal 2-200 Physical Damage per stack every 1 second. 20 stacks max.
+			// (5 items) Your Light and Heavy attacks apply a stack of harmful winds to your target for 5 seconds. 
+			// Harmful winds deal 4-200 Physical Damage per stack every 1 second. 20 stacks max.
 			isAoE : false,
 			isDoT : true,
 			index : 4,
 			items : 5,
 		},
 		"ashen grip" : {
-			// (5 items) When you deal direct melee damage, you have a 10% chance to breath fire to all enemies in front of you for 13-1118
-			// Flame Damage. This effect can occur once every 4 seconds.
+			// (5 items) When you deal melee damage, you breathe fire to all enemies in front of you for 124-5350 Flame damage. 
+			// This effect can occur once every 4 seconds.
 			isAoE : true,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"auroran's thunder" : {
-			// (5 items) When you damage a nearby enemy with a single target ability, you summon a 
-			// cone of lightning from your chest for 3 seconds, dealing 14-1285 Shock Damage every 
-			// 0.5 seconds to enemies in the cone. This effect can occur every 6 seconds.
+			// (5 items) Dealing direct damage with a single target attack summons a cone of lightning from your chest for 3 seconds, 
+			// dealing 26-1147 Shock Damage every 0.5 seconds to enemies in the cone. This effect can occur every 6 seconds.
 			isAoE : true,
 			isDoT : true,
 			index : 4,
 			items : 5,
 		},		
+		"azureblight reaper" : {
+			// (5 items) When you deal damage with a damage over time effect, you apply a stack of Blight Seed to your target for 5 seconds.
+			// At 20 stacks, the Blight Seeds explode, dealing 258-11100 Disease Damage to the target and nearby enemies.
+			isAoE : true,
+			isDoT : false,
+			index : 4,
+			items : 5,
+		},
 		"bahraha's curse" : {
-			// (5 items) When you deal damage, you have a 25% chance to create desecrated ground for 5 seconds, which reduces the Movement Speed
-			// of enemies within by 70%, damages them for 10-860 Magic Damage every 1 second, and heals/ you for 100% of the damage done.
+			// (5 items) When you deal damage, you have a 25% chance to create desecrated ground for 5 seconds, which reduces the Movement Speed of 
+			// enemies within by 70%, damages them for 20-860 Magic damage every 1 second, and heals you for 100% of the damage done.
 			isAoE : true,
 			isDoT : true,
 			index : 5,
 			items : 5,
 		},
 		"caluurion's legacy" : {
-			// (5 items) When you deal Critical Damage with a single target Magicka ability, you launch a Fire, Ice, Shock, or Disease ball at 
-			// your target that deals 150-12900 damage and applies a status effect. This effect can occur once every 10 seconds.
+			// (5 items) When you deal direct Critical Damage with a single target Magicka ability, you launch a Fire, Ice, Shock, or Disease ball at
+			// your target that deals 300-12900 damage and applies a status effect. This effect can occur once every 10 seconds.
 			isAoE : false,
 			isDoT : false,
-			damageType: "Shock",
+			damageTypes: ["Flame", "Frost", "Shock", "Disease"],
 			index : 4,
 			items : 5,
 		},
+		"chaotic whirlwind" : {
+			// (2 items) When you cast Whirlwind, you envelop yourself in a destructive flurry of blades for 6 seconds that pulse outward, 
+			// striking up to 3 random enemies around you every 1 second for 62-2675 Physical Damage. This effect can occur once every 10 seconds.
+			isAoE : true,
+			isDoT : true,
+			index : 1,
+			items : 2,
+		},
+		"coldharbour's favorite" : {
+			// (5 items) When you damage an enemy, summon Cadwell's noble mount, Honor, who after 2 seconds, explodes, damaging enemies around him for 280-12190 Magic Damage over 4 seconds.
+			isAoE : true,
+			isDoT : true,
+			index : 5,
+			items : 5,
+		},
 		"curse of doylemish" : {
-			// (5 items) When using a fully-charged melee Heavy Attack on a taunted monster or any enemy who is stunned or immobilized, you
-			// will deal a bonus 140-12040 Physical Damage. This effect can occur once every 7 seconds.
+			// (5 items) When using a fully-charged melee Heavy Attack on a taunted monster or any enemy who is stunned, feared, or immobilized, you
+			// will deal 290-12507 Physical Damage. This effect can occur once every 4 seconds.
 			isAoE : false,
 			isDoT : false,
 			index : 5,
 			items : 5,
 		},
 		"defending warrior" : {
-			// (5 items) When you block an attack, you deal 46-4000 Magic Damage to all enemies within 10 meters of you and heal for 100% of the
-			// damage done This effect can occur once every 10 seconds.
+			// (5 items) When you block an attack, you deal 93-4000 Magic Damage to all enemies within 10 meters of you and heal for 100% of the damage done. This effect can occur once every 10 seconds.
 			isAoE : true,
 			isDoT : false,
 			index : 4,
@@ -109,7 +140,7 @@ window.ESO_SETPROCDAMAGE_DATA =
 		},
 		"defiler" : {
 			// (5 items) When you deal Critical Damage, you have an 8% chance to summon a Hunger that spews poison to all enemies in front of it, 
-			// dealing 69-6000 Poison Damage and stunning any enemy hit for 5 seconds. This effect can occur once every 5 seconds.
+			// dealing 139-6000 Poison Damage and stunning any enemy hit for 5 seconds. This effect can occur once every 5 seconds.
 			isAoE : true,
 			isDoT : false,
 			isPet : true,
@@ -117,147 +148,145 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"destructive mage" : {
-			// (5 items) When you deal damage with a fully-charged Heavy Attack, you place a bomb on the enemy for 10 seconds
-			// When another player hits the same enemy with a fully-charged Heavy Attack they detonate the bomb, dealing 87-7500 Magic Damage
-			// all enemies within 8 meters. This effect can occur once every 10 seconds.
+			// (5 items) When you deal damage with a fully-charged Heavy Attack, you place a bomb on the enemy for 10 seconds. When they are hit with a
+			// fully-charged Heavy Attack the bomb detonates, dealing 152-6575 Magic Damage all enemies within 8 meters. This effect can occur once every 4 seconds.
 			isAoE : true,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"domihaus" : {
-			// (2 items) When you deal damage, you have a 15% chance to create either a ring of fire or ring of molten earth around you for 10 seconds, 
-			// which deals 11-1000 Flame damage or 11-1000 Physical damage every 1 second. Standing within the ring grants you 2-200 Spell Damage or 
-			// 2-200 Weapon Damage. This effect can occur once every 15 seconds.
+			// (2 items) When you deal damage, you create either a ring of fire or ring of molten earth around you for 10 seconds, which deals 30-1300 Flame damage or 30-1300 Physical damage
+			// every 1 second. Standing within the ring grants you 6-300 Spell Damage or 6-300 Weapon Damage. This effect can occur once every 15 seconds
 			isAoE : true,
 			isDoT : true,
+			damageTypes: ["Flame", "Physical"],
 			index : 2,
 			items : 2,
 		},		
 		"embershield" : {
-			// (5 items) When you deal damage with a fully-charged Heavy Attack, you have a 50% chance increase your Spell Resistance by 40-3440
-			// and deal 12-1032 Flame Damage to all enemies within 5 meters of you every 1 second for 6 seconds.
+			// (5 items)  When you deal damage with a fully-charged Heavy Attack, you increase your Physical and Spell Resistance by 76-3300 and deal 20-860 Flame damage 
+			// to all enemies within 5 meters of you every 1 second for 6 seconds.
 			isAoE : true,
 			isDoT : true,
 			index : 4,
 			items : 5,
 		},
 		"eternal hunt" : {
-			// (5 items) When you use Roll Dodge, you leave behind a rune that detonates when enemies come close, dealing 85-7335 Poison Damage
-			// and immobilizing them for 1.5 seconds.
-			isAoE : false,
+			// (5 items) When you use Roll Dodge, you leave behind a rune that detonates when enemies come close, dealing 170-7335 Poison damage and immobilizing them for 1.5 seconds.
+			isAoE : true,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"flame blossom" : {
-			// (5 items) When you deal damage, you have a 10% chance to summon a line of flame that moves forward after 1 second, dealing 
-			// 93-8000 Flame Damage to any enemy in its path. This effect can occur once every 10 seconds.
+			// (5 items) When you deal damage, you have a 10% chance to summon a line of flame that moves forward after 1 second, dealing 186-8000 Flame Damage to 
+			// any enemy in its path. This effect can occur once every 10 seconds.
 			isAoE : true,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"frozen watcher" : {
-			// (5 items) Summon a blizzard around you while blocking, inflicting 11-1000 Frost Damage every 1 second to enemies within
-			// your blizzard. Your blizzard has a 15% chance of inflicting Chilled on enemies damaged.
+			// (5 items) Summon a blizzard around you while blocking, inflicting 23-1000 Frost Damage every 1 second to enemies within your blizzard. 
+			// Your blizzard has a 15% chance of inflicting Chilled on enemies damaged.
 			isAoE : true,
 			isDoT : true,
 			index : 4,
 			items : 5,
 		},
 		"galerion's revenge" : {
-			// (5 items) When you deal damage with a Light or Heavy Attack, you put a Mark of Revenge on the enemy for 15 seconds
-			// After stacking 6 Marks of Revenge on an enemy they detonate for 55-4730 Magic Damage.
+			// (5 items) When you deal damage with a Light or Heavy Attack, you put a Mark of Revenge on the enemy for 15 seconds. 
+			// After stacking 5 Marks of Revenge on an enemy they detonate for 223-9630 Magic Damage.
 			isAoE : true,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"grothdarr" : {
-			// (2 items) When you deal damage, you have a 10% chance create lava pools that swirl around you, dealing 23-2000 Flame Damage to all
-			// enemies within 8 meters of you every 1 second for 5 seconds. This effect can occur once every 10 seconds.
+			// (2 items) When you deal damage, you have a 10% chance to create lava pools that swirl around you, dealing 41-1800 Flame damage to
+			// all enemies within 8 meters of you every 1 second for 5 seconds. This effect can occur once every 10 seconds.
 			isAoE : true,
 			isDoT : true,
 			index : 2,
 			items : 2,
 		},
 		"hand of mephala" : {
-			// (5 items) When you take damage, you have a 10% chance to cast a web around you for 5 seconds, reducing the Movement Speed of
-			// enemies within by 50% After 5 seconds the webs burst into venom, dealing 30-2580 Poison
-			// Damage and applying Minor Fracture to any enemy hit for 5 seconds, reducing their Physical Resistance by 1320.
+			// (5 items) When you take damage, you have a 10% chance to cast a web around you for 5 seconds, reducing the Movement Speed of enemies within by 50%.
+			// After 5 seconds the webs burst into venom, dealing 60-2580 Poison Damage and applying Minor Fracture to any enemy hit for 5 seconds, reducing their Physical Resistance by 1320.
 			isAoE : true,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"hide of morihaus" : {
-			// (5 items) When you Roll Dodge through an enemy, you deal 160-1840 Physical Damage and knock them down for 3 seconds.
+			// (5 items)  When you Roll Dodge through an enemy, you deal 42-1840 Physical Damage and knock them down for 3 seconds.
 			isAoE : false,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"iceheart" : {
-			// (2 items) When you deal Critical Damage, you have a 20% chance to gain a damage shield that absorbs 100-8600 damage for 6 seconds.
-			// While the damage shield holds, you deal 8-770 Frost damage to all enemies within 5 meters of you every 1 second. This effect can occur once every 6 seconds.
+			// (2 items) When you deal Critical Damage, you have a 20% chance to gain a damage shield that absorbs 116-5000 damage for 6 seconds. While the damage shield holds, you deal 11-500 Frost damage
+			// to all enemies within 5 meters of you every 1 second. This effect can occur once every 6 seconds.
 			isAoE : true,
 			isDoT : true,
 			index : 2,
 			items : 2,
 		},
 		"icy conjuror" : {
-			// (5 items)  Applying a minor debuff to your enemy summons a non-reflectable Ice Wraith that will charge into your enemy, 
-			// dealing 220-18920 Frost Damage over 4 seconds. This effect can occur every 12 seconds.
+			// (5 items) Applying a minor debuff to your enemy summons a non-reflectable Ice Wraith that will charge into your enemy, dealing 440-18920 Frost Damage 
+			// over 8 seconds. This effect can occur every 12 seconds.
 			isAoE : false,
 			isDoT : true,
 			index : 4,
 			items : 5,
 		},
 		"ilambris" : {
-			// (2 items) When you deal Flame or Shock Damage, you have a 10% chance to summon a meteor shower of that damage type that deals
-			// 15-1300 Damage to all enemies within 4 meters every 1 second for 5 seconds. Each effect can occur once every 8 seconds.
+			// (2 items) When you deal Flame or Shock Damage, you have a 33% chance to summon a meteor shower of that damage type that deals 46-2015 Damage to 
+			// all enemies within 4 meters every 1 second for 5 seconds. This effect can occur once every 8 seconds.
 			isAoE : true,
-			isDoT : true,			
-			damageType : "Shock",
+			isDoT : true,
+			damageTypes : [ "Flame", "Shock" ],
 			index : 2,
 			items : 2,
 		},
 		"infernal guardian" : {
-			// (2 items) When you use a damage shield ability, you have a 50% chance to lob 3 mortars over 2 seconds at the furthest enemy from
-			// you that each deal 63-5500 Flame Damage to all enemies within 5 meters of the blast area This effect can occur once every 6 seconds.
+			// (2 items) When you apply a damage shield to yourself or an ally, you have a 50% chance to lob 3 mortars over 2 seconds at the furthest enemy from you
+			// that each deal 103-4430 Flame damage to all enemies within 5 meters of the blast area. This effect can occur once every 6 seconds.
 			isAoE : true,
 			isDoT : true,
 			index : 2,
 			items : 2,
 		},
-		"jolting arms" : {
-			// (5 items) When you block an attack, you have a 50% chance to charge your arms, causing your next Bash ability to deal an
-			// additional 67-5805 Shock Damage and increase your Spell Resistance by 75-6450 for 6 seconds.
+		"kjalnar's nightmare" : {
+			// (2 items) Dealing damage with a Light Attack puts a Bone stack on your enemy for 5 seconds. You can only apply 1 stack every 1 second.
+			// At 5 stacks, an undodgeable skeletal hand attacks your enemy after 1 second, knocking them into the air and stunning them for 3 seconds, 
+			// or dealing 337-14500 Magic damage if they cannot be stunned. An enemy that has reached 5 stacks cannot gain Bone stacks for 3 seconds.
 			isAoE : false,
 			isDoT : false,
-			index : 4,
-			items : 5,
+			index : 2,
+			items : 2,
 		},
 		"kra'gh" : {
-			// (2 items) When you deal damage, you have a 10% chance to spawn dreugh limbs that create shockwaves in front of you
-			// dealing 15-1300 Physical Damage every 0.4 seconds for 1.2 seconds This effect can occur once every 3 seconds.
+			// (2 items) When you deal damage, you have a 10% chance to spawn dreugh limbs that create shockwaves in front of you dealing 31-1345 Physical damage
+			// every 0.4 seconds for 1.2 seconds. This effect can occur once every 3 seconds.
 			isAoE : true,
 			isDoT : true,
 			index : 2,
 			items : 2,
 		},
 		"leeching plate" : {
-			// (5 items) When you take damage, you have a 8% chance to summon a cloud of leeching poison under the attacker that
-			// deals 14-1204 Poison Damage in a 4 meter radius every 1 second for 5 seconds and heals you for 100% of the damage caused.
+			// (5 items) When you take damage, you have a 20% chance to summon a cloud of leeching poison under the assailant. The cloud deals 27-1200 Poison damage
+			// every 1 second for 5 seconds and heals you for 100% of the damage caused. A cloud can be created once every 5 seconds.
 			isAoE : true,
 			isDoT : true,
 			index : 4,
 			items : 5,
 		},
 		"mad tinkerer" : {
-			// (5 items) When you deal damage, you have a 10% chance to summon a Verminous Fabricant that charges the nearest enemy, dealing
-			// 116-9999 Shock Damage to all enemies in its path, knocking them into the air, and stunning them for 2 seconds. This effect can occur once every 10 seconds.
+			// (5 items) When you deal damage, you have a 10% chance to summon a Verminous Fabricant that charges the nearest enemy, dealing 232-9999 Shock Damage to all
+			// enemies in its path, knocking them into the air, and stunning them for 2 seconds. This effect can occur once every 10 seconds.
 			isAoE : true,
 			isDoT : false,
 			isPet : true,
@@ -265,8 +294,8 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"maw of the infernal" : {
-			// (2 items) When you deal damage with a Light or Heavy Attack, you have a 10% chance to summon a fire breathing Daedroth for 15
-			// seconds The Daedroth's basic attacks deal 49-4257 Physical Damage This effect can occur once every 15 seconds.
+			// (2 items)  When you deal damage with a Light or Heavy Attack, you have a 33% chance to summon a fire breathing Daedroth for 15 seconds. 
+			// The Daedroth's attacks deal 89-3865 Flame damage, and alternate between Fiery Breath, Fiery Jaws, and Jagged Claw, which alternate once every 2 seconds.
 			isAoE : false,
 			isDoT : false,
 			isPet : true,
@@ -274,15 +303,15 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 2,
 		},
 		"merciless charge" : {
-			// (2 items) (2 items) Critical Charge deals an additional 65-6000 Physical Damage over 5 seconds.
+			// (2 items)  Dealing damage with Critical Charge causes enemies to bleed for 228-10032 Physical Damage over 5 seconds.
 			isAoE : false,
 			isDoT : true,
 			index : 1,
 			items : 2,
 		},
 		"morkuldin" : {
-			// (5 items) When you deal damage with a Light or Heavy Attack, you have a 10% chance to summon an animated weapon to attack
-			// your enemies for 15 seconds. The animated weapon's basic attacks deal 47-4108 Physical Damage.
+			// (5 items)  When you deal damage with a Light or Heavy Attack, you summon an animated weapon to attack your enemies for 15 seconds. 
+			// The animated weapon's basic attacks deal 95-4108 Physical damage. This effect can occur once every 15 seconds.
 			isAoE : false,
 			isDoT : true,
 			isPet : true,
@@ -290,80 +319,107 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"nerien'eth" : {
-			// (2 items) When you deal direct damage, you have a 10% chance to summon a Lich crystal that explodes after 3 seconds, dealing
-			// 85-7335 Magic Damage to all enemies within 4 meters. This effect can occur once every 3 seconds.
+			// (2 items)  When you deal direct damage, you have a 15% chance to summon a Lich crystal that explodes after 2 seconds, dealing 218-9393 Magic damage
+			// to all enemies within 4 meters. This effect can occur once every 3 seconds.
 			isAoE : true,
 			isDoT : false,
 			index : 2,
 			items : 2,
 		},
 		"night terror" : {
-			// (5 items) When you take melee damage, you deal 23-2000 Poison Damage to the attacker This effect can occur once every 1 second.
+			// (5 items)  When you take melee damage, you deal 46-2000 Poison Damage to the attacker. This effect can occur once every 1 second.
 			isAoE : false,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"overwhelming surge" : {
-			// (5 items) When you activate a Class ability, you have a 15% chance to surround yourself with a torrent that deals
-			// 22-1892 Shock Damage to the closest enemy within 12 meters of you every 1 second for 6 seconds.
+			// (5 items)  When you deal damage with a Class ability, you have a 33% chance to surround yourself with a torrent that deals 24-1040 Shock Damage
+			// to enemies within 8 meters of you every 1 second for 6 seconds. 15% of the damage you deal this way is restored to you as Magicka. This effect can occur every 6 seconds.
 			isAoE : false,
 			isDoT : true,
 			index : 4,
 			items : 5,
 		},
-		"perfect wild impulse" : {
-			// (2 items)  Reduce the cost of Impulse by 10%. Impulse places lingering elemental damage on your targets, dealing 38-3333 Flame,
-			// 38-3333 Shock, and 38-3333 Frost Damage over 8 seconds.
+		"perfected arms of relequen": {
+			// (5 items) Your Light and Heavy attacks apply a stack of harmful winds to your target for 5 seconds. Harmful winds deal 4-200 Physical Damage every 1 second. 20 stacks max.
+			isAoE : false,
+			isDoT : true,
+			index : 5,
+			items : 5,
+		},
+		"perfected chaotic whirlwind": {
+			// (2 items) When you cast Whirlwind, you envelop yourself in a destructive flurry of blades for 6 seconds that pulse outward, striking up to 3
+			// random enemies around you every 1 second for 62-2675 Physical Damage. This effect can occur once every 10 seconds.
+			isAoE : false,
+			isDoT : true,
+			index : 2,
+			items : 2,
+		},
+		"perfected merciless charge" : {
+			// (2 items)  Dealing damage with Critical Charge causes enemies to bleed for 228-10032 Physical Damage over 5 seconds.
+			isAoE : false,
+			isDoT : true,
+			index : 2,
+			items : 2,
+		},
+		"perfected piercing spray" : {
+			// (2 items)  Dealing damage with Critical Charge causes enemies to bleed for 228-10032 Physical Damage over 5 seconds.
+			isAoE : false,
+			isDoT : true,
+			index : 2,
+			items : 2,
+		},
+		"perfected wild impulse" : {
+			// (2 items)  Reduce the cost of Impulse by 10%. Impulse places lingering elemental damage on your targets, dealing 92-3965 Flame, 
+			// 92-3965 Shock, and 92-3965 Frost Damage over 8 seconds.
 			isAoE : true,
 			isDoT : true,
 			index : 2,
 			items : 2,
 		},
 		"phoenix" : {
-			// (5 items) When you die, you instead become immune to all negative effects and healing for 3 seconds
-			// When the effect ends, you heal for 200-17200 Health and explode for 100-8600 Flame Damage to all enemies within 8 meters
-			// This effect can occur once every 10 minutes.
+			// (5 items)  When you drop below 25% Health, gain a damage shield that absorbs 581-25000 damage for 6 seconds and deals 186-8000 Flame damage
+			// to nearby enemies. This effect can occur once every 1 minute 
 			isAoE : true,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"pillar of nirn" : {
-			// (5 items)  When you deal damage, you have a 10% chance to create a fissure underneath the enemy after 1 second, dealing
-			// 23-2000 Physical Damage to all enemies within 2.5 meters and causing them to bleed for an additional 90-8000 Physical 
-			// Damage over 10 seconds. This effect can occur once every 10 seconds.
+			// (5 items)When you deal damage, you have a 10% chance to create a fissure underneath the enemy after 1 second, dealing 46-2000 Physical Damage to all 
+			// enemies within 2.5 meters and causing them to bleed for an additional 230-10000 Physical Damage over 10 seconds. This effect can occur once every 10 seconds.
 			isAoE : [true, false],
 			isDoT : [false, true],
+			isBleed: [false, true],
 			index : 4,
 			items : 5,
 		},
 		"plague slinger" : {
-			// (5 items) When you take damage, summon a Skeever corpse which will launch five poison balls over 5 seconds that deal
-			// 60-5160 Poison Damage each at the nearest enemy. This effect can occur once every 15 seconds.
+			// (5 items) When you take damage, summon a Skeever corpse which will launch five poison balls over 5 seconds that deal 120-5160 Poison Damage each at the nearest enemy.
 			isAoE : false,
 			isDoT : true,
 			index : 4,
 			items : 5,
 		},
 		"poisonous serpent" : {
-			// (5 items) When you deal damage with a Light or Heavy Attack against an enemy who has a Poison Damage ability on them, you
-			// have a 25% chance to deal an additional 79-6800 Poison Damage. This effect can occur once every 1 second.
+			// (5 items) When you deal damage with a Light or Heavy Attack against an enemy who has a Poison Damage ability on them, you have a 50% chance to deal an 
+			// additional 79-3400 Poison Damage. This effect can occur once every 1 second.
 			isAoE : false,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"roar of alkosh" : {
-			// (5 items) When you activate a synergy, you send a shockwave from your position that deals 20-1720 Physical Damage and an
-			// additional 140-12040 Physical Damage over 10 seconds. Reduces the Physical and Spell Resistance of any enemy hit by 35-3010 for 10 seconds.
+			// (5 items)  When you activate a synergy, you send a shockwave from your position that deals 40-1720 Physical damage and an additional 280-12040 Physical damage 
+			// over 10 seconds. Reduces the Physical and Spell Resistance of any enemy hit by 70-3010 for 10 seconds.
 			isAoE : [true, true],
 			isDoT : [false, true],
 			index : 4,
 			items : 5,
 		},
 		"savage werewolf" : {
-			// (5 items) Your Light and Heavy Attacks rend flesh, causing your enemy to bleed for 11-1000 Physical Damage every 2 seconds for 6 seconds.
+			// (5 items) Your Light and Heavy Attacks rend flesh, causing your enemy to bleed for 23-1000 Physical Damage every 1 second for 4 seconds.
 			isAoE : false,
 			isDoT : true,
 			isBleed: true,
@@ -371,16 +427,17 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 5,
 		},
 		"scavenging demise" : {
-			// (5 items)  When you deal Critical Poison Damage to an enemy, summon the Scavenging Maw who, after 2 seconds, attacks the enemy, dealing 
-			// 81-7000 Poison Damage and inflicting Minor Vulnerability for 15 seconds, increasing their Damage Taken by 8%. This effect can occur every 10 seconds.
+			// (5 items)   When you deal Critical Poison Damage to an enemy, summon the Scavenging Maw which attacks your enemy after 2 seconds. The Scavenging Maw deals 162-7000 Poison Damage
+			// and inflicts Minor Vulnerability for 15 seconds, increasing their damage taken by 8%. This effect can occur every 10 seconds.
 			isAoE : false,
 			isDoT : false,
+			isPet : true,		//TODO: Confirm?
 			index : 4,
 			items : 5,
 		},
 		"selene" : {
-			// (2 items) When you deal direct melee damage, you have a 15% chance call on a primal spirit that mauls the closest enemy in
-			// front of you for 139-12000 Physical Damage. This effect can occur once every 4 seconds.
+			// (2 items) When you deal melee damage, you have a 15% chance to call on a primal spirit that mauls the closest enemy in front of you after 1.3 seconds for 
+			// 310-13364 Physical damage. This effect can occur once every 4 seconds.
 			isAoE : false,
 			isDoT : false,
 			isPet : true,
@@ -389,91 +446,73 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 2,
 		},
 		"sellistrix" : {
-			// (2 items) When you deal damage, you have a 10% chance to create an earthquake under the enemy that erupts after 2 seconds,
-			// dealing 45-3870 Physical Damage to all enemies within 4 meters and stunning them for 3 seconds
-			// This effect can occur once every 5 seconds.
+			// (2 items) When you deal damage you create an earthquake under the enemy that erupts after 1.5 seconds, dealing 158-6836 Physical damage to all enemies within 
+			// 4 meters and stunning them for 3 seconds. This effect can occur once every 6 seconds.
 			isAoE : true,
 			isDoT : false,
 			index : 2,
 			items : 2,
 		},
 		"shadow of the red mountain" : {
-			// (5 items) When you deal damage with a Weapon ability, you have a 10% chance to deal an additional 272-8000 Flame Damage
-			// This effect can occur once every 2 seconds.
+			// (5 items)  When you deal damage with a weapon, you have a 10% chance to spawn a volcano that erupts after 1 second, launching liquid hot lava at the closest 
+			// enemy dealing 195-8400 Flame damage. This effect can occur once every 2 seconds.
 			isAoE : false,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"shadowrend" : {
-			// (2 items) When you deal damage, you have a 5% chance to summon a shadowy Clannfear for 15 seconds
-			// The Clannfear's basic attacks deal 40-3440 Physical Damage and apply Minor Maim to any enemy hit for 5 seconds, reducing their
-			// damage done by 15% This effect can occur once every 15 seconds.
+			// (2 items) When you take damage, you have a 15% chance to summon a shadowy Clannfear for 15 seconds. The Clannfear's attacks deal 18-800 Magic damage and
+			// reduce their target's damage done by 5% for 2 seconds.
 			isAoE : false,
-			isDoT : false,
-			singleTarget : false, //TODO: Test?
+			isDoT : false,			//TODO: Confirm?
+			singleTarget : false, 	//TODO: Test?
+			isPet: true,
 			index : 2,
 			items : 2,
 		},
 		"sheer venom" : {
-			// (5 items) When you deal damage with an Execute ability you infect the enemy, dealing 98-8428 Poison Damage over 6 seconds
-			// This effect can occur once every 6 seconds.
+			// (5 items) When you deal damage with an Execute ability you infect the enemy, dealing 224-9660 Poison damage over 6 seconds. This effect can occur once every 6 seconds.
 			isAoE : false,
 			isDoT : true,
-			index : 2,
-			items : 5,
-		},
-		"shield breaker" : {
-			// (5 items) When you deal damage with a Light or Heavy Attack against a Player with a damage shield, you deal an
-			// additional 25-2150 Oblivion Damage to them.
-			isAoE : false,
-			isDoT : false,
 			index : 4,
 			items : 5,
 		},
-		"sload's semblance" : {
-			// (5 items) Damaging an enemy has a 10% chance to fire a Shadow Pearl at them, dealing 9-853 Oblivion Damage every 
-			// 1 second for 6 seconds. The Shadow Pearl cannot be reflected. Effect can occur every 6 seconds.
-			isAoE : false,
-			isDoT : true,
-			index : 5,
-			items : 5,
-		},
 		"song of lamae" : {
-			// (5 items) When you take damage while you are under 30% Health, you deal 45-3870 Magic Damage to the attacker and heal for
-			// 45-3870 Health This effect can occur once every 30 seconds.
+			// (5 items) When you take damage while you are under 30% Health, you deal 90-3870 Magic damage to the attacker and heal for 90-3870 Health.
+			// This effect can occur once every 30 seconds.
 			isAoE : false,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"spawn of mephala" : {
-			// (2 items) When you deal damage with a fully-charged Heavy Attack, you create a web for 10 seconds that deals 12-1044 Poison Damage
-			// every 1 second and reduces the Movement Speed of enemies within by 50%. This effect can occur once every 10 seconds.
+			// (2 items) When you deal damage with a fully-charged Heavy Attack, you create a web for 10 seconds that deals 31-1340 Poison damage every 1 second to 
+			// all enemies within 4 meters and reduces their Movement Speed by 50%. This effect can occur once every 10 seconds.
 			isAoE : true,
 			isDoT : true,
+			index : 2,
 			items : 2,
+			
 		},
 		"storm knight's plate" : {
-			// (5 items) When you take non-physical damage, you have a 10% chance to deal 50-4373 Shock Damage all enemies within 5 meters
-			// of you every 2 seconds for 6 seconds. This effect can occur once every 6 seconds.
+			// (5 items)  When you take non-Physical Damage, you have a 10% chance to deal 101-4373 Shock damage to all enemies within 5 meters of you every 2 seconds 
+			// for 6 seconds. This effect can occur once every 6 seconds.
 			isAoE : true,
 			isDoT : true,
 			index : 4,
 			items : 5,
 		},
 		"storm master" : {
-			// (5 items) When you deal Critical Damage with a fully-charged Heavy Attack, your Light Attacks deal an additional 15-1333 Shock
-			// Damage for 20 seconds.
+			// (5 items) When you deal Critical Damage with a fully-charged Heavy Attack or Overload, your Light Attacks will also deal 37-1605 Shock Damage for 20 seconds.
 			isAoE : false,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"stormfist" : {
-			// (2 items) When you deal damage, you have a 10% chance to create a thunderfist to crush the enemy, dealing 17-1500 Shock Damage
-			// every 1 second for 3 seconds to all enemies within 4 meters and a final 93-8000 Physical Damage when the fist closes
-			// This effect can occur once every 8 seconds.
+			// (2 items) When you deal damage, you have a 10% chance to create a thunderfist to crush the enemy, dealing 38-1650 Shock damage every 1 second for 3 seconds to all 
+			// enemies within 4 meters and a final 196-8470 Physical damage when the fist closes. This effect can occur once every 8 seconds.
 			isAoE : true,
 			isDoT : [true, false],
 			isPet: true,
@@ -481,218 +520,252 @@ window.ESO_SETPROCDAMAGE_DATA =
 			items : 2,
 		},
 		"sunderflame" : {
-			// (5 items) When you deal damage with a fully-charged Heavy Attack, you deal an additional 9-774 Flame Damage and reduce the enemy's
-			// Physical Resistance by 40-3440 for 8 seconds.
+			// (5 items) When you deal damage with a fully-charged Heavy Attack, you deal an additional 93-4000 Flame Damage and apply Minor Breach and Minor Fracture to the enemy, 
+			// reducing their Spell and Physical Resistance by 1320 for 8 seconds.
 			isAoE : false,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"syvarra's scales" : {
-			// (5 items) When you deal damage, you have a 5% chance to cause a burst of lamia poison that deals 11-967 Poison Damage in a 5
-			// meter radius and an additional 66-5802 Poison Damage over 6 seconds to all enemies hit This effect can occur once every 6.5 seconds.
+			// (5 items) When you deal damage, you have a 5% chance to cause a burst of lamia poison that deals 22-967 Poison damage in a 5 meter radius 
+			// and an additional 132-5802 Poison damage over 6 seconds to all enemies hit. This effect can occur once every 6.5 seconds.
 			isAoE : [true, true],
 			isDoT : [false, true],
 			index : 5,
 			items : 5,
 		},
 		"the ice furnace" : {
-			// (5 items) When you deal direct damage with a Frost Damage ability, you have a 50% chance to deal an additional 34-997 Flame
-			// Damage to all enemies within 8 meters around the initial target. This effect can occur once every 1 second.
+			// (5 items) When you deal Frost Damage, you deal an additional 74-1644 Flame Damage to all enemies within 8 meters around the initial target. 
+			// This effect can occur once every 1 second.
 			isAoE : true,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"Thews of the Harbinger" : {
-			// (5 items) When you block a direct damage attack, you deal damage to your attacker equal to 4% of your current Health. 
-			// Current value: 349 Physical Damage
+			// (5 items) When you block an attack, you deal damage to your attacker equal to 6% of your Max Health. Current value: 524 Physical Damage
 			isAoE : false,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"thunderbug's carapace" : {
-			// (5 items) When you take Physical Damage, you have a 50% chance to deal 60-5160 Shock Damage in a 5 meter radius around you
-			// This effect can occur once every 3 seconds.
+			// (5 items) When you take Physical Damage, you have a 50% chance to deal 120-5160 Shock Damage in a 5 meter radius around you. This effect can occur once every 3 seconds.
 			isAoE : true,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"thurvokun" : {
-			// (2 items) When you take damage from a nearby enemy, you summon a growing pool of desecrated bile for 8 seconds. Enemies in the
-			// bile take 5-430 Disease damage every 1 second and are afflicted with Minor Maim and Minor Defile for 4 seconds, reducing their
-			// damage done by 15% and healing received and Health Recovery by 15%. This effect can occur every 8 seconds.
+			// (2 items)When you take damage from a nearby enemy, you summon a growing pool of desecrated bile for 8 seconds. Enemies in the bile take 2-100 Disease damage every 1 second and are 
+			// afflicted with Minor Maim and Minor Defile for 4 seconds, reducing their damage done by 15% and healing received and Health Recovery by 15%. This effect can occur every 16 seconds.
 			isAoE : true,
 			isDoT : true,
 			index : 2,
 			items : 2,
 		},
 		"tremorscale" : {
-			// (2 items) When you taunt an enemy, you have a 50% chance to cause a duneripper to burst from the ground beneath them, dealing
-			// 68-5850 Physical Damage to all enemies within 4 meters and reducing their Movement Speed by 70% for 8 seconds
-			// This effect can occur once every 4 seconds.
+			// (2 items) When you taunt an enemy, you cause a duneripper to burst from the ground beneath them after 1 second, dealing 139-6000 Physical damage to all enemies within 4 meters 
+			// and reducing their Physical Resistance by 55-2395 for 8 seconds. This effect can occur once every 8 seconds.
 			isAoE : true,
 			isDoT : false,
 			index : 2,
 			items : 2,
 		},
 		"trinimac's valor" : {
-			// (5 items) When you cast a damage shield on an ally, you have a 20% chance to call down a fragment of Trinimac that heals you
-			// and your allies for 42-3667 Health and damages enemies for 42-3667 Magic Damage in a 5 meter radius
-			// This effect can occur once every 5 seconds.
+			// (5 items) When you cast a damage shield ability, you call down a fragment of Trinimac that heals you and your allies for 93-4000 Health and damages enemies for 93-4000 Magic damage 
+			// in a 5 meter radius. This effect can occur once every 5 seconds.
 			isAoE : true,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"twin sisters" : {
-			// (5 items) When you block an attack, you have a 20% chance to cause all enemies within 5 meters of you to bleed for 100-8600
-			// Physical Damage over 8 seconds. This effect can occur once every 8 seconds.
+			// (5 items) When you block an attack, you have a 20% chance to cause all enemies within 5 meters of you to bleed for 330-14400 Physical damage over 10 seconds. 
+			// awThis effect can occur once every 10 seconds.
 			isAoE : true,
 			isDoT : true,
 			index : 4,
 			items : 5,
 		},
 		"unfathomable darkness" : {
-			// (5 items) When you deal damage, you have a 10% chance to call a murder of crows around you for 12 seconds. Every 3 seconds a crow 
-			// will be sent to peck the closest enemy within 12 meters of you, dealing 46-4000 Physical Damage. This effect can occur once every 15 seconds.
+			// (5 items) When you deal damage, you have a 10% chance to call a murder of crows around you for 12 seconds. Every 3 seconds a crow will be sent to peck the closest enemy 
+			// within 12 meters of you, dealing 93-4000 Physical Damage. This effect can occur once every 15 seconds.
 			isAoE : false,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"valkyn skoria" : {
-			// (2 items) When you deal damage with a damage over time effect, you have a 8% chance to summon a meteor that deals 104-9000 Flame
-			// Damage to the target and 46-4000 Flame Damage to all other enemies within 5 meters. This effect can occur once every 5 seconds.
+			// (2 items)  When you deal damage with a damage over time effect, you have a 8% chance to summon a meteor that deals 209-9000 Flame damage to the target and 82-3535 Flame damage 
+			// to all other enemies within 5 meters. This effect can occur once every 5 seconds.
 			isAoE : [false, true],
 			isDoT : false,
 			index : 2,
 			items : 2,
 		},
 		"velidreth" : {
-			// (2 items) When you deal damage, you have a 20% chance to spawn 3 disease spores in front of you that deal 120-10320 Disease Damage
-			// to the first enemy they hit. This effect can occur once every 9 seconds.
+			// (2 items)  When you deal damage, you have a 20% chance to spawn 3 disease spores in front of you after 1 second that deal 250-10752 Disease damage to 
+			// the first enemy they hit. This effect can occur once every 8 seconds.
 			isAoE : false,
 			isDoT : false,
 			index : 2,
 			items : 2,
 		},
+		"venomous smite" : {
+			// (5 items) Dealing Critical Damage inflicts Hunter's Venom on your enemy for 10 seconds, dealing 52-2241 Poison Damage to your target and nearby enemies 
+			// every 1 second. This effect can occur once every 15 seconds.
+			isAoE : true,
+			isDoT : true,
+			index : 4,
+			items : 5,
+		},
 		"vicecanon of venom" : {
-			// (5 items) When you deal Critical Damage to an enemy from Sneak, you inject a leeching poison that deals 160-13760 Poison Damage
-			// over 15 seconds to them and heals you for 100% of the damage done.
+			// (5 items) When you deal Critical Damage to an enemy from Sneak, you inject a leeching poison that deals 320-13760 Poison Damage over 15 seconds to 
+			// them and heals you for 100% of the damage done.
 			isAoE : false,
 			isDoT : true,
 			index : 4,
 			items : 5,
 		},
 		"vicious death" : {
-			// (5 items) When you kill a Player, they violently explode for 183-15815 Flame Damage to all other enemies in a 4 meter radius.
+			// (5 items) When you kill a Player, they violently explode for 367-15815 Flame damage to all other enemies in a 4 meter radius.
 			isAoE : true,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"viper's sting" : {
-			// (5 items)  When you deal damage with a melee attack, you deal an additional 7040 Poison damage over 4 seconds. This effect can occur once every 4 seconds.
+			// (5 items) When you deal damage with a melee attack, you deal an additional 145-6400 Poison Damage over 4 seconds. This effect can occur once every 4 seconds.
 			isAoE : false,
 			isDoT : true,
 			index : 4,
 			items : 5,
 		},
 		"way of fire" : {
-			// (5 items) When you deal damage with a Weapon ability, you have a 20% chance to deal an additional 46-4000 Flame Damage This effect can occur once every 2 seconds.
+			// (5 items) When you deal damage with a weapon, you have a 20% chance to deal an additional 93-4000 Flame damage. This effect can occur once every 2 seconds.
 			isAoE : false,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"widowmaker" : {
-			// (5 items) When your alchemical poison fires, deal 90-7740 Poison Damage to all enemies within 5 meters of you.
+			// (5 items) When your alchemical poison fires, you drop a poisonous spore in front of you that bursts after 1 second, dealing 180-7740 Poison Damage to all enemies within 5 meters.
 			isAoE : true,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"wild impulse" : {
-			// (2 items) Reduce the cost of Impulse by 10%. Impulse places lingering elemental damage on your targets, dealing 38-3333 Flame, 38-3333 Shock, and 38-3333 Frost Damage over 8 seconds.
+			// (2 items) Reduce the cost of Impulse by 10%. Impulse places lingering elemental damage on your targets, dealing 92-3965 Flame, 92-3965 Shock, and 92-3965 Frost Damage over 8 seconds.
 			isAoE : true,
 			isDoT : true,
 			index : 1,
 			items : 2,
 		},
 		"winterborn" : {
-			// (5 items) When you deal damage with a Cold Damage ability, you have a 8% chance to summon an ice pillar that deals 70-6020 Frost
-			// Damage to all enemies in a 3 meter radius. The ice pillar persists for 2 seconds and reduces the Movement Speed of all enemies within the
-			// radius by 60%.
+			// (5 items) When you deal Frost Damage, you have an 8% chance to summon an ice pillar that deals 140-6020 Frost damage to all enemies in a 3 meter radius. The ice pillar persists 
+			// for 2 seconds and reduces the Movement Speed of all enemies within the radius by 60%.
 			isAoE : true,
 			isDoT : false,
 			index : 4,
 			items : 5,
 		},
 		"zaan" : {
-			// (2 items) When you damage a nearby enemy with a Light or Heavy Attack, you have a 20% chance to create a beam of fire that will connect you to your enemy.
-			// The beam deals 40-3440 Flame damage every 1 second to your enemy for 5 seconds. Every second, this damage increases by 50%. The beam is broken if the enemy 
-			// moves 8 meters away from you. This effect can occur every 18 seconds.
+			// (2 items)When you damage a nearby enemy with a Light or Heavy Attack, you have a 33% chance to create a beam of fire that will connect you to your enemy. The beam deals 46-2010 
+			// Flame damage every 1 second to your enemy for 6 seconds. Every second, this damage increases by 100%. The beam is broken if the enemy moves 8 meters away from you. This effect can occur every 18 seconds.
 			isAoE : false,
 			isDoT : true,
 			index : 2,
 			items : 2,
 		},
-
-		"crushing wall" : {	// Not affected
-			// (2 items) Your Light and Heavy Attacks deal an additional 15-1341 damage to enemies in your Wall of Elements.
+		
+		"blooddrinker" : {
 			ignoreAll: true,
-			isAoE : false,
-			isDoT : false,
-			index : 1,
-			items : 2,
 		},
-		"infallible mage" : {	// Not affected
-			// (5 items) Your fully-charged Heavy Attacks deal an additional 10-903 damage
-			// Enemies you damage with fully-charged Heavy Attacks are afflicted with Minor Vulnerability for 10 seconds, increasing their damage
-			// taken by 8%.
+		"call of the undertaker" : {
 			ignoreAll: true,
-			isAoE : false,
-			isDoT : false,
-			index : 4,
-			items : 5,
+		},
+		"crushing wall" : {
+			// (2 items) Your Light and Heavy Attacks deal an additional 31-1353 damage to enemies in your Wall of Elements.
+			ignoreAll: true,
+		},
+		"deadly strike" : {
+			ignoreAll: true,
+		},
+		"dragon's appetite" : {
+			ignoreAll: true,
+		},
+		"draugrkin's grip" : {
+			ignoreAll: true,
+		},
+		"infallible mage" : {
+			// (5 items) Your Heavy Attacks deal an additional 21-903 damage. Enemies you damage with fully-charged Heavy Attacks are afflicted with 
+			// Minor Vulnerability for 10 seconds, increasing their damage taken by 8%.
+			ignoreAll: true,
 		},	
-		"noble duelist's silks" : {	// Not affected
-			// (5 items) When you dodge an attack, your Light and Heavy Attacks deal an additional 14-1225 damage for 8 seconds.
+		"jolting arms" : {
+			// (5 items) When you block an attack, you have a 50% chance to charge your arms, causing your next Bash ability to deal an additional 141-6086 and increase 
+			// your Physical and Spell Resistance by 107-4620 for 6 seconds.
 			ignoreAll: true,
-			isAoE : false,
-			isDoT : false,
-			index : 4,
-			items : 5,
 		},
-		"undaunted infiltrator" : {	// Not affected
-			// (5 items) When you use an ability that costs Magicka, your Light Attacks deal an additional 9-774 damage and Heavy Attacks deal an
-			// additional 13-1161 damage for 10 seconds.
+		"knight slayer" : {
 			ignoreAll: true,
-			isAoE : false,
-			isDoT : false,
-			index : 4,
-			items : 5,
 		},
-		"undaunted unweaver" : { // Not affected
-			// (5 items) When you use an ability that costs Stamina, your Light Attacks deal an additional 9-774 damage and Heavy Attacks deal an
-			// additional 13-1161 damage for 10 seconds.
+		"queen's elegance" : {
 			ignoreAll: true,
-			isAoE : false,
-			isDoT : false,
-			index : 4,
-			items : 5,
 		},
-		"varen's legacy" : {	// Not affected
-			// (5 items) When you block an attack, you have a 10% chance to cause your next direct damage area of effect attack to deal an
-			// additional 300-3450 damage.
+		"noble duelist's silks" : {
+			// (5 items) When you dodge an attack, your Light and Heavy Attacks deal an additional 28-1225 damage for 8 seconds.
 			ignoreAll: true,
-			isAoE : true,
-			isDoT : false,
-			index : 4,
-			items : 5,
+		},
+		"perfected crushing wall" : {
+			// (2 items) Your Light and Heavy Attacks deal an additional 31-1353 damage to enemies in your Wall of Elements.
+			ignoreAll: true,
+		},
+		"perfected roaring opportunist" : {
+			// (5 items) Using a Fully-Charged Heavy Attack grants you and up to 11 group members within 28 meters Major Slayer, increasing your damage done to Dungeon, Trial, and 
+			// Arena Monsters by 15% for 1 second for every 8000 damage dealt. Roaring Opportunist can only affect a target every 22 seconds.
+			ignoreAll: true,
+		},
+		"perfected stinging slashes" : {
+			ignoreAll: true,
+		},
+		"perfected thunderous volley" : {
+			ignoreAll: true,
+		},
+		"perfected titanic cleave" : {
+			ignoreAll: true,
+		},
+		"roaring opportunist" : {
+			// (5 items) Using a Fully-Charged Heavy Attack grants you and up to 11 group members within 28 meters Major Slayer, increasing your damage done to Dungeon, Trial, and 
+			// Arena Monsters by 15% for 1 second for every 8000 damage dealt. Roaring Opportunist can only affect a target every 22 seconds.
+			ignoreAll: true,
+		},
+		"sload's semblance" : {
+			ignoreAll: true,
+		},
+		"stinging slashes" : {
+			ignoreAll: true,
+		},
+		"thunderous volley" : {
+			ignoreAll: true,
+		},
+		"titanic cleave" : {
+			ignoreAll: true,
+		},
+		"undaunted infiltrator" : {
+			// (5 items) When you use an ability that costs Magicka, your Light Attacks deal an additional 18-774 damage and Heavy Attacks deal an additional 27-1161 damage for 10 seconds.
+			ignoreAll: true,
+		},
+		"undaunted unweaver" : {
+			// (5 items) When you use an ability that costs Stamina, your Light Attacks deal an additional 18-774 damage and Heavy Attacks deal an additional 27-1161 damage for 10 seconds.
+			ignoreAll: true,
+		},
+		"varen's legacy" : {
+			// (5 items) When you block an attack, you have a 10% chance to cause your next direct damage area of effect attack to deal an additional 300-3450 damage. This bonus does not work with channeled effects.
+			ignoreAll: true,
 		},
 };
 
@@ -2806,6 +2879,22 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 			isPet = setDamageData.isPet;
 		else if (setDamageData.isPet && setDamageData.isPet[matchCount - 1] != null)
 			isPet = setDamageData.isPet[matchCount - 1];
+		
+		if (setDamageData.damageTypes != null) {
+			var maxDamageType = setDamageData.damageTypes[0];
+			var maxDamageValue = -1;
+			
+			for (var i = 0; i < setDamageData.damageTypes.length; ++i) {
+				var damageType = setDamageData.damageTypes[i];
+				var damageValue = g_EsoBuildLastInputValues[damageType + "DamageDone"];
+				if (damageValue == null || damageValue == 0 || isNaN(damageValue)) continue;
+				if (damageValue > maxDamageValue) {
+					maxDamageValue = damageValue;
+					maxDamageType = damageType;
+				}
+			}
+			checkDamageType = maxDamageType;
+		}
 		
 		if (setDamageData.damageType != null) checkDamageType = setDamageData.damageType;
 	}

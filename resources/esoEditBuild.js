@@ -8127,7 +8127,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		buffId: "Major Slayer",
-		match: /grants you and up to [0-9]+ group members Major Slayer/i,
+		match: /grants you and up to [0-9]+ group members within [0-9]+ meters Major Slayer/i,
 	},
 	{
 		id: "Perfected Roaring Opportunist",
@@ -8135,7 +8135,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		buffId: "Major Slayer",
-		match: /grants you and up to [0-9]+ group members Major Slayer/i,
+		match: /grants you and up to [0-9]+ group members within [0-9]+ meters Major Slayer/i,
 	},
 	{
 		id: "Yandir's Might (Giant's Endurance)",
@@ -9845,7 +9845,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "WeaponDamage",
-		maxTimes: 25,
+		maxTimes: 20,
 		//match: /When you take critical damage, your Weapon Damage is increased by ([0-9]+)/i,
 		match: /When you take damage, your Weapon Damage is increased by ([0-9]+) for/i,
 	},
@@ -14083,7 +14083,10 @@ window.OnEsoVampireChange = function (e)
 		$("#esotbWerewolfStage").val("0");
 	}
 	
+	g_EsoBuildEnableUpdates = false;
 	UpdateEsoSkillGroupDisplay();
+	g_EsoBuildEnableUpdates = true;
+	
 	UpdateEsoComputedStatsList("async");
 }
 
@@ -14095,8 +14098,11 @@ window.OnEsoWerewolfChange = function (e)
 		$("#esotbVampireStage").val("0");
 	}
 	
+	g_EsoBuildEnableUpdates = false;
 	UpdateEsoSkillGroupDisplay();
 	UpdateEsoSkillBarDisplay();
+	g_EsoBuildEnableUpdates = true;
+	
 	UpdateEsoComputedStatsList("async");
 }
 
@@ -21205,11 +21211,16 @@ window.esotbOnDocReady = function ()
 	
 	$(".esotbStatSectionTitle").click(OnEsoStatSectionTitleClick);
 	
+	g_EsoBuildEnableUpdates = false;
+	
 	CopyEsoSkillsToItemTab();
 	UpdateEsoCpData();
 	UpdateAllEsoItemTraitLists();
 	
 	UpdateEsoSkillGroupDisplay();
+	
+	g_EsoBuildEnableUpdates = true;
+	
 	UpdateEsoComputedStatsList(true);
 }
 
