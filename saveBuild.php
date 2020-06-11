@@ -230,7 +230,6 @@ class EsoBuildDataSaver
 		header("Cache-Control: no-cache, no-store, must-revalidate");
 		
 		$origin = $_SERVER['HTTP_ORIGIN'];
-		error_log("Origin: $origin");
 		
 		if (substr($origin, -8) == "uesp.net")
 		{
@@ -592,6 +591,5 @@ class EsoBuildDataSaver
 	
 };
 
-error_log("SaveBuilds");
 $buildSaver = new EsoBuildDataSaver();
 $buildSaver->Run();
