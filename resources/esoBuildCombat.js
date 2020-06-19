@@ -98,6 +98,7 @@ window.g_EsoBuildCombatOptions = {
 		stayInWerewolf: true,
 		ignoreResources: true,		//Only H/M/S
 		ignoreUltimate: false,
+		startWithFullUltimate: false,
 		log: {
 			showRolls : true,
 			showDamageDetails: true,
@@ -169,6 +170,8 @@ window.g_EsoBuildCombatStateTemplate = {
 		Oblivion : 0,
 		Other : 0,
 	},
+	
+	runTimes: {},
 	
 	resourceSources: {},
 	resourceDrains: {},
@@ -5731,6 +5734,7 @@ window.EsoBuildCombatInitializeSkillEvents = function(skillData)
 	
 	skillData.combat = {
 			castCount: 0,
+			upTime: 0,
 			getSkillResistMod: [],
 			getDamageMod: [],
 			getFinalDamage: [],
@@ -7784,6 +7788,11 @@ window.EsoBuildResetCombatState = function()
 	g_EsoBuildCombatState.currentMagicka = g_EsoBuildLastInputValues.Magicka;
 	g_EsoBuildCombatState.currentStamina = g_EsoBuildLastInputValues.Stamina;
 	
+	if (g_EsoBuildCombatOptions.startWithFullUltimate)
+		g_EsoBuildCombatState.currentUltimate = ESOBUILD_MAX_ULTIMATE;
+	else
+		g_EsoBuildCombatState.currentUltimate = 0;
+	
 	g_EsoBuildCombatVolleyCounter = 0;
 	g_EsoBuildCombatZaanCounter = 0;
 	g_EsoBuildCombatSkeletalArcherAttackCount = 0;
@@ -8024,10 +8033,10 @@ window.EsoBuildCombatDoRestoreTick = function()
 	g_EsoBuildCombatState.currentStamina  += g_EsoBuildLastInputValues.StaminaRestore;
 	g_EsoBuildCombatState.currentUltimate += g_EsoBuildLastInputValues.UltimateRestore;
 	
-	EsoBuildCombatLogRestoreStat("restore", "Restore Tick", "Health", g_EsoBuildLastInputValues.HealthRestore);
-	EsoBuildCombatLogRestoreStat("restore", "Restore Tick", "Magicka", g_EsoBuildLastInputValues.MagickaRestore);
-	EsoBuildCombatLogRestoreStat("restore", "Restore Tick", "Stamina", g_EsoBuildLastInputValues.StaminaRestore);
-	EsoBuildCombatLogRestoreStat("restore", "Restore Tick", "Ultimate", g_EsoBuildLastInputValues.UltimateRestore);
+	EsoBuildCombatLogRestoreStatFromStatSource("restore", "Restore Tick", "Health", "HealthRestore");
+	EsoBuildCombatLogRestoreStatFromStatSource("restore", "Restore Tick", "Magicka", "MagickaRestore");
+	EsoBuildCombatLogRestoreStatFromStatSource("restore", "Restore Tick", "Stamina", "StaminaRestore");
+	EsoBuildCombatLogRestoreStatFromStatSource("restore", "Restore Tick", "Ultimate", "UltimateRestore");
 	
 	if (g_EsoBuildCombatState.currentHealth  > g_EsoBuildLastInputValues.Health)  g_EsoBuildCombatState.currentHealth  = g_EsoBuildLastInputValues.Health;
 	if (g_EsoBuildCombatState.currentMagicka > g_EsoBuildLastInputValues.Magicka) g_EsoBuildCombatState.currentMagicka = g_EsoBuildLastInputValues.Magicka;
@@ -8035,6 +8044,26 @@ window.EsoBuildCombatDoRestoreTick = function()
 	if (g_EsoBuildCombatState.currentUltimate > ESOBUILD_MAX_ULTIMATE) g_EsoBuildCombatState.currentUltimate = ESOBUILD_MAX_ULTIMATE;
 	
 	g_EsoBuildCombatState.playerStatus['playerRestore'] = g_EsoBuildCombatState.currentTime + ESOBUILD_COMBAT_RESTORETICKLENGTH;
+}
+
+
+window.EsoBuildCombatLogRestoreStatFromStatSource = function(srcType, srcData, statName, statSourceName)
+{
+	for (var i in g_EsoInputStatSources[statSourceName])
+	{
+		var statSource = g_EsoInputStatSources[statSourceName][i];
+		
+		if (statSource.buff && statSource.buffName) {
+			EsoBuildCombatLogRestoreStat("buff", statSource.buffName, statName, statSource.value);
+		}
+		else if (statSource.set) {
+			EsoBuildCombatLogRestoreStat("set", statSource.set.name, statName, statSource.value);
+		}
+		else {
+			EsoBuildCombatLogRestoreStat(srcType, "Unknown", statName, statSource.value);
+		}
+	}
+	
 }
 
 
@@ -8264,8 +8293,72 @@ window.EsoBuildCombatDisableAllCombatEnabled = function()
 }
 
 
+window.EsoBuildCombatUpdateRunTimes = function()
+{
+	EsoBuildCombatUpdateActiveSkillRunTimes();
+	
+	for (var dotId in g_EsoBuildCombatState.dots)
+	{
+		var dot = g_EsoBuildCombatState.dots[dotId];
+		var dotId1 = "DOT: " + dot.name;
+		
+		if (g_EsoBuildCombatState.runTimes[dotId1] == null) g_EsoBuildCombatState.runTimes[dotId1] = 0;
+		g_EsoBuildCombatState.runTimes[dotId1] += ESOBUILD_COMBAT_LOOPDELTATIME;
+	}
+	
+	for (var buffId in g_EsoBuildCombatState.buffs)
+	{
+		var buff = g_EsoBuildCombatState.buffs[buffId];
+		var buffId1 = "Buff: " + buffId;
+		
+		if (g_EsoBuildCombatState.runTimes[buffId1] == null) g_EsoBuildCombatState.runTimes[buffId1] = 0;
+		g_EsoBuildCombatState.runTimes[buffId1] += ESOBUILD_COMBAT_LOOPDELTATIME;
+	}
+	
+	for (var statusId in g_EsoBuildCombatState.targetStatus)
+	{
+		var status = g_EsoBuildCombatState.targetStatus[statusId];
+		var statusId1 = "Target Status: " + statusId;
+		
+		if (g_EsoBuildCombatState.runTimes[statusId1] == null) g_EsoBuildCombatState.runTimes[statusId1] = 0;
+		g_EsoBuildCombatState.runTimes[statusId1] += ESOBUILD_COMBAT_LOOPDELTATIME;
+	}
+	
+	for (var petId in g_EsoBuildCombatState.pets)
+	{
+		var pet = g_EsoBuildCombatState.pets[petId];
+		var petId1 = "Pet: " + pet.name;
+		
+		if (g_EsoBuildCombatState.runTimes[petId1] == null) g_EsoBuildCombatState.runTimes[petId1] = 0;
+		g_EsoBuildCombatState.runTimes[petId1] += ESOBUILD_COMBAT_LOOPDELTATIME;
+	}
+	
+	for (var toggleId in g_EsoBuildCombatState.toggles)
+	{
+		var toggle = g_EsoBuildCombatState.toggles[toggleId];
+		
+		if (g_EsoBuildCombatState.runTimes[toggleId] == null) g_EsoBuildCombatState.runTimes[toggleId] = 0;
+		g_EsoBuildCombatState.runTimes[toggleId] += ESOBUILD_COMBAT_LOOPDELTATIME;
+	}
+}
+
+
+window.EsoBuildCombatUpdateActiveSkillRunTimes = function()
+{
+	for (var skillId in g_EsoBuildCombatState.activeSkills)
+	{
+		var activeSkill = g_SkillsData[skillId];
+		if (activeSkill == null || activeSkill.combat == null) continue;
+		
+		activeSkill.combat.runTime += ESOBUILD_COMBAT_LOOPDELTATIME;
+	}
+}
+
+
 window.EsoBuildCombatCheckTimes = function()
 {
+	EsoBuildCombatUpdateRunTimes();
+	
 	EsoBuildCombatCheckTimesObj(g_EsoBuildCombatState.playerStatus);
 	EsoBuildCombatCheckTimesObj(g_EsoBuildCombatState.cooldowns);
 	EsoBuildCombatCheckTimesObj(g_EsoBuildCombatState.synergies);
@@ -8566,6 +8659,7 @@ window.EsoBuildCombatApplyDamage = function (srcType, srcData, damage, damageTyp
 	outType = outTypes.join(", ");
 	
 	g_EsoBuildCombatState.targetHealth -= damage;
+	g_EsoBuildCombatState.targetPctHealth = (g_EsoBuildCombatState.targetHealth / g_EsoBuildCombatState.targetMaxHealth * 100).toFixed(1); 
 	
 	if (g_EsoBuildCombatOptions.log.showDamageDetails)
 		EsoBuildCombatLog("You hit for " + critChar + damage + critChar + " " + damageType + " damage from " + skillName + " (" + outType + ").");
@@ -8877,6 +8971,12 @@ window.EsoBuildCombatCreateStats = function()
 	output += "<div class='esotbCombatStatLabel2'>Stamina Gained</div>";
 	output += "<div class='esotbCombatStatValue2'>" + staminaGainRate.toFixed(0) + " Stamina/sec</div><br/>";
 	
+	output += "<div class='esotbCombatStatLabel2'>Ultimate Used</div>";
+	output += "<div class='esotbCombatStatValue2'>" + ultimateUseRate.toFixed(0) + " Ultimate/sec</div><br/>";
+	
+	output += "<div class='esotbCombatStatLabel2'>Ultimate Gained</div>";
+	output += "<div class='esotbCombatStatValue2'>" + ultimateGainRate.toFixed(0) + " Ultimate/sec</div><br/>";
+	
 	output += "<h4>Resource Sources</h4>";
 	
 	for (var skillName in  g_EsoBuildCombatState.resourceSources)
@@ -8901,8 +9001,42 @@ window.EsoBuildCombatCreateStats = function()
 		output += "<div class='esotbCombatStatValue2'>" + statRate.toFixed(1) + " " + statName + "/sec (" + pctResource + "%)</div><br/>";
 	}
 	
+	output += "<h4>Uptime Summary</h4>";
+	
+	var sortedRunTimes = [];
+	
+	for (var id in g_EsoBuildCombatState.runTimes)
+	{
+		var runTime = g_EsoBuildCombatState.runTimes[id];
+		
+		var newRunTime = {};
+		newRunTime.id = id;
+		newRunTime.runTime = runTime;
+		newRunTime.pctTime = (runTime / g_EsoBuildCombatState.currentTime * 100).toFixed(1);
+		
+		sortedRunTimes.push(newRunTime);
+	}
+	
+	sortedRunTimes.sort(EsoBuildCombatSortRunTimesByPctTime);
+	
+	output += "<div class='esotbCombatStatLabel2'>Total Time</div>";
+	output += "<div class='esotbCombatStatValue2'>" + g_EsoBuildCombatState.currentTime.toFixed(2) + " seconds (100%)</div><br/>";
+	
+	for (var i in sortedRunTimes)
+	{
+		var runTimeData = sortedRunTimes[i];
+				
+		output += "<div class='esotbCombatStatLabel2'>" + runTimeData.id + "</div>";
+		output += "<div class='esotbCombatStatValue2'>" + runTimeData.runTime.toFixed(2) + " seconds (" + runTimeData.pctTime + "%)</div><br/>";
+	}
 	
 	$("#esotbCombatTabStatistics").html(output);
+}
+
+
+window.EsoBuildCombatSortRunTimesByPctTime = function(a, b)
+{
+	return b.runTime - a.runTime;
 }
 
 
@@ -10497,6 +10631,7 @@ window.CreateEsoBuildCombatSaveData = function(saveData, inputValues)
 	
 	saveData.Stats['useLAWeaving'] = g_EsoBuildCombatOptions.useLAWeaving;
 	saveData.Stats['stayInOverload'] = g_EsoBuildCombatOptions.stayInOverload;
+	saveData.Stats['startWithFullUltimate'] = g_EsoBuildCombatOptions.startWithFullUltimate;
 	saveData.Stats['showDamageDetails'] = g_EsoBuildCombatOptions.log.showDamageDetails;
 	saveData.Stats['showBuffs'] = g_EsoBuildCombatOptions.log.showBuffs;
 	saveData.Stats['showSkillCast'] = g_EsoBuildCombatOptions.log.showSkillCast;
@@ -11135,6 +11270,7 @@ window.EsoBuildCombatGetOptions = function()
 {
 	g_EsoBuildCombatOptions.useLAWeaving = $("#esotbCombatOptionUseLAWeaving").prop("checked");
 	g_EsoBuildCombatOptions.stayInOverload = $("#esotbCombatOptionStayInOverload").prop("checked");
+	g_EsoBuildCombatOptions.startWithFullUltimate = $("#esotbCombatOptionStartWithFullUltimate").prop("checked");
 	
 	g_EsoBuildCombatOptions.log.showDamageDetails = $("#esotbCombatOptionShowDamageDetails").prop("checked");
 	g_EsoBuildCombatOptions.log.showBuffs = $("#esotbCombatOptionShowBuffs").prop("checked");
@@ -11175,7 +11311,12 @@ window.esotbOnDocReadyCombat = function ()
 	
 	CopyEsoSkillsToCombatTab();
 	
-	if (window.location.host == "content3.uesp.net") $("#esotbStatTabCombat").show();
+	if (window.location.host == "content3.uesp.net") 
+	{
+		$("#esotbItemPoison1").show();
+		$("#esotbItemPoison2").show();
+		$("#esotbStatTabCombat").show();
+	}
 }
 
 

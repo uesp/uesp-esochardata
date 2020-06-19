@@ -2071,6 +2071,7 @@ class EsoBuildDataEditor
 			"Set.BuffDuration" => array( "display" => "%" ),
 			"Skill.PetDamageDone" => array( "display" => "%" ),
 			"Skill.HeavyAttackSpeed" => array( "display" => "%" ),
+			"SkillCost.Undo_Cost" => array( "display" => "%" ),
 	);
 	
 	
@@ -5794,7 +5795,7 @@ class EsoBuildDataEditor
 			
 			$data = array();
 			$baseAbilityId = $this->viewSkills->FindBaseAbilityForActiveData($abilityId);
-			error_log("{$this->buildId}: BaseAbility for $abilityId = $baseAbilityId");
+			//error_log("{$this->buildId}: BaseAbility for $abilityId = $baseAbilityId");
 			
 			$data['abilityId'] = $abilityId;
 			$data['baseAbilityId'] = $baseAbilityId;
@@ -6343,6 +6344,7 @@ class EsoBuildDataEditor
 				'{BuildDescription}' => $this->getCharStatField("BuildDescription", ""),
 				'{ptsVersion}' => $this->PTS_VERSION,
 				'{useLAWeaving}' => $this->GetCharStatCheckState("useLAWeaving", "1"),
+				'{startWithFullUltimate}' => $this->GetCharStatCheckState("startWithFullUltimate", "0"),
 				'{stayInOverload}' => $this->GetCharStatCheckState("stayInOverload", "1"),
 				'{showDamageDetails}' => $this->GetCharStatCheckState("showDamageDetails", "1"),
 				'{showSkillCast}' => $this->GetCharStatCheckState("showSkillCast", "1"),
@@ -6389,7 +6391,10 @@ class EsoBuildDataEditor
 		$output .= "\tcanCreateBuilds = {$_SESSION['UESP_ESO_canCreateBuild']}\n";
 		$output .= "\tUESP_EsoMap_canEdit = {$_SESSION['UESP_EsoMap_canEdit']}\n";
 		$output .= "\tuesp_eso_morrowind = {$_SESSION['uesp_eso_morrowind']}\n";
-	
+		
+		$newKey = wfMemcKey( 'MWSession', $sessionId);
+		$output .= "\tNew Key = $newKey\n";
+		
 		foreach ($_COOKIE as $name => $val)
 		{
 			//$output .= "\t$name = '$val'\n";
@@ -6401,30 +6406,18 @@ class EsoBuildDataEditor
 	
 	public function SetSessionData()
 	{
-		global $_SESSION;
+		global $wgRequest;
 		
-		$_SESSION['UESP_ESO_canEditBuild']   = false;
-		$_SESSION['UESP_ESO_canDeleteBuild'] = false;
-		$_SESSION['UESP_ESO_canCreateBuild'] = false;
+		$wgRequest->setSessionData('UESP_ESO_canEditBuild', false);
+		$wgRequest->setSessionData('UESP_ESO_canDeleteBuild', false);
+		$wgRequest->setSessionData('UESP_ESO_canCreateBuild', false);
 		
 		if ($this->wikiContext == null) return $this->ReportError("Failed to setup session data!");
 		
-		//$request = $this->wikiContext->getRequest();
-		//if ($request == null) return $this->ReportError("Failed to setup session data!");
+		$wgRequest->setSessionData('UESP_ESO_canEditBuild', $this->buildDataViewer->canWikiUserEdit());
+		$wgRequest->setSessionData('UESP_ESO_canDeleteBuild', $this->buildDataViewer->canWikiUserDelete());
+		$wgRequest->setSessionData('UESP_ESO_canCreateBuild', $this->buildDataViewer->canWikiUserCreate());
 		
-		//$request->setSessionData( 'UESP_ESO_canEditBuild', $this->buildDataViewer->canWikiUserEdit() );
-		//$request->setSessionData( 'UESP_ESO_canDeleteBuild', $this->buildDataViewer->canWikiUserDelete() );
-		//$request->setSessionData( 'UESP_ESO_canCreateBuild', $this->buildDataViewer->canWikiUserCreate() );
-		
-		$_SESSION['UESP_ESO_canEditBuild']   = $this->buildDataViewer->canWikiUserEdit();
-		$_SESSION['UESP_ESO_canDeleteBuild'] = $this->buildDataViewer->canWikiUserDelete();
-		$_SESSION['UESP_ESO_canCreateBuild'] = $this->buildDataViewer->canWikiUserCreate();
-		
-		//$val = $request->getSessionData('UESP_ESO_canEditBuild');
-		//$val = $_SESSION['UESP_ESO_canEditBuild'];
-		//$val1 = $this->buildDataViewer->canWikiUserEdit();
-		
-		//error_log("EsoBuildSetSession: '$val' = '$val1'");
 		//$this->DebugSessionData();
 	}
 	

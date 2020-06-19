@@ -1141,6 +1141,11 @@ esotbToggledCpSelect {
 	height: 18px;
 }
 
+.esotbItemTransmuteList:hover {
+	background-color: #fBdFc5;
+	cursor: pointer;
+}
+
 .esotbItemTransmuteList {
 	display: inline-block;
 	font-size: 0.9em;

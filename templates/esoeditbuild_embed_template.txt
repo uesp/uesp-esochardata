@@ -5,8 +5,8 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #cfc; margin-right: 225px;'>
-Note: The editor is now *mostly* updated for Update 26 (Greymoor). Skills, item and CP data have been updated. Some new or updated sets/skills may not yet work correctly. 
+<div style='background-color: #ffc; margin-right: 225px;'>
+Note: There was an issue with build saving due to a MediaWiki upgrade. It you cannot save please log out and back in and try again. 
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -1533,7 +1533,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				</div>
 				<div class="esotbCombatTabBlock" id="esotbCombatTabOptions" style="display: none">
 					<div class="esotbCombatOptionLabel">Use Light Attack Weaving</div> <input type="checkbox" id="esotbCombatOptionUseLAWeaving" name="UseLAWeaving" {useLAWeaving}><br>
-					<div class="esotbCombatOptionLabel">Stay in Overload</div> <input type="checkbox" id="esotbCombatOptionStayInOverload" name="StayInOverload" {stayInOverload}> Stay in Overload mode until all Ultimate is used up<br> 
+					<div class="esotbCombatOptionLabel">Start With Full Ultimate</div> <input type="checkbox" id="esotbCombatOptionStartWithFullUltimate" name="StartWithFullUltimate" {startWithFullUltimate}><br>
+					<div class="esotbCombatOptionLabel">Stay in Overload</div> <input type="checkbox" id="esotbCombatOptionStayInOverload" name="StayInOverload" {stayInOverload}> Stay in Overload mode until all Ultimate is used up<br>
 					<hr>
 					<h4>Log Options</h4>
 					<div class="esotbCombatOptionLabel">Show Damage Details</div> <input type="checkbox" id="esotbCombatOptionShowDamageDetails" name="ShowDamageDetails" {showDamageDetails}>
@@ -1598,6 +1599,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>19 June 2020</b>
+			<ul>
+				<li>Fixed bad item data for the Jerkin of Martial Knowledge (Divines).</li> 
+			</ul>
+			<p>
 			<b>11 June 2020</b>
 			<ul>
 				<li>The Ilambris set will choose the damage type based on your maximum damage bonus done with Flame or Shock damage.</li>
