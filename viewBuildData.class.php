@@ -136,12 +136,22 @@ class EsoBuildDataViewer
 	public $formAccount = "";
 	
 	public $isEmbedded = false;
+	public $isExternal = false;
+	public $showBreadcrumbTrail = true;
+	public $showBuildMenu = true;
+			
 	public $errorMessages = array();
 	
 	
-	public function __construct ($isEmbedded = false, $initDbWrite = false)
+	public function __construct ($isEmbedded = false, $initDbWrite = false, $isExternal = false)
 	{
 		$this->isEmbedded = $isEmbedded;
+		$this->$isExternal = $isExternal;
+		
+		if ($this->$isExternal) {
+			$this->showBreadcrumbTrail = false;
+			$this->showBuildMenu = false;
+		}
 		
 		$this->viewCPs = new CEsoViewCP(true, false);
 		$this->viewCPs->hideTopBar = true;
@@ -1191,6 +1201,8 @@ class EsoBuildDataViewer
 	
 	public function getLeftCharacterMenuHtml()
 	{
+		if (!$this->showBuildMenu) return "";
+		
 		$output = "<div id='ecdCharacterMenuRoot'>";
 		$output .= "<div class='ecdCharacterMenuTitle'>Build Menu <div id='ecdCharMenuArrow'>&#x25BC;</div></div>";
 		$output .= "<div class='ecdCharacterMenu' id='ecdCharacterMenu' style='display: none;'>";
@@ -1586,6 +1598,8 @@ class EsoBuildDataViewer
 	
 	public function getBreadcrumbTrailHtml()
 	{
+		if (!$this->showBreadCrumbTrail) return "";
+		
 		$output = "<div id='ecdTrail'>";
 		
 		$baseLink = $this->getBuildLink();

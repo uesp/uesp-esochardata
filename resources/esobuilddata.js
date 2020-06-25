@@ -3229,6 +3229,36 @@ window.OnEsoTooltipUpdate = function (event, tooltip, parent)
 }
 
 
+window.EsoBuildLoadEmbed = function(buildId, elementId)
+{
+	var queryParams = {};
+	
+	queryParams.id = buildId;
+	
+	$.ajax("//esochars.uesp.net/embedBuildData.php", {
+		data: queryParams,
+	}).
+	done(function(data, status, xhr) { OnEsoBuildDataEmbedRequest(elementId, data, status, xhr); }).
+	fail(function(xhr, status, errorMsg) { OnEsoBuildDataEmbedError(errorMsg, status, xhr); });
+}
+
+
+window.OnEsoBuildDataEmbedRequest = function(elementId, data, status, xhr)
+{
+	$("#" + elementId).html(data);
+	
+	$('.eso_item_link').hover(OnEsoItemLinkEnter, OnEsoItemLinkLeave);
+	
+	onEsoBuildDataDocReady();
+	esovcpOnDocReady();
+}
+
+
+window.OnEsoBuildDataEmbedError = function(errorMsg, status, xhr)
+{
+}
+
+
 window.onEsoBuildDataDocReady = function()
 {  
 	$(".ecdTooltipTrigger").hover(onTooltipHoverShow, onTooltipHoverHide, onTooltipMouseMove);

@@ -230,7 +230,7 @@ class EsoBuildDataSaver
 		if ($this->canDeleteBuilds === null) $this->canDeleteBuilds = false;
 		if ($this->canCreateBuilds === null) $this->canCreateBuilds = false;
 		
-		//$this->DebugSessionData();
+		$this->DebugSessionData();
 		
 		return true;
 	}

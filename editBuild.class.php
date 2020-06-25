@@ -6418,7 +6418,7 @@ class EsoBuildDataEditor
 		$wgRequest->setSessionData('UESP_ESO_canDeleteBuild', $this->buildDataViewer->canWikiUserDelete());
 		$wgRequest->setSessionData('UESP_ESO_canCreateBuild', $this->buildDataViewer->canWikiUserCreate());
 		
-		//$this->DebugSessionData();
+		$this->DebugSessionData();
 	}
 	
 		

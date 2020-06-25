@@ -48,6 +48,7 @@
  *		- Increased the bonus damage done to off-balance targets with a Heavy Attack to 70% from 45% (more resources?)
  *		- Show Light/Heavy attack tooltips.
  *		- Resource gains "lost" or unused.
+ *		- Roll Dodge fatigue.
  *
 Single Target DoTs (e.g. Poison Injection, Destructive Clench) base their damage on the impact bar (i.e. the bar from which they were cast), rather than the active bar.
 Ground AoE Dots (e.g. Liquid Lightning, Blockade, Endless Hail, Caltrops) base their damage on the active bar (i.e. the bar you are currently on), rather than the impact bar.
