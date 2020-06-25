@@ -115,7 +115,7 @@ class EsoBuildDataViewer
 	public $lastQuery = "";
 	
 	public $baseUrl = "viewBuildData.php";
-	public $baseResourceUrl = "";
+	public $baseResourceUrl = "//esobuilds.uesp.net/";
 	
 	public $skillDataDisplay = 'block';
 	public $skillTreeFirstName = '';
@@ -146,9 +146,9 @@ class EsoBuildDataViewer
 	public function __construct ($isEmbedded = false, $initDbWrite = false, $isExternal = false)
 	{
 		$this->isEmbedded = $isEmbedded;
-		$this->$isExternal = $isExternal;
+		$this->isExternal = $isExternal;
 		
-		if ($this->$isExternal) {
+		if ($this->isExternal) {
 			$this->showBreadcrumbTrail = false;
 			$this->showBuildMenu = false;
 		}

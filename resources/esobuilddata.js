@@ -783,7 +783,7 @@ window.onTooltipHoverShow = function()
 {
 	ecdLastTooltip = $(this).find('.ecdTooltip');
 	
-	if (ecdLastTooltip) 
+	if (ecdLastTooltip)
 	{
 		ecdLastTooltip.css('display', 'inline-block');
 		adjustSkillTooltipPosition(ecdLastTooltip, $(this));
