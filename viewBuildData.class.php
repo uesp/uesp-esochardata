@@ -1598,7 +1598,7 @@ class EsoBuildDataViewer
 	
 	public function getBreadcrumbTrailHtml()
 	{
-		if (!$this->showBreadCrumbTrail) return "";
+		if (!$this->showBreadcrumbTrail) return "";
 		
 		$output = "<div id='ecdTrail'>";
 		
