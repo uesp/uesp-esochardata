@@ -1601,7 +1601,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<h3>Recent Work</h3>
 			<b>7 July 2020</b>
 			<ul>
-				<li>Added a modifed date to the build filters.</li> 
+				<li>Added a modifed date to the build filters.</li>
+				<li>Fixed the Orgnum's Scales 5 piece set toggle when using different item qualites.</li>
 			</ul>
 			<p>
 			<b>19 June 2020</b>

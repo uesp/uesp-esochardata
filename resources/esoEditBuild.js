@@ -9409,7 +9409,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : false,
 		statId: "HealthRegen",
-		match: /While you are under [0-9]+% Health, your Health Recovery is increased by ([0-9]+) and your Physical and Spell Resistance is increased by [0-9]+\./i,
+		match: /While you are under [0-9]+% Health, your Health Recovery is increased by ([0-9]+) and your Physical and Spell Resistance is increased by [0-9]+/i,
 	},
 	{
 		id: "Orgnum's Scales",
@@ -9418,7 +9418,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : false,
 		statId: "SpellResist",
-		match: /While you are under [0-9]+% Health, your Health Recovery is increased by [0-9]+ and your Physical and Spell Resistance is increased by ([0-9]+)\./i,
+		match: /While you are under [0-9]+% Health, your Health Recovery is increased by [0-9]+ and your Physical and Spell Resistance is increased by ([0-9]+)/i,
 	},
 	{
 		id: "Orgnum's Scales",
@@ -9427,7 +9427,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : false,
 		statId: "PhysicalResist",
-		match: /While you are under [0-9]+% Health, your Health Recovery is increased by [0-9]+ and your Physical and Spell Resistance is increased by ([0-9]+)\./i,
+		match: /While you are under [0-9]+% Health, your Health Recovery is increased by [0-9]+ and your Physical and Spell Resistance is increased by ([0-9]+)/i,
 	},
 	{
 		id: "Orgnum's Scales",
