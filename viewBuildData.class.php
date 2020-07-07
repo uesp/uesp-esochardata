@@ -45,6 +45,7 @@ class EsoBuildDataViewer
 	public $useDivImageTags		  = true;
 	public $viewMyBuilds          = false;
 	
+	public $displayedCharacterCount = 0;
 	public $currentCharacterPage = 0;
 	public $totalCharacterCount = 0;
 	public $totalCharacterPages = 0;
@@ -86,6 +87,7 @@ class EsoBuildDataViewer
 	public $inputSearchRace = "";
 	public $inputSearchBuildType = "";
 	public $inputSearchSpecial = "";
+	public $inputSearchDate = -1;
 	public $inputShowSummaryFor = -1;
 	public $showSummaryForWikiUser = "";
 	public $selectedBackgroundImage = "blank";
@@ -453,6 +455,11 @@ class EsoBuildDataViewer
 			$this->inputSearchBuildType = trim($this->inputParams['findbuildtype']);
 		}
 		
+		if (array_key_exists('finddate', $this->inputParams))
+		{
+			$this->inputSearchDate = intval($this->inputParams['finddate']);
+		}
+		
 		if (array_key_exists('findspecial', $this->inputParams))
 		{
 			$this->inputSearchSpecial = trim($this->inputParams['findspecial']);
@@ -519,6 +526,12 @@ class EsoBuildDataViewer
 			$where[] = "special='$value'";
 		}
 		
+		if ($this->inputSearchDate > 0)
+		{
+			$value = $this->db->real_escape_string($this->inputSearchSpecial);
+			$where[] = "editTimestamp > DATE_SUB(now(), INTERVAL '{$this->inputSearchDate}' DAY)";
+		}
+		
 		if ($this->inputSearch != "")
 		{
 			$value = $this->db->real_escape_string($this->inputSearch);
@@ -566,7 +579,7 @@ class EsoBuildDataViewer
 		if ($result === FALSE) return $this->reportError("Failed to load builds!");
 		
 		$result->data_seek(0);
-		$this->totalCharacterCount = $result->num_rows;
+		$this->displayedCharacterCount = $result->num_rows;
 		
 		while (($row = $result->fetch_assoc()))
 		{
@@ -1575,9 +1588,16 @@ class EsoBuildDataViewer
 	}
 	
 	
-	public function getOptionHtml($value, $inputValue)
+	public function getOptionHtml($value, $inputValue, $optionValue = null)
 	{
 		$select = "";
+		
+		if ($optionValue != null)
+		{
+			if ($optionValue == $inputValue) $select = "selected";
+			return "<option value='$optionValue' $select>$value</option>";
+		}
+		
 		if ($value == $inputValue) $select = "selected";
 		return "<option value='$value' $select>$value</option>";
 	}
@@ -1610,9 +1630,11 @@ class EsoBuildDataViewer
 		$searchWikiUser = $this->escape($this->inputSearchWikiUser); 
 		
 		$search  = "<br/><form method='GET' action='' id='ecdSearchForm'>";
-		$search .= "	<div class='ecdSearchLabel'>Text</div>";
-		$search .= "	<input name='findbuild' id='ecdSearchText' type='text' size='25' value='$searchText'>";
-		$search .= "	<div class='ecdSearchLabel'>Class</div>";
+		
+		$search .= "	<label for='ecdSearchText' class='ecdSearchLabel'>Text";
+		$search .= "	<input name='findbuild' id='ecdSearchText' type='text' size='25' value='$searchText'></label>";
+		
+		$search .= "	<label for='ecdSearchClass' class='ecdSearchLabel'>Class";
 		$search .= "	<select name='findclass' id='ecdSearchClass'>";
 		$search .= $this->getOptionHtml("", $this->inputSearchClass);
 		$search .= $this->getOptionHtml("Dragonknight", $this->inputSearchClass);
@@ -1621,8 +1643,9 @@ class EsoBuildDataViewer
 		$search .= $this->getOptionHtml("Sorcerer", $this->inputSearchClass);
 		$search .= $this->getOptionHtml("Templar", $this->inputSearchClass);
 		$search .= $this->getOptionHtml("Warden", $this->inputSearchClass);
-		$search .= "	</select>";
-		$search .= "	<div class='ecdSearchLabel'>Race</div>";
+		$search .= "	</select></label>";
+		
+		$search .= "	<label for='ecdSearchRace' class='ecdSearchLabel'>Race";
 		$search .= "	<select name='findrace' id='ecdSearchRace'>";
 		$search .= $this->getOptionHtml("", $this->inputSearchRace);
 		$search .= $this->getOptionHtml("Argonian", $this->inputSearchRace);
@@ -1635,23 +1658,37 @@ class EsoBuildDataViewer
 		$search .= $this->getOptionHtml("Orc", $this->inputSearchRace);
 		$search .= $this->getOptionHtml("Redguard", $this->inputSearchRace);
 		$search .= $this->getOptionHtml("Wood Elf", $this->inputSearchRace);
-		$search .= "	</select>";
-		$search .= "	<div class='ecdSearchLabel'>Build Type</div>";
+		$search .= "	</select></label>";
+		
+		$search .= "	<label for='ecdSearchBuildType' class='ecdSearchLabel'>Build Type";
 		$search .= "	<select name='findbuildtype' id='ecdSearchBuildType'>";
 		$search .= $this->getOptionHtml("", $this->inputSearchBuildType);
 		$search .= $this->getOptionHtml("Health", $this->inputSearchBuildType);
 		$search .= $this->getOptionHtml("Magicka", $this->inputSearchBuildType);
 		$search .= $this->getOptionHtml("Stamina", $this->inputSearchBuildType);
 		$search .= $this->getOptionHtml("Other", $this->inputSearchBuildType);
-		$search .= "	</select>";
-		$search .= "	<div class='ecdSearchLabel'>Special</div>";
+		$search .= "	</select></label>";
+		
+		$search .= "	<label for='ecdSearchSpecial' class='ecdSearchLabel'>Special";
 		$search .= "	<select name='findspecial' id='ecdSearchSpecial'>";
 		$search .= $this->getOptionHtml("", $this->inputSearchSpecial);
 		$search .= $this->getOptionHtml("Vampire", $this->inputSearchSpecial);
 		$search .= $this->getOptionHtml("Werewolf", $this->inputSearchSpecial);
-		$search .= "	</select>";
-		$search .= "	<div class='ecdSearchLabel'>Wiki User</div>";
-		$search .= "	<input name='wikiuser' id='ecdSearchWikiUser' type='text' size='12' value='$searchWikiUser'>";
+		$search .= "	</select></label>";
+		
+		$search .= "	<label for='ecdSearchWikiUser' class='ecdSearchLabel'>Wiki User";
+		$search .= "	<input name='wikiuser' id='ecdSearchWikiUser' type='text' size='12' value='$searchWikiUser'></label>";
+		
+		$search .= "	<label for='ecdSearchDate' class='ecdSearchLabel'>Last Modified";
+		$search .= "	<select name='finddate' id='ecdSearchDate'>";
+		$search .= $this->getOptionHtml("", $this->inputSearchDate, -1);
+		$search .= $this->getOptionHtml("Last Day", $this->inputSearchDate, 1);
+		$search .= $this->getOptionHtml("Last Week", $this->inputSearchDate, 7);
+		$search .= $this->getOptionHtml("Last Month", $this->inputSearchDate, 30);
+		$search .= $this->getOptionHtml("Last 4 Months", $this->inputSearchDate, 124);
+		$search .= $this->getOptionHtml("Last Year", $this->inputSearchDate, 366);
+		$search .= "	</select></label>";
+		
 		if ($this->viewMyBuilds) $search .= "	<input type='hidden' name='filter' value='mine'>";
 		$search .= "	<input type='submit' id='ecdSearchButton' value='Find Builds'>";
 		$search .= "</form>";
@@ -3928,6 +3965,11 @@ class EsoBuildDataViewer
 			$query[] = "findspecial=$value";
 		}
 		
+		if ($this->inputSearchDate > 0)
+		{
+			$query[] = "finddate={$this->inputSearchDate}";
+		}
+		
 		if ($this->viewMyBuilds)
 		{
 			if ($this->inputShowSummaryFor > 0)
@@ -3948,14 +3990,17 @@ class EsoBuildDataViewer
 		
 		if ($this->totalCharacterPages <= 1) return $output;
 		
+		$output .= "Showing {$this->displayedCharacterCount} of {$this->totalCharacterCount} Builds ";
+		
 		if ($this->currentCharacterPage > 0)
 		{
 			$page = $this->currentCharacterPage - 1 + 1;
-			$output .= "<a href='?$query&page=$page'>prev</a> ";
+			$output .= "| <a href='?$query&page=$page'>prev</a> ";
 		}
 		
 		$page = $this->currentCharacterPage + 1;
 		$max = $this->totalCharacterPages;
+		
 		$output .= "| Page $page of $max ";
 		
 		if ($this->currentCharacterPage < $this->totalCharacterPages - 1)

@@ -1599,6 +1599,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>7 July 2020</b>
+			<ul>
+				<li>Added a modifed date to the build filters.</li> 
+			</ul>
+			<p>
 			<b>19 June 2020</b>
 			<ul>
 				<li>Fixed bad item data for the Jerkin of Martial Knowledge (Divines).</li> 
