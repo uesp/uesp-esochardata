@@ -2239,7 +2239,14 @@ window.ESOBUILD_COMBAT_SKILL_ONETIME_MATCHES = [
 		onInitialHit: function(matchResult, skillData) {
 			if (EsoBuildCombatHasPlayerStatus("Bound Armaments")) {
 				var counter = EsoBuildCombatRemoveCounter("Bound Armaments");
-				if (counter && counter.value) EsoBuildCombatAddDot("skill", skillData, matchResult[3], "Physical", matchResult[4], matchResult[4]*counter.value, false, false, false);
+				if (counter && counter.value) {	//Not a DOT
+					//EsoBuildCombatAddDot("skill", skillData, matchResult[3], "Physical", matchResult[4], matchResult[4]*counter.value, false, false, false);
+					for (var i = 0; i < counter.value; ++i) {
+						EsoBuildCombatAddGlobalOnTimeEvent(matchResult[4] * (i + 1), function() {
+							EsoBuildCombatApplyDamage("skill", skillData, matchResult[3], "Physical", false, false, false, false);
+						}, true);
+					}
+				}
 				return;
 			}
 			EsoBuildCombatAddPlayerStatus("skill", skillData, "Bound Armaments", skillData.duration/1000);

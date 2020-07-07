@@ -1604,6 +1604,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Added a modifed date to the build filters.</li>
 				<li>Fixed the Orgnum's Scales 5 piece set toggle when using different item qualites.</li>
 				<li>Fixed missing effect line descriptions in several Destruction Staff skills.</li>
+				<li>Fixed Bound Armaments and a few other skills that look like DOTs but are actually considered Direct Damage in-game.</li>
 			</ul>
 			<p>
 			<b>19 June 2020</b>
