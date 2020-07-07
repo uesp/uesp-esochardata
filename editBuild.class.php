@@ -6061,6 +6061,14 @@ class EsoBuildDataEditor
 	}
 	
 	
+	public function GetEnableRaceAutoPurchaseState()
+	{
+		$flag = $this->getCharStatField("AutoPurchaseRacialPassives", "0");
+		if ($flag > 0) return "checked";
+		return "";
+	}
+	
+	
 	public function GetEnableCPCheckState()
 	{
 		$flag = $this->getCharStatField("CP:Enabled", "1");
@@ -6338,6 +6346,7 @@ class EsoBuildDataEditor
 				'{stealth}' => $this->GetStealthCheckState(),
 				'{cyrodiil}' => $this->GetCyrodiilCheckState(),
 				'{enableCP}' => $this->GetEnableCPCheckState(),
+				'{enableRaceAutoPurchase}' => $this->GetEnableRaceAutoPurchaseState(),
 				'{usePtsRules}' => $this->getCharStatField("UsePtsRules", "0"),
 				'{usePtsRulesCheck}' => $this->GetUsePtsRulesCheckState(),
 				'{setNamesJson}' => $this->GetSetNamesJson(),

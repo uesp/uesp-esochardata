@@ -10391,6 +10391,9 @@ window.GetEsoInputValues = function (mergeComputedStats)
 	InitializeEsoBuildInputValues(inputValues);
 	
 	if ($("#esotbUsePtsRules").prop("checked")) inputValues.UsePtsRules = true;
+	
+	inputValues.AutoPurchaseRacialPassives = false;
+	if ($("#esotbEnableRaceAutoPurchase").prop("checked")) inputValues.AutoPurchaseRacialPassives = true;
 			
 	inputValues.Race = $("#esotbRace").val();
 	inputValues.Class = $("#esotbClass").val();
@@ -14053,9 +14056,10 @@ window.FixupEsoRacialSkills = function (raceName, abilityIds)
 window.OnEsoRaceChange = function (e)
 {
 	var newRace = $(this).val();
+	var autoPurchase = $("#esotbEnableRaceAutoPurchase").prop("checked");
 	
 	g_EsoBuildEnableUpdates = false;
-	EnableEsoRaceSkills(newRace);
+	EnableEsoRaceSkills(newRace, autoPurchase);
 	g_EsoBuildEnableUpdates = true;
 	
 	UpdateEsoComputedStatsList("async");
@@ -18344,6 +18348,7 @@ window.CreateEsoBuildGeneralSaveData = function (saveData, inputValues)
 	saveData.Stats['CP:Used'] = inputValues.CP.UsedPoints;
 	saveData.Stats['CP:Enabled'] = inputValues.CP.Enabled;
 	saveData.Stats['UsePtsRules'] = inputValues.UsePtsRules;
+	saveData.Stats['AutoPurchaseRacialPassives'] = inputValues.AutoPurchaseRacialPassives;
 		
 	inputValues.CPLevel = Math.floor(inputValues.CP.TotalPoints/10);
 	if (inputValues.CPLevel > ESO_MAX_CPLEVEL) inputValues.CPLevel = ESO_MAX_CPLEVEL;

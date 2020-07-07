@@ -61,6 +61,9 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<div class="esotbStatLabel">In Cyrodiil</div> <input type="checkbox" id="esotbCyrodiil" name="esotbCyrodiil" statid="Cyrodiil" {cyrodiil}>
 			<br/>
 			<div class="esotbStatLabel">Enable CP</div> <input type="checkbox" id="esotbEnableCP" name="esotbEnableCP" statid="EnableCP" {enableCP}>
+			
+			<div class="esotbStatLabel">Auto-Purchase Race Passives</div> <input type="checkbox" id="esotbEnableRaceAutoPurchase" name="esotbEnableRaceAutoPurchase" statid="EnableRaceAutoPurchase" {enableRaceAutoPurchase}>
+			When selected you will automatically purchase all racial passives when changing races.
 			<br/>
 			<div class="esotbStatLabel">Use PTS Rules</div> <input type="checkbox" id="esotbUsePtsRules" name="esotbUsePtsRules" statid="UsePtsRules" {usePtsRulesCheck}>
 			Current version is Update 26 v6.0.2
@@ -1605,6 +1608,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Fixed the Orgnum's Scales 5 piece set toggle when using different item qualites.</li>
 				<li>Fixed missing effect line descriptions in several Destruction Staff skills.</li>
 				<li>Fixed Bound Armaments and a few other skills that look like DOTs but are actually considered Direct Damage in-game.</li>
+				<li>Added the "Auto-Purchase Race Passives" option in the General tab which permits Racial passives to be purchased automatically when changing races.</li>
 			</ul>
 			<p>
 			<b>19 June 2020</b>
