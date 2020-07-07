@@ -1610,6 +1610,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Fixed Bound Armaments and a few other skills that look like DOTs but are actually considered Direct Damage in-game.</li>
 				<li>Added the "Auto-Purchase Race Passives" option in the General tab which permits Racial passives to be purchased automatically when changing races.</li>
 				<li>Fixed the mixing of Hircine's Rage with Major Berserk. Major Berserk not only increases damage done and the Hircine's Rage skill toggle adds a 20% damage taken component.</li>
+				<li>Stopped the Werewolf and Vampire skill line from appearing after loading a build.</li>
 			</ul>
 			<p>
 			<b>19 June 2020</b>

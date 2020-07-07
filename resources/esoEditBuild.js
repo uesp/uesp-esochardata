@@ -19701,8 +19701,8 @@ window.UpdateEsoSkillGroupDisplay = function()
 	vampSkillLine.toggle(vampireStage > 0);
 	wereSkillLine.toggle(werewolfStage > 0);
 	
-	$("#Vampire").toggle(vampireStage > 0);
-	$("#Werewolf").toggle(werewolfStage > 0);
+	if (vampireStage  <= 0) $("#Vampire").toggle(false);
+	if (werewolfStage <= 0) $("#Werewolf").toggle(false);
 	
 	if (vampireStage <= 0) EsoResetSkillLine("Vampire");
 	if (werewolfStage <= 0) EsoResetSkillLine("Werewolf");
