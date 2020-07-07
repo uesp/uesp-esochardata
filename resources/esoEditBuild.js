@@ -856,8 +856,8 @@ window.g_EsoBuildBuffData =
 			skillEnabled : false,
 			buffEnabled: false,
 			display: "%",
-			values : [ 0.25, 0.20 ],
-			statIds : [ "DamageDone", "DamageTaken" ],
+			values : [ 0.25 ],
+			statIds : [ "DamageDone" ],
 			icon : "/esoui/art/icons/ability_rogue_011.png",
 		},
 		"Minor Berserk" : 
@@ -1296,11 +1296,18 @@ window.g_EsoBuildBuffData =
 			combineAs: "*%",
 			icon : "/esoui/art/icons/gear_artifactsaviorhidemd_head_a.png",
 		},
-		/*
-		 * "Hircines Rage" : { enabled: false, skillEnabled : false, value :
-		 * 0.10, display: '%', statId : "WeaponDamage", icon :
-		 * "/esoui/art/icons/ability_werewolf_004_b.png", },
-		 */
+		"Hircines Rage" : 
+		{ 
+			group: "Skill",
+			enabled: false, 
+			skillEnabled : false,
+			buffEnabled: false,
+			buffIds: [ "Major Berserk" ],
+			value : 0.20, 
+			display: '%', 
+			statId : "DamageTaken", 
+			icon : "/esoui/art/icons/ability_werewolf_004_b.png", 
+		},
 		"Powerful Assault" : 
 		{
 			group: "Set",
@@ -2851,10 +2858,12 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		// displayName: "Hircine's Rage",
 		matchSkillName: true,
 		baseSkillId: 58316,
-		buffId: "Major Brutality",
 		toggle: true,
 		enabled: false,
-		match: /While slotted you gain Major Brutality, increasing your Weapon Damage by/i
+		enableOffBar: true,
+		buffId: "Hircines Rage",
+		rawInputMatch: /(If you are at full Health you instead restore [0-9]+ Stamina and gain Major Berserk, increasing your damage done by [0-9]+% for [0-9]+ seconds, but you also take [0-9]+% more damage\.)/i,
+		match: /If you are at full Health you instead restore [0-9]+ Stamina and gain Major Berserk, increasing your damage done by [0-9]+% for [0-9]+ seconds, but you also take [0-9]+% more damage/i
 	},
 	{
 		id: "Evil Hunter",
