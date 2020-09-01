@@ -6,7 +6,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #ffc; margin-right: 225px;'>
-Note: There was an issue with build saving due to a MediaWiki upgrade. It you cannot save please log out and back in and try again. 
+Note: The editor is *mostly* working for update 27 (Stonethorn). Item, skills and CP data have been updated. New or updated sets/skills may not be working yet.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -62,11 +62,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<br/>
 			<div class="esotbStatLabel">Enable CP</div> <input type="checkbox" id="esotbEnableCP" name="esotbEnableCP" statid="EnableCP" {enableCP}>
 			
-			<div class="esotbStatLabel">Auto-Purchase Race Passives</div> <input type="checkbox" id="esotbEnableRaceAutoPurchase" name="esotbEnableRaceAutoPurchase" statid="EnableRaceAutoPurchase" {enableRaceAutoPurchase}>
+			<div class="esotbStatLabel">Auto-Purchase<br/>Race Passives</div> <input type="checkbox" id="esotbEnableRaceAutoPurchase" name="esotbEnableRaceAutoPurchase" statid="EnableRaceAutoPurchase" {enableRaceAutoPurchase}>
 			When selected you will automatically purchase all racial passives when changing races.
 			<br/>
 			<div class="esotbStatLabel">Use PTS Rules</div> <input type="checkbox" id="esotbUsePtsRules" name="esotbUsePtsRules" statid="UsePtsRules" {usePtsRulesCheck}>
-			Current version is Update 26 v6.0.2
+			Current version is Update 27 v6.1.0
 			<ul style="margin-left: 170px; margin-top: -5px;">
 				<li>Save and reload build after changing this setting.</li>
 				<li>Uses skill, CP, and item data collected from the PTS server.</li>
@@ -95,6 +95,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<div class="esotbStatLabel">Resistance</div> <input id="esotbTargetResistance" class="esotbInputValue esotbTargetInput" statid="Target.Resistance" type="number" size="2" value="{targetResist}">
 				<div class="esotbStatLabel">Crit Resistance</div> <input id="esotbTargetCritResistFlat" class="esotbInputValue esotbTargetInput" statid="Target.CritResistFlat" type="number" size="2" value="{targetCritResistFlat}">
 				<div class="esotbStatLabel">Effective Level</div> <input id="esotbTargetEffectiveLevel" class="esotbInputValue esotbTargetInput" statid="Target.EffectiveLevel" type="number" size="2" value="{targetEffectiveLevel}"> 50 for PVE, 66 for PVP
+				<br/>
+				<div class="esotbStatLabel">% Health</div> <input id="esotbTargetPercentHealth" class="esotbInputValue esotbTargetInput" statid="Target.PercentHealth" type="text" size="2" value="{targetPercentHealth}">
 			</div>
 			<div id="esotbMisc">
 				<div class="esotbAttrTitle">Miscellaneous Stats</div>
@@ -599,7 +601,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option value="0">None</option>
 					<option value="2">Charged</option>
 					<option value="8">Decisive</option>
-					<option value="5">Defending</option>					
+					<option value="5">Defending</option>
 					<option value="4">Infused</option>
 					<option value="26">Nirnhoned</option>
 					<option value="1">Powered</option>
@@ -616,7 +618,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option value="66">CP160</option>
 					<option value="65">CP150</option>
 					<option value="64">CP140</option>
-					<option value="57">CP70</option>					
+					<option value="57">CP70</option>
 					<option value="51">CP10</option>
 					<option value="50">50</option>
 					<option value="25">25</option>
@@ -633,7 +635,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Bloodspawn</option>
 					<option>Chokethorn</option>
 					<option>Domihaus</option>
-					<option>Earthgore</option>					
+					<option>Earthgore</option>
 					<option>Engine Guardian</option>
 					<option>Grothdarr</option>
 					<option>Grundwulf</option>
@@ -642,6 +644,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Infernal Guardian</option>
 					<option>Kjalnar's Nightmare</option>
 					<option>Kra'gh</option>
+					<option>Lady Thorn</option>
 					<option>Lord Warden</option>
 					<option>Maarselok</option>
 					<option>Maw of the Infernal</option>
@@ -658,6 +661,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Shadowrend</option>
 					<option>Slimecraw</option>
 					<option>Spawn of Mephala</option>
+					<option>Stone Husk</option>
 					<option>Stonekeeper</option>
 					<option>Stormfist</option>
 					<option>Swarm Mother</option>
@@ -706,7 +710,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option value="12">Impenetrable</option>
 						<option value="16">Infused</option>
 						<option value="17">Invigorating</option>
-						<option value="25">Nirnhoned</option>						
+						<option value="25">Nirnhoned</option>
 						<option value="13">Reinforced</option>
 						<option value="11">Sturdy</option>
 						<option value="15">Training</option>
@@ -719,7 +723,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option value="12">Impenetrable</option>
 						<option value="16">Infused</option>
 						<option value="17">Invigorating</option>
-						<option value="25">Nirnhoned</option>						
+						<option value="25">Nirnhoned</option>
 						<option value="13">Reinforced</option>
 						<option value="11">Sturdy</option>
 						<option value="15">Training</option>
@@ -760,6 +764,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Amber Plasm</option>
 					<option>Ancient Dragonguard</option>
 					<option>Archer's Mind</option>
+					<option>Arkasis's Genius</option>
 					<option>Armor Master</option>
 					<option>Armor of the Seducer</option>
 					<option>Armor of the Trainee</option>
@@ -806,6 +811,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Coward's Gear</option>
 					<option>Crafty Alfiq</option>
 					<option>Crest of Cyrodiil</option>
+					<option>Crimson Twilight</option>
 					<option>Critical Riposte</option>
 					<option>Crusader</option>
 					<option>Curse Eater</option>
@@ -835,6 +841,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Durok's Bane</option>
 					<option>Eagle Eye</option>
 					<option>Ebon Armory</option>
+					<option>Elemental Catalyst</option>
 					<option>Elemental Succession</option>
 					<option>Elf Bane</option>
 					<option>Embershield</option>
@@ -900,6 +907,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Knight Slayer</option>
 					<option>Knight-Errant's Mail</option>
 					<option>Knightmare</option>
+					<option>Kraglen's Howl</option>
 					<option>Kvatch Gladiator</option>
 					<option>Kyne's Kiss</option>
 					<option>Kyne's Wind</option>
@@ -1033,6 +1041,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Sword-Singer</option>
 					<option>Syrabane's Grip</option>
 					<option>Syvarra's Scales</option>
+					<option>Talfyg's Treachery</option>
 					<option>Tava's Favor</option>
 					<option>The Arch-Mage</option>
 					<option>The Destruction Suite</option>
@@ -1065,6 +1074,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Undaunted Infiltrator</option>
 					<option>Undaunted Unweaver</option>
 					<option>Unfathomable Darkness</option>
+					<option>Unleashed Terror</option>
 					<option>Vampire Cloak</option>
 					<option>Vampire Lord</option>
 					<option>Vampire's Kiss</option>
@@ -1602,6 +1612,53 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>31 August 2020</b>
+			<ul>
+				<li>Updated item data for update 27. Note that this also updates all the new item trait values (except Bloodthirsty which needs to be fixed).</li>
+				<li>Added the 8 new item sets to the quick item setup.</li>
+				<li>Added toggle for the Elemental Catalyst 5 piece set bonus.</li>
+				<li>Fixed the toggle display for the Stone Husk 2 piece set bonus.</li>
+				<li>Updated all Mundus Stone effects from PTS.</li>
+				<li>Fixed the Jewelry Bloodthirsty trait parsing.</li>
+				<li>Added a new field "% Health" to the Target Stats on the general tab. Changing this from the default 100% will update the Spell/Weapon damage with any Bloodthirsty trait effects.</li>
+				<li>Fixed set toggles: Embershield, The Morag Tong, The Arch-Mage, Vestment of Olorime, Thrassian Stranglers</li>
+				<li>Updated or fixed set effects: Spelunker</li>
+			</ul>
+			<p>
+			<b>24 August 2020</b>
+			<ul>
+				<li>Updated skill and CP data for update 27.</li>
+			</ul>
+			<p>
+			<b>27 July 2020</b>
+			<ul>
+				<li>Fixed Molten Weapons skill toggle from not giving Major Brutality and Sorcery buffs.</li>
+				<li>Fixed Molten Armaments skill toggle from not increasing Heavy Attack damage.</li>
+				<li>(27pts) Fixed display of traits in transmuted items.</li>
+			</ul>
+			<p>
+			<b>24 July 2020</b>
+			<ul>
+				<li>(27pts) Fixed the Lover mundys from incorrectly giving resistance buffs.</li>
+			</ul>
+			<p>
+			<b>20 July 2020</b>
+			<ul>
+				<li>Fixed the New Moon Acolyte 3 piece set bonus and a few other sets that use a similar effect.</li>
+				<li>Fixed the double parsing of the New Moon Acolyte 5 piece bonus.</li>
+				<li>(27pts) Updated the new mundus stone effects.</li>
+			</ul>
+			<p>
+			<b>15 July 2020</b>
+			<ul>
+				<li>Skill and CP data updated for Stonethorn (update 27).</li>
+				<li>(27pts) Fixed the new Master Assassin passive.</li>
+				<li>(27pts) Updated set parsing for: Stygian, Soulshine, Undaunted Unweaver, Hircine's Veneer, Undaunted Infiltrator, The Worm's Raiment, Archer's Mind, Oblivion's Foe, Torug's Pact, Berserking Warrior, 
+					Healing Mage, Spell Power Cure, Molag Ken, Black Rose, Briarheart, Powerful Assault, Meritorious Service, Trial By Fire, Clever Alchemist, Imperial Physique, Assassin's Guile, Shacklebreaker, Blooddrinker,
+					Curse of Doylemish, Innate Axiom, Mechanical Acuity, Sload's Semblance, Vestment of Olorime, Aegis of Galenwe, Might of the Lost Legion, Coldharbour's Favorite, Ancient Dragonguard, New Moon Acolyte,
+					Unchained Aggressor, Stuhn's Favor, Yandir's Might, Thrassian Stranglers, and Stone Husk.</li>
+			</ul>
+			<p>
 			<b>7 July 2020</b>
 			<ul>
 				<li>Added a modifed date to the build filters.</li>

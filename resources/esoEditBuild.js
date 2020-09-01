@@ -5,6 +5,7 @@
  * 		- Hide skill lines, auto-purchase free skills.
  * 		- Include specific Spell/Weapon damage values in raw data and effective power.
  * 		- View window enchantment/set effect modifiers.
+ * 		- Block mitigation has cap of 90%: https://forums.elderscrollsonline.com/en/discussion/comment/6265073#Comment_6265073
  *  
  */
 
@@ -19,8 +20,8 @@ window.ESO_MAX_LEVEL = 50;
 window.ESO_MAX_CPLEVEL = 16;
 window.ESO_MAX_EFFECTIVELEVEL = 66;
 
- 	// Time between an input change and a stat update in seconds
-window.ESO_BUILD_UPDATE_MINTIME = 0.5;	 
+	// Time between an input change and a stat update in seconds
+window.ESO_BUILD_UPDATE_MINTIME = 0.5;
 
 window.g_EsoBuildLastUpdateRequest = 0;
 window.g_EsoBuildRebuildStatFlag = false;
@@ -136,44 +137,42 @@ window.ESO_MUNDUS_BUFF_DATA =
 	"The Atronach" : {
 		abilityId: 13982,
 		icon : "/esoui/art/icons/ability_mundusstones_009.png",
-		description: "Increases your Magicka Recovery by 238.",
+		description: "Increases your Magicka Recovery by 310.",
 	},
 	"The Lady" : {
 		abilityId: 13976,
 		icon : "/esoui/art/icons/ability_mundusstones_005.png",
-		// description: "Increases your Physical Resistance.",
-		description: "Increases your Spell and Physical Resistance by 2752.",
+		description: "Increases your Spell and Physical Resistance by 2744.",
 	},
 	"The Lover" : {
 		abilityId: 13981,
 		icon : "/esoui/art/icons/ability_mundusstones_011.png",
-		// description: "Increases your Spell Resistance.",
-		description: "Increases your Spell and Physical Penetration by 2752.",
+		description: "Increases your Spell and Physical Penetration by 2744.",
 	},
 	"The Lord" : {
 		abilityId: 13978,
 		icon : "/esoui/art/icons/ability_mundusstones_007.png",
-		description: "Increases your Maximum Health by 2231.",
+		description: "Increases your Maximum Health by 2225.",
 	},
 	"The Mage" : {
 		abilityId: 13943,
 		icon : "/esoui/art/icons/ability_mundusstones_002.png",
-		description: "Increases your Maximum Magicka by 2028.",
+		description: "Increases your Maximum Magicka by 2023.",
 	},
 	"The Ritual" : {
 		abilityId: 13980,
 		icon : "/esoui/art/icons/ability_mundusstones_010.png",
-		description: "Increases your Healing Done by 10%.",
+		description: "Increases your Healing Done by 8%.",
 	},
 	"The Serpent" : {
 		abilityId: 13974,
 		icon : "/esoui/art/icons/ability_mundusstones_004.png",
-		description: "Increases your Stamina Recovery by 238.",
+		description: "Increases your Stamina Recovery by 310.",
 	},
 	"The Shadow" : {
 		abilityId: 13984,
 		icon : "/esoui/art/icons/ability_mundusstones_012.png",
-		description: "Increases your Critical Damage and Healing by 13%.",
+		description: "Increases your Critical Damage and Healing by 11%.",
 	},	
 	"The Steed" : {
 		abilityId: 13977,
@@ -188,7 +187,7 @@ window.ESO_MUNDUS_BUFF_DATA =
 	"The Tower" : {
 		abilityId: 13985,
 		icon : "/esoui/art/icons/ability_mundusstones_013.png",
-		description: "Increases your Maximum Stamina by 2028.",
+		description: "Increases your Maximum Stamina by 2023.",
 	},
 	"The Warrior" : {
 		abilityId: 13985,
@@ -1272,7 +1271,7 @@ window.g_EsoBuildBuffData =
 			statId : "Health",
 			icon : "/esoui/art/icons/achievement_031.png",
 		},
-		"Worms Raiment" : 
+		"Worms Raiment" : //TODO: Update27
 		{
 			group: "Set",
 			enabled: false,
@@ -1284,7 +1283,18 @@ window.g_EsoBuildBuffData =
 			combineAs: "*%",
 			icon : "/esoui/art/icons/gear_artifactwormcultlight_head_a.png", // TODO: Not the correct one?
 		},
-		"Hircines Veneer" : 
+		"Worms Raiment2" : //TODO: Update27
+		{
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 145,
+			category: "Set",
+			statId : "MagickaRegen",
+			icon : "/esoui/art/icons/gear_artifactwormcultlight_head_a.png",
+		},
+		"Hircines Veneer" :	//TODO: Update27 
 		{
 			group: "Set",
 			enabled: false,
@@ -1294,6 +1304,17 @@ window.g_EsoBuildBuffData =
 			display: '%',
 			statId : "StaminaCost",
 			combineAs: "*%",
+			icon : "/esoui/art/icons/gear_artifactsaviorhidemd_head_a.png",
+		},
+		"Hircines Veneer2" : //TODO: Update27
+		{
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 145,
+			category: "Set",
+			statId : "StaminaRegen",
 			icon : "/esoui/art/icons/gear_artifactsaviorhidemd_head_a.png",
 		},
 		"Hircines Rage" : 
@@ -2796,7 +2817,6 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 	{
 		id: "Molten Weapons",
 		displayName: "Molten Armaments",
-		// baseSkillId: 32173,
 		baseSkillId: 32156,
 		toggle: true,
 		enabled: false,
@@ -2804,6 +2824,17 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		statId: "HADamage",
 		display: "%",
 		match: /Your own damage with fully\-charged Heavy Attacks is increased by ([0-9]+\.?[0-9]*)% while active/i,
+	},
+	{
+		id: "Molten Weapons",
+		displayName: "Molten Armaments",
+		baseSkillId: 32156,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		statId: "HADamage",
+		display: "%",
+		match: /Your own damage with Heavy Attacks is increased by ([0-9]+\.?[0-9]*)% while active/i,
 	},
 	{
 		id: "Molten Weapons",
@@ -2824,6 +2855,24 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		enableOffBar: true,
 		buffId : "Major Brutality",
 		match: /Charge you and your allies' weapons with volcanic power to gain Major Sorcery and Major Brutality/i,
+	},
+	{
+		id: "Molten Weapons",
+		baseSkillId: 32156,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		buffId : "Major Brutality",
+		match: /Charge you and your grouped allies' weapons with volcanic power to gain Major Brutality and Sorcery/i,
+	},
+	{
+		id: "Molten Weapons",
+		baseSkillId: 32156,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		buffId : "Major Sorcery",
+		match: /Charge you and your grouped allies' weapons with volcanic power to gain Major Brutality and Sorcery/i,
 	},
 	{
 		id: "Blade Cloak",
@@ -5477,8 +5526,36 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases your damage done with damage over time effects by ([0-9]+)%/i,
 	},
 	
+		// Stonethorn
+	{
+		statRequireId: "Stealthed",
+		statRequireValue: 1,
+		category: "Target",
+		statId: "StunDuration",
+		display: "%",
+		match: /Increases the duration of the stun from Sneak by ([0-9]+)%/i,
+	},
+	
 	
 		/* Begin Toggled Passives */
+	{
+		id: "Master Assassin",
+		statId: "WeaponDamage",
+		category: "Item",
+		baseSkillId: 36616,
+		toggle: true,
+		enabled: false,
+		match: /Increases your Weapon and Spell Damage against enemies you are flanking by ([0-9]+)/i,
+	},
+	{
+		id: "Master Assassin",
+		statId: "SpellDamage",
+		category: "Item",
+		baseSkillId: 36616,
+		toggle: true,
+		enabled: false,
+		match: /Increases your Weapon and Spell Damage against enemies you are flanking by ([0-9]+)/i,
+	},
 	{
 		id: "Undeath",
 		baseSkillId: 33093,
@@ -6121,11 +6198,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	
 		/* End Toggled Passives */
 	
-
-		/* Begin Other Effects */
-		/* End Other Effects */
-	
-
 		// Dragonknight
 	// Increases the damage of your Flame and Poison area of effect abilities by 6%.
 	// Increases the damage of your Burning and Poisoned status effects by 66%.
@@ -6203,6 +6275,11 @@ window.ESO_SETEFFECT_MATCHES = [
 //Vanguard's Challenge: (5 items) When you taunt an enemy Player, they deal 50% less damage to all other Players but 100% more damage to you for 15 seconds. 
 //Jorvuld's Guidance: (5 items) Increases the duration of all Major buffs, Minor buffs, and damage shields you apply to yourself and allies by 40%.
 //Piercing Spray (Perfected): (2 items) When you deal damage with Arrow Spray, you cause enemies hit to take 50% more damage from the direct damage portion of your next Snipe, Scatter Shot, or Poison Arrow used within 6 seconds.
+//Varen's Legacy: When you block an attack, your next direct damage area of effect attack used within 5 seconds deals an additional 3290 damage. This bonus does not work with channeled effects. This effect can occur once every 2 seconds.
+//Vykosa: When you Bash an enemy you've taunted, you frighten them with a deafening howl, lowering their Weapon and Spell Damage by 20% for
+//Draugrkin's Grip: Dealing direct damage to an enemy places a ghostly curse on your enemy for 6 seconds.  Cursed enemies take 617 extra damage from all of your damage abilities. This effect can occur once every 9 seconds.
+//Dragon's Appetite: (5 items) Increase your damage done to Bleeding enemies by 225. Dealing non-Bleed damage to Bleeding enemies generates a persistent stack of Dragon's Appetite, up to once per second. After 10 stacks you consume Dragon's Appetite and heal for 6415 Health.
+//Elemental Catalyst: (5 items) Whenever you deal Flame, Shock, or Frost Damage, you apply a stack of Flame, Shock, or Frost Weakness to the enemy for 5 seconds. Each stack of an Elemental Weakness increases their Critical Damage taken by 6%. An enemy can only have one stack of each Elemental Weakness at a time.
 
 	{
 		category: "Set",
@@ -6867,6 +6944,11 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Increases the damage you deal with bleed damage over time effects by ([0-9]+\.?[0-9]*)%/i,
 	},	 
 	{
+		statId: "BleedDamage",
+		display: "%",
+		match: /Increases your Bleed damaging attacks by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
 		buffId: "Hircines Veneer",
 		match: /Reduce the cost of your Stamina abilities by ([0-9]+)% for you and up to [0-9]+ other group members/i,
 	},
@@ -6956,6 +7038,34 @@ window.ESO_SETEFFECT_MATCHES = [
 		statRequireValue: 1,
 		display: "%",
 		match: /Increases your Critical Damage by an additional ([0-9]+\.?[0-9]*)% when attacking from Sneak or invisibility/i,
+	},
+	{
+		//Archer's Mind
+		statId: "CritDamage",
+		display: "%",
+		match: /Increases your Critical Damage and Healing by ([0-9]+\.?[0-9]*)%\./i,
+	},
+	{
+		//Archer's Mind
+		statId: "CritHealing",
+		display: "%",
+		match: /Increases your Critical Damage and Healing by ([0-9]+\.?[0-9]*)%\./i,
+	},
+	{
+		//Archer's Mind
+		statId: "CritDamage",
+		statRequireId: "Stealthed",
+		statRequireValue: 1,
+		display: "%",
+		match: /Increases your Critical Damage and Healing by an additional ([0-9]+\.?[0-9]*)% when you are Sneaking or Invisible./i,
+	},
+	{
+		//Archer's Mind
+		statId: "CritHealing",
+		statRequireId: "Stealthed",
+		statRequireValue: 1,
+		display: "%",
+		match: /Increases your Critical Damage and Healing by an additional ([0-9]+\.?[0-9]*)% when you are Sneaking or Invisible./i,
 	},
 	{
 		statId: "UltimateCost",
@@ -7562,25 +7672,19 @@ window.ESO_SETEFFECT_MATCHES = [
 		//match: /Decreases weapon enchantment cooldown and increases potency by ([0-9]+\.?[0-9]*)%/i,
 		match: /Decreases weapon enchantment cooldown and increases non Oblivion Damage enchantment potency by ([0-9]+)%/i,
 	},
-	/*
 	{
 		setBonusCount: 4,
-		category: "Item",
-		statId: "EnchantCooldown1",
+		statId: "EnchantCooldown",
 		display: "%",
 		factorValue: -1,
-		//match: /Decreases weapon enchantment cooldown and increases potency by ([0-9]+\.?[0-9]*)%/i,
-		match: /Decreases weapon enchantment cooldown and increases non Oblivion Damage enchantment potency by ([0-9]+)%/i,
+		match: /Decreases weapon enchantment cooldown by ([0-9]+)% and increases non Oblivion Damage weapon enchantment potency by/i,
 	},
 	{
 		setBonusCount: 4,
-		category: "Item",
-		statId: "EnchantCooldown2",
+		statId: "EnchantPotency",
 		display: "%",
-		factorValue: -1,
-		//match: /Decreases weapon enchantment cooldown and increases potency by ([0-9]+\.?[0-9]*)%/i,
-		match: /Decreases weapon enchantment cooldown and increases non Oblivion Damage enchantment potency by ([0-9]+)%/i,
-	}, //*/
+		match: /Decreases weapon enchantment cooldown by [0-9]+% and increases non Oblivion Damage weapon enchantment potency by ([0-9]+)%/i,
+	},
 	{
 		setBonusCount: 2,
 		statId: "MountSpeed",
@@ -7723,14 +7827,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		combineAs: "*%",
 		match: /Increases the cost of your active abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
-	{
-		statId: "WeaponDamage",
-		match: /Adds ([0-9]+) Weapon and Spell Damage\./i,
-	},
-	{
-		statId: "SpellDamage",
-		match: /Adds ([0-9]+) Weapon and Spell Damage\./i,
-	},
 	{		//TODO: Ultimate costs?
 		category: "SkillCost",
 		display: "%",
@@ -7810,9 +7906,147 @@ window.ESO_SETEFFECT_MATCHES = [
 		buffId: "Major Evasion",
 		match: /Reduces your damage done with area of effect attacks by ([0-9.]+)%, but grants Major Evasion at all times/i,
 	},
+	{
+		buffId: "Hircines Veneer2",	//TODO: Update27
+		updateBuffValue: true,
+		match: /Grants ([0-9.]+) Stamina Recovery to you and up to/i,
+	},
+	{
+		buffId: "Worms Raiment2",	//TODO: Update27
+		updateBuffValue: true,
+		match: /Grants ([0-9.]+) Magicka Recovery to you and up to/i,
+	},
+	{
+		statId: "WeaponDamage",
+		match: /Adds ([0-9.]+) Weapon and Spell Damage$/i,
+	},
+	{
+		statId: "SpellDamage",
+		match: /Adds ([0-9.]+) Weapon and Spell Damage$/i,
+	},
+	{
+		statId: "WeaponDamage",
+		match: /Adds ([0-9.]+) Weapon and Spell Damage\./i,
+	},
+	{
+		statId: "SpellDamage",
+		match: /Adds ([0-9.]+) Weapon and Spell Damage\./i,
+	},
+	{
+		statId: "SpellDamage",
+		match: /Increases Spell Damage by ([0-9.]+)\./i,
+	},
+	{
+		statId: "FlameDamageTaken",
+		display: "%",
+		match: /Increase damage taken from Flame and Fighter's Guild abilities by ([0-9.]+)%/i,
+	},
+	{
+		statId: "FightersGuildDamageTaken",
+		display: "%",
+		match: /Increase damage taken from Flame and Fighter's Guild abilities by ([0-9.]+)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Undaunted_Cost",
+		factorValue: -1,
+		display: "%",
+		match: /Reduces the cost of your Undaunted abilities by ([0-9.]+)%/i,
+	},
+	
 	
 	
 		// Optionally toggled set effects
+	{
+		id: "Elemental Catalyst (Flame)",
+		setId: "Elemental Catalyst",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "FlameCritDamageTaken",
+		disableSetIds: ["Elemental Catalyst (Frost)", "Elemental Catalyst (Shock)"],
+		maxTimes: 1,
+		display: "%",
+		match: /Each stack of an Elemental Weakness increases their Critical Damage taken by ([0-9.]+)%/i,
+	},
+	{
+		id: "Elemental Catalyst (Shock)",
+		setId: "Elemental Catalyst",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "ShockCritDamageTaken",
+		disableSetIds: ["Elemental Catalyst (Flame)", "Elemental Catalyst (Frost)"],
+		maxTimes: 1,
+		display: "%",
+		match: /Each stack of an Elemental Weakness increases their Critical Damage taken by ([0-9.]+)%/i,
+	},
+	{
+		id: "Elemental Catalyst (Frost)",
+		setId: "Elemental Catalyst",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "FrostCritDamageTaken",
+		disableSetIds: ["Elemental Catalyst (Flame)", "Elemental Catalyst (Shock)"],
+		maxTimes: 1,
+		display: "%",
+		match: /Each stack of an Elemental Weakness increases their Critical Damage taken by ([0-9.]+)%/i,
+	},
+	{
+		id: "Stone Husk",
+		setBonusCount: 2,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "WeaponDamage",
+		maxTimes: 15,
+		rawInputMatch: /(When the tether ends, you consume the stacks and gain [0-9]+ Weapon Damage per stack consumed for [0-9]+ seconds\.)/i,
+		match: /When the tether ends, you consume the stacks and gain ([0-9]+) Weapon Damage per stack consumed for/i,
+	},
+	{
+		id: "Aegis of Galenwe",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "LADamage",
+		display: "%",
+		match: /After successfully blocking, you grant Empower to [0-9]+ allies within [0-9]+ meters for [0-9]+ seconds, increasing the damage of their next Light Attack by ([0-9]+)%/i,
+	},
+	{
+		id: "Perfected Aegis of Galenwe",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "LADamage",
+		display: "%",
+		match: /After successfully blocking, you grant Empower to [0-9]+ allies within [0-9]+ meters for [0-9]+ seconds, increasing the damage of their next Light Attack by ([0-9]+)%/i,
+	},
+	{
+		id: "Soulshine",
+		setBonusCount: 4,
+		enableOffBar: true,
+		enable: false,
+		toggle: true,
+		category: "Item",
+		statId: "SpellDamage",
+		match: /Activating an ability with a cast or channel time grants you ([0-9]+) Spell Damage for /i,
+	},
+	{
+		id: "Stygian",
+		setBonusCount: 4,
+		enableOffBar: true,
+		enable: false,
+		toggle: true,
+		category: "Item",
+		statId: "SpellDamage",
+		match: /When you leave Sneak or invisibility, your Spell Damage is increased by ([0-9]+) for /i,
+	},
 	{
 		id: "Healing Mage",
 		setBonusCount: 4,
@@ -7822,6 +8056,16 @@ window.ESO_SETEFFECT_MATCHES = [
 		buffId: "Healing Mage (Debuff)",
 		updateBuffValue: true,
 		match: /you reduce the Weapon Damage of all enemies within [0-9.]+ meters of you by ([0-9.]+) for/i,
+	},
+	{
+		id: "Healing Mage",
+		setBonusCount: 4,
+		enableOffBar: true,
+		toggle: true,
+		enabled: false,
+		buffId: "Healing Mage (Debuff)",
+		updateBuffValue: true,
+		match: /When you use an area of effect heal ability, you reduce the Weapon and Spell Damage of all enemies within 10 meters of you by ([0-9]+) for/i,
 	},
 	{
 		id: "Spectral Cloak",
@@ -7874,7 +8118,18 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		category: "Target",
 		statId: "PoisonDamageTaken",
-		match: /you cause the enemy to take ([0-9]+)% more damage from all Poison Damage/i,
+		match: /When you deal direct damage, you cause the enemy to take ([0-9]+)% more damage from Poison and Disease attacks/i,
+	},
+	{
+		id: "The Morag Tong",
+		setBonusCount: 4,
+		enableOffBar: true,
+		toggle: true,
+		enabled: false,
+		display: "%",
+		category: "Target",
+		statId: "DiseaseDamageTaken",
+		match: /When you deal direct damage, you cause the enemy to take ([0-9]+)% more damage from Poison and Disease attacks/i,
 	},
 	{
 		id: "Z'en's Redress",
@@ -7974,7 +8229,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /When you use a Light Attack you reduce the Health, Magicka, or Stamina cost of your next active ability by ([0-9]+)%/i,
 	},
 	{
-		id: "Queen's Elegance",
+		id: "Queen's Elegance)",
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
@@ -8007,7 +8262,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "MagickaRegen",
-		match: /Dealing damage with a fully-charged Heavy Attack increases your Magicka Recovery by ([0-9]+) for/i,
+		match: /When you complete a fully-charged Heavy Attack, you gain an additional ([0-9]+) Magicka Recovery/i,
 	},
 	{
 		id: "Torc of Tonal Constancy (Magicka)",
@@ -8061,29 +8316,27 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "SpellDamage",
-		maxTimes: 20,
-		match: /Each stack increases your Spell Damage by ([0-9]+), but also increases your damage taken, reduces your healing taken, and reduces effectiveness of your damage shields by [0-9]+%/i,
+		maxTimes: 50,
+		match: /Each stack increases your Weapon and Spell Damage by ([0-9]+), reduces your Maximum Health by [0-9]+, and reduces effectiveness of your damage shields by [0-9]+%/i,
 	},
 	{
 		id: "Thrassian Stranglers",
 		setBonusCount: 1,
 		toggle: true,
 		enabled: false,
-		statId: "DamageTaken",
-		maxTimes: 20,
-		display: "%",
-		match: /Each stack increases your Spell Damage by [0-9]+, but also increases your damage taken, reduces your healing taken, and reduces effectiveness of your damage shields by ([0-9]+)%/i,
+		statId: "WeaponDamage",
+		maxTimes: 50,
+		match: /Each stack increases your Weapon and Spell Damage by ([0-9]+), reduces your Maximum Health by [0-9]+, and reduces effectiveness of your damage shields by [0-9]+%/i,
 	},
 	{
 		id: "Thrassian Stranglers",
 		setBonusCount: 1,
 		toggle: true,
 		enabled: false,
-		statId: "HealingTaken",
+		statId: "Health",
+		maxTimes: 50,
 		factorValue: -1,
-		maxTimes: 20,
-		display: "%",
-		match: /Each stack increases your Spell Damage by [0-9]+, but also increases your damage taken, reduces your healing taken, and reduces effectiveness of your damage shields by ([0-9]+)%/i,
+		match: /Each stack increases your Weapon and Spell Damage by [0-9]+, reduces your Maximum Health by ([0-9]+), and reduces effectiveness of your damage shields by [0-9]+%/i,
 	},
 	{
 		id: "Thrassian Stranglers",
@@ -8092,9 +8345,9 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "DamageShield",
 		factorValue: -1,
-		maxTimes: 20,
+		maxTimes: 50,
 		display: "%",
-		match: /Each stack increases your Spell Damage by [0-9]+, but also increases your damage taken, reduces your healing taken, and reduces effectiveness of your damage shields by ([0-9]+)%/i,
+		match: /Each stack increases your Weapon and Spell Damage by [0-9]+, reduces your Maximum Health by [0-9]+, and reduces effectiveness of your damage shields by ([0-9]+%)/i,
 	},
 	{
 		id: "Vrol's Command",
@@ -8159,6 +8412,18 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Each stack of Giant's Endurance adds ([0-9]+) Stamina Recovery/i,
 	},
 	{
+		id: "Yandir's Might (Giant's Endurance)",
+		setId: "Yandir's Might",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		disableSetIds: [ "Yandir's Might (Giant's Might)" ],
+		statId: "WeaponDamage",
+		maxTimes: 5,
+		rawInputMatch: /(Dealing Critical Damage grants you a stack of Giant's Endurance, up to one every half second\. Each stack of Giant's Endurance adds [0-9]+ Weapon Damage, and stacks up to [0-9]+ times.\.)/i,
+		match: /Each stack of Giant's Endurance adds ([0-9]+) Weapon Damage/i,
+	},
+	{
 		id: "Yandir's Might (Giant's Might)",
 		setId: "Yandir's Might",
 		setBonusCount: 4,
@@ -8181,6 +8446,18 @@ window.ESO_SETEFFECT_MATCHES = [
 		maxTimes: 5,
 		rawInputMatch: /(Dealing Critical Damage grants you a stack of Giant's Endurance, up to one a second\. Each stack of Giant's Endurance adds [0-9]+ Stamina Recovery, and stacks up to [0-9]+ times\.)/i,
 		match: /Each stack of Giant's Endurance adds ([0-9]+) Stamina Recovery/i,
+	},
+	{
+		id: "Perfected Yandir's Might (Giant's Endurance)",
+		setId: "Perfected Yandir's Might",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		disableSetIds: [ "Perfected Yandir's Might (Giant's Might)" ],
+		statId: "WeaponDamage",
+		maxTimes: 5,
+		rawInputMatch: /(Dealing Critical Damage grants you a stack of Giant's Endurance, up to one every half second\. Each stack of Giant's Endurance adds [0-9]+ Weapon Damage, and stacks up to [0-9]+ times.\.)/i,
+		match: /Each stack of Giant's Endurance adds ([0-9]+) Weapon Damage/i,
 	},
 	{
 		id: "Perfected Yandir's Might (Giant's Might)",
@@ -8623,7 +8900,25 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "ShockResist",
 		disableSetIds: [ "Trial By Fire (Flame)", "Trial By Fire (Frost)" ],
 		match: /When you take elemental damage, gain ([0-9]+) Resistance to that element for [0-9]+ seconds/i,
-	},	
+	},
+	{
+		id: "Trial By Fire",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		category: "Item",
+		statId: "SpellResist",
+		match: /While under the effect of an Elemental Status Effect you gain ([0-9]+) Armor/i,
+	},
+	{
+		id: "Trial By Fire",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		category: "Item",
+		statId: "PhysicalResist",
+		match: /While under the effect of an Elemental Status Effect you gain ([0-9]+) Armor/i,
+	},
 	{
 		id: "Way of Martial Knowledge",
 		setBonusCount: 4,
@@ -8822,6 +9117,16 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /critical strike rating is increased by ([0-9]+) for [0-9]+ seconds/i,
 	},
 	{
+		id: "Berserking Warrior",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		maxTimes: 10,
+		statId: "WeaponCrit",
+		match: / When you deal melee damage your Weapon Critical is increased by ([0-9]+) for [0-9]+ seconds, stacking up to [0-9]+ times/i,
+	},
+	{
 		id: "Blood Moon",
 		setBonusCount: 4,
 		toggle: true,
@@ -8868,6 +9173,15 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		statId: "WeaponDamage",
 		match: /When you deal Critical Damage, you have a [0-9]+% chance to increase your Weapon Damage by ([0-9]+)/i,
+	},
+	{
+		id: "Briarheart",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "WeaponDamage",
+		match: /When you deal Critical Damage, you increase your Weapon Damage by ([0-9]+)/i,
 	},
 	{
 		id: "Burning Spellweave",
@@ -9032,7 +9346,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "PhysicalResist",
-		match: /chance to increase your Physical and Spell Resistance by ([0-9]+)/i,
+		match: /When you complete a fully-charged Heavy Attack, you increase your Physical and Spell Resistance by ([0-9]+)/i,
 	},
 	{
 		id: "Embershield",
@@ -9041,25 +9355,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "SpellResist",
-		match: /chance increase your Physical and Spell Resistance by ([0-9]+)/i,
-	},
-	{
-		id: "Embershield",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "PhysicalResist",
-		match: /When you deal damage with a fully-charged Heavy Attack, you increase your Physical and Spell Resistance by ([0-9]+)/i,
-	},
-	{
-		id: "Embershield",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "SpellResist",
-		match: /When you deal damage with a fully-charged Heavy Attack, you increase your Physical and Spell Resistance by ([0-9]+)/i,
+		match: /When you complete a fully-charged Heavy Attack, you increase your Physical and Spell Resistance by ([0-9]+)/i,
 	},
 	{
 		id: "Essence Thief",
@@ -9273,6 +9569,15 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /When you deal direct damage, you have a [0-9]+% chance to gain unerring mechanical vision for [0-9]+ seconds, causing your attacks to always be a Critical Strike/i,
 	},
 	{
+		id: "Mechanical Acuity",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		buffId: "Mechanical Acuity",
+		match: /When you deal direct damage, you gain unerring mechanical vision for [0-9]+ seconds, granting you [0-9]+% Critical Strike chance/i,
+	},
+	{
 		id: "Meritorious Service",
 		setBonusCount: 4,
 		toggle: true,
@@ -9291,6 +9596,24 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "SpellResist",
 		//match: /When you cast a Support ability, you increase the Physical and Spell Resistance of up to [0-9]+ friendly targets within [0-9]+ meters by ([0-9]+)/i,
 		match: /When you cast a Support ability, you increase the Physical and Spell Resistance of yourself and up to [0-9]+ allies within [0-9]+ meters by ([0-9]+) for/i,
+	},
+	{
+		id: "Meritorious Service",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "SpellResist",
+		match: /When you cast a Support ability, you increase the Physical and Spell Resistance of yourself and up to [0-9]+ group members within [0-9]+ meters by ([0-9]+) for/i,
+	},
+	{
+		id: "Meritorious Service",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "PhysicalResist",
+		match: /When you cast a Support ability, you increase the Physical and Spell Resistance of yourself and up to [0-9]+ group members within [0-9]+ meters by ([0-9]+) for/i,
 	},
 	{
 		id: "Molag Kena",
@@ -9412,6 +9735,14 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Your Soul Trap ability gains ([0-9]+) Weapon and Spell Damage/i,
 	},
 	{
+		id: "Oblivion's Foe",	//TODO: Update27 Verify
+		setBonusCount: 4,
+		enabled: false,
+		category: "SkillDirectDamage",
+		statId: "Soul Magic",
+		match: /Your Soul Magic attacks deal an extra ([0-9]+) damage/i,
+	},
+	{
 		id: "Orgnum's Scales",
 		setBonusCount: 4,
 		toggle: true,
@@ -9466,9 +9797,17 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		buffId: "Powerful Assault",
 		updateBuffValue: true,
-		//match: /When you cast an Assault ability, you increase the Weapon and Spell Damage of up to [0-9]+ friendly targets within [0-9]+ meters by ([0-9]+)/i,
-		//match: /When you cast an Assault ability, you increase your Weapon and Spell Damage and the Weapon and Spell Damage of up to [0-9]+ allies within [0-9]+ meters by ([0-9]+) for/i,
 		match: /When you cast an Assault ability, you and up to [0-9]+ allies within [0-9]+ meters gain ([0-9]+) Weapon and Spell Damage/i,
+	},
+	{
+		id: "Powerful Assault",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		buffId: "Powerful Assault",
+		updateBuffValue: true,
+		match: /When you cast an Assault ability, you and up to [0-9]+ group members within [0-9]+ meters gain ([0-9]+) Weapon and Spell Damage/i,
 	},
 	{
 		id: "Ravager",
@@ -9652,9 +9991,17 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		buffId: "Major Courage",
 		updateBuffValue : true,
-		//match: /When you heal a friendly target that is at [0-9]+% Health, you have a [0-9]+% chance to increase their Weapon and Spell Damage by ([0-9]+)/i,
 		match: /When you heal yourself or an ally that is at [0-9]+% Health, you have a [0-9]+% chance to give the target Major Courage for [0-9]+ seconds which increase(?:s|) their Weapon and Spell Damage by ([0-9]+)/i,
-		
+	},
+	{
+		id: "Spell Power Cure",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		buffId: "Major Courage",
+		updateBuffValue : true,
+		match: /When you overheal yourself or an ally, you give the target Major Courage for [0-9]+ seconds which increases their Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
 		id: "Spell Power Cure",
@@ -9798,6 +10145,26 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /When you use an ability that costs Magicka, your Light Attacks deal an additional [0-9]+ damage and Heavy Attacks deal an additional ([0-9]+) damage/i,
 	},
 	{
+		id: "Undaunted Infiltrator",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "LADamage",
+		match: /When you use an ability that costs Magicka, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for /i,
+	},
+	{
+		id: "Undaunted Infiltrator",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "HADamage",
+		match: /When you use an ability that costs Magicka, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for /i,
+	},
+	{
 		id: "Undaunted Unweaver",
 		setBonusCount: 4,
 		toggle: true,
@@ -9818,14 +10185,24 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /When you use an ability that costs Stamina, your Light Attacks deal an additional [0-9]+ damage and Heavy Attacks deal an additional ([0-9]+) damage/i,
 	},
 	{
-		id: "Vestment of Olorime",
+		id: "Undaunted Unweaver",
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		buffId: "Major Courage",
-		updateBuffValue : true,
-		match: /You and your allies in the circle gain Major Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+) /i,
+		category: "Skill2",
+		statId: "LADamage",
+		match: /When you use an ability that costs Stamina, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for/i,
+	},
+	{
+		id: "Undaunted Unweaver",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "HADamage",
+		match: /When you use an ability that costs Stamina, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for/i,
 	},
 	{
 		id: "Vestment of Olorime",
@@ -9835,7 +10212,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		buffId: "Major Courage",
 		updateBuffValue : true,
-		match: /You and your allies standing in the circle gain Major Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+)/i,
+		match: /You and your group members in the circle gain Major Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
 		id: "Perfected Vestment of Olorime",
@@ -9845,7 +10222,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		buffId: "Major Courage",
 		updateBuffValue : true,
-		match: /You and your allies standing in the circle gain Major Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+)/i,
+		match: /You and your group members standing in the circle gain Major Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
 		id: "Warrior's Fury",
@@ -10407,11 +10784,11 @@ window.GetEsoInputValues = function (mergeComputedStats)
 	inputValues.Race = $("#esotbRace").val();
 	inputValues.Class = $("#esotbClass").val();
 	
-	if (inputValues.Race  == "Khajiit" || inputValues.Race == "Wood Elf") 
+	if (inputValues.Race  == "Khajiit" || inputValues.Race == "Wood Elf")
 		FixupEsoRacialSkills(inputValues.Race , [36022, 45295, 45296]);
-	else if (inputValues.Race  == "Breton" || inputValues.Race == "High Elf") 
+	else if (inputValues.Race  == "Breton" || inputValues.Race == "High Elf")
 		FixupEsoRacialSkills(inputValues.Race , [35995, 45259, 45260]);
-	else if (inputValues.Race  == "Orc" || inputValues.Race == "Nord") 
+	else if (inputValues.Race  == "Orc" || inputValues.Race == "Nord")
 		FixupEsoRacialSkills(inputValues.Race , [36064, 45297, 45298]);	
 	
 	inputValues.Level = parseInt($("#esotbLevel").val());
@@ -11124,7 +11501,7 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 		if (matchData.statValue !== undefined) statValue = matchData.statValue;
 		if (!isNaN(newStatValue)) statValue = newStatValue;
 		if (isNaN(statValue)) statValue = 1;
-				
+		
 		if (matchData.maxTimes != null)
 		{
 			var toggleData = g_EsoBuildToggledSetData[matchData.id];
@@ -11818,8 +12195,10 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 	
 	var traitMatch = null;
 	var traitValue = 0;
-	if (itemData.traitDesc != null) traitMatch = itemData.traitDesc.match(/[0-9]+.?[0-9]*/);
+	var traitValue2 = 0;
+	if (itemData.traitDesc != null) traitMatch = itemData.traitDesc.match(/[0-9]+.?[0-9]*/g);
 	if (traitMatch != null && traitMatch[0] != null) traitValue = parseFloat(traitMatch[0]);
+	if (traitMatch != null && traitMatch[1] != null) traitValue2 = parseFloat(traitMatch[1]);
 	
 	if (itemData.armorType == 1)
 	{
@@ -12179,9 +12558,9 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 	}
 	else if (itemData.trait == 31) // Jewelry Bloodthirsty
 	{
-		inputValues.Item.Bloodthirsty += traitValue/100;
-		AddEsoItemRawOutput(itemData, "Item.Bloodthirsty", traitValue/100);
-		AddEsoInputStatSource("Item.Bloodthirsty", { item: itemData, value: traitValue/100, slotId:slotId });
+		inputValues.Item.Bloodthirsty += traitValue2;
+		AddEsoItemRawOutput(itemData, "Item.Bloodthirsty", traitValue2);
+		AddEsoInputStatSource("Item.Bloodthirsty", { item: itemData, value: traitValue2, slotId:slotId });
 	}
 	else if (itemData.trait == 29) // Jewelry Harmony
 	{
@@ -12778,6 +13157,10 @@ window.GetEsoInputTargetValues = function (inputValues)
 	inputValues.Target.AttackBonus = ParseEsoBuildFloat($("#esotbTargetAttackBonus").val()) / 100;
 	inputValues.Target.CritDamage = ParseEsoBuildFloat($("#esotbTargetCritDamage").val()) / 100;
 	inputValues.Target.CritChance = ParseEsoBuildFloat($("#esotbTargetCritChance").val()) / 100;
+	
+	inputValues.Target.PercentHealth = ParseEsoBuildFloat($("#esotbTargetPercentHealth").val()) / 100;
+	if (inputValues.Target.PercentHealth < 0) inputValues.Target.PercentHealth = 0;
+	if (inputValues.Target.PercentHealth > 1) inputValues.Target.PercentHealth = 1;
 }
 
 
@@ -12821,6 +13204,11 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 			// Update 15
 		inputValues.Mundus.PhysicalResist = 2752;
 		inputValues.Mundus.SpellResist = 2752;
+		
+			// Update 27pts
+		inputValues.Mundus.PhysicalResist = 2744;
+		inputValues.Mundus.SpellResist = 2744;
+		
 		AddEsoInputStatSource("Mundus.PhysicalResist", { mundus: mundusName, value: inputValues.Mundus.PhysicalResist });
 		AddEsoInputStatSource("Mundus.SpellResist", { mundus: mundusName, value: inputValues.Mundus.SpellResist });
 		
@@ -12846,6 +13234,11 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 			// Update 15
 		inputValues.Mundus.SpellPenetration = 2752;
 		inputValues.Mundus.PhysicalPenetration = 2752;
+		
+			// Update 27pts
+		inputValues.Mundus.SpellPenetration = 2744;
+		inputValues.Mundus.PhysicalPenetration = 2744;
+		
 		AddEsoInputStatSource("Mundus.SpellPenetration", { mundus: mundusName, value: inputValues.Mundus.SpellPenetration });
 		AddEsoInputStatSource("Mundus.PhysicalPenetration", { mundus: mundusName, value: inputValues.Mundus.PhysicalPenetration });
 		
@@ -12863,7 +13256,13 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	else if (mundusName == "The Lord")
 	{
 		// inputValues.Mundus.Health = 1452; // 22*66
-		inputValues.Mundus.Health = 2231;			// Update 15
+		
+			// Update 15
+		inputValues.Mundus.Health = 2231;
+		
+			// Update 27pts
+		inputValues.Mundus.Health = 2225;
+		
 		AddEsoInputStatSource("Mundus.Health", { mundus: mundusName, value: inputValues.Mundus.Health });
 		
 		if (divines > 0)
@@ -12876,7 +13275,13 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	else if (mundusName == "The Mage")
 	{
 		// inputValues.Mundus.Magicka = 1320; // 20*66
-		inputValues.Mundus.Magicka = 2028;			// Update 15
+		
+			// Update 15
+		inputValues.Mundus.Magicka = 2028;
+		
+			// Update 27pts
+		inputValues.Mundus.Magicka = 2023;
+		
 		AddEsoInputStatSource("Mundus.Magicka", { mundus: mundusName, value: inputValues.Mundus.Magicka });
 		
 		if (divines > 0)
@@ -12889,7 +13294,13 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	else if (mundusName == "The Tower")
 	{
 		// inputValues.Mundus.Stamina = 1320; // 20*66
-		inputValues.Mundus.Stamina = 2028;			// Update 15
+		
+			// Update 15
+		inputValues.Mundus.Stamina = 2028;
+		
+			// Update 27pts
+		inputValues.Mundus.Stamina = 2023;
+		
 		AddEsoInputStatSource("Mundus.Stamina", { mundus: mundusName, value: inputValues.Mundus.Stamina });
 		
 		if (divines > 0)
@@ -12902,7 +13313,13 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	else if (mundusName == "The Atronach")
 	{
 		// inputValues.Mundus.MagickaRegen = 198; // 3*66
-		inputValues.Mundus.MagickaRegen = 238;			// Update 15
+		
+			// Update 15
+		inputValues.Mundus.MagickaRegen = 238;
+		
+			// Update 27pts
+		inputValues.Mundus.MagickaRegen = 310;
+		
 		AddEsoInputStatSource("Mundus.MagickaRegen", { mundus: mundusName, value: inputValues.Mundus.MagickaRegen });
 		
 		if (divines > 0)
@@ -12915,7 +13332,13 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	else if (mundusName == "The Serpent")
 	{
 		// inputValues.Mundus.StaminaRegen = 198; // 3*66
-		inputValues.Mundus.StaminaRegen = 238;			// Update 15
+		
+			// Update 15
+		inputValues.Mundus.StaminaRegen = 238;
+		
+			// Update 27pts
+		inputValues.Mundus.StaminaRegen = 310;
+		
 		AddEsoInputStatSource("Mundus.StaminaRegen", { mundus: mundusName, value: inputValues.Mundus.StaminaRegen });
 		
 		if (divines > 0)
@@ -12933,6 +13356,11 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 		//inputValues.Mundus.CritHealing = 0.09;		
 		
 		inputValues.Mundus.CritDamage  = 0.13;			// Update 21
+		
+			// Update 27pts
+		inputValues.Mundus.CritDamage  = 0.11;
+		inputValues.Mundus.CritHealing = 0.11;
+		
 		AddEsoInputStatSource("Mundus.CritDamage",  { mundus: mundusName, value: inputValues.Mundus.CritDamage });
 		
 		//inputValues.Mundus.CritHealing = 0.13;		// Update ??
@@ -12952,6 +13380,10 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	else if (mundusName == "The Ritual")
 	{
 		inputValues.Mundus.HealingDone = 0.10;
+		
+			// Update 27pts
+		inputValues.Mundus.HealingDone = 0.08;
+		
 		AddEsoInputStatSource("Mundus.HealingDone", { mundus: mundusName, value: inputValues.Mundus.HealingDone });
 		
 		if (divines > 0)
@@ -12965,8 +13397,11 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	{
 		// inputValues.Mundus.SpellCrit = 0.11; // Preupdate 15
 		// inputValues.Mundus.WeaponCrit = 0.11;
-		inputValues.Mundus.SpellCrit = 0.07;		// Update 15
+		
+			// Update 15
+		inputValues.Mundus.SpellCrit = 0.07;
 		inputValues.Mundus.WeaponCrit = 0.07;
+		
 		AddEsoInputStatSource("Mundus.SpellCrit", { mundus: mundusName, value: inputValues.Mundus.SpellCrit });
 		AddEsoInputStatSource("Mundus.WeaponCrit", { mundus: mundusName, value: inputValues.Mundus.WeaponCrit });
 		
@@ -18142,7 +18577,7 @@ window.CreateEsoBuildBuffSaveData = function (saveData, inputValues)
 			data.description = mundusData.description;
 		}
 		
-		saveData.Buffs[data.name] = data;		
+		saveData.Buffs[data.name] = data;
 	}
 	
 	if (inputValues.Mundus.Name2 != "")
@@ -18165,7 +18600,7 @@ window.CreateEsoBuildBuffSaveData = function (saveData, inputValues)
 		saveData.Buffs[data.name] = data;
 	}
 	
-	var foodData = g_EsoBuildItemData.Food; 
+	var foodData = g_EsoBuildItemData.Food;
 	
 	if (foodData.itemId > 0)
 	{
@@ -18394,6 +18829,7 @@ window.CreateEsoBuildGeneralSaveData = function (saveData, inputValues)
 	// saveData.Stats['Target:CritResistFactor'] = "" + (inputValues.Target.CritResistFactor * 100) + "%";
 	saveData.Stats['Target:CritDamage'] = "" + (inputValues.Target.CritDamage * 100) + "%";
 	saveData.Stats['Target:CritChance'] = "" + (inputValues.Target.CritChance * 100) + "%";
+	saveData.Stats['Target:PercentHealth'] = "" + (inputValues.Target.PercentHealth * 100) + "%";
 	saveData.Stats['Misc:SpellCost'] = "" + inputValues.Misc.SpellCost;
 	
 	saveData.Stats['AttributesTotal'] = "" + inputValues.Attribute.TotalPoints;
@@ -20770,9 +21206,9 @@ window.TestEsoSet = function(setData)
 	{
 		g_EsoBuildTestSets[setName].rawOutput[i] = [];
 		
-		var result = TestEsoSetBonus(descs[i], g_EsoBuildTestSets[setName].rawOutput[i]);
+		var result = TestEsoSetBonus(setName, descs[i], g_EsoBuildTestSets[setName].rawOutput[i]);
 		
-		g_EsoBuildTestSets[setName].descResults[i] = result;		
+		g_EsoBuildTestSets[setName].descResults[i] = result;
 		g_EsoBuildTestSets[setName].desc[i] = descs[i];
 	}
 	
@@ -20780,7 +21216,7 @@ window.TestEsoSet = function(setData)
 }
 
 
-window.TestEsoSetBonus = function(setDesc, rawOutput)
+window.TestEsoSetBonus = function(setName, setDesc, rawOutput)
 {
 	var foundMatch = false;
 	
@@ -20794,6 +21230,7 @@ window.TestEsoSetBonus = function(setDesc, rawOutput)
 		var matches = setDesc.match(matchData.match);
 		
 		if (matches == null) continue;
+		//if (matchData.id != null && matchData.id != setName) continue;
 		
 		if (matchData.ignore === true) 
 		{
@@ -21036,7 +21473,7 @@ window.CheckEsoSetTestResults = function()
 }
 
 
-window.UpdateEso26pts = function() 
+window.UpdateEso27pts = function() 
 {
 }
 
@@ -21111,12 +21548,11 @@ window.TestAllEsoSetMatch = function (matchData)
 }
 
 
-
 window.esotbOnDocReady = function ()
 {
 	clearInterval(g_EsoCharDataTimeUpdateId);
 	
-	UpdateEso26pts();
+	UpdateEso27pts();
 	
 	GetEsoSkillInputValues = GetEsoTestBuildSkillInputValues;
 	

@@ -28,7 +28,7 @@ require_once(__DIR__."/viewBuildData.class.php");
 
 class EsoBuildDataEditor 
 {
-	public $PTS_VERSION = "26pts";
+	public $PTS_VERSION = "27pts";
 	
 	public $SESSION_DEBUG_FILENAME = "/var/log/httpd/esoeditbuild_sessions.log";
 	
@@ -148,6 +148,7 @@ class EsoBuildDataEditor
 			"Mundus.Name2",
 			"Race",
 			"Class",
+			"Target.PercentHealth",
 			"Target.SpellResist",
 			"Target.PhysicalResist",
 			"Target.PhysicalResistPctReduce",
@@ -202,6 +203,7 @@ class EsoBuildDataEditor
 			"SkillCost.Stalking_Blastbones_Cost",
 			"SkillCost.Skeletal_Mage_Cost",
 			"SkillCost.Spirit_Mender_Cost",
+			"SkillCost.Undaunted_Cost",
 			"Stealthed",
 			"Skill.HAMagRestoreRestStaff",
 			"Skill.HAStaRestoreWerewolf",
@@ -325,6 +327,9 @@ class EsoBuildDataEditor
 			"Set.BuffDuration",
 			"Skill.BlockSpeedPenalty",
 			"Skill.HeavyAttackSpeed",
+			"Set.FlameCritDamageTaken",
+			"Set.ShockCritDamageTaken",
+			"Set.FrostCritDamageTaken",
 	);
 	
 	
@@ -357,6 +362,7 @@ class EsoBuildDataEditor
 			"WeaponCrit",
 			"SpellCrit",
 			"CritDamage",
+			"CritDamageTaken",
 			"SpellCritDamage",
 			"WeaponCritDamage",
 			"SpellResist",
@@ -706,11 +712,11 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
-			"Item.Bloodthirsty" => array(
+			"SkillCost.Regular_Ability_Cost" => array(
 					"display" => "%",
 			),
 			
-			"SkillCost.Regular_Ability_Cost" => array(
+			"SkillCost.Undaunted_Cost" => array(
 					"display" => "%",
 			),
 			
@@ -904,6 +910,10 @@ class EsoBuildDataEditor
 			),			
 			
 			"CP.DirectDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"Skill.DirectDamageDone" => array(
 					"display" => "%",
 			),
 			
@@ -1144,6 +1154,14 @@ class EsoBuildDataEditor
 			),		
 			
 			"Skill.FlameDamageTaken" => array(
+					"display" => "%",
+			),
+			
+			"Set.FlameDamageTaken" => array(
+					"display" => "%",
+			),
+			
+			"Set.FightsGuildDamageTaken" => array(
 					"display" => "%",
 			),
 			
@@ -2039,6 +2057,7 @@ class EsoBuildDataEditor
 			"Target.FlameVulnerability" => array( "display" => "%" ),
 			"Target.PoisonVulnerability" => array( "display" => "%" ),
 			"Target.PoisonDamageTaken" => array( "display" => "%" ),
+			"Target.DiseaseDamageTaken" => array( "display" => "%" ),
 			"SkillCost.Lacerate_Cost" => array( "display" => "%" ),
 			"SkillCost.Berserker_Strike_Cost" => array( "display" => "%" ),
 			"SkillCost.Elemental_Storm_Cost" => array( "display" => "%" ),
@@ -2072,6 +2091,11 @@ class EsoBuildDataEditor
 			"Skill.PetDamageDone" => array( "display" => "%" ),
 			"Skill.HeavyAttackSpeed" => array( "display" => "%" ),
 			"SkillCost.Undo_Cost" => array( "display" => "%" ),
+			"Target.StunDuration" => array( "display" => "%" ),
+			"Set.FlameCritDamageTaken" => array( "display" => "%" ),
+			"Set.ShockCritDamageTaken" => array( "display" => "%" ),
+			"Set.FrostCritDamageTaken" => array( "display" => "%" ),
+			"Target.PercentHealth" => array( "display" => "%" ),
 	);
 	
 	
@@ -2259,16 +2283,19 @@ class EsoBuildDataEditor
 					"title" => "Spell Damage",
 					"min" => 0,
 					"round" => "floor",
+					"depends" => array("BloodthirstySpellDamage"),
 					"compute" => array(
 							"Item.SpellDamage",
 							"Set.SpellDamage",
+							"+",
+							"BloodthirstySpellDamage",
 							"+",
 							"Skill2.SpellDamage",
 							"+",
 							"Mundus.SpellDamage",
 							"+",
 							"1 + Skill.SpellDamage + Buff.SpellDamage",
-							"*",							
+							"*",
 					),
 			),
 			
@@ -2279,10 +2306,13 @@ class EsoBuildDataEditor
 					"title" => "Weapon Damage",
 					"round" => "floor",
 					"min" => 0,
+					"depends" => array("BloodthirstyWeaponDamage"),
 					"addClass" => "esotbStatDividerLite",
 					"compute" => array(
 							"Item.WeaponDamage",
 							"Set.WeaponDamage",
+							"+",
+							"BloodthirstyWeaponDamage",
 							"+",
 							"Skill2.WeaponDamage",
 							"+",
@@ -4809,9 +4839,28 @@ class EsoBuildDataEditor
 			
 			"Bloodthirsty" => array(
 					"title" => "Bloodthirsty Trait",
-					"display" => "%",
 					"compute" => array(
 							"Item.Bloodthirsty",
+					),
+			),
+			
+			"BloodthirstySpellDamage" => array(
+					"title" => "Bloodthirsty Spell Damage",
+					"round" => "floor",
+					"compute" => array(
+							"1 - min(0.9, Target.PercentHealth)/0.9",
+							"Item.Bloodthirsty",
+							"*",
+					),
+			),
+			
+			"BloodthirstyWeaponDamage" => array(
+					"title" => "Bloodthirsty Weapon Damage",
+					"round" => "floor",
+					"compute" => array(
+							"1 - min(0.9, Target.PercentHealth)/0.9",
+							"Item.Bloodthirsty",
+							"*",
 					),
 			),
 			
@@ -6289,6 +6338,7 @@ class EsoBuildDataEditor
 				//'{targetCritResistFactor}' => $this->getCharStatField("Target:CritResistFactor", "0%"),
 				'{targetCritDamage}' => $this->getCharStatField("Target:CritDamage", "50%"),
 				'{targetCritChance}' => $this->getCharStatField("Target:CritChance", "50%"),
+				'{targetPercentHealth}' => $this->getCharStatField("Target:PercentHealth", "100%"),
 				'{miscSpellCost}' => $this->getCharStatField("Misc:SpellCost", "3000"),
 				'{itemDataHead}' => $this->GetEquippedItemData('Head'),
 				'{itemDataShoulders}' => $this->GetEquippedItemData('Shoulders'),
