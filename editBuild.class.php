@@ -489,7 +489,7 @@ class EsoBuildDataEditor
 			"The Mage" 			=> "Magicka",
 			"The Ritual" 		=> "Healing",
 			"The Serpent" 		=> "Stamina Recovery",
-			"The Shadow" 		=> "Crit Damage",
+			"The Shadow" 		=> "Crit Damage/Healing",
 			"The Steed" 		=> "Health Recovery/Movement Speed",
 			"The Thief" 		=> "Crit Chance",
 			"The Tower" 		=> "Stamina",

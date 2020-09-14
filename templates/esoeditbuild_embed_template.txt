@@ -1612,6 +1612,22 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>4 September 2020</b>
+			<ul>
+				<li>Added the Bloodthirsty spell/weapon damage effect to skill tooltips using specialized spell/weapon damage values.</li>
+			</ul>
+			<p>
+			<b>1 September 2020</b>
+			<ul>
+				<li>Fixed The Shadow mundus to include critical healing.</li>
+				<li>Fixed/added set toggles: Burning Spellweave, Storm Master, Noble Duelist's Silks.</li>
+				<li>Fixed the Maarselok set proc effect to be an AOE/DOT.</li>
+				<li>Fixed the Igneous Shield skill second damage shield effect to be modified by damage shield effects.</li>
+				<li>Fixed the Caluurion's Legacy set tooltip display.</li>
+				<li>Fixed the Major Vitality buff.</li>
+				<li>Fixed item data for the New Moon Acolyte set to fix issue with the 5 piece set bonus applying with only 4 items equipped.</li>
+			</ul>
+			<p>
 			<b>31 August 2020</b>
 			<ul>
 				<li>Updated item data for update 27. Note that this also updates all the new item trait values (except Bloodthirsty which needs to be fixed).</li>

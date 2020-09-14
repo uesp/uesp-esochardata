@@ -284,6 +284,14 @@ window.ESO_SETPROCDAMAGE_DATA =
 			index : 4,
 			items : 5,
 		},
+		"maarselok" : {
+			//(2 items) When you bash an enemy, you spew a cone of corruption, dealing 9000 Disease Damage to enemies over 4 seconds. This damage is increased by 5%
+			// for each negative effect the enemies have, up to 150% additional damage. This effect can occur once every 7 seconds.
+			isAoE : true,
+			isDoT : true,
+			index : 2,
+			items : 2,
+		},
 		"mad tinkerer" : {
 			// (5 items) When you deal damage, you have a 10% chance to summon a Verminous Fabricant that charges the nearest enemy, dealing 232-9999 Shock Damage to all
 			// enemies in its path, knocking them into the air, and stunning them for 2 seconds. This effect can occur once every 10 seconds.
@@ -2885,12 +2893,12 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 			var maxDamageValue = -1;
 			
 			for (var i = 0; i < setDamageData.damageTypes.length; ++i) {
-				var damageType = setDamageData.damageTypes[i];
-				var damageValue = g_EsoBuildLastInputValues[damageType + "DamageDone"];
-				if (damageValue == null || damageValue == 0 || isNaN(damageValue)) continue;
-				if (damageValue > maxDamageValue) {
-					maxDamageValue = damageValue;
-					maxDamageType = damageType;
+				var tmpDamageType = setDamageData.damageTypes[i];
+				var tmpDamageValue = g_EsoBuildLastInputValues[tmpDamageType + "DamageDone"];
+				if (tmpDamageValue == null || tmpDamageValue == 0 || isNaN(tmpDamageValue)) continue;
+				if (tmpDamageValue > maxDamageValue) {
+					maxDamageValue = tmpDamageValue;
+					maxDamageType = tmpDamageType;
 				}
 			}
 			checkDamageType = maxDamageType;

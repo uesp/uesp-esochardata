@@ -774,7 +774,7 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			value : 0.30,
 			display : "%",
-			statId : "Healing Received",
+			statId : "HealingReceived",
 			icon : "/esoui/art/icons/ability_healer_018.png",
 		},
 		"Minor Vitality" : 
@@ -7958,6 +7958,26 @@ window.ESO_SETEFFECT_MATCHES = [
 	
 		// Optionally toggled set effects
 	{
+		id: "Storm Master",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "LADamage",
+		match: /When you deal Critical Damage with a fully-charged Heavy Attack, your Light and Heavy Attacks deal an additional ([0-9.]+) Damage/i,
+	},
+	{
+		id: "Storm Master",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "HADamage",
+		match: /When you deal Critical Damage with a fully-charged Heavy Attack, your Light and Heavy Attacks deal an additional ([0-9.]+) Damage/i,
+	},
+	{
 		id: "Elemental Catalyst (Flame)",
 		setId: "Elemental Catalyst",
 		setBonusCount: 4,
@@ -9190,16 +9210,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "SpellDamage",
-		match: /When you deal damage with a Flame Damage ability, you have a [0-9]+% chance apply the Burning status effect to the enemy and increase your Spell Damage by ([0-9]+)/i,
-	},
-	{
-		id: "Burning Spellweave",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "SpellDamage",
-		match: /When you deal damage with a Flame Damage ability, you have a [0-9]+% chance to apply the Burning status effect to the enemy and increase your Spell Damage by ([0-9]+) /i,
+		match: /When you deal damage with a Flame Damage ability, you apply the Burning status effect to the enemy and increase your Spell Damage by ([0-9]+) for/i,
 	},
 	{
 		id: "Caustic Arrow",
@@ -9706,7 +9717,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		category: "Skill2",
 		statId: "LADamage",
-		match: /After dodging an attack, light and heavy attacks deal ([0-9]+) increased damage for [0-9]+ seconds./i,
+		match: /When you deal damage with a Light or Heavy Attack in melee range, you cause your Light and Heavy Attacks to deal an additional ([0-9]+) damage/i,
 	},
 	{
 		id: "Noble Duelist's Silks",
@@ -9716,7 +9727,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		category: "Skill2",
 		statId: "HADamage",
-		match: /After dodging an attack, light and heavy attacks deal ([0-9]+) increased damage for [0-9]+ seconds./i,
+		match: /When you deal damage with a Light or Heavy Attack in melee range, you cause your Light and Heavy Attacks to deal an additional ([0-9]+) damage/i,
 	},
 	{
 		id: "Oblivion's Foe",
@@ -13356,15 +13367,14 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 		//inputValues.Mundus.CritHealing = 0.09;		
 		
 		inputValues.Mundus.CritDamage  = 0.13;			// Update 21
+		//inputValues.Mundus.CritHealing = 0.13;		// Update ??
 		
 			// Update 27pts
 		inputValues.Mundus.CritDamage  = 0.11;
 		inputValues.Mundus.CritHealing = 0.11;
 		
 		AddEsoInputStatSource("Mundus.CritDamage",  { mundus: mundusName, value: inputValues.Mundus.CritDamage });
-		
-		//inputValues.Mundus.CritHealing = 0.13;		// Update ??
-		//AddEsoInputStatSource("Mundus.CritHealing", { mundus: mundusName, value: inputValues.Mundus.CritHealing });
+		AddEsoInputStatSource("Mundus.CritHealing", { mundus: mundusName, value: inputValues.Mundus.CritHealing });
 		
 		if (divines > 0)
 		{
@@ -13373,8 +13383,8 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 			inputValues.Mundus.CritDamage  += extra;
 			AddEsoInputStatSource("Mundus.CritDamage",  { source: mundusName + " Divines bonus", value: extra });
 			
-			//inputValues.Mundus.CritHealing += extra;
-			//AddEsoInputStatSource("Mundus.CritHealing", { source: mundusName + " Divines bonus", value: extra });
+			inputValues.Mundus.CritHealing += extra;
+			AddEsoInputStatSource("Mundus.CritHealing", { source: mundusName + " Divines bonus", value: extra });
 		}
 	}
 	else if (mundusName == "The Ritual")
@@ -17490,8 +17500,8 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
  	
  	var SpellDamageFactor = 1 + inputValues.Skill.SpellDamage + inputValues.Buff.SpellDamage;
  	var WeaponDamageFactor = 1 + inputValues.Skill.WeaponDamage + inputValues.Buff.WeaponDamage;
- 	var BaseSpellDamage = inputValues.Item.SpellDamage + inputValues.Set.SpellDamage + inputValues.Mundus.SpellDamage + inputValues.Skill2.SpellDamage;
- 	var BaseWeaponDamage = inputValues.Item.WeaponDamage + inputValues.Set.WeaponDamage + inputValues.Mundus.WeaponDamage + inputValues.Skill2.WeaponDamage;
+ 	var BaseSpellDamage = inputValues.Item.SpellDamage + inputValues.Set.SpellDamage + inputValues.Mundus.SpellDamage + inputValues.Skill2.SpellDamage + inputValues.BloodthirstySpellDamage;
+ 	var BaseWeaponDamage = inputValues.Item.WeaponDamage + inputValues.Set.WeaponDamage + inputValues.Mundus.WeaponDamage + inputValues.Skill2.WeaponDamage + inputValues.BloodthirstyWeaponDamage;
  	
  		/* TODO: Check if this works correctly for buffs */
 	if (g_EsoBuildSetData["Pelinal's Aptitude"] != null && g_EsoBuildSetData["Pelinal's Aptitude"].count >= 5)
