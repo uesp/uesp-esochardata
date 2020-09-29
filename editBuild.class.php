@@ -28,7 +28,7 @@ require_once(__DIR__."/viewBuildData.class.php");
 
 class EsoBuildDataEditor 
 {
-	public $PTS_VERSION = "27pts";
+	public $PTS_VERSION = "28pts";
 	
 	public $SESSION_DEBUG_FILENAME = "/var/log/httpd/esoeditbuild_sessions.log";
 	
@@ -218,6 +218,7 @@ class EsoBuildDataEditor
 			"SkillDirectDamage.Placeholder",
 			"SkillDotDamage.Placeholder",
 			"Item.ChannelSpellDamage",
+			"Item.ChannelWeaponDamage",
 			"Buff.Empower",
 			"CP.HAActiveDamage",
 			"CP.LAActiveDamage",
@@ -320,7 +321,12 @@ class EsoBuildDataEditor
 			"SkillBonusSpellDmg.Shock",
 			"SkillBonusSpellDmg.Frost",
 			"SkillBonusSpellDmg.Magic",
+			"SkillBonusSpellDmg.Physical",
 			"SkillBonusWeaponDmg.Physical",
+			"SkillBonusWeaponDmg.Flame",
+			"SkillBonusWeaponDmg.Magic",
+			"SkillBonusWeaponDmg.Shock",
+			"SkillBonusWeaponDmg.Frost",
 			"Set.ExtraBashDamage",
 			"Skill.ExtraBashDamage",
 			"Set.VampireLord",
@@ -330,6 +336,7 @@ class EsoBuildDataEditor
 			"Set.FlameCritDamageTaken",
 			"Set.ShockCritDamageTaken",
 			"Set.FrostCritDamageTaken",
+			"Set.NonWeaponAbilityCost",
 	);
 	
 	
@@ -2092,10 +2099,12 @@ class EsoBuildDataEditor
 			"Skill.HeavyAttackSpeed" => array( "display" => "%" ),
 			"SkillCost.Undo_Cost" => array( "display" => "%" ),
 			"Target.StunDuration" => array( "display" => "%" ),
+			"Skill.StunDuration" => array( "display" => "%" ),
 			"Set.FlameCritDamageTaken" => array( "display" => "%" ),
 			"Set.ShockCritDamageTaken" => array( "display" => "%" ),
 			"Set.FrostCritDamageTaken" => array( "display" => "%" ),
 			"Target.PercentHealth" => array( "display" => "%" ),
+			"Set.NonWeaponAbilityCost" => array( "display" => "%" ),
 	);
 	
 	
@@ -2288,14 +2297,14 @@ class EsoBuildDataEditor
 							"Item.SpellDamage",
 							"Set.SpellDamage",
 							"+",
-							"BloodthirstySpellDamage",
-							"+",
 							"Skill2.SpellDamage",
 							"+",
 							"Mundus.SpellDamage",
 							"+",
 							"1 + Skill.SpellDamage + Buff.SpellDamage",
 							"*",
+							"BloodthirstySpellDamage",
+							"+",
 					),
 			),
 			
@@ -2312,14 +2321,14 @@ class EsoBuildDataEditor
 							"Item.WeaponDamage",
 							"Set.WeaponDamage",
 							"+",
-							"BloodthirstyWeaponDamage",
-							"+",
 							"Skill2.WeaponDamage",
 							"+",
 							"Mundus.WeaponDamage",
 							"+",
 							"1 + Skill.WeaponDamage + Buff.WeaponDamage",
 							"*",
+							"BloodthirstyWeaponDamage",
+							"+",
 					),
 			),
 			
@@ -2774,7 +2783,7 @@ class EsoBuildDataEditor
 							"1 + Skill2.HealingReceived",
 							"*",
 							"1",
-							"-",							
+							"-",
 					),
 			),
 			
@@ -2814,6 +2823,14 @@ class EsoBuildDataEditor
 							"Item.ResurrectSpeed",
 							"-",
 							"*",
+					),
+			),
+			
+			"HealingReduction" => array(
+					"title" => "Healing Reduction",
+					"display" => "%",
+					"compute" => array(
+							"CP.HealingReduction",
 					),
 			),
 			
@@ -4915,7 +4932,789 @@ class EsoBuildDataEditor
 	);
 	
 	
-	public $COMPUTED_STATS_LIST_UPDATE26 = array(
+	public $COMPUTED_STATS_LIST_PTS = array(
+			
+			"LAFlameSpellDamage" => array(
+					"title" => "LA Flame Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Flame + Skill2.LASpellDamage",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"LAFlameWeaponDamage" => array(
+					"title" => "LA Flame Weapon Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage"),
+					"compute" => array(
+							"WeaponDamage",
+							"SkillBonusWeaponDmg.Flame + Skill2.LAWeaponDamage",
+							"1 + Buff.WeaponDamage + Skill.WeaponDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"LAShockSpellDamage" => array(
+					"title" => "LA Shock Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Shock + Skill2.LASpellDamage + Item.ChannelSpellDamage",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"LAShockWeaponDamage" => array(
+					"title" => "LA Shock Weapon Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage"),
+					"compute" => array(
+							"WeaponDamage",
+							"SkillBonusWeaponDmg.Shock + Skill2.LAWeaponDamage + Item.ChannelWeaponDamage",
+							"1 + Buff.WeaponDamage + Skill.WeaponDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"LAFrostSpellDamage" => array(
+					"title" => "LA Frost Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Frost + Skill2.LASpellDamage",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"LAFrostWeaponDamage" => array(
+					"title" => "LA Frost Weapon Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage"),
+					"compute" => array(
+							"WeaponDamage",
+							"SkillBonusWeaponDmg.Frost + Skill2.LAWeaponDamage",
+							"1 + Buff.WeaponDamage + Skill.WeaponDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"LAMagicSpellDamage" => array(
+					"title" => "LA Magic Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Magic + Skill2.LASpellDamage + Item.ChannelSpellDamage",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"LAMagicWeaponDamage" => array(
+					"title" => "LA Magic Weapon Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage"),
+					"compute" => array(
+							"WeaponDamage",
+							"SkillBonusWeaponDmg.Magic + Skill2.LAWeaponDamage + Item.ChannelWeaponDamage",
+							"1 + Buff.WeaponDamage + Skill.WeaponDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"LAPhysicalWeaponDamage" => array(
+					"title" => "LA Physical Weapon Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage"),
+					"compute" => array(
+							"WeaponDamage",
+							"SkillBonusWeaponDmg.Physical + Skill2.LAWeaponDamage",
+							"1 + Buff.WeaponDamage + Skill.WeaponDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"LAPhysicalSpellDamage" => array(
+					"title" => "LA Physical Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Physical + Skill2.LASpellDamage",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"LAFlameStaff" => array(
+					"title" => "Light Attack Flame Staff",
+					"round" => "floor",
+					"depends" => array("Magicka", "Stamina", "LAFlameSpellDamage", "LAFlameWeaponDamage", "SingleTargetDamageDone", "DamageDone", "DirectDamageDone"),
+					"compute" => array(
+							"round(0.0404834*max(Magicka, Stamina) + 0.425035*max(LAFlameSpellDamage, LAFlameWeaponDamage) - 0.420652)", 		// Update 28
+							//"round(0.0449528*Magicka + 0.47223*LAFlameSpellDamage - 0.210105)", 		// Update 21
+							//"round(0.0450227*Magicka + 0.472303*SpellDamage - 0.802558)", 	// Update 18
+							//"round(0.0161002*Magicka + 0.643855*SpellDamage - 0.692667)", 	// Update 14
+							//"round(0.0139076*Magicka + 0.560231*SpellDamage + 0.0163755)", 	// Update 12
+							//"round(0.0140*Magicka + 0.56*SpellDamage - 0.60)", 				// Update 10?
+							
+								/* Update 21 */
+							"Skill2.LADamage",
+							"+",
+							"1 + CP.LAStaffDamage + Skill.LADamage + Set.LADamage + Buff.Empower + FlameDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone",
+							"*",
+							
+							//"1 + CP.LAStaffDamage + Set.LADamage + Buff.Empower + Skill.FlameDamageDone + DamageDone + SingleTargetDamageDone + DirectDamageDone",
+							//"*",
+							
+							/*
+							"1 + CP.LAStaffDamage + CP.FlameDamageDone + CP.DirectDamageDone",
+							"*",
+							"Skill2.LADamage",
+							"+",
+							"1 + Skill.LADamage + Set.LADamage + Skill.FlameDamageDone + Buff.Empower + DamageDone + SingleTargetDamageDone + DirectDamageDone -  CP.FlameDamageDone + CP.DirectDamageDone",
+							"*",*/
+					),
+			),
+			
+			"LAFrostStaff" => array(
+					"title" => "Light Attack Frost Staff",
+					"round" => "floor",
+					"depends" => array("Magicka", "Stamina", "LAFrostSpellDamage", "LAFrostWeaponDamage", "SingleTargetDamageDone", "DamageDone", "DirectDamageDone", "FrostDamageDone"),
+					"compute" => array(
+							"round(0.0404834*max(Magicka, Stamina) + 0.425035*max(LAFrostSpellDamage, LAFrostWeaponDamage) - 0.420652)", 		// Update 28
+							//"round(0.0449528*Magicka + 0.47223*LAFrostSpellDamage - 0.210105)", 		// Update 21
+							//"round(0.0450227*Magicka + 0.472303 *SpellDamage - 0.802558)", 	// Update 18
+							//"round(0.0161002*Magicka + 0.643855*SpellDamage - 0.692667)", 	// Update 14
+							//"round(0.0139076*Magicka + 0.560231*SpellDamage + 0.0163755)", 	// Update 12
+							//"round(0.0140*Magicka + 0.56*SpellDamage - 0.60)",
+							//"1 + CP.LAStaffDamage + Set.LADamage + Buff.Empower + FrostDamageDone + DamageDone + DirectDamageDone",
+							//"*",
+							
+								/* Update 21 */
+							"Skill2.LADamage",
+							"+",
+							"1 + CP.LAStaffDamage + Skill.LADamage + Set.LADamage + Buff.Empower + FrostDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone",
+							"*",
+							
+							/*
+							"1 + CP.LAStaffDamage + CP.FrostDamageDone + CP.DirectDamageDone",
+							"*",
+							"Skill2.LADamage",
+							"+",
+							"1 + Skill.LADamage + Set.LADamage + FrostDamageDone + Buff.Empower + DamageDone + SingleTargetDamageDone + DirectDamageDone - CP.FrostDamageDone - CP.DirectDamageDone",
+							"*", */
+					),
+			),
+			
+			"LAShockStaff" => array(	// 18396
+					"title" => "Light Attack Shock Staff",
+					"round" => "floor",
+					"depends" => array("Magicka", "Stamina", "LAShockSpellDamage", "LAShockWeaponDamage", "DamageDone", "AOEDamageDone", "DotDamageDone", "ShockDamageDone"),
+					"compute" => array(
+							"round(0.0240162*max(Magicka, Stamina) + 0.251633*max(LAShockSpellDamage, LAShockWeaponDamage) - 0.55663)",		// Update 28
+							//"round(0.0241608*Magicka + 0.251379*LAShockSpellDamage - 1.77615)",		// Update 21
+							//"round(0.0240568*Magicka + 0.251298*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) - 0.828837)",	// Update 18
+							//"round(0.0110522*Magicka + 0.441972*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) - 1.04019)",	// Update 14
+							//"round(0.0129965*Magicka + 0.520247*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) - 1.1641)",	// Update 12
+							//"round((0.0130319*Magicka + 0.519646*SpellDamage - 0.890172)*3)",		// Update 11pts
+							//"round((0.013*Magicka + 0.52*SpellDamage - 0.26)*3)",					// Update 10
+							
+							"Skill2.LADamage",
+							"+",						//Not affected by Empower
+							"1 + CP.HAStaffDamage + Skill.HADamage + Set.HADamage + ShockDamageDone + SingleTargetDamageDone + DotDamageDone + DamageDone",
+							"*",
+							
+							/*
+							"1 + CP.LAStaffDamage + CP.ShockDamageDone + CP.DotDamageDone",
+							"*",
+							"Skill2.LADamage",
+							"+",
+							"1 + Skill.HADamage + Set.HADamage + ShockDamageDone + Buff.Empower + DamageDone + AOEDamageDone + DotDamageDone - CP.ShockDamageDone - CP.DotDamageDone",	 //TODO: Include + Skill.LADamage?
+							"*", */
+					),
+			),
+			
+			"LARestorationStaff" => array(	// 16212
+					"title" => "Light Attack Restoration",
+					"round" => "floor",
+					"depends" => array("Magicka", "Stamina", "LAMagicSpellDamage", "LAMagicWeaponDamage", "DamageDone", "SingleTargetDamageDone", "DotDamageDone", "MagicDamageDone"),
+					"compute" => array(
+							"(0.0568945*max(Magicka, Stamina) + 0.597347*max(LAMagicSpellDamage, LAMagicWeaponDamage) - 0.998668)/2",				// Update 28
+							//"(0.0570557*Magicka + 0.597266*LAMagicSpellDamage - 2.41936)/2",				// Update 26
+							//"round((0.103388*Magicka + 1.08557*LAMagicSpellDamage - 0.647704)/3)",		// Update 21
+							//"round((0.103346*Magicka + 1.08623*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) - 0.562222)/3)", 	// Update 18
+							//"round((0.0407852*Magicka + 1.63171*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) - 1.76576)/3)", 	// Update 14
+							//"round(0.0139076*Magicka + 0.560231*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) + 0.0163755)", 	// Update 12
+							//"round(0.0140*Magicka + 0.56*SpellDamage - 0.60)",
+							//"1 + CP.LAStaffDamage + Set.LADamage + Buff.Empower + DamageDone + DotDamageDone",
+							//"*",
+							
+							"Skill2.LADamage",
+							"+",						//Not affected by Empower
+							"1 + CP.LAStaffDamage + Skill.HADamage + Set.HADamage + MagicDamageDone + DotDamageDone + SingleTargetDamageDone + DamageDone",
+							"*",
+							
+							/*
+							"1 + CP.LAStaffDamage + CP.ShockDamageDone + CP.DotDamageDone",
+							"*",
+							"Skill2.LADamage",
+							"+",
+							"1 + Skill.HADamage + Set.HADamage + ShockDamageDone + Buff.Empower + DamageDone - CP.ShockDamageDone - CP.DotDamageDone",
+							"*", */
+					),
+			),
+			
+			"LAUnarmed" => array( //16688?
+					"title" => "Light Attack Unarmed",
+					"round" => "floor",
+					"depends" => array("Magicka", "Stamina", "LAPhysicalWeaponDamage", "LAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					"compute" => array(
+							"round(0.0404834*max(Magicka, Stamina) + 0.425035*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage) - 0.420652)",		// Update 28
+							//"round(0.0450269*Stamina + 0.472092*LAPhysicalWeaponDamage - 0.915352)",		// Update 21
+							"Skill2.LADamage",
+							"+",
+							"1 + CP.LAWeaponDamage + Skill.LADamage + Set.LADamage + Buff.Empower + PhysicalDamageDone + Skill.LAMeleeDamage + DamageDone + DirectDamageDone + SingleTargetDamageDone",
+							"*",
+					),
+			),
+				
+			"LAOneHand" => array( // 16499?
+					"title" => "Light Attack One Hand",
+					"round" => "floor",
+					"depends" => array("Magicka", "Stamina", "LAPhysicalWeaponDamage", "LAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					"compute" => array(
+							"round(0.0449414*max(Magicka, Stamina) + 0.472081*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage) - 0.0841677)",		// Update 28
+							//"round(0.0450269*Stamina + 0.472092*LAPhysicalWeaponDamage - 0.915352)",		// Update 21
+							//"round(0.0449953*Stamina + 0.471987*WeaponDamage - 0.232637)",	// Update 18
+							//"round(0.0166857*Stamina + 0.666645*WeaponDamage - 0.749082)",	// Update 14
+							//"round(0.0145129*Stamina + 0.579979*WeaponDamage - 1.0552)",		// Update 12
+							//"round(0.0140*Stamina + 0.56*WeaponDamage - 0.60)",
+							"Skill2.LADamage",
+							"+",
+							"1 + CP.LAWeaponDamage + Skill.LADamage + Set.LADamage + Buff.Empower + PhysicalDamageDone + Skill.LAMeleeDamage + DamageDone + DirectDamageDone + SingleTargetDamageDone",
+							"*",
+					),
+			),
+				
+			"LATwoHand" => array( // 16037?
+					"title" => "Light Attack Two Hand",
+					"round" => "floor",
+					"depends" => array("Magicka", "Stamina", "LAPhysicalWeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					"compute" => array(
+							"round(0.0449414*max(Magicka, Stamina) + 0.472081*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage) - 0.0841677)",		// Update 28
+							//"round(0.0450269*Stamina + 0.472092*LAPhysicalWeaponDamage - 0.915352)",		// Update 21
+							//"round(0.0449953*Stamina + 0.471987*WeaponDamage - 0.232637)",	// Update 18
+							//"round(0.0218892*Stamina + 0.873792*WeaponDamage - 1.61325)",		// Update 14
+							//"round(0.019042*Stamina + 0.760103*WeaponDamage - 1.77928)",		// Update 12
+							//"round(0.0148*Stamina + 0.592*WeaponDamage - 1.06)",
+							"Skill2.LADamage",
+							"+",
+							"1 + CP.LAWeaponDamage + Skill.LADamage + Set.LADamage + Buff.Empower + PhysicalDamageDone + Skill.LAMeleeDamage + DamageDone + DirectDamageDone + SingleTargetDamageDone",
+							"*",
+					),
+			),
+				
+			"LABow" => array( // 32464?
+					"title" => "Light Attack Bow",
+					"round" => "floor",
+					"depends" => array("Magicka", "Stamina", "LAPhysicalWeaponDamage", "LAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "BowDamageDone", "PhysicalDamageDone"),
+					"compute" => array(
+							"round(0.0449414*max(Magicka, Stamina) + 0.472081*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage) - 0.0841677)",		// Update 28
+							//"round(0.0450269*Stamina + 0.472092*LAPhysicalWeaponDamage - 0.915352)",		// Update 21
+							//"round(0.0449953*Stamina + 0.471987*WeaponDamage - 0.232637)",	// Update 18
+							//"round(0.0166857*Stamina + 0.666645*WeaponDamage - 0.749082)",	// Update 14
+							//"round(0.0145129*Stamina + 0.579979*WeaponDamage - 1.0552)",		// Update 12
+							//"round(0.0140*Stamina + 0.56*WeaponDamage - 0.60)",
+							//"1 + CP.LABowDamage + Set.LADamage + Set.BowDamageDone + Skill.BowDamageDone + Buff.Empower + Skill.PhysicalDamageDone + DamageDone", 	// TODO: Check BowDamageDone
+							"Skill2.LADamage",
+							"+",
+							"1 + CP.LAWeaponDamage + Skill.LADamage + Set.LADamage + BowDamageDone + Buff.Empower + PhysicalDamageDone + DamageDone + DirectDamageDone + SingleTargetDamageDone", 	// Update 14
+							"*",
+					),
+			),
+			
+			"LADualWield" => array(	// ?
+					"title" => "Light Attack Dual Wield",
+					"round" => "floor",
+					"depends" => array("Magicka", "Stamina", "LAPhysicalWeaponDamage", "LAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					"compute" => array(
+							"round(0.0449414*max(Magicka, Stamina) + 0.472081*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage) - 0.0841677)",		// Update 28
+							//"round(0.0450269*Stamina + 0.472092*LAPhysicalWeaponDamage - 0.915352)",		// Update 21
+							//"round(0.0449953*Stamina + 0.471987*WeaponDamage - 0.232637)",	// Update 18
+							//"round(0.0139542*Stamina + 0.557374*WeaponDamage - 0.139753)",	// Update 14?
+							//"round(0.0163232*Stamina + 0.65628*WeaponDamage + 0.555625)",		// Probably not correct?
+							"Skill2.LADamage",
+							"+",
+							"1 + CP.LAWeaponDamage + Skill.LADamage + Set.LADamage + Buff.Empower + PhysicalDamageDone + Skill.LAMeleeDamage + DamageDone + DirectDamageDone + SingleTargetDamageDone",
+							"*",
+					),
+			),
+			
+			"LAWerewolf" => array( // 62426?
+					"title" => "Light Attack Werewolf",
+					"round" => "floor",
+					"depends" => array("Magicka", "Stamina", "LAPhysicalWeaponDamage", "LAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					"compute" => array(
+							"round(0.0449414*max(Magicka, Stamina) + 0.472081*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage) - 0.0841677)",		// Update 28
+							//"round(0.0450269*Stamina + 0.472092*LAPhysicalWeaponDamage - 0.915352)",		// Update 21
+							//"round(0.0449953*Stamina + 0.471987*WeaponDamage - 0.232637)",	// Update 18?
+							//"round(0.0166213*Stamina + 0.666503*WeaponDamage + 0.0462245)",	// Update 17
+							"Skill2.LADamage",
+							"+",
+							"1 + CP.LAActiveDamage + Skill.LADamage + Set.LADamage + Buff.Empower + PhysicalDamageDone + Skill.LAMeleeDamage + DamageDone + DirectDamageDone + SingleTargetDamageDone",
+							"*",
+					),
+			),
+			
+			
+			
+			"HAFlameSpellDamage" => array(
+					"title" => "HA Flame Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Flame + Skill2.HASpellDamage",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"HAFlameWeaponDamage" => array(
+					"title" => "HA Flame Weapon Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage"),
+					"compute" => array(
+							"WeaponDamage",
+							"SkillBonusWeaponDmg.Flame + Skill2.HAWeaponDamage",
+							"1 + Buff.WeaponDamage + Skill.WeaponDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"HAShockSpellDamage" => array(
+					"title" => "HA Shock Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Shock + Skill2.HASpellDamage + Item.ChannelSpellDamage",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"HAShockWeaponDamage" => array(
+					"title" => "HA Shock Weapon Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage"),
+					"compute" => array(
+							"WeaponDamage",
+							"SkillBonusWeaponDmg.Shock + Skill2.HAWeaponDamage + Item.ChannelWeaponDamage",
+							"1 + Buff.WeaponDamage + Skill.WeaponDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"HAFrostSpellDamage" => array(
+					"title" => "HA Frost Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Frost + Skill2.LASpellDamage",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"HAFrostWeaponDamage" => array(
+					"title" => "HA Frost Weapon Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage"),
+					"compute" => array(
+							"WeaponDamage",
+							"SkillBonusWeaponDmg.Frost + Skill2.LAWeaponDamage",
+							"1 + Buff.WeaponDamage + Skill.WeaponDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"HAMagicSpellDamage" => array(
+					"title" => "HA Magic Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Magic + Skill2.HASpellDamage + Item.ChannelSpellDamage",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"HAMagicWeaponDamage" => array(
+					"title" => "HA Magic Weapon Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage"),
+					"compute" => array(
+							"WeaponDamage",
+							"SkillBonusWeaponDmg.Magic + Skill2.HAWeaponDamage + Item.ChannelWeaponDamage",
+							"1 + Buff.WeaponDamage + Skill.WeaponDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"HAPhysicalWeaponDamage" => array(
+					"title" => "HA Physical Weapon Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage"),
+					"compute" => array(
+							"WeaponDamage",
+							"SkillBonusWeaponDmg.Physical + Skill2.HAWeaponDamage",
+							"1 + Buff.WeaponDamage + Skill.WeaponDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"HAPhysicalSpellDamage" => array(
+					"title" => "HA Physical Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Physical + Skill2.HASpellDamage",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"HAFlameStaff" => array(	// 15383
+					"title" => "Heavy Attack Fire Staff",
+					"round" => "floor",
+					"depends" => array("Magicka", "Stamina", "HAFlameSpellDamage", "HAFlameWeaponDamage", "SingleTargetDamageDone", "DamageDone", "DirectDamageDone", "FlameDamageDone"),
+					"compute" => array(
+							"round(0.0959915*max(Magicka, Stamina) + 1.00751*max(HAFlameSpellDamage, HAFlameWeaponDamage) - 0.520289)",		// Update 28
+							//"round(0.0960903 *Magicka + 1.00757*HAFlameSpellDamage - 1.59257)",	// Update 21
+							//"round(0.0960395*Magicka + 1.0076*SpellDamage - 1.01795)",		// Update 18
+							//"round(0.0409739*Magicka + 1.63589*SpellDamage - 0.239583)",		// Update 14
+							//"round(0.0550432*Magicka + 2.19972*SpellDamage - 0.864784)",		// Update 12
+							//"round(0.0549025*Magicka + 2.20013*SpellDamage - 0.481141)",		// Update 11pts
+							//"round(0.055*Magicka + 2.20*SpellDamage - 0.67)",					// Update 10
+							
+								/* Update 21 */
+							"Skill2.HADamage",
+							"+",
+							"1 + CP.HAStaffDamage + Skill.HADamage + Set.HADamage + FlameDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
+							"*",
+							
+							/*
+							"1 + CP.HAStaffDamage + CP.FlameDamageDone + CP.DirectDamageDone",
+							"*",
+							"Skill2.HADamage",
+							"+",
+							"1 + Skill.HADamage + Set.HADamage + FlameDamageDone + Buff.Empower + DamageDone + SingleTargetDamageDone + DirectDamageDone - CP.FlameDamageDone - CP.DirectDamageDone",
+							"*", */
+					),
+			),
+			
+			"HAFrostStaff" => array(	// 16261
+					"title" => "Heavy Attack Frost Staff",
+					"round" => "floor",
+					"depends" => array("Magicka", "Stamina", "HAFrostSpellDamage", "HAFrostWeaponDamage", "DamageDone", "DirectDamageDone", "FrostDamageDone"),
+					"compute" => array(
+							"round(0.0959915*max(Magicka, Stamina) + 1.00751*max(HAFrostSpellDamage, HAFrostWeaponDamage) - 0.520289)",		// Update 28
+							//"round(0.0960903 *Magicka + 1.00757*HAFrostSpellDamage - 1.59257)",	// Update 21
+							//"round(0.0960395*Magicka + 1.0076*SpellDamage - 1.01795)",		// Update 18
+							//"round(0.0409739*Magicka + 1.63589*SpellDamage - 0.239583)",		// Update 14
+							//"round(0.0550432*Magicka + 2.19972*SpellDamage - 0.864784)",		// Update 12
+							//"round(0.0549025*Magicka + 2.20013*SpellDamage - 0.481141)",		// Update 11pts
+							//"round(0.055*Magicka + 2.20*SpellDamage - 0.67)",					// Update 10
+							
+									/* Update 21 */
+							"Skill2.HADamage",
+							"+",
+							"1 + CP.HAStaffDamage + Skill.HADamage + Set.HADamage + FrostDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
+							"*",
+							
+							/*
+							"1 + CP.HAStaffDamage + CP.FrostDamageDone + CP.DirectDamageDone",
+							"*",
+							"Skill2.HADamage",
+							"+",
+							"1 + Skill.HADamage + Set.HADamage + FrostDamageDone + DamageDone + DirectDamageDone - CP.FrostDamageDone - CP.DirectDamageDone",
+							"*", */
+					),
+			),
+			
+			"HAShockStaffFinal" => array(	// 18396
+					"title" => "HA Shock Staff Final",
+					"round" => "floor",
+					"depends" => array("Magicka", "Stamina", "HAShockSpellDamage", "HAShockWeaponDamage", "LAShockStaff", "DamageDone", "AOEDamageDone", "DotDamageDone", "ShockDamageDone"),
+					"compute" => array(
+							"round(0.0401116*max(Magicka, Stamina) + 0.4193*max(HAShockSpellDamage, HAShockWeaponDamage) - 1.39152)",		// Update 28
+							//"round(0.0399777*Magicka + 0.419722*HAShockSpellDamage - 0.327807)",		// Update 21
+							//"round(0.0399643*Magicka + 0.419512*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) + 0.0136314)",		// Update 18
+							//"round(0.0154345*Magicka + 0.618618*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) + 0.265101)",		// Update 14
+							//"round(0.0182736*Magicka + 0.728039*(SpellDamage + Item.ChannelSpellDamage*(1 + Skill.SpellDamage + Buff.SpellDamage)) - 2.50684)",		// Update 12
+							//"round(0.0181386*Magicka + 0.728188*SpellDamage - 0.397214)",			//Update 11pts
+							//"round(0.0182*Magicka + 0.728*SpellDamage - 0.03)",					//Update 10
+							
+									/* Update 21 */
+							"Skill2.HADamage",
+							"+",
+							"1 + CP.HAStaffDamage + Skill.HADamage + Set.HADamage + ShockDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
+							"*",
+							
+							/*
+							"1 + CP.ShockDamageDone + CP.DotDamageDone",
+							"*",
+							"1 + ShockDamageDone - CP.ShockDamageDone",
+							"*",
+							"Skill2.HADamage",
+							"+",
+							"1 + Skill.HADamage + Set.HADamage + ShockDamageDone + DamageDone + AOEDamageDone",
+							"*", */
+					),
+			),
+			
+			"HAShockStaff" => array(
+					"title" => "Heavy Attack Shock Staff",
+					"round" => "floor",
+					"depends" => array("LAShockStaff", "HAShockStaffFinal"),
+					"compute" => array(
+							"HAShockStaffFinal",
+							"LAShockStaff * 3",
+							"+", 
+					),
+			),
+			
+			"HARestorationFinal" => array(	//16212
+					"title" => "Heavy Attack Restoration Final",
+					"round" => "floor",
+					"depends" => array("Magicka", "Stamina", "LAMagicSpellDamage", "LAMagicWeaponDamage", "DamageDone", "SingleTargetDamageDone", "DirectDamageDone", "MagicDamageDone"),
+					"compute" => array(
+							"0.0568945*max(Magicka, Stamina) + 0.597347*max(LAMagicSpellDamage, LAMagicWeaponDamage) - 0.998668",				// Update 28
+							//"0.0465*Magicka + 0.48825*LAMagicSpellDamage",			// Update 26
+							"Skill2.HADamage",
+							"+",
+							"1 + CP.HAStaffDamage + Skill.HADamage + Set.HADamage + MagicDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
+							"*",
+					),
+			),
+			
+			"HARestoration" => array(
+					"title" => "Heavy Attack Restoration",
+					"round" => "floor",
+					"depends" => array("LARestorationStaff", "HARestorationFinal"),
+					"compute" => array(
+							"LARestorationStaff",
+							"2",
+							"*",
+							"HARestorationFinal",
+							"+",
+					),
+			),
+			
+			"HAUnarmed" => array(	// 18429
+					"title" => "Heavy Attack Unarmed",
+					"round" => "floor",
+					"depends" => array("Magicka", "Stamina", "HAPhysicalWeaponDamage", "HAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					"compute" => array(
+							"round(0.0699622*Stamina + 0.734782*HAPhysicalWeaponDamage - 0.178041)",		// Update 28: What it actually is
+							//"round(0.0699622*max(Magicka, Stamina) + 0.734782*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage) - 0.178041)",		// Update 28 What it is supposed to be
+							//"round(0.0699437*Stamina + 0.73485*HAPhysicalWeaponDamage - 0.27499)",	// Update 21
+							
+									/* Update 21 */
+							"Skill2.HADamage",
+							"+",
+							"1 + CP.HAWeaponDamage + Skill.HADamage + Skill.HAMeleeDamage + Set.HADamage + PhysicalDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
+							"*",
+							
+							/*
+							"Skill2.HADamage",
+							"+",
+							"1 + CP.HAWeaponDamage + CP.PhysicalDamageDone + CP.DirectDamageDone",
+							"*",
+							"1 + Skill.HADamage + PhysicalDamageDone + Skill.HAMeleeDamage + DamageDone + DirectDamageDone - CP.PhysicalDamageDone - CP.DirectDamageDone",
+							"*", */
+					),
+			),
+			
+			"HAOneHand" => array(	// 15279
+					"title" => "Heavy Attack One Hand",
+					"round" => "floor",
+					"depends" => array("Magicka", "Stamina", "HAPhysicalWeaponDamage", "HAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					"compute" => array(
+							"round(0.0699608*max(Magicka, Stamina) + 0.73472*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage) - 0.130863)",		// Update 28
+							//"round(0.0699437*Stamina + 0.73485*HAPhysicalWeaponDamage - 0.27499)",	// Update 21
+							//"round(0.0699164*Stamina + 0.734938*WeaponDamage + 0.0110695)",	// Update 18
+							//"round(0.0327709*Stamina + 1.31231*WeaponDamage + 0.234536)",		// Update 14
+							//"round(0.038698*Stamina + 1.54378*WeaponDamage - 2.03145)",		// Update 11pts
+							//"round(0.03852*Stamina + 1.5436*WeaponDamage - 0.33)",			// Update 10
+							
+								/* Update 21 */
+							"Skill2.HADamage",
+							"+",
+							"1 + CP.HAWeaponDamage + Skill.HADamage + Skill.HAMeleeDamage + Set.HADamage + PhysicalDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
+							"*",
+							
+							/*
+							"Skill2.HADamage",
+							"+",
+							"1 + CP.HAWeaponDamage + CP.PhysicalDamageDone + CP.DirectDamageDone",
+							"*",
+							"1 + Skill.HADamage + PhysicalDamageDone + Skill.HAMeleeDamage + DamageDone + DirectDamageDone - CP.PhysicalDamageDone - CP.DirectDamageDone",
+							"*", */
+					),
+			),
+			
+			"HATwoHand" => array(		// 16041					// TODO: Axe, Mace, Sword 2H passive
+					"title" => "Heavy Attack Two Hand",
+					"round" => "floor",
+					"depends" => array("Magicka", "Stamina", "HAPhysicalWeaponDamage", "HAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					"compute" => array(
+							"round(0.0718798*max(Magicka, Stamina) + 0.756019*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage) + 0.150727)",		// Update 28
+							//"round(0.0719181*Stamina + 0.755647*HAPhysicalWeaponDamage + 1.35513)",		// Update 21
+							//"round(0.0719815*Stamina + 0.755865*WeaponDamage + 0.20861)",		// Update 18
+							//"round(0.0374172*Stamina + 1.49589*WeaponDamage + 0.256685)",		// Update 14
+							//"round(0.044067*Stamina + 1.7596*WeaponDamage - 0.45188)",		// Update 11pts
+							//"round(0.123*Stamina + 1.283*WeaponDamage - 0.94)",				// Update 10
+							
+								/* Update 21 */
+							"Skill2.HADamage",
+							"+",
+							"1 + CP.HAWeaponDamage + Skill.HADamage + Skill.HAMeleeDamage + Set.HADamage + PhysicalDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
+							"*",
+							
+							/*
+							"Skill2.HADamage",
+							"+",
+							"1 + CP.HAWeaponDamage + CP.PhysicalDamageDone + CP.DirectDamageDone",
+							"*",
+							"1 + Skill.HADamage + Set.HADamage + PhysicalDamageDone + Skill.HAMeleeDamage + DamageDone + DirectDamageDone - CP.PhysicalDamageDone - CP.DirectDamageDone",
+							"*", */
+					),
+			),
+			
+			"HABow" => array(	// 16691
+					"title" => "Heavy Attack Bow",
+					"round" => "floor",
+					"depends" => array("Magicka", "Stamina", "HAPhysicalWeaponDamage", "HAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone", "BowDamageDone"),
+					"compute" => array(
+							"round(0.0939428*max(Magicka, Stamina) + 0.986704*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage) - 0.168718)",		// Update 28
+							//"round(0.0939553*Stamina + 0.986829*HAPhysicalWeaponDamage - 0.247677)",		// Update 21
+							//"round(0.0940809*Stamina + 0.986539*WeaponDamage - 1.45469)",		// Update 18
+							//"round(0.0421126*Stamina + 1.68265*WeaponDamage - 1.43962)",		// Update 14
+							//"round(0.0550887*Stamina + 2.20001*WeaponDamage - 1.90256)",		// Update 11pts
+							//"round(0.0550*Stamina + 2.20*WeaponDamage - 0.95)",				// Update 10
+							
+								/* Update 21 */
+							"Skill2.HADamage",
+							"+",
+							"1 + CP.HAWeaponDamage + Skill.HADamage + Skill.HAMeleeDamage + Set.HADamage + PhysicalDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + BowDamageDone + Buff.Empower",
+							"*",
+							
+							/*
+							"Skill2.HADamage",
+							"+",
+							"1 + CP.HAWeaponDamage + CP.PhysicalDamageDone + CP.DirectDamageDone",			// Update 14
+							//"1 + CP.HABowDamage + CP.PhysicalDamageDone",
+							"*",
+							"1 + Skill.HADamage + Set.HADamage + BowDamageDone + PhysicalDamageDone + DamageDone + DirectDamageDone - CP.PhysicalDamageDone - CP.DirectDamageDone",  //TODO: Check BowDamageDone
+							"*", */
+					),
+			),
+			
+			"HADualWield" => array(		// 16420				// TODO: Dual wield passive
+					"title" => "Heavy Attack Dual Wield",
+					"round" => "floor",
+					"depends" => array("Magicka", "Stamina", "HAPhysicalWeaponDamage", "HAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					"compute" => array(
+							"round(0.0331184*max(Magicka, Stamina) + 0.34582*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage) - 1.60692 )",			// Update 28
+							"round(0.0331184*max(Magicka, Stamina) + 0.34582*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage) - 1.60692 )",			// Update 28
+							//"round(0.033017*Stamina + 0.346099*HAPhysicalWeaponDamage + 0.257098)",		// Update 21
+							//"round(0.033017*Stamina + 0.346099*HAPhysicalWeaponDamage + 2.2571)",			// Update 21
+							//"round(0.033036*Stamina + 0.346257*WeaponDamage - 0.228267)",		// Update 18
+							//"round(0.033036*Stamina + 0.346257*WeaponDamage + 1.77173 )",		// Update 18
+							//"round(0.0139542*Stamina + 0.557374*WeaponDamage - 0.139753)",	// Update 14
+							//"round(0.0169856*Stamina + 0.680024*WeaponDamage + 2.09792)",		// Update 14
+							//"round(0.0200506*Stamina + 0.799675*WeaponDamage + 2.03471)",		// Update 11pts
+							//"round(0.01636*Stamina + 0.6556*WeaponDamage + 0.81)",			// Update 10
+							//"round(0.0199*Stamina + 0.800*WeaponDamage + 3.82)",				// Update 10
+							"+",
+							
+								/* Update 21 */
+							"Skill2.HADamage",
+							"+",
+							"1 + CP.HAWeaponDamage + Skill.HADamage + Skill.HAMeleeDamage + Set.HADamage + PhysicalDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
+							"*",
+							
+							/*
+							"Skill2.HADamage",
+							"+",
+							"1 + CP.HAWeaponDamage + CP.PhysicalDamageDone + CP.DirectDamageDone",
+							"*",
+							"1 + Skill.HADamage + Set.HADamage + PhysicalDamageDone + Skill.HAMeleeDamage + DamageDone + DirectDamageDone - CP.PhysicalDamageDone - CP.DirectDamageDone",
+							"*", */
+					),
+			),
+			
+			"HAWerewolf" => array(	// 55886
+					"title" => "Heavy Attack Werewolf",
+					"round" => "floor",
+					"depends" => array("Magicka", "Stamina", "HAPhysicalWeaponDamage", "HAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
+					"compute" => array(
+							"round(0.0718798*max(Magicka, Stamina) + 0.756019*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage) + 0.150727)",		// Update 28
+							//"round(0.0719181*Stamina + 0.755647*HAPhysicalWeaponDamage + 1.35513)",		// Update 21
+							//"round(0.0719815*Stamina + 0.755865*WeaponDamage + 0.20861)",		// Update 18
+							//"round(0.0374172*Stamina + 1.49589*WeaponDamage + 0.256685)",		// Update 14
+							//"round(0.05007*Stamina + 1.99937*WeaponDamage - 0.51345)",		// Update 11pts
+							//"round(0.0440*Stamina + 1.76*WeaponDamage + 0.74)",				// Update 10
+							
+								/* Update 21 */
+							"Skill2.HADamage",
+							"+",
+							"1 + CP.HAActiveDamage + Skill.HADamage + Skill.HAMeleeDamage + Set.HADamage + PhysicalDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
+							"*",
+							
+							/*
+							"Skill2.HADamage",
+							"+",
+							"1 + CP.HAActiveDamage + CP.PhysicalDamageDone + CP.DirectDamageDone",
+							"*",
+							"1 + Skill.HADamage + Set.HADamage + PhysicalDamageDone + Skill.HAMeleeDamage + DamageDone + DirectDamageDone - CP.PhysicalDamageDone - CP.DirectDamageDone",
+							"*", */
+					),
+			),
 	);
 	
 	
@@ -6157,7 +6956,7 @@ class EsoBuildDataEditor
 	
 	public function FixupComputedStatsForPts()
 	{
-		//$this->COMPUTED_STATS_LIST = array_merge($this->COMPUTED_STATS_LIST, $this->COMPUTED_STATS_LIST_UPDATE26);
+		$this->COMPUTED_STATS_LIST = array_merge($this->COMPUTED_STATS_LIST, $this->COMPUTED_STATS_LIST_PTS);
 	}
 	
 

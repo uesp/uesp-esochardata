@@ -6,7 +6,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #ffc; margin-right: 225px;'>
-Note: The editor is *mostly* working for update 27 (Stonethorn). Item, skills and CP data have been updated. New or updated sets/skills may not be working yet.
+Note: The editor is not completely working for update 28 PTS (Markarth). Skills, CP, and item data have been updated. New/updated skills/sets may not be working correctly.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -66,7 +66,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			When selected you will automatically purchase all racial passives when changing races.
 			<br/>
 			<div class="esotbStatLabel">Use PTS Rules</div> <input type="checkbox" id="esotbUsePtsRules" name="esotbUsePtsRules" statid="UsePtsRules" {usePtsRulesCheck}>
-			Current version is Update 27 v6.1.0
+			Current version is Update 28 v6.2.0
 			<ul style="margin-left: 170px; margin-top: -5px;">
 				<li>Save and reload build after changing this setting.</li>
 				<li>Uses skill, CP, and item data collected from the PTS server.</li>
@@ -502,7 +502,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option value="12">Impenetrable</option>
 					<option value="16">Infused</option>
 					<option value="17">Invigorating</option>
-					<option value="25">Nirnhoned</option>					
+					<option value="25">Nirnhoned</option>
 					<option value="13">Reinforced</option>
 					<option value="11">Sturdy</option>
 					<option value="15">Training</option>
@@ -672,7 +672,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Valkyn Skoria</option>
 					<option>Velidreth</option>
 					<option>Vykosa</option>
-					<option>Zaan</option> 
+					<option>Zaan</option>
 				</select>
 				
 				<button id="esotbItemSetupMonsterSetButton" onclick="OnEsoEditBuildSetupMonsterSet(this);">Change</button>
@@ -736,6 +736,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				
 				<select id="esotbItemSetupMythicSet" style="width: 200px;">
 					<option slotid="Chest">Bloodlord's Embrace</option>
+					<option slotid="Neck" class="esotbSet28pts" disabled hidden>Pearls of Ehlnofey</option>
+					<option slotid="Ring1" class="esotbSet28pts" disabled hidden>Ring of the Pale Order</option>
 					<option slotid="Ring1">Ring of the Wild Hunt</option>
 					<option slotid="Feet">Snow Treaders</option>
 					<option slotid="Ring2">Malacath's Band of Brutality</option>
@@ -755,6 +757,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Aegis Caller</option>
 					<option>Aegis of Galenwe</option>
 					<option value="Perfected Aegis of Galenwe">Aegis of Galenwe (Perfect)</option>
+					<option class="esotbSet28pts" disabled  hidden>Aetherial Ascension</option>
 					<option>Affliction</option>
 					<option>Agility</option>
 					<option>Akaviri Dragonguard</option>
@@ -850,6 +853,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Eternal Hunt</option>
 					<option>Eternal Vigor</option>
 					<option>Eternal Warrior</option>
+					<option class="esotbSet28pts" disabled hidden>Explosive Rebuke</option>
 					<option>Eye of Nahviintaas</option>
 					<option value="Perfected Eye of Nahviintaas">Eye of Nahviintaas (Perfect)</option>
 					<option>Eyes of Mara</option>
@@ -882,6 +886,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Healer's Habit</option>
 					<option>Healing Mage</option>
 					<option>Heem-Jas' Retribution</option>
+					<option class="esotbSet28pts" disabled hidden>Hex Siphon</option>
 					<option>Hide of Morihaus</option>
 					<option>Hide of the Werewolf</option>
 					<option>Hiti's Hearth</option>
@@ -915,6 +920,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Lamia's Song</option>
 					<option>Law of Julianos</option>
 					<option>Leeching Plate</option>
+					<option class="esotbSet28pts" disabled hidden>Legacy of Karth</option>
 					<option>Leki's Focus</option>
 					<option>Leviathan</option>
 					<option>Light of Cyrodiil</option>
@@ -962,6 +968,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Para Bellum</option>
 					<option>Pelinal's Aptitude</option>
 					<option>Permafrost</option>
+					<option class="esotbSet28pts" disabled hidden>Pestilent Host</option>
 					<option>Phoenix</option>
 					<option>Pillar of Nirn</option>
 					<option>Plague Doctor</option>
@@ -974,10 +981,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Quick Serpent</option>
 					<option>Radial Uppercut</option>
 					<option value="Perfected Radial Uppercut">Radial Uppercut (Perfect)</option>
+					<option class="esotbSet28pts" disabled hidden>Radiant Bastion</option>
 					<option>Ranger's Gait</option>
 					<option>Rattlecage</option>
 					<option>Ravager</option>
 					<option>Reactive Armor</option>
+					<option class="esotbSet28pts" disabled hidden>Red Eagle's Fury</option>
 					<option>Redistributor</option>
 					<option>Relics of the Physician, Ansur</option>
 					<option>Relics of the Rebellion</option>
@@ -1093,6 +1102,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Viper's Sting</option>
 					<option>Virulent Shot</option>
 					<option value="Perfected Virulent Shot">Virulent Shot (Perfect)</option>
+					<option class="esotbSet28pts" disabled hidden>Voidcaller</option>
 					<option>Vrol's Command</option>
 					<option value="Perfected Vrol's Command">Vrol's Command (Perfect)</option>
 					<option>War Machine</option>
@@ -1115,6 +1125,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Winterborn</option>
 					<option>Wisdom of Vanus</option>
 					<option>Wise Mage</option>
+					<option class="esotbSet28pts" disabled hidden>Witch-Knight's Defiance</option>
 					<option>Witchman Armor</option>
 					<option>Wizard's Riposte</option>
 					<option>Wrath of the Imperium</option>
@@ -1600,7 +1611,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					input character data. A red "?" button means there may be issues calculating that particular stat (click to see details).
 					You can click on the <em>"+"</em> button to the right to view details on the inputs and calculation for each tab. More information can be
 					seen by clicking on this list.</li>
-				<li>The <em>"Combat"</em> tab tries to simulate your DPS when attacking a target dummy with a set skill rotation.</li>
+				<li style="display: none;">The <em>"Combat"</em> tab tries to simulate your DPS when attacking a target dummy with a set skill rotation.</li>
 			</ul>
 			<p>
 			<h3>Known Bugs</h3>
@@ -1612,6 +1623,30 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>29 September 2020</b>
+			<ul>
+				<li>Fixed the Rune Focus skill toggle.</li>
+				<li>Fixed Pelinal's Aptitude 5 piece set bonus.</li>
+				<li>(28pts) Fixed the New Moon Acolyte item data.</li>
+				<li>Added the Lord Warden's set buff and fixed the Lord Warden's set toggle.</li>
+				<li>Fixed the Vampire's Blood Scion skill toggle.</li>
+				<li>Fixed the Elemental Catalyst set toggles to permit each damage type to be selected at the same time.</li>
+				<li>Added healing reduction from the CP Befoul to skill tooltips.</li>
+				<li>Updated Twice-Fanged Serpent set toggle max stats to 10.</li>
+				<li>Bloodthirsty Weapon/Spell Damage is not affected by Skill/Buff modifiers (from 6.1.1 patch notes).</li> 
+			</ul>
+			<p>
+			<b>24 September 2020</b>
+			<ul>
+				<li>Switched to update 28 PTS data.</li>
+				<li>(28pts) Updated buff data.</li>
+				<li>(28pts) Added new sets to the quick item setup including the two new mythic items.</li>
+				<li>(28pts) Added set toggles for: Voidcaller, Witch-Knight's Defiance, Hex Siphon</li>
+				<li>(28pts) Added set parsing for: Red Eagle's Fury, Aetherial Ascension</li>
+				<li>(28pts) Updated skill parsing for: Master Assassin</li>
+				<li>(28pts) Updated all Light and Heavy Attack calculations.</li>
+			</ul>
+			<p>
 			<b>4 September 2020</b>
 			<ul>
 				<li>Added the Bloodthirsty spell/weapon damage effect to skill tooltips using specialized spell/weapon damage values.</li>
