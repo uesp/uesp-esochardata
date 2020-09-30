@@ -2762,8 +2762,19 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		category: "Target",
 		statId: "DamageTaken",
 		display: "%",
-		rawInputMatch: /(causing them to take [0-9]+% more damage from your attacks for [0-9.]+ seconds\.)/,
+		rawInputMatch: /((?:causing them to take [0-9]+% more damage from your attacks for [0-9.]+ seconds\.)|(?:increasing your damage against them by [0-9]+% for [0-9.]+ seconds\.))/,
 		match: /causing them to take ([0-9]+)% more damage from your attacks/i
+	},
+	{
+		id: "Death Stroke",
+		baseSkillId: 37518,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		category: "Target",
+		statId: "DamageTaken",
+		display: "%",
+		match: /increasing your damage against them by ([0-9]+)% for [0-9.]+ seconds/i
 	},
 	{
 		id: "Brutal Pounce",
@@ -10342,7 +10353,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "SpellDamage",
-		maxTimes: 20,
+		maxTimes: 10,
 		match: /Standing in the ring grants you a stack of Siroria's Boon for [0-9]+ seconds. Each stack increases your Spell Damage by ([0-9]+)\./i,
 	},
 	{
@@ -10352,7 +10363,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "SpellDamage",
-		maxTimes: 20,
+		maxTimes: 10,
 		match: /Standing in the ring grants you a stack of Siroria's Boon for [0-9]+ seconds. Each stack increases your Spell Damage by ([0-9]+)\./i,
 	},
 	{
