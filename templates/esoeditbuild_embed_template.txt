@@ -6,7 +6,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #ffc; margin-right: 225px;'>
-Note: The editor is not completely working for update 28 PTS (Markarth). Skills, CP, and item data have been updated. New/updated skills/sets may not be working correctly.
+Note: The editor is *mostly* working for update 28 (Markarth). Item, skill and CP data have been updated. Some new/updated skills/sets may not yet be working.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -736,8 +736,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				
 				<select id="esotbItemSetupMythicSet" style="width: 200px;">
 					<option slotid="Chest">Bloodlord's Embrace</option>
-					<option slotid="Neck" class="esotbSet28pts" disabled hidden>Pearls of Ehlnofey</option>
-					<option slotid="Ring1" class="esotbSet28pts" disabled hidden>Ring of the Pale Order</option>
+					<option slotid="Neck" disabled hidden>Pearls of Ehlnofey</option>
+					<option slotid="Ring1" disabled hidden>Ring of the Pale Order</option>
 					<option slotid="Ring1">Ring of the Wild Hunt</option>
 					<option slotid="Feet">Snow Treaders</option>
 					<option slotid="Ring2">Malacath's Band of Brutality</option>
@@ -757,7 +757,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Aegis Caller</option>
 					<option>Aegis of Galenwe</option>
 					<option value="Perfected Aegis of Galenwe">Aegis of Galenwe (Perfect)</option>
-					<option class="esotbSet28pts" disabled  hidden>Aetherial Ascension</option>
+					<option disabled  hidden>Aetherial Ascension</option>
 					<option>Affliction</option>
 					<option>Agility</option>
 					<option>Akaviri Dragonguard</option>
@@ -853,7 +853,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Eternal Hunt</option>
 					<option>Eternal Vigor</option>
 					<option>Eternal Warrior</option>
-					<option class="esotbSet28pts" disabled hidden>Explosive Rebuke</option>
+					<option disabled hidden>Explosive Rebuke</option>
 					<option>Eye of Nahviintaas</option>
 					<option value="Perfected Eye of Nahviintaas">Eye of Nahviintaas (Perfect)</option>
 					<option>Eyes of Mara</option>
@@ -886,7 +886,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Healer's Habit</option>
 					<option>Healing Mage</option>
 					<option>Heem-Jas' Retribution</option>
-					<option class="esotbSet28pts" disabled hidden>Hex Siphon</option>
+					<option disabled hidden>Hex Siphon</option>
 					<option>Hide of Morihaus</option>
 					<option>Hide of the Werewolf</option>
 					<option>Hiti's Hearth</option>
@@ -920,7 +920,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Lamia's Song</option>
 					<option>Law of Julianos</option>
 					<option>Leeching Plate</option>
-					<option class="esotbSet28pts" disabled hidden>Legacy of Karth</option>
+					<option disabled hidden>Legacy of Karth</option>
 					<option>Leki's Focus</option>
 					<option>Leviathan</option>
 					<option>Light of Cyrodiil</option>
@@ -968,7 +968,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Para Bellum</option>
 					<option>Pelinal's Aptitude</option>
 					<option>Permafrost</option>
-					<option class="esotbSet28pts" disabled hidden>Pestilent Host</option>
+					<option disabled hidden>Pestilent Host</option>
 					<option>Phoenix</option>
 					<option>Pillar of Nirn</option>
 					<option>Plague Doctor</option>
@@ -981,12 +981,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Quick Serpent</option>
 					<option>Radial Uppercut</option>
 					<option value="Perfected Radial Uppercut">Radial Uppercut (Perfect)</option>
-					<option class="esotbSet28pts" disabled hidden>Radiant Bastion</option>
+					<option disabled hidden>Radiant Bastion</option>
 					<option>Ranger's Gait</option>
 					<option>Rattlecage</option>
 					<option>Ravager</option>
 					<option>Reactive Armor</option>
-					<option class="esotbSet28pts" disabled hidden>Red Eagle's Fury</option>
+					<option disabled hidden>Red Eagle's Fury</option>
 					<option>Redistributor</option>
 					<option>Relics of the Physician, Ansur</option>
 					<option>Relics of the Rebellion</option>
@@ -1102,7 +1102,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Viper's Sting</option>
 					<option>Virulent Shot</option>
 					<option value="Perfected Virulent Shot">Virulent Shot (Perfect)</option>
-					<option class="esotbSet28pts" disabled hidden>Voidcaller</option>
+					<option disabled hidden>Voidcaller</option>
 					<option>Vrol's Command</option>
 					<option value="Perfected Vrol's Command">Vrol's Command (Perfect)</option>
 					<option>War Machine</option>
@@ -1125,7 +1125,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<option>Winterborn</option>
 					<option>Wisdom of Vanus</option>
 					<option>Wise Mage</option>
-					<option class="esotbSet28pts" disabled hidden>Witch-Knight's Defiance</option>
+					<option disabled hidden>Witch-Knight's Defiance</option>
 					<option>Witchman Armor</option>
 					<option>Wizard's Riposte</option>
 					<option>Wrath of the Imperium</option>
@@ -1623,6 +1623,28 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>6 November 2020</b>
+			<ul>
+				<li>Updated Yandir's Might max stacks to 10.</li>
+				<li>Added a toggle for the Nightblade's Hemorrhage passive.</li>
+				<li>Updated the Powerful Assault and Transmutation buff values.</li>
+				<li>Fixed the Grim Focus skill toggle.</li>
+				<li>The Thews of the Harbinger set tooltip now correctly updates the damage done.</li>
+			</ul>
+			<p>
+			<b>4 November 2020</b>
+			<ul>
+				<li>Fixed Radiating Regeneration from having double healing modifiers.</li>
+			</ul>
+			<p>
+			<b>3 November 2020</b>
+			<ul>
+				<li>Updated skill and CP data for update 28.</li>
+				<li>Updated item data for update 28.</li>
+				<li>Updated all Light/Heavy attack computed stats (still needs to be confirmed with Live release data).</li>
+				<li>Update all buff data changed in update 28.</li>
+			</ul>
+			<p>
 			<b>29 September 2020</b>
 			<ul>
 				<li>Change Siroria max stacks to 10.</li>

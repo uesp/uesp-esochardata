@@ -263,7 +263,7 @@ window.g_EsoBuildBuffData =
 			skillEnabled : false,
 			buffEnabled: false,
 			buffIds: [ "Warhorn", "Major Force", "Hircine's Veneer", "Worm's Raiment", "Minor Toughness", "Minor Berserk", "Minor Brutality", "Minor Sorcery", "Minor Savagery", "Major Courage", "Minor Prophecy",
-			           "Crusher Enchantment (Target)", "Engulfing Flames (Target)", "Major Breach (Target)", "Minor Breach (Target)", "Major Fracture (Target)", "Minor Fracture (Target)", "Minor Vulnerability (Target)", "Alkosh (Target)"],
+			           "Crusher Enchantment (Target)", "Engulfing Flames (Target)", "Major Breach (Target)", "Minor Breach (Target)", "Minor Vulnerability (Target)", "Alkosh (Target)"],
 			icon : "/esoui/art/icons/crafting_poison_001_blue_005.png",			
 		},		
 		"Ravage Magicka" : 
@@ -304,17 +304,26 @@ window.g_EsoBuildBuffData =
 			statId : "MovementSpeed",
 			icon : "/esoui/art/icons/ability_debuff_minor_cowardice.png",
 		},
+		"Major Cowardice" : 
+		{
+			group: "Poison",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : -430,
+			category: "Target",
+			statIds : [ "WeaponDamage", "SpellDamage"],
+			icon : "/esoui/art/icons/ability_debuff_major_cowardice.png",
+		},
 		"Minor Cowardice" : 
 		{
 			group: "Poison",
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.60,
-			display: "%",
-			category: "Buff",
-			statId : "UltimateCost",
-			combineAs: "*%",
+			value : -215,
+			category: "Target",
+			statIds : [ "WeaponDamage", "SpellDamage"],
 			icon : "/esoui/art/icons/ability_debuff_minor_cowardice.png",
 		},
 		"Minor Uncertainty" : 
@@ -392,7 +401,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 1304,
+			value : 1400,
 			category: "Set",
 			statId : "CritResist",
 			icon : "/esoui/art/icons/ability_healer_015.png",
@@ -438,12 +447,24 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : -0.15,
+			value : -0.10,
 			display: "%",
 			combineAs: "*%",
 			statId : "DungeonDamageTaken",
 			category: "Buff",
 			icon : "/esoui/art/icons/procs_004.png",
+		},
+		"Major Slayer" : 
+		{
+			group: "Major",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 0.10,
+			display: "%",
+			statId : "DamageDone",
+			category: "Buff",
+			icon : "/esoui/art/icons/procs_006.png",
 		},
 		"Minor Slayer" : 
 		{
@@ -457,25 +478,13 @@ window.g_EsoBuildBuffData =
 			category: "Buff",
 			icon : "/esoui/art/icons/ability_warrior_025.png",
 		},
-		"Major Slayer" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 0.15,
-			display: "%",
-			statId : "DamageDone",
-			category: "Buff",
-			icon : "/esoui/art/icons/procs_006.png",
-		},
 		"Major Force" : 
 		{
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.15,
+			value : 0.20,
 			display: "%",
 			statId : "CritDamage",
 			category: "Buff",
@@ -498,21 +507,21 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.25,
+			value : 0.16,
 			display: "%",
 			statId : "HealingDone",
 			icon : "/esoui/art/icons/ability_templar_cleansing_ritual.png",
 		},
-		"Minor Mending" : 
+		"Major Vitality" : 
 		{
-			group: "Minor",
+			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.08,
-			display: "%",
-			statId : "HealingDone",
-			icon : "/esoui/art/icons/ability_templar_extended_ritual.png",
+			value : 0.16,
+			display : "%",
+			statId : "HealingReceived",
+			icon : "/esoui/art/icons/ability_healer_018.png",
 		},
 		"Major Sorcery" : 
 		{
@@ -564,7 +573,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 5280,
+			value : 5948,
 			category : "Skill",
 			statIds : [ "PhysicalResist", "SpellResist" ],
 			icon : "/esoui/art/icons/ability_warrior_021.png",
@@ -575,7 +584,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 2640,
+			value : 2974,
 			category : "Skill",
 			statIds : [ "PhysicalResist", "SpellResist" ],
 			icon : "/esoui/art/icons/ability_warrior_021.png",
@@ -586,7 +595,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 1320,
+			value : 2974,
 			category : "Skill",
 			statIds : [ "PhysicalResist", "SpellResist" ],
 			icon : "/esoui/art/icons/ability_warrior_033.png",
@@ -655,10 +664,11 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 2191,
+			value : 2629,
 			statId : "WeaponCrit",
 			icon : "/esoui/art/icons/ability_warrior_022.png",
 		},
+
 		"Minor Savagery" : 
 		{
 			group: "Minor",
@@ -675,7 +685,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 2191,
+			value : 2629,
 			statId : "SpellCrit",
 			icon : "/esoui/art/icons/ability_mage_017.png",
 		},
@@ -695,7 +705,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.20,
+			value : 0.40,
 			display : "%",
 			statId : "HealthRegen",
 			icon : "/esoui/art/icons/ability_healer_003.png",
@@ -706,7 +716,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.10,
+			value : 0.20,
 			display : "%",
 			statId : "HealthRegen",
 			icon : "/esoui/art/icons/ability_healer_002.png",
@@ -717,7 +727,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.20,
+			value : 0.40,
 			display : "%",
 			statId : "MagickaRegen",
 			icon : "/esoui/art/icons/ability_mage_045.png",
@@ -728,7 +738,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.10,
+			value : 0.20,
 			display : "%",
 			statId : "MagickaRegen",
 			icon : "/esoui/art/icons/ability_mage_044.png",
@@ -739,7 +749,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,			
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.20,
+			value : 0.40,
 			display : "%",
 			statId : "StaminaRegen",
 			icon : "/esoui/art/icons/ability_warrior_028.png",
@@ -750,7 +760,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.10,
+			value : 0.20,
 			display : "%",
 			statId : "StaminaRegen",
 			icon : "/esoui/art/icons/ability_warrior_031.png",
@@ -772,7 +782,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.10,
+			value : 0.15,
 			display : "%",
 			statIds : ["MovementSpeed"],
 			icon : "/esoui/art/icons/ability_rogue_045.png",
@@ -808,7 +818,7 @@ window.g_EsoBuildBuffData =
 			values : [0.40, 0.40],
 			display : "%",
 			statIds : ["Empower", "OverloadDamage"],
-			statDescs : ["Increases the damage of your next Light Attack by ", "Increases the damage of your next Overload attack by ", ],
+			statDescs : ["Increases the damage of your Light/Medium/Heavy Attacks by ", "Increases the damage of your Overload attacks by ", ],
 			icon : "/esoui/art/icons/ability_warrior_012.png",
 		},
 		"Major Courage" :			// TODO: Check how its added to other SD/WD stats
@@ -817,7 +827,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 258,
+			value : 430,
 			category: "Set",
 			statIds : [ "WeaponDamage", "SpellDamage" ],
 			statDesc : "Increases your Weapon and Spell Damage by ",
@@ -829,7 +839,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 129,
+			value : 215,
 			category: "Set",
 			statIds : [ "WeaponDamage", "SpellDamage" ],
 			statDesc : "Increases your Weapon and Spell Damage by ",
@@ -841,7 +851,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : -0.25,
+			value : -0.20,
 			display : "%",
 			category: "Skill",
 			statId : "AOEDamageTaken",
@@ -866,7 +876,7 @@ window.g_EsoBuildBuffData =
 			skillEnabled : false,
 			buffEnabled: false,
 			display: "%",
-			values : [ 0.25 ],
+			values : [ 0.10 ],
 			statIds : [ "DamageDone" ],
 			icon : "/esoui/art/icons/ability_rogue_011.png",
 		},
@@ -876,7 +886,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.08,
+			value : 0.05,
 			display: "%",
 			statId : "DamageDone",
 			icon : "/esoui/art/icons/ability_warrior_025.png",
@@ -887,11 +897,23 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : -0.30,
+			value : -0.10,
 			display: "%",
 			combineAs: "*%",
 			statId : "DamageTaken",
 			icon : "/esoui/art/icons/ability_templar_sun_shield.png",
+		},
+ 		"Minor Protection" : 
+		{
+			group: "Minor",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : -0.05,
+			display: "%",
+			statId : "DamageTaken",
+			combineAs: "*%",
+			icon : "/esoui/art/icons/ability_templar_radiant_ward.png",
 		},
  		"Minor Lifesteal" : 
 		{
@@ -903,17 +925,29 @@ window.g_EsoBuildBuffData =
 			statId : "OtherEffects",
 			icon : "/esoui/art/icons/ability_buff_minor_lifesteal.png",
 		},  
-		"Minor Protection" : 
+		"Major Brittle" : 
+		{
+			group: "Major",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 0.20,
+			display: "%",
+			category: "Buff",
+			statIds : [ "CritDamageTaken" ],
+			icon : "/esoui/art/icons/ability_debuff_major_brittle.png",
+		},
+		"Minor Brittle" : 
 		{
 			group: "Minor",
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : -0.08,
+			value : 0.10,
 			display: "%",
-			statId : "DamageTaken",
-			combineAs: "*%",
-			icon : "/esoui/art/icons/ability_templar_radiant_ward.png",
+			category: "Buff",
+			statIds : [ "CritDamageTaken" ],
+			icon : "/esoui/art/icons/ability_debuff_minor_brittle.png",
 		},
 		"Major Defile" : 
 		{
@@ -921,7 +955,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : -0.30,
+			value : -0.16,
 			display: "%",
 			categories : [  "Buff", "Skill2" ],
 			statIds : [ "HealingTaken", "HealthRegen" ],
@@ -933,7 +967,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : -0.15,
+			value : -0.08,
 			display: "%",
 			categories : [ "Buff", "Skill2" ],
 			statIds : [ "HealingTaken", "HealthRegen" ],
@@ -960,40 +994,16 @@ window.g_EsoBuildBuffData =
 			statId : "OtherEffects",
 			icon : "/esoui/art/icons/ability_templar_honor_the_dead.png",
 		},  
-		"Major Fracture" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -5280,
-			category: "Skill",
-			statId : "PhysicalResist",
-			icon : "/esoui/art/icons/ability_1handed_002_a.png",
-		},
-		"Minor Fracture" : 
-		{
-			group: "Minor",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -1320,
-			category: "Skill",
-			statId : "PhysicalResist",
-			icon : "/esoui/art/icons/ability_1handed_002.png",
-			// icon : "/esoui/art/icons/ability_warrior_016.png",
-		},
 		"Major Breach" : 
 		{
 			group: "Major",
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : -5280,
+			value : -5948,
 			category: "Skill",
-			statId : "SpellResist",
+			statIds : [ "SpellResist", "PhysicalResist"],
 			icon : "/esoui/art/icons/ability_mage_039.png",
-			// icon : "/esoui/art/icons/ability_1handed_002_b.png",
 		},
 		"Minor Breach" : 
 		{
@@ -1001,9 +1011,9 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : -1320,
+			value : -2974,
 			category: "Skill",
-			statId : "SpellResist",
+			statIds : [ "SpellResist", "PhysicalResist"],
 			icon : "/esoui/art/icons/ability_mage_053.png",
 		},
 		"Major Maim" : 
@@ -1012,7 +1022,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : -0.30,
+			value : -0.10,
 			display: "%",
 			statId : "DamageDone",
 			icon : "/esoui/art/icons/ability_fightersguild_004_a.png",
@@ -1023,7 +1033,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : -0.15,
+			value : -0.05,
 			display: "%",
 			statId : "DamageDone",
 			icon : "/esoui/art/icons/ability_fightersguild_004.png",
@@ -1034,7 +1044,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.30,
+			value : 0.10,
 			display: "%",
 			statId : "Vulnerability",
 			category: "Buff",
@@ -1047,25 +1057,13 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.08,
+			value : 0.05,
 			display: "%",
 			statId : "Vulnerability",
 			category: "Buff",
 			combineAs: "*%",
 			icon : "/esoui/art/icons/ability_debuff_minor_vulnerability.png",
 		},
-		/* Move to CP toggle 
-		"Exploiter Off-Balance" : 
-		{
-			group: "Target",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 0.10,
-			display: "%",
-			statId : "DamageDone",
-			icon : "/esoui/art/icons/ability_debuff_offbalance.png",
-		}, */
 		"Weapon Damage Enchantment" :
 		{
 			group: "Other",
@@ -1346,20 +1344,44 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 164,
+			value : 307,
 			category: "Item",
 			statIds : ["SpellDamage", "WeaponDamage"],
 			icon : "/esoui/art/icons/ability_healer_019.png",
 		},
 		
 			/* Target Buffs */
+		"Major Brittle (Target)" : 
+		{
+			group: "Target",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 0.20,
+			display: "%",
+			category: "Target",
+			statIds : [ "CritDamageTaken" ],
+			icon : "/esoui/art/icons/ability_debuff_major_brittle.png",
+		},
+		"Minor Brittle (Target)" : 
+		{
+			group: "Target",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 0.10,
+			display: "%",
+			category: "Target",
+			statIds : [ "CritDamageTaken" ],
+			icon : "/esoui/art/icons/ability_debuff_minor_brittle.png",
+		},
 		"Major Defile (Target)" : 
 		{
 			group: "Target",
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : -0.30,
+			value : -0.16,
 			display: "%",
 			categories : [ "Target", "Target" ],
 			statIds : [ "HealingTaken", "HealthRegen" ],
@@ -1371,7 +1393,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : -0.15,
+			value : -0.08,
 			display: "%",
 			categories : [ "Target", "Target" ],
 			statIds : [ "HealingTaken", "HealthRegen" ],
@@ -1383,11 +1405,24 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : -0.30,
+			value : -0.10,
 			display: "%",
 			category: "Target",
 			statId : "DamageDone",
 			icon : "/esoui/art/icons/ability_fightersguild_004_a.png",
+		},
+		"Minor Maim (Target)" : 
+		{
+			group: "Target",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			category: "Target",
+			value : -0.05,
+			display: "%",
+			statId : "AttackBonus",
+			statDesc : "Reduces the target's damage done by ",
+			icon : "/esoui/art/icons/ability_fightersguild_004.png",
 		},
 		"Alkosh (Target)" : 
 		{
@@ -1540,56 +1575,16 @@ window.g_EsoBuildBuffData =
 			display: "%",
 			icon : "/esoui/art/icons/ability_mage_036.png",
 		},
-		
-		/*
-		 * Changed in update 18 to be Major Fracture "Night Mothers Gaze
-		 * (Target)" : { //When you deal Critical Damage, you reduce the enemy's
-		 * Physical Resistance by 30-2580 for 6 seconds. enabled: false,
-		 * skillEnabled : false, //visible : false, //toggleVisible : true,
-		 * values : [ -2580 ], category: "Target", statIds : [ "PhysicalDebuff" ],
-		 * statDesc : "Reduces the target's Physical Resistance by ", icon :
-		 * "/esoui/art/icons/ability_mage_065.png", }, "Sunderflame (Target)" : {
-		 * //reduce the enemy's Physical Resistance by 40-3440 for 8 seconds.
-		 * enabled: false, skillEnabled : false, //visible : false,
-		 * //toggleVisible : true, values : [ -3440 ], category: "Target",
-		 * statIds : [ "PhysicalDebuff" ], statDesc : "Reduces the target's
-		 * Physical Resistance by ", icon :
-		 * "/esoui/art/icons/ability_mage_065.png", },
-		 */
-		"Major Fracture (Target)" : 
-		{
-			group: "Target",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -5280,
-			category: "Target",
-			statId : "PhysicalDebuff",
-			statDesc : "Reduces the target's Physical Resistance by ",
-			icon : "/esoui/art/icons/ability_1handed_002_a.png",
-		},
-		"Minor Fracture (Target)" : 
-		{
-			group: "Target",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -1320,
-			category: "Target",
-			statId : "PhysicalDebuff",
-			statDesc : "Reduces the target's Physical Resistance by ",
-			icon : "/esoui/art/icons/ability_1handed_002.png",
-		},
 		"Major Breach (Target)" : 
 		{
 			group: "Target",
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : -5280,
+			value : -5948,
 			category: "Target",
-			statId : "SpellDebuff",
-			statDesc : "Reduces the target's Spell Resistance by ",
+			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
+			statDescs : [ "Reduces the target's Physical Resistance by ", "Reduces the target's Spell Resistance by " ],
 			icon : "/esoui/art/icons/ability_mage_039.png",
 		},
 		"Minor Breach (Target)" : 
@@ -1598,24 +1593,11 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : -1320,
+			value : -2974,
 			category: "Target",
-			statId : "SpellDebuff",
-			statDesc : "Reduces the target's Spell Resistance by ",
+			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
+			statDescs : [ "Reduces the target's Physical Resistance by ", "Reduces the target's Spell Resistance by " ],
 			icon : "/esoui/art/icons/ability_mage_053.png",
-		},
-		"Minor Maim (Target)" : 
-		{
-			group: "Target",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			category: "Target",
-			value : -0.15,
-			display: "%",
-			statId : "AttackBonus",
-			statDesc : "Reduces the target's damage done by ",
-			icon : "/esoui/art/icons/ability_fightersguild_004.png",
 		},
 		"Major Vulnerability (Target)" : 
 		{
@@ -1624,7 +1606,7 @@ window.g_EsoBuildBuffData =
 			skillEnabled : false,
 			buffEnabled: false,
 			category: "Target",
-			value : 0.30,
+			value : 0.10,
 			display: "%",
 			statId : "DamageTaken",
 			combineAs: "*%",
@@ -1637,7 +1619,7 @@ window.g_EsoBuildBuffData =
 			skillEnabled : false,
 			buffEnabled: false,
 			category: "Target",
-			value : 0.08,
+			value : 0.05,
 			display: "%",
 			statId : "DamageTaken",
 			combineAs: "*%",
@@ -1842,534 +1824,8 @@ window.g_EsoBuildBuffData =
 };
 
 
-window.g_EsoBuildBuffData_28PTS =
+window.g_EsoBuildBuffData_PTS =
 {
-		"Minor Expedition" : 
-		{
-			group: "Minor",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 0.15,
-			display : "%",
-			statIds : ["MovementSpeed"],
-			icon : "/esoui/art/icons/ability_rogue_045.png",
-		},
-		"Major Savagery" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 2629,
-			statId : "WeaponCrit",
-			icon : "/esoui/art/icons/ability_warrior_022.png",
-		},
-		"Major Prophecy" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 2629,
-			statId : "SpellCrit",
-			icon : "/esoui/art/icons/ability_mage_017.png",
-		},
-		"Major Breach" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -5948,
-			category: "Skill",
-			statIds : [ "SpellResist", "PhysicalResist"],
-			icon : "/esoui/art/icons/ability_mage_039.png",
-		},
-		"Minor Breach" : 
-		{
-			group: "Minor",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -2974,
-			category: "Skill",
-			statIds : [ "SpellResist", "PhysicalResist"],
-			icon : "/esoui/art/icons/ability_mage_053.png",
-		},
-		"Major Fracture" : null,
-		"Minor Fracture" : null,
-		"Major Fracture (Target)" : null,
-		"Minor Fracture (Target)" : null,
-		"Major Breach (Target)" : 
-		{
-			group: "Target",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -5948,
-			category: "Target",
-			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
-			statDescs : [ "Reduces the target's Physical Resistance by ", "Reduces the target's Spell Resistance by " ],
-			icon : "/esoui/art/icons/ability_mage_039.png",
-		},
-		"Minor Breach (Target)" : 
-		{
-			group: "Target",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -2974,
-			category: "Target",
-			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
-			statDescs : [ "Reduces the target's Physical Resistance by ", "Reduces the target's Spell Resistance by " ],
-			icon : "/esoui/art/icons/ability_mage_053.png",
-		},
-		"Major Resolve" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 5948,
-			category : "Skill",
-			statIds : [ "PhysicalResist", "SpellResist" ],
-			icon : "/esoui/art/icons/ability_warrior_021.png",
-		},
-		"Major Resolve (Bonus)" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 2974,
-			category : "Skill",
-			statIds : [ "PhysicalResist", "SpellResist" ],
-			icon : "/esoui/art/icons/ability_warrior_021.png",
-		},
-		"Minor Resolve" : 
-		{
-			group: "Minor",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 2974,
-			category : "Skill",
-			statIds : [ "PhysicalResist", "SpellResist" ],
-			icon : "/esoui/art/icons/ability_warrior_033.png",
-		},
-		"Major Fortitude" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 0.40,
-			display : "%",
-			statId : "HealthRegen",
-			icon : "/esoui/art/icons/ability_healer_003.png",
-		},
-		"Minor Fortitude" : 
-		{
-			group: "Minor",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 0.20,
-			display : "%",
-			statId : "HealthRegen",
-			icon : "/esoui/art/icons/ability_healer_002.png",
-		},
-		"Major Intellect" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 0.40,
-			display : "%",
-			statId : "MagickaRegen",
-			icon : "/esoui/art/icons/ability_mage_045.png",
-		},
-		"Minor Intellect" : 
-		{
-			group: "Minor",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 0.20,
-			display : "%",
-			statId : "MagickaRegen",
-			icon : "/esoui/art/icons/ability_mage_044.png",
-		},
-		"Major Endurance" : 
-		{
-			group: "Major",
-			enabled: false,			
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 0.40,
-			display : "%",
-			statId : "StaminaRegen",
-			icon : "/esoui/art/icons/ability_warrior_028.png",
-		},
-		"Minor Endurance" : 
-		{
-			group: "Minor",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 0.20,
-			display : "%",
-			statId : "StaminaRegen",
-			icon : "/esoui/art/icons/ability_warrior_031.png",
-		},
-		"Major Defile" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -0.16,
-			display: "%",
-			categories : [  "Buff", "Skill2" ],
-			statIds : [ "HealingTaken", "HealthRegen" ],
-			icon : "/esoui/art/icons/ability_nightblade_001_a.png",
-		},
-		"Minor Defile" : 
-		{
-			group: "Minor",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -0.08,
-			display: "%",
-			categories : [ "Buff", "Skill2" ],
-			statIds : [ "HealingTaken", "HealthRegen" ],
-			icon : "/esoui/art/icons/ability_nightblade_001_b.png",
-		},
-		"Major Mending" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 0.16,
-			display: "%",
-			statId : "HealingDone",
-			icon : "/esoui/art/icons/ability_templar_cleansing_ritual.png",
-		},
-		"Major Vitality" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 0.16,
-			display : "%",
-			statId : "HealingReceived",
-			icon : "/esoui/art/icons/ability_healer_018.png",
-		},
-		"Empower" :
-		{
-			group: "Other",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			values : [0.40, 0.40],
-			display : "%",
-			statIds : ["Empower", "OverloadDamage"],
-			statDescs : ["Increases the damage of your Light/Medium/Heavy Attacks by ", "Increases the damage of your Overload attacks by ", ],
-			icon : "/esoui/art/icons/ability_warrior_012.png",
-		},
-		"Major Evasion" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -0.20,
-			display : "%",
-			category: "Skill",
-			statId : "AOEDamageTaken",
-			icon : "/esoui/art/icons/ability_rogue_037.png",
-		},
-		"Major Berserk" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			display: "%",
-			values : [ 0.10 ],
-			statIds : [ "DamageDone" ],
-			icon : "/esoui/art/icons/ability_rogue_011.png",
-		},
-		"Minor Berserk" : 
-		{
-			group: "Minor",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 0.05,
-			display: "%",
-			statId : "DamageDone",
-			icon : "/esoui/art/icons/ability_warrior_025.png",
-		},
-		"Major Protection" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -0.10,
-			display: "%",
-			combineAs: "*%",
-			statId : "DamageTaken",
-			icon : "/esoui/art/icons/ability_templar_sun_shield.png",
-		},
- 		"Minor Protection" : 
-		{
-			group: "Minor",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -0.05,
-			display: "%",
-			statId : "DamageTaken",
-			combineAs: "*%",
-			icon : "/esoui/art/icons/ability_templar_radiant_ward.png",
-		},
-		"Major Maim" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -0.10,
-			display: "%",
-			statId : "DamageDone",
-			icon : "/esoui/art/icons/ability_fightersguild_004_a.png",
-		},
-		"Minor Maim" : 
-		{
-			group: "Minor",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -0.05,
-			display: "%",
-			statId : "DamageDone",
-			icon : "/esoui/art/icons/ability_fightersguild_004.png",
-		},
-		"Major Defile (Target)" : 
-		{
-			group: "Target",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -0.16,
-			display: "%",
-			categories : [ "Target", "Target" ],
-			statIds : [ "HealingTaken", "HealthRegen" ],
-			icon : "/esoui/art/icons/ability_nightblade_001_a.png",
-		},
-		"Minor Defile (Target)" : 
-		{
-			group: "Target",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -0.08,
-			display: "%",
-			categories : [ "Target", "Target" ],
-			statIds : [ "HealingTaken", "HealthRegen" ],
-			icon : "/esoui/art/icons/ability_nightblade_001_b.png",
-		},
-		"Major Maim (Target)" : 
-		{
-			group: "Target",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -0.10,
-			display: "%",
-			category: "Target",
-			statId : "DamageDone",
-			icon : "/esoui/art/icons/ability_fightersguild_004_a.png",
-		},
-		"Minor Maim (Target)" : 
-		{
-			group: "Target",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			category: "Target",
-			value : -0.05,
-			display: "%",
-			statId : "AttackBonus",
-			statDesc : "Reduces the target's damage done by ",
-			icon : "/esoui/art/icons/ability_fightersguild_004.png",
-		},
-		"Major Vulnerability (Target)" : 
-		{
-			group: "Target",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			category: "Target",
-			value : 0.10,
-			display: "%",
-			statId : "DamageTaken",
-			combineAs: "*%",
-			icon : "/esoui/art/icons/ability_debuff_major_vulnerability.png",
-		},
-		"Minor Vulnerability (Target)" : 
-		{
-			group: "Target",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			category: "Target",
-			value : 0.05,
-			display: "%",
-			statId : "DamageTaken",
-			combineAs: "*%",
-			icon : "/esoui/art/icons/ability_debuff_minor_vulnerability.png",
-		},
-		"Major Vulnerability" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 0.10,
-			display: "%",
-			statId : "Vulnerability",
-			category: "Buff",
-			combineAs: "*%",
-			icon : "/esoui/art/icons/ability_debuff_major_vulnerability.png",
-		},
-		"Minor Vulnerability" : 
-		{
-			group: "Minor",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 0.05,
-			display: "%",
-			statId : "Vulnerability",
-			category: "Buff",
-			combineAs: "*%",
-			icon : "/esoui/art/icons/ability_debuff_minor_vulnerability.png",
-		},
-		"Major Aegis" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -0.10,
-			display: "%",
-			combineAs: "*%",
-			statId : "DungeonDamageTaken",
-			category: "Buff",
-			icon : "/esoui/art/icons/procs_004.png",
-		},
-		"Major Slayer" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 0.10,
-			display: "%",
-			statId : "DamageDone",
-			category: "Buff",
-			icon : "/esoui/art/icons/procs_006.png",
-		},
-		"Major Courage" :			// TODO: Check how its added to other SD/WD stats
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 430,
-			category: "Set",
-			statIds : [ "WeaponDamage", "SpellDamage" ],
-			statDesc : "Increases your Weapon and Spell Damage by ",
-			icon : "/esoui/art/icons/ability_mage_045.png",
-		},
-		"Minor Courage" :			// TODO: Check how its added to other SD/WD stats
-		{
-			group: "Minor",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 215,
-			category: "Set",
-			statIds : [ "WeaponDamage", "SpellDamage" ],
-			statDesc : "Increases your Weapon and Spell Damage by ",
-			icon : "/esoui/art/icons/ability_mage_045.png",
-		},
-		"Major Force" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 0.20,
-			display: "%",
-			statId : "CritDamage",
-			category: "Buff",
-			icon : "/esoui/art/icons/ability_ava_003_a.png",
-		},
-		"Major Cowardice" : 
-		{
-			group: "Poison",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -430,
-			category: "Target",
-			statIds : [ "WeaponDamage", "SpellDamage"],
-			icon : "/esoui/art/icons/ability_debuff_major_cowardice.png",
-		},
-		"Minor Cowardice" : 
-		{
-			group: "Poison",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -215,
-			category: "Target",
-			statIds : [ "WeaponDamage", "SpellDamage"],
-			icon : "/esoui/art/icons/ability_debuff_minor_cowardice.png",
-		},
-		"Major Brittle" : 
-		{
-			group: "Target",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 0.20,
-			display: "%",
-			category: "Target",
-			statIds : [ "CritDamageTaken" ],
-			icon : "/esoui/art/icons/ability_debuff_major_brittle.png",
-		},
-		"Minor Brittle" : 
-		{
-			group: "Target",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 0.10,
-			display: "%",
-			category: "Target",
-			statIds : [ "CritDamageTaken" ],
-			icon : "/esoui/art/icons/ability_debuff_minor_brittle.png",
-		},
 };
 
 
@@ -3085,14 +2541,24 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 	{
 		id: "Grim Focus",
 		baseSkillId: 62096,
-		statId: "DamageTaken",
+		statId: "CritHealing",
 		toggle: true,
 		enabled: false,
 		enableOffBar: true,
 		maxTimes: 5,
-		factorValue: -1,
 		display: "%",
-		match: /Focus your senses for [0-9]+ seconds, reducing your damage taken by ([0-9]+)% with every Light or Heavy Attack/i
+		match: /Focus your senses for [0-9]+ seconds, increasing your Critical Damage and Healing by ([0-9]+)% with every Light or Heavy Attack/i,
+	},
+	{
+		id: "Grim Focus",
+		baseSkillId: 62096,
+		statId: "CritDamage",
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		maxTimes: 5,
+		display: "%",
+		match: /Focus your senses for [0-9]+ seconds, increasing your Critical Damage and Healing by ([0-9]+)% with every Light or Heavy Attack/i,
 	},
 	{
 		id: "Bone Goliath Transformation",
@@ -6189,6 +5655,16 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	
 	
 		/* Begin Toggled Passives */
+	
+	{
+		id: "Hemorrhage",
+		buffId: "Minor Savagery",
+		baseSkillId: 36641,
+		toggle: true,
+		enabled: false,
+		rawInputMatch: /(Dealing Critical Damage grants you and your group Minor Savagery, increasing your Weapon Critical rating by [0-9]+ for [0-9]+ seconds\.)/i,
+		match: /Dealing Critical Damage grants you and your group Minor Savagery, increasing your Weapon Critical rating by/i,
+	},
 	{
 		id: "Master Assassin",
 		statId: "WeaponDamage",
@@ -9221,7 +8697,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		disableSetIds: [ "Yandir's Might (Giant's Might)" ],
 		statId: "StaminaRegen",
-		maxTimes: 5,
+		maxTimes: 10,
 		rawInputMatch: /(Dealing Critical Damage grants you a stack of Giant's Endurance, up to one each second\. Each stack of Giant's Endurance adds [0-9]+ Stamina Recovery, and stacks up to [0-9]+ times\.)/i,
 		match: /Each stack of Giant's Endurance adds ([0-9]+) Stamina Recovery/i,
 	},
@@ -9233,7 +8709,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		disableSetIds: [ "Yandir's Might (Giant's Might)" ],
 		statId: "WeaponDamage",
-		maxTimes: 5,
+		maxTimes: 10,
 		rawInputMatch: /(Dealing Critical Damage grants you a stack of Giant's Endurance, up to one every half second\. Each stack of Giant's Endurance adds [0-9]+ Weapon Damage, and stacks up to [0-9]+ times.\.)/i,
 		match: /Each stack of Giant's Endurance adds ([0-9]+) Weapon Damage/i,
 	},
@@ -9245,7 +8721,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		disableSetIds: [ "Yandir's Might (Giant's Endurance)" ],
 		statId: "WeaponDamage",
-		maxTimes: 5,
+		maxTimes: 10,
 		rawInputMatch: /(Dealing damage with a Fully Charged Heavy Attack removes Giant's Endurance and grants Giant's Might for [0-9]+ seconds, increasing your Weapon Damage by [0-9]+ per stack removed\.)/i,
 		match: /increasing your Weapon Damage by ([0-9]+) per stack removed/i,
 	},
@@ -9257,7 +8733,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		disableSetIds: [ "Perfected Yandir's Might (Giant's Might)" ],
 		statId: "StaminaRegen",
-		maxTimes: 5,
+		maxTimes: 10,
 		rawInputMatch: /(Dealing Critical Damage grants you a stack of Giant's Endurance, up to one a second\. Each stack of Giant's Endurance adds [0-9]+ Stamina Recovery, and stacks up to [0-9]+ times\.)/i,
 		match: /Each stack of Giant's Endurance adds ([0-9]+) Stamina Recovery/i,
 	},
@@ -9269,7 +8745,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		disableSetIds: [ "Perfected Yandir's Might (Giant's Might)" ],
 		statId: "WeaponDamage",
-		maxTimes: 5,
+		maxTimes: 10,
 		rawInputMatch: /(Dealing Critical Damage grants you a stack of Giant's Endurance, up to one every half second\. Each stack of Giant's Endurance adds [0-9]+ Weapon Damage, and stacks up to [0-9]+ times.\.)/i,
 		match: /Each stack of Giant's Endurance adds ([0-9]+) Weapon Damage/i,
 	},
@@ -9281,7 +8757,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		disableSetIds: [ "Perfected Yandir's Might (Giant's Endurance)" ],
 		statId: "WeaponDamage",
-		maxTimes: 5,
+		maxTimes: 10,
 		rawInputMatch: /(Dealing damage with a Fully Charged Heavy Attack removes Giant's Endurance and grants Giant's Might for [0-9]+ seconds, increasing your Weapon Damage by [0-9]+ per stack removed\.)/i,
 		match: /increasing your Weapon Damage by ([0-9]+) per stack removed/i,
 	},
@@ -22284,15 +21760,15 @@ window.CheckEsoSetTestResults = function()
 }
 
 
-window.UpdateEso28pts = function() 
+window.UpdateEsoPts = function() 
 {
 	if (!$("#esotbUsePtsRules").prop("checked")) return;
 	
-	$(".esotbSet28pts").removeAttr("disabled").removeAttr("hidden");
+	$(".esotbSetPts").removeAttr("disabled").removeAttr("hidden");
 	
-	for (var buffId in g_EsoBuildBuffData_28PTS) 
+	for (var buffId in g_EsoBuildBuffData_PTS) 
 	{
-		var buffData = g_EsoBuildBuffData_28PTS[buffId];
+		var buffData = g_EsoBuildBuffData_PTS[buffId];
 		
 		if (buffData == null) {
 			delete g_EsoBuildBuffData[buffId];
@@ -22379,7 +21855,7 @@ window.esotbOnDocReady = function ()
 {
 	clearInterval(g_EsoCharDataTimeUpdateId);
 	
-	UpdateEso28pts();
+	UpdateEsoPts();
 	
 	GetEsoSkillInputValues = GetEsoTestBuildSkillInputValues;
 	

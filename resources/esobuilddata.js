@@ -3132,7 +3132,8 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 	});
 	
 		// Thews of the Harbinger
-	newDesc = newDesc.replace(/(\(5 items\) When you block a direct damage attack, you deal damage to your attacker equal to )([0-9]+)(% of your current Health. Current value: )([0-9]+)/i, function(match, prefix, percent, middle, damage) {
+	//(5 items) When you block an attack, you deal damage to your attacker equal to <div style="color:#ffffff;display:inline;">7</div>% of your Max Health.<br><br>Current value: 612 Physical damage"
+	newDesc = newDesc.replace(/(\(5 items\) When you block an attack, you deal damage to your attacker equal to (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|)% of your Max Health.*Current value: )([0-9]+)/i, function(match, prefix, percent, middle, damage) {
 		damage = Math.floor(+g_EsoBuildLastInputValues.Health * percent / 100);
 		itemData.rawOutput["Tooltip: Set Damage"] = "" + g_EsoBuildLastInputValues.Health + " * " + percent + "% = " + damage;
 		return prefix + percent + middle + damage;
