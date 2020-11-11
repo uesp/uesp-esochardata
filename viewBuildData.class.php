@@ -3521,7 +3521,7 @@ class EsoBuildDataViewer
 		if ($action == null)
 		{
 			$icon = '';
-			$iconUrl = '';
+			$iconUrl = 'https://esoicons.uesp.net/blank.png';
 			$desc = '';
 			$name = '';
 			$abilityId = '';
@@ -3529,7 +3529,12 @@ class EsoBuildDataViewer
 		else
 		{
 			$icon = $action['icon'];
-			$iconUrl = $this->convertIconToImageUrl($icon);
+			
+			if ($icon == "")
+				$iconUrl = 'https://esoicons.uesp.net/blank.png';
+			else
+				$iconUrl = $this->convertIconToImageUrl($icon);
+			
 			$desc = $this->convertDescriptionToHtml($action['description']);
 			$name = $this->escape($action['name']);
 			$abilityId = $action['abilityId'];

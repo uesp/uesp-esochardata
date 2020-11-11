@@ -18833,7 +18833,8 @@ window.CreateEsoBuildBuffSaveData = function (saveData, inputValues)
 		
 		data.icon = "/esoui/art/icons/ability_vampire_007.dds";
 		data.description = "";
-		data.name = "Stage " + inputValues.VampireStage + " Vampirism";
+		//data.name = "Stage " + inputValues.VampireStage + " Vampirism";		// Pre Update 27?
+		data.name = "Vampire Stage " + inputValues.VampireStage;
 		saveData.Buffs[data.name] = data;
 	}
 	

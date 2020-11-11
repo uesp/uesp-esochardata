@@ -5319,6 +5319,11 @@ class EsoBuildDataEditor
 			{
 				return (int) $matches[1];
 			}
+			
+			if (preg_match("#Vampire Stage ([0-9]+)#", $buff['name'], $matches))
+			{
+				return (int) $matches[1];
+			}
 		}
 	
 		return 0;

@@ -2502,10 +2502,28 @@ window.UpdateEsoCharDataRidingTime = function(index, element)
 }
 
 
+window.UpdateEsoCharDataRawTime = function(index, element)
+{
+	var nowTime = Math.floor(Date.now() / 1000);
+	var baseTime = $(this).attr("rawtime");
+	
+	if (baseTime == null || baseTime <= 0) return;
+	
+	baseTime = +baseTime;
+	
+	if (baseTime > nowTime)
+		$(this).text(FormatEsoTimeLeft(baseTime - nowTime));
+	else
+		$(this).text("Ready!");
+}
+
+
 window.OnEsoCharDataTimeUpdate = function()
 {
 	$(".ecdHirelingTime").each(UpdateEsoCharDataHirelingTime);
-	$(".ecdRidingTime").each(UpdateEsoCharDataRidingTime);	
+	$(".ecdRidingTime").each(UpdateEsoCharDataRidingTime);
+	
+	$(".ecdUpdateTime").each(UpdateEsoCharDataRawTime);
 }
 
 
@@ -3309,6 +3327,7 @@ window.onEsoBuildDataDocReady = function()
 	UpdateEsoInventoryShownSpace();
 	UpdateFirstQuestDetails();
 	UpdateBuildStatData();
+	
 }
 
 

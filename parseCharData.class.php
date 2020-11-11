@@ -390,8 +390,9 @@ class EsoCharDataParser extends EsoBuildDataParser
 		
 		if ($charData['Vampire'] == 1) $special = "Vampire";
 		if ($charData['Werewolf'] == 1) $special = "Werewolf";
-		
+			
 		if ($this->checkBuffWerewolf($charData)) $special = "Werewolf";
+		if ($this->checkBuffVampire($charData)) $special = "Vampire";
 		
 		$query  = "UPDATE characters SET ";
 		$query .= "name=\"$name\", buildName=\"$buildName\", wikiUserName=\"$wikiUserName\", class=\"$class\", race=\"$race\", buildType=\"$buildType\", level=$level, ";
@@ -589,7 +590,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 			}
 			else if ($key == "UsedSize")
 			{
-				$result &= $this->saveCharacterInventoryExtraRawData(-1, $account, "__UsedSpace", $value);					
+				$result &= $this->saveCharacterInventoryExtraRawData(-1, $account, "__UsedSpace", $value);
 			}
 		}
 	
@@ -673,7 +674,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		$result &= $this->saveCharacterInventoryExtraRawData($charId, $account, "__Telvar", $invTelvar);
 		$result &= $this->saveCharacterInventoryExtraRawData($charId, $account, "__AP",     $invAP);
 		$result &= $this->saveCharacterInventoryExtraRawData($charId, $account, "__WritVoucher", $invVoucher);
-		$result &= $this->saveCharacterInventoryExtraRawData(-2,      $account, "__TransmuteCrystals", $invTransmute);
+		$result &= $this->saveCharacterInventoryExtraRawData($charId, $account, "__TransmuteCrystals", $invTransmute);
 		
 		return $result;
 	}

@@ -1080,15 +1080,16 @@ EOT;
 		{
 			$this->loadAccountStats($this->buildData[0]['accountName']);
 			$this->loadAccountSkills($this->buildData[0]['accountName']);
-			$this->loadAccountBuffs($this->buildData[0]['accountName']);			
+			$this->loadAccountBuffs($this->buildData[0]['accountName']);
 		}
 		
 		uasort($this->buildData, array('EsoCharDataViewer', 'SortBuildsByCharIndexAndName'));
 	
 		$this->outputHtml .= $this->getBreadcrumbTrailHtml() . "<p />\n";
 	
-		$this->outputHtml .= "<table id='ecdBuildTable'>\n";
+		$this->outputHtml .= "<table id='ecdBuildTable' class='sortable jquery-tablesorter'>\n";
 		$this->outputHtml .= "<tr class='ecdBuildTableHeader'>\n";
+		$this->outputHtml .= "<th>#</th>\n";
 		$this->outputHtml .= "<th>Character Name</th>\n";
 		$this->outputHtml .= "<th>Class</th>\n";
 		$this->outputHtml .= "<th>Race</th>\n";
@@ -1626,11 +1627,11 @@ EOT;
 			
 			$output .= "<tr>";
 			$output .= "<td>$charName</td>";
-			$output .= "<td>$blackTimeFmt</td>";
-			$output .= "<td>$clothTimeFmt</td>";
-			$output .= "<td>$enchantTimeFmt</td>";
-			$output .= "<td>$provTimeFmt</td>";
-			$output .= "<td>$woodTimeFmt</td>";
+			$output .= "<td class='ecdUpdateTime' rawtime='$blackTime'>$blackTimeFmt</td>";
+			$output .= "<td class='ecdUpdateTime' rawtime='$clothTime'>$clothTimeFmt</td>";
+			$output .= "<td class='ecdUpdateTime' rawtime='$enchantTime'>$enchantTimeFmt</td>";
+			$output .= "<td class='ecdUpdateTime' rawtime='$provTime'>$provTimeFmt</td>";
+			$output .= "<td class='ecdUpdateTime' rawtime='$woodTime'>$woodTimeFmt</td>";
 			$output .= "</tr>";
 		}
 		
@@ -2223,14 +2224,14 @@ EOT;
 	
 		foreach ($researchTimes as $i => $time)
 		{
-			$trait = $researchTraits[$i];
-			$item  = $researchItems[$i];
+			$trait = $this->escape($researchTraits[$i]);
+			$item  = str_replace("&amp;", "&", $this->escape($researchItems[$i]));
 				
 			if ($time == "" || $trait == "" || $item == "") continue;
 				
 			$finishTime = intval($time) + intval($timeStamp);
 			$timeLeft   = intval($time) + intval($timeStamp) - time();
-			$timeFmt = $this->formatTimeLeft($timeLeft);			
+			$timeFmt = $this->formatTimeLeft($timeLeft);
 							
 			if ($timeLeft <= 0)
 			{
@@ -2239,12 +2240,12 @@ EOT;
 				++$knownCount;
 				$output .= "$trait $item research is finished!<br/>";
 				$extraTraits[$item] = $trait;
-				$this->researchFinished[] = array('charId' => $charId, 'craftType' => $craftType, 'charName' => $charName, 'openSlots' => $openSlots, "time" => 0, "name" => "$charName has finished research for $craftType $trait $item!");
+				$this->researchFinished[] = array('charId' => $charId, 'craftType' => $craftType, 'charName' => $charName, 'openSlots' => $openSlots, "time" => 0, "finishTime" => $finishTime, "name" => "$charName has finished research for $craftType $trait $item!");
 			}
 			else
 			{
-				$output .= "$trait $item finishes in $timeFmt<br/>";
-				$this->nextResearchFinished[] = array("time" => $timeLeft, "name" => "$charName finishes $craftType $trait $item in $timeFmt.");
+				$output .= "$trait $item finishes in <div class='ecdUpdateTime' style='display: inline;' rawtime='$finishTime'>$timeFmt</div><br/>";
+				$this->nextResearchFinished[] = array("time" => $timeLeft, "finishTime" => $finishTime, "name" => "$charName finishes $craftType $trait $item in <div class='ecdUpdateTime' style='display: inline;' rawtime='$finishTime'>$timeFmt</div>.");
 				++$inProgressCount;
 			}
 		}
@@ -2387,7 +2388,7 @@ EOT;
 			for ($i = 0; $i < 10 && $i < count($this->nextResearchFinished); ++$i)
 			{
 				$research = $this->nextResearchFinished[$i];
-				$researchOutput = $this->escape($research['name']);
+				$researchOutput = $research['name'];
 				$output .= "<li>$researchOutput</li>";
 			}
 			
@@ -2663,7 +2664,7 @@ EOT;
 			$output .= "<td>$ridingSpd</td>";
 			$output .= "<td>$ridingSta</td>";
 			$output .= "<td>$ridingInv</td>";
-			$output .= "<td>$timeLeftMsg</td>";
+			$output .= "<td class='ecdUpdateTime' rawtime='$ridingTimeDone'>$timeLeftMsg</td>";
 			$output .= "</tr>";			
 		}		
 
@@ -2675,7 +2676,8 @@ EOT;
 	public function getBuildTableItemHtml($buildData)
 	{
 		$output = "";
-	
+		
+		$buildIndex = $this->escape($this->getFieldStr($buildData, 'charIndex'));
 		$buildName = $this->escape($this->getFieldStr($buildData, 'buildName'));
 		$charName = $this->escape($this->getFieldStr($buildData, 'name'));
 		$buildType = $this->escape($this->getFieldStr($buildData, 'buildType'));
@@ -2694,6 +2696,7 @@ EOT;
 		if ($this->doesOwnBuild($buildData)) $rowClass .= " ecdBuildOwned";
 	
 		$output .= "<tr class='$rowClass'>\n";
+		$output .= "<td>$buildIndex</td>";
 		$output .= "<td class='ecdBuildTableName'><a href=\"$linkUrl\">$charName</a></td>";
 		$output .= "<td>$className</td>";
 		$output .= "<td>$raceName</td>";
