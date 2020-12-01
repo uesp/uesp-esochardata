@@ -1177,6 +1177,14 @@ EOT;
 			$provLevel = $this->getAccountSkillsField($charId, "Craft:Provisioning:Recipe Improvement", "rank", 0);
 			$woodLevel = $this->getAccountSkillsField($charId, "Craft:Woodworking:Woodworking", "rank", 0);
 			
+			$alchemySkill = $this->getAccountStatsField($charId, "SkillRank:Craft:Alchemy", 0);
+			$blackSkill = $this->getAccountStatsField($charId, "SkillRank:Craft:Blacksmithing", 0);
+			$clothSkill = $this->getAccountStatsField($charId, "SkillRank:Craft:Clothing", 0);
+			$enchantSkill = $this->getAccountStatsField($charId, "SkillRank:Craft:Enchanting", 0);
+			$jewelrySkill = $this->getAccountStatsField($charId, "SkillRank:Craft:Jewelry Crafting", 0);
+			$provSkill = $this->getAccountStatsField($charId, "SkillRank:Craft:Provisioning", 0);
+			$woodSkill = $this->getAccountStatsField($charId, "SkillRank:Craft:Woodworking", 0);
+			
 			$motifsKnown = $this->getCharMasterWritMotifsKnown($charId);
 			
 			$alchemyMRChance = $this->getCharAlchemyMasterWritChance($charId, $alchemyLevel);
@@ -1189,13 +1197,13 @@ EOT;
 			
 			$output .= "<tr>";
 			$output .= "<td>$charName</td>";
-			$output .= "<td>$alchemyLevel</td>";
-			$output .= "<td>$blackLevel</td>";
-			$output .= "<td>$clothLevel</td>";
-			$output .= "<td>$enchantLevel</td>";
-			$output .= "<td>$jewelryLevel</td>";
-			$output .= "<td>$provLevel</td>";
-			$output .= "<td>$woodLevel</td>";
+			$output .= "<td>$alchemyLevel ($alchemySkill)</td>";
+			$output .= "<td>$blackLevel ($blackSkill)</td>";
+			$output .= "<td>$clothLevel ($clothSkill)</td>";
+			$output .= "<td>$enchantLevel ($enchantSkill)</td>";
+			$output .= "<td>$jewelryLevel ($jewelrySkill)</td>";
+			$output .= "<td>$provLevel ($provSkill)</td>";
+			$output .= "<td>$woodLevel ($woodSkill)</td>";
 			$output .= "<td></td>";
 			$output .= "<td>$alchemyMRChance</td>";
 			$output .= "<td>$blackMRChance</td>";
