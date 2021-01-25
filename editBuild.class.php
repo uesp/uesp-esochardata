@@ -23,7 +23,7 @@ require_once("/home/uesp/esolog.static/esoCommon.php");
 require_once("/home/uesp/esolog.static/viewCps.class.php");
 require_once("/home/uesp/esolog.static/viewSkills.class.php");
 require_once(__DIR__."/viewBuildData.class.php");
-# require_once("/home/uesp/www/esomap/UespMemcachedSession.php");
+//require_once("/home/uesp/www/esomap/UespMemcachedSession.php");
 
 
 class EsoBuildDataEditor 

@@ -4353,6 +4353,8 @@ EOT;
 		$_SESSION['UESP_ESO_canEditScreenshotsCharId'] = $this->characterData['id'];
 		$_SESSION['UESP_ESO_canEditScreenshots'] = 1;
 		
+		//error_log("Saved SSCharID: {$this->characterData['id']}");
+		
 		return true;
 	}
 	

@@ -15,6 +15,9 @@ class CEsoCharManageScreenshots
 	public $inputCaption = "";
 	public $inputAction = "";
 	
+	public $wikiUserId = 0;
+	public $wikiUserName = "";
+	
 	public $errorMsg = "";
 	public $outputData = array();
 	
@@ -97,15 +100,19 @@ class CEsoCharManageScreenshots
 	{
 		global $_SESSION;
 		
-		$wikiUser = $_SESSION['wsUserName'];
-		error_log("wsUserName: {$wikiUser}");
-	
-		$this->canEditScreenshots = $_SESSION['UESP_ESO_canEditScreenshots'];
+		//$wikiUser = $_SESSION['wsUserName'];
+		$this->wikiUserId = UespMemcachedSession::readKey('wsUserID');
+		$this->wikiUserName = UespMemcachedSession::readKey('wsUserName');
+		error_log("wsUserName: {$this->wikiUserName}");
+		
+		//$this->canEditScreenshots = $_SESSION['UESP_ESO_canEditScreenshots'];
+		$this->canEditScreenshots = UespMemcachedSession::readKey('UESP_ESO_canEditScreenshots');
 		if ($this->canEditScreenshots === null) $this->canEditScreenshots = 0;
 		
 		error_log("canEditScreenshots: {$this->canEditScreenshots}");
 		
-		$this->canEditScreenshotsCharId = $_SESSION['UESP_ESO_canEditScreenshotsCharId'];
+		//$this->canEditScreenshotsCharId = $_SESSION['UESP_ESO_canEditScreenshotsCharId'];
+		$this->canEditScreenshotsCharId = UespMemcachedSession::readKey('UESP_ESO_canEditScreenshotsCharId');
 		if ($this->canEditScreenshotsCharId === null) $this->canEditScreenshotsCharId = 0;
 		
 		error_log("canEditScreenshotsCharId: {$this->canEditScreenshotsCharId}, {$this->inputBuildId}, {$this->inputCharacterId}");
@@ -219,7 +226,7 @@ class CEsoCharManageScreenshots
 		$this->ParseInputParams();
 		
 		if (!$this->HasEditPermission())
-			$this->ReportError("Manage screenshots permission denied! Action = {$this->inputAction}, BuildId = {$this->inputCharacterId}, WikiUser = {$_SESSION['wsUserName']}");
+			$this->ReportError("Manage screenshots permission denied! Action = {$this->inputAction}, BuildId = {$this->inputCharacterId}, WikiUser = {$this->wikiUserName}");
 		elseif ($this->inputAction == "editcaption")
 			$this->DoEditCaption();
 		elseif ($this->inputAction == "delete")
