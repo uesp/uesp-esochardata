@@ -262,9 +262,11 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			buffIds: [ "Warhorn", "Major Force", "Hircine's Veneer", "Worm's Raiment", "Minor Toughness", "Minor Berserk", "Minor Brutality", "Minor Sorcery", "Minor Savagery", "Major Courage", "Minor Prophecy",
-			           "Crusher Enchantment (Target)", "Engulfing Flames (Target)", "Major Breach (Target)", "Minor Breach (Target)", "Minor Vulnerability (Target)", "Alkosh (Target)"],
-			icon : "/esoui/art/icons/crafting_poison_001_blue_005.png",			
+			buffIds: [	"Warhorn", "Major Force", "Hircines Veneer", "Worms Raiment", "Minor Toughness", "Minor Berserk", "Minor Brutality", "Minor Sorcery", "Minor Savagery", "Major Courage", "Minor Prophecy",
+			          	"Engulfing Flames (Target)", "Major Breach (Target)", "Minor Breach (Target)", "Minor Vulnerability (Target)", "Alkosh (Target)",
+			          	"Major Vulnerability (Target)", "Minor Brittle (Target)", "Crusher Enchantment Infused + Torug (Target)"
+			          	],
+			icon : "/esoui/art/icons/crafting_poison_001_blue_005.png",
 		},		
 		"Ravage Magicka" : 
 		{
@@ -348,6 +350,30 @@ window.g_EsoBuildBuffData =
 			category: "Buff",
 			statIds : [ "SpellCrit", "WeaponCrit" ],
 			icon : "/esoui/art/icons/ability_debuff_minor_enervation.png",
+		},
+		"The Morag Tong" : 
+		{
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 0.10,
+			display: "%",
+			category: "Target",
+			statIds : [ "PoisonDamageTaken", "DiseaseDamageTaken" ],
+			icon : "/esoui/art/icons/ability_rogue_021.png",		//TODO: Placeholder
+		},
+		"Way of Martial Knowledge" :
+		{
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 0.08,
+			display: "%",
+			category: "Target",
+			statId : "DamageTaken",
+			icon : "/esoui/art/icons/ability_mage_044.png",		//TODO: Placeholder
 		},
 		"Beckoning Steel" : 
 		{
@@ -500,6 +526,17 @@ window.g_EsoBuildBuffData =
 			display: "%",
 			statId : "CritDamage",
 			icon : "/esoui/art/icons/ability_nightblade_003_a.png",
+		},
+		"Minor Mending" : 
+		{
+			group: "Minor",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 0.08,
+			display: "%",
+			statId : "HealingDone",
+			icon : "/esoui/art/icons/ability_buff_minor_mending.png",
 		},
 		"Major Mending" : 
 		{
@@ -1280,7 +1317,7 @@ window.g_EsoBuildBuffData =
 			statId : "Health",
 			icon : "/esoui/art/icons/achievement_031.png",
 		},
-		"Worms Raiment" : //TODO: Update27
+		/*"Worms Raiment" :
 		{
 			group: "Set",
 			enabled: false,
@@ -1291,8 +1328,8 @@ window.g_EsoBuildBuffData =
 			statId : "MagickaCost",
 			combineAs: "*%",
 			icon : "/esoui/art/icons/gear_artifactwormcultlight_head_a.png", // TODO: Not the correct one?
-		},
-		"Worms Raiment2" : //TODO: Update27
+		},*/
+		"Worms Raiment" :
 		{
 			group: "Set",
 			enabled: false,
@@ -1303,7 +1340,7 @@ window.g_EsoBuildBuffData =
 			statId : "MagickaRegen",
 			icon : "/esoui/art/icons/gear_artifactwormcultlight_head_a.png",
 		},
-		"Hircines Veneer" :	//TODO: Update27 
+		/*"Hircines Veneer" : 
 		{
 			group: "Set",
 			enabled: false,
@@ -1314,8 +1351,8 @@ window.g_EsoBuildBuffData =
 			statId : "StaminaCost",
 			combineAs: "*%",
 			icon : "/esoui/art/icons/gear_artifactsaviorhidemd_head_a.png",
-		},
-		"Hircines Veneer2" : //TODO: Update27
+		}, */
+		"Hircines Veneer" :
 		{
 			group: "Set",
 			enabled: false,
@@ -2559,6 +2596,28 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		maxTimes: 5,
 		display: "%",
 		match: /Focus your senses for [0-9]+ seconds, increasing your Critical Damage and Healing by ([0-9]+)% with every Light or Heavy Attack/i,
+	},
+	{
+		id: "Grim Focus",
+		baseSkillId: 62096,
+		statId: "CritHealing",
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		maxTimes: 5,
+		display: "%",
+		match: /Focus your senses for [0-9]+ minute, increasing your Critical Damage and Healing by ([0-9]+)% with every Light or Heavy Attack/i,
+	},
+	{
+		id: "Grim Focus",
+		baseSkillId: 62096,
+		statId: "CritDamage",
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		maxTimes: 5,
+		display: "%",
+		match: /Focus your senses for [0-9]+ minute, increasing your Critical Damage and Healing by ([0-9]+)% with every Light or Heavy Attack/i,
 	},
 	{
 		id: "Bone Goliath Transformation",
@@ -7091,10 +7150,10 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		match: /Increases your Bleed damaging attacks by ([0-9]+\.?[0-9]*)%/i,
 	},
-	{
+	/* {
 		buffId: "Hircines Veneer",
 		match: /Reduce the cost of your Stamina abilities by ([0-9]+)% for you and up to [0-9]+ other group members/i,
-	},
+	},*/
 	{
 		statId: "HealingDone",
 		display: "%",
@@ -7390,10 +7449,10 @@ window.ESO_SETEFFECT_MATCHES = [
 		combineAs: "*%",
 		match: /Reduce all costs by ([0-9]+\.?[0-9]*)%/i,
 	},
-	{
+	/*{
 		buffId: "Worms Raiment",
 		match: /Reduces the cost of your Magicka abilities by ([0-9]+\.?[0-9]*)% for you and up to /i,
-	},
+	},*/
 	{
 		statId: "MagickaCost",
 		display: '%',
@@ -8050,12 +8109,12 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Reduces your damage done with area of effect attacks by ([0-9.]+)%, but grants Major Evasion at all times/i,
 	},
 	{
-		buffId: "Hircines Veneer2",	//TODO: Update27
+		buffId: "Hircines Veneer",
 		updateBuffValue: true,
 		match: /Grants ([0-9.]+) Stamina Recovery to you and up to/i,
 	},
 	{
-		buffId: "Worms Raiment2",	//TODO: Update27
+		buffId: "Worms Raiment",
 		updateBuffValue: true,
 		match: /Grants ([0-9.]+) Magicka Recovery to you and up to/i,
 	},
@@ -8406,11 +8465,11 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		display: "%",
-		category: "Target",
-		statId: "PoisonDamageTaken",
+		buffId: "The Morag Tong",
+		updateBuffValue: true,
 		match: /When you deal direct damage, you cause the enemy to take ([0-9]+)% more damage from Poison and Disease attacks/i,
 	},
-	{
+	/*{
 		id: "The Morag Tong",
 		setBonusCount: 4,
 		enableOffBar: true,
@@ -8420,7 +8479,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		category: "Target",
 		statId: "DiseaseDamageTaken",
 		match: /When you deal direct damage, you cause the enemy to take ([0-9]+)% more damage from Poison and Disease attacks/i,
-	},
+	},*/
 	{
 		id: "Z'en's Redress",
 		setBonusCount: 4,
@@ -9214,9 +9273,9 @@ window.ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
-		enableOffBar : false,
-		category: "Target",
-		statId: "DamageTaken",
+		enableOffBar : true,
+		buffId: "Way of Martial Knowledge",
+		updateBuffValue: true,
 		display: "%",
 		//match: /When you deal damage, you cause the enemy to take ([0-9]+\.?[0-9]*)% additional damage from the next attack/i,
 		match: /While your Stamina is below [0-9]+\.?[0-9]*%, your Light Attacks cause the enemy to take ([0-9]+\.?[0-9]*)% additional damage/i,
@@ -10448,6 +10507,16 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /When you use an ability that costs Magicka, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for /i,
 	},
 	{
+		id: "Undaunted Infiltrator",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "OverloadDamage",
+		match: /When you use an ability that costs Magicka, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for /i,
+	},
+	{
 		id: "Undaunted Unweaver",
 		setBonusCount: 4,
 		toggle: true,
@@ -10485,6 +10554,16 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		category: "Skill2",
 		statId: "HADamage",
+		match: /When you use an ability that costs Stamina, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for/i,
+	},
+	{
+		id: "Undaunted Unweaver",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "OverloadDamage",
 		match: /When you use an ability that costs Stamina, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for/i,
 	},
 	{
@@ -17757,6 +17836,7 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
  	g_LastSkillInputValues.FlameAOEDamageDone = inputValues.Skill.FlameAOEDamageDone;
  	g_LastSkillInputValues.BleedDamage = inputValues.Set.BleedDamage;
  	g_LastSkillInputValues.FlatBleedDamage = inputValues.Skill2.BleedDamage;
+ 	g_LastSkillInputValues.FlatOverloadDamage = inputValues.Skill2.OverloadDamage;
  	g_LastSkillInputValues.TwinSlashBleedDamage = inputValues.Set.TwinSlashBleedDamage;
  	g_LastSkillInputValues.TwinSlashInitialDamage = inputValues.Set.TwinSlashInitialDamage;
  	g_LastSkillInputValues.MagickaAbilityDamageDone = inputValues.Set.MagickaAbilityDamageDone;

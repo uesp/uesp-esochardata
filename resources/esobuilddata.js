@@ -3088,7 +3088,7 @@ window.UpdateEsoBuildSetDamageData = function (setDesc, setDamageData)
 	
 	// EsoBuildLog("UpdateEsoBuildSetDamageData", setDesc, setDamageData);
 	
-	newDesc = newDesc.replace(/ ([A-Za-z\:]+) ((?:\<div[^>]*\>)|)([0-9]+)((?:\<\/div\>)|) ((?:[a-zA-Z]+)|)( |)damage/gi, function(match, prefixWord, div1, damageValue, div2, damageType, extraSpace) {
+	newDesc = newDesc.replace(/([A-Za-z,\:]+) ((?:\<div[^>]*\>)|)([0-9]+)((?:\<\/div\>)|) ((?:[a-zA-Z]+)|)( |)damage/gi, function(match, prefixWord, div1, damageValue, div2, damageType, extraSpace) {
 		++matchCount;
 		return UpdateEsoSetDamageDataReplace(match, prefixWord, div1, damageValue, div2, damageType, extraSpace, setDamageData, matchCount);
 	});
