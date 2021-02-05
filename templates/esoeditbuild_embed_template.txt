@@ -5,8 +5,10 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #fcc; margin-right: 225px;'>
-Note: The build editor is *not* yet working with PTS update 29. The new CP system will take some time to be implemented.
+<div style='background-color: #ffc; margin-right: 225px;'>
+Note: The build editor is *mostly* working with PTS update 29. Skills and item data have been updated. Some new/updated skills/CP may not be working yet.
+The new CP display is mostly working and saving but actual values are not yet parsed. <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor"><b>Feedback and bug reports</b></a> are appreciated. 
+
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -66,7 +68,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			When selected you will automatically purchase all racial passives when changing races.
 			<br/>
 			<div class="esotbStatLabel">Use PTS Rules</div> <input type="checkbox" id="esotbUsePtsRules" name="esotbUsePtsRules" statid="UsePtsRules" {usePtsRulesCheck}>
-			Current version is Update 28 v6.2.0
+			Current version is Update 29 v6.3.0
 			<ul style="margin-left: 170px; margin-top: -5px;">
 				<li>Save and reload build after changing this setting.</li>
 				<li>Uses skill, CP, and item data collected from the PTS server.</li>
@@ -1623,6 +1625,20 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>5 February 2021</b>
+			<ul>
+				<li>29tps: New CP system is up and working (mostly).</li>
+				<li>29tps: Updated most stats to work with the new CP system.</li>
+				<li>Skill resets won't reset free passive/active skills.</li>
+				<li>29pts: The new armor passives should now be included automatically on all PTS enabled builds.</li>
+				<li>29pts: The new armor passive bonuses/penalties should now be parsed.</li>
+			</ul>
+			<p>
+			<b>29 January 2021</b>
+			<ul>
+				<li>Updated skill and item data from update 29 PTS.</li>
+			</ul>
+			<p>
 			<b>27 January 2021</b>
 			<ul>
 				<li>Updated the Raid Dummy Buffs & Debuffs.</li>

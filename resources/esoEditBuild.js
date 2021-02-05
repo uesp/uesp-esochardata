@@ -5712,6 +5712,159 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases the duration of the stun from Sneak by ([0-9.]+)%/i,
 	},
 	
+		/* Update 29 Armor Passives */
+	{
+		statId: "MartialDamageTaken",
+		display: "%",
+		factorStatId: "ArmorLight",
+		match: /Increases damage taken from Martial attacks by ([0-9.]+)%/i,
+	},
+	{
+		statId: "BlockCost",
+		display: "%",
+		factorStatId: "ArmorLight",
+		match: /Increases the cost of Block by ([0-9.]+)%/i,
+	},
+	{
+		statId: "BashDamage",
+		display: "%",
+		factorStatId: "ArmorLight",
+		factorValue: -1, 
+		match: /Decreases damage done with Bash by ([0-9.]+)%/i,
+	},
+	{
+		statId: "MagicDamageTaken",
+		display: "%",
+		factorStatId: "ArmorLight",
+		factorValue: -1, 
+		match: /Reduces damage taken from Magical attacks by ([0-9.]+)%/i,
+	},
+	{
+		statId: "RollDodgeCost",
+		display: "%",
+		factorStatId: "ArmorLight",
+		factorValue: -1, 
+		match: /Reduces the cost of Roll Dodge by ([0-9.]+)%/i,
+	},
+	{
+		statId: "SneakSpeed",
+		display: "%",
+		factorStatId: "ArmorLight",
+		match: /Increases Movement Speed while Sneaking by ([0-9.]+)%/i,
+	},
+	{
+		statId: "BreakFreeCost",
+		display: "%",
+		factorStatId: "ArmorLight",
+		factorValue: -1, 
+		match: /Reduces the cost of Break Free by ([0-9.]+)%/i,
+	},
+	{
+		statId: "BashCost",
+		display: "%",
+		factorStatId: "ArmorLight",
+		factorValue: -1, 
+		match: /Reduces the cost of Bash by ([0-9.]+)%/i,
+	},
+	{
+		statId: "SprintCost",
+		display: "%",
+		factorStatId: "ArmorMedium",
+		factorValue: -1, 
+		match: /Reduces the cost of Sprint by ([0-9.]+)%/i,
+	},
+	{
+		statId: "SneakCost",
+		display: "%",
+		factorStatId: "ArmorMedium",
+		factorValue: -1, 
+		match: /Reduces the cost of Sneak by ([0-9.]+)%/i,
+	},
+	{
+		statId: "BlockCost",
+		display: "%",
+		factorStatId: "ArmorMedium",
+		factorValue: -1, 
+		match: /Reduces the cost of Block by ([0-9.]+)%/i,
+	},
+	{
+		id: "Medium Armor Bonus: Roll Dodge",
+		baseSkillId: 150181,
+		statId: "AOEDamageTaken",
+		display: "%",
+		factorStatId: "ArmorMedium",
+		factorValue: -1, 
+		toggle: true,
+		enabled: false,
+		rawInputMatch: /(Reduces damage taken from Area of Effect attacks by [0-9.]+% for [0-9.]+ seconds after you use Roll Dodge)/i,
+		match: /Reduces damage taken from Area of Effect attacks by ([0-9.]+)% for /i,
+	},
+	{
+		id: "Medium Armor Bonus: Crowd Control",
+		baseSkillId: 150181,
+		statId: "MovementSpeed",
+		display: "%",
+		factorStatId: "ArmorMedium",
+		toggle: true,
+		enabled: false,
+		rawInputMatch: /(Increases Movement Speed by [0-9.]+% while immune to crowd control)/i,
+		match: /Increases Movement Speed by ([0-9.]+)% while immune to crowd control/i,
+	},
+	{
+		statId: "MagicDamageTaken",
+		display: "%",
+		factorStatId: "ArmorHeavy",
+		match: /Increases damage taken from Magical attacks by ([0-9.]+)%/i,
+	},
+	{
+		statId: "SprintSpeed",
+		display: "%",
+		factorStatId: "ArmorHeavy",
+		factorValue: -1, 
+		match: /Reduces the Movement Speed bonus of Sprint by ([0-9.]+)%/i,
+	},
+	{
+		statId: "RollDodgeCost",
+		display: "%",
+		factorStatId: "ArmorHeavy",
+		match: /Increases the cost of Roll Dodge by ([0-9.]+)%/i,
+	},
+	{
+		statId: "SneakRange",
+		display: "%",
+		factorStatId: "ArmorHeavy",
+		match: /Increases the size of your detection area while Sneaking by ([0-9.]+)%/i,
+	},
+	{
+		statId: "MartialDamageTaken",
+		display: "%",
+		factorStatId: "ArmorHeavy",
+		factorValue: -1,
+		match: /Reduces damage taken from Martial attacks by ([0-9.]+)%/i,
+	},
+	{
+		statId: "BlockMitigation",
+		display: "%",
+		factorStatId: "ArmorHeavy",
+		match: /Increases the amount of damage blocked by ([0-9.]+)%/i,
+	},
+	{
+		statId: "BashDamage",
+		display: "%",
+		factorStatId: "ArmorHeavy",
+		match: /Increases damage done with Bash by ([0-9.]+)%/i,
+	},
+	{
+		id: "Heavy Armor Bonus: Crowd Control",
+		baseSkillId: 150184,
+		statId: "DamageTaken",
+		display: "%",
+		factorStatId: "ArmorHeavy",
+		toggle: true,
+		enabled: false,
+		match: /Reduces your damage taken while immune to crowd control by ([0-9.]+)%/i,
+	},
+	
 	
 		/* Begin Toggled Passives */
 	
@@ -6463,8 +6616,159 @@ window.ESO_CPEFFECT_MATCHES = [
 		statId: "MagickaCost",
 		display: "%",
 		factorValue: -1,
-		match: /When you drink a potion, the cost of your next Magicka ability used within [0-9\.] seconds is reduced by ([0-9\.]+)%/i,
+		match: /When you drink a potion, the cost of your next Magicka ability used within [0-9\.]+ seconds is reduced by ([0-9\.]+)%/i,
 	},
+	
+		/* CP2 Data Update 29 */
+	{
+		id: "Arcane Alacrity",
+		toggle: true,
+		enable: false,
+		category: "CP",
+		statId: "FlatRollDodgeCost",
+		match: /While Shielded your dodge roll costs [0-9\.]+ less stamina per stage.*\s*Current bonus: ([0-9\.]+)/i,
+	},
+	{
+		id: "Backstabber",
+		toggle: true,
+		enable: false,
+		category: "CP",
+		statId: "CritDamage",
+		display: "%",
+		match: /Increases your Critical Damage done by [0-9\.]+% per stage.*\s*Current bonus: ([0-9\.]+)%/i,
+	},
+	{
+		id: "Bastion",
+		toggle: true,
+		enable: false,
+		category: "CP",
+		statId: "DamageShield",
+		display: "%",
+		match: /Increases the effectiveness of your damage shields and damage against shielded enemies by [0-9\.]+% per stage.*\s*Current bonus: ([0-9\.]+)%/i,
+	},
+	{
+		id: "Bastion",
+		toggle: true,
+		enable: false,
+		category: "CP",
+		statId: "DamageDone",
+		display: "%",
+		match: /Increases the effectiveness of your damage shields and damage against shielded enemies by [0-9\.]+% per stage.*\s*Current bonus: ([0-9\.]+)%/i,
+	},
+	{
+		id: "Foresight",
+		toggle: true,
+		eanble: false,
+		category: "CP",
+		statId: "MagickaCost",
+		display: "%",
+		factorValue: -1,
+		match: /the cost of your Magicka and Stamina healing abilities used within [0-9\.]+ seconds are reduced by ([0-9\.]+)%/i,
+	},
+	{
+		id: "Juggernaut",
+		toggle: true,
+		eanble: false,
+		category: "CP",
+		statId: "DamageTaken",
+		display: "%",
+		factorValue: -1,
+		match: /While immune to crowd control, you take [0-9\.]+% less damage per stage.*\s*Current bonus: ([0-9\.]+)%/i,
+	},
+	{
+		id: "On Guard",
+		toggle: true,
+		eanble: false,
+		category: "CP",
+		statId: "BlockMitigation",
+		display: "%",
+		match: /While immune to crowd control, increases the amount of damage you block by [0-9\.]+% per stage.*\s*Current value: ([0-9\.]+)%/i,
+	},
+	{
+		id: "Peace of Mind",
+		toggle: true,
+		eanble: false,
+		category: "Item",
+		statId: "MagickaRegen",
+		match: /Increases Magicka and Health Recovery while immune to crowd control by [0-9\.]+ per stage.*\s*Current bonus: ([0-9\.]+)/i,
+	},
+	{
+		id: "Peace of Mind",
+		toggle: true,
+		eanble: false,
+		category: "Item",
+		statId: "HealthRegen",
+		match: /Increases Magicka and Health Recovery while immune to crowd control by [0-9\.]+ per stage.*\s*Current bonus: ([0-9\.]+)/i,
+	},
+	{
+		id: "Preparation",
+		toggle: true,
+		eanble: false,
+		category: "CP",
+		statId: "DamageTaken",
+		factorValue: -1,
+		match: /Reduces your damage taken from non-player attacks by [0-9\.]+% per stage.*\s*Current bonus: ([0-9\.]+)%/i,
+	},
+	{
+		id: "Rousing Speed",
+		toggle: true,
+		eanble: false,
+		category: "Skill2",
+		statId: "SprintCost",
+		factorValue: -1,
+		match: /Reduces the cost of Sprint by [0-9\.]+ Stamina per stage, while you are immune to crowd control.*\s*Current bonus: ([0-9\.]+)/i,
+	},
+	{
+		id: "On Guard",
+		toggle: true,
+		eanble: false,
+		category: "CP",
+		statId: "BlockMitigation",
+		display: "%",
+		match: /While immune to crowd control, increases the amount of damage you block by [0-9\.]+% per stage.*\s*Current value: ([0-9\.]+)%/i,
+	},
+	{
+		id: "Strategic Reserve",
+		toggle: true,
+		eanble: false,
+		category: "Item",
+		statId: "HealthRegen",
+		factorValue: 0.1,
+		round: "floor",
+		maxTimes: 500,
+		match: /Gain ([0-9\.]+) Health Recovery for every 10 Ultimate you have/i,
+	},
+	{
+		id: "Survival Instincts",
+		toggle: true,
+		eanble: false,
+		category: "CP",
+		statId: "MagickaCost",		//TODO: Update29pts what are core combat skills?
+		display: "%",
+		factorValue: -1,
+		match: /While afflicted with a Status Effect, your core combat skills cost [0-9\.]+% less per stage.*\s*Current bonus: ([0-9\.]+)%/i,
+	},
+	{
+		id: "Survival Instincts",
+		toggle: true,
+		eanble: false,
+		category: "CP",
+		statId: "StaminaCost",		//TODO: Update29pts what are core combat skills?
+		display: "%",
+		factorValue: -1,
+		match: /While afflicted with a Status Effect, your core combat skills cost [0-9\.]+% less per stage.*\s*Current bonus: ([0-9\.]+)%/i,
+	},
+	{
+		id: "Unchained",
+		toggle: true,
+		eanble: false,
+		category: "CP",
+		statId: "StaminaCost",
+		display: "%",
+		factorValue: -1,
+		match: /When you use Break Free, the cost of your next Stamina ability used within [0-9\.]+ seconds is reduced by [0-9\.]+% per stage.*\s*Current bonus: ([0-9\.]+)%/i,
+	},
+
 ];
 
 
@@ -13851,10 +14155,21 @@ window.GetEsoInputCPValues = function (inputValues)
 		return;
 	}
 	
-	inputValues.CP.Health = g_EsoCpData.attribute1.points;
-	inputValues.CP.Magicka = g_EsoCpData.attribute2.points;
-	inputValues.CP.Stamina = g_EsoCpData.attribute3.points;
-	inputValues.CP.UsedPoints = inputValues.CP.Health + inputValues.CP.Magicka + inputValues.CP.Stamina;
+	if (g_EsoCpData.attribute1 == null) 
+	{
+			//TODO: update 29pts
+		inputValues.CP.Health = 0;
+		inputValues.CP.Magicka = 0;
+		inputValues.CP.Stamina = 0;
+		inputValues.CP.UsedPoints = inputValues.CP.Health + inputValues.CP.Magicka + inputValues.CP.Stamina;
+	}
+	else
+	{
+		inputValues.CP.Health = g_EsoCpData.attribute1.points;
+		inputValues.CP.Magicka = g_EsoCpData.attribute2.points;
+		inputValues.CP.Stamina = g_EsoCpData.attribute3.points;
+		inputValues.CP.UsedPoints = inputValues.CP.Health + inputValues.CP.Magicka + inputValues.CP.Stamina;
+	}
 		
 		/* Tower (1) */
 	ParseEsoCPValue(inputValues, "BashCost", 58899, null, null, -1);
@@ -13922,9 +14237,12 @@ window.GetEsoInputCPValues = function (inputValues)
 		AddEsoItemRawOutputString(itemData, "PhysicalResist from Shield Expert", extraBonus);
 	}
 		// Update 15
-	else if ((itemData.weaponType == 13 || itemData.weaponType == 14) && g_EsoCpData['Bulwark'] != null && g_EsoCpData['Bulwark'].isUnlocked)	
+	else if ((itemData.weaponType == 13 || itemData.weaponType == 14) && g_EsoCpData['Bulwark'] != null && g_EsoCpData['Bulwark'].isUnlocked)
 	{
-		var extraBonus = 1500;
+		var extraBonus = 1500; // TODO: PtsUpdate29 increased to 1900
+		
+		var matchResult = g_EsoCpData['Bulwark'].description.match(/by ([0-9]+)/);
+		if (matchResult && !isNaN(matchResult[1])) extraBonus = parseInt(matchResult[1]);
 		
 		inputValues.Item.SpellResist += extraBonus;
 		inputValues.Item.PhysicalResist += extraBonus;
@@ -13941,8 +14259,7 @@ window.GetEsoInputCPValues = function (inputValues)
 	
 		/* Steed (4) */
 	if (inputValues.ArmorMedium >= 5) ParseEsoCPValue(inputValues, "PhysicalResist", 59120);
-	// ParseEsoCPValue(inputValues, "BlockCost", 60649, null, null, -1); // Pre
-	// Update 14
+	// ParseEsoCPValue(inputValues, "BlockCost", 60649, null, null, -1); // Pre Update 14
 	ParseEsoCPValue(inputValues, "DirectDamageTaken", 92423, null, null, -1);
 	ParseEsoCPValue(inputValues, "SpellResist", 62760);
 	ParseEsoCPValue(inputValues, "CritResist", 60384);
@@ -13955,12 +14272,10 @@ window.GetEsoInputCPValues = function (inputValues)
 	ParseEsoCPValue(inputValues, "WeaponCrit", 59418, "the_ritual", 30);
 	
 		/* Atronach (6) */
-	// ParseEsoCPValue(inputValues, ["HAWeaponDamage", "LAWeaponDamage"],
-	// 60565); // Pre Update 14
+	// ParseEsoCPValue(inputValues, ["HAWeaponDamage", "LAWeaponDamage"], 60565); // Pre Update 14
 	ParseEsoCPValue(inputValues, ["HAWeaponDamage", "LAWeaponDamage"], 92424);
 	ParseEsoCPValue(inputValues, "ShieldDamageDone", 60662);
-	// ParseEsoCPValue(inputValues, ["HABowDamage", "LABowDamage"], 60546); //
-	// Pre Update 14
+	// ParseEsoCPValue(inputValues, ["HABowDamage", "LABowDamage"], 60546); //Pre Update 14
 	ParseEsoCPValue(inputValues, "DirectDamageDone", 92134);
 	ParseEsoCPValue(inputValues, ["HAStaffDamage", "LAStaffDamage", "OverloadDamage"], 60503);
 	
@@ -13995,10 +14310,8 @@ window.GetEsoInputCPValues = function (inputValues)
 		/* Shadow (8) */
 	ParseEsoCPValue(inputValues, "HealingReduction", 59298, null, null, null, null);
 	ParseEsoCPValue(inputValues, "SneakCost", 61548, null, null, -1);
-	// ParseEsoCPValue(inputValues, ["FearDuration", "StunDuration",
-	// "DisorientDuration", "SnareDuration"], 59353, null, null, -1);
-	// ParseEsoCPValue(inputValues, ["RollDodgeCost", "BreakFreeCost"], 63863,
-	// null, null, -1);
+	// ParseEsoCPValue(inputValues, ["FearDuration", "StunDuration", "DisorientDuration", "SnareDuration"], 59353, null, null, -1);
+	// ParseEsoCPValue(inputValues, ["RollDodgeCost", "BreakFreeCost"], 63863, null, null, -1);
 	ParseEsoCPValue(inputValues, "BlockCost", 60649, null, null, -1);		// Update 14
 	ParseEsoCPValue(inputValues, "RollDodgeCost", 63863, null, null, -1);	// Update 14
 	
@@ -14008,6 +14321,92 @@ window.GetEsoInputCPValues = function (inputValues)
 	ParseEsoCPValue(inputValues, "HealthRegen", 60374);
 	ParseEsoCPValue(inputValues, ["HAMagRestore", "HAStaRestore"], 63854);
 	ParseEsoCPValue(inputValues, ["MovementSpeed", "MountSpeed"], 60560, "the_lover", 120);
+	
+		/* CP2 parsing */
+	//ParseEsoCP2Value = function (inputValues, statIds, abilityId, statFactor, category, statValue)
+		//ParseEsoCP2Value(inputValues, "FishQuality", 142234);
+	ParseEsoCP2Value(inputValues, "Magicka", 141744, null, "Item");
+	ParseEsoCP2Value(inputValues, "BashDamage", 142091);
+	ParseEsoCP2Value(inputValues, "MartialStatusEffectChance", 149276);
+	ParseEsoCP2Value(inputValues, "AOEDamageDone", 141997);
+	ParseEsoCP2Value(inputValues, "HealingDone", 149439);
+		//Restore 300 Stamina per stage, whenever you kill an enemy. Current value
+	ParseEsoCP2Value(inputValues, "Health", 142034, null, "Item");
+	ParseEsoCP2Value(inputValues, "FallDamageTaken", 142205, -1.0);
+		//Bulwark: Handled manually elsewhere 
+	ParseEsoCP2Value(inputValues, "SingleTargetDamageDone", 141999);
+	ParseEsoCP2Value(inputValues, "BreakFreeCost", 149624, -1.0, "Skill2");
+	ParseEsoCP2Value(inputValues, "SingleTargetDamageTaken", 151749, -1.0);
+	ParseEsoCP2Value(inputValues, "Magicka", 149305, null, "Item");
+	ParseEsoCP2Value(inputValues, ["FrostDamageTaken", "MagicDamageTaken", "ShockDamageTaken", "FlameDamageTaken"], 149273, -1.0);
+	ParseEsoCP2Value(inputValues, "Stamina", 141773, null, "Item");
+	ParseEsoCP2Value(inputValues, "DotDamageTaken", 151750, -1.0);
+		//Your next Roll Dodge is free of cost. After consuming this effect, you cannot gain it again for 30 seconds.
+		//Escaping from a Guard wipes 25% of your current Heat, but not Bounty.
+	ParseEsoCP2Value(inputValues, ["CritDamage", "CritHealing"], 141899);
+	ParseEsoCP2Value(inputValues, "MagicalStatusEffectChance", 149275);
+	ParseEsoCP2Value(inputValues, "SneakSpeed", 142203);	// How does this work?
+	ParseEsoCP2Value(inputValues, "SingleTargetHealingDone", 142000);
+	ParseEsoCP2Value(inputValues, "BlockMitigation", 142086);
+	ParseEsoCP2Value(inputValues, "GoldGained", 142207);
+		//Removes 1000 gold from your bounty once per day when committing a crime where bounty is added. You must be level 50 for this passive to activate, and your current bounty must be at or greater than 1000 gold.
+	ParseEsoCP2Value(inputValues, "MountSpeed", 149286);
+	ParseEsoCP2Value(inputValues, "MerchantSellCost", 142210);
+	ParseEsoCP2Value(inputValues, "BreakFreeDuration", 142099);
+	ParseEsoCP2Value(inputValues, ["PhysicalDamageTaken", "DiseaseDamageTaken", "PoisonDamageTaken", "BleedDamageTaken"], 149274, -1.0);
+	ParseEsoCP2Value(inputValues, "SprintSpeed", 142083);
+	ParseEsoCP2Value(inputValues, "Health", 149311, null, "Item");
+		//ParseEsoCP2Value(inputValues, "FenceSellCost", 142215);
+	ParseEsoCP2Value(inputValues, "InspirationGained", 142208);
+	ParseEsoCP2Value(inputValues, ["SpellResist", "PhysicalResist"], 142035);
+		//When you take damage below 20% Health you gain Major Heroism, granting 3 Ultimate every 1.5 seconds for 9 seconds. This effect can occur once every 9 seconds
+		//Whenever you use a potion or poison you have a 10% chance to not consume it.
+	ParseEsoCP2Value(inputValues, "HarvestSpeed", 142217);
+		//	Improves the chances of extracting Woodworking ingredients and allows the refining of more powerful resins from raw materials
+	ParseEsoCP2Value(inputValues, ["Poison", "Physical", "Disease", "Bleed"], 141930, null, "SkillBonusWeaponDmg", 100);
+	ParseEsoCP2Value(inputValues, ["Poison", "Physical", "Disease", "Bleed"], 141930, null, "SkillBonusSpellDmg", 100);
+	ParseEsoCP2Value(inputValues, "StatusEffectDurationTaken", 142096, -1.0);
+	ParseEsoCP2Value(inputValues, "BlockSpeed", 142088);
+	ParseEsoCP2Value(inputValues, "SneakRange", 142204, -1.0);
+	ParseEsoCP2Value(inputValues, ["SpellPenetration", "PhysicalPenetration"], 141895);
+	ParseEsoCP2Value(inputValues, "SneakDetectRange", 142089);
+	ParseEsoCP2Value(inputValues, ["SpellCrit", "WeaponCrit"], 141898, null, "Set");
+	ParseEsoCP2Value(inputValues, "DoubleHarvestChance", 142220);
+		//ParseEsoCP2Value(inputValues, "NonPlayerDamageTaken", 141901, -1.0);
+	ParseEsoCP2Value(inputValues, "RepairArmorCost", 142121, -1.0);
+	ParseEsoCP2Value(inputValues, "HealingTaken", 141929);
+	ParseEsoCP2Value(inputValues, ["FoodDuration", "DrinkDuration"], 142230);
+	ParseEsoCP2Value(inputValues, ["HealthRegen", "MagickaRegen", "StaminaRegen"], 142074, null, "Item");
+		//When you deal Direct Damage you heal for 7% of the damage done.
+		//When you begin Bracing, you gain a damage shield that absorbs 5140 damage for 3 seconds. This effect can occur once every 10 seconds.
+		//TODO: Update29pts Rejuvenator: Grants 33 Weapon and Spell Damage to your healing abilities per stage. Current bonus: 0
+		//When you block an attack from an enemy within 7 meters, you deal 4800 Physical Damage back to the attacker. This effect can occur once every 5 seconds
+	ParseEsoCP2Value(inputValues, "CritResist", 141900);
+	ParseEsoCP2Value(inputValues, "SprintCost", 142115, -1.0, "Skill2");
+	ParseEsoCP2Value(inputValues, "BashCost", 142081, -1.0, "Item");
+	ParseEsoCP2Value(inputValues, "ShieldCost", 149283, -1.0);
+		// Restore 300 Magicka per stage, whenever you kill an enemy. Current value: 0
+	ParseEsoCP2Value(inputValues, "AOEHealingDone", 141998);
+		// When you resurrect yourself or another player you have a 33% chance to not consume a Soul Gem.
+	ParseEsoCP2Value(inputValues, "ResurrectSpeed", 142100, null, null, -0.33);
+	ParseEsoCP2Value(inputValues, "SprintCost", 142079, -1.0, "Skill2");
+		// Your Weapon Enchants decay 20% slower per stage. Current bonus: 0%
+	ParseEsoCP2Value(inputValues, "NonCombatSpeed", 142125);
+	ParseEsoCP2Value(inputValues, "SneakCost", 142123, -1.0);
+	ParseEsoCP2Value(inputValues, "DotHealingDone", 142002);
+		//Return to life after resurrection with 10% more resources per stage. Current bonus: 0%
+	ParseEsoCP2Value(inputValues, "DotDamageDone", 142001);
+	ParseEsoCP2Value(inputValues, "Stamina", 147888, null, "Item");
+	ParseEsoCP2Value(inputValues, "BlockCost", 142080, -1.0, "Item");
+	ParseEsoCP2Value(inputValues, "RollDodgeCost", 142077, -1.0, "Skill2");
+	ParseEsoCP2Value(inputValues, "AOEDamageTaken", 151748, -1.0);
+	ParseEsoCP2Value(inputValues, ["WeaponDamage", "SpellDamage"], 146960);
+	ParseEsoCP2Value(inputValues, "WayshrineCost", 142206, -1.0);
+	ParseEsoCP2Value(inputValues, ["Magic", "Frost", "Flame", "Shock"], 141931, null, "SkillBonusWeaponDmg", 100);
+	ParseEsoCP2Value(inputValues, ["Magic", "Frost", "Flame", "Shock"], 141931, null, "SkillBonusSpellDmg", 100);
+		// Improves your mastery with mounts, removing all mount Stamina costs outside of combat
+	ParseEsoCP2Value(inputValues, ["Magic", "Frost", "Flame", "Shock", "Poison", "Physical", "Disease", "Bleed"], 141941, null, "SkillBonusWeaponDmg");
+	ParseEsoCP2Value(inputValues, ["Magic", "Frost", "Flame", "Shock", "Poison", "Physical", "Disease", "Bleed"], 141941, null, "SkillBonusSpellDmg");
 	
 	UpdateEsoBuildToggledCpData();
 	
@@ -14046,8 +14445,16 @@ window.GetEsoInputCpToggleValues = function (inputValues, cpData)
 		
 		var statValue = 1;
 		if (!isNaN(matchResult[1])) statValue = parseFloat(matchResult[1]); 
+		
+		if (matchData.maxTimes != null)
+		{
+			var toggleData = g_EsoBuildToggledCpData[matchData.id];
+			if (toggleData != null && toggleData.count != null) statValue = statValue * toggleData.count;
+		}
+		
 		if (matchData.display == "%") statValue = statValue/100;
 		if (matchData.factorValue != null) statValue = statValue * matchData.factorValue;
+		if (matchData.round == "floor") statValue = Math.floor(statValue);
 		
 		var category = matchData.category || "CP";
 		
@@ -14110,11 +14517,65 @@ window.ParseEsoCPValue = function (inputValues, statIds, abilityId, discId, unlo
 	if (lastChar == "%") 
 	{
 		value = Math.floor(value); // Jump points
-		value = value/100;		
+		value = value/100;
 	}
 	
 	if (statFactor != null) value *= statFactor;
 
+	if (typeof(statIds) == "object")
+	{
+		for (var i = 0; i < statIds.length; ++i)
+		{
+			inputValues[category][statIds[i]] += value;
+			AddEsoInputStatSource(category + "." + statIds[i], { cp: cpName, abilityId: abilityId, value: value });
+		}
+	}
+	else
+	{
+		inputValues[category][statIds] += value;
+		AddEsoInputStatSource(category + "." + statIds, { cp: cpName, abilityId: abilityId, value: value });
+	}
+	
+	return true;
+}
+
+
+window.ParseEsoCP2Value = function (inputValues, statIds, abilityId, statFactor, category, statValue)
+{
+	var $skill = $("#skill_" + abilityId);
+	var cpDesc = $("#descskill_" + abilityId);
+	if ($skill.length == 0 || cpDesc.length == 0) return false;
+	
+	var isUnlocked = $skill.attr("unlocked");
+	if (isUnlocked <= 0) return false;
+	
+	if (category == null) category = "CP";
+	
+	var cpName = cpDesc.prev().text();
+	var value = 1;
+	
+	if (statValue == null) 
+	{
+		var text = RemoveEsoDescriptionFormats(cpDesc.text());
+		var results = text.match(/Current (?:bonus|value)(?::|) ([0-9]+\.?[0-9]*\%?)/i);
+		if (results == null || results.length == 0) return false;
+		
+		var value = parseFloat(results[1]);
+		var lastChar = results[1].slice(-1);
+		
+		if (lastChar == "%") 
+		{
+			value = Math.floor(value);
+			value = value/100;
+		}
+	}
+	else
+	{
+		value = statValue;
+	}
+	
+	if (statFactor != null) value *= statFactor;
+	
 	if (typeof(statIds) == "object")
 	{
 		for (var i = 0; i < statIds.length; ++i)
@@ -16940,6 +17401,7 @@ window.CreateEsoBuildToggledCpData = function ()
 		if (g_EsoBuildToggledCpData[id].enabled == null) g_EsoBuildToggledCpData[id].enabled = false;
 		g_EsoBuildToggledCpData[id].statIds.push(cpEffectData.statId);
 		g_EsoBuildToggledCpData[id].maxTimes = cpEffectData.maxTimes;
+		g_EsoBuildToggledCpData[id].count = 0;
 		g_EsoBuildToggledCpData[id].desc = "";
 	}
 }
@@ -17037,6 +17499,13 @@ window.SetEsoBuildToggledCpEnable = function (cpId, enable)
 {
 	if (g_EsoBuildToggledCpData[cpId] == null) return false;
 	g_EsoBuildToggledCpData[cpId].enabled = enable;
+}
+
+
+window.SetEsoBuildToggledCpCount = function (cpId, value)
+{
+	if (g_EsoBuildToggledCpData[cpId] == null) return false;
+	g_EsoBuildToggledCpData[cpId].count = NiceIntParse(value);
 }
 
 
@@ -17294,8 +17763,8 @@ window.UpdateEsoBuildToggleCp = function ()
 	
 	element.html(output);
 	
-	//$(".esotbToggleCpNumber").on("input", OnEsoBuildToggleCpNumber);
-	//$(".esotbToggleCpNumber").click(OnEsoBuildToggleSetNumberClick);
+	$(".esotbToggleCpNumber").on("input", OnEsoBuildToggleCpNumber);
+	$(".esotbToggleCpNumber").click(OnEsoBuildToggleCpNumberClick);
 	$(".esotbToggleCpCheck").click(OnEsoBuildToggleCp);
 	$(".esotbToggledCpItem").click(OnEsoBuildToggleCpClick);
 }
@@ -17324,6 +17793,9 @@ window.UpdateEsoBuildToggledCpData = function ()
 		if (checkElement.length > 0)
 		{
 			SetEsoBuildToggledCpEnable(cpId, checkElement.is(":checked"));
+			
+			var countElement = checkElement.next(".esotbToggleCpNumber");
+			if (countElement.length > 0) SetEsoBuildToggledCpCount(cpId, countElement.val());
 		}
 	}
 }
@@ -17475,6 +17947,11 @@ window.CreateEsoBuildToggleCpHtml = function (cpData)
 	
 	output += "<input type='checkbox' class='esotbToggleCpCheck'  " + checked + " >";
 	
+	if (cpData.maxTimes != null) 
+	{
+		output += "<input type='number' class='esotbToggleCpNumber'  value='" + cpData.count + "' >";
+	}
+	
 	output += "<div class='esotbToggleCpTitle'>" + displayName + ":</div> ";
 	output += "<div class='esotbToggleCpDesc'>" + cpData.desc + "</div>";
 	
@@ -17534,6 +18011,23 @@ window.OnEsoBuildToggleSetNumber = function (e)
 	if (setName == null || setName == "") return;
 	
 	var toggleData = g_EsoBuildToggledSetData[setName];
+	if (toggleData == null) return;
+	
+	var value = $(this).val();
+	
+	if (value < 0) $(this).val("0");
+	if (toggleData.maxTimes != null && value > toggleData.maxTimes)  $(this).val(toggleData.maxTimes);
+	
+	UpdateEsoComputedStatsList();
+}
+
+
+window.OnEsoBuildToggleCpNumber = function (e)
+{
+	var cpName = $(this).parent().attr("cpid");
+	if (cpName == null || cpName == "") return;
+	
+	var toggleData = g_EsoBuildToggledCpData[cpName];
 	if (toggleData == null) return;
 	
 	var value = $(this).val();
@@ -18852,13 +19346,14 @@ window.CreateEsoBuildCPSaveData = function (saveData, inputValues)
 		data.description = cpData.description;
 		data.abilityId = cpData.id;
 		data.points = 0;
+		data.slotIndex = cpData.slotIndex;
 		
 		if (cpData.points != null)
 			data.points = cpData.points;
 		else if (cpData.isUnlocked)
 			data.points = -1;
 		
-		saveData.ChampionPoints[id] = data;		
+		saveData.ChampionPoints[id] = data;
 	}
 	
 	return saveData;

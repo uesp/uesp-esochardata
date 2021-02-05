@@ -920,7 +920,8 @@ esotbToggledCpSelect {
 }
 
 .esotbToggleSkillNumber,
-.esotbToggleSetNumber {
+.esotbToggleSetNumber,
+.esotbToggleCpNumber {
 	width: 50px;
 	margin-right: 10px;
 }
@@ -1557,4 +1558,13 @@ esotbToggledCpSelect {
 .esotbCombatStatValue2:after {
 	content:"\a";
 	white-space: pre;
+}
+
+#esotbRoot .esovcpSkillMaxPoints {
+	font-size: 12px;
+}
+
+#esotbRoot .esovcp2Skills .esovcpSkill {
+	padding: 3px;
+	margin-bottom: 0px;
 }

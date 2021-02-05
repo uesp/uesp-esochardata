@@ -66,6 +66,7 @@ class EsoBuildDataSaver
 			"points"			=> "int",
 			"description"		=> "text",
 			"abilityId"			=> "int",
+			"slotIndex"			=> "int",
 	);
 	
 	
@@ -405,7 +406,7 @@ class EsoBuildDataSaver
 		return true;
 	}
 	
-		
+	
 	public function CreateInsertQuery($table, $data, $FIELDS)
 	{
 		$query = "INSERT INTO $table";

@@ -28,7 +28,7 @@ require_once(__DIR__."/viewBuildData.class.php");
 
 class EsoBuildDataEditor 
 {
-	public $PTS_VERSION = "28pts";
+	public $PTS_VERSION = "29pts";
 	
 	public $SESSION_DEBUG_FILENAME = "/var/log/httpd/esoeditbuild_sessions.log";
 	
@@ -226,10 +226,6 @@ class EsoBuildDataEditor
 			"DrinkBuff",
 			"FoodBuff",
 			"Skill.VampireStage",
-			"Skill.SingleTargetDamageDone",
-			"Skill.AOEDamageDone",
-			"Skill.AOEHealingDone",
-			"Skill.AOEDamageTaken",
 			"MountSpeedBonus",
 			"BaseWalkSpeed",
 			"Skill.NormalSneakSpeed",
@@ -263,19 +259,12 @@ class EsoBuildDataEditor
 			"Skill.AlliancePointsGained",
 			"Skill.ExperienceGained",
 			"Skill.InspirationGained",
-			"Skill.GoldGained",
 			"Skill.PickPocketChance",
 			"Skill.LavaDamage",
-			"Skill.FoodDuration",
-			"Skill.DrinkDuration",
-			"Skill.FallDamageTaken",
 			"Set.PlayerDamageTaken",
 			"Set.PlayerAOEDamageTaken",
 			"Set.SiegeDamageTaken",
 			"Set.TrapDamageTaken",
-			"Set.AOEDamageTaken",
-			"Set.AOEDamageDone",
-			"Set.AOEHealingDone",
 			"Buff.DungeonDamageTaken",
 			"Skill.RangedDamageTaken",
 			"Buff.Vulnerability",
@@ -337,6 +326,7 @@ class EsoBuildDataEditor
 			"Set.ShockCritDamageTaken",
 			"Set.FrostCritDamageTaken",
 			"Set.NonWeaponAbilityCost",
+			"Skill.MartialDamageTaken",
 	);
 	
 	
@@ -395,10 +385,12 @@ class EsoBuildDataEditor
 			"BlockMitigation",
 			"BlockMeleeMitigation",
 			"RollDodgeCost",
+			"FlatRollDodgeCost",
 			"RollDodgeDuration",
 			"SprintCost",
 			"SprintSpeed",
 			"MovementSpeed",
+			"NonCombatSpeed",
 			"MountSpeed",
 			"SwimSpeed",
 			"BlockSpeed",
@@ -431,6 +423,7 @@ class EsoBuildDataEditor
 			"FlameDamageTaken",
 			"FrostDamageTaken",
 			"PoisonDamageTaken",
+			"BleedDamageTaken",
 			"DiseaseDamageTaken",
 			"DirectDamageTaken",
 			"HADamage",
@@ -484,6 +477,28 @@ class EsoBuildDataEditor
 			"BleedDamage",
 			"CritHealing",
 			"OverloadDamage",
+			"MartialStatusEffectChance",
+			"MagicalStatusEffectChance",
+			"FallDamageTaken",
+			"SingleTargetDamageTaken",
+			"SingleTargetHealingDone",
+			"GoldGained",
+			"MerchantSellCost",
+			"FenceSellCost",
+			"InspirationGained",
+			"HarvestSpeed",
+			"StatusEffectDurationTaken",
+			"RepairArmorCost",
+			"DoubleHarvestChance",
+			"FoodDuration",
+			"DrinkDuration",
+			"ShieldCost",
+			"AOEHealingDone",
+			"DotHealingDone",
+			"AOEDamageDone",
+			"AOEDamageTaken",
+			"WayshrineCost",
+			"SingleTargetDamageDone",
 	);
 	
 	
@@ -872,11 +887,23 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"CP.AOEHealingDone" => array(
+					"display" => "%",
+			),
+			
 			"Skill.AOEDamageTaken" => array(
 					"display" => "%",
 			),
 			
+			"CP.AOEDamageTaken" => array(
+					"display" => "%",
+			),
+			
 			"Skill.SingleTargetDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"CP.SingleTargetDamageDone" => array(
 					"display" => "%",
 			),
 			
@@ -914,7 +941,11 @@ class EsoBuildDataEditor
 			
 			"Buff.HealingTaken" => array(
 					"display" => "%",
-			),			
+			),
+			
+			"CP.HealingTaken" => array(
+					"display" => "%",
+			),
 			
 			"CP.DirectDamageDone" => array(
 					"display" => "%",
@@ -1088,6 +1119,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"CP.SprintSpeed" => array(
+					"display" => "%",
+			),
+			
 			"Set.SprintSpeed" => array(
 					"display" => "%",
 			),
@@ -1104,11 +1139,19 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"CP.SneakSpeed" => array(
+					"display" => "%",
+			),
+			
 			"Skill2.SneakSpeed" => array(
 					"display" => "%",
 			),
 			
 			"Skill.BlockSpeed" => array(
+					"display" => "%",
+			),
+			
+			"CP.BlockSpeed" => array(
 					"display" => "%",
 			),
 			
@@ -1436,6 +1479,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"CP.BlockMitigation" => array(
+					"display" => "%",
+			),
+			
 			"CP.DamageShield" => array(
 					"display" => "%",
 			),
@@ -1489,6 +1536,10 @@ class EsoBuildDataEditor
 			),
 			
 			"Skill.DamageTaken" => array(
+					"display" => "%",
+			),
+			
+			"CP.DamageTaken" => array(
 					"display" => "%",
 			),
 			
@@ -1589,6 +1640,10 @@ class EsoBuildDataEditor
 			),
 			
 			"CP.PoisonDamageTaken" => array(
+					"display" => "%",
+			),
+			
+			"CP.BleedDamageTaken" => array(
 					"display" => "%",
 			),
 			
@@ -2045,15 +2100,20 @@ class EsoBuildDataEditor
 			"Skill.ExperienceGained" => array( "display" => "%" ),
 			"Skill.InspirationGained" => array( "display" => "%" ),
 			"Skill.GoldGained" => array( "display" => "%" ),
+			"CP.GoldGained" => array( "display" => "%" ),
 			"Skill.PickPocketChance" => array( "display" => "%" ),
 			"Skill.LavaDamage" => array( "display" => "%" ),
 			"Skill.FallDamageTaken" => array( "display" => "%" ),
+			"CP.FallDamageTaken" => array( "display" => "%" ),
+			"Item.FallDamageTaken" => array( "display" => "%" ),
+			"Set.FallDamageTaken" => array( "display" => "%" ),
 			"Set.PlayerDamageTaken" => array( "display" => "%" ),
 			"Set.PlayerAOEDamageTaken" => array( "display" => "%" ),
 			"Set.SiegeDamageTaken" => array( "display" => "%" ),
 			"Set.TrapDamageTaken" => array( "display" => "%" ),
 			"Set.AOEDamageTaken" => array( "display" => "%" ),		
 			"Set.AOEDamageDone" => array( "display" => "%" ),
+			"CP.AOEDamageDone" => array( "display" => "%" ),
 			"Set.AOEHealingDone" => array( "display" => "%" ),
 			"Buff.DungeonDamageTaken" => array( "display" => "%" ),
 			"Skill.RangedDamageTaken" => array( "display" => "%" ),
@@ -2077,6 +2137,7 @@ class EsoBuildDataEditor
 			"Skill.ConcussionChance" => array( "display" => "%" ),
 			"Item.StatusEffectChance" => array( "display" => "%" ),
 			"Skill.CritHealing" => array( "display" => "%" ),
+			"CP.CritHealing" => array( "display" => "%" ),
 			"Mundus.CritHealing" => array( "display" => "%" ),
 			"CP.WeaponCritHealing" => array( "display" => "%" ),
 			"CP.SpellCritHealing" => array( "display" => "%" ),
@@ -2105,6 +2166,34 @@ class EsoBuildDataEditor
 			"Set.FrostCritDamageTaken" => array( "display" => "%" ),
 			"Target.PercentHealth" => array( "display" => "%" ),
 			"Set.NonWeaponAbilityCost" => array( "display" => "%" ),
+			"CP.MartialStatusEffectChance" => array( "display" => "%" ),
+			"Set.MartialStatusEffectChance" => array( "display" => "%" ),
+			"Item.MartialStatusEffectChance" => array( "display" => "%" ),
+			"Skill.MartialStatusEffectChance" => array( "display" => "%" ),
+			"Buff.MartialStatusEffectChance" => array( "display" => "%" ),
+			"CP.MagicalStatusEffectChance" => array( "display" => "%" ),
+			"Set.MagicalStatusEffectChance" => array( "display" => "%" ),
+			"Set.SingleTargetDamageTaken" => array( "display" => "%" ),
+			"CP.SingleTargetDamageTaken" => array( "display" => "%" ),
+			"Set.SingleTargetHealingDone" => array( "display" => "%" ),
+			"CP.SingleTargetHealingDone" => array( "display" => "%" ),
+			"CP.MerchantSellCost" => array( "display" => "%" ),
+			"Set.MerchantSellCost" => array( "display" => "%" ),
+			"CP.FenceSellCost" => array( "display" => "%" ),
+			"Set.FenceSellCost" => array( "display" => "%" ),
+			"CP.InspirationGained" => array( "display" => "%" ),
+			"CP.HarvestSpeed" => array( "display" => "%" ),
+			"Skill.HarvestSpeed" => array( "display" => "%" ),
+			"Set.HarvestSpeed" => array( "display" => "%" ),
+			"CP.DoubleHarvestChance" => array( "display" => "%" ),
+			"CP.RepairArmorCost" => array( "display" => "%" ),
+			"CP.ShieldCost" => array( "display" => "%" ),
+			"CP.NonCombatSpeed" => array( "display" => "%" ),
+			"CP.DotHealingDone" => array( "display" => "%" ),
+			"CP.WayshrineCost" => array( "display" => "%" ),
+			"CP.StatusEffectDurationTaken" => array( "display" => "%" ),
+			"CP.BreakFreeDuration" => array( "display" => "%" ),
+			"Skill.MartialDamageTaken" => array( "display" => "%" ),
 	);
 	
 	
@@ -2569,7 +2658,7 @@ class EsoBuildDataEditor
 							"+",
 					),
 			),
-
+			
 			/*
 			 * SpellPenetration Confirmed
 			 */
@@ -2741,8 +2830,35 @@ class EsoBuildDataEditor
 							"Skill.AOEHealingDone",
 							"Set.AOEHealingDone",
 							"+",
+							"CP.AOEHealingDone",
+							"+",
 					),
 			),
+			
+			"DotHealingDone" => array(
+					"title" => "DOT Healing Done",
+					"display" => "%",
+					"compute" => array(
+							"Skill.DotHealingDone",
+							"Set.DotHealingDone",
+							"+",
+							"CP.DotHealingDone",
+							"+",
+					),
+			),
+			
+			"SingleTargetHealingDone" => array(
+					"title" => "Single Target Healing Done",
+					"display" => "%",
+					"compute" => array(
+							"Skill.SingleTargetHealingDone",
+							"Set.SingleTargetHealingDone",
+							"+",
+							"CP.SingleTargetHealingDone",
+							"+",
+					),
+			),
+			
 			
 			/*
 			 * HealingTaken Confirmed
@@ -2921,6 +3037,8 @@ class EsoBuildDataEditor
 							"6.5",
 							"Skill2.SneakRange",
 							"+",
+							"CP.SneakRange",
+							"+",
 							"Skill.SneakRange",
 							"Set.SneakRange",
 							"+",
@@ -2941,6 +3059,8 @@ class EsoBuildDataEditor
 							"6.5",
 							"Skill2.SneakDetectRange",
 							"+",
+							"CP.SneakDetectRange",
+							"+",
 							"1",
 							"Item.SneakDetectRange",
 							"+",
@@ -2960,6 +3080,8 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"compute" => array(
 							"floor(38.46 + 7.69*EffectiveLevel)",
+							"Skill2.SprintCost",
+							"+",
 							"1 + CP.SprintCost",
 							"*",
 							"1 + Buff.SprintCost",
@@ -3038,9 +3160,11 @@ class EsoBuildDataEditor
 							"+",
 							"Skill.SprintSpeed",
 							"+",
+							"CP.SprintSpeed",
+							"+",
 							"Mundus.MovementSpeed",
 							"+",
-							"*",							
+							"*",
 							"1 + CP.MovementSpeed",
 							"*",
 					),
@@ -3077,7 +3201,7 @@ class EsoBuildDataEditor
 							"BaseWalkSpeed",
 							"1",
 							"-0.40",
-							"1 - Skill.NormalSneakSpeed",
+							"max(0, 1 - Skill.NormalSneakSpeed - CP.SneakSpeed)",
 							"*",
 							"+",
 							"Buff.MovementSpeed",
@@ -3098,7 +3222,7 @@ class EsoBuildDataEditor
 					),
 			),
 			
-			"BlockSpeed" => array(
+			"BlockSpeed" => array(		//TODO: Check update29pts
 					"title" => "Block Speed",
 					"display" => "round2",
 					"suffix" => " m/s",
@@ -3107,7 +3231,9 @@ class EsoBuildDataEditor
 							"1 - Skill.BlockSpeedPenalty",
 							"*",
 							"1 + Skill.BlockSpeed",
-							"*"
+							"*",
+							"1 + CP.BlockSpeed",
+							"*",
 					),
 			),
 			
@@ -3222,14 +3348,16 @@ class EsoBuildDataEditor
 							"+",
 							"-67.875",
 							"+",
-							"1 + PhysicalDamageDone + DamageDone + DirectDamageDone + SingleTargetDamageDone",
+							"CP.BashDamage",
+							"+",
+							"1 + PhysicalDamageDone + DamageDone + DirectDamageDone + SingleTargetDamageDone + Skill.BashDamage",
 							"*",
 							"Set.ExtraBashDamage",
 							"+",
 							"Skill.ExtraBashDamage",
 							"+",
 					),
-			),			
+			),
 			
 			/*
 			 * BlockCost Confirmed
@@ -3255,7 +3383,7 @@ class EsoBuildDataEditor
 							"1 + Buff.BlockCost",
 							"*",
 							"1 + Skill2.BlockCost",
-							"*",							
+							"*",
 							
 								/* Update 17 
 							"110 + 25*EffectiveLevel",
@@ -3298,7 +3426,7 @@ class EsoBuildDataEditor
 			),
 			
 			/*
-			 * BlockMitigation: ToDo needs checking
+			 * BlockMitigation: ToDo needs checking Update29pts
 			 */
 			"BlockMitigation" => array(
 					"title" => "Block Mitigation",
@@ -3315,6 +3443,8 @@ class EsoBuildDataEditor
 							"-",
 							"Buff.BlockMitigation",
 							"-",
+							"CP.BlockMitigation",
+							"-",
 							"*",
 							"-",
 					),
@@ -3326,6 +3456,8 @@ class EsoBuildDataEditor
 					"compute" => array(
 							"floor(34 + 5.62*EffectiveLevel)*10", // Old?
 							//"3200", //?
+							"Skill2.RollDodgeCost",
+							"+",
 							"1 + CP.RollDodgeCost",
 							"*",
 							"Skill.RollDodgeCost",
@@ -3346,6 +3478,8 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"compute" => array(
 							"450 + 75*EffectiveLevel",
+							"Skill2.BreakFreeCost",
+							"+",
 							"1 + CP.BreakFreeCost",
 							"*",
 							"1",
@@ -3357,6 +3491,17 @@ class EsoBuildDataEditor
 							"+",
 							"Set.BreakFreeCost",
 							"+",
+							"*",
+					),
+			),
+			
+			"BreakFreeDuration" => array(					// TODO: Check?
+					"title" => "Break Free Duration",
+					"round" => "floor10",
+					"suffix" => " secs",
+					"compute" => array(
+							"7",
+							"1 + CP.BreakFreeDuration",
 							"*",
 					),
 			),
@@ -3390,6 +3535,15 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			"ShieldCost" => array(
+					"title" => "Damage Shield Cost",
+					"display" => "%",
+					"compute" => array(
+							"1 + CP.ShieldCost",
+					),
+			),
+
+			/*
 			"ShieldDamageDone" => array(
 					"title" => "Shield Damage Done",
 					"display" => "%",
@@ -3398,7 +3552,7 @@ class EsoBuildDataEditor
 					"compute" => array(
 							"CP.ShieldDamageDone",
 					),
-			),
+			), */
 						
 			"Damage Taken" => "StartSection",
 						
@@ -3408,17 +3562,49 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"compute" => array(
 							"CP.DotDamageTaken",
+							"Set.DotDamageTaken",
+							"+",
 							"Skill.DotDamageTaken",
 							"+",
 					),
 			),
 			
-							"DirectDamageTaken" => array(
+			"DirectDamageTaken" => array(
 					"title" => "Direct Damage Taken",
 					"display" => "%",
 					"round" => "floor",
 					"compute" => array(
-							"CP.DirectDamageTaken",
+							"1 + CP.DirectDamageTaken",
+							"Set.DirectDamageTaken",
+							"+",
+							"Set.DirectDamageTaken",
+							"+",
+					),
+			),
+			
+			"SingleTargetDamageTaken" => array(
+					"title" => "Single Target Damage Taken",
+					"display" => "%",
+					"round" => "floor",
+					"compute" => array(
+							"CP.SingleTargetDamageTaken",
+							"Skill.SingleTargetDamageTaken",
+							"+",
+							"Set.SingleTargetDamageTaken",
+							"+",
+					),
+			),
+			
+			"AOEDamageTaken" => array(
+					"title" => "Area of Effect Taken",
+					"display" => "%",
+					"round" => "floor",
+					"compute" => array(
+							"CP.AOEDamageTaken",
+							"Skill.AOEDamageTaken",
+							"+",
+							"Set.AOEDamageTaken",
+							"+",
 					),
 			),
 			
@@ -3464,7 +3650,18 @@ class EsoBuildDataEditor
 					"compute" => array(
 							"1 + CP.LADamageTaken",
 					),
-			),			
+			),
+			
+			"FallDamageTaken" => array(
+					"title" => "Fall Damage Taken",
+					"display" => "%",
+					"round" => "floor",
+					"compute" => array(
+							"1 + CP.FallDamageTaken",
+							"Set.FallDamageTaken",
+							"+",
+					),
+			),
 			
 			"DamageTaken" => array(
 					"title" => "Damage Taken",
@@ -3518,6 +3715,8 @@ class EsoBuildDataEditor
 					"round" => "floor",
 					"compute" => array(
 							"Skill.SingleTargetDamageDone",
+							"CP.SingleTargetDamageDone",
+							"+",
 					),
 			),
 			
@@ -3528,6 +3727,8 @@ class EsoBuildDataEditor
 					"compute" => array(
 							"Set.AOEDamageDone",
 							"Skill.AOEDamageDone",
+							"+",
+							"CP.AOEDamageDone",
 							"+",
 					),
 			),			
@@ -4799,9 +5000,9 @@ class EsoBuildDataEditor
 			"DefenseSpellAoEMitigation" => array(
 					"title" => "Defending Spell AOE Mitigation",
 					"display" => "%",
-					"depends" => array("DefenseSpellMitigation"),
+					"depends" => array("DefenseSpellMitigation", "AOEDamageTaken"),
 					"compute" => array(
-							"1 + Skill.AOEDamageTaken",
+							"1 + AOEDamageTaken",
 							"1 - DefensePhysicalMitigation",
 							"*",
 							"-1",
@@ -4814,9 +5015,9 @@ class EsoBuildDataEditor
 			"DefensePhysicalAoeMitigation" => array(
 					"title" => "Defending Phys AOE Mitigation",
 					"display" => "%",
-					"depends" => array("DefensePhysicalMitigation"),
+					"depends" => array("DefensePhysicalMitigation", "AOEDamageTaken"),
 					"compute" => array(
-							"1 + Skill.AOEDamageTaken",
+							"1 + AOEDamageTaken",
 							"1 - DefensePhysicalMitigation",
 							"*",
 							"-1",
@@ -4829,9 +5030,9 @@ class EsoBuildDataEditor
 			"DefenseSpellDDMitigation" => array(
 					"title" => "Defending Spell DD Mitigation",
 					"display" => "%",
-					"depends" => array("DefenseSpellMitigation"),
+					"depends" => array("DefenseSpellMitigation", "DirectDamageTaken"),
 					"compute" => array(
-							"1 + Skill.DirectDamageTaken",
+							"1 + DirectDamageTaken",
 							"1 - DefensePhysicalMitigation",
 							"*",
 							"-1",
@@ -4844,9 +5045,9 @@ class EsoBuildDataEditor
 			"DefensePhysicalDDMitigation" => array(
 					"title" => "Defending Phys DD Mitigation",
 					"display" => "%",
-					"depends" => array("DefensePhysicalMitigation"),
+					"depends" => array("DefensePhysicalMitigation", "DirectDamageTaken"),
 					"compute" => array(
-							"1 + Skill.DirectDamageTaken",
+							"1 + DirectDamageTaken",
 							"1 - DefensePhysicalMitigation",
 							"*",
 							"-1",
@@ -5085,6 +5286,192 @@ class EsoBuildDataEditor
 	
 	
 	public $COMPUTED_STATS_LIST_PTS = array(
+			
+			/* 
+			 * Health:
+			 */
+			"Health" => array(
+					"title" => "Health",
+					"round" => "floor",
+					"compute" => array(
+							//"156 * Level + 944",
+							"300 * Level + 1000",		//Update 29
+							"122 * Attribute.Health",
+							"+",
+							"Item.Health",
+							"+",
+							"Set.Health",
+							"+",
+							"Food.Health",
+							"+",
+							"Skill2.Health",
+							"+",
+							"Mundus.Health",
+							"+",
+							"1 + Skill.Health + Buff.Health",
+							//"0.004 * min(CP.Health, 100) - 0.00002 * pow(min(CP.Health, 100), 2)", // Update 14
+							//"+",
+							"*",
+					),
+			),
+			
+			/* 
+			 * Magicka :
+			 */
+			"Magicka" => array(
+					"title" => "Magicka",
+					"round" => "floor",
+					"compute" => array(
+							//"142 * Level + 858",
+							"220 * Level + 1000",		//Update 29
+							"111 * Attribute.Magicka",
+							"+",
+							"Item.Magicka",
+							"+",
+							"Set.Magicka",
+							"+",
+							"Food.Magicka",
+							"+",
+							"Mundus.Magicka",
+							"+",
+							"Skill2.Magicka",
+							"+",
+							"1 + Skill.Magicka + Buff.Magicka",
+							//"0.004 * min(CP.Magicka, 100) - 0.00002 * pow(min(CP.Magicka, 100), 2)",	// Update 14
+							//"+",
+							"*",
+					),
+			),
+			
+			/* 
+			 * Stamina:
+			 */
+			"Stamina" => array(
+					"title" => "Stamina",
+					"round" => "floor",
+					"addClass" => "esotbStatDividerLite",
+					"compute" => array(
+							//"142 * Level + 858",
+							"220 * Level + 1000",		//Update 29
+							"111 * Attribute.Stamina",
+							"+",
+							"Item.Stamina",
+							"+",
+							"Set.Stamina",
+							"+",
+							"Food.Stamina",
+							"+",
+							"Mundus.Stamina",
+							"+",
+							"Skill2.Stamina",
+							"+",
+							"1 + Skill.Stamina + Buff.Stamina",
+							//"0.004 * min(CP.Stamina, 100) - 0.00002 * pow(min(CP.Stamina, 100), 2)",	// Update 14
+							//"+",
+							"*",
+					),
+			),
+			
+			/*
+			 * SpellDamage Confirmed:
+			 */
+			"SpellDamage" => array(
+					"title" => "Spell Damage",
+					"min" => 0,
+					"round" => "floor",
+					"depends" => array("BloodthirstySpellDamage"),
+					"compute" => array(
+							"20 * Level",	//Update 29
+							"Item.SpellDamage",
+							"+",
+							"Set.SpellDamage",
+							"+",
+							"Skill2.SpellDamage",
+							"+",
+							"Mundus.SpellDamage",
+							"+",
+							"1 + Skill.SpellDamage + Buff.SpellDamage",
+							"*",
+							"BloodthirstySpellDamage",
+							"+",
+					),
+			),
+			
+			/*
+			 * WeaponDamage Confirmed:
+			 */
+			"WeaponDamage" => array(
+					"title" => "Weapon Damage",
+					"round" => "floor",
+					"min" => 0,
+					"depends" => array("BloodthirstyWeaponDamage"),
+					"addClass" => "esotbStatDividerLite",
+					"compute" => array(
+							"20 * Level",	//Update 29
+							"Item.WeaponDamage",
+							"+",
+							"Set.WeaponDamage",
+							"+",
+							"Skill2.WeaponDamage",
+							"+",
+							"Mundus.WeaponDamage",
+							"+",
+							"1 + Skill.WeaponDamage + Buff.WeaponDamage",
+							"*",
+							"BloodthirstyWeaponDamage",
+							"+",
+					),
+			),
+			
+			/*
+			 * CritResist Confirmed
+			 */
+			"CritResist" => array(
+					"title" => "Critical Resistance",
+					"display" => "critresist",
+					"round" => "floor",
+					"addClass" => "esotbStatDividerLite",
+					"compute" => array(
+							"1320",				//Update 29
+							"Item.CritResist",
+							"+",
+							"Set.CritResist",
+							"+",
+							"Skill.CritResist",
+							"+",
+							"CP.CritResist",
+							"+",
+							"Buff.CritResist",
+							"+",
+							"round(Skill2.CritResist / EffectiveLevel)",
+							"+",
+					),
+			),
+			
+				//TODO: Update29pts confirm?
+			"DamageTaken" => array(
+					"title" => "Damage Taken",
+					"display" => "%",
+					//"round" => "floor",
+					//"addClass" => "esotbStatDivider",
+					"compute" => array(
+							"1 - 0.15",	//Update 29
+							"1 + CP.DamageTaken",
+							"*",
+							"1 + Skill.DamageTaken",
+							"*",
+							"1 + Buff.DamageTaken",
+							"*",
+							"1 + Item.DamageTaken",
+							"*",
+							"1 + Set.DamageTaken",
+							"*",
+							"Buff.Vulnerability",
+							"+",
+							"1",
+							"-",
+					),
+			),
 	);
 	
 	
@@ -5756,7 +6143,8 @@ class EsoBuildDataEditor
 	
 	public function OutputError($errorMsg)
 	{
-		return $errorMsg . "<br/>" . implode("<br/>", $this->errorMessages) . implode("<br>/", $this->buildDataViewer->errorMessages);	
+		$links = "You can <a href='https://en.uesp.net/wiki/Special:EsoBuildEditor'>Create a New Build</a> or <a href='https://en.uesp.net/wiki/Special:EsoBuildData'>Search for More Builds</a>.";
+		return $errorMsg . "<br/>" . implode("<br/>", $this->errorMessages) . implode("<br>/", $this->buildDataViewer->errorMessages) . "<br/>" . $links;
 	}
 	
 	
@@ -5801,6 +6189,8 @@ class EsoBuildDataEditor
 			$cpLine = $names[0];
 			$cpSkill = $names[1];
 			$points = $cp['points'];
+			$abilityId = $cp['abilityId'];
+			$slotIndex = $cp['slotIndex'];
 			
 			if ($this->initialCpData[$cpLine] === null)
 			{
@@ -5814,6 +6204,12 @@ class EsoBuildDataEditor
 			{
 				$this->initialCpData[$cpLine]['points'] += $points;
 				$this->initialCpData['points'] += $points;
+			}
+			
+			if ($slotIndex > 0) 
+			{
+				if ($this->initialCpData['slots'] === null) $this->initialCpData['slots'] = array();
+				$this->initialCpData['slots'][$slotIndex] = $abilityId;
 			}
 		}
 		
@@ -5835,14 +6231,14 @@ class EsoBuildDataEditor
 			$skillName = $names[1];
 			
 			$count = null;
-			if (array_key_exists(2, $names)) $count = $names[2];			
+			if (array_key_exists(2, $names)) $count = $names[2];
 			
 			if (!array_key_exists($skillName, $this->initialToggleSkillData) || $this->initialToggleSkillData[$skillName] == null) $this->initialToggleSkillData[$skillName] = array();
 			
 			if ($count !== null)
 				$this->initialToggleSkillData[$skillName]['count'] = $value;
 			else
-				$this->initialToggleSkillData[$skillName]['enabled'] = $value;			
+				$this->initialToggleSkillData[$skillName]['enabled'] = $value;
 		}
 	}
 	
@@ -5929,7 +6325,7 @@ class EsoBuildDataEditor
 	{
 		global $ESO_FREE_SKILLS;
 		global $ESO_FREE_RACIAL_SKILLS;
-			
+		
 		foreach ($ESO_FREE_SKILLS as $skillId => $skillType)
 		{
 			$race = $ESO_FREE_RACIAL_SKILLS[$skillId];
@@ -5942,13 +6338,13 @@ class EsoBuildDataEditor
 			$skillCharData['abilityId'] = $skillId;
 			$skillCharData['description'] = "";
 			$skillCharData['rank'] = 1;
-		
+			
 			if ($skillType == "passive")
 				$this->initialPassiveSkillData[$skillId] = $skillCharData;
 			else
 				$this->initialActiveSkillData[$skillId] = $skillCharData;
 		}
-	
+		
 		$this->viewSkills->initialData = $this->initialSkillData;
 		$this->viewSkills->activeData = $this->initialActiveSkillData;
 		$this->viewSkills->passiveData = $this->initialPassiveSkillData;
@@ -6038,7 +6434,7 @@ class EsoBuildDataEditor
 			else
 				$this->initialActiveSkillData[$baseAbilityId] = $data;
 		}
-	
+		
 		$this->viewSkills->initialData = $this->initialSkillData;
 		$this->viewSkills->activeData = $this->initialActiveSkillData;
 		$this->viewSkills->passiveData = $this->initialPassiveSkillData;
@@ -6131,6 +6527,8 @@ class EsoBuildDataEditor
 		{
 			$this->viewSkills->version = $this->PTS_VERSION;
 			$this->viewCps->version = $this->PTS_VERSION;
+			$this->viewCps->useVersion2 = true;
+			$this->viewCps->selectedDiscId = "fitness";
 			$this->ITEM_TABLE_SUFFIX = $this->PTS_VERSION;
 		}
 		
@@ -6148,6 +6546,8 @@ class EsoBuildDataEditor
 		$this->CreateInitialToggleSetData();
 		$this->CreateInitialToggleCpData();
 		$this->CreateInitialCombatActionsData();
+		
+		$this->FixupBuildForPtsPost();
 		
 		return true;
 	}
@@ -6419,6 +6819,32 @@ class EsoBuildDataEditor
 	}
 	
 	
+	public function FixupBuildForPtsPost() 
+	{
+		if (!$this->getCharStatField("UsePtsRules", 0)) return false;
+		
+			//Make sure new PTS builds have the new free passives
+			//TODO: Update29pts Remove after update 29?
+		$newPassives = array(152778, 150185, 150181, 152780, 150184);
+		
+		foreach ($newPassives as $skillId) 
+		{
+			$this->initialSkillData[$skillId] = 1;
+			
+			$skillCharData = array();
+			$skillCharData['type'] = "passive";
+			$skillCharData['abilityId'] = $skillId;
+			$skillCharData['description'] = "";
+			$skillCharData['rank'] = 1;
+			
+			$this->initialPassiveSkillData[$skillId] = $skillCharData;
+		}
+		
+		$this->viewSkills->initialData = $this->initialSkillData;
+		$this->viewSkills->passiveData = $this->initialPassiveSkillData;
+	}
+	
+	
 	public function LoadSetNamesData()
 	{
 		global $uespEsoLogReadDBHost, $uespEsoLogReadUser, $uespEsoLogReadPW, $uespEsoLogDatabase;
@@ -6660,7 +7086,7 @@ class EsoBuildDataEditor
 		
 		if (!$this->LoadBuild())
 		{
-			return $this->OutputError("Could not find the specified character build!");
+			return $this->OutputError("Could not find the specified character build! It was likely deleted by the owner and is no longer available.");
 		}
 		
 		$this->SetSessionData();

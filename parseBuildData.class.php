@@ -263,6 +263,7 @@ class EsoBuildDataParser
 						points INTEGER NOT NULL,
 						description TEXT NOT NULL,
 						abilityId INTEGER NOT NULL,
+						slotIndex TINYINT NOT NULL,
 						PRIMARY KEY (id),
 						INDEX index_characterId(characterId)
 					) ENGINE=MYISAM;";
@@ -645,6 +646,10 @@ class EsoBuildDataParser
 		{
 			$championPoints = $buildData['ChampionPoints']['Total:Spent'];
 		}
+		elseif (array_key_exists('ChampionPoints2', $buildData) && array_key_exists('Total:Spent', $buildData['ChampionPoints2']))
+		{
+			$championPoints = $buildData['ChampionPoints2']['Total:Spent'];
+		}
 		
 		$championPoints = $buildData['ChampionPointsEarned'];
 		
@@ -917,6 +922,8 @@ class EsoBuildDataParser
 		{
 			case "ChampionPoints":
 				return $this->saveCharacterChampionPoints($buildData, $name, $arrayData);
+			case "ChampionPoints2":
+				return $this->saveCharacterChampionPoints2($buildData, $name, $arrayData);
 			case "Crafting":
 				return $this->saveCharacterCrafting($buildData, $name, $arrayData);
 			case "Research":
@@ -1446,7 +1453,7 @@ class EsoBuildDataParser
 	
 	public function saveCharacterChampionPoints($buildData, $name, $arrayData)
 	{
-		$result = True;
+		$result = true;
 		
 		foreach ($arrayData as $key => &$value)
 		{
@@ -1461,6 +1468,31 @@ class EsoBuildDataParser
 			}
 		}
 		
+		return $result;
+	}
+	
+	
+	public function saveCharacterChampionPoints2($buildData, $name, $arrayData)
+	{
+		$result = true;
+		
+		foreach ($arrayData as $key => &$value)
+		{
+			if (is_array($value))
+			{
+				if ($key == "Slots")
+					$result &= $this->saveCharacterChampionPointSlots2($buildData, $key, $value);
+				else
+					$result &= $this->saveCharacterChampionPoint2($buildData, $key, $value);
+			}
+			else
+			{
+				$newKey = "ChampionPoints2:" . $key;
+				$result &= $this->saveCharacterStatData($buildData, $newKey, $value);
+			}
+		}
+		
+		$result &= $this->saveCharacterStatData($buildData, "usesChampionPoints2", "1");
 		return $result;
 	}
 	
@@ -1480,6 +1512,40 @@ class EsoBuildDataParser
 		$result = $this->db->query($query);
 		
 		if ($result === FALSE) return $this->reportError("Failed to save character champion point data!");
+		return true;
+	}
+	
+	
+	public function saveCharacterChampionPointSlots2($buildData, $name, $slotData)
+	{
+		$result = true;
+		
+		foreach ($slotData as $slotIndex => $skillId)
+		{
+			$result &= $this->saveCharacterStatData($buildData, "ChampionPoints2:Slot:$slotIndex", $skillId);
+		}
+		
+		if ($result === FALSE) return $this->reportError("Failed to save character champion point v2 slot data!");
+		return true;
+	}
+	
+	
+	public function saveCharacterChampionPoint2($buildData, $name, $arrayData)
+	{
+		$charId = $buildData['id'];
+		$name = preg_replace("#\^[a-zA-Z]*#", "", $name);
+		$safeName = $this->db->real_escape_string($name);
+		$points = $this->getSafeFieldInt($arrayData, 'points');
+		$description = $this->getSafeFieldStr($arrayData, 'desc');
+		$abilityId = $this->getSafeFieldInt($arrayData, 'id');
+		$slotIndex = $this->getSafeFieldInt($arrayData, 'slot');
+		
+		$query  = "INSERT INTO championPoints(characterId, name, points, description, abilityId, slotIndex) ";
+		$query .= "VALUES($charId, \"$safeName\", $points, \"$description\", $abilityId, $slotIndex);";
+		$this->lastQuery = $query;
+		$result = $this->db->query($query);
+		
+		if ($result === FALSE) return $this->reportError("Failed to save character champion v2 point data!");
 		return true;
 	}
 	
