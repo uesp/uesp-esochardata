@@ -2165,6 +2165,9 @@ window.SlideEsoBookCollectionIntoView = function(element, instant)
 }
 
 
+window.g_EsoLastBookId = null;
+
+
 window.OnEsoBookClick = function(e)
 {
 	var queryParams = {}
@@ -2172,6 +2175,8 @@ window.OnEsoBookClick = function(e)
 	
 	queryParams['table'] = 'book';
 	queryParams['id'] = bookId;
+	
+	g_EsoLastBookId = bookId;
 	
 	$.ajax("//esolog.uesp.net/exportJson.php", {
 			data: queryParams,
@@ -2205,8 +2210,16 @@ window.ShowEsoBook = function(book)
 	
 	$(document).on("click.OnEsoBookClickDocument", OnEsoBookClickDocument);
 	
-	output += "<div class='ecdBookTitle'>" + book.title + "</div>";
-	output += "<div class='ecdBookBody'>" + book.body + "</div>";
+	if (book == null)
+	{
+		output += "<div class='ecdBookTitle'>Unknown Book</div>";
+		output += "<div class='ecdBookBody'>Failed to load data for book ID #" + g_EsoLastBookId + "!</div>";
+	}
+	else
+	{
+		output += "<div class='ecdBookTitle'>" + book.title + "</div>";
+		output += "<div class='ecdBookBody'>" + book.body + "</div>";
+	}
 	
 	bookContents.html(output);
 }

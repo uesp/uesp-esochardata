@@ -43,7 +43,7 @@
 			</div>
 			<div id='ecdSkillTree'>{skillTree}</div>
 		</div>
-		<div id='ecdCP' class='ecdRightDataArea' style="display: none;">
+		<div id='ecdCP' class='ecdRightDataArea {extraCPClass}' style="display: none;">
 				<img class='ecdImageFlip' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' /><img class='' src='{baseResourceUrl}resources/eso_equip_bar.png' width='49%' />
 				{cpContents}
 		</div>

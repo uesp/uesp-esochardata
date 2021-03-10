@@ -2359,7 +2359,32 @@ thead.ecdFixedHeader tr {
 }
 
 #ecdCP #esovcpSkills {
-	margin-left: 220px;
+	margin-left: 120px !important;
+}
+
+#ecdCP .esovcp2DiscCluster {
+	height: auto;
+	font-size: 13px !important;
+	font-weight: normal !important;
+	margin-left: 5px;
+	padding: 2px;
+}
+
+#ecdCP .esovcp2Discipline {
+	height: auto;
+	font-size: 18px;
+}
+
+#ecdCP #esovcp2Disciplines {
+	width: auto;
+}
+
+.ecdCp2RightArea {
+	width: 650px !important;
+}
+
+#ecdCP .esovcpDiscPoints {
+	padding-left: 10px;
 }
 
 #ecdCP .esovcpSkillDesc {
@@ -2410,6 +2435,13 @@ thead.ecdFixedHeader tr {
     margin-left: -65px;
 }
 
+#ecdCP .esovcp2StarControls {
+	width: 70px;
+	margin-left: 0;
+	position: relative;
+	top: -5px;
+} 
+
 #ecdCP .esovcpSkillLevel {
 	top: 0px;
 	font-weight: normal;
@@ -2421,6 +2453,24 @@ thead.ecdFixedHeader tr {
 
 #ecdCP .esovcpSkillName {
 	font-size: 18px;
+}
+
+
+
+#ecdCP .esovcp2SkillsStar {
+	width: 500px;
+	height: 400px;
+}
+
+#ecdCP .esovcp2StarSvg {
+	width: 500px;
+	height: 300px;
+}
+
+#ecdCP #esovcpSkillEquipBar {
+	margin-left: 150px;
+	position: relative;
+	top: -5px;
 }
 
 #ecdCP .esovcpPointInput {
@@ -2436,6 +2486,12 @@ thead.ecdFixedHeader tr {
     margin-top: -2px;
 }
 
+#ecdCP .esovcp2PointInput {
+	font-size: 16px;
+	margin-top: 0px;
+	background-color: rgba(0,0,0,0.5);
+}
+
 #ecdCP #esovcpDisciplines .esovcpDiscSkillTitle {
 	font-size: 24px;
 	color: white;
@@ -2449,6 +2505,15 @@ thead.ecdFixedHeader tr {
 
 #ecdCP .esovcpDiscSkillTitle {
 	padding-bottom: 10px;
+	position: relative;
+	top: 4px;
+	left: 10px;
+}
+
+#ecdCP .esovcpDiscTitlePoints {
+	position: relative;
+	top: 4px;
+	left: 10px;
 }
 
 #ecdCP .esovcpDiscHea {

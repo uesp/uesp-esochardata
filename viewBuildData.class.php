@@ -160,7 +160,7 @@ class EsoBuildDataViewer
 		$this->viewCPs->shortDiscDisplay = true;
 		$this->viewCPs->showEdit = false;
 		$this->viewCPs->showFooter = false;
-		$this->viewCPs->showTitleonLeft = true;
+		$this->viewCPs->showTitleonLeft = false;
 		
 		if ($initDbWrite)
 			$this->initDatabaseWrite();
@@ -660,7 +660,27 @@ class EsoBuildDataViewer
 		$this->parseCharSkillData();
 		$this->parseCharChampionPointData();
 		
+		if ($this->getCharStatField("UsesChampionPoints2", 0))
+		{
+			$this->viewCPs->useVersion2 = true;
+			$this->viewCPs->showFlatV2 = false;
+			$this->viewCPs->selectedDiscId = "fitness";
+			$this->viewCPs->GLOBAL_SCALE = 0.5;
+			$this->viewCPs->shortDiscWidth = "auto";
+		}
+		else
+		{
+			$this->viewCPs->version = "28";
+		}
+		
 		return true;
+	}
+	
+	
+	public function getExtraCpClass()
+	{
+		if ($this->getCharStatField("UsesChampionPoints2", 0)) return "ecdCp2RightArea";
+		return "";
 	}
 	
 	
@@ -1301,7 +1321,7 @@ class EsoBuildDataViewer
 	
 	public function createCharacterOutput()
 	{
-		if ($this->viewRawData) 
+		if ($this->viewRawData)
 		{
 			if (!$this->loadCharacter()) return false;
 			return $this->createCharacterOutputRaw();
@@ -1447,6 +1467,7 @@ class EsoBuildDataViewer
 					'{backgroundFocusStyle}' => $this->getBackgroundFocusStyle(),
 					'{BuildDescription}' => $this->getCharStatField('BuildDescription', ''),
 					'{buildStatDataJson}' => $this->getBuildStatDataJson(),
+					'{extraCPClass}' => $this->getExtraCpClass(),
 			);
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
@@ -4604,12 +4625,14 @@ EOT;
 		
 		$output = $this->viewCPs->GetOutputHtml();
 		
-		return $output;		
+		return $output;
 	}
 	
 	
 	public function CreateInitialCPData()
 	{
+		$this->viewCPs->LoadCpData();
+		
 		$cpData = $this->characterData['championPoints'];
 		
 		$this->initialCpData = array();
@@ -4621,6 +4644,11 @@ EOT;
 			$cpLine = $names[0];
 			$cpSkill = $names[1];
 			$points = $cp['points'];
+			$abilityId = $cp['abilityId'];
+			$slotIndex = $cp['slotIndex'];
+			
+			$skillData = $this->viewCPs->cpSkills[$abilityId];
+			if ($skillData && $skillData['clusterName']) $cpLine = $skillData['clusterName'];
 			
 			if ($this->initialCpData[$cpLine] === null)
 			{
@@ -4630,10 +4658,16 @@ EOT;
 			
 			$this->initialCpData[$cpLine][$cpSkill] = $points;
 			
-			if ($points > 0) 
+			if ($points > 0)
 			{
 				$this->initialCpData[$cpLine]['points'] += $points;
 				$this->initialCpData['points'] += $points;
+			}
+			
+			if ($slotIndex > 0)
+			{
+				if ($this->initialCpData['slots'] === null) $this->initialCpData['slots'] = array();
+				$this->initialCpData['slots'][$slotIndex] = $abilityId;
 			}
 		}
 		
@@ -4651,14 +4685,14 @@ EOT;
 	
 	public function MakeIconTag($icon, $extraClass = "")
 	{
-		if (!$this->useDivImageTags)	
+		if (!$this->useDivImageTags)
 		{
 			$output = "<img src='" . MakeEsoIconLink($icon) . "' ";
 			if ($extraClass) $output .= "class='$extraClass' ";
 			$output .= "/>";
 			return $output;
 		}
-				
+		
 			/* Use background div to let images load only when first displayed */
 		$iconUrl = MakeEsoIconLink($icon);
 		$output = "<div class='$extraClass' style=\"background-image: url('$iconUrl');\" ></div>";

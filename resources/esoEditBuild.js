@@ -21,7 +21,7 @@ window.ESO_MAX_CPLEVEL = 16;
 window.ESO_MAX_EFFECTIVELEVEL = 66;
 
 	// Time between an input change and a stat update in seconds
-window.ESO_BUILD_UPDATE_MINTIME = 0.5;
+window.ESO_BUILD_UPDATE_MINTIME = 0.9;
 
 window.g_EsoBuildLastUpdateRequest = 0;
 window.g_EsoBuildRebuildStatFlag = false;
@@ -361,7 +361,32 @@ window.g_EsoBuildBuffData =
 			display: "%",
 			category: "Target",
 			statIds : [ "PoisonDamageTaken", "DiseaseDamageTaken" ],
-			icon : "/esoui/art/icons/ability_rogue_021.png",		//TODO: Placeholder
+			icon : "/esoui/art/icons/ability_rogue_021.png",		// TODO: Placeholder
+		},
+		"Encratis Behemoth" : 
+		{
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 0.05,
+			display: "%",
+			categories: ["Set", "Target"],
+			statIds : [ "FlameDamageTaken", "FlameDamageTaken" ],
+			factorValues: [ -1, 1 ],
+			icon : "/esoui/art/icons/ability_mage_065.png",
+		},
+		"Vastaries Tutelage" : 
+		{
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			values : [ 258, 258, -0.10, -0.10, -0.10 ],
+			displays: [ "", "", "%", "%", "%" ],
+			category: "Set",
+			statIds : [ "SpellDamage", "WeaponDamage", "MagickaCost", "StaminaCost", "HealthCost" ],
+			icon : "/esoui/art/icons/ability_mage_065.png",
 		},
 		"Way of Martial Knowledge" :
 		{
@@ -373,7 +398,7 @@ window.g_EsoBuildBuffData =
 			display: "%",
 			category: "Target",
 			statId : "DamageTaken",
-			icon : "/esoui/art/icons/ability_mage_044.png",		//TODO: Placeholder
+			icon : "/esoui/art/icons/ability_mage_044.png",		// TODO: Placeholder
 		},
 		"Beckoning Steel" : 
 		{
@@ -660,40 +685,18 @@ window.g_EsoBuildBuffData =
 			icon : "/esoui/art/icons/consumable_potion_007_type_005.png",
 		},
 		
-		/* Removed in Update 24 
-		"Major Ward" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 5280,
-			category : "Skill",
-			statId : "SpellResist",
-			icon : "/esoui/art/icons/ability_mage_069.png",
-		},
-		"Major Ward (Bonus)" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 2640,
-			category : "Skill",
-			statId : "SpellResist",
-			icon : "/esoui/art/icons/ability_mage_069.png",
-		},
-		"Minor Ward" : 
-		{
-			group: "Minor",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 1320,
-			category : "Skill",
-			statId : "SpellResist",
-			icon : "/esoui/art/icons/ability_mage_038.png",
-		}, //*/
+		/*
+		 * Removed in Update 24 "Major Ward" : { group: "Major", enabled: false,
+		 * skillEnabled : false, buffEnabled: false, value : 5280, category :
+		 * "Skill", statId : "SpellResist", icon :
+		 * "/esoui/art/icons/ability_mage_069.png", }, "Major Ward (Bonus)" : {
+		 * group: "Major", enabled: false, skillEnabled : false, buffEnabled:
+		 * false, value : 2640, category : "Skill", statId : "SpellResist", icon :
+		 * "/esoui/art/icons/ability_mage_069.png", }, "Minor Ward" : { group:
+		 * "Minor", enabled: false, skillEnabled : false, buffEnabled: false,
+		 * value : 1320, category : "Skill", statId : "SpellResist", icon :
+		 * "/esoui/art/icons/ability_mage_038.png", }, //
+		 */
 		
 		"Major Savagery" : 
 		{
@@ -742,7 +745,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.40,
+			value : 0.30,
 			display : "%",
 			statId : "HealthRegen",
 			icon : "/esoui/art/icons/ability_healer_003.png",
@@ -753,7 +756,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.20,
+			value : 0.15,
 			display : "%",
 			statId : "HealthRegen",
 			icon : "/esoui/art/icons/ability_healer_002.png",
@@ -764,7 +767,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.40,
+			value : 0.30,
 			display : "%",
 			statId : "MagickaRegen",
 			icon : "/esoui/art/icons/ability_mage_045.png",
@@ -775,7 +778,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.20,
+			value : 0.15,
 			display : "%",
 			statId : "MagickaRegen",
 			icon : "/esoui/art/icons/ability_mage_044.png",
@@ -783,10 +786,10 @@ window.g_EsoBuildBuffData =
 		"Major Endurance" : 
 		{
 			group: "Major",
-			enabled: false,			
+			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.40,
+			value : 0.30,
 			display : "%",
 			statId : "StaminaRegen",
 			icon : "/esoui/art/icons/ability_warrior_028.png",
@@ -797,7 +800,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.20,
+			value : 0.15,
 			display : "%",
 			statId : "StaminaRegen",
 			icon : "/esoui/art/icons/ability_warrior_031.png",
@@ -858,7 +861,8 @@ window.g_EsoBuildBuffData =
 			statDescs : ["Increases the damage of your Light/Medium/Heavy Attacks by ", "Increases the damage of your Overload attacks by ", ],
 			icon : "/esoui/art/icons/ability_warrior_012.png",
 		},
-		"Major Courage" :			// TODO: Check how its added to other SD/WD stats
+		"Major Courage" :			// TODO: Check how its added to other SD/WD
+									// stats
 		{
 			group: "Major",
 			enabled: false,
@@ -870,7 +874,8 @@ window.g_EsoBuildBuffData =
 			statDesc : "Increases your Weapon and Spell Damage by ",
 			icon : "/esoui/art/icons/ability_mage_045.png",
 		},
-		"Minor Courage" :			// TODO: Check how its added to other SD/WD stats
+		"Minor Courage" :			// TODO: Check how its added to other SD/WD
+									// stats
 		{
 			group: "Minor",
 			enabled: false,
@@ -1317,18 +1322,13 @@ window.g_EsoBuildBuffData =
 			statId : "Health",
 			icon : "/esoui/art/icons/achievement_031.png",
 		},
-		/*"Worms Raiment" :
-		{
-			group: "Set",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -0.04,
-			display: '%',
-			statId : "MagickaCost",
-			combineAs: "*%",
-			icon : "/esoui/art/icons/gear_artifactwormcultlight_head_a.png", // TODO: Not the correct one?
-		},*/
+		/*
+		 * "Worms Raiment" : { group: "Set", enabled: false, skillEnabled :
+		 * false, buffEnabled: false, value : -0.04, display: '%', statId :
+		 * "MagickaCost", combineAs: "*%", icon :
+		 * "/esoui/art/icons/gear_artifactwormcultlight_head_a.png", // TODO:
+		 * Not the correct one? },
+		 */
 		"Worms Raiment" :
 		{
 			group: "Set",
@@ -1340,18 +1340,12 @@ window.g_EsoBuildBuffData =
 			statId : "MagickaRegen",
 			icon : "/esoui/art/icons/gear_artifactwormcultlight_head_a.png",
 		},
-		/*"Hircines Veneer" : 
-		{
-			group: "Set",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : -0.04,
-			display: '%',
-			statId : "StaminaCost",
-			combineAs: "*%",
-			icon : "/esoui/art/icons/gear_artifactsaviorhidemd_head_a.png",
-		}, */
+		/*
+		 * "Hircines Veneer" : { group: "Set", enabled: false, skillEnabled :
+		 * false, buffEnabled: false, value : -0.04, display: '%', statId :
+		 * "StaminaCost", combineAs: "*%", icon :
+		 * "/esoui/art/icons/gear_artifactsaviorhidemd_head_a.png", },
+		 */
 		"Hircines Veneer" :
 		{
 			group: "Set",
@@ -1488,7 +1482,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Weakening Enchantment (Target)" :
 		{
-			//  Reduce target Weapon Damage and Spell Damage by 0-348 for 5 seconds.
+			// Reduce target Weapon Damage and Spell Damage by 0-348 for 5 seconds.
 			group: "Target",
 			enabled: false,
 			skillEnabled : false,
@@ -1538,7 +1532,7 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			// visible : false,
 			// toggleVisible : true,
-			values : [ -2740, -2740 ],
+			values : [ -3056, -3056 ],
 			category: "Target",
 			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
 			statDescs : [ "Reduces the target's Physical Resistance by ", "Reduces the target's Spell Resistance by " ],
@@ -1583,7 +1577,7 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			// visible : false,
 			// toggleVisible : true,
-			values : [ -1370, -1370 ],
+			values : [ -1528, -1528 ],
 			category: "Target",
 			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
 			statDescs : [ "Reduces the target's Physical Resistance by ", "Reduces the target's Spell Resistance by " ],
@@ -1726,7 +1720,7 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			displays : [ "", "%", "%", "%" ],
 			categories : [ "Skill2", "Skill2", "Buff", "Buff" ],
-			values : [ 5000, -0.50, -0.50, -0.50 ],
+			values : [ 5000, -0.55, -0.50, -0.50 ],
 			statIds : [ "Health", "HealingReceived", "DamageTaken", "DamageShield" ],
 			combineAses: [ '', '', "*%", '' ],
 			icon: "/esoui/art/icons/ability_templar_002.png",
@@ -2011,29 +2005,18 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 	},
 	{
 		statId: "SneakSpeed",
-		category: "Skill2",
+		category: "Skill",
 		display: "%",
 		rawInputMatch: /(While slotted, your movement speed while stealthed or invisible is increased by [0-9]+\.?[0-9]*%\.)/i,
 		match: /While slotted, your movement speed while stealthed or invisible is increased by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		statId: "SneakSpeed",
-		category: "Skill2",
+		category: "Skill",
 		display: "%",
 		rawInputMatch: /(While slotted, your Movement Speed while Sneaking or invisible is increased by [0-9]+\.?[0-9]*%\.)/i,
 		match: /While slotted, your Movement Speed while Sneaking or invisible is increased by ([0-9]+\.?[0-9]*)%/i
 	},
-	/*
-	{
-		buffId : "Major Sorcery",
-		match: /grants you Major Sorcery/i,
-		ignoreSkills: { "Bull Netch" : 1, "Betty Netch" : 1, "Blue Betty" : 1 },
-	},
-	{
-		buffId : "Major Brutality",
-		match: /grants you Major Sorcery and Major Brutality/i,
-		ignoreSkills: { "Bull Netch" : 1, "Betty Netch" : 1, "Blue Betty" : 1 },
-	},*/
 	{
 		buffId : "Major Brutality",
 		match: /While slotted you gain Major Brutality/i,
@@ -2075,8 +2058,10 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 	},
 	
 		/* Necromancer */
-	// TODO: Hitting your Skeletal Mage or Spirit Mender enhances them for 5 seconds, increasing their effectiveness by 40%.?
-	// TODO: You grant the target Spell and Physical Resistance equal to half the amount healed for 3 seconds. ?
+	// TODO: Hitting your Skeletal Mage or Spirit Mender enhances them for 5
+	// seconds, increasing their effectiveness by 40%.?
+	// TODO: You grant the target Spell and Physical Resistance equal to half
+	// the amount healed for 3 seconds. ?
 	{
 		category: "Skill",
 		statId: "DamageTaken",
@@ -2458,7 +2443,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		id: "Blood Scion",
 		displayName: "Perfect Scion",
 		baseSkillId: 41920,
-		//matchSkillName: true,
+		// matchSkillName: true,
 		toggle: true,
 		enabled: false,
 		enableOffBar: true,
@@ -2783,66 +2768,28 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		match: /creating a suit of Daedric mail that increases your block mitigation by ([0-9]+\.?[0-9]*)% for/i
 	},
 	/*
-	{
-		id: "Bound Armor",
-		baseSkillId: 30418,
-		statId: "Magicka",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		display: "%",
-		match: /The armor increases your Max Magicka by ([0-9]+\.?[0-9]*)%/i
-	},
-	{
-		id: "Bound Armor",
-		baseSkillId: 30418,
-		statId: "BlockMitigation",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		display: "%",
-		match: /that increases your block mitigation by ([0-9]+\.?[0-9]*)%/i
-	},
-	{
-		id: "Bound Armor",
-		displayName: "Bound Armaments",
-		baseSkillId: 30418,
-		statId: "HADamage",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		display: "%",
-		match: /The armor increases your Max Stamina by [0-9]+\.?[0-9]*% and your damage done with Heavy Attacks by ([0-9]+\.?[0-9]*%)/i,
-	},
-	{
-		id: "Bound Armor",
-		displayName: "Bound Armaments",
-		baseSkillId: 30418,
-		statId: "Stamina",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		display: "%",
-		match: /The armor increases your Max Stamina by ([0-9]+\.?[0-9]*)% and your damage done with Heavy Attacks by [0-9]+\.?[0-9]*%/i,
-	},
-	{
-		id: "Bound Armor",
-		baseSkillId: 30418,
-		buffId : "Minor Resolve",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		match: /Protect yourself with the power of Oblivion, creating a suit of Daedric mail that grants Minor Resolve/i,
-	},
-	{
-		id: "Bound Armor",
-		baseSkillId: 30418,
-		buffId : "Minor Ward",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		match: /Protect yourself with the power of Oblivion, creating a suit of Daedric mail that grants Minor Resolve and Minor Ward/i,
-	}, */
+	 * { id: "Bound Armor", baseSkillId: 30418, statId: "Magicka", toggle: true,
+	 * enabled: false, enableOffBar: true, display: "%", match: /The armor
+	 * increases your Max Magicka by ([0-9]+\.?[0-9]*)%/i }, { id: "Bound
+	 * Armor", baseSkillId: 30418, statId: "BlockMitigation", toggle: true,
+	 * enabled: false, enableOffBar: true, display: "%", match: /that increases
+	 * your block mitigation by ([0-9]+\.?[0-9]*)%/i }, { id: "Bound Armor",
+	 * displayName: "Bound Armaments", baseSkillId: 30418, statId: "HADamage",
+	 * toggle: true, enabled: false, enableOffBar: true, display: "%", match:
+	 * /The armor increases your Max Stamina by [0-9]+\.?[0-9]*% and your damage
+	 * done with Heavy Attacks by ([0-9]+\.?[0-9]*%)/i, }, { id: "Bound Armor",
+	 * displayName: "Bound Armaments", baseSkillId: 30418, statId: "Stamina",
+	 * toggle: true, enabled: false, enableOffBar: true, display: "%", match:
+	 * /The armor increases your Max Stamina by ([0-9]+\.?[0-9]*)% and your
+	 * damage done with Heavy Attacks by [0-9]+\.?[0-9]*%/i, }, { id: "Bound
+	 * Armor", baseSkillId: 30418, buffId : "Minor Resolve", toggle: true,
+	 * enabled: false, enableOffBar: true, match: /Protect yourself with the
+	 * power of Oblivion, creating a suit of Daedric mail that grants Minor
+	 * Resolve/i, }, { id: "Bound Armor", baseSkillId: 30418, buffId : "Minor
+	 * Ward", toggle: true, enabled: false, enableOffBar: true, match: /Protect
+	 * yourself with the power of Oblivion, creating a suit of Daedric mail that
+	 * grants Minor Resolve and Minor Ward/i, },
+	 */
 	{
 		id: "War Horn",
 		baseSkillId: 46529,
@@ -3182,8 +3129,10 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 
 
 window.ESO_PASSIVEEFFECT_MATCHES = [
-	// Reach: Increases the range of long-range abilities by 2 meters while near a keep. Any ability with a range greater than 28 meters is affected.
-	// WHILE YOU ARE EMPEROR Increases your damage done with Siege Weapons to keeps and other Siege Weapons by 100% while in your campaign.
+	// Reach: Increases the range of long-range abilities by 2 meters while near
+	// a keep. Any ability with a range greater than 28 meters is affected.
+	// WHILE YOU ARE EMPEROR Increases your damage done with Siege Weapons to
+	// keeps and other Siege Weapons by 100% while in your campaign.
 	{
 		statId: "EnableFrostTaunt",
 		statValue: 1,
@@ -3200,6 +3149,13 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireId: "WeaponDestStaff",
 		statRequireValue: 1,
 		match: /With Destruction Staff Equipped\sIncreases your chance to apply the Burning, Concussion, and Chilled status effects by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "StatusEffectChance",
+		display: "%",
+		statRequireId: "WeaponDestStaff",
+		statRequireValue: 1,
+		match: /Increases your chance to apply elemental status effects by ([0-9]+\.?[0-9]*)%/i,
 	},
  	{
 		statId: "BurningDamage",
@@ -3357,11 +3313,24 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Reduces the size of your detection area while Sneaking by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
 	},
 	{
+		factorStatId: "ArmorMedium",
+		statId: "SneakRange",
+		display: '%',
+		factorValue: -1,
+		match: /Reduces the size of your detection area while Sneaking by ([0-9]+\.?[0-9]*)% for each piece of Medium Armor equipped/i,
+	},
+	{
 		statRequireId: "ArmorMedium",
 		statRequireValue: 5,
 		statId: "WeaponDamage",
 		display: '%',
 		match: /WHEN 5 OR MORE PIECES OF MEDIUM ARMOR ARE EQUIPPED[\s\S]*?Increases your Weapon Damage by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		factorStatId: "ArmorMedium",
+		statId: "WeaponDamage",
+		display: '%',
+		match: /Increases your Weapon Damage by ([0-9]+\.?[0-9]*)% for each piece of Medium Armor worn/i,
 	},
 	{
 		factorStatId: "ArmorMedium",
@@ -3443,6 +3412,19 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		factorStatId: "ArmorHeavy",
+		statId: "HealingReceived",
+		factorValue: 0.5,
+		display: "%",
+		match: /Increases your healing received by ([0-9]+\.?[0-9]*)% for every 2 pieces of Heavy Armor worn/i,
+	},
+	{
+		factorStatId: "ArmorHeavy",
+		statId: "HealingReceived",
+		display: "%",
+		match: /Increases your healing received by ([0-9]+\.?[0-9]*)% for each piece of Heavy Armor worn/i,
+	},
+	{
+		factorStatId: "ArmorHeavy",
 		statId: "HealthRegen",
 		display: "%",
 		match: /Increases your Health Recovery by ([0-9]+\.?[0-9]*)% for each piece of Heavy Armor equipped/i,
@@ -3473,7 +3455,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		category: "Skill",
 		statId: "NormalSneakSpeed",
 		statRequireId: "VampireStage",
-		statRequireValue: 1,	//TODO: 26pts ?
+		statRequireValue: 1,	// TODO: 26pts ?
 		value: 1,
 		match: /Ignore the movement speed penalty of Sneak/i,
 	},
@@ -3943,11 +3925,47 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statRequireId: "Weapon1H",
 		statRequireValue: 2,
+		factorStatId: "WeaponMace",
+		category: "Skill",
+		statId: "PhysicalPenetration",
+		rawInputMatch: /(Each mace increases your Armor Penetration by [0-9]+\.)/i,
+		match: /Each mace increases your Armor Penetration by ([0-9]+)/i,
+	},
+	{
+		statRequireId: "Weapon1H",
+		statRequireValue: 2,
+		factorStatId: "WeaponMace",
+		category: "Skill",
+		statId: "SpellPenetration",
+		rawInputMatch: /(Each mace increases your Armor Penetration by [0-9]+\.)/i,
+		match: /Each mace increases your Armor Penetration by ([0-9]+)/i,
+	},
+	{
+		statRequireId: "Weapon1H",
+		statRequireValue: 2,
 		factorStatId: "WeaponSword",
 		statId: "DamageDone",
 		display: "%",
 		rawInputMatch: /(Each sword increases your damage done by [0-9]+\.?[0-9]*%)/i,
 		match: /Each sword increases your damage done by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statRequireId: "Weapon1H",
+		statRequireValue: 2,
+		factorStatId: "WeaponSword",
+		category: "Skill2",
+		statId: "WeaponDamage",
+		rawInputMatch: /(Each sword increases your Weapon and Spell Damage by [0-9]+)/i,
+		match: /Each sword increases your Weapon and Spell Damage by ([0-9]+)/i,
+	},
+	{
+		statRequireId: "Weapon1H",
+		statRequireValue: 2,
+		factorStatId: "WeaponSword",
+		category: "Skill2",
+		statId: "SpellDamage",
+		rawInputMatch: /(Each sword increases your Weapon and Spell Damage by [0-9]+)/i,
+		match: /Each sword increases your Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
 		statRequireId: "Weapon1H",
@@ -3960,10 +3978,46 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statRequireId: "Weapon1H",
 		statRequireValue: 2,
+		factorStatId: "WeaponDagger",
+		category: "Skill2",
+		statId: "WeaponCrit",
+		rawInputMatch: /(Each dagger increases your Critical Chance rating by [0-9]+)/i,
+		match: /Each dagger increases your Critical Chance rating by ([0-9]+)/i,
+	},
+	{
+		statRequireId: "Weapon1H",
+		statRequireValue: 2,
+		factorStatId: "WeaponDagger",
+		category: "Skill2",
+		statId: "SpellCrit",
+		rawInputMatch: /(Each dagger increases your Critical Chance rating by [0-9]+)/i,
+		match: /Each dagger increases your Critical Chance rating by ([0-9]+)/i,
+	},
+	{
+		statRequireId: "Weapon1H",
+		statRequireValue: 2,
 		factorStatId: "WeaponAxe",
 		statId: "OtherEffects",
 		rawInputMatch: /(Each axe gives your melee attacks a [0-9]+\.?[0-9]*% chance to bleed enemies for [0-9]+ Physical Damage over 6 seconds\.)/i,
 		match: /Each axe gives your melee attacks a [0-9]+\.?[0-9]*% chance to bleed enemies for ([0-9]+) Physical Damage over 6 seconds/i,
+	},
+	{
+		statRequireId: "Weapon1H",
+		statRequireValue: 2,
+		factorStatId: "WeaponAxe",
+		statId: "CritDamage",
+		display: "%",
+		rawInputMatch: /(Each axe increases your Critical Damage and Critical Healing done by [0-9]+\.?[0-9]*%\.)/i,
+		match: /Each axe increases your Critical Damage and Critical Healing done by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statRequireId: "Weapon1H",
+		statRequireValue: 2,
+		factorStatId: "WeaponAxe",
+		statId: "CritHealing",
+		display: "%",
+		rawInputMatch: /(Each axe increases your Critical Damage and Critical Healing done by [0-9]+\.?[0-9]*%\.)/i,
+		match: /Each axe increases your Critical Damage and Critical Healing done by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statRequireId: "Weapon1H",
@@ -3981,6 +4035,20 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		category: "Skill2",
 		statId: "WeaponCrit",
 		match: /WITH BOW EQUIPPED[\s\S]*?Increases Weapon Critical rating by ([0-9]+)/i,
+	},
+	{
+		statRequireId: "WeaponBow",
+		statRequireValue: 1,
+		category: "Skill2",
+		statId: "WeaponCrit",
+		match: /WITH BOW EQUIPPED[\s\S]*?Increases your Critical Chance rating by ([0-9]+)/i,
+	},
+	{
+		statRequireId: "WeaponBow",
+		statRequireValue: 1,
+		category: "Skill2",
+		statId: "SpellCrit",
+		match: /WITH BOW EQUIPPED[\s\S]*?Increases your Critical Chance rating by ([0-9]+)/i,
 	},
 	{
 		// statRequireId: "WeaponDestStaff",
@@ -4024,6 +4092,13 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireValue: 1,
 		statId: "HADamage",
 		display: "%",
+		match: /Fully-charged Inferno Staff Heavy Attacks deal ([0-9]+\.?[0-9]*)% additional damage./i,
+	},
+	{
+		statRequireId: "WeaponFlameStaff",
+		statRequireValue: 1,
+		statId: "HADamage",
+		display: "%",
 		match: /Fully-charged Flame Staff Heavy Attacks deal ([0-9]+\.?[0-9]*)% additional damage/i,
 	},
 	{
@@ -4032,6 +4107,13 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "SingleTargetDamageDone",
 		display: "%",
 		match: /Flame Staff increases your damage done with single target abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statRequireId: "WeaponFlameStaff",
+		statRequireValue: 1,
+		statId: "SingleTargetDamageDone",
+		display: "%",
+		match: /Equipping an Inferno Staff increases your damage done with single target abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statRequireId: "WeaponShockStaff",
@@ -4054,6 +4136,21 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "BlockMitigation",
 		display: "%",
 		match: /Frost Staff reduces the cost of blocking by [0-9]+\.?[0-9]*% and increases the amount of damage you block by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statRequireId: "WeaponFrostStaff",
+		statRequireValue: 1,
+		statId: "BlockCost",
+		display: "%",
+		factorValue: -1,
+		match: /Equipping an Ice Staff reduces the cost of blocking by ([0-9]+\.?[0-9]*)% and increases the amount of damage you block by [0-9]+\.?[0-9]*%/i,
+	},
+	{
+		statRequireId: "WeaponFrostStaff",
+		statRequireValue: 1,
+		statId: "BlockMitigation",
+		display: "%",
+		match: /Equipping an Ice Staff reduces the cost of blocking by [0-9]+\.?[0-9]*% and increases the amount of damage you block by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statRequireId: "Weapon2H",
@@ -4115,7 +4212,8 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "Dual_Wield_Cost",
 		display: "%",
 		factorValue: -1,
-		//match: /WHILE DUAL WIELDING[\s]*Reduces the cost of your Dual Wield abilities by ([0-9]+\.?[0-9]*)%/i,
+		// match: /WHILE DUAL WIELDING[\s]*Reduces the cost of your Dual Wield
+		// abilities by ([0-9]+\.?[0-9]*)%/i,
 		match: /Reduces the Stamina cost of Dual Wield abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -4189,7 +4287,8 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		combineAs: "*%",
-		//match: /Reduces the Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
+		// match: /Reduces the Magicka, Stamina, and Ultimate costs of your
+		// abilities by ([0-9]+\.?[0-9]*)%/i,
 		match: /Reduces the Health, Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -4197,7 +4296,8 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		combineAs: "*%",
-		//match: /Reduces the Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
+		// match: /Reduces the Magicka, Stamina, and Ultimate costs of your
+		// abilities by ([0-9]+\.?[0-9]*)%/i,
 		match: /Reduces the Health, Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -4205,7 +4305,8 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		combineAs: "*%",
-		//match: /Reduces the Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
+		// match: /Reduces the Magicka, Stamina, and Ultimate costs of your
+		// abilities by ([0-9]+\.?[0-9]*)%/i,
 		match: /Reduces the Health, Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -4213,7 +4314,8 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		combineAs: "*%",
-		//match: /Reduces the Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
+		// match: /Reduces the Magicka, Stamina, and Ultimate costs of your
+		// abilities by ([0-9]+\.?[0-9]*)%/i,
 		match: /Reduces the Health, Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -4537,6 +4639,18 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "HAMagRestore",
 		display: "%",
 		match: /WHEN 5 OR MORE PIECES OF HEAVY ARMOR ARE EQUIPPED[\s\S]*?increases the Magicka or Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		statId: "HAMagRestore",
+		factorStatId: "ArmorHeavy",
+		display: "%",
+		match: /Increases the Magicka or Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)% for each piece of Heavy Armor worn/i
+	},
+	{
+		statId: "HAStaRestore",
+		factorStatId: "ArmorHeavy",
+		display: "%",
+		match: /Increases the Magicka or Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)% for each piece of Heavy Armor worn/i
 	},
 	{
 		factorSkillLine: "Draconic Power",
@@ -5089,11 +5203,61 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statRequireId: "Weapon2H",
 		statRequireValue: 1,
+		factorStatId: "WeaponSword",
+		category: "Skill2",
+		statId: "WeaponDamage",
+		match: /Swords increase your Weapon and Spell Damage by ([0-9]+)/i,
+	},
+	{
+		statRequireId: "Weapon2H",
+		statRequireValue: 1,
+		factorStatId: "WeaponSword",
+		category: "Skill2",
+		statId: "SpellDamage",
+		match: /Swords increase your Weapon and Spell Damage by ([0-9]+)/i,
+	},
+	{
+		statRequireId: "Weapon2H",
+		statRequireValue: 1,
 		factorStatId: "WeaponMace",
 		category: "Skill2",
 		statId: "PhysicalPenetration",
 		display: "%",
 		match: /Maces cause your attacks to ignore ([0-9]+\.?[0-9]*)% of your target's Physical Resistance/i,
+	},
+	{
+		statRequireId: "Weapon2H",
+		statRequireValue: 1,
+		factorStatId: "WeaponMace",
+		category: "Skill",
+		statId: "PhysicalPenetration",
+		match: /Maces increase your Armor Penetration by ([0-9]+)/i,
+	},
+	{
+		statRequireId: "Weapon2H",
+		statRequireValue: 1,
+		factorStatId: "WeaponAxe",
+		category: "Skill",
+		statId: "CritDamage",
+		display: "%",
+		match: /Axes increase your Critical Damage and Critical Healing done by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statRequireId: "Weapon2H",
+		statRequireValue: 1,
+		factorStatId: "WeaponAxe",
+		category: "Skill",
+		statId: "CritHealing",
+		display: "%",
+		match: /Axes increase your Critical Damage and Critical Healing done by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statRequireId: "Weapon2H",
+		statRequireValue: 1,
+		factorStatId: "WeaponMace",
+		category: "Skill",
+		statId: "SpellPenetration",
+		match: /Maces increase your Armor Penetration by ([0-9]+)/i,
 	},
 	{
 		statId: "FlameDamageDone",
@@ -5239,13 +5403,13 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "SnareEffect",
 		factorValue: -1,
 		display: '%',
-		match: /Reduce the effectiveness of snares applied to you by ([0-9]+\.?[0-9]*)%/i,
+		match: /Reduce the effectiveness of snares applied to you by ([0-9]+\.?[0-9]*)%\./i,
 	},
 	{
 		statId: "SnareEffect",
 		factorValue: -1,
 		display: '%',
-		match: /Reduces the effectiveness of snares applied to you by ([0-9]+\.?[0-9]*)%/i,
+		match: /Reduces the effectiveness of snares applied to you by ([0-9]+\.?[0-9]*)%\./i,
 	},
 	{
 		statId: "MagicDamageDone",
@@ -5425,7 +5589,12 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "Magicka",
 		category: "Skill2",
-		match: /Increases your Max Magicka and Max Stamina by ([0-9]+)\./i,
+		match: /Increases your Max Magicka and Max Stamina by ([0-9]+)(?:\.|\s)/i,
+	},
+	{
+		statId: "Stamina",
+		category: "Skill2",
+		match: /Increases your Max Magicka and Max Stamina by ([0-9]+)(?:\.|\s)/i,
 	},
 	{
 		statId: "Health",
@@ -5436,11 +5605,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "Stamina",
 		category: "Skill2",
 		match: /Increases your Max Health and Max Stamina by ([0-9]+)\./i,
-	},
-	{
-		statId: "Stamina",
-		category: "Skill2",
-		match: /Increases your Max Magicka and Max Stamina by ([0-9]+)\./i,
 	},
 	{
 		statId: "Health",
@@ -5519,12 +5683,12 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statId: "SpellDamage",
 		category: "Skill2",
-		match: /Increases your Weapon and Spell Damage by ([0-9]+)\./i,
+		match: /^Increases your Weapon and Spell Damage by ([0-9]+)\./i,
 	},
 	{
 		statId: "WeaponDamage",
 		category: "Skill2",
-		match: /Increases your Weapon and Spell Damage by ([0-9]+)\./i,
+		match: /^Increases your Weapon and Spell Damage by ([0-9]+)\./i,
 	},
 	{
 		statId: "WeaponDamage",
@@ -5714,7 +5878,50 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	
 		/* Update 29 Armor Passives */
 	{
-		statId: "MartialDamageTaken",
+		statId: "SnareEffect",
+		factorStatId: "ArmorLight",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the effectiveness of snares applied to you by ([0-9.]+)% for each piece of Light Armor worn/i,
+	},
+	{
+		statId: "SpellCrit",
+		category: "Skill2",
+		factorStatId: "ArmorLight",
+		match: /Increases your Spell Critical rating by ([0-9.]+) for each piece of Light Armor equipped/i,
+	},
+	{
+		statId: "SpellPenetration",
+		factorStatId: "ArmorLight",
+		match: /Increases your Spell Penetration by ([0-9.]+) for each piece of Light Armor worn/i,
+	},
+	{
+		statId: "SprintCost",
+		factorStatId: "ArmorLight",
+		display: "%",
+		factorValue: -1,
+		match: /Reduces the cost of Sprint by ([0-9.]+)% for each piece of Light Armor worn/i,
+	},
+	{
+		statId: "PhysicalDamageTaken",
+		display: "%",
+		factorStatId: "ArmorLight",
+		match: /Increases damage taken from Martial attacks by ([0-9.]+)%/i,
+	},
+	{
+		statId: "PoisonDamageTaken",
+		display: "%",
+		factorStatId: "ArmorLight",
+		match: /Increases damage taken from Martial attacks by ([0-9.]+)%/i,
+	},
+	{
+		statId: "DiseaseDamageTaken",
+		display: "%",
+		factorStatId: "ArmorLight",
+		match: /Increases damage taken from Martial attacks by ([0-9.]+)%/i,
+	},
+	{
+		statId: "BleedDamageTaken",
 		display: "%",
 		factorStatId: "ArmorLight",
 		match: /Increases damage taken from Martial attacks by ([0-9.]+)%/i,
@@ -5740,52 +5947,73 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Reduces damage taken from Magical attacks by ([0-9.]+)%/i,
 	},
 	{
+		statId: "FrostDamageTaken",
+		display: "%",
+		factorStatId: "ArmorLight",
+		factorValue: -1, 
+		match: /Reduces damage taken from Magical attacks by ([0-9.]+)%/i,
+	},
+	{
+		statId: "FlameDamageTaken",
+		display: "%",
+		factorStatId: "ArmorLight",
+		factorValue: -1, 
+		match: /Reduces damage taken from Magical attacks by ([0-9.]+)%/i,
+	},
+	{
+		statId: "ShockDamageTaken",
+		display: "%",
+		factorStatId: "ArmorLight",
+		factorValue: -1, 
+		match: /Reduces damage taken from Magical attacks by ([0-9.]+)%[\n\r]+/i,
+	},
+	{
 		statId: "RollDodgeCost",
 		display: "%",
 		factorStatId: "ArmorLight",
 		factorValue: -1, 
-		match: /Reduces the cost of Roll Dodge by ([0-9.]+)%/i,
+		match: /[\n\r]+Reduces the cost of Roll Dodge by ([0-9.]+)%[\n\r]+/i,
 	},
 	{
 		statId: "SneakSpeed",
 		display: "%",
 		factorStatId: "ArmorLight",
-		match: /Increases Movement Speed while Sneaking by ([0-9.]+)%/i,
+		match: /[\n\r]+Increases Movement Speed while Sneaking by ([0-9.]+)%[\n\r]+/i,
 	},
 	{
 		statId: "BreakFreeCost",
 		display: "%",
 		factorStatId: "ArmorLight",
 		factorValue: -1, 
-		match: /Reduces the cost of Break Free by ([0-9.]+)%/i,
+		match: /[\n\r]+Reduces the cost of Break Free by ([0-9.]+)%[\n\r]+/i,
 	},
 	{
 		statId: "BashCost",
 		display: "%",
 		factorStatId: "ArmorLight",
 		factorValue: -1, 
-		match: /Reduces the cost of Bash by ([0-9.]+)%/i,
+		match: /[\n\r]+Reduces the cost of Bash by ([0-9.]+)%[\n\r]+/i,
 	},
 	{
 		statId: "SprintCost",
 		display: "%",
 		factorStatId: "ArmorMedium",
 		factorValue: -1, 
-		match: /Reduces the cost of Sprint by ([0-9.]+)%/i,
+		match: /[\n\r]+Reduces the cost of Sprint by ([0-9.]+)%[\n\r]+/i,
 	},
 	{
 		statId: "SneakCost",
 		display: "%",
 		factorStatId: "ArmorMedium",
 		factorValue: -1, 
-		match: /Reduces the cost of Sneak by ([0-9.]+)%/i,
+		match: /[\n\r]+Reduces the cost of Sneak by ([0-9.]+)%[\n\r]+/i,
 	},
 	{
 		statId: "BlockCost",
 		display: "%",
 		factorStatId: "ArmorMedium",
 		factorValue: -1, 
-		match: /Reduces the cost of Block by ([0-9.]+)%/i,
+		match: /[\n\r]+Reduces the cost of Block by ([0-9.]+)%[\n\r]+/i,
 	},
 	{
 		id: "Medium Armor Bonus: Roll Dodge",
@@ -5817,26 +6045,65 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases damage taken from Magical attacks by ([0-9.]+)%/i,
 	},
 	{
+		statId: "FrostDamageTaken",
+		display: "%",
+		factorStatId: "ArmorHeavy",
+		match: /Increases damage taken from Magical attacks by ([0-9.]+)%/i,
+	},
+	{
+		statId: "ShockDamageTaken",
+		display: "%",
+		factorStatId: "ArmorHeavy",
+		match: /Increases damage taken from Magical attacks by ([0-9.]+)%/i,
+	},
+	{
+		statId: "FlameDamageTaken",
+		display: "%",
+		factorStatId: "ArmorHeavy",
+		match: /Increases damage taken from Magical attacks by ([0-9.]+)%[\n\r]+/i,
+	},
+	{
 		statId: "SprintSpeed",
 		display: "%",
 		factorStatId: "ArmorHeavy",
 		factorValue: -1, 
-		match: /Reduces the Movement Speed bonus of Sprint by ([0-9.]+)%/i,
+		match: /\s+Reduces the Movement Speed bonus of Sprint by ([0-9.]+)%[\n\r]+/i,
 	},
 	{
 		statId: "RollDodgeCost",
 		display: "%",
 		factorStatId: "ArmorHeavy",
-		match: /Increases the cost of Roll Dodge by ([0-9.]+)%/i,
+		match: /\s+Increases the cost of Roll Dodge by ([0-9.]+)%[\n\r]+/i,
 	},
 	{
 		statId: "SneakRange",
 		display: "%",
 		factorStatId: "ArmorHeavy",
-		match: /Increases the size of your detection area while Sneaking by ([0-9.]+)%/i,
+		match: /Increases the size of your detection area while Sneaking by ([0-9.]+)%[\n\r]+/i,
 	},
 	{
-		statId: "MartialDamageTaken",
+		statId: "PhysicalDamageTaken",
+		display: "%",
+		factorStatId: "ArmorHeavy",
+		factorValue: -1,
+		match: /Reduces damage taken from Martial attacks by ([0-9.]+)%/i,
+	},
+	{
+		statId: "PoisonDamageTaken",
+		display: "%",
+		factorStatId: "ArmorHeavy",
+		factorValue: -1,
+		match: /Reduces damage taken from Martial attacks by ([0-9.]+)%/i,
+	},
+	{
+		statId: "DiseaseDamageTaken",
+		display: "%",
+		factorStatId: "ArmorHeavy",
+		factorValue: -1,
+		match: /Reduces damage taken from Martial attacks by ([0-9.]+)%/i,
+	},
+	{
+		statId: "BleedDamageTaken",
 		display: "%",
 		factorStatId: "ArmorHeavy",
 		factorValue: -1,
@@ -5846,13 +6113,13 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "BlockMitigation",
 		display: "%",
 		factorStatId: "ArmorHeavy",
-		match: /Increases the amount of damage blocked by ([0-9.]+)%/i,
+		match: /[\n\r]+Increases the amount of damage blocked by ([0-9.]+)%[\n\r]+/i,
 	},
 	{
 		statId: "BashDamage",
 		display: "%",
 		factorStatId: "ArmorHeavy",
-		match: /Increases damage done with Bash by ([0-9.]+)%/i,
+		match: /[\n\r]+Increases damage done with Bash by ([0-9.]+)%[\n\r]+/i,
 	},
 	{
 		id: "Heavy Armor Bonus: Crowd Control",
@@ -6155,7 +6422,8 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		combineAs: "*%",
-		//match: /After blocking an attack, your next Magicka or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i,
+		// match: /After blocking an attack, your next Magicka or Stamina
+		// ability costs ([0-9]+\.?[0-9]*)% less/i,
 		match: /After blocking an attack, your next Health, Magicka, or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i,
 	},
 	{
@@ -6167,7 +6435,8 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		combineAs: "*%",
-		//match: /After blocking an attack, your next Magicka or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i,
+		// match: /After blocking an attack, your next Magicka or Stamina
+		// ability costs ([0-9]+\.?[0-9]*)% less/i,
 		match: /After blocking an attack, your next Health, Magicka, or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i,
 	},
 	{
@@ -6179,7 +6448,8 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		combineAs: "*%",
-		//match: /After blocking an attack, your next Magicka or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i,
+		// match: /After blocking an attack, your next Magicka or Stamina
+		// ability costs ([0-9]+\.?[0-9]*)% less/i,
 		match: /After blocking an attack, your next Health, Magicka, or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i,
 	},
 	{
@@ -6245,6 +6515,18 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		match: /WITH TWO-HANDED WEAPON EQUIPPED\s*When you deal damage with a fully-charged Heavy Attack, your next direct damage attack used within [0-9]+ seconds deals an additional ([0-9]+\.?[0-9]*)% damage/i,
+	},
+	{
+		id: "Follow Up",
+		baseSkillId: 29389,
+		statRequireId: "Weapon2H",
+		statRequireValue: 1,
+		category: "Skill",
+		statId: "DirectDamageDone",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /WITH TWO-HANDED WEAPON EQUIPPED\s*When you complete a fully-charged Heavy Attack, your next direct damage attack used within [0-9]+ seconds deals an additional ([0-9]+\.?[0-9]*)% damage/i,
 	},
 	{
 		id: "Shadow Barrier",
@@ -6387,48 +6669,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		factorValue: -1,
 		match: /Reduces the cost of your Psijic Order abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
-	/*
-	 * { statRequireId: "WeaponBow", statRequireValue: 1, id: "Hawk Eye",
-	 * baseSkillId: 30936, category: "SkillLineDamage", statId: "Bow", toggle:
-	 * true, enabled: false, display: "%", maxTimes: 5, match: /WITH A BOW
-	 * EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack increases the
-	 * damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds,
-	 * stacking up to [0-9]+ times/i }, { statRequireId: "WeaponBow",
-	 * statRequireValue: 1, id: "Hawk Eye", baseSkillId: 30936, category:
-	 * "SkillDamage", statId: "Rapid Fire", toggle: true, enabled: false,
-	 * display: "%", maxTimes: 5, match: /WITH A BOW EQUIPPED[\s\S]*?Dealing
-	 * damage with a Light or Heavy Attack increases the damage of your Bow
-	 * abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+
-	 * times/i }, { statRequireId: "WeaponBow", statRequireValue: 1, id: "Hawk
-	 * Eye", baseSkillId: 30936, category: "SkillDamage", statId: "Snipe",
-	 * toggle: true, enabled: false, display: "%", maxTimes: 5, match: /WITH A
-	 * BOW EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack increases
-	 * the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+
-	 * seconds, stacking up to [0-9]+ times/i }, { statRequireId: "WeaponBow",
-	 * statRequireValue: 1, id: "Hawk Eye", baseSkillId: 30936, category:
-	 * "SkillDamage", statId: "Volley", toggle: true, enabled: false, display:
-	 * "%", maxTimes: 5, match: /WITH A BOW EQUIPPED[\s\S]*?Dealing damage with
-	 * a Light or Heavy Attack increases the damage of your Bow abilities by
-	 * ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i }, {
-	 * statRequireId: "WeaponBow", statRequireValue: 1, id: "Hawk Eye",
-	 * baseSkillId: 30936, category: "SkillDamage", statId: "Scatter Shot",
-	 * toggle: true, enabled: false, display: "%", maxTimes: 5, match: /WITH A
-	 * BOW EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack increases
-	 * the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+
-	 * seconds, stacking up to [0-9]+ times/i }, { statRequireId: "WeaponBow",
-	 * statRequireValue: 1, id: "Hawk Eye", baseSkillId: 30936, category:
-	 * "SkillDamage", statId: "Arrow Spray", toggle: true, enabled: false,
-	 * display: "%", maxTimes: 5, match: /WITH A BOW EQUIPPED[\s\S]*?Dealing
-	 * damage with a Light or Heavy Attack increases the damage of your Bow
-	 * abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+
-	 * times/i }, { statRequireId: "WeaponBow", statRequireValue: 1, id: "Hawk
-	 * Eye", baseSkillId: 30936, category: "SkillDamage", statId: "Poison
-	 * Arrow", toggle: true, enabled: false, display: "%", maxTimes: 5, match:
-	 * /WITH A BOW EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack
-	 * increases the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for
-	 * [0-9]+ seconds, stacking up to [0-9]+ times/i }, //
-	 */
-	
 	{
 		id: "Continuous Attack",
 		baseSkillId: 39248,
@@ -6550,11 +6790,25 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		enabled: false,
 		match: /Increases your movement speed by [0-9]+\.?[0-9]*% and your Physical and Spell Penetration by ([0-9]+) for [0-9]+ seconds after you use Roll Dodge./i,
 	},
+	{
+		statId: "MovementSpeed",
+		display: "%",
+		match: /Increases your movement speed by ([0-9]+\.?[0-9]*)% and your Physical and Spell Penetration by [0-9]+\./i,
+	},
+	{
+		statId: "SpellPenetration",
+		match: /Increases your movement speed by [0-9]+\.?[0-9]*% and your Physical and Spell Penetration by ([0-9]+)\./i,
+	},
+	{
+		statId: "PhysicalPenetration",
+		match: /Increases your movement speed by [0-9]+\.?[0-9]*% and your Physical and Spell Penetration by ([0-9]+)\./i,
+	},
 	
 		/* End Toggled Passives */
 	
 		// Dragonknight
-	// Increases the damage of your Flame and Poison area of effect abilities by 6%.
+	// Increases the damage of your Flame and Poison area of effect abilities by
+	// 6%.
 	// Increases the damage of your Burning and Poisoned status effects by 66%.
 	
 		// Templar
@@ -6564,29 +6818,39 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	// on whichever is higher.
 	
 		// Restoration Staff
-	// WITH RESTORATION STAFF EQUIPPED Increases your healing by 15% on allies under 30% Health.
-	// WITH RESTORATION STAFF EQUIPPED Restores 540 Magicka when you block a spell.
-	// WITH RESTORATION STAFF EQUIPPED Increases healing with Restoration Staff spells by 5%.
+	// WITH RESTORATION STAFF EQUIPPED Increases your healing by 15% on allies
+	// under 30% Health.
+	// WITH RESTORATION STAFF EQUIPPED Restores 540 Magicka when you block a
+	// spell.
+	// WITH RESTORATION STAFF EQUIPPED Increases healing with Restoration Staff
+	// spells by 5%.
 	
 		// Destruction Staff
 	// Grants bonus effects based on the element used:
 		// Fully charged heavy fire attacks deal 12% additional damage.
-		// Fully charged heavy frost attacks grant a damage shield that absorbs 1809 damage.
-		// Fully charged heavy shock attacks damage nearby enemies for 100% of the damage done.
-	// Increases your chance to apply the Burning, Concussion, and Chilled status effects by 100% while you have a Destruction Staff equipped.
+		// Fully charged heavy frost attacks grant a damage shield that absorbs
+		// 1809 damage.
+		// Fully charged heavy shock attacks damage nearby enemies for 100% of
+		// the damage done.
+	// Increases your chance to apply the Burning, Concussion, and Chilled
+	// status effects by 100% while you have a Destruction Staff equipped.
 	
 		// Bow
-	// WITH BOW ABILITIES Gives you a damage bonus of up to 12% against enemies at longer range.
+	// WITH BOW ABILITIES Gives you a damage bonus of up to 12% against enemies
+	// at longer range.
 	
 		// Dual Wield
-	// WHILE DUAL WIELDING Increases damage with Dual Wield abilities by 20% against enemies with under 25% Health.
+	// WHILE DUAL WIELDING Increases damage with Dual Wield abilities by 20%
+	// against enemies with under 25% Health.
 	
 		// One Hand and Shield
-	// WITH ONE HAND WEAPON AND SHIELD EQUIPPED Increases your Movement Speed while blocking by 60%
+	// WITH ONE HAND WEAPON AND SHIELD EQUIPPED Increases your Movement Speed
+	// while blocking by 60%
 	
 		// Two Handed
 	// Grants a bonus based on the type of weapon equipped:
-		// Axes grant your melee attacks 16% chance to apply a bleed dealing 5635 Physical Damage over 6 seconds.
+		// Axes grant your melee attacks 16% chance to apply a bleed dealing
+		// 5635 Physical Damage over 6 seconds.
 	
 		// Racial
 	// Gives your melee attacks a 10% chance to restore 854 Health.
@@ -6594,7 +6858,8 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	// This can happen no more than once every 3 seconds.
 	
 		// Emperor
-	// WHILE YOU ARE EMPEROR Increases your damage done with Siege Weapons to keeps and other Siege Weapons by 100% while in your campaign.
+	// WHILE YOU ARE EMPEROR Increases your damage done with Siege Weapons to
+	// keeps and other Siege Weapons by 100% while in your campaign.
 ];
 
 
@@ -6626,7 +6891,7 @@ window.ESO_CPEFFECT_MATCHES = [
 		enable: false,
 		category: "CP",
 		statId: "FlatRollDodgeCost",
-		match: /While Shielded your dodge roll costs [0-9\.]+ less stamina per stage.*\s*Current bonus: ([0-9\.]+)/i,
+		match: /While under the effects of a damage shield your dodge roll costs [0-9\.]+ less stamina per stage.*\s*Current bonus: ([0-9\.]+)/i,
 	},
 	{
 		id: "Backstabber",
@@ -6635,7 +6900,7 @@ window.ESO_CPEFFECT_MATCHES = [
 		category: "CP",
 		statId: "CritDamage",
 		display: "%",
-		match: /Increases your Critical Damage done by [0-9\.]+% per stage.*\s*Current bonus: ([0-9\.]+)%/i,
+		match: /Increases your Critical Damage done by [0-9\.]+% per stage against enemies you are flanking.*\s*Current bonus: ([0-9\.]+)%/i,
 	},
 	{
 		id: "Bastion",
@@ -6673,7 +6938,7 @@ window.ESO_CPEFFECT_MATCHES = [
 		statId: "DamageTaken",
 		display: "%",
 		factorValue: -1,
-		match: /While immune to crowd control, you take [0-9\.]+% less damage per stage.*\s*Current bonus: ([0-9\.]+)%/i,
+		match: /While under the effects of Crowd Control Immunity, you take [0-9\.]+% less damage per stage.*\s*Current bonus: ([0-9\.]+)%/i,
 	},
 	{
 		id: "On Guard",
@@ -6682,15 +6947,16 @@ window.ESO_CPEFFECT_MATCHES = [
 		category: "CP",
 		statId: "BlockMitigation",
 		display: "%",
-		match: /While immune to crowd control, increases the amount of damage you block by [0-9\.]+% per stage.*\s*Current value: ([0-9\.]+)%/i,
+		match: /While under the effects of Crowd Control Immunity, increases the amount of damage you block by [0-9\.]+% per stage.*\s*Current (?:value|bonus): ([0-9\.]+)%/i,
 	},
+	
 	{
 		id: "Peace of Mind",
 		toggle: true,
 		eanble: false,
 		category: "Item",
 		statId: "MagickaRegen",
-		match: /Increases Magicka and Health Recovery while immune to crowd control by [0-9\.]+ per stage.*\s*Current bonus: ([0-9\.]+)/i,
+		match: /Increases Magicka and Health Recovery while under the effects of Crowd Control Immunity by [0-9\.]+ per stage.*\s*Current bonus: ([0-9\.]+)/i,
 	},
 	{
 		id: "Peace of Mind",
@@ -6698,7 +6964,7 @@ window.ESO_CPEFFECT_MATCHES = [
 		eanble: false,
 		category: "Item",
 		statId: "HealthRegen",
-		match: /Increases Magicka and Health Recovery while immune to crowd control by [0-9\.]+ per stage.*\s*Current bonus: ([0-9\.]+)/i,
+		match: /Increases Magicka and Health Recovery while under the effects of Crowd Control Immunity by [[0-9\.]+ per stage.*\s*Current bonus: ([0-9\.]+)/i,
 	},
 	{
 		id: "Preparation",
@@ -6707,6 +6973,7 @@ window.ESO_CPEFFECT_MATCHES = [
 		category: "CP",
 		statId: "DamageTaken",
 		factorValue: -1,
+		display: "%",
 		match: /Reduces your damage taken from non-player attacks by [0-9\.]+% per stage.*\s*Current bonus: ([0-9\.]+)%/i,
 	},
 	{
@@ -6716,16 +6983,15 @@ window.ESO_CPEFFECT_MATCHES = [
 		category: "Skill2",
 		statId: "SprintCost",
 		factorValue: -1,
-		match: /Reduces the cost of Sprint by [0-9\.]+ Stamina per stage, while you are immune to crowd control.*\s*Current bonus: ([0-9\.]+)/i,
+		match: /Reduces the cost of Sprint by [0-9\.]+ Stamina per stage, while under the effects of Crowd Control Immunity.*\s*Current bonus: ([0-9\.]+)/i,
 	},
 	{
-		id: "On Guard",
+		id: "Steed's Blessing",
 		toggle: true,
 		eanble: false,
-		category: "CP",
-		statId: "BlockMitigation",
+		statId: "MovementSpeed",
 		display: "%",
-		match: /While immune to crowd control, increases the amount of damage you block by [0-9\.]+% per stage.*\s*Current value: ([0-9\.]+)%/i,
+		match: /Increases your out of combat movement speed by [0-9\.]+% per stage.*\s*Current (?:value|bonus): ([0-9\.]+)%/i,
 	},
 	{
 		id: "Strategic Reserve",
@@ -6743,7 +7009,7 @@ window.ESO_CPEFFECT_MATCHES = [
 		toggle: true,
 		eanble: false,
 		category: "CP",
-		statId: "MagickaCost",		//TODO: Update29pts what are core combat skills?
+		statId: "BashCost",
 		display: "%",
 		factorValue: -1,
 		match: /While afflicted with a Status Effect, your core combat skills cost [0-9\.]+% less per stage.*\s*Current bonus: ([0-9\.]+)%/i,
@@ -6753,7 +7019,47 @@ window.ESO_CPEFFECT_MATCHES = [
 		toggle: true,
 		eanble: false,
 		category: "CP",
-		statId: "StaminaCost",		//TODO: Update29pts what are core combat skills?
+		statId: "BlockCost",
+		display: "%",
+		factorValue: -1,
+		match: /While afflicted with a Status Effect, your core combat skills cost [0-9\.]+% less per stage.*\s*Current bonus: ([0-9\.]+)%/i,
+	},
+	{
+		id: "Survival Instincts",
+		toggle: true,
+		eanble: false,
+		category: "CP",
+		statId: "BreakFreeCost",
+		display: "%",
+		factorValue: -1,
+		match: /While afflicted with a Status Effect, your core combat skills cost [0-9\.]+% less per stage.*\s*Current bonus: ([0-9\.]+)%/i,
+	},
+	{
+		id: "Survival Instincts",
+		toggle: true,
+		eanble: false,
+		category: "CP",
+		statId: "RollDodgeCost",
+		display: "%",
+		factorValue: -1,
+		match: /While afflicted with a Status Effect, your core combat skills cost [0-9\.]+% less per stage.*\s*Current bonus: ([0-9\.]+)%/i,
+	},
+	{
+		id: "Survival Instincts",
+		toggle: true,
+		eanble: false,
+		category: "CP",
+		statId: "SneakCost",
+		display: "%",
+		factorValue: -1,
+		match: /While afflicted with a Status Effect, your core combat skills cost [0-9\.]+% less per stage.*\s*Current bonus: ([0-9\.]+)%/i,
+	},
+	{
+		id: "Survival Instincts",
+		toggle: true,
+		eanble: false,
+		category: "CP",
+		statId: "SprintCost",
 		display: "%",
 		factorValue: -1,
 		match: /While afflicted with a Status Effect, your core combat skills cost [0-9\.]+% less per stage.*\s*Current bonus: ([0-9\.]+)%/i,
@@ -6774,19 +7080,61 @@ window.ESO_CPEFFECT_MATCHES = [
 
 window.ESO_SETEFFECT_MATCHES = [
 
-//Noble Duelist's Silks: (5 items) When you dodge an attack, your Light and Heavy Attacks deal an additional 1225 damage for 8 seconds.
-//The Morag Tong: (5 items) When you deal direct damage, you cause the enemy to take 10% more damage from all Poison Damage abilities for 5 seconds.
-//Alessia's Bulwark: (5 items) When you take damage from a melee attack, you have a 15% chance to reduce the attacker's Weapon Damage by 10% for 5 seconds.
-//Grand Rejuvenation: (2 items) The initial heal of Grand Healing restores 258 Stamina to each friendly target affected.
-//Vanguard's Challenge: (5 items) When you taunt an enemy Player, they deal 50% less damage to all other Players but 100% more damage to you for 15 seconds. 
-//Jorvuld's Guidance: (5 items) Increases the duration of all Major buffs, Minor buffs, and damage shields you apply to yourself and allies by 40%.
-//Piercing Spray (Perfected): (2 items) When you deal damage with Arrow Spray, you cause enemies hit to take 50% more damage from the direct damage portion of your next Snipe, Scatter Shot, or Poison Arrow used within 6 seconds.
-//Varen's Legacy: When you block an attack, your next direct damage area of effect attack used within 5 seconds deals an additional 3290 damage. This bonus does not work with channeled effects. This effect can occur once every 2 seconds.
-//Vykosa: When you Bash an enemy you've taunted, you frighten them with a deafening howl, lowering their Weapon and Spell Damage by 20% for
-//Draugrkin's Grip: Dealing direct damage to an enemy places a ghostly curse on your enemy for 6 seconds.  Cursed enemies take 617 extra damage from all of your damage abilities. This effect can occur once every 9 seconds.
-//Dragon's Appetite: (5 items) Increase your damage done to Bleeding enemies by 225. Dealing non-Bleed damage to Bleeding enemies generates a persistent stack of Dragon's Appetite, up to once per second. After 10 stacks you consume Dragon's Appetite and heal for 6415 Health.
-//Elemental Catalyst: (5 items) Whenever you deal Flame, Shock, or Frost Damage, you apply a stack of Flame, Shock, or Frost Weakness to the enemy for 5 seconds. Each stack of an Elemental Weakness increases their Critical Damage taken by 6%. An enemy can only have one stack of each Elemental Weakness at a time.
+// Noble Duelist's Silks: (5 items) When you dodge an attack, your Light and
+// Heavy Attacks deal an additional 1225 damage for 8 seconds.
+// The Morag Tong: (5 items) When you deal direct damage, you cause the enemy to
+// take 10% more damage from all Poison Damage abilities for 5 seconds.
+// Alessia's Bulwark: (5 items) When you take damage from a melee attack, you
+// have a 15% chance to reduce the attacker's Weapon Damage by 10% for 5
+// seconds.
+// Grand Rejuvenation: (2 items) The initial heal of Grand Healing restores 258
+// Stamina to each friendly target affected.
+// Vanguard's Challenge: (5 items) When you taunt an enemy Player, they deal 50%
+// less damage to all other Players but 100% more damage to you for 15 seconds.
+// Jorvuld's Guidance: (5 items) Increases the duration of all Major buffs,
+// Minor buffs, and damage shields you apply to yourself and allies by 40%.
+// Piercing Spray (Perfected): (2 items) When you deal damage with Arrow Spray,
+// you cause enemies hit to take 50% more damage from the direct damage portion
+// of your next Snipe, Scatter Shot, or Poison Arrow used within 6 seconds.
+// Varen's Legacy: When you block an attack, your next direct damage area of
+// effect attack used within 5 seconds deals an additional 3290 damage. This
+// bonus does not work with channeled effects. This effect can occur once every
+// 2 seconds.
+// Vykosa: When you Bash an enemy you've taunted, you frighten them with a
+// deafening howl, lowering their Weapon and Spell Damage by 20% for
+// Draugrkin's Grip: Dealing direct damage to an enemy places a ghostly curse on
+// your enemy for 6 seconds. Cursed enemies take 617 extra damage from all of
+// your damage abilities. This effect can occur once every 9 seconds.
+// Dragon's Appetite: (5 items) Increase your damage done to Bleeding enemies by
+// 225. Dealing non-Bleed damage to Bleeding enemies generates a persistent
+// stack of Dragon's Appetite, up to once per second. After 10 stacks you
+// consume Dragon's Appetite and heal for 6415 Health.
+// Elemental Catalyst: (5 items) Whenever you deal Flame, Shock, or Frost
+// Damage, you apply a stack of Flame, Shock, or Frost Weakness to the enemy for
+// 5 seconds. Each stack of an Elemental Weakness increases their Critical
+// Damage taken by 6%. An enemy can only have one stack of each Elemental
+// Weakness at a time.
 
+	{
+		statId: "PhysicalPenetration",
+		match: /Adds ([0-9]+) Offensive Penetration/i,
+	},
+	{
+		statId: "SpellPenetration",
+		match: /Adds ([0-9]+) Offensive Penetration/i,
+	},
+	{
+		category: "Target",
+		statId: "MovementSpeed",
+		factorValue: -1,
+		display: "%",
+		match: /Your Bow attacks reduce the Movement Speed of any enemy they hit by ([0-9]+\.?[0-9]*)% and increase your Movement Speed by [0-9]+\.?[0-9]*% for [0-9\.]+ seconds./i,
+	},
+	{
+		statId: "MovementSpeed",
+		display: "%",
+		match: /Your Bow attacks reduce the Movement Speed of any enemy they hit by [0-9]+\.?[0-9]*% and increase your Movement Speed by ([0-9]+\.?[0-9]*)% for [0-9\.]+ seconds./i,
+	},
 	{
 		category: "Set",
 		statId: "BuffDuration",
@@ -6807,7 +7155,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
 	},
-	{	// Deadly strike -- Note that bleeds are all DoTs so ignore this to prevent a double effect
+	{	// Deadly strike -- Note that bleeds are all DoTs so ignore this to
+		// prevent a double effect
 		statId: "BleedDotDamageDone",
 		display: "%",
 		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
@@ -6827,7 +7176,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
 	},
-	{	// Deadly strike -- Note that bleeds are all DoTs so ignore this to prevent a double effect
+	{	// Deadly strike -- Note that bleeds are all DoTs so ignore this to
+		// prevent a double effect
 		statId: "BleedChannelDamageDone",
 		display: "%",
 		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
@@ -6918,6 +7268,16 @@ window.ESO_SETEFFECT_MATCHES = [
 		category: "SkillBonusWeaponDmg",
 		statId: "Physical",
 		match: /Adds ([0-9]+) Weapon Damage to your Physical Damage abilities/i,
+	},
+	{
+		category: "SkillBonusWeaponDmg",
+		statId: "Physical",
+		match: /Adds ([0-9]+) Weapon Damage to your Physical and Bleed Damage abilities/i,
+	},
+	{
+		category: "SkillBonusWeaponDmg",
+		statId: "Bleed",
+		match: /Adds ([0-9]+) Weapon Damage to your Physical and Bleed Damage abilities/i,
 	},
 	{
 		category: "SkillBonusSpellDmg",
@@ -7362,7 +7722,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "SprintCost",
 		factorValue: -1,
 		display: "%",
-		match: /Reduces the cost of Sprint by ([0-9]+)%/i,
+		match: /Reduces the cost of Sprint by ([0-9]+)% and increases/i,
 	},
 	{
 		statId: "SprintCost",
@@ -7445,19 +7805,19 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Adds ([0-9]+) Spell Damage[/n]/i,
 	},
 	{
-		statId: "BleedDamage",
+		statId: "BleedDamageDone",
 		display: "%",
 		match: /Increases the damage you deal with bleed damage over time effects by ([0-9]+\.?[0-9]*)%/i,
 	},	 
 	{
-		statId: "BleedDamage",
+		statId: "BleedDamageDone",
 		display: "%",
 		match: /Increases your Bleed damaging attacks by ([0-9]+\.?[0-9]*)%/i,
 	},
-	/* {
-		buffId: "Hircines Veneer",
-		match: /Reduce the cost of your Stamina abilities by ([0-9]+)% for you and up to [0-9]+ other group members/i,
-	},*/
+	/*
+	 * { buffId: "Hircines Veneer", match: /Reduce the cost of your Stamina
+	 * abilities by ([0-9]+)% for you and up to [0-9]+ other group members/i, },
+	 */
 	{
 		statId: "HealingDone",
 		display: "%",
@@ -7530,7 +7890,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Increases your Critical Damage by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-			//Archer's Mind
+			// Archer's Mind
 		statId: "CritDamage",
 		statRequireId: "Stealthed",
 		statRequireValue: 1,
@@ -7538,7 +7898,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Increases your Critical Damage done by an additional ([0-9]+\.?[0-9]*)% when attacking from Sneak or invisibility/i,
 	},
 	{
-			//Archer's Mind
+			// Archer's Mind
 		statId: "CritDamage",
 		statRequireId: "Stealthed",
 		statRequireValue: 1,
@@ -7546,19 +7906,19 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Increases your Critical Damage by an additional ([0-9]+\.?[0-9]*)% when attacking from Sneak or invisibility/i,
 	},
 	{
-		//Archer's Mind
+		// Archer's Mind
 		statId: "CritDamage",
 		display: "%",
 		match: /Increases your Critical Damage and Healing by ([0-9]+\.?[0-9]*)%\./i,
 	},
 	{
-		//Archer's Mind
+		// Archer's Mind
 		statId: "CritHealing",
 		display: "%",
 		match: /Increases your Critical Damage and Healing by ([0-9]+\.?[0-9]*)%\./i,
 	},
 	{
-		//Archer's Mind
+		// Archer's Mind
 		statId: "CritDamage",
 		statRequireId: "Stealthed",
 		statRequireValue: 1,
@@ -7566,7 +7926,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Increases your Critical Damage and Healing by an additional ([0-9]+\.?[0-9]*)% when you are Sneaking or Invisible./i,
 	},
 	{
-		//Archer's Mind
+		// Archer's Mind
 		statId: "CritHealing",
 		statRequireId: "Stealthed",
 		statRequireValue: 1,
@@ -7753,10 +8113,10 @@ window.ESO_SETEFFECT_MATCHES = [
 		combineAs: "*%",
 		match: /Reduce all costs by ([0-9]+\.?[0-9]*)%/i,
 	},
-	/*{
-		buffId: "Worms Raiment",
-		match: /Reduces the cost of your Magicka abilities by ([0-9]+\.?[0-9]*)% for you and up to /i,
-	},*/
+	/*
+	 * { buffId: "Worms Raiment", match: /Reduces the cost of your Magicka
+	 * abilities by ([0-9]+\.?[0-9]*)% for you and up to /i, },
+	 */
 	{
 		statId: "MagickaCost",
 		display: '%',
@@ -7778,6 +8138,14 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		statId: "SpellPenetration",
 		match: /Adds ([0-9]+) Spell Penetration/i,
+	},
+	{
+		statId: "SpellPenetration",
+		match: /Adds ([0-9]+) Offsensive Penetration/i,
+	},
+	{
+		statId: "PhysicalPenetration",
+		match: /Adds ([0-9]+) Offsensive Penetration/i,
 	},
 	{
 		statId: "SnareDuration",
@@ -8167,7 +8535,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 4,
 		statId: "EnchantPotency",
 		display: "%",
-		//match: /Decreases weapon enchantment cooldown and increases potency by ([0-9]+\.?[0-9]*)%/i,
+		// match: /Decreases weapon enchantment cooldown and increases potency
+		// by ([0-9]+\.?[0-9]*)%/i,
 		match: /Decreases weapon enchantment cooldown and increases non Oblivion Damage enchantment potency by ([0-9]+)%/i,
 	},
 	{
@@ -8175,7 +8544,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "EnchantCooldown",
 		display: "%",
 		factorValue: -1,
-		//match: /Decreases weapon enchantment cooldown and increases potency by ([0-9]+\.?[0-9]*)%/i,
+		// match: /Decreases weapon enchantment cooldown and increases potency
+		// by ([0-9]+\.?[0-9]*)%/i,
 		match: /Decreases weapon enchantment cooldown and increases non Oblivion Damage enchantment potency by ([0-9]+)%/i,
 	},
 	{
@@ -8230,31 +8600,17 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "HAMagRestore",
 		match: /Fully charged heavy attacks restore ([0-9]+) Magicka/i,
 	},
-	/* Duplicates ?
-	{
-		setBonusCount: 4,
-		category: "Skill",
-		statId: "AOEDamageTaken",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces your damage taken from area of effect abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		setBonusCount: 4,
-		category: "Skill",
-		statId: "AOEDamageDone",
-		display: "%",
-		factorValue: -1,
-		match: /but the damage and healing of your own area of effect abilities is also reduced by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		setBonusCount: 4,
-		category: "Skill",
-		statId: "AOEHealingDone",
-		display: "%",
-		factorValue: -1,
-		match: /but the damage and healing of your own area of effect abilities is also reduced by ([0-9]+\.?[0-9]*)%/i,
-	}, //*/
+	/*
+	 * Duplicates ? { setBonusCount: 4, category: "Skill", statId:
+	 * "AOEDamageTaken", display: "%", factorValue: -1, match: /Reduces your
+	 * damage taken from area of effect abilities by ([0-9]+\.?[0-9]*)%/i, }, {
+	 * setBonusCount: 4, category: "Skill", statId: "AOEDamageDone", display:
+	 * "%", factorValue: -1, match: /but the damage and healing of your own area
+	 * of effect abilities is also reduced by ([0-9]+\.?[0-9]*)%/i, }, {
+	 * setBonusCount: 4, category: "Skill", statId: "AOEHealingDone", display:
+	 * "%", factorValue: -1, match: /but the damage and healing of your own area
+	 * of effect abilities is also reduced by ([0-9]+\.?[0-9]*)%/i, }, //
+	 */
 	{
 		id: "Infallible Mage",
 		setBonusCount: 4,
@@ -8284,7 +8640,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		category: "SkillBonusWeaponDmg",
 		statId: "Poison",
-		// match: /When you deal damage with a Magicka ability, your Poison and Disease Damage abilities gain an additional ([0-9]+) Weapon Damage/i,
+		// match: /When you deal damage with a Magicka ability, your Poison and
+		// Disease Damage abilities gain an additional ([0-9]+) Weapon Damage/i,
 		match: /Adds ([0-9]+) Weapon Damage to your Poison and Disease Damage abilities./i,
 	},
 	{
@@ -8293,7 +8650,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		category: "SkillBonusWeaponDmg",
 		statId: "Disease",
-		// match: /When you deal damage with a Magicka ability, your Poison and Disease Damage abilities gain an additional ([0-9]+) Weapon Damage/i,
+		// match: /When you deal damage with a Magicka ability, your Poison and
+		// Disease Damage abilities gain an additional ([0-9]+) Weapon Damage/i,
 		match: /Adds ([0-9]+) Weapon Damage to your Poison and Disease Damage abilities./i,
 	},
 	 {	
@@ -8333,7 +8691,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		combineAs: "*%",
 		match: /Increases the cost of your active abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
-	{		//TODO: Ultimate costs?
+	{		// TODO: Ultimate costs?
 		category: "SkillCost",
 		display: "%",
 		factorValue: -1,
@@ -8401,14 +8759,14 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Increases the bonuses and penalties of your Vampire Stage, depending on how far you've progressed/i,
 	},
 	{
-		//Leki's Focus
+		// Leki's Focus
 		statId: "AOEDamageDone",
 		display: "%",
 		factorValue: -1,
 		match: /Reduces your damage done with area of effect attacks by ([0-9.]+)%, but grants Major Evasion at all times/i,
 	},
 	{
-		//Leki's Focus
+		// Leki's Focus
 		buffId: "Major Evasion",
 		match: /Reduces your damage done with area of effect attacks by ([0-9.]+)%, but grants Major Evasion at all times/i,
 	},
@@ -8555,9 +8913,153 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		match: /Increases the cost of Block, Sprint, Dodge, and Break Free by ([0-9.]+)%/i,
 	},
+	{
+		statId: "SpellCrit",
+		match: /Adds ([0-9.]+) Spell Critical and/i,
+	},
+	{
+		category: "Set",
+		statId: "AOEWeaponDamage",
+		match: /Adds ([0-9.]+) Weapon Damage to your area of effect abilities/i,
+	},
 	
 	
 		// Optionally toggled set effects
+	{
+		id: "Unleashed Ritualist",
+		setBonusCount: 4,
+		statId: "PetDamageDone",
+		toggle: true,
+		enabled: false,
+		display: "%",
+		match: /Enemies with your Ritualist's Mark take an additional ([0-9.]+)% damage from your summoned pets/i,
+	},
+
+	{
+		id: "Frenzied Momentum",
+		setBonusCount: 1,
+		statId: "WeaponDamage",
+		toggle: true,
+		enabled: false,
+		maxTimes: 5,
+		match: /While Momentum is active, casting Stamina abilities while in combat generates a stack of Frenzied Momentum for [0-9.]+ seconds, increasing your Weapon Damage by ([0-9.]+) up to [0-9.]+ times/i,
+	},
+	{
+		id: "Perfected Frenzied Momentum",
+		setBonusCount: 2,
+		statId: "WeaponDamage",
+		toggle: true,
+		enabled: false,
+		maxTimes: 5,
+		match: /While Momentum is active, casting Stamina abilities while in combat generates a stack of Frenzied Momentum for [0-9.]+ seconds, increasing your Weapon Damage by ([0-9.]+) up to [0-9.]+ times/i,
+	},
+	{
+		id: "Executioner's Blade",
+		setBonusCount: 1,
+		category: "SkillDamage",
+		statId: "Hidden Blade",
+		toggle: true,
+		enabled: false,
+		display: "%",
+		maxTimes: 250,
+		match: /Hidden Blade deals up to [0-9.]+% more damage to targets under [0-9.]+% Health when you are standing behind them/i,
+	},
+	{
+		id: "Perfected Executioner's Blade",
+		setBonusCount: 2,
+		category: "SkillDamage",
+		statId: "Hidden Blade",
+		toggle: true,
+		enabled: false,
+		display: "%",
+		maxTimes: 250,
+		match: /Hidden Blade deals up to [0-9.]+% more damage to targets under [0-9.]+% Health when you are standing behind them/i,
+	},
+	{
+		id: "Point-Blank Snipe",
+		setBonusCount: 1,
+		category: "SkillDamage",
+		statId: "Snipe",
+		toggle: true,
+		enabled: false,
+		display: "%",
+		maxTimes: 33,
+		minTimes: 5,
+		match: /Increases your damage done with Snipe based on how close you are to your target/i,
+	},
+	{
+		id: "Perfected Point-Blank Snipe",
+		setBonusCount: 2,
+		category: "SkillDamage",
+		statId: "Snipe",
+		toggle: true,
+		enabled: false,
+		display: "%",
+		maxTimes: 33,
+		minTimes: 5,
+		match: /Increases your damage done with Snipe based on how close you are to your target/i,
+	},
+	{
+		id: "True-Sworn Fury: Double",
+		setId: "True-Sworn Fury",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "SpellCrit",
+		factorValue: 0.5,
+		disableSetIds: ["True-Sworn Fury: Quadruple"],
+		rawInputMatch: /(This bonus doubles to [0-9.]+ Spell Critical and [0-9.]+% increased Critical Damage when you are under [0-9.]+% Health\.)/i,
+		match: /This bonus doubles to ([0-9.]+) Spell Critical and [0-9.]+% increased Critical Damage when you are under [0-9.]+% Health/i,
+	},
+	{
+		id: "True-Sworn Fury: Double",
+		setId: "True-Sworn Fury",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		display: "%",
+		statId: "CritDamage",
+		factorValue: 0.5,
+		disableSetIds: ["True-Sworn Fury: Quadruple"],
+		rawInputMatch: /(This bonus doubles to [0-9.]+ Spell Critical and [0-9.]+% increased Critical Damage when you are under [0-9.]+% Health\.)/i,
+		match: /This bonus doubles to [0-9.]+ Spell Critical and ([0-9.]+)% increased Critical Damage when you are under [0-9.]+% Health/i,
+	},
+	{
+		id: "True-Sworn Fury: Quadruple",
+		setId: "True-Sworn Fury",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "SpellCrit",
+		factorValue: 0.75,
+		disableSetIds: ["True-Sworn Fury: Double"],
+		rawInputMatch: /(This bonus quadruples to [0-9.]+ Spell Critical and [0-9.]+% increased Critical Damage when you are under [0-9.]+% Health\.)/i,
+		match: /This bonus quadruples to ([0-9.]+) Spell Critical and [0-9.]+% increased Critical Damage when you are under [0-9.]+% Health/i,
+	},
+	{
+		id: "True-Sworn Fury: Quadruple",
+		setId: "True-Sworn Fury",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		display: "%",
+		statId: "CritDamage",
+		factorValue: 0.75,
+		disableSetIds: ["True-Sworn Fury: Double"],
+		rawInputMatch: /(This bonus quadruples to [0-9.]+ Spell Critical and [0-9.]+% increased Critical Damage when you are under [0-9.]+% Health\.)/i,
+		match: /This bonus quadruples to [0-9.]+ Spell Critical and ([0-9.]+)% increased Critical Damage when you are under [0-9.]+% Health/i,
+	},
+	{
+		id: "Encratis's Behemoth",
+		setBonusCount: 2,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		buffId: "Encratis Behemoth",
+		updateBuffValue: true,
+		display: "%",
+		match: /Dealing Flame Damage to an enemy grants you Behemoth's Aura for [0-9.]+ second.*reduce Flame Damage taken by ([0-9.]+)%/i,
+	},
 	{
 		id: "Hex Siphon",
 		setBonusCount: 5,
@@ -8618,8 +9120,9 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "FlameCritDamageTaken",
-		//disableSetIds: ["Elemental Catalyst (Frost)", "Elemental Catalyst (Shock)"],
-		//maxTimes: 1,
+		// disableSetIds: ["Elemental Catalyst (Frost)", "Elemental Catalyst
+		// (Shock)"],
+		// maxTimes: 1,
 		display: "%",
 		match: /Each stack of an Elemental Weakness increases their Critical Damage taken by ([0-9.]+)%/i,
 	},
@@ -8631,8 +9134,9 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "ShockCritDamageTaken",
-		//disableSetIds: ["Elemental Catalyst (Flame)", "Elemental Catalyst (Frost)"],
-		//maxTimes: 1,
+		// disableSetIds: ["Elemental Catalyst (Flame)", "Elemental Catalyst
+		// (Frost)"],
+		// maxTimes: 1,
 		display: "%",
 		match: /Each stack of an Elemental Weakness increases their Critical Damage taken by ([0-9.]+)%/i,
 	},
@@ -8644,8 +9148,9 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "FrostCritDamageTaken",
-		//disableSetIds: ["Elemental Catalyst (Flame)", "Elemental Catalyst (Shock)"],
-		//maxTimes: 1,
+		// disableSetIds: ["Elemental Catalyst (Flame)", "Elemental Catalyst
+		// (Shock)"],
+		// maxTimes: 1,
 		display: "%",
 		match: /Each stack of an Elemental Weakness increases their Critical Damage taken by ([0-9.]+)%/i,
 	},
@@ -8773,17 +9278,12 @@ window.ESO_SETEFFECT_MATCHES = [
 		updateBuffValue: true,
 		match: /When you deal direct damage, you cause the enemy to take ([0-9]+)% more damage from Poison and Disease attacks/i,
 	},
-	/*{
-		id: "The Morag Tong",
-		setBonusCount: 4,
-		enableOffBar: true,
-		toggle: true,
-		enabled: false,
-		display: "%",
-		category: "Target",
-		statId: "DiseaseDamageTaken",
-		match: /When you deal direct damage, you cause the enemy to take ([0-9]+)% more damage from Poison and Disease attacks/i,
-	},*/
+	/*
+	 * { id: "The Morag Tong", setBonusCount: 4, enableOffBar: true, toggle:
+	 * true, enabled: false, display: "%", category: "Target", statId:
+	 * "DiseaseDamageTaken", match: /When you deal direct damage, you cause the
+	 * enemy to take ([0-9]+)% more damage from Poison and Disease attacks/i, },
+	 */
 	{
 		id: "Z'en's Redress",
 		setBonusCount: 4,
@@ -8924,7 +9424,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: true,
 		statId: "MagickaRegen",
-		//disableSetIds: [ "Torc of Tonal Constancy (Stamina)" ],
+		// disableSetIds: [ "Torc of Tonal Constancy (Stamina)" ],
 		rawInputMatch: /(While your Stamina is less than [0-9]+%, increase your Magicka Recovery by [0-9]+\.)/,
 		match: /While your Stamina is less than [0-9]+%, increase your Magicka Recovery by ([0-9]+)\./i,
 	},
@@ -8935,7 +9435,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "StaminaRegen",
-		//disableSetIds: [ "Torc of Tonal Constancy (Magicka)" ],
+		// disableSetIds: [ "Torc of Tonal Constancy (Magicka)" ],
 		rawInputMatch: /(While your Magicka is less than [0-9]+%, increase your Stamina Recovery by [0-9]+\.)/,
 		match: /While your Magicka is less than [0-9]+%, increase your Stamina Recovery by ([0-9]+)\./i,
 	},
@@ -9199,7 +9699,9 @@ window.ESO_SETEFFECT_MATCHES = [
 		updateBuffValue : true,
 		enableOffBar : true,
 		toggle: true,
-		//match: /When you deal damage with Flurry, your next single target damage over time ability used within [0-9]+ seconds gains ([0-9]+) Spell and Weapon Damage/i,
+		// match: /When you deal damage with Flurry, your next single target
+		// damage over time ability used within [0-9]+ seconds gains ([0-9]+)
+		// Spell and Weapon Damage/i,
 		match: /When you deal damage with Flurry, your single target damage over time abilities used within [0-9]+ seconds gain ([0-9]+) Spell and Weapon Damage./i,
 	},
 	{
@@ -9343,38 +9845,26 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 	{	id: "Vastarie's Tutelage",
 		setBonusCount: 5,
-		statId: "WeaponDamage",
+		buffId: "Vastaries Tutelage",
 		toggle: true,
 		enabled: false,
 		match: /When you resurrect an ally, you and your ally gain ([0-9]+) Weapon and Spell Damage and [0-9]+% cost reduction to non-Ultimate abilities/i,
 	},
-	{	id: "Vastarie's Tutelage",
-		setBonusCount: 5,
-		statId: "SpellDamage",
-		toggle: true,
-		enabled: false,
-		match: /When you resurrect an ally, you and your ally gain ([0-9]+) Weapon and Spell Damage and [0-9]+% cost reduction to non-Ultimate abilities/i,
-	},
-	{	id: "Vastarie's Tutelage",
-		setBonusCount: 5,
-		statId: "MagickaCost",
-		display: "%",
-		factorValue: -1,
-		toggle: true,
-		enabled: false,
-		combineAs: "*%",
-		match: /When you resurrect an ally, you and your ally gain [0-9]+ Weapon and Spell Damage and ([0-9]+)% cost reduction to non-Ultimate abilities/i,
-	},
-	{	id: "Vastarie's Tutelage",
-		setBonusCount: 5,
-		statId: "StaminaCost",
-		display: "%",
-		factorValue: -1,
-		toggle: true,
-		enabled: false,
-		combineAs: "*%",
-		match: /When you resurrect an ally, you and your ally gain [0-9]+ Weapon and Spell Damage and ([0-9]+)% cost reduction to non-Ultimate abilities/i,
-	},
+	/*
+	 * { id: "Vastarie's Tutelage", setBonusCount: 5, statId: "SpellDamage",
+	 * toggle: true, enabled: false, match: /When you resurrect an ally, you and
+	 * your ally gain ([0-9]+) Weapon and Spell Damage and [0-9]+% cost
+	 * reduction to non-Ultimate abilities/i, }, { id: "Vastarie's Tutelage",
+	 * setBonusCount: 5, statId: "MagickaCost", display: "%", factorValue: -1,
+	 * toggle: true, enabled: false, combineAs: "*%", match: /When you resurrect
+	 * an ally, you and your ally gain [0-9]+ Weapon and Spell Damage and
+	 * ([0-9]+)% cost reduction to non-Ultimate abilities/i, }, { id:
+	 * "Vastarie's Tutelage", setBonusCount: 5, statId: "StaminaCost", display:
+	 * "%", factorValue: -1, toggle: true, enabled: false, combineAs: "*%",
+	 * match: /When you resurrect an ally, you and your ally gain [0-9]+ Weapon
+	 * and Spell Damage and ([0-9]+)% cost reduction to non-Ultimate
+	 * abilities/i, }, //
+	 */
 	{	id: "Senche-raht's Grit",
 		setBonusCount: 4,
 		statId: "HealingReceived",
@@ -9581,7 +10071,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		buffId: "Way of Martial Knowledge",
 		updateBuffValue: true,
 		display: "%",
-		//match: /When you deal damage, you cause the enemy to take ([0-9]+\.?[0-9]*)% additional damage from the next attack/i,
+		// match: /When you deal damage, you cause the enemy to take
+		// ([0-9]+\.?[0-9]*)% additional damage from the next attack/i,
 		match: /While your Stamina is below [0-9]+\.?[0-9]*%, your Light Attacks cause the enemy to take ([0-9]+\.?[0-9]*)% additional damage/i,
 	},
 	{
@@ -9665,7 +10156,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "WeaponDamage",
-		//match: /When you deal damage, you have a [0-9]+% chance to increase your Weapon Damage by ([0-9]+)/i,
+		// match: /When you deal damage, you have a [0-9]+% chance to increase
+		// your Weapon Damage by ([0-9]+)/i,
 		match: /When you interrupt an enemy, you gain ([0-9]+) Weapon Damage/i,
 	},
 	{
@@ -9935,7 +10427,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "SpellResist",
-		//match: /While you are blocking, your Physical and Spell Resistance is increased by ([0-9]+)/i,
+		// match: /While you are blocking, your Physical and Spell Resistance is
+		// increased by ([0-9]+)/i,
 		match: /While you are blocking, your Physical and Spell Resistance are increased by ([0-9]+)/i,
 	},
 	{
@@ -9944,7 +10437,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "PhysicalResist",
-		//match: /While you are blocking, your Physical and Spell Resistance is increased by ([0-9]+)/i,
+		// match: /While you are blocking, your Physical and Spell Resistance is
+		// increased by ([0-9]+)/i,
 		match: /While you are blocking, your Physical and Spell Resistance are increased by ([0-9]+)/i,
 	},
 	{
@@ -9955,8 +10449,10 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		category: "SkillBonusSpellDmg",
 		statId: "Flame",
-		//disableSetIds: [ "Elemental Succession (Shock)", "Elemental Succession (Cold)" ],
-		//match: /Your attacks dealing damage with the active element gain ([0-9]+) Spell Damage/i,
+		// disableSetIds: [ "Elemental Succession (Shock)", "Elemental
+		// Succession (Cold)" ],
+		// match: /Your attacks dealing damage with the active element gain
+		// ([0-9]+) Spell Damage/i,
 		match: /Whenever you deal Flame, Shock, or Frost Damage, you gain ([0-9]+) Spell Damage /i,
 	},
 	{
@@ -9967,8 +10463,10 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		category: "SkillBonusSpellDmg",
 		statId: "Shock",
-		//disableSetIds: [ "Elemental Succession (Cold)", "Elemental Succession (Flame)" ],
-		//match: /Your attacks dealing damage with the active element gain ([0-9]+) Spell Damage/i,
+		// disableSetIds: [ "Elemental Succession (Cold)", "Elemental Succession
+		// (Flame)" ],
+		// match: /Your attacks dealing damage with the active element gain
+		// ([0-9]+) Spell Damage/i,
 		match: /Whenever you deal Flame, Shock, or Frost Damage, you gain ([0-9]+) Spell Damage /i,
 	},
 	{
@@ -9979,8 +10477,10 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		category: "SkillBonusSpellDmg",
 		statId: "Frost",
-		//disableSetIds: [ "Elemental Succession (Shock)", "Elemental Succession (Flame)" ],
-		//match: /Your attacks dealing damage with the active element gain ([0-9]+) Spell Damage/i,
+		// disableSetIds: [ "Elemental Succession (Shock)", "Elemental
+		// Succession (Flame)" ],
+		// match: /Your attacks dealing damage with the active element gain
+		// ([0-9]+) Spell Damage/i,
 		match: /Whenever you deal Flame, Shock, or Frost Damage, you gain ([0-9]+) Spell Damage /i,
 	},
 	{
@@ -10057,6 +10557,26 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: '%',
 		match: /When you take damage, you have an [0-9]+% chance to turn your blood into pure iron and gain Major Protection for [0-9]+ seconds, reducing your damage taken by [0-9]+%, but your Movement Speed is reduced by ([0-9]+)%/i,
 	},
+	{
+		id: "Ironblood",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		buffId: "Major Protection",
+		match: /When you take damage, you have a(?:n|) [0-9]+% chance to turn your blood into pure iron for [0-9]+ seconds/i,
+	},
+	{
+		id: "Ironblood",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "MovementSpeed",
+		factorValue: -1,
+		display: '%',
+		match: /When you take damage, you have a(?:n|) [0-9]+% chance to turn your blood into pure iron for [0-9]+ seconds, reducing your damage taken by [0-9\.]+%, but your Movement Speed is reduced by ([0-9]+)%/i,
+	},-
 	{
 		id: "Imperial Physique",
 		setBonusCount: 5,
@@ -10230,7 +10750,9 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "PhysicalResist",
-		//match: /When you cast a Support ability, you increase the Physical and Spell Resistance of up to [0-9]+ friendly targets within [0-9]+ meters by ([0-9]+)/i,
+		// match: /When you cast a Support ability, you increase the Physical
+		// and Spell Resistance of up to [0-9]+ friendly targets within [0-9]+
+		// meters by ([0-9]+)/i,
 		match: /When you cast a Support ability, you increase the Physical and Spell Resistance of yourself and up to [0-9]+ allies within [0-9]+ meters by ([0-9]+) for/i,
 	},
 	{
@@ -10240,7 +10762,9 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "SpellResist",
-		//match: /When you cast a Support ability, you increase the Physical and Spell Resistance of up to [0-9]+ friendly targets within [0-9]+ meters by ([0-9]+)/i,
+		// match: /When you cast a Support ability, you increase the Physical
+		// and Spell Resistance of up to [0-9]+ friendly targets within [0-9]+
+		// meters by ([0-9]+)/i,
 		match: /When you cast a Support ability, you increase the Physical and Spell Resistance of yourself and up to [0-9]+ allies within [0-9]+ meters by ([0-9]+) for/i,
 	},
 	{
@@ -10381,7 +10905,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Your Soul Trap ability gains ([0-9]+) Weapon and Spell Damage/i,
 	},
 	{
-		id: "Oblivion's Foe",	//TODO: Update27 Verify
+		id: "Oblivion's Foe",	// TODO: Update27 Verify
 		setBonusCount: 4,
 		enabled: false,
 		category: "SkillDirectDamage",
@@ -10463,7 +10987,9 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		maxTimes: 5,
 		statId: "WeaponDamage",
-		//match: /When you deal melee damage, you have a [0-9]+\.?[0-9]*% chance to increase your Weapon Damage by ([0-9]+) for [0-9]+ seconds/i,
+		// match: /When you deal melee damage, you have a [0-9]+\.?[0-9]*%
+		// chance to increase your Weapon Damage by ([0-9]+) for [0-9]+
+		// seconds/i,
 		match: /Each time you attempt to reduce the target's Physical or Spell Resistance, you gain a stack of Ravager for [0-9]+ seconds, increasing your Weapon Damage by ([0-9]+)/i,
 	},
 	{
@@ -10532,7 +11058,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		buffId: "Robes of Transmutation",
 		updateBuffValue: true,
-		//match: /When you heal a target with a healing over time ability, grant them ([0-9]+) Critical Resistance/i,
+		// match: /When you heal a target with a healing over time ability,
+		// grant them ([0-9]+) Critical Resistance/i,
 		match: /When you heal yourself or an ally with a healing over time ability, grant them ([0-9]+) Critical Resistance/i,
 	},
 	{
@@ -10554,7 +11081,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /While the beam holds gain ([0-9]+\.?[0-9]*)% increased healing received/i,
 	},
 	{
-		id: "Shield Breaker",	//Malacath's Band of Brutality
+		id: "Shield Breaker",	// Malacath's Band of Brutality
 		setBonusCount: 4,
 		enabled: false,
 		statId: "DamageDone",
@@ -10577,7 +11104,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "MagickaRegen",
-		//match: /When you fall below [0-9]+\.?[0-9]*% Magicka increase your Magicka Recovery by ([0-9]+) /i,
+		// match: /When you fall below [0-9]+\.?[0-9]*% Magicka increase your
+		// Magicka Recovery by ([0-9]+) /i,
 		match: /When you cast an ability that costs resources while under [0-9]+\.?[0-9]*% Magicka, your Magicka Recovery is increased by ([0-9]+) /i,
 	},
 	{
@@ -10590,6 +11118,15 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /When you cast an ability while under [0-9]+\.?[0-9]*% Magicka, your Magicka Recovery is increased by ([0-9]+) /i,
 	},
 	{
+		id: "Shroud of the Lich",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "MagickaRegen",
+		match: /When you cast an ability that costs resources while under [0-9]+\.?[0-9]*% Magicka while in combat, your Magicka Recovery is increased by ([0-9]+) for /i,
+	},
+	{
 		id: "Senche's Bite",
 		setBonusCount: 4,
 		toggle: true,
@@ -10597,7 +11134,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		statId: "CritDamage",
 		display: "%",
-		//match: /When you use Roll Dodge, your Weapon Damage is increased by ([0-9]+) and Weapon Critical rating is increased by [0-9]+/i,
 		match: /When you use Roll Dodge, increase your Critical Damage by ([0-9]+)%/i,
 	},
 	{
@@ -10607,8 +11143,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "WeaponDamage",
-		//match: /When you take damage, you have a [0-9]+% chance to gain ([0-9]+) Weapon Damage/i,
-		match: /When you cast an ability that increases your Physical or Spell Resistance, you gain ([0-9]+) Weapon Damage and [0-9]+ Health Recovery for/i,
+		match: /When you cast an ability that increases your Physical or Spell Resistance.*, you gain ([0-9]+) Weapon Damage and [0-9]+ Health Recovery for/i,
 	},
 	{
 		id: "Seventh Legion Brute",
@@ -10617,8 +11152,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "HealthRegen",
-		//match: /When you take damage, you have a [0-9]+% chance to gain ([0-9]+) Weapon Damage/i,
-		match: /When you cast an ability that increases your Physical or Spell Resistance, you gain [0-9]+ Weapon Damage and ([0-9]+) Health Recovery for/i,
+		match: /When you cast an ability that increases your Physical or Spell Resistance.*, you gain [0-9]+ Weapon Damage and ([0-9]+) Health Recovery for/i,
 	},
 	{
 		id: "Sithis' Touch",
@@ -10740,7 +11274,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "HealthRegen",
-		//match: /When you heal a friendly target, if they are still below [0-9]+% Health, their Health Recovery is increased by ([0-9]+)/
+		// match: /When you heal a friendly target, if they are still below
+		// [0-9]+% Health, their Health Recovery is increased by ([0-9]+)/
 		match: /When you heal yourself or an ally, if they are still below [0-9]+% Health, their Health Recovery is increased by ([0-9]+) /
 	},	
 	
@@ -10821,6 +11356,36 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /When you use an ability that costs Magicka, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for /i,
 	},
 	{
+		id: "Undaunted Infiltrator",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "LADamage",
+		match: /When you use an ability that costs Magicka while in combat, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for /i,
+	},
+	{
+		id: "Undaunted Infiltrator",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "HADamage",
+		match: /When you use an ability that costs Magicka while in combat, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for /i,
+	},
+	{
+		id: "Undaunted Infiltrator",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "OverloadDamage",
+		match: /When you use an ability that costs Magicka while in combat, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for /i,
+	},
+	{
 		id: "Undaunted Unweaver",
 		setBonusCount: 4,
 		toggle: true,
@@ -10871,6 +11436,36 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /When you use an ability that costs Stamina, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for/i,
 	},
 	{
+		id: "Undaunted Unweaver",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "LADamage",
+		match: /When you use an ability that costs Stamina while in combat, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for/i,
+	},
+	{
+		id: "Undaunted Unweaver",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "HADamage",
+		match: /When you use an ability that costs Stamina while in combat, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for/i,
+	},
+	{
+		id: "Undaunted Unweaver",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "OverloadDamage",
+		match: /When you use an ability that costs Stamina while in combat, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for/i,
+	},
+	{
 		id: "Vestment of Olorime",
 		setBonusCount: 4,
 		toggle: true,
@@ -10898,7 +11493,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		statId: "WeaponDamage",
 		maxTimes: 20,
-		//match: /When you take critical damage, your Weapon Damage is increased by ([0-9]+)/i,
+		// match: /When you take critical damage, your Weapon Damage is
+		// increased by ([0-9]+)/i,
 		match: /When you take damage, your Weapon Damage is increased by ([0-9]+) for/i,
 	},
 	{
@@ -10936,7 +11532,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar: true,
 		toggle: true,
-		maxTimes: 5,
+		maxTimes: 10,
 		category: "Set",
 		statId: "WeaponCrit",
 		match: /Each stack of Dragonguard Tactics increases your Weapon Critical by ([0-9]+)\./i,
@@ -11267,7 +11863,7 @@ window.ESO_ENCHANT_WEAPON_MATCHES = [
 	{
 		statId: "OtherEffects",
 		damageType: "Magic",
-		//TODO: Toggle?
+		// TODO: Toggle?
 		match: /Deals ([0-9]+) Magic Damage to Undead and Daedra/i,
 		duration: 0,
 		cooldown: ESO_ENCHANT_DAMAGE_COOLDOWN,
@@ -11384,6 +11980,12 @@ window.ESOBUILD_RAWOUTPUT_LABELREPLACEMENT =
 {
 		"CP.Enabled" : "CP Enabled",
 		"Skill.HAStaRestoreWerewolf": "HA Stamina Restore Werewolf",
+		"CP.RollDodgeCost": "Dodge Roll Cost",
+		"Skill.RollDodgeCost": "Dodge Roll Cost",
+		"Set.RollDodgeCost": "Dodge Roll Cost",
+		"Buff.RollDodgeCost": "Dodge Roll Cost",
+		"Skill2.RollDodgeCost": "Dodge Roll Cost",
+		"Item.RollDodgeCost": "Dodge Roll Cost",
 };
 
 
@@ -11692,11 +12294,11 @@ window.UpdateEsoItemLinkVersion = function(version)
 {
 	if (version == null || version == "")
 	{
-		$(".eso_item_link").removeAttr("version");
+		$("#esotbItems").find(".eso_item_link").removeAttr("version");
 	}
 	else
 	{
-		$(".eso_item_link").attr("version", version);
+		$("#esotbItems").find(".eso_item_link").attr("version", version);
 	}
 	
 }
@@ -11780,6 +12382,8 @@ window.GetEsoInputBuffValue = function (inputValues, buffName, buffData)
 	var statValues = buffData.values;
 	var combineAs = buffData.combineAs;
 	var combineAses = buffData.combineAses;
+	var factorValue = buffData.factorValue;
+	var factorValues = buffData.factorValues;
 	
 	if (buffData.category != null) category = buffData.category;
 	if (combineAs == null) combineAs = '';
@@ -11788,6 +12392,7 @@ window.GetEsoInputBuffValue = function (inputValues, buffName, buffData)
 	if (statValues == null) statValues = [].fill.call({ length: statIds.length }, statValue);
 	if (categories == null) categories = [].fill.call({ length: statIds.length }, category);
 	if (combineAses == null) combineAses = [].fill.call({ length: statIds.length }, combineAs);
+	if (factorValues == null) factorValues = [].fill.call({ length: statIds.length }, factorValues);
 	
 	for (var i = 0; i < statIds.length; ++i)
 	{
@@ -11795,15 +12400,18 @@ window.GetEsoInputBuffValue = function (inputValues, buffName, buffData)
 		category = categories[i];
 		statId = statIds[i];
 		combineAs = combineAses[i];
+		factorValue = factorValues[i];
 		
 		if (statId == "OtherEffects")
 		{
 			AddEsoItemRawOutputString(buffData, "OtherEffects", statValue);
-			AddEsoInputStatSource("OtherEffects", { other: true, buff: buffData, buffName: buffName, value: statValue });
+			AddEsoInputStatSource("OtherEffects", { other: true, buff: buffData, buffName: buffName, value: statValue, factorValue: factorValue });
 		}
 		else
 		{
 			if (inputValues[category][statId] == null) inputValues[category][statId] = 0;
+			
+			if (factorValue != null && factorValue != 1) statValue *= factorValue;
 			
 			if (combineAs == "*%")
 				inputValues[category][statId] = +((1 + inputValues[category][statId]) * (1 + statValue) - 1);
@@ -11876,15 +12484,15 @@ window.GetEsoVampireStageStats = function (stage, inputValues)
 	}
 	else if (stage == 5)		// TODO: Verify which effects are cancelled
 	{
-		//result.healthRegenValue = -1.00;
-		//result.flameDamageValue = 0.20;
+		// result.healthRegenValue = -1.00;
+		// result.flameDamageValue = 0.20;
 		result.costReduction = -0.24;
-		//result.allCostIncrease = 0.12;
+		// result.allCostIncrease = 0.12;
 		
 		if (inputValues.Set.VampireLord == 1) {
-			//result.flameDamageValue += 0.06;
+			// result.flameDamageValue += 0.06;
 			result.costReduction += -0.20;
-			//result.allCostIncrease += 0.06;
+			// result.allCostIncrease += 0.06;
 		}
 	}
 	
@@ -11938,8 +12546,8 @@ window.GetEsoInputSpecialValues = function (inputValues)
 		
 		if (stats.healthRegenValue)
 		{
-			inputValues.Skill.HealthRegen += stats.healthRegenValue;
-			AddEsoInputStatSource("Skill.HealthRegen", { source: "Vampire Stage " + inputValues.VampireStage, value: stats.healthRegenValue });
+			inputValues.Vampire.HealthRegen += stats.healthRegenValue;
+			AddEsoInputStatSource("Vampire.HealthRegen", { source: "Vampire Stage " + inputValues.VampireStage, value: stats.healthRegenValue });
 		}
 		
 		if (stats.flameDamageValue)
@@ -12201,7 +12809,7 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 		if (matchData.factorStatId != null)
 		{
 			var factorStat = inputValues[matchData.factorStatId];
-			if (factorStat != null) statFactor += parseFloat(factorStat);			
+			if (factorStat != null) statFactor += parseFloat(factorStat);
 		}
 	
 		if (matchData.round == "floor") statValue = Math.floor(statValue);
@@ -12343,7 +12951,7 @@ window.GetEsoInputSkillPassives = function (inputValues)
 	
 	for (var skillId in g_EsoSkillPassiveData)
 	{
-		GetEsoInputSkillPassiveValues(inputValues, skillInputValues, g_EsoSkillPassiveData[skillId]);	
+		GetEsoInputSkillPassiveValues(inputValues, skillInputValues, g_EsoSkillPassiveData[skillId]);
 	}
 	
 }
@@ -12434,6 +13042,9 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 	if (matchData.toggle === true && matchData.id != null)
 	{
 		if (!IsEsoBuildToggledSkillEnabled(matchData.id)) return false;
+		if (IsEsoBuildToggledSkillUsed(matchData.id)) return false;
+		
+		g_EsoToggleSkillUsedBuffer[matchData.id] = true;
 	}
 	else if (isOffBar)
 	{
@@ -12665,14 +13276,14 @@ window.UpdateEsoBuffBuffEnabled = function ()
 		}
 		else if (buffData.enabled)
 		{
-			//parent.addClass("esotbBuffItemSelect");
-			//parent.removeClass("esotbBuffDisable");
+			// parent.addClass("esotbBuffItemSelect");
+			// parent.removeClass("esotbBuffDisable");
 		}
 		else
 		{
-			//parent.removeClass("esotbBuffItemSelect");
-			//parent.removeClass("esotbBuffDisable");
-			//element.text("");
+			// parent.removeClass("esotbBuffItemSelect");
+			// parent.removeClass("esotbBuffDisable");
+			// element.text("");
 		}
 	}
 	
@@ -12697,6 +13308,9 @@ window.GetEsoInputSkillPassiveValues = function (inputValues, skillInputValues, 
 }
 
 
+window.g_EsoToggleSkillUsedBuffer = {};
+
+
 window.GetEsoInputSkillActiveValues = function (inputValues, skillInputValues, skillData, isOffBar)
 {
 	var abilityData = g_SkillsData[skillData.abilityId];
@@ -12704,12 +13318,18 @@ window.GetEsoInputSkillActiveValues = function (inputValues, skillInputValues, s
 	var rawDesc = RemoveEsoDescriptionFormats(skillDesc);
 	if (rawDesc == "" || abilityData == null) return;
 	
-	//abilityData.rawOutput = {};
+	// abilityData.rawOutput = {};
+	g_EsoToggleSkillUsedBuffer = {};
 	
 	for (var i = 0; i < ESO_ACTIVEEFFECT_MATCHES.length; ++i)
 	{
 		var matchData = ESO_ACTIVEEFFECT_MATCHES[i];
 		ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData, false, false, isOffBar);
+	}
+	
+	for (var id in g_EsoToggleSkillUsedBuffer)
+	{
+		SetEsoBuildToggledSkillUsed(id, true);
 	}
 	
 }
@@ -13489,7 +14109,8 @@ window.UpdateEsoEnchantWeaponValues = function(inputValues, slotId)
 		}
 	}
 	
-	//AddEsoInputStatSource("OtherEffects", { other: true, item: itemData, enchant: enchantData, value: rawDesc, slotId: slotId });
+	// AddEsoInputStatSource("OtherEffects", { other: true, item: itemData,
+	// enchant: enchantData, value: rawDesc, slotId: slotId });
 	AddEsoItemRawOutputString(itemData, "Orig Enchant", RemoveEsoDescriptionFormats(enchantData.enchantDesc));
 	AddEsoItemRawOutputString(itemData, "Enchantment", rawDesc);
 	
@@ -13585,7 +14206,7 @@ window.GetEsoInputItemEnchantWeaponValues = function (inputValues, slotId, itemD
 	var addFinalEffect = false;
 	var isTransmuted = (itemData.transmuteTrait > 0 && itemData.transmuteTrait != itemData.origTrait)
 	
-	//if (enchantData.isDefaultEnchant && !isTransmuted) enchantFactor = 1;
+	// if (enchantData.isDefaultEnchant && !isTransmuted) enchantFactor = 1;
 	if (itemData.type != 1) return false;
 	
 	if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
@@ -13650,7 +14271,7 @@ window.GetEsoInputItemEnchantWeaponValues = function (inputValues, slotId, itemD
 	if (addFinalEffect) 
 	{
 		AddEsoInputStatSource("OtherEffects", { other: true, item: itemData, enchant: enchantData, value: rawDesc, slotId: slotId });
-		//AddEsoItemRawOutputString(itemData, "WeaponEnchant", rawDesc);
+		// AddEsoItemRawOutputString(itemData, "WeaponEnchant", rawDesc);
 	}
 	
 	enchantData.newEnchantDesc = rawDesc;
@@ -14018,11 +14639,11 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	{
 		// inputValues.Mundus.CritDamage = 0.12;
 		
-		//inputValues.Mundus.CritDamage  = 0.09;		// Update 15
-		//inputValues.Mundus.CritHealing = 0.09;		
+		// inputValues.Mundus.CritDamage = 0.09; // Update 15
+		// inputValues.Mundus.CritHealing = 0.09;
 		
 		inputValues.Mundus.CritDamage  = 0.13;			// Update 21
-		//inputValues.Mundus.CritHealing = 0.13;		// Update ??
+		// inputValues.Mundus.CritHealing = 0.13; // Update ??
 		
 			// Update 27pts
 		inputValues.Mundus.CritDamage  = 0.11;
@@ -14157,11 +14778,10 @@ window.GetEsoInputCPValues = function (inputValues)
 	
 	if (g_EsoCpData.attribute1 == null) 
 	{
-			//TODO: update 29pts
 		inputValues.CP.Health = 0;
 		inputValues.CP.Magicka = 0;
 		inputValues.CP.Stamina = 0;
-		inputValues.CP.UsedPoints = inputValues.CP.Health + inputValues.CP.Magicka + inputValues.CP.Stamina;
+		inputValues.CP.UsedPoints = g_EsoCpData.totalPoints;
 	}
 	else
 	{
@@ -14229,9 +14849,10 @@ window.GetEsoInputCPValues = function (inputValues)
 		AddEsoInputStatSource("Item.SpellResist", { cp: "Shield Expert", abilityId: g_EsoCpData['Shield Expert'].id, value: extraBonus });
 		AddEsoInputStatSource("Item.PhysicalResist", { cp: "Shield Expert", abilityId: g_EsoCpData['Shield Expert'].id, value: extraBonus });
 		
-		var element = $(".esotbItem[slotid='" + slotId + "']");
-		var iconElement = element.find(".esotbItemIcon");
-		//iconElement.attr("extraArmor", extraBonus);
+		//var element = $(".esotbItem[slotid='" + slotId + "']");
+		//var element = $("#esotbItem" + slotId);
+		//var iconElement = element.find(".esotbItemIcon");
+		// iconElement.attr("extraArmor", extraBonus);
 		
 		AddEsoItemRawOutputString(itemData, "SpellResist from Shield Expert", extraBonus);
 		AddEsoItemRawOutputString(itemData, "PhysicalResist from Shield Expert", extraBonus);
@@ -14239,7 +14860,7 @@ window.GetEsoInputCPValues = function (inputValues)
 		// Update 15
 	else if ((itemData.weaponType == 13 || itemData.weaponType == 14) && g_EsoCpData['Bulwark'] != null && g_EsoCpData['Bulwark'].isUnlocked)
 	{
-		var extraBonus = 1500; // TODO: PtsUpdate29 increased to 1900
+		var extraBonus = 1500; // TODO: PtsUpdate29 increased to 1900 by default
 		
 		var matchResult = g_EsoCpData['Bulwark'].description.match(/by ([0-9]+)/);
 		if (matchResult && !isNaN(matchResult[1])) extraBonus = parseInt(matchResult[1]);
@@ -14249,9 +14870,10 @@ window.GetEsoInputCPValues = function (inputValues)
 		AddEsoInputStatSource("Item.SpellResist", { cp: "Bulwark", abilityId: g_EsoCpData['Bulwark'].id, value: extraBonus });
 		AddEsoInputStatSource("Item.PhysicalResist", { cp: "Bulwark", abilityId: g_EsoCpData['Bulwark'].id, value: extraBonus });
 		
-		var element = $(".esotbItem[slotid='" + slotId + "']");
-		var iconElement = element.find(".esotbItemIcon");
-		//iconElement.attr("extraArmor", extraBonus);
+		//var element = $(".esotbItem[slotid='" + slotId + "']");
+		//var element = $("#esotbItem" + slotId);
+		//var iconElement = element.find(".esotbItemIcon");
+		// iconElement.attr("extraArmor", extraBonus);
 		
 		AddEsoItemRawOutputString(itemData, "SpellResist from Bulwark", extraBonus);
 		AddEsoItemRawOutputString(itemData, "PhysicalResist from Bulwark", extraBonus);
@@ -14323,17 +14945,17 @@ window.GetEsoInputCPValues = function (inputValues)
 	ParseEsoCPValue(inputValues, ["MovementSpeed", "MountSpeed"], 60560, "the_lover", 120);
 	
 		/* CP2 parsing */
-	//ParseEsoCP2Value = function (inputValues, statIds, abilityId, statFactor, category, statValue)
-		//ParseEsoCP2Value(inputValues, "FishQuality", 142234);
+	// ParseEsoCP2Value = function (inputValues, statIds, abilityId, statFactor, category, statValue)
+		// ParseEsoCP2Value(inputValues, "FishQuality", 142234);
 	ParseEsoCP2Value(inputValues, "Magicka", 141744, null, "Item");
 	ParseEsoCP2Value(inputValues, "BashDamage", 142091);
 	ParseEsoCP2Value(inputValues, "MartialStatusEffectChance", 149276);
 	ParseEsoCP2Value(inputValues, "AOEDamageDone", 141997);
 	ParseEsoCP2Value(inputValues, "HealingDone", 149439);
-		//Restore 300 Stamina per stage, whenever you kill an enemy. Current value
+		// Restore 300 Stamina per stage, whenever you kill an enemy. Current value
 	ParseEsoCP2Value(inputValues, "Health", 142034, null, "Item");
 	ParseEsoCP2Value(inputValues, "FallDamageTaken", 142205, -1.0);
-		//Bulwark: Handled manually elsewhere 
+		// Bulwark: Handled manually elsewhere
 	ParseEsoCP2Value(inputValues, "SingleTargetDamageDone", 141999);
 	ParseEsoCP2Value(inputValues, "BreakFreeCost", 149624, -1.0, "Skill2");
 	ParseEsoCP2Value(inputValues, "SingleTargetDamageTaken", 151749, -1.0);
@@ -14341,28 +14963,28 @@ window.GetEsoInputCPValues = function (inputValues)
 	ParseEsoCP2Value(inputValues, ["FrostDamageTaken", "MagicDamageTaken", "ShockDamageTaken", "FlameDamageTaken"], 149273, -1.0);
 	ParseEsoCP2Value(inputValues, "Stamina", 141773, null, "Item");
 	ParseEsoCP2Value(inputValues, "DotDamageTaken", 151750, -1.0);
-		//Your next Roll Dodge is free of cost. After consuming this effect, you cannot gain it again for 30 seconds.
-		//Escaping from a Guard wipes 25% of your current Heat, but not Bounty.
+		// Your next Roll Dodge is free of cost. After consuming this effect, you cannot gain it again for 30 seconds.
+		// Escaping from a Guard wipes 25% of your current Heat, but not Bounty.
 	ParseEsoCP2Value(inputValues, ["CritDamage", "CritHealing"], 141899);
 	ParseEsoCP2Value(inputValues, "MagicalStatusEffectChance", 149275);
 	ParseEsoCP2Value(inputValues, "SneakSpeed", 142203);	// How does this work?
 	ParseEsoCP2Value(inputValues, "SingleTargetHealingDone", 142000);
 	ParseEsoCP2Value(inputValues, "BlockMitigation", 142086);
 	ParseEsoCP2Value(inputValues, "GoldGained", 142207);
-		//Removes 1000 gold from your bounty once per day when committing a crime where bounty is added. You must be level 50 for this passive to activate, and your current bounty must be at or greater than 1000 gold.
+		// Removes 1000 gold from your bounty once per day when committing a crime where bounty is added. You must be level 50 for this passive to activate, and your current bounty must be at or greater than 1000 gold.
 	ParseEsoCP2Value(inputValues, "MountSpeed", 149286);
 	ParseEsoCP2Value(inputValues, "MerchantSellCost", 142210);
 	ParseEsoCP2Value(inputValues, "BreakFreeDuration", 142099);
 	ParseEsoCP2Value(inputValues, ["PhysicalDamageTaken", "DiseaseDamageTaken", "PoisonDamageTaken", "BleedDamageTaken"], 149274, -1.0);
 	ParseEsoCP2Value(inputValues, "SprintSpeed", 142083);
 	ParseEsoCP2Value(inputValues, "Health", 149311, null, "Item");
-		//ParseEsoCP2Value(inputValues, "FenceSellCost", 142215);
+		// ParseEsoCP2Value(inputValues, "FenceSellCost", 142215);
 	ParseEsoCP2Value(inputValues, "InspirationGained", 142208);
 	ParseEsoCP2Value(inputValues, ["SpellResist", "PhysicalResist"], 142035);
-		//When you take damage below 20% Health you gain Major Heroism, granting 3 Ultimate every 1.5 seconds for 9 seconds. This effect can occur once every 9 seconds
-		//Whenever you use a potion or poison you have a 10% chance to not consume it.
+		// When you take damage below 20% Health you gain Major Heroism, granting 3 Ultimate every 1.5 seconds for 9 seconds. This effect can occur once every 9 seconds
+		// Whenever you use a potion or poison you have a 10% chance to not consume it.
 	ParseEsoCP2Value(inputValues, "HarvestSpeed", 142217);
-		//	Improves the chances of extracting Woodworking ingredients and allows the refining of more powerful resins from raw materials
+		// Improves the chances of extracting Woodworking ingredients and allows the refining of more powerful resins from raw materials
 	ParseEsoCP2Value(inputValues, ["Poison", "Physical", "Disease", "Bleed"], 141930, null, "SkillBonusWeaponDmg", 100);
 	ParseEsoCP2Value(inputValues, ["Poison", "Physical", "Disease", "Bleed"], 141930, null, "SkillBonusSpellDmg", 100);
 	ParseEsoCP2Value(inputValues, "StatusEffectDurationTaken", 142096, -1.0);
@@ -14370,31 +14992,31 @@ window.GetEsoInputCPValues = function (inputValues)
 	ParseEsoCP2Value(inputValues, "SneakRange", 142204, -1.0);
 	ParseEsoCP2Value(inputValues, ["SpellPenetration", "PhysicalPenetration"], 141895);
 	ParseEsoCP2Value(inputValues, "SneakDetectRange", 142089);
-	ParseEsoCP2Value(inputValues, ["SpellCrit", "WeaponCrit"], 141898, null, "Set");
+	ParseEsoCP2Value(inputValues, ["SpellCrit", "WeaponCrit"], 141898);
 	ParseEsoCP2Value(inputValues, "DoubleHarvestChance", 142220);
-		//ParseEsoCP2Value(inputValues, "NonPlayerDamageTaken", 141901, -1.0);
+		// ParseEsoCP2Value(inputValues, "NonPlayerDamageTaken", 141901, -1.0); //Handled by toggle
 	ParseEsoCP2Value(inputValues, "RepairArmorCost", 142121, -1.0);
 	ParseEsoCP2Value(inputValues, "HealingTaken", 141929);
 	ParseEsoCP2Value(inputValues, ["FoodDuration", "DrinkDuration"], 142230);
 	ParseEsoCP2Value(inputValues, ["HealthRegen", "MagickaRegen", "StaminaRegen"], 142074, null, "Item");
-		//When you deal Direct Damage you heal for 7% of the damage done.
-		//When you begin Bracing, you gain a damage shield that absorbs 5140 damage for 3 seconds. This effect can occur once every 10 seconds.
-		//TODO: Update29pts Rejuvenator: Grants 33 Weapon and Spell Damage to your healing abilities per stage. Current bonus: 0
-		//When you block an attack from an enemy within 7 meters, you deal 4800 Physical Damage back to the attacker. This effect can occur once every 5 seconds
+		// When you deal Direct Damage you heal for 7% of the damage done.
+		// When you begin Bracing, you gain a damage shield that absorbs 5140 damage for 3 seconds. This effect can occur once every 10 seconds.
+	ParseEsoCP2Value(inputValues, ["HealingSpellDamage", "HealingWeaponDamage"], 141942);
+		// When you block an attack from an enemy within 7 meters, you deal 4800 Physical Damage back to the attacker. This effect can occur once every 5 seconds
 	ParseEsoCP2Value(inputValues, "CritResist", 141900);
 	ParseEsoCP2Value(inputValues, "SprintCost", 142115, -1.0, "Skill2");
 	ParseEsoCP2Value(inputValues, "BashCost", 142081, -1.0, "Item");
-	ParseEsoCP2Value(inputValues, "ShieldCost", 149283, -1.0);
-		// Restore 300 Magicka per stage, whenever you kill an enemy. Current value: 0
+	ParseEsoCP2Value(inputValues, "DamageShieldCost", 149283, -1.0);
+		// Restore 300 Magicka per stage, whenever you kill an enemy. 
 	ParseEsoCP2Value(inputValues, "AOEHealingDone", 141998);
 		// When you resurrect yourself or another player you have a 33% chance to not consume a Soul Gem.
-	ParseEsoCP2Value(inputValues, "ResurrectSpeed", 142100, null, null, -0.33);
+	ParseEsoCP2Value(inputValues, "ResurrectSpeed", 142100, null, null, 0.33);
 	ParseEsoCP2Value(inputValues, "SprintCost", 142079, -1.0, "Skill2");
 		// Your Weapon Enchants decay 20% slower per stage. Current bonus: 0%
-	ParseEsoCP2Value(inputValues, "NonCombatSpeed", 142125);
+		//ParseEsoCP2Value(inputValues, "NonCombatSpeed", 142125);	// Now a toggle
 	ParseEsoCP2Value(inputValues, "SneakCost", 142123, -1.0);
 	ParseEsoCP2Value(inputValues, "DotHealingDone", 142002);
-		//Return to life after resurrection with 10% more resources per stage. Current bonus: 0%
+		// Return to life after resurrection with 10% more resources per stage. Current bonus: 0%
 	ParseEsoCP2Value(inputValues, "DotDamageDone", 142001);
 	ParseEsoCP2Value(inputValues, "Stamina", 147888, null, "Item");
 	ParseEsoCP2Value(inputValues, "BlockCost", 142080, -1.0, "Item");
@@ -14731,7 +15353,6 @@ window.UpdateEsoComputedStatsList_Real = function (keepSaveResults, noUpdate)
 	EsoProfile('UpdateEsoComputedStatsList_Real', 'GetEsoInputValues');
 	
 	UpdateEsoBuildSkillInputValues(inputValues);
-	
 	EsoProfile('UpdateEsoComputedStatsList_Real', 'UpdateEsoBuildSkillInputValues');
 		
 	for (var statId in g_EsoComputedStats)
@@ -14818,6 +15439,9 @@ window.UpdateEsoComputedStatsList_Real = function (keepSaveResults, noUpdate)
 	if (window.EsoBuildCombatFixActionData != null) EsoBuildCombatFixActionData();
 	
 	EsoProfile('UpdateEsoComputedStatsList_Real', 'Update Fix Combat Data');
+	
+	UpdateEsoBuildCurrentTab();
+	EsoProfile('UpdateEsoComputedStatsList_Real', 'Update Current Tab');
 	
 	EsoProfileEnd('UpdateEsoComputedStatsList_Real');
 }
@@ -15400,14 +16024,14 @@ window.OnEsoUpdateStats = function (e)
 
 window.OnEsoUpdate21Click = function (e)
 {
-	//RemovePurchasedEsoRaceSkills();
+	// RemovePurchasedEsoRaceSkills();
 	UpdateEsoComputedStatsList("async");
 }
 
 
 window.OnEsoUpdate22Click = function (e)
 {
-	//RemovePurchasedEsoRaceSkills();
+	// RemovePurchasedEsoRaceSkills();
 	UpdateEsoComputedStatsList("async");
 }
 
@@ -15631,7 +16255,8 @@ window.RequestEsoChangeItemLevelData = function (itemData, level, slotId, msgEle
 	if (newIntData == null) return false;
 	
 	var tempItemData = {};
-	var element = $(".esotbItem[slotid='" + slotId + "']");
+	//var element = $(".esotbItem[slotid='" + slotId + "']");
+	var element = $("#esotbItem" + slotId);
 	var iconElement = element.find(".esotbItemIcon");
 	
 	tempItemData.itemId = itemData.itemId;
@@ -15660,7 +16285,8 @@ window.RequestEsoChangeEnchantLevelData = function (itemData, level, slotId, msg
 	if (newIntData == null) return false;
 	
 	var tempItemData = {};
-	var element = $(".esotbItem[slotid='" + slotId + "']");
+	//var element = $(".esotbItem[slotid='" + slotId + "']");
+	var element = $("#esotbItem" + slotId);
 	var iconElement = element.find(".esotbItemIcon");
 	
 	tempItemData.itemId = itemData.itemId;
@@ -15689,7 +16315,8 @@ window.RequestEsoChangeItemQualityData = function (itemData, quality, slotId, ms
 	if (newIntType == null) return false;
 	
 	var tempItemData = {};
-	var element = $(".esotbItem[slotid='" + slotId + "']");
+	//var element = $(".esotbItem[slotid='" + slotId + "']");
+	var element = $("#esotbItem" + slotId);
 	var iconElement = element.find(".esotbItemIcon");
 	
 	tempItemData.itemId = itemData.itemId;
@@ -15718,7 +16345,8 @@ window.RequestEsoChangeEnchantQualityData = function (itemData, quality, slotId,
 	if (newIntType == null) return false;
 	
 	var tempItemData = {};
-	var element = $(".esotbItem[slotid='" + slotId + "']");
+	//var element = $(".esotbItem[slotid='" + slotId + "']");
+	var element = $("#esotbItem" + slotId);
 	var iconElement = element.find(".esotbItemIcon");
 	
 	tempItemData.itemId = itemData.itemId;
@@ -15897,7 +16525,8 @@ window.OnEsoRequestChangeArmorTypeReceive = function (data, status, xhr, slotId,
 	}
 	
 	var tempItemData = {};
-	var element = $(".esotbItem[slotid='" + slotId + "']");
+	//var element = $(".esotbItem[slotid='" + slotId + "']");
+	var element = $("#esotbItem" + slotId);
 	var iconElement = element.find(".esotbItemIcon");
 	var labelElement = element.find(".esotbItemLabel");
 	
@@ -15930,7 +16559,8 @@ window.OnEsoRequestFindSetItemReceive = function (data, status, xhr, slotId, mon
 	}
 	
 	var tempItemData = {};
-	var element = $(".esotbItem[slotid='" + slotId + "']");
+	//var element = $(".esotbItem[slotid='" + slotId + "']");
+	var element = $("#esotbItem" + slotId);
 	var iconElement = element.find(".esotbItemIcon");
 	var labelElement = element.find(".esotbItemLabel");
 	
@@ -15992,10 +16622,10 @@ window.RequestEsoItemData = function (itemData, element)
 	
 	if (itemData.type == 4 || itemData.type == 12)
 	{
-		//queryParams.intlevel = null;
-		//queryParams.inttype = null;
-		//queryParams.level = null;
-		//queryParams.quality = null;
+		// queryParams.intlevel = null;
+		// queryParams.inttype = null;
+		// queryParams.level = null;
+		// queryParams.quality = null;
 	}
 	
 	$.ajax("//esolog.uesp.net/exportJson.php", {
@@ -16290,7 +16920,7 @@ window.ShowEsoFormulaPopup = function (statId)
 	formulaPopup.attr("statid", statId);
 	$("#esotbFormulaInputs").html(MakeEsoFormulaInputs(statId));
 	
-	$(".esotbFormInputInput").on("input", OnEsoFormulaInputChange);
+	$("#esotbFormulaInputs").find(".esotbFormInputInput").on("input", OnEsoFormulaInputChange);
 	
 	formulaPopup.show();
 	ShowEsoBuildClickWall(formulaPopup);
@@ -16446,40 +17076,62 @@ window.CloseEsoFormulaPopup = function ()
 }
 
 
+window.UpdateEsoBuildCurrentTab = function()
+{
+	var selectedTab = $("#esotbStatTabList").find(".esotbStatTabSelected");
+	var tabId = selectedTab.attr("tabid");
+	
+	if (tabId == "esotbStatBlockRawData")
+	{
+		UpdateEsoBuildRawInputs();
+	}
+	else if (tabId == "esotbStatBlockSkills")
+	{
+		//UpdateEsoBuildSkillTab();
+	}
+}
+
+
 window.OnEsoClickBuildStatTab = function (e)
 {
 	var tabId = $(this).attr("tabid");
 	if (tabId == null || tabId == "") return;
 	
-	$(".esotbStatTabSelected").removeClass("esotbStatTabSelected");
+	$("#esotbStatTabList").find(".esotbStatTabSelected").removeClass("esotbStatTabSelected");
 	$(this).addClass("esotbStatTabSelected");
 	
-	$(".esotbStatBlock:visible").hide();
+	$("#esotbStatInputs").children(".esotbStatBlock:visible").hide();
 	$("#" + tabId).show();
 	
 	if (tabId == "esotbStatBlockRawData")
 	{
-		UpdateEsoBuildRawInputs();		
+		UpdateEsoBuildRawInputs();
 	}
 	else if (tabId == "esotbStatBlockSkills")
 	{
-		UpdateEsoAllSkillCost(false);
-		
-		var visibleBlock = $(".esovsSkillContentBlock:visible");
-		
-		if (visibleBlock.length == 0) {
-			var firstVisibleSkillType = $(".esovsSkillType:visible").first();
-			if (firstVisibleSkillType.length == 0) return;
-			
-			var firstSkillLine = firstVisibleSkillType.children(".esovsSkillLineTitle").first();
-			if (firstSkillLine.length == 0) return;
-			
-			var skillTypeId = firstVisibleSkillType.attr("skilltypeid");
-			var skillLineId = firstSkillLine.attr("skilllineid");
-			SelectEsoSkillLine(skillTypeId, skillLineId);
-		}
+		UpdateEsoBuildSkillTab();
 	}
 	
+}
+
+
+window.UpdateEsoBuildSkillTab = function (e)
+{
+	UpdateEsoAllSkillCost(false);
+	
+	var visibleBlock = $("#esovsSkillContent").find(".esovsSkillContentBlock:visible");
+	
+	if (visibleBlock.length == 0) {
+		var firstVisibleSkillType = $("#esovsSkillContent").find(".esovsSkillType:visible").first();
+		if (firstVisibleSkillType.length == 0) return;
+		
+		var firstSkillLine = firstVisibleSkillType.children(".esovsSkillLineTitle").first();
+		if (firstSkillLine.length == 0) return;
+		
+		var skillTypeId = firstVisibleSkillType.attr("skilltypeid");
+		var skillLineId = firstSkillLine.attr("skilllineid");
+		SelectEsoSkillLine(skillTypeId, skillLineId);
+	}
 }
 
 
@@ -17285,6 +17937,7 @@ window.AddEsoBuildToggledSkillData = function (skillEffectData, isPassive)
 	g_EsoBuildToggledSkillData[id].id = id;
 	g_EsoBuildToggledSkillData[id].desc = "";
 	g_EsoBuildToggledSkillData[id].valid = false;
+	g_EsoBuildToggledSkillData[id].isUsed = false;
 	g_EsoBuildToggledSkillData[id].enabled = skillEffectData.enabled;
 	g_EsoBuildToggledSkillData[id].combatEnabled = false;
 	g_EsoBuildToggledSkillData[id].count = 0;
@@ -17407,6 +18060,20 @@ window.CreateEsoBuildToggledCpData = function ()
 }
 
 
+window.IsEsoBuildToggledSkillUsed = function (skillId)
+{
+	if (g_EsoBuildToggledSkillData[skillId] == null) return false;
+	return g_EsoBuildToggledSkillData[skillId].isUsed;
+}
+
+
+window.SetEsoBuildToggledSkillUsed = function (skillId, isUsed)
+{
+	if (g_EsoBuildToggledSkillData[skillId] == null) return;
+	return g_EsoBuildToggledSkillData[skillId].isUsed = isUsed;
+}
+
+
 window.IsEsoBuildToggledSkillEnabled = function (skillId)
 {
 	if (g_EsoBuildToggledSkillData[skillId] == null) return false;
@@ -17520,6 +18187,7 @@ window.UpdateEsoBuildToggledSkillData = function (inputValues)
 		var realAbilityId = abilityId;
 		
 		toggleSkillData.valid = false;
+		toggleSkillData.isUsed = false;
 		
 		if (abilityData == null)
 		{
@@ -17582,7 +18250,7 @@ window.UpdateEsoBuildToggledSkillData = function (inputValues)
 		toggleSkillData.valid = true;
 		toggleSkillData.desc = GetEsoSkillDescription(realAbilityId, g_LastSkillInputValues, false, true);
 		
-		var checkElement = $(".esotbToggledSkillItem[skillid=\"" + skillId + "\"]").find(".esotbToggleSkillCheck");
+		var checkElement = $("#esotbToggledSkillInfo").find(".esotbToggledSkillItem[skillid=\"" + skillId + "\"]").find(".esotbToggleSkillCheck");
 		
 		if (checkElement.length > 0)
 		{
@@ -17715,7 +18383,7 @@ window.UpdateEsoBuildToggledSetData = function ()
 		
 		SetEsoBuildToggledSetValid(setId, true);
 		
-		var checkElement = $(".esotbToggledSetItem[setid=\"" + setId + "\"]").find(".esotbToggleSetCheck");
+		var checkElement = $("#esotbItemToggleSets").find(".esotbToggledSetItem[setid=\"" + setId + "\"]").find(".esotbToggleSetCheck");
 		
 		if (checkElement.length > 0)
 		{
@@ -17742,10 +18410,10 @@ window.UpdateEsoBuildToggleSets = function ()
 	
 	element.html(output);
 	
-	$(".esotbToggleSetNumber").on("input", OnEsoBuildToggleSetNumber);
-	$(".esotbToggleSetNumber").click(OnEsoBuildToggleSetNumberClick);
-	$(".esotbToggleSetCheck").click(OnEsoBuildToggleSet);
-	$(".esotbToggledSetItem").click(OnEsoBuildToggleSetClick);
+	$("#esotbItemToggleSets").find(".esotbToggleSetNumber").on("input", OnEsoBuildToggleSetNumber);
+	$("#esotbItemToggleSets").find(".esotbToggleSetNumber").click(OnEsoBuildToggleSetNumberClick);
+	$("#esotbItemToggleSets").find(".esotbToggleSetCheck").click(OnEsoBuildToggleSet);
+	$("#esotbItemToggleSets").find(".esotbToggledSetItem").click(OnEsoBuildToggleSetClick);
 }
 
 
@@ -17763,10 +18431,10 @@ window.UpdateEsoBuildToggleCp = function ()
 	
 	element.html(output);
 	
-	$(".esotbToggleCpNumber").on("input", OnEsoBuildToggleCpNumber);
-	$(".esotbToggleCpNumber").click(OnEsoBuildToggleCpNumberClick);
-	$(".esotbToggleCpCheck").click(OnEsoBuildToggleCp);
-	$(".esotbToggledCpItem").click(OnEsoBuildToggleCpClick);
+	$("#esotbToggledCpInfo").find(".esotbToggleCpNumber").on("input", OnEsoBuildToggleCpNumber);
+	$("#esotbToggledCpInfo").find(".esotbToggleCpNumber").click(OnEsoBuildToggleCpNumberClick);
+	$("#esotbToggledCpInfo").find(".esotbToggleCpCheck").click(OnEsoBuildToggleCp);
+	$("#esotbToggledCpInfo").find(".esotbToggledCpItem").click(OnEsoBuildToggleCpClick);
 }
 
 
@@ -17788,7 +18456,7 @@ window.UpdateEsoBuildToggledCpData = function ()
 		
 		toggleData.valid = true;
 		
-		var checkElement = $(".esotbToggledCpItem[cpid=\"" + cpId + "\"]").find(".esotbToggleCpCheck");
+		var checkElement = $("#esotbToggledCpInfo").find(".esotbToggledCpItem[cpid=\"" + cpId + "\"]").find(".esotbToggleCpCheck");
 		
 		if (checkElement.length > 0)
 		{
@@ -17880,13 +18548,13 @@ window.OnEsoBuildToggleSetChanged = function (checkBox)
 	if (toggleData.disableSetId != null || toggleData.disableSetIds != null)
 	{
 		if (toggleData.disableSetId) {
-			$(".esotbToggledSetItem[setid=\"" + toggleData.disableSetId + "\"]").find(".esotbToggleSetCheck").prop("checked", false);
+			$("#esotbToggledSetInfo").find(".esotbToggledSetItem[setid=\"" + toggleData.disableSetId + "\"]").find(".esotbToggleSetCheck").prop("checked", false);
 		}
 		
 		for (var i in toggleData.disableSetIds)
 		{
 			var disableSetId = toggleData.disableSetIds[i];
-			$(".esotbToggledSetItem[setid=\"" + disableSetId + "\"]").find(".esotbToggleSetCheck").prop("checked", false);
+			$("#esotbToggledSetInfo").find(".esotbToggledSetItem[setid=\"" + disableSetId + "\"]").find(".esotbToggleSetCheck").prop("checked", false);
 		}
 	}
 	
@@ -18052,10 +18720,10 @@ window.UpdateEsoBuildToggleSkills = function ()
 	}
 	
 	element.html(output);
-	$(".esotbToggleSkillNumber").on("input", OnEsoBuildToggleSkillNumber);
-	$(".esotbToggleSkillNumber").click(OnEsoBuildToggleSkillNumberClick);
-	$(".esotbToggleSkillCheck").click(OnEsoBuildToggleSkill);
-	$(".esotbToggledSkillItem").click(OnEsoBuildToggleSkillClick);
+	$("#esotbToggleSkills").find(".esotbToggleSkillNumber").on("input", OnEsoBuildToggleSkillNumber);
+	$("#esotbToggleSkills").find(".esotbToggleSkillNumber").click(OnEsoBuildToggleSkillNumberClick);
+	$("#esotbToggleSkills").find(".esotbToggleSkillCheck").click(OnEsoBuildToggleSkill);
+	$("#esotbToggleSkills").find(".esotbToggledSkillItem").click(OnEsoBuildToggleSkillClick);
 }
 
 
@@ -18129,7 +18797,8 @@ window.UpdateEsoBuildItemLinkSetCounts = function ()
 
 window.UpdateEsoBuildItemLinkSetCount = function (slotId)
 {
-	var itemElement = $(".esotbItem[slotid='" + slotId + "']");
+	//var itemElement = $(".esotbItem[slotid='" + slotId + "']");
+	var itemElement = $("#esotbItem" + slotId);
 	var iconElement = itemElement.children(".esotbItemIcon");
 	var itemData = g_EsoBuildItemData[slotId];
 	
@@ -18148,7 +18817,8 @@ window.UpdateEsoBuildItemLinkSetCount = function (slotId)
 
 window.UpdateEsoBuildWeaponEnchantFactor = function (slotId, inputValues)
 {
-	var itemElement = $(".esotbItem[slotid='" + slotId + "']");
+	//var itemElement = $(".esotbItem[slotid='" + slotId + "']");
+	var itemElement = $("#esotbItem" + slotId);
 	var iconElement = itemElement.children(".esotbItemIcon");
 	var itemData = g_EsoBuildItemData[slotId];
 	var enchantData = g_EsoBuildEnchantData[slotId];
@@ -18248,6 +18918,7 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
 	
 	g_LastSkillInputValues.SkillLineCost = inputValues.SkillCost;
 	g_LastSkillInputValues.DamageShield = inputValues.DamageShield;
+	g_LastSkillInputValues.DamageShieldCost = inputValues.DamageShieldCost;
 	g_LastSkillInputValues.SkillDirectDamage = inputValues.SkillDirectDamage;
 	g_LastSkillInputValues.SkillDotDamage = inputValues.SkillDotDamage;
 	g_LastSkillInputValues.ElfBaneDuration = inputValues.Set.ElfBaneDuration;
@@ -18304,7 +18975,8 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
 		Dot				: inputValues.DotDamageDone,
 		Direct			: inputValues.DirectDamageDone,
 		All				: inputValues.DamageDone,
-		Empower			: 0,	// Update18: Empower changed to affect Light Attacks only
+		Empower			: 0,	// Update18: Empower changed to affect Light
+								// Attacks only
 		MaelstromDamage : 0,
 		AOE				: inputValues.AOEDamageDone,
 		SingleTarget	: inputValues.SingleTargetDamageDone,
@@ -18314,11 +18986,13 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
 	
 	g_LastSkillInputValues.Healing =
 	{
-		Done		: inputValues.HealingDone,
-		Taken		: inputValues.HealingTaken,
-		Received	: inputValues.HealingReceived,
-		AOE			: inputValues.AOEHealingDone,
-		Reduction	: inputValues.HealingReduction,
+		Done		 : inputValues.HealingDone,
+		Taken		 : inputValues.HealingTaken,
+		Received	 : inputValues.HealingReceived,
+		AOE			 : inputValues.AOEHealingDone,
+		DOT			 : inputValues.DotHealingDone,
+		SingleTarget : inputValues.SingleTargetHealingDone,
+		Reduction	 : inputValues.HealingReduction,
 	};
 	
 	g_LastSkillInputValues.SkillDuration = inputValues.SkillDuration;
@@ -18328,8 +19002,8 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
  	g_LastSkillInputValues.useMaelstromDamage = false;
  	g_LastSkillInputValues.PoisonStaminaCost = inputValues.Skill.PoisonStaminaCost;
  	g_LastSkillInputValues.FlameAOEDamageDone = inputValues.Skill.FlameAOEDamageDone;
- 	g_LastSkillInputValues.BleedDamage = inputValues.Set.BleedDamage;
- 	g_LastSkillInputValues.FlatBleedDamage = inputValues.Skill2.BleedDamage;
+ 	g_LastSkillInputValues.BleedDamage = inputValues.Set.BleedDamageDone;
+ 	g_LastSkillInputValues.FlatBleedDamage = inputValues.Skill2.BleedDamageDone;
  	g_LastSkillInputValues.FlatOverloadDamage = inputValues.Skill2.OverloadDamage;
  	g_LastSkillInputValues.TwinSlashBleedDamage = inputValues.Set.TwinSlashBleedDamage;
  	g_LastSkillInputValues.TwinSlashInitialDamage = inputValues.Set.TwinSlashInitialDamage;
@@ -18351,8 +19025,11 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
  	
  	var SpellDamageFactor = 1 + inputValues.Skill.SpellDamage + inputValues.Buff.SpellDamage;
  	var WeaponDamageFactor = 1 + inputValues.Skill.WeaponDamage + inputValues.Buff.WeaponDamage;
- 	var BaseSpellDamage = inputValues.Item.SpellDamage + inputValues.Set.SpellDamage + inputValues.Mundus.SpellDamage + inputValues.Skill2.SpellDamage + inputValues.BloodthirstySpellDamage;
- 	var BaseWeaponDamage = inputValues.Item.WeaponDamage + inputValues.Set.WeaponDamage + inputValues.Mundus.WeaponDamage + inputValues.Skill2.WeaponDamage + inputValues.BloodthirstyWeaponDamage;
+ 	var BaseSpellDamage = inputValues.Item.SpellDamage + inputValues.Set.SpellDamage + inputValues.Mundus.SpellDamage + inputValues.Skill2.SpellDamage + inputValues.CP.SpellDamage;
+ 	var BaseWeaponDamage = inputValues.Item.WeaponDamage + inputValues.Set.WeaponDamage + inputValues.Mundus.WeaponDamage + inputValues.Skill2.WeaponDamage + inputValues.CP.WeaponDamage;
+ 	
+	BaseSpellDamage += inputValues.Level * 20;
+	BaseWeaponDamage += inputValues.Level * 20;
  	
  		/* TODO: Check if this works correctly for buffs */
 	if (g_EsoBuildSetData["Pelinal's Aptitude"] != null && g_EsoBuildSetData["Pelinal's Aptitude"].count >= 5)
@@ -18377,36 +19054,81 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
  	inputValues.SkillBonusWeaponDmg['base'] = 0;
  	inputValues.SkillBonusSpellDmg['base'] = 0;
  	
- 	g_LastSkillInputValues.SkillWeaponDamage = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage, WeaponDamageFactor);
- 	g_LastSkillInputValues.SkillSpellDamage = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage, SpellDamageFactor);
+ 	g_LastSkillInputValues.SkillSpellDamage  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
  	
- 	g_LastSkillInputValues.SkillWeaponDamage["Class"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage, WeaponDamageFactor);
- 	g_LastSkillInputValues.SkillSpellDamage["Class"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Set.ClassSpellDamage, SpellDamageFactor);
- 	 		
- 	g_LastSkillInputValues.SkillWeaponDamage["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage, WeaponDamageFactor);
- 	g_LastSkillInputValues.SkillSpellDamage["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Item.MaelstromDamage, SpellDamageFactor);
+ 	g_LastSkillInputValues.SkillSpellDamage["Class"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Class"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
+ 	g_LastSkillInputValues.SkillSpellDamage["Channel"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Item.ChannelSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Channel"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.ChannelWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
+	g_LastSkillInputValues.SkillSpellDamage["Maelstrom"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Item.MaelstromDamage, SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
+ 	g_LastSkillInputValues.SkillSpellDamage["AOE"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.AOESpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["AOE"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.AOEWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
+ 	g_LastSkillInputValues.SkillSpellDamage["Healing"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.CP.HealingSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Healing"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.CP.HealingWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
  	
- 	g_LastSkillInputValues.SkillSpellDamage["Channel"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Item.ChannelSpellDamage, SpellDamageFactor);
- 	g_LastSkillInputValues.SkillWeaponDamage["Channel"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage, WeaponDamageFactor);
+ 	g_LastSkillInputValues.SkillSpellDamage["Channel"]["Maelstrom"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.Item.MaelstromDamage,   SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Channel"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.Item.MaelstromDamage,   WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
+ 	g_LastSkillInputValues.SkillSpellDamage["Channel"]["AOE"]        = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.Set.AOESpellDamage,     SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Channel"]["AOE"]       = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.Set.AOEWeaponDamage,    WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
+ 	g_LastSkillInputValues.SkillSpellDamage["Channel"]["Healing"]    = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.CP.HealingSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Channel"]["Healing"]   = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.CP.HealingWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
  	
- 	g_LastSkillInputValues.SkillSpellDamage["Channel"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Item.ChannelSpellDamage + inputValues.Item.MaelstromDamage, SpellDamageFactor);
- 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Set.ClassSpellDamage + inputValues.Item.MaelstromDamage, SpellDamageFactor);
- 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Set.ClassSpellDamage + inputValues.Item.ChannelSpellDamage, SpellDamageFactor);
- 	 	
- 	g_LastSkillInputValues.SkillWeaponDamage["Channel"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage, WeaponDamageFactor);
- 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.Set.ClassWeaponDamage, WeaponDamageFactor);
- 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.ChannelSpellDamage + inputValues.Set.ClassWeaponDamage, WeaponDamageFactor);
+ 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Maelstrom"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.MaelstromDamage,    SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.MaelstromDamage,    WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
+ 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"]    = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.ChannelSpellDamage, SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"]   = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.ChannelSpellDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
+	g_LastSkillInputValues.SkillSpellDamage["Class"]["Healing"]    = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.CP.HealingSpellDamage,   SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Healing"]   = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.CP.HealingWeaponDamage,  WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
+ 	g_LastSkillInputValues.SkillSpellDamage["Class"]["AOE"]        = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Set.AOEWeaponDamage,     SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["AOE"]       = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Set.AOEWeaponDamage,     WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
  	
- 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg, inputValues.SkillBonusSpellDmg, BaseSpellDamage + inputValues.Set.ClassSpellDamage + inputValues.Item.ChannelSpellDamage + inputValues.Item.MaelstromDamage, SpellDamageFactor);
- 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.Set.ClassWeaponDamage, WeaponDamageFactor);
- 	 	 	
-	return g_LastSkillInputValues; 
+ 	g_LastSkillInputValues.SkillSpellDamage["Maelstrom"]["AOE"]      = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Item.MaelstromDamage + inputValues.Set.AOESpellDamage,     SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Maelstrom"]["AOE"]     = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.Set.AOEWeaponDamage,    WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage)
+ 	g_LastSkillInputValues.SkillSpellDamage["Maelstrom"]["Healing"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Item.MaelstromDamage + inputValues.CP.HealingSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Maelstrom"]["Healing"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.CP.HealingWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage)
+ 	g_LastSkillInputValues.SkillSpellDamage["Healing"]["AOE"]        = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.CP.HealingSpellDamage  + inputValues.Set.AOESpellDamage,   SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Healing"]["AOE"]       = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.CP.HealingWeaponDamage + inputValues.Set.AOEWeaponDamage,  WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage)
+ 	
+ 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"]["Maelstrom"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.Item.MaelstromDamage,   SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.Item.MaelstromDamage,   WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
+ 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"]["AOE"]        = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.Set.AOESpellDamage,     SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"]["AOE"]       = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.Set.AOEWeaponDamage,    WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
+ 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"]["Healing"]    = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.CP.HealingSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"]["Healing"]   = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.CP.HealingWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
+ 	
+ 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Maelstrom"]["AOE"]      = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.MaelstromDamage + inputValues.Set.AOESpellDamage,     SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Maelstrom"]["AOE"]     = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.Set.AOEWeaponDamage,    WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage)
+ 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Maelstrom"]["Healing"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.MaelstromDamage + inputValues.CP.HealingSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Maelstrom"]["Healing"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.CP.HealingWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage)
+ 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Healing"]["AOE"]        = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.CP.HealingSpellDamage  + inputValues.Item.MaelstromDamage + inputValues.Set.AOESpellDamage,     SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Healing"]["AOE"]       = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.CP.HealingWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.Set.AOEWeaponDamage,    WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage)
+ 	
+ 	g_LastSkillInputValues.SkillSpellDamage["Channel"]["Maelstrom"]["AOE"]      = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.Item.MaelstromDamage + inputValues.Set.AOESpellDamage,       SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Channel"]["Maelstrom"]["AOE"]     = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.Set.AOEWeaponDamage,      WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
+ 	g_LastSkillInputValues.SkillSpellDamage["Channel"]["Maelstrom"]["Healing"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.Item.MaelstromDamage + inputValues.CP.HealingSpellDamage,    SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Channel"]["Maelstrom"]["Healing"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.CP.HealingWeaponDamage,  WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
+ 	
+ 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"]["Maelstrom"]["AOE"]      = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.Item.MaelstromDamage + inputValues.Set.AOESpellDamage,     SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"]["Maelstrom"]["AOE"]     = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.Set.AOEWeaponDamage,    WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
+ 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"]["Maelstrom"]["Healing"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.Item.MaelstromDamage + inputValues.CP.HealingSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"]["Maelstrom"]["Healing"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.CP.HealingWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
+ 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"]["Healing"]["AOE"]        = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.ChannelSpellDamage + inputValues.Set.AOESpellDamage    + inputValues.CP.HealingSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"]["Healing"]["AOE"]       = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.ChannelSpellDamage + inputValues.Set.AOEWeaponDamage   + inputValues.CP.HealingWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
+ 	
+ 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"]["Maelstrom"]["Healing"]["AOE"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.Item.MaelstromDamage + inputValues.Set.AOESpellDamage  + inputValues.CP.HealingSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
+ 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"]["Maelstrom"]["Healing"]["AOE"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.Set.AOEWeaponDamage + inputValues.CP.HealingWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
+ 	
+	return g_LastSkillInputValues;
 }
 
 
-window.EsoBuildCreateSkillBonusDamage = function (lineSourceDmg, sourceDmg, baseDmg, factorDmg)
+window.EsoBuildCreateSkillBonusDamage = function (lineSourceDmg, sourceDmg, baseDmg, factorDmg, addDmg)
 {
 	var bonusDmg = {};
+	
+	if (addDmg == null) addDmg = 0;
 	
 	for (var lineDmgType in lineSourceDmg)
 	{
@@ -18420,7 +19142,7 @@ window.EsoBuildCreateSkillBonusDamage = function (lineSourceDmg, sourceDmg, base
 			var dmg = sourceDmg[dmgType];
 			dmgType = dmgType.toLowerCase();
 			
-			bonusDmg[lineDmgType][dmgType] = Math.floor((baseDmg + lineDmg + dmg) * factorDmg);
+			bonusDmg[lineDmgType][dmgType] = Math.floor((baseDmg + lineDmg + dmg) * factorDmg + addDmg);
 		}	
 	}
 	
@@ -18732,6 +19454,8 @@ window.CreateEsoBuildBuffDescHtml = function (buffData)
 	var displays = buffData.displays;
 	var statDesc = buffData.statDesc;
 	var statDescs = buffData.statDescs;
+	var factorValue = buffData.factorValue;
+	var factorValues = buffData.factorValues;
 	var prefixDesc = "Increases ";
 	var targetDesc = "your ";
 	
@@ -18748,6 +19472,7 @@ window.CreateEsoBuildBuffDescHtml = function (buffData)
 	if (categories == null) categories = [].fill.call({ length: statIds.length }, category);
 	if (displays == null) displays = [].fill.call({ length: statIds.length }, display);
 	if (statDescs == null) statDescs = [].fill.call({ length: statIds.length }, statDesc);
+	if (factorValues == null) factorValues = [].fill.call({ length: statIds.length }, factorValue);
 			
 	for (var i = 0; i < statIds.length; ++i)
 	{
@@ -18760,16 +19485,19 @@ window.CreateEsoBuildBuffDescHtml = function (buffData)
 		statValue = statValues[i];
 		category = categories[i];
 		display = displays[i];
+		factorValue = factorValues[i];
 		
 		if (typeof(statValue) != "string")
 		{
+			if (factorValue != null && factorValue != 1) statValue *= factorValue;
+			
 			if (statValue < 0) 
 			{
 				prefixDesc = "Decreases ";
 				statValue *= -1;
 			}
 			
-			if (buffData.category == "Target") targetDesc = "the target's ";
+			if (buffData.category == "Target" || category == "Target") targetDesc = "the target's ";
 			
 			if (display == "%")
 			{
@@ -18898,7 +19626,7 @@ window.OnEsoBuildBuffCheckClick = function (e)
 window.AddEsoBuildSkillDetailsButtons = function ()
 {
 	var skillDetails = "<div class='esotbItemButton esotbSkillDetailsButton'>...</div>";
-	$(".esovsSkillContentBlock").children(".esovsAbilityBlock").append(skillDetails);
+	$("#esovsSkillContent").find(".esovsSkillContentBlock").children(".esovsAbilityBlock").append(skillDetails);
 }
 
 
@@ -19031,7 +19759,7 @@ window.UpdateEsoInitialToggleSkillData = function ()
 
 window.OnEsoBuildAbilityBlockClick = function (e)
 {
-	var $openList = $('.esovsAbilityBlockList:visible');
+	var $openList = $("#esovsSkillContent").find('.esovsAbilityBlockList:visible');
 	var $element = $(this).next('.esovsAbilityBlockList');
 		
 	if ($openList[0] == $element[0])
@@ -19408,7 +20136,8 @@ window.CreateEsoBuildBuffSaveData = function (saveData, inputValues)
 		
 		data.icon = "/esoui/art/icons/ability_vampire_007.dds";
 		data.description = "";
-		//data.name = "Stage " + inputValues.VampireStage + " Vampirism";		// Pre Update 27?
+		// data.name = "Stage " + inputValues.VampireStage + " Vampirism"; //
+		// Pre Update 27?
 		data.name = "Vampire Stage " + inputValues.VampireStage;
 		saveData.Buffs[data.name] = data;
 	}
@@ -19636,10 +20365,10 @@ window.CreateEsoBuildGeneralSaveData = function (saveData, inputValues)
 	saveData.Build['buildType'] = "Other";
 	saveData.Build['level'] = "" + inputValues.EffectiveLevel;
 	saveData.Build['alliance'] = $("#esotbAlliance").val();
-		
+	
 	saveData.Build['championPoints'] = "" + inputValues.CP.TotalPoints;
 	if (inputValues.CP.UsedPoints > inputValues.CP.TotalPoints)	saveData.Build['championPoints'] = "" + inputValues.CP.UsedPoints;
-		
+	
 	saveData.Stats['EffectiveLevel'] = "" + inputValues.EffectiveLevel;
 	saveData.Stats['Level'] = "" + inputValues.Level;
 	saveData.Stats['Race'] = inputValues.Race;
@@ -19654,9 +20383,10 @@ window.CreateEsoBuildGeneralSaveData = function (saveData, inputValues)
 	saveData.Stats['CP:Level'] = inputValues.CP.TotalPoints;
 	saveData.Stats['CP:Used'] = inputValues.CP.UsedPoints;
 	saveData.Stats['CP:Enabled'] = inputValues.CP.Enabled;
+	saveData.Stats['UsesChampionPoints2'] = 1;
 	saveData.Stats['UsePtsRules'] = inputValues.UsePtsRules;
 	saveData.Stats['AutoPurchaseRacialPassives'] = inputValues.AutoPurchaseRacialPassives;
-		
+	
 	inputValues.CPLevel = Math.floor(inputValues.CP.TotalPoints/10);
 	if (inputValues.CPLevel > ESO_MAX_CPLEVEL) inputValues.CPLevel = ESO_MAX_CPLEVEL;
 	
@@ -19666,11 +20396,11 @@ window.CreateEsoBuildGeneralSaveData = function (saveData, inputValues)
 		inputValues.EffectiveLevel = inputValues.Level;
 		
 	if (inputValues.EffectiveLevel > ESO_MAX_EFFECTIVELEVEL) inputValues.EffectiveLevel = ESO_MAX_EFFECTIVELEVEL;
-	if (!inputValues.CP.Enabled && inputValues.EffectiveLevel > 50) inputValues.EffectiveLevel = 50;	
+	if (!inputValues.CP.Enabled && inputValues.EffectiveLevel > 50) inputValues.EffectiveLevel = 50;
 	
 	saveData.Stats['BaseWalkSpeed'] = inputValues.BaseWalkSpeed;
 	saveData.Stats['RidingSpeed'] = parseInt(inputValues.MountSpeedBonus * 100);
-		
+	
 	saveData.Stats['ActiveAbilityBar'] = "" + inputValues.ActiveAbilityBar;
 	saveData.Stats['ActiveWeaponBar'] = "" + inputValues.ActiveWeaponBar;
 	
@@ -19681,7 +20411,7 @@ window.CreateEsoBuildGeneralSaveData = function (saveData, inputValues)
 	if (inputValues.VampireStage > 0) saveData.Build['special'] = "Vampire";
 	
 	saveData.Stats['BuildType'] = saveData.Build['buildType'];	
-
+	
 	saveData.Stats['Target:PenetrationFlat'] = "" + inputValues.Target.PenetrationFlat;
 	saveData.Stats['Target:PenetrationFactor'] = "" + (inputValues.Target.PenetrationFactor * 100) + "%";
 	saveData.Stats['Target:DefenseBonus'] = "" + (inputValues.Target.DefenseBonus * 100) + "%";
@@ -19689,7 +20419,8 @@ window.CreateEsoBuildGeneralSaveData = function (saveData, inputValues)
 	saveData.Stats['Target:Resistance'] = "" + inputValues.Target.SpellResist;
 	saveData.Stats['Target:CritResistFlat'] = "" + inputValues.Target.CritResist;
 	saveData.Stats['Target:EffectiveLevel'] = "" + inputValues.Target.EffectiveLevel;
-	// saveData.Stats['Target:CritResistFactor'] = "" + (inputValues.Target.CritResistFactor * 100) + "%";
+	// saveData.Stats['Target:CritResistFactor'] = "" +
+	// (inputValues.Target.CritResistFactor * 100) + "%";
 	saveData.Stats['Target:CritDamage'] = "" + (inputValues.Target.CritDamage * 100) + "%";
 	saveData.Stats['Target:CritChance'] = "" + (inputValues.Target.CritChance * 100) + "%";
 	saveData.Stats['Target:PercentHealth'] = "" + (inputValues.Target.PercentHealth * 100) + "%";
@@ -20186,7 +20917,8 @@ window.UpdateEnchantSlotData = function (slotId, itemData, element)
 	var level = itemData.internalLevel;
 	var subtype = itemData.internalSubtype;
 	
-	if (element == null) element = $("#esotbItems").find(".esotbItem[slotid='" + slotId + "']");
+	//if (element == null) element = $("#esotbItems").find(".esotbItem[slotid='" + slotId + "']");
+	if (element == null) element = $("#esotbItems").find("#esotbItem" + slotId);
 	if (itemId == null) itemId = 0;
 	if (level == null) level = 0;
 	if (subtype == null) subtype = 0;
@@ -20619,7 +21351,8 @@ window.OnEsoEditBuildSetupMythicSet = function (element)
 	
 	msgElement.text("");
 	
-	//function (slotId, monsterSet, equipType, armorType, weaponType, level, quality, trait, msgElement)
+	// function (slotId, monsterSet, equipType, armorType, weaponType, level,
+	// quality, trait, msgElement)
 	if (RequestEsoFindSetItemData(slotId, mythicSet, null, null, null, 66, 6, null, msgElement)) ++count;
 	
 	$(msgElement).text("Updating " + count + " item to mythic set " + mythicSet + "... ");
@@ -21011,14 +21744,14 @@ window.UpdateEsoSkillGroupDisplay = function()
 window.UpdateEsoSkillBarDisplay = function ()
 {
 	if (HasEsoBuildThirdSkillBar())
-		$(".esovsSkillBar[skillbar='3']").show()
+		$("#esovsSkillBar, #esotbItemSkillCopy").find(".esovsSkillBar[skillbar='3']").show()
 	else
-		$(".esovsSkillBar[skillbar='3']").hide()
+		$("#esovsSkillBar, #esotbItemSkillCopy").find(".esovsSkillBar[skillbar='3']").hide()
 		
 	if (HasEsoBuildForthSkillBar())
-		$(".esovsSkillBar[skillbar='4']").show()
+		$("#esovsSkillBar, #esotbItemSkillCopy").find(".esovsSkillBar[skillbar='4']").show()
 	else
-		$(".esovsSkillBar[skillbar='4']").hide()
+		$("#esovsSkillBar, #esotbItemSkillCopy").find(".esovsSkillBar[skillbar='4']").hide()
 }
 
 
@@ -21139,7 +21872,8 @@ window.OnEsoTransmuteListChange = function (e)
 	
 	if (g_EsoBuildItemData[slotId].trait == newTrait) return;
 	
-	var element = $(".esotbItem[slotid='" + slotId + "']");
+	//var element = $(".esotbItem[slotid='" + slotId + "']");
+	var element = $("#esotbItem" + slotId);
 	var iconElement = element.find(".esotbItemIcon");
 	
 	g_EsoBuildItemData[slotId].trait = newTrait;
@@ -21404,9 +22138,9 @@ window.UpdateEsoMitigationCell = function(element, elementType, damageType1, dam
 		/* Mitigation calculation */
 	mitigation *= (1 - Math.max(0, resistance - 100) / 660 / 100); 
 	mitigation *= damageTaken * damage1Taken * damage2Taken * elementDamageTaken + elementVulnerability + vulnerability;
-	//mitigation *= damage1Taken;
-	//mitigation *= damage2Taken;
-	//mitigation *= elementDamageTaken;
+	// mitigation *= damage1Taken;
+	// mitigation *= damage2Taken;
+	// mitigation *= elementDamageTaken;
 	mitigation *= 1 - blockDamageTaken;
 	mitigation *= playerDamageTaken;
 	mitigation *= playerAOEDamageTaken;
@@ -21458,7 +22192,7 @@ window.UpdateEsoMitigationTableElement = function(elementId)
 	var output = "";
 	var mitigation = 1;
 	
-	$(".esotbMitTableSelected").removeClass("esotbMitTableSelected");
+	$("#esotbMitigation").find(".esotbMitTableSelected").removeClass("esotbMitTableSelected");
 	$("#" + elementId).addClass("esotbMitTableSelected");
 	currentEsoMitigationRawDataElementId = elementId;
 	
@@ -21505,14 +22239,23 @@ window.UpdateEsoMitigationTableElement = function(elementId)
 	output += CreateMitigationRawDataBlock("DamageTaken - Vulnerability Mitigation", damageTaken, "mitigation", mitigation);
 	mitigation *= rawData.damageTaken + rawData.vulnerability + rawData.elementVulnerability;
 	
-	/*output += CreateMitigationRawDataBlock(rawData.damageType1 + " Mitigation", rawData.damage1Taken, "mitigation", mitigation);
-	mitigation *= rawData.damage1Taken;*/
+	/*
+	 * output += CreateMitigationRawDataBlock(rawData.damageType1 + "
+	 * Mitigation", rawData.damage1Taken, "mitigation", mitigation); mitigation *=
+	 * rawData.damage1Taken;
+	 */
 	
-	/*output += CreateMitigationRawDataBlock(rawData.damageType2 + " Mitigation", rawData.damage2Taken, "mitigation", mitigation);
-	mitigation *= rawData.damage2Taken;*/
+	/*
+	 * output += CreateMitigationRawDataBlock(rawData.damageType2 + "
+	 * Mitigation", rawData.damage2Taken, "mitigation", mitigation); mitigation *=
+	 * rawData.damage2Taken;
+	 */
 	
-	/*output += CreateMitigationRawDataBlock(rawData.elementDamageTaken + " Mitigation", rawData.elementDamageTaken, "mitigation", mitigation);
-	mitigation *= rawData.elementDamageTaken;*/
+	/*
+	 * output += CreateMitigationRawDataBlock(rawData.elementDamageTaken + "
+	 * Mitigation", rawData.elementDamageTaken, "mitigation", mitigation);
+	 * mitigation *= rawData.elementDamageTaken;
+	 */
 	
 	output += CreateMitigationRawDataBlock("Block Mitigation", rawData.blockDamageTaken, "mitigation", mitigation);
 	mitigation *= rawData.blockDamageTaken;
@@ -21702,7 +22445,7 @@ window.TestEsoSkillDamageShield = function (abilityId, skillData)
 	else if (numMatches > 1)
 	{
 		EsoBuildLog("===== " + skillData.name + ": Duplicate damage shield match (" + numMatches + ")! ===== ");
-		//EsoBuildLog("\t\t" + skillData.description);
+		// EsoBuildLog("\t\t" + skillData.description);
 		EsoBuildLog("\t\t Matches: ", matches);
 	}
 	
@@ -21719,18 +22462,9 @@ window.TestAllEsoSkillsHealing = function ()
 		var skillData = g_SkillsData[abilityId];
 		
 		/*
-			heals
-			heal you
-			heal for
-			healed for
-			the heal the
-			heal the target
-			you siphon
-			to restore * health
-			restoring * health
-			restores * health
-			additional * health
-			nearby allies for * Health
+		 * heals heal you heal for healed for the heal the heal the target you
+		 * siphon to restore * health restoring * health restores * health
+		 * additional * health nearby allies for * Health
 		 */
 		
 		if (skillData.description.match(/healing (?!received|done|taken|for the |by |effects |ritual |with )/i) != null ||
@@ -21771,9 +22505,10 @@ window.TestEsoSkillHealing = function (abilityId, skillData)
 			if (matchCount[result[0]] == null) matchCount[result[0]] = [];
 			matchCount[result[0]].push(result[0]);
 			
-			//var subResult = result[0].match(/\|c[a-fA-F0-9]{6}[0-9]+\|r/);
-			//if (matchCount[subResult[0]] == null) matchCount[subResult[0]] = [];
-			//matchCount[subResult[0]].push(result[0]);
+			// var subResult = result[0].match(/\|c[a-fA-F0-9]{6}[0-9]+\|r/);
+			// if (matchCount[subResult[0]] == null) matchCount[subResult[0]] =
+			// [];
+			// matchCount[subResult[0]].push(result[0]);
 		}
 	}
 	
@@ -21790,7 +22525,7 @@ window.TestEsoSkillHealing = function (abilityId, skillData)
 		if (matches.length > 1)
 		{
 			EsoBuildLog("\t" + skillData.name + ": Duplicate healing match (" + matches.length + ")!");
-			//EsoBuildLog("\t\t" + skillData.description);
+			// EsoBuildLog("\t\t" + skillData.description);
 			
 			for (var i = 0; i < matches.length; ++i)
 			{
@@ -21818,7 +22553,8 @@ window.CheckEsoTestSkillResults = function ()
 		if (testData.numMatches <= 0)
 		{
 			var desc = testData.desc.replace("\n", " ");
-			//EsoBuildLog("Passive Skill has NO matches!", testData.name, testData, abilityData);
+			// EsoBuildLog("Passive Skill has NO matches!", testData.name,
+			// testData, abilityData);
 			EsoBuildLog(`===== ${testData.name} (${testData.id}) passive has NO matches! =====\n\t${desc}`);
 		}
 	
@@ -21836,7 +22572,8 @@ window.CheckEsoTestSkillResults = function ()
 		if (testData.numMatches > 0)
 		{
 			var desc = testData.desc.replace("\n", " ");
-			//EsoBuildLog("Active Skill has " + testData.numMatches + " matches!", testData.name, testData, abilityData);
+			// EsoBuildLog("Active Skill has " + testData.numMatches + "
+			// matches!", testData.name, testData, abilityData);
 			EsoBuildLog(`===== ${testData.name} (${testData.id}) active has ${testData.numMatches} matches!=====\n\t${desc}`, testData);
 		}
 	}
@@ -21883,8 +22620,16 @@ window.TestEsoSkill = function (abilityId, abilityData, inputValues)
 	var rawDesc = RemoveEsoDescriptionFormats(skillDesc);
 	if (rawDesc == "" || abilityData == null) return;
 	
-		/* Ignore crafting passives */
+		/* Ignore crafting passives and other skill lines */
 	if (abilityData.skillType == 8) return true;
+	if (abilityData.skillLine == "Scrying") return true;
+	if (abilityData.skillLine == "Excavation") return true;
+	if (abilityData.skillLine == "Thieves Guild") return true;
+	if (abilityData.skillLine == "Dark Brotherhood") return true;
+	
+		/* Only test first rank of passives and rank 1 of active skills */
+	if (abilityData.isPassive > 1 && abilityData.rank > 1) return true;
+	if (abilityData.isPassive == 0 && !(abilityData.rank == 1 || abilityData.rank == 5 || abilityData.rank == 9)) return true;
 	
 	var matchArray = ESO_ACTIVEEFFECT_MATCHES;
 	if (abilityData.isPassive != 0) matchArray = ESO_PASSIVEEFFECT_MATCHES;
@@ -22093,7 +22838,7 @@ window.TestEsoSetBonus = function(setName, setDesc, rawOutput)
 		var matches = setDesc.match(matchData.match);
 		
 		if (matches == null) continue;
-		//if (matchData.id != null && matchData.id != setName) continue;
+		// if (matchData.id != null && matchData.id != setName) continue;
 		
 		if (matchData.ignore === true) 
 		{
@@ -22340,7 +23085,9 @@ window.UpdateEsoPts = function()
 {
 	if (!$("#esotbUsePtsRules").prop("checked")) return;
 	
-	$(".esotbSetPts").removeAttr("disabled").removeAttr("hidden");
+	$("#esotbQuickItemSetups").find(".esotbSetPts").removeAttr("disabled").removeAttr("hidden");
+	$("#esotbItemSetupMonsterSet").children().removeAttr("disabled").removeAttr("hidden");
+	$("#esotbItemSetupEquipSetList").children().removeAttr("disabled").removeAttr("hidden");
 	
 	for (var buffId in g_EsoBuildBuffData_PTS) 
 	{
@@ -22464,10 +23211,10 @@ window.esotbOnDocReady = function ()
 	$("#esotbMundus").change(OnEsoMundusChange)
 	$("#esotbMundus2").change(OnEsoMundusChange)
 	$("#esotbCPTotalPoints").change(OnEsoCPTotalPointsChange);
-	$(".esotbStatRow").click(OnEsoClickStatRow);
-	$(".esotbStatDetailsButton").click(OnEsoClickStatDetails);
-	$(".esotbStatWarningButton").click(OnEsoClickStatWarningButton);
-	$(".esotbStatNoteButton").click(OnEsoClickStatWarningButton);
+	$("#esotbStatList").find(".esotbStatRow").click(OnEsoClickStatRow);
+	$("#esotbStatList").find(".esotbStatDetailsButton").click(OnEsoClickStatDetails);
+	$("#esotbStatList").find(".esotbStatWarningButton").click(OnEsoClickStatWarningButton);
+	$("#esotbStatList").find(".esotbStatNoteButton").click(OnEsoClickStatWarningButton);
 	$("#esotbStealth").click(OnEsoClickStealth);	
 	$("#esotbCyrodiil").click(OnEsoClickCyrodiil);
 	$("#esotbMitigationBlock").click(OnEsoClickMitigationBlock);
@@ -22487,7 +23234,7 @@ window.esotbOnDocReady = function ()
 	$("#esotbFormulaCloseButton").click(CloseEsoFormulaPopup);
 	$("#esotbClickWall").click(OnEsoClickBuildWall);
 	
-	$(".esotbStatTab").click(OnEsoClickBuildStatTab);
+	$("#esotbStatTabList").find(".esotbStatTab").click(OnEsoClickBuildStatTab);
 	
 	$(document).on("EsoItemSearchPopupOnClose", OnEsoItemSearchPopupClose);
 	
@@ -22500,7 +23247,6 @@ window.esotbOnDocReady = function ()
 	
 	$("#esotbWeaponBar1").click(OnEsoWeaponBarSelect1);
 	$("#esotbWeaponBar2").click(OnEsoWeaponBarSelect2);
-	// TODO: 3rd Bar
 	
 	$(document).on("EsoSkillBarSwap", OnEsoBuildSkillBarSwap);
 	$(document).on("EsoSkillUpdate", OnEsoBuildSkillUpdate);

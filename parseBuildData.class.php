@@ -943,6 +943,7 @@ class EsoBuildDataParser
 			case "Collectibles":
 				return $this->saveCharacterCollectibles($buildData, $name, $arrayData);
 			case "Stats":
+			case "AdvancedStats":
 			case "Power":
 			case "NonCombat":
 				return $this->saveCharacterArrayStats($buildData, $name, $arrayData);
@@ -1492,7 +1493,7 @@ class EsoBuildDataParser
 			}
 		}
 		
-		$result &= $this->saveCharacterStatData($buildData, "usesChampionPoints2", "1");
+		$result &= $this->saveCharacterStatData($buildData, "UsesChampionPoints2", "1");
 		return $result;
 	}
 	
