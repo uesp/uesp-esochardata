@@ -5046,7 +5046,7 @@ window.ESOBUILD_UNIQUESKILLID_HAOVERLOAD = 140;
 window.ESOBUILD_UNIQUESKILLID_HA = 141;
 window.ESOBUILD_UNIQUESKILLID_HAMAX = 141;
 
-window.ESOBUILD_UNIQUESKILLID_MAX = 200;
+window.ESOBUILD_UNIQUESKILLID_MAX = 190;
 
 
 window.ESOBUILD_COMBAT_UNIQUE_SKILLS = [
@@ -5702,6 +5702,7 @@ window.EsoBuildCombatMergeUniqueSkills = function()
 		}
 		
 		g_SkillsData[uniqueSkill.abilityId] = uniqueSkill;
+		g_SkillsData[uniqueSkill.abilityId].isCustom = true;
 	}
 }
 
@@ -5813,7 +5814,7 @@ window.EsoBuildCombatInitializeAllSkillEvents = function()
 	{
 		var action = g_EsoBuildCombatPlayerActions[combatId];
 		
-		if (action.abilityId >= ESOBUILD_UNIQUESKILLID_MIN && action.abilityId <= ESOBUILD_UNIQUESKILLID_MAX) 
+		if (action.abilityId >= ESOBUILD_UNIQUESKILLID_MIN && action.abilityId <= ESOBUILD_UNIQUESKILLID_MAX)
 		{
 			EsoBuildCombatInitializeSkillEvents(action.skillData);
 			EsoBuildCombatSetupOneTimeSkillMatches(action.skillData);

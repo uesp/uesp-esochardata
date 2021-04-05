@@ -481,7 +481,7 @@
 	top: 50%;
 	left: 50%;
 	width: 600px;
-	margin-top: -200px;
+	margin-top: -300px;
 	margin-left: -300px;
 	z-index: 40;
 	border: solid 2px gray;
@@ -489,7 +489,10 @@
 	padding: 7px;
 	text-align: center;
 	font-size: 13px;
-	box-shadow: rgba(0,0,0,0.5) 4px 4px 5px 2px;	
+	box-shadow: rgba(0,0,0,0.5) 4px 4px 5px 2px;
+	max-height: 500px;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .esotbSkillDetailsCoef {
@@ -1009,7 +1012,7 @@ esotbToggledCpSelect {
 
 .esotbSkillDetailsButton {
 	position: absolute;
-	left: 450px;
+	left: 475px;
 	top: 7px;
 	font-family: arial, sans-serif;
 	font-weight: normal;

@@ -37,6 +37,7 @@ window.g_EsoBuildToggledSetData = {};
 window.g_EsoBuildToggledCpData = {};
 window.g_EsoBuildToggledSkillData = {};
 window.g_EsoBuildLastInputValues = {};
+window.g_EsoBuildLastInputHistory = {};
 
 g_EsoBuildItemData.Head = {};
 g_EsoBuildItemData.Shoulders = {};
@@ -386,6 +387,7 @@ window.g_EsoBuildBuffData =
 			displays: [ "", "", "%", "%", "%" ],
 			category: "Set",
 			statIds : [ "SpellDamage", "WeaponDamage", "MagickaCost", "StaminaCost", "HealthCost" ],
+			combineAses: [ '', '', '*%', '*%', '*%' ],
 			icon : "/esoui/art/icons/ability_mage_065.png",
 		},
 		"Way of Martial Knowledge" :
@@ -1322,13 +1324,6 @@ window.g_EsoBuildBuffData =
 			statId : "Health",
 			icon : "/esoui/art/icons/achievement_031.png",
 		},
-		/*
-		 * "Worms Raiment" : { group: "Set", enabled: false, skillEnabled :
-		 * false, buffEnabled: false, value : -0.04, display: '%', statId :
-		 * "MagickaCost", combineAs: "*%", icon :
-		 * "/esoui/art/icons/gear_artifactwormcultlight_head_a.png", // TODO:
-		 * Not the correct one? },
-		 */
 		"Worms Raiment" :
 		{
 			group: "Set",
@@ -1340,12 +1335,6 @@ window.g_EsoBuildBuffData =
 			statId : "MagickaRegen",
 			icon : "/esoui/art/icons/gear_artifactwormcultlight_head_a.png",
 		},
-		/*
-		 * "Hircines Veneer" : { group: "Set", enabled: false, skillEnabled :
-		 * false, buffEnabled: false, value : -0.04, display: '%', statId :
-		 * "StaminaCost", combineAs: "*%", icon :
-		 * "/esoui/art/icons/gear_artifactsaviorhidemd_head_a.png", },
-		 */
 		"Hircines Veneer" :
 		{
 			group: "Set",
@@ -1718,11 +1707,11 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			displays : [ "", "%", "%", "%" ],
-			categories : [ "Skill2", "Skill2", "Buff", "Buff" ],
-			values : [ 5000, -0.55, -0.50, -0.50 ],
-			statIds : [ "Health", "HealingReceived", "DamageTaken", "DamageShield" ],
-			combineAses: [ '', '', "*%", '' ],
+			displays : [ "%", "%", "%" ],
+			categories : [ "Skill2", "Buff", "Buff" ],
+			values : [ -0.55, -0.44, -0.50 ],
+			statIds : [ "HealingReceived", "DamageTaken", "DamageShield" ],
+			combineAses: [ '', "*%", '' ],
 			icon: "/esoui/art/icons/ability_templar_002.png",
 		},
 		"Enemy Keep Bonus 1" :
@@ -2058,10 +2047,8 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 	},
 	
 		/* Necromancer */
-	// TODO: Hitting your Skeletal Mage or Spirit Mender enhances them for 5
-	// seconds, increasing their effectiveness by 40%.?
-	// TODO: You grant the target Spell and Physical Resistance equal to half
-	// the amount healed for 3 seconds. ?
+	// TODO: Hitting your Skeletal Mage or Spirit Mender enhances them for 5 seconds, increasing their effectiveness by 40%.?
+	// TODO: You grant the target Spell and Physical Resistance equal to half the amount healed for 3 seconds. ?
 	{
 		category: "Skill",
 		statId: "DamageTaken",
@@ -2149,6 +2136,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar: true,
 		statId: "MagickaCost",
+		combineAs: '*%',
 		factorValue: -1,
 		display: "%",
 		rawInputMatch: /(After the exchange is complete, the cost of your next Magicka ability is reduced by [0-9]+% for [0-9]+ seconds\.)/,
@@ -3649,44 +3637,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases your Max Magicka and Max Stamina by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		statId: "FlameResist",
-		match: /Increases Flame Resistance by ([0-9]+)/i,
-	},
-	{
-		statId: "FlameResist",
-		match: /and Flame Resistance by ([0-9]+)./i,
-	},
-	{
-		statId: "FlameDamageDone",
-		display: "%",
-		match: /Increases your flame damage by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "FrostDamageDone",
-		display: "%",
-		match: /Increases your frost and shock damage by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "ShockDamageDone",
-		display: "%",
-		match: /Increases your frost and shock damage by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "FlameDamageDone",
-		display: "%",
-		match: /Increases your flame, frost, and shock damage by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "ShockDamageDone",
-		display: "%",
-		match: /Increases your flame, frost, and shock damage by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "FrostDamageDone",
-		display: "%",
-		match: /Increases your flame, frost, and shock damage by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
 		statId: "Magicka",
 		display: "%",
 		match: /Increases Flame Resistance by [0-9]+ and increases Max Magicka by ([0-9]+\.?[0-9]*)%/i,
@@ -3831,16 +3781,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "SprintSpeed",
 		display: "%",
 		match: /and increases the movement speed bonus of sprint by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "HAMeleeDamage", // TODO: Verify
-		display: "%",
-		match: /Increases your damage done with melee attacks by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "LAMeleeDamage", // TODO: Verify
-		display: "%",
-		match: /Increases your damage done with melee attacks by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statRequireId: "Weapon1HShield",
@@ -4479,54 +4419,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "Solar Flare",
 		match: /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) second/i,
 	},
-	{
-		category: "SkillDuration",
-		statId: "Negate Magic",
-		display: "%",
-		match: /Increases the duration of Dark Magic abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Encase",
-		display: "%",
-		match: /Increases the duration of Dark Magic abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Rune Prison",
-		display: "%",
-		match: /Increases the duration of Dark Magic abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Daedric Mines",
-		display: "%",
-		match: /Increases the duration of Dark Magic abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Negate Magic",
-		display: "%",
-		match: /Increases the duration of your Dark Magic abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Encase",
-		display: "%",
-		match: /Increases the duration of your Dark Magic abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Rune Prison",
-		display: "%",
-		match: /Increases the duration of your Dark Magic abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Daedric Mines",
-		display: "%",
-		match: /Increases the duration of your Dark Magic abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
+	
 	{
 		category: "SkillDuration",
 		statId: "Magelight",
@@ -5260,26 +5153,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Maces increase your Armor Penetration by ([0-9]+)/i,
 	},
 	{
-		statId: "FlameDamageDone",
-		display: "%",
-		match: /Increases your Damage with Flame effects by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "FrostDamageDone",
-		display: "%",
-		match: /Increases your Damage with Frost, Fire, and Shock effects by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "FlameDamageDone",
-		display: "%",
-		match: /Increases your Damage with Frost, Fire, and Shock effects by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "ShockDamageDone",
-		display: "%",
-		match: /Increases your Damage with Frost, Fire, and Shock effects by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
 		statRequireId: "Stealthed",
 		statRequireValue: 1,
 		statId: "DamageDone",
@@ -5292,18 +5165,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "DamageDone",
 		display: "%",
 		match: /Increases your damage done while in stealth by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "Skill",
-		statId: "LADamage",
-		display: "%",
-		match: /Increases your damage with melee weapon attacks by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "Skill",
-		statId: "HADamage",
-		display: "%",
-		match: /Increases your damage with melee weapon attacks by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statRequireId: "WeaponRestStaff",
@@ -5323,7 +5184,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireId: "WeaponRestStaff",
 		statRequireValue: 1,
 		category: "SkillHealing",
-		statId: "Restoration Staff Healing",
+		statId: "Restoration_Staff",
 		display: "%",
 		match: /WITH RESTORATION STAFF EQUIPPED[\s\S]*?Increases healing with Restoration Staff spells by ([0-9]+\.?[0-9]*)%/i,
 	},
@@ -5370,21 +5231,21 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		factorSkillLine: "GREEN BALANCE",
 		category: "SkillHealing",
-		statId: "Green Balance Healing",
+		statId: "Green_Balance",
 		display: "%",
 		match: /Increase Healing Done for Green Balance abilities by ([0-9]+\.?[0-9]*)% for each Green Balance ability slotted/i,
 	},
 	{
 		factorSkillLine: "GREEN BALANCE",
 		category: "SkillHealing",
-		statId: "Green Balance Healing",
+		statId: "Green_Balance",
 		display: "%",
 		match: /Increases your healing done with Green Balance abilities by ([0-9]+\.?[0-9]*)% for each Green Balance ability slotted/i,
 	},
 	{
 		factorSkillLine: "GREEN BALANCE",
 		category: "SkillHealing",
-		statId: "Green Balance Healing",
+		statId: "Green_Balance",
 		display: "%",
 		match: /Increase your healing done with Green Balance abilities by ([0-9]+\.?[0-9]*)% for each Green Balance ability slotted/i,
 	},
@@ -5978,7 +5839,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "SneakSpeed",
 		display: "%",
 		factorStatId: "ArmorLight",
-		match: /[\n\r]+Increases Movement Speed while Sneaking by ([0-9.]+)%[\n\r]+/i,
+		match: /[\n\r]+Reduces the Movement Speed penalty of Sneak by ([0-9.]+)%[\n\r]+/i,
 	},
 	{
 		statId: "BreakFreeCost",
@@ -5992,7 +5853,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		factorStatId: "ArmorLight",
 		factorValue: -1, 
-		match: /[\n\r]+Reduces the cost of Bash by ([0-9.]+)%[\n\r]+/i,
+		match: /[\n\r]+Reduces the cost of Bash by ([0-9.]+)%/i,
 	},
 	{
 		statId: "SprintCost",
@@ -6079,7 +5940,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "SneakRange",
 		display: "%",
 		factorStatId: "ArmorHeavy",
-		match: /Increases the size of your detection area while Sneaking by ([0-9.]+)%[\n\r]+/i,
+		match: /Increases the size of your detection area while Sneaking by ([0-9.]+)%/i,
 	},
 	{
 		statId: "PhysicalDamageTaken",
@@ -6395,7 +6256,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		id: "Skilled Tracker",
 		baseSkillId: 40393,
 		category: "SkillLineDamage",
-		statId: "Fighters Guild Damage",
+		statId: "Fighters_Guild",
 		maxTimes: 6,
 		display: "%",
 		toggle: true,
@@ -6406,7 +6267,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		id: "Mending",
 		baseSkillId: 31751,
 		category: "SkillHealing",
-		statId: "Restoring Light Healing",
+		statId: "Restoring_Light",
 		maxTimes: 12,
 		display: "%",
 		toggle: true,
@@ -6479,7 +6340,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireId: "WeaponBow",
 		statRequireValue: 1,
 		category: "SkillLineDamage",
-		statId: "Bow Damage",
+		statId: "Bow",
 		display: "%",
 		toggle: true,
 		enabled: false,
@@ -6562,7 +6423,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statRequireId: "Weapon1H",
 		statRequireValue: 2,
 		category: "SkillLineDamage",
-		statId: "Dual Wield Damage",
+		statId: "Dual_Wield",
 		display: "%",
 		toggle: true,
 		enabled: false,
@@ -6646,7 +6507,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		id: "Hawk Eye",
 		baseSkillId: 30936,
 		category: "SkillLineDamage",
-		statId: "Bow Damage",
+		statId: "Bow",
 		toggle: true,
 		enabled: false,
 		display: "%",
@@ -6879,6 +6740,7 @@ window.ESO_CPEFFECT_MATCHES = [
 		eanble: false,
 		category: "CP",
 		statId: "MagickaCost",
+		combineAs: "*%",
 		display: "%",
 		factorValue: -1,
 		match: /When you drink a potion, the cost of your next Magicka ability used within [0-9\.]+ seconds is reduced by ([0-9\.]+)%/i,
@@ -6926,6 +6788,7 @@ window.ESO_CPEFFECT_MATCHES = [
 		eanble: false,
 		category: "CP",
 		statId: "MagickaCost",
+		combineAs: "*%",
 		display: "%",
 		factorValue: -1,
 		match: /the cost of your Magicka and Stamina healing abilities used within [0-9\.]+ seconds are reduced by ([0-9\.]+)%/i,
@@ -7070,6 +6933,7 @@ window.ESO_CPEFFECT_MATCHES = [
 		eanble: false,
 		category: "CP",
 		statId: "StaminaCost",
+		combineAs: "*%",
 		display: "%",
 		factorValue: -1,
 		match: /When you use Break Free, the cost of your next Stamina ability used within [0-9\.]+ seconds is reduced by [0-9\.]+% per stage.*\s*Current bonus: ([0-9\.]+)%/i,
@@ -7155,8 +7019,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
 	},
-	{	// Deadly strike -- Note that bleeds are all DoTs so ignore this to
-		// prevent a double effect
+	{	// Deadly strike -- Note that bleeds are all DoTs so ignore this to prevent a double effect
 		statId: "BleedDotDamageDone",
 		display: "%",
 		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
@@ -7176,8 +7039,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
 	},
-	{	// Deadly strike -- Note that bleeds are all DoTs so ignore this to
-		// prevent a double effect
+	{	// Deadly strike -- Note that bleeds are all DoTs so ignore this to prevent a double effect
 		statId: "BleedChannelDamageDone",
 		display: "%",
 		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
@@ -7198,11 +7060,6 @@ window.ESO_SETEFFECT_MATCHES = [
 	{	// Assassin's Guile
 		statId: "PoisonDuration",
 		match: /Increases the duration of your alchemical poisons by ([0-9]+) seconds/i,
-	},
-	{	// Stinging Slashes
-		category: "Set",
-		statId: "TwinSlashBleedDamage",
-		match: /Increases the bleed damage Twin Slashes deals by ([0-9]+) each tick/i,
 	},
 	{	// Stinging Slashes
 		category: "Set",
@@ -7415,16 +7272,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		match: /Increases the damage of your Soul Trap ability by ([0-9]+)%/i,
 	},
-	{
-		category: "SkillLineDamage",
-		statId: "Bow Damage",
-		display: "%",
-		match: /Reduces the cost and increases the damage of your Bow abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	/*
-	 * { statId: "BowDamageDone", display: "%", match: /Reduces the cost and
-	 * increases the damage of your Bow abilities by ([0-9]+)%/i, }, //
-	 */
 	{
 		category: "SkillCost",
 		statId: "Bow_Cost",
@@ -7702,21 +7549,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		combineAs: "*%",
 		match: /Reduces the costs of your Stamina abilities by ([0-9]+)%/i,
-	},
-	{
-		statId: "LADamage",
-		display: "%",
-		match: /Increases your Light and Heavy Attack damage by ([0-9]+)%/i,
-	},
-	{
-		statId: "HADamage",
-		display: "%",
-		match: /Increases your Light and Heavy Attack damage by ([0-9]+)%/i,
-	},
-	{
-		statId: "OverloadDamage",
-		display: "%",
-		match: /Increases your Light and Heavy Attack damage by ([0-9]+)%/i,
 	},
 	{
 		statId: "SprintCost",
@@ -8233,33 +8065,10 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "BowRange",
 		match: /Increases the range of your Bow abilities by ([0-9]+) meters/i,
 	},
-		{
-		statId: "LADamage",
-		display: '%',
-		category: "Skill",
-		match: /Light attack and heavy attack damage increased by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "HADamage",
-		display: '%',
-		category: "Skill",
-		match: /Light attack and heavy attack damage increased by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "Skill2",
-		statId: "HADamage",
-		match: /Your fully charged Heavy Attacks do an additional ([0-9]+) damage/i,
-	},
 	{
 		category: "Skill2",
 		statId: "HADamage",
 		match: /Increases the damage of your fully-charged Heavy Attacks by ([0-9]+)/i,
-	},
-	{
-		statId: "HADamage",
-		display: '%',
-		category: "Skill",
-		match: /Your fully charged heavy attacks deal ([0-9]+\.?[0-9]*)% additional damage/i,
 	},
 	{
 		statId: "FlameEffectDuration",
@@ -8285,11 +8094,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "Magicka",
 		display: '%',
 		match: /Increase Maximum Magicka by ([0-9]+\.?[0-9]*)%./i,
-	},
-	{
-		statId: "BowDamageDone",
-		display: '%',
-		match: /Reduce cost of bow abilities by [0-9]+\.?[0-9]*% and increase their damage by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "HealingDone",
@@ -8495,20 +8299,9 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Duration of snare, stun, and disorient effects are reduced by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		statId: "WerewolfTransformCost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduce cost of Werewolf Transformation by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
 		statId: "HealingReceived",
 		display: "%",
 		match: /Group members within [0-9]+\.?[0-9]*m gain ([0-9]+\.?[0-9]*)% increased effect from heals/i,
-	},
-	{
-		statId: "FlameDamageDone",
-		display: "%",
-		match: /Flame Damage dealt increased by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statRequireId: "Stealthed",
@@ -8535,8 +8328,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 4,
 		statId: "EnchantPotency",
 		display: "%",
-		// match: /Decreases weapon enchantment cooldown and increases potency
-		// by ([0-9]+\.?[0-9]*)%/i,
 		match: /Decreases weapon enchantment cooldown and increases non Oblivion Damage enchantment potency by ([0-9]+)%/i,
 	},
 	{
@@ -8544,8 +8335,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "EnchantCooldown",
 		display: "%",
 		factorValue: -1,
-		// match: /Decreases weapon enchantment cooldown and increases potency
-		// by ([0-9]+\.?[0-9]*)%/i,
 		match: /Decreases weapon enchantment cooldown and increases non Oblivion Damage enchantment potency by ([0-9]+)%/i,
 	},
 	{
@@ -8600,23 +8389,12 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "HAMagRestore",
 		match: /Fully charged heavy attacks restore ([0-9]+) Magicka/i,
 	},
-	/*
-	 * Duplicates ? { setBonusCount: 4, category: "Skill", statId:
-	 * "AOEDamageTaken", display: "%", factorValue: -1, match: /Reduces your
-	 * damage taken from area of effect abilities by ([0-9]+\.?[0-9]*)%/i, }, {
-	 * setBonusCount: 4, category: "Skill", statId: "AOEDamageDone", display:
-	 * "%", factorValue: -1, match: /but the damage and healing of your own area
-	 * of effect abilities is also reduced by ([0-9]+\.?[0-9]*)%/i, }, {
-	 * setBonusCount: 4, category: "Skill", statId: "AOEHealingDone", display:
-	 * "%", factorValue: -1, match: /but the damage and healing of your own area
-	 * of effect abilities is also reduced by ([0-9]+\.?[0-9]*)%/i, }, //
-	 */
 	{
 		id: "Infallible Mage",
 		setBonusCount: 4,
 		category: "Skill2",
 		statId: "HADamage",
-		match: /Your fully-charged Heavy Attacks deal an additional ([0-9]+) damage/i,
+		match: /Your Heavy Attacks deal an additional ([0-9]+) damage/i,
 	},
 	{
 		id: "Destructive Impact",
@@ -9377,6 +9155,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "MagickaCost",
+		combineAs: "*%",
 		factorValue: -1,
 		display: "%",
 		match: /When you use a Light Attack you reduce the Health, Magicka, or Stamina cost of your next active ability by ([0-9]+)%/i,
@@ -9387,6 +9166,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "StaminaCost",
+		combineAs: "*%",
 		factorValue: -1,
 		display: "%",
 		match: /When you use a Light Attack you reduce the Health, Magicka, or Stamina cost of your next active ability by ([0-9]+)%/i,
@@ -9399,6 +9179,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "HealthCost",
 		factorValue: -1,
 		display: "%",
+		combineAs: "*%",
 		match: /When you use a Light Attack you reduce the Health, Magicka, or Stamina cost of your next active ability by ([0-9]+)%/i,
 	},
 	{
@@ -9850,21 +9631,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		match: /When you resurrect an ally, you and your ally gain ([0-9]+) Weapon and Spell Damage and [0-9]+% cost reduction to non-Ultimate abilities/i,
 	},
-	/*
-	 * { id: "Vastarie's Tutelage", setBonusCount: 5, statId: "SpellDamage",
-	 * toggle: true, enabled: false, match: /When you resurrect an ally, you and
-	 * your ally gain ([0-9]+) Weapon and Spell Damage and [0-9]+% cost
-	 * reduction to non-Ultimate abilities/i, }, { id: "Vastarie's Tutelage",
-	 * setBonusCount: 5, statId: "MagickaCost", display: "%", factorValue: -1,
-	 * toggle: true, enabled: false, combineAs: "*%", match: /When you resurrect
-	 * an ally, you and your ally gain [0-9]+ Weapon and Spell Damage and
-	 * ([0-9]+)% cost reduction to non-Ultimate abilities/i, }, { id:
-	 * "Vastarie's Tutelage", setBonusCount: 5, statId: "StaminaCost", display:
-	 * "%", factorValue: -1, toggle: true, enabled: false, combineAs: "*%",
-	 * match: /When you resurrect an ally, you and your ally gain [0-9]+ Weapon
-	 * and Spell Damage and ([0-9]+)% cost reduction to non-Ultimate
-	 * abilities/i, }, //
-	 */
 	{	id: "Senche-raht's Grit",
 		setBonusCount: 4,
 		statId: "HealingReceived",
@@ -10128,8 +9894,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "PhysicalResist",
-		rawInputMatch: /(When you use an Armor ability, your Physical and Spell Resistance is increased by [0-9]+)/i,
-		match: /When you use an Armor ability, your Physical and Spell Resistance is increased by ([0-9]+)/i,
+		rawInputMatch: /(When you use an Armor ability while in combat, your Physical and Spell Resistance is increased by [0-9]+)/i,
+		match: /When you use an Armor ability while in combat, your Physical and Spell Resistance is increased by ([0-9]+)/i,
 	},
 	{
 		id: "Armor Master",
@@ -10138,7 +9904,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "SpellResist",
-		match: /When you use an Armor ability, your Physical and Spell Resistance is increased by ([0-9]+)/i,
+		match: /When you use an Armor ability while in combat, your Physical and Spell Resistance is increased by ([0-9]+)/i,
 	},
 	{
 		id: "Armor of Rage",
@@ -10277,7 +10043,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "LADamage",
+		statId: "LAMeleeDamage",
 		display: "%",
 		match: /When you gain [0-9]+ stacks, you become Frenzied for [0-9]+ seconds, increasing your melee Light Attack damage by ([0-9]+)% and attack speed by [0-9]+%/i,
 	},
@@ -10287,7 +10053,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "LASpeed",
+		statId: "LAMeleeSpeed",
 		factorValue: -1,
 		display: "%",
 		match: /When you gain [0-9]+ stacks, you become Frenzied for [0-9]+ seconds, increasing your melee Light Attack damage by [0-9]+% and attack speed by ([0-9]+)%/i,
@@ -11702,19 +11468,16 @@ window.ESO_ENCHANT_ARMOR_MATCHES = [
 	{
 		statId: "StaminaCost",
 		factorValue: -1,
-		combineAs: "*%",
 		match: /Reduce Stamina cost of abilities by ([0-9]+\.?[0-9]*)/i,
 	},
 	{
 		statId: "MagickaCost",
 		factorValue: -1,
-		combineAs: "*%",
 		match: /Reduce Magicka cost of abilities by ([0-9]+\.?[0-9]*)/i,
 	},
 	{
 		statId: "MagickaCost",
 		factorValue: -1,
-		combineAs: "*%",
 		match: /Reduce Magicka cost of spells by ([0-9]+\.?[0-9]*)/i,
 	},
 	{
@@ -11986,6 +11749,11 @@ window.ESOBUILD_RAWOUTPUT_LABELREPLACEMENT =
 		"Buff.RollDodgeCost": "Dodge Roll Cost",
 		"Skill2.RollDodgeCost": "Dodge Roll Cost",
 		"Item.RollDodgeCost": "Dodge Roll Cost",
+		"SkillLineDamage.Bow" : "Bow Damage",
+		"SkillLineDamage.Duel_Wield" : "Duel Wield Damage",
+		"SkillHealing.Green_Balance" : "Green Balance Healing",
+		"SkillHealing.Restoration_Staff" : "Restoration Staff Healing",
+		"SkillHealing.Restoring_Light" : "Restoring Light Healing",
 };
 
 
@@ -12015,14 +11783,17 @@ window.InitializeEsoBuildInputValues = function (inputValues)
 		}
 		else
 		{
-			inputValues[key] = 0;	
+			inputValues[key] = 0;
 		}
 	}
 	
 	inputValues.pow = Math.pow;
 	inputValues.floor = Math.floor;
 	inputValues.round = Math.round;
+	inputValues.fround = Math.fround;
+	if (Math.fround == null) inputValues.fround = function(f) { return f; };
 	inputValues.ceil = Math.ceil;
+	inputValues.trunc = Math.trunc;
 	inputValues.max = Math.max;
 	inputValues.min = Math.min;
 	
@@ -12033,6 +11804,17 @@ window.InitializeEsoBuildInputValues = function (inputValues)
 window.GetEsoInputValues = function (mergeComputedStats)
 {
 	// if (console && console.time) console.time('GetEsoInputValues');
+	
+	g_EsoBuildLastInputHistory = {};
+	g_EsoBuildLastInputHistory.SkillCost = {};
+	g_EsoBuildLastInputHistory.Item = {};
+	g_EsoBuildLastInputHistory.Skill = {};
+	g_EsoBuildLastInputHistory.Skill2 = {};
+	g_EsoBuildLastInputHistory.Food = {};
+	g_EsoBuildLastInputHistory.Set = {};
+	g_EsoBuildLastInputHistory.CP = {};
+	g_EsoBuildLastInputHistory.Buff = {};
+	g_EsoBuildLastInputHistory.Vampire = {};
 	
 	ResetEsoBuffSkillEnabled();
 	ResetEsoAllSkillRawOutputs();
@@ -12372,6 +12154,22 @@ window.GetEsoInputBuffValues = function (inputValues)
 }
 
 
+window.CombineEsoValuesMult = function (base, value)
+{
+	//return +((1 + base) * (1 + value) - 1);
+	return Math.ceil(((1 + base) * (1 + value))*100)/100 - 1;
+}
+
+
+window.AddEsoStatValueHistory = function(category, statId, value)
+{
+	if (g_EsoBuildLastInputHistory[category] == null) g_EsoBuildLastInputHistory[category] = {};
+	if (g_EsoBuildLastInputHistory[category][statId] == null) g_EsoBuildLastInputHistory[category][statId] = [];
+	
+	g_EsoBuildLastInputHistory[category][statId].push(value);
+}
+
+
 window.GetEsoInputBuffValue = function (inputValues, buffName, buffData)
 {
 	var statId = buffData.statId;
@@ -12414,12 +12212,13 @@ window.GetEsoInputBuffValue = function (inputValues, buffName, buffData)
 			if (factorValue != null && factorValue != 1) statValue *= factorValue;
 			
 			if (combineAs == "*%")
-				inputValues[category][statId] = +((1 + inputValues[category][statId]) * (1 + statValue) - 1);
+				inputValues[category][statId] = CombineEsoValuesMult(inputValues[category][statId], statValue);
 			else
 				inputValues[category][statId] += statValue;
 			
+			AddEsoStatValueHistory(category, statId, statValue);
 			AddEsoItemRawOutput(buffData, category + "." + statId, statValue);
-			AddEsoInputStatSource(category + "." + statId, { buff: buffData,  buffName: buffName, value: statValue });
+			AddEsoInputStatSource(category + "." + statId, { buff: buffData, buffName: buffName, value: statValue });
 		}
 	}
 	
@@ -12547,24 +12346,28 @@ window.GetEsoInputSpecialValues = function (inputValues)
 		if (stats.healthRegenValue)
 		{
 			inputValues.Vampire.HealthRegen += stats.healthRegenValue;
+			AddEsoStatValueHistory("Vampire", "HealthRegen", stats.healthRegenValue);
 			AddEsoInputStatSource("Vampire.HealthRegen", { source: "Vampire Stage " + inputValues.VampireStage, value: stats.healthRegenValue });
 		}
 		
 		if (stats.flameDamageValue)
 		{
 			inputValues.Buff.FlameVulnerability += stats.flameDamageValue;
+			AddEsoStatValueHistory("Vampire", "FlameVulnerability", stats.flameDamageValue);
 			AddEsoInputStatSource("Buff.FlameVulnerability", { source: "Vampire Stage " + inputValues.VampireStage, value: stats.flameDamageValue });
 		}
 		
 		if (stats.costReduction)
 		{
 			inputValues.SkillCost.Vampire_Cost += stats.costReduction;
+			AddEsoStatValueHistory("Vampire", "Vampire_Cost", stats.costReduction);
 			AddEsoInputStatSource("SkillCost.Vampire_Cost", { source: "Vampire Stage " + inputValues.VampireStage, value: stats.costReduction });
 		}
 		
 		if (stats.allCostIncrease)
 		{
 			inputValues.SkillCost.Regular_Ability_Cost += stats.allCostIncrease;
+			AddEsoStatValueHistory("Vampire", "Regular_Ability_Cost", stats.allCostIncrease);
 			AddEsoInputStatSource("SkillCost.Regular_Ability_Cost", { source: "Vampire Stage " + inputValues.VampireStage, value: stats.allCostIncrease });
 		}
 	}
@@ -12811,21 +12614,22 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 			var factorStat = inputValues[matchData.factorStatId];
 			if (factorStat != null) statFactor += parseFloat(factorStat);
 		}
-	
+		
 		if (matchData.round == "floor") statValue = Math.floor(statValue);
 		if (matchData.display == "%") statValue = statValue/100;
-					
+		
 		var category = matchData.category || "Set";
 		
 		if (inputValues[category][matchData.statId] == null) inputValues[category][matchData.statId] = 0;
 		
 		if (matchData.combineAs == "*%")
-			inputValues[category][matchData.statId] = +((1 + inputValues[category][matchData.statId]) * (1 + statValue) - 1);
+			inputValues[category][matchData.statId] = CombineEsoValuesMult(inputValues[category][matchData.statId], statValue);
 		else
 			inputValues[category][matchData.statId] += statValue;
 		
 		if (matchData.statId)
 		{
+			AddEsoStatValueHistory(category, matchData.statId, statValue);
 			AddEsoItemRawOutput(setData, category + "." + matchData.statId, statValue);
 			AddEsoInputStatSource(category + "." + matchData.statId, { set: setData, setBonusCount: setBonusCount, value: statValue });
 		}
@@ -12935,10 +12739,11 @@ window.GetEsoInputAbilityDescValues = function (inputValues, outputId, itemData,
 		if (inputValues[outputId][matchData.statId] == null) inputValues[outputId][matchData.statId] = 0;
 		
 		if (matchData.combineAs == "*%")
-			inputValues[outputId][matchData.statId] = +((1 + inputValues[outputId][matchData.statId]) * (1 + statValue) - 1);
+			inputValues[outputId][matchData.statId] = CombineEsoValuesMult(inputValues[outputId][matchData.statId], statValue);
 		else
 			inputValues[outputId][matchData.statId] += statValue;
 		
+		AddEsoStatValueHistory(outputId, matchData.statId, statValue);
 		AddEsoItemRawOutput(itemData, outputId + "." + matchData.statId, statValue);
 		AddEsoInputStatSource(outputId + "." + matchData.statId, { item: itemData, value: statValue, slotId: slotId });
 	}
@@ -13125,7 +12930,7 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 			AddEsoItemRawOutputString(buffData, (isPassive ? "Passive Skill" : "Active Skill"), abilityData.name);
 		}
 		
-		AddEsoItemRawOutputString(abilityData, "Adds Buff", matchData.buffId);		
+		AddEsoItemRawOutputString(abilityData, "Adds Buff", matchData.buffId);
 	}
 	else if (matchData.statId == "OtherEffects")
 	{
@@ -13153,10 +12958,11 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 		if (inputValues[category][matchData.statId] == null) inputValues[category][matchData.statId] = 0;
 		
 		if (matchData.combineAs == "*%")
-			inputValues[category][matchData.statId] = +((1 + inputValues[category][matchData.statId]) * (1 + statValue) - 1);
+			inputValues[category][matchData.statId] = CombineEsoValuesMult(inputValues[category][matchData.statId], statValue);
 		else
 			inputValues[category][matchData.statId] += statValue;
 		
+		AddEsoStatValueHistory(category, matchData.statId, statValue);
 		AddEsoItemRawOutput(abilityData, category + "." + matchData.statId, statValue);
 		
 		if (!testMatch)
@@ -13673,6 +13479,9 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 		inputValues.Item.SpellResist += armorRating;
 		inputValues.Item.PhysicalResist += armorRating;
 		
+		AddEsoStatValueHistory("Item", "SpellResist", armorRating);
+		AddEsoStatValueHistory("Item", "PhysicalResist", armorRating);
+		
 		AddEsoItemRawOutput(itemData, "Item.SpellResist", armorRating);
 		AddEsoItemRawOutput(itemData, "Item.PhysicalResist", armorRating);
 		
@@ -13712,9 +13521,17 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 			// weaponPower = Math.floor(weaponPower * (1 + traitValue/100)); //
 			// Now included in raw weapon data
 		}
-				
+		
+		inputValues.WeaponPower += weaponPower;
+		//AddEsoStatValueHistory("Item", "SpellDamage", weaponPower);
+		AddEsoItemRawOutput(itemData, "WeaponPower", weaponPower);
+		AddEsoInputStatSource("WeaponPower", { item: itemData, value: weaponPower, slotId:slotId });
+		
 		inputValues.Item.WeaponDamage += weaponPower;
 		inputValues.Item.SpellDamage += weaponPower;
+		
+		AddEsoStatValueHistory("Item", "SpellDamage", weaponPower);
+		AddEsoStatValueHistory("Item", "WeaponDamage", weaponPower);
 		
 		AddEsoItemRawOutput(itemData, "Item.WeaponDamage", weaponPower);
 		AddEsoItemRawOutput(itemData, "Item.SpellDamage", weaponPower);
@@ -13726,6 +13543,7 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 	if (itemData.trait == 18) // Divines
 	{
 		inputValues.Item.Divines += traitValue/100;
+		AddEsoStatValueHistory("Item", "Divines", traitValue/100);
 		AddEsoItemRawOutput(itemData, "Item.Divines", traitValue/100);
 		AddEsoInputStatSource("Item.Divines", { item: itemData, value: traitValue/100, slotId:slotId });
 	}
@@ -13741,50 +13559,59 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 		traitValue = Math.floor(traitValue);
 		
 		inputValues.Item.HealthRegen += traitValue;
+		AddEsoStatValueHistory("Item", "HealthRegen", traitValue);
 		AddEsoItemRawOutput(itemData, "Item.HealthRegen", traitValue);
 		AddEsoInputStatSource("Item.HealthRegen", { item: itemData, value: traitValue, slotId:slotId });
 		
 		inputValues.Item.MagickaRegen += traitValue;
+		AddEsoStatValueHistory("Item", "MagickaRegen", traitValue);
 		AddEsoItemRawOutput(itemData, "Item.MagickaRegen", traitValue);
 		AddEsoInputStatSource("Item.MagickaRegen", { item: itemData, value: traitValue, slotId:slotId });
 		
 		inputValues.Item.StaminaRegen += traitValue;
+		AddEsoStatValueHistory("Item", "StaminaRegen", traitValue);
 		AddEsoItemRawOutput(itemData, "Item.StaminaRegen", traitValue);
 		AddEsoInputStatSource("Item.StaminaRegen", { item: itemData, value: traitValue, slotId:slotId });
 	}
 	else if (itemData.trait == 12) // Impenetrable
 	{
 		inputValues.Item.CritResist += traitValue;
+		AddEsoStatValueHistory("Item", "CritResist", traitValue);
 		AddEsoItemRawOutput(itemData, "Item.CritResist", traitValue);
 		AddEsoInputStatSource("Item.CritResist", { item: itemData, value: traitValue, slotId:slotId });
 	}
 	else if (itemData.trait == 11) // Sturdy
 	{
 		inputValues.Item.Sturdy += traitValue/100;
+		AddEsoStatValueHistory("Item", "Sturdy", traitValue/100);
 		AddEsoItemRawOutput(itemData, "Item.Sturdy", traitValue/100);
 		AddEsoInputStatSource("Item.Sturdy", { item: itemData, value: traitValue/100, slotId:slotId });
 	}
 	else if (itemData.trait == 15 || itemData.trait == 6) // Training
 	{
 		inputValues.Item.Training += traitValue/100;
+		AddEsoStatValueHistory("Item", "Training", traitValue/100);
 		AddEsoItemRawOutput(itemData, "Item.Training", traitValue/100);
 		AddEsoInputStatSource("Item.Training", { item: itemData, value: traitValue/100, slotId: slotId });
 	}
 	else if (itemData.trait == 21) // Healthy
 	{
 		inputValues.Item.Health += traitValue;
+		AddEsoStatValueHistory("Item", "Health", traitValue);
 		AddEsoItemRawOutput(itemData, "Item.Health", traitValue);
 		AddEsoInputStatSource("Item.Health", { item: itemData, value: traitValue, slotId: slotId });
 	}
 	else if (itemData.trait == 22) // Arcane
 	{
 		inputValues.Item.Magicka += traitValue;
+		AddEsoStatValueHistory("Item", "Magicka", traitValue);
 		AddEsoItemRawOutput(itemData, "Item.Magicka", traitValue);
 		AddEsoInputStatSource("Item.Magicka", { item: itemData, value: traitValue, slotId: slotId });
 	}
 	else if (itemData.trait == 23) // Robust
 	{
 		inputValues.Item.Stamina += traitValue;
+		AddEsoStatValueHistory("Item", "Stamina", traitValue);
 		AddEsoItemRawOutput(itemData, "Item.Stamina", traitValue);
 		AddEsoInputStatSource("Item.Stamina", { item: itemData, value: traitValue, slotId: slotId });
 	}	
@@ -13792,6 +13619,8 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 	{
 		inputValues.Item.SprintCost -= traitValue/100;
 		inputValues.Item.RollDodgeCost -= traitValue/100;
+		AddEsoStatValueHistory("Item", "SprintCost", -traitValue/100);
+		AddEsoStatValueHistory("Item", "RollDodgeCost", -traitValue/100);
 		AddEsoItemRawOutput(itemData, "Item.SprintCost", -traitValue/100);
 		AddEsoItemRawOutput(itemData, "Item.RollDodgeCost", -traitValue/100);
 		AddEsoInputStatSource("Item.SprintCost", { item: itemData, value: -traitValue/100, slotId:slotId });
@@ -13801,6 +13630,8 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 	{
 		inputValues.Item.SpellPenetration += traitValue;
 		inputValues.Item.PhysicalPenetration += traitValue;
+		AddEsoStatValueHistory("Item", "SpellPenetration", traitValue);
+		AddEsoStatValueHistory("Item", "PhysicalPenetration", traitValue);
 		AddEsoItemRawOutput(itemData, "Item.SpellPenetration", traitValue);
 		AddEsoItemRawOutput(itemData, "Item.PhysicalPenetration", traitValue);
 		AddEsoInputStatSource("Item.SpellPenetration", { item: itemData, value: traitValue, slotId:slotId });
@@ -13810,6 +13641,8 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 	{
 		inputValues.Item.SpellCrit += traitValue/100;
 		inputValues.Item.WeaponCrit += traitValue/100;
+		AddEsoStatValueHistory("Item", "SpellCrit", traitValue/100);
+		AddEsoStatValueHistory("Item", "WeaponCrit", traitValue/100);
 		AddEsoItemRawOutput(itemData, "Item.SpellCrit", traitValue/100);
 		AddEsoItemRawOutput(itemData, "Item.WeaponCrit", traitValue/100);
 		AddEsoInputStatSource("Item.SpellCrit", { item: itemData, value: traitValue/100, slotId:slotId });
@@ -13819,14 +13652,17 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 	{
 		inputValues.Item.SpellResist += traitValue;
 		inputValues.Item.PhysicalResist += traitValue;
+		AddEsoStatValueHistory("Item", "SpellResist", traitValue);
+		AddEsoStatValueHistory("Item", "PhysicalResist", traitValue);
 		AddEsoItemRawOutput(itemData, "Item.SpellResist", traitValue);
-		AddEsoInputStatSource("Item.SpellResist", { item: itemData, value: traitValue, slotId:slotId });
 		AddEsoItemRawOutput(itemData, "Item.PhysicalResist", traitValue);
+		AddEsoInputStatSource("Item.SpellResist", { item: itemData, value: traitValue, slotId:slotId });
 		AddEsoInputStatSource("Item.PhysicalResist", { item: itemData, value: traitValue, slotId: slotId });
 	}
 	else if (itemData.trait == 2) // Charged
 	{
 		inputValues.Item.StatusEffectChance += traitValue/100;
+		AddEsoStatValueHistory("Item", "StatusEffectChance", traitValue/100);
 		AddEsoItemRawOutput(itemData, "Item.StatusEffectChance", traitValue/100);
 		AddEsoInputStatSource("Item.StatusEffectChance", { item: itemData, value: traitValue/100, slotId: slotId });
 	}
@@ -13836,6 +13672,7 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 	else if (itemData.trait == 1) // Powered
 	{
 		inputValues.Item.HealingDone += traitValue/100;
+		AddEsoStatValueHistory("Item", "HealingDone", traitValue/100);
 		AddEsoItemRawOutput(itemData, "Item.HealingDone", traitValue/100);
 		AddEsoInputStatSource("Item.HealingDone", { item: itemData, value: traitValue/100, slotId: slotId });
 	}
@@ -13845,12 +13682,14 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 	else if (itemData.trait == 31) // Jewelry Bloodthirsty
 	{
 		inputValues.Item.Bloodthirsty += traitValue2;
+		AddEsoStatValueHistory("Item", "Bloodthirsty", traitValue2);
 		AddEsoItemRawOutput(itemData, "Item.Bloodthirsty", traitValue2);
 		AddEsoInputStatSource("Item.Bloodthirsty", { item: itemData, value: traitValue2, slotId:slotId });
 	}
 	else if (itemData.trait == 29) // Jewelry Harmony
 	{
 		inputValues.Item.SynergyBonus += traitValue/100;
+		AddEsoStatValueHistory("Item", "SynergyBonus", traitValue/100);
 		AddEsoItemRawOutput(itemData, "Item.SynergyBonus", traitValue/100);
 		AddEsoInputStatSource("Item.SynergyBonus", { item: itemData, value: traitValue/100, slotId:slotId });
 	}
@@ -13861,30 +13700,36 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 	else if (itemData.trait == 32) // Jewelry Protective
 	{
 		inputValues.Item.SpellResist += traitValue;
+		AddEsoStatValueHistory("Item", "SpellResist", traitValue);
 		AddEsoItemRawOutput(itemData, "Item.SpellResist", traitValue);
 		AddEsoInputStatSource("Item.SpellResist", { item: itemData, value: traitValue, slotId:slotId });
 		
 		inputValues.Item.PhysicalResist += traitValue;
+		AddEsoStatValueHistory("Item", "PhysicalResist", traitValue);
 		AddEsoItemRawOutput(itemData, "Item.PhysicalResist", traitValue);
 		AddEsoInputStatSource("Item.PhysicalResist", { item: itemData, value: traitValue, slotId:slotId });		
 	}
 	else if (itemData.trait == 28) // Jewelry Swift
 	{
 		inputValues.Item.MovementSpeed += traitValue/100;
+		AddEsoStatValueHistory("Item", "MovementSpeed", traitValue/100);
 		AddEsoItemRawOutput(itemData, "Item.MovementSpeed", traitValue/100);
 		AddEsoInputStatSource("Item.MovementSpeed", { item: itemData, value: traitValue/100, slotId:slotId });
 	}
 	else if (itemData.trait == 30) // Jewelry Triune
 	{
 		inputValues.Item.Magicka += traitValue;
+		AddEsoStatValueHistory("Item", "Magicka", traitValue);
 		AddEsoItemRawOutput(itemData, "Item.Magicka", traitValue);
 		AddEsoInputStatSource("Item.Magicka", { item: itemData, value: traitValue, slotId:slotId });
 		
 		inputValues.Item.Health += traitValue;
+		AddEsoStatValueHistory("Item", "Health", traitValue);
 		AddEsoItemRawOutput(itemData, "Item.Health", traitValue);
 		AddEsoInputStatSource("Item.Health", { item: itemData, value: traitValue, slotId:slotId });
 		
 		inputValues.Item.Stamina += traitValue;
+		AddEsoStatValueHistory("Item", "Stamina", traitValue);
 		AddEsoItemRawOutput(itemData, "Item.Stamina", traitValue);
 		AddEsoInputStatSource("Item.Stamina", { item: itemData, value: traitValue, slotId:slotId });
 	}
@@ -14000,9 +13845,13 @@ window.GetEsoInputItemEnchantValues = function (inputValues, slotId, doWeaponUpd
 		if (!isOblivionDamage) enchantFactor *= (1 + inputValues.Set.EnchantPotency);
 	}
 	
+	//if (!isTransmuted && (slotId == "Waist" || slotId == "Feet" || slotId == "Shoulders" || slotId == "Hands"))
 	if (slotId == "Waist" || slotId == "Feet" || slotId == "Shoulders" || slotId == "Hands")
 	{
-		enchantFactor = enchantFactor * 0.4044;
+		if (!enchantData.isDefaultEnchant)		//Change in update 29?
+		{
+			enchantFactor = enchantFactor * 0.4044;
+		}
 	}
 	
 	if (IsEsoItemWeapon(itemData) && doWeaponUpdate === true)
@@ -14033,6 +13882,7 @@ window.GetEsoInputItemEnchantArmorValues = function (inputValues, slotId, itemDa
 		
 		statValue /= transmuteFactor;
 		if (!enchantData.isDefaultEnchant || isTransmuted) statValue *= enchantFactor;
+		//if (!enchantData.isDefaultEnchant) statValue *= enchantFactor;		//Changed in update 29?
 		
 		if (matchData.factorValue != null) statValue *= matchData.factorValue;
 		
@@ -14042,6 +13892,7 @@ window.GetEsoInputItemEnchantArmorValues = function (inputValues, slotId, itemDa
 			statValue = Math.floor(statValue);
 		
 		inputValues.Item[matchData.statId] += statValue;
+		AddEsoStatValueHistory("Item", matchData.statId, statValue);
 		AddEsoItemRawOutput(itemData, "Item." + matchData.statId, statValue);
 		AddEsoInputStatSource("Item." + matchData.statId, { item: itemData, enchant: enchantData, value: statValue, slotId: slotId });
 	}
@@ -14263,6 +14114,7 @@ window.GetEsoInputItemEnchantWeaponValues = function (inputValues, slotId, itemD
 			var category = matchData.category || "Item";
 			
 			inputValues[category][matchData.statId] += statValue;
+			AddEsoStatValueHistory(category, matchData.statId, statValue);
 			AddEsoItemRawOutput(itemData, category + "." + matchData.statId, statValue);
 			AddEsoInputStatSource(category + "." + matchData.statId, { item: itemData, enchant: enchantData, value: statValue, slotId: slotId });
 		}
@@ -14496,6 +14348,9 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 		inputValues.Mundus.PhysicalResist = 2744;
 		inputValues.Mundus.SpellResist = 2744;
 		
+		AddEsoStatValueHistory("Mundus", "PhysicalResist", inputValues.Mundus.PhysicalResist);
+		AddEsoStatValueHistory("Mundus", "SpellResist", inputValues.Mundus.SpellResist);
+		
 		AddEsoInputStatSource("Mundus.PhysicalResist", { mundus: mundusName, value: inputValues.Mundus.PhysicalResist });
 		AddEsoInputStatSource("Mundus.SpellResist", { mundus: mundusName, value: inputValues.Mundus.SpellResist });
 		
@@ -14505,6 +14360,9 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 			var extraPhysical = Math.floor(inputValues.Mundus.PhysicalResist * divines);
 			inputValues.Mundus.PhysicalResist += extraPhysical;
 			inputValues.Mundus.SpellResist += extraSpell;
+			
+			AddEsoStatValueHistory("Mundus", "PhysicalResist", extraPhysical);
+			AddEsoStatValueHistory("Mundus", "SpellResist", extraSpell);
 			
 			AddEsoInputStatSource("Mundus.PhysicalResist", { source: mundusName + " Divines bonus", value: extraPhysical });
 			AddEsoInputStatSource("Mundus.SpellResist", { source: mundusName + " Divines bonus", value: extraSpell });
@@ -14526,6 +14384,9 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 		inputValues.Mundus.SpellPenetration = 2744;
 		inputValues.Mundus.PhysicalPenetration = 2744;
 		
+		AddEsoStatValueHistory("Mundus", "PhysicalPenetration", inputValues.Mundus.PhysicalPenetration);
+		AddEsoStatValueHistory("Mundus", "SpellPenetration", inputValues.Mundus.SpellPenetration);
+		
 		AddEsoInputStatSource("Mundus.SpellPenetration", { mundus: mundusName, value: inputValues.Mundus.SpellPenetration });
 		AddEsoInputStatSource("Mundus.PhysicalPenetration", { mundus: mundusName, value: inputValues.Mundus.PhysicalPenetration });
 		
@@ -14535,6 +14396,9 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 			var extraPhysical = Math.floor(inputValues.Mundus.PhysicalPenetration * divines);
 			inputValues.Mundus.PhysicalPenetration += extraPhysical;
 			inputValues.Mundus.SpellPenetration += extraSpell;
+			
+			AddEsoStatValueHistory("Mundus", "PhysicalPenetration", extraPhysical);
+			AddEsoStatValueHistory("Mundus", "SpellPenetration", extraSpell);
 			
 			AddEsoInputStatSource("Mundus.PhysicalPenetration", { source: mundusName + " Divines bonus", value: extraPhysical });
 			AddEsoInputStatSource("Mundus.SpellPenetration", { source: mundusName + " Divines bonus", value: extraSpell });
@@ -14550,12 +14414,14 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 			// Update 27pts
 		inputValues.Mundus.Health = 2225;
 		
+		AddEsoStatValueHistory("Mundus", "Health", inputValues.Mundus.Health);
 		AddEsoInputStatSource("Mundus.Health", { mundus: mundusName, value: inputValues.Mundus.Health });
 		
 		if (divines > 0)
 		{
 			var extra = Math.floor(inputValues.Mundus.Health * divines);
 			inputValues.Mundus.Health += extra;
+			AddEsoStatValueHistory("Mundus", "Health", extra);
 			AddEsoInputStatSource("Mundus.Health", { source: mundusName + " Divines bonus", value: extra });
 		}
 	}
@@ -14569,12 +14435,14 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 			// Update 27pts
 		inputValues.Mundus.Magicka = 2023;
 		
+		AddEsoStatValueHistory("Mundus", "Magicka", inputValues.Mundus.Magicka);
 		AddEsoInputStatSource("Mundus.Magicka", { mundus: mundusName, value: inputValues.Mundus.Magicka });
 		
 		if (divines > 0)
 		{
 			var extra = Math.floor(inputValues.Mundus.Magicka * divines);
 			inputValues.Mundus.Magicka += extra;
+			AddEsoStatValueHistory("Mundus", "Magicka", extra);
 			AddEsoInputStatSource("Mundus.Magicka", { source: mundusName + " Divines bonus", value: extra });
 		}
 	}
@@ -14588,12 +14456,14 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 			// Update 27pts
 		inputValues.Mundus.Stamina = 2023;
 		
+		AddEsoStatValueHistory("Mundus", "Stamina", inputValues.Mundus.Stamina);
 		AddEsoInputStatSource("Mundus.Stamina", { mundus: mundusName, value: inputValues.Mundus.Stamina });
 		
 		if (divines > 0)
 		{
 			var extra = Math.floor(inputValues.Mundus.Stamina * divines);
 			inputValues.Mundus.Stamina += extra;
+			AddEsoStatValueHistory("Mundus", "Stamina", extra);
 			AddEsoInputStatSource("Mundus.Stamina", { source: mundusName + " Divines bonus", value: extra });
 		}
 	}
@@ -14607,12 +14477,14 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 			// Update 27pts
 		inputValues.Mundus.MagickaRegen = 310;
 		
+		AddEsoStatValueHistory("Mundus", "MagickaRegen", inputValues.Mundus.MagickaRegen);
 		AddEsoInputStatSource("Mundus.MagickaRegen", { mundus: mundusName, value: inputValues.Mundus.MagickaRegen });
 		
 		if (divines > 0)
 		{
 			var extra = Math.floor(inputValues.Mundus.MagickaRegen * divines);
 			inputValues.Mundus.MagickaRegen += extra;
+			AddEsoStatValueHistory("Mundus", "MagickaRegen", extra);
 			AddEsoInputStatSource("Mundus.MagickaRegen", { source: mundusName + " Divines bonus", value: extra });
 		}
 	}
@@ -14626,12 +14498,14 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 			// Update 27pts
 		inputValues.Mundus.StaminaRegen = 310;
 		
+		AddEsoStatValueHistory("Mundus", "StaminaRegen", inputValues.Mundus.StaminaRegen);
 		AddEsoInputStatSource("Mundus.StaminaRegen", { mundus: mundusName, value: inputValues.Mundus.StaminaRegen });
 		
 		if (divines > 0)
 		{
 			var extra = Math.floor(inputValues.Mundus.StaminaRegen * divines);
 			inputValues.Mundus.StaminaRegen += extra;
+			AddEsoStatValueHistory("Mundus", "StaminaRegen", extra);
 			AddEsoInputStatSource("Mundus.StaminaRegen", { source: mundusName + " Divines bonus", value: extra });
 		}
 	}
@@ -14649,6 +14523,9 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 		inputValues.Mundus.CritDamage  = 0.11;
 		inputValues.Mundus.CritHealing = 0.11;
 		
+		AddEsoStatValueHistory("Mundus", "CritDamage", inputValues.Mundus.CritDamage);
+		AddEsoStatValueHistory("Mundus", "CritHealing", inputValues.Mundus.CritHealing);
+		
 		AddEsoInputStatSource("Mundus.CritDamage",  { mundus: mundusName, value: inputValues.Mundus.CritDamage });
 		AddEsoInputStatSource("Mundus.CritHealing", { mundus: mundusName, value: inputValues.Mundus.CritHealing });
 		
@@ -14657,9 +14534,11 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 			var extra = Math.floor(inputValues.Mundus.CritDamage * 1000 * divines) / 1000;
 			
 			inputValues.Mundus.CritDamage  += extra;
+			AddEsoStatValueHistory("Mundus", "CritDamage", extra);
 			AddEsoInputStatSource("Mundus.CritDamage",  { source: mundusName + " Divines bonus", value: extra });
 			
 			inputValues.Mundus.CritHealing += extra;
+			AddEsoStatValueHistory("Mundus", "CritHealing", extra);
 			AddEsoInputStatSource("Mundus.CritHealing", { source: mundusName + " Divines bonus", value: extra });
 		}
 	}
@@ -14670,12 +14549,14 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 			// Update 27pts
 		inputValues.Mundus.HealingDone = 0.08;
 		
+		AddEsoStatValueHistory("Mundus", "HealingDone", inputValues.Mundus.HealingDone);
 		AddEsoInputStatSource("Mundus.HealingDone", { mundus: mundusName, value: inputValues.Mundus.HealingDone });
 		
 		if (divines > 0)
 		{
 			var extra = Math.floor(inputValues.Mundus.HealingDone * 1000 * divines)/1000;
 			inputValues.Mundus.HealingDone += extra;
+			AddEsoStatValueHistory("Mundus", "HealingDone", extra);
 			AddEsoInputStatSource("Mundus.HealingDone", { source: mundusName + " Divines bonus", value: extra });
 		}
 	}
@@ -14688,6 +14569,9 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 		inputValues.Mundus.SpellCrit = 0.07;
 		inputValues.Mundus.WeaponCrit = 0.07;
 		
+		AddEsoStatValueHistory("Mundus", "SpellCrit", inputValues.Mundus.SpellCrit);
+		AddEsoStatValueHistory("Mundus", "WeaponCrit", inputValues.Mundus.WeaponCrit);
+		
 		AddEsoInputStatSource("Mundus.SpellCrit", { mundus: mundusName, value: inputValues.Mundus.SpellCrit });
 		AddEsoInputStatSource("Mundus.WeaponCrit", { mundus: mundusName, value: inputValues.Mundus.WeaponCrit });
 		
@@ -14698,6 +14582,9 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 			inputValues.Mundus.WeaponCrit += extraPhysical;
 			inputValues.Mundus.SpellCrit += extraSpell;
 			
+			AddEsoStatValueHistory("Mundus", "WeaponCrit", extraPhysical);
+			AddEsoStatValueHistory("Mundus", "SpellCrit", extraSpell);
+			
 			AddEsoInputStatSource("Mundus.WeaponCrit", { source: mundusName + " Divines bonus", value: extraPhysical });
 			AddEsoInputStatSource("Mundus.SpellCrit", { source: mundusName + " Divines bonus", value: extraSpell });
 		}
@@ -14706,12 +14593,14 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	{
 		// inputValues.Mundus.WeaponDamage = 167; // Preupdate 15
 		inputValues.Mundus.WeaponDamage = 238;		// Update 15
+		AddEsoStatValueHistory("Mundus", "WeaponDamage", inputValues.Mundus.WeaponDamage);
 		AddEsoInputStatSource("Mundus.WeaponDamage", { mundus: mundusName, value: inputValues.Mundus.WeaponDamage });
 		
 		if (divines > 0)
 		{
 			var extra = Math.floor(inputValues.Mundus.WeaponDamage * divines);
 			inputValues.Mundus.WeaponDamage += extra;
+			AddEsoStatValueHistory("Mundus", "WeaponDamage", extra);
 			AddEsoInputStatSource("Mundus.WeaponDamage", { source: mundusName + " Divines bonus", value: extra });
 		}
 	}
@@ -14719,12 +14608,14 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 	{
 		// inputValues.Mundus.SpellDamage = 167; // Preupdate 15
 		inputValues.Mundus.SpellDamage = 238; 		// Update 15
+		AddEsoStatValueHistory("Mundus", "SpellDamage", inputValues.Mundus.SpellDamage);
 		AddEsoInputStatSource("Mundus.SpellDamage", { mundus: mundusName, value: inputValues.Mundus.SpellDamage });
 		
 		if (divines > 0)
 		{
 			var extra = Math.floor(inputValues.Mundus.SpellDamage * divines);
 			inputValues.Mundus.SpellDamage += extra;
+			AddEsoStatValueHistory("Mundus", "SpellDamage", extra);
 			AddEsoInputStatSource("Mundus.SpellDamage", { source: mundusName + " Divines bonus", value: extra });
 		}
 	}
@@ -14734,6 +14625,8 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 		inputValues.Mundus.HealthRegen = 238;		// Update 15
 		inputValues.Mundus.MovementSpeed = 0.05;
 		inputValues.Mundus.MovementSpeed = 0.10;	// Update 21/22?
+		AddEsoStatValueHistory("Mundus", "HealthRegen", inputValues.Mundus.HealthRegen);
+		AddEsoStatValueHistory("Mundus", "MovementSpeed", inputValues.Mundus.MovementSpeed);
 		AddEsoInputStatSource("Mundus.HealthRegen",   { mundus: mundusName, value: inputValues.Mundus.HealthRegen });
 		AddEsoInputStatSource("Mundus.MovementSpeed", { mundus: mundusName, value: inputValues.Mundus.MovementSpeed });
 		
@@ -14743,6 +14636,9 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 			var extraMove  = Math.floor(inputValues.Mundus.MovementSpeed * 1000 * divines)/1000;
 			inputValues.Mundus.HealthRegen += extraRegen;
 			inputValues.Mundus.MovementSpeed += extraMove;
+			
+			AddEsoStatValueHistory("Mundus", "HealthRegen", extraRegen);
+			AddEsoStatValueHistory("Mundus", "MovementSpeed", extraMove);
 			
 			AddEsoInputStatSource("Mundus.HealthRegen", { source: mundusName + " Divines bonus", value: extraRegen });
 			AddEsoInputStatSource("Mundus.MovementSpeed", { source: mundusName + " Divines bonus", value: extraMove });
@@ -14839,26 +14735,7 @@ window.GetEsoInputCPValues = function (inputValues)
 		}
 	}
 	
-		// Preupdate 15
-	if (itemData.weaponType == 14 && g_EsoCpData['Shield Expert'] != null && g_EsoCpData['Shield Expert'].isUnlocked)
-	{
-		var extraBonus = Math.floor(itemData.armorRating * 0.75);
-		
-		inputValues.Item.SpellResist += extraBonus;
-		inputValues.Item.PhysicalResist += extraBonus;
-		AddEsoInputStatSource("Item.SpellResist", { cp: "Shield Expert", abilityId: g_EsoCpData['Shield Expert'].id, value: extraBonus });
-		AddEsoInputStatSource("Item.PhysicalResist", { cp: "Shield Expert", abilityId: g_EsoCpData['Shield Expert'].id, value: extraBonus });
-		
-		//var element = $(".esotbItem[slotid='" + slotId + "']");
-		//var element = $("#esotbItem" + slotId);
-		//var iconElement = element.find(".esotbItemIcon");
-		// iconElement.attr("extraArmor", extraBonus);
-		
-		AddEsoItemRawOutputString(itemData, "SpellResist from Shield Expert", extraBonus);
-		AddEsoItemRawOutputString(itemData, "PhysicalResist from Shield Expert", extraBonus);
-	}
-		// Update 15
-	else if ((itemData.weaponType == 13 || itemData.weaponType == 14) && g_EsoCpData['Bulwark'] != null && g_EsoCpData['Bulwark'].isUnlocked)
+	if ((itemData.weaponType == 13 || itemData.weaponType == 14) && g_EsoCpData['Bulwark'] != null && g_EsoCpData['Bulwark'].isUnlocked)
 	{
 		var extraBonus = 1500; // TODO: PtsUpdate29 increased to 1900 by default
 		
@@ -14867,39 +14744,16 @@ window.GetEsoInputCPValues = function (inputValues)
 		
 		inputValues.Item.SpellResist += extraBonus;
 		inputValues.Item.PhysicalResist += extraBonus;
+		
+		AddEsoStatValueHistory("Item", "SpellResist", extraBonus);
+		AddEsoStatValueHistory("Item", "PhysicalResist", extraBonus);
+		
 		AddEsoInputStatSource("Item.SpellResist", { cp: "Bulwark", abilityId: g_EsoCpData['Bulwark'].id, value: extraBonus });
 		AddEsoInputStatSource("Item.PhysicalResist", { cp: "Bulwark", abilityId: g_EsoCpData['Bulwark'].id, value: extraBonus });
-		
-		//var element = $(".esotbItem[slotid='" + slotId + "']");
-		//var element = $("#esotbItem" + slotId);
-		//var iconElement = element.find(".esotbItemIcon");
-		// iconElement.attr("extraArmor", extraBonus);
 		
 		AddEsoItemRawOutputString(itemData, "SpellResist from Bulwark", extraBonus);
 		AddEsoItemRawOutputString(itemData, "PhysicalResist from Bulwark", extraBonus);
 	}
-	
-		/* Steed (4) */
-	if (inputValues.ArmorMedium >= 5) ParseEsoCPValue(inputValues, "PhysicalResist", 59120);
-	// ParseEsoCPValue(inputValues, "BlockCost", 60649, null, null, -1); // Pre Update 14
-	ParseEsoCPValue(inputValues, "DirectDamageTaken", 92423, null, null, -1);
-	ParseEsoCPValue(inputValues, "SpellResist", 62760);
-	ParseEsoCPValue(inputValues, "CritResist", 60384);
-	
-		/* Ritual (5) */
-	ParseEsoCPValue(inputValues, "DotDamageDone", 63847);
-	ParseEsoCPValue(inputValues, ["WeaponCritDamage", "WeaponCritHealing"], 59105);
-	ParseEsoCPValue(inputValues, "PhysicalPenetration", 61546);
-	ParseEsoCPValue(inputValues, ["PhysicalDamageDone", "PoisonDamageDone", "DiseaseDamageDone"], 63868);
-	ParseEsoCPValue(inputValues, "WeaponCrit", 59418, "the_ritual", 30);
-	
-		/* Atronach (6) */
-	// ParseEsoCPValue(inputValues, ["HAWeaponDamage", "LAWeaponDamage"], 60565); // Pre Update 14
-	ParseEsoCPValue(inputValues, ["HAWeaponDamage", "LAWeaponDamage"], 92424);
-	ParseEsoCPValue(inputValues, "ShieldDamageDone", 60662);
-	// ParseEsoCPValue(inputValues, ["HABowDamage", "LABowDamage"], 60546); //Pre Update 14
-	ParseEsoCPValue(inputValues, "DirectDamageDone", 92134);
-	ParseEsoCPValue(inputValues, ["HAStaffDamage", "LAStaffDamage", "OverloadDamage"], 60503);
 	
 	if (inputValues.Weapon1H >= 1 || inputValues.Weapon2H >= 1) 
 	{
@@ -14921,31 +14775,9 @@ window.GetEsoInputCPValues = function (inputValues)
 		inputValues.CP.HAActiveDamage = 0;
 		inputValues.CP.LAActiveDamage = 0;
 	}
-		
-		/* Apprentice (7) */
-	ParseEsoCPValue(inputValues, ["MagicDamageDone", "FlameDamageDone", "FrostDamageDone", "ShockDamageDone"], 63848);
-	ParseEsoCPValue(inputValues, "SpellPenetration", 61555);
-	ParseEsoCPValue(inputValues, ["SpellCritDamage", "SpellCritHealing"], 61680);
-	ParseEsoCPValue(inputValues, "HealingDone", 59630);
-	ParseEsoCPValue(inputValues, "SpellCrit", 59626, "the_apprentice", 30);
-	
-		/* Shadow (8) */
-	ParseEsoCPValue(inputValues, "HealingReduction", 59298, null, null, null, null);
-	ParseEsoCPValue(inputValues, "SneakCost", 61548, null, null, -1);
-	// ParseEsoCPValue(inputValues, ["FearDuration", "StunDuration", "DisorientDuration", "SnareDuration"], 59353, null, null, -1);
-	// ParseEsoCPValue(inputValues, ["RollDodgeCost", "BreakFreeCost"], 63863, null, null, -1);
-	ParseEsoCPValue(inputValues, "BlockCost", 60649, null, null, -1);		// Update 14
-	ParseEsoCPValue(inputValues, "RollDodgeCost", 63863, null, null, -1);	// Update 14
-	
-		/* Lover (9) */
-	ParseEsoCPValue(inputValues, "StaminaRegen", 59346);
-	ParseEsoCPValue(inputValues, "MagickaRegen", 59577);
-	ParseEsoCPValue(inputValues, "HealthRegen", 60374);
-	ParseEsoCPValue(inputValues, ["HAMagRestore", "HAStaRestore"], 63854);
-	ParseEsoCPValue(inputValues, ["MovementSpeed", "MountSpeed"], 60560, "the_lover", 120);
 	
 		/* CP2 parsing */
-	// ParseEsoCP2Value = function (inputValues, statIds, abilityId, statFactor, category, statValue)
+		// ParseEsoCP2Value = function (inputValues, statIds, abilityId, statFactor, category, statValue)
 		// ParseEsoCP2Value(inputValues, "FishQuality", 142234);
 	ParseEsoCP2Value(inputValues, "Magicka", 141744, null, "Item");
 	ParseEsoCP2Value(inputValues, "BashDamage", 142091);
@@ -15083,10 +14915,11 @@ window.GetEsoInputCpToggleValues = function (inputValues, cpData)
 		if (inputValues[category][matchData.statId] == null) inputValues[category][matchData.statId] = 0;
 		
 		if (matchData.combineAs == "*%")
-			inputValues[category][matchData.statId] = +((1 + inputValues[category][matchData.statId]) * (1 + statValue) - 1);
+			inputValues[category][matchData.statId] = CombineEsoValuesMult(inputValues[category][matchData.statId], statValue);
 		else
 			inputValues[category][matchData.statId] += statValue;
 		
+		AddEsoStatValueHistory(category, matchData.statId, statValue);
 		AddEsoItemRawOutput(cpData, category + "." + matchData.statId, statValue);
 		AddEsoInputStatSource(category + "." + matchData.statId, { cp: cpData.name, abilityId: cpData.id, value: statValue });
 	}
@@ -15149,12 +14982,14 @@ window.ParseEsoCPValue = function (inputValues, statIds, abilityId, discId, unlo
 		for (var i = 0; i < statIds.length; ++i)
 		{
 			inputValues[category][statIds[i]] += value;
+			AddEsoStatValueHistory(category, statIds[i], value);
 			AddEsoInputStatSource(category + "." + statIds[i], { cp: cpName, abilityId: abilityId, value: value });
 		}
 	}
 	else
 	{
 		inputValues[category][statIds] += value;
+		AddEsoStatValueHistory(category, statIds, value);
 		AddEsoInputStatSource(category + "." + statIds, { cp: cpName, abilityId: abilityId, value: value });
 	}
 	
@@ -15203,12 +15038,14 @@ window.ParseEsoCP2Value = function (inputValues, statIds, abilityId, statFactor,
 		for (var i = 0; i < statIds.length; ++i)
 		{
 			inputValues[category][statIds[i]] += value;
+			AddEsoStatValueHistory(category, statIds[i], value);
 			AddEsoInputStatSource(category + "." + statIds[i], { cp: cpName, abilityId: abilityId, value: value });
 		}
 	}
 	else
 	{
 		inputValues[category][statIds] += value;
+		AddEsoStatValueHistory(category, statIds, value);
 		AddEsoInputStatSource(category + "." + statIds, { cp: cpName, abilityId: abilityId, value: value });
 	}
 	
@@ -15479,8 +15316,7 @@ window.UpdateEsoComputedStatsSpecial = function ()
 
 window.UpdateEsoReadOnlyStats = function (inputValues)
 {
-	
-	if (inputValues == null) inputValues = GetEsoInputValues();
+	if (inputValues == null) return;
 	
 	$("#esotbEffectiveLevel").text(inputValues.EffectiveLevel);
 }
@@ -15496,7 +15332,7 @@ window.UpdateEsoComputedStat = function (statId, stat, inputValues, saveResult, 
 	var round = stat.round;
 	
 	if (saveResult == null) saveResult = true;
-	if (inputValues == null) inputValues = GetEsoInputValues();
+	if (inputValues == null) return false;
 	
 	var element = $("#esoidStat_" + statId);
 	if (element.length == 0) return false;
@@ -15516,7 +15352,7 @@ window.UpdateEsoComputedStat = function (statId, stat, inputValues, saveResult, 
 				stack.push(stack.pop() * stack.pop());
 			else
 				error = "ERR";
-
+			
 			if (round == "floor") 
 				stack.push(Math.floor(stack.pop()));
 			else if (round == "round")
@@ -16662,10 +16498,10 @@ window.OnEsoItemDataReceive = function (data, status, xhr, element, origItemData
 	g_EsoBuildItemData[slotId].origTrait = g_EsoBuildItemData[slotId].trait; 
 	g_EsoBuildItemData[slotId].origTraitDesc = g_EsoBuildItemData[slotId].traitDesc;
 	
-	UpdateEsoItemTraitList(slotId, g_EsoBuildItemData[slotId].trait);	
+	UpdateEsoItemTraitList(slotId, g_EsoBuildItemData[slotId].trait);
 	
 	UpdateEsoComputedStatsList(false);
-		
+	
 	GetEsoSetMaxData(g_EsoBuildItemData[slotId]);
 }
 
@@ -16832,7 +16668,9 @@ window.ConvertEsoFormulaToPrefix = function (computeItems)
 				stack.push("(" + op2 + ")" + operator + "(" + op1 + ")");
 		}
 		else
+		{
 			stack.push("" + op2 + " " + operator + " " + op1 + "");
+		}
 		
 		lastOperator = operator;
 	}
@@ -16935,12 +16773,15 @@ window.MakeEsoFormulaInputs = function (statId)
 	var stat = g_EsoComputedStats[statId];
 	if (stat == null) return "";
 	
-	var FUNCTIONS = { "floor" : 1, "round" : 1, "ceil" : 1, "pow" : 1, "min" : 1, "max" : 1 };
+	var FUNCTIONS = { "floor" : 1, "round" : 1, "ceil" : 1, "pow" : 1, "min" : 1, "max" : 1, "fround" : 1 };
 	
-	var inputValues = GetEsoInputValues(true);
+	//var inputValues = GetEsoInputValues(true);
+	var inputValues = g_EsoBuildLastInputValues;
 	var inputNames = {};
 	
-	g_EsoFormulaInputValues = inputValues;
+	g_EsoFormulaInputValues = {};
+	jQuery.extend(true, g_EsoFormulaInputValues, inputValues);
+	//g_EsoFormulaInputValues = inputValues;
 	
 	for (var i = 0; i < stat.compute.length; ++i)
 	{
@@ -17019,7 +16860,7 @@ window.MakeEsoFormulaInputs = function (statId)
 	output += "<div class='esotbFormulaInput'>";
 	output += "<div class='esotbFormInputResult'>" + stat.title + "</div>";
 	output += "<input type='text' class='esotbFormInputInputResult' id='esotbFormInputInputResult' statid='" + stat.title + "' value='" + displayResult + "' size='5' readonly='readonly'>";
-	output += "<div id='esotbFormInputResultSuffix'>" + suffix + "</div>";;
+	output += "<div id='esotbFormInputResultSuffix'>" + suffix + "</div>";
 	output += "</div>";
 	
 	return output;
@@ -17216,55 +17057,73 @@ window.ShowEsoSkillDetailsPopup = function (abilityId)
 	
 	var detailsHtml = "";
 	
-	for (var key in skillData.rawOutput)
+	if (!USE_V2_TOOLTIPS || window.CreateEsoSkillCoefContentForIndexHtml == null)
 	{
-		var statDetails = g_EsoInputStatDetails[key] || {};
-		var value = skillData.rawOutput[key];
-		var suffix = "";
-		
-		if (typeof(value) == "object")
+		for (var key in skillData.rawOutput)
 		{
-			var abilityData = value.abilityData;
-			var rawInputMatch = value.rawInputMatch;
-			var desc = value.value;
+			var statDetails = g_EsoInputStatDetails[key] || {};
+			var value = skillData.rawOutput[key];
+			var suffix = "";
 			
-			if (abilityData != null && abilityData.lastDesc != null)
+			if (typeof(value) == "object")
 			{
-				value = abilityData.lastDesc;
+				var abilityData = value.abilityData;
+				var rawInputMatch = value.rawInputMatch;
+				var desc = value.value;
+				
+				if (abilityData != null && abilityData.lastDesc != null)
+				{
+					value = abilityData.lastDesc;
+				}
+				else if (abilityData != null && abilityData.description != null)
+					value = abilityData.lastDesc;
+				else if (desc != null)
+					value = desc;
+				else
+					value = "Unknown Skill Data";
+				
+				if (rawInputMatch != null)
+				{
+					var rawInputMatches = value.match(rawInputMatch);
+					if (rawInputMatches != null) value = rawInputMatches[1];
+				}
+	
 			}
-			else if (abilityData != null && abilityData.description != null)
-				value = abilityData.lastDesc;
-			else if (desc != null)
-				value = desc;
-			else
-				value = "Unknown Skill Data";
+			else if (statDetails.display == '%') 
+			{
+				suffix = "%";
+				value = (value * 100).toFixed(1);
+			}
+			else if (statDetails.display == "flatcrit")
+			{
+				value = ConvertEsoFlatCritToPercent(value);
+				suffix = "%";
+			}
 			
-			if (rawInputMatch != null)
-			{
-				var rawInputMatches = value.match(rawInputMatch);
-				if (rawInputMatches != null) value = rawInputMatches[1];
-			}
-
+			detailsHtml += key + " = " + value + suffix + "<br/>";
 		}
-		else if (statDetails.display == '%') 
-		{
-			suffix = "%";
-			value = (value * 100).toFixed(1);
-		}
-		else if (statDetails.display == "flatcrit")
-		{
-			value = ConvertEsoFlatCritToPercent(value);
-			suffix = "%";
-		}
-		
-		detailsHtml += key + " = " + value + suffix + "<br/>";
 	}
 	
-	if (skillData.numCoefVars > 0)
+	if (USE_V2_TOOLTIPS && window.CreateEsoSkillCoefContentForIndexHtml)
+	{
+		var numTooltips = CountEsoSkillTooltips(abilityId);
+		
+		detailsHtml += "<h4>Skill Coefficients</h4>";
+		detailsHtml += "<div class='esotbSkillDetailsCoef'>"
+		
+		for (var tooltipIndex = 1; tooltipIndex <= numTooltips; ++tooltipIndex)
+		{
+			detailsHtml += CreateEsoSkillCoefContentForIndexHtml(skillData, tooltipIndex, true);
+		}
+		
+		var skillDesc = ConvertEsoSkillRawDescToHtml(skillData.rawDescription);
+		detailsHtml += "<div class='esotbSkillDetailsDesc'>" + skillDesc + "</div></div>";
+	}
+	else if (skillData.numCoefVars > 0)
 	{
 		detailsHtml += "<br/><h4>Skill Coefficients</h4>";
 		detailsHtml += "<div class='esotbSkillDetailsCoef'>"
-		
+			
 		for (var i = 1; i < 1 + +skillData.numCoefVars; ++i)
 		{
 			detailsHtml += GetEsoSkillCoefDataHtml(skillData, i);
@@ -17284,17 +17143,19 @@ window.ShowEsoSkillDetailsPopup = function (abilityId)
 	detailsHtml += "learnedLevel = " + skillData.learnedLevel + "<br/>";
 	detailsHtml += "target = " + skillData.target + "<br/>";
 	detailsHtml += "maxCost = " + skillData.cost + "<br/>";
+	detailsHtml += "mechanic = " + skillData.mechanic + "<br/>";
 	detailsHtml += "internalId = " + skillData.abilityId + "<br/>";
 	detailsHtml += "</div>";
 	detailsHtml += "<div class='esotbSkillDetailsOther'>";
 	detailsHtml += "duration = " + skillData.duration + "<br/>";
+	detailsHtml += "startDelay = " + skillData.startTime + "<br/>";
+	detailsHtml += "tickLength = " + skillData.tickTime + "<br/>";
 	detailsHtml += "minRange = " + skillData.minRange + "<br/>";
 	detailsHtml += "maxRange = " + skillData.maxRange + "<br/>";
 	detailsHtml += "radius = " + skillData.radius + "<br/>";
 	detailsHtml += "castTime = " + skillData.castTime + "<br/>";
 	detailsHtml += "channelTime = " + skillData.channelTime + "<br/>";
 	detailsHtml += "angleDistance = " + skillData.angleDistance + "<br/>";
-	detailsHtml += "mechanic = " + skillData.mechanic + "<br/>";
 	detailsHtml += "</div>";
 	
 	$("#esotbItemDetailsTitle").text("Details for Ability " + skillData.name);
@@ -18923,6 +18784,8 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
 	g_LastSkillInputValues.SkillDotDamage = inputValues.SkillDotDamage;
 	g_LastSkillInputValues.ElfBaneDuration = inputValues.Set.ElfBaneDuration;
 	
+	g_LastSkillInputValues.StatHistory = g_EsoBuildLastInputHistory;
+	
 	g_LastSkillInputValues.MagickaCost = 
 	{
 			CP 		: inputValues.CP.MagickaCost,
@@ -18972,11 +18835,11 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
 		Frost			: inputValues.FrostDamageDone,
 		Poison			: inputValues.PoisonDamageDone,
 		Disease			: inputValues.DiseaseDamageDone,
+		Bleed			: inputValues.BleedDamageDone,
 		Dot				: inputValues.DotDamageDone,
 		Direct			: inputValues.DirectDamageDone,
 		All				: inputValues.DamageDone,
-		Empower			: 0,	// Update18: Empower changed to affect Light
-								// Attacks only
+		Empower			: 0,	// Update18: Empower changed to affect Light Attacks only
 		MaelstromDamage : 0,
 		AOE				: inputValues.AOEDamageDone,
 		SingleTarget	: inputValues.SingleTargetDamageDone,
@@ -19002,10 +18865,10 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
  	g_LastSkillInputValues.useMaelstromDamage = false;
  	g_LastSkillInputValues.PoisonStaminaCost = inputValues.Skill.PoisonStaminaCost;
  	g_LastSkillInputValues.FlameAOEDamageDone = inputValues.Skill.FlameAOEDamageDone;
- 	g_LastSkillInputValues.BleedDamage = inputValues.Set.BleedDamageDone;
- 	g_LastSkillInputValues.FlatBleedDamage = inputValues.Skill2.BleedDamageDone;
+ 	//g_LastSkillInputValues.BleedDamage = inputValues.Set.BleedDamageDone;
+ 	//g_LastSkillInputValues.FlatBleedDamage = inputValues.Skill2.BleedDamageDone;
  	g_LastSkillInputValues.FlatOverloadDamage = inputValues.Skill2.OverloadDamage;
- 	g_LastSkillInputValues.TwinSlashBleedDamage = inputValues.Set.TwinSlashBleedDamage;
+ 	
  	g_LastSkillInputValues.TwinSlashInitialDamage = inputValues.Set.TwinSlashInitialDamage;
  	g_LastSkillInputValues.MagickaAbilityDamageDone = inputValues.Set.MagickaAbilityDamageDone;
  	g_LastSkillInputValues.HealingAbilityCost = inputValues.Set.HealingAbilityCost;
@@ -21043,7 +20906,7 @@ window.OnEsoEditBuildSetupArmorTypes = function (element)
 	var formValue = form.val();
 	var numLight = Math.floor(formValue/100) % 10;
 	var numMedium = Math.floor(formValue/10) % 10;
-	var numHeavy = Math.floor(formValue) % 10;;
+	var numHeavy = Math.floor(formValue) % 10;
 	
 	$("#esotbItemSetupArmorTypeMsg").text("");
 	
@@ -21058,6 +20921,9 @@ window.EsoEditBuildChangeArmorTypes = function (numLight, numMedium, numHeavy)
 	// 3 => "Heavy",
 	var slots = [ "Chest", "Legs", "Head", "Feet", "Shoulders", "Hands", "Waist" ];
 	var count = 0;
+	var origNumLight = numLight;
+	var origNumMedium = numMedium;
+	var origNumHeavy = numHeavy;
 	
 	// EsoBuildLog("EsoEditBuildChangeArmorTypes", numLight, numMedium,
 	// numHeavy);
@@ -21087,7 +20953,7 @@ window.EsoEditBuildChangeArmorTypes = function (numLight, numMedium, numHeavy)
 		}
 	}
 	
-	$("#esotbItemSetupArmorTypeMsg").text("Updating " + count + " armor to " + numLight + "/" + numMedium + "/" + numHeavy + "... ");
+	$("#esotbItemSetupArmorTypeMsg").text("Updating " + count + " armor to " + origNumLight + "/" + origNumMedium + "/" + origNumHeavy + "... ");
 }
 
 

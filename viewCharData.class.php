@@ -2856,8 +2856,8 @@ EOT;
 		if ($this->characterId > 0)
 		{
 			$output .= "<a href='//esochars.uesp.net/submitScreenshot.php?charid={$this->characterId}' target='_blank'>Submit Screenshot</a>";
-			$output .= "<a href='?id={$this->characterId}&action=managescreenshots'>Manage Screenshots</a>";
-			$output .= "<a href='?copytobuild={$this->characterId}'>Copy to New Build</a>";
+			$output .= "<a href='//en.uesp.net/wiki/Special:EsoCharData?id={$this->characterId}&action=managescreenshots'>Manage Screenshots</a>";
+			$output .= "<a href='//en.uesp.net/wiki/Special:EsoCharData?copytobuild={$this->characterId}'>Copy to New Build</a>";
 			$charLink = $this->ESO_SHORT_LINK_URL . "c/" . $this->characterId;
 			$output .= "<a href='$charLink'>Link to Character</a>";
 		}
@@ -2885,7 +2885,7 @@ EOT;
 		
 		if ($this->characterId > 0 && $this->canWikiUserCreate())
 		{
-			$output .= "<a href='?copytobuild={$this->characterId}' class='ecdShortCharLink'>Copy to New Build</a>";
+			$output .= "<a href='//en.uesp.net/wiki/Special:EsoCharData?copytobuild={$this->characterId}' class='ecdShortCharLink'>Copy to New Build</a>";
 		}
 		
 		if ($this->characterId > 0) 
@@ -2989,9 +2989,10 @@ EOT;
 			$points = $data['points'];
 			$desc = $this->db->real_escape_string($data['description']);
 			$abilityId = $data['abilityId'];
+			$slotIndex = $data['slotIndex'];
 			
-			$query = "INSERT INTO championPoints(characterId, name, points, description, abilityId) ";
-			$query .= "VALUES($buildId, '$name', $points, '$desc', $abilityId);";
+			$query = "INSERT INTO championPoints(characterId, name, points, description, abilityId, slotIndex) ";
+			$query .= "VALUES($buildId, '$name', $points, '$desc', $abilityId, $slotIndex);";
 			$this->lastQuery = $query;
 			
 			$result = $this->db->query($query);

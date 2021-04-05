@@ -463,12 +463,12 @@ class EsoBuildDataViewer
 		if (array_key_exists('findspecial', $this->inputParams))
 		{
 			$this->inputSearchSpecial = trim($this->inputParams['findspecial']);
-		}		
+		}
 		
 		if (array_key_exists('wikiuser', $this->inputParams))
 		{
 			$this->inputSearchWikiUser = trim($this->inputParams['wikiuser']);
-		}		
+		}
 		
 		if ($this->inputFilter == "mine" || $this->inputFilter == "my")
 		{
@@ -2979,43 +2979,43 @@ class EsoBuildDataViewer
 			if ($castTimeStr != '')
 			{
 				$output .= "<div class='ecdSkillTooltipValue'>$castTimeStr</div>";
-				$output .= "<div class='ecdSkillTooltipName'>Cast Time</div>";			
+				$output .= "<div class='ecdSkillTooltipName'>Cast Time</div>";
 			}
 			
 			if ($target != '')
 			{
 				$output .= "<div class='ecdSkillTooltipValue'>$target</div>";
-				$output .= "<div class='ecdSkillTooltipName'>Target</div>";			
+				$output .= "<div class='ecdSkillTooltipName'>Target</div>";
 			}
 			
 			if ($area != '')
 			{
 				$output .= "<div class='ecdSkillTooltipValue'>$area</div>";
-				$output .= "<div class='ecdSkillTooltipName'>Area</div>";			
+				$output .= "<div class='ecdSkillTooltipName'>Area</div>";
 			}
 			
 			if ($radius > 0)
 			{
 				$output .= "<div class='ecdSkillTooltipValue'>$radius meters</div>";
-				$output .= "<div class='ecdSkillTooltipName'>Radius</div>";			
+				$output .= "<div class='ecdSkillTooltipName'>Radius</div>";
 			}
 			
 			if ($range > 0)
 			{
 				$output .= "<div class='ecdSkillTooltipValue'>$range</div>";
-				$output .= "<div class='ecdSkillTooltipName'>Range</div>";			
+				$output .= "<div class='ecdSkillTooltipName'>Range</div>";
 			}
 			
 			if ($duration > 0)
 			{
 				$output .= "<div class='ecdSkillTooltipValue'>$duration seconds</div>";
-				$output .= "<div class='ecdSkillTooltipName'>Duration</div>";			
+				$output .= "<div class='ecdSkillTooltipName'>Duration</div>";
 			}
 			
 			if ($cost != '')
 			{
 				$output .= "<div class='ecdSkillTooltipValue'>$cost</div>";
-				$output .= "<div class='ecdSkillTooltipName'>Cost</div>";			
+				$output .= "<div class='ecdSkillTooltipName'>Cost</div>";
 			}
 			
 			$output .= "<img src='{$this->baseResourceUrl}resources/skill_divider.png' class='ecdSkillTooltipDivider' />";
@@ -3698,7 +3698,7 @@ class EsoBuildDataViewer
 	
 	public function convertDescriptionToHtml($description)
 	{
-		$newDesc = preg_replace('/\|c[a-fA-F0-9]{6}([a-zA-Z _0-9\.\+\-\:\;\n\r\t]*)\|r/', '<div class="ecdWhite">$1</div>', $description);
+		$newDesc = preg_replace('/\|c([a-fA-F0-9]{6})([a-zA-Z _0-9\.\+\-\:\;\n\r\t]*)\|r/', '<div style="display:inline; color:#$1;">$2</div>', $description);
 		$newDesc = preg_replace('/\n/', '<br />', $newDesc);
 		return $newDesc;
 	}

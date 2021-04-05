@@ -5,8 +5,8 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #ffc; margin-right: 270px;'>
-The editor is *mostly* working for update 29. Items, skills and new CP data have been updated. Some new items/skills/CP may not yet be working. 
+<div style='background-color: #cfc; margin-right: 270px;'>
+The editor should now be fully working for update 29.<br/>
 We have noticed an issue with some adblockers causing calculation updates to take much longer (10 times) than usual. The current work around is to disable the adblocker on the editor page.
 
 </div>
@@ -157,7 +157,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 							<option value="12">Impenetrable</option>
 							<option value="16">Infused</option>
 							<option value="17">Invigorating</option>
-							<option value="25">Nirnhoned</option>					
+							<option value="25">Nirnhoned</option>
 							<option value="13">Reinforced</option>
 							<option value="11">Sturdy</option>
 							<option value="15">Training</option>
@@ -481,8 +481,6 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<div id="esotbQuickItemSetups">
 				<h3>Quick Item Setups</h3>
 				<hr>
-				Note: The following features are under development and may not work perfectly yet.
-				<p />
 				Use the following to quickly change your build with commonly used setups. All items used will be CP160 Gold quality unless specified. 
 				<p />
 				<div class="esptbItemSetup">
@@ -523,6 +521,15 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option value="151">1L / 5M / 1H</option>
 						<option value="007">0L / 0M / 7H</option>
 						<option value="115">1L / 1M / 5H</option>
+						<option value="430">4L / 3M / 0H</option>
+						<option value="403">4L / 0M / 3H</option>
+						<option value="340">3L / 4M / 0H</option>
+						<option value="043">0L / 4M / 3H</option>
+						<option value="304">3L / 0M / 4H</option>
+						<option value="034">0L / 3M / 4H</option>
+						<option value="331">3L / 3M / 1H</option>
+						<option value="313">3L / 1M / 3H</option>
+						<option value="133">1L / 3M / 3H</option>
 					</select>
 					<button id="esotbItemSetupArmorTypesButton" onclick="OnEsoEditBuildSetupArmorTypes(this);">Change</button>
 					<div id="esotbItemSetupArmorTypeMsg" class="esotbItemSetupMsg"></div>
@@ -636,11 +643,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<select id="esotbItemSetupMonsterSet" style="width: 200px;">
 						<option>Balorgh</option>
 						<option>Bloodspawn</option>
-						<option disabled hidden>Baron Zaudrus</option>
+						<option>Baron Zaudrus</option>
 						<option>Chokethorn</option>
 						<option>Domihaus</option>
 						<option>Earthgore</option>
-						<option disabled hidden>Encratis's Behemoth</option>
+						<option>Encratis's Behemoth</option>
 						<option>Engine Guardian</option>
 						<option>Grothdarr</option>
 						<option>Grundwulf</option>
@@ -741,8 +748,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					
 					<select id="esotbItemSetupMythicSet" style="width: 200px;">
 						<option slotid="Chest">Bloodlord's Embrace</option>
-						<option slotid="Neck" disabled hidden>Pearls of Ehlnofey</option>
-						<option slotid="Ring1" disabled hidden>Ring of the Pale Order</option>
+						<option slotid="Neck">Pearls of Ehlnofey</option>
+						<option slotid="Ring1">Ring of the Pale Order</option>
 						<option slotid="Ring1">Ring of the Wild Hunt</option>
 						<option slotid="Feet">Snow Treaders</option>
 						<option slotid="Ring2">Malacath's Band of Brutality</option>
@@ -837,9 +844,9 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Destructive Mage</option>
 						<option>Dragon's Appetite</option>
 						<option>Dragon's Defilement</option>
-						<option disabled hidden>Dagon's Dominion</option>
+						<option>Dagon's Dominion</option>
 						<option>Dragonguard Elite</option>
-						<option disabled hidden>Drake's Rush</option>
+						<option>Drake's Rush</option>
 						<option>Draugr Hulk</option>
 						<option>Draugr's Heritage</option>
 						<option>Draugr's Rest</option>
@@ -870,7 +877,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Fiord's Legacy</option>
 						<option>Flame Blossom</option>
 						<option>Flanking Strategist</option>
-						<option disabled hidden>Foolkiller's Ward</option>
+						<option>Foolkiller's Ward</option>
 						<option>Footman's Fortune</option>
 						<option>Fortified Brass</option>
 						<option>Frozen Watcher</option>
@@ -917,7 +924,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Jolting Arms</option>
 						<option>Jorvuld's Guidance</option>
 						<option>Kagrenac's Hope</option>
-						<option disabled hidden>Kinras's Wrath</option>
+						<option>Kinras's Wrath</option>
 						<option>Knight Slayer</option>
 						<option>Knight-Errant's Mail</option>
 						<option>Knightmare</option>
@@ -1080,7 +1087,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Treasures of the Earthforge</option>
 						<option>Trial By Fire</option>
 						<option>Trinimac's Valor</option>
-						<option disabled hidden>True-Sworn Fury</option>
+						<option>True-Sworn Fury</option>
 						<option>Twice-Born Star</option>
 						<option>Twice-Fanged Serpent</option>
 						<option>Twilight Remedy</option>
@@ -1093,7 +1100,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Undaunted Infiltrator</option>
 						<option>Undaunted Unweaver</option>
 						<option>Unfathomable Darkness</option>
-						<option disabled hidden>Unleashed Ritualist</option>
+						<option>Unleashed Ritualist</option>
 						<option>Unleashed Terror</option>
 						<option>Vampire Cloak</option>
 						<option>Vampire Lord</option>
@@ -1174,6 +1181,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 							<option value="500">x5 Light</option>
 							<option value="050">x5 Medium</option>
 							<option value="005">x5 Heavy</option>
+							<option value="401">x4 Light + x1 Heavy</option>
+							<option value="410">x4 Light + x1 Medium</option>
+							<option value="140">x4 Medium + x1 Light</option>
+							<option value="041">x4 Medium + x1 Heavy</option>
+							<option value="104">x4 Heavy + x1 Light</option>
+							<option value="014">x4 Heavy + x1 Medium</option>
 							<option value="311">x3 Light + x1 Medium + x1 Heavy</option>
 							<option value=320">x3 Light + x2 Medium</option>
 							<option value="302">x3 Light + x2 Heavy</option>
@@ -1629,12 +1642,76 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<h3>Known Bugs</h3>
 			<hr>
 			<ul>
-				<li>Do a forced reload of the page in your browser to ensure you have the latest JavaScript files (Ctrl+F5 in Chrome/Edge, Shift+F5 in FF).</li>
+				<li>Do a forced reload of the page in your browser to ensure you have the latest JavaScript files (Ctrl+F5 in Chrome/Edge, Shift+F5 in FF). This fixes a lot of issues related to 
+						controls not working.</li>
 				<li>The builder does not yet implement auto-levelling as introduced in One Tamriel. As such it is only accurate for CP160 builds.</li>
 				<li>The IE browser can cause issues with stats updating and saving builds due to very slow JS execution in some cases. Using Chrome, FF, or Edge browsers is recommended.</li>
+				<li>Some adblockers cause a large slowdown in the calculation updates. It is recommended to turn your adblocker off for the editor page for better performance.</li>
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>1 April 2021</b>
+			<ul>
+				<li>Fixed the Blood Moon set to modify Melee Light Attacks and added the modifier to Unarmed, 1H+Shield, Dual Wield, 2Handed, and Werewolf Light Attack computed stats.</li>
+				<li>Added the LAMeleeSpeed computed stat.</li>
+				<li>Added Skill Line damage modifiers to Bow and Dual Wield Light/Heavy attack stats.</li>
+			</ul>
+			<p>
+			<b>31 March 2021</b>
+			<ul>
+				<li>Updated all Light and Heavy Attack coefficients with exact values.</li>
+			</ul>
+			<p>
+			<b>29 March 2021</b>
+			<ul>
+				<li>Fixed the Armor Master set toggle.</li>
+			</ul>
+			<p>
+			<b>22 March 2021</b>
+			<ul>
+				<li>Werewolf active skills can now be placed on any skill bar to match the behavior on Live (this may well be a bug but will change it back later if fixed on Live).</li>
+			</ul>
+			<p>
+			<b>18 March 2021</b>
+			<ul>
+				<li>Enabled a few hidden sets in the quick item setup.</li>
+				<li>Added a few more armor type setups in the quick item setup.</li>
+				<li>Fixed the '0/0/0' message when changing the armor types in quick item setup.</li>
+			</ul>
+			<p>
+			<b>16 March 2021</b>
+			<ul>
+				<li>Fixed the Battle Spirit buff (again) to give 44% damage taken.</li>
+				<li>Fixed enchant values on small armor pieces that would be incorrect when transmuted.</li>
+				<li>Added a few more armor type combinations to the set quick item setup.</li>
+			</ul>
+			<p>
+			<b>15 March 2021</b>
+			<ul>
+				<li>Removed the health part from the Battle Spirit buff (confirmed again on Live, its on the buff description but doesn't add any health).</li>
+				<li>Fixed bug with the Shield Master CP that prevented saving and other issues.</li>
+			</ul>
+			<p>
+			<b>12 March 2021</b>
+			<ul>
+				<li>Blastbones is now considered an AOE effect for tooltip modifiers.</li>
+				<li>Enchantments on transmuted Shoulders, Belts, Shoes, and Gloves will no longer be double modified by the small armor factor.</li>
+				<li>Updated base Bash, Block, Break Free, Dodge Roll, Sneak, and Sprint costs.</li>
+				<li>Updated Bash Damage coefficients.</li>
+				<li>Fixed a couple new armor bonus/penalty passives that weren't working.</li>
+				<li>Made sure all Magicka, Stamina, and Health cost stats are combined multiplicatively and are rounded to a percent value with no decimals.</li>
+				<li>Redid the skill cost calculation that results in more accurate costs with multiple modifiers in some cases.</li>
+				<li>Updated the skill coefficients for all Light and Heavy attacks.</li>
+				<li>Added Overload Light and Heavy Attack damages (in theory should be the same as the tooltip).</li>
+			</ul>
+			<p>
+			<b>11 March 2021</b>
+			<ul>
+				<li>Mighty and War Mage CPs should now be working.</li>
+				<li>Fixed builds copied from character data having missing equipped CPs.</li>
+				<li>Fixed CPs in sub-clusters not showing up after loading in some cases.</li>
+			</ul>
+			<p>
 			<b>10 March 2021</b>
 			<ul>
 				<li>Fixed parsing of the Argonians Resourceful II passive.</li>
