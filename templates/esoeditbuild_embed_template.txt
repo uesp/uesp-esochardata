@@ -5,8 +5,8 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #cfc; margin-right: 270px;'>
-The editor should now be fully working for update 29.<br/>
+<div style='background-color: #ffc; margin-right: 270px;'>
+We've enabled a new system for calculating skill tooltips. If you notice any issues or discrepancies please <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor">let us know</a>.<br/>
 We have noticed an issue with some adblockers causing calculation updates to take much longer (10 times) than usual. The current work around is to disable the adblocker on the editor page.
 
 </div>
@@ -1650,6 +1650,28 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>12 April 2021</b>
+			<ul>
+				<li>Turned off the new skill tooltip system when using PTS rules (the next PTS will use the new tooltips).</li>
+				<li>Reduced the Critical Chance rating granted from the Thief mundus to 1333 (missed from old 6.1.6 patch).</li>
+				<li>Updated base value of the Werewolf and Dual Wield Heavy Attack Stamina restore. Added Unarmed stat.</li>
+				<li>Damage Shield skill tooltips should now be modified by any damage shield modifiers.</li>
+			</ul>
+			<p>
+			<b>9 April 2021</b>
+			<ul>
+				<li>Enabled a new system for skill tooltips
+					<ul>
+					<li>Skill coefficient data for most skills now comes from the raw data files and is exact.</li>
+					<li>Tooltip flags such as AOE, DOT, HOT, Single Target, Direct Damage, etc... are mined directly from the game's skill tooltips and so should have improved accuracy 
+						(at least as accurate as the in-game tooltips are).</li>
+					<li>Tooltip value rounding has been tweaked to match in-game values. Typically editor tooltips should now generally exactly match the in-game values. In some cases
+						the different will once be with 1 or 2.</li>
+					<li>Skill details shown when the "..." button next to the skill is clicked will now show more detail about each tooltip in the skill, its data, and how it was calculated.</li>
+					</ul>
+				</li>
+			</ul>
+			<p>
 			<b>1 April 2021</b>
 			<ul>
 				<li>Fixed the Blood Moon set to modify Melee Light Attacks and added the modifier to Unarmed, 1H+Shield, Dual Wield, 2Handed, and Werewolf Light Attack computed stats.</li>

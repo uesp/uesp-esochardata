@@ -2173,6 +2173,7 @@ class EsoBuildDataEditor
 			"Skill.ConcussionChance" => array( "display" => "%" ),
 			"Item.StatusEffectChance" => array( "display" => "%" ),
 			"Skill.CritHealing" => array( "display" => "%" ),
+			"Set.CritHealing" => array( "display" => "%" ),
 			"CP.CritHealing" => array( "display" => "%" ),
 			"Mundus.CritHealing" => array( "display" => "%" ),
 			"CP.WeaponCritHealing" => array( "display" => "%" ),
@@ -3994,7 +3995,8 @@ class EsoBuildDataEditor
 					"title" => "Dual Wield HA Stamina Restore",
 					"round" => "floor",
 					"compute" => array(
-							"round(EffectiveLevel * 25.26)",
+							"round(EffectiveLevel * 27.26)",	// Update 29
+							//"round(EffectiveLevel * 25.26)",
 							"1 + CP.HAStaRestore",
 							"*",
 							"1 + Skill.HAStaRestore + Set.HAStaRestore",
@@ -4044,7 +4046,7 @@ class EsoBuildDataEditor
 					"title" => "Shock HA Magicka Restore",
 					"round" => "floor",
 					"compute" => array(
-							"round(EffectiveLevel * 55.04)",
+							"round(EffectiveLevel * 55.03)",
 							"Skill2.HAMagRestore",
 							"+",
 							"1 + CP.HAMagRestore",
@@ -4070,12 +4072,24 @@ class EsoBuildDataEditor
 					),
 			),
 			
+			"HARestoreUnarmed" => array(
+					"title" => "Unarmed HA Stamina Restore",
+					"round" => "floor",
+					"compute" => array(
+							"round(EffectiveLevel * 24.50)",		// Update 29
+							"1 + CP.HAStaRestore",
+							"*",
+							"1 + Skill.HAStaRestore + Set.HAStaRestore",
+							"*",
+					),
+			),
 			
 			"HARestoreWerewolf" => array(
 					"title" => "Werewolf HA Stamina Restore",
 					"round" => "floor",
 					"compute" => array(
-							"round(EffectiveLevel * 24.5)",
+							"round(EffectiveLevel * 49.02)",		// Update 29
+							//"round(EffectiveLevel * 24.5)",
 							"1 + CP.HAStaRestore",
 							"*",
 							"1 + Skill.HAStaRestore + Set.HAStaRestore",

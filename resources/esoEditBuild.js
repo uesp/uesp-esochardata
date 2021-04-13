@@ -14566,8 +14566,12 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 		// inputValues.Mundus.WeaponCrit = 0.11;
 		
 			// Update 15
-		inputValues.Mundus.SpellCrit = 0.07;
-		inputValues.Mundus.WeaponCrit = 0.07;
+		//inputValues.Mundus.SpellCrit = 0.07;		// 1537
+		//inputValues.Mundus.WeaponCrit = 0.07;
+		
+			// Update 6.1.6
+		inputValues.Mundus.SpellCrit = 0.0608;	// 1333
+		inputValues.Mundus.WeaponCrit = 0.0608;
 		
 		AddEsoStatValueHistory("Mundus", "SpellCrit", inputValues.Mundus.SpellCrit);
 		AddEsoStatValueHistory("Mundus", "WeaponCrit", inputValues.Mundus.WeaponCrit);
@@ -17087,7 +17091,6 @@ window.ShowEsoSkillDetailsPopup = function (abilityId)
 					var rawInputMatches = value.match(rawInputMatch);
 					if (rawInputMatches != null) value = rawInputMatches[1];
 				}
-	
 			}
 			else if (statDetails.display == '%') 
 			{
@@ -17109,15 +17112,17 @@ window.ShowEsoSkillDetailsPopup = function (abilityId)
 		var numTooltips = CountEsoSkillTooltips(abilityId);
 		
 		detailsHtml += "<h4>Skill Coefficients</h4>";
-		detailsHtml += "<div class='esotbSkillDetailsCoef'>"
+		detailsHtml += "<div class='esotbSkillDetailsCoef'>";
+		
+		var skillDesc = ConvertEsoSkillRawDescToHtml(skillData.rawDescription);
+		detailsHtml += "<div class='esotbSkillDetailsDesc'>" + skillDesc + "</div>";
 		
 		for (var tooltipIndex = 1; tooltipIndex <= numTooltips; ++tooltipIndex)
 		{
 			detailsHtml += CreateEsoSkillCoefContentForIndexHtml(skillData, tooltipIndex, true);
 		}
 		
-		var skillDesc = ConvertEsoSkillRawDescToHtml(skillData.rawDescription);
-		detailsHtml += "<div class='esotbSkillDetailsDesc'>" + skillDesc + "</div></div>";
+		detailsHtml += "</div>";
 	}
 	else if (skillData.numCoefVars > 0)
 	{
@@ -20657,7 +20662,7 @@ window.EquipSetItem = function (setName, slotId, level, quality)
 			data: queryParams,
 		}).
 		done(function(data, status, xhr) { OnEsoSetItemDataReceive(data, status, xhr, slotId); }).
-		fail(function(xhr, status, errorMsg) { OnEsoSetItemDataError(xhr, status, errorMsg, slotId); });	
+		fail(function(xhr, status, errorMsg) { OnEsoSetItemDataError(xhr, status, errorMsg, slotId); });
 }
 
 
@@ -22950,6 +22955,9 @@ window.CheckEsoSetTestResults = function()
 window.UpdateEsoPts = function() 
 {
 	if (!$("#esotbUsePtsRules").prop("checked")) return;
+	
+		// TODO: Update 29PTS doesn't use the new tooltip system 
+	USE_V2_TOOLTIPS = false;
 	
 	$("#esotbQuickItemSetups").find(".esotbSetPts").removeAttr("disabled").removeAttr("hidden");
 	$("#esotbItemSetupMonsterSet").children().removeAttr("disabled").removeAttr("hidden");
