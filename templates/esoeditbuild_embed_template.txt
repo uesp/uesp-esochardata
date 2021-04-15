@@ -1652,6 +1652,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<h3>Recent Work</h3>
 			<b>12 April 2021</b>
 			<ul>
+				<li>The Heavy Armor Bonus: Crowd Control toggle now correctly lowers Damage Taken instead of increasing it.</li>
+				<li>Skill tooltip details once again show all modifiers added at the top of the window.</li>
+			</ul>
+			<p>
+			<b>12 April 2021</b>
+			<ul>
 				<li>Turned off the new skill tooltip system when using PTS rules (the next PTS will use the new tooltips).</li>
 				<li>Reduced the Critical Chance rating granted from the Thief mundus to 1333 (missed from old 6.1.6 patch).</li>
 				<li>Updated base value of the Werewolf and Dual Wield Heavy Attack Stamina restore. Added Unarmed stat.</li>

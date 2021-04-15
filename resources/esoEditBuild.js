@@ -5988,8 +5988,10 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "DamageTaken",
 		display: "%",
 		factorStatId: "ArmorHeavy",
+		factorValue: -1,
 		toggle: true,
 		enabled: false,
+		rawInputMatch: /(Reduces your damage taken while immune to crowd control by [0-9.]+%)/i,
 		match: /Reduces your damage taken while immune to crowd control by ([0-9.]+)%/i,
 	},
 	
@@ -17061,50 +17063,51 @@ window.ShowEsoSkillDetailsPopup = function (abilityId)
 	
 	var detailsHtml = "";
 	
-	if (!USE_V2_TOOLTIPS || window.CreateEsoSkillCoefContentForIndexHtml == null)
+	//if (!USE_V2_TOOLTIPS || window.CreateEsoSkillCoefContentForIndexHtml == null)
+	for (var key in skillData.rawOutput)
 	{
-		for (var key in skillData.rawOutput)
+		var statDetails = g_EsoInputStatDetails[key] || {};
+		var value = skillData.rawOutput[key];
+		var suffix = "";
+		
+			// Ignore tooltip raw output for new tooltip system
+		if (USE_V2_TOOLTIPS && key.toLowerCase().indexOf("tooltip") >= 0) continue;
+		
+		if (typeof(value) == "object")
 		{
-			var statDetails = g_EsoInputStatDetails[key] || {};
-			var value = skillData.rawOutput[key];
-			var suffix = "";
+			var abilityData = value.abilityData;
+			var rawInputMatch = value.rawInputMatch;
+			var desc = value.value;
 			
-			if (typeof(value) == "object")
+			if (abilityData != null && abilityData.lastDesc != null)
 			{
-				var abilityData = value.abilityData;
-				var rawInputMatch = value.rawInputMatch;
-				var desc = value.value;
-				
-				if (abilityData != null && abilityData.lastDesc != null)
-				{
-					value = abilityData.lastDesc;
-				}
-				else if (abilityData != null && abilityData.description != null)
-					value = abilityData.lastDesc;
-				else if (desc != null)
-					value = desc;
-				else
-					value = "Unknown Skill Data";
-				
-				if (rawInputMatch != null)
-				{
-					var rawInputMatches = value.match(rawInputMatch);
-					if (rawInputMatches != null) value = rawInputMatches[1];
-				}
+				value = abilityData.lastDesc;
 			}
-			else if (statDetails.display == '%') 
-			{
-				suffix = "%";
-				value = (value * 100).toFixed(1);
-			}
-			else if (statDetails.display == "flatcrit")
-			{
-				value = ConvertEsoFlatCritToPercent(value);
-				suffix = "%";
-			}
+			else if (abilityData != null && abilityData.description != null)
+				value = abilityData.lastDesc;
+			else if (desc != null)
+				value = desc;
+			else
+				value = "Unknown Skill Data";
 			
-			detailsHtml += key + " = " + value + suffix + "<br/>";
+			if (rawInputMatch != null)
+			{
+				var rawInputMatches = value.match(rawInputMatch);
+				if (rawInputMatches != null) value = rawInputMatches[1];
+			}
 		}
+		else if (statDetails.display == '%')
+		{
+			suffix = "%";
+			value = (value * 100).toFixed(1);
+		}
+		else if (statDetails.display == "flatcrit")
+		{
+			value = ConvertEsoFlatCritToPercent(value);
+			suffix = "%";
+		}
+		
+		detailsHtml += key + " = " + value + suffix + "<br/>";
 	}
 	
 	if (USE_V2_TOOLTIPS && window.CreateEsoSkillCoefContentForIndexHtml)
