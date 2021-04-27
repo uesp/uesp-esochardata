@@ -28,7 +28,7 @@ require_once(__DIR__."/viewBuildData.class.php");
 
 class EsoBuildDataEditor 
 {
-	public $PTS_VERSION = "29pts";
+	public $PTS_VERSION = "30pts";
 	
 	public $SESSION_DEBUG_FILENAME = "/var/log/httpd/esoeditbuild_sessions.log";
 	
@@ -175,6 +175,8 @@ class EsoBuildDataEditor
 			"SkillCost.Draconic_Power_Cost",
 			"SkillCost.Earthern_Heart_Cost",
 			"SkillCost.Assassination_Cost",
+			"SkillCost.Blood_Scion_Cost",
+			"SkillCost.Bone_Goliath_Transformation_Cost",
 			"SkillCost.Shadow_Cost",
 			"SkillCost.Siphoning_Cost",
 			"SkillCost.Daedric_Summoning_Cost",
@@ -338,6 +340,13 @@ class EsoBuildDataEditor
 			"Set.AOEWeaponDamage",
 			"CP.HealingSpellDamage",
 			"CP.HealingWeaponDamage",
+			"Set.DOTSpellDamage",
+			"Set.DOTWeaponDamage",
+			"Set.RangedSpellDamage",
+			"Set.RangedWeaponDamage",
+			"Set.MeleeSpellDamage",
+			"Set.MeleeWeaponDamage",
+			"Set.WeaponTraitEffect",
 	);
 	
 	
@@ -759,6 +768,18 @@ class EsoBuildDataEditor
 			),
 			
 			"SkillCost.Mages_Guild" => array(
+					"display" => "%",
+			),
+			
+			"SkillCost.Werewolf_Transformation_Cost" => array(
+					"display" => "%",
+			),
+			
+			"SkillCost.Blood_Scion_Cost" => array(
+					"display" => "%",
+			),
+			
+			"SkillCost.Bone_Goliath_Transformation_Cost" => array(
 					"display" => "%",
 			),
 			
@@ -1591,6 +1612,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"Set.FrostDamageDone" => array(
+					"display" => "%",
+			),
+			
 			"CP.ShockDamageDone" => array(
 					"display" => "%",
 			),
@@ -1600,6 +1625,42 @@ class EsoBuildDataEditor
 			),
 			
 			"SingleTargetDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"DirectDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"FrostDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"FlameDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"ShockDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"MagicDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"PhysicalDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"PoisonDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"DiseaseDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"BleedDamageDone" => array(
 					"display" => "%",
 			),
 			
@@ -1904,6 +1965,14 @@ class EsoBuildDataEditor
 			),
 			
 			"Skill.LADamage" => array(
+					"display" => "%",
+			),
+			
+			"CP.LADamage" => array(
+					"display" => "%",
+			),
+			
+			"CP.HADamage" => array(
 					"display" => "%",
 			),
 			
@@ -2230,6 +2299,7 @@ class EsoBuildDataEditor
 			"CP.WayshrineCost" => array( "display" => "%" ),
 			"CP.StatusEffectDurationTaken" => array( "display" => "%" ),
 			"CP.BreakFreeDuration" => array( "display" => "%" ),
+			"Set.WeaponTraitEffect" => array( "display" => "%" ),
 	);
 	
 	
@@ -3482,6 +3552,8 @@ class EsoBuildDataEditor
 			"BlockMitigation" => array(
 					"title" => "Block Mitigation",
 					"display" => "%",
+					"min" => 0,
+					"max" => 1,
 					"compute" => array(
 							"1",
 							"0.5",
@@ -4261,7 +4333,7 @@ class EsoBuildDataEditor
 								/* Update 21 */
 							"Skill2.LADamage",
 							"+",
-							"1 + CP.LAStaffDamage + Skill.LADamage + Set.LADamage + Buff.Empower + FlameDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone",
+							"1 + CP.LADamage + Skill.LADamage + Set.LADamage + Buff.Empower + FlameDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone",
 							"*",
 							
 							//"1 + CP.LAStaffDamage + Set.LADamage + Buff.Empower + Skill.FlameDamageDone + DamageDone + SingleTargetDamageDone + DirectDamageDone",
@@ -4296,7 +4368,7 @@ class EsoBuildDataEditor
 								// Update 21
 							"Skill2.LADamage",
 							"+",
-							"1 + CP.LAStaffDamage + Skill.LADamage + Set.LADamage + Buff.Empower + FrostDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone",
+							"1 + CP.LADamage + Skill.LADamage + Set.LADamage + Buff.Empower + FrostDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone",
 							"*",
 							
 							/*
@@ -4324,9 +4396,9 @@ class EsoBuildDataEditor
 							//"round((0.0130319*Magicka + 0.519646*SpellDamage - 0.890172)*3)",		// Update 11pts
 							//"round((0.013*Magicka + 0.52*SpellDamage - 0.26)*3)",					// Update 10
 							
-							"Skill2.LADamage",
+							"Skill2.HADamage",
 							"+",						// Not affected by Empower?
-							"1 + CP.HAStaffDamage + Skill.HADamage + Set.HADamage + ShockDamageDone + SingleTargetDamageDone + DotDamageDone + DamageDone",
+							"1 + CP.HADamage + Skill.HADamage + Set.HADamage + ShockDamageDone + SingleTargetDamageDone + DotDamageDone + DamageDone",
 							"*",
 							
 							/*
@@ -4356,9 +4428,9 @@ class EsoBuildDataEditor
 							//"1 + CP.LAStaffDamage + Set.LADamage + Buff.Empower + DamageDone + DotDamageDone",
 							//"*",
 							
-							"Skill2.LADamage",
+							"Skill2.HADamage",
 							"+",						//Not affected by Empower
-							"1 + CP.LAStaffDamage + Skill.HADamage + Set.HADamage + MagicDamageDone + DotDamageDone + SingleTargetDamageDone + DamageDone",
+							"1 + CP.HADamage + Skill.HADamage + Set.HADamage + MagicDamageDone + DotDamageDone + SingleTargetDamageDone + DamageDone",
 							"*",
 							
 							/*
@@ -4382,7 +4454,7 @@ class EsoBuildDataEditor
 							//"round(0.0450269*Stamina + 0.472092*LAPhysicalWeaponDamage - 0.915352)",		// Update 21
 							"Skill2.LADamage",
 							"+",
-							"1 + CP.LAWeaponDamage + Skill.LADamage + Set.LADamage + Set.LAMeleeDamage + Buff.Empower + PhysicalDamageDone + DamageDone + DirectDamageDone + SingleTargetDamageDone",
+							"1 + CP.LADamage + Skill.LADamage + Set.LADamage + Set.LAMeleeDamage + Buff.Empower + PhysicalDamageDone + DamageDone + DirectDamageDone + SingleTargetDamageDone",
 							"*",
 					),
 			),
@@ -4402,7 +4474,7 @@ class EsoBuildDataEditor
 							//"round(0.0140*Stamina + 0.56*WeaponDamage - 0.60)",
 							"Skill2.LADamage",
 							"+",
-							"1 + CP.LAWeaponDamage + Skill.LADamage + Set.LADamage + Set.LAMeleeDamage + Buff.Empower + PhysicalDamageDone + DamageDone + DirectDamageDone + SingleTargetDamageDone",
+							"1 + CP.LADamage + Skill.LADamage + Set.LADamage + Set.LAMeleeDamage + Buff.Empower + PhysicalDamageDone + DamageDone + DirectDamageDone + SingleTargetDamageDone",
 							"*",
 					),
 			),
@@ -4422,7 +4494,7 @@ class EsoBuildDataEditor
 							//"round(0.0148*Stamina + 0.592*WeaponDamage - 1.06)",
 							"Skill2.LADamage",
 							"+",
-							"1 + CP.LAWeaponDamage + Skill.LADamage + Set.LADamage + Set.LAMeleeDamage + Buff.Empower + PhysicalDamageDone + DamageDone + DirectDamageDone + SingleTargetDamageDone",
+							"1 + CP.LADamage + Skill.LADamage + Set.LADamage + Set.LAMeleeDamage + Buff.Empower + PhysicalDamageDone + DamageDone + DirectDamageDone + SingleTargetDamageDone",
 							"*",
 					),
 			),
@@ -4443,7 +4515,7 @@ class EsoBuildDataEditor
 							//"1 + CP.LABowDamage + Set.LADamage + Set.BowDamageDone + Skill.BowDamageDone + Buff.Empower + Skill.PhysicalDamageDone + DamageDone", 	// TODO: Check BowDamageDone
 							"Skill2.LADamage",
 							"+",
-							"1 + CP.LAWeaponDamage + Skill.LADamage + Set.LADamage + BowDamageDone + Buff.Empower + PhysicalDamageDone + DamageDone + DirectDamageDone + SingleTargetDamageDone + SkillLineDamage.Bow",
+							"1 + CP.LADamage + Skill.LADamage + Set.LADamage + BowDamageDone + Buff.Empower + PhysicalDamageDone + DamageDone + DirectDamageDone + SingleTargetDamageDone + SkillLineDamage.Bow",
 							"*",
 					),
 			),
@@ -4462,7 +4534,7 @@ class EsoBuildDataEditor
 							//"round(0.0163232*Stamina + 0.65628*WeaponDamage + 0.555625)",		// Probably not correct?
 							"Skill2.LADamage",
 							"+",
-							"1 + CP.LAWeaponDamage + Skill.LADamage + Set.LADamage + Set.LAMeleeDamage + Buff.Empower + PhysicalDamageDone + DamageDone + DirectDamageDone + SingleTargetDamageDone + SkillLineDamage.Dual_Wield",
+							"1 + CP.LADamage + Skill.LADamage + Set.LADamage + Set.LAMeleeDamage + Buff.Empower + PhysicalDamageDone + DamageDone + DirectDamageDone + SingleTargetDamageDone + SkillLineDamage.Dual_Wield",
 							"*",
 					),
 			),
@@ -4480,7 +4552,7 @@ class EsoBuildDataEditor
 							//"round(0.0166213*Stamina + 0.666503*WeaponDamage + 0.0462245)",	// Update 17
 							"Skill2.LADamage",
 							"+",
-							"1 + CP.LAActiveDamage + Skill.LADamage + Set.LADamage + Set.LAMeleeDamage + Buff.Empower + PhysicalDamageDone + DamageDone + DirectDamageDone + SingleTargetDamageDone",
+							"1 + CP.LADamage + Skill.LADamage + Set.LADamage + Set.LAMeleeDamage + Buff.Empower + PhysicalDamageDone + DamageDone + DirectDamageDone + SingleTargetDamageDone",
 							"*",
 					),
 			),
@@ -4510,7 +4582,7 @@ class EsoBuildDataEditor
 							
 							"Skill2.LADamage",
 							"+",					// Empower?
-							"1 + CP.LAStaffDamage + Skill.LADamage + Set.LADamage + Buff.Empower + ShockDamageDone + SingleTargetDamageDone + DirectDamageDone + DamageDone + OverloadDamage",
+							"1 + CP.LADamage + Skill.LADamage + Set.LADamage + Buff.Empower + ShockDamageDone + SingleTargetDamageDone + DirectDamageDone + DamageDone + OverloadDamage",
 							"*",
 					),
 			),
@@ -4684,7 +4756,7 @@ class EsoBuildDataEditor
 								/* Update 21 */
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAStaffDamage + Skill.HADamage + Set.HADamage + FlameDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
+							"1 + CP.HADamage + Skill.HADamage + Set.HADamage + FlameDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
 							"*",
 							
 							/*
@@ -4715,7 +4787,7 @@ class EsoBuildDataEditor
 									/* Update 21 */
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAStaffDamage + Skill.HADamage + Set.HADamage + FrostDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
+							"1 + CP.HADamage + Skill.HADamage + Set.HADamage + FrostDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
 							"*",
 							
 							/*
@@ -4746,7 +4818,7 @@ class EsoBuildDataEditor
 									/* Update 21 */
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAStaffDamage + Skill.HADamage + Set.HADamage + ShockDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
+							"1 + CP.HADamage + Skill.HADamage + Set.HADamage + ShockDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
 							"*",
 							
 							/*
@@ -4783,7 +4855,7 @@ class EsoBuildDataEditor
 							//"0.0465*Magicka + 0.48825*LAMagicSpellDamage",			// Update 26
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAStaffDamage + Skill.HADamage + Set.HADamage + MagicDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
+							"1 + CP.HADamage + Skill.HADamage + Set.HADamage + MagicDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
 							"*",
 					),
 			),
@@ -4815,7 +4887,7 @@ class EsoBuildDataEditor
 									/* Update 21 */
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAWeaponDamage + Skill.HADamage + Set.HADamage + PhysicalDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
+							"1 + CP.HADamage + Skill.HADamage + Set.HADamage + PhysicalDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
 							"*",
 							
 							/*
@@ -4845,7 +4917,7 @@ class EsoBuildDataEditor
 								/* Update 21 */
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAWeaponDamage + Skill.HADamage + Set.HADamage + PhysicalDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
+							"1 + CP.HADamage + Skill.HADamage + Set.HADamage + PhysicalDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
 							"*",
 							
 							/*
@@ -4875,7 +4947,7 @@ class EsoBuildDataEditor
 								/* Update 21 */
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAWeaponDamage + Skill.HADamage + Set.HADamage + PhysicalDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
+							"1 + CP.HADamage + Skill.HADamage + Set.HADamage + PhysicalDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
 							"*",
 							
 							/*
@@ -4905,7 +4977,7 @@ class EsoBuildDataEditor
 								/* Update 21 */
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAWeaponDamage + Skill.HADamage + Set.HADamage + PhysicalDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + BowDamageDone + Buff.Empower + SkillLineDamage.Bow",
+							"1 + CP.HADamage + Skill.HADamage + Set.HADamage + PhysicalDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + BowDamageDone + Buff.Empower + SkillLineDamage.Bow",
 							"*",
 							
 							/*
@@ -4944,7 +5016,7 @@ class EsoBuildDataEditor
 								/* Update 21 */
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAWeaponDamage + Skill.HADamage + Set.HADamage + PhysicalDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower + SkillLineDamage.Dual_Wield",
+							"1 + CP.HADamage + Skill.HADamage + Set.HADamage + PhysicalDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower + SkillLineDamage.Dual_Wield",
 							"*",
 							
 							/*
@@ -4974,7 +5046,7 @@ class EsoBuildDataEditor
 								/* Update 21 */
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAActiveDamage + Skill.HADamage + Set.HADamage + PhysicalDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
+							"1 + CP.HADamage + Skill.HADamage + Set.HADamage + PhysicalDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower",
 							"*",
 							
 							/*
@@ -4998,7 +5070,7 @@ class EsoBuildDataEditor
 									/* Update 21 */
 							"Skill2.HADamage",
 							"+",
-							"1 + CP.HAStaffDamage + Skill.HADamage + Set.HADamage + ShockDamageDone + AOEDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower + OverloadDamage",
+							"1 + CP.HADamage + Skill.HADamage + Set.HADamage + ShockDamageDone + AOEDamageDone + SingleTargetDamageDone + DamageDone + Buff.Empower + OverloadDamage",
 							"*",
 					),
 			),

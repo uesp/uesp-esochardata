@@ -3174,6 +3174,83 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 }
 
 
+window.UpdateEsoBuildSetTooltips = function(setDesc)
+{
+	if (window.g_SetSkillsData == null || window.GetEsoSkillDescription2 == null) return setDesc;
+	
+	var newDesc = setDesc;
+	var matches = newDesc.match("PART OF THE (.*) SET")
+	if (!matches || !matches[1]) return newDesc;
+	var setName = matches[1].toLowerCase().replace("perfected ", "");
+	
+	var setSkillsData = g_SetSkillsData[setName];
+	if (setSkillsData == null) return newDesc;
+	
+	var skillData = g_SkillsData[setSkillsData.abilityId];
+	var newTooltip = GetEsoSkillDescription2(setSkillsData.abilityId, null, true);
+	
+	var rawDesc = setSkillsData.rawDescription;
+	rawDesc = rawDesc.replaceAll("  ", " ").replaceAll("  ", " ");
+	setDesc = setDesc.replaceAll("  ", " ").replaceAll("  ", " ");
+	newTooltip = newTooltip.replaceAll("  ", " ").replaceAll("  ", " ");
+	rawDesc = rawDesc.replaceAll("|cffffff", "").replaceAll("|r", "");
+	setDesc = setDesc.replaceAll("|cffffff", "").replaceAll("|r", "");
+	
+	var textDesc = $('<div>').html(setDesc).text();
+	
+		// Replace constant tooltips with their values from the original setDesc
+	for (var i in setSkillsData.tooltips)
+	{
+		var tooltip = setSkillsData.tooltips[i];
+		if (tooltip.coefType != -75) continue;
+		
+		var matchDesc = rawDesc.replaceAll("<<" + i + ">>", "(.*)");
+		matchDesc = matchDesc.replaceAll(/<<[0-9]+>>/g, ".*");
+		matchDesc = matchDesc.replaceAll(/[0-9]+/g, ".*");
+		
+		var replaceDesc = rawDesc.replaceAll("<<" + i + ">>", ")(.*)(");
+		replaceDesc = "(" + replaceDesc.replaceAll(/<<[0-9]+>>/g, ".*") + ")";
+		replaceDesc = replaceDesc.replaceAll(/[0-9]+/g, ".*");
+		
+		var matches = textDesc.match(matchDesc);
+		var tooltipMatches = newTooltip.match(matchDesc);
+		
+		if (matches && matches[1])
+		{
+			var constValue = matches[1];
+			
+			newTooltip = newTooltip.replaceAll(new RegExp(replaceDesc, "g"), function(match, p1, p2, p3) {
+				var fmtValue = constValue.replace(/([0-9]+)/, "<div style=\"color:#ffffff;display:inline;\">$1</div>");
+				return p1 + fmtValue + p3;
+			});
+			
+			if (skillData && skillData.rawTooltipOutput && skillData.rawTooltipOutput[i])
+			{
+				skillData.rawTooltipOutput[i].origValue = skillData.rawTooltipOutput[i].baseValue;
+				skillData.rawTooltipOutput[i].baseValue = constValue;
+				skillData.rawTooltipOutput[i].finalValue = constValue;
+			}
+			
+			if (skillData && skillData.tooltips && skillData.tooltips[i])
+			{
+				skillData.tooltips[i].finalValue = constValue;
+			}
+			
+			tooltip.value = constValue;
+		}
+	}
+	
+	newDesc = newDesc.replace(/(\([0-9]+ item(?:s|)\) )([^(]*scales off[^(]*)(<br>|$)/, function(match, p1, p2, p3) {
+		return p1 + newTooltip + p3;
+	});
+	
+	return newDesc;
+}
+
+
+window.ESOBUILD_TESTSETTOOLTIPS = 1;
+
+
 window.UpdateEsoBuildSetAllData = function (setDesc, setDamageData)
 {
 	var newDesc = setDesc;
@@ -3181,13 +3258,15 @@ window.UpdateEsoBuildSetAllData = function (setDesc, setDamageData)
 	newDesc = UpdateEsoBuildSetOther(newDesc);
 	newDesc = UpdateEsoBuildSetDamageData(newDesc, setDamageData);
 	newDesc = UpdateEsoBuildSetDamageShield(newDesc);
-	newDesc = UpdateEsoBuildSetHealing(newDesc);	
-		
-	// EsoBuildLog("UpdateEsoBuildSetAllData", newDesc, setDesc, setDamageData);
+	newDesc = UpdateEsoBuildSetHealing(newDesc);
+	
+	if (window.ESOBUILD_TESTSETTOOLTIPS) newDesc = UpdateEsoBuildSetTooltips(newDesc);
+	
+	//EsoBuildLog("UpdateEsoBuildSetAllData", newDesc, setDesc, setDamageData);
 	
 	return newDesc;
 }
- 
+
 
 window.UpdateEsoBuildSetAllFullText = function (setText)
 {
@@ -3198,7 +3277,7 @@ window.UpdateEsoBuildSetAllFullText = function (setText)
 	matchResult = setText.match(/PART OF THE ([A-Za-z0-9_\'\- ]+) SET/i);
 	if (matchResult && matchResult[1]) setName = matchResult[1].toLowerCase();
 	
-	// EsoBuildLog("UpdateEsoBuildSetAllFullText", matchResult, setName, ESO_SETPROCDAMAGE_DATA[setName], setText);
+	//EsoBuildLog("UpdateEsoBuildSetAllFullText", matchResult, setName, ESO_SETPROCDAMAGE_DATA[setName], setText);
 	
 	setDamageData = ESO_SETPROCDAMAGE_DATA[setName];
 	return UpdateEsoBuildSetAllData(setText, setDamageData);
@@ -3265,7 +3344,7 @@ window.UpdateEsoBuildTooltip = function (tooltip, parent, slotId)
 window.OnEsoTooltipUpdate = function (event, tooltip, parent)
 {
 	// EsoBuildLog("OnEsoTooltipUpdate", tooltip, parent);
-	UpdateEsoBuildTooltip(tooltip, parent, null);	
+	UpdateEsoBuildTooltip(tooltip, parent, null);
 }
 
 
