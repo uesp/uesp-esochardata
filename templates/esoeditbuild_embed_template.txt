@@ -1674,6 +1674,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>4 May 2021</b>
+			<ul>
+				<li>30pts: Fixed the Perfected Stinging Slashes set (Master's Dual Wield) that had a 0 value for the Twin Slash damage (it is still bugged on PTS so I copied the set description 
+					from the non-perfected version).</li>
+			</ul>
+			<p>
 			<b>3 May 2021</b>
 			<ul>
 				<li>30pts: Morphed skills that have coefficients that improve by rank now have their tooltip values correctly modified for rank 2/3/4 skills.</li>
