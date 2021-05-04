@@ -1674,6 +1674,22 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>3 May 2021</b>
+			<ul>
+				<li>30pts: Morphed skills that have coefficients that improve by rank now have their tooltip values correctly modified for rank 2/3/4 skills.</li>
+			</ul>
+			<p>
+			<b>29 April 2021</b>
+			<ul>
+				<li>30pts: Fixed some item sets tooltips that were scaling but not showing the scaled value.</li>
+				<li>30pts: Fixed some item sets tooltips that were being truncated.</li>
+			</ul>
+			<p>
+			<b>28 April 2021</b>
+			<ul>
+				<li>30pts: Added set scaling to the Azureblight Reaper and Frenzied Momentum sets.</li>
+			</ul>
+			<p>
 			<b>27 April 2021</b>
 			<ul>
 				<li>30pts: Fixed the Nightblade's Aspect of Terror skill.</li>

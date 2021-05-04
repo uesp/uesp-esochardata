@@ -2702,12 +2702,12 @@ window.UpdateEsoTooltipEnchantDamage = function (match, divData, enchantValue, d
 	if (checkDamageType != "" && damageMod != null && damageMod !== 0) 
 	{
 		//itemData.rawOutput["Tooltip: Enchantment " + checkDamageType + "DamageDone"] = (damageMod * 100).toFixed(1) + "%";
-		enchantFactor += +damageMod;	
+		enchantFactor += +damageMod;
 	}
 	
 	damageMod = g_EsoBuildLastInputValues.DamageDone;
 	
-	if (damageMod != null && damageMod !== 0) 
+	if (damageMod != null && damageMod !== 0)
 	{
 		//itemData.rawOutput["Tooltip: Enchantment DamageDone"] = (damageMod * 100).toFixed(1) + "%";
 		enchantFactor += +damageMod;
@@ -2715,7 +2715,7 @@ window.UpdateEsoTooltipEnchantDamage = function (match, divData, enchantValue, d
 	
 	damageMod = g_EsoBuildLastInputValues.SingleTargetDamageDone;
 	
-	if (damageMod != null && damageMod !== 0) 
+	if (damageMod != null && damageMod !== 0)
 	{
 		//itemData.rawOutput["Tooltip: Enchantment SingleTargetDamageDone"] = (damageMod * 100).toFixed(1) + "%";
 		enchantFactor += +damageMod;
@@ -2723,7 +2723,7 @@ window.UpdateEsoTooltipEnchantDamage = function (match, divData, enchantValue, d
 	
 	damageMod = g_EsoBuildLastInputValues.DirectDamageDone;
 	
-	if (damageMod != null && damageMod !== 0) 
+	if (damageMod != null && damageMod !== 0)
 	{
 		//itemData.rawOutput["Tooltip: Enchantment DirectDamageDone"] = (damageMod * 100).toFixed(1) + "%";
 		enchantFactor += +damageMod;
@@ -2955,7 +2955,7 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 	
 	damageMod = g_EsoBuildLastInputValues.DamageDone;
 	
-	if (damageMod != null && damageMod !== 0) 
+	if (damageMod != null && damageMod !== 0)
 	{
 		itemData.rawOutput["Tooltip: Set DamageDone"] = (damageMod * 100).toFixed(1) + "%";
 		damageFactor += +damageMod;
@@ -2965,7 +2965,7 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 	{
 		damageMod = g_EsoBuildLastInputValues.AOEDamageDone;
 		
-		if (damageMod != null && damageMod !== 0) 
+		if (damageMod != null && damageMod !== 0)
 		{
 			itemData.rawOutput["Tooltip: Set AOEDamageDone"] = (damageMod * 100).toFixed(1) + "%";
 			damageFactor += +damageMod;
@@ -2975,7 +2975,7 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 	{
 		damageMod = g_EsoBuildLastInputValues.SingleTargetDamageDone;
 		
-		if (damageMod != null && damageMod !== 0) 
+		if (damageMod != null && damageMod !== 0)
 		{
 			itemData.rawOutput["Tooltip: Set SingleTargetDamageDone"] = (damageMod * 100).toFixed(1) + "%";
 			damageFactor += +damageMod;
@@ -2986,7 +2986,7 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 	{
 		damageMod = g_EsoBuildLastInputValues.DotDamageDone;
 		
-		if (damageMod != null && damageMod !== 0) 
+		if (damageMod != null && damageMod !== 0)
 		{
 			itemData.rawOutput["Tooltip: Set DotDamageDone"] = (damageMod * 100).toFixed(1) + "%";
 			damageFactor += +damageMod;
@@ -2997,7 +2997,7 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 			// TODO: Confirm
 		damageMod = g_EsoBuildLastInputValues.DirectDamageDone;
 		
-		if (damageMod != null && damageMod !== 0) 
+		if (damageMod != null && damageMod !== 0)
 		{
 			itemData.rawOutput["Tooltip: Set DirectDamageDone"] = (damageMod * 100).toFixed(1) + "%";
 			damageFactor += +damageMod;
@@ -3008,7 +3008,7 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 	{
 		damageMod = g_EsoBuildLastInputValues.BleedDamage;
 		
-		if (damageMod != null && damageMod !== 0) 
+		if (damageMod != null && damageMod !== 0)
 		{
 			itemData.rawOutput["Tooltip: Set BleedDamage"] = (damageMod * 100).toFixed(1) + "%";
 			damageFactor += +damageMod;
@@ -3017,7 +3017,7 @@ window.UpdateEsoSetDamageDataReplace = function (match, prefixWord, div1, damage
 	
 	damageMod = g_EsoBuildLastInputValues.PetDamageDone;
 	
-	if (isPet && damageMod != null && damageMod !== 0) 
+	if (isPet && damageMod != null && damageMod !== 0)
 	{
 		itemData.rawOutput["Tooltip: Pet DamageDone"] = (damageMod * 100).toFixed(1) + "%";
 		damageFactor += +damageMod;
@@ -3217,11 +3217,20 @@ window.UpdateEsoBuildSetTooltips = function(setDesc)
 		
 		if (matches && matches[1])
 		{
+			var itemData = (window.g_EsoBuildItemData ? g_EsoBuildItemData[g_EsoCurrentTooltipSlot] : {} ) || {};
+			
+			if (itemData.rawOutput == null) itemData.rawOutput = {};
+			itemData.rawOutput["Tooltip: Set Scaling Skill ID"] = setSkillsData.abilityId;
+			
 			var constValue = matches[1];
 			
-			newTooltip = newTooltip.replaceAll(new RegExp(replaceDesc, "g"), function(match, p1, p2, p3) {
+			newTooltip = newTooltip.replaceAll(new RegExp(replaceDesc, "g"), function(match, p1, p2, p3, p4, p5, p6, p7, p8, p9) {
 				var fmtValue = constValue.replace(/([0-9]+)/, "<div style=\"color:#ffffff;display:inline;\">$1</div>");
-				return p1 + fmtValue + p3;
+				var result = p1 + fmtValue + p3;
+				if (p4) result += fmtValue + p5;
+				if (p6) result += fmtValue + p7;
+				if (p8) result += fmtValue + p9;
+				return result;
 			});
 			
 			if (skillData && skillData.rawTooltipOutput && skillData.rawTooltipOutput[i])
@@ -3240,15 +3249,16 @@ window.UpdateEsoBuildSetTooltips = function(setDesc)
 		}
 	}
 	
-	newDesc = newDesc.replace(/(\([0-9]+ item(?:s|)\) )([^(]*scales off[^(]*)(<br>|$)/, function(match, p1, p2, p3) {
+	newDesc = newDesc.replace(/(\([0-9]+ item(?:s|)\) )([^(]*?scales off[^(]*)(<br>|$)/, function(match, p1, p2, p3) {
+		return p1 + newTooltip + p3;
+	});
+	
+	newDesc = newDesc.replace(/(\([0-9]+ item(?:s|)\) )([^(]*?scaling off[^(]*)(<br>|$)/, function(match, p1, p2, p3) {
 		return p1 + newTooltip + p3;
 	});
 	
 	return newDesc;
 }
-
-
-window.ESOBUILD_TESTSETTOOLTIPS = 1;
 
 
 window.UpdateEsoBuildSetAllData = function (setDesc, setDamageData)
@@ -3260,7 +3270,7 @@ window.UpdateEsoBuildSetAllData = function (setDesc, setDamageData)
 	newDesc = UpdateEsoBuildSetDamageShield(newDesc);
 	newDesc = UpdateEsoBuildSetHealing(newDesc);
 	
-	if (window.ESOBUILD_TESTSETTOOLTIPS) newDesc = UpdateEsoBuildSetTooltips(newDesc);
+	newDesc = UpdateEsoBuildSetTooltips(newDesc);
 	
 	//EsoBuildLog("UpdateEsoBuildSetAllData", newDesc, setDesc, setDamageData);
 	
