@@ -70,7 +70,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			When selected you will automatically purchase all racial passives when changing races.
 			<br/>
 			<div class="esotbStatLabel">Use PTS Rules</div> <input type="checkbox" id="esotbUsePtsRules" name="esotbUsePtsRules" statid="UsePtsRules" {usePtsRulesCheck}>
-			Current version is Update 30 v7.0.0
+			Current version is Update 30 v7.0.2
 			<ul style="margin-left: 170px; margin-top: -5px;">
 				<li>Save and reload build after changing this setting.</li>
 				<li>Uses skill, CP, and item data collected from the PTS server.</li>
@@ -1674,6 +1674,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>5 May 2021</b>
+			<ul>
+				<li>30pts: Updated all skills and skill coefficients from PTS patch v7.0.2.</li>
+				<il>30pts: Updated all items from PTS patch v7.0.2.</li>
+			</ul>
+			<p>
 			<b>4 May 2021</b>
 			<ul>
 				<li>30pts: Fixed the Perfected Stinging Slashes set (Master's Dual Wield) that had a 0 value for the Twin Slash damage (it is still bugged on PTS so I copied the set description 
