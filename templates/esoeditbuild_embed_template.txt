@@ -1680,6 +1680,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					DOTs/HOTs with a delay time should also now have their durations correctly modified. Modified durations are now truncated to the nearest second
 					to match the behaviour in-game.</li>
 				<li>Fixed some passives that had blank descriptions.</li>
+				<li>30pts: Increased the max stack counter for the Death Dealer's Fete set.</li>
+				<li>30pts: Fixed the Heartland Conquerer's 5 piece set bonus when some of its items are disabled.</li>
+				<li>30pts: Permitted the Heartland Conquerer's 5 piece set bonus to apply in off-hand setups.</li>
+				<li>30pts: Fixed the enchantment display in item tooltips when using the Heartland Conquerer's 5 piece set bonus.</li>
+				
 			</ul>
 			<p>
 			<b>5 May 2021</b>

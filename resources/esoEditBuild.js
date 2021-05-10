@@ -9009,7 +9009,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "Health",
 		toggle: true,
 		enabled: false,
-		maxTimes: 10,
+		maxTimes: 30,
 		match: /Each stack of Escalating Fete increases your Maximum Stamina, Health, and Magicka by ([0-9.]+)/i,
 	},
 	{
@@ -12423,10 +12423,11 @@ window.GetEsoInputValues = function (mergeComputedStats)
 		{
 			UpdateEsoBuildWeaponEnchantFactor("MainHand2", null);
 			UpdateEsoBuildWeaponEnchantFactor("OffHand2", null);
-			UpdateEsoBuildWeaponTraitFactor("MainHand2", null);
-			UpdateEsoBuildWeaponTraitFactor("OffHand2", null);
 			g_EsoBuildUpdatedOffBarEnchantFactor = true;
 		}
+		
+		UpdateEsoBuildWeaponTraitFactor("MainHand2", inputValues, true);
+		UpdateEsoBuildWeaponTraitFactor("OffHand2", inputValues, true);
 	}
 	else
 	{
@@ -12440,16 +12441,17 @@ window.GetEsoInputValues = function (mergeComputedStats)
 		UpdateEsoBuildWeaponEnchantFactor("OffHand2", inputValues);
 		UpdateEsoBuildWeaponTraitFactor("MainHand2", inputValues);
 		UpdateEsoBuildWeaponTraitFactor("OffHand2", inputValues);
-			
+		
 			/* Update offbar only the first update */
 		if (!g_EsoBuildUpdatedOffBarEnchantFactor)
 		{
 			UpdateEsoBuildWeaponEnchantFactor("MainHand1", null);
 			UpdateEsoBuildWeaponEnchantFactor("OffHand1", null);
-			UpdateEsoBuildWeaponTraitFactor("MainHand1", null);
-			UpdateEsoBuildWeaponTraitFactor("OffHand1", null);
 			g_EsoBuildUpdatedOffBarEnchantFactor = true;
 		}
+		
+		UpdateEsoBuildWeaponTraitFactor("MainHand1", inputValues, true);
+		UpdateEsoBuildWeaponTraitFactor("OffHand1", inputValues, true);
 	}
 	
 	GetEsoInputSpecialValues(inputValues);
@@ -13629,6 +13631,9 @@ window.GetEsoInputOtherHandItemValues = function (inputValues, slotId)
 	var enchantFactor = 1;
 	var transmuteFactor = 1;
 	
+	var weaponTraitFactor = 1;
+	if (inputValues.OffHandWeaponTraitEffect > 0) weaponTraitFactor += inputValues.OffHandWeaponTraitEffect;
+	
 		// Infused
 	if (itemData.trait == 16 || itemData.trait == 4 || itemData.trait == 33)
 	{
@@ -13637,7 +13642,8 @@ window.GetEsoInputOtherHandItemValues = function (inputValues, slotId)
 		
 		if (results != null && results.length !== 0) 
 		{
-			var infusedFactor = 1 + parseFloat(results[0])/100;
+			if (itemData.trait != 4) weaponTraitFactor = 1;
+			var infusedFactor = 1 + parseFloat(results[0])/100 * weaponTraitFactor;
 			if (isNaN(infusedFactor) || infusedFactor < 1) infusedFactor = 1;
 			enchantFactor = enchantFactor * infusedFactor;
 		}
@@ -14546,7 +14552,7 @@ window.GetEsoInputItemEnchantWeaponValues = function (inputValues, slotId, itemD
 						if (buffData.value != null) buffData.value = parseFloat(matches[1]);
 						
 						if (buffData.values) {
-							for (var j = 0; j < buffData.values.length; j++) 
+							for (var j = 0; j < buffData.values.length; j++)
 							{
 								buffData.values[j] = parseFloat(matches[1]);
 							}
@@ -14570,7 +14576,7 @@ window.GetEsoInputItemEnchantWeaponValues = function (inputValues, slotId, itemD
 		}
 	}
 	
-	if (addFinalEffect) 
+	if (addFinalEffect)
 	{
 		AddEsoInputStatSource("OtherEffects", { other: true, item: itemData, enchant: enchantData, value: rawDesc, slotId: slotId });
 		// AddEsoItemRawOutputString(itemData, "WeaponEnchant", rawDesc);
@@ -14591,7 +14597,7 @@ window.GetEsoInputItemEnchantOtherHandWeaponValues = function (inputValues, slot
 	if (enchantData.isDefaultEnchant && !isTransmuted) enchantFactor = 1;
 	if (itemData.type != 1) return false;
 	
-	if (inputValues.Set.EnchantPotency != null) 
+	if (inputValues.Set.EnchantPotency != null)
 	{
 		enchantFactor *= (1 + inputValues.Set.EnchantPotency);
 	}
@@ -14631,8 +14637,8 @@ window.GetEsoInputItemEnchantOtherHandWeaponValues = function (inputValues, slot
 						for (var j = 0; j < buffData.values.length; j++) 
 						{
 							buffData.values[j] = parseFloat(matches[1]);
-						}						
-					}	
+						}
+					}
 				}
 				
 				buffData.visible = true;
@@ -14648,7 +14654,7 @@ window.GetEsoInputItemEnchantOtherHandWeaponValues = function (inputValues, slot
 }
 
 
-window.EsoItemSetQuickCount = function (setName)
+window.EsoItemSetQuickCount = function (setName, useOffHand)
 {
 	var setCount = 0;
 	
@@ -14660,17 +14666,24 @@ window.EsoItemSetQuickCount = function (setName)
 		
 		if (itemData == null || itemData.setName == null) continue;
 		if (itemData.setName.toLowerCase() != setName) continue;
+		if (itemData.enabled === false) continue;
 		
 		var is2HWeapon = itemData.weaponType ==  4 || itemData.weaponType ==  5 || itemData.weaponType ==  6 || itemData.weaponType ==  8 ||
 						 itemData.weaponType ==  9 || itemData.weaponType == 12 || itemData.weaponType == 13 || itemData.weaponType == 15;
 		
 		if (key == "MainHand2" || key == "OffHand2" || key == "Poison2")
 		{
-			if (g_EsoBuildActiveWeapon == 1) continue;
+			if (useOffHand === true && g_EsoBuildActiveWeapon == 2)
+				continue;
+			else if (!useOffHand && g_EsoBuildActiveWeapon == 1)
+				continue;
 		}
 		else if (key == "MainHand1" || key == "OffHand1" || key == "Poison1")
 		{
-			if (g_EsoBuildActiveWeapon == 2) continue;
+			if (useOffHand === true && g_EsoBuildActiveWeapon == 1)
+				continue;
+			else if (!useOffHand && g_EsoBuildActiveWeapon == 2)
+				continue;
 		}
 		
 		++setCount;
@@ -14684,12 +14697,19 @@ window.EsoItemSetQuickCount = function (setName)
 window.PreUpdateEsoItemSpecialSets = function (inputValues)
 {
 	inputValues.WeaponTraitEffect = 0;
+	inputValues.OffHandWeaponTraitEffect = 0;
 	
 	var diamondSetCount = EsoItemSetQuickCount("Heartland Conqueror");
+	var diamondSetCountOffHand = EsoItemSetQuickCount("Heartland Conqueror", true);
 	
 	if (diamondSetCount >= 5)
 	{
 		inputValues.WeaponTraitEffect = 1;
+	}
+	
+	if (diamondSetCountOffHand >= 5)
+	{
+		inputValues.OffHandWeaponTraitEffect = 1;
 	}
 	
 }
@@ -19253,7 +19273,7 @@ window.UpdateEsoBuildWeaponEnchantFactor = function (slotId, inputValues)
 }
 
 
-window.UpdateEsoBuildWeaponTraitFactor = function (slotId, inputValues)
+window.UpdateEsoBuildWeaponTraitFactor = function (slotId, inputValues, isOffHand)
 {
 	var itemElement = $("#esotbItem" + slotId);
 	var iconElement = itemElement.children(".esotbItemIcon");
@@ -19265,6 +19285,16 @@ window.UpdateEsoBuildWeaponTraitFactor = function (slotId, inputValues)
 	if ( itemData.weaponType == 14 || itemData.trait == 10 || itemData.trait == 9) 
 	{
 		iconElement.attr("weapontraitfactor", 0);
+		return;
+	}
+	
+	if (isOffHand)
+	{
+		if (g_EsoBuildSetData["Heartland Conqueror"] != null && g_EsoBuildSetData["Heartland Conqueror"].otherCount >= 5)
+		{
+			iconElement.attr("weapontraitfactor", 1.0);
+		}
+		
 		return;
 	}
 	
