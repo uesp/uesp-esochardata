@@ -1674,6 +1674,14 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>10 May 2021</b>
+			<ul>
+				<li>Skill duration modifiers should now correctly modify DOT tooltips. Duration and ticks shown in the skill details popup should also be correct.
+					DOTs/HOTs with a delay time should also now have their durations correctly modified. Modified durations are now truncated to the nearest second
+					to match the behaviour in-game.</li>
+				<li>Fixed some passives that had blank description.</li>
+			</ul>
+			<p>
 			<b>5 May 2021</b>
 			<ul>
 				<li>30pts: Updated all skills and skill coefficients from PTS patch v7.0.2.</li>
