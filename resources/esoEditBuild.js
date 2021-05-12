@@ -13248,8 +13248,8 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 	var statFactor = 1;
 	var matches = null;
 	
-	rawDesc = rawDesc.replace("  ", " ");
-	rawDesc = rawDesc.replace("  ", " ");
+	rawDesc = rawDesc.replaceAll("  ", " ");
+	rawDesc = rawDesc.replaceAll("  ", " ");
 	
 	if (matchData.statValue !== undefined) statValue = matchData.statValue;
 	
@@ -16947,7 +16947,7 @@ window.OnEsoRequestFindSetItemReceive = function (data, status, xhr, slotId, mon
 		tempItemData.internalLevel = 1;
 		tempItemData.internalSubtype = 1;
 	}
-		
+	
 	var iconName = itemData.icon.replace(".dds", ".png");
 	var iconUrl = ESO_ICON_URL + iconName;
 	var niceName = itemData.name.charAt(0).toUpperCase() + itemData.name.slice(1);
@@ -16968,7 +16968,7 @@ window.OnEsoRequestFindSetItemReceive = function (data, status, xhr, slotId, mon
 	
 	UpdateEsoItemTraitList(slotId, trait);
 	
-	RequestEsoItemData(tempItemData, element);	
+	RequestEsoItemData(tempItemData, element);
 }
 
 
@@ -20424,7 +20424,7 @@ window.CreateEsoBuildSaveData = function ()
 	CreateEsoBuildCombatSaveData(saveData, inputValues);
 	
 	CreateEsoBuildOffBarSaveData(saveData, inputValues);
-		
+	
 	return saveData;
 }
 
@@ -20631,7 +20631,7 @@ window.CreateEsoBuildBuffSaveData = function (saveData, inputValues)
 		
 		data.name = buffName;
 		data.icon = buffData.icon;
-		data.description = buffData.desc.replace("<br/>", "");
+		data.description = buffData.desc.replaceAll("<br/>", " ");
 		data.abilityId = 0;
 		
 		data.enabled = 0;
@@ -22908,7 +22908,7 @@ window.TestEsoSkillBleed = function (abilityId, skillData)
 	for (var i = 0; i < ESO_SKILL_BLEEDMATCHES.length; ++i)
 	{
 		var match = ESO_SKILL_BLEEDMATCHES[i];
-		var desc = skillData.description.replace("  ", " ").replace("  ", " ");
+		var desc = skillData.description.replaceAll("  ", " ").replaceAll("  ", " ");
 
 		if (desc.match(match) != null) numMatches++;
 	}
@@ -22961,7 +22961,7 @@ window.TestEsoSkillDamageShield = function (abilityId, skillData)
 	for (var i = 0; i < ESO_SKILL_DAMAGESHIELDMATCHES.length; ++i)
 	{
 		var match = ESO_SKILL_DAMAGESHIELDMATCHES[i].match;
-		var desc = skillData.description.replace("  ", " ").replace("  ", " ");
+		var desc = skillData.description.replaceAll("  ", " ").replaceAll("  ", " ");
 		var result = desc.match(match);
 		
 		if (result != null) 
@@ -23029,7 +23029,7 @@ window.TestEsoSkillHealing = function (abilityId, skillData)
 	for (var i = 0; i < ESO_SKILL_HEALINGMATCHES.length; ++i)
 	{
 		var match = ESO_SKILL_HEALINGMATCHES[i].match;
-		var desc = skillData.description.replace("  ", " ").replace("  ", " ");
+		var desc = skillData.description.replaceAll("  ", " ").replaceAll("  ", " ");
 		var result = desc.match(match);
 		
 		if (result != null)
@@ -23087,7 +23087,7 @@ window.CheckEsoTestSkillResults = function ()
 
 		if (testData.numMatches <= 0)
 		{
-			var desc = testData.desc.replace("\n", " ");
+			var desc = testData.desc.replaceAll("\n", " ");
 			// EsoBuildLog("Passive Skill has NO matches!", testData.name,
 			// testData, abilityData);
 			EsoBuildLog(`===== ${testData.name} (${testData.id}) passive has NO matches! =====\n\t${desc}`);
@@ -23106,7 +23106,7 @@ window.CheckEsoTestSkillResults = function ()
 		
 		if (testData.numMatches > 0)
 		{
-			var desc = testData.desc.replace("\n", " ");
+			var desc = testData.desc.replaceAll("\n", " ");
 			// EsoBuildLog("Active Skill has " + testData.numMatches + "
 			// matches!", testData.name, testData, abilityData);
 			EsoBuildLog(`===== ${testData.name} (${testData.id}) active has ${testData.numMatches} matches!=====\n\t${desc}`, testData);
@@ -23153,7 +23153,7 @@ window.TestEsoSkill = function (abilityId, abilityData, inputValues)
 	var skillDesc = GetEsoSkillDescription(abilityId, inputValues, false, true);
 	
 	var rawDesc = RemoveEsoDescriptionFormats(skillDesc);
-	rawDesc = rawDesc.replace("  ", " ").replace("  ", " ");
+	rawDesc = rawDesc.replaceAll("  ", " ").replaceAll("  ", " ");
 	if (rawDesc == "" || abilityData == null) return;
 	
 		/* Ignore crafting passives and other skill lines */

@@ -1771,8 +1771,8 @@ class EsoBuildDataViewer
 				if ($this->getCharStatField('Bar4:Health') == "") return "";
 			}
 			
-			if ($this->characterData['class'] != "Sorcerer") return "ecdHiddenAbilityBar";
-			return "";
+			//if ($this->characterData['class'] != "Sorcerer") return "ecdHiddenAbilityBar";	// Overload is no longer a seperate bar
+			return "ecdHiddenAbilityBar";
 		}
 		else if ($barIndex == 4)
 		{
@@ -3255,6 +3255,8 @@ class EsoBuildDataViewer
 		if ($desc != "")
 		{
 			$desc = $this->convertDescriptionToText($desc);
+			$desc = preg_replace('/([0-9%]+)(Increase)/', '$1, $2', $desc);	// Fix for removing <br> without replacing them with a space
+			
 			$extraClass = "ecdBuffTooltip";
 			$tooltip = " tooltip='$desc'";
 		}
@@ -3691,6 +3693,9 @@ class EsoBuildDataViewer
 	public function convertDescriptionToText($description)
 	{
 		$newDesc = preg_replace('/\|c[a-fA-F0-9]{6}([a-zA-Z _0-9\.\+\-\:\;\n\r\t]*)\|r/', '$1', $description);
+		$newDesc = str_replace("<br>", " ", $newDesc);
+		$newDesc = str_replace("<br/>", " ", $newDesc);
+		$newDesc = str_replace("<br />", " ", $newDesc);
 		$newDesc = $this->escape($newDesc);
 		return $newDesc;
 	}

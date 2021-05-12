@@ -3634,11 +3634,9 @@ thead.ecdFixedHeader tr {
 }
 
 #ecdBuildDescription {
-	position: absolute;
-	max-width: 500px;
-    max-height: 140px;
-    background-color: rgba(0,0,0,0.8);
-    box-shadow: 0px 0px 10px 10px rgba(0,0,0,0.8);
+	margin: 5px;
+	background-color: rgba(0,0,0,0.8);
+	box-shadow: 0px 0px 10px 10px rgba(0,0,0,0.8);
 }
 
 .ecdBuildLinkButton {
