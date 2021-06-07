@@ -5984,11 +5984,11 @@ class EsoBuildDataEditor
 		$itemId = (int) $linkData['itemId'];
 		$intLevel = (int) $linkData['itemIntLevel'];
 		$intType = (int) $linkData['itemIntType'];
-				
+		
 		if ($itemId === null || $intLevel === null || $intType === null || $itemId <= 0) return false;
 		
 		$this->TransformItemDataForPts($intLevel, $intType);
-				
+		
 		$query = "SELECT * FROM minedItem{$this->ITEM_TABLE_SUFFIX} WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
 		$result = $this->db->query($query);
 		if (!$result) return $this->ReportError("Failed to load item data for $slotId!");

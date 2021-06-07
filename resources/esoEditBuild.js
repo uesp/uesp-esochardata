@@ -1707,11 +1707,11 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			displays : [ "%", "%", "%" ],
-			categories : [ "Skill2", "Buff", "Buff" ],
-			values : [ -0.55, -0.44, -0.50 ],
-			statIds : [ "HealingReceived", "DamageTaken", "DamageShield" ],
-			combineAses: [ '', "*%", '' ],
+			displays : [ "%", "%", "%", "%" ],
+			categories : [ "Skill2", "Buff", "Buff", "Buff" ],
+			values : [ -0.55, -0.50, -0.44, -0.50 ],
+			statIds : [ "HealingReceived", "HealthRegen", "DamageTaken", "DamageShield" ],
+			combineAses: [ '', '', "*%", '' ],
 			icon: "/esoui/art/icons/ability_templar_002.png",
 		},
 		"Enemy Keep Bonus 1" :
@@ -1844,24 +1844,9 @@ window.g_EsoBuildBuffData =
 };
 
 
-	//TODO: Update30pts
+
 window.g_EsoBuildBuffData_PTS =
 {
-		"Battle Spirit" :
-		{
-			group: "Cyrodiil",
-			visible : false,
-			toggleVisible : true,
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			displays : [ "%", "%", "%", "%" ],
-			categories : [ "Skill2", "Buff", "Buff", "Buff" ],
-			values : [ -0.55, -0.50, -0.44, -0.50 ],
-			statIds : [ "HealingReceived", "HealthRegen", "DamageTaken", "DamageShield" ],
-			combineAses: [ '', '', "*%", '' ],
-			icon: "/esoui/art/icons/ability_templar_002.png",
-		},
 };
 
 
@@ -3086,7 +3071,8 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		buffId : "Minor Protection",
 		match: /You also gain Minor Vitality and Minor Protection/i
 	},	
-	{				//TODO: Update30pts
+	/*
+	{
 		id: "Rune Focus Standing",
 		displayName: "Rune Focus (Standing)",
 		matchSkillName: false,
@@ -3121,7 +3107,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		buffId : "Major Ward (Bonus)",
 		match: /the rune grants you Major Resolve and Major Ward/i,
 		rawInputMatch: /(Standing within the rune increases Physical Resistance and Spell Resistance granted by [0-9]+\.?[0-9]*%\.)/i,
-	},
+	}, */
 	{
 		id: "Mist Form",
 		statRequireId: "Vampire",
@@ -9018,7 +9004,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "Magicka",
 		toggle: true,
 		enabled: false,
-		maxTimes: 10,
+		maxTimes: 30,
 		match: /Each stack of Escalating Fete increases your Maximum Stamina, Health, and Magicka by ([0-9.]+)/i,
 	},
 	{
@@ -9027,7 +9013,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "Stamina",
 		toggle: true,
 		enabled: false,
-		maxTimes: 10,
+		maxTimes: 30,
 		match: /Each stack of Escalating Fete increases your Maximum Stamina, Health, and Magicka by ([0-9.]+)/i,
 	},
 	{
@@ -9807,7 +9793,7 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		id: "Eternal Vigor (Magicka + Stamina)",
 		setId: "Eternal Vigor",
-		setBonusCount: 5,
+		setBonusCount: 4,
 		toggle: true,
 		enabled: true,
 		disableSetIds: [ "Eternal Vigor (Health)" ],
@@ -9818,7 +9804,7 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		id: "Eternal Vigor (Magicka + Stamina)",
 		setId: "Eternal Vigor",
-		setBonusCount: 5,
+		setBonusCount: 4,
 		toggle: true,
 		enabled: true,
 		disableSetIds: [ "Eternal Vigor (Health)" ],
@@ -9829,7 +9815,7 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		id: "Eternal Vigor (Health)",
 		setId: "Eternal Vigor",
-		setBonusCount: 5,
+		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
 		disableSetIds: [ "Eternal Vigor (Magicka + Stamina)" ],
@@ -23624,7 +23610,7 @@ window.UpdateEsoPts = function()
 {
 	if (!$("#esotbUsePtsRules").prop("checked")) return;
 	
-		//TODO: Update30pts
+		//TODO: Update pts
 	$("#esotbQuickItemSetups").find(".esotbSetPts").removeAttr("disabled").removeAttr("hidden");
 	$("#esotbItemSetupMythicSet").children().removeAttr("disabled").removeAttr("hidden");
 	$("#esotbItemSetupMonsterSet").children().removeAttr("disabled").removeAttr("hidden");
@@ -23643,25 +23629,12 @@ window.UpdateEsoPts = function()
 		
 	}
 	
-		// TODO Update 30pts
-	for (var i in ESO_SETEFFECT_MATCHES)
-	{
-		var set = ESO_SETEFFECT_MATCHES[i];
-		
-		if (set.setId == "Eternal Vigor")
-		{
-			set.setBonusCount = 4;
-		}
-	}
 }
 
 
 window.UpdateEsoPtsToggleData = function()
 {
 	if (!$("#esotbUsePtsRules").prop("checked")) return;
-	
-		//TODO: Update30pts
-	delete g_EsoBuildToggledSkillData['Rune Focus Standing'];
 }
 
 

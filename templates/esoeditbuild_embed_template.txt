@@ -6,11 +6,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #ffc; margin-right: 270px;'>
-The build editor is *partially* working for update 30 PTS. Skills, CP and item data have been updated but new/updated skills/items/CP/mechanics are not completely working yet. Item 
-set scaling has been enabled for testing and feedback/issue reports are wanted.<br/>
-We've enabled a new system for calculating skill tooltips. If you notice any issues or discrepancies please <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor">let us know</a>.<br/>
-We have noticed an issue with some adblockers causing calculation updates to take much longer (10 times) than usual. The current work around is to disable the adblocker on the editor page.
-
+The build editor is not yet completely working for update 30. Items, skill and CP data have been updated.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -651,12 +647,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Earthgore</option>
 						<option>Encratis's Behemoth</option>
 						<option>Engine Guardian</option>
-						<option hidden disabled>Glorgoloch the Destroyer</option>
+						<option>Glorgoloch the Destroyer</option>
 						<option>Grothdarr</option>
 						<option>Grundwulf</option>
 						<option>Iceheart</option>
 						<option>Ilambris</option>
-						<option hidden disabled>Immolator Charr</option>
+						<option>Immolator Charr</option>
 						<option>Infernal Guardian</option>
 						<option>Kjalnar's Nightmare</option>
 						<option>Kra'gh</option>
@@ -689,7 +685,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Velidreth</option>
 						<option>Vykosa</option>
 						<option>Zaan</option>
-						<option hidden disabled>Zoal the Ever-Wakeful</option>
+						<option>Zoal the Ever-Wakeful</option>
 					</select>
 					
 					<button id="esotbItemSetupMonsterSetButton" onclick="OnEsoEditBuildSetupMonsterSet(this);">Change</button>
@@ -753,14 +749,14 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					
 					<select id="esotbItemSetupMythicSet" style="width: 200px;">
 						<option slotid="Chest">Bloodlord's Embrace</option>
-						<option slotid="Ring1" hidden disabled>Death Dealer's Fete</option>
-						<option slotid="Head" hidden disabled>Gaze of Sithis</option>
-						<option slotid="Legs" hidden disabled>Harpooner's Wading Kilt</option>
+						<option slotid="Ring1">Death Dealer's Fete</option>
+						<option slotid="Head">Gaze of Sithis</option>
+						<option slotid="Legs">Harpooner's Wading Kilt</option>
 						<option slotid="Ring2">Malacath's Band of Brutality</option>
 						<option slotid="Neck">Pearls of Ehlnofey</option>
 						<option slotid="Ring1">Ring of the Pale Order</option>
 						<option slotid="Ring1">Ring of the Wild Hunt</option>
-						<option slotid="Neck" hidden disabled>Shapeshifter's Chain</option>
+						<option slotid="Neck">Shapeshifter's Chain</option>
 						<option slotid="Feet">Snow Treaders</option>
 						<option slotid="Hands">Thrassian Stranglers</option>
 						<option slotid="Neck">Torc of Tonal Constancy</option>
@@ -805,8 +801,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Automated Defense</option>
 						<option>Azureblight Reaper</option>
 						<option>Bahraha's Curse</option>
-						<option hidden disabled>Bahsei's Mania</option>
-						<option hidden disabled value="Perfected Bahsei's Mania">Bahsei's Mania (Perfect)</option>
+						<option>Bahsei's Mania</option>
+						<option value="Perfected Bahsei's Mania">Bahsei's Mania (Perfect)</option>
 						<option>Bani's Torment</option>
 						<option>Barkskin</option>
 						<option>Bastion of the Heartland</option>
@@ -820,7 +816,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Blood Moon</option>
 						<option>Blooddrinker</option>
 						<option>Bloodthorn's Touch</option>
-						<option hidden disabled>Bog Raider</option>
+						<option>Bog Raider</option>
 						<option>Bone Pirate's Tatters</option>
 						<option>Brands of Imperium</option>
 						<option>Briarheart</option>
@@ -848,14 +844,14 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Daring Corsair</option>
 						<option>Dauntless Combatant</option>
 						<option>Dead-Water's Guile</option>
-						<option hidden disabled>Deadlands Assassin</option>
+						<option>Deadlands Assassin</option>
 						<option>Deadly Strike</option>
 						<option>Death's Wind</option>
 						<option>Defending Warrior</option>
 						<option>Defiler</option>
 						<option>Desert Rose</option>
 						<option>Destructive Mage</option>
-						<option hidden disabled>Diamond's Victory</option>
+						<option>Diamond's Victory</option>
 						<option>Dragon's Appetite</option>
 						<option>Dragon's Defilement</option>
 						<option>Dagon's Dominion</option>
@@ -894,7 +890,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Foolkiller's Ward</option>
 						<option>Footman's Fortune</option>
 						<option>Fortified Brass</option>
-						<option hidden disabled>Frostbite</option>
+						<option>Frostbite</option>
 						<option>Frozen Watcher</option>
 						<option>Galerion's Revenge</option>
 						<option>Gallant Charge</option>
@@ -915,7 +911,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Hawk's Eye</option>
 						<option>Healer's Habit</option>
 						<option>Healing Mage</option>
-						<option hidden disabled>Heartland Conqueror</option>
+						<option>Heartland Conqueror</option>
 						<option>Heem-Jas' Retribution</option>
 						<option>Hex Siphon</option>
 						<option>Hide of Morihaus</option>
@@ -923,7 +919,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Hiti's Hearth</option>
 						<option>Hircine's Veneer</option>
 						<option>Hist Bark</option>
-						<option hidden disabled>Hist Whisperer</option>
+						<option>Hist Whisperer</option>
 						<option>Hollowfang Thirst</option>
 						<option>Hunding's Rage</option>
 						<option>Hunt Leader</option>
@@ -997,7 +993,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Oblivion's Foe</option>
 						<option>Order of Diagna</option>
 						<option>Orgnum's Scales</option>
-						<option hidden disabled>Overland</option>
+						<option>Overland</option>
 						<option>Overwhelming Surge</option>
 						<option>Para Bellum</option>
 						<option>Pelinal's Aptitude</option>
@@ -1036,8 +1032,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Salvation</option>
 						<option>Sanctuary</option>
 						<option>Savage Werewolf</option>
-						<option hidden disabled>Saxhleel Champion</option>
-						<option hidden disabled value="Perfected Saxhleel Championt">Saxhleel Champion (Perfect)</option>
+						<option>Saxhleel Champion</option>
+						<option value="Perfected Saxhleel Championt">Saxhleel Champion (Perfect)</option>
 						<option>Scathing Mage</option>
 						<option>Scavenging Demise</option>
 						<option>Senchal Defender</option>
@@ -1075,15 +1071,15 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Spriggan's Thorns</option>
 						<option>Steadfast Hero</option>
 						<option>Stendarr's Embrace</option>
-						<option hidden disabled>Stone-Talker's Oath</option>
-						<option hidden disabled value="Perfected Stone-Talker's Oath">Stone-Talker's Oath (Perfect)</option>
+						<option>Stone-Talker's Oath</option>
+						<option value="Perfected Stone-Talker's Oath">Stone-Talker's Oath (Perfect)</option>
 						<option>Storm Knight's Plate</option>
 						<option>Storm Master</option>
 						<option>Strength of the Automaton</option>
 						<option>Stuhn's Favor</option>
 						<option>Stygian</option>
-						<option hidden disabled>Sul-Xan's Torment</option>
-						<option hidden disabled value="Perfected Sul-Xan's Torment">Sul-Xan's Torment (Perfect)</option>
+						<option>Sul-Xan's Torment</option>
+						<option value="Perfected Sul-Xan's Torment">Sul-Xan's Torment (Perfect)</option>
 						<option>Sunderflame</option>
 						<option>Swamp Raider</option>
 						<option>Sword Dancer</option>
@@ -1674,6 +1670,25 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>4 June 2021</b>
+			<ul>
+				<li>Updated item data (mix of Live and PTS).</li>
+			</ul>
+			<p>
+			<b>2 June 2021</b>
+			<ul>
+				<li>Updated skill and CP data from Live.</li>
+				<li>Updated the Battle Spirit buff.</li>
+				<li>Removed the Rune Focus Standing buff.</li>
+				<li>Enabled new items set in the quick item setup.</li>
+				<li>Fixed the Eternal Vigor set toggle.</li>
+			</ul>
+			<p>
+			<b>12 May 2021</b>
+			<ul>
+				<li>30pts: Increased the max stack counter for the Death Dealer's Fete set (for real this time).</li>
+			</ul>
+			<p>
 			<b>10 May 2021</b>
 			<ul>
 				<li>Skill duration modifiers should now correctly modify DOT tooltips. Duration and ticks shown in the skill details popup should also be correct.
@@ -1684,7 +1699,6 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>30pts: Fixed the Heartland Conquerer's 5 piece set bonus when some of its items are disabled.</li>
 				<li>30pts: Permitted the Heartland Conquerer's 5 piece set bonus to apply in off-hand setups.</li>
 				<li>30pts: Fixed the enchantment display in item tooltips when using the Heartland Conquerer's 5 piece set bonus.</li>
-				
 			</ul>
 			<p>
 			<b>5 May 2021</b>
