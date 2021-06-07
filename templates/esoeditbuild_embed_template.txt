@@ -1677,6 +1677,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Fixed item link enchantment display when using default enchantments and the Heartland Conqueror's Set.</li>
 				<li>Fixed the Senche's Bite set toggle.</li>
 				<li>The Twilight Tormentor's skill toggle now only affects that skill.</li>
+				<li>Fixed item data in the 5 piece bonus of the Perfected Sul-Xan's Torment set.</li>
+				<li>Fixed the Berserking Warrior set toggle.</li>
 			</ul>
 			<p>
 			<b>4 June 2021</b>
