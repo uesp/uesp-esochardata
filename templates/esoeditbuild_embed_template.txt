@@ -1676,6 +1676,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Default weapon enchant values are no longer halved.</li>
 				<li>Fixed item link enchantment display when using default enchantments and the Heartland Conqueror's Set.</li>
 				<li>Fixed the Senche's Bite set toggle.</li>
+				<li>The Twilight Tormentor's skill toggle now only affects that skill.</li>
 			</ul>
 			<p>
 			<b>4 June 2021</b>

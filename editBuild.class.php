@@ -1924,6 +1924,10 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
+			"SkillDamage.Summon Twilight Tormentor" => array(
+					"display" => "%",
+			),
+			
 			"SkillDamage.Snipe" => array(
 					"display" => "%",
 			),

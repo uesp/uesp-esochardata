@@ -2202,7 +2202,8 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar: true,
-		statId: "PetDamageDone",
+		category: "SkillDamage",
+		statId: "Summon Twilight Tormentor",
 		display: "%",
 		rawInputMatch: /(Once summoned, you can activate the twilight tormentor's special ability for [0-9.]+ Magicka, causing it to deal [0-9.]+% more damage to enemies above [0-9.]+% Health for [0-9.]+ seconds\.)/,
 		match: /you can activate the twilight tormentor's special ability for [0-9.]+ Magicka, causing it to deal ([0-9.]+)% more damage/i
