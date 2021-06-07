@@ -11293,7 +11293,17 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		statId: "CritDamage",
 		display: "%",
-		match: /When you use Roll Dodge, increase your Critical Damage by ([0-9]+)%/i,
+		match: /Whenever you successfully Dodge, increase your Critical Damage and Critical Healing by ([0-9.]+)% for/i,
+	},
+	{
+		id: "Senche's Bite",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "CritHealing",
+		display: "%",
+		match: /Whenever you successfully Dodge, increase your Critical Damage and Critical Healing by ([0-9.]+)% for/i,
 	},
 	{
 		id: "Seventh Legion Brute",
