@@ -1306,7 +1306,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : -0.25,
+			value : -0.20,
 			display: "%",
 			category: "Skill",
 			statId : "AOEDamageTaken",
@@ -14502,7 +14502,7 @@ window.GetEsoInputItemEnchantWeaponValues = function (inputValues, slotId, itemD
 	// if (enchantData.isDefaultEnchant && !isTransmuted) enchantFactor = 1;
 	if (itemData.type != 1) return false;
 	
-	if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
+	if (!enchantData.isDefaultEnchant && itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
 	{
 		enchantFactor *= 0.5;
 	}
@@ -14593,7 +14593,7 @@ window.GetEsoInputItemEnchantOtherHandWeaponValues = function (inputValues, slot
 		enchantFactor *= (1 + 0.3);
 	}
 	
-	if (itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
+	if (!enchantData.isDefaultEnchant && itemData && (itemData.weaponType == 1 || itemData.weaponType == 2 || itemData.weaponType == 3 || itemData.weaponType == 11))
 	{
 		enchantFactor *= 0.5;
 	}
