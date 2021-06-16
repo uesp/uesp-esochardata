@@ -1200,6 +1200,10 @@ esotbToggledCpSelect {
    border: 1px solid gray;
 }
 
+#esotbMitigationDetails p {
+	padding: 5px;
+}
+
 .esotbMitRawDataTitle {
 	display: inline-block;
 	text-align: right;

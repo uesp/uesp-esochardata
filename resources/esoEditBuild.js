@@ -7084,6 +7084,7 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		category: "Set",
 		statId: "BuffDuration",
+		display: "%",
 		match: /Increases the duration of all Major buffs.*by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{	// Deadly strike
@@ -12579,7 +12580,7 @@ window.GetEsoInputBuffValues = function (inputValues)
 window.CombineEsoValuesMult = function (base, value)
 {
 	//return +((1 + base) * (1 + value) - 1);
-	return Math.ceil(((1 + base) * (1 + value))*100)/100 - 1;
+	return Math.ceil(((1 + base) * (1 + value))*100 - 0.01)/100 - 1;
 }
 
 
@@ -22634,7 +22635,7 @@ window.UpdateEsoMitigationCell = function(element, elementType, damageType1, dam
 	if (isPlayer)
 	{
 		playerDamageTaken = GetEsoInputStatMultValue("PlayerDamageTaken");
-		if (damageType2 == "AOE") playerAOEDamageTaken = GetEsoInputStatMultValue("PlayerAOEDamageTaken");		
+		if (damageType2 == "AOE") playerAOEDamageTaken = GetEsoInputStatMultValue("PlayerAOEDamageTaken");
 	}
 	else
 	{
@@ -22642,7 +22643,7 @@ window.UpdateEsoMitigationCell = function(element, elementType, damageType1, dam
 	}
 	
 	rawData.resistance = resistance;
-	rawData.resistanceDamageTaken = (1 - Math.max(0, resistance - 100) / 660 / 100);
+	rawData.resistanceDamageTaken = (1 - 0.10 - Math.max(0, resistance - 100) / 660 / 100);
 	rawData.elementVulnerability = elementVulnerability;
 	rawData.vulnerability = vulnerability;
 	rawData.damageTaken = damageTaken;
@@ -22655,7 +22656,7 @@ window.UpdateEsoMitigationCell = function(element, elementType, damageType1, dam
 	rawData.dungeonDamageTaken = dungeonDamageTaken;
 	
 		/* Mitigation calculation */
-	mitigation *= (1 - Math.max(0, resistance - 100) / 660 / 100); 
+	mitigation *= (1 - 0.10 - Math.max(0, resistance - 100) / 660 / 100); 
 	mitigation *= damageTaken * damage1Taken * damage2Taken * elementDamageTaken + elementVulnerability + vulnerability;
 	// mitigation *= damage1Taken;
 	// mitigation *= damage2Taken;

@@ -58,7 +58,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<div class="esotbStatLabel">Stealthed</div> <input type="checkbox" id="esotbStealth" name="esotbStealth" statid="Stealth" {stealth}>
 			<div class="esotbStatLabel">Alliance</div> <select id="esotbAlliance" class="esotbInputSize1" name="esotbAlliance" statid="Alliance">{allianceList}</select>
 			<br/>
-			<div class="esotbStatLabel">In Cyrodiil</div> <input type="checkbox" id="esotbCyrodiil" name="esotbCyrodiil" statid="Cyrodiil" {cyrodiil}>
+			<div class="esotbStatLabel">In Cyrodiil (PVP)</div> <input type="checkbox" id="esotbCyrodiil" name="esotbCyrodiil" statid="Cyrodiil" {cyrodiil}>
 			<br/>
 			<div class="esotbStatLabel">Enable CP</div> <input type="checkbox" id="esotbEnableCP" name="esotbEnableCP" statid="EnableCP" {enableCP}>
 			
@@ -1670,6 +1670,17 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>16 June 2021</b>
+			<ul>
+				<li>Fixed rounding when close to exact values when combining multiplicative stats.</li>
+				<li>Updated mitigation to include the 10% base mitigation (included with armor resistance mitigation).</li>
+			</ul>
+			<p>
+			<b>11 June 2021</b>
+			<ul>
+				<li>Fixed the % parsing of Jorvuld's Guidance 5 piece set bonus.</li>
+			</ul>
+			<p>
 			<b>7 June 2021</b>
 			<ul>
 				<li>Updated the Blade Cloak buff percentage to 20%.</li>
