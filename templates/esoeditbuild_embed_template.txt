@@ -6,11 +6,11 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #cfc; margin-right: 270px;'>
-The build editor is *mostly* working for update 30. Items, skill and CP data have been updated.
+The build editor is now working for update 30. Items, skill and CP data have been updated. A slightly different item database system is now being used....If there are issues with tooltips or item data let us know!
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
-inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor"><b>let us know</b></a>. 
+inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor"><b>let us know</b></a>.
 <div class='esotbBlockClear'></div>
 <div id="esotbRoot">
 	<div id="esotbStatList">
@@ -54,7 +54,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p/>
 			<div class="esotbStatLabel">Vampire Stage</div> <select id="esotbVampireStage" class="esotbInputSize1" name="esotbVampireStage" statid="VampireStage">{vampireList}</select>
 			<div class="esotbStatLabel">Werewolf Stage</div> <select id="esotbWerewolfStage" class="esotbInputSize1" name="esotbWerewolfStage" statid="Werewolf">{werewolfList}</select>
-			<br/> 
+			<br/>
 			<div class="esotbStatLabel">Stealthed</div> <input type="checkbox" id="esotbStealth" name="esotbStealth" statid="Stealth" {stealth}>
 			<div class="esotbStatLabel">Alliance</div> <select id="esotbAlliance" class="esotbInputSize1" name="esotbAlliance" statid="Alliance">{allianceList}</select>
 			<br/>
@@ -1670,6 +1670,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>9 July 2021</b>
+			<ul>
+				<li>Implemented a slightly different back-end item database system to try and reduce database size and increase performance. If there are issues with tooltips or item data let us know!</li>
+			</ul>
+			<p>
 			<b>16 June 2021</b>
 			<ul>
 				<li>Fixed rounding when close to exact values when combining multiplicative stats.</li>

@@ -3,7 +3,7 @@
 
 require_once("/home/uesp/secrets/esobuilddata.secrets");
 require_once("/home/uesp/secrets/esolog.secrets");
-//require_once("/home/uesp/esolog.static/esoCommon.php");
+require_once("/home/uesp/esolog.static/esoCommon.php");
 require_once("/home/uesp/esolog.static/esoSkillRankData.php");
 
 
@@ -28,7 +28,7 @@ class EsoBuildDataParser
 	public $fileLuaResult = false;
 	public $parsedBuildData = array();
 	public $parsedCommonData = array();
-		
+	
 	public $currentCharacterStats = array();
 	
 	public $newCharacterCount = 0;
@@ -69,6 +69,8 @@ class EsoBuildDataParser
 	public function log ($msg)
 	{
 		//print($msg . "\n");
+		//error_log("$msg");
+		
 		$result = file_put_contents($this->ECD_OUTPUTLOG_FILENAME, $msg . "\n", FILE_APPEND | LOCK_EX);
 		return TRUE;
 	}
@@ -88,7 +90,7 @@ class EsoBuildDataParser
 			$this->log("\tDBLog Error:" . $this->dbLog->error);
 			$this->log("\tLast Query:" . $this->lastQuery);
 		}
-	
+		
 		return false;
 	}
 	
@@ -107,12 +109,12 @@ class EsoBuildDataParser
 	public function initDatabase ()
 	{
 		global $uespEsoBuildDataReadDBHost, $uespEsoBuildDataReadUser, $uespEsoBuildDataReadPW, $uespEsoBuildDataDatabase;
-	
+		
 		if ($this->dbReadInitialized || $this->dbWriteInitialized) return true;
-	
+		
 		$this->db = new mysqli($uespEsoBuildDataReadDBHost, $uespEsoBuildDataReadUser, $uespEsoBuildDataReadPW, $uespEsoBuildDataDatabase);
 		if ($this->db->connect_error) return $this->reportError("Could not connect to mysql database!");
-	
+		
 		$this->dbReadInitialized = true;
 		$this->dbWriteInitialized = false;
 		
@@ -807,11 +809,11 @@ class EsoBuildDataParser
 		{
 			$result = mkdir($this->ECD_OUTPUT_SCREENSHOT_PATH . $basePath);
 			
-			if (!$result) 
+			if (!$result)
 			{
 				$this->log("Failed to create the path '$basePath'!");
 				return false;
-			}			
+			}
 		}
 				
 		$imageData = base64_decode($rawScreenshotData);
@@ -869,6 +871,8 @@ class EsoBuildDataParser
 		$safeName = $this->db->real_escape_string($name);
 		$safeData = $this->db->real_escape_string($data);
 		
+		//if (is_array($data)) error_log("$charId:$name stat is an array!");
+		
 		$query  = "INSERT INTO stats(characterId, name, value) ";
 		$query .= "VALUES($charId, \"$safeName\", \"$safeData\");";
 		$this->lastQuery = $query;
@@ -909,7 +913,7 @@ class EsoBuildDataParser
 				$rank = $newSkills[$id];
 				
 				if ($rank == null) $rank = 0;
-				$buildData["ActionBar"][$slotId]["rank"] = $rank;					
+				$buildData["ActionBar"][$slotId]["rank"] = $rank;
 			}
 		}
 		
@@ -1052,9 +1056,9 @@ class EsoBuildDataParser
 		$charId = intval($buildData['id']);
 		$accountName = $this->getSafeFieldStr($buildData, 'UniqueAccountName');
 		
-		$result = True;
+		$result = true;
 		$startTime = microtime(True);
-			
+		
 		foreach ($arrayData as $key => &$value)
 		{
 			$result &= $this->saveCharacterInventoryItem($charId, $accountName, $key, $value);
@@ -1063,21 +1067,24 @@ class EsoBuildDataParser
 		$deltaTime = (microtime(True) - $startTime) * 1000;
 		$count = count($arrayData);
 		$this->log("Parsed and saved $count inventory items in $deltaTime ms.");
-			
+		
 		return $result;
 	}
 	
 	
 	public function saveCharacterInventoryItem($charId, $accountName, $index, $itemData)
 	{
-		
 			/* Ignore non-numeric indexes */
 		if (!is_numeric($index)) return true;
 		
 			//"200 |H0:item:33753:25:1:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0|h[Fish]|h"
 		$matches = array();
 		$result = preg_match("/([0-9]+) (.*)/", $itemData, $matches);
-		if ($result !== 1) return false;
+		
+		if ($result !== 1) 
+		{
+			return false;
+		}
 		
 		$qnt = intval($matches[1]);
 		$fullItemLink = $matches[2];
@@ -1120,7 +1127,7 @@ class EsoBuildDataParser
 		{
 			$consumable = 1;
 		}
-				
+		
 		$matches = array();
 		$result = preg_match('/\|H(?P<color>[A-Za-z0-9]*)\:item\:(?P<itemId>[0-9]*)\:(?P<subtype>[0-9]*)\:(?P<level>[0-9]*)\:(?P<enchantId>[0-9]*)\:(?P<enchantSubtype>[0-9]*)\:(?P<enchantLevel>[0-9]*)\:(.*?)\:(?P<style>[0-9]*)\:(?P<crafted>[0-9]*)\:(?P<bound>[0-9]*)\:(?P<stolen>[0-9]*)\:(?P<charges>[0-9]*)\:(?P<potionData>[0-9]*)\|h(?P<name>[^|\^]*)(?P<nameCode>.*?)\|h/', $itemLink, $matches);
 		
@@ -1131,7 +1138,7 @@ class EsoBuildDataParser
 			
 			$itemData = $this->loadItemData($matches['itemId'], $matches['subtype'], $matches['level']);
 			
-			if ($itemData !== False)
+			if ($itemData !== false)
 			{
 				$value = $itemData['value'];
 				$quality = $itemData['quality'];
@@ -1153,13 +1160,13 @@ class EsoBuildDataParser
 		
 		$safeLink = $this->db->real_escape_string($itemLink);
 		$safeName = $this->db->real_escape_string($itemName);
-
+		
 		$query  = "INSERT INTO inventory(characterId, account, name, itemLink, qnt, style, stolen, value, quality, level, type, equipType, weaponType, armorType, craftType, icon, consumable, junk, setName, trait) ";
 		$query .= "VALUES($charId, \"$accountName\", \"$safeName\", \"$safeLink\", $qnt, $style, $stolen, $value, $quality, $level, $type, $equipType, $weaponType, $armorType, $craftType, \"$icon\", $consumable, $isJunk, \"$setName\", $trait);";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		if ($result === FALSE) return $this->reportError("Failed to save character inventory slot data!");
-			
+		
 		return true;
 	}
 	
@@ -1169,31 +1176,34 @@ class EsoBuildDataParser
 		$itemId  = intval($itemId);
 		$subtype = intval($subtype);
 		$level   = intval($level);
-				
+		
 		if (isset($this->itemDataDB[$itemId][$subtype][$level])) return $this->itemDataDB[$itemId][$subtype][$level]; 
 		if (isset($this->itemDataDB[$itemId][1][1])) return $this->itemDataDB[$itemId][1][1];
 		
-		$itemData = array();		
-				
+		$itemData = LoadEsoMinedItemExact($this->dbLog, $itemId, $level, $subtype);
+		/*
 		$query = "SELECT * from uesp_esolog.minedItem WHERE itemId=$itemId AND internalSubType=$subtype AND internalLevel=$level LIMIT 1;";
 		$this->lastQuery = $query;
 		$result = $this->dbLog->query($query);
-		if ($result === False) return $this->reportError("Failed to load item data for $itemId::$subtype::$level");
+		if ($result === False) return $this->reportError("Failed to load item data for $itemId::$subtype::$level"); */
 		
-		if ($result->num_rows == 0) 
-		{
+		if (!$itemData) 
+		{/*
 			$query = "SELECT * from uesp_esolog.minedItem WHERE itemId=$itemId AND internalSubType=1 AND internalLevel=1 LIMIT 1;";
 			$this->lastQuery = $query;
 			$result = $this->dbLog->query($query);
 			if ($result === False) return $this->reportError("Failed to load item data for $itemId::$subtype::$level");
-			if ($result->num_rows == 0) return False;
+			if ($result->num_rows == 0) return False; */
+			
+			$itemData = LoadEsoMinedItemExact($this->dbLog, $itemId, 1, 1);
+			if (!$itemData) return false;
 			
 			$subtype = 1;
 			$level = 1;
 		}
 		
-		$result->data_seek(0);
-		$itemData = $result->fetch_assoc();
+		//$result->data_seek(0);
+		//$itemData = $result->fetch_assoc();
 		
 		if ($this->itemDataDB[$itemId] == null) $this->itemDataDB[$itemId] = array();
 		if ($this->itemDataDB[$itemId][$subtype] == null) $this->itemDataDB[$itemId][$subtype] = array();
@@ -1358,7 +1368,7 @@ class EsoBuildDataParser
 			{
 				$newKey = "SkillRank:" . $key;
 				$result &= $this->saveCharacterStatData($buildData, $newKey, $value);
-			}			
+			}
 		}
 	
 		return $result;

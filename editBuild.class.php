@@ -5993,21 +5993,17 @@ class EsoBuildDataEditor
 		
 		$this->TransformItemDataForPts($intLevel, $intType);
 		
-		$query = "SELECT * FROM minedItem{$this->ITEM_TABLE_SUFFIX} WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
-		$result = $this->db->query($query);
-		if (!$result) return $this->ReportError("Failed to load item data for $slotId!");
+		$item = LoadEsoMinedItemExact($this->db, $itemId, $intLevel, $intType, $this->ITEM_TABLE_SUFFIX);
 		
-		if ($result->num_rows == 0)
+		if (!$item)
 		{
 			$intLevel = 1;
 			$intType = 1;
-			$query = "SELECT * FROM minedItem{$this->ITEM_TABLE_SUFFIX} WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
-			$result = $this->db->query($query);
-			if (!$result) return $this->ReportError("Failed to load item data for $slotId!");
-			if ($result->num_rows == 0) return false;
+			$item = LoadEsoMinedItemExact($this->db, $itemId, $intLevel, $intType, $this->ITEM_TABLE_SUFFIX);
+			if (!$item) return false;
 		}
 		
-		$this->initialItemData[$slotId] = $result->fetch_assoc();
+		$this->initialItemData[$slotId] = $item;
 		$this->initialItemData[$slotId]["origTrait"] = $this->initialItemData[$slotId]["trait"];
 		$this->initialItemData[$slotId]["origTraitDesc"] = $this->initialItemData[$slotId]["traitDesc"];
 		
@@ -6018,12 +6014,15 @@ class EsoBuildDataEditor
 			//$transmuteItemId = $ESO_ITEMTRANSMUTETRAIT_IDS[$linkData['transmuteTrait']];
 			$transmuteItemId = GetEsoTransmuteTraitItemId($linkData['transmuteTrait'], $this->initialItemData[$slotId]['equipType']);
 			
-			if ($transmuteItemId != null) 
+			if ($transmuteItemId != null)
 			{
-				$query = "SELECT traitDesc, trait, internalLevel, internalSubtype FROM minedItem{$this->ITEM_TABLE_SUFFIX} WHERE itemId='$transmuteItemId' AND internalLevel='$intLevel' AND internalSubtype='$intType' LIMIT 1;";
+				//$query = "SELECT traitDesc, trait, internalLevel, internalSubtype FROM minedItem{$this->ITEM_TABLE_SUFFIX} WHERE itemId='$transmuteItemId' AND internalLevel='$intLevel' AND internalSubtype='$intType' LIMIT 1;";
+				$minedTable = "minedItem{$this->ITEM_TABLE_SUFFIX}";
+				$summaryTable = "minedItemSummary{$this->ITEM_TABLE_SUFFIX}";
+				$query = "SELECT $minedTable.traitDesc, $summaryTable.trait, $minedTable.itemId, $minedTable.internalLevel, $minedTable.internalSubtype FROM $minedTable LEFT JOIN $summaryTable ON $minedTable.itemId=$summaryTable.itemId WHERE $minedTable.itemId='$transmuteItemId' AND $minedTable.internalLevel='$intLevel' AND $minedTable.internalSubtype='$intType' LIMIT 1;";
 				$result = $this->db->query($query);
 				
-				if ($result) 
+				if ($result)
 				{
 					$row = $result->fetch_assoc();
 					
@@ -6038,7 +6037,7 @@ class EsoBuildDataEditor
 		}
 		
 		$linkData['itemIntLevel'] = $intLevel;
-		$linkData['itemIntType'] = $intType;		
+		$linkData['itemIntType'] = $intType;
 		
 		$setName = $this->initialItemData[$slotId]['setName'];
 		if ($setName != "") return $this->LoadInitialSetMaxData($setName, $linkData);
@@ -6060,13 +6059,16 @@ class EsoBuildDataEditor
 		$linkData['enchantIntLevel1'] = $intLevel;
 		$linkData['enchantIntType1'] = $intType;
 		
-		$query = "SELECT * FROM minedItem{$this->ITEM_TABLE_SUFFIX} WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
+		/*$query = "SELECT * FROM minedItem{$this->ITEM_TABLE_SUFFIX} WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
 		$result = $this->db->query($query);
 		if (!$result) return $this->ReportError("Failed to load enchantment data for $slotId!");
-		if ($result->num_rows == 0) return false;
-	
-		$this->initialEnchantData[$slotId] = $result->fetch_assoc();
-	
+		if ($result->num_rows == 0) return false;*/
+		
+		$item = LoadEsoMinedItemExact($this->db, $itemId, $intLevel, $intType, $this->ITEM_TABLE_SUFFIX);
+		if (!$item) return false;
+		
+		$this->initialEnchantData[$slotId] = $item;
+		
 		return true;
 	}
 	
@@ -6079,15 +6081,19 @@ class EsoBuildDataEditor
 		$itemId = (int) $linkData['itemId'];
 		$intLevel = 50;
 		$intType = 370;
-	
+		
 		if ($itemId === null || $intLevel === null || $intType === null || $itemId <= 0) return false;
-	
+		
+		/*
 		$query = "SELECT * FROM minedItem{$this->ITEM_TABLE_SUFFIX} WHERE itemId=$itemId AND internalLevel=$intLevel AND internalSubtype=$intType LIMIT 1;";
 		$result = $this->db->query($query);
 		if (!$result) return $this->ReportError("Failed to load set max data for $setName!");
-		if ($result->num_rows == 0) return false;
+		if ($result->num_rows == 0) return false;*/
 		
-		$this->initialSetMaxData[$setName] = $result->fetch_assoc();
+		$item = LoadEsoMinedItemExact($this->db, $itemId, $intLevel, $intType, $this->ITEM_TABLE_SUFFIX);
+		if (!$item) return false;
+		
+		$this->initialSetMaxData[$setName] = $item;
 		return true;
 	}
 	
@@ -6097,7 +6103,7 @@ class EsoBuildDataEditor
 			// TODO: Disabled items
 		
 		if ($slotId == "Food") return $this->GetFoodItemData();
-			
+		
 		$output = "";
 		$equipSlot = $this->SLOTID_TO_EQUIPSLOT[$slotId];
 		$item = $this->GetCharacterEquippedItem($equipSlot);

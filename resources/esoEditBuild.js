@@ -21289,6 +21289,7 @@ window.EsoBuildEquipSet = function (setIndexOrName)
 }
 
 
+	// TODO: Better to specify exact internal level/subtype? 
 window.EquipSetItem = function (setName, slotId, level, quality)
 {
 	UnequipEsoItemSlot(slotId, false);

@@ -346,6 +346,8 @@ class EsoCharDataParser extends EsoBuildDataParser
 				$result &= $this->saveCharacterArrayData($newCharData, $key, $value);
 			else
 				$result &= $this->saveCharacterStatData($newCharData, $key, $value);
+			
+			error_log("SaveCharData: $key = $result");
 		}
 		
 		$result &= $this->saveCharacterScreenshots($newCharData, false);
@@ -517,8 +519,11 @@ class EsoCharDataParser extends EsoBuildDataParser
 			$this->characterCount += 1;
 			
 			$thisResult  = $this->saveCharData($charData, $oldCharData);
+			error_log("SaveChar1: $thisResult");
 			$thisResult &= $this->saveCharacterCurrency();
+			error_log("SaveChar2: $thisResult");
 			$thisResult &= $this->saveCharacterInventorySpace();
+			error_log("SaveChar3: $thisResult");
 			
 			if ($thisResult) 
 			{
@@ -550,7 +555,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		}
 		
 		$result &= $this->saveAccount();
-	
+		
 		return $result;
 	}
 	
