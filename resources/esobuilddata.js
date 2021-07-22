@@ -3207,13 +3207,14 @@ window.UpdateEsoBuildSetTooltips = function(setDesc)
 		var matchDesc = rawDesc.replaceAll("<<" + i + ">>", "(.*)");
 		matchDesc = matchDesc.replaceAll(/<<[0-9]+>>/g, ".*");
 		matchDesc = matchDesc.replaceAll(/[0-9]+/g, ".*");
+		var matchRegExp = new RegExp(matchDesc, 'i');
 		
 		var replaceDesc = rawDesc.replaceAll("<<" + i + ">>", ")(.*)(");
 		replaceDesc = "(" + replaceDesc.replaceAll(/<<[0-9]+>>/g, ".*") + ")";
 		replaceDesc = replaceDesc.replaceAll(/[0-9]+/g, ".*");
 		
-		var matches = textDesc.match(matchDesc);
-		var tooltipMatches = newTooltip.match(matchDesc);
+		var matches = textDesc.match(matchRegExp);
+		var tooltipMatches = newTooltip.match(matchRegExp);
 		
 		if (matches && matches[1])
 		{
@@ -3249,11 +3250,11 @@ window.UpdateEsoBuildSetTooltips = function(setDesc)
 		}
 	}
 	
-	newDesc = newDesc.replace(/(\([0-9]+ item(?:s|)\) )([^(]*?scales off[^(]*)(<br>|$)/, function(match, p1, p2, p3) {
+	newDesc = newDesc.replace(/(\([0-9]+ item(?:s|)\) )([^(]*? scales [^(]*)(<br>|$)/, function(match, p1, p2, p3) {
 		return p1 + newTooltip + p3;
 	});
 	
-	newDesc = newDesc.replace(/(\([0-9]+ item(?:s|)\) )([^(]*?scaling off[^(]*)(<br>|$)/, function(match, p1, p2, p3) {
+	newDesc = newDesc.replace(/(\([0-9]+ item(?:s|)\) )([^(]*? scaling [^(]*)(<br>|$)/, function(match, p1, p2, p3) {
 		return p1 + newTooltip + p3;
 	});
 	

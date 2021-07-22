@@ -6,7 +6,8 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #cfc; margin-right: 270px;'>
-The build editor is now working for update 30. Items, skill and CP data have been updated. A slightly different item database system is now being used....If there are issues with tooltips or item data let us know!
+The build editor should be working for update 31 PTS. Skills, items and CP data have been updated. 
+A new item database system is now being used....If there are issues with tooltips or item data let us know!
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -66,7 +67,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			When selected you will automatically purchase all racial passives when changing races.
 			<br/>
 			<div class="esotbStatLabel">Use PTS Rules</div> <input type="checkbox" id="esotbUsePtsRules" name="esotbUsePtsRules" statid="UsePtsRules" {usePtsRulesCheck}>
-			Current version is Update 30 v7.0.2
+			Current version is Update 31 v7.1.0
 			<ul style="margin-left: 170px; margin-top: -5px;">
 				<li>Save and reload build after changing this setting.</li>
 				<li>Uses skill, CP, and item data collected from the PTS server.</li>
@@ -659,6 +660,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Lady Thorn</option>
 						<option>Lord Warden</option>
 						<option>Maarselok</option>
+						<option hidden disabled>Magma Incarnate</option>
 						<option>Maw of the Infernal</option>
 						<option>Mighty Chudan</option>
 						<option>Molag Kena</option>
@@ -666,6 +668,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Nerien'eth</option>
 						<option>Nightflame</option>
 						<option>Pirate Skeleton</option>
+						<option hidden disabled>Prior Thierric</option>
 						<option>Scourge Harvester</option>
 						<option>Selene</option>
 						<option>Sellistrix</option>
@@ -834,14 +837,16 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Coward's Gear</option>
 						<option>Crafty Alfiq</option>
 						<option>Crest of Cyrodiil</option>
+						<option hidden disabled>Crimson Oath's Rive</option>
 						<option>Crimson Twilight</option>
 						<option>Critical Riposte</option>
 						<option>Crusader</option>
 						<option>Curse Eater</option>
 						<option>Curse of Doylemish</option>
 						<option>Daedric Trickery</option>
-						<option>Darkstride</option>
 						<option>Daring Corsair</option>
+						<option hidden disabled>Dark Convergence</option>
+						<option>Darkstride</option>
 						<option>Dauntless Combatant</option>
 						<option>Dead-Water's Guile</option>
 						<option>Deadlands Assassin</option>
@@ -902,6 +907,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Grave Guardian</option>
 						<option>Grave-Stake Collector</option>
 						<option>Green Pact</option>
+						<option hidden disabled>Grisly Gourmet</option>
 						<option>Gryphon's Ferocity</option>
 						<option>Hagraven's Garden</option>
 						<option>Hand of Mephala</option>
@@ -921,6 +927,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Hist Bark</option>
 						<option>Hist Whisperer</option>
 						<option>Hollowfang Thirst</option>
+						<option hidden disabled>Hrothgar's Chill</option>
 						<option>Hunding's Rage</option>
 						<option>Hunt Leader</option>
 						<option>Icy Conjuror</option>
@@ -996,13 +1003,15 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Overland</option>
 						<option>Overwhelming Surge</option>
 						<option>Para Bellum</option>
-						<option>Pelinal's Aptitude</option>
+						<option class='esoRemoveSet'>Pelinal's Aptitude</option>
+						<option hidden disabled>Pelinal's Wrath</option>
 						<option>Permafrost</option>
 						<option>Pestilent Host</option>
 						<option>Phoenix</option>
 						<option>Pillar of Nirn</option>
 						<option>Plague Doctor</option>
 						<option>Plague Slinger</option>
+						<option hidden disabled>Plaguebreak</option>
 						<option>Poisonous Serpent</option>
 						<option>Powerful Assault</option>
 						<option>Prayer Shawl</option>
@@ -1029,6 +1038,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Robes of the Hist</option>
 						<option>Robes of the Withered Hand</option>
 						<option>Robes of Transmutation</option>
+						<option hidden disabled>Rush of Agony</option>
 						<option>Salvation</option>
 						<option>Sanctuary</option>
 						<option>Savage Werewolf</option>
@@ -1036,6 +1046,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option value="Perfected Saxhleel Championt">Saxhleel Champion (Perfect)</option>
 						<option>Scathing Mage</option>
 						<option>Scavenging Demise</option>
+						<option hidden disabled>Scorion's Feast</option>
 						<option>Senchal Defender</option>
 						<option>Senche's Bite</option>
 						<option>Senche-Raht's Grit</option>
@@ -1053,6 +1064,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Shield of the Valiant</option>
 						<option>Shroud of the Lich</option>
 						<option>Silks of the Sun</option>
+						<option hidden disabled>Silver Rose Vigil</option>
 						<option>Sithis' Touch</option>
 						<option>Skooma Smuggler</option>
 						<option>Sload's Semblance</option>
@@ -1095,6 +1107,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>The Morag Tong</option>
 						<option>The Worm's Raiment</option>
 						<option>Thews of the Harbinger</option>
+						<option hidden disabled>Thunder Caller</option>
 						<option>Thunderbug's Carapace</option>
 						<option>Titanborn Strength</option>
 						<option>Tooth of Lokkestiiz</option>
@@ -1179,7 +1192,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					
 					<p/>
 					<div style="margin-left:150px;">
-						Locations <select id="esotbItemSetupEquipSetLocation" style="width=150px;">
+						Locations <select id="esotbItemSetupEquipSetLocation" style="width:200px;">
 							<option value="1">x5 Body</option>
 							<option value="2">x3 Jewelry + x2 Weapon</option>
 							<option value="3">x3 Jewelry</option>
@@ -1196,7 +1209,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						</select>
 						<p/>
 						
-						Types <select id="esotbItemSetupEquipSetArmorType" style="width=200px;">
+						Armor Types <select id="esotbItemSetupEquipSetArmorType" style="width: 250px;">
 							<option value="0">Any</option>
 							<option value="500">x5 Light</option>
 							<option value="050">x5 Medium</option>
@@ -1217,18 +1230,22 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 							<option value="203">x3 Heavy + x2 Light</option>
 							<option value="023">x3 Heavy + x2 Medium</option>
 						</select>
-						
-						<select id="esotbItemSetupEquipSetWeaponType" style="">
+						&nbsp; &nbsp; &nbsp;
+						Weapon Types <select id="esotbItemSetupEquipSetWeaponType" style="width:150px;">
 							<option value="0">Any</option>
 							<option value="1">x2 Dagger</option>
 							<option value="2">x2 Sword</option>
 							<option value="3">x2 Axe</option>
 							<option value="4">Dagger + Axe</option>
 							<option value="5">Sword + Shield</option>
+							<option value="6">2H Sword</option>
+							<option value="7">2H Axe</option>
+							<option value="8">2H Maul</option>
+							<option value="9">Bow</option>
 						</select>
 						<p/>
 						
-						Traits <select id="esotbItemSetupEquipSetTraitArmor" style="">
+						Armor Traits <select id="esotbItemSetupEquipSetTraitArmor" style="">
 							<option value="0">Any</option>
 							<option value="1">Divines</option>
 							<option value="2">Divines + Infused</option>
@@ -1237,15 +1254,15 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 							<option value="5">Sturdy</option>
 							<option value="6">Nirnhoned</option>
 						</select>
-						
-						<select id="esotbItemSetupEquipSetTraitJewelry" style="">
+						&nbsp; &nbsp; &nbsp;
+						Jewelry Traits <select id="esotbItemSetupEquipSetTraitJewelry" style="">
 							<option value="0">Any</option>
 							<option value="1">Healthy</option>
 							<option value="2">Robust</option>
 							<option value="3">Arcane</option>
 						</select>
-						
-						<select id="esotbItemSetupEquipSetTraitWeapon" style="">
+						&nbsp; &nbsp; &nbsp;
+						Weapon Traits <select id="esotbItemSetupEquipSetTraitWeapon" style="">
 							<option value="0">Any</option>
 							<option value="1">Sharpened</option>
 							<option value="2">Defending</option>
@@ -1322,16 +1339,18 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<table class="esotbMitigationTable">
 					<tr>
 						<th rowspan="2">Damage Type</th>
-						<th colspan="4">Direct Damage (DD)</th>
-						<th colspan="4">Damage over Time (DOT)</th>
+						<th colspan="5">Direct Damage (DD)</th>
+						<th colspan="5">Damage over Time (DOT)</th>
 					</tr>
 					<tr>
 						<th>Melee</th>
 						<th>Ranged</th>
+						<th>Single</br>Target</th>
 						<th>AOE</th>
 						<th>LA/HA</th>
 						<th>Melee</th>
 						<th>Ranged</th>
+						<th>Single</br>Target</th>
 						<th>AOE</th>
 						<th>LA/HA</th>
 					</tr>
@@ -1345,6 +1364,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<td id="esotbMitTable16"></td>
 						<td id="esotbMitTable17"></td>
 						<td id="esotbMitTable18"></td>
+						<td id="esotbMitTable19"></td>
+						<td id="esotbMitTable110"></td>
 					</tr>
 					<tr>
 						<th>Poison</th>
@@ -1356,6 +1377,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<td id="esotbMitTable26"></td>
 						<td id="esotbMitTable27"></td>
 						<td id="esotbMitTable28"></td>
+						<td id="esotbMitTable29"></td>
+						<td id="esotbMitTable210"></td>
 					</tr>
 					<tr>
 						<th>Disease</th>
@@ -1367,6 +1390,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<td id="esotbMitTable36"></td>
 						<td id="esotbMitTable37"></td>
 						<td id="esotbMitTable38"></td>
+						<td id="esotbMitTable39"></td>
+						<td id="esotbMitTable310"></td>
 					</tr>
 					<tr>
 						<th>Magic</th>
@@ -1378,6 +1403,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<td id="esotbMitTable46"></td>
 						<td id="esotbMitTable47"></td>
 						<td id="esotbMitTable48"></td>
+						<td id="esotbMitTable49"></td>
+						<td id="esotbMitTable410"></td>
 					</tr>
 					<tr>
 						<th>Flame</th>
@@ -1389,6 +1416,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<td id="esotbMitTable56"></td>
 						<td id="esotbMitTable57"></td>
 						<td id="esotbMitTable58"></td>
+						<td id="esotbMitTable59"></td>
+						<td id="esotbMitTable510"></td>
 					</tr>
 					<tr>
 						<th>Frost</th>
@@ -1400,6 +1429,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<td id="esotbMitTable66"></td>
 						<td id="esotbMitTable67"></td>
 						<td id="esotbMitTable68"></td>
+						<td id="esotbMitTable69"></td>
+						<td id="esotbMitTable610"></td>
 					</tr>
 					<tr>
 						<th>Shock</th>
@@ -1411,6 +1442,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<td id="esotbMitTable76"></td>
 						<td id="esotbMitTable77"></td>
 						<td id="esotbMitTable78"></td>
+						<td id="esotbMitTable79"></td>
+						<td id="esotbMitTable710"></td>
 					</tr>
 				</table>
 				<p/><br/>
@@ -1670,6 +1703,66 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>21 July 2021</b>
+			<ul>
+				<li>Fixed several Perfected sets that had 0 values in their tooltips (was due to an in-game bug that had to be worked around).</li>
+			</ul>
+			<p>
+			<b>20 July 2021</b>
+			<ul>
+				<li>Added 2H weapon types to the quick item set equip. Added labels to lists.</li>
+				<li>31pts: Fixed Prodigy and Pressure Points from giving an extra bonus.</li>
+				<li>31pts: Prodigy now scales with Light Armor worn.</li>
+				<li>Changed the Elemental Catalyst set toggles to apply to Target. Added buffs for the effect.</li>
+				<li>Added Major Gallop buff and removed the Mount Speed bonus from Major Expedition.</li>
+				<li>Changed the Continuous Attack passive toggle to only affect the recovery portion. Added the permanent Major Gallop effect and changed the Weapon/Spell Damage to permanent as well.</li>
+				<li>Fixed double parsing of Spell and Weapon Damage in some passives.</li>
+				<li>31pts: Fixed the Sword and Board passive.</li>
+				<li>Fixed Elemental Catalyst to affect the player's CritDamage instead of the element specific target CritDamageTaken.</li>
+				<li>31pts: Fixed the Expert Summoner passive toggle.</li>
+				<li>Changed Major/Minor Brittle to affect the player's CritDamage. This is a bit different than in-game but it lets you more effectively gauge the power of the buffs in the editor.</li>
+				<li>31pts: Fixed the Undead Confederate passive toggle.</li>
+			</ul>
+			<p>
+			<h3>Recent Work</h3>
+			<b>19 July 2021</b>
+			<ul>
+				<li>Fixed Dampen Magic to now scale correctly with Light Armor worn.</li>
+				<li>All health capped Damage Shield abilities now actually cap values as expected.</li>
+				<li>Added Sturdy Horn and fixed the War Horn buffs.</li>
+				<li>Changed the -10% base Damage Taken to be combined multiplicatively instead of combined with resistance mitigation. Added line to shown effect in mitigation calculation.</li>
+				<li>Fixed skill tooltips that use Melee Weapon Damage.</li>
+				<li>Fixed tooltip scaling of the Trinimac's Valor 5 piece set bonus.</li>
+				<li>The Werewolf Savage Strength passive now grants you Major Resolve.</li>
+				<li>Added "Single Target" columns to the mitigation table.</li>
+			</ul>
+			<p>
+			<b>15 July 2021</b>
+			<ul>
+				<li>31pts: Battle Spirit now modifies Damage Taken by 55% (up from 44%).</li>
+				<li>31pts: Added parsing for the new CPs Ironclad, Celerity, Refreshing Stride (toggle), Sustained by Suffering (toggle), Pain's Refuge (toggle), Bracing Ancho.</li>
+				<li>31pts: Renamed the Pelinal's Aptitude set to Pelinal's Wrath. Added a new set toggle for Pelinal's Wrath 5 piece bonus.</li>
+				<li>Fixed an issue with set bonus parsing that was causing some constant values to be correctly displayed in tooltips.</li>
+				<li>31pts: Added cooldown to skill and set tooltip details.</li>
+				<li>Fixed and updated the Sithis's Touch 5 piece bonus set toggle.</li>
+				<li>31pts: Updated the Stygian 5 piece bonus set toggle.</li>
+				<li>31pts: The Agility passive now modifies both Weapon and Spell Damage.</li>
+				<li>31pts: The Templar's Balanced Warrior passive now modifies both Weapon/Spell Damage and Physical/Spell Resistance.</li>
+				<li>31pts: The Concentration passive now modifies both Physical and Spell Penetration.</li>
+				<li>31pts: The Dexterity passive now modifies Critical Damage and Healing Done.</li>
+				<li>31pts: The Flawless Dawnbreaker ultimate now modifies both Weapon and Spell Damage.</li>
+				<li>31pts: The Werewolf's Savage Strength passive now both Weapon and Spell Damage.</li>
+				<li>31pts: The Fighters Guild Slayer passive now both Weapon and Spell Damage.</li>
+				<li>31pts: The Fighters Guild Skilled Tracker passive now modifies Damage Done.</li>
+				<li>Fixed display of SkillLine damage modifiers in skill details.</li>
+			</ul>
+			<p>
+			<b>14 July 2021</b>
+			<ul>
+				<li>Updated skills, items and champion point data from PTS update 31 (7.1.0).</li>
+				<li>31pts: Added new sets to the quick item setups.</li>
+			</ul>
+			<p>
 			<b>9 July 2021</b>
 			<ul>
 				<li>Implemented a slightly different back-end item database system to try and reduce database size and increase performance. If there are issues with tooltips or item data let us know!</li>

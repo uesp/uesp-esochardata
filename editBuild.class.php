@@ -28,7 +28,7 @@ require_once(__DIR__."/viewBuildData.class.php");
 
 class EsoBuildDataEditor 
 {
-	public $PTS_VERSION = "30pts";
+	public $PTS_VERSION = "31pts";
 	
 	public $SESSION_DEBUG_FILENAME = "/var/log/httpd/esoeditbuild_sessions.log";
 	
@@ -1955,10 +1955,14 @@ class EsoBuildDataEditor
 			"SkillLineDamage.Dual_Wield" => array(
 					"display" => "%",
 			),
-						
+			
+			"SkillLineDamage.Fighters_Guild" => array(
+					"display" => "%",
+			),
+			
 			"Skill.PhysicalDamageDone" => array(
 					"display" => "%",
-			),			
+			),
 			
 			"Buff.SpellResist" => array(
 					"display" => "%",
@@ -2042,7 +2046,19 @@ class EsoBuildDataEditor
 			
 			"Target.CritChance" => array(
 					"display" => "%",
-			),			
+			),
+			
+			"Target.FlameCritDamageTaken" => array(
+					"display" => "%",
+			), 
+			
+			"Target.FrostCritDamageTaken" => array(
+					"display" => "%",
+			),
+			
+			"Target.ShockCritDamageTaken" => array(
+					"display" => "%",
+			),
 			
 			"Set.LADamage" => array(
 					"display" => "%",
