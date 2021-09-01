@@ -395,8 +395,8 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			value : 0.10,
 			display: "%",
-			category: "Target",
-			statIds : [ "PoisonDamageTaken", "DiseaseDamageTaken" ],
+			category: "Set",
+			statIds : [ "PoisonDamageDone", "DiseaseDamageDone" ],
 			icon : "/esoui/art/icons/ability_rogue_021.png",		// TODO: Placeholder
 		},
 		"Encratis Behemoth" : 
@@ -407,8 +407,8 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			value : 0.05,
 			display: "%",
-			categories: ["Set", "Target"],
-			statIds : [ "FlameDamageTaken", "FlameDamageTaken" ],
+			categories: ["Set", "Set"],
+			statIds : [ "FlameDamageTaken", "FlameDamageDone" ],
 			factorValues: [ -1, 1 ],
 			icon : "/esoui/art/icons/ability_mage_065.png",
 		},
@@ -433,8 +433,8 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			value : 0.08,
 			display: "%",
-			category: "Target",
-			statId : "DamageTaken",
+			category: "Set",
+			statId : "DamageDone",
 			icon : "/esoui/art/icons/ability_mage_044.png",		// TODO: Placeholder
 		},
 		"Beckoning Steel" : 
@@ -867,9 +867,9 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.30,
+			value : 0.15,
 			display : "%",
-			statIds : ["MountSpeed"],
+			statId : "MovementSpeed",
 			icon : "/esoui/art/icons/ability_rogue_045.png",
 		},
 		"Major Vitality" : 
@@ -906,8 +906,7 @@ window.g_EsoBuildBuffData =
 			statDescs : ["Increases the damage of your Light/Medium/Heavy Attacks by ", "Increases the damage of your Overload attacks by ", ],
 			icon : "/esoui/art/icons/ability_warrior_012.png",
 		},
-		"Major Courage" :			// TODO: Check how its added to other SD/WD
-									// stats
+		"Major Courage" :			// TODO: Check how its added to other SD/WD stats
 		{
 			group: "Major",
 			enabled: false,
@@ -919,8 +918,7 @@ window.g_EsoBuildBuffData =
 			statDesc : "Increases your Weapon and Spell Damage by ",
 			icon : "/esoui/art/icons/ability_mage_045.png",
 		},
-		"Minor Courage" :			// TODO: Check how its added to other SD/WD
-									// stats
+		"Minor Courage" :			// TODO: Check how its added to other SD/WD stats
 		{
 			group: "Minor",
 			enabled: false,
@@ -1133,9 +1131,10 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			value : 0.10,
 			display: "%",
-			statId : "Vulnerability",
+			statId : "DamageDone",
 			category: "Buff",
 			combineAs: "*%",
+			statDescs : ["Increases your target's Damage Taken by "],
 			icon : "/esoui/art/icons/ability_debuff_major_vulnerability.png",
 		},
 		"Minor Vulnerability" : 
@@ -1146,9 +1145,10 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			value : 0.05,
 			display: "%",
-			statId : "Vulnerability",
+			statId : "DamageDone",
 			category: "Buff",
 			combineAs: "*%",
+			statDescs : ["Increases your target's Damage Taken by "],
 			icon : "/esoui/art/icons/ability_debuff_minor_vulnerability.png",
 		},
 		"Weapon Damage Enchantment" :
@@ -1184,8 +1184,8 @@ window.g_EsoBuildBuffData =
 			value : 0.05,
 			display: "%",
 			statDesc : "Enemies with the Touch of Z'en take an additional $1 more damage for each damage over time effect you've placed on them, up to 5%.",
-			category: "Target",
-			statId : "DamageTaken",
+			category: "Set",
+			statId : "DamageDone",
 			combineAs: "*%",
 			icon : "/esoui/art/icons/ability_mage_065.png",
 		},
@@ -1666,10 +1666,10 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			category: "Target",
+			category: "Buff",
 			value : 0.10,
 			display: "%",
-			statId : "DamageTaken",
+			statId : "DamageDone",
 			combineAs: "*%",
 			icon : "/esoui/art/icons/ability_debuff_major_vulnerability.png",
 		},
@@ -1679,10 +1679,10 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			category: "Target",
+			category: "Buff",
 			value : 0.05,
 			display: "%",
-			statId : "DamageTaken",
+			statId : "DamageDone",
 			combineAs: "*%",
 			icon : "/esoui/art/icons/ability_debuff_minor_vulnerability.png",
 		},
@@ -1694,8 +1694,8 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			value : 0.10,
 			display: "%",
-			category: "Target",
-			statId : "FlameDamageTaken",
+			category: "Buff",
+			statId : "FlameDamageDone",
 			icon : "/esoui/art/icons/ability_dragonknight_004_b.png",
 		},
 		"Inner Beast (Target)" : 
@@ -1706,8 +1706,8 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			value : 0.05,
 			display: "%",
-			category: "Target",
-			statId : "DamageTaken",
+			category: "Buff",
+			statId : "DamageDone",
 			icon : "/esoui/art/icons/ability_undaunted_002_a.png",
 		},
 		
@@ -1750,7 +1750,7 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			displays : [ "%", "%", "%", "%" ],
 			categories : [ "Skill2", "Buff", "Buff", "Buff" ],
-			values : [ -0.55, -0.50, -0.44, -0.50 ],
+			values : [ -0.55, -0.50, -0.55, -0.50 ],
 			statIds : [ "HealingReceived", "HealthRegen", "DamageTaken", "DamageShield" ],
 			combineAses: [ '', '', "*%", '' ],
 			icon: "/esoui/art/icons/ability_templar_002.png",
@@ -1885,24 +1885,8 @@ window.g_EsoBuildBuffData =
 };
 
 
-	//TODO: Update 31pts
 window.g_EsoBuildBuffData_PTS =
 {
-		"Battle Spirit" :
-		{
-			group: "Cyrodiil",
-			visible : false,
-			toggleVisible : true,
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			displays : [ "%", "%", "%", "%" ],
-			categories : [ "Skill2", "Buff", "Buff", "Buff" ],
-			values : [ -0.55, -0.50, -0.55, -0.50 ],
-			statIds : [ "HealingReceived", "HealthRegen", "DamageTaken", "DamageShield" ],
-			combineAses: [ '', '', "*%", '' ],
-			icon: "/esoui/art/icons/ability_templar_002.png",
-		},
 };
 
 
@@ -2162,6 +2146,37 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		
 		/* Begin Toggled Abilities */
 	{
+		id: "Immovable",
+		baseSkillId: 41082,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		buffId: "Major Resolve",
+		match: /to gain Major Resolve/i
+	},
+	{
+		id: "Immovable",
+		baseSkillId: 41082,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		statId: "MovementSpeed",
+		factorValue: -1,
+		display: "%",
+		match: /but reduces your Movement Speed by ([0-9.]+)% for/i
+	},
+	{
+		id: "Immovable",
+		baseSkillId: 41082,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		factorStatId: "ArmorHeavy",
+		statId: "BlockMitigation",
+		display: "%",
+		match: /Each piece of Heavy Armor worn increases the amount of damage you block and the potency of the snare by ([0-9.]+)%/i
+	},
+	{
 		id: "Equilibrium",
 		baseSkillId: 42251,
 		toggle: true,
@@ -2283,8 +2298,8 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar: true,
-		category: "Target",
-		statId: "DamageTaken",
+		category: "Skill",
+		statId: "DamageDone",
 		display: "%",
 		rawInputMatch: /((?:causing them to take [0-9]+% more damage from your attacks for [0-9.]+ seconds\.)|(?:increasing your damage against them by [0-9]+% for [0-9.]+ seconds\.))/,
 		match: /causing them to take ([0-9]+)% more damage from your attacks/i
@@ -2295,8 +2310,8 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar: true,
-		category: "Target",
-		statId: "DamageTaken",
+		category: "Skill",
+		statId: "DamageDone",
 		display: "%",
 		match: /increasing your damage against them by ([0-9]+)% for [0-9.]+ seconds/i
 	},
@@ -3233,7 +3248,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		statRequireId: "WeaponDestStaff",
 		statRequireValue: 1,
-		match: /Increases your chance to apply elemental status effects by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increases your chance to apply status effects by ([0-9]+\.?[0-9]*)%/i,
 	},
  	{
 		statId: "BurningDamage",
@@ -3314,7 +3329,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		factorStatId: "ArmorMedium",
-		statId: "HealingDone",
+		statId: "CritHealing",
 		display: "%",
 		match: /Increases your Critical Damage and Healing done rating by ([0-9]+)% for every piece of Medium Armor equipped/i,
 	},
@@ -5964,6 +5979,12 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases your Weapon and Spell Critical rating by ([0-9.]+) for each piece of Light Armor equipped/i,
 	},
 	{
+		statId: "WeaponCrit",
+		category: "Skill2",
+		factorStatId: "ArmorLight",
+		match: /Increases your Weapon and Spell Critical rating by ([0-9.]+) for each piece of Light Armor equipped/i,
+	},
+	{
 		statId: "SpellPenetration",
 		factorStatId: "ArmorLight",
 		match: /Increases your Spell Penetration by ([0-9.]+) for each piece of Light Armor worn/i,
@@ -6219,17 +6240,25 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	
 		/* Begin Toggled Passives */
 	{
+		id: "Continuous Attack",
+		baseSkillId: 39248,
 		statRequireId: "Cyrodiil",
 		statRequireValue: 1,
 		statId: "WeaponDamage",
 		display: "%",
+		toggle: true,
+		enabled: false,
 		match: /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% and Magicka and Stamina Recovery/i,
 	},
 	{
+		id: "Continuous Attack",
+		baseSkillId: 39248,
 		statRequireId: "Cyrodiil",
 		statRequireValue: 1,
 		statId: "SpellDamage",
 		display: "%",
+		toggle: true,
+		enabled: false,
 		match: /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% and Magicka and Stamina Recovery /i,
 	},
 	{
@@ -7340,44 +7369,14 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Increases the duration of all Major buffs.*by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{	// Deadly strike
-		statId: "PhysicalDotDamageDone",
+		statId: "DotDamageDone",
 		display: "%",
-		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increase the damage your damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
 	},
-	{	// Deadly strike
-		statId: "DiseaseDotDamageDone",
+	{	// Deadly strike --  TODO: Check this....Note that bleeds are all DoTs so ignore this to prevent a double effect
+		statId: "ChannelDamageDone",
 		display: "%",
-		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{	// Deadly strike
-		statId: "PoisonDotDamageDone",
-		display: "%",
-		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{	// Deadly strike -- Note that bleeds are all DoTs so ignore this to prevent a double effect
-		statId: "BleedDotDamageDone",
-		display: "%",
-		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{	// Deadly strike
-		statId: "PhysicalChannelDamageDone",
-		display: "%",
-		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{	// Deadly strike
-		statId: "DiseaseChannelDamageDone",
-		display: "%",
-		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{	// Deadly strike
-		statId: "PoisonChannelDamageDone",
-		display: "%",
-		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{	// Deadly strike -- Note that bleeds are all DoTs so ignore this to prevent a double effect
-		statId: "BleedChannelDamageDone",
-		display: "%",
-		match: /Increase the damage your Physical, Bleed, Poison, and Disease damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
+		match: /Increase the damage your damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{	// Stygian
 		statRequireId: "Stealthed",
@@ -9070,6 +9069,53 @@ window.ESO_SETEFFECT_MATCHES = [
 	
 		// Optionally toggled set effects
 	{
+		id: "Prior Thierric",
+		setBonusCount: 3,
+		statId: "AOEDamageDone",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		match: /increase their damage taken from your area of effect abilities by ([0-9.]+)%/i,
+	},
+	{	id: "Crusader",
+		setBonusCount: 4,
+		buffId: "Minor Courage",
+		toggle: true,
+		enabled: false,
+		rawInputMatch: /(Every [0-9.]+ seconds you and up to [0-9.]+ group members in the area gain Minor Courage for [0-9.]+ seconds)/i,
+		match: /Every [0-9.]+ seconds you and up to [0-9.]+ group members in the area gain Minor Courage for [0-9.]+ seconds/i,
+	},
+	{	id: "Magma Incarnate",
+		setBonusCount: 3,
+		buffId: "Minor Courage",
+		toggle: true,
+		enabled: false,
+		rawInputMatch: /(When you heal yourself or a group member with a single target heal ability, grant the lowest Health group member within [0-9.]+ meters Minor Courage and Minor Resolve)/i,
+		match: /When you heal yourself or a group member with a single target heal ability, grant the lowest Health group member within [0-9.]+ meters Minor Courage and Minor Resolve/i,
+	},
+	{	id: "Magma Incarnate",
+		setBonusCount: 3,
+		buffId: "Minor Resolve",
+		toggle: true,
+		enabled: false,
+		rawInputMatch: /(When you heal yourself or a group member with a single target heal ability, grant the lowest Health group member within [0-9.]+ meters Minor Courage and Minor Resolve)/i,
+		match: /When you heal yourself or a group member with a single target heal ability, grant the lowest Health group member within [0-9.]+ meters Minor Courage and Minor Resolve/i,
+	},
+	{	id: "Perfected Claw of Yolnahkriin",
+		setBonusCount: 5,
+		buffId: "Minor Courage",
+		toggle: true,
+		enabled: false,
+		match: /When you taunt an enemy, you give yourself and [0-9]+ group members Minor Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+)\./i,
+	},
+	{	id: "Claw of Yolnahkriin",
+		setBonusCount: 4,
+		buffId: "Minor Courage",
+		toggle: true,
+		enabled: false,
+		match: /When you taunt an enemy, you give yourself and [0-9]+ group members Minor Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+)\./i,
+	},
+	{
 		id: "Pelinal's Wrath",
 		setBonusCount: 4,
 		statId: "WeaponDamage",
@@ -10227,20 +10273,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		match: /and reduce the cost of Sprint, Block, and Roll Dodge by ([0-9]+)%/i,
 	},
-	{	id: "Perfected Claw of Yolnahkriin",
-		setBonusCount: 5,
-		buffId: "Minor Courage",
-		toggle: true,
-		enabled: false,
-		match: /When you taunt an enemy, you give yourself and [0-9]+ group members Minor Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+)\./i,
-	},
-	{	id: "Claw of Yolnahkriin",
-		setBonusCount: 4,
-		buffId: "Minor Courage",
-		toggle: true,
-		enabled: false,
-		match: /When you taunt an enemy, you give yourself and [0-9]+ group members Minor Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+)\./i,
-	},
 	{	id: "Perfected Eye of Nahviintaas",
 		setBonusCount: 5,
 		statId: "MagickaCost",
@@ -10449,40 +10481,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /When you deal damage with Puncture, you heal for ([0-9]+) Health and gain Spell and Physical Resistance equal to the amount of healing/i,
 	},
 	{
-		id: "Trial By Fire (Frost)",
-		setId: "Trial by Fire",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		category: "Item",
-		statId: "FrostResist",
-		disableSetIds: [ "Trial By Fire (Flame)", "Trial By Fire (Shock)" ],
-		match: /When you take elemental damage, gain ([0-9]+) Resistance to that element for [0-9]+ seconds/i,
-	},	
-	{
-		id: "Trial By Fire (Flame)",
-		setId: "Trial by Fire",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		category: "Item",
-		statId: "FlameResist",
-		disableSetIds: [ "Trial By Fire (Frost)", "Trial By Fire (Shock)" ],
-		match: /When you take elemental damage, gain ([0-9]+) Resistance to that element for [0-9]+ seconds/i,
-	},
-	{
-		id: "Trial By Fire (Shock)",
-		setId: "Trial by Fire",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		category: "Item",
-		statId: "ShockResist",
-		disableSetIds: [ "Trial By Fire (Flame)", "Trial By Fire (Frost)" ],
-		match: /When you take elemental damage, gain ([0-9]+) Resistance to that element for [0-9]+ seconds/i,
-	},
-	{
-		id: "Trial By Fire",
+		id: "Trial by Fire",
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
@@ -10491,7 +10490,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /While under the effect of an Elemental Status Effect you gain ([0-9]+) Armor/i,
 	},
 	{
-		id: "Trial By Fire",
+		id: "Trial by Fire",
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
@@ -10508,8 +10507,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		buffId: "Way of Martial Knowledge",
 		updateBuffValue: true,
 		display: "%",
-		// match: /When you deal damage, you cause the enemy to take
-		// ([0-9]+\.?[0-9]*)% additional damage from the next attack/i,
+		// match: /When you deal damage, you cause the enemy to take ([0-9]+\.?[0-9]*)% additional damage from the next attack/i,
 		match: /While your Stamina is below [0-9]+\.?[0-9]*%, your Light Attacks cause the enemy to take ([0-9]+\.?[0-9]*)% additional damage/i,
 	},
 	{
@@ -14235,19 +14233,27 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 			// Fix original nirnhoned trait for transmuted weapons
 		if (itemData.origTrait == 26 && itemData.transmuteTrait > 0 && itemData.transmuteTrait != 26)
 		{
-			weaponPower = Math.floor(weaponPower / (1 + transmuteTraitValue/100));
+			weaponPower = Math.round(weaponPower / (1 + transmuteTraitValue/100));
 		}
 		
-			// Fix transmuted nirnhoned trait
-		if (itemData.origTrait != 26 && itemData.transmuteTrait == 26)
+			// Fix weapon power for nirnhoned weapons with a weaponTraitFactor
+		if (itemData.origTrait != 26 && itemData.transmuteTrait == 26 && weaponTraitFactor > 0)
 		{
 			weaponPower = Math.floor(weaponPower * (1 + traitValue * weaponTraitFactor/100));
+		}
+		else if (itemData.origTrait == 26 && itemData.transmuteTrait == 26 && weaponTraitFactor > 0)
+		{
+			weaponPower = Math.floor(weaponPower / (1 + traitValue/100) * (1 + traitValue * weaponTraitFactor/100));
+		}
+		else if (itemData.trait == 26 && (itemData.transmuteTrait <= 0 || itemData.transmuteTrait == null) && weaponTraitFactor > 0)
+		{
+			weaponPower = Math.floor(weaponPower / (1 + traitValue/100) * (1 + traitValue * weaponTraitFactor/100));
 		}
 		
 		if (itemData.trait == 26)	// Weapon nirnhoned
 		{
 			// weaponPower = Math.floor(weaponPower * (1 + traitValue/100)); //
-			// Now included in raw weapon data
+			// Now included in raw weapon data since update?
 		}
 		
 		inputValues.WeaponPower += weaponPower;
@@ -14315,7 +14321,16 @@ window.GetEsoInputItemValues = function (inputValues, slotId)
 		AddEsoItemRawOutput(itemData, "Item.Sturdy", traitValue/100);
 		AddEsoInputStatSource("Item.Sturdy", { item: itemData, value: traitValue/100, slotId:slotId });
 	}
-	else if (itemData.trait == 15 || itemData.trait == 6) // Training
+	
+	else if (itemData.trait == 6) // Weapon Training
+	{
+		traitValue *= weaponTraitFactor;
+		inputValues.Item.Training += traitValue/100;
+		AddEsoStatValueHistory("Item", "Training", traitValue/100);
+		AddEsoItemRawOutput(itemData, "Item.Training", traitValue/100);
+		AddEsoInputStatSource("Item.Training", { item: itemData, value: traitValue/100, slotId: slotId });
+	}
+	else if (itemData.trait == 15) // Armor Training
 	{
 		inputValues.Item.Training += traitValue/100;
 		AddEsoStatValueHistory("Item", "Training", traitValue/100);
@@ -19740,9 +19755,10 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
 		Disease			: inputValues.DiseaseDamageDone,
 		Bleed			: inputValues.BleedDamageDone,
 		Dot				: inputValues.DotDamageDone,
+		Channel			: inputValues.Set.ChannelDamageDone,
 		Direct			: inputValues.DirectDamageDone,
 		All				: inputValues.DamageDone,
-		Empower			: 0,	// Update18: Empower changed to affect Light Attacks only
+		Empower			: 0,	// Update 18: Empower changed to affect Light Attacks only
 		MaelstromDamage : 0,
 		AOE				: inputValues.AOEDamageDone,
 		SingleTarget	: inputValues.SingleTargetDamageDone,
@@ -22237,11 +22253,21 @@ window.OnEsoEditBuildSetupEquipSet = function (element)
 	var jewelTraitVal = parseInt($("#esotbItemSetupEquipSetTraitJewelry").val());
 	var armorTypeVal = parseInt($("#esotbItemSetupEquipSetArmorType").val());
 	var weaponTypeVal = parseInt($("#esotbItemSetupEquipSetWeaponType").val());
+	var useOffhandWeapons = $("#esotbItemSetupEquipSetOffHandWeapon").is(':checked');
 	
 	var armorTypes = [null, null, null, null, null];
 	var weaponTypes = [null, null];
 	var weaponEquipTypes = [5, "5,7"];
 	var traits = [null, null, null, null, null];
+	
+	var weaponSlot1 = "MainHand1";
+	var weaponSlot2 = "OffHand1";
+	
+	if (useOffhandWeapons)
+	{
+		weaponSlot1 = "MainHand2";
+		weaponSlot2 = "OffHand2";
+	}
 	
 	if (armorTypeVal == 0)
 	{
@@ -22461,6 +22487,30 @@ window.OnEsoEditBuildSetupEquipSet = function (element)
 			weaponTypes[1] = -1;
 			weaponEquipTypes[0] = 6;
 		}
+		else if (weaponTypeVal == 10)
+		{
+			weaponTypes[0] = 12;
+			weaponTypes[1] = -1;
+			weaponEquipTypes[0] = 6;
+		}
+		else if (weaponTypeVal == 11)
+		{
+			weaponTypes[0] = 13;
+			weaponTypes[1] = -1;
+			weaponEquipTypes[0] = 6;
+		}
+		else if (weaponTypeVal == 12)
+		{
+			weaponTypes[0] = 15;
+			weaponTypes[1] = -1;
+			weaponEquipTypes[0] = 6;
+		}
+		else if (weaponTypeVal == 13)
+		{
+			weaponTypes[0] = 9;
+			weaponTypes[1] = -1;
+			weaponEquipTypes[0] = 6;
+		}
 		
 		if (jewelTraitVal == 0)
 		{
@@ -22508,9 +22558,9 @@ window.OnEsoEditBuildSetupEquipSet = function (element)
 			if (weaponTypeVal != 5) traits[4] = 26;
 		}
 	}
-
+	
 	msgElement.text("");
-
+	
 	if (locationVal == 1)
 	{
 		if (RequestEsoFindSetItemData('Chest', setName,  3, armorTypes[0], null, 66, qualityVal, traits[0], msgElement)) ++count;
@@ -22524,12 +22574,12 @@ window.OnEsoEditBuildSetupEquipSet = function (element)
 		if (RequestEsoFindSetItemData('Neck',      setName,     2, null, null, 66, qualityVal, traits[0], msgElement)) ++count;
 		if (RequestEsoFindSetItemData('Ring1',     setName,    12, null, null, 66, qualityVal, traits[1], msgElement)) ++count;
 		if (RequestEsoFindSetItemData('Ring2',     setName,    12, null, null, 66, qualityVal, traits[2], msgElement)) ++count;
-		if (RequestEsoFindSetItemData('MainHand1', setName,     weaponEquipTypes[0], null, weaponTypes[0], 66, qualityVal, traits[3], msgElement)) ++count;
+		if (RequestEsoFindSetItemData(weaponSlot1, setName,     weaponEquipTypes[0], null, weaponTypes[0], 66, qualityVal, traits[3], msgElement)) ++count;
 		if (weaponTypes[1] > 0) { 
-			if (RequestEsoFindSetItemData('OffHand1',  setName, weaponEquipTypes[1], null, weaponTypes[1], 66, qualityVal, traits[4], msgElement)) ++count; 
+			if (RequestEsoFindSetItemData(weaponSlot2,  setName, weaponEquipTypes[1], null, weaponTypes[1], 66, qualityVal, traits[4], msgElement)) ++count; 
 		}
 		else {
-			UnequipEsoItemSlot("OffHand1", false);
+			UnequipEsoItemSlot(weaponSlot2, false);
 		}
 	}
 	else if (locationVal == 3)
@@ -22540,12 +22590,12 @@ window.OnEsoEditBuildSetupEquipSet = function (element)
 	}
 	else if (locationVal == 4)
 	{
-		if (RequestEsoFindSetItemData('MainHand1', setName,     weaponEquipTypes[0], null, weaponTypes[0], 66, qualityVal, traits[3], msgElement)) ++count;
+		if (RequestEsoFindSetItemData(weaponSlot1, setName,     weaponEquipTypes[0], null, weaponTypes[0], 66, qualityVal, traits[3], msgElement)) ++count;
 		if (weaponTypes[1] > 0) {
-			if (RequestEsoFindSetItemData('OffHand1',  setName, weaponEquipTypes[1], null, weaponTypes[1], 66, qualityVal, traits[4], msgElement)) ++count; 
+			if (RequestEsoFindSetItemData(weaponSlot2,  setName, weaponEquipTypes[1], null, weaponTypes[1], 66, qualityVal, traits[4], msgElement)) ++count; 
 		}
 		else {
-				UnequipEsoItemSlot("OffHand1", false);
+				UnequipEsoItemSlot(weaponSlot2, false);
 		}
 	}
 	
@@ -22557,7 +22607,7 @@ window.EsoEditBuildChangeAllLevel = function (newLevel)
 {
 	var msgElement = $("#esotbItemSetupAllLevelMsg");
 	var count = 0;
-		
+	
 	if (EsoBuildChangeSlotLevel('Chest', newLevel, msgElement)) ++count;
 	if (EsoBuildChangeSlotLevel('Head', newLevel, msgElement)) ++count;
 	if (EsoBuildChangeSlotLevel('Feet', newLevel, msgElement)) ++count;
@@ -23980,13 +24030,11 @@ window.UpdateEsoPts = function()
 {
 	if (!$("#esotbUsePtsRules").prop("checked")) return;
 	
-		// TODO: Update 31pts
 	$("#esotbQuickItemSetups").find(".esotbSetPts").removeAttr("disabled").removeAttr("hidden");
 	$("#esotbItemSetupMythicSet").children().removeAttr("disabled").removeAttr("hidden");
 	$("#esotbItemSetupMonsterSet").children().removeAttr("disabled").removeAttr("hidden");
 	$("#esotbItemSetupEquipSetList").children().removeAttr("disabled").removeAttr("hidden");
 	
-		// TODO: Update 31pts
 	$("#esotbQuickItemSetups").find(".esoRemoveSet").remove();
 	
 	for (var buffId in g_EsoBuildBuffData_PTS) 
@@ -24211,4 +24259,5 @@ window.esotbOnDocReady = function ()
 
 
 $( document ).ready(esotbOnDocReady);
+
 

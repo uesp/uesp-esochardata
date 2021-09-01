@@ -5,9 +5,8 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #cfc; margin-right: 270px;'>
-The build editor should be working for update 31 PTS. Skills, items and CP data have been updated. 
-A new item database system is now being used....If there are issues with tooltips or item data let us know!
+<div style='background-color: #ffc; margin-right: 270px;'>
+The build editor is not yet completely working for update 31. Skills and CP data have been updated. Some item data has been updated (CP160 only). 
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -480,11 +479,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<div id="esotbQuickItemSetups">
 				<h3>Quick Item Setups</h3>
 				<hr>
-				Use the following to quickly change your build with commonly used setups. All items used will be CP160 Gold quality unless specified. 
+				Use the following to quickly change your build with commonly used setups. All items used will be CP160 Gold quality unless specified.
 				<p />
 				<div class="esptbItemSetup">
 					<div class="esotbItemSetupTitle">Armor Enchantments</div>
-					<select id="esotbItemSetupArmorEnchant" slotid="allarmor">
+					<select id="esotbItemSetupArmRTorEnchant" slotid="allarmor">
 						<option value="none">None</option>
 						<option value="health">Health</option>
 						<option value="magicka">Magicka</option>
@@ -660,7 +659,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Lady Thorn</option>
 						<option>Lord Warden</option>
 						<option>Maarselok</option>
-						<option hidden disabled>Magma Incarnate</option>
+						<option>Magma Incarnate</option>
 						<option>Maw of the Infernal</option>
 						<option>Mighty Chudan</option>
 						<option>Molag Kena</option>
@@ -668,7 +667,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Nerien'eth</option>
 						<option>Nightflame</option>
 						<option>Pirate Skeleton</option>
-						<option hidden disabled>Prior Thierric</option>
+						<option>Prior Thierric</option>
 						<option>Scourge Harvester</option>
 						<option>Selene</option>
 						<option>Sellistrix</option>
@@ -837,7 +836,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Coward's Gear</option>
 						<option>Crafty Alfiq</option>
 						<option>Crest of Cyrodiil</option>
-						<option hidden disabled>Crimson Oath's Rive</option>
+						<option>Crimson Oath's Rive</option>
 						<option>Crimson Twilight</option>
 						<option>Critical Riposte</option>
 						<option>Crusader</option>
@@ -845,7 +844,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Curse of Doylemish</option>
 						<option>Daedric Trickery</option>
 						<option>Daring Corsair</option>
-						<option hidden disabled>Dark Convergence</option>
+						<option>Dark Convergence</option>
 						<option>Darkstride</option>
 						<option>Dauntless Combatant</option>
 						<option>Dead-Water's Guile</option>
@@ -907,7 +906,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Grave Guardian</option>
 						<option>Grave-Stake Collector</option>
 						<option>Green Pact</option>
-						<option hidden disabled>Grisly Gourmet</option>
+						<option>Grisly Gourmet</option>
 						<option>Gryphon's Ferocity</option>
 						<option>Hagraven's Garden</option>
 						<option>Hand of Mephala</option>
@@ -927,7 +926,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Hist Bark</option>
 						<option>Hist Whisperer</option>
 						<option>Hollowfang Thirst</option>
-						<option hidden disabled>Hrothgar's Chill</option>
+						<option>Hrothgar's Chill</option>
 						<option>Hunding's Rage</option>
 						<option>Hunt Leader</option>
 						<option>Icy Conjuror</option>
@@ -1003,15 +1002,14 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Overland</option>
 						<option>Overwhelming Surge</option>
 						<option>Para Bellum</option>
-						<option class='esoRemoveSet'>Pelinal's Aptitude</option>
-						<option hidden disabled>Pelinal's Wrath</option>
+						<option>Pelinal's Wrath</option>
 						<option>Permafrost</option>
 						<option>Pestilent Host</option>
 						<option>Phoenix</option>
 						<option>Pillar of Nirn</option>
 						<option>Plague Doctor</option>
 						<option>Plague Slinger</option>
-						<option hidden disabled>Plaguebreak</option>
+						<option>Plaguebreak</option>
 						<option>Poisonous Serpent</option>
 						<option>Powerful Assault</option>
 						<option>Prayer Shawl</option>
@@ -1038,7 +1036,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Robes of the Hist</option>
 						<option>Robes of the Withered Hand</option>
 						<option>Robes of Transmutation</option>
-						<option hidden disabled>Rush of Agony</option>
+						<option>Rush of Agony</option>
 						<option>Salvation</option>
 						<option>Sanctuary</option>
 						<option>Savage Werewolf</option>
@@ -1046,7 +1044,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option value="Perfected Saxhleel Championt">Saxhleel Champion (Perfect)</option>
 						<option>Scathing Mage</option>
 						<option>Scavenging Demise</option>
-						<option hidden disabled>Scorion's Feast</option>
+						<option>Scorion's Feast</option>
 						<option>Senchal Defender</option>
 						<option>Senche's Bite</option>
 						<option>Senche-Raht's Grit</option>
@@ -1064,7 +1062,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Shield of the Valiant</option>
 						<option>Shroud of the Lich</option>
 						<option>Silks of the Sun</option>
-						<option hidden disabled>Silver Rose Vigil</option>
+						<option>Silver Rose Vigil</option>
 						<option>Sithis' Touch</option>
 						<option>Skooma Smuggler</option>
 						<option>Sload's Semblance</option>
@@ -1107,7 +1105,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>The Morag Tong</option>
 						<option>The Worm's Raiment</option>
 						<option>Thews of the Harbinger</option>
-						<option hidden disabled>Thunder Caller</option>
+						<option>Thunder Caller</option>
 						<option>Thunderbug's Carapace</option>
 						<option>Titanborn Strength</option>
 						<option>Tooth of Lokkestiiz</option>
@@ -1242,7 +1240,13 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 							<option value="7">2H Axe</option>
 							<option value="8">2H Maul</option>
 							<option value="9">Bow</option>
+							<option value="10">Flame Destruction</option>
+							<option value="11">Frost Destruction</option>
+							<option value="12">Shock Destruction</option>
+							<option value="13">Restoration</option>
 						</select>
+						&nbsp; &nbsp; &nbsp;
+						<input type="checkbox" id="esotbItemSetupEquipSetOffHandWeapon"> Off-Hand Weapons
 						<p/>
 						
 						Armor Traits <select id="esotbItemSetupEquipSetTraitArmor" style="">
@@ -1703,6 +1707,71 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>1 September 2021</b>
+			<ul>
+				<li>Added the Empower effect to the Light Attack Shock and Restoration Staffs.</li>
+			</ul>
+			<p>
+			<b>31 August 2021</b>
+			<ul>
+				<li>Tweaked the rounding when using Nirnhoned weapons with the Heartland Conqueror's set to fix off-by-one errors.</li>
+				<li>Added skill toggle for Immovable.</li>
+				<li>Fixed the Continuous Attack passive from giving Weapon/Spell Damage all the time.</li>
+				<li>Fixed the Trial By Fire set toggle.</li>
+				<li>Fixed the skill coefficients for Elude and made the skill duration show the modified duration value.</li>
+				<li>The Dexterity passive now correctly increases your Critical Healing instead of Healing Done.</li>
+				<li>The Deadly Strike 5 piece set bonus now modifies DOT and Channeled damage.</li>
+				<li>The Heartland Conqueror's set now modifies Training weapons.</li>
+				<li>Added a toggle for the Prior Thierric set.</li>
+				<li>Converted all skills/sets that modify the targets Damage Taken stats and converted that into the player's Damage Done. While this doesn't match what is done
+					in-game (these abilities don't modify the tooltip) it makes it easier to gauge damage from tooltips in the editor. Modified skills/sets include: 
+					<ul>
+						<li>Prior Thierric</li>
+						<li>The Morag Tong</li>
+						<li>Encratis Behemoth</li>
+						<li>Way of Martial Knowledge</li>
+						<li>Zens Redress</li>
+						<li>Minor/Major Vulnerability</li>
+						<li>Engulfing Flames</li>
+						<li>Inner Beast</li>
+						<li>Death Stroke</li>
+					</ul>
+					Comments welcome on this change....
+				</li>
+				<li>Fixed the Minor Expedition buff stat.</li>
+				<li>Set tooltips should now be correctly updated.</li>
+			</ul>
+			<p>
+			<b>30 August 2021</b>
+			<ul>
+				<li>The Light Armor passive Prodigy now increases Weapon Crit.</li>
+				<li>Added set toggles for the Minor Courage effects from the Crusader and Magma Incarnate sets.</li>
+				<li>Fixed the Bloodthirst hit damage tooltip.</li>
+				<li>Fixed the tooltip display of weapon damage for Nirnhoned weapons when using the Heartland Conqueror's set. Calculated weapon damage should now be correct for all
+					various combinations of Nirnhoned weapons whether transmuted or not.</li>
+			</ul>
+			<p>
+			
+			<b>26 August 2021</b>
+			<ul>
+				<li>Added stats for the Overcharged, Hemorrhaging, and Sundered status effects.</li>
+				<li>Added the 3 destruction staffs and restoration staffs to the set quick item setup weapon type list.</li>
+				<li>Added the "Off-Hand Weapon" checkbox to the set quick item setup.</li>
+			</ul>
+			<p>
+			<b>26 August 2021</b>
+			<ul>
+				<li>Updated the Battle Spirit buff.</li>
+				<li>Added new sets to the quick item setup lists.</li>
+				<li>Fixed the Destruction Elemental Force passive.</li>
+				<li>Added the <em>Status Effects</em> section in computed stats. Needs some testing to make sure all status effect sources are accounted for.</li>
+			</ul>
+			<p>
+			<b>24 August 2021</b>
+			<ul>
+				<li>Updated skills, CPs, and some items for update 31.</li>
+			</ul>
+			<p>
 			<b>21 July 2021</b>
 			<ul>
 				<li>Fixed several Perfected sets that had 0 values in their tooltips (was due to an in-game bug that had to be worked around).</li>

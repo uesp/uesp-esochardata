@@ -421,6 +421,7 @@ class EsoBuildDataEditor
 			"Constitution",
 			"DamageShield",
 			"DotDamageDone",
+			"ChannelDamageDone",
 			"DirectDamageDone",
 			"MagicDamageDone",
 			"PhysicalDamageDone",
@@ -969,6 +970,14 @@ class EsoBuildDataEditor
 			),
 			
 			"Skill.DotDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"Set.DotDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"Set.ChannelDamageDone" => array(
 					"display" => "%",
 			),
 			
@@ -3843,6 +3852,8 @@ class EsoBuildDataEditor
 							"CP.DotDamageDone",
 							"Skill.DotDamageDone",
 							"+",
+							"Set.DotDamageDone",
+							"+",
 					),
 			),
 			
@@ -4186,7 +4197,7 @@ class EsoBuildDataEditor
 							"*",
 							"1 + Skill.HAStaRestore + Set.HAStaRestore",
 							"*",
-							"1 + Skill.HAStaRestoreWerewolf",
+							"1 + Skill.HAStaRestoreWerewolf", 
 							"*",
 					),
 			),
@@ -4200,6 +4211,479 @@ class EsoBuildDataEditor
 							"ArmorHeavy",
 							"*",
 							"1 + Set.Constitution",
+							"*",
+					),
+			),
+			
+			/* 
+				Chilled (21481, 95136) – Deals direct damage and applies Minor Maim for 4 seconds, reducing targets damage done by 5%.
+					Minor Brittle = 145975 (Frost Staff Only)
+					Minor Maim = 61723
+						Direct SingleTarget Frost Damage
+						0.084 * Power + 0.008 * Stat
+				
+				Concussion (21487, 95134) – Deals direct damage and applies Minor Vulnerability for 4 seconds, increasing damage taken by 5%. 
+							Animation: electric sparkles. Chance to proc from any lightning damage. Does not proc off Staff Light and Heavy attacks. 
+							However, it can proc from the splash damage of Shock Heavy Attacks.
+						Direct SingleTarget Shock Damage
+						0.084 * Power + 0.008 * Stat
+				
+				Burning (18084) – Flame damage over time for 4 seconds and ticks every 2 seconds. Chance to proc from any flame damage.
+						DOT SingleTarget, Flame Damage, 2 sec Ticks, 4 sec duration (x3)
+						0.168 * Power + 0.016 * Stat
+				
+				Poisoned (21929) – Poison damage over time for 6 seconds. Chance to proc from any poison damage.
+						DOT SingleTarget, Poison Damage, 2 sec Ticks, 6 sec duration (x4)
+						0.1512 * Power + 0.0144 * Stat
+				
+				Disease (21925) – Applies Minor Defile debuff (Yes it is supposed to be Minor) for 4 seconds that reduces healing taken by 15%. 
+							Animation: green cloud and health bar has inward arrowheads. Chance to proc from any disease damage (meat bag siege catapults,
+							werewolf infectious claws and foul weapon enchants)
+						Direct SingleTarget Disease Damage
+						0.084 * Power + 0.008 * Stat
+						
+				3 new effects from update 29?
+				
+				Hemorrhaging
+							Bleed Damage has a chance to apply Hemorrhaging. It deals slightly weaker damage than Burning over 4 seconds and 
+							applies Minor Mangle to the target while afflicted.
+						DOT SingleTarget Bleed Damage
+						0.1575 * Power + 0.015 * Stat
+				
+				Sundered (148800)
+							Physical Damage has a chance to apply Sundered. It deals minor damage and applies Minor Breach for 4 seconds.
+						Direct SingleTarget Physical Damage
+						0.084 * Power + 0.008 * Stat
+				
+				Overcharged (148797)
+							Magic Damage has a chance to apply Overcharged. It deals minor damage and applies Minor Magickasteal for 4 seconds.
+						Direct SingleTarget Magic Damage
+						0.084 * Power + 0.008 * Stat
+				
+				Standardized the chance an ability has to apply a secondary effect, such as burning, chilled, or concussed. These chances are:
+						Weapon enchants 20%
+						Standard ability 10%
+						Area of effect abilities 5%
+						Damage over time abilities 3%
+						Area of effect damage over time abilities 1%
+			 */
+			"Status Effects" => "StartSection",
+			
+			"StatusFlameSpellDamage" => array(
+					"title" => "Status Flame Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Flame",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"StatusFlameWeaponDamage" => array(
+					"title" => "Status Flame Weapon Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage"),
+					"compute" => array(
+							"WeaponDamage",
+							"SkillBonusWeaponDmg.Flame",
+							"1 + Buff.WeaponDamage + Skill.WeaponDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"StatusShockSpellDamage" => array(
+					"title" => "Status Shock Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Shock",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"StatusShockWeaponDamage" => array(
+					"title" => "Status Shock Weapon Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage"),
+					"compute" => array(
+							"WeaponDamage",
+							"SkillBonusWeaponDmg.Shock",
+							"1 + Buff.WeaponDamage + Skill.WeaponDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"StatusFrostSpellDamage" => array(
+					"title" => "Status Frost Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Frost",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"StatusFrostWeaponDamage" => array(
+					"title" => "Status Frost Weapon Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage"),
+					"compute" => array(
+							"WeaponDamage",
+							"SkillBonusWeaponDmg.Frost",
+							"1 + Buff.WeaponDamage + Skill.WeaponDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"StatusMagicSpellDamage" => array(
+					"title" => "Status Magic Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Magic",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"StatusMagicWeaponDamage" => array(
+					"title" => "Status Magic Weapon Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage"),
+					"compute" => array(
+							"WeaponDamage",
+							"SkillBonusWeaponDmg.Magic",
+							"1 + Buff.WeaponDamage + Skill.WeaponDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"StatusPhysicalSpellDamage" => array(
+					"title" => "Status Physical Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Physical",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"StatusPhysicalWeaponDamage" => array(
+					"title" => "Status Physical Weapon Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage"),
+					"compute" => array(
+							"WeaponDamage",
+							"SkillBonusWeaponDmg.Physical",
+							"1 + Buff.WeaponDamage + Skill.WeaponDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"StatusBleedSpellDamage" => array(
+					"title" => "Status Bleed Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Bleed",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"StatusBleedWeaponDamage" => array(
+					"title" => "Status Bleed Weapon Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage"),
+					"compute" => array(
+							"WeaponDamage",
+							"SkillBonusWeaponDmg.Bleed",
+							"1 + Buff.WeaponDamage + Skill.WeaponDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"StatusDiseaseSpellDamage" => array(
+					"title" => "Status Disease Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Disease",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"StatusDiseaseWeaponDamage" => array(
+					"title" => "Status Disease Weapon Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage"),
+					"compute" => array(
+							"WeaponDamage",
+							"SkillBonusWeaponDmg.Disease",
+							"1 + Buff.WeaponDamage + Skill.WeaponDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"StatusPoisonSpellDamage" => array(
+					"title" => "Status Poison Spell Damage",
+					"round" => "floor",
+					"depends" => array("SpellDamage"),
+					"compute" => array(
+							"SpellDamage",
+							"SkillBonusSpellDmg.Poison",
+							"1 + Buff.SpellDamage + Skill.SpellDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"StatusPoisonWeaponDamage" => array(
+					"title" => "Status Poison Weapon Damage",
+					"round" => "floor",
+					"depends" => array("WeaponDamage"),
+					"compute" => array(
+							"WeaponDamage",
+							"SkillBonusWeaponDmg.Poison",
+							"1 + Buff.WeaponDamage + Skill.WeaponDamage",
+							"*",
+							"+",
+					),
+			),
+			
+			"BurningDamage" => array(	// 18084 
+					"title" => "Burning Damage / Tick",
+					"round" => "floor",
+					"depends" => array("StatusFlameSpellDamage", "StatusFlameWeaponDamage", "Magicka", "Stamina", "FlameDamageDone", "DotDamageDone", "SingleTargetDamageDone", "DamageDone"),
+					"note" => "This is per 2 second tick so multiply by 3 to get total damage done.",
+					"compute" => array(
+							"floor(fround(0.016)*max(Magicka, Stamina)) + floor(fround(0.168)*max(StatusFlameSpellDamage, StatusFlameWeaponDamage))",
+							"1 + Skill.BurningDamage + FlameDamageDone + DotDamageDone + SingleTargetDamageDone + DamageDone",
+							"*",
+					),
+			),
+			
+			"ChilledDamage" => array(	// 21481 
+					"title" => "Chilled Damage",
+					"round" => "floor",
+					"depends" => array("StatusFrostSpellDamage", "StatusFrostWeaponDamage", "Magicka", "Stamina", "FrostDamageDone", "DirectDamageDone", "SingleTargetDamageDone", "DamageDone"),
+					"compute" => array(
+							"floor(fround(0.008)*max(Magicka, Stamina)) + floor(fround(0.084)*max(StatusFrostSpellDamage, StatusFrostWeaponDamage))",
+							"1 + FrostDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone",
+							"*",
+					),
+			),
+			
+			"ConcussionDamage" => array(	// 21487 
+					"title" => "Concussion Damage",
+					"round" => "floor",
+					"depends" => array("StatusShockSpellDamage", "StatusShockWeaponDamage", "Magicka", "Stamina", "ShockDamageDone", "DirectDamageDone", "SingleTargetDamageDone", "DamageDone"),
+					"compute" => array(
+							"floor(fround(0.008)*max(Magicka, Stamina)) + floor(fround(0.084)*max(StatusShockSpellDamage, StatusShockWeaponDamage))",
+							"1 + ShockDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone",
+							"*",
+					),
+			),
+			
+			"OverchargedDamage" => array(	// 148797 
+					"title" => "Overcharged Damage",
+					"round" => "floor",
+					"depends" => array("StatusMagicSpellDamage", "StatusMagicWeaponDamage", "Magicka", "Stamina", "MagicDamageDone", "DirectDamageDone", "SingleTargetDamageDone", "DamageDone"),
+					"compute" => array(
+							"floor(fround(0.008)*max(Magicka, Stamina)) + floor(fround(0.084)*max(StatusMagicSpellDamage, StatusMagicWeaponDamage))",
+							"1 + MagicDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone",
+							"*",
+					),
+			),
+			
+			"SunderedDamage" => array(	// 148800 
+					"title" => "Sundered Damage",
+					"round" => "floor",
+					"depends" => array("StatusPhysicalSpellDamage", "StatusPhysicalWeaponDamage", "Magicka", "Stamina", "PhysicalDamageDone", "DirectDamageDone", "SingleTargetDamageDone", "DamageDone"),
+					"compute" => array(
+							"floor(fround(0.008)*max(Magicka, Stamina)) + floor(fround(0.084)*max(StatusPhysicalSpellDamage, StatusPhysicalWeaponDamage))",
+							"1 + PhysicalDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone",
+							"*",
+					),
+			),
+			
+			"HemorrhagingDamage" => array(	// 48801 
+					"title" => "Hemorrhaging Damage / Tick",
+					"round" => "floor",
+					"depends" => array("StatusBleedSpellDamage", "StatusBleedWeaponDamage", "Magicka", "Stamina", "BleedDamageDone", "DotDamageDone", "SingleTargetDamageDone", "DamageDone"),
+					"note" => "This is per 2 second tick so multiply by 3 to get total damage done.",
+					"compute" => array(
+							"floor(fround(0.015)*max(Magicka, Stamina)) + floor(fround(0.1575)*max(StatusBleedSpellDamage, StatusBleedWeaponDamage))",
+							"1 + BleedDamageDone + DotDamageDone + SingleTargetDamageDone + DamageDone",
+							"*",
+					),
+			),
+			
+			"DiseaseDamage" => array(	// 21925 
+					"title" => "Disease Damage",
+					"round" => "floor",
+					"depends" => array("StatusDiseaseSpellDamage", "StatusDiseaseWeaponDamage", "Magicka", "Stamina", "DiseaseDamageDone", "DirectDamageDone", "SingleTargetDamageDone", "DamageDone"),
+					"compute" => array(
+							"floor(fround(0.008)*max(Magicka, Stamina)) + floor(fround(0.084)*max(StatusDiseaseSpellDamage, StatusDiseaseWeaponDamage))",
+							"1 + DiseaseDamageDone + DirectDamageDone + SingleTargetDamageDone + DamageDone",
+							"*",
+					),
+			),
+			
+			"PoisonedDamage" => array(	// 21929 
+					"title" => "Poisoned Damage / Tick",
+					"round" => "floor",
+					"depends" => array("StatusPoisonSpellDamage", "StatusPoisonWeaponDamage", "Magicka", "Stamina", "PoisonDamageDone", "DotDamageDone", "SingleTargetDamageDone", "DamageDone"),
+					"note" => "This is per 2 second tick so multiply by 4 to get total damage done.",
+					"compute" => array(
+							"floor(fround(0.0144)*max(Magicka, Stamina)) + floor(fround(0.1512)*max(StatusPoisonSpellDamage, StatusPoisonWeaponDamage))",
+							"1 + Skill.PoisonedDamage + PoisonDamageDone + DotDamageDone + SingleTargetDamageDone + DamageDone",
+							"*",
+					),
+			),
+			
+			"PoisonedDuration" => array(
+					"title" => "Poisoned Duration",
+					"round" => "floor",
+					"suffix" => " secs",
+					"note" => "Duration for only the Poisoned status effect.",
+					"compute" => array(
+							"6.0",
+					),
+			),
+			
+			"StatusDuration" => array(
+					"title" => "Status Duration",
+					"round" => "floor",
+					"suffix" => " secs",
+					"note" => "Duration for Burning, Concussion, Chilled, and Diseased status effects.",
+					"compute" => array(
+							"4.0",
+					),
+			),
+			
+			"MagicalEnchantStatusChance" => array(
+					"title" => "Magical Chance (Enchants)",
+					"display" => "%",
+					"compute" => array(
+							"0.20",
+							"1 + Skill.StatusEffectChance + Item.StatusEffectChance + CP.MagicalStatusEffectChance",
+							"*",
+					),
+			),
+			
+			"MagicalAbilityStatusChance" => array(
+					"title" => "Magical Chance (Ability)",
+					"display" => "%",
+					"compute" => array(
+							"0.10",
+							"1 + Skill.StatusEffectChance + Item.StatusEffectChance + CP.MagicalStatusEffectChance",
+							"*",
+					),
+			),
+			
+			"MagicalAOEStatusChance" => array(
+					"title" => "Magical Chance (AOE)",
+					"display" => "%",
+					"compute" => array(
+							"0.05",
+							"1 + Skill.StatusEffectChance + Item.StatusEffectChance + CP.MagicalStatusEffectChance",
+							"*",
+					),
+			),
+			
+			"MagicalDOTStatusChance" => array(
+					"title" => "Magical Chance (DOT)",
+					"display" => "%",
+					"compute" => array(
+							"0.03",
+							"1 + Skill.StatusEffectChance + Item.StatusEffectChance + CP.MagicalStatusEffectChance",
+							"*",
+					),
+			),
+			
+			"MagicalAOEDOTStatusChance" => array(
+					"title" => "Magical Chance (AOE + DOT)",
+					"display" => "%",
+					"compute" => array(
+							"0.01",
+							"1 + Skill.StatusEffectChance + Item.StatusEffectChance + CP.MagicalStatusEffectChance",
+							"*",
+					),
+			),
+			
+			"MartialEnchantStatusChance" => array(
+					"title" => "Martial Chance (Enchants)",
+					"display" => "%",
+					"compute" => array(
+							"0.20",
+							"1 + Skill.StatusEffectChance + Item.StatusEffectChance + CP.MartialStatusEffectChance",
+							"*",
+					),
+			),
+			
+			"MartialAbilityStatusChance" => array(
+					"title" => "Martial Chance (Ability)",
+					"display" => "%",
+					"compute" => array(
+							"0.10",
+							"1 + Skill.StatusEffectChance + Item.StatusEffectChance + CP.MartialStatusEffectChance",
+							"*",
+					),
+			),
+			
+			"MartialAOEStatusChance" => array(
+					"title" => "Martial Chance (AOE)",
+					"display" => "%",
+					"compute" => array(
+							"0.05",
+							"1 + Skill.StatusEffectChance + Item.StatusEffectChance + CP.MartialStatusEffectChance",
+							"*",
+					),
+			),
+			
+			"MartialDOTStatusChance" => array(
+					"title" => "Martial Chance (DOT)",
+					"display" => "%",
+					"compute" => array(
+							"0.03",
+							"1 + Skill.StatusEffectChance + Item.StatusEffectChance + CP.MartialStatusEffectChance",
+							"*",
+					),
+			),
+			
+			"MartialAOEDOTStatusChance" => array(
+					"title" => "Martial Chance (AOE + DOT)",
+					"display" => "%",
+					"compute" => array(
+							"0.01",
+							"1 + Skill.StatusEffectChance + Item.StatusEffectChance + CP.MartialStatusEffectChance",
 							"*",
 					),
 			),
@@ -4418,7 +4902,7 @@ class EsoBuildDataEditor
 							
 							"Skill2.HADamage",
 							"+",						// Not affected by Empower?
-							"1 + CP.HADamage + Skill.HADamage + Set.HADamage + ShockDamageDone + SingleTargetDamageDone + DotDamageDone + DamageDone",
+							"1 + CP.HADamage + Skill.HADamage + Set.HADamage + Buff.Empower + ShockDamageDone + SingleTargetDamageDone + DotDamageDone + DamageDone",
 							"*",
 							
 							/*
@@ -4450,7 +4934,7 @@ class EsoBuildDataEditor
 							
 							"Skill2.HADamage",
 							"+",						//Not affected by Empower
-							"1 + CP.HADamage + Skill.HADamage + Set.HADamage + MagicDamageDone + DotDamageDone + SingleTargetDamageDone + DamageDone",
+							"1 + CP.HADamage + Skill.HADamage + Set.HADamage + Buff.Empower + MagicDamageDone + DotDamageDone + SingleTargetDamageDone + DamageDone",
 							"*",
 							
 							/*
@@ -4579,7 +5063,6 @@ class EsoBuildDataEditor
 			
 			"OverloadDamage" => array(
 					"title" => "Overload Damage Modifier",
-					"round" => "round",
 					"display" => "%",
 					"compute" => array(
 							"CP.OverloadDamage",
@@ -4609,7 +5092,6 @@ class EsoBuildDataEditor
 			
 			"LASpeed" => array(
 					"title" => "Light Attack Speed",
-					"round" => "floor",
 					"display" => "%",
 					"compute" => array(
 							"1 + Set.LASpeed",
@@ -4619,7 +5101,6 @@ class EsoBuildDataEditor
 			"LAMeleeSpeed" => array(
 					"title" => "Light Attack Melee Speed",
 					"note" => "Melee Light Attacks include 1H+Shield, Dual Wield, 2Handed, Werewolf, and Unarmed.",
-					"round" => "floor",
 					"display" => "%",
 					"compute" => array(
 							"1 + Set.LASpeed + Set.LAMeleeSpeed",
@@ -5097,7 +5578,6 @@ class EsoBuildDataEditor
 			
 			"HASpeed" => array(
 					"title" => "Heavy Attack Speed Modifier",
-					"round" => "floor",
 					"display" => "%",
 					"compute" => array(
 							"1",
@@ -5171,7 +5651,7 @@ class EsoBuildDataEditor
 							"Target.CritResist",
 							"0.035/250",
 							"*",
-							"-",							
+							"-",
 					),
 			),
 			

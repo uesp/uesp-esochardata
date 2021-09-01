@@ -3164,10 +3164,27 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 	
 		// Thews of the Harbinger
 	//(5 items) When you block an attack, you deal damage to your attacker equal to <div style="color:#ffffff;display:inline;">7</div>% of your Max Health.<br><br>Current value: 612 Physical damage"
-	newDesc = newDesc.replace(/(\(5 items\) When you block an attack, you deal damage to your attacker equal to (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|)% of your Max Health.*Current value: )([0-9]+)/i, function(match, prefix, percent, middle, damage) {
+	//newDesc = newDesc.replace(/(\(5 items\) When you block an attack, you deal damage to your attacker equal to (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|)% of your Max Health.*Current value: )([0-9]+)/i, function(match, prefix, percent, middle, damage) {
+			//damage = Math.floor(+g_EsoBuildLastInputValues.Health * percent / 100);
+			//itemData.rawOutput["Tooltip: Set Damage"] = "" + g_EsoBuildLastInputValues.Health + " * " + percent + "% = " + damage;
+			//return prefix + percent + middle + damage;
+	
+	newDesc = newDesc.replace(/\(5 items\) When you block an attack, you deal ([0-9]+) Physical Damage to the attacker. This effect scales off your Max Health./i, function(match, damage) 
+	{
+		var percent = 44.863;	// Update 31
+		
+		if (g_SkillsData[79362] && g_SkillsData[79362].tooltips && g_SkillsData[79362].tooltips[1])
+		{
+			percent = Math.floor(+g_SkillsData[79362].tooltips[1].a * 100);
+		}
+		else if (g_SkillsData[79362] && g_SkillsData[79362].a1 > 0)
+		{
+			percent = Math.floor(+g_SkillsData[79362].a1 * 100);
+		}
+		
 		damage = Math.floor(+g_EsoBuildLastInputValues.Health * percent / 100);
 		itemData.rawOutput["Tooltip: Set Damage"] = "" + g_EsoBuildLastInputValues.Health + " * " + percent + "% = " + damage;
-		return prefix + percent + middle + damage;
+		return "<div style=\"color:#ffffff;display:inline;\">" + damage + "</div>";
 	});
 	
 	return newDesc;
