@@ -569,7 +569,7 @@ class EsoBuildDataViewer
 				}
 			}
 		}
-				
+		
 		$query = "SELECT SQL_CALC_FOUND_ROWS * FROM characters ";
 		if (count($where) > 0) $query .= " WHERE " . implode(" AND ", $where); 
 		$query .= " ORDER BY buildName LIMIT $page, {$this->MAX_BUILD_DISPLAY};";
@@ -1035,7 +1035,7 @@ class EsoBuildDataViewer
 		
 		$this->lastQuery = "SELECT * FROM stats WHERE characterId IN (" . implode(",", $charIds) . ");";
 		$result = $this->db->query($this->lastQuery);
-		if ($result === FALSE) return $this->reportError("Failed to load stats data for account $accountName!");
+		if ($result === FALSE) return $this->reportError("Failed to load stats data for account $accountName! {$this->db->error}");
 		
 		$result->data_seek(0);
 		$this->accountStats = array();

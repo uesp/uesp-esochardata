@@ -3075,19 +3075,18 @@ class EsoBuildDataEditor
 			"ResurrectTime" => array(
 					"title" => "Resurrect Time",
 					"suffix" => " secs",
-					"round" => "floor2",
-					//"addClass" => "esotbStatDivider",
+					"round" => "floor10",
 					"compute" => array(
 							"7",
 							"1 - Set.ResurrectSpeed",
-							"Skill.ResurrectSpeed",
-							"-",
-							"Buff.ResurrectSpeed",
-							"-",
-							"CP.ResurrectSpeed",
-							"-",
-							"Item.ResurrectSpeed",
-							"-",
+							"*",
+							"1 - Skill.ResurrectSpeed",
+							"*",
+							"1 - Buff.ResurrectSpeed",
+							"*",
+							"1 - CP.ResurrectSpeed",
+							"*",
+							"1 - Item.ResurrectSpeed",
 							"*",
 					),
 			),
@@ -3182,7 +3181,7 @@ class EsoBuildDataEditor
 			 */
 			"SneakRange" => array(
 					"title" => "Sneak Range",
-					"round" => "floor2",
+					"round" => "floor10",
 					"suffix" => " m",
 					"note" => "Range that others can detect you while sneaking.",
 					"compute" => array(
@@ -3201,7 +3200,7 @@ class EsoBuildDataEditor
 			 */
 			"SneakDetectRange" => array(
 					"title" => "Detection Range",
-					"round" => "floor2",
+					"round" => "floor10",
 					"suffix" => " m",
 					"note" => "Range that you can detect others that are sneaking.",
 					"compute" => array(

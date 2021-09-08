@@ -189,11 +189,9 @@ class EsoBuildDataParser
 		if ($result === FALSE) return $this->reportError("Failed to create characters table!");
 		
 		$query = "CREATE TABLE IF NOT EXISTS stats (
-						id INTEGER NOT NULL AUTO_INCREMENT,
 						characterId INTEGER NOT NULL,
 						name TINYTEXT NOT NULL,
 						value TINYTEXT NOT NULL,
-						PRIMARY KEY (id),
 						INDEX index_characterId(characterId)
 					) ENGINE=MYISAM;";
 		
@@ -202,7 +200,6 @@ class EsoBuildDataParser
 		if ($result === FALSE) return $this->reportError("Failed to create stats table!");
 		
 		$query = "CREATE TABLE IF NOT EXISTS equipSlots (
-						id INTEGER NOT NULL AUTO_INCREMENT,
 						characterId INTEGER NOT NULL,
 						account TINYTEXT NOT NULL,
 						name TINYTEXT NOT NULL,
@@ -223,7 +220,6 @@ class EsoBuildDataParser
 						trait TINYINT NOT NULL,
 						style TINYINT NOT NULL,
 						setName TINYTEXT NOT NULL,
-						PRIMARY KEY (id),
 						INDEX index_characterId(characterId),
 						INDEX index_account(account(48))
 					) ENGINE=MYISAM;";
@@ -233,7 +229,6 @@ class EsoBuildDataParser
 		if ($result === FALSE) return $this->reportError("Failed to create equipSlots table!");
 		
 		$query = "CREATE TABLE IF NOT EXISTS skills (
-						id INTEGER NOT NULL AUTO_INCREMENT,
 						characterId INTEGER NOT NULL,
 						name TINYTEXT NOT NULL,
 						type TINYTEXT NOT NULL,
@@ -250,7 +245,6 @@ class EsoBuildDataParser
 						channelTime INTEGER NOT NULL,
 						duration INTEGER NOT NULL,
 						target TINYTEXT NOT NULL,
-						PRIMARY KEY (id),
 						INDEX index_characterId(characterId)
 					) ENGINE=MYISAM;";
 		
@@ -259,14 +253,12 @@ class EsoBuildDataParser
 		if ($result === FALSE) return $this->reportError("Failed to create skills table!");
 		
 		$query = "CREATE TABLE IF NOT EXISTS championPoints (
-						id INTEGER NOT NULL AUTO_INCREMENT,
 						characterId INTEGER NOT NULL,
 						name TINYTEXT NOT NULL,
 						points INTEGER NOT NULL,
 						description TEXT NOT NULL,
 						abilityId INTEGER NOT NULL,
 						slotIndex TINYINT NOT NULL,
-						PRIMARY KEY (id),
 						INDEX index_characterId(characterId)
 					) ENGINE=MYISAM;";
 		
@@ -275,14 +267,12 @@ class EsoBuildDataParser
 		if ($result === FALSE) return $this->reportError("Failed to create championPoints table!");
 		
 		$query = "CREATE TABLE IF NOT EXISTS buffs (
-						id INTEGER NOT NULL AUTO_INCREMENT,
 						characterId INTEGER NOT NULL,
 						name TINYTEXT NOT NULL,
 						icon TINYTEXT NOT NULL,
 						description TEXT NOT NULL,
 						enabled TINYINT NOT NULL,
 						abilityId INTEGER NOT NULL,
-						PRIMARY KEY (id),
 						INDEX index_characterId(characterId)
 					) ENGINE=MYISAM;";
 		
@@ -291,7 +281,6 @@ class EsoBuildDataParser
 		if ($result === FALSE) return $this->reportError("Failed to create buffs table!");
 		
 		$query = "CREATE TABLE IF NOT EXISTS actionBars (
-						id INTEGER NOT NULL AUTO_INCREMENT,
 						characterId INTEGER NOT NULL,
 						name TINYTEXT NOT NULL,
 						icon TINYTEXT NOT NULL,
@@ -307,7 +296,6 @@ class EsoBuildDataParser
 						duration INTEGER NOT NULL,
 						target TINYTEXT NOT NULL,
 						rank TINYINT NOT NULL,
-						PRIMARY KEY (id),
 						INDEX index_characterId(characterId)
 					) ENGINE=MYISAM;";
 		
@@ -354,7 +342,7 @@ class EsoBuildDataParser
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		if ($result === FALSE) return $this->reportError("Failed to create combatActions table!");
-				
+		
 		$this->lastQuery = "";
 		return true;
 	}

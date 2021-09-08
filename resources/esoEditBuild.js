@@ -354,6 +354,28 @@ window.g_EsoBuildBuffData =
 			statIds : [ "SpellCrit", "WeaponCrit" ],
 			icon : "/esoui/art/icons/ability_debuff_minor_enervation.png",
 		},
+		"Scorion's Feast (Imbued Aura)" :
+		{
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			values : [307, 307],
+			category: "Set",
+			statIds : [ "MagickaRegen", "StaminaRegen" ],
+			icon : "/esoui/art/icons/ability_healer_010.png",
+		},
+		"Scorion's Feast (Overflow Aura)" :
+		{
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			values : [307, 307],
+			category: "Set",
+			statIds : [ "WeaponDamage", "SpellDamage" ],
+			icon : "/esoui/art/icons/ability_healer_019.png",
+		},
 		"Elemental Catalyst (Frost)" :
 		{
 			group: "Set",
@@ -3334,6 +3356,20 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases your Critical Damage and Healing done rating by ([0-9]+)% for every piece of Medium Armor equipped/i,
 	},
 	{
+		factorStatId: "ArmorMedium",
+		statId: "CritDamage",
+		display: "%",
+		factorValue: 0.5,
+		match: /Increases your Critical Damage and Healing done rating by ([0-9]+)% for every 2 pieces of Medium Armor equipped/i,
+	},
+	{
+		factorStatId: "ArmorMedium",
+		statId: "CritHealing",
+		display: "%",
+		factorValue: 0.5,
+		match: /Increases your Critical Damage and Healing done rating by ([0-9]+)% for every 2 pieces of Medium Armor equipped/i,
+	},
+	{
 		category: "Skill2",
 		factorStatId: "ArmorMedium",
 		statId: "WeaponCrit",
@@ -6240,6 +6276,32 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	
 		/* Begin Toggled Passives */
 	{
+		id: "Deliberation",
+		baseSkillId: 103972,
+		toggle: true,
+		enabled: false,
+		statId: "DamageTaken",
+		factorValue: -1.0,
+		display: "%",
+		match: /While you are casting or channeling a Psijic Order ability you reduce your damage taken by ([0-9]+)%/i,
+	},
+	{
+		id: "Light Weaver",
+		baseSkillId: 31760,
+		toggle: true,
+		enabled: false,
+		statId: "PhysicalResist",
+		match: /While you are channeling Rite of Passage, you gain ([0-9]+) Physical and Spell Resistance/i,
+	},
+	{
+		id: "Light Weaver",
+		baseSkillId: 31760,
+		toggle: true,
+		enabled: false,
+		statId: "SpellResist",
+		match: /While you are channeling Rite of Passage, you gain ([0-9]+) Physical and Spell Resistance/i,
+	},
+	{
 		id: "Continuous Attack",
 		baseSkillId: 39248,
 		statRequireId: "Cyrodiil",
@@ -9069,6 +9131,30 @@ window.ESO_SETEFFECT_MATCHES = [
 	
 		// Optionally toggled set effects
 	{
+		id: "Scorion's Feast (Imbued Aura)",
+		setId: "Scorion's Feast",
+		setBonusCount: 4,
+		disableSetIds: ["Scorion's Feast (Overflow Aura)"],
+		buffId: "Scorion's Feast (Imbued Aura)",
+		updateBuffValue: true,
+		toggle: true,
+		enabled: false,
+		rawInputMatch: /(When you deal damage with a fully-charged Heavy Attack, you gain an Imbued Aura for [0-9]+ seconds, granting you and up to [0-9]+ other group members [0-9]+ Magicka and Stamina Recovery.)/i,
+		match: /you gain an Imbued Aura for 10 seconds, granting you and up to [0-9]+ other group members ([0-9]+) Magicka and Stamina Recovery/i,
+	},
+	{
+		id: "Scorion's Feast (Overflow Aura)",
+		setId: "Scorion's Feast",
+		setBonusCount: 4,
+		disableSetIds: ["Scorion's Feast (Imbued Aura)"],
+		buffId: "Scorion's Feast (Overflow Aura)",
+		updateBuffValue: true,
+		toggle: true,
+		enabled: false,
+		rawInputMatch: /(If you deal damage with a fully-charged Heavy Attack with an Imbued Aura active, consume it and gain an Overflow Aura for [0-9]+ seconds, granting you and up to [0-9]+ other group members [0-9]+ Weapon and Spell Damage.)/i,
+		match: /consume it and gain an Overflow Aura for [0-9]+ seconds, granting you and up to 3 other group members ([0-9]+) Weapon and Spell Damage/i,
+	},
+	{
 		id: "Prior Thierric",
 		setBonusCount: 3,
 		statId: "AOEDamageDone",
@@ -11537,26 +11623,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "MagickaRegen",
-		// match: /When you fall below [0-9]+\.?[0-9]*% Magicka increase your
-		// Magicka Recovery by ([0-9]+) /i,
-		match: /When you cast an ability that costs resources while under [0-9]+\.?[0-9]*% Magicka, your Magicka Recovery is increased by ([0-9]+) /i,
-	},
-	{
-		id: "Shroud of the Lich",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "MagickaRegen",
-		match: /When you cast an ability while under [0-9]+\.?[0-9]*% Magicka, your Magicka Recovery is increased by ([0-9]+) /i,
-	},
-	{
-		id: "Shroud of the Lich",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "MagickaRegen",
 		match: /When you cast an ability that costs resources while under [0-9]+\.?[0-9]*% Magicka while in combat, your Magicka Recovery is increased by ([0-9]+) for /i,
 	},
 	{
@@ -12442,6 +12508,8 @@ window.ESOBUILD_RAWOUTPUT_LABELREPLACEMENT =
 		"SkillHealing.Green_Balance" : "Green Balance Healing",
 		"SkillHealing.Restoration_Staff" : "Restoration Staff Healing",
 		"SkillHealing.Restoring_Light" : "Restoring Light Healing",
+		"Skill.HAMagRestore" : "Heavy Attack Magicka Restore",
+		"Skill.HAStaRestore" : "Heavy Attack Stamina Restore",
 };
 
 
@@ -23309,6 +23377,8 @@ window.TestAllEsoSkillsBleed = function ()
 
 window.TestEsoSkillBleed = function (abilityId, skillData)
 {
+	if (skillData.isPlayer == 0) return true;
+	
 	var numMatches = 0;
 	
 	for (var i = 0; i < ESO_SKILL_BLEEDMATCHES.length; ++i)
@@ -23359,6 +23429,8 @@ window.TestAllEsoSkillsDamageShield = function ()
 
 window.TestEsoSkillDamageShield = function (abilityId, skillData)
 {
+	if (skillData.isPlayer == 0) return true;
+	
 	var numMatches = 0;
 	var matches = [];
 	
@@ -23426,6 +23498,8 @@ window.TestAllEsoSkillsHealing = function ()
 
 window.TestEsoSkillHealing = function (abilityId, skillData)
 {
+	if (skillData.isPlayer == 0) return true;
+	
 	var numMatches = 0;
 	var matches = [];
 	var matchCount = {};
@@ -23556,6 +23630,8 @@ window.CheckEsoTestSkillResults = function ()
 
 window.TestEsoSkill = function (abilityId, abilityData, inputValues)
 {
+	if (abilityData.isPlayer == 0) return true;
+	
 	var skillDesc = GetEsoSkillDescription(abilityId, inputValues, false, true);
 	
 	var rawDesc = RemoveEsoDescriptionFormats(skillDesc);

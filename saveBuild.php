@@ -286,8 +286,9 @@ class EsoBuildDataSaver
 		
 		if (!$result) 
 		{
+			$err = $this->db->error;
 			//file_put_contents("/home/dave/test.log", "Query Error: '$query',  Error: '{$this->db->error}'\n", FILE_APPEND);
-			return $this->ReportError("Database query error: $query");
+			return $this->ReportError("Database query error: $query Error: $err");
 		}
 		
 		//file_put_contents("/home/dave/test.log", "Query: '$query',  NumRows: '{$result->num_rows}'\n", FILE_APPEND);
@@ -365,7 +366,7 @@ class EsoBuildDataSaver
 	{
 		$query = "SELECT name, value FROM stats WHERE characterId='{$this->buildId}';";
 		$result = $this->db->query($query);
-		if (!$result || $result->num_rows == 0) return $this->ReportError("Failed to load stats for build #{$this->buildId}!");
+		if (!$result) return $this->ReportError("Failed to load stats for build #{$this->buildId}! {$this->db->error}");
 		
 		$this->statsData = array();
 		
@@ -549,7 +550,7 @@ class EsoBuildDataSaver
 		if ($this->buildId <= 0)
 		{
 			if (!$this->canCreateBuilds) return $this->ReportError("Create Build: Permission Denied! WikiUser = {$this->wikiUserName}");
-						
+			
 			$this->parsedBuildData['Build']['createTime'] = time();
 			$this->parsedBuildData['Build']['uploadTimestamp'] = date('Y-m-d G:i:s');
 		}

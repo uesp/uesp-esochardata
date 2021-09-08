@@ -5,8 +5,8 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #ffc; margin-right: 270px;'>
-The build editor is not yet completely working for update 31. Skills and CP data have been updated. Some item data has been updated (CP160 only). 
+<div style='background-color: #cfc; margin-right: 270px;'>
+<b>Note:</b> Build saving has been restored! Let us know if there are any build issues
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -1707,9 +1707,29 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>7 September 2021</b>
+			<ul>
+				<li>Fixed a build saving issue caused by hitting the limit of AUTO INCREMENT in the stats table.</li>
+			</ul>
+			<p>
+			<b>6 September 2021</b>
+			<ul>
+				<li>Added 2 toggles and buffs for the Scorion's Feast set.</li>
+				<li>Made the various Resurrect Speed effect combine multiplicatively instead of additively.</li>
+				<li>Fixed the tooltip for the Survivor's Spite CP.</li>
+			</ul>
+			<p>
+			<b>6 September 2021</b>
+			<ul>
+				<li>Updated item data. This fixes a bunch of corrupt items that had the wrong name/stats.</li>
+			</ul>
+			<p>
 			<b>1 September 2021</b>
 			<ul>
 				<li>Added the Empower effect to the Light Attack Shock and Restoration Staffs.</li>
+				<li>The Rank 1 passive of Dexterity now gives the correct amount of Critial Damage and Healing.</li>
+				<li>Added a toggle for the Light Weaver passive.</li>
+				<li>Added a toggle for the Deliberation passive.</li>
 			</ul>
 			<p>
 			<b>31 August 2021</b>

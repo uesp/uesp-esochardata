@@ -74,7 +74,6 @@ class EsoCharDataParser extends EsoBuildDataParser
 		if (!$result) return false;
 			
 		$query = "CREATE TABLE IF NOT EXISTS inventory (
-						id INTEGER NOT NULL AUTO_INCREMENT,
 						characterId INTEGER NOT NULL,
 				 		account TINYTEXT NOT NULL,
 						qnt INTEGER NOT NULL,
@@ -95,7 +94,6 @@ class EsoCharDataParser extends EsoBuildDataParser
 						consumable TINYINT NOT NULL,
 						junk TINYINT NOT NULL,
 						setName TINYTEXT NOT NULL,
-						PRIMARY KEY (id),
 						INDEX index_name(name(32)),
 						INDEX index_itemLink(itemLink(64)),
 						INDEX index_account(account(48)),
