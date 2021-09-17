@@ -6,7 +6,6 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #cfc; margin-right: 270px;'>
-<b>Note:</b> Build saving has been restored! Let us know if there are any build issues
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -1707,6 +1706,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>17 September 2021</b>
+			<ul>
+				<li>Fixed the skill tooltip for the Necromancer's Death Knell passive.</li>
+			</ul>
+			<p>
 			<b>7 September 2021</b>
 			<ul>
 				<li>Fixed a build saving issue caused by hitting the limit of AUTO INCREMENT in the stats table.</li>
