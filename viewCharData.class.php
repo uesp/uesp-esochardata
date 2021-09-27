@@ -1069,7 +1069,7 @@ EOT;
 		if ($result != 0) return $result;
 		
 		return strcmp($a['name'], $b['name']);
-	}	
+	}
 	
 	
 	public function createBuildTableHtml()
@@ -1084,9 +1084,9 @@ EOT;
 		}
 		
 		uasort($this->buildData, array('EsoCharDataViewer', 'SortBuildsByCharIndexAndName'));
-	
+		
 		$this->outputHtml .= $this->getBreadcrumbTrailHtml() . "<p />\n";
-	
+		
 		$this->outputHtml .= "<table id='ecdBuildTable' class='sortable jquery-tablesorter'>\n";
 		$this->outputHtml .= "<tr class='ecdBuildTableHeader'>\n";
 		$this->outputHtml .= "<th>#</th>\n";
@@ -1099,18 +1099,23 @@ EOT;
 		$this->outputHtml .= "<th>Level</th>\n";
 		$this->outputHtml .= "<th>CPs</th>\n";
 		$this->outputHtml .= "</tr>\n";
-	
+		
+		$this->outputHtml .= $this->getPrevBuildTableRowHtml();
+		
 		foreach ($this->buildData as $buildData)
 		{
 			if (!$this->doesBuildMatchFilter($buildData)) continue;
 			
 			$this->outputHtml .= $this->getBuildTableItemHtml($buildData);
 		}
-	
+		
+		$this->outputHtml .= $this->getNextBuildTableRowHtml();
 		$this->outputHtml .= "</table>\n";
 		
+		$this->outputHtml .= $this->getBuildTablePageHtml();
+		
 		$this->outputHtml .= $this->createCharSummaryHtml();
-	
+		
 		return true;
 	}
 	
@@ -1121,7 +1126,7 @@ EOT;
 		if (!$this->viewMyBuilds) return "";
 		
 		$output .= $this->createCharInventorySummaryHtml();
-		$output .= $this->createCharHirelingSummaryHtml();		
+		$output .= $this->createCharHirelingSummaryHtml();
 		$output .= $this->createCharWritSummaryHtml();
 		$output .= $this->createCharRidingSummaryHtml();
 		$output .= $this->createCharResearchSummaryHtml();

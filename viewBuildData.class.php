@@ -3889,7 +3889,7 @@ class EsoBuildDataViewer
 		{
 			$query = $this->getBuildTableFindQuery();
 			$page = $this->currentCharacterPage - 1 + 1;
-			$output .= "<tr class='ecdBuildNextPrevRow'><td colspan='10' align='center'>";				
+			$output .= "<tr class='ecdBuildNextPrevRow'><td colspan='10' align='center'>";
 			$output .= "<a href='?$query&page=$page'><b>Previous Builds...</b></a>";
 			$output .= "</td></tr>";
 		}
@@ -3901,7 +3901,7 @@ class EsoBuildDataViewer
 	public function getNextBuildTableRowHtml()
 	{
 		$output = "";
-	
+		
 		if ($this->currentCharacterPage < $this->totalCharacterPages - 1)
 		{
 			$query = $this->getBuildTableFindQuery();

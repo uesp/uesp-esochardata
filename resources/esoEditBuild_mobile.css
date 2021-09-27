@@ -53,3 +53,15 @@
 #esoispSearchButton {
 	margin-top: 0px;
 }
+
+#esotbSaveButton, #esotbCreateCopyButton, #esotbDeleteButton {
+	background-color: #eee;
+	padding: 4px;
+	border: solid 1px gray;
+}
+
+#esotbSaveButton:hover, #esotbCreateCopyButton:hover, #esotbDeleteButton:hover {
+	background-color: #fff;
+	padding: 4px;
+	border: solid 1px black;
+}

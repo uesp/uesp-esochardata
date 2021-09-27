@@ -601,6 +601,11 @@
 	display: inline-block;
 }
 
+#esotbFormInputResultCapValue {
+	display: inline-block;
+	margin-left: 24px;
+}
+
 .esotbItemButton {
 	width: 16px;
 	height: 16px;
@@ -1062,8 +1067,8 @@ esotbToggledCpSelect {
 }
 
 #esotbTrail {
-	position: absolute;
-	top: 4px;
+	position: relative;
+	top: -4px;
 	left: 0px;	
 }
 

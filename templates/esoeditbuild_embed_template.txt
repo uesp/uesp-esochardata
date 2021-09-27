@@ -5,7 +5,8 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #cfc; margin-right: 270px;'>
+<div style='background-color: #ffc; margin-right: 270px;'>
+Note: The build editor is not yet completely updated for the PTS update 32. Skill, CP, and item data have been updated. New/updated items/skills/CP may not work yet.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -65,7 +66,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			When selected you will automatically purchase all racial passives when changing races.
 			<br/>
 			<div class="esotbStatLabel">Use PTS Rules</div> <input type="checkbox" id="esotbUsePtsRules" name="esotbUsePtsRules" statid="UsePtsRules" {usePtsRulesCheck}>
-			Current version is Update 31 v7.1.0
+			Current version is Update 32 v7.2.0
 			<ul style="margin-left: 170px; margin-top: -5px;">
 				<li>Save and reload build after changing this setting.</li>
 				<li>Uses skill, CP, and item data collected from the PTS server.</li>
@@ -482,7 +483,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<p />
 				<div class="esptbItemSetup">
 					<div class="esotbItemSetupTitle">Armor Enchantments</div>
-					<select id="esotbItemSetupArmRTorEnchant" slotid="allarmor">
+					<select id="esotbItemSetupArmorEnchant" slotid="allarmor">
 						<option value="none">None</option>
 						<option value="health">Health</option>
 						<option value="magicka">Magicka</option>
@@ -749,15 +750,18 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<div class="esotbItemSetupTitle">Equip Mythic Set</div>
 					
 					<select id="esotbItemSetupMythicSet" style="width: 200px;">
+						<option slotid="Ring2" hidden disabled>Belharza's Band</option>
 						<option slotid="Chest">Bloodlord's Embrace</option>
 						<option slotid="Ring1">Death Dealer's Fete</option>
 						<option slotid="Head">Gaze of Sithis</option>
 						<option slotid="Legs">Harpooner's Wading Kilt</option>
 						<option slotid="Ring2">Malacath's Band of Brutality</option>
+						<option slotid="Ring2" hidden disabled>Markyn Ring of Majesty</option>
 						<option slotid="Neck">Pearls of Ehlnofey</option>
 						<option slotid="Ring1">Ring of the Pale Order</option>
 						<option slotid="Ring1">Ring of the Wild Hunt</option>
 						<option slotid="Neck">Shapeshifter's Chain</option>
+						<option slotid="Shoulders" hidden disabled>Spaulder of Ruin</option>
 						<option slotid="Feet">Snow Treaders</option>
 						<option slotid="Hands">Thrassian Stranglers</option>
 						<option slotid="Neck">Torc of Tonal Constancy</option>
@@ -848,6 +852,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Dauntless Combatant</option>
 						<option>Dead-Water's Guile</option>
 						<option>Deadlands Assassin</option>
+						<option hidden disabled>Deadlands Demolisher</option>
 						<option>Deadly Strike</option>
 						<option>Death's Wind</option>
 						<option>Defending Warrior</option>
@@ -881,9 +886,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Eternal Vigor</option>
 						<option>Eternal Warrior</option>
 						<option>Explosive Rebuke</option>
+						<option>Eyes of Mara</option>
 						<option>Eye of Nahviintaas</option>
 						<option value="Perfected Eye of Nahviintaas">Eye of Nahviintaas (Perfect)</option>
-						<option>Eyes of Mara</option>
+						<option hidden disabled>Eye of the Grasp</option>
 						<option>False God's Devotion</option>
 						<option value="Perfected False God's Devotion">False God's Devotion (Perfect)</option>
 						<option>Fasalla's Guile</option>
@@ -918,6 +924,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Heartland Conqueror</option>
 						<option>Heem-Jas' Retribution</option>
 						<option>Hex Siphon</option>
+						<option hidden disabled>Hexos' Ward</option>
 						<option>Hide of Morihaus</option>
 						<option>Hide of the Werewolf</option>
 						<option>Hiti's Hearth</option>
@@ -936,6 +943,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Infallible Mage</option>
 						<option>Innate Axiom</option>
 						<option>Inventor's Guard</option>
+						<option hidden disabled>Iron Flask</option>
 						<option>Ironblood</option>
 						<option>Jailbreaker</option>
 						<option>Jailer's Tenacity</option>
@@ -951,6 +959,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Kyne's Kiss</option>
 						<option>Kyne's Wind</option>
 						<option value="Perfected Kyne's Wind">Kyne's Wind (Perfect)</option>
+						<option hidden disabled>Kynmarcher's Cruelty</option>
 						<option>Lamia's Song</option>
 						<option>Law of Julianos</option>
 						<option>Leeching Plate</option>
@@ -1177,6 +1186,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Witchman Armor</option>
 						<option>Wizard's Riposte</option>
 						<option>Wrath of the Imperium</option>
+						<option hidden disabled>Wretched Vitality</option>
 						<option>Wyrd Tree's Blessing</option>
 						<option>Yandir's Might</option>
 						<option value="Perfected Yandir's Might">Yandir's Might (Perfect)</option>
@@ -1218,7 +1228,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 							<option value="104">x4 Heavy + x1 Light</option>
 							<option value="014">x4 Heavy + x1 Medium</option>
 							<option value="311">x3 Light + x1 Medium + x1 Heavy</option>
-							<option value=320">x3 Light + x2 Medium</option>
+							<option value="320">x3 Light + x2 Medium</option>
 							<option value="302">x3 Light + x2 Heavy</option>
 							<option value="131">x3 Medium + x1 Light + x1 Heavy</option>
 							<option value="230">x3 Medium + x2 Light</option>
@@ -1706,9 +1716,94 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>27 September 2021</b>
+			<ul>
+				<li>Fixed the Armor Enchantments in the quick item setups.</li>
+				<li>Decisive weapons now have their tooltip modified by the Heartlard Conqueror set.</li>
+				<li>32pts: Fixed the Molten Whip skill toggle.</li>
+				<li>32pts: Fixed several set bonuses most related to hybridization of stats:
+					<ul>
+					<li>Tzogvin's Warband</li>
+					<li>Destructive Impact</li>
+					<li>Strength of the Automaton</li>
+					<li>Swamp Raider</li>
+					<li>Sword-Singer</li>
+					<li>Ysgramor's Birthright</li>
+					<li>Light Speaker</li>
+					<li>Seventh Legion Brute</li>
+					<li>Netch's Touch</li>
+					<li>Sword Dancer</li>
+					<li>Spider Cultist Cowl</li>
+					<li>Ravager</li>
+					<li>Rattlecage</li>
+					<li>Toothrow</li>
+					<li>Treasure Hunter</li>
+					<li>Wrath of the Imperium</li>
+					<li>Berserking Warrior</li>
+					<li>Twice-Fanged Serpent</li>
+					<li>Caustic Arrow</li>
+					<li>Scathing Mage</li>
+					<li>Briarheart</li>
+					<li>Elemental Succession</li>
+					<li>Warrior's Fury</li>
+					<li>Kvatch Gladiator</li>
+					<li>Flanking Strategist</li>
+					<li>War Maiden</li>
+					<li>Mechanical Acuity</li>
+					<li>Chaotic Whirlwind</li>
+					<li>Adept Rider</li>
+					<li>Aegis of Galenwe</li>
+					<li>Mantle of Siroria</li>
+					<li>Armor of the Code</li>
+					<li>Moon Hunter</li>
+					<li>Spell Strategist</li>
+					<li>Dro'Zakar's Claws</li>
+					<li>Dragonguard Elite</li>
+					<li>Titanborn Strength</li>
+					<li>Yandir's Might</li>
+					<li>Stone Husk</li>
+					<li>Witch-Knight's Defiance</li>
+					<li>Voidcaller</li>
+					<li>Hex Siphon</li>
+					<li>Frenzied Momentum:</li>
+					<li>Dagon's Dominion</li>
+					<li>Sul-Xan's Torment</li>
+					<li>Meritorious Service</li>
+					<li>Marauder's Haste</li>
+					<li>Unchained Aggressor</li>
+					</ul>
+				</li>
+				<li>32pts: Fixed the World in Ruin passive.</li>
+				<li>32pts: Fixed the Unholy Knowledge passive.</li>
+			</ul>
+			<p>
+			<b>23 September 2021</b>
+			<ul>
+				<li>Fixed Bash Damage jewelry enchantments.</li>
+				<li>32pts: Updated Bash Damage and Cost.</li>
+			</ul>
+			<p>
+			<b>22 September 2021</b>
+			<ul>
+				<li>32pts: Added the 3 new Mythic items.</li>
+				<li>32pts: Added set toggle for the Wretched Vitality and Iron Flask sets.</li>
+				<li>Added a "Before Cap" value at the bottom of the computed stats popup that displays if the final value is capped in any way.</li>
+			</ul>
+			<p>
+			<b>21 September 2021</b>
+			<ul>
+				<li>32pts: Updated item, skill and CP data from update 32 PTS.</li>
+				<li>Fixed tooltip for the Templar's Living Dark skill.</li>
+				<li>32pts: Capped Crit and Healing Damage at 125%.</li>
+			</ul>
+			<p>
 			<b>17 September 2021</b>
 			<ul>
 				<li>Fixed the skill tooltip for the Necromancer's Death Knell passive.</li>
+				<li>The two Scorion's Feast set toggles can be now enabled at the same time (confirmed by testing).</li>
+				<li>A couple of minor tweaks to prevent display issues on mobile devices.</li>
+				<li>Fixed the redirect when using "Save" or "Create Copy" that would sometimes send you to the incorrect page.</li>
+				<li>Fixed a bunch of items that were incorrectly being considered as armor or weapons.</li>
 			</ul>
 			<p>
 			<b>7 September 2021</b>
@@ -1979,7 +2074,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>30pts: Added all new sets to the quick item setup lists.</li>
 				<li>30pts: Added toggle for the Zoal the Ever-Wakeful and Glorgoloch the Destroyer monster mask sets.</li>
 				<li>30pts: Fixed the Mythic item sets Malacath's Band of Brutality, Gaze of Sithis, Harpooner's Wading Kilt, Death Dealer's Fete, and Shapeshifter's Chain.<li>
-				<li>30pts: Added toggle for the Bog Raider, Frostbite, Diamond's Victory, Bahsei’s Mania, and Sul-Xan’s Torment sets.</li>
+				<li>30pts: Added toggle for the Bog Raider, Frostbite, Diamond's Victory, Bahsei's Mania, and Sul-Xan's Torment sets.</li>
 				<li>30pts: Added effect for the Heartland Conqueror 5 piece set bonus (100% Weapon Trait Effects). Still needs testing to ensure it works correctly for all traits.</li>
 				<li>30pts: Fixed the melee flags for all skill tooltips.</li>
 				<li>30pts: Fixed the range values for most skills (new/updated skills are not yet updated due to ESO API issue).</li>
