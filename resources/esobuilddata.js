@@ -3267,13 +3267,12 @@ window.UpdateEsoBuildSetTooltips = function(setDesc)
 		}
 	}
 	
-	newDesc = newDesc.replace(/(\([0-9]+ item(?:s|)\) )([^(]*? scales [^(]*)(<br>|$)/, function(match, p1, p2, p3) {
-		return p1 + newTooltip + p3;
-	});
+	var matchDesc = rawDesc.replaceAll(/<<[0-9]+>>/g, ".*");
+	matchDesc = matchDesc.replaceAll(/[0-9]+/g, ".*");
+	var matchRegExp = new RegExp(matchDesc, 'i');
 	
-	newDesc = newDesc.replace(/(\([0-9]+ item(?:s|)\) )([^(]*? scaling [^(]*)(<br>|$)/, function(match, p1, p2, p3) {
-		return p1 + newTooltip + p3;
-	});
+	newDesc = newDesc.replace('  ', ' ').replace('  ', ' ');
+	newDesc = newDesc.replace(matchRegExp, newTooltip);
 	
 	return newDesc;
 }

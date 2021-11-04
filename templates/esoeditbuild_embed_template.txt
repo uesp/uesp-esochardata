@@ -6,7 +6,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #ffc; margin-right: 270px;'>
-Note: The build editor is not yet completely updated for the PTS update 32. Skill, CP, and item data have been updated. New/updated items/skills/CP may not work yet.
+Note: The build editor is not completely updated for update 32. Items, Skills and CP data have been updated. New/changed sets/skills/cp may not work yet.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -750,19 +750,19 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<div class="esotbItemSetupTitle">Equip Mythic Set</div>
 					
 					<select id="esotbItemSetupMythicSet" style="width: 200px;">
-						<option slotid="Ring2" hidden disabled>Belharza's Band</option>
+						<option slotid="Ring2">Belharza's Band</option>
 						<option slotid="Chest">Bloodlord's Embrace</option>
 						<option slotid="Ring1">Death Dealer's Fete</option>
 						<option slotid="Head">Gaze of Sithis</option>
 						<option slotid="Legs">Harpooner's Wading Kilt</option>
 						<option slotid="Ring2">Malacath's Band of Brutality</option>
-						<option slotid="Ring2" hidden disabled>Markyn Ring of Majesty</option>
+						<option slotid="Ring1">Markyn Ring of Majesty</option>
 						<option slotid="Neck">Pearls of Ehlnofey</option>
 						<option slotid="Ring1">Ring of the Pale Order</option>
 						<option slotid="Ring1">Ring of the Wild Hunt</option>
 						<option slotid="Neck">Shapeshifter's Chain</option>
-						<option slotid="Shoulders" hidden disabled>Spaulder of Ruin</option>
 						<option slotid="Feet">Snow Treaders</option>
+						<option slotid="Shoulders">Spaulder of Ruin</option>
 						<option slotid="Hands">Thrassian Stranglers</option>
 						<option slotid="Neck">Torc of Tonal Constancy</option>
 					</select>
@@ -852,7 +852,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Dauntless Combatant</option>
 						<option>Dead-Water's Guile</option>
 						<option>Deadlands Assassin</option>
-						<option hidden disabled>Deadlands Demolisher</option>
+						<option>Deadlands Demolisher</option>
 						<option>Deadly Strike</option>
 						<option>Death's Wind</option>
 						<option>Defending Warrior</option>
@@ -889,7 +889,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Eyes of Mara</option>
 						<option>Eye of Nahviintaas</option>
 						<option value="Perfected Eye of Nahviintaas">Eye of Nahviintaas (Perfect)</option>
-						<option hidden disabled>Eye of the Grasp</option>
+						<option>Eye of the Grasp</option>
 						<option>False God's Devotion</option>
 						<option value="Perfected False God's Devotion">False God's Devotion (Perfect)</option>
 						<option>Fasalla's Guile</option>
@@ -924,7 +924,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Heartland Conqueror</option>
 						<option>Heem-Jas' Retribution</option>
 						<option>Hex Siphon</option>
-						<option hidden disabled>Hexos' Ward</option>
+						<option>Hexos' Ward</option>
 						<option>Hide of Morihaus</option>
 						<option>Hide of the Werewolf</option>
 						<option>Hiti's Hearth</option>
@@ -943,7 +943,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Infallible Mage</option>
 						<option>Innate Axiom</option>
 						<option>Inventor's Guard</option>
-						<option hidden disabled>Iron Flask</option>
+						<option>Iron Flask</option>
 						<option>Ironblood</option>
 						<option>Jailbreaker</option>
 						<option>Jailer's Tenacity</option>
@@ -959,7 +959,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Kyne's Kiss</option>
 						<option>Kyne's Wind</option>
 						<option value="Perfected Kyne's Wind">Kyne's Wind (Perfect)</option>
-						<option hidden disabled>Kynmarcher's Cruelty</option>
+						<option>Kynmarcher's Cruelty</option>
 						<option>Lamia's Song</option>
 						<option>Law of Julianos</option>
 						<option>Leeching Plate</option>
@@ -1186,7 +1186,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Witchman Armor</option>
 						<option>Wizard's Riposte</option>
 						<option>Wrath of the Imperium</option>
-						<option hidden disabled>Wretched Vitality</option>
+						<option>Wretched Vitality</option>
 						<option>Wyrd Tree's Blessing</option>
 						<option>Yandir's Might</option>
 						<option value="Perfected Yandir's Might">Yandir's Might (Perfect)</option>
@@ -1716,6 +1716,35 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>4 November 2021</b>
+			<ul>
+				<li>The Deadlands Demolisher set tooltip now has the correct bash damage shown (some other sets may be similarily fixed now).</li>
+			</ul>
+			<p>
+			<b>3 November 2021</b>
+			<ul>
+				<li>Inferno and morphs now add Major Savagery.</li>
+				<li>Adjusted the Imperial Red Diamond passive to affect Block, Sprint, Bash, Roll Dodge, and Break Free cost (everything except Sneak cost as verified on PTS).</li>
+				<li>Added the new sets to the quick item setup.</li>
+				<li>Fixed issue with equipping sets from the quick item setup and search.</li>
+				<li>Fixed the Domihaus set toggle.</li>
+				<li>The Frenzied Momentum toggle for 2H weapons can now be used from the off-hand.</li>
+				<li>Healing and Damage modifiers should now be affecting tooltips.</li>
+				<li>The Pummeling Goliath bash damage tooltip is now affected by the Deadly Bash passive.</li>
+			</ul>
+			<p>
+			<b>2 November 2021</b>
+			<ul>
+				<li>Updated Spell/Weapon Crit Damage and Healing calculations.</li>
+				<li>Updated Bash Cost and Damage calculations.</li>
+				<li>Updated item data.</li>
+			</ul>
+			<p>
+			<b>1 November 2021</b>
+			<ul>
+				<li>Updated Spell and CP data for update 32.</li>
+			</ul>
+			<p>
 			<b>27 September 2021</b>
 			<ul>
 				<li>Fixed the Armor Enchantments in the quick item setups.</li>
@@ -1912,7 +1941,6 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>31pts: Fixed the Undead Confederate passive toggle.</li>
 			</ul>
 			<p>
-			<h3>Recent Work</h3>
 			<b>19 July 2021</b>
 			<ul>
 				<li>Fixed Dampen Magic to now scale correctly with Light Armor worn.</li>

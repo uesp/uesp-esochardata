@@ -2028,6 +2028,10 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		match: /While slotted, you gain Major Prophecy and Major Savagery/i
 	},
 	{
+		buffId: "Major Savagery",
+		match: /While slotted, you gain Major Prophecy and Savagery/i
+	},
+	{
 		buffId: "Minor Vitality",
 		match: /While slotted you gain Minor Vitality/i
 	},
@@ -6030,6 +6034,41 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
+		statId: "SprintCost",
+		display: "%",
+		factorValue: -1,
+		combineAs: "*%",
+		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "BlockCost",
+		display: "%",
+		factorValue: -1,
+		combineAs: "*%",
+		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "RollDodgeCost",
+		display: "%",
+		factorValue: -1,
+		combineAs: "*%",
+		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "BreakFreeCost",
+		display: "%",
+		factorValue: -1,
+		combineAs: "*%",
+		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "BashCost",
+		display: "%",
+		factorValue: -1,
+		combineAs: "*%",
+		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
 		statId: "CritDamage",
 		display: "%",
 		match: /Increases your Critical Damage and Critical healing by ([0-9]+\.?[0-9]*)%/i,
@@ -9909,6 +9948,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "WeaponDamage",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		maxTimes: 5,
 		match: /While Momentum is active, casting Stamina abilities while in combat generates a stack of Frenzied Momentum for [0-9.]+ seconds, increasing your Weapon Damage by ([0-9.]+) up to [0-9.]+ times/i,
 	},
@@ -9918,6 +9958,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "WeaponDamage",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		maxTimes: 5,
 		match: /While Momentum is active, casting Stamina abilities while in combat generates a stack of Frenzied Momentum for [0-9.]+ seconds, increasing your Weapon Damage by ([0-9.]+) up to [0-9.]+ times/i,
 	},
@@ -9927,6 +9968,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "WeaponDamage",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		maxTimes: 10,
 		match: /While Momentum is active, casting Stamina abilities while in combat generates a stack of Frenzied Momentum for [0-9.]+ seconds, increasing your Weapon and Spell Damage by ([0-9.]+) up to [0-9.]+ times/i,
 	},
@@ -9936,6 +9978,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "WeaponDamage",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		maxTimes: 10,
 		match: /While Momentum is active, casting Stamina abilities while in combat generates a stack of Frenzied Momentum for [0-9.]+ seconds, increasing your Weapon and Spell Damage by ([0-9.]+) up to [0-9.]+ times/i,
 	},
@@ -9945,6 +9988,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "SpellDamage",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		maxTimes: 10,
 		match: /While Momentum is active, casting Stamina abilities while in combat generates a stack of Frenzied Momentum for [0-9.]+ seconds, increasing your Weapon and Spell Damage by ([0-9.]+) up to [0-9.]+ times/i,
 	},
@@ -9954,6 +9998,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "SpellDamage",
 		toggle: true,
 		enabled: false,
+		enableOffBar: true,
 		maxTimes: 10,
 		match: /While Momentum is active, casting Stamina abilities while in combat generates a stack of Frenzied Momentum for [0-9.]+ seconds, increasing your Weapon and Spell Damage by ([0-9.]+) up to [0-9.]+ times/i,
 	},
@@ -11855,24 +11900,22 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Your Light and Heavy Attacks deal an additional ([0-9]+) damage to enemies in your Wall of Elements/i,
 	},	
 	{
-		id: "Domihaus (Spell Damage)",
+		id: "Domihaus",
 		setId: "Domihaus",
 		setBonusCount: 3,
 		toggle: true,
 		enabled: false,
-		disableSetIds: [ "Domihaus (Weapon Damage)" ],
 		statId: "SpellDamage",
-		match: /Standing within the ring grants you ([0-9]+) Spell Damage /i,
+		match: /Standing within the ring grants you ([0-9]+) Weapon and Spell Damage/i,
 	},
 	{
-		id: "Domihaus (Weapon Damage)",
+		id: "Domihaus",
 		setId: "Domihaus",
 		setBonusCount: 3,
 		toggle: true,
 		enabled: false,
-		disableSetIds: [ "Domihaus (Spell Damage)" ],
 		statId: "WeaponDamage",
-		match: /Standing within the ring grants you [0-9]+ Spell Damage or ([0-9]+) Weapon Damage/i,
+		match: /Standing within the ring grants you ([0-9]+) Weapon and Spell Damage/i,
 	},
 	{
 		id: "Duneripper's Scales",
@@ -21150,6 +21193,7 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
 		SingleTarget	: inputValues.SingleTargetDamageDone,
 		Overload		: inputValues.OverloadDamage,
 		Pet				: inputValues.PetDamageDone,
+		ExtraBashDamage : inputValues.Skill.ExtraBashDamage,
 	};
 	
 	g_LastSkillInputValues.Healing =

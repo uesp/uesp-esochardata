@@ -2636,7 +2636,7 @@ class EsoBuildDataEditor
 					"title" => "Spell Critical Damage",
 					"display" => "%2",
 					"min" => 0,
-					//"max" => "1.25",	// TODO update 32pts
+					"max" => "1.25",
 					"compute" => array(
 							"CP.SpellCritDamage",
 							"Skill.CritDamage",
@@ -2665,7 +2665,7 @@ class EsoBuildDataEditor
 					"title" => "Weapon Critical Damage",
 					"display" => "%2",
 					"min" => 0,
-					//"max" => "1.25",	// TODO update 32pts
+					"max" => "1.25",
 					"compute" => array(
 							"CP.WeaponCritDamage",
 							"Skill.CritDamage",
@@ -2694,7 +2694,7 @@ class EsoBuildDataEditor
 					"title" => "Spell Critical Healing",
 					"display" => "%2",
 					"min" => 0,
-					//"max" => "1.25",	// TODO update 32pts
+					"max" => "1.25",
 					"compute" => array(
 							"CP.SpellCritHealing",
 							"Skill.CritHealing",
@@ -2723,7 +2723,7 @@ class EsoBuildDataEditor
 					"title" => "Weapon Critical Healing",
 					"display" => "%2",
 					"min" => 0,
-					//"max" => "1.25",	// TODO update 32pts
+					"max" => "1.25",
 					"addClass" => "esotbStatDividerLite",
 					"compute" => array(
 							"CP.WeaponCritHealing",
@@ -3448,7 +3448,8 @@ class EsoBuildDataEditor
 					"title" => "Bash Cost",
 					"round" => "floor",
 					"compute" => array(
-							"1889",		//Update 29
+							"765",		// Update 32
+							//"1889",	// Update 29
 							//"floor(157 + 26.25*EffectiveLevel)",
 							"Item.BashCost",
 							"+",
@@ -3458,6 +3459,36 @@ class EsoBuildDataEditor
 							"*",
 							"1 + Set.BashCost",
 							"*",
+					),
+			),
+			
+			/*
+			 * BashDamage: Confirmed Update 15
+			 */
+			"BashDamage" => array(	// 21970
+					"title" => "Bash Damage",
+					"round" => "floor",
+					"depends" => array("SpellResist", "PhysicalResist", "DamageDone", "DirectDamageDone", "PhysicalDamageDone", "SingleTargetDamageDone"),
+					//"addClass" => "esotbStatDivider",
+					"compute" => array(
+							"max(SpellResist, PhysicalResist) * 0.011250 + 1",		// Update 32
+							//"max(Stamina, Magicka) * 0.004762",					// Update 29
+							//"max(WeaponDamage + Item.BashWeaponDamage + Skill.BashWeaponDamage, SpellDamage + Item.BashSpellDamage + Skill.BashSpellDamage) * 0.05",
+							//"+",
+							//"max(Stamina, Magicka) * 0.02865",				// Update 25
+							//"max(WeaponDamage + Item.BashWeaponDamage + Skill.BashWeaponDamage, SpellDamage + Item.BashSpellDamage + Skill.BashSpellDamage) * 0.26515",
+							//"+",
+							//"-67.875",
+							"CP.BashDamage",
+							"+",
+							"1 + PhysicalDamageDone + DamageDone + DirectDamageDone + SingleTargetDamageDone + Skill.BashDamage",
+							"*",
+							"Set.ExtraBashDamage",
+							"+",
+							"Skill.ExtraBashDamage",
+							"+",
+							"Item.ExtraBashDamage",
+							"+",
 					),
 			),
 			
@@ -3494,34 +3525,7 @@ class EsoBuildDataEditor
 					),
 			), //*/
 			
-			/*
-			 * BashDamage: Confirmed Update 15
-			 */
-			"BashDamage" => array(	// 21970
-					"title" => "Bash Damage",
-					"round" => "floor",
-					"depends" => array("WeaponDamage", "SpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone", "SingleTargetDamageDone", "Stamina", "Magicka"),
-					//"addClass" => "esotbStatDivider",
-					"compute" => array(
-							"max(Stamina, Magicka) * 0.004762",				// Update 29
-							"max(WeaponDamage + Item.BashWeaponDamage + Skill.BashWeaponDamage, SpellDamage + Item.BashSpellDamage + Skill.BashSpellDamage) * 0.05",
-							"+",
-							//"max(Stamina, Magicka) * 0.02865",				// Update 25
-							//"max(WeaponDamage + Item.BashWeaponDamage + Skill.BashWeaponDamage, SpellDamage + Item.BashSpellDamage + Skill.BashSpellDamage) * 0.26515",
-							//"+",
-							//"-67.875",
-							"CP.BashDamage",
-							"+",
-							"1 + PhysicalDamageDone + DamageDone + DirectDamageDone + SingleTargetDamageDone + Skill.BashDamage",
-							"*",
-							"Set.ExtraBashDamage",
-							"+",
-							"Skill.ExtraBashDamage",
-							"+",
-							"Item.ExtraBashDamage",
-							"+",
-					),
-			),
+			
 			
 			/*
 			 * BlockCost 
@@ -6025,173 +6029,7 @@ class EsoBuildDataEditor
 	
 		//TODO: Update 32pts
 	public $COMPUTED_STATS_LIST_PTS = array(
-					/*
-			 * SpellCritDamage Confirmed:
-			 */
-			"SpellCritDamage" => array(
-					"title" => "Spell Critical Damage",
-					"display" => "%2",
-					"min" => 0,
-					"max" => "1.25",	// TODO update 32pts
-					"compute" => array(
-							"CP.SpellCritDamage",
-							"Skill.CritDamage",
-							"+",
-							"CP.CritDamage",
-							"+",
-							"Mundus.CritDamage",
-							"+",
-							"Set.CritDamage",
-							"+",
-							"Item.CritDamage",
-							"+",
-							"Buff.CritDamage",
-							"+",
-							"0.5",
-							"+",
-							"1 + Skill2.CritDamage",
-							"*",
-					),
-			),
 			
-			/*
-			 * WeaponCritDamage Confirmed:
-			 */
-			"WeaponCritDamage" => array(
-					"title" => "Weapon Critical Damage",
-					"display" => "%2",
-					"min" => 0,
-					"max" => "1.25",	// TODO update 32pts
-					"compute" => array(
-							"CP.WeaponCritDamage",
-							"Skill.CritDamage",
-							"+",
-							"CP.CritDamage",
-							"+",
-							"Mundus.CritDamage",
-							"+",
-							"Set.CritDamage",
-							"+",
-							"Item.CritDamage",
-							"+",
-							"Buff.CritDamage",
-							"+",
-							"0.5",
-							"+",
-							"1 + Skill2.CritDamage",
-							"*",
-					),
-			),
-			
-			/*
-			 * SpellCritHealing ?
-			 */
-			"SpellCritHealing" => array(
-					"title" => "Spell Critical Healing",
-					"display" => "%2",
-					"min" => 0,
-					"max" => "1.25",	// TODO update 32pts
-					"compute" => array(
-							"CP.SpellCritHealing",
-							"Skill.CritHealing",
-							"+",
-							"CP.CritHealing",
-							"+",
-							"Mundus.CritHealing",
-							"+",
-							"Set.CritHealing",
-							"+",
-							"Item.CritHealing",
-							"+",
-							"Buff.CritHealing",
-							"+",
-							"0.5",
-							"+",
-							"1 + Skill2.CritHealing",
-							"*",
-					),
-			),
-			
-			/*
-			 * WeaponCritHealing ?
-			 */
-			"WeaponCritHealing" => array(
-					"title" => "Weapon Critical Healing",
-					"display" => "%2",
-					"min" => 0,
-					"max" => "1.25",	// TODO update 32pts
-					"addClass" => "esotbStatDividerLite",
-					"compute" => array(
-							"CP.WeaponCritHealing",
-							"Skill.CritHealing",
-							"+",
-							"CP.CritHealing",
-							"+",
-							"Mundus.CritHealing",
-							"+",
-							"Set.CritHealing",
-							"+",
-							"Item.CritHealing",
-							"+",
-							"Buff.CritHealing",
-							"+",
-							"0.5",
-							"+",
-							"1 + Skill2.CritHealing",
-							"*",
-					),
-			),
-			
-			/*
-			 * BashCost
-			 */
-			"BashCost" => array(
-					"title" => "Bash Cost",
-					"round" => "floor",
-					"compute" => array(
-							"765",		// Update 32
-							//"1889",	// Update 29
-							//"floor(157 + 26.25*EffectiveLevel)",
-							"Item.BashCost",
-							"+",
-							"1 + CP.BashCost",
-							"*",
-							"1 + Skill.BashCost",
-							"*",
-							"1 + Set.BashCost",
-							"*",
-					),
-			),
-			
-			/*
-			 * BashDamage: Confirmed Update 15
-			 */
-			"BashDamage" => array(	// 21970
-					"title" => "Bash Damage",
-					"round" => "floor",
-					"depends" => array("SpellResist", "PhysicalResist", "DamageDone", "DirectDamageDone", "PhysicalDamageDone", "SingleTargetDamageDone"),
-					//"addClass" => "esotbStatDivider",
-					"compute" => array(
-							"max(SpellResist, PhysicalResist) * 0.011250 + 1",		// Update 32
-							//"max(Stamina, Magicka) * 0.004762",					// Update 29
-							//"max(WeaponDamage + Item.BashWeaponDamage + Skill.BashWeaponDamage, SpellDamage + Item.BashSpellDamage + Skill.BashSpellDamage) * 0.05",
-							//"+",
-							//"max(Stamina, Magicka) * 0.02865",				// Update 25
-							//"max(WeaponDamage + Item.BashWeaponDamage + Skill.BashWeaponDamage, SpellDamage + Item.BashSpellDamage + Skill.BashSpellDamage) * 0.26515",
-							//"+",
-							//"-67.875",
-							"CP.BashDamage",
-							"+",
-							"1 + PhysicalDamageDone + DamageDone + DirectDamageDone + SingleTargetDamageDone + Skill.BashDamage",
-							"*",
-							"Set.ExtraBashDamage",
-							"+",
-							"Skill.ExtraBashDamage",
-							"+",
-							"Item.ExtraBashDamage",
-							"+",
-					),
-			),
 			
 	);
 	
