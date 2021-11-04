@@ -49,6 +49,23 @@ class EsoBuildDataSaver
 			"editTimestamp"		=> "timestamp",
 	);
 	
+	public $BUILD_UPDATE_FIELDS = array(
+			"id"				=> "id",
+			"name"				=> "text",
+			"buildName"			=> "text",
+				// Don't update wikiUser for existing characters
+			"class"				=> "text",
+			"race"				=> "text",
+			"buildType"			=> "text",
+			"special"			=> "text",
+			"alliance"			=> "text",
+			"level"				=> "int",
+			"championPoints"	=> "int",
+			"createTime"		=> "time",
+			"uploadTimestamp"	=> "timestamp",
+			"editTimestamp"		=> "timestamp",
+	);
+	
 	
 	public $BUFF_FIELDS = array(
 			"characterId"		=> "id",
@@ -473,10 +490,12 @@ class EsoBuildDataSaver
 	}
 	
 	
-	public function CreateQuery($table, $data, $FIELDS)
+	public function CreateQuery($table, $data, $FIELDS, $UPDATE_FIELDS = null)
 	{
+		if ($UPDATE_FIELDS == null) $UPDATE_FIELDS = $FIELDS;
+		
 		if ($this->buildId <= 0) return $this->CreateInsertQuery($table, $data, $FIELDS);
-		return $this->CreateUpdateQuery($table, $data, $FIELDS);
+		return $this->CreateUpdateQuery($table, $data, $UPDATE_FIELDS);
 	}
 	
 	
@@ -561,7 +580,7 @@ class EsoBuildDataSaver
 		
 		$this->parsedBuildData['Build']['editTimestamp'] = date('Y-m-d G:i:s');
 		
-		$query = $this->CreateQuery("characters", $this->parsedBuildData['Build'], $this->BUILD_FIELDS);
+		$query = $this->CreateQuery("characters", $this->parsedBuildData['Build'], $this->BUILD_FIELDS,  $this->BUILD_UPDATE_FIELDS);
 		if ($query === false || $query == "") return $this->ReportError("Failed to create query for build data!");
 		
 		$result = $this->Query($query);

@@ -1731,6 +1731,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>The Frenzied Momentum toggle for 2H weapons can now be used from the off-hand.</li>
 				<li>Healing and Damage modifiers should now be affecting tooltips.</li>
 				<li>The Pummeling Goliath bash damage tooltip is now affected by the Deadly Bash passive.</li>
+				<li>Fixed saving builds changing the build owner in some cases.</li>
 			</ul>
 			<p>
 			<b>2 November 2021</b>
