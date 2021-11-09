@@ -1716,6 +1716,25 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>9 November 2021</b>
+			<ul>
+				<li>Fixed the True-Sworn Fury set toggles.</li>
+				<li>The Grothdarr set tooltip now updates its damage.</li>
+				<li>Fixed set tooltips missing line breaks.</li>
+				<li>Fixed data of several sets that prevented set tooltips from updating.</li>
+			</ol>
+			<p>
+			<b>8 November 2021</b>
+			<ul>
+				<li>Added a toggle for the Sacred Ground Templar passive.</li>
+				<li>Fixed the set toggle for Perfected Crushing Wall.</li>
+				<li>Fixed the Burning Spellweave 5 piece set bonus.</li>
+				<li>Updated the Raid Dummy Buffs to use a confirmed value of 2740 penetration for the Torugs set (still using old set value).</li>
+				<li>Fixed some clothing items that incorrectly had set names.</li>
+				<li>The Caluurion's Legacy set tooltips should now update their damage.</li>
+				<li>Fixed the Grim Focus skill toggle.</li>
+			</ul>
+			<p>
 			<b>4 November 2021</b>
 			<ul>
 				<li>The Deadlands Demolisher set tooltip now has the correct bash damage shown (some other sets may be similarily fixed now).</li>

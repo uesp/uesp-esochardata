@@ -3214,6 +3214,8 @@ window.UpdateEsoBuildSetTooltips = function(setDesc)
 	setDesc = setDesc.replaceAll("|cffffff", "").replaceAll("|r", "");
 	
 	var textDesc = $('<div>').html(setDesc).text();
+	var valueMatch = "[A-Za-z0-9\-%\.\"\'#=\<\>;: ]*?";
+	valueMatch = "[^(]*";
 	
 		// Replace constant tooltips with their values from the original setDesc
 	for (var i in setSkillsData.tooltips)
@@ -3221,14 +3223,14 @@ window.UpdateEsoBuildSetTooltips = function(setDesc)
 		var tooltip = setSkillsData.tooltips[i];
 		if (tooltip.coefType != -75) continue;
 		
-		var matchDesc = rawDesc.replaceAll("<<" + i + ">>", "(.*)");
-		matchDesc = matchDesc.replaceAll(/<<[0-9]+>>/g, ".*");
-		matchDesc = matchDesc.replaceAll(/[0-9]+/g, ".*");
+		var matchDesc = rawDesc.replaceAll("<<" + i + ">>", "(" + valueMatch + ")");
+		matchDesc = matchDesc.replaceAll(/<<[0-9]+>>/g, valueMatch);
+		matchDesc = matchDesc.replaceAll(/[0-9]+/g, valueMatch);
 		var matchRegExp = new RegExp(matchDesc, 'i');
 		
-		var replaceDesc = rawDesc.replaceAll("<<" + i + ">>", ")(.*)(");
-		replaceDesc = "(" + replaceDesc.replaceAll(/<<[0-9]+>>/g, ".*") + ")";
-		replaceDesc = replaceDesc.replaceAll(/[0-9]+/g, ".*");
+		var replaceDesc = rawDesc.replaceAll("<<" + i + ">>", ")(" + valueMatch + ")(");
+		replaceDesc = "(" + replaceDesc.replaceAll(/<<[0-9]+>>/g, valueMatch) + ")";
+		replaceDesc = replaceDesc.replaceAll(/[0-9]+/g, valueMatch);
 		
 		var matches = textDesc.match(matchRegExp);
 		var tooltipMatches = newTooltip.match(matchRegExp);
@@ -3267,8 +3269,8 @@ window.UpdateEsoBuildSetTooltips = function(setDesc)
 		}
 	}
 	
-	var matchDesc = rawDesc.replaceAll(/<<[0-9]+>>/g, ".*");
-	matchDesc = matchDesc.replaceAll(/[0-9]+/g, ".*");
+	var matchDesc = rawDesc.replaceAll(/<<[0-9]+>>/g, valueMatch);
+	matchDesc = matchDesc.replaceAll(/[0-9]+/g, valueMatch);
 	var matchRegExp = new RegExp(matchDesc, 'i');
 	
 	newDesc = newDesc.replace('  ', ' ').replace('  ', ' ');
