@@ -5845,6 +5845,10 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /and Disease Resistance by ([0-9]+)/i,
 	},
 	{
+		statId: "DiseaseResist",
+		match: /and your Disease and Poison Resistance by ([0-9]+)/i,
+	},
+	{
 		statId: "PoisonResist",
 		match: /and Poison Resistance by ([0-9]+)/i,
 	},

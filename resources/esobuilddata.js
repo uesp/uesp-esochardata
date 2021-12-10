@@ -3169,7 +3169,7 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 			//itemData.rawOutput["Tooltip: Set Damage"] = "" + g_EsoBuildLastInputValues.Health + " * " + percent + "% = " + damage;
 			//return prefix + percent + middle + damage;
 	
-	newDesc = newDesc.replace(/\(5 items\) When you block an attack, you deal ([0-9]+) Physical Damage to the attacker. This effect scales off your Max Health./i, function(match, damage) 
+	newDesc = newDesc.replace(/(\(5 items\) When you block an attack, you deal )([0-9]+)( Physical Damage to the attacker. This effect scales off your Max Health.)/i, function(match, p1, damage, p2) 
 	{
 		var percent = 44.863;	// Update 31
 		
@@ -3184,7 +3184,26 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 		
 		damage = Math.floor(+g_EsoBuildLastInputValues.Health * percent / 100);
 		itemData.rawOutput["Tooltip: Set Damage"] = "" + g_EsoBuildLastInputValues.Health + " * " + percent + "% = " + damage;
-		return "<div style=\"color:#ffffff;display:inline;\">" + damage + "</div>";
+		return p1 + "<div style=\"color:#ffffff;display:inline;\">" + damage + "</div>" + p2;
+	});
+	
+		// Markyn Ring of Majesty
+		// Gain 100 Weapon and Spell Damage and 1157 Armor for every set you are wearing at least 3 or more pieces of.Current bonus: 0 Weapon and Spell Damage and 0 Armor.
+	newDesc = newDesc.replace(/(Current bonus: (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|) Weapon and Spell Damage and (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|) Armor\.)/i, function(match, p1, weaponDamage, p2, armor, p3)
+	{
+		var matchResult = newDesc.match(/Gain (?:\<div[^>]*\>|)([0-9]+)(?:\<\/div\>|) Weapon and Spell Damage and (?:\<div[^>]*\>|)([0-9]+)(?:\<\/div\>|) Armor /);
+		if (!matchResult) return p1 + weaponDamage + p2 + armor + p3;
+		
+		var damageAmt = parseInt(matchResult[1]);
+		var armorAmt = parseInt(matchResult[2]);
+		
+		if (g_EsoBuildLastInputValues.ThreeSetCount > 0)
+		{
+			weaponDamage = damageAmt * g_EsoBuildLastInputValues.ThreeSetCount;
+			armor = armorAmt * g_EsoBuildLastInputValues.ThreeSetCount;
+		}
+		
+		return p1 + weaponDamage + p2 + armor + p3;
 	});
 	
 	return newDesc;

@@ -1716,6 +1716,17 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>12 November 2021</b>
+			<ul>
+				<li>Fixed the Thews of the Harbinger set tooltip.</li>
+				<li>Fixed the Markyn Ring of Majesty set tooltip.</li>
+			</ul>
+			<p>
+			<b>12 November 2021</b>
+			<ul>
+				<li>Added Disease Resistance to the Bosmer's Resist Affliction passive.</li>
+			</ul>
+			<p>
 			<b>9 November 2021</b>
 			<ul>
 				<li>Fixed the True-Sworn Fury set toggles.</li>
