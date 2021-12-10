@@ -1951,6 +1951,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		statRequireValue: 2,
 		statId: "DamageTaken",
 		display: "%",
+		factorValue: -1,
 		match: /you take ([0-9]+\.?[0-9]*)% less damage/i
 	},
 	{
