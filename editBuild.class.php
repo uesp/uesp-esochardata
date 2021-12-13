@@ -350,6 +350,8 @@ class EsoBuildDataEditor
 			"Set.WeaponTraitEffect",
 			"Set.DirectSpellDamage",
 			"Set.DirectWeaponDamage",
+			"Set.DirectRangeSpellDamage",
+			"Set.DirectRangeWeaponDamage",
 			"ThreeSetCount",
 	);
 	

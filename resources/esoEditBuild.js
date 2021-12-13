@@ -8,6 +8,7 @@
  * 		- Block mitigation has cap of 90%: https://forums.elderscrollsonline.com/en/discussion/comment/6265073#Comment_6265073
  * 		- Custom titles.
  * 		- Custom skill bars.
+ * *	- bound aegis (sorc) should enable "expert summoner" passive by default, in the game it DOES boost hp by 8% just while slotted, without activating skill (unlike bound armaments, which doesnt give u hp even if u use it until u get atleast 1 spectral dagger).
  *  
  */
 
@@ -6029,6 +6030,13 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		statId: "MagickaCost",
+		display: "%",
+		factorValue: -1,
+		combineAs: "*%",
+		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "HealthCost",
 		display: "%",
 		factorValue: -1,
 		combineAs: "*%",
@@ -13468,27 +13476,19 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Adds ([0-9]+) Weapon Critical to your ranged direct damage abilities/i,
 	},
 	{
-		id: "Wrath of the Imperium",
-		setBonusCount: 2,
-		enabled: false,
-		toggle: true,
-		statId: "SpellCrit",
-		match: /Adds ([0-9]+) Spell Critical to your ranged direct damage abilities/i,
-	},
-	{
-		id: "Wrath of the Imperium",
-		setBonusCount: 2,
-		enabled: false,
-		toggle: true,
-		statId: "DirectSpellDamage",
+		//id: "Wrath of the Imperium",
+		//setBonusCount: 2,
+		//enabled: false,
+		//toggle: true,
+		statId: "DirectRangeSpellDamage",
 		match: /Adds ([0-9]+) Weapon and Spell Damage to your ranged direct damage abilities./i,
 	},
 	{
-		id: "Wrath of the Imperium",
-		setBonusCount: 2,
-		enabled: false,
-		toggle: true,
-		statId: "DirectWeaponDamage",
+		//id: "Wrath of the Imperium",
+		//setBonusCount: 2,
+		//enabled: false,
+		//toggle: true,
+		statId: "DirectRangeWeaponDamage",
 		match: /Adds ([0-9]+) Weapon and Spell Damage to your ranged direct damage abilities./i,
 	},
 ];		// End of Toggled Sets
@@ -21253,13 +21253,15 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
 		Channel			: inputValues.Set.ChannelDamageDone,
 		Direct			: inputValues.DirectDamageDone,
 		All				: inputValues.DamageDone,
-		Empower			: 0,	// Update 18: Empower changed to affect Light Attacks only
+		Empower			: inputValues.Buff.Empower,
 		MaelstromDamage : 0,
 		AOE				: inputValues.AOEDamageDone,
 		SingleTarget	: inputValues.SingleTargetDamageDone,
 		Overload		: inputValues.OverloadDamage,
 		Pet				: inputValues.PetDamageDone,
 		ExtraBashDamage : inputValues.Skill.ExtraBashDamage,
+		LADamage		: inputValues.CP.LADamage + inputValues.Set.LADamage + inputValues.Skill.LADamage,
+		HADamage		: inputValues.CP.HADamage + inputValues.Set.HADamage + inputValues.Skill.HADamage,
 	};
 	
 	g_LastSkillInputValues.Healing =
@@ -21335,51 +21337,53 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
 			BaseWeaponDamage = BaseSpellDamage;
 		}
 	}
- 	
- 	inputValues.SkillLineWeaponDmg['base'] = 0;
- 	inputValues.SkillLineSpellDmg['base'] = 0;
- 	inputValues.SkillBonusWeaponDmg['base'] = 0;
- 	inputValues.SkillBonusSpellDmg['base'] = 0;
- 	
-	var dmgIds = [ "Class", "Channel", "Maelstrom", "Healing", "AOE", "DOT", "Direct", "Range", "Melee" ];
 	
- 	var spellDmgData = {
-	 		base: BaseSpellDamage,
-	 		line: inputValues.SkillLineSpellDmg,
-	 		bonus: inputValues.SkillBonusSpellDmg,
-	 		factor: SpellDamageFactor,
-	 		bloodthirsty: inputValues.BloodthirstySpellDamage,
-	 		Class: inputValues.Set.ClassSpellDamage,
-	 		Channel: inputValues.Item.ChannelSpellDamage,
-	 		Maelstrom: inputValues.Item.MaelstromDamage,
-	 		AOE: inputValues.Set.AOESpellDamage,
-	 		Healing: inputValues.CP.HealingSpellDamage,
-	 		DOT: inputValues.Set.DOTSpellDamage,
-	 		Range: inputValues.Set.RangedSpellDamage,
-	 		Melee: inputValues.Set.MeleeSpellDamage,
-	 		Direct: inputValues.Set.DirectSpellDamage,
- 		};
- 	var weaponDmgData = {
-	 		base: BaseWeaponDamage,
-	 		line: inputValues.SkillLineWeaponDmg,
-	 		bonus: inputValues.SkillBonusWeaponDmg,
-	 		factor: WeaponDamageFactor,
-	 		bloodthirsty: inputValues.BloodthirstyWeaponDamage,
-	 		Class: inputValues.Set.ClassWeaponDamage,
-	 		Channel: inputValues.Item.ChannelWeaponDamage,
-	 		Maelstrom: inputValues.Item.MaelstromDamage,
-	 		AOE: inputValues.Set.AOEWeaponDamage,
-	 		Healing: inputValues.CP.HealingWeaponDamage,
-	 		DOT: inputValues.Set.DOTWeaponDamage,
-	 		Range: inputValues.Set.RangedWeaponDamage,
-	 		Melee: inputValues.Set.MeleeWeaponDamage,
-	 		Direct: inputValues.Set.DirectWeaponDamage,
- 		};
- 	
- 	g_LastSkillInputValues.SkillSpellDamage  = EsoBuildCreateDamageData(dmgIds, spellDmgData);
- 	g_LastSkillInputValues.SkillWeaponDamage = EsoBuildCreateDamageData(dmgIds, weaponDmgData);
- 	
- 	/*
+	inputValues.SkillLineWeaponDmg['base'] = 0;
+	inputValues.SkillLineSpellDmg['base'] = 0;
+	inputValues.SkillBonusWeaponDmg['base'] = 0;
+	inputValues.SkillBonusSpellDmg['base'] = 0;
+	
+	var dmgIds = [ "Class", "Channel", "Maelstrom", "Healing", "AOE", "DOT", "Direct", "Range", "Melee", "DirectRange" ];
+	
+	var spellDmgData = {
+			base: BaseSpellDamage,
+			line: inputValues.SkillLineSpellDmg,
+			bonus: inputValues.SkillBonusSpellDmg,
+			factor: SpellDamageFactor,
+			bloodthirsty: inputValues.BloodthirstySpellDamage,
+			Class: inputValues.Set.ClassSpellDamage,
+			Channel: inputValues.Item.ChannelSpellDamage,
+			Maelstrom: inputValues.Item.MaelstromDamage,
+			AOE: inputValues.Set.AOESpellDamage,
+			Healing: inputValues.CP.HealingSpellDamage,
+			DOT: inputValues.Set.DOTSpellDamage,
+			Range: inputValues.Set.RangedSpellDamage,
+			Melee: inputValues.Set.MeleeSpellDamage,
+			Direct: inputValues.Set.DirectSpellDamage,
+			DirectRange: inputValues.Set.DirectRangeSpellDamage,
+		};
+	var weaponDmgData = {
+			base: BaseWeaponDamage,
+			line: inputValues.SkillLineWeaponDmg,
+			bonus: inputValues.SkillBonusWeaponDmg,
+			factor: WeaponDamageFactor,
+			bloodthirsty: inputValues.BloodthirstyWeaponDamage,
+			Class: inputValues.Set.ClassWeaponDamage,
+			Channel: inputValues.Item.ChannelWeaponDamage,
+			Maelstrom: inputValues.Item.MaelstromDamage,
+			AOE: inputValues.Set.AOEWeaponDamage,
+			Healing: inputValues.CP.HealingWeaponDamage,
+			DOT: inputValues.Set.DOTWeaponDamage,
+			Range: inputValues.Set.RangedWeaponDamage,
+			Melee: inputValues.Set.MeleeWeaponDamage,
+			Direct: inputValues.Set.DirectWeaponDamage,
+			DirectRange: inputValues.Set.DirectRangeWeaponDamage,
+		};
+	
+	g_LastSkillInputValues.SkillSpellDamage  = EsoBuildCreateDamageData(dmgIds, spellDmgData);
+	g_LastSkillInputValues.SkillWeaponDamage = EsoBuildCreateDamageData(dmgIds, weaponDmgData);
+	
+	/*
  	g_LastSkillInputValues.SkillSpellDamage  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
  	g_LastSkillInputValues.SkillWeaponDamage = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
  	
