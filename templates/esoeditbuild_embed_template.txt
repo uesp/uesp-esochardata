@@ -1721,6 +1721,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>The Imperial's Red Diamond passive now affects Health costs (as verified on PTS).</li>
 				<li>The Wrath of the Imperium set toggle for the 3 piece effect was removed and it now always affects just Direct-Ranged skills. Note that this effect appears to be broken on Live currently.</li>
 				<li>The Sorcerer's Overload skill tooltip now includes effects from Empower and LA/HA damage.</li>
+				<li>Changed Major/Minor Vulnerability (Target) to have a unique effect on skill tooltips and is added multiplicively with other damage effects instead of additively.</li>
 			</ul>
 			<p>
 			<b>9 December 2021</b>

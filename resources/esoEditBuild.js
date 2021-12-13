@@ -1154,10 +1154,10 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			value : 0.10,
 			display: "%",
-			statId : "DamageDone",
 			category: "Buff",
-			combineAs: "*%",
-			statDescs : ["Increases your target's Damage Taken by "],
+			statId : "Vulnerability",
+			//combineAs: "*%",
+			statDescs : ["Increases your Damage Taken by "],
 			icon : "/esoui/art/icons/ability_debuff_major_vulnerability.png",
 		},
 		"Minor Vulnerability" : 
@@ -1168,10 +1168,10 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			value : 0.05,
 			display: "%",
-			statId : "DamageDone",
 			category: "Buff",
-			combineAs: "*%",
-			statDescs : ["Increases your target's Damage Taken by "],
+			statId : "Vulnerability",
+			//combineAs: "*%",
+			statDescs : ["Increases your Damage Taken by "],
 			icon : "/esoui/art/icons/ability_debuff_minor_vulnerability.png",
 		},
 		"Weapon Damage Enchantment" :
@@ -1716,11 +1716,11 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			category: "Buff",
 			value : 0.10,
 			display: "%",
-			statId : "DamageDone",
-			combineAs: "*%",
+			category: "Target",
+			statId : "Vulnerability",
+			//combineAs: "*%",
 			icon : "/esoui/art/icons/ability_debuff_major_vulnerability.png",
 		},
 		"Minor Vulnerability (Target)" : 
@@ -1729,11 +1729,11 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			category: "Buff",
 			value : 0.05,
 			display: "%",
-			statId : "DamageDone",
-			combineAs: "*%",
+			category: "Target",
+			statId : "Vulnerability",
+			//combineAs: "*%",
 			icon : "/esoui/art/icons/ability_debuff_minor_vulnerability.png",
 		},
 		"Engulfing Flames (Target)" : 
@@ -21275,6 +21275,7 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
 		Reduction	 : inputValues.HealingReduction,
 	};
 	
+	g_LastSkillInputValues.Vulnerability = inputValues.Target.Vulnerability;
 	g_LastSkillInputValues.SkillDuration = inputValues.SkillDuration;
  	g_LastSkillInputValues.SkillDamage = inputValues.SkillDamage;
  	g_LastSkillInputValues.SkillLineDamage = inputValues.SkillLineDamage;
