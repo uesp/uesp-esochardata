@@ -1732,7 +1732,6 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Fixed the Balorgh set toggle.</li>
 				<li>Fixed the Damage Taken stat from the Werewolf Pack Leader skill.</li>
 				<li>Fixed the Cutting Defense CP tooltip to update based on max health.</li>
-				
 			</ul>
 			<p>
 			<b>12 November 2021</b>
