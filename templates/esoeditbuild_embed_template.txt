@@ -6,7 +6,6 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #ffc; margin-right: 270px;'>
-Note: The build editor is not completely updated for update 32. Items, Skills and CP data have been updated. New/changed sets/skills/cp may not work yet.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -1716,6 +1715,17 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>16 December 2021</b>
+			<ul>
+				<li>Fixed a few food and drink items that had corrupt data.</li>
+			</ul>
+			<p>
+			<b>14 December 2021</b>
+			<ul>
+				<li>Fixed issue with tooltips and stats not being calculated.</li>
+				<li>Fixed duplicate Major Vitality buff having the wrong value.</li>
+			</ul>
+			<p>
 			<b>13 December 2021</b>
 			<ul>
 				<li>The Imperial's Red Diamond passive now affects Health costs (as verified on PTS).</li>

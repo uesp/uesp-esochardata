@@ -645,17 +645,6 @@ window.g_EsoBuildBuffData =
 			statId : "HealingDone",
 			icon : "/esoui/art/icons/ability_templar_cleansing_ritual.png",
 		},
-		"Major Vitality" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 0.16,
-			display : "%",
-			statId : "HealingReceived",
-			icon : "/esoui/art/icons/ability_healer_018.png",
-		},
 		"Major Sorcery" : 
 		{
 			group: "Major",
@@ -901,7 +890,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.30,
+			value : 0.16,
 			display : "%",
 			statId : "HealingReceived",
 			icon : "/esoui/art/icons/ability_healer_018.png",
