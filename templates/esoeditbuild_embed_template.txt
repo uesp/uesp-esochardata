@@ -1048,7 +1048,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Sanctuary</option>
 						<option>Savage Werewolf</option>
 						<option>Saxhleel Champion</option>
-						<option value="Perfected Saxhleel Championt">Saxhleel Champion (Perfect)</option>
+						<option value="Perfected Saxhleel Champion">Saxhleel Champion (Perfect)</option>
 						<option>Scathing Mage</option>
 						<option>Scavenging Demise</option>
 						<option>Scorion's Feast</option>
@@ -1715,6 +1715,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>17 January 2022</b>
+			<ul>
+				<li>Fixed the Saxhleel Champion (Perfect) set on the quick item setup.</li>
+				<li>Fixed the damage in the Kjalnar's Nightmare set tooltip (and possibly others).</li>
+			</ul>
+			<p>
 			<b>16 December 2021</b>
 			<ul>
 				<li>Fixed a few food and drink items that had corrupt data.</li>

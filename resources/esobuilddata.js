@@ -3290,6 +3290,7 @@ window.UpdateEsoBuildSetTooltips = function(setDesc)
 	
 	var matchDesc = rawDesc.replaceAll(/<<[0-9]+>>/g, valueMatch);
 	matchDesc = matchDesc.replaceAll(/[0-9]+/g, valueMatch);
+	matchDesc = matchDesc.replaceAll("\n", "<br>");
 	var matchRegExp = new RegExp(matchDesc, 'i');
 	
 	newDesc = newDesc.replace('  ', ' ').replace('  ', ' ');

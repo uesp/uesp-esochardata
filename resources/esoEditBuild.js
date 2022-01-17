@@ -1505,7 +1505,7 @@ window.g_EsoBuildBuffData =
 			category: "Target",
 			value : -0.05,
 			display: "%",
-			statId : "AttackBonus",
+			statId : "DamageDone",
 			statDesc : "Reduces the target's damage done by ",
 			icon : "/esoui/art/icons/ability_fightersguild_004.png",
 		},
