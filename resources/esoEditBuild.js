@@ -1725,6 +1725,18 @@ window.g_EsoBuildBuffData =
 			//combineAs: "*%",
 			icon : "/esoui/art/icons/ability_debuff_minor_vulnerability.png",
 		},
+		"Off Balance (Target)" : 
+		{
+			group: "Target",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			values : [ 0.70, 1.0, 1.0 ],
+			displays: [ "%", "%", "%" ],
+			categories: [ "Skill", "Buff", "Buff" ],
+			statIds : [ "HADamage", "HAStaRestore", "HAMagRestore" ],
+			icon : "/esoui/art/icons/ability_debuff_offbalance.png",
+		},
 		"Engulfing Flames (Target)" : 
 		{
 			group: "Target",
@@ -21824,7 +21836,13 @@ window.CreateEsoBuildBuffDescHtml = function (buffData)
 		var prefixDesc = "Increases ";
 		var targetDesc = "your ";
 		
+			/* Replace some stat abbreviations with nicer descriptions */
 		statId = statIds[i].replace(/([A-Z])/g, ' $1').trim().replace("A O E ", " AOE ");
+		statId = statId.replace("H A ", "Heavy Attack ");
+		statId = statId.replace("L A ", "Light Attack ");
+		statId = statId.replace("Sta Restore ", "Stamina Restoration ");
+		statId = statId.replace("Mag Restore ", "Mag Restoration ");
+		
 		statValue = statValues[i];
 		category = categories[i];
 		display = displays[i];
@@ -21865,7 +21883,7 @@ window.CreateEsoBuildBuffDescHtml = function (buffData)
 		else
 		{
 			if (statDescs[i] != null && statDescs[i] != "") {
-				buffData.desc += statDescs[i]+ statValue + "<br/>";
+				buffData.desc += statDescs[i] + statValue + "<br/>";
 			}
 			else {
 				buffData.desc += statValue + "<br/>";

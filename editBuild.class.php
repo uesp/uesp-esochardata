@@ -1565,7 +1565,15 @@ class EsoBuildDataEditor
 			
 			"Set.HAStaRestore" => array(
 					"display" => "%",
-			),				
+			),
+			
+			"Buff.HAStaRestore" => array(
+					"display" => "%",
+			),
+			
+			"Buff.HAMagRestore" => array(
+					"display" => "%",
+			),
 			
 			"CP.HAMagRestore" => array(
 					"display" => "%",
@@ -4108,7 +4116,7 @@ class EsoBuildDataEditor
 							"round(EffectiveLevel * 41.28)",
 							"1 + CP.HAStaRestore",
 							"*",
-							"1 + Skill.HAStaRestore + Set.HAStaRestore",
+							"1 + Skill.HAStaRestore + Set.HAStaRestore + Buff.HAStaRestore",
 							"*",
 					),
 			),
@@ -4121,7 +4129,7 @@ class EsoBuildDataEditor
 							//"round(EffectiveLevel * 25.26)",
 							"1 + CP.HAStaRestore",
 							"*",
-							"1 + Skill.HAStaRestore + Set.HAStaRestore",
+							"1 + Skill.HAStaRestore + Set.HAStaRestore + Buff.HAStaRestore",
 							"*",
 					),
 			),
@@ -4133,7 +4141,7 @@ class EsoBuildDataEditor
 							"round(EffectiveLevel * 36.76)",
 							"1 + CP.HAStaRestore",
 							"*",
-							"1 + Skill.HAStaRestore + Set.HAStaRestore",
+							"1 + Skill.HAStaRestore + Set.HAStaRestore + Buff.HAStaRestore",
 							"*",
 					),
 			),
@@ -4145,7 +4153,7 @@ class EsoBuildDataEditor
 							"round(EffectiveLevel * 30.52)",
 							"1 + CP.HAStaRestore",
 							"*",
-							"1 + Skill.HAStaRestore + Set.HAStaRestore",
+							"1 + Skill.HAStaRestore + Set.HAStaRestore + Buff.HAStaRestore",
 							"*",
 					),
 			),
@@ -4159,7 +4167,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + CP.HAMagRestore",
 							"*",
-							"1 + Skill.HAMagRestore + Set.HAMagRestore",
+							"1 + Skill.HAMagRestore + Set.HAMagRestore + Buff.HAMagRestore",
 							"*",
 					),
 			),
@@ -4173,7 +4181,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + CP.HAMagRestore",
 							"*",
-							"1 + Skill.HAMagRestore + Set.HAMagRestore",
+							"1 + Skill.HAMagRestore + Set.HAMagRestore + Buff.HAMagRestore",
 							"*",
 					),
 			),
@@ -4187,7 +4195,7 @@ class EsoBuildDataEditor
 							"+",
 							"1 + CP.HAMagRestore",
 							"*",
-							"1 + Skill.HAMagRestore + Set.HAMagRestore",
+							"1 + Skill.HAMagRestore + Set.HAMagRestore + Buff.HAMagRestore",
 							"*",
 							"1 + Skill.HAMagRestoreRestStaff",
 							"*",
@@ -4201,7 +4209,7 @@ class EsoBuildDataEditor
 							"round(EffectiveLevel * 24.50)",		// Update 29
 							"1 + CP.HAStaRestore",
 							"*",
-							"1 + Skill.HAStaRestore + Set.HAStaRestore",
+							"1 + Skill.HAStaRestore + Set.HAStaRestore + Buff.HAStaRestore",
 							"*",
 					),
 			),
@@ -4214,7 +4222,7 @@ class EsoBuildDataEditor
 							//"round(EffectiveLevel * 24.5)",
 							"1 + CP.HAStaRestore",
 							"*",
-							"1 + Skill.HAStaRestore + Set.HAStaRestore",
+							"1 + Skill.HAStaRestore + Set.HAStaRestore + Buff.HAStaRestore",
 							"*",
 							"1 + Skill.HAStaRestoreWerewolf", 
 							"*",
