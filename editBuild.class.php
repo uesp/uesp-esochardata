@@ -354,6 +354,8 @@ class EsoBuildDataEditor
 			"Set.DirectRangeSpellDamage",
 			"Set.DirectRangeWeaponDamage",
 			"ThreeSetCount",
+			"Set.EnemyTargetSpellDamage",
+			"Set.EnemyTargetWeaponDamage",
 	);
 	
 	

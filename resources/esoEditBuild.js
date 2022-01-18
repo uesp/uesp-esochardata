@@ -11864,7 +11864,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "WeaponDamage",
+		statId: "EnemyTargetWeaponDamage",
 		match: /Increases your Weapon Damage by ([0-9]+) against targets affected by your Poison Arrow/i,
 	},
 	{
@@ -11873,7 +11873,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "WeaponDamage",
+		statId: "EnemyTargetWeaponDamage",
 		match: /Increases your Weapon and Spell Damage by ([0-9]+) against targets affected by your Poison Arrow/i,
 	},
 	{
@@ -11882,7 +11882,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "SpellDamage",
+		statId: "EnemyTargetSpellDamage",
 		match: /Increases your Weapon and Spell Damage by ([0-9]+) against targets affected by your Poison Arrow/i,
 	},
 	{
@@ -11891,7 +11891,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "WeaponDamage",
+		statId: "EnemyTargetWeaponDamage",
 		match: /Increases your Weapon Damage by ([0-9]+) against targets affected by your Poison Arrow/i,
 	},
 	{
@@ -11900,7 +11900,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "WeaponDamage",
+		statId: "EnemyTargetWeaponDamage",
 		match: /Increases your Weapon and Spell Damage by ([0-9]+) against targets affected by your Poison Arrow/i,
 	},
 	{
@@ -11909,7 +11909,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "SpellDamage",
+		statId: "EnemyTargetSpellDamage",
 		match: /Increases your Weapon and Spell Damage by ([0-9]+) against targets affected by your Poison Arrow/i,
 	},
 	{
@@ -11918,7 +11918,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "SpellDamage",
+		statId: "EnemyTargetSpellDamage",
 		match: /When you drink a potion you feel a rush of energy, increasing your Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
@@ -21339,7 +21339,7 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
 	inputValues.SkillBonusWeaponDmg['base'] = 0;
 	inputValues.SkillBonusSpellDmg['base'] = 0;
 	
-	var dmgIds = [ "Class", "Channel", "Maelstrom", "Healing", "AOE", "DOT", "Direct", "Range", "Melee", "DirectRange" ];
+	var dmgIds = [ "Class", "Channel", "Maelstrom", "Healing", "AOE", "DOT", "Direct", "Range", "Melee", "DirectRange", "EnemyTarget" ];
 	
 	var spellDmgData = {
 			base: BaseSpellDamage,
@@ -21357,6 +21357,7 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
 			Melee: inputValues.Set.MeleeSpellDamage,
 			Direct: inputValues.Set.DirectSpellDamage,
 			DirectRange: inputValues.Set.DirectRangeSpellDamage,
+			EnemyTarget: inputValues.Set.EnemyTargetSpellDamage,
 		};
 	var weaponDmgData = {
 			base: BaseWeaponDamage,
@@ -21374,6 +21375,7 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
 			Melee: inputValues.Set.MeleeWeaponDamage,
 			Direct: inputValues.Set.DirectWeaponDamage,
 			DirectRange: inputValues.Set.DirectRangeWeaponDamage,
+			EnemyTarget: inputValues.Set.EnemyTargetWeaponDamage,
 		};
 	
 	g_LastSkillInputValues.SkillSpellDamage  = EsoBuildCreateDamageData(dmgIds, spellDmgData);
