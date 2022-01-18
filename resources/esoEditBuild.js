@@ -11618,7 +11618,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "WeaponDamage",
-		match: /When you set an enemy off-balance, your Weapon Damage is increased by ([0-9]+)/i,
+		match: /When you deal damage to an enemy who is Off Balance, your Weapon and Spell Damage is increased by ([0-9]+) for/i,
 	},
 	{
 		id: "Armor of Truth",
@@ -11626,17 +11626,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "WeaponDamage",
-		match: /When you set an enemy off balance, your Weapon Damage is increased by ([0-9]+)/i,
-	},
-	{
-		id: "Armor of Truth",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "WeaponDamage",
-		match: /When you deal damage to an enemy who is Off Balance, your Weapon Damage is increased by ([0-9]+) /i,
+		statId: "SpellDamage",
+		match: /When you deal damage to an enemy who is Off Balance, your Weapon and Spell Damage is increased by ([0-9]+) for/i,
 	},
 	{
 		id: "Balorgh",
