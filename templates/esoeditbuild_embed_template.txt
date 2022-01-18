@@ -1720,6 +1720,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<ul>
 				<li>Changed the Deflect Bolts passive to only affect ranged damage taken while blocking. Is enabled automatically when blocking is selected in the mitigation tab.</li>
 				<li>Changed the Caustic Arrow set effect to only affect single target damage tooltips. Unsure if this is exactly how it works in-game but its better than the toggle affecting all tooltips.</li>
+				<li>Fixed some "constant" values in skill tooltips that are actually affected by +healing and +damage modifiers (ex: the % heal in Drain Vigor).</li>
 			</ul>
 			<p>
 			<b>17 January 2022</b>
