@@ -1715,6 +1715,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			
+			<b>17 January 2022</b>
+			<ul>
+				<li>Changed the Deflect Bolts passive to only affect ranged damage taken while blocking. Is enabled automatically when blocking is selected in the mitigation tab.</li>
+			</ul>
+			<p>
 			<b>17 January 2022</b>
 			<ul>
 				<li>Fixed the Saxhleel Champion (Perfect) set on the quick item setup.</li>

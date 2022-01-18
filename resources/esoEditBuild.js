@@ -4429,7 +4429,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	{
 		statRequireId: "Weapon1HShield",
 		statRequireValue: 1,
-		statId: "RangedDamageTaken",
+		statId: "BlockRangedDamageTaken",
 		display: "%",
 		factorValue: -1,
 		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Increases the amount of damage you can block from projectiles and ranged attacks by ([0-9]+\.?[0-9]*)%/i,
@@ -6848,8 +6848,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		combineAs: "*%",
-		// match: /After blocking an attack, your next Magicka or Stamina
-		// ability costs ([0-9]+\.?[0-9]*)% less/i,
 		match: /After blocking an attack, your next Health, Magicka, or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i,
 	},
 	{
@@ -6861,8 +6859,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		combineAs: "*%",
-		// match: /After blocking an attack, your next Magicka or Stamina
-		// ability costs ([0-9]+\.?[0-9]*)% less/i,
 		match: /After blocking an attack, your next Health, Magicka, or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i,
 	},
 	{
@@ -6874,8 +6870,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		combineAs: "*%",
-		// match: /After blocking an attack, your next Magicka or Stamina
-		// ability costs ([0-9]+\.?[0-9]*)% less/i,
 		match: /After blocking an attack, your next Health, Magicka, or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i,
 	},
 	{
@@ -24556,6 +24550,13 @@ window.UpdateEsoMitigationCell = function(element, elementType, damageType1, dam
 	if (isBlocking)
 	{
 		blockDamageTaken = GetEsoComputedStatValue("BlockMitigation");
+		
+		if (damageType2 == "Ranged")
+		{
+			var RangedDamageTaken = GetEsoInputStatValue("Skill", "BlockRangedDamageTaken");
+			//damage2Taken *= (1 + RangedDamageTaken);
+			if (RangedDamageTaken) blockDamageTaken *= (1 - RangedDamageTaken);
+		}
 	}
 	
 	if (isPlayer)
