@@ -1722,6 +1722,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Changed the Caustic Arrow set effect to only affect single target damage tooltips. Unsure if this is exactly how it works in-game but its better than the toggle affecting all tooltips.</li>
 				<li>Fixed some "constant" values in skill tooltips that are actually affected by +healing and +damage modifiers (ex: the % heal in Drain Vigor).</li>
 				<li>Fixed the Armor of Truth set toggle.</li>
+				<li>Fixed the Ruffian skill toggle to only affect Dual Wield abilities.</li>
 			</ul>
 			<p>
 			<b>17 January 2022</b>
