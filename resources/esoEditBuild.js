@@ -12461,7 +12461,7 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		id: "Molag Kena",
-		setBonusCount: 3,
+		setBonusCount: 2,
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
@@ -12472,7 +12472,7 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		id: "Molag Kena",
-		setBonusCount: 3,
+		setBonusCount: 2,
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
@@ -12483,7 +12483,7 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		id: "Molag Kena",
-		setBonusCount: 3,
+		setBonusCount: 2,
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
@@ -12492,7 +12492,7 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		id: "Molag Kena",
-		setBonusCount: 3,
+		setBonusCount: 2,
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
