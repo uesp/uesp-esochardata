@@ -19528,8 +19528,26 @@ window.ShowEsoItemDetailsPopup = function (slotId)
 		var setName = itemData.setName.toLowerCase().replace("perfected ", "");
 		var setSkillData = g_SetSkillsData[setName];
 		
+		var setDesc = "PART OF THE " + itemData.setName.toUpperCase() + " SET<br />";
+		
+		for (i = 1; i <= 7; ++i)
+		{
+			var setBonusDesc = itemData['setBonusDesc' + i];
+			
+			if (setBonusDesc != null && setBonusDesc != '')
+			{
+				setBonusDesc = setBonusDesc.replaceAll("|cffffff", "").replaceAll("|r", "");
+				setBonusDesc = setBonusDesc.replaceAll("\n", "<br />");
+				setDesc += setBonusDesc + "<br />";
+			}
+		}
+		
+		var newDesc = UpdateEsoBuildSetTooltips(setDesc);
+		
 		if (setSkillData)
 		{
+			//UpdateEsoBuildSetTooltips(setDesc);
+			
 			var abilityId = parseInt(setSkillData.abilityId);
 			var numTooltips = CountEsoSkillTooltips(abilityId);
 			var skillData = g_SkillsData[abilityId];
