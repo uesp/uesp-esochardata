@@ -3222,6 +3222,8 @@ window.UpdateEsoBuildSetTooltips = function(setDesc)
 	var setSkillsData = g_SetSkillsData[setName];
 	if (setSkillsData == null) return newDesc;
 	
+	setSkillsData.setDesc = setDesc;
+	
 	var skillData = g_SkillsData[setSkillsData.abilityId];
 	var newTooltip = GetEsoSkillDescription2(setSkillsData.abilityId, null, true);
 	
@@ -3245,11 +3247,13 @@ window.UpdateEsoBuildSetTooltips = function(setDesc)
 		var matchDesc = rawDesc.replaceAll("<<" + i + ">>", "(" + valueMatch + ")");
 		matchDesc = matchDesc.replaceAll(/<<[0-9]+>>/g, valueMatch);
 		matchDesc = matchDesc.replaceAll(/[0-9]+/g, valueMatch);
+		matchDesc = matchDesc.replaceAll("\n", '');
 		var matchRegExp = new RegExp(matchDesc, 'i');
 		
 		var replaceDesc = rawDesc.replaceAll("<<" + i + ">>", ")(" + valueMatch + ")(");
 		replaceDesc = "(" + replaceDesc.replaceAll(/<<[0-9]+>>/g, valueMatch) + ")";
 		replaceDesc = replaceDesc.replaceAll(/[0-9]+/g, valueMatch);
+		replaceDesc = replaceDesc.replaceAll("\n", "<br />");
 		
 		var matches = textDesc.match(matchRegExp);
 		var tooltipMatches = newTooltip.match(matchRegExp);
