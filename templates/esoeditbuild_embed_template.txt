@@ -1715,7 +1715,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
-			
+			<b>17 January 2022</b>
+			<ul>
+				<li>Fixed the Dual Wield Expert passive to use the correctly modifier off-hand weapon damage.</li>
+			</ul>
+			<p>
 			<b>17 January 2022</b>
 			<ul>
 				<li>Changed the Deflect Bolts passive to only affect ranged damage taken while blocking. Is enabled automatically when blocking is selected in the mitigation tab.</li>
@@ -1730,7 +1734,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<ul>
 				<li>Fixed the Saxhleel Champion (Perfect) set on the quick item setup.</li>
 				<li>Fixed the damage in the Kjalnar's Nightmare set tooltip (and possibly others).</li>
-				<li>Added the "Off Balance (Target)" buff which increases your Heavy Attack daamge by 70% and stat restoration by 100%.</li> 
+				<li>Added the "Off Balance (Target)" buff which increases your Heavy Attack damge by 70% and stat restoration by 100%.</li> 
 			</ul>
 			<p>
 			<b>16 December 2021</b>
