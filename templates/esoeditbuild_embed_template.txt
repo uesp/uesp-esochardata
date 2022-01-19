@@ -1719,6 +1719,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<ul>
 				<li>Fixed the Dual Wield Expert passive to use the correctly modifier off-hand weapon damage.</li>
 				<li>Fixed bad item data for the Spawn of Mephala Helmet.</li>
+				<li>Fixed the set tooltip for Bahraha's Curse.</li>
 			</ul>
 			<p>
 			<b>17 January 2022</b>
