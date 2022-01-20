@@ -1715,6 +1715,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>18 January 2022</b>
+			<ul>
+				<li>CP point totals will no longer including disabled CPs.</li>
+			</ul>
+			<p>
 			<b>17 January 2022</b>
 			<ul>
 				<li>Fixed the Dual Wield Expert passive to use the correctly modifier off-hand weapon damage.</li>
