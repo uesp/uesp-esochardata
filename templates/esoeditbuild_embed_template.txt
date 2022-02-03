@@ -1733,6 +1733,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>3 February 2022</b>
 			<ul>
 				<li>Fixed set tooltips with more than 5 descriptions that were not being displayed.</li>
+				<li>Fixed the Thrive in Chaos skill toggle.</li>
 			</ul>
 			<b>1 February 2022</b>
 			<ul>

@@ -2847,7 +2847,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar: true,
 		maxTimes: 6,
-		match: /Each enemy hit increases your damage done by ([0-9]+)% for the duration, up to a maximum of [0-9]+% more damage done/i,
+		match: /Each enemy hit increases your damage done by ([0-9]+)% for the duration/i,
 	},
 	{
 		id: "Accelerate",
