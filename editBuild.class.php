@@ -28,7 +28,7 @@ require_once(__DIR__."/viewBuildData.class.php");
 
 class EsoBuildDataEditor 
 {
-	public $PTS_VERSION = "32pts";
+	public $PTS_VERSION = "33pts";
 	
 	public $SESSION_DEBUG_FILENAME = "/var/log/httpd/esoeditbuild_sessions.log";
 	

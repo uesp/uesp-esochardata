@@ -6,6 +6,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #ffc; margin-right: 270px;'>
+<b>Warning:</b> This editor is not yet completely working for the 33 PTS update. Items, skills and CP have been updated. New/updated items/skills may not yet work correctly.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -65,7 +66,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			When selected you will automatically purchase all racial passives when changing races.
 			<br/>
 			<div class="esotbStatLabel">Use PTS Rules</div> <input type="checkbox" id="esotbUsePtsRules" name="esotbUsePtsRules" statid="UsePtsRules" {usePtsRulesCheck}>
-			Current version is Update 32 v7.2.0
+			Current version is Update 33 v7.3.0
 			<ul style="margin-left: 170px; margin-top: -5px;">
 				<li>Save and reload build after changing this setting.</li>
 				<li>Uses skill, CP, and item data collected from the PTS server.</li>
@@ -640,6 +641,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<select id="esotbItemSetupMonsterSet" style="width: 200px;">
 						<option>Balorgh</option>
 						<option>Bloodspawn</option>
+						<option disabled hidden>Baron Thirsk</option>
 						<option>Baron Zaudrus</option>
 						<option>Chokethorn</option>
 						<option>Domihaus</option>
@@ -653,8 +655,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Ilambris</option>
 						<option>Immolator Charr</option>
 						<option>Infernal Guardian</option>
+						<option disabled hidden>Kargaeda</option>
 						<option>Kjalnar's Nightmare</option>
 						<option>Kra'gh</option>
+						<option disabled hidden>Lady Malydga</option>
 						<option>Lady Thorn</option>
 						<option>Lord Warden</option>
 						<option>Maarselok</option>
@@ -663,8 +667,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Mighty Chudan</option>
 						<option>Molag Kena</option>
 						<option>Mother Ciannait</option>
+						<option disabled hidden>Nazaray</option>
 						<option>Nerien'eth</option>
 						<option>Nightflame</option>
+						<option disabled hidden>Nunatak</option>
 						<option>Pirate Skeleton</option>
 						<option>Prior Thierric</option>
 						<option>Scourge Harvester</option>
@@ -880,6 +886,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Elf Bane</option>
 						<option>Embershield</option>
 						<option>Endurance</option>
+						<option disabled hidden>Enervating Aura</option>
 						<option>Essence Thief</option>
 						<option>Eternal Hunt</option>
 						<option>Eternal Vigor</option>
@@ -903,6 +910,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Galerion's Revenge</option>
 						<option>Gallant Charge</option>
 						<option value="Perfected Gallant Charge">Gallant Charge (Perfect)</option>
+						<option disabled hidden>Glacial Guardian</option>
 						<option>Glorious Defender</option>
 						<option>Gossamer</option>
 						<option>Grace of Gloom</option>
@@ -912,6 +920,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Green Pact</option>
 						<option>Grisly Gourmet</option>
 						<option>Gryphon's Ferocity</option>
+						<option disabled hidden>Gryphon's Reprisal</option>
 						<option>Hagraven's Garden</option>
 						<option>Hand of Mephala</option>
 						<option>Hanu's Compassion</option>
@@ -922,6 +931,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Healing Mage</option>
 						<option>Heartland Conqueror</option>
 						<option>Heem-Jas' Retribution</option>
+						<option disabled hidden>Hew and Sunder</option>
 						<option>Hex Siphon</option>
 						<option>Hexos' Ward</option>
 						<option>Hide of Morihaus</option>
@@ -962,7 +972,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Lamia's Song</option>
 						<option>Law of Julianos</option>
 						<option>Leeching Plate</option>
-						<option >Legacy of Karth</option>
+						<option>Legacy of Karth</option>
 						<option>Leki's Focus</option>
 						<option>Leviathan</option>
 						<option>Light of Cyrodiil</option>
@@ -972,6 +982,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Mad Tinkerer</option>
 						<option>Magicka Furnace</option>
 						<option>Magnus' Gift</option>
+						<option disabled hidden>Maligalig's Maelstrom</option>
 						<option>Mantle of Siroria</option>
 						<option value="Perfected Mantle of Siroria">Mantle of Siroria (Perfect)</option>
 						<option>Mark of the Pariah</option>
@@ -1026,6 +1037,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Radial Uppercut</option>
 						<option value="Perfected Radial Uppercut">Radial Uppercut (Perfect)</option>
 						<option>Radiant Bastion</option>
+						<option disabled hidden>Rallying Cry</option>
 						<option>Ranger's Gait</option>
 						<option>Rattlecage</option>
 						<option>Ravager</option>
@@ -1086,10 +1098,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Spider Cultist Cowl</option>
 						<option>Spinner's Garments</option>
 						<option>Spriggan's Thorns</option>
+						<option disabled hidden>Spriggan's Vigor</option>
 						<option>Steadfast Hero</option>
 						<option>Stendarr's Embrace</option>
 						<option>Stone-Talker's Oath</option>
 						<option value="Perfected Stone-Talker's Oath">Stone-Talker's Oath (Perfect)</option>
+						<option disabled hidden>Storm-Cursed's Revenge</option>
 						<option>Storm Knight's Plate</option>
 						<option>Storm Master</option>
 						<option>Strength of the Automaton</option>
@@ -1126,6 +1140,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Trial By Fire</option>
 						<option>Trinimac's Valor</option>
 						<option>True-Sworn Fury</option>
+						<option disabled hidden>Turning Tide</option>
 						<option>Twice-Born Star</option>
 						<option>Twice-Fanged Serpent</option>
 						<option>Twilight Remedy</option>
@@ -1715,9 +1730,23 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>3 February 2022</b>
+			<ul>
+				<li>Fixed set tooltips with more than 5 descriptions that were not being displayed.</li>
+			</ul>
+			<b>1 February 2022</b>
+			<ul>
+				<li>33pts: Updated items, skills, and CP data.</li>
+				<li>33pts: Fixed the Living Dark tooltip calculation.</li>
+				<li>33pts: Added new items to the quick item setup.</li>
+				<li>33pts: Added the Kargaeda buff and set toggle.</li>
+				<li>33pts: Added set toggle for the Spriggan's Vigor set.</li>
+				<li>33pts: Added set toggle for the Rallying Cry set.</li>
+			</ul>
+			<p>
 			<b>18 January 2022</b>
 			<ul>
-				<li>CP point totals will no longer including disabled CPs.</li>
+				<li>CP point totals will no longer include disabled CPs.</li>
 			</ul>
 			<p>
 			<b>17 January 2022</b>

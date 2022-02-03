@@ -8,7 +8,8 @@
  * 		- Block mitigation has cap of 90%: https://forums.elderscrollsonline.com/en/discussion/comment/6265073#Comment_6265073
  * 		- Custom titles.
  * 		- Custom skill bars.
- * *	- bound aegis (sorc) should enable "expert summoner" passive by default, in the game it DOES boost hp by 8% just while slotted, without activating skill (unlike bound armaments, which doesnt give u hp even if u use it until u get atleast 1 spectral dagger).
+ *		- bound aegis (sorc) should enable "expert summoner" passive by default, in the game it DOES boost hp by 8% just while slotted, without activating skill (unlike bound armaments, which doesnt give u hp even if u use it until u get atleast 1 spectral dagger).
+ * 		- Fix text for set tooltips to have the correct values.
  *  
  */
 
@@ -1226,6 +1227,19 @@ window.g_EsoBuildBuffData =
 			category: "Item",
 			statIds : [ "MaelstromDamage" ],
 			icon : "/esoui/art/icons/enchantment_weapon_berserking.png",
+		},
+		"Kargaeda" :
+		{
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : -0.10,
+			display: "%",
+			statDescs : ["Allies within the whirlwind reduce their Magicka costs by ", "Allies within the whirlwind reduce their Stamina costs by "],
+			category: "Set",
+			statIds : [ "MagickaCost", "StaminaCost" ],
+			icon : "/esoui/art/icons/achievement_trial_cr_flavor_2.png",
 		},
 		"Maelstrom Destruction Enchantment" :
 		{
@@ -9490,10 +9504,64 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "PhysicalPenetration",
 		match: /Adds [0-9]+ Weapon and Spell Damage and ([0-9]+) Offensive Penetration/i,
 	},
-
 	
 	
 		// Optionally toggled set effects
+	{
+		id: "Rallying Cry",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		maxTimes: 12,
+		factorValue: -0.05,
+		factorOffset: -20,
+		statId: "WeaponDamage",
+		match: /While Battle Spirit is active, critically healing yourself or an ally causes you and up to [0-9]+ other group members within [0-9]+ meters to gain ([0-9]+) Weapon and Spell Damage, and [0-9]+ Critical Resistance/,
+	},
+	{
+		id: "Rallying Cry",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		maxTimes: 12,
+		factorValue: -0.05,
+		factorOffset: -20,
+		statId: "SpellDamage",
+		match: /While Battle Spirit is active, critically healing yourself or an ally causes you and up to [0-9]+ other group members within [0-9]+ meters to gain ([0-9]+) Weapon and Spell Damage, and [0-9]+ Critical Resistance/,
+	},
+	{
+		id: "Rallying Cry",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		maxTimes: 12,
+		factorValue: -0.05,
+		factorOffset: -20,
+		statId: "CritResist",
+		match: /While Battle Spirit is active, critically healing yourself or an ally causes you and up to [0-9]+ other group members within [0-9]+ meters to gain [0-9]+ Weapon and Spell Damage, and ([0-9]+) Critical Resistance/,
+	},
+	{
+		id: "Spriggan's Vigor",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		maxTimes: 10,
+		statId: "Stamina",
+		rawInputMatch: /(Each stack of Wild Growth increases your Maximum Stamina by [0-9]+)/i,
+		match: /Each stack of Wild Growth increases your Maximum Stamina by ([0-9]+)/i,
+	},
+	{
+		id: "Kargaeda",
+		setBonusCount: 3,
+		toggle: true,
+		enabled: false,
+		buffId: "Kargaeda",
+		updateBuffValue: true,
+		factorValue: -1,
+		display: "%",
+		rawInputMatch: /(Allies within the whirlwind reduce their Magicka and Stamina costs by [0-9.]+%)/i,
+		match: /Allies within the whirlwind reduce their Magicka and Stamina costs by ([0-9.]+)%/i,
+	},
 	{
 		id: "Spaulder of Ruin",
 		setBonusCount: 1,
@@ -14754,6 +14822,11 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 					}
 				}
 			}
+		}
+		
+		if (matchData.factorOffset != null)
+		{
+			statFactor = statFactor + matchData.factorOffset;
 		}
 		
 		if (matchData.factorValue != null)
