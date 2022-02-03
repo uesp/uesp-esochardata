@@ -10,6 +10,7 @@
  * 		- Custom skill bars.
  *		- bound aegis (sorc) should enable "expert summoner" passive by default, in the game it DOES boost hp by 8% just while slotted, without activating skill (unlike bound armaments, which doesnt give u hp even if u use it until u get atleast 1 spectral dagger).
  * 		- Fix text for set tooltips to have the correct values.
+ * 		- Private builds?
  *  
  */
 
