@@ -13475,7 +13475,7 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		id: "Ancient Dragonguard (Damage)",
 		setId: "Ancient Dragonguard",
-		setBonusCount: 5,
+		setBonusCount: 4,
 		enabled: false,
 		toggle: true,
 		disableSetIds: ["Ancient Dragonguard (Resist)"],
@@ -13486,7 +13486,7 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		id: "Ancient Dragonguard (Damage)",
 		setId: "Ancient Dragonguard",
-		setBonusCount: 5,
+		setBonusCount: 4,
 		enabled: false,
 		toggle: true,
 		disableSetIds: ["Ancient Dragonguard (Resist)"],
@@ -13497,7 +13497,7 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		id: "Ancient Dragonguard (Resist)",
 		setId: "Ancient Dragonguard",
-		setBonusCount: 5,
+		setBonusCount: 4,
 		enabled: false,
 		toggle: true,
 		disableSetIds: ["Ancient Dragonguard (Damage)"],
@@ -13508,7 +13508,7 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		id: "Ancient Dragonguard (Resist)",
 		setId: "Ancient Dragonguard",
-		setBonusCount: 5,
+		setBonusCount: 4,
 		enabled: false,
 		toggle: true,
 		disableSetIds: ["Ancient Dragonguard (Damage)"],
