@@ -541,6 +541,17 @@ window.g_EsoBuildBuffData =
 			statIds : [ "CritResist" ],
 			icon : "/esoui/art/icons/ability_ava_003_b.png",
 		},
+		"Crystal Weapon" :
+		{
+			group: "Skill",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : -1000,
+			category: "Target",
+			statIds : [ "SpellResist", "PhysicalResist" ],
+			icon : "/esoui/art/icons/ability_sorcerer_crystalweapon.png",
+		},
 		"War Horn" : 
 		{
 			group: "Skill",
@@ -2216,6 +2227,54 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 	
 		
 		/* Begin Toggled Abilities */
+	{
+		id: "Crystal Weapon (Cost)",
+		matchSkillName: false,
+		baseSkillId: 47552,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		statId: "MagickaCost",
+		factorValue: -1,
+		display: "%",
+		rawInputMatch: /(After casting, your next non-Ultimate ability used within [0-9]+ seconds costs [0-9.]+% less\.)/i,
+		match: /After casting, your next non-Ultimate ability used within [0-9]+ seconds costs ([0-9.]+)% less/i,
+	},
+	{
+		id: "Crystal Weapon (Cost)",
+		matchSkillName: false,
+		baseSkillId: 47552,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		statId: "StaminaCost",
+		factorValue: -1,
+		display: "%",
+		match: /After casting, your next non-Ultimate ability used within [0-9]+ seconds costs ([0-9.]+)% less/i,
+	},
+	{
+		id: "Crystal Weapon (Cost)",
+		matchSkillName: false,
+		baseSkillId: 47552,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		statId: "HealthCost",
+		factorValue: -1,
+		display: "%",
+		match: /After casting, your next non-Ultimate ability used within [0-9]+ seconds costs ([0-9.]+)% less/i,
+	},
+	{
+		id: "Crystal Weapon (Debuff)",
+		matchSkillName: false,
+		baseSkillId: 47552,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		buffId: "Crystal Weapon",
+		rawInputMatch: /(and reducing the target's Armor by ([0-9]+) for [0-9]+ seconds\.)/i,
+		match: /and reducing the target's Armor by ([0-9]+) for/i,
+	},
 	{
 		id: "Immovable",
 		baseSkillId: 41082,
