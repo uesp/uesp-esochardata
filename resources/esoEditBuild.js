@@ -9568,6 +9568,24 @@ window.ESO_SETEFFECT_MATCHES = [
 	
 		// Optionally toggled set effects
 	{
+		id: "Hew and Sunder",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		maxTimes: 20,
+		statId: "SpellPenetration",
+		match: /When you deal damage with a Heavy Attack, gain ([0-9]+) Offensive Penetration for each enemy within /,
+	},
+	{
+		id: "Hew and Sunder",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		maxTimes: 20,
+		statId: "PhysicalPenetration",
+		match: /When you deal damage with a Heavy Attack, gain ([0-9]+) Offensive Penetration for each enemy within /,
+	},
+	{
 		id: "Rallying Cry",
 		setBonusCount: 4,
 		toggle: true,

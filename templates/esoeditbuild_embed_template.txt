@@ -5,8 +5,8 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #ffc; margin-right: 270px;'>
-<b>Warning:</b> This editor is not yet completely working for the 33 PTS update. Items, skills and CP have been updated. New/updated items/skills may not yet work correctly.
+<div style='background-color: #cfc; margin-right: 270px;'>
+<b>Warning:</b> This editor is mostly working for the 33 PTS update. Items, skills and CP have been updated. Some items/skills may not yet work correctly.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -1730,6 +1730,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>10 February 2022</b>
+			<ul>
+				<li>33pts: Added toggle for the Hew and Sunder set.</li>
+			</ul>
+			<p>
 			<b>3 February 2022</b>
 			<ul>
 				<li>Fixed set tooltips with more than 5 descriptions that were not being displayed.</li>
