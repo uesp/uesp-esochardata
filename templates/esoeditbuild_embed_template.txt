@@ -1733,6 +1733,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>10 February 2022</b>
 			<ul>
 				<li>33pts: Added toggle for the Hew and Sunder set.</li>
+				<li>33pts: Added buffs and toggle for the Crimson Oath's Rive set.</li>
 			</ul>
 			<p>
 			<b>3 February 2022</b>

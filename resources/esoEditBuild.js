@@ -312,6 +312,26 @@ window.g_EsoBuildBuffData =
 			statId : "MovementSpeed",
 			icon : "/esoui/art/icons/ability_debuff_minor_cowardice.png",
 		},
+		"Crimson Oath's Rive" : {
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : -3451,
+			category: "Set",
+			statIds : [ "SpellResist", "PhysicalResist"],
+			icon : "/esoui/art/icons/ability_debuff_minor_fracture.png",
+		},
+		"Crimson Oath's Rive (Target)" : {
+			group: "Target",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : -3451,
+			category: "Target",
+			statIds : [ "SpellResist", "PhysicalResist"],
+			icon : "/esoui/art/icons/ability_debuff_minor_fracture.png",
+		},
 		"Major Cowardice" : 
 		{
 			group: "Poison",
@@ -9567,6 +9587,16 @@ window.ESO_SETEFFECT_MATCHES = [
 	
 	
 		// Optionally toggled set effects
+	{
+		id: "Crimson Oath's Rive",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		buffId: "Crimson Oath's Rive (Target)",
+		updateBuffValue: true,
+		factorValue: -1,
+		match: /sends out a wave of energy that reduces the Armor of nearby enemies within [0-9]+ meters by ([0-9]+) for/,
+	},
 	{
 		id: "Hew and Sunder",
 		setBonusCount: 4,
