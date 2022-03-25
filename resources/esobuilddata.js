@@ -3163,12 +3163,6 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 	});
 	
 		// Thews of the Harbinger
-	//(5 items) When you block an attack, you deal damage to your attacker equal to <div style="color:#ffffff;display:inline;">7</div>% of your Max Health.<br><br>Current value: 612 Physical damage"
-	//newDesc = newDesc.replace(/(\(5 items\) When you block an attack, you deal damage to your attacker equal to (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|)% of your Max Health.*Current value: )([0-9]+)/i, function(match, prefix, percent, middle, damage) {
-			//damage = Math.floor(+g_EsoBuildLastInputValues.Health * percent / 100);
-			//itemData.rawOutput["Tooltip: Set Damage"] = "" + g_EsoBuildLastInputValues.Health + " * " + percent + "% = " + damage;
-			//return prefix + percent + middle + damage;
-	
 	newDesc = newDesc.replace(/(\(5 items\) When you block an attack, you deal )([0-9]+)( Physical Damage to the attacker. This effect scales off your Max Health.)/i, function(match, p1, damage, p2) 
 	{
 		var percent = 44.863;	// Update 31
@@ -3204,6 +3198,23 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 		}
 		
 		return p1 + weaponDamage + p2 + armor + p3;
+	});
+	
+		// Bahsei's Mania
+		// Increases your damage done to non-player enemies by up to 12% based on your missing Magicka. Current value: 0%
+	newDesc = newDesc.replace(/(Current value: (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|)%)/i, function(match, p1, value, p2)
+	{
+		var matchResult = newDesc.match(/by up to (?:\<div[^>]*\>|)([0-9%]+)(?:\<\/div\>|)(?:%|) based on your missing magicka/i);
+		if (!matchResult || !matchResult[1]) return p1 + value + p2;
+		
+		if (g_EsoBuildLastInputValues.Set.BahseiMania == null || g_EsoBuildLastInputValues.Set.BahseiMania == 0) return p1 + value + p2;
+		
+		//var maxValue = parseFloat(matchResult[1]);
+		//if (isNaN(maxValue) || maxValue == 0) return p1 + value + p2;
+		
+		var newValue = g_EsoBuildLastInputValues.Set.BahseiMania * 100;
+		
+		return p1 + newValue + p2;
 	});
 	
 	return newDesc;

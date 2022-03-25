@@ -11,6 +11,8 @@
  *		- bound aegis (sorc) should enable "expert summoner" passive by default, in the game it DOES boost hp by 8% just while slotted, without activating skill (unlike bound armaments, which doesnt give u hp even if u use it until u get atleast 1 spectral dagger).
  * 		- Fix text for set tooltips to have the correct values.
  * 		- Private builds?
+ * 		- Minor/Major Magicka
+ * 		- Potions/Poison
  *  
  */
 
@@ -787,7 +789,6 @@ window.g_EsoBuildBuffData =
 			statId : "WeaponCrit",
 			icon : "/esoui/art/icons/ability_warrior_022.png",
 		},
-
 		"Minor Savagery" : 
 		{
 			group: "Minor",
@@ -2061,6 +2062,11 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		match: /While slotted, your Max Magicka is increased by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
+		statId: "Magicka",
+		display: "%",
+		match: /and your Max Magicka is increased by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
 		statId: "Health",
 		display: "%",
 		match: /While slotted, your Max Health is increased by ([0-9]+\.?[0-9]*)%/i
@@ -2102,6 +2108,14 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 	{
 		buffId: "Major Savagery",
 		match: /While slotted you gain Major Savagery/i
+	},
+	{
+		buffId: "Major Prophecy",
+		match: /While slotted you gain Major Savagery and Prophecy/i
+	},
+	{
+		buffId: "Major Prophecy",
+		match: /While slotted you gain Major Savagery and Major Prophecy/i
 	},
 	{
 		buffId: "Major Prophecy",
@@ -2152,6 +2166,14 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 	{
 		buffId : "Major Brutality",
 		match: /While slotted you gain Major Brutality/i,
+	},
+	{
+		buffId : "Major Sorcery",
+		match: /While slotted you gain Major Brutality and Sorcery/i,
+	},
+	{
+		buffId : "Major Sorcery",
+		match: /While slotted you gain Major Brutality and Major Sorcery/i,
 	},
 	{
 		statId: "Stamina",
@@ -5168,6 +5190,17 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /Increases your Critical Damage done and your damage against blocking targets by ([0-9]+\.?[0-9]*)% while you have an Aedric Spear ability slotted/i
 	},
 	{
+		id: "Piercing Spear",
+		requireSkillLine: "AEDRIC SPEAR",
+		baseSkillId: 31698,
+		toggle: true,
+		enabled: false,
+		enableOffBar: true,
+		statId: "DamageDone",
+		display: "%",
+		match: /WITH AN AEDRIC SPEAR ABILITY SLOTTED[\s\S]*?Increases your damage done to blocking targets by ([0-9]+\.?[0-9]*)%/i
+	},
+	/*{
 		requireSkillLine: "AEDRIC SPEAR",
 		statId: "OtherEffects",
 		display: "%",
@@ -5202,7 +5235,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "OtherEffects",
 		display: "%",
 		match: /Increases your Critical Damage done and your damage against blocking targets by ([0-9]+\.?[0-9]*)% while you have an Aedric Spear ability slotted/i
-	},
+	}, */
 	{
 		factorSkillLine: "Fighters Guild",
 		statId: "WeaponDamage",
@@ -7637,8 +7670,6 @@ window.ESO_CPEFFECT_MATCHES = [
 
 window.ESO_SETEFFECT_MATCHES = [
 
-// Noble Duelist's Silks: (5 items) When you dodge an attack, your Light and
-// Heavy Attacks deal an additional 1225 damage for 8 seconds.
 // The Morag Tong: (5 items) When you deal direct damage, you cause the enemy to
 // take 10% more damage from all Poison Damage abilities for 5 seconds.
 // Alessia's Bulwark: (5 items) When you take damage from a melee attack, you
@@ -9584,9 +9615,55 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "PhysicalPenetration",
 		match: /Adds [0-9]+ Weapon and Spell Damage and ([0-9]+) Offensive Penetration/i,
 	},
+	{
+		category: "Skill2",
+		statId: "HASpellDamage",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your fully-charged Heavy Attacks/i,
+	},
+	{
+		category: "Skill2",
+		statId: "HAWeaponDamage",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your fully-charged Heavy Attacks/i,
+	},
 	
 	
 		// Optionally toggled set effects
+	{
+		id: "Gryphon's Ferocity",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		buffId: "Minor Force",
+		match: /After dealing direct damage, you gain Minor Force and Minor Expedition for/i,
+	},
+	{
+		id: "Gryphon's Ferocity",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		buffId: "Minor Expedition",
+		match: /After dealing direct damage, you gain Minor Force and Minor Expedition for/i,
+	},
+	{
+		id: "Bright-Throat's Boast",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		//statId: "SpellDamage",
+		//match: /When you deal damage to an enemy who is Off Balance, your Weapon and Spell Damage are increased by ([0-9]+) for/i,
+		statId: "Magicka",
+		match: /While you have a drink buff active, your Max Magicka is increased by ([0-9]+) and Magicka Recovery by [0-9]+/i,
+	},
+	{
+		id: "Bright-Throat's Boast",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		//statId: "WeaponDamage",
+		//match: /When you deal damage to an enemy who is Off Balance, your Weapon and Spell Damage are increased by ([0-9]+) for/i,
+		statId: "MagickaRegen",
+		match: /While you have a drink buff active, your Max Magicka is increased by [0-9]+ and Magicka Recovery by ([0-9]+)/i,
+	},
 	{
 		id: "Crimson Oath's Rive",
 		setBonusCount: 4,
@@ -9655,8 +9732,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		maxTimes: 10,
 		statId: "Stamina",
-		rawInputMatch: /(Each stack of Wild Growth increases your Maximum Stamina by [0-9]+)/i,
-		match: /Each stack of Wild Growth increases your Maximum Stamina by ([0-9]+)/i,
+		rawInputMatch: /(gain a stack of Wild Growth for [0-9]+ seconds, increasing your Max Stamina by [0-9]+)/i,
+		match: /gain a stack of Wild Growth for [0-9]+ seconds, increasing your Max Stamina by ([0-9]+)/i,
 	},
 	{
 		id: "Kargaeda",
@@ -9919,14 +9996,23 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		match: /Touching the soul increases your Critical Chance by [0-9.]+ and your Critical Damage by ([0-9.]+)% for/i,
 	},
-	
-	
 	{
 		id: "Bahsei's Mania",
 		setBonusCount: 4,
 		statId: "DamageDone",
 		display: "%",
-		maxTimes: 15,
+		maxTimes: 12,
+		toggle: true,
+		enabled: false,
+		statValue: 1,
+		match: /Increases your damage done to non-player enemies by up to [0-9.]+% based on your missing Magicka/i,
+	},
+	{
+		id: "Bahsei's Mania",
+		setBonusCount: 4,
+		statId: "BahseiMania",
+		display: "%",
+		maxTimes: 12,
 		toggle: true,
 		enabled: false,
 		statValue: 1,
@@ -9937,7 +10023,18 @@ window.ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 5,
 		statId: "DamageDone",
 		display: "%",
-		maxTimes: 15,
+		maxTimes: 12,
+		toggle: true,
+		enabled: false,
+		statValue: 1,
+		match: /Increases your damage done to non-player enemies by up to [0-9.]+% based on your missing Magicka/i,
+	},
+	{
+		id: "Perfected Bahsei's Mania",
+		setBonusCount: 5,
+		statId: "BahseiMania",
+		display: "%",
+		maxTimes: 12,
 		toggle: true,
 		enabled: false,
 		statValue: 1,
@@ -10581,9 +10678,17 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar: true,
 		enable: false,
 		toggle: true,
-		category: "Item",
 		statId: "SpellDamage",
-		match: /Activating an ability with a cast or channel time grants you ([0-9]+) Spell Damage for /i,
+		match: /Activating an ability with a cast or channel time grants you ([0-9]+) Weapon and Spell Damage for /i,
+	},
+	{
+		id: "Soulshine",
+		setBonusCount: 4,
+		enableOffBar: true,
+		enable: false,
+		toggle: true,
+		statId: "WeaponDamage",
+		match: /Activating an ability with a cast or channel time grants you ([0-9]+) Weapon and Spell Damage for /i,
 	},
 	{
 		id: "Stygian",
@@ -10820,10 +10925,10 @@ window.ESO_SETEFFECT_MATCHES = [
 		combineAs: "*%",
 		factorValue: -1,
 		display: "%",
-		match: /When you use a Light Attack you reduce the Health, Magicka, or Stamina cost of your next active ability by ([0-9]+)%/i,
+		match: /When you use a Light Attack you reduce the Health, Magicka, or Stamina cost of your next active ability cast within [0-9]+ seconds by ([0-9]+)%/i,
 	},
 	{
-		id: "Queen's Elegance)",
+		id: "Queen's Elegance",
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
@@ -10831,7 +10936,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		combineAs: "*%",
 		factorValue: -1,
 		display: "%",
-		match: /When you use a Light Attack you reduce the Health, Magicka, or Stamina cost of your next active ability by ([0-9]+)%/i,
+		match: /When you use a Light Attack you reduce the Health, Magicka, or Stamina cost of your next active ability cast within [0-9]+ seconds by ([0-9]+)%/i,
 	},
 	{
 		id: "Queen's Elegance",
@@ -10842,7 +10947,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		factorValue: -1,
 		display: "%",
 		combineAs: "*%",
-		match: /When you use a Light Attack you reduce the Health, Magicka, or Stamina cost of your next active ability by ([0-9]+)%/i,
+		match: /When you use a Light Attack you reduce the Health, Magicka, or Stamina cost of your next active ability cast within [0-9]+ seconds by ([0-9]+)%/i,
 	},
 	{
 		id: "Grace of Gloom",
@@ -11278,7 +11383,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		updateBuffValue : true,
 		enableOffBar : false,
-		match: /Summon a stone aura while blocking, hardening you and your nearby group members, increasing your Physical and Spell Resistance by ([0-9]+)\./i,
+		match: /Summon a stone aura while you are Bracing, hardening you and your nearby group members, increasing your Physical and Spell Resistance by ([0-9]+)/i,
 	},
 	{	id: "Titanborn Strength x2",
 		setId: "Titanborn Strength",
@@ -11789,7 +11894,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "WeaponDamage",
-		match: /When you deal damage to an enemy who is Off Balance, your Weapon and Spell Damage is increased by ([0-9]+) for/i,
+		match: /When you deal damage to an enemy who is Off Balance, your Weapon and Spell Damage are increased by ([0-9]+) for/i,
 	},
 	{
 		id: "Armor of Truth",
@@ -11798,7 +11903,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "SpellDamage",
-		match: /When you deal damage to an enemy who is Off Balance, your Weapon and Spell Damage is increased by ([0-9]+) for/i,
+		match: /When you deal damage to an enemy who is Off Balance, your Weapon and Spell Damage are increased by ([0-9]+) for/i,
 	},
 	{
 		id: "Balorgh",
@@ -12154,7 +12259,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "SpellResist",
-		match: /While you are blocking, your Physical and Spell Resistance are increased by ([0-9]+)/i,
+		match: /While you are Bracing, your Physical and Spell Resistance are increased by ([0-9]+)/i,
 	},
 	{
 		id: "Duneripper's Scales",
@@ -12162,7 +12267,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "PhysicalResist",
-		match: /While you are blocking, your Physical and Spell Resistance are increased by ([0-9]+)/i,
+		match: /While you are Bracing, your Physical and Spell Resistance are increased by ([0-9]+)/i,
 	},
 	{
 		id: "Elemental Succession (Flame)",
@@ -12413,7 +12518,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "SpellResist",
-		match: /your next Bash ability to deal an additional.*and increase your Physical and Spell Resistance by ([0-9]+)/i,
+		match: /When you Block, you charge your arms, increasing your Physical and Spell Resistance by ([0-9]+) for/i,
 	},
 	{
 		id: "Jolting Arms",
@@ -12422,7 +12527,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "PhysicalResist",
-		match: /your next Bash ability to deal an additional.*and increase your Physical and Spell Resistance by ([0-9]+)/i,
+		match: /When you Block, you charge your arms, increasing your Physical and Spell Resistance by ([0-9]+) for/i,
 	},
 	{
 		id: "Jolting Arms",
@@ -12432,7 +12537,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		category: "Set",
 		statId: "ExtraBashDamage",
-		match: /When you block an attack, you have a [0-9]+% chance to charge your arms, causing your next Bash ability to deal an additional ([0-9]+)/i,
+		match: /and causing your next Bash attack to deal an additional ([0-9]+) damage/i,
 	},	
 	{
 		id: "Light of Cyrodiil",
@@ -12740,8 +12845,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		category: "Skill2",
-		statId: "LADamage",
-		match: /When you deal damage with a Light or Heavy Attack in melee range, you cause your Light and Heavy Attacks to deal an additional ([0-9]+) damage/i,
+		statId: "LASpellDamage",
+		match: /When you deal damage with a Light or Heavy Attack in melee range, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
 	},
 	{
 		id: "Noble Duelist's Silks",
@@ -12750,8 +12855,28 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		category: "Skill2",
-		statId: "HADamage",
-		match: /When you deal damage with a Light or Heavy Attack in melee range, you cause your Light and Heavy Attacks to deal an additional ([0-9]+) damage/i,
+		statId: "HASpellDamage",
+		match: /When you deal damage with a Light or Heavy Attack in melee range, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
+	},
+	{
+		id: "Noble Duelist's Silks",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "LAWeaponDamage",
+		match: /When you deal damage with a Light or Heavy Attack in melee range, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
+	},
+	{
+		id: "Noble Duelist's Silks",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "HAWeaponDamage",
+		match: /When you deal damage with a Light or Heavy Attack in melee range, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
 	},
 	{
 		id: "Oblivion's Foe",
@@ -12832,17 +12957,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		buffId: "Powerful Assault",
 		updateBuffValue: true,
-		match: /When you cast an Assault ability, you and up to [0-9]+ allies within [0-9]+ meters gain ([0-9]+) Weapon and Spell Damage/i,
-	},
-	{
-		id: "Powerful Assault",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		buffId: "Powerful Assault",
-		updateBuffValue: true,
-		match: /When you cast an Assault ability, you and up to [0-9]+ group members within [0-9]+ meters gain ([0-9]+) Weapon and Spell Damage/i,
+		match: /When you cast an Assault ability while in combat, you and up to [0-9]+ group members within [0-9]+ meters gain ([0-9]+) Weapon and Spell Damage/i,
 	},
 	{
 		id: "Ravager",
@@ -13304,8 +13419,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		category: "Skill2",
-		statId: "LADamage",
-		match: /When you use an ability that costs Magicka, your Light Attacks deal an additional ([0-9]+) damage and Heavy Attacks deal an additional [0-9]+ damage/i,
+		statId: "LASpellDamage",
+		match: /When you use an ability that costs Magicka while in combat, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
 	},
 	{
 		id: "Undaunted Infiltrator",
@@ -13314,8 +13429,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		category: "Skill2",
-		statId: "HADamage",
-		match: /When you use an ability that costs Magicka, your Light Attacks deal an additional [0-9]+ damage and Heavy Attacks deal an additional ([0-9]+) damage/i,
+		statId: "HASpellDamage",
+		match: /When you use an ability that costs Magicka while in combat, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
 	},
 	{
 		id: "Undaunted Infiltrator",
@@ -13324,8 +13439,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		category: "Skill2",
-		statId: "LADamage",
-		match: /When you use an ability that costs Magicka, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for /i,
+		statId: "LAWeaponDamage",
+		match: /When you use an ability that costs Magicka while in combat, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
 	},
 	{
 		id: "Undaunted Infiltrator",
@@ -13334,48 +13449,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		category: "Skill2",
-		statId: "HADamage",
-		match: /When you use an ability that costs Magicka, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for /i,
-	},
-	{
-		id: "Undaunted Infiltrator",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		category: "Skill2",
-		statId: "OverloadDamage",
-		match: /When you use an ability that costs Magicka, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for /i,
-	},
-	{
-		id: "Undaunted Infiltrator",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		category: "Skill2",
-		statId: "LADamage",
-		match: /When you use an ability that costs Magicka while in combat, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for /i,
-	},
-	{
-		id: "Undaunted Infiltrator",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		category: "Skill2",
-		statId: "HADamage",
-		match: /When you use an ability that costs Magicka while in combat, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for /i,
-	},
-	{
-		id: "Undaunted Infiltrator",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		category: "Skill2",
-		statId: "OverloadDamage",
-		match: /When you use an ability that costs Magicka while in combat, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for /i,
+		statId: "HAWeaponDamage",
+		match: /When you use an ability that costs Magicka while in combat, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
 	},
 	{
 		id: "Undaunted Unweaver",
@@ -13384,8 +13459,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		category: "Skill2",
-		statId: "LADamage",
-		match: /When you use an ability that costs Stamina, your Light Attacks deal an additional ([0-9]+) damage and Heavy Attacks deal an additional [0-9]+ damage/i,
+		statId: "HASpellDamage",
+		match: /When you use an ability that costs Stamina while in combat, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
 	},
 	{
 		id: "Undaunted Unweaver",
@@ -13394,8 +13469,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		category: "Skill2",
-		statId: "HADamage",		
-		match: /When you use an ability that costs Stamina, your Light Attacks deal an additional [0-9]+ damage and Heavy Attacks deal an additional ([0-9]+) damage/i,
+		statId: "HAWeaponDamage",
+		match: /When you use an ability that costs Stamina while in combat, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
 	},
 	{
 		id: "Undaunted Unweaver",
@@ -13404,8 +13479,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		category: "Skill2",
-		statId: "LADamage",
-		match: /When you use an ability that costs Stamina, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for/i,
+		statId: "LASpellDamage",
+		match: /When you use an ability that costs Stamina while in combat, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
 	},
 	{
 		id: "Undaunted Unweaver",
@@ -13414,48 +13489,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		category: "Skill2",
-		statId: "HADamage",
-		match: /When you use an ability that costs Stamina, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for/i,
-	},
-	{
-		id: "Undaunted Unweaver",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		category: "Skill2",
-		statId: "OverloadDamage",
-		match: /When you use an ability that costs Stamina, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for/i,
-	},
-	{
-		id: "Undaunted Unweaver",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		category: "Skill2",
-		statId: "LADamage",
-		match: /When you use an ability that costs Stamina while in combat, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for/i,
-	},
-	{
-		id: "Undaunted Unweaver",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		category: "Skill2",
-		statId: "HADamage",
-		match: /When you use an ability that costs Stamina while in combat, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for/i,
-	},
-	{
-		id: "Undaunted Unweaver",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		category: "Skill2",
-		statId: "OverloadDamage",
-		match: /When you use an ability that costs Stamina while in combat, you increase the damage of your Light and Heavy Attacks by ([0-9]+) for/i,
+		statId: "LAWeaponDamage",
+		match: /When you use an ability that costs Stamina while in combat, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
 	},
 	{
 		id: "Vestment of Olorime",
@@ -13531,22 +13566,24 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar: true,
 		toggle: true,
-		display: "%",
-		category: "Set",
+		//category: "Skill2",
+		//statId: "HASpellDamage",
+		//match: /Adds ([0-9]+) Weapon and Spell Damage to your fully-charged Heavy Attacks/i,
 		statId: "MovementSpeed",
-		match: /When you cast a damage shield ability, increase your Movement Speed by ([0-9]+\.?[0-9]*)%/i,
+		display: "%",
+		match: /When you apply a damage shield to yourself or an ally, increase your Movement Speed by ([0-9]+)% for/i,
 	},
+	/*
 	{
 		id: "Marauder's Haste",
 		setBonusCount: 4,
 		enabled: false,
 		enableOffBar: true,
 		toggle: true,
-		display: "%",
-		category: "Set",
-		statId: "MovementSpeed",
-		match: /When you apply a damage shield to yourself or an ally, increase your Movement Speed by ([0-9]+\.?[0-9]*)%/i,
-	},
+		category: "Skill2",
+		statId: "HAWeaponDamage",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your fully-charged Heavy Attacks/i,
+	},*/
 	{
 		id: "Dragonguard Elite",
 		setBonusCount: 4,
@@ -14149,7 +14186,7 @@ window.GetEsoInputValues = function (mergeComputedStats)
 	inputValues.BaseWalkSpeed = parseFloat($("#esotbBaseWalkSpeed").val()); // 3.0m/s estimated
 	inputValues.BuildDescription = $("#esotbBuildDescription").val();
 	
-	if ($("#esotbStealth").prop("checked")) 
+	if ($("#esotbStealth").prop("checked"))
 	{
 		inputValues.Stealthed = 1;
 		AddEsoInputStatSource("Stealthed", { source: "Character State", value: inputValues.Stealthed });
@@ -14157,7 +14194,7 @@ window.GetEsoInputValues = function (mergeComputedStats)
 	
 	inputValues.Cyrodiil = 0;
 	
-	if ($("#esotbCyrodiil").prop("checked")) 
+	if ($("#esotbCyrodiil").prop("checked"))
 	{
 		inputValues.Cyrodiil = 1;
 		AddEsoInputStatSource("Cyrodiil", { source: "Character State", value: inputValues.Cyrodiil });
@@ -25679,8 +25716,11 @@ window.CheckEsoSetTestResults = function()
 	
 	EsoBuildLog("Test Results for All Sets:");
 	EsoBuildLog("Checking for set effects not parsed...");
+	
+	var keys = Object.keys(g_EsoBuildTestSets);
+	keys.sort();
  	
-	for (var setName in g_EsoBuildTestSets)
+	for (var setName in keys)
 	{
 		var testResult = g_EsoBuildTestSets[setName];
 		
@@ -25695,14 +25735,14 @@ window.CheckEsoSetTestResults = function()
 			if (!result || rawOutput.length == 0)
 			{
 				badCount++;
-				EsoBuildLog("\t" + setName + ": " + desc);				
+				EsoBuildLog("\t" + setName + ": " + desc);
 			}
 		}
 	}
 	EsoBuildLog("Found " + badCount + " skipped sets!")
 	EsoBuildLog("Checking for duplicate set effects...");
 	
-	for (var setName in g_EsoBuildTestSets)
+	for (var setName in keys)
 	{
 		var testResult = g_EsoBuildTestSets[setName];
 		

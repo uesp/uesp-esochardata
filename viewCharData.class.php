@@ -1286,7 +1286,7 @@ EOT;
 	}
 	
 	
-	public function getCharJewelryMasterWritChance($charId, $level, $motifsKnown)
+	public function getCharJewelryMasterWritChance($charId, $level, $motifsKnown = null)
 	{
 		if ($level < 5) return "";
 		

@@ -345,7 +345,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 			else
 				$result &= $this->saveCharacterStatData($newCharData, $key, $value);
 			
-			error_log("SaveCharData: $key = $result");
+			//error_log("SaveCharData: $key = $result");
 		}
 		
 		$result &= $this->saveCharacterScreenshots($newCharData, false);
@@ -390,7 +390,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		
 		if ($charData['Vampire'] == 1) $special = "Vampire";
 		if ($charData['Werewolf'] == 1) $special = "Werewolf";
-			
+		
 		if ($this->checkBuffWerewolf($charData)) $special = "Werewolf";
 		if ($this->checkBuffVampire($charData)) $special = "Vampire";
 		
@@ -517,11 +517,11 @@ class EsoCharDataParser extends EsoBuildDataParser
 			$this->characterCount += 1;
 			
 			$thisResult  = $this->saveCharData($charData, $oldCharData);
-			error_log("SaveChar1: $thisResult");
+			//error_log("SaveChar1: $thisResult");
 			$thisResult &= $this->saveCharacterCurrency();
-			error_log("SaveChar2: $thisResult");
+			//error_log("SaveChar2: $thisResult");
 			$thisResult &= $this->saveCharacterInventorySpace();
-			error_log("SaveChar3: $thisResult");
+			//error_log("SaveChar3: $thisResult");
 			
 			if ($thisResult) 
 			{

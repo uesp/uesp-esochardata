@@ -6,7 +6,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #cfc; margin-right: 270px;'>
-<b>Warning:</b> This editor is mostly working for the 33 PTS update. Items, skills and CP have been updated. Some items/skills may not yet work correctly.
+<b>Warning:</b> This editor is now working for the 33 update.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -641,7 +641,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<select id="esotbItemSetupMonsterSet" style="width: 200px;">
 						<option>Balorgh</option>
 						<option>Bloodspawn</option>
-						<option disabled hidden>Baron Thirsk</option>
+						<option>Baron Thirsk</option>
 						<option>Baron Zaudrus</option>
 						<option>Chokethorn</option>
 						<option>Domihaus</option>
@@ -655,10 +655,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Ilambris</option>
 						<option>Immolator Charr</option>
 						<option>Infernal Guardian</option>
-						<option disabled hidden>Kargaeda</option>
+						<option>Kargaeda</option>
 						<option>Kjalnar's Nightmare</option>
 						<option>Kra'gh</option>
-						<option disabled hidden>Lady Malydga</option>
+						<option>Lady Malydga</option>
 						<option>Lady Thorn</option>
 						<option>Lord Warden</option>
 						<option>Maarselok</option>
@@ -667,10 +667,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Mighty Chudan</option>
 						<option>Molag Kena</option>
 						<option>Mother Ciannait</option>
-						<option disabled hidden>Nazaray</option>
+						<option>Nazaray</option>
 						<option>Nerien'eth</option>
 						<option>Nightflame</option>
-						<option disabled hidden>Nunatak</option>
+						<option>Nunatak</option>
 						<option>Pirate Skeleton</option>
 						<option>Prior Thierric</option>
 						<option>Scourge Harvester</option>
@@ -886,7 +886,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Elf Bane</option>
 						<option>Embershield</option>
 						<option>Endurance</option>
-						<option disabled hidden>Enervating Aura</option>
+						<option>Enervating Aura</option>
 						<option>Essence Thief</option>
 						<option>Eternal Hunt</option>
 						<option>Eternal Vigor</option>
@@ -910,7 +910,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Galerion's Revenge</option>
 						<option>Gallant Charge</option>
 						<option value="Perfected Gallant Charge">Gallant Charge (Perfect)</option>
-						<option disabled hidden>Glacial Guardian</option>
+						<option>Glacial Guardian</option>
 						<option>Glorious Defender</option>
 						<option>Gossamer</option>
 						<option>Grace of Gloom</option>
@@ -920,7 +920,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Green Pact</option>
 						<option>Grisly Gourmet</option>
 						<option>Gryphon's Ferocity</option>
-						<option disabled hidden>Gryphon's Reprisal</option>
+						<option>Gryphon's Reprisal</option>
 						<option>Hagraven's Garden</option>
 						<option>Hand of Mephala</option>
 						<option>Hanu's Compassion</option>
@@ -931,7 +931,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Healing Mage</option>
 						<option>Heartland Conqueror</option>
 						<option>Heem-Jas' Retribution</option>
-						<option disabled hidden>Hew and Sunder</option>
+						<option>Hew and Sunder</option>
 						<option>Hex Siphon</option>
 						<option>Hexos' Ward</option>
 						<option>Hide of Morihaus</option>
@@ -982,7 +982,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Mad Tinkerer</option>
 						<option>Magicka Furnace</option>
 						<option>Magnus' Gift</option>
-						<option disabled hidden>Maligalig's Maelstrom</option>
+						<option>Maligalig's Maelstrom</option>
 						<option>Mantle of Siroria</option>
 						<option value="Perfected Mantle of Siroria">Mantle of Siroria (Perfect)</option>
 						<option>Mark of the Pariah</option>
@@ -1037,7 +1037,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Radial Uppercut</option>
 						<option value="Perfected Radial Uppercut">Radial Uppercut (Perfect)</option>
 						<option>Radiant Bastion</option>
-						<option disabled hidden>Rallying Cry</option>
+						<option>Rallying Cry</option>
 						<option>Ranger's Gait</option>
 						<option>Rattlecage</option>
 						<option>Ravager</option>
@@ -1098,12 +1098,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Spider Cultist Cowl</option>
 						<option>Spinner's Garments</option>
 						<option>Spriggan's Thorns</option>
-						<option disabled hidden>Spriggan's Vigor</option>
+						<option>Spriggan's Vigor</option>
 						<option>Steadfast Hero</option>
 						<option>Stendarr's Embrace</option>
 						<option>Stone-Talker's Oath</option>
 						<option value="Perfected Stone-Talker's Oath">Stone-Talker's Oath (Perfect)</option>
-						<option disabled hidden>Storm-Cursed's Revenge</option>
+						<option>Storm-Cursed's Revenge</option>
 						<option>Storm Knight's Plate</option>
 						<option>Storm Master</option>
 						<option>Strength of the Automaton</option>
@@ -1140,7 +1140,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Trial By Fire</option>
 						<option>Trinimac's Valor</option>
 						<option>True-Sworn Fury</option>
-						<option disabled hidden>Turning Tide</option>
+						<option>Turning Tide</option>
 						<option>Twice-Born Star</option>
 						<option>Twice-Fanged Serpent</option>
 						<option>Twilight Remedy</option>
@@ -1730,6 +1730,50 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>20 March 2022</b>
+			<ul>
+				<li>Fixed the flags of all skills.</li>
+			</ul>
+			<p>
+			<b>18 March 2022</b>
+			<ul>
+				<li>Fixed the Bahsei's Mania set toggle and the set tooltip now updates the damage done stat.</li>
+				<li>Added toggle for the Gryphon's Ferocity set.</li>
+				<li>Fixed the Inner Light skill.</li>
+				<li>Added toggle to the Piercing Spear passive.</li>
+				<li>Skills that add Major Savagery, Prophecy, Brutality, or Sorcery now add both Spell and Weapon buffs.</li>
+				<li>Fixed the Jolting Arms set toggle.</li>
+			</ul>
+			<p>
+			<b>17 March 2022</b>
+			<ul>
+				<li>Fixed the Powerful Assault set toggle.</li>
+				<li>Added the Bright-Throat's Boast set toggle.</li>
+				<li>Fixed the Marauder's Haste set toggle.</li>
+				<li>Fixed the Spriggan's Vigor set toggle.</li>
+				<li>Fixed the Grave Guardian set toggle.</li>
+				<li>Fixed a few items with corrupt/incorrect data.</li>
+			</ul>
+			<p>
+			<b>15 March 2022</b>
+			<ul>
+				<li>Item data updated for update 33 release.</li>
+				<li>Fixed the Queen's Elegance set.</li>
+				<li>Fixed the Armor of Truth set toggle.</li>
+				<li>Fixed the Soulshine set toggle.</li>
+				<li>Fixed the Sergeant's Mail set.</li>
+				<li>Fixed the Undaunted Unweaver set toggle.</li>
+				<li>Fixed the Noble Duelist Silks's set toggle.</li>
+				<li>Fixed the Undaunted Infiltrator set toggle.</li>
+				<li>Fixed the Duneripper's Scales set toggle.</li>
+			</ul>
+			<p>
+			<b>14 March 2022</b>
+			<ul>
+				<li>Skills and CP data updated for update 33 release.</li>
+				<li>Enabled new sets in the quick item setup.</li>
+			</ul>
+			<p>
 			<b>10 February 2022</b>
 			<ul>
 				<li>33pts: Added toggle for the Hew and Sunder set.</li>

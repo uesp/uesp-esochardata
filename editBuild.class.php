@@ -530,6 +530,7 @@ class EsoBuildDataEditor
 			"AOEDamageTaken",
 			"WayshrineCost",
 			"SingleTargetDamageDone",
+			"Set.BahseiMania",
 	);
 	
 	
@@ -642,7 +643,7 @@ class EsoBuildDataEditor
 	
 	public $INPUT_STAT_DETAILS = array(
 			"Level" => array(
-					"desc" => "1-50",	
+					"desc" => "1-50",
 			),
 			
 			"EffectiveLevel" => array(
@@ -650,7 +651,7 @@ class EsoBuildDataEditor
 			),
 			
 			"Item.Divines" => array(
-					"display" => "%",	
+					"display" => "%",
 			),
 			
 			"Item.Training" => array(
@@ -672,7 +673,7 @@ class EsoBuildDataEditor
 			"Buff.Health" => array(
 					"display" => "%",
 			),
-						
+			
 			"Skill.DestructionPenetration" => array(
 					"display" => "%",
 			),
@@ -684,7 +685,7 @@ class EsoBuildDataEditor
 			"CP.HealingReduction" => array(
 					"display" => "%",
 			),
-				
+			
 			"Buff.Magicka" => array(
 					"display" => "%",
 			),
@@ -712,7 +713,7 @@ class EsoBuildDataEditor
 			"Skill2.HealthRegen" => array(
 					"display" => "%",
 			),
-				
+			
 			"Buff.HealthRegen" => array(
 					"display" => "%",
 			),
@@ -2351,6 +2352,7 @@ class EsoBuildDataEditor
 			"CP.StatusEffectDurationTaken" => array( "display" => "%" ),
 			"CP.BreakFreeDuration" => array( "display" => "%" ),
 			"Set.WeaponTraitEffect" => array( "display" => "%" ),
+			"Set.BahseiMania" => array( "display" => "%" ),
 	);
 	
 	
