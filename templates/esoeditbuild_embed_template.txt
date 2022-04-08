@@ -6,7 +6,6 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #cfc; margin-right: 270px;'>
-<b>Warning:</b> This editor is now working for the 33 update.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -1730,6 +1729,14 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>8 April 2022</b>
+			<ul>
+				<li>The Warden's Bird of Prey skill now gives Minor Berserk while slotted.</li>
+				<li>PTS: Fixed the coefficients for the Armor of Truth set that was causing incorrect tooltip data.</li
+				<li>Made the two Maelstrom and Symphony of Blades buffs manually toggleable</li>
+				<li>Mend Wounds and Overload are now affected by the Undaunted Infiltrator/Weaver set effects (confirmed on PTS).</li>
+			</ul>
+			<p>
 			<b>20 March 2022</b>
 			<ul>
 				<li>Fixed the flags of all skills.</li>

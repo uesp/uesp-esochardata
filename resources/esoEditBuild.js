@@ -1253,8 +1253,8 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			visible : false,
-			toggleVisible : true,
+			//visible : false,
+			//toggleVisible : true,
 			value : 2003,
 			statDesc : "Increases the Spell and Weapon Damage of your next non-AoE DoT attack by ",
 			category: "Item",
@@ -1280,8 +1280,8 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			visible : false,
-			toggleVisible : true,
+			//visible : false,
+			//toggleVisible : true,
 			value : 1341,
 			statDescs : ["Increases your Light Attack damage on targets affected by your Wall of Elements by ", "Increases your Heavy Attack damage on targets affected by your Wall of Elements by "],
 			category: "Skill2",
@@ -1320,8 +1320,8 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			visible : true,
-			toggleVisible : true,
+			//visible : true,
+			//toggleVisible : true,
 			value : 508,
 			statDesc : "Restores $1 Magicka every 1 second.",
 			category: "Set",
@@ -1334,8 +1334,8 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			visible : true,
-			toggleVisible : true,
+			//visible : true,
+			//toggleVisible : true,
 			value : 508,
 			statDesc : "Restores $1 Stamina every 1 second.",
 			category: "Set",
@@ -2007,6 +2007,10 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		statId: "BlockMitigation",
 		display: "%",
 		match: /While slotted, the amount of damage you can block is increased by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		buffId: "Minor Berserk",
+		match: /While slotted gain Minor Berserk/i
 	},
 	{
 		statId: "BlockCost",		// Defensive posture
@@ -11338,11 +11342,11 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		id: "Cruel Flurry",
 		setBonusCount: 1,
+		toggle: true,
 		enabled: false,
 		buffId: "Maelstrom DW Enchantment",
 		updateBuffValue : true,
 		enableOffBar : true,
-		toggle: true,
 		match: /When you deal damage with Flurry, your single target damage over time abilities used within [0-9]+ seconds gain ([0-9]+) Spell and Weapon Damage./i,
 	},
 	{
@@ -13453,6 +13457,46 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /When you use an ability that costs Magicka while in combat, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
 	},
 	{
+		id: "Undaunted Infiltrator",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "SkillSpellDamage",
+		statId: "Mend Wounds",
+		match: /When you use an ability that costs Magicka while in combat, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
+	},
+	{
+		id: "Undaunted Infiltrator",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "SkillWeaponDamage",
+		statId: "Mend Wounds",
+		match: /When you use an ability that costs Magicka while in combat, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
+	},
+	{
+		id: "Undaunted Infiltrator",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "SkillWeaponDamage",
+		statId: "Overload",
+		match: /When you use an ability that costs Magicka while in combat, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
+	},
+	{
+		id: "Undaunted Infiltrator",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "SkillSpellDamage",
+		statId: "Overload",
+		match: /When you use an ability that costs Magicka while in combat, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
+	},
+	{
 		id: "Undaunted Unweaver",
 		setBonusCount: 4,
 		toggle: true,
@@ -13490,6 +13534,46 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		category: "Skill2",
 		statId: "LAWeaponDamage",
+		match: /When you use an ability that costs Stamina while in combat, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
+	},
+	{
+		id: "Undaunted Unweaver",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "SkillSpellDamage",
+		statId: "Mend Wounds",
+		match: /When you use an ability that costs Stamina while in combat, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
+	},
+	{
+		id: "Undaunted Unweaver",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "SkillWeaponDamage",
+		statId: "Mend Wounds",
+		match: /When you use an ability that costs Stamina while in combat, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
+	},
+	{
+		id: "Undaunted Unweaver",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "SkillWeaponDamage",
+		statId: "Overload",
+		match: /When you use an ability that costs Stamina while in combat, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
+	},
+	{
+		id: "Undaunted Unweaver",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "SkillSpellDamage",
+		statId: "Overload",
 		match: /When you use an ability that costs Stamina while in combat, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
 	},
 	{
@@ -21603,73 +21687,15 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
 	g_LastSkillInputValues.SkillSpellDamage  = EsoBuildCreateDamageData(dmgIds, spellDmgData);
 	g_LastSkillInputValues.SkillWeaponDamage = EsoBuildCreateDamageData(dmgIds, weaponDmgData);
 	
-	/*
- 	g_LastSkillInputValues.SkillSpellDamage  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
- 	
- 	g_LastSkillInputValues.SkillSpellDamage["Class"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Class"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
- 	g_LastSkillInputValues.SkillSpellDamage["Channel"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Item.ChannelSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Channel"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.ChannelWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
-	g_LastSkillInputValues.SkillSpellDamage["Maelstrom"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Item.MaelstromDamage, SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
- 	g_LastSkillInputValues.SkillSpellDamage["AOE"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.AOESpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["AOE"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.AOEWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
- 	g_LastSkillInputValues.SkillSpellDamage["Healing"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.CP.HealingSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Healing"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.CP.HealingWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
- 	
- 	g_LastSkillInputValues.SkillSpellDamage["Channel"]["Maelstrom"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.Item.MaelstromDamage,   SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Channel"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.Item.MaelstromDamage,   WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
- 	g_LastSkillInputValues.SkillSpellDamage["Channel"]["AOE"]        = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.Set.AOESpellDamage,     SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Channel"]["AOE"]       = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.Set.AOEWeaponDamage,    WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
- 	g_LastSkillInputValues.SkillSpellDamage["Channel"]["Healing"]    = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.CP.HealingSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Channel"]["Healing"]   = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.CP.HealingWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
- 	
- 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Maelstrom"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.MaelstromDamage,    SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.MaelstromDamage,    WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
- 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"]    = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.ChannelSpellDamage, SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"]   = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.ChannelSpellDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
-	g_LastSkillInputValues.SkillSpellDamage["Class"]["Healing"]    = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.CP.HealingSpellDamage,   SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Healing"]   = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.CP.HealingWeaponDamage,  WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
- 	g_LastSkillInputValues.SkillSpellDamage["Class"]["AOE"]        = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Set.AOEWeaponDamage,     SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["AOE"]       = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Set.AOEWeaponDamage,     WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
- 	
- 	g_LastSkillInputValues.SkillSpellDamage["Maelstrom"]["AOE"]      = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Item.MaelstromDamage + inputValues.Set.AOESpellDamage,     SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Maelstrom"]["AOE"]     = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.Set.AOEWeaponDamage,    WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage)
- 	g_LastSkillInputValues.SkillSpellDamage["Maelstrom"]["Healing"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Item.MaelstromDamage + inputValues.CP.HealingSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Maelstrom"]["Healing"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.CP.HealingWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage)
- 	g_LastSkillInputValues.SkillSpellDamage["Healing"]["AOE"]        = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.CP.HealingSpellDamage  + inputValues.Set.AOESpellDamage,   SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Healing"]["AOE"]       = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.CP.HealingWeaponDamage + inputValues.Set.AOEWeaponDamage,  WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage)
- 	
- 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"]["Maelstrom"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.Item.MaelstromDamage,   SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"]["Maelstrom"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.Item.MaelstromDamage,   WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
- 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"]["AOE"]        = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.Set.AOESpellDamage,     SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"]["AOE"]       = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.Set.AOEWeaponDamage,    WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
- 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"]["Healing"]    = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.CP.HealingSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"]["Healing"]   = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.CP.HealingWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
- 	
- 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Maelstrom"]["AOE"]      = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.MaelstromDamage + inputValues.Set.AOESpellDamage,     SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Maelstrom"]["AOE"]     = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.Set.AOEWeaponDamage,    WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage)
- 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Maelstrom"]["Healing"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.MaelstromDamage + inputValues.CP.HealingSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Maelstrom"]["Healing"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.CP.HealingWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage)
- 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Healing"]["AOE"]        = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.CP.HealingSpellDamage  + inputValues.Item.MaelstromDamage + inputValues.Set.AOESpellDamage,     SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Healing"]["AOE"]       = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.CP.HealingWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.Set.AOEWeaponDamage,    WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage)
- 	
- 	g_LastSkillInputValues.SkillSpellDamage["Channel"]["Maelstrom"]["AOE"]      = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.Item.MaelstromDamage + inputValues.Set.AOESpellDamage,       SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Channel"]["Maelstrom"]["AOE"]     = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.Set.AOEWeaponDamage,      WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
- 	g_LastSkillInputValues.SkillSpellDamage["Channel"]["Maelstrom"]["Healing"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.Item.MaelstromDamage + inputValues.CP.HealingSpellDamage,    SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Channel"]["Maelstrom"]["Healing"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.CP.HealingWeaponDamage,  WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
- 	
- 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"]["Maelstrom"]["AOE"]      = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.Item.MaelstromDamage + inputValues.Set.AOESpellDamage,     SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"]["Maelstrom"]["AOE"]     = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.Set.AOEWeaponDamage,    WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
- 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"]["Maelstrom"]["Healing"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.Item.MaelstromDamage + inputValues.CP.HealingSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"]["Maelstrom"]["Healing"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.CP.HealingWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
- 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"]["Healing"]["AOE"]        = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.ChannelSpellDamage + inputValues.Set.AOESpellDamage    + inputValues.CP.HealingSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"]["Healing"]["AOE"]       = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.ChannelSpellDamage + inputValues.Set.AOEWeaponDamage   + inputValues.CP.HealingWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
- 	
- 	g_LastSkillInputValues.SkillSpellDamage["Class"]["Channel"]["Maelstrom"]["Healing"]["AOE"]  = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineSpellDmg,  inputValues.SkillBonusSpellDmg,  BaseSpellDamage  + inputValues.Set.ClassSpellDamage  + inputValues.Item.ChannelSpellDamage  + inputValues.Item.MaelstromDamage + inputValues.Set.AOESpellDamage  + inputValues.CP.HealingSpellDamage,  SpellDamageFactor,  inputValues.BloodthirstySpellDamage);
- 	g_LastSkillInputValues.SkillWeaponDamage["Class"]["Channel"]["Maelstrom"]["Healing"]["AOE"] = EsoBuildCreateSkillBonusDamage(inputValues.SkillLineWeaponDmg, inputValues.SkillBonusWeaponDmg, BaseWeaponDamage + inputValues.Set.ClassWeaponDamage + inputValues.Item.ChannelWeaponDamage + inputValues.Item.MaelstromDamage + inputValues.Set.AOEWeaponDamage + inputValues.CP.HealingWeaponDamage, WeaponDamageFactor, inputValues.BloodthirstyWeaponDamage);
- 	*/
+	g_LastSkillInputValues.SkillSpellDamage.SkillSpellDamages = inputValues.SkillSpellDamage;
+	g_LastSkillInputValues.SkillSpellDamage.SkillWeaponDamages = inputValues.SkillWeaponDamage;
+	g_LastSkillInputValues.SkillWeaponDamage.SkillSpellDamages = inputValues.SkillSpellDamage;
+	g_LastSkillInputValues.SkillWeaponDamage.SkillWeaponDamages = inputValues.SkillWeaponDamage;
+	
+	g_LastSkillInputValues.SkillSpellDamage.WeaponDamageFactor = WeaponDamageFactor;
+	g_LastSkillInputValues.SkillSpellDamage.SpellDamageFactor = SpellDamageFactor;
+	g_LastSkillInputValues.SkillWeaponDamage.WeaponDamageFactor = WeaponDamageFactor;
+	g_LastSkillInputValues.SkillWeaponDamage.SpellDamageFactor = SpellDamageFactor;
  	
 	return g_LastSkillInputValues;
 }
