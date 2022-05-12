@@ -13,6 +13,7 @@
  * 		- Private builds?
  * 		- Minor/Major Magicka
  * 		- Potions/Poison
+ * 		- Make Rallying Cry a buff (needs maxTimes capability added to buffs).
  *  
  */
 
@@ -314,7 +315,7 @@ window.g_EsoBuildBuffData =
 			statId : "MovementSpeed",
 			icon : "/esoui/art/icons/ability_debuff_minor_cowardice.png",
 		},
-		"Crimson Oath's Rive" : {
+		"Crimson Oath`s Rive" : {
 			group: "Set",
 			enabled: false,
 			skillEnabled : false,
@@ -324,7 +325,7 @@ window.g_EsoBuildBuffData =
 			statIds : [ "SpellResist", "PhysicalResist"],
 			icon : "/esoui/art/icons/ability_debuff_minor_fracture.png",
 		},
-		"Crimson Oath's Rive (Target)" : {
+		"Crimson Oath`s Rive (Target)" : {
 			group: "Target",
 			enabled: false,
 			skillEnabled : false,
@@ -333,6 +334,16 @@ window.g_EsoBuildBuffData =
 			category: "Target",
 			statIds : [ "SpellResist", "PhysicalResist"],
 			icon : "/esoui/art/icons/ability_debuff_minor_fracture.png",
+		},
+		"Meritorious Service" : {
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 3540,
+			category: "Set",
+			statIds : [ "SpellResist", "PhysicalResist"],
+			icon : "/esoui/art/icons/ability_healer_005.png",
 		},
 		"Major Cowardice" : 
 		{
@@ -379,7 +390,7 @@ window.g_EsoBuildBuffData =
 			statIds : [ "SpellCrit", "WeaponCrit" ],
 			icon : "/esoui/art/icons/ability_debuff_minor_enervation.png",
 		},
-		"Scorion's Feast (Imbued Aura)" :
+		"Scorion`s Feast (Imbued Aura)" :
 		{
 			group: "Set",
 			enabled: false,
@@ -390,7 +401,7 @@ window.g_EsoBuildBuffData =
 			statIds : [ "MagickaRegen", "StaminaRegen" ],
 			icon : "/esoui/art/icons/ability_healer_010.png",
 		},
-		"Scorion's Feast (Overflow Aura)" :
+		"Scorion`s Feast (Overflow Aura)" :
 		{
 			group: "Set",
 			enabled: false,
@@ -7701,6 +7712,7 @@ window.ESO_SETEFFECT_MATCHES = [
 // 225. Dealing non-Bleed damage to Bleeding enemies generates a persistent
 // stack of Dragon's Appetite, up to once per second. After 10 stacks you
 // consume Dragon's Appetite and heal for 6415 Health.
+// Increase the duration of Status Effects you apply by 16 seconds.
 	{
 		statId: "PhysicalPenetration",
 		match: /Adds ([0-9]+) Offensive Penetration/i,
@@ -9629,9 +9641,187 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "HAWeaponDamage",
 		match: /Adds ([0-9]+) Weapon and Spell Damage to your fully-charged Heavy Attacks/i,
 	},
+	{
+		statRequireId: "FoodBuff",
+		statRequireValue: 1,
+		statId: "BlockCost",
+		factorValue: -1,
+		display: "%",
+		match: /While you have a food buff active, reduce the cost of your Core Combat abilities by ([0-9]+)%/i,
+	},
+	{
+		statRequireId: "FoodBuff",
+		statRequireValue: 1,
+		statId: "RollDodgeCost",
+		factorValue: -1,
+		display: "%",
+		match: /While you have a food buff active, reduce the cost of your Core Combat abilities by ([0-9]+)%/i,
+	},
+	{
+		statRequireId: "FoodBuff",
+		statRequireValue: 1,
+		statId: "BreakFreeCost",
+		factorValue: -1,
+		display: "%",
+		match: /While you have a food buff active, reduce the cost of your Core Combat abilities by ([0-9]+)%/i,
+	},
+	{
+		statRequireId: "FoodBuff",
+		statRequireValue: 1,
+		statId: "BashCost",
+		factorValue: -1,
+		display: "%",
+		match: /While you have a food buff active, reduce the cost of your Core Combat abilities by ([0-9]+)%/i,
+	},
+	{
+		statRequireId: "FoodBuff",
+		statRequireValue: 1,
+		statId: "SprintCost",
+		factorValue: -1,
+		display: "%",
+		match: /While you have a food buff active, reduce the cost of your Core Combat abilities by ([0-9]+)%/i,
+	},
+	{
+		statRequireId: "FoodBuff",
+		statRequireValue: 1,
+		statId: "SneakCost",
+		factorValue: -1,
+		display: "%",
+		match: /While you have a food buff active, reduce the cost of your Core Combat abilities by ([0-9]+)%/i,
+	},
+	{
+		statId: "CritDamage",
+		display: "%",
+		match: /Increases your Critical Damage and Critical Healing by ([0-9]+)%/i,
+	},
+	{
+		statId: "CritHealing",
+		display: "%",
+		match: /Increases your Critical Damage and Critical Healing by ([0-9]+)%/i,
+	},
 	
 	
 		// Optionally toggled set effects
+	{
+		id: "Sea-Serpent's Coil",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "DamageTaken",
+		factorValue: -1,
+		display: "%",
+		match: / While at full Health, you gain ([0-9]+)% damage reduction/i,
+	},
+	{
+		id: "Mora's Whispers",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "SpellCrit",
+		factorValue: 0.01,
+		round: "floor",
+		maxTimes: 100,
+		match: /Gain up to ([0-9]+) Critical Chance and/i,
+	},
+	{
+		id: "Mora's Whispers",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponCrit",
+		factorValue: 0.01,
+		round: "floor",
+		maxTimes: 100,
+		match: /Gain up to ([0-9]+) Critical Chance and/i,
+	},
+	{
+		id: "Dov-rha Sabatons",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "PhysicalResist",
+		maxTimes: 20,
+		match: /While Sprinting gain a stack of Draconic Scales every [0-9.]+ seconds, granting you ([0-9]+) Armor,/i,
+	},
+	{
+		id: "Dov-rha Sabatons",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "SpellResist",
+		maxTimes: 20,
+		match: /While Sprinting gain a stack of Draconic Scales every [0-9.]+ seconds, granting you ([0-9]+) Armor,/i,
+	},
+	{
+		id: "Coral Riptide",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		factorValue: 0.01,
+		maxTimes: 100,
+		round: "floor",
+		match: /Increase your Weapon and Spell Damage by up to ([0-9]+) based on your missing Stamina/i,
+	},
+	{
+		id: "Coral Riptide",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "SpellDamage",
+		factorValue: 0.01,
+		maxTimes: 100,
+		round: "floor",
+		match: /Increase your Weapon and Spell Damage by up to ([0-9]+) based on your missing Stamina/i,
+	},
+	{
+		id: "Pearlescent Ward",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statValue: 15,
+		maxTimes: 12, 
+		statId: "WeaponDamage",
+		match: /Pearlescent Ward increases Weapon and Spell Damage by up to [0-9]+ based on the number of group members that are alive/i,
+	},
+	{
+		id: "Pearlescent Ward",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statValue: 15,
+		maxTimes: 12, 
+		statId: "SpellDamage",
+		match: /Pearlescent Ward increases Weapon and Spell Damage by up to [0-9]+ based on the number of group members that are alive/i,
+	},
+	{
+		id: "Pearlescent Ward",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statValue: -5.5,
+		maxTimes: 12,
+		display: "%",
+		round: "floor",
+		statId: "DamageTaken",
+		match: /Pearlescent Ward increases damage reduction from non-player enemies out of [0-9]+% based on the number of group members that are dead/i,
+	},
+	{
+		id: "Blessing of High Isle",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "WeaponDamage",
+		match: /When you are healed while in combat, increase your Weapon and Spell Damage by ([0-9]+) for/i,
+	},
+	{
+		id: "Blessing of High Isle",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "SpellDamage",
+		match: /When you are healed while in combat, increase your Weapon and Spell Damage by ([0-9]+) for/i,
+	},
 	{
 		id: "Gryphon's Ferocity",
 		setBonusCount: 4,
@@ -9831,7 +10021,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		id: "Scorion's Feast (Imbued Aura)",
 		setId: "Scorion's Feast",
 		setBonusCount: 4,
-		buffId: "Scorion's Feast (Imbued Aura)",
+		buffId: "Scorion`s Feast (Imbued Aura)",
 		updateBuffValue: true,
 		toggle: true,
 		enabled: false,
@@ -9842,7 +10032,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		id: "Scorion's Feast (Overflow Aura)",
 		setId: "Scorion's Feast",
 		setBonusCount: 4,
-		buffId: "Scorion's Feast (Overflow Aura)",
+		buffId: "Scorion`s Feast (Overflow Aura)",
 		updateBuffValue: true,
 		toggle: true,
 		enabled: false,
@@ -12068,7 +12258,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /When you deal damage with a Flame Damage ability, you apply the Burning status effect to the enemy and increase your Weapon and Spell Damage by ([0-9]+) for/i,
 	},
 	{
-		id: "Chaotic Whirlwind",
+		id: "Chaotic Whirlwind (Movement Speed)",
+		setId: "Chaotic Whirlwind",
 		setBonusCount: 1,
 		toggle: true,
 		enabled: false,
@@ -12076,10 +12267,11 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "MovementSpeed",
 		display: "%",
 		maxTimes: 5,
-		match: /When you cast Whirlwind, you gain a stack of Chaotic Whirlwind for [0-9]+ seconds, granting you ([0-9]+)% Movement Speed per stack, up to a maximum of [0-9]+ times/i,
+		match: /When you cast Whirlwind while in combat, you gain a stack of Chaotic Whirlwind for [0-9]+ seconds, granting you ([0-9]+)% Movement Speed per stack, up to a maximum of [0-9]+ times/i,
 	},
 	{
-		id: "Chaotic Whirlwind",
+		id: "Chaotic Whirlwind (Damage)",
+		setId: "Chaotic Whirlwind",
 		setBonusCount: 1,
 		toggle: true,
 		enabled: false,
@@ -12089,7 +12281,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /While Chaotic Whirlwind is active, you gain ([0-9]+) Weapon and Spell Damage for every [0-9]+% bonus Movement Speed you have, up to a maximum of [0-9]+/i,
 	},
 	{
-		id: "Chaotic Whirlwind",
+		id: "Chaotic Whirlwind (Damage)",
+		setId: "Chaotic Whirlwind",
 		setBonusCount: 1,
 		toggle: true,
 		enabled: false,
@@ -12691,7 +12884,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "PhysicalResist",
+		//statId: "PhysicalResist",
+		buffId: "Meritorious Service",
 		match: /When you cast a Support ability, you increase the Physical and Spell Resistance of yourself and up to [0-9]+ allies within [0-9]+ meters by ([0-9]+) for/i,
 	},
 	{
@@ -12700,16 +12894,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "SpellResist",
-		match: /When you cast a Support ability, you increase the Physical and Spell Resistance of yourself and up to [0-9]+ allies within [0-9]+ meters by ([0-9]+) for/i,
-	},
-	{
-		id: "Meritorious Service",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "SpellResist",
+		//statId: "PhysicalResist",
+		buffId: "Meritorious Service",
 		match: /When you cast a Support ability, you increase the Physical and Spell Resistance of yourself and up to [0-9]+ group members within [0-9]+ meters by ([0-9]+) for/i,
 	},
 	{
@@ -12718,25 +12904,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "PhysicalResist",
-		match: /When you cast a Support ability, you increase the Physical and Spell Resistance of yourself and up to [0-9]+ group members within [0-9]+ meters by ([0-9]+) for/i,
-	},
-	{
-		id: "Meritorious Service",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "SpellResist",
-		match: /When you cast a Support ability while in combat, you increase the Physical and Spell Resistance of yourself and up to [0-9]+ group members within [0-9]+ meters by ([0-9]+) for/i,
-	},
-	{
-		id: "Meritorious Service",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "PhysicalResist",
+		buffId: "Meritorious Service",
+		//statId: "PhysicalResist",
 		match: /When you cast a Support ability while in combat, you increase the Physical and Spell Resistance of yourself and up to [0-9]+ group members within [0-9]+ meters by ([0-9]+) for/i,
 	},
 	{
@@ -14851,9 +15020,9 @@ window.GetEsoInputSetDataValues = function (inputValues, setData)
 	setData.isDescValid = [ false, false, false, false, false ];
 	setData.isOffhandDescValid = [ false, false, false, false, false ];
 	
-	for (var i = 0; i < 5; ++i)
+	for (var i = 0; i < 12; ++i)
 	{
-		var setBonusCount = 10;
+		var setBonusCount = 15;
 		
 		if (setData.items[0] != null)
 			setBonusCount = parseInt(setData.items[0]['setBonusCount' + (i+1)]);
@@ -15036,7 +15205,10 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 			
 			if (toggleData != null && toggleData.count != null)
 			{
-				statFactor = toggleData.count;
+				if (statFactor == 0)
+					statFactor = toggleData.count;
+				else
+					statFactor *= toggleData.count;
 				
 				if (matchData.enableBuffAtMax && toggleData.count >= matchData.maxTimes)
 				{
@@ -19838,7 +20010,7 @@ window.ShowEsoItemDetailsPopup = function (slotId)
 		
 		var setDesc = "PART OF THE " + itemData.setName.toUpperCase() + " SET<br />";
 		
-		for (i = 1; i <= 7; ++i)
+		for (i = 1; i <= 12; ++i)
 		{
 			var setBonusDesc = itemData['setBonusDesc' + i];
 			
@@ -20349,7 +20521,7 @@ window.ComputeEsoBuildSetDataAverages = function (setData)
 			else if (setData.parsedNumbers[i] != null && setData.parsedNumbers[i][0] != null && setData.parsedNumbers[i][0][j] != null)
 			{
 				setData.averageNumbers[i][j] = setData.parsedNumbers[i][0][j];
-			}			
+			}
 			
 		}
 	}
@@ -20364,6 +20536,13 @@ window.ComputeEsoBuildSetDataItem = function (setData, item)
 	ParseEsoBuildSetDesc(setData, 2, item.setBonusDesc3);
 	ParseEsoBuildSetDesc(setData, 3, item.setBonusDesc4);
 	ParseEsoBuildSetDesc(setData, 4, item.setBonusDesc5);
+	ParseEsoBuildSetDesc(setData, 5, item.setBonusDesc6);
+	ParseEsoBuildSetDesc(setData, 6, item.setBonusDesc7);
+	ParseEsoBuildSetDesc(setData, 7, item.setBonusDesc8);
+	ParseEsoBuildSetDesc(setData, 8, item.setBonusDesc9);
+	ParseEsoBuildSetDesc(setData, 9, item.setBonusDesc10);
+	ParseEsoBuildSetDesc(setData, 10, item.setBonusDesc11);
+	ParseEsoBuildSetDesc(setData, 11, item.setBonusDesc12);
 }
 
 
@@ -20538,7 +20717,7 @@ window.CreateEsoBuildToggledSetData = function ()
 		g_EsoBuildToggledSetData[id].otherCount = 0;
 		
 		if (setEffectData.setId != null) g_EsoBuildToggledSetData[id].setId = setEffectData.setId;
-				
+		
 		if (g_EsoBuildSetData[id] != null && g_EsoBuildSetData[id].averageDesc != null &&
 				g_EsoBuildSetData[id].averageDesc[setEffectData.setBonusCount] != null)
 		{
