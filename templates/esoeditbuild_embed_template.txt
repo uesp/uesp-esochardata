@@ -5,8 +5,10 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #ffc; margin-right: 270px;'>
-Note: The build editor is *somewhat* working for the 34 PTS update. Skills, CP and item data have been updated but some skills/cps/items may not be working correctly yet.
+<div style='background-color: #cfc; margin-right: 270px;'>
+Note: The build editor should be mostly working for the 34 PTS update. Skills, CP and item data have been updated but some skills/cps/items may not be working correctly yet.
+<br/>Quickly access the build editor with the short URL <b><a href="https://esobuildeditor.uesp.net">https://esobuildeditor.uesp.net</a></b>!
+
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -1701,6 +1703,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</div>
 		</div>
 		<div id="esotbStatBlockHelp" class="esotbStatBlock" style="display: none;">
+			Access the build editor quickly from <b><a href="https://esobuildeditor.uesp.net">https://esobuildeditor.uesp.net</a></b>!
+			<p>
 			This is a yet another character builder/planner for Elder Scrolls Online. The design goal behind the builder is to be able to see 
 			all the various calculations and stat sources to be able to better understand how one thing or another affects your character's
 			final stats. More help on this editor can be found on its <b><a href="//en.uesp.net/wiki/UESPWiki:EsoBuildEditor">wiki page</a></b>

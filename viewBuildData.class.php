@@ -1648,7 +1648,8 @@ class EsoBuildDataViewer
 		$charLink = $this->getCharacterLink($this->characterId);
 		$canViewMyBuilds = $this->wikiContext != null;
 		$searchText = $this->escape($this->inputSearch);
-		$searchWikiUser = $this->escape($this->inputSearchWikiUser); 
+		$searchWikiUser = $this->escape($this->inputSearchWikiUser);
+		$createLink = "https://en.uesp.net/wiki/Special:EsoBuildEditor";
 		
 		$search  = "<br/><form method='GET' action='' id='ecdSearchForm'>";
 		
@@ -1721,17 +1722,20 @@ class EsoBuildDataViewer
 				$output .= "<a href='$baseLink'>&laquo; View All Builds</a>";
 				if ($canViewMyBuilds) $output .= " : <a href='$myLink'>View My Builds</a>";
 				$output .= " : <a href='$charLink'>View Normal Build</a>";
+				$output .= " : <a href='$createLink'>Create New Build</a>";
 			}
 			else
 			{
 				$output .= "<a href='$baseLink'>&laquo; View All Builds</a>";
 				if ($canViewMyBuilds) $output .= " : <a href='$myLink'>View My Builds</a>";
+				$output .= " : <a href='$createLink'>Create New Build</a>";
 			}
 		}
 		else if (!$this->isViewingAllBuilds())
 		{
 			$output .= "<a href='$baseLink'>&laquo; View All Builds</a>";
 			if ($canViewMyBuilds) $output .= " : <a href='$myLink'>View My Builds</a>";
+			$output .= " : <a href='$createLink'>Create New Build</a>";
 			$output .= " : $search";
 			$output .= "<a href='//en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
 			$output .= "<a href='//esobuilds.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
@@ -1740,6 +1744,7 @@ class EsoBuildDataViewer
 		{
 			$output .= "<a href='$baseLink'>&laquo; View All Builds</a>";
 			$output .= " : <b>Viewing My Builds</b>";
+			$output .= " : <a href='$createLink'>Create New Build</a>";
 			$output .= " : $search";
 			$output .= "<a href='//en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
 			$output .= "<a href='//esobuilds.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
@@ -1748,6 +1753,7 @@ class EsoBuildDataViewer
 		{
 			$output .= "<b>Viewing All Builds</b>";
 			if ($canViewMyBuilds) $output .= " : <a href='$myLink'>View My Builds</a>";
+			$output .= " : <a href='$createLink'>Create New Build</a>";
 			$output .= " : $search";
 			$output .= "<a href='//en.uesp.net/wiki/UESPWiki:EsoCharData' class='ecdShortCharLink'>Help</a>";
 			$output .= "<a href='//esobuilds.uesp.net/submit.php' class='ecdShortCharLink'>Submit Log</a>";
