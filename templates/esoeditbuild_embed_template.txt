@@ -5,11 +5,10 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #cfc; margin-right: 270px;'>
-Note: The build editor should be mostly working for the 34 PTS update. Skills, CP and item data have been updated but some skills/cps/items may not be working correctly yet.
-<br/>Quickly access the build editor with the short URL <b><a href="https://esobuildeditor.uesp.net">https://esobuildeditor.uesp.net</a></b>!
+<div style='background-color: #ffc; margin-right: 270px;'>
+Note: The editor is mostly working for update 34! Items, Skills and CPs have been updated. New or updated items/skills may not yet work correctly.</div>
+Quickly access the build editor with the short URL <b><a href="https://esobuildeditor.uesp.net">https://esobuildeditor.uesp.net</a></b>!</br>
 
-</div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
 inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor"><b>let us know</b></a>.
@@ -760,18 +759,18 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option slotid="Ring2">Belharza's Band</option>
 						<option slotid="Chest">Bloodlord's Embrace</option>
 						<option slotid="Ring1">Death Dealer's Fete</option>
-						<option slotid="Legs" hidden disabled>Dov-rha Sabatons</option>
+						<option slotid="Legs">Dov-rha Sabatons</option>
 						<option slotid="Head">Gaze of Sithis</option>
 						<option slotid="Legs">Harpooner's Wading Kilt</option>
-						<option slotid="Waist" hidden disabled>Lefthander's War Girdle</option>
+						<option slotid="Waist">Lefthander's War Girdle</option>
 						<option slotid="Ring2">Malacath's Band of Brutality</option>
 						<option slotid="Ring1">Markyn Ring of Majesty</option>
-						<option slotid="Shoulders" hidden disabled>Mora's Whispers</option>
-						<option slotid="Ring2" hidden disabled>Oakensoul Ring</option>
+						<option slotid="Shoulders">Mora's Whispers</option>
+						<option slotid="Ring2">Oakensoul Ring</option>
 						<option slotid="Neck">Pearls of Ehlnofey</option>
 						<option slotid="Ring1">Ring of the Pale Order</option>
 						<option slotid="Ring1">Ring of the Wild Hunt</option>
-						<option slotid="Neck" hidden disabled>Sea-Serpent's Coil</option>
+						<option slotid="Neck">Sea-Serpent's Coil</option>
 						<option slotid="Neck">Shapeshifter's Chain</option>
 						<option slotid="Feet">Snow Treaders</option>
 						<option slotid="Shoulders">Spaulder of Ruin</option>
@@ -829,7 +828,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Beekeeper's Gear</option>
 						<option>Berserking Warrior</option>
 						<option>Black Rose</option>
-						<option hidden disabled>Blessing of High Isle</option>
+						<option>Blessing of High Isle</option>
 						<option>Blessing of the Potentates</option>
 						<option>Blood Moon</option>
 						<option>Blooddrinker</option>
@@ -849,7 +848,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Clever Alchemist</option>
 						<option>Coldharbour's Favorite</option>
 						<option>Combat Physician</option>
-						<option hidden disabled>Coral Riptide</option>
+						<option>Coral Riptide</option>
 						<option>Coward's Gear</option>
 						<option>Crafty Alfiq</option>
 						<option>Crest of Cyrodiil</option>
@@ -886,7 +885,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Dreamer's Mantle</option>
 						<option>Dreugh King Slayer</option>
 						<option>Dro'Zakar's Claws</option>
-						<option hidden disabled>Druid's Braid</option>
+						<option>Druid's Braid</option>
 						<option>Duneripper's Scales</option>
 						<option>Durok's Bane</option>
 						<option>Eagle Eye</option>
@@ -1026,17 +1025,17 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Oblivion's Edge</option>
 						<option>Oblivion's Foe</option>
 						<option>Order of Diagna</option>
-						<option hidden disabled>Order's Wrath</option>
+						<option>Order's Wrath</option>
 						<option>Orgnum's Scales</option>
 						<option>Overland</option>
 						<option>Overwhelming Surge</option>
 						<option>Para Bellum</option>
-						<option hidden disabled>Pearlescent Ward</option>
+						<option>Pearlescent Ward</option>
 						<option>Pelinal's Wrath</option>
 						<option>Permafrost</option>
 						<option>Pestilent Host</option>
 						<option>Phoenix</option>
-						<option hidden disabled>Pillager's Profit</option>
+						<option>Pillager's Profit</option>
 						<option>Pillar of Nirn</option>
 						<option>Plague Doctor</option>
 						<option>Plague Slinger</option>
@@ -1082,7 +1081,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Senche-Raht's Grit</option>
 						<option>Sentry</option>
 						<option>Sergeant's Mail</option>
-						<option hidden disabled>Serpent's Disdain</option>
+						<option>Serpent's Disdain</option>
 						<option>Seventh Legion Brute</option>
 						<option>Shacklebreaker</option>
 						<option>Shadow Dancer's Raiment</option>
@@ -1114,7 +1113,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Spriggan's Thorns</option>
 						<option>Spriggan's Vigor</option>
 						<option>Steadfast Hero</option>
-						<option hidden disabled>Steadfast's Mettle</option>
+						<option>Steadfast's Mettle</option>
 						<option>Stendarr's Embrace</option>
 						<option>Stone-Talker's Oath</option>
 						<option value="Perfected Stone-Talker's Oath">Stone-Talker's Oath (Perfect)</option>
@@ -1131,7 +1130,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Sword Dancer</option>
 						<option>Sword-Singer</option>
 						<option>Syrabane's Grip</option>
-						<option hidden disabled>Systres' Scowl</option>
+						<option>Systres' Scowl</option>
 						<option>Syvarra's Scales</option>
 						<option>Talfyg's Treachery</option>
 						<option>Tava's Favor</option>
@@ -1202,7 +1201,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Way of Martial Knowledge</option>
 						<option>Way of the Arena</option>
 						<option>Whitestrake's Retribution</option>
-						<option hidden disabled>Whorl of the Depths</option>
+						<option>Whorl of the Depths</option>
 						<option>Widowmaker</option>
 						<option>Wild Impulse</option>
 						<option value="Perfected Wild Impulse">Wild Impulse (Perfect)</option>
@@ -1749,6 +1748,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>7 June 2022</b>
+			<ul>
+				<li>Updated skills, items, and CP data from Live update 34 (High Isle).</li>
+			</ul>
+			<p>
 			<b>25 April 2022</b>
 			<ul>
 				<li>Fixed parsing of sets with more than 5 descriptions.</li>
@@ -3309,7 +3313,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Fixed enchantment and set effect tooltips to use additive stacking.</li>
 				<li>Added a toggle for the Thrive in Chaos damage done effect.</li>
 				<li>Fixed a few dozen skills to have the correct Single Target/AOE/DOT damage done modifiers apply to the tooltips.</li>
-			</ul>			
+			</ul>
 			<p>
 			<b>5 March 2019</b>
 			<ul>
@@ -3322,7 +3326,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Fixed the tooltip and parsing of the 5 piece bonus from the Alessian Order set.</li>
 				<li>Fixed the Flanking Strategist set toggle.</li>
 				<li>Added toggle for the Ilambris and Caluurion's Legacy sets that lets you choose the damage type that is applied to the tooltip.</li>
-			</ul>			
+			</ul>
 			<p>
 			<b>27 February 2019</b>
 			<ul>
@@ -3339,28 +3343,28 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>26 February 2019</b>
 			<ul>
 				<li>Skill and CP data updated for Wrathstone (update 21).</li>
-			</ul>			
+			</ul>
 			<p>
 			<b>22 February 2019</b>
 			<ul>
 				<li>Added some poison buffs/debuffs.</li>
 				<li>Rearranged buffs by general category.</li>
 				<li>Hidden buffs will now be displayed but disabled until the appropriate requirements are met.</li>
-			</ul>			
+			</ul>
 			<p>
 			<b>21 February 2019</b>
 			<ul>
 				<li>The tooltips for the 5 piece bonus of the Thews of Harbringer and Alessian Order sets are now updated based on the current stats.</li>
 				<li>Fixed transmuting Nirnhoned weapons which would result in the incorrect damage being calculated.</li>
 				<li>Master Destruction staffs now modify the Destructive Touch damage tooltip.</li>
-			</ul>			
+			</ul>
 			<p>
 			<b>20 February 2019</b>
 			<ul>
 				<li>Fixed many set "proc" tooltips to be modified by the correct modifiers.</li>
 				<li>Turned the 5 piece bonus from the Beckoning Steel set into a buff.</li>
 				<li>Fixed the mispelling of "Hagraven's Garden" set in the quick equip setup. Added toggle for the 5 piece bonus of this set.</li>
-			</ul>			
+			</ul>
 			<p>
 			<b>19 February 2019</b>
 			<ul>
@@ -4004,12 +4008,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>The Maelstrom DW enchantment now affects Drain Essence and its morphs.</li>
 				<li>Equilibrium and its morphs now have their health cost adjusted by the Mage Adept passive.</li>
 				<li>Infused weapons with default enchantments now only have their enchantment effect increased once.</li>
-			</ul>			
+			</ul>
 			<p>
 			<b>4 April 2017</b>
 			<ul>
 				<li>Fixed the Vampire's Unnatural Resistance and a few other skills from having the incorrect skill value of 1%.</li>
-			</ul>			
+			</ul>
 			<p>
 			<b>4 April 2017</b>
 			<ul>
