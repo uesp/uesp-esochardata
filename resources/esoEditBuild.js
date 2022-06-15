@@ -2512,8 +2512,8 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		category: "Skill2",
 		statId: "WeaponDamage",
 		maxTimes: 6,
-		rawInputMatch: /(Increases your Weapon Damage by [0-9]+ for each enemy hit, up to a maximum of [0-9]+ times\.)/,
-		match: /Increases your Weapon Damage by ([0-9]+) for each enemy hit, up to a maximum of [0-9]+ times/i
+		rawInputMatch: /(Increases your Weapon and Spell Damage by [0-9]+ for each enemy hit, up to a maximum of [0-9]+ times\.)/,
+		match: /Increases your Weapon and Spell Damage by ([0-9]+) for each enemy hit, up to a maximum of [0-9]+ times/i
 	},
 	{
 		id: "Standard of Might",
@@ -9698,6 +9698,58 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "CritHealing",
 		display: "%",
 		match: /Increases your Critical Damage and Critical Healing by ([0-9]+)%/i,
+	},
+	{
+		buffId: "Major Berserk",
+		match: /and gain Major Berserk, Major Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Major Force, Major Protection, Major Resolve, Minor Fortitude, Minor Intellect, Minor Endurance, and Major Heroism/i,
+	},
+	{
+		buffId: "Major Courage",
+		match: /and gain Major Berserk, Major Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Major Force, Major Protection, Major Resolve, Minor Fortitude, Minor Intellect, Minor Endurance, and Major Heroism/i,
+	},
+	{
+		buffId: "Major Brutality",
+		match: /and gain Major Berserk, Major Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Major Force, Major Protection, Major Resolve, Minor Fortitude, Minor Intellect, Minor Endurance, and Major Heroism/i,
+	},
+	{
+		buffId: "Major Sorcery",
+		match: /and gain Major Berserk, Major Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Major Force, Major Protection, Major Resolve, Minor Fortitude, Minor Intellect, Minor Endurance, and Major Heroism/i,
+	},
+	{
+		buffId: "Major Prophecy",
+		match: /and gain Major Berserk, Major Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Major Force, Major Protection, Major Resolve, Minor Fortitude, Minor Intellect, Minor Endurance, and Major Heroism/i,
+	},
+	{
+		buffId: "Major Savagery",
+		match: /and gain Major Berserk, Major Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Major Force, Major Protection, Major Resolve, Minor Fortitude, Minor Intellect, Minor Endurance, and Major Heroism/i,
+	},
+	{
+		buffId: "Major Force",
+		match: /and gain Major Berserk, Major Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Major Force, Major Protection, Major Resolve, Minor Fortitude, Minor Intellect, Minor Endurance, and Major Heroism/i,
+	},
+	{
+		buffId: "Major Protection",
+		match: /and gain Major Berserk, Major Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Major Force, Major Protection, Major Resolve, Minor Fortitude, Minor Intellect, Minor Endurance, and Major Heroism/i,
+	},
+	{
+		buffId: "Major Resolve",
+		match: /and gain Major Berserk, Major Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Major Force, Major Protection, Major Resolve, Minor Fortitude, Minor Intellect, Minor Endurance, and Major Heroism/i,
+	},
+	{
+		buffId: "Minor Fortitude",
+		match: /and gain Major Berserk, Major Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Major Force, Major Protection, Major Resolve, Minor Fortitude, Minor Intellect, Minor Endurance, and Major Heroism/i,
+	},
+	{
+		buffId: "Minor Intellect",
+		match: /and gain Major Berserk, Major Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Major Force, Major Protection, Major Resolve, Minor Fortitude, Minor Intellect, Minor Endurance, and Major Heroism/i,
+	},
+	{
+		buffId: "Minor Endurance",
+		match: /and gain Major Berserk, Major Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Major Force, Major Protection, Major Resolve, Minor Fortitude, Minor Intellect, Minor Endurance, and Major Heroism/i,
+	},
+	{
+		buffId: "Minor Heroism",
+		match: /and gain Major Berserk, Major Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Major Force, Major Protection, Major Resolve, Minor Fortitude, Minor Intellect, Minor Endurance, and Major Heroism/i,
 	},
 	
 	
@@ -21739,7 +21791,7 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
 		SingleTarget	: inputValues.SingleTargetDamageDone,
 		Overload		: inputValues.OverloadDamage,
 		Pet				: inputValues.PetDamageDone,
-		ExtraBashDamage : inputValues.Skill.ExtraBashDamage,
+		ExtraBashDamage : inputValues.Skill.ExtraBashDamage + inputValues.Set.ExtraBashDamage + inputValues.Item.ExtraBashDamage,
 		LADamage		: inputValues.CP.LADamage + inputValues.Set.LADamage + inputValues.Skill.LADamage,
 		HADamage		: inputValues.CP.HADamage + inputValues.Set.HADamage + inputValues.Skill.HADamage,
 	};
