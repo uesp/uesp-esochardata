@@ -1031,6 +1031,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Overwhelming Surge</option>
 						<option>Para Bellum</option>
 						<option>Pearlescent Ward</option>
+						<option value='Perfected Pearlescent Ward'>Pearlescent Ward (Perfect)</option>
 						<option>Pelinal's Wrath</option>
 						<option>Permafrost</option>
 						<option>Pestilent Host</option>
@@ -1748,6 +1749,18 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>15 June 2022</b>
+			<ul>
+				<li>Removed 250 old/unused set parsing lines.</li>
+				<li>Fixed toggle for the Aegis of Galenwe set.</li>
+				<li>Fixed toggle for the Alessia's Bulwark set.</li>
+				<li>Fixed the tooltip display for the Bahsei's Mania and Coral Riptide sets.</li>
+				<li>Fixed the Might of the Lost Legion set toggle.</li>
+				<li>Fixed the tooltip display for the Mora's Whispers set.</li>
+				<li>Fixed the tooltip display for the Pearlescent Ward set.</li>
+				<li>Added the Perfected Pearlescent Ward to the quick item setup.</li>
+			</ul>
+			<p>
 			<b>14 June 2022</b>
 			<ul>
 				<li>Fixed the Oakensoul Mythic set effects.</li>

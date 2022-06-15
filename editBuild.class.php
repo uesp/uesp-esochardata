@@ -358,6 +358,9 @@ class EsoBuildDataEditor
 			"ThreeSetCount",
 			"Set.EnemyTargetSpellDamage",
 			"Set.EnemyTargetWeaponDamage",
+			"Set.CorelRiptide",
+			"Set.MorasWhispers",
+			"Set.PearlescentWard",
 	);
 	
 	

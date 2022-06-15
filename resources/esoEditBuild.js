@@ -182,7 +182,7 @@ window.ESO_MUNDUS_BUFF_DATA =
 		abilityId: 13984,
 		icon : "/esoui/art/icons/ability_mundusstones_012.png",
 		description: "Increases your Critical Damage and Healing by 11%.",
-	},	
+	},
 	"The Steed" : {
 		abilityId: 13977,
 		icon : "/esoui/art/icons/ability_mundusstones_006.png",
@@ -276,7 +276,7 @@ window.g_EsoBuildBuffData =
 			          	"Major Vulnerability (Target)", "Minor Brittle (Target)", "Old Crusher Enchantment Infused + Torug (Target)"
 			          	],
 			icon : "/esoui/art/icons/crafting_poison_001_blue_005.png",
-		},		
+		},
 		"Ravage Magicka" : 
 		{
 			group: "Poison",
@@ -2741,7 +2741,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		match: /Flex your scales, reducing your damage taken from projectiles by ([0-9]+)%/i
-	},	
+	},
 	{
 		id: "Protective Scale",
 		baseSkillId: 33743,
@@ -2951,7 +2951,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		enableOffBar: true,
 		factorValue: -1,
 		match: /While active, reduce the cost of Blastbones, Skeletal Mage, and Spirit Mender by ([0-9]+)%/i
-	},	
+	},
 	{
 		id: "Thrive in Chaos",
 		baseSkillId: 86370,
@@ -3384,44 +3384,7 @@ window.ESO_ACTIVEEFFECT_MATCHES = [
 		enableOffBar: true,
 		buffId : "Minor Protection",
 		match: /You also gain Minor Vitality and Minor Protection/i
-	},	
-	/*
-	{
-		id: "Rune Focus Standing",
-		displayName: "Rune Focus (Standing)",
-		matchSkillName: false,
-		baseSkillId: 23970,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId : "Major Resolve (Bonus)",
-		match: /the rune grants you Major Resolve and Major Ward/i,
-		rawInputMatch: /(Standing within the rune increases Physical Resistance and Spell Resistance granted by [0-9]+\.?[0-9]*%\.)/i,
 	},
-	{
-		id: "Rune Focus Standing",
-		displayName: "Rune Focus (Standing)",
-		matchSkillName: false,
-		baseSkillId: 23970,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId : "Major Resolve (Bonus)",
-		match: /the rune grants you Major Resolve,/i,
-		rawInputMatch: /(Standing within the rune increases Physical Resistance and Spell Resistance granted by [0-9]+\.?[0-9]*%\.)/i,
-	},
-	{
-		id: "Rune Focus Standing",
-		displayName: "Rune Focus (Standing)",
-		matchSkillName: false,
-		baseSkillId: 23970,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId : "Major Ward (Bonus)",
-		match: /the rune grants you Major Resolve and Major Ward/i,
-		rawInputMatch: /(Standing within the rune increases Physical Resistance and Spell Resistance granted by [0-9]+\.?[0-9]*%\.)/i,
-	}, */
 	{
 		id: "Mist Form",
 		statRequireId: "Vampire",
@@ -3790,7 +3753,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "HealthRegen",
 		display: "%",
 		match: /Increases your Health Recovery by ([0-9]+\.?[0-9]*)% for each piece of Heavy Armor equipped/i,
-	},	
+	},
 	{
 		statRequireId: "ArmorHeavy",
 		statRequireValue: 5,
@@ -4429,21 +4392,17 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		match: /WITH BOW EQUIPPED[\s\S]*?Increases your Critical Chance rating by ([0-9]+)/i,
 	},
 	{
-		// statRequireId: "WeaponDestStaff",
-		// statRequireValue: 1,
 		category: "Skill",
 		statId: "DestructionPenetration",
 		display: "%",
 		match: /WITH DESTRUCTION STAFF EQUIPPED[\s\S]*?Allows your Destruction Staff spells to ignore ([0-9]+)% of an enemy's Spell Resistance/i,
 	},
 	{
-		// statRequireId: "WeaponDestStaff",
-		// statRequireValue: 1,
 		category: "Skill",
 		statId: "DestructionPenetration",
 		display: "%",
 		match: /Your Destruction Staff abilities ignore ([0-9]+)% of the enemy's Spell Resistance./i,
-	},	
+	},
 	{
 		statRequireId: "WeaponDestStaff",
 		statRequireValue: 1,
@@ -4590,8 +4549,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "Dual_Wield_Cost",
 		display: "%",
 		factorValue: -1,
-		// match: /WHILE DUAL WIELDING[\s]*Reduces the cost of your Dual Wield
-		// abilities by ([0-9]+\.?[0-9]*)%/i,
 		match: /Reduces the Stamina cost of Dual Wield abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -4602,7 +4559,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		match: /WITH BOW EQUIPPED[\s]*Reduces the Stamina cost of Bow abilities by ([0-9]+\.?[0-9]*)%/i,
-	},	 
+	}, 
 	{
 		statRequireId: "WeaponBow",
 		statRequireValue: 1,
@@ -4683,8 +4640,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		combineAs: "*%",
-		// match: /Reduces the Magicka, Stamina, and Ultimate costs of your
-		// abilities by ([0-9]+\.?[0-9]*)%/i,
 		match: /Reduces the Health, Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -4692,8 +4647,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		combineAs: "*%",
-		// match: /Reduces the Magicka, Stamina, and Ultimate costs of your
-		// abilities by ([0-9]+\.?[0-9]*)%/i,
 		match: /Reduces the Health, Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -4701,8 +4654,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		combineAs: "*%",
-		// match: /Reduces the Magicka, Stamina, and Ultimate costs of your
-		// abilities by ([0-9]+\.?[0-9]*)%/i,
 		match: /Reduces the Health, Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -4710,8 +4661,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		combineAs: "*%",
-		// match: /Reduces the Magicka, Stamina, and Ultimate costs of your
-		// abilities by ([0-9]+\.?[0-9]*)%/i,
 		match: /Reduces the Health, Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
@@ -4720,7 +4669,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		factorValue: -1,
 		combineAs: "*%",
 		match: /Reduces the cost of Ultimate abilities by ([0-9]+\.?[0-9]*)%/i,
-	},	
+	},
 	{
 		statId: "UltimateCost",
 		display: "%",
@@ -4806,7 +4755,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "Stonefist",
 		display: "%",
 		match: /Increases duration of your Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
-	},	
+	},
 	{
 		category: "SkillDuration",
 		statId: "Magma Armor",
@@ -5067,7 +5016,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		category: "Skill2",
 		statId: "WeaponCrit",
 		match: /Increases your Weapon and Spell Critical ratings by ([0-9]+) for each Assassination ability slotted/i
-	},	 
+	},
 	{
 		factorSkillLine: "Assassination",
 		category: "Skill2",
@@ -5113,7 +5062,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		statId: "Health",
 		display: "%",
 		match: /Increases your Max Health by ([0-9]+\.?[0-9]*)% for each Shadow ability slotted/i
-	},	
+	},
 	{
 		requireSkillLine: "SIPHONING",
 		statId: "Magicka",
@@ -6666,7 +6615,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		enabled: false,
 		rawInputMatch: /(Reduces your damage taken while immune to crowd control by [0-9.]+%)/i,
 		match: /Reduces your damage taken while immune to crowd control by ([0-9.]+)%/i,
-	},	
+	},
 	{
 		id: "Hemorrhage",
 		buffId: "Minor Savagery",
@@ -7166,7 +7115,6 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		id: "Burning Heart",
-		// requireSkillLine: "DRACONIC POWER",
 		baseSkillId: 29457,
 		statId: "HealingReceived",
 		toggle: true,
@@ -7176,14 +7124,13 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	},
 	{
 		id: "Burning Heart",
-		// requireSkillLine: "DRACONIC POWER",
 		baseSkillId: 29457,
 		statId: "HealingReceived",
 		toggle: true,
 		enabled: false,
 		display: "%",
 		match: /While a Draconic Power ability is active, your healing received is increased by ([0-9]+\.?[0-9]*)%\./i
-	},	
+	},
 	{
 		id: "Expert Summoner",
 		baseSkillId: 31412,
@@ -7269,7 +7216,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		match: /When you are using an ability with a channel or cast time, you take ([0-9]+\.?[0-9]*)% less damage/i,
-	},	
+	},
 	{
 		id: "Hunter's Eye",
 		baseSkillId: 36022,
@@ -7312,8 +7259,7 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		/* End Toggled Passives */
 	
 		// Dragonknight
-	// Increases the damage of your Flame and Poison area of effect abilities by
-	// 6%.
+	// Increases the damage of your Flame and Poison area of effect abilities by 6%.
 	// Increases the damage of your Burning and Poisoned status effects by 66%.
 	
 		// Templar
@@ -7323,12 +7269,9 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 	// on whichever is higher.
 	
 		// Restoration Staff
-	// WITH RESTORATION STAFF EQUIPPED Increases your healing by 15% on allies
-	// under 30% Health.
-	// WITH RESTORATION STAFF EQUIPPED Restores 540 Magicka when you block a
-	// spell.
-	// WITH RESTORATION STAFF EQUIPPED Increases healing with Restoration Staff
-	// spells by 5%.
+	// WITH RESTORATION STAFF EQUIPPED Increases your healing by 15% on allies under 30% Health.
+	// WITH RESTORATION STAFF EQUIPPED Restores 540 Magicka when you block a spell.
+	// WITH RESTORATION STAFF EQUIPPED Increases healing with Restoration Staff spells by 5%.
 	
 		// Destruction Staff
 	// Grants bonus effects based on the element used:
@@ -7749,13 +7692,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		match: /Increase the damage your damage over time and channeled abilities do by ([0-9]+\.?[0-9]*)%/i,
 	},
-	{	// Stygian
-		statRequireId: "Stealthed",
-		statRequireValue: 1,
-		statId: "MagickaAbilityDamageDone",
-		display: "%",
-		match: /While you are Sneaking or invisible, your damage done with Magicka abilities is increased by ([0-9]+)%/i,
-	},
 	{	// Syvarra's Scales
 		statId: "GuardDamage",
 		factorValue: -1,
@@ -7770,27 +7706,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		category: "Set",
 		statId: "TwinSlashInitialDamage",
 		match: /Twin Slashes deals ([0-9]+) more damage for each hit of the initial attack and bleed/i,
-	},
-	{
-		category: "Set",
-		statId: "AOEDamageTaken",
-		combineAs: "*%",
-		display: "%",
-		match: /Reduces your damage taken from area of effect abilities by ([0-9]+)%/i,
-	},
-	{
-		category: "Set",
-		statId: "AOEDamageDone",
-		factorValue: -1,
-		display: "%",
-		match: /but the damage and healing of your own area of effect abilities is also reduced by ([0-9]+)%/i,
-	},
-	{
-		category: "Set",
-		statId: "AOEHealingDone",
-		factorValue: -1,
-		display: "%",
-		match: /but the damage and healing of your own area of effect abilities is also reduced by ([0-9]+)%/i,
 	},
 	{
 		category: "Set",
@@ -7822,26 +7737,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Reduces your damage taken from Players by ([0-9]+)%/i,
 	},
 	{
-		category: "Item",
-		statId: "ChannelSpellDamage",
-		match: /Adds ([0-9]+) Spell Damage to your cast time and channeled abilities/i,
-	},
-	{
-		category: "SkillBonusWeaponDmg",
-		statId: "Physical",
-		match: /Adds ([0-9]+) Weapon Damage to your Physical Damage abilities/i,
-	},
-	{
-		category: "SkillBonusWeaponDmg",
-		statId: "Physical",
-		match: /Adds ([0-9]+) Weapon Damage to your Physical and Bleed Damage abilities/i,
-	},
-	{
-		category: "SkillBonusWeaponDmg",
-		statId: "Bleed",
-		match: /Adds ([0-9]+) Weapon Damage to your Physical and Bleed Damage abilities/i,
-	},
-	{
 		category: "SkillBonusWeaponDmg",
 		statId: "Physical",
 		match: /Adds ([0-9]+) Weapon and Spell Damage to your Physical and Bleed Damage abilities/i,
@@ -7850,16 +7745,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		category: "SkillBonusWeaponDmg",
 		statId: "Bleed",
 		match: /Adds ([0-9]+) Weapon and Spell Damage to your Physical and Bleed Damage abilities/i,
-	},
-	{
-		category: "SkillBonusSpellDmg",
-		statId: "Frost",
-		match: /Adds ([0-9]+) Spell Damage to your Cold Damage abilities/i,
-	},
-	{
-		category: "SkillBonusSpellDmg",
-		statId: "Frost",
-		match: /Adds ([0-9]+) Spell Damage to your Frost Damage abilities/i,
 	},
 	{
 		category: "SkillBonusSpellDmg",
@@ -7874,27 +7759,12 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		category: "SkillBonusSpellDmg",
 		statId: "Magic",
-		match: /Adds ([0-9]+) Spell Damage to your Magic Damage abilities/i,
-	},
-	{
-		category: "SkillBonusSpellDmg",
-		statId: "Magic",
 		match: /Adds ([0-9]+) Weapon and Spell Damage to your Magic Damage abilities/i,
 	},
 	{
 		category: "SkillBonusWeaponDmg",
 		statId: "Magic",
 		match: /Adds ([0-9]+) Weapon and Spell Damage to your Magic Damage abilities/i,
-	},
-	{
-		category: "SkillBonusSpellDmg",
-		statId: "Flame",
-		match: /Adds ([0-9]+) Spell Damage to your Flame Damage abilities/i,
-	},
-	{
-		category: "SkillBonusSpellDmg",
-		statId: "Shock",
-		match: /Adds ([0-9]+) Spell Damage to your Shock Damage abilities/i,
 	},
 	{
 		category: "SkillBonusSpellDmg",
@@ -7909,32 +7779,12 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		category: "SkillLineWeaponDmg",
 		statId: "Two Handed",
-		match: /Adds ([0-9]+) Weapon Damage to your Two Handed abilities/i,
-	},
-	{
-		category: "SkillLineWeaponDmg",
-		statId: "Two Handed",
 		match: /Adds ([0-9]+) Weapon and Spell Damage to your Two Handed abilities/i,
 	},
 	{
 		category: "SkillLineSpellDmg",
 		statId: "Two Handed",
 		match: /Adds ([0-9]+) Weapon and Spell Damage to your Two Handed abilities/i,
-	},
-	{
-		category: "SkillLineWeaponDmg",
-		statId: "Undaunted",
-		match: /Adds ([0-9]+) Weapon and Spell Damage to your Undaunted abilities/i,
-	},
-	{
-		category: "SkillLineSpellDmg",
-		statId: "Undaunted",
-		match: /Adds ([0-9]+) Weapon and Spell Damage to your Undaunted abilities/i,
-	},
-	{
-		category: "SkillLineWeaponDmg",
-		statId: "Dual Wield",
-		match: /Adds ([0-9]+) Weapon Damage to your Dual Wield abilities/i,
 	},
 	{
 		category: "SkillLineWeaponDmg",
@@ -7945,16 +7795,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		category: "SkillLineSpellDmg",
 		statId: "Dual Wield",
 		match: /Adds ([0-9]+) Weapon and Spell Damage to your Dual Wield abilities/i,
-	},
-	{
-		category: "SkillLineWeaponDmg",
-		statId: "One Hand and Shield ",
-		match: /Adds ([0-9]+) Weapon Damage to your One Hand and Shield abilities/i,
-	},
-	{
-		category: "SkillLineSpellDmg",
-		statId: "Restoration Staff",
-		match: /Adds ([0-9]+) Spell Damage to your Restoration Staff abilities/i,
 	},
 	{
 		category: "SkillLineSpellDmg",
@@ -7969,22 +7809,12 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		category: "SkillLineSpellDmg",
 		statId: "Destruction Staff",
-		match: /Adds ([0-9]+) Spell Damage to your Destruction Staff abilities/i,
-	},
-	{
-		category: "SkillLineSpellDmg",
-		statId: "Destruction Staff",
 		match: /Adds ([0-9]+) Weapon and Spell Damage to your Destruction Staff abilities/i,
 	},
 	{
 		category: "SkillLineWeaponDmg",
 		statId: "Destruction Staff",
 		match: /Adds ([0-9]+) Weapon and Spell Damage to your Destruction Staff abilities/i,
-	},
-	{
-		category: "SkillLineSpellDmg",
-		statId: "Vampire",
-		match: /Adds ([0-9]+) Spell Damage to your Vampire abilities/i,
 	},
 	{
 		category: "SkillBonusSpellDmg",
@@ -8002,22 +7832,11 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /When an immobilization or snare is applied to you, heal for [0-9]+ Health and restore [0-9]+ Stamina/i,
 	},
 	{
-		statId: "OtherEffects",
-		rawInputMatch: /(While you are affected by a disabling effect, heal for [0-9]+ Health every 1 second)/i,
-		match: /While you are affected by a disabling effect, heal for ([0-9]+) Health every 1 second/i,
-	},
-	{
 		category: "SkillCost",
 		statId: "Werewolf_Transformation_Cost",
 		display: "%",
 		factorValue: -1,
 		match: /Reduces the cost of your Werewolf Transformation ability by ([0-9]+)%/i,
-	},
-	{
-		statRequireId: "WerewolfStage",
-		statRequireValue: 2,
-		statId: "WeaponDamage",
-		match: /While in Werewolf form, your Weapon Damage is increased by ([0-9]+)/i,
 	},
 	{
 		statRequireId: "FoodBuff",
@@ -8062,12 +7881,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /While you have a drink buff active, your Max Magicka is increased by [0-9]+ and Magicka Recovery by ([0-9]+)/i,
 	},
 	{
-		category: "SkillDamage",
-		statId: "Soul Trap",
-		display: "%",
-		match: /Increases the damage of your Soul Trap ability by ([0-9]+)%/i,
-	},
-	{
 		category: "SkillCost",
 		statId: "Bow_Cost",
 		display: "%",
@@ -8080,20 +7893,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		match: /Reduces the cost and increases the damage of your Bow abilities by ([0-9]+)%/i,
-	},
-	{
-		category: "SkillCost",
-		statId: "Bow_Cost",
-		display: '%',
-		factorValue: -1,
-		match: /Reduce cost of bow abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{	/* Check if this actually affects the Bow ultimate */
-		category: "SkillCost",
-		statId: "Rapid_Fire_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduce cost of bow abilities by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{	
 		category: "SkillCost",
@@ -8146,18 +7945,6 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		setBonusCount: 4,
 		statId: "OtherEffects",
-		rawInputMatch: /(Increases your damage done to Sneaking enemies by [0-9]+%)/i,
-		match: /Increases your damage done to Sneaking enemies by ([0-9]+)%/i,
-	},
-	{
-		setBonusCount: 4,
-		statId: "OtherEffects",
-		rawInputMatch: /(When you kill an enemy, you restore [0-9]+ Stamina and gain Major Expedition for [0-9]+ seconds, increasing your Movement Speed by [0-9]+%)/i,
-		match: /When you kill an enemy, you restore [0-9]+ Stamina andu gain Major Expedition for [0-9]+ seconds, increasing your Movement Speed by ([0-9]+)%/i,
-	},
-	{
-		setBonusCount: 4,
-		statId: "OtherEffects",
 		rawInputMatch: /(When you kill an enemy, you gain Major Expedition for [0-9]+ seconds, increasing your Movement Speed by [0-9]+%)/i,
 		match: /When you kill an enemy, you gain Major Expedition for [0-9]+ seconds, increasing your Movement Speed by ([0-9]+)%/i,
 	},
@@ -8199,21 +7986,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "BlockMitigation",
 		display: "%",
 		match: /Increases the amount of damage you block by ([0-9]+)%/i,
-	},	 
-	{
-		category: "SkillCost",
-		statId: "Vampire_Cost",
-		factorValue: -1,
-		display: "%",
-		match: /Reduces the cost of your Vampire abilities by ([0-9]+)%/i,
-	},
-	{
-		category: "SkillCost",
-		statId: "Bat_Swarm_Cost",
-		factorValue: -1,
-		display: "%",
-		match: /Reduces the cost of your Vampire abilities by ([0-9]+)%/i,
-	},
+	}, 
 	{
 		buffId: "Major Prophecy",
 		match: /Gain Major Prophecy at all times/i,
@@ -8236,22 +8009,6 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		category: "Skill",
-		statId: "SpellDamage",
-		statRequireId: "Stealthed",
-		statRequireValue: 1,
-		display: "%",
-		match: /While you are Sneaking or invisible, your Spell Damage and Max Magicka is increased by ([0-9]+)%/i,
-	},
-	{
-		category: "Skill",
-		statId: "Magicka",
-		statRequireId: "Stealthed",
-		statRequireValue: 1,
-		display: "%",
-		match: /While you are Sneaking or invisible, your Spell Damage and Max Magicka is increased by ([0-9]+)%/i,
-	},
-	{
-		category: "Skill",
 		statId: "NormalSneakSpeed",
 		value: 1,
 		match: /Ignore the Movement Speed penalty of Sneak/i,
@@ -8265,11 +8022,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		factorValue: -1,
 		display: "%",
 		match: /Reduces the cost of Break Free by ([0-9]+)%/i,
-	},
-	{
-		statId: "SneakDetectRange",
-		display: "%",
-		match: /Increases the radius you can detect Sneaking enemies by ([0-9]+)%/i,
 	},
 	{
 		category: "Skill2",
@@ -8363,12 +8115,6 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		statId: "SprintCost",
-		factorValue: -1,
-		display: "%",
-		match: /Reduces the cost of Sprint by ([0-9]+)% and increases/i,
-	},
-	{
-		statId: "SprintCost",
 		display: "%",
 		factorValue: -1,
 		match: /Reduces the cost and increases the Movement Speed bonus of Sprint by ([0-9]+\.?[0-9]*)%/i,
@@ -8424,13 +8170,7 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		buffId: "Minor Force",
-		display: "%",
-		match: /Gain Minor Force at all times, increasing your Critical Damage done by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		buffId: "Minor Force",
-		display: "%",
-		match: /Gain Minor Force at all times, increasing your Critical Damage by ([0-9]+\.?[0-9]*)%/i,
+		match: /Gain Minor Force at all times/i,
 	},
 	{
 		statId: "StaminaCost",
@@ -8440,35 +8180,10 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Reduces the cost of your Stamina abilities by ([0-9]+)%/i,
 	},
 	{
-		statId: "WeaponDamage",
-		match: /Adds ([0-9]+) Weapon Damage$/i,
-	},
-	{
-		statId: "WeaponDamage",
-		match: /Adds ([0-9]+) Weapon Damage[\n]/i,
-	},
-	{
-		statId: "SpellDamage",
-		match: /Adds ([0-9]+) Spell Damage$/i,
-	},
-	{
-		statId: "SpellDamage",
-		match: /Adds ([0-9]+) Spell Damage[/n]/i,
-	},
-	{
-		statId: "BleedDamageDone",
-		display: "%",
-		match: /Increases the damage you deal with bleed damage over time effects by ([0-9]+\.?[0-9]*)%/i,
-	},	 
-	{
 		statId: "BleedDamageDone",
 		display: "%",
 		match: /Increases your Bleed damaging attacks by ([0-9]+\.?[0-9]*)%/i,
 	},
-	/*
-	 * { buffId: "Hircines Veneer", match: /Reduce the cost of your Stamina
-	 * abilities by ([0-9]+)% for you and up to [0-9]+ other group members/i, },
-	 */
 	{
 		statId: "HealingDone",
 		display: "%",
@@ -8477,12 +8192,6 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		buffId: "Minor Mending",
 		match: /Gain Minor Mending at all times, increasing your healing done by [0-9]+%/i,
-	},
-	{
-		category: "Skill",
-		statId: "Magicka",
-		display: "%",
-		match: /Increases your Max Magicka by ([0-9]+)%/i,
 	},
 	{
 		category: "SkillCost",
@@ -8533,28 +8242,7 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		statId: "CritDamage",
 		display: "%",
-		match: /Increases your Critical Damage done by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "CritDamage",
-		display: "%",
 		match: /Increases your Critical Damage by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-			// Archer's Mind
-		statId: "CritDamage",
-		statRequireId: "Stealthed",
-		statRequireValue: 1,
-		display: "%",
-		match: /Increases your Critical Damage done by an additional ([0-9]+\.?[0-9]*)% when attacking from Sneak or invisibility/i,
-	},
-	{
-			// Archer's Mind
-		statId: "CritDamage",
-		statRequireId: "Stealthed",
-		statRequireValue: 1,
-		display: "%",
-		match: /Increases your Critical Damage by an additional ([0-9]+\.?[0-9]*)% when attacking from Sneak or invisibility/i,
 	},
 	{
 		// Archer's Mind
@@ -8593,34 +8281,6 @@ window.ESO_SETEFFECT_MATCHES = [
 	},
 	{
 		statId: "Health",
-		match: /Increases your Max Health, Magicka, and Stamina by ([0-9]+)/i,
-	},
-	{
-		statId: "Magicka",
-		match: /Increases your Max Health, Magicka, and Stamina by ([0-9]+)/i,
-	},
-	{
-		statId: "Stamina",
-		match: /Increases your Max Health, Magicka, and Stamina by ([0-9]+)/i,
-	},
-	{
-		statId: "SpellCrit",
-		match: /Adds ([0-9]+) Spell Critical$/i,
-	},
-	{
-		statId: "SpellCrit",
-		match: /Adds ([0-9]+) Spell Critical[\n]/i,
-	},
-	{
-		statId: "WeaponCrit",
-		match: /Adds ([0-9]+) Weapon Critical$/i,
-	},
-	{
-		statId: "WeaponCrit",
-		match: /Adds ([0-9]+) Weapon Critical[\n]/i,
-	},
-	{
-		statId: "Health",
 		match: /Adds ([0-9]+) Maximum Health/i,
 	},
 	{
@@ -8630,18 +8290,6 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		statId: "Stamina",
 		match: /Adds ([0-9]+) Maximum Stamina/i,
-	},
-	{
-		statId: "SpellDamage",
-		match: /Increase Spell Damage by ([0-9]+)/i,
-	},
-	{
-		statId: "SpellDamage",
-		match: /increases Weapon and Spell Damage by ([0-9]+)/i,
-	},
-	{
-		statId: "WeaponDamage",
-		match: /increases Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
 		statId: "HealthRegen",
@@ -8656,22 +8304,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Adds ([0-9]+) Stamina Recovery$/i,
 	},
 	{
-		statId: "MagickaRegen",
-		match: /Adds ([0-9]+) Magicka Recovery[\n\r]+/i,
-	},
-	{
-		statId: "StaminaRegen",
-		match: /Adds ([0-9]+) Stamina Recovery[\n\r]+/i,
-	},
-	{
-		statId: "PhysicalResist",
-		match: /Adds ([0-9]+) Physical Resistance/i,
-	},
-	{
-		statId: "SpellResist",
-		match: /Adds ([0-9]+) Spell Resistance/i,
-	},
-	{
 		statId: "SpellResist",
 		match: /Adds ([0-9]+) Armor/i,
 	},
@@ -8683,40 +8315,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "HealingTaken",
 		display: '%',
 		match: /Adds ([0-9]+\.?[0-9]*)% Healing Taken/i,
-	},	
-	{
-		statId: "HealingReceived",
-		display: '%',
-		match: /Group members within [0-9]+m gain ([0-9]+\.?[0-9]*)% increased effect from heals/i,
-	},	
-	{
-		statId: "HealingReceived",
-		display: '%',
-		match: /When you are healed, gain ([0-9]+\.?[0-9]*)% additional healing/i,
-	},	
-	{
-		statId: "CritDamage",
-		display: '%',
-		match: /Critical Damage increases by ([0-9]+\.?[0-9]*)%/i,
-	},	
-	{
-		statId: "CritDamage",
-		statRequireId: "Stealthed",
-		statRequireValue: 1,
-		display: '%',
-		match: /Attacking from stealth increases Critical Damage by an additional ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "CritDamage",
-		statRequireId: "Stealthed",
-		statRequireValue: 1,
-		display: '%',
-		match: /Attacking from stealth increases your Critical Damage by an additional ([0-9]+\.?[0-9]*)%/i,
-	},	
-	{
-		statId: "CritResist",
-		display: '%',
-		match: /Reduces damage from Critical Hits by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		statId: "CritResist",
@@ -8727,82 +8325,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: '%',
 		factorValue: -1,
 		combineAs: "*%",
-		match: /Reduce the Magicka cost of abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "MagickaCost",
-		display: '%',
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduce all costs by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "MagickaCost",
-		display: '%',
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduce Magicka costs for up to [0-9]+ group members by ([0-9]+\.?[0-9]*)%/i,
-	},	
-	{
-		statId: "StaminaCost",
-		display: '%',
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduce the Stamina cost of abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "StaminaCost",
-		display: '%',
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the costs of Stamina abilities by ([0-9]+\.?[0-9]*)%/i,
-	},	
-	{
-		statId: "StaminaCost",
-		display: '%',
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduce all costs by ([0-9]+\.?[0-9]*)%/i,
-	},
-	/*
-	 * { buffId: "Worms Raiment", match: /Reduces the cost of your Magicka
-	 * abilities by ([0-9]+\.?[0-9]*)% for you and up to /i, },
-	 */
-	{
-		statId: "MagickaCost",
-		display: '%',
-		factorValue: -1,
-		combineAs: "*%",
 		match: /Reduces the cost of your Magicka abilities by ([0-9]+\.?[0-9]*)%\./i,
-	},
-	{
-		statId: "UltimateCost",
-		display: '%',
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduce cost of Ultimate abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "PhysicalPenetration",
-		match: /Adds ([0-9]+) Physical Penetration/i,
-	},
-	{
-		statId: "SpellPenetration",
-		match: /Adds ([0-9]+) Spell Penetration/i,
-	},
-	{
-		statId: "SpellPenetration",
-		match: /Adds ([0-9]+) Offsensive Penetration/i,
-	},
-	{
-		statId: "PhysicalPenetration",
-		match: /Adds ([0-9]+) Offsensive Penetration/i,
-	},
-	{
-		statId: "SnareDuration",
-		display: '%',
-		factorValue: -1,
-		match: /Snares on you have ([0-9]+)% shorter duration/i,
 	},
 	{
 		statId: "PlayerDamageTaken",
@@ -8811,204 +8334,14 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Reduce damage taken from players by ([0-9]+)%/i,
 	},
 	{
-		statId: "Constitution",
-		display: '%',
-		match: /Increases the Magicka and Stamina restoration benefit from the Constitution Passive ability by ([0-9]+)%/i,
-	},
-	{
-		statId: "RollDodgeDuration",
-		match: /After roll dodging, continue to dodge attacks for an additional ([0-9]+\.?[0-9]*) seconds/i,
-	},
-	{
-		statId: "NegativeEffectDuration",
-		display: '%',
-		factorValue: -1,
-		match: /Reduce the duration of negative effects on you by ([0-9]+)%/i,
-	},
-	{
-		statId: "NegativeEffectDuration",
-		display: '%',
-		factorValue: -1,
-		match: /Reduces the duration of all negative effects applied to you by ([0-9]+)%/i,
-	},
-	{
-		statId: "DisableEffectDuration",
-		display: '%',
-		factorValue: -1,
-		match: /Reduces the duration of all disabling effects applied to you by ([0-9]+)%/i,
-	},
-	{
-		statId: "SprintCost",
-		display: '%',
-		factorValue: -1,
-		match: /Reduces Stamina cost for sprinting and crouching by ([0-9]+)%/i,
-	},
-	{
-		statId: "SprintCost",
-		display: '%',
-		factorValue: -1,
-		match: /Sprint cost reduced by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "SprintCost",
-		display: '%',
-		factorValue: -1,
-		match: /Sprint costs ([0-9]+\.?[0-9]*)% less/i,
-	},	
-	{
-		statId: "SneakCost",
-		display: '%',
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces Stamina cost for sprinting and crouching by ([0-9]+)%/i,
-	},
-	{
-		statId: "SneakCost",
-		display: '%',
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces crouch cost by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "SneakCost",
-		display: '%',
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduce Sneak cost by ([0-9]+\.?[0-9]*)%/i,
-	},	
-	{
-		statId: "BowRange",
-		match: /Increase range of bow attacks by ([0-9]+) meters/i,
-	},
-	{
-		statId: "BowRange",
-		match: /Increases the range of your Bow abilities by ([0-9]+) meters/i,
-	},
-	{
-		category: "Skill2",
-		statId: "HADamage",
-		match: /Increases the damage of your fully-charged Heavy Attacks by ([0-9]+)/i,
-	},
-	{
-		statId: "FlameEffectDuration",
-		match: /Increases duration of your damaging fire effects by ([0-9]+\.?[0-9]*) seconds/i,
-	},
-	{
-		statId: "SprintSpeed",
-		display: '%',
-		match: /movement speed increased by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "BlockMitigation",
-		display: '%',
-		match: /Increase your block mitigation by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "BlockMitigation",
-		display: '%',
-		match: /Increase block mitigation by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "Skill",
-		statId: "Magicka",
-		display: '%',
-		match: /Increase Maximum Magicka by ([0-9]+\.?[0-9]*)%./i,
-	},
-	{
-		statId: "HealingDone",
-		display: '%',
-		match: /Increases healing done by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "HealingDone",
-		display: '%',
-		match: /Increase healing done by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "Health",
-		match: /Increase Max Health for up to 12 group members by ([0-9]+\.?[0-9]*)/i,
-	},
-	{
-		category: "Skill",
-		statId: "StaminaRecovery",
-		display: '%',
-		match: /Increase Max Health for up to 12 group members by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "ResurrectSpeed",
-		display: '%',
-		match: /decrease time to resurrect an ally by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "ResurrectSpeed",
-		display: "%",
-		match: /Decreases the time it takes to resurrect an ally by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "BossDamageResist",
-		display: '%',
-		match: /you to take ([0-9]+\.?[0-9]*)% less damage from Boss/i,
-	},
-	{
-		category: "Skill2",
-		statId: "SneakRange",
-		factorValue: -1,
-		match: /Reduce the range you can be detected while hidden by ([0-9]+\.?[0-9]*) meters/i,
-	},
-	{
-		category: "Skill2",
-		statId: "SneakRange",
-		factorValue: -1,
-		match: /Decrease detection radius by ([0-9]+\.?[0-9]*) meters/i,
-	},
-	{
-		statId: "SneakDetectRange",
-		category: "Skill",
-		display: '%',
-		match: /Stealth detection radius increased by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "SneakDetectRange",
-		category: "Skill2",
-		match: /Increases stealth detection radius by ([0-9]+) meters/i,
-	},	
-	{
-		statId: "BreakFreeCost",
-		display: '%',
-		factorValue: -1,
-		match: /Reduce the cost of Break Free by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "TwiceBornStar",
-		match: /Allows you to have two Mundus Stone Boons at the same time/i,
-	},
-	{
 		statId: "TwiceBornStar",
 		match: /You can have two Mundus Stone boons at the same time./i,
-	},	
-	{
-		statId: "BreakFreeDuration",
-		match: /Immunity duration after using Break Free increased by ([0-9]+\.?[0-9]*) seconds/i,
 	},
-	{
-		statId: "BreakFreeDuration",
-		match: /Increases the immunity to disabling effects after using Break Free by ([0-9]+\.?[0-9]*) seconds/i,
-	},
-	{
-			// Alessian Order
-		statId: "HealthRegenResistFactor",
-		display: "%",
-		match: /Increase your Health Recovery by ([0-9]+\.?[0-9]*)% of your sum total Physical and Spell Resistance/i,
-	},	 
 	{
 		// Alessian Order
 		statId: "HealthRegenResistFactor",
 		display: "%",
 		match: /Increase your Health Recovery by ([0-9]+\.?[0-9]*)% of your sum total Physical Resistance and Spell Resistance/i,
-	},
-	{
-		statId: "BreakFreeDuration",
-		match: /Increases the duration of crowd control immunity granted by Break Free or when a crowd control effect expires by ([0-9]+\.?[0-9]*) seconds/i,
 	},
 	{
 		id: "Innate Axiom",
@@ -9032,32 +8365,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /While you have an Armor Ability slotted, your Max Health is increased by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
-		statId: "RollDodgeDuration",
-		match: /After using Roll Dodge, continue to dodge attacks for an additional ([0-9]+\.?[0-9]*) seconds/i,
-	},
-	{
-		statId: "RollDodgeDuration",
-		match: /Increases the duration of the dodge chance bonus of Roll Dodge by ([0-9]+\.?[0-9]*) seconds/i,
-	},
-	{
-		category: "SkillCost",
-		statId: "Restoration_Staff_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduce the Magicka cost of restoration staff abilities by ([0-9]+\.?[0-9]*)/i,
-	},
-	{
-		statId: "StaminaRegen",
-		display: "%",
-		match: /Increase Stamina Recovery for up to [0-9]+ group members by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "SnareEffect",
-		display: "%",
-		factorValue: -1,
-		match: /Reduce the effectiveness of incoming snares by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
 		statId: "SnareEffect",
 		display: "%",
 		factorValue: -1,
@@ -9073,88 +8380,13 @@ window.ESO_SETEFFECT_MATCHES = [
 		statRequireId: "WeaponDestStaff",
 		statRequireValue: 1,
 		statId: "Magicka",
-		display: "%",
-		match: /Increase Maximum Magicka by ([0-9]+\.?[0-9]*)% while you have a destruction staff equipped/i,
-	},
-	{
-		statRequireId: "WeaponDestStaff",
-		statRequireValue: 1,
-		statId: "Magicka",
-		match: /Increase Maximum Magicka by ([0-9]+) while you have a destruction staff equipped/i,
-	},
-	{
-		statRequireId: "WeaponDestStaff",
-		statRequireValue: 1,
-		statId: "Magicka",
 		category: "Skill2",
 		match: /While you have a Destruction Staff equipped, your Max Magicka is increased by ([0-9]+)/i,
 	},
 	{
 		statId: "ElfBaneDuration",
 		category: "Set",
-		match: /Increases the duration of your Flame Damage abilities by ([0-9]+) seconds/i,
-	},	
-	{
-		statId: "ElfBaneDuration",
-		category: "Set",
 		match: /Increases the duration of your Flame Damage over Time abilities by ([0-9]+) seconds/i,
-	},	
-	{
-		statId: "SnareDuration",
-		display: "%",
-		factorValue: -1,
-		match: /Duration of snare, stun, and disorient effects are reduced by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "StunDuration",
-		display: "%",
-		factorValue: -1,
-		match: /Duration of snare, stun, and disorient effects are reduced by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "DisorientDuration",
-		display: "%",
-		factorValue: -1,
-		match: /Duration of snare, stun, and disorient effects are reduced by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "HealingReceived",
-		display: "%",
-		match: /Group members within [0-9]+\.?[0-9]*m gain ([0-9]+\.?[0-9]*)% increased effect from heals/i,
-	},
-	{
-		statRequireId: "Stealthed",
-		statRequireValue: 1,
-		setBonusCount: 4,
-		statId: "DamageDone",
-		display: "%",
-		match: /While sneaking or invisible, Spells do an additional ([0-9]+\.?[0-9]*)% damage/i,
-	},	
-	{
-		setBonusCount: 4,
-		statId: "PoisonDamageDone",
-		match: /Your attacks cause targets to take ([0-9]+\.?[0-9]*)% more damage from Poison/i,
-	},
-	{
-		setBonusCount: 4,
-		statId: "MagickaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduce Magicka costs for up to [0-9]+ group members by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		setBonusCount: 4,
-		statId: "EnchantPotency",
-		display: "%",
-		match: /Decreases weapon enchantment cooldown and increases non Oblivion Damage enchantment potency by ([0-9]+)%/i,
-	},
-	{
-		setBonusCount: 4,
-		statId: "EnchantCooldown",
-		display: "%",
-		factorValue: -1,
-		match: /Decreases weapon enchantment cooldown and increases non Oblivion Damage enchantment potency by ([0-9]+)%/i,
 	},
 	{
 		setBonusCount: 4,
@@ -9168,45 +8400,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "EnchantPotency",
 		display: "%",
 		match: /Decreases weapon enchantment cooldown by [0-9]+% and increases non Oblivion Damage weapon enchantment potency by ([0-9]+)%/i,
-	},
-	{
-		setBonusCount: 2,
-		statId: "MountSpeed",
-		display: "%",
-		match: /Movement speed while mounted increased by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		setBonusCount: 2,
-		statId: "MountSpeed",
-		display: "%",
-		match: /Increases your Mounted Movement Speed by ([0-9]+\.?[0-9]*)%/i,
-	},	
-	{
-		setBonusCount: 4,
-		statId: "BreakFreeCost",
-		display: "%",
-		match: /Reduce cost of Break Free by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		setBonusCount: 4,
-		ignore: true,
-		match: /Law of Julianos/i,
-	},
-	{
-		setBonusCount: 4,
-		ignore: true,
-		match: /Your Weapon Damage and Spell Damage both become the highest of the two values/i,
-	},
-	{
-		setBonusCount: 4,
-		ignore: true,
-		match: /Law of Julianos/i,
-	},
-	{
-		setBonusCount: 4,
-		category: "Skill2",
-		statId: "HAMagRestore",
-		match: /Fully charged heavy attacks restore ([0-9]+) Magicka/i,
 	},
 	{
 		id: "Infallible Mage",
@@ -9223,27 +8416,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		factorValue: -1,
 		match: /Reduces the cost of Destructive Touch by ([0-9]+)% and /i,
-	},
-	{
-		id: "Destructive Impact",
-		setBonusCount: 1,
-		category: "SkillDirectDamage",
-		statId: "Destructive Touch",
-		match: /Reduces the cost of Destructive Touch by [0-9]+% and increases the direct damage it deals by ([0-9]+)./i,
-	},
-	{
-		id: "Swamp Raider",
-		setBonusCount: 4,
-		category: "SkillBonusWeaponDmg",
-		statId: "Poison",
-		match: /Adds ([0-9]+) Weapon Damage to your Poison and Disease Damage abilities./i,
-	},
-	{
-		id: "Swamp Raider",
-		setBonusCount: 4,
-		category: "SkillBonusWeaponDmg",
-		statId: "Disease",
-		match: /Adds ([0-9]+) Weapon Damage to your Poison and Disease Damage abilities./i,
 	},
 	{
 		id: "Swamp Raider",
@@ -9353,26 +8525,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Reduce the cost of your Weapon abilities by ([0-9]+\.?[0-9]*)% Magicka or Stamina/i,
 	},
 	{
-		statId: "WeaponDamage",
-		match: /Adds ([0-9]+) Weapon Damage and [0-9]+ Physical Penetration/i,
-	},
-	{
-		statId: "PhysicalPenetration",
-		match: /Adds [0-9]+ Weapon Damage and ([0-9]+) Physical Penetration/i,
-	},
-	{
-		category: "Item",
-		statId: "SpellCrit",
-		statValue: -200,
-		match: /You cannot deal critical damage/i,
-	},
-	{
-		category: "Item",
-		statId: "WeaponCrit",
-		statValue: -200,
-		match: /You cannot deal critical damage/i,
-	},
-	{
 		statId: "VampireLord",
 		statValue: 1,
 		match: /Increases the bonuses and penalties of your Vampire Stage, depending on how far you've progressed/i,
@@ -9416,20 +8568,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Adds ([0-9.]+) Weapon and Spell Damage\./i,
 	},
 	{
-		statId: "SpellDamage",
-		match: /Increases Spell Damage by ([0-9.]+)\./i,
-	},
-	{
-		statId: "FlameDamageTaken",
-		display: "%",
-		match: /Increase damage taken from Flame and Fighter's Guild abilities by ([0-9.]+)%/i,
-	},
-	{
-		statId: "FightersGuildDamageTaken",
-		display: "%",
-		match: /Increase damage taken from Flame and Fighter's Guild abilities by ([0-9.]+)%/i,
-	},
-	{
 		category: "SkillCost",
 		statId: "Undaunted_Cost",
 		factorValue: -1,
@@ -9445,72 +8583,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		category: "Skill2",
 		statId: "WeaponCrit",
 		match: /Adds ([0-9]+) Critical Chance/i,
-	},
-	{
-		category: "SkillLineWeaponDmg",
-		statId: "Two Handed",
-		match: /Adds ([0-9]+) Weapon and Spell Power to your Weapon Skill abilities/i,
-	},
-	{
-		category: "SkillLineSpellDmg",
-		statId: "Two Handed",
-		match: /Adds ([0-9]+) Weapon and Spell Power to your Weapon Skill abilities/i,
-	},
-	{
-		category: "SkillLineWeaponDmg",
-		statId: "One Hand and Shield",
-		match: /Adds ([0-9]+) Weapon and Spell Power to your Weapon Skill abilities/i,
-	},
-	{
-		category: "SkillLineSpellDmg",
-		statId: "One Hand and Shield",
-		match: /Adds ([0-9]+) Weapon and Spell Power to your Weapon Skill abilities/i,
-	},
-	{
-		category: "SkillLineWeaponDmg",
-		statId: "Dual Wield",
-		match: /Adds ([0-9]+) Weapon and Spell Power to your Weapon Skill abilities/i,
-	},
-	{
-		category: "SkillLineSpellDmg",
-		statId: "Dual Wield",
-		match: /Adds ([0-9]+) Weapon and Spell Power to your Weapon Skill abilities/i,
-	},
-	{
-		category: "SkillLineWeaponDmg",
-		statId: "Bow",
-		match: /Adds ([0-9]+) Weapon and Spell Power to your Weapon Skill abilities/i,
-	},
-	{
-		category: "SkillLineSpellDmg",
-		statId: "Bow",
-		match: /Adds ([0-9]+) Weapon and Spell Power to your Weapon Skill abilities/i,
-	},
-	{
-		category: "SkillLineWeaponDmg",
-		statId: "Destruction Staff",
-		match: /Adds ([0-9]+) Weapon and Spell Power to your Weapon Skill abilities/i,
-	},
-	{
-		category: "SkillLineSpellDmg",
-		statId: "Destruction Staff",
-		match: /Adds ([0-9]+) Weapon and Spell Power to your Weapon Skill abilities/i,
-	},
-	{
-		category: "SkillLineWeaponDmg",
-		statId: "Restoration Staff",
-		match: /Adds ([0-9]+) Weapon and Spell Power to your Weapon Skill abilities/i,
-	},
-	{
-		category: "SkillLineSpellDmg",
-		statId: "Restoration Staff",
-		match: /Adds ([0-9]+) Weapon and Spell Power to your Weapon Skill abilities/i,
-	},
-	{
-		category: "Set",
-		statId: "NonWeaponAbilityCost",
-		display: "%",
-		match: /Increases the cost of your non-Weapon Skill abilities by ([0-9.]+)%/i,
 	},
 	{
 		statId: "BlockCost",
@@ -9533,15 +8605,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Increases the cost of Block, Sprint, Dodge, and Break Free by ([0-9.]+)%/i,
 	},
 	{
-		statId: "SpellCrit",
-		match: /Adds ([0-9.]+) Spell Critical and/i,
-	},
-	{
-		category: "Set",
-		statId: "AOEWeaponDamage",
-		match: /Adds ([0-9.]+) Weapon Damage to your area of effect abilities/i,
-	},
-	{
 		category: "Set",
 		statId: "AOEWeaponDamage",
 		match: /Adds ([0-9.]+) Weapon and Spell Damage to your area of effect abilities/i,
@@ -9550,27 +8613,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		category: "Set",
 		statId: "AOESpellDamage",
 		match: /Adds ([0-9.]+) Weapon and Spell Damage to your area of effect abilities/i,
-	},
-	{
-		category: "SkillCost",
-		statId: "Werewolf_Transformation_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduce the cost of your Transformation Ultimate abilities by ([0-9.]+)%/i,
-	},
-	{
-		category: "SkillCost",
-		statId: "Blood_Scion_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduce the cost of your Transformation Ultimate abilities by ([0-9.]+)%/i,
-	},
-	{
-		category: "SkillCost",
-		statId: "Bone_Goliath_Transformation_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduce the cost of your Transformation Ultimate abilities by ([0-9.]+)%/i,
 	},
 	{
 		statId: "FrostDamageDone",
@@ -9751,9 +8793,53 @@ window.ESO_SETEFFECT_MATCHES = [
 		buffId: "Minor Heroism",
 		match: /and gain Major Berserk, Major Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Major Force, Major Protection, Major Resolve, Minor Fortitude, Minor Intellect, Minor Endurance, and Major Heroism/i,
 	},
+	{
+		statId: "DirectRangeSpellDamage",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your ranged direct damage abilities./i,
+	},
+	{
+		statId: "DirectRangeWeaponDamage",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your ranged direct damage abilities./i,
+	},
 	
 	
 		// Optionally toggled set effects
+	{
+		id: "Aegis of Galenwe",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		buffId: "Empower",
+		match: /When you Block, you grant Empower to /i,
+	},
+	{
+		id: "Alessia's Bulwark",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		category: "Target",
+		statId: "WeaponDamage",
+		factorValue: -1,
+		match: /When you take damage from a Martial melee attack, you reduce the attacker's Weapon and Spell Damage by ([0-9]+) for/i,
+	},
+	{
+		id: "Alessia's Bulwark",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		category: "Target",
+		statId: "SpellDamage",
+		factorValue: -1,
+		match: /When you take damage from a Martial melee attack, you reduce the attacker's Weapon and Spell Damage by ([0-9]+) for/i,
+	},
+	{
+		id: "Might of the Lost Legion",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		buffId: "Empower",
+		match: /When you Block, you gain Empower,/i,
+	},
 	{
 		id: "Sea-Serpent's Coil",
 		setBonusCount: 1,
@@ -9787,6 +8873,17 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Gain up to ([0-9]+) Critical Chance and/i,
 	},
 	{
+		id: "Mora's Whispers",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "MorasWhispers",
+		factorValue: 0.01,
+		round: "floor",
+		maxTimes: 100,
+		match: /Gain up to ([0-9]+) Critical Chance and/i,
+	},
+	{
 		id: "Dov-rha Sabatons",
 		setBonusCount: 1,
 		toggle: true,
@@ -9810,8 +8907,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "WeaponDamage",
-		factorValue: 0.01,
-		maxTimes: 100,
+		factorValue: 0.014926,
+		maxTimes: 67,
 		round: "floor",
 		match: /Increase your Weapon and Spell Damage by up to ([0-9]+) based on your missing Stamina/i,
 	},
@@ -9821,8 +8918,19 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "SpellDamage",
-		factorValue: 0.01,
-		maxTimes: 100,
+		factorValue: 0.014926,
+		maxTimes: 67,
+		round: "floor",
+		match: /Increase your Weapon and Spell Damage by up to ([0-9]+) based on your missing Stamina/i,
+	},
+	{
+		id: "Coral Riptide",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "CoralRiptide",
+		factorValue: 0.014926,
+		maxTimes: 67,
 		round: "floor",
 		match: /Increase your Weapon and Spell Damage by up to ([0-9]+) based on your missing Stamina/i,
 	},
@@ -9856,6 +8964,58 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		round: "floor",
 		statId: "DamageTaken",
+		match: /Pearlescent Ward increases damage reduction from non-player enemies out of [0-9]+% based on the number of group members that are dead/i,
+	},
+	{
+		id: "Pearlescent Ward",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		maxTimes: 12,
+		round: "floor",
+		statId: "PearlescentWard",
+		match: /Pearlescent Ward increases damage reduction from non-player enemies out of [0-9]+% based on the number of group members that are dead/i,
+	},
+	{
+		id: "Perfected Pearlescent Ward",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		statValue: 15,
+		maxTimes: 12, 
+		statId: "WeaponDamage",
+		match: /Pearlescent Ward increases Weapon and Spell Damage by up to [0-9]+ based on the number of group members that are alive/i,
+	},
+	{
+		id: "Perfected Pearlescent Ward",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		statValue: 15,
+		maxTimes: 12, 
+		statId: "SpellDamage",
+		match: /Pearlescent Ward increases Weapon and Spell Damage by up to [0-9]+ based on the number of group members that are alive/i,
+	},
+	{
+		id: "Perfected Pearlescent Ward",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		statValue: -5.5,
+		maxTimes: 12,
+		display: "%",
+		round: "floor",
+		statId: "DamageTaken",
+		match: /Pearlescent Ward increases damage reduction from non-player enemies out of [0-9]+% based on the number of group members that are dead/i,
+	},
+	{
+		id: "Perfected Pearlescent Ward",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		maxTimes: 12,
+		round: "floor",
+		statId: "PearlescentWard",
 		match: /Pearlescent Ward increases damage reduction from non-player enemies out of [0-9]+% based on the number of group members that are dead/i,
 	},
 	{
@@ -9895,8 +9055,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
-		//statId: "SpellDamage",
-		//match: /When you deal damage to an enemy who is Off Balance, your Weapon and Spell Damage are increased by ([0-9]+) for/i,
 		statId: "Magicka",
 		match: /While you have a drink buff active, your Max Magicka is increased by ([0-9]+) and Magicka Recovery by [0-9]+/i,
 	},
@@ -9905,8 +9063,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
-		//statId: "WeaponDamage",
-		//match: /When you deal damage to an enemy who is Off Balance, your Weapon and Spell Damage are increased by ([0-9]+) for/i,
 		statId: "MagickaRegen",
 		match: /While you have a drink buff active, your Max Magicka is increased by [0-9]+ and Magicka Recovery by ([0-9]+)/i,
 	},
@@ -9992,26 +9148,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		rawInputMatch: /(Allies within the whirlwind reduce their Magicka and Stamina costs by [0-9.]+%)/i,
 		match: /Allies within the whirlwind reduce their Magicka and Stamina costs by ([0-9.]+)%/i,
-	},
-	{
-		id: "Spaulder of Ruin",
-		setBonusCount: 1,
-		toggle: true,
-		enabled: false,
-		statId: "WeaponDamage",
-		factorValue: -1,
-		maxTimes: 6,
-		match: /Reduce your Weapon and Spell Damage by ([0-9]+) for every group member benefiting from your Aura of Pride/i,
-	},
-	{
-		id: "Spaulder of Ruin",
-		setBonusCount: 1,
-		toggle: true,
-		enabled: false,
-		statId: "SpellDamage",
-		factorValue: -1,
-		maxTimes: 6,
-		match: /Reduce your Weapon and Spell Damage by ([0-9]+) for every group member benefiting from your Aura of Pride/i,
 	},
 	{
 		id: "Iron Flask",
@@ -10162,42 +9298,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "WeaponCrit",
 		toggle: true,
 		enabled: false,
-		match: /Touching the soul increases your Weapon Critical by ([0-9.]+) and your Critical Damage by [0-9.]+% for/i,
-	},
-	{
-		id: "Sul-Xan's Torment",
-		setBonusCount: 4,
-		statId: "CritDamage",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		match: /Touching the soul increases your Weapon Critical by [0-9.]+ and your Critical Damage by ([0-9.]+)% for/i,
-	},
-	{
-		id: "Perfected Sul-Xan's Torment",
-		setBonusCount: 5,
-		statId: "WeaponCrit",
-		toggle: true,
-		enabled: false,
-		match: /Touching the soul increases your Weapon Critical by ([0-9.]+) and your Critical Damage by [0-9.]+% for/i,
-	},
-	{
-		id: "Perfected Sul-Xan's Torment",
-		setBonusCount: 5,
-		statId: "CritDamage",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		match: /Touching the soul increases your Weapon Critical by [0-9.]+ and your Critical Damage by ([0-9.]+)% for/i,
-	},
-	
-	
-	{
-		id: "Sul-Xan's Torment",
-		setBonusCount: 4,
-		statId: "WeaponCrit",
-		toggle: true,
-		enabled: false,
 		match: /Touching the soul increases your Critical Chance by ([0-9.]+) and your Critical Damage by [0-9.]+% for/i,
 	},
 	{
@@ -10339,7 +9439,6 @@ window.ESO_SETEFFECT_MATCHES = [
 	{
 		id: "Diamond's Victory: Melee Supremacy",
 		setId: "Diamond's Victory",
-		//disableSetIds: ["Diamond's Victory Ranged Supremacy"],
 		setBonusCount: 4,
 		statId: "MeleeWeaponDamage",
 		toggle: true,
@@ -10494,7 +9593,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		maxTimes: 6,
 		match: /You also gain ([0-9.]+) Weapon and Spell Damage for each enemy hit/i,
-	},	
+	},
 	{
 		id: "Zoal the Ever-Wakeful",
 		setBonusCount: 2,
@@ -10512,26 +9611,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		display: "%",
 		match: /Enemies with your Ritualist's Mark take an additional ([0-9.]+)% damage from your summoned pets/i,
-	},
-	{
-		id: "Frenzied Momentum",
-		setBonusCount: 1,
-		statId: "WeaponDamage",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		maxTimes: 5,
-		match: /While Momentum is active, casting Stamina abilities while in combat generates a stack of Frenzied Momentum for [0-9.]+ seconds, increasing your Weapon Damage by ([0-9.]+) up to [0-9.]+ times/i,
-	},
-	{
-		id: "Perfected Frenzied Momentum",
-		setBonusCount: 2,
-		statId: "WeaponDamage",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		maxTimes: 5,
-		match: /While Momentum is active, casting Stamina abilities while in combat generates a stack of Frenzied Momentum for [0-9.]+ seconds, increasing your Weapon Damage by ([0-9.]+) up to [0-9.]+ times/i,
 	},
 	{
 		id: "Frenzied Momentum",
@@ -10704,17 +9783,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		display: "%",
 		match: /Dealing Flame Damage to an enemy grants you Behemoth's Aura for [0-9.]+ second.*reduce Flame Damage taken by ([0-9.]+)%/i,
 	},
-	{
-		id: "Hex Siphon",
-		setBonusCount: 5,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		category: "Set",
-		statId: "SpellDamage",
-		maxTimes: 6,
-		match: /Each enemy hit increases your Spell Damage by ([0-9.]+) for [0-9]+ seconds, up to a maximum of [0-9]+ enemies/i,
-	},
+	
 	{
 		id: "Hex Siphon",
 		setBonusCount: 5,
@@ -10746,17 +9815,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		category: "Set",
 		statId: "SpellDamage",
 		maxTimes: 20,
-		match: /When you take damage, your Spell Damage is increased by ([0-9]+) for [0-9.]+ seconds, stacking up to [0-9.]+ times/i,
-	},
-	{
-		id: "Voidcaller",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		category: "Set",
-		statId: "SpellDamage",
-		maxTimes: 20,
 		match: /When you take damage, your Weapon and Spell Damage is increased by ([0-9]+) for [0-9.]+ seconds, stacking up to [0-9.]+ times/i,
 	},
 	{
@@ -10769,16 +9827,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "WeaponDamage",
 		maxTimes: 20,
 		match: /When you take damage, your Weapon and Spell Damage is increased by ([0-9]+) for [0-9.]+ seconds, stacking up to [0-9.]+ times/i,
-	},
-	{
-		id: "Witch-Knight's Defiance",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		category: "Set",
-		statId: "WeaponDamage",
-		match: /Increases your Weapon Damage by ([0-9]+) against enemies inflicted with a Poison Damage effect/i,
 	},
 	{
 		id: "Witch-Knight's Defiance",
@@ -10879,46 +9927,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /When the tether ends, you consume the stacks and gain ([0-9]+) Weapon and Spell Damage per stack /i,
 	},
 	{
-		id: "Aegis of Galenwe",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "LADamage",
-		display: "%",
-		match: /After successfully blocking, you grant Empower to [0-9]+ allies within [0-9]+ meters for [0-9]+ seconds, increasing the damage of their next Light Attack by ([0-9]+)%/i,
-	},
-	{
-		id: "Perfected Aegis of Galenwe",
-		setBonusCount: 5,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "LADamage",
-		display: "%",
-		match: /After successfully blocking, you grant Empower to [0-9]+ allies within [0-9]+ meters for [0-9]+ seconds, increasing the damage of their next Light Attack by ([0-9]+)%/i,
-	},
-	{
-		id: "Aegis of Galenwe",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "LADamage",
-		display: "%",
-		match: /After successfully blocking, you grant Empower to [0-9]+ allies within [0-9]+ meters for [0-9]+ seconds, increasing the damage of their Light and Heavy Attacks by ([0-9]+)%/i,
-	},
-	{
-		id: "Perfected Aegis of Galenwe",
-		setBonusCount: 5,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "LADamage",
-		display: "%",
-		match: /After successfully blocking, you grant Empower to [0-9]+ allies within [0-9]+ meters for [0-9]+ seconds, increasing the damage of their Light and Heavy Attacks by ([0-9]+)%/i,
-	},
-	{
 		id: "Soulshine",
 		setBonusCount: 4,
 		enableOffBar: true,
@@ -10944,16 +9952,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		category: "Item",
 		statId: "SpellDamage",
-		match: /When you leave Sneak or invisibility, your Spell Damage is increased by ([0-9]+) for /i,
-	},
-	{
-		id: "Stygian",
-		setBonusCount: 4,
-		enableOffBar: true,
-		enable: false,
-		toggle: true,
-		category: "Item",
-		statId: "SpellDamage",
 		match: /When you leave Sneak or invisibility while in combat, your Weapon and Spell Damage is increased by ([0-9]+) for /i,
 	},
 	{
@@ -10965,26 +9963,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		category: "Item",
 		statId: "WeaponDamage",
 		match: /When you leave Sneak or invisibility while in combat, your Weapon and Spell Damage is increased by ([0-9]+) for /i,
-	},
-	{
-		id: "Healing Mage",
-		setBonusCount: 4,
-		enableOffBar: true,
-		toggle: true,
-		enabled: false,
-		buffId: "Healing Mage (Debuff)",
-		updateBuffValue: true,
-		match: /you reduce the Weapon Damage of all enemies within [0-9.]+ meters of you by ([0-9.]+) for/i,
-	},
-	{
-		id: "Healing Mage",
-		setBonusCount: 4,
-		enableOffBar: true,
-		toggle: true,
-		enabled: false,
-		buffId: "Healing Mage (Debuff)",
-		updateBuffValue: true,
-		match: /When you use an area of effect heal ability, you reduce the Weapon and Spell Damage of all enemies within 10 meters of you by ([0-9]+) for/i,
 	},
 	{
 		id: "Spectral Cloak",
@@ -11039,12 +10017,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		updateBuffValue: true,
 		match: /When you deal direct damage, you cause the enemy to take ([0-9]+)% more damage from Poison and Disease attacks/i,
 	},
-	/*
-	 * { id: "The Morag Tong", setBonusCount: 4, enableOffBar: true, toggle:
-	 * true, enabled: false, display: "%", category: "Target", statId:
-	 * "DiseaseDamageTaken", match: /When you deal direct damage, you cause the
-	 * enemy to take ([0-9]+)% more damage from Poison and Disease attacks/i, },
-	 */
 	{
 		id: "Z'en's Redress",
 		setBonusCount: 4,
@@ -11056,16 +10028,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		maxTimes: 5,
 		display: "%",
 		match: /Enemies with the Touch of Z'en take an additional ([0-9]+)% more damage for each damage over time effect you've placed on them/i,
-	},
-	{
-		id: "Destructive Impact",
-		setBonusCount: 1,
-		statId: "SpellDamage",
-		enableOffBar: true,
-		toggle: true,
-		enabled: false,
-		rawInputMatch: /(increases your Spell Damage by [0-9]+ for [0-9]+ seconds after activating it)/,
-		match: /Reduces the cost of Destructive Touch by [0-9]+% and increases your Spell Damage by ([0-9]+) for [0-9]+ seconds after activating it/i,
 	},
 	{
 		id: "Destructive Impact",
@@ -11196,14 +10158,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /When you use a Light Attack you reduce the Health, Magicka, or Stamina cost of your next active ability cast within [0-9]+ seconds by ([0-9]+)%/i,
 	},
 	{
-		id: "Grace of Gloom",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		buffId: "Major Evasion",
-		match: /Heavy Attacks to heal you for [0-9]+ and gaining Major Evasion for /i,
-	},
-	{
 		id: "The Arch-Mage",
 		setBonusCount: 4,
 		toggle: true,
@@ -11218,7 +10172,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: true,
 		statId: "MagickaRegen",
-		// disableSetIds: [ "Torc of Tonal Constancy (Stamina)" ],
 		rawInputMatch: /(While your Stamina is less than [0-9]+%, increase your Magicka Recovery by [0-9]+\.)/,
 		match: /While your Stamina is less than [0-9]+%, increase your Magicka Recovery by ([0-9]+)\./i,
 	},
@@ -11229,7 +10182,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "StaminaRegen",
-		// disableSetIds: [ "Torc of Tonal Constancy (Magicka)" ],
 		rawInputMatch: /(While your Magicka is less than [0-9]+%, increase your Stamina Recovery by [0-9]+\.)/,
 		match: /While your Magicka is less than [0-9]+%, increase your Stamina Recovery by ([0-9]+)\./i,
 	},
@@ -11311,112 +10263,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		buffId: "Major Aegis",
 		match: /apply Major Aegis to you and up to [0-9]+ nearby group members for/i,
-	},
-	{
-		id: "Kyne's Wind",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		updateBuffValue: true,
-		buffId: "Kyne`s Wind",
-		match: /You and allies standing in Kyne's Blessing restore ([0-9]+) Stamina and Magicka every [0-9]+ second/i,
-	},
-	{
-		id: "Perfected Kyne's Wind",
-		setBonusCount: 5,
-		toggle: true,
-		enabled: false,
-		updateBuffValue: true,
-		buffId: "Kyne`s Wind",
-		match: /You and allies standing in Kyne's Blessing restore ([0-9]+) Stamina and Magicka every [0-9]+ second/i,
-	},
-	{
-		id: "Roaring Opportunist",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		buffId: "Major Slayer",
-		match: /grants you and up to [0-9]+ group members within [0-9]+ meters Major Slayer/i,
-	},
-	{
-		id: "Perfected Roaring Opportunist",
-		setBonusCount: 5,
-		toggle: true,
-		enabled: false,
-		buffId: "Major Slayer",
-		match: /grants you and up to [0-9]+ group members within [0-9]+ meters Major Slayer/i,
-	},
-	{
-		id: "Yandir's Might (Giant's Endurance)",
-		setId: "Yandir's Might",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		disableSetIds: [ "Yandir's Might (Giant's Might)" ],
-		statId: "StaminaRegen",
-		maxTimes: 10,
-		rawInputMatch: /(Dealing Critical Damage grants you a stack of Giant's Endurance, up to one each second\. Each stack of Giant's Endurance adds [0-9]+ Stamina Recovery, and stacks up to [0-9]+ times\.)/i,
-		match: /Each stack of Giant's Endurance adds ([0-9]+) Stamina Recovery/i,
-	},
-	{
-		id: "Yandir's Might (Giant's Endurance)",
-		setId: "Yandir's Might",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		disableSetIds: [ "Yandir's Might (Giant's Might)" ],
-		statId: "WeaponDamage",
-		maxTimes: 10,
-		rawInputMatch: /(Dealing Critical Damage grants you a stack of Giant's Endurance, up to one every half second\. Each stack of Giant's Endurance adds [0-9]+ Weapon Damage, and stacks up to [0-9]+ times.\.)/i,
-		match: /Each stack of Giant's Endurance adds ([0-9]+) Weapon Damage/i,
-	},
-	{
-		id: "Yandir's Might (Giant's Might)",
-		setId: "Yandir's Might",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		disableSetIds: [ "Yandir's Might (Giant's Endurance)" ],
-		statId: "WeaponDamage",
-		maxTimes: 10,
-		rawInputMatch: /(Dealing damage with a Fully Charged Heavy Attack removes Giant's Endurance and grants Giant's Might for [0-9]+ seconds, increasing your Weapon Damage by [0-9]+ per stack removed\.)/i,
-		match: /increasing your Weapon Damage by ([0-9]+) per stack removed/i,
-	},
-	{
-		id: "Perfected Yandir's Might (Giant's Endurance)",
-		setId: "Perfected Yandir's Might",
-		setBonusCount: 5,
-		toggle: true,
-		enabled: false,
-		disableSetIds: [ "Perfected Yandir's Might (Giant's Might)" ],
-		statId: "StaminaRegen",
-		maxTimes: 10,
-		rawInputMatch: /(Dealing Critical Damage grants you a stack of Giant's Endurance, up to one a second\. Each stack of Giant's Endurance adds [0-9]+ Stamina Recovery, and stacks up to [0-9]+ times\.)/i,
-		match: /Each stack of Giant's Endurance adds ([0-9]+) Stamina Recovery/i,
-	},
-	{
-		id: "Perfected Yandir's Might (Giant's Endurance)",
-		setId: "Perfected Yandir's Might",
-		setBonusCount: 5,
-		toggle: true,
-		enabled: false,
-		disableSetIds: [ "Perfected Yandir's Might (Giant's Might)" ],
-		statId: "WeaponDamage",
-		maxTimes: 10,
-		rawInputMatch: /(Dealing Critical Damage grants you a stack of Giant's Endurance, up to one every half second\. Each stack of Giant's Endurance adds [0-9]+ Weapon Damage, and stacks up to [0-9]+ times.\.)/i,
-		match: /Each stack of Giant's Endurance adds ([0-9]+) Weapon Damage/i,
-	},
-	{
-		id: "Perfected Yandir's Might (Giant's Might)",
-		setId: "Perfected Yandir's Might",
-		setBonusCount: 5,
-		toggle: true,
-		enabled: false,
-		disableSetIds: [ "Perfected Yandir's Might (Giant's Endurance)" ],
-		statId: "WeaponDamage",
-		maxTimes: 10,
-		rawInputMatch: /(Dealing damage with a Fully Charged Heavy Attack removes Giant's Endurance and grants Giant's Might for [0-9]+ seconds, increasing your Weapon Damage by [0-9]+ per stack removed\.)/i,
-		match: /increasing your Weapon Damage by ([0-9]+) per stack removed/i,
 	},
 	{
 		id: "Yandir's Might (Giant's Endurance)",
@@ -11564,24 +10410,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Off Balance, your Physical and Spell Penetration is increased by ([0-9]+) for/i,
 	},
 	{
-		id: "Stuhn's Favor",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		statId: "PhysicalPenetration",
-		match: /an enemey who is Off Balance, your Physical and Spell Penetration is increased by ([0-9]+) for/i,
-	},
-	{
-		id: "Stuhn's Favor",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		statId: "SpellPenetration",
-		match: /an enemey who is Off Balance, your Physical and Spell Penetration is increased by ([0-9]+) for/i,
-	},
-	{
 		id: "Cruel Flurry",
 		setBonusCount: 1,
 		toggle: true,
@@ -11590,16 +10418,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		updateBuffValue : true,
 		enableOffBar : true,
 		match: /When you deal damage with Flurry, your single target damage over time abilities used within [0-9]+ seconds gain ([0-9]+) Spell and Weapon Damage./i,
-	},
-	{
-		id: "Dro'Zakar's Claws",
-		setBonusCount: 4,
-		enabled: false,
-		toggle: true,
-		maxTimes: 10,
-		category: "Set",
-		statId: "WeaponDamage",
-		match: /For every bleed effect you have on an enemy, increase your Weapon Damage by ([0-9]+) against them/i,
 	},
 	{
 		id: "Dro'Zakar's Claws",
@@ -11630,46 +10448,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		updateBuffValue : true,
 		enableOffBar : false,
 		match: /Summon a stone aura while you are Bracing, hardening you and your nearby group members, increasing your Physical and Spell Resistance by ([0-9]+)/i,
-	},
-	{	id: "Titanborn Strength x2",
-		setId: "Titanborn Strength",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		factorValue: 0.5,
-		disableSetIds: [ "Titanborn Strength x4" ],
-		statId: "WeaponDamage",
-		match: /This bonus doubles to ([0-9]+) Weapon Damage and [0-9]+ Physical Penetration when you are under/i,
-	},
-	{	id: "Titanborn Strength x2",
-		setId: "Titanborn Strength",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		factorValue: 0.5,
-		disableSetIds: [ "Titanborn Strength x4" ],
-		statId: "PhysicalPenetration",
-		match: /This bonus doubles to [0-9]+ Weapon Damage and ([0-9]+) Physical Penetration when you are under/i,
-	},
-	{	id: "Titanborn Strength x4",
-		setId: "Titanborn Strength",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		factorValue: 0.75,
-		disableSetIds: [ "Titanborn Strength x2" ],
-		statId: "WeaponDamage",
-		match: /This bonus quadruples to ([0-9]+) Weapon Damage and [0-9]+ Physical Penetration when you are under/i,
-	},
-	{	id: "Titanborn Strength x4",
-		setId: "Titanborn Strength",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		factorValue: 0.75,
-		disableSetIds: [ "Titanborn Strength x2" ],
-		statId: "PhysicalPenetration",
-		match: /This bonus quadruples to [0-9]+ Weapon Damage and ([0-9]+) Physical Penetration when you are under/i,
 	},
 	{	id: "Titanborn Strength x2",
 		setId: "Titanborn Strength",
@@ -11777,7 +10555,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		combineAs: "*%",
 		match: /When an ally activates one of your synergies, you and the ally who activated the synergy get ([0-9]+)% cost reduction for non-Ultimate abilities/i,
-	},	
+	},
 	{	id: "Eye of Nahviintaas",
 		setBonusCount: 4,
 		statId: "MagickaCost",
@@ -11797,27 +10575,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		combineAs: "*%",
 		match: /When an ally activates one of your synergies, you and the ally who activated the synergy get ([0-9]+)% cost reduction for non-Ultimate abilities/i,
-	},
-	{	id: "Perfected Tooth of Lokkestiiz",
-		setBonusCount: 5,
-		buffId: "Major Slayer",
-		toggle: true,
-		enabled: false,
-		match: /When you activate a synergy, gain Major Slayer for /i,
-	},
-	{	id: "Tooth of Lokkestiiz",
-		setBonusCount: 4,
-		buffId: "Major Slayer",
-		toggle: true,
-		enabled: false,
-		match: /When you activate a synergy, gain Major Slayer for /i,
-	},
-	{	id: "Vastarie's Tutelage",
-		setBonusCount: 5,
-		buffId: "Vastaries Tutelage",
-		toggle: true,
-		enabled: false,
-		match: /When you resurrect an ally, you and your ally gain ([0-9]+) Weapon and Spell Damage and [0-9]+% cost reduction to non-Ultimate abilities/i,
 	},
 	{	id: "Senche-raht's Grit",
 		setBonusCount: 4,
@@ -11862,42 +10619,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Increases your Physical and Spell Resistance by up to ([0-9]+) based on your missing Health/i,
 	},
 	{	
-		id: "Mighty Glacier",
-		setBonusCount: 5,
-		toggle: true,
-		enabled: false,
-		buffId: "Major Resolve",
-		match: /you and up to [0-9]+ group members gain Major Resolve and Major Ward for [0-9]+ seconds/i,
-	},
-	{	
-		id: "Mighty Glacier",
-		setBonusCount: 5,
-		toggle: true,
-		enabled: false,
-		buffId: "Major Ward",
-		match: /you and up to [0-9]+ group members gain Major Resolve and Major Ward for [0-9]+ seconds/i,
-	},
-	{	
-		id: "Hagraven's Garden",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		statId: "DamageTaken",
-		display: "%",
-		factorValue: -1,
-		match: /Any damage you take from enemies outside of the preservation is reduced by ([0-9]+)%/i,
-	},
-	{	
-		id: "Tzogvin's Warband",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		statId: "WeaponCrit",
-		maxTimes: 10,
-		enableBuffAtMax: "Minor Force",
-		match: /When you deal Critical Damage, you gain a stack of Precision, increasing your Weapon Critical by ([0-9]+) for [0-9]+ seconds, up to [0-9]+ stacks max/i,
-	},
-	{	
 		id: "Tzogvin's Warband",
 		setBonusCount: 4,
 		toggle: true,
@@ -11935,22 +10656,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		factorValue: -1,
 		display: "%",
 		match: /When you cast Blessing of Protection, the cost of your Magicka and Stamina healing abilities are reduced by ([0-9]+)% for/i,
-	},
-	{	
-		id: "Puncturing Remedy",
-		setBonusCount: 1,
-		toggle: true,
-		enabled: false,
-		statId: "SpellResist",
-		match: /When you deal damage with Puncture, you heal for ([0-9]+) Health and gain Spell and Physical Resistance equal to the amount healed/i,
-	},
-	{	
-		id: "Puncturing Remedy",
-		setBonusCount: 1,
-		toggle: true,
-		enabled: false,
-		statId: "PhysicalResist",
-		match: /When you deal damage with Puncture, you heal for ([0-9]+) Health and gain Spell and Physical Resistance equal to the amount healed/i,
 	},
 	{	
 		id: "Puncturing Remedy",
@@ -12019,14 +10724,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		statId: "WeaponDamage",
-		match: /You gain ([0-9]+) Weapon Damage against targets who are at or below [0-9]+% Health/i,
-	},
-	{
-		id: "Kvatch Gladiator",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		statId: "WeaponDamage",
 		match: /You gain ([0-9]+) Weapon and Spell Damage against targets who are at or below [0-9]+% Health/i,
 	},
 	{
@@ -12036,44 +10733,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		statId: "SpellDamage",
 		match: /You gain ([0-9]+) Weapon and Spell Damage against targets who are at or below [0-9]+% Health/i,
-	},
-	{
-		id: "Kvatch Gladiator",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : false,
-		category: "Skill2",
-		statId: "LAWeaponDamage",
-		match: /When your target is under [0-9]+% Health, add ([0-9]+) Weapon Damage to your Light and Heavy Attacks/i,
-	},
-	{
-		id: "Kvatch Gladiator",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : false,
-		category: "Skill2",
-		statId: "HAWeaponDamage",
-		match: /When your target is under [0-9]+% Health, add ([0-9]+) Weapon Damage to your Light and Heavy Attacks/i,
-	},
-	{
-		id: "Armor of the Code",
-		setBonusCount: 1,
-		toggle: true,
-		enabled: false,
-		enableOffBar : false,
-		statId: "WeaponCrit",
-		match: /Increase your Weapon and Spell Critical Rating against targets with a lower % of health than you by ([0-9]+)/i,
-	},
-	{
-		id: "Armor of the Code",
-		setBonusCount: 1,
-		toggle: true,
-		enabled: false,
-		enableOffBar : false,
-		statId: "SpellCrit",
-		match: /Increase your Weapon and Spell Critical Rating against targets with a lower % of health than you by ([0-9]+)/i,
 	},
 	{
 		id: "Armor of the Code",
@@ -12112,26 +10771,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		statId: "SpellResist",
 		match: /When you use an Armor ability while in combat, your Physical and Spell Resistance is increased by ([0-9]+)/i,
-	},
-	{
-		id: "Armor of Rage",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "WeaponDamage",
-		match: /chance to increase Weapon Damage by ([0-9]+) for [0-9]+ seconds after dealing damage/i,
-	},
-	{
-		id: "Armor of the Veiled Heritance",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "WeaponDamage",
-		// match: /When you deal damage, you have a [0-9]+% chance to increase
-		// your Weapon Damage by ([0-9]+)/i,
-		match: /When you interrupt an enemy, you gain ([0-9]+) Weapon Damage/i,
 	},
 	{
 		id: "Armor of Truth",
@@ -12203,16 +10842,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		maxTimes: 10,
 		statId: "WeaponCrit",
-		match: /When you deal Martial melee damage, your Weapon Critical is increased by ([0-9]+) for [0-9]+ seconds, stacking up to [0-9]+ times/i,
-	},
-	{
-		id: "Berserking Warrior",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		maxTimes: 10,
-		statId: "WeaponCrit",
 		match: /When you deal Martial melee damage, your Critical Chance is increased by ([0-9]+) for [0-9]+ seconds, stacking up to [0-9]+ times/i,
 	},
 	{
@@ -12263,15 +10892,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		statId: "SpellResist",
 		match: /Ultimate and increase your Physical and Spell Resistance by ([0-9]+) for/i,
-	},
-	{
-		id: "Briarheart",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "WeaponDamage",
-		match: /When you deal Critical Damage, you increase your Weapon Damage by ([0-9]+)/i,
 	},
 	{
 		id: "Briarheart",
@@ -12349,17 +10969,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "MovementSpeed",
-		display: "%",
-		maxTimes: 5,
-		match: /When you cast Whirlwind, you gain a stack of Chaotic Whirlwind for [0-9]+ seconds, granting you ([0-9]+)% Movement Speed per stack, up to a maximum of [0-9]+ times/i,
-	},
-	{
-		id: "Perfected Chaotic Whirlwind",
-		setBonusCount: 2,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
 		statId: "WeaponDamage",
 		maxTimes: 75,
 		match: /While Chaotic Whirlwind is active, you gain ([0-9]+) Weapon and Spell Damage for every [0-9]+% bonus Movement Speed you have, up to a maximum of [0-9]+/i,
@@ -12381,15 +10990,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "EnemyTargetWeaponDamage",
-		match: /Increases your Weapon Damage by ([0-9]+) against targets affected by your Poison Arrow/i,
-	},
-	{
-		id: "Caustic Arrow",
-		setBonusCount: 1,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "EnemyTargetWeaponDamage",
 		match: /Increases your Weapon and Spell Damage by ([0-9]+) against targets affected by your Poison Arrow/i,
 	},
 	{
@@ -12408,15 +11008,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "EnemyTargetWeaponDamage",
-		match: /Increases your Weapon Damage by ([0-9]+) against targets affected by your Poison Arrow/i,
-	},
-	{
-		id: "Perfected Caustic Arrow",
-		setBonusCount: 2,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "EnemyTargetWeaponDamage",
 		match: /Increases your Weapon and Spell Damage by ([0-9]+) against targets affected by your Poison Arrow/i,
 	},
 	{
@@ -12427,24 +11018,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		statId: "EnemyTargetSpellDamage",
 		match: /Increases your Weapon and Spell Damage by ([0-9]+) against targets affected by your Poison Arrow/i,
-	},
-	{
-		id: "Clever Alchemist",
-		setBonusCount: 5,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "EnemyTargetSpellDamage",
-		match: /When you drink a potion you feel a rush of energy, increasing your Weapon and Spell Damage by ([0-9]+)/i,
-	},
-	{
-		id: "Clever Alchemist",
-		setBonusCount: 5,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "WeaponDamage",
-		match: /When you drink a potion you feel a rush of energy, increasing your Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
 		id: "Clever Alchemist",
@@ -12473,7 +11046,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		updateBuffValue : true,
 		enableOffBar : true,
 		match: /Your Light and Heavy Attacks deal an additional ([0-9]+) damage to enemies in your Wall of Elements/i,
-	},	
+	},
 	{
 		id: "Perfected Crushing Wall",
 		setBonusCount: 2,
@@ -12526,36 +11099,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		category: "SkillBonusSpellDmg",
 		statId: "Flame",
-		match: /Whenever you deal Flame, Shock, or Frost Damage, you gain ([0-9]+) Spell Damage /i,
-	},
-	{
-		id: "Elemental Succession (Shock)",
-		setId: "Elemental Succession",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		category: "SkillBonusSpellDmg",
-		statId: "Shock",
-		match: /Whenever you deal Flame, Shock, or Frost Damage, you gain ([0-9]+) Spell Damage /i,
-	},
-	{
-		id: "Elemental Succession (Cold)",
-		setId: "Elemental Succession",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		category: "SkillBonusSpellDmg",
-		statId: "Frost",
-		match: /Whenever you deal Flame, Shock, or Frost Damage, you gain ([0-9]+) Spell Damage /i,
-	},
-	{
-		id: "Elemental Succession (Flame)",
-		setId: "Elemental Succession",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		category: "SkillBonusSpellDmg",
-		statId: "Flame",
 		match: /Whenever you deal Flame, Shock, or Frost Damage, you gain ([0-9]+) Weapon and Spell Damage /i,
 	},
 	{
@@ -12634,33 +11177,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		statId: "DamageDone",
 		display: "%",
-		match: /increases your damage by ([0-9]+\.?[0-9]*)% for/i,
-	},
-	{
-		id: "Essence Thief",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "DamageDone",
-		display: "%",
 		match: /increases your damage done by ([0-9]+\.?[0-9]*)% for/i,
-	},
-	{
-		id: "Flanking Strategist",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		statId: "WeaponDamage",
-		match: /Adds ([0-9]+) Weapon Damage to your damaging abilities when you use them to attack an enemy from behind/i,
-	},
-	{
-		id: "Flanking Strategist",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		statId: "WeaponDamage",
-		match: /Adds ([0-9]+) Weapon Damage to your damaging abilities when you attack an enemy from behind or their sides/i,
 	},
 	{
 		id: "Flanking Strategist",
@@ -12787,16 +11304,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		category: "Set",
 		statId: "ExtraBashDamage",
 		match: /and causing your next Bash attack to deal an additional ([0-9]+) damage/i,
-	},	
-	{
-		id: "Light of Cyrodiil",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		statId: "DamageTaken",
-		combineAs: "*%",
-		factorValue: -1,
-		match: /While casting or channeling a spell, incoming damage is reduced by ([0-9]+\.?[0-9]*)%/i,
 	},
 	{
 		id: "Light of Cyrodiil",
@@ -12816,16 +11323,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		buffId: "Lord Warden",
 		updateBuffValue: true,
-		match: /chance to summon a shadow orb for [0-9]+ seconds that increases the Physical and Spell Resistance of you and your allies within [0-9]+ meters by ([0-9]+)/i,
-	},
-	{
-		id: "Lord Warden",
-		setBonusCount: 2,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		buffId: "Lord Warden",
-		updateBuffValue: true,
 		match: /chance to summon a shadow orb for [0-9]+ seconds that increases the Physical and Spell Resistance of you and your group members within [0-9]+ meters by ([0-9]+)/i,
 	},
 	{
@@ -12836,26 +11333,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		statId: "SpellDamage",
 		maxTimes: 10,
-		match: /Standing in the ring grants you a stack of Siroria's Boon for [0-9]+ seconds. Each stack increases your Spell Damage by ([0-9]+)\./i,
-	},
-	{
-		id: "Perfected Mantle of Siroria",
-		setBonusCount: 5,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "SpellDamage",
-		maxTimes: 10,
-		match: /Standing in the ring grants you a stack of Siroria's Boon for [0-9]+ seconds. Each stack increases your Spell Damage by ([0-9]+)\./i,
-	},
-	{
-		id: "Mantle of Siroria",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "SpellDamage",
-		maxTimes: 10,
 		match: /Standing in the ring grants you a stack of Siroria's Boon for [0-9]+ seconds, up to a maximum of 10 times. Each stack increases your Weapon and Spell Damage by ([0-9]+)\./i,
 	},
 	{
@@ -12887,24 +11364,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "WeaponDamage",
 		maxTimes: 10,
 		match: /Standing in the ring grants you a stack of Siroria's Boon for [0-9]+ seconds, up to a maximum of 10 times. Each stack increases your Weapon and Spell Damage by ([0-9]+)\./i,
-	},
-	{
-		id: "Mechanical Acuity",
-		setBonusCount: 5,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		buffId: "Mechanical Acuity",
-		match: /When you deal direct damage, you have a [0-9]+% chance to gain unerring mechanical vision for [0-9]+ seconds, causing your attacks to always be a Critical Strike/i,
-	},
-	{
-		id: "Mechanical Acuity",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		buffId: "Mechanical Acuity",
-		match: /When you deal direct damage, you gain unerring mechanical vision for [0-9]+ seconds, granting you [0-9]+% Critical Strike chance/i,
 	},
 	{
 		id: "Mechanical Acuity",
@@ -12936,28 +11395,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		//statId: "PhysicalResist",
 		buffId: "Meritorious Service",
-		match: /When you cast a Support ability, you increase the Physical and Spell Resistance of yourself and up to [0-9]+ allies within [0-9]+ meters by ([0-9]+) for/i,
-	},
-	{
-		id: "Meritorious Service",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		//statId: "PhysicalResist",
-		buffId: "Meritorious Service",
-		match: /When you cast a Support ability, you increase the Physical and Spell Resistance of yourself and up to [0-9]+ group members within [0-9]+ meters by ([0-9]+) for/i,
-	},
-	{
-		id: "Meritorious Service",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		buffId: "Meritorious Service",
-		//statId: "PhysicalResist",
 		match: /When you cast a Support ability while in combat, you increase the Physical and Spell Resistance of yourself and up to [0-9]+ group members within [0-9]+ meters by ([0-9]+) for/i,
 	},
 	{
@@ -12999,39 +11437,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		statId: "WeaponDamage",
 		match: /which increases your Weapon and Spell Damage by ([0-9]+)/i,
-	},
-	{
-		id: "Moondancer",
-		displayName: "MoonDancer Spell Damage",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		disableSetId: "Moondancer2",
-		statId: "SpellDamage",
-		match: /When you activate a synergy, you gain a shadow blessing that increases your Spell Damage by ([0-9]+) or a lunar blessing that increases your Magicka Recovery by [0-9]+/i,
-	},
-	{
-		id: "Moondancer2",
-		displayName: "MoonDancer Magicka Regen",
-		setId: "Moondancer",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "MagickaRegen",
-		disableSetId: "Moondancer",
-		match: /When you activate a synergy, you gain a shadow blessing that increases your Spell Damage by [0-9]+ or a lunar blessing that increases your Magicka Recovery by ([0-9]+)/i,
-	},
-	{
-		id: "Moon Hunter",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "SpellDamage",
-		category: "Set",
-		match: /When your alchemical poison fires, increase your Spell Damage by ([0-9]+)/i,
 	},
 	{
 		id: "Moon Hunter",
@@ -13104,30 +11509,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /When you deal damage with a Light or Heavy Attack in melee range, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
 	},
 	{
-		id: "Oblivion's Foe",
-		setBonusCount: 4,
-		enabled: false,
-		category: "SkillLineSpellDmg",
-		statId: "Soul Trap",
-		match: /Your Soul Trap ability gains ([0-9]+) Weapon and Spell Damage/i,
-	},	
-	{
-		id: "Oblivion's Foe",
-		setBonusCount: 4,
-		enabled: false,
-		category: "SkillLineWeaponDmg",
-		statId: "Soul Trap",
-		match: /Your Soul Trap ability gains ([0-9]+) Weapon and Spell Damage/i,
-	},
-	{
-		id: "Oblivion's Foe",	// TODO: Update27 Verify
-		setBonusCount: 4,
-		enabled: false,
-		category: "SkillDirectDamage",
-		statId: "Soul Magic",
-		match: /Your Soul Magic attacks deal an extra ([0-9]+) damage/i,
-	},
-	{
 		id: "Orgnum's Scales",
 		setBonusCount: 4,
 		toggle: true,
@@ -13155,17 +11536,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /While you are under [0-9]+% Health, your Health Recovery is increased by [0-9]+ and your Physical and Spell Resistance is increased by ([0-9]+)/i,
 	},
 	{
-		id: "Orgnum's Scales",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : false,
-		category: "Skill",
-		statId: "HealthRegen",
-		display: '%',
-		match: /While you are under [0-9]+% Health, your Health Recovery is increased by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
 		id: "Permafrost",
 		setBonusCount: 4,
 		toggle: true,
@@ -13183,16 +11553,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		buffId: "Powerful Assault",
 		updateBuffValue: true,
 		match: /When you cast an Assault ability while in combat, you and up to [0-9]+ group members within [0-9]+ meters gain ([0-9]+) Weapon and Spell Damage/i,
-	},
-	{
-		id: "Ravager",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		maxTimes: 5,
-		statId: "WeaponDamage",
-		match: /Each time you attempt to reduce the target's Physical or Spell Resistance, you gain a stack of Ravager for [0-9]+ seconds, increasing your Weapon Damage by ([0-9]+)/i,
 	},
 	{
 		id: "Ravager",
@@ -13225,16 +11585,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /After you are affected by a disabling effect, your damage taken is reduced by ([0-9]+\.?[0-9]*)% for /i,
 	},
 	{
-		id: "Reactive Armor",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		statId: "DamageTaken",
-		display: "%",
-		factorValue: -1,
-		match: /While you are affected by a disabling effect, your damage taken is reduced by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
 		id: "Renald's Resolve",
 		setBonusCount: 4,
 		toggle: true,
@@ -13263,16 +11613,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /Whenever you deal direct damage, gain a stack of Resolve for [0-9]+ seconds. Each stack increases your Healing Taken by [0-9]+% and your Physical and Spell Resistance by ([0-9]+)/i,
 	},
 	{
-		id: "Roar of Alkosh",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		buffId: "Alkosh (Target)",
-		updateBuffValue : true,
-		match: /Reduces the Physical and Spell Resistance of any enemy hit by ([0-9]+) for/i,
-	},
-	{
 		id: "Robes of Transmutation",
 		setBonusCount: 4,
 		toggle: true,
@@ -13280,19 +11620,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		buffId: "Robes of Transmutation",
 		updateBuffValue: true,
-		// match: /When you heal a target with a healing over time ability,
-		// grant them ([0-9]+) Critical Resistance/i,
 		match: /When you heal yourself or an ally with a healing over time ability, grant them ([0-9]+) Critical Resistance/i,
 	},
-	{
-		id: "Scathing Mage",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "SpellDamage",
-		match: /When you deal direct damage, you have a [0-9]+% chance to increase your Spell Damage by ([0-9]+)/i,
-	},	
 	{
 		id: "Scathing Mage",
 		setBonusCount: 4,
@@ -13310,15 +11639,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		statId: "WeaponDamage",
 		match: /When you deal direct damage, you have a [0-9]+% chance to increase your Weapon and Spell Damage by ([0-9]+)/i,
-	},
-	{
-		id: "Scourge Harvester",
-		setBonusCount: 2,
-		toggle: true,
-		enabled: false,
-		statId: "HealingReceived",
-		display: "%",
-		match: /While the beam holds gain ([0-9]+\.?[0-9]*)% increased healing received/i,
 	},
 	{
 		id: "Shield Breaker",
@@ -13399,24 +11719,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "WeaponDamage",
-		match: /When you cast an ability that increases your Physical or Spell Resistance.*, you gain ([0-9]+) Weapon Damage and [0-9]+ Health Recovery for/i,
-	},
-	{
-		id: "Seventh Legion Brute",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "HealthRegen",
-		match: /When you cast an ability that increases your Physical or Spell Resistance.*, you gain [0-9]+ Weapon Damage and ([0-9]+) Health Recovery for/i,
-	},
-	{
-		id: "Seventh Legion Brute",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "WeaponDamage",
 		match: /When you cast an ability that increases your Physical or Spell Resistance while in combat, you gain ([0-9]+) Weapon and Spell Damage and [0-9]+ Health Recovery/i
 	},
 	{
@@ -13443,15 +11745,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		buffId: "Major Berserk",
-		match: /When you use the Blade of Woe, you gain Major Berserk/i,
-	},
-	{
-		id: "Sithis' Touch",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
 		statId: "MovementSpeed",
 		maxTimes: 20,
 		display: "%",
@@ -13465,58 +11758,9 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		buffId: "Major Courage",
 		updateBuffValue : true,
-		match: /When you heal yourself or an ally that is at [0-9]+% Health, you have a [0-9]+% chance to give the target Major Courage for [0-9]+ seconds which increase(?:s|) their Weapon and Spell Damage by ([0-9]+)/i,
-	},
-	{
-		id: "Spell Power Cure",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		buffId: "Major Courage",
-		updateBuffValue : true,
 		match: /When you overheal yourself or an ally, you give the target Major Courage for [0-9]+ seconds which increases their Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
-		id: "Spell Power Cure",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		buffId: "Major Courage",
-		updateBuffValue : true,
-		match: /You and your allies in the circle gain Major Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+)/i,
-	},
-	{
-		id: "Spell Power Cure",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		buffId: "Major Courage",
-		updateBuffValue : true,
-		match: /you have a [0-9]+% chance to give them Major Courage for [0-9]+ seconds which increase their Weapon and Spell Damage by ([0-9]+)/i,
-	},	
-	{
-		id: "Spell Power Cure",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		buffId: "Major Courage",
-		updateBuffValue : true,				// TODO18
-		match: /you have a [0-9]+% chance to give them Major Courage for [0-9]+ seconds which increases their Weapon and Spell Damage by ([0-9]+)/i,
-	},
-	{
-		id: "Spell Strategist",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "SpellDamage",
-		match: /When you deal damage with a Light Attack, you place a mark over your target for 5 seconds, granting you ([0-9]+) Spell Damage against your marked target/i,
-	},
-	{
 		id: "Spell Strategist",
 		setBonusCount: 4,
 		toggle: true,
@@ -13535,15 +11779,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /When you deal damage with a Light Attack, you place a mark over your target for 5 seconds, granting you ([0-9]+) Weapon and Spell Damage against your marked target/i,
 	},
 	{
-		id: "The Brute",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "WeaponDamage",
-		match: /chance when hit to increase Weapon Damage by ([0-9]+)/i,
-	},
-	{
 		id: "Tormentor",
 		setBonusCount: 4,
 		toggle: true,
@@ -13560,24 +11795,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		enableOffBar : true,
 		statId: "SpellResist",
 		match: /you gain ([0-9]+) Physical and Spell Resistance and taunt/
-	},
-	{
-		id: "Tormentor",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "PhysicalResist",
-		match: /When you deal damage with a Charge ability, you gain ([0-9]+) Physical and Spell Resistance/
-	},
-	{
-		id: "Tormentor",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "SpellResist",
-		match: /When you deal damage with a Charge ability, you gain ([0-9]+) Physical and Spell Resistance/
 	},
 	{
 		id: "The Troll King",
@@ -13586,20 +11803,7 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar : true,
 		statId: "HealthRegen",
-		// match: /When you heal a friendly target, if they are still below
-		// [0-9]+% Health, their Health Recovery is increased by ([0-9]+)/
 		match: /When you heal yourself or an ally, if they are still below [0-9]+% Health, their Health Recovery is increased by ([0-9]+) /
-	},	
-	
-	{
-		id: "Twice-Fanged Serpent",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "PhysicalPenetration",
-		maxTimes: 10,
-		match: /When you deal damage, your Physical Penetration is increased by ([0-9]+)/i,
 	},
 	{
 		id: "Twice-Fanged Serpent",
@@ -13620,22 +11824,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "SpellPenetration",
 		maxTimes: 10,
 		match: /When you deal damage, your Offensive Penetration is increased by ([0-9]+)/i,
-	},
-	{
-		id: "Unassailable",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		statId: "PhysicalResist",
-		match: /While blocking, increase Physical Resistance and Spell Resistance by ([0-9]+)/i,
-	},
-	{
-		id: "Unassailable",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		statId: "SpellResist",
-		match: /While blocking, increase Physical Resistance and Spell Resistance by ([0-9]+)/i,
 	},
 	{
 		id: "Undaunted Infiltrator",
@@ -13808,26 +11996,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /You and your group members in the circle gain Major Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
-		id: "Perfected Vestment of Olorime",
-		setBonusCount: 5,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		buffId: "Major Courage",
-		updateBuffValue : true,
-		match: /You and your group members standing in the circle gain Major Courage for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+)/i,
-	},
-	{
-		id: "Warrior's Fury",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		enableOffBar : true,
-		statId: "WeaponDamage",
-		maxTimes: 20,
-		match: /When you take damage, your Weapon Damage is increased by ([0-9]+) for/i,
-	},
-	{
 		id: "Warrior's Fury",
 		setBonusCount: 4,
 		toggle: true,
@@ -13871,34 +12039,9 @@ window.ESO_SETEFFECT_MATCHES = [
 		enabled: false,
 		enableOffBar: true,
 		toggle: true,
-		//category: "Skill2",
-		//statId: "HASpellDamage",
-		//match: /Adds ([0-9]+) Weapon and Spell Damage to your fully-charged Heavy Attacks/i,
 		statId: "MovementSpeed",
 		display: "%",
 		match: /When you apply a damage shield to yourself or an ally, increase your Movement Speed by ([0-9]+)% for/i,
-	},
-	/*
-	{
-		id: "Marauder's Haste",
-		setBonusCount: 4,
-		enabled: false,
-		enableOffBar: true,
-		toggle: true,
-		category: "Skill2",
-		statId: "HAWeaponDamage",
-		match: /Adds ([0-9]+) Weapon and Spell Damage to your fully-charged Heavy Attacks/i,
-	},*/
-	{
-		id: "Dragonguard Elite",
-		setBonusCount: 4,
-		enabled: false,
-		enableOffBar: true,
-		toggle: true,
-		maxTimes: 10,
-		category: "Set",
-		statId: "WeaponCrit",
-		match: /Each stack of Dragonguard Tactics increases your Weapon Critical by ([0-9]+)\./i,
 	},
 	{
 		id: "Dragonguard Elite",
@@ -13965,30 +12108,6 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "SpellResist", 
 		rawInputMatch: /(Adds [0-9]+ Physical and Spell Resistance while your health is [0-9]+% or less\.)/i,
 		match: /Adds ([0-9]+) Physical and Spell Resistance while your Health is/i,
-	},
-	{
-		id: "Eagle Eye",
-		setBonusCount: 2,
-		enabled: false,
-		toggle: true,
-		statId: "WeaponCrit",
-		match: /Adds ([0-9]+) Weapon Critical to your ranged direct damage abilities/i,
-	},
-	{
-		//id: "Wrath of the Imperium",
-		//setBonusCount: 2,
-		//enabled: false,
-		//toggle: true,
-		statId: "DirectRangeSpellDamage",
-		match: /Adds ([0-9]+) Weapon and Spell Damage to your ranged direct damage abilities./i,
-	},
-	{
-		//id: "Wrath of the Imperium",
-		//setBonusCount: 2,
-		//enabled: false,
-		//toggle: true,
-		statId: "DirectRangeWeaponDamage",
-		match: /Adds ([0-9]+) Weapon and Spell Damage to your ranged direct damage abilities./i,
 	},
 ];		// End of Toggled Sets
 
@@ -21720,6 +19839,7 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
 			WintersEmbraceSkills : CountEsoBarSkillsWithSkillLine("Winter's Embrace"),
 			BoneTyrantSkills : CountEsoBarSkillsWithSkillLine("Bone Tyrant"),
 			GraveLordSkills : CountEsoBarSkillsWithSkillLine("Grave Lord"),
+			CoralRiptide : inputValues.Set.CoralRiptide,
 	};
 	
 	g_LastSkillInputValues.SkillLineCost = inputValues.SkillCost;
@@ -25725,7 +23845,7 @@ window.OnEsoAllSetDataError = function(xhr, status, errorMsg)
 }
 
 
-window.g_EsoBuildTestSets = {}; 
+window.g_EsoBuildTestSets = {};
 
 
 window.TestAllEsoSets = function()
@@ -25733,7 +23853,7 @@ window.TestAllEsoSets = function()
 	if (!g_EsoLoadedAllSetData)
 	{
 		EsoBuildLog("Loading all set data first...");
-		RequestEsoAllSetData();		
+		RequestEsoAllSetData();
 		return;
 	}
 	
@@ -25856,7 +23976,6 @@ window.TestEsoSetBonus = function(setName, setDesc, rawOutput)
 
 
 window.TEST_ESOSETS_SKIPMATCHES = [
-		
 	/chance to spawn a volcano/i,
 	/remove up to 5 negative effects/i,
 	/(When|While) you deal direct damage, you restore/i,
@@ -25977,9 +24096,12 @@ window.CheckEsoSetTestResults = function()
 	var keys = Object.keys(g_EsoBuildTestSets);
 	keys.sort();
  	
-	for (var setName in keys)
+	for (var i in keys)
 	{
+		var setName = keys[i];
 		var testResult = g_EsoBuildTestSets[setName];
+		
+		//console.log(setName);
 		
 		for (var i = 0; i < testResult.descResults.length; ++i)
 		{
@@ -25999,8 +24121,9 @@ window.CheckEsoSetTestResults = function()
 	EsoBuildLog("Found " + badCount + " skipped sets!")
 	EsoBuildLog("Checking for duplicate set effects...");
 	
-	for (var setName in keys)
+	for (var i in keys)
 	{
+		var setName = keys[i];
 		var testResult = g_EsoBuildTestSets[setName];
 		
 		for (var i = 0; i < testResult.descResults.length; ++i)
@@ -26035,7 +24158,6 @@ window.CheckEsoSetTestResults = function()
 	}
 	
 	EsoBuildLog("Found " + duplicateCount + " duplicate sets!")
-	
 }
 
 
@@ -26043,7 +24165,6 @@ window.UpdateEsoPts = function()
 {
 	if (!$("#esotbUsePtsRules").prop("checked")) return;
 	
-		//TODO: Update 32pts
 	$("#esotbQuickItemSetups").find(".esotbSetPts").removeAttr("disabled").removeAttr("hidden");
 	$("#esotbItemSetupMythicSet").children().removeAttr("disabled").removeAttr("hidden");
 	$("#esotbItemSetupMonsterSet").children().removeAttr("disabled").removeAttr("hidden");

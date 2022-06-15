@@ -27,6 +27,8 @@ g_EsoBuildLastInputValues.AOEDamageDone = 0;
 g_EsoBuildLastInputValues.DirectDamageDone = 0;
 g_EsoBuildLastInputValues.BleedDamage = 0;
 g_EsoBuildLastInputValues.PetDamageDone = 0;
+g_EsoBuildLastInputValues.CoralRiptide = 0;
+
 
 
 window.ESO_SETPROCDAMAGE_DATA = 
@@ -3149,38 +3151,6 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 	
 	if (itemData.rawOutput == null) itemData.rawOutput = {};
 
-		// Alessian Order
-	newDesc = newDesc.replace(/(\(5 items\) Increase your Health Recovery by (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|)% of your sum total Physical and Spell Resistance\..*\s*Current Bonus Health Recovery: )([0-9]+)/i, function(match, prefix, percent, middle, healthRegen) {
-		healthRegen = Math.floor((+g_EsoBuildLastInputValues.SpellResist + g_EsoBuildLastInputValues.PhysicalResist) * percent / 100);
-		itemData.rawOutput["Tooltip: Set HealthRegen"] = "(" + g_EsoBuildLastInputValues.SpellResist + " + " + g_EsoBuildLastInputValues.PhysicalResist + ") * " + percent + "% = " + healthRegen;
-		return prefix + percent + middle + healthRegen;
-	});
-	
-	newDesc = newDesc.replace(/(\(5 items\) Increase your Health Recovery by (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|)% of your sum total Physical Resistance and Spell Resistance\..*\s*Current Bonus Health Recovery: )([0-9]+)/i, function(match, prefix, percent, middle, healthRegen) {
-		healthRegen = Math.floor((+g_EsoBuildLastInputValues.SpellResist + g_EsoBuildLastInputValues.PhysicalResist) * percent / 100);
-		itemData.rawOutput["Tooltip: Set HealthRegen"] = "(" + g_EsoBuildLastInputValues.SpellResist + " + " + g_EsoBuildLastInputValues.PhysicalResist + ") * " + percent + "% = " + healthRegen;
-		return prefix + percent + middle + healthRegen;
-	});
-	
-		// Thews of the Harbinger
-	newDesc = newDesc.replace(/(\(5 items\) When you block an attack, you deal )([0-9]+)( Physical Damage to the attacker. This effect scales off your Max Health.)/i, function(match, p1, damage, p2) 
-	{
-		var percent = 44.863;	// Update 31
-		
-		if (g_SkillsData[79362] && g_SkillsData[79362].tooltips && g_SkillsData[79362].tooltips[1])
-		{
-			percent = Math.floor(+g_SkillsData[79362].tooltips[1].a * 100);
-		}
-		else if (g_SkillsData[79362] && g_SkillsData[79362].a1 > 0)
-		{
-			percent = Math.floor(+g_SkillsData[79362].a1 * 100);
-		}
-		
-		damage = Math.floor(+g_EsoBuildLastInputValues.Health * percent / 100);
-		itemData.rawOutput["Tooltip: Set Damage"] = "" + g_EsoBuildLastInputValues.Health + " * " + percent + "% = " + damage;
-		return p1 + "<div style=\"color:#ffffff;display:inline;\">" + damage + "</div>" + p2;
-	});
-	
 		// Markyn Ring of Majesty
 		// Gain 100 Weapon and Spell Damage and 1157 Armor for every set you are wearing at least 3 or more pieces of.Current bonus: 0 Weapon and Spell Damage and 0 Armor.
 	newDesc = newDesc.replace(/(Current bonus: (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|) Weapon and Spell Damage and (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|) Armor\.)/i, function(match, p1, weaponDamage, p2, armor, p3)
@@ -3216,6 +3186,69 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 		
 		return p1 + newValue + p2;
 	});
+	
+		// Coral Riptide
+	newDesc = newDesc.replace(/(Current bonus: (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|) Weapon and Spell Damage)/i, function(match, p1, value, p2)
+	{
+		var matchResult = newDesc.match(/Increase your Weapon and Spell Damage by up to (?:\<div[^>]*\>|)([0-9]+)(?:\<\/div\>|) based on your missing Stamina,/i);
+		if (!matchResult || !matchResult[1]) return p1 + value + p2;
+		
+		if (g_EsoBuildLastInputValues.Set.CoralRiptide == null || g_EsoBuildLastInputValues.Set.CoralRiptide == 0) return p1 + value + p2;
+		
+		var newValue = g_EsoBuildLastInputValues.Set.CoralRiptide;
+		
+		return p1 + newValue + p2;
+	});
+	
+		// Mora's Whispers
+		// Current Bonus: 0 Critical Chance 0% Inspiration, Alliance Rank, and Alliance skill 0% monster kill experience.
+	newDesc = newDesc.replace(/(Current bonus:.*?(?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|) Critical Chance.*?(?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|)% Inspiration, Alliance Rank, and Alliance skill.*?(?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|)% monster kill experience)/i, function(match, p1, critValue, p2, inspValue, p3, killValue, p4)
+	{
+		if (g_EsoBuildLastInputValues.Set.MorasWhispers == null || g_EsoBuildLastInputValues.Set.MorasWhispers == 0) return p1 + critValue + p2 + inspValue + p3 + killValue + p4;
+		
+		var maxCrit = 1528;
+		var maxInsp = 10;
+		var maxKill = 15;
+		
+		var matchResult = newDesc.match(/Gain up to (?:\<div[^>]*\>|)([0-9]+)(?:\<\/div\>|) Critical Chance and (?:\<div[^>]*\>|)([0-9%]+)(?:\<\/div\>|)% increased Inspiration, Alliance Rank, Alliance skill, and (?:\<div[^>]*\>|)([0-9%]+)(?:\<\/div\>|)% monster kill experience/i);
+		
+		if (matchResult)
+		{
+			maxCrit = parseFloat(matchResult[1]);
+			maxInsp = parseFloat(matchResult[2]);
+			maxKill = parseFloat(matchResult[3]);
+		}
+		
+		var newCritValue = Math.round(g_EsoBuildLastInputValues.Set.MorasWhispers);
+		var newInspValue = Math.round(g_EsoBuildLastInputValues.Set.MorasWhispers / maxCrit * maxInsp);
+		var newKillValue = Math.round(g_EsoBuildLastInputValues.Set.MorasWhispers / maxCrit * maxKill);
+		
+		return p1 + newCritValue + p2 + newInspValue + p3 + newKillValue + p4;
+	});
+	
+		// Pearlescent Ward
+		// (5 items) Grants you and up to 11 other group members Pearlescent Ward. This bonus persists through death. Pearlescent Ward increases Weapon and Spell Damage by up to 180 based on the number of group members that are alive. 
+		// Current 180 Weapon and Spell Damage. Pearlescent Ward increases damage reduction from non-player enemies out of 66% based on the number of group members that are dead. Current 0% damage reduction.
+	newDesc = newDesc.replace(/(Current (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|) Weapon and Spell Damage.*?Current (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|)% damage reduction)/i, function(match, p1, damageValue, p2, reductValue, p3)
+	{
+		if (g_EsoBuildLastInputValues.Set.PearlescentWard == null || g_EsoBuildLastInputValues.Set.PearlescentWard == 0) return p1 + damageValue + p2 + reductValue + p3;
+		
+		var maxDamage = 180;
+		var maxReduct = 66;
+		
+		var matchResult = newDesc.match(/Pearlescent Ward increases Weapon and Spell Damage by up to (?:\<div[^>]*\>|)([0-9]+)(?:\<\/div\>|) based on the number/i);
+		if (!matchResult) return p1 + damageValue + p2 + reductValue + p3;
+		
+		maxDamage = parseFloat(matchResult[1]);
+		
+		var matchResult = newDesc.match(/Pearlescent Ward increases damage reduction from non-player enemies out of (?:\<div[^>]*\>|)([0-9]+)(?:\<\/div\>|%|) based on the number/i);
+		if (matchResult) maxReduct = parseFloat(matchResult[1]);
+		
+		var newDamageValue = Math.round(g_EsoBuildLastInputValues.Set.PearlescentWard / 12 * maxDamage);
+		var newReductValue = Math.round(g_EsoBuildLastInputValues.Set.PearlescentWard / 12 * maxReduct);
+		
+		return p1 + newDamageValue + p2 + newReductValue + p3;
+	});	
 	
 	return newDesc;
 }
@@ -3319,12 +3352,13 @@ window.UpdateEsoBuildSetAllData = function (setDesc, setDamageData)
 {
 	var newDesc = setDesc;
 	
-	newDesc = UpdateEsoBuildSetOther(newDesc);
 	newDesc = UpdateEsoBuildSetDamageData(newDesc, setDamageData);
 	newDesc = UpdateEsoBuildSetDamageShield(newDesc);
 	newDesc = UpdateEsoBuildSetHealing(newDesc);
 	
 	newDesc = UpdateEsoBuildSetTooltips(newDesc);
+	
+	newDesc = UpdateEsoBuildSetOther(newDesc);
 	
 	//EsoBuildLog("UpdateEsoBuildSetAllData", newDesc, setDesc, setDamageData);
 	
