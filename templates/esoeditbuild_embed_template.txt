@@ -1041,6 +1041,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Plague Doctor</option>
 						<option>Plague Slinger</option>
 						<option>Plaguebreak</option>
+						<option>Point-Blank Snipe</option>
+						<option value='Perfected Point-Blank Snipe'>Point-Blank Snipe (Perfect)</option>
 						<option>Poisonous Serpent</option>
 						<option>Powerful Assault</option>
 						<option>Prayer Shawl</option>
@@ -1749,6 +1751,16 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>16 June 2022</b>
+			<ul>
+				<li>Quick item setups now find 2H weapons if no 1H weapons are found.</li>
+				<li>Split the Queen's Elegance set toggle into Light Attack and Heavy Attack toggles.</li>
+				<li>Added effects for the 5 piece bonus of the Red Eagle's Fury set.</li>
+				<li>Added effect for the 5 piece bonus of the Serpent's Disdain set.</li>
+				<li>Added the Aura of Pride buff and a set toggle for the Spaulder of Ruin mythic.</li>
+				<li>Added toggle for the Vastarie's Tutelage set.</li>
+			</ul>
+			<p>
 			<b>15 June 2022</b>
 			<ul>
 				<li>Removed 250 old/unused set parsing lines.</li>
@@ -1758,7 +1770,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Fixed the Might of the Lost Legion set toggle.</li>
 				<li>Fixed the tooltip display for the Mora's Whispers set.</li>
 				<li>Fixed the tooltip display for the Pearlescent Ward set.</li>
-				<li>Added the Perfected Pearlescent Ward to the quick item setup.</li>
+				<li>Added the Perfected Pearlescent Ward and Point-Blank Snipe sets to the quick item setup.</li>
 			</ul>
 			<p>
 			<b>14 June 2022</b>

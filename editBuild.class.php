@@ -515,6 +515,7 @@ class EsoBuildDataEditor
 			"OverloadDamage",
 			"MartialStatusEffectChance",
 			"MagicalStatusEffectChance",
+			"StatusEffectDuration",
 			"FallDamageTaken",
 			"SingleTargetDamageTaken",
 			"SingleTargetHealingDone",

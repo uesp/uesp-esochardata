@@ -1494,6 +1494,17 @@ window.g_EsoBuildBuffData =
 			statIds : ["SpellDamage", "WeaponDamage"],
 			icon : "/esoui/art/icons/ability_healer_019.png",
 		},
+		"Aura of Pride" :		// From Spaulder of Ruin
+		{
+			group: "set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 260,
+			category: "Item",
+			statIds : ["SpellDamage", "WeaponDamage"],
+			icon : "/esoui/art/icons/ability_mage_065.png",	//TODO
+		},
 		
 			/* Target Buffs */
 		"Major Brittle (Target)" : 
@@ -8801,9 +8812,192 @@ window.ESO_SETEFFECT_MATCHES = [
 		statId: "DirectRangeWeaponDamage",
 		match: /Adds ([0-9]+) Weapon and Spell Damage to your ranged direct damage abilities./i,
 	},
+	{
+		category: "SkillLineWeaponDmg",
+		statId: "Two Handed",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your Weapon Skill abilities/i,
+	},
+	{
+		category: "SkillLineWeaponDmg",
+		statId: "One Hand and Shield",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your Weapon Skill abilities/i,
+	},
+	{
+		category: "SkillLineWeaponDmg",
+		statId: "Dual Wield",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your Weapon Skill abilities/i,
+	},
+	{
+		category: "SkillLineWeaponDmg",
+		statId: "Bow",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your Weapon Skill abilities/i,
+	},
+	{
+		category: "SkillLineWeaponDmg",
+		statId: "Destruction Staff",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your Weapon Skill abilities/i,
+	},
+	{
+		category: "SkillLineWeaponDmg",
+		statId: "Restoration Staff",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your Weapon Skill abilities/i,
+	},
+	{
+		category: "SkillLineSpellDmg",
+		statId: "Two Handed",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your Weapon Skill abilities/i,
+	},
+	{
+		category: "SkillLineSpellDmg",
+		statId: "One Hand and Shield",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your Weapon Skill abilities/i,
+	},
+	{
+		category: "SkillLineSpellDmg",
+		statId: "Dual Wield",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your Weapon Skill abilities/i,
+	},
+	{
+		category: "SkillLineSpellDmg",
+		statId: "Bow",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your Weapon Skill abilities/i,
+	},
+	{
+		category: "SkillLineSpellDmg",
+		statId: "Destruction Staff",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your Weapon Skill abilities/i,
+	},
+	{
+		category: "SkillLineSpellDmg",
+		statId: "Restoration Staff",
+		match: /Adds ([0-9]+) Weapon and Spell Damage to your Weapon Skill abilities/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Two_Handed_Cost",
+		display: "%",
+		match: /Increases the cost of your Weapon Skill abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "One_Hand_and_Shield_Cost",
+		display: "%",
+		match: /Increases the cost of your Weapon Skill abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Dual_Wield_Cost",
+		display: "%",
+		match: /Increases the cost of your Weapon Skill abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Bow_Cost",
+		display: "%",
+		match: /Increases the cost of your Weapon Skill abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Destruction_Staff_Cost",
+		display: "%",
+		match: /Increases the cost of your Weapon Skill abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Restoration_Staff_Cost",
+		display: "%",
+		match: /Increases the cost of your Weapon Skill abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Berserker_Strike_Cost",
+		display: "%",
+		match: /Increases the cost of your Weapon Skill abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Shield_Wall_Cost",
+		display: "%",
+		match: /Increases the cost of your Weapon Skill abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Lacerate_Cost",
+		display: "%",
+		match: /Increases the cost of your Weapon Skill abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Rapid_Fire_Cost",
+		display: "%",
+		match: /Increases the cost of your Weapon Skill abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Elemental_Storm_Cost",
+		display: "%",
+		match: /Increases the cost of your Weapon Skill abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		category: "SkillCost",
+		statId: "Panacea_Cost",
+		display: "%",
+		match: /Increases the cost of your Weapon Skill abilities by ([0-9]+\.?[0-9]*)%/i,
+	},
+	{
+		statId: "StatusEffectDuration",
+		match: /Increase the duration of Status Effects you apply by ([0-9]+) seconds/i,
+	},
 	
 	
 		// Optionally toggled set effects
+	{
+		id: "Vastarie's Tutelage",
+		setBonusCount: 6,
+		toggle: true,
+		enabled: false,
+		buffId: "Vastaries Tutelage",
+		match: / When you resurrect an ally, you and your ally gain ([0-9]+) Weapon and Spell Damage and ([0-9]+)% cost reduction/i,
+	},
+	{
+		id: "Spaulder of Ruin",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "HealthRegen",
+		factorValue: -1,
+		maxTimes: 6,
+		match: /Reduce your Health, Magicka, and Stamina Recovery by ([0-9]+) for every ally benefiting from your Aura of Pride/i,
+	},
+	{
+		id: "Spaulder of Ruin",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "MagickaRegen",
+		factorValue: -1,
+		maxTimes: 6,
+		match: /Reduce your Health, Magicka, and Stamina Recovery by ([0-9]+) for every ally benefiting from your Aura of Pride/i,
+	},
+	{
+		id: "Spaulder of Ruin",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		statId: "StaminaRegen",
+		factorValue: -1,
+		maxTimes: 6,
+		match: /Reduce your Health, Magicka, and Stamina Recovery by ([0-9]+) for every ally benefiting from your Aura of Pride/i,
+	},
+	{
+		id: "Spaulder of Ruin",
+		setBonusCount: 1,
+		toggle: true,
+		enabled: false,
+		buffId: "Aura of Pride",
+		maxTimes: 6,
+		match: /Activating crouch activates and deactivates a [0-9]+ meter Aura of Pride/i,
+	},
 	{
 		id: "Aegis of Galenwe",
 		setBonusCount: 4,
@@ -10125,7 +10319,8 @@ window.ESO_SETEFFECT_MATCHES = [
 		match: /chance to summon a dwemer automation to restore ([0-9]+) Stamina or Magicka or [0-9]+ Health to you every/i,
 	},
 	{
-		id: "Queen's Elegance",
+		id: "Queen's Elegance (LA)",
+		setId: "Queen's Elegance",
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
@@ -10133,10 +10328,12 @@ window.ESO_SETEFFECT_MATCHES = [
 		combineAs: "*%",
 		factorValue: -1,
 		display: "%",
+		rawInputMatch: /(When you use a Light Attack you reduce the Health, Magicka, or Stamina cost of your next active ability cast within [0-9]+ seconds by ([0-9]+)%)/i,
 		match: /When you use a Light Attack you reduce the Health, Magicka, or Stamina cost of your next active ability cast within [0-9]+ seconds by ([0-9]+)%/i,
 	},
 	{
-		id: "Queen's Elegance",
+		id: "Queen's Elegance (LA)",
+		setId: "Queen's Elegance",
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
@@ -10144,10 +10341,12 @@ window.ESO_SETEFFECT_MATCHES = [
 		combineAs: "*%",
 		factorValue: -1,
 		display: "%",
+		rawInputMatch: /(When you use a Light Attack you reduce the Health, Magicka, or Stamina cost of your next active ability cast within [0-9]+ seconds by ([0-9]+)%)/i,
 		match: /When you use a Light Attack you reduce the Health, Magicka, or Stamina cost of your next active ability cast within [0-9]+ seconds by ([0-9]+)%/i,
 	},
 	{
-		id: "Queen's Elegance",
+		id: "Queen's Elegance (LA)",
+		setId: "Queen's Elegance",
 		setBonusCount: 4,
 		toggle: true,
 		enabled: false,
@@ -10155,7 +10354,18 @@ window.ESO_SETEFFECT_MATCHES = [
 		factorValue: -1,
 		display: "%",
 		combineAs: "*%",
+		rawInputMatch: /(When you use a Light Attack you reduce the Health, Magicka, or Stamina cost of your next active ability cast within [0-9]+ seconds by ([0-9]+)%)/i,
 		match: /When you use a Light Attack you reduce the Health, Magicka, or Stamina cost of your next active ability cast within [0-9]+ seconds by ([0-9]+)%/i,
+	},
+	{
+		id: "Queen's Elegance (HA)",
+		setId: "Queen's Elegance",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		buffId: "Empower",
+		rawInputMatch: /(When you use a fully charged Heavy Attack you gain Empower for [0-9]+ seconds, increasing the damage of your Light and Heavy Attacks by [0-9]+%)/i,
+		match: /When you use a fully charged Heavy Attack you gain Empower for [0-9]+ seconds, increasing the damage of your Light and Heavy Attacks by [0-9]+%/i,
 	},
 	{
 		id: "The Arch-Mage",
@@ -13406,7 +13616,7 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 			statFactor = statFactor * matchData.factorValue;
 		}
 		
-		if (statFactor == 0) return false;
+		if (statFactor == 0) continue;
 		statValue = statValue * statFactor;
 		
 		if (matchData.round == "floor") statValue = Math.floor(statValue);
@@ -17160,7 +17370,7 @@ window.RequestEsoChangeArmorTypeData = function (itemData, armorType, slotId)
 }
 
 
-window.RequestEsoFindSetItemData = function (slotId, monsterSet, equipType, armorType, weaponType, level, quality, trait, msgElement)
+window.RequestEsoFindSetItemData = function (slotId, monsterSet, equipType, armorType, weaponType, level, quality, trait, msgElement, onNoItemsFoundCallback)
 {
 	var queryParams = {
 			"text" : monsterSet,
@@ -17178,7 +17388,7 @@ window.RequestEsoFindSetItemData = function (slotId, monsterSet, equipType, armo
 	$.ajax("//esolog.uesp.net/esoItemSearchPopup.php", {
 			data: queryParams,
 		}).
-		done(function(data, status, xhr) { OnEsoRequestFindSetItemReceive(data, status, xhr, slotId, monsterSet, equipType, armorType, weaponType, level, quality, trait, msgElement); }).
+		done(function(data, status, xhr) { OnEsoRequestFindSetItemReceive(data, status, xhr, slotId, monsterSet, equipType, armorType, weaponType, level, quality, trait, msgElement, onNoItemsFoundCallback); }).
 		fail(function(xhr, status, errorMsg) { OnEsoFindSetItemError(xhr, status, errorMsg, monsterSet, armorType, msgElement); });
 	
 	return true;
@@ -17307,7 +17517,7 @@ window.OnEsoRequestChangeArmorTypeReceive = function (data, status, xhr, slotId,
 }
 
 
-window.OnEsoRequestFindSetItemReceive = function (data, status, xhr, slotId, monsterSet, equipType, armorType, weaponType, level, quality, trait, msgElement)
+window.OnEsoRequestFindSetItemReceive = function (data, status, xhr, slotId, monsterSet, equipType, armorType, weaponType, level, quality, trait, msgElement, onNoItemsFoundCallback)
 {
 	if (slotId == null || slotId == "") return false;
 	
@@ -17316,9 +17526,14 @@ window.OnEsoRequestFindSetItemReceive = function (data, status, xhr, slotId, mon
 	var itemData = data[0];
 	var text = msgElement.text();
 	
-	if (itemData == null || itemData.itemId == null) 
+	if (itemData == null || itemData.itemId == null)
 	{
-		msgElement.text(text + " No " + slotId + " item found! ")
+		if (onNoItemsFoundCallback)
+		{
+			return onNoItemsFoundCallback(slotId, monsterSet, equipType, armorType, weaponType, level, quality, trait, msgElement);
+		}
+		
+		msgElement.text(text + " No " + slotId + " item found! ");
 		return false;
 	}
 	
@@ -22372,7 +22587,7 @@ window.OnEsoEditBuildSetupEquipSet = function (element)
 	
 	var armorTypes = [null, null, null, null, null];
 	var weaponTypes = [null, null];
-	var weaponEquipTypes = [5, "5,7"];
+	var weaponEquipTypes = ["5", "5,7"];
 	var traits = [null, null, null, null, null];
 	
 	var weaponSlot1 = "MainHand1";
@@ -22495,7 +22710,7 @@ window.OnEsoEditBuildSetupEquipSet = function (element)
 		traits[1] = null;
 		traits[2] = null;
 		traits[3] = null;
-		traits[4] = null;		
+		traits[4] = null;
 	}
 	else if (armorTraitVal == 1)
 	{
@@ -22503,7 +22718,7 @@ window.OnEsoEditBuildSetupEquipSet = function (element)
 		traits[1] = 18;
 		traits[2] = 18;
 		traits[3] = 18;
-		traits[4] = 18;		
+		traits[4] = 18;
 	}
 	else if (armorTraitVal == 2)
 	{
@@ -22690,8 +22905,9 @@ window.OnEsoEditBuildSetupEquipSet = function (element)
 		if (RequestEsoFindSetItemData('Ring1',     setName,    12, null, null, 66, qualityVal, traits[1], msgElement)) ++count;
 		if (RequestEsoFindSetItemData('Ring2',     setName,    12, null, null, 66, qualityVal, traits[2], msgElement)) ++count;
 		if (RequestEsoFindSetItemData(weaponSlot1, setName,     weaponEquipTypes[0], null, weaponTypes[0], 66, qualityVal, traits[3], msgElement)) ++count;
-		if (weaponTypes[1] > 0) { 
-			if (RequestEsoFindSetItemData(weaponSlot2,  setName, weaponEquipTypes[1], null, weaponTypes[1], 66, qualityVal, traits[4], msgElement)) ++count; 
+		
+		if (weaponTypes[1] > 0) {
+			if (RequestEsoFindSetItemData(weaponSlot2,  setName, weaponEquipTypes[1], null, weaponTypes[1], 66, qualityVal, traits[4], msgElement, onUespSetNoItemsFoundCallback)) ++count;
 		}
 		else {
 			UnequipEsoItemSlot(weaponSlot2, false);
@@ -22705,16 +22921,31 @@ window.OnEsoEditBuildSetupEquipSet = function (element)
 	}
 	else if (locationVal == 4)
 	{
-		if (RequestEsoFindSetItemData(weaponSlot1, setName,     weaponEquipTypes[0], null, weaponTypes[0], 66, qualityVal, traits[3], msgElement)) ++count;
+		if (RequestEsoFindSetItemData(weaponSlot1, setName,     weaponEquipTypes[0], null, weaponTypes[0], 66, qualityVal, traits[3], msgElement, onUespSetNoItemsFoundCallback)) ++count;
+		
 		if (weaponTypes[1] > 0) {
-			if (RequestEsoFindSetItemData(weaponSlot2,  setName, weaponEquipTypes[1], null, weaponTypes[1], 66, qualityVal, traits[4], msgElement)) ++count; 
+			if (RequestEsoFindSetItemData(weaponSlot2,  setName, weaponEquipTypes[1], null, weaponTypes[1], 66, qualityVal, traits[4], msgElement)) ++count;
 		}
 		else {
-				UnequipEsoItemSlot(weaponSlot2, false);
+			UnequipEsoItemSlot(weaponSlot2, false);
 		}
 	}
 	
 	$(msgElement).text("Updating " + count + " items to set " + setName + "... ");
+}
+
+
+window.onUespSetNoItemsFoundCallback = function(slotId, setName, equipType, armorType, weaponType, level, quality, trait, msgElement)
+{
+	if (equipType == "5")
+	{
+		RequestEsoFindSetItemData(slotId, setName, "6", armorType, weaponType, level, quality, trait, msgElement);
+		var text = $(msgElement).text();
+		$(msgElement).text(text + " Finding 2H weapons...");
+		return true;
+	}
+	
+	return false;
 }
 
 
