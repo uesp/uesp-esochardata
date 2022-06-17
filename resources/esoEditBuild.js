@@ -6258,7 +6258,7 @@ window.ESO_SETEFFECT_MATCHES =
 		match: /and gain Major Berserk, Major Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Major Force, Major Protection, Major Resolve, Minor Fortitude, Minor Intellect, Minor Endurance, and Major Heroism/i,
 	},
 	{
-		buffId: "Minor Heroism",
+		buffId: "Major Heroism",
 		match: /and gain Major Berserk, Major Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Major Force, Major Protection, Major Resolve, Minor Fortitude, Minor Intellect, Minor Endurance, and Major Heroism/i,
 	},
 	{
