@@ -1759,6 +1759,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Added effect for the 5 piece bonus of the Serpent's Disdain set.</li>
 				<li>Added the Aura of Pride buff and a set toggle for the Spaulder of Ruin mythic.</li>
 				<li>Added toggle for the Vastarie's Tutelage set.</li>
+				<li>Added toggle for the Exploitation, Spear Wall, Maturation, Accelerated Growth, Might of the Guild and Illuminate passive skills.</li>
 			</ul>
 			<p>
 			<b>15 June 2022</b>

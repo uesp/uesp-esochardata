@@ -5175,42 +5175,62 @@ window.ESO_PASSIVEEFFECT_MATCHES = [
 		display: "%",
 		match: /WITH AN AEDRIC SPEAR ABILITY SLOTTED[\s\S]*?Increases your damage done to blocking targets by ([0-9]+\.?[0-9]*)%/i
 	},
-	/*{
-		requireSkillLine: "AEDRIC SPEAR",
-		statId: "OtherEffects",
-		display: "%",
-		match: /WHILE AN AEDRIC SPEAR ABILITY IS SLOTTED[\s\S]*?your damage against blocking targets by ([0-9]+\.?[0-9]*)%/i
+	{
+		id: "Exploitation",
+		baseSkillId: 31389,
+		toggle: true,
+		enabled: false,
+		buffId: "Minor Prophecy",
+		match: /When you cast a Dark Magic ability you grant Minor Prophecy to you and your group/i, 
 	},
 	{
-		requireSkillLine: "AEDRIC SPEAR",
-		statId: "OtherEffects",
-		display: "%",
-		match: /WITH AN AEDRIC SPEAR ABILITY SLOTTED[\s\S]*?Increases your damage done to blocking targets by ([0-9]+\.?[0-9]*)%/i
+		id: "Illuminate",
+		baseSkillId: 31743,
+		toggle: true,
+		enabled: false,
+		buffId: "Minor Sorcery",
+		match: /Casting a Dawn's Wrath ability grants Minor Sorcery to you and your group/i, 
 	},
 	{
-		requireSkillLine: "AEDRIC SPEAR",
-		statId: "OtherEffects",
-		display: "%",
-		match: /Increases the amount of damage you can block against melee attacks by ([0-9]+\.?[0-9]*)%/i
+		id: "Might of the Guild",
+		baseSkillId: 43561,
+		toggle: true,
+		enabled: false,
+		buffId: "Empower",
+		match: /Casting a Mages Guild ability has a [0-9]+% chance of granting you Empower/i, 
 	},
 	{
-		requireSkillLine: "AEDRIC SPEAR",
-		statId: "OtherEffects",
-		display: "%",
-		match: /Increases the amount of damage you can block from melee attacks by ([0-9]+\.?[0-9]*)%/i
+		id: "Might of the Guild",
+		baseSkillId: 43561,
+		toggle: true,
+		enabled: false,
+		buffId: "Empower",
+		match: /Casting a Mages Guild ability grants you Empower/i, 
 	},
 	{
-		requireSkillLine: "AEDRIC SPEAR",
-		statId: "OtherEffects",
-		display: "%",
-		match: /Increases the amount of damage you block from melee attacks by ([0-9]+\.?[0-9]*)%/i
+		id: "Spear Wall",
+		baseSkillId: 31708,
+		toggle: true,
+		enabled: false,
+		buffId: "Minor Protection",
+		match: /WHEN ACTIVATING AN AEDRIC SPEAR ABILITY\s+Gain Minor Protection for/i, 
 	},
 	{
-		requireSkillLine: "AEDRIC SPEAR",
-		statId: "OtherEffects",
-		display: "%",
-		match: /Increases your Critical Damage done and your damage against blocking targets by ([0-9]+\.?[0-9]*)% while you have an Aedric Spear ability slotted/i
-	}, */
+		id: "Maturation",
+		baseSkillId: 85880,
+		toggle: true,
+		enabled: false,
+		buffId: "Minor Toughness",
+		match: /When you activate a heal on yourself or an ally you grant the target Minor Toughness/i, 
+	},
+	{
+		id: "Accelerated Growth",
+		baseSkillId: 85882,
+		toggle: true,
+		enabled: false,
+		buffId: "Major Mending",
+		match: /When you heal yourself or an ally under [0-9]+% Health with a Green Balance ability you gain Major Mending/i, 
+	},
 	{
 		factorSkillLine: "Fighters Guild",
 		statId: "WeaponDamage",
@@ -23637,9 +23657,11 @@ window.TestAllEsoSkills = function ()
 	}
 	
 	CheckEsoTestSkillResults();
-	TestAllEsoSkillsBleed();
-	TestAllEsoSkillsDamageShield();
-	TestAllEsoSkillsHealing();
+	
+		// All handled by the new tooltip system now
+	//TestAllEsoSkillsBleed();
+	//TestAllEsoSkillsDamageShield();
+	//TestAllEsoSkillsHealing();
 }
 
 
