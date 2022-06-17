@@ -1751,6 +1751,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>17 June 2022</b>
+			<ul>
+				<li>Removed 350 unused Active and Passive skill checks.</li>
+			</ul>
+			<p>
 			<b>16 June 2022</b>
 			<ul>
 				<li>Quick item setups now find 2H weapons if no 1H weapons are found.</li>

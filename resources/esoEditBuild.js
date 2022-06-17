@@ -2010,5335 +2010,2800 @@ window.g_EsoBuildBuffData_PTS =
 };
 
 
-window.ESO_ACTIVEEFFECT_MATCHES = [
+window.ESO_ACTIVEEFFECT_MATCHES = 
+[
 	{
-		statRequireId: "WerewolfStage",
-		statRequireValue: 2,
-		buffId: "Minor Courage",
-		match: /You also grant yourself and nearby allies Minor Courage/i
+		"statRequireId": "WerewolfStage",
+		"statRequireValue": 2,
+		"buffId": "Minor Courage",
+		"match": /You also grant yourself and nearby allies Minor Courage/i
 	},
 	{
-		statRequireId: "WerewolfStage",
-		statRequireValue: 2,
-		statId: "DamageTaken",
-		display: "%",
-		factorValue: -1,
-		match: /you take ([0-9]+\.?[0-9]*)% less damage/i
+		"buffId": "Major Prophecy",
+		"match": /While slotted, you gain Major Prophecy/i
 	},
 	{
-		statId: "BlockMitigation",
-		display: "%",
-		match: /While slotted, the amount of damage you can block is increased by ([0-9]+\.?[0-9]*)%/i
+		"buffId": "Major Savagery",
+		"match": /While slotted, you gain Major Prophecy and Savagery/i
 	},
 	{
-		buffId: "Minor Berserk",
-		match: /While slotted gain Minor Berserk/i
+		"buffId": "Major Savagery",
+		"match": /While slotted you gain Major Savagery/i
 	},
 	{
-		statId: "BlockCost",		// Defensive posture
-		category: "Skill2",
-		display: "%",
-		factorValue: -1,
-		statRequireId: "Weapon1HShield",
-		statRequireValue: 1,
-		match: /the cost of blocking is reduced by ([0-9]+\.?[0-9]*)%/i
+		"buffId": "Major Prophecy",
+		"match": /While slotted you gain Major Savagery and Prophecy/i
 	},
 	{
-		statId: "BlockMitigation",
-		display: "%",
-		statRequireId: "Weapon1HShield",
-		statRequireValue: 1,
-		match: /the amount of damage you can block is increased by ([0-9]+\.?[0-9]*)%/i
+		"buffId": "Minor Fortitude",
+		"match": /While slotted, you gain Minor Fortitude/i
 	},
 	{
-		statId: "BreakFreeCost",
-		display: "%",
-		factorValue: -1,
-		match: /While slotted, the Stamina cost of breaking free from a disabling effect is reduced for each piece of Heavy Armor equipped.[\s]*Current Bonus: ([0-9]+\.?[0-9]*)%/i
+		"buffId": "Minor Endurance",
+		"match": /While slotted, you gain Minor Fortitude, Minor Endurance/i
 	},
 	{
-		statId: "StaminaRegen",
-		display: "%",
-		match: /While slotted, your Stamina Recovery is increased by ([0-9]+\.?[0-9]*)%/i
+		"buffId": "Minor Intellect",
+		"match": /While slotted, you gain Minor Fortitude, Minor Endurance, and Minor Intellect/i
 	},
 	{
-		statId: "WeaponDamage",
-		display: "%",
-		match: /While slotted, your weapon damage is increased by ([0-9]+\.?[0-9]*)%/i
+		"buffId": "Major Brutality",
+		"match": /While slotted you gain Major Brutality/i
 	},
 	{
-		statId: "BreakFreeCost",
-		display: "%",
-		factorValue: -1,
-		match: /While slotted the Stamina cost of breaking free from a disabling effect is reduced for each piece of Heavy Armor equipped.[\s]*Current Bonus: ([0-9]+\.?[0-9]*)%/i
+		"buffId": "Major Sorcery",
+		"match": /While slotted you gain Major Brutality and Sorcery/i
 	},
 	{
-		statId: "StaminaRegen",
-		display: "%",
-		match: /While slotted your Stamina Recovery is increased by ([0-9]+\.?[0-9]*)%/i
+		"buffId": "Minor Protection",
+		"match": /While slotted you gain Minor Protection/i
 	},
 	{
-		statId: "WeaponDamage",
-		display: "%",
-		match: /While slotted your weapon damage is increased by ([0-9]+\.?[0-9]*)%/i
+		"buffId": "Minor Resolve",
+		"match": /you gain Minor Resolve/i
 	},
 	{
-		statId: "Magicka",
-		display: "%",
-		match: /While slotted, your Max Magicka is increased by ([0-9]+\.?[0-9]*)%/i
+		"id": "Crystal Weapon (Debuff)",
+		"matchSkillName": false,
+		"baseSkillId": 47552,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"buffId": "Crystal Weapon",
+		"rawInputMatch": /(and reducing the target's Armor by ([0-9]+) for [0-9]+ seconds\.)/i,
+		"match": /and reducing the target's Armor by ([0-9]+) for/i
 	},
 	{
-		statId: "Magicka",
-		display: "%",
-		match: /and your Max Magicka is increased by ([0-9]+\.?[0-9]*)%/i
+		"id": "Immovable",
+		"baseSkillId": 41082,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"buffId": "Major Resolve",
+		"match": /to gain Major Resolve/i
 	},
 	{
-		statId: "Health",
-		display: "%",
-		match: /While slotted, your Max Health is increased by ([0-9]+\.?[0-9]*)%/i
+		"id": "Northern Storm",
+		"baseSkillId": 86112,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"buffId": "Major Protection",
+		"match": /You and nearby allies gain Major Protection, reducing your damage taken/i
 	},
 	{
-		statId: "Magicka",
-		display: "%",
-		match: /While slotted your Max Magicka is increased by ([0-9]+\.?[0-9]*)%/i
+		"id": "Spirit Guardian",
+		"baseSkillId": 40115710,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"buffId": "Spirit Guardian",
+		"updateBuffValue": true,
+		"rawInputMatch": /(While active, [0-9]+% of the damage you take is transferred to the spirit instead\.)/i,
+		"match": /While active, ([0-9]+)% of the damage you take is transferred/i
 	},
 	{
-		statId: "Health",
-		display: "%",
-		match: /While slotted your Max Health is increased by ([0-9]+\.?[0-9]*)%/i
+		"id": "Accelerate",
+		"baseSkillId": 40103503,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"buffId": "Major Expedition",
+		"match": /to gain Major Expedition/i
 	},
 	{
-		buffId: "Minor Vitality",
-		match: /While slotted, you gain Minor Vitality/i
-	},
-	{
-		buffId: "Major Prophecy",
-		match: /While slotted, you gain Major Prophecy/i
-	},
-	{
-		buffId: "Major Prophecy",
-		match: /While slotted you gain Major Prophecy/i
-	},
-	{
-		buffId: "Major Savagery",
-		match: /While slotted, you gain Major Prophecy and Major Savagery/i
-	},
-	{
-		buffId: "Major Savagery",
-		match: /While slotted, you gain Major Prophecy and Savagery/i
-	},
-	{
-		buffId: "Minor Vitality",
-		match: /While slotted you gain Minor Vitality/i
-	},
-	{
-		buffId: "Major Savagery",
-		match: /While slotted you gain Major Savagery/i
-	},
-	{
-		buffId: "Major Prophecy",
-		match: /While slotted you gain Major Savagery and Prophecy/i
-	},
-	{
-		buffId: "Major Prophecy",
-		match: /While slotted you gain Major Savagery and Major Prophecy/i
-	},
-	{
-		buffId: "Major Prophecy",
-		match: /While slotted, your Max Magicka is increased by [0-9]+\.?[0-9]*% and you gain Major Prophecy/i
-	},
-	{
-		buffId: "Major Prophecy",
-		match: /While slotted your Max Magicka is increased by [0-9]+\.?[0-9]*% and you gain Major Prophecy/i
-	},
-	{
-		buffId: "Minor Fortitude",
-		match: /While slotted, you gain Minor Fortitude/i
-	},
-	{
-		buffId: "Minor Endurance",
-		match: /While slotted, you gain Minor Fortitude, Minor Endurance/i
-	},
-	{
-		buffId: "Minor Intellect",
-		match: /While slotted, you gain Minor Fortitude, Minor Endurance, and Minor Intellect/i
-	},
-	{
-		buffId: "Minor Fortitude",
-		match: /While slotted you gain Minor Fortitude/i
-	},
-	{
-		buffId: "Minor Endurance",
-		match: /While slotted you gain Minor Fortitude, Minor Endurance/i
-	},
-	{
-		buffId: "Minor Intellect",
-		match: /While slotted you gain Minor Fortitude, Minor Endurance, and Minor Intellect/i
-	},
-	{
-		statId: "SneakSpeed",
-		category: "Skill",
-		display: "%",
-		rawInputMatch: /(While slotted, your movement speed while stealthed or invisible is increased by [0-9]+\.?[0-9]*%\.)/i,
-		match: /While slotted, your movement speed while stealthed or invisible is increased by ([0-9]+\.?[0-9]*)%/i
-	},
-	{
-		statId: "SneakSpeed",
-		category: "Skill",
-		display: "%",
-		rawInputMatch: /(While slotted, your Movement Speed while Sneaking or invisible is increased by [0-9]+\.?[0-9]*%\.)/i,
-		match: /While slotted, your Movement Speed while Sneaking or invisible is increased by ([0-9]+\.?[0-9]*)%/i
-	},
-	{
-		buffId : "Major Brutality",
-		match: /While slotted you gain Major Brutality/i,
-	},
-	{
-		buffId : "Major Sorcery",
-		match: /While slotted you gain Major Brutality and Sorcery/i,
-	},
-	{
-		buffId : "Major Sorcery",
-		match: /While slotted you gain Major Brutality and Major Sorcery/i,
-	},
-	{
-		statId: "Stamina",
-		display: "%",
-		match: /While slotted, your Max Stamina is increased by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "OverloadDamage",
-		display: "%",
-		match: /and light attack damage is increased by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		buffId : "Minor Ward",
-		match: /you gain Minor Ward and Minor Resolve/i,
-	},
-	{
-		buffId : "Minor Resolve",
-		match: /you gain Minor Ward and Minor Resolve/i,
-	},
-	{
-		statId: "LADamage",
-		display: "%",
-		match: /and light attack damage is increased by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillLineSpellDmg",
-		statId: "Ardent Flame",
-		rawInputMatch: /(While slotted, your Spell and Weapon Damage is increased by [0-9]+ for Ardent Flame abilities)/i,
-		match: /While slotted, your Spell and Weapon Damage is increased by ([0-9]+) for Ardent Flame abilities/i
-	},
-	
-		/* Psijic Order */
-	{
-		buffId: "Minor Protection",
-		match: /While slotted you gain Minor Protection/i
-	},
-	
-		/* Necromancer */
-	// TODO: Hitting your Skeletal Mage or Spirit Mender enhances them for 5 seconds, increasing their effectiveness by 40%.?
-	// TODO: You grant the target Spell and Physical Resistance equal to half the amount healed for 3 seconds. ?
-	{
-		category: "Skill",
-		statId: "DamageTaken",
-		display: "%",
-		factorValue: -1,
-		match: /While slotted, your damage taken is reduced by ([0-9]+)%/i
-	},
-	{
-		category: "Skill",
-		statId: "DamageDone",
-		display: "%",
-		match: /While slotted, your damage done is increased by ([0-9]+)%/i
-	},
-	{
-		category: "Skill",
-		statId: "MagickaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /While slotted, the cost of all your abilities are reduced by ([0-9]+)%/i
-	},
-	{
-		category: "Skill",
-		statId: "StaminaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /While slotted, the cost of all your abilities are reduced by ([0-9]+)%/i
-	},
-	{
-		category: "Skill",
-		statId: "UltimateCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /While slotted, the cost of all your abilities are reduced by ([0-9]+)%/i
-	},
-	{
-		category: "Skill",
-		statId: "HealingDone",
-		display: "%",
-		match: /While slotted, your healing done is increased by ([0-9]+)%/i
-	},
-	{
-		buffId: "Minor Resolve",
-		match: /you gain Minor Resolve/i
-	},
-	{
-		statId: "LADamage",
-		display: "%",
-		match: /and your Light Attacks deal ([0-9]+)% more damage/i
-	},
-	
-		
-		/* Begin Toggled Abilities */
-	{
-		id: "Crystal Weapon (Cost)",
-		matchSkillName: false,
-		baseSkillId: 47552,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		statId: "MagickaCost",
-		factorValue: -1,
-		display: "%",
-		rawInputMatch: /(After casting, your next non-Ultimate ability used within [0-9]+ seconds costs [0-9.]+% less\.)/i,
-		match: /After casting, your next non-Ultimate ability used within [0-9]+ seconds costs ([0-9.]+)% less/i,
-	},
-	{
-		id: "Crystal Weapon (Cost)",
-		matchSkillName: false,
-		baseSkillId: 47552,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		statId: "StaminaCost",
-		factorValue: -1,
-		display: "%",
-		match: /After casting, your next non-Ultimate ability used within [0-9]+ seconds costs ([0-9.]+)% less/i,
-	},
-	{
-		id: "Crystal Weapon (Cost)",
-		matchSkillName: false,
-		baseSkillId: 47552,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		statId: "HealthCost",
-		factorValue: -1,
-		display: "%",
-		match: /After casting, your next non-Ultimate ability used within [0-9]+ seconds costs ([0-9.]+)% less/i,
-	},
-	{
-		id: "Crystal Weapon (Debuff)",
-		matchSkillName: false,
-		baseSkillId: 47552,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId: "Crystal Weapon",
-		rawInputMatch: /(and reducing the target's Armor by ([0-9]+) for [0-9]+ seconds\.)/i,
-		match: /and reducing the target's Armor by ([0-9]+) for/i,
-	},
-	{
-		id: "Immovable",
-		baseSkillId: 41082,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId: "Major Resolve",
-		match: /to gain Major Resolve/i
-	},
-	{
-		id: "Immovable",
-		baseSkillId: 41082,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		statId: "MovementSpeed",
-		factorValue: -1,
-		display: "%",
-		match: /but reduces your Movement Speed by ([0-9.]+)% for/i
-	},
-	{
-		id: "Immovable",
-		baseSkillId: 41082,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		factorStatId: "ArmorHeavy",
-		statId: "BlockMitigation",
-		display: "%",
-		match: /Each piece of Heavy Armor worn increases the amount of damage you block and the potency of the snare by ([0-9.]+)%/i
-	},
-	{
-		id: "Equilibrium",
-		baseSkillId: 42251,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		statId: "HealingDone",
-		factorValue: -1,
-		display: "%",
-		rawInputMatch: /(The exchange reduces your healing done and damage shield strength by [0-9]+% for [0-9]+ seconds\.)/,
-		match: /The exchange reduces your healing done and damage shield strength by ([0-9]+)% for /i
-	},
-	{
-		id: "Equilibrium",
-		baseSkillId: 42251,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		statId: "DamageShield",
-		display: "%",
-		factorValue: -1,
-		rawInputMatch: /(The exchange reduces your healing done and damage shield strength by [0-9]+% for [0-9]+ seconds\.)/,
-		match: /The exchange reduces your healing done and damage shield strength by ([0-9]+)% for /i
-	},
-	{
-		id: "Equilibrium",
-		displayName: "Spell Symmetry",
-		baseSkillId: 42251,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		statId: "MagickaCost",
-		combineAs: '*%',
-		factorValue: -1,
-		display: "%",
-		rawInputMatch: /(After the exchange is complete, the cost of your next Magicka ability is reduced by [0-9]+% for [0-9]+ seconds\.)/,
-		match: /After the exchange is complete, the cost of your next Magicka ability is reduced by ([0-9]+)% for/i
-	},
-	{
-		id: "Ferocious Roar",
-		baseSkillId: 42145,
-		matchSkillName: true,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		statId: "HeavyAttackSpeed",
-		display: "%",
-		rawInputMatch: /(Your Heavy Attacks also are [0-9]+% faster for [0-9]+ seconds after casting\.)/,
-		match: /Your Heavy Attacks also are ([0-9]+)% faster for/i
-	},
-	{
-		id: "Hircine's Fortitude",
-		baseSkillId: 58316,
-		matchSkillName: true,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Item",
-		statId: "HealthRegen",
-		maxTimes: 666,
-		statValue: 1,
-		rawInputMatch: /(increasing your Health and Stamina Recovery by [0-9.]+% of the healing caused for [0-9.]+ seconds, up to a maximum of [0-9.]+\.)/,
-		match: /increasing your Health and Stamina Recovery by [0-9.]+% of the healing caused for [0-9.]+ seconds, up to a maximum of [0-9.]+/i
-	},
-	{
-		id: "Hircine's Fortitude",
-		baseSkillId: 58316,
-		matchSkillName: true,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Item",
-		statId: "StaminaRegen",
-		maxTimes: 666,
-		statValue: 1,
-		rawInputMatch: /(increasing your Health and Stamina Recovery by [0-9.]+% of the healing caused for [0-9.]+ seconds, up to a maximum of [0-9.]+\.)/,
-		match: /increasing your Health and Stamina Recovery by [0-9.]+% of the healing caused for [0-9.]+ seconds, up to a maximum of [0-9.]+/i
-	},
-	{
-		id: "Daedric Prey",
-		baseSkillId: 30499,
-		matchSkillName: true,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		statId: "PetDamageDone",
-		display: "%",
-		rawInputMatch: /(While the curse is active, your pets deal an additional [0-9.]+% damage to the target\.)/,
-		match: /While the curse is active, your pets deal an additional ([0-9.]+)% damage to the target/i
-	},
-	{
-		id: "Summon Twilight Tormentor",
-		baseSkillId: 30587,
-		matchSkillName: true,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "SkillDamage",
-		statId: "Summon Twilight Tormentor",
-		display: "%",
-		rawInputMatch: /(Once summoned, you can activate the twilight tormentor's special ability for [0-9.]+ Magicka, causing it to deal [0-9.]+% more damage to enemies above [0-9.]+% Health for [0-9.]+ seconds\.)/,
-		match: /you can activate the twilight tormentor's special ability for [0-9.]+ Magicka, causing it to deal ([0-9.]+)% more damage/i
-	},
-	{
-		id: "Surprise Attack",
-		baseSkillId: 36223,
-		matchSkillName: true,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Target",
-		statId: "PhysicalResistPctReduce",
-		display: "%",
-		rawInputMatch: /(If you are flanking the enemy, shred through a small portion of their armor, reducing their Physical Resistance by ([0-9.]+)% for ([0-9.]+) seconds\.)/,
-		match: /reducing their Physical Resistance by ([0-9.]+)% for/i
-	},
-	{
-		id: "Death Stroke",
-		baseSkillId: 37518,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Skill",
-		statId: "DamageDone",
-		display: "%",
-		rawInputMatch: /((?:causing them to take [0-9]+% more damage from your attacks for [0-9.]+ seconds\.)|(?:increasing your damage against them by [0-9]+% for [0-9.]+ seconds\.))/,
-		match: /causing them to take ([0-9]+)% more damage from your attacks/i
-	},
-	{
-		id: "Death Stroke",
-		baseSkillId: 37518,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Skill",
-		statId: "DamageDone",
-		display: "%",
-		match: /increasing your damage against them by ([0-9]+)% for [0-9.]+ seconds/i
-	},
-	{
-		id: "Brutal Pounce",
-		baseSkillId: 42110,
-		matchSkillName: true,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Skill2",
-		statId: "WeaponDamage",
-		maxTimes: 6,
-		rawInputMatch: /(Increases your Weapon and Spell Damage by [0-9]+ for each enemy hit, up to a maximum of [0-9]+ times\.)/,
-		match: /Increases your Weapon and Spell Damage by ([0-9]+) for each enemy hit, up to a maximum of [0-9]+ times/i
-	},
-	{
-		id: "Standard of Might",
-		baseSkillId: 33963,
-		matchSkillName: true,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Skill",
-		statId: "DamageDone",
-		display: "%",
-		rawInputMatch: /(Standing in the area increases your damage done and reduces damage taken by [0-9]+%\.)/,
-		match: /Standing in the area increases your damage done and reduces damage taken by ([0-9]+)%/i
-	},
-	{
-		id: "Standard of Might",
-		baseSkillId: 28988,
-		matchSkillName: true,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Skill",
-		statId: "DamageTaken",
-		display: "%",
-		match: /Standing in the area increases your damage done and reduces damage taken by ([0-9]+)%/i
-	},
-	{
-		id: "Blood Frenzy",
-		baseSkillId: 40132141,
-		matchSkillName: true,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Skill2",
-		statId: "SpellDamage",
-		match: /Allow your monstrous appetites to take hold, increasing your Weapon and Spell Damage by ([0-9]+)\./i
-	},
-	{
-		id: "Blood Frenzy",
-		baseSkillId: 40132141,
-		matchSkillName: true,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Skill2",
-		statId: "WeaponDamage",
-		match: /Allow your monstrous appetites to take hold, increasing your Weapon and Spell Damage by ([0-9]+)\./i
-	},
-	{
-		id: "Sated Fury",
-		baseSkillId: 40132141,
-		matchSkillName: true,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Skill2",
-		statId: "SpellDamage",
-		match: /Allow your monstrous appetites to take hold, increasing your Weapon and Spell Damage by ([0-9]+)\./i
-	},
-	{
-		id: "Sated Fury",
-		baseSkillId: 40132141,
-		matchSkillName: true,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Skill2",
-		statId: "WeaponDamage",
-		match: /Allow your monstrous appetites to take hold, increasing your Weapon and Spell Damage by ([0-9]+)\./i
-	},
-	{
-		id: "Simmering Frenzy",
-		matchSkillName: true,
-		baseSkillId: 40132141,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Skill2",
-		statId: "SpellDamage",
-		maxTimes: 100,
-		factorValue: 0.1,
-		baseValue: 1.0,
-		match: /Allow your monstrous appetites to take hold, increasing your Weapon and Spell Damage by ([0-9]+)\.[\s\S]*While toggled on, the Health cost of this ability increases by [0-9]+% and Weapon and Spell Damage bonus increases by [0-9]+% every second/i
-	},
-	{
-		id: "Simmering Frenzy",
-		matchSkillName: true,
-		baseSkillId: 40132141,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Skill2",
-		statId: "WeaponDamage",
-		maxTimes: 100,
-		factorValue: 0.1,
-		baseValue: 1.0,
-		match: /Allow your monstrous appetites to take hold, increasing your Weapon and Spell Damage by ([0-9]+)\.[\s\S]*While toggled on, the Health cost of this ability increases by [0-9]+% and Weapon and Spell Damage bonus increases by [0-9]+% every second/i
-	},
-	{
-		id: "Simmering Frenzy",
-		matchSkillName: true,
-		baseSkillId: 40132141,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "SkillCost",
-		statId: "Simmering_Frenzy_Cost",
-		display: "%",
-		maxTimes: 100,
-		factorValue: 0.2,
-		statValue: 100,
-		match: /Allow your monstrous appetites to take hold, increasing your Weapon and Spell Damage by [0-9]+\.[\s\S]*While toggled on, the Health cost of this ability increases by [0-9]+% and Weapon and Spell Damage bonus increases by [0-9]+% every second/i
-	},
-	{
-		id: "Blood Scion",
-		baseSkillId: 41920,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Skill2",
-		statId: "Health",
-		match: /While transformed, your Max Health, Magicka, and Stamina is increased by ([0-9]+),/i
-	},
-	{
-		id: "Blood Scion",
-		baseSkillId: 41920,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Skill2",
-		statId: "Magicka",
-		match: /While transformed, your Max Health, Magicka, and Stamina are increased by ([0-9]+),/i
-	},
-	{
-		id: "Blood Scion",
-		baseSkillId: 41920,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Skill2",
-		statId: "Stamina",
-		match: /While transformed, your Max Health, Magicka, and Stamina are increased by ([0-9]+),/i
-	},
-	{
-		id: "Blood Scion",
-		baseSkillId: 41920,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Skill2",
-		statId: "Health",
-		match: /While transformed, your Max Health, Magicka, and Stamina are increased by ([0-9]+),/i
-	},
-	{
-		id: "Blood Scion",
-		baseSkillId: 41920,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Skill2",
-		statId: "Magicka",
-		match: /While transformed, your Max Health, Magicka, and Stamina is increased by ([0-9]+),/i
-	},
-	{
-		id: "Blood Scion",
-		baseSkillId: 41920,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Skill2",
-		statId: "Stamina",
-		match: /While transformed, your Max Health, Magicka, and Stamina is increased by ([0-9]+),/i
-	},
-	{
-		id: "Blood Scion",
-		displayName: "Perfect Scion",
-		baseSkillId: 41920,
-		// matchSkillName: true,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "Skill",
-		statId: "VampireStage",
-		statValue: 5,
-		match: /You also ascend to Vampire Stage 5, which grants all the benefits of Vampire Stage 4 with none of the drawbacks\./i
-	},
-	{
-		id: "Northern Storm",
-		baseSkillId: 86112,
-		toggle: true,
-		enabled: false,
-		display: "%",
-		statId: "Magicka",
-		rawInputMatch: /(and increasing your Max Magicka by [0-9]+% for [0-9]+ seconds\.[\s\S]*You and nearby allies gain Major Protection, reducing your damage taken by [0-9]+%\.)/i,
-		match: /and increasing your Max Magicka by ([0-9]+)% for [0-9]+ seconds/i
-	},
-	{
-		id: "Northern Storm",
-		baseSkillId: 86112,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId: "Major Protection",
-		match: /You and nearby allies gain Major Protection, reducing your damage taken/i
-	},
-	{
-		id: "Spirit Guardian",
-		baseSkillId: 40115710,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId: "Spirit Guardian",
-		updateBuffValue: true,
-		rawInputMatch: /(While active, [0-9]+% of the damage you take is transferred to the spirit instead\.)/i,
-		match: /While active, ([0-9]+)% of the damage you take is transferred/i
-	},
-	{
-		id: "Protective Scale",
-		baseSkillId: 33743,
-		category: "Skill",
-		statId: "RangedDamageTaken",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		display: "%",
-		factorValue: -1,
-		match: /Flex your scales, reducing your damage taken from projectiles by ([0-9]+)%/i
-	},
-	{
-		id: "Protective Scale",
-		baseSkillId: 33743,
-		category: "Skill",
-		statId: "RangedDamageTaken",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		display: "%",
-		factorValue: -1,
-		match: /Flex your scales, reducing damage taken from projectiles by ([0-9]+)%/i
-	},
-	{
-		id: "Engulfing Flames",
-		baseSkillId: "34031",
-		buffId: "Engulfing Flames (Target)",
-		updateBuffValue: true,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		match: /Affected enemies take more damage from all Flame Damage attacks based on your offensive stats, with a maximum of [0-9]+% bonus damage taken\.[\s]*Current value ([0-9]+)%/i
-	},
-	{
-		id: "Flawless Dawnbreaker",
-		baseSkillId: "42566",
-		category: "Skill2",
-		statId: "WeaponDamage",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		match: /After activating, your Weapon Damage is increased by ([0-9]+) for /i
-	},
-	{
-		id: "Flawless Dawnbreaker",
-		baseSkillId: "42566",
-		category: "Skill2",
-		statId: "WeaponDamage",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		match: /After activating, your Weapon and Spell Damage is increased by ([0-9]+) for /i
-	},
-	{
-		id: "Flawless Dawnbreaker",
-		baseSkillId: "42566",
-		category: "Skill2",
-		statId: "SpellDamage",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		match: /After activating, your Weapon and Spell Damage is increased by ([0-9]+) for /i
-	},
-	{
-		id: "Molten Whip",
-		matchSkillName: true,
-		baseSkillId: 23811,
-		category: "Skill2",
-		statId: "SpellDamage",
-		toggle: true,
-		enabled: false,
-		maxTimes: 3,
-		match: /While slotted, whenever you activate a different Ardent Flame ability, you gain a stack of Seething Fury, which increases the damage of your next Molten Whip by [0-9]+% and your Weapon and Spell Damage by ([0-9]+) /i,
-	},
-	{
-		id: "Molten Whip",
-		matchSkillName: true,
-		baseSkillId: 23811,
-		category: "Skill2",
-		statId: "WeaponDamage",
-		toggle: true,
-		enabled: false,
-		maxTimes: 3,
-		match: /While slotted, whenever you activate a different Ardent Flame ability, you gain a stack of Seething Fury, which increases the damage of your next Molten Whip by [0-9]+% and your Weapon and Spell Damage by ([0-9]+) /i
-	},
-	{
-		id: "Molten Whip",
-		matchSkillName: true,
-		baseSkillId: 23811,
-		category: "SkillDamage",
-		statId: "Molten Whip",
-		toggle: true,
-		enabled: false,
-		maxTimes: 3,
-		display: "%",
-		match: /While slotted, whenever you activate a different Ardent Flame ability, you gain a stack of Seething Fury, which increases the damage of your next Molten Whip by ([0-9]+)% and your Weapon and Spell Damage by [0-9]+ /i
-	},
-	{
-		id: "Molten Whip",
-		matchSkillName: true,
-		baseSkillId: 23811,
-		category: "Skill2",
-		statId: "SpellDamage",
-		toggle: true,
-		enabled: false,
-		maxTimes: 3,
-		match: /Whenever you activate a different Ardent Flame ability, you gain a stack of Seething Fury, increasing the damage of your next Molten Whip by [0-9]+% and your Weapon and Spell Damage by ([0-9]+) /i,
-	},
-	{
-		id: "Molten Whip",
-		matchSkillName: true,
-		baseSkillId: 23811,
-		category: "Skill2",
-		statId: "WeaponDamage",
-		toggle: true,
-		enabled: false,
-		maxTimes: 3,
-		match: /Whenever you activate a different Ardent Flame ability, you gain a stack of Seething Fury, increasing the damage of your next Molten Whip by [0-9]+% and your Weapon and Spell Damage by ([0-9]+) /i,
-	},
-	{
-		id: "Molten Whip",
-		matchSkillName: true,
-		baseSkillId: 23811,
-		category: "SkillDamage",
-		statId: "Molten Whip",
-		toggle: true,
-		enabled: false,
-		maxTimes: 3,
-		display: "%",
-		match: /Whenever you activate a different Ardent Flame ability, you gain a stack of Seething Fury, increasing the damage of your next Molten Whip by ([0-9]+)% and your Weapon and Spell Damage by [0-9]+ /i,
-	},
-	{
-		id: "Grim Focus",
-		baseSkillId: 62096,
-		category: "Skill2",
-		statId: "SpellDamage",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		maxTimes: 5,
-		match: /Focus your senses for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+) with every Light or Heavy Attack/i,
-	},
-	{
-		id: "Grim Focus",
-		baseSkillId: 62096,
-		category: "Skill2",
-		statId: "WeaponDamage",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		maxTimes: 5,
-		match: /Focus your senses for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+) with every Light or Heavy Attack/i,
-	},
-	{
-		id: "Grim Focus",
-		baseSkillId: 62096,
-		category: "Skill2",
-		statId: "SpellDamage",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		maxTimes: 5,
-		match: /Focus your senses for [0-9]+ minute, increasing your Weapon and Spell Damage by ([0-9]+) with every Light or Heavy Attack/i,
-	},
-	{
-		id: "Grim Focus",
-		baseSkillId: 62096,
-		category: "Skill2",
-		statId: "WeaponDamage",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		maxTimes: 5,
-		match: /Focus your senses for [0-9]+ minute, increasing your Weapon and Spell Damage by ([0-9]+) with every Light or Heavy Attack/i,
-	},
-	{
-		id: "Bone Goliath Transformation",
-		baseSkillId: 40115001,
-		category: "Skill2",
-		statId: "Health",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		match: /Goliath, increasing your Max Health by ([0-9]+) for/i
-	},
-	{
-		id: "Summoner's Armor",
-		baseSkillId: 40115206,
-		category: "SkillCost",
-		statId: "Blastbones_Cost",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		factorValue: -1,
-		match: /While active, reduce the cost of Blastbones, Skeletal Mage, and Spirit Mender by ([0-9]+)%/i
-	},
-	{
-		id: "Summoner's Armor",
-		baseSkillId: 40115206,
-		category: "SkillCost",
-		statId: "Skeletal_Mage_Cost",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		factorValue: -1,
-		match: /While active, reduce the cost of Blastbones, Skeletal Mage, and Spirit Mender by ([0-9]+)%/i
-	},
-	{
-		id: "Summoner's Armor",
-		baseSkillId: 40115206,
-		category: "SkillCost",
-		statId: "Spirit_Mender_Cost",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		factorValue: -1,
-		match: /While active, reduce the cost of Blastbones, Skeletal Mage, and Spirit Mender by ([0-9]+)%/i
-	},
-	{
-		id: "Thrive in Chaos",
-		baseSkillId: 86370,
-		category: "Skill",
-		statId: "DamageDone",
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		display: "%",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		maxTimes: 6,
-		match: /Each enemy hit increases your damage done by ([0-9]+)% for the duration/i,
-	},
-	{
-		id: "Accelerate",
-		baseSkillId: 40103503,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId: "Major Expedition",
-		match: /to gain Major Expedition/i
-	},
-	{
-		id: "Accelerate",
-		baseSkillId: 40103503,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId: "Minor Force",
-		match: /and Minor Force for/i
-	},
-	{
-		id: "Accelerate",
-		displayName: "Race Against Time",
-		baseSkillId: 40103503,
-		toggle: true,
-		enabled: false,
-		factorValue: -1,
-		statId: "SprintCost",
-		display: "%",
-		match: /Reduces the Cost of Sprint by ([0-9]+\.?[0-9]*)%/i
-	},
-	{
-		id: "Leeching Strikes",
-		matchSkillName: true,
-		baseSkillId: 37977,
-		statId: "WeaponDamage",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		factorValue: -1,
-		display: "%",
-		match: /Leeching Strikes also reduces your Weapon Power and Spell Power by ([0-9]+\.?[0-9]*)% while toggled/i
-	},
-	{
-		id: "Leeching Strikes",
-		matchSkillName: true,
-		baseSkillId: 37977,
-		statId: "SpellDamage",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		factorValue: -1,
-		display: "%",
-		match: /Leeching Strikes also reduces your Weapon Power and Spell Power by ([0-9]+\.?[0-9]*)% while toggled/i
-	},
-	{
-		id: "Entropy",
-		baseSkillId: 28567,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId: "Major Sorcery",
-		match: /Grants you Major Sorcery, /i
-	},
-	{
-		id: "Betty Netch",
-		baseSkillId: 86053,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId: "Major Sorcery",
-		match: /grants you Major Sorcery/i
-	},
-	{
-		id: "Betty Netch",
-		displayName: "Bull Netch",
-		baseSkillId: 86053,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId: "Major Brutality",
-		match: /grants you Major Sorcery and Major Brutality/i
-	},
-	{
-		id: "Bound Armor",
-		baseSkillId: 30418,
-		matchSkillName: true,
-		statId: "BlockMitigation",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		display: "%",
-		match: /creating a suit of Daedric mail that increases your block mitigation by ([0-9]+\.?[0-9]*)% for/i
-	},
-	{
-		id: "Bound Aegis",
-		baseSkillId: 30418,
-		matchSkillName: true,
-		statId: "BlockMitigation",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		display: "%",
-		match: /creating a suit of Daedric mail that increases your block mitigation by ([0-9]+\.?[0-9]*)% for/i
-	},
-	/*
-	 * { id: "Bound Armor", baseSkillId: 30418, statId: "Magicka", toggle: true,
-	 * enabled: false, enableOffBar: true, display: "%", match: /The armor
-	 * increases your Max Magicka by ([0-9]+\.?[0-9]*)%/i }, { id: "Bound
-	 * Armor", baseSkillId: 30418, statId: "BlockMitigation", toggle: true,
-	 * enabled: false, enableOffBar: true, display: "%", match: /that increases
-	 * your block mitigation by ([0-9]+\.?[0-9]*)%/i }, { id: "Bound Armor",
-	 * displayName: "Bound Armaments", baseSkillId: 30418, statId: "HADamage",
-	 * toggle: true, enabled: false, enableOffBar: true, display: "%", match:
-	 * /The armor increases your Max Stamina by [0-9]+\.?[0-9]*% and your damage
-	 * done with Heavy Attacks by ([0-9]+\.?[0-9]*%)/i, }, { id: "Bound Armor",
-	 * displayName: "Bound Armaments", baseSkillId: 30418, statId: "Stamina",
-	 * toggle: true, enabled: false, enableOffBar: true, display: "%", match:
-	 * /The armor increases your Max Stamina by ([0-9]+\.?[0-9]*)% and your
-	 * damage done with Heavy Attacks by [0-9]+\.?[0-9]*%/i, }, { id: "Bound
-	 * Armor", baseSkillId: 30418, buffId : "Minor Resolve", toggle: true,
-	 * enabled: false, enableOffBar: true, match: /Protect yourself with the
-	 * power of Oblivion, creating a suit of Daedric mail that grants Minor
-	 * Resolve/i, }, { id: "Bound Armor", baseSkillId: 30418, buffId : "Minor
-	 * Ward", toggle: true, enabled: false, enableOffBar: true, match: /Protect
-	 * yourself with the power of Oblivion, creating a suit of Daedric mail that
-	 * grants Minor Resolve and Minor Ward/i, },
-	 */
-	{
-		id: "War Horn",
-		baseSkillId: 46529,
-		buffId : "Minor Toughness",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		match: /granting Minor Toughness/i,
-	},
-	{
-		id: "War Horn",
-		baseSkillId: 46529,
-		buffId : "War Horn",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		match: /increasing you and your group's Max Magicka and Max Stamina by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		id: "War Horn",
-		baseSkillId: 46537,
-		displayName: "Aggressive Horn",
-		buffId : "Major Force",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		match: /You and your allies gain Major Force/i,
-	},
-	{
-		id: "War Horn",
-		baseSkillId: 46546,
-		displayName: "Sturdy Horn",
-		buffId : "Minor Resolve",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		match: /You and your allies gain Minor Resolve and Minor Ward/i,
-	},
-	{
-		id: "War Horn",
-		baseSkillId: 46546,
-		displayName: "Sturdy Horn",
-		buffId : "Sturdy Horn",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		rawMatch: /(You and your allies gain [0-9]+ Critical Resistance for [0-9]+ seconds)/i,
-		match: /You and your allies gain ([0-9]+) Critical Resistance/i,
-	},
-	{
-		id: "Lightning Form",
-		baseSkillId: 30235,
-		buffId : "Major Resolve",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		match: /While in this form you also gain Major Resolve/i,
-	},
-	{
-		id: "Lightning Form",
-		baseSkillId: 30235,
-		buffId : "Major Ward",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		match: /While in this form you also gain Major Resolve and Major Ward/i,
-	},
-	{
-		id: "Lightning Form",
-		baseSkillId: 30235,
-		buffId : "Major Resolve",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		match: /While in this form you also gain Major Resolve and Major Ward/i,
-	},
-	{
-		id: "Lightning Form",
-		baseSkillId: 30235,
-		matchSkillName: true,
-		displayName: "Hurricane",
-		buffId : "Major Resolve",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		match: /While in this form you gain Major Resolve, Major Ward,/i,
-	},
-	{
-		id: "Lightning Form",
-		baseSkillId: 30235,
-		matchSkillName: true,
-		displayName: "Hurricane",
-		buffId : "Major Ward",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		match: /While in this form you gain Major Resolve, Major Ward,/i,
-	},
-	{
-		id: "Lightning Form",
-		displayName: "Hurricane",
-		baseSkillId: 30235,
-		matchSkillName: true,
-		buffId : "Minor Expedition",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		match: /While in this form you gain Major Resolve, Major Ward, and Minor Expedition/i,
-	},
-	{
-		id: "Lightning Form",
-		displayName: "Boundless Storm",
-		baseSkillId: 30235,
-		matchSkillName: true,
-		buffId : "Major Expedition",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		match: /Activating this grants Major Expedition for a brief period/i,
-	},
-	{
-		id: "Molten Weapons",
-		displayName: "Molten Armaments",
-		baseSkillId: 32156,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		statId: "HADamage",
-		display: "%",
-		match: /Your own damage with fully\-charged Heavy Attacks is increased by ([0-9]+\.?[0-9]*)% while active/i,
-	},
-	{
-		id: "Molten Weapons",
-		displayName: "Molten Armaments",
-		baseSkillId: 32156,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		statId: "HADamage",
-		display: "%",
-		match: /Your own damage with Heavy Attacks is increased by ([0-9]+\.?[0-9]*)% while active/i,
-	},
-	{
-		id: "Molten Weapons",
-		displayName: "Molten Weapons",
-		baseSkillId: 32156,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId : "Major Sorcery",
-		match: /Charge you and your allies' weapons with volcanic power to gain Major Sorcery/i,
-	},
-	{
-		id: "Molten Weapons",
-		displayName: "Igneous Weapons",
-		baseSkillId: 32156,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId : "Major Brutality",
-		match: /Charge you and your allies' weapons with volcanic power to gain Major Sorcery and Major Brutality/i,
-	},
-	{
-		id: "Molten Weapons",
-		baseSkillId: 32156,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId : "Major Brutality",
-		match: /Charge you and your grouped allies' weapons with volcanic power to gain Major Brutality and Sorcery/i,
-	},
-	{
-		id: "Molten Weapons",
-		baseSkillId: 32156,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId : "Major Sorcery",
-		match: /Charge you and your grouped allies' weapons with volcanic power to gain Major Brutality and Sorcery/i,
-	},
-	{
-		id: "Blade Cloak",
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		baseSkillId: 40633,
-		factorValue: -1,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		display: "%",
-		buffId: "Blade Cloak",
-		rawInputMatch: /(The razors also shield you from shrapnel, reducing the damage you take from area of effect attacks by [0-9]+\.?[0-9]*%\.)/i,
-		match: /The razors also shield you from shrapnel, reducing the damage you take from area of effect attacks by ([0-9]+\.?[0-9]*)%/i
-	},
-	{
-		id: "Blade Cloak",
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		baseSkillId: 40633,
-		factorValue: -1,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		display: "%",
-		buffId: "Blade Cloak",
-		rawInputMatch: /(The razors shield you from shrapnel, reducing the damage you take from area of effect attacks by [0-9]+\.?[0-9]*%\.)/i,
-		match: /The razors shield you from shrapnel, reducing the damage you take from area of effect attacks by ([0-9]+\.?[0-9]*)%/i
-	},
-	{
-		id: "Hircine's Rage",
-		// displayName: "Hircine's Rage",
-		matchSkillName: true,
-		baseSkillId: 58316,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId: "Hircines Rage",
-		rawInputMatch: /(If you are at full Health you instead restore [0-9]+ Stamina and gain Major Berserk, increasing your damage done by [0-9]+% for [0-9]+ seconds, but you also take [0-9]+% more damage\.)/i,
-		match: /If you are at full Health you instead restore [0-9]+ Stamina and gain Major Berserk, increasing your damage done by [0-9]+% for [0-9]+ seconds, but you also take [0-9]+% more damage/i
-	},
-	{
-		id: "Evil Hunter",
-		matchSkillName: true,
-		baseSkillId: 42610,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		category: "SkillCost",
-		statId: "Fighters_Guild_Cost",
-		factorValue: -1,
-		display: "%",
-		match: /While active the Stamina costs of your Fighters Guild abilities are reduced by ([0-9]+\.?[0-9]*)%/i
-	},
-	{
-		id: "Rune Focus",
-		matchSkillName: false,
-		baseSkillId: 23970,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId : "Major Resolve",
-		match: /the rune grants you Major Resolve,/i
-	},
-	{
-		id: "Rune Focus",
-		matchSkillName: false,
-		baseSkillId: 23970,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId : "Major Resolve",
-		match: /Create a rune of celestial protection and gain Major Resolve for/i
-	},
-	{
-		id: "Rune Focus",
-		matchSkillName: false,
-		baseSkillId: 23970,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId : "Major Ward",
-		match: /the rune grants you Major Resolve and Major Ward/i
-	},
-	{
-		id: "Rune Focus",
-		matchSkillName: false,
-		baseSkillId: 23970,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId : "Major Resolve",
-		match: /the rune grants you Major Resolve and Major Ward/i
-	},
-	{
-		id: "Rune Focus",
-		matchSkillName: false,
-		baseSkillId: 23985,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId : "Minor Vitality",
-		match: /You also gain Minor Vitality and Minor Protection/i
-	},
-	{
-		id: "Rune Focus",
-		matchSkillName: false,
-		baseSkillId: 23985,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId : "Minor Protection",
-		match: /You also gain Minor Vitality and Minor Protection/i
-	},
-	{
-		id: "Mist Form",
-		statRequireId: "Vampire",
-		statRequireValue: 1,
-		matchSkillName: false,
-		baseSkillId: 41809,
-		statId: "DamageTaken",
-		factorValue: -1,
-		display: "%",
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		match: /Dissolve into a dark mist, reducing your damage taken by ([0-9]+\.?[0-9]*)%/i,
-		rawInputMatch: /(Dissolve into a dark mist, reducing your damage taken by [0-9]+\.?[0-9]*%)/i,
-	},
-		/* End Toggled Abilities */
-	
+		"id": "Accelerate",
+		"baseSkillId": 40103503,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"buffId": "Minor Force",
+		"match": /and Minor Force for/i
+	},
+	{
+		"id": "War Horn",
+		"baseSkillId": 46529,
+		"buffId": "War Horn",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"match": /increasing you and your group's Max Magicka and Max Stamina by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		"id": "War Horn",
+		"baseSkillId": 46537,
+		"displayName": "Aggressive Horn",
+		"buffId": "Major Force",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"match": /You and your allies gain Major Force/i
+	},
+	{
+		"id": "War Horn",
+		"baseSkillId": 46546,
+		"displayName": "Sturdy Horn",
+		"buffId": "Sturdy Horn",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"rawInputMatch": /(You and your allies gain [0-9]+ Critical Resistance for [0-9]+ seconds)/i,
+		"match": /You and your allies gain ([0-9]+) Critical Resistance/i
+	},
+	{
+		"id": "Lightning Form",
+		"baseSkillId": 30235,
+		"buffId": "Major Resolve",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"match": /While in this form you also gain Major Resolve/i
+	},
+	{
+		"id": "Molten Weapons",
+		"baseSkillId": 32156,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"buffId": "Major Brutality",
+		"match": /Charge you and your grouped allies' weapons with volcanic power to gain Major Brutality and Sorcery/i
+	},
+	{
+		"id": "Molten Weapons",
+		"baseSkillId": 32156,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"buffId": "Major Sorcery",
+		"match": /Charge you and your grouped allies' weapons with volcanic power to gain Major Brutality and Sorcery/i
+	},
+	{
+		"id": "Hircine's Rage",
+		"matchSkillName": true,
+		"baseSkillId": 58316,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"buffId": "Hircines Rage",
+		"rawInputMatch": /(If you are at full Health you instead restore [0-9]+ Stamina and gain Major Berserk, increasing your damage done by [0-9]+% for [0-9]+ seconds, but you also take [0-9]+% more damage\.)/i,
+		"match": /If you are at full Health you instead restore [0-9]+ Stamina and gain Major Berserk, increasing your damage done by [0-9]+% for [0-9]+ seconds, but you also take [0-9]+% more damage/i
+	},
+	{
+		"id": "Rune Focus",
+		"matchSkillName": false,
+		"baseSkillId": 23970,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"buffId": "Major Resolve",
+		"match": /Create a rune of celestial protection and gain Major Resolve for/i
+	},
+	{
+		"id": "Summoner's Armor",
+		"baseSkillId": 40115206,
+		"category": "SkillCost",
+		"statId": "Blastbones_Cost",
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"factorValue": -1,
+		"match": /While active, reduce the cost of Blastbones, Skeletal Mage, and Spirit Mender by ([0-9]+)%/i
+	},
+	{
+		"statId": "BlockCost",
+		"category": "Skill2",
+		"display": "%",
+		"factorValue": -1,
+		"statRequireId": "Weapon1HShield",
+		"statRequireValue": 1,
+		"match": /the cost of blocking is reduced by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		"statId": "BlockMitigation",
+		"display": "%",
+		"statRequireId": "Weapon1HShield",
+		"statRequireValue": 1,
+		"match": /the amount of damage you can block is increased by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		"id": "Immovable",
+		"baseSkillId": 41082,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"factorStatId": "ArmorHeavy",
+		"statId": "BlockMitigation",
+		"display": "%",
+		"match": /Each piece of Heavy Armor worn increases the amount of damage you block and the potency of the snare by ([0-9.]+)%/i
+	},
+	{
+		"id": "Bound Armor",
+		"baseSkillId": 30418,
+		"matchSkillName": true,
+		"statId": "BlockMitigation",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"display": "%",
+		"match": /creating a suit of Daedric mail that increases your block mitigation by ([0-9]+\.?[0-9]*)% for/i
+	},
+	{
+		"id": "Bound Aegis",
+		"baseSkillId": 30418,
+		"matchSkillName": true,
+		"statId": "BlockMitigation",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"display": "%",
+		"match": /creating a suit of Daedric mail that increases your block mitigation by ([0-9]+\.?[0-9]*)% for/i
+	},
+	{
+		"category": "Skill",
+		"statId": "DamageDone",
+		"display": "%",
+		"match": /While slotted, your damage done is increased by ([0-9]+)%/i
+	},
+	{
+		"id": "Death Stroke",
+		"baseSkillId": 37518,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"category": "Skill",
+		"statId": "DamageDone",
+		"display": "%",
+		"rawInputMatch": /((?:causing them to take [0-9]+% more damage from your attacks for [0-9.]+ seconds\.)|(?:increasing your damage against them by [0-9]+% for [0-9.]+ seconds\.))/i,
+		"match": /causing them to take ([0-9]+)% more damage from your attacks/i
+	},
+	{
+		"id": "Death Stroke",
+		"baseSkillId": 37518,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"category": "Skill",
+		"statId": "DamageDone",
+		"display": "%",
+		"match": /increasing your damage against them by ([0-9]+)% for [0-9.]+ seconds/i
+	},
+	{
+		"id": "Standard of Might",
+		"baseSkillId": 33963,
+		"matchSkillName": true,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"category": "Skill",
+		"statId": "DamageDone",
+		"display": "%",
+		"rawInputMatch": /(Standing in the area increases your damage done and reduces damage taken by [0-9]+%\.)/i,
+		"match": /Standing in the area increases your damage done and reduces damage taken by ([0-9]+)%/i
+	},
+	{
+		"id": "Thrive in Chaos",
+		"baseSkillId": 86370,
+		"category": "Skill",
+		"statId": "DamageDone",
+		"statRequireId": "Weapon1H",
+		"statRequireValue": 2,
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"maxTimes": 6,
+		"match": /Each enemy hit increases your damage done by ([0-9]+)% for the duration/i
+	},
+	{
+		"id": "Equilibrium",
+		"baseSkillId": 42251,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"statId": "DamageShield",
+		"display": "%",
+		"factorValue": -1,
+		"rawInputMatch": /(The exchange reduces your healing done and damage shield strength by [0-9]+% for [0-9]+ seconds\.)/i,
+		"match": /The exchange reduces your healing done and damage shield strength by ([0-9]+)% for /i
+	},
+	{
+		"statRequireId": "WerewolfStage",
+		"statRequireValue": 2,
+		"statId": "DamageTaken",
+		"display": "%",
+		"factorValue": -1,
+		"match": /you take ([0-9]+\.?[0-9]*)% less damage/i
+	},
+	{
+		"category": "Skill",
+		"statId": "DamageTaken",
+		"display": "%",
+		"factorValue": -1,
+		"match": /While slotted, your damage taken is reduced by ([0-9]+)%/i
+	},
+	{
+		"id": "Standard of Might",
+		"baseSkillId": 28988,
+		"matchSkillName": true,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"category": "Skill",
+		"statId": "DamageTaken",
+		"display": "%",
+		"match": /Standing in the area increases your damage done and reduces damage taken by ([0-9]+)%/i
+	},
+	{
+		"id": "Molten Weapons",
+		"displayName": "Molten Armaments",
+		"baseSkillId": 32156,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"statId": "HADamage",
+		"display": "%",
+		"match": /Your own damage with Heavy Attacks is increased by ([0-9]+\.?[0-9]*)% while active/i
+	},
+	{
+		"category": "Skill",
+		"statId": "HealingDone",
+		"display": "%",
+		"match": /While slotted, your healing done is increased by ([0-9]+)%/i
+	},
+	{
+		"id": "Equilibrium",
+		"baseSkillId": 42251,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"statId": "HealingDone",
+		"factorValue": -1,
+		"display": "%",
+		"rawInputMatch": /(The exchange reduces your healing done and damage shield strength by [0-9]+% for [0-9]+ seconds\.)/i,
+		"match": /The exchange reduces your healing done and damage shield strength by ([0-9]+)% for /i
+	},
+	{
+		"id": "Blood Scion",
+		"baseSkillId": 41920,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"category": "Skill2",
+		"statId": "Health",
+		"match": /While transformed, your Max Health, Magicka, and Stamina are increased by ([0-9]+),/i
+	},
+	{
+		"id": "Bone Goliath Transformation",
+		"baseSkillId": 40115001,
+		"category": "Skill2",
+		"statId": "Health",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"match": /Goliath, increasing your Max Health by ([0-9]+) for/i
+	},
+	{
+		"id": "Crystal Weapon (Cost)",
+		"matchSkillName": false,
+		"baseSkillId": 47552,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"statId": "HealthCost",
+		"factorValue": -1,
+		"display": "%",
+		"match": /After casting, your next non-Ultimate ability used within [0-9]+ seconds costs ([0-9.]+)% less/i
+	},
+	{
+		"id": "Ferocious Roar",
+		"baseSkillId": 42145,
+		"matchSkillName": true,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"statId": "HeavyAttackSpeed",
+		"display": "%",
+		"rawInputMatch": /(Your Heavy Attacks also are [0-9]+% faster for [0-9]+ seconds after casting\.)/i,
+		"match": /Your Heavy Attacks also are ([0-9]+)% faster for/i
+	},
+	{
+		"statId": "LADamage",
+		"display": "%",
+		"match": /and your Light Attacks deal ([0-9]+)% more damage/i
+	},
+	{
+		"statId": "Magicka",
+		"display": "%",
+		"match": /While slotted, your Max Magicka is increased by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		"statId": "Magicka",
+		"display": "%",
+		"match": /and your Max Magicka is increased by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		"id": "Blood Scion",
+		"baseSkillId": 41920,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"category": "Skill2",
+		"statId": "Magicka",
+		"match": /While transformed, your Max Health, Magicka, and Stamina are increased by ([0-9]+),/i
+	},
+	{
+		"category": "Skill",
+		"statId": "MagickaCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /While slotted, the cost of all your abilities are reduced by ([0-9]+)%/i
+	},
+	{
+		"id": "Crystal Weapon (Cost)",
+		"matchSkillName": false,
+		"baseSkillId": 47552,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"statId": "MagickaCost",
+		"factorValue": -1,
+		"display": "%",
+		"rawInputMatch": /(After casting, your next non-Ultimate ability used within [0-9]+ seconds costs [0-9.]+% less\.)/i,
+		"match": /After casting, your next non-Ultimate ability used within [0-9]+ seconds costs ([0-9.]+)% less/i
+	},
+	{
+		"id": "Equilibrium",
+		"displayName": "Spell Symmetry",
+		"baseSkillId": 42251,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"statId": "MagickaCost",
+		"combineAs": "*%",
+		"factorValue": -1,
+		"display": "%",
+		"rawInputMatch": /(After the exchange is complete, the cost of your next Magicka ability is reduced by [0-9]+% for [0-9]+ seconds\.)/i,
+		"match": /After the exchange is complete, the cost of your next Magicka ability is reduced by ([0-9]+)% for/i
+	},
+	{
+		"id": "Molten Whip",
+		"matchSkillName": true,
+		"baseSkillId": 23811,
+		"category": "SkillDamage",
+		"statId": "Molten Whip",
+		"toggle": true,
+		"enabled": false,
+		"maxTimes": 3,
+		"display": "%",
+		"match": /Whenever you activate a different Ardent Flame ability, you gain a stack of Seething Fury, increasing the damage of your next Molten Whip by ([0-9]+)% and your Weapon and Spell Damage by [0-9]+ /i
+	},
+	{
+		"id": "Immovable",
+		"baseSkillId": 41082,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"statId": "MovementSpeed",
+		"factorValue": -1,
+		"display": "%",
+		"match": /but reduces your Movement Speed by ([0-9.]+)% for/i
+	},
+	{
+		"id": "Daedric Prey",
+		"baseSkillId": 30499,
+		"matchSkillName": true,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"statId": "PetDamageDone",
+		"display": "%",
+		"rawInputMatch": /(While the curse is active, your pets deal an additional [0-9.]+% damage to the target\.)/i,
+		"match": /While the curse is active, your pets deal an additional ([0-9.]+)% damage to the target/i
+	},
+	{
+		"id": "Protective Scale",
+		"baseSkillId": 33743,
+		"category": "Skill",
+		"statId": "RangedDamageTaken",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"display": "%",
+		"factorValue": -1,
+		"match": /Flex your scales, reducing your damage taken from projectiles by ([0-9]+)%/i
+	},
+	{
+		"id": "Protective Scale",
+		"baseSkillId": 33743,
+		"category": "Skill",
+		"statId": "RangedDamageTaken",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"display": "%",
+		"factorValue": -1,
+		"match": /Flex your scales, reducing damage taken from projectiles by ([0-9]+)%/i
+	},
+	{
+		"id": "Summoner's Armor",
+		"baseSkillId": 40115206,
+		"category": "SkillCost",
+		"statId": "Skeletal_Mage_Cost",
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"factorValue": -1,
+		"match": /While active, reduce the cost of Blastbones, Skeletal Mage, and Spirit Mender by ([0-9]+)%/i
+	},
+	{
+		"statId": "SneakSpeed",
+		"category": "Skill",
+		"display": "%",
+		"rawInputMatch": /(While slotted, your Movement Speed while Sneaking or invisible is increased by [0-9]+\.?[0-9]*%\.)/i,
+		"match": /While slotted, your Movement Speed while Sneaking or invisible is increased by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		"id": "Flawless Dawnbreaker",
+		"baseSkillId": "42566",
+		"category": "Skill2",
+		"statId": "SpellDamage",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"match": /After activating, your Weapon and Spell Damage is increased by ([0-9]+) for /i
+	},
+	{
+		"id": "Molten Whip",
+		"matchSkillName": true,
+		"baseSkillId": 23811,
+		"category": "Skill2",
+		"statId": "SpellDamage",
+		"toggle": true,
+		"enabled": false,
+		"maxTimes": 3,
+		"match": /Whenever you activate a different Ardent Flame ability, you gain a stack of Seething Fury, increasing the damage of your next Molten Whip by [0-9]+% and your Weapon and Spell Damage by ([0-9]+) /i
+	},
+	{
+		"id": "Grim Focus",
+		"baseSkillId": 62096,
+		"category": "Skill2",
+		"statId": "SpellDamage",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"maxTimes": 5,
+		"match": /Focus your senses for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+) with every Light or Heavy Attack/i
+	},
+	{
+		"id": "Grim Focus",
+		"baseSkillId": 62096,
+		"category": "Skill2",
+		"statId": "SpellDamage",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"maxTimes": 5,
+		"match": /Focus your senses for [0-9]+ minute, increasing your Weapon and Spell Damage by ([0-9]+) with every Light or Heavy Attack/i
+	},
+	{
+		"id": "Summoner's Armor",
+		"baseSkillId": 40115206,
+		"category": "SkillCost",
+		"statId": "Spirit_Mender_Cost",
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"factorValue": -1,
+		"match": /While active, reduce the cost of Blastbones, Skeletal Mage, and Spirit Mender by ([0-9]+)%/i
+	},
+	{
+		"statId": "Stamina",
+		"display": "%",
+		"match": /While slotted, your Max Stamina is increased by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		"id": "Blood Scion",
+		"baseSkillId": 41920,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"category": "Skill2",
+		"statId": "Stamina",
+		"match": /While transformed, your Max Health, Magicka, and Stamina are increased by ([0-9]+),/i
+	},
+	{
+		"category": "Skill",
+		"statId": "StaminaCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /While slotted, the cost of all your abilities are reduced by ([0-9]+)%/i
+	},
+	{
+		"id": "Crystal Weapon (Cost)",
+		"matchSkillName": false,
+		"baseSkillId": 47552,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"statId": "StaminaCost",
+		"factorValue": -1,
+		"display": "%",
+		"match": /After casting, your next non-Ultimate ability used within [0-9]+ seconds costs ([0-9.]+)% less/i
+	},
+	{
+		"statId": "StaminaRegen",
+		"display": "%",
+		"match": /While slotted, your Stamina Recovery is increased by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		"id": "Summon Twilight Tormentor",
+		"baseSkillId": 30587,
+		"matchSkillName": true,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"category": "SkillDamage",
+		"statId": "Summon Twilight Tormentor",
+		"display": "%",
+		"rawInputMatch": /(Once summoned, you can activate the twilight tormentor's special ability for [0-9.]+ Magicka, causing it to deal [0-9.]+% more damage to enemies above [0-9.]+% Health for [0-9.]+ seconds\.)/i,
+		"match": /you can activate the twilight tormentor's special ability for [0-9.]+ Magicka, causing it to deal ([0-9.]+)% more damage/i
+	},
+	{
+		"category": "Skill",
+		"statId": "UltimateCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /While slotted, the cost of all your abilities are reduced by ([0-9]+)%/i
+	},
+	{
+		"id": "Blood Scion",
+		"displayName": "Perfect Scion",
+		"baseSkillId": 41920,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"category": "Skill",
+		"statId": "VampireStage",
+		"statValue": 5,
+		"match": /You also ascend to Vampire Stage 5, which grants all the benefits of Vampire Stage 4 with none of the drawbacks\./i
+	},
+	{
+		"id": "Brutal Pounce",
+		"baseSkillId": 42110,
+		"matchSkillName": true,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"category": "Skill2",
+		"statId": "WeaponDamage",
+		"maxTimes": 6,
+		"rawInputMatch": /(Increases your Weapon and Spell Damage by [0-9]+ for each enemy hit, up to a maximum of [0-9]+ times\.)/i,
+		"match": /Increases your Weapon and Spell Damage by ([0-9]+) for each enemy hit, up to a maximum of [0-9]+ times/i
+	},
+	{
+		"id": "Flawless Dawnbreaker",
+		"baseSkillId": "42566",
+		"category": "Skill2",
+		"statId": "WeaponDamage",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"match": /After activating, your Weapon and Spell Damage is increased by ([0-9]+) for /i
+	},
+	{
+		"id": "Molten Whip",
+		"matchSkillName": true,
+		"baseSkillId": 23811,
+		"category": "Skill2",
+		"statId": "WeaponDamage",
+		"toggle": true,
+		"enabled": false,
+		"maxTimes": 3,
+		"match": /Whenever you activate a different Ardent Flame ability, you gain a stack of Seething Fury, increasing the damage of your next Molten Whip by [0-9]+% and your Weapon and Spell Damage by ([0-9]+) /i
+	},
+	{
+		"id": "Grim Focus",
+		"baseSkillId": 62096,
+		"category": "Skill2",
+		"statId": "WeaponDamage",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"maxTimes": 5,
+		"match": /Focus your senses for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+) with every Light or Heavy Attack/i
+	},
+	{
+		"id": "Grim Focus",
+		"baseSkillId": 62096,
+		"category": "Skill2",
+		"statId": "WeaponDamage",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"maxTimes": 5,
+		"match": /Focus your senses for [0-9]+ minute, increasing your Weapon and Spell Damage by ([0-9]+) with every Light or Heavy Attack/i
+	}
 ];
 
 
-window.ESO_PASSIVEEFFECT_MATCHES = [
-	// Reach: Increases the range of long-range abilities by 2 meters while near
-	// a keep. Any ability with a range greater than 28 meters is affected.
-	// WHILE YOU ARE EMPEROR Increases your damage done with Siege Weapons to
-	// keeps and other Siege Weapons by 100% while in your campaign.
+window.ESO_PASSIVEEFFECT_MATCHES = 
+[
+	{
+		"id": "Exploitation",
+		"baseSkillId": 31389,
+		"toggle": true,
+		"enabled": false,
+		"buffId": "Minor Prophecy",
+		"match": /When you cast a Dark Magic ability you grant Minor Prophecy to you and your group/i
+	},
+	{
+		"id": "Illuminate",
+		"baseSkillId": 31743,
+		"toggle": true,
+		"enabled": false,
+		"buffId": "Minor Sorcery",
+		"match": /Casting a Dawn's Wrath ability grants Minor Sorcery to you and your group/i
+	},
+	{
+		"id": "Might of the Guild",
+		"baseSkillId": 43561,
+		"toggle": true,
+		"enabled": false,
+		"buffId": "Empower",
+		"match": /Casting a Mages Guild ability has a [0-9]+% chance of granting you Empower/i
+	},
+	{
+		"id": "Might of the Guild",
+		"baseSkillId": 43561,
+		"toggle": true,
+		"enabled": false,
+		"buffId": "Empower",
+		"match": /Casting a Mages Guild ability grants you Empower/i
+	},
+	{
+		"id": "Maturation",
+		"baseSkillId": 85880,
+		"toggle": true,
+		"enabled": false,
+		"buffId": "Minor Toughness",
+		"match": /When you activate a heal on yourself or an ally you grant the target Minor Toughness/i
+	},
 	{
-		statId: "FlameDamageDone",
-		display: "%",
-		match: /Increases the damage of your Flame and Poison attacks by ([0-9.]+)%/i,
-	},
-	{
-		statId: "PoisonDamageDone",
-		display: "%",
-		match: /Increases the damage of your Flame and Poison attacks by ([0-9.]+)%/i,
-	},
-	{
-		statId: "EnableFrostTaunt",
-		statValue: 1,
-		match: /Fully-charged Frost Staff Heavy Attacks taunt the enemy to attack you/i,
-	},
-	{
-		statId: "PotionDuration",
-		display: "%",
-		match: /When using potions, resulting effects last ([0-9]+])% longer/i,
-	},
-	{
-		statId: "StatusEffectChance",
-		display: "%",
-		statRequireId: "WeaponDestStaff",
-		statRequireValue: 1,
-		match: /With Destruction Staff Equipped\sIncreases your chance to apply the Burning, Concussion, and Chilled status effects by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "StatusEffectChance",
-		display: "%",
-		statRequireId: "WeaponDestStaff",
-		statRequireValue: 1,
-		match: /Increases your chance to apply status effects by ([0-9]+\.?[0-9]*)%/i,
-	},
- 	{
-		statId: "BurningDamage",
-		display: "%",
-		match: /Increases the damage of your Burning and Poisoned status effects by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "PoisonedDamage",
-		display: "%",
-		match: /Increases the damage of your Burning and Poisoned status effects by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		factorStatId: "ArmorLight",
-		statId: "MagickaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Magicka cost of spells by ([0-9]+\.?[0-9]*)% per piece of Light Armor/i,
-	},
-	{
-		factorStatId: "ArmorLight",
-		statId: "MagickaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Magicka cost of your abilities by ([0-9]+\.?[0-9]*)% for each piece of Light Armor/i,
-	},
-	{
-		factorStatId: "ArmorLight",
-		statId: "MagickaRegen",
-		display: "%",
-		match: /Increases Magicka Recovery by ([0-9]+\.?[0-9]*)% per piece of Light Armor/i,
-	},
-	{
-		factorStatId: "ArmorLight",
-		statId: "MagickaRegen",
-		display: "%",
-		match: /Increases Magicka Recovery by ([0-9]+\.?[0-9]*)% for each piece of Light Armor/i,
-	},
-	{
-		factorStatId: "ArmorLight",
-		statId: "MagickaRegen",
-		display: "%",
-		match: /Increases your Magicka Recovery by ([0-9]+\.?[0-9]*)% for each piece of Light Armor/i,
-	},
-	{
-		statId: "SpellResist",
-		match: /Increases your Spell Resistance for each piece of Light Armor equipped.[\s\S]*?Current Bonus\: ([0-9]+)/i,
-	},
-	{
-		statId: "SpellResist",
-		factorStatId: "ArmorLight",
-		match: /Increases your Spell Resistance by ([0-9]+) for each piece of Light Armor equipped/i,
-	},
-	{
-		statRequireId: "ArmorLight",
-		statRequireValue: 5,
-		category: "Skill2",
-		statId: "SpellCrit",
-		match: /WHEN 5 OR MORE PIECES OF LIGHT ARMOR ARE EQUIPPED[\s\S]*?Increases your Spell Critical rating by ([0-9]+)/i,
-	},
-	{
-		statRequireId: "ArmorLight",
-		statRequireValue: 5,
-		statId: "SpellPenetration",
-		match: /WHEN 5 OR MORE PIECES OF LIGHT ARMOR ARE EQUIPPED[\s\S]*?Increases your Spell Penetration by ([0-9]+)/i,
-	},
-	{
-		category: "Skill2",
-		statId: "WeaponCrit",
-		match: /Increases your Weapon Critical rating for each piece of Medium Armor equipped.[\s\S]*?Current Bonus\: ([0-9]+)/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "CritDamage",
-		display: "%",
-		match: /Increases your Critical Damage and Healing done rating by ([0-9]+)% for every piece of Medium Armor equipped/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "CritHealing",
-		display: "%",
-		match: /Increases your Critical Damage and Healing done rating by ([0-9]+)% for every piece of Medium Armor equipped/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "CritDamage",
-		display: "%",
-		factorValue: 0.5,
-		match: /Increases your Critical Damage and Healing done rating by ([0-9]+)% for every 2 pieces of Medium Armor equipped/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "CritHealing",
-		display: "%",
-		factorValue: 0.5,
-		match: /Increases your Critical Damage and Healing done rating by ([0-9]+)% for every 2 pieces of Medium Armor equipped/i,
-	},
-	{
-		category: "Skill2",
-		factorStatId: "ArmorMedium",
-		statId: "WeaponCrit",
-		match: /Increases your Weapon Critical rating by ([0-9]+) for each piece of Medium Armor equipped/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "StaminaRegen",
-		display: '%',
-		match: /Increases Stamina Recovery by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "StaminaRegen",
-		display: '%',
-		match: /Increases your Stamina Recovery by ([0-9]+\.?[0-9]*)% for each piece of Medium Armor equipped/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "StaminaRegen",
-		display: '%',
-		match: /Increases your Stamina Recovery by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "StaminaCost",
-		display: '%',
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Stamina cost of abilities by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "StaminaCost",
-		display: '%',
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Stamina cost of your abilities by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "StaminaCost",
-		display: '%',
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Stamina cost of your abilities by ([0-9]+\.?[0-9]*)% for each piece of Medium Armor equipped/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "SneakCost",
-		display: '%',
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the cost of sneaking by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
-	},
-	{
-		statId: "SneakCost",
-		display: '%',
-		factorValue: -1,
-		match: /Reduces the cost of Sneak by ([0-9]+\.?[0-9]*)%\./i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "SneakCost",
-		display: '%',
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the cost of Sneak by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "SneakRange",
-		display: '%',
-		factorValue: -1,
-		match: /Reduces the size of your detection area by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "SneakRange",
-		display: '%',
-		factorValue: -1,
-		match: /Reduces the size of your detection area while Sneaking by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "SneakRange",
-		display: '%',
-		factorValue: -1,
-		match: /Reduces the size of your detection area while Sneaking by ([0-9]+\.?[0-9]*)% for each piece of Medium Armor equipped/i,
-	},
-	{
-		statRequireId: "ArmorMedium",
-		statRequireValue: 5,
-		statId: "WeaponDamage",
-		display: '%',
-		match: /WHEN 5 OR MORE PIECES OF MEDIUM ARMOR ARE EQUIPPED[\s\S]*?Increases your Weapon Damage by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "WeaponDamage",
-		display: '%',
-		match: /Increases your Weapon Damage by ([0-9]+\.?[0-9]*)% for each piece of Medium Armor worn/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "WeaponDamage",
-		display: '%',
-		match: /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% for each piece of Medium Armor worn/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "SpellDamage",
-		display: '%',
-		match: /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% for each piece of Medium Armor worn/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "SprintSpeed",
-		display: '%',
-		match: /increases your movement speed while using Sprint by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "SprintSpeed",
-		display: '%',
-		match: /Increases the movement speed bonus of sprint by ([0-9]+\.?[0-9]*)% for each piece of medium armor/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "RollDodgeCost",
-		display: '%',
-		factorValue: -1,
-		match: /Reduces the cost of Roll Dodge by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i,
-	},
-	{
-		factorStatId: "ArmorMedium",
-		statId: "RollDodgeCost",
-		display: '%',
-		factorValue: -1,
-		match: /Reduces the cost of Roll Dodge by ([0-9]+\.?[0-9]*)% for each piece of Medium Armor equipped/i,
-	},
-	{
-		statId: "PhysicalResist",
-		match: /Increases your Physical Resistance and Spell Resistance for each piece of Heavy Armor equipped.[\s\S]*?Current bonus\: ([0-9]+)/i,
-	},
-	{
-		statId: "SpellResist",
-		match: /Increases your Physical Resistance and Spell Resistance for each piece of Heavy Armor equipped.[\s\S]*?Current bonus\: ([0-9]+)/i,
-	},
-	{
-		statId: "PhysicalResist",
-		factorStatId: "ArmorHeavy",
-		match: /Increases your Physical and Spell Resistance by ([0-9]+) for each piece of Heavy Armor equipped/i,
-	},
-	{
-		statId: "SpellResist",
-		factorStatId: "ArmorHeavy",
-		match: /Increases your Physical and Spell Resistance by ([0-9]+) for each piece of Heavy Armor equipped/i,
-	},
-	{
-		factorStatId: "ArmorHeavy",
-		statId: "HealthRegen",
-		display: "%",
-		match: /Increases Health Recovery by ([0-9]+\.?[0-9]*)% per piece of Heavy Armor equipped/i,
-	},
-	{
-		statId: "Constitution",
-		match: /Also restores Magicka and Stamina each time you are hit[\s\S]*?Current bonus\: ([0-9]+)/i,
-	},
-	{
-		statId: "Constitution",
-		factorStatId: "ArmorHeavy",
-		match: /You restore ([0-9]+) Magicka and Stamina when you take damage/i,
-	},
-	{
-		factorStatId: "ArmorHeavy",
-		statId: "Health",
-		display: "%",
-		match: /Increases Max Health by ([0-9]+\.?[0-9]*)% per piece of Heavy Armor equipped/i,
-	},
-	{
-		factorStatId: "ArmorHeavy",
-		statId: "Health",
-		display: "%",
-		match: /Increases your Max Health by ([0-9]+\.?[0-9]*)% for each piece of Heavy Armor equipped/i,
-	},
-	{
-		statRequireId: "ArmorHeavy",
-		statRequireValue: 5,
-		statId: "HealingReceived",
-		display: "%",
-		match: /WITH 5 OR MORE PIECES OF HEAVY ARMOR EQUIPPED[\s\S]*?Increases your healing received by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		factorStatId: "ArmorHeavy",
-		statId: "HealingReceived",
-		factorValue: 0.5,
-		display: "%",
-		match: /Increases your healing received by ([0-9]+\.?[0-9]*)% for every 2 pieces of Heavy Armor worn/i,
-	},
-	{
-		factorStatId: "ArmorHeavy",
-		statId: "HealingReceived",
-		display: "%",
-		match: /Increases your healing received by ([0-9]+\.?[0-9]*)% for each piece of Heavy Armor worn/i,
-	},
-	{
-		factorStatId: "ArmorHeavy",
-		statId: "HealthRegen",
-		display: "%",
-		match: /Increases your Health Recovery by ([0-9]+\.?[0-9]*)% for each piece of Heavy Armor equipped/i,
-	},
-	{
-		statRequireId: "ArmorHeavy",
-		statRequireValue: 5,
-		statId: "HealingReceived",
-		display: "%",
-		match: /WHEN 5 OR MORE PIECES OF HEAVY ARMOR ARE EQUIPPED[\s\S]*?Increases your healing received by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "SneakCost",
-		display: '%',
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Stamina cost of sneaking by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "Skill",
-		statId: "NormalSneakSpeed",
-		statRequireId: "VampireStage",
-		statRequireValue: 4,
-		value: 1,
-		match: /Ignore the movement speed penalty while in crouch/i,
-	},
-	{
-		category: "Skill",
-		statId: "NormalSneakSpeed",
-		statRequireId: "VampireStage",
-		statRequireValue: 1,
-		value: 1,
-		match: /Ignore the movement speed penalty of Sneak/i,
-	},
-	{
-		factorStatId: "ArmorTypes",
-		statId: "Health",
-		display: '%',
-		match: /Increases your Max Health, Stamina, and Magicka by ([0-9]+\.?[0-9]*)% per type of Armor/i,
-	},
-	{
-		factorStatId: "ArmorTypes",
-		statId: "Magicka",
-		display: '%',
-		match: /Increases your Max Health, Stamina, and Magicka by ([0-9]+\.?[0-9]*)% per type of Armor/i,
-	},
-	{
-		factorStatId: "ArmorTypes",
-		statId: "Stamina",
-		display: '%',
-		match: /Increases your Max Health, Stamina, and Magicka by ([0-9]+\.?[0-9]*)% per type of Armor/i,
-	},
-	{
-		statId: "Health",
-		display: '%',
-		match: /^Increases your Max Health by ([0-9]+\.?[0-9]*)% and/i,
-	},
-	{
-		category: "Skill2",
-		statId: "Health",
-		match: /^Increase your Max Health by ([0-9]+\.?[0-9]*)/i,
-	},
-	{
-		statId: "PoisonResist",
-		match: /Poison and Disease Resistance by ([0-9]+)/i,
-	},
-	{
-		statId: "HealingReceived",
-		display: "%",
-		match: /Increases the effectiveness of healing on you by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "HealingDone",
-		display: "%",
-		match: /Increases the effectiveness of healing you initiate by ([0-9]+\.?[0-9]*)% when near a keep/i,
-	},
-	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "ResurrectSpeed",
-		display: "%",
-		match: /WHILE IN PVP AREAS[\s]*?Reduces the time it takes to resurrect another player by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "ResurrectSpeed",
-		display: "%",
-		match: /Reduces the time it takes you to resurrect another player by ([0-9]+\.?[0-9]*)% while you are in a PvP area/i,
-	},
-	{
-		statId: "Health",
-		display: "%",
-		match: /Increases Max Health by ([0-9]+\.?[0-9]*)%\./i,
-	},
-	{
-		statId: "Health",
-		display: "%",
-		match: /Increases Max Health by ([0-9]+\.?[0-9]*)% and /i,
-	},
-	{
-		statId: "Health",
-		display: "%",
-		match: /^Increases your Max Health by ([0-9]+\.?[0-9]*)%\./i,
-	},
-	{
-		statId: "Magicka",
-		display: "%",
-		match: /Increases your Max Magicka by ([0-9]+\.?[0-9]*)% and /i,
-	},
-	{
-		statId: "Magicka",
-		display: "%",
-		match: /Increases your Max Magicka by ([0-9]+\.?[0-9]*)%\./i,
-	},
-	{	// Bug in Argonian Rank 2 passive text, missing a .
-		statId: "Magicka",
-		display: "%",
-		match: /Increases your Max Magicka by ([0-9]+\.?[0-9]*)%\sWhen you drink a potion/i,
-	},
-	{
-		statId: "Health",
-		display: "%",
-		match: /Increases Max Health and Max Stamina by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "Stamina",
-		display: "%",
-		match: /Increases Max Health and Max Stamina by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "Health",
-		display: "%",
-		match: /Increases your Max Health and Max Stamina by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "Stamina",
-		display: "%",
-		match: /Increases your Max Health and Max Stamina by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "Stamina",
-		display: "%",
-		match: /Increases your Max Stamina by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "MagickaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Magicka cost of spells by ([0-9]+\.?[0-9]*)%\./i,
-	},
-	{
-		statId: "MagickaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Magicka and Stamina costs of your abilities ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "StaminaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Magicka and Stamina costs of your abilities ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "StaminaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Magicka and Stamina costs of your abilities ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "MagickaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Health, Magicka, and Stamina costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "StaminaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Health, Magicka, and Stamina costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "HealthCost",		//TODO: What are non-core combat abilities
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Health, Magicka, and Stamina costs of your non Core Combat abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "MagickaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Health, Magicka, and Stamina costs of your non Core Combat abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "StaminaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Health, Magicka, and Stamina costs of your non Core Combat abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "HealthCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Health, Magicka, and Stamina costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "MagickaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Magicka cost of your abilities by ([0-9]+\.?[0-9]*)%\./i,
-	},
-	{
-		statId: "Magicka",
-		display: "%",
-		match: /Increases Max Magicka and Max Stamina by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "Stamina",
-		display: "%",
-		match: /Increases Max Magicka and Max Stamina by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "Magicka",
-		display: "%",
-		match: /Increases your Max Magicka and Max Stamina by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "Stamina",
-		display: "%",
-		match: /Increases your Max Magicka and Max Stamina by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "Magicka",
-		display: "%",
-		match: /Increases Flame Resistance by [0-9]+ and increases Max Magicka by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "MagickaRegen",
-		display: "%",
-		match: /Increases Magicka Recovery by ([0-9]+\.?[0-9]*)%\./i,
-	},
-	{
-		statId: "MagickaRegen",
-		display: "%",
-		match: /Increases your Magicka Recovery by ([0-9]+\.?[0-9]*)%\./i,
-	},
-	{
-		statId: "StaminaRegen",
-		display: "%",
-		match: /Increases Stamina Recovery by ([0-9]+\.?[0-9]*)%\./i,
-	},
-	{
-		statId: "StaminaRegen",
-		display: "%",
-		match: /Increases your Stamina Recovery by ([0-9]+\.?[0-9]*)%\./i,
-	},
-	{
-		statId: "HealthRegen",
-		display: "%",
-		match: /Increases Health Recovery by ([0-9]+\.?[0-9]*)%\./i,
-	},
-	{
-		statId: "HealthRegen",
-		display: "%",
-		match: /Increases Health Recovery by ([0-9]+\.?[0-9]*)%\ and /i,
-	},
-	{
-		statId: "HealthRegen",
-		display: "%",
-		match: /and Health Recovery by ([0-9]+\.?[0-9]*)%\./i,
-	},
-	{
-		statId: "StaminaRegen",
-		display: "%",
-		match: /Increases Health Recovery by [0-9]+\.?[0-9]*% and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "HealthRegen",
-		display: "%",
-		match: /Increases your Health Recovery by ([0-9]+\.?[0-9]*)%\ and /i,
-	},
-	{
-		statId: "StaminaRegen",
-		display: "%",
-		match: /% and Stamina Recovery by ([0-9]+\.?[0-9]*)%\./i,
-	},
-	{
-		statId: "HealthRegen",
-		display: "%",
-		match: /Increases your Health, Stamina, and Magicka Recovery by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "MagickaRegen",
-		display: "%",
-		match: /Increases your Health, Stamina, and Magicka Recovery by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "StaminaRegen",
-		display: "%",
-		match: /Increases your Health, Stamina, and Magicka Recovery by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "Skill2",
-		statId: "SneakRange",
-		factorValue: -1,
-		match: /Reduces your detection radius in stealth by ([0-9]+\.?[0-9]*) meter/i,
-	},
-	{
-		statId: "WeaponCrit",
-		display: "%",
-		match: /Increases your Weapon Critical rating by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "WeaponCrit",
-		display: "%",
-		match: /Increases your Weapon Critical by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "FrostResist",
-		match: /Increases Cold Resistance by ([0-9]+)/i,
-	},
-	{
-		statId: "FrostResist",
-		match: /and Cold Resistance by ([0-9]+)\./i,
-	},
-	{
-		statId: "MagicDamageTaken",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces incoming damage by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "PhysicalDamageTaken",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces incoming damage by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "MagicDamageTaken",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces your damage taken by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "PhysicalDamageTaken",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces your damage taken by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "SprintCost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces Sprint cost by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "SprintCost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the cost of Sprint by ([0-9]+\.?[0-9]*)% and/i,
-	},
-	{
-		statId: "SprintCost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the cost of Sprint by ([0-9]+\.?[0-9]*)% per/i,
-	},
-	{
-		statId: "SprintSpeed",
-		display: "%",
-		match: /Increases sprint speed by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "SprintSpeed",
-		display: "%",
-		match: /and increases the movement speed bonus of sprint by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon1HShield",
-		statRequireValue: 1,
-		statId: "BlockCost",
-		display: "%",
-		factorValue: -1,
-		match: /and reduces the cost of blocking by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon1HShield",
-		statRequireValue: 1,
-		statId: "BlockSpeed",
-		display: "%",
-		match: /Increases your Movement Speed while blocking by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon1HShield",
-		statRequireValue: 1,
-		statId: "BlockSpeedPenalty",
-		display: "%",
-		match: /Reduces the Movement Speed penalty of Bracing[\s\S]+Current penalty: ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon1HShield",
-		statRequireValue: 1,
-		statId: "WeaponDamage",
-		display: "%",
-		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Increases your Weapon Damage by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon1HShield",
-		statRequireValue: 1,
-		statId: "WeaponDamage",
-		display: "%",
-		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon1HShield",
-		statRequireValue: 1,
-		statId: "SpellDamage",
-		display: "%",
-		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon1HShield",
-		statRequireValue: 1,
-		statId: "BlockMitigation",
-		display: "%",
-		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s\S]*?amount of damage you can block by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon1HShield",
-		statRequireValue: 1,
-		statId: "BashWeaponDamage",
-		match: /Your Bash attacks gain an additional ([0-9]+) Weapon and Spell Damage and cost [0-9]+% less Stamina./i,
-	},
-	{
-		statRequireId: "Weapon1HShield",
-		statRequireValue: 1,
-		statId: "BashSpellDamage",
-		match: /Your Bash attacks gain an additional ([0-9]+) Weapon and Spell Damage and cost [0-9]+% less Stamina./i,
-	},
-	{
-		statRequireId: "Weapon1HShield",
-		statRequireValue: 1,
-		statId: "BashCost",
-		display: "%",
-		factorValue: -1,
-		match: /Your Bash attacks gain an additional [0-9]+ Weapon and Spell Damage and cost ([0-9]+)% less Stamina./i,
-	},
-	{
-		statRequireId: "Weapon1HShield",
-		statRequireValue: 1,
-		statId: "BashCost",
-		display: "%",
-		factorValue: -1,
-		match: /Improves your standard bash attacks, causing them to deal [0-9]+ more damage and cost ([0-9.]+)% less Stamina/i,
-	},
-	{
-		statRequireId: "Weapon1HShield",
-		statRequireValue: 1,
-		statId: "ExtraBashDamage",
-		match: /Improves your standard bash attacks, causing them to deal ([0-9]+) more damage and/i,
-	},
-	{
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		factorStatId: "WeaponMace",
-		category: "Skill2",
-		statId: "PhysicalPenetration",
-		display: "%",
-		rawInputMatch: /(Each mace causes your attacks to ignore [0-9]+\.?[0-9]*% of an enemy's Physical Resistance)/i,
-		match: /Each mace causes your attacks to ignore ([0-9]+\.?[0-9]*)% of an enemy's Physical Resistance/i,
-	},
-	{
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		factorStatId: "WeaponMace",
-		category: "Skill",
-		statId: "PhysicalPenetration",
-		rawInputMatch: /(Each mace increases your Armor Penetration by [0-9]+\.)/i,
-		match: /Each mace increases your Armor Penetration by ([0-9]+)/i,
-	},
-	{
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		factorStatId: "WeaponMace",
-		category: "Skill",
-		statId: "SpellPenetration",
-		rawInputMatch: /(Each mace increases your Armor Penetration by [0-9]+\.)/i,
-		match: /Each mace increases your Armor Penetration by ([0-9]+)/i,
-	},
-	{
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		factorStatId: "WeaponSword",
-		statId: "DamageDone",
-		display: "%",
-		rawInputMatch: /(Each sword increases your damage done by [0-9]+\.?[0-9]*%)/i,
-		match: /Each sword increases your damage done by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		factorStatId: "WeaponSword",
-		category: "Skill2",
-		statId: "WeaponDamage",
-		rawInputMatch: /(Each sword increases your Weapon and Spell Damage by [0-9]+)/i,
-		match: /Each sword increases your Weapon and Spell Damage by ([0-9]+)/i,
-	},
-	{
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		factorStatId: "WeaponSword",
-		category: "Skill2",
-		statId: "SpellDamage",
-		rawInputMatch: /(Each sword increases your Weapon and Spell Damage by [0-9]+)/i,
-		match: /Each sword increases your Weapon and Spell Damage by ([0-9]+)/i,
-	},
-	{
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		category: "Skill2",
-		statId: "WeaponCrit",
-		rawInputMatch: /(Each dagger increases your Weapon Critical rating[\s\S]*?Current bonus\: [0-9]+)/i,
-		match: /Each dagger increases your Weapon Critical rating[\s\S]*?Current bonus\: ([0-9]+)/i,
-	},
-	{
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		factorStatId: "WeaponDagger",
-		category: "Skill2",
-		statId: "WeaponCrit",
-		rawInputMatch: /(Each dagger increases your Critical Chance rating by [0-9]+)/i,
-		match: /Each dagger increases your Critical Chance rating by ([0-9]+)/i,
-	},
-	{
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		factorStatId: "WeaponDagger",
-		category: "Skill2",
-		statId: "SpellCrit",
-		rawInputMatch: /(Each dagger increases your Critical Chance rating by [0-9]+)/i,
-		match: /Each dagger increases your Critical Chance rating by ([0-9]+)/i,
-	},
-	{
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		factorStatId: "WeaponAxe",
-		statId: "OtherEffects",
-		rawInputMatch: /(Each axe gives your melee attacks a [0-9]+\.?[0-9]*% chance to bleed enemies for [0-9]+ Physical Damage over 6 seconds\.)/i,
-		match: /Each axe gives your melee attacks a [0-9]+\.?[0-9]*% chance to bleed enemies for ([0-9]+) Physical Damage over 6 seconds/i,
-	},
-	{
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		factorStatId: "WeaponAxe",
-		statId: "CritDamage",
-		display: "%",
-		rawInputMatch: /(Each axe increases your Critical Damage and Critical Healing done by [0-9]+\.?[0-9]*%\.)/i,
-		match: /Each axe increases your Critical Damage and Critical Healing done by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		factorStatId: "WeaponAxe",
-		statId: "CritHealing",
-		display: "%",
-		rawInputMatch: /(Each axe increases your Critical Damage and Critical Healing done by [0-9]+\.?[0-9]*%\.)/i,
-		match: /Each axe increases your Critical Damage and Critical Healing done by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		factorStatId: "WeaponAxe",
-		statId: "CritDamage",
-		display: "%",
-		rawInputMatch: /(Each axe increases your Critical Damage done by [0-9]+\.?[0-9]*%\.)/i,
-		match: /Each axe increases your Critical Damage done by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		category: "Item",
-		statId: "WeaponDamage",
-		factorStatId: "WeaponOffHandDamage",
-		display: "%",
-		round: "floor",
-		match: /WHILE DUAL WIELDING[\s]*Increases Weapon Damage by ([0-9]+\.?[0-9]*)% of off-hand weapon's damage/i,
-	},
-	{
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		category: "Item",
-		statId: "WeaponDamage",
-		factorStatId: "WeaponOffHandDamage",
-		display: "%",
-		round: "floor",
-		match: /WHILE DUAL WIELDING[\s]*Increases Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% of off-hand weapon's damage/i,
-	},
-	{
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		category: "Item",
-		statId: "SpellDamage",
-		factorStatId: "WeaponOffHandDamage",
-		display: "%",
-		round: "floor",
-		match: /WHILE DUAL WIELDING[\s]*Increases Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% of off-hand weapon's damage/i,
-	},
-	{
-		statRequireId: "WeaponBow",
-		statRequireValue: 1,
-		category: "Skill2",
-		statId: "WeaponCrit",
-		match: /WITH BOW EQUIPPED[\s\S]*?Increases Weapon Critical rating by ([0-9]+)/i,
-	},
-	{
-		statRequireId: "WeaponBow",
-		statRequireValue: 1,
-		category: "Skill2",
-		statId: "WeaponCrit",
-		match: /WITH BOW EQUIPPED[\s\S]*?Increases your Critical Chance rating by ([0-9]+)/i,
-	},
-	{
-		statRequireId: "WeaponBow",
-		statRequireValue: 1,
-		category: "Skill2",
-		statId: "SpellCrit",
-		match: /WITH BOW EQUIPPED[\s\S]*?Increases your Critical Chance rating by ([0-9]+)/i,
-	},
-	{
-		category: "Skill",
-		statId: "DestructionPenetration",
-		display: "%",
-		match: /WITH DESTRUCTION STAFF EQUIPPED[\s\S]*?Allows your Destruction Staff spells to ignore ([0-9]+)% of an enemy's Spell Resistance/i,
-	},
-	{
-		category: "Skill",
-		statId: "DestructionPenetration",
-		display: "%",
-		match: /Your Destruction Staff abilities ignore ([0-9]+)% of the enemy's Spell Resistance./i,
-	},
-	{
-		statRequireId: "WeaponDestStaff",
-		statRequireValue: 1,
-		statId: "HAChargeTime",
-		display: "%",
-		match: /WITH DESTRUCTION STAFF EQUIPPED[\s\S]*?Reduces the time it takes to charge a heavy attack by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "WeaponDestStaff",
-		statRequireValue: 1,
-		statId: "OtherEffects",
-		rawInputMatch: /WITH DESTRUCTION STAFF EQUIPPED[\s]*(.*)/i,
-		match: /WITH DESTRUCTION STAFF EQUIPPED[\s]*Restores ([0-9]+) Magicka when you kill a target with a Destruction Staff spell or weapon attack/i,
-	},
-	{
-		statRequireId: "WeaponFlameStaff",
-		statRequireValue: 1,
-		statId: "HADamage",
-		display: "%",
-		match: /Fully-charged Flame Heavy Attacks deal ([0-9]+\.?[0-9]*)% additional damage/i,
-	},
-	{
-		statRequireId: "WeaponFlameStaff",
-		statRequireValue: 1,
-		statId: "HADamage",
-		display: "%",
-		match: /Fully-charged Inferno Staff Heavy Attacks deal ([0-9]+\.?[0-9]*)% additional damage./i,
-	},
-	{
-		statRequireId: "WeaponFlameStaff",
-		statRequireValue: 1,
-		statId: "HADamage",
-		display: "%",
-		match: /Fully-charged Flame Staff Heavy Attacks deal ([0-9]+\.?[0-9]*)% additional damage/i,
-	},
-	{
-		statRequireId: "WeaponFlameStaff",
-		statRequireValue: 1,
-		statId: "SingleTargetDamageDone",
-		display: "%",
-		match: /Flame Staff increases your damage done with single target abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "WeaponFlameStaff",
-		statRequireValue: 1,
-		statId: "SingleTargetDamageDone",
-		display: "%",
-		match: /Equipping an Inferno Staff increases your damage done with single target abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "WeaponShockStaff",
-		statRequireValue: 1,
-		statId: "AOEDamageDone",
-		display: "%",
-		match: /Lightning Staff increases your damage done with area of effect abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "WeaponFrostStaff",
-		statRequireValue: 1,
-		statId: "BlockCost",
-		display: "%",
-		factorValue: -1,
-		match: /Frost Staff reduces the cost of blocking by ([0-9]+\.?[0-9]*)% and increases the amount of damage you block by [0-9]+\.?[0-9]*%/i,
-	},
-	{
-		statRequireId: "WeaponFrostStaff",
-		statRequireValue: 1,
-		statId: "BlockMitigation",
-		display: "%",
-		match: /Frost Staff reduces the cost of blocking by [0-9]+\.?[0-9]*% and increases the amount of damage you block by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "WeaponFrostStaff",
-		statRequireValue: 1,
-		statId: "BlockCost",
-		display: "%",
-		factorValue: -1,
-		match: /Equipping an Ice Staff reduces the cost of blocking by ([0-9]+\.?[0-9]*)% and increases the amount of damage you block by [0-9]+\.?[0-9]*%/i,
-	},
-	{
-		statRequireId: "WeaponFrostStaff",
-		statRequireValue: 1,
-		statId: "BlockMitigation",
-		display: "%",
-		match: /Equipping an Ice Staff reduces the cost of blocking by [0-9]+\.?[0-9]*% and increases the amount of damage you block by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon2H",
-		statRequireValue: 1,
-		category: "SkillCost",
-		statId: "Two_Handed_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /WITH TWO-HANDED WEAPON EQUIPPED[\s]*Reduces the cost of Two-Handed abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon2H",
-		statRequireValue: 1,
-		category: "SkillCost",
-		statId: "Two_Handed_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /WITH TWO-HANDED WEAPON EQUIPPED[\s]*Reduces the Stamina cost of your Two-Handed abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon1HShield",
-		statRequireValue: 1,
-		category: "SkillCost",
-		statId: "One_Hand_and_Shield_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Reduces the cost of One Hand and Shield abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon1HShield",
-		statRequireValue: 1,
-		statId: "BlockRangedDamageTaken",
-		display: "%",
-		factorValue: -1,
-		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Increases the amount of damage you can block from projectiles and ranged attacks by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon1HShield",
-		statRequireValue: 1,
-		category: "SkillCost",
-		statId: "One_Hand_and_Shield_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Reduces the cost of your One Hand and Shield abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon1HShield",
-		statRequireValue: 1,
-		category: "SkillCost",
-		statId: "One_Hand_and_Shield_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /WITH ONE HAND WEAPON AND SHIELD EQUIPPED[\s]*Reduces the Stamina cost of your One Hand and Shield abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		category: "SkillCost",
-		statId: "Dual_Wield_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the Stamina cost of Dual Wield abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "WeaponBow",
-		statRequireValue: 1,
-		category: "SkillCost",
-		statId: "Bow_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /WITH BOW EQUIPPED[\s]*Reduces the Stamina cost of Bow abilities by ([0-9]+\.?[0-9]*)%/i,
-	}, 
-	{
-		statRequireId: "WeaponBow",
-		statRequireValue: 1,
-		category: "SkillCost",
-		statId: "Bow_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /WITH BOW EQUIPPED[\s]*Reduces the Stamina cost of your Bow abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "WeaponDamage",
-		display: "%",
-		match: /^Increases your Weapon Damage by ([0-9]+\.?[0-9]*)% and /i,
-	},
-	{
-		statId: "WeaponDamage",
-		display: "%",
-		match: /^Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% and Physical /i,
-	},
-	{
-		statId: "SpellDamage",
-		display: "%",
-		match: /^Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% and Physical /i,
-	},
-	{
-		statId: "SpellResist",
-		match: /and your Spell Resistance by ([0-9]+)/i,
-	},
-	{
-		statId: "SpellResist",
-		match: /\% and Spell Resistance by ([0-9]+)\./i,
-	},
-	{
-		statId: "SpellResist",
-		match: /\% and Physical and Spell Resistance by ([0-9]+)\./i,
-	},
-	{
-		statId: "PhysicalResist",
-		match: /\% and Physical and Spell Resistance by ([0-9]+)\./i,
-	},
-	{
-		statId: "MagickaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces Magicka, Stamina, and Ultimate ability costs by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "StaminaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces Magicka, Stamina, and Ultimate ability costs by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "StaminaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces Magicka and Stamina costs for all abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "MagickaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces Magicka and Stamina costs for all abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "UltimateCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces Magicka, Stamina, and Ultimate ability costs by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "UltimateCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Health, Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "MagickaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Health, Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "StaminaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Health, Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "HealthCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the Health, Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "UltimateCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the cost of Ultimate abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statId: "UltimateCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the cost of your Ultimate abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Fiery Breath",
-		match: /Increases the damage over time of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Searing Strike",
-		match: /Increases the damage over time of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Dragonknight Standard",
-		match: /Increases the damage over time of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i,
-	},
-	{
-		category: "SkillDotDamage",
-		statId: "Fiery Breath",
-		display: "%",
-		match: /Increases the damage over time of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)% and the duration by [0-9]+\.?[0-9]* seconds/i,
-	},
-	{
-		category: "SkillDotDamage",
-		statId: "Searing Strike",
-		display: "%",
-		match: /Increases the damage over time of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)% and the duration by [0-9]+\.?[0-9]* seconds/i,
-	},
-	{
-		category: "SkillDotDamage",
-		statId: "Dragonknight Standard",
-		display: "%",
-		match: /Increases the damage over time of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)% and the duration by [0-9]+\.?[0-9]* seconds/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Fiery Breath",
-		match: /Increases the duration of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i,
-	},
-	{
-		category: "SkillDuration",
-		statId: "Searing Strike",
-		match: /Increases the duration of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i,
-	},
+		"id": "Accelerated Growth",
+		"baseSkillId": 85882,
+		"toggle": true,
+		"enabled": false,
+		"buffId": "Major Mending",
+		"match": /When you heal yourself or an ally under [0-9]+% Health with a Green Balance ability you gain Major Mending/i
+	},
 	{
-		category: "SkillDuration",
-		statId: "Dragonknight Standard",
-		match: /Increases the duration of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i,
+		"id": "Sacred Ground",
+		"baseSkillId": 31757,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"buffId": "Minor Mending",
+		"match": /While standing in your own Cleansing Ritual, Rune Focus, or Rite of Passage areas of effect and for up to [0-9.]+ seconds after leaving them you gain Minor Mending/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Consuming Darkness",
-		match: /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
+		"id": "Sacred Ground",
+		"baseSkillId": 31757,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"buffId": "Minor Mending",
+		"match": /While standing in your own Cleansing Ritual, Rune Focus, or Rite of Passage area effects and for up to [0-9.]+ seconds after leaving them you gain Minor Mending/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Veiled Strike",
-		match: /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
+		"statRequireId": "Cyrodiil",
+		"statRequireValue": 1,
+		"buffId": "Major Gallop",
+		"match": /Gain Major Gallop at all times/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Path of Darkness",
-		match: /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
+		"id": "Hemorrhage",
+		"buffId": "Minor Savagery",
+		"baseSkillId": 36641,
+		"toggle": true,
+		"enabled": false,
+		"rawInputMatch": /(Dealing Critical Damage grants you and your group Minor Savagery, increasing your Weapon Critical rating by [0-9]+ for [0-9]+ seconds\.)/i,
+		"match": /Dealing Critical Damage grants you and your group Minor Savagery, increasing your Weapon Critical rating by/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Aspect of Terror",
-		match: /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
+		"id": "Mountain's Blessing",
+		"baseSkillId": 29473,
+		"buffId": "Minor Brutality",
+		"toggle": true,
+		"enabled": false,
+		"match": /When you cast an Earthen Heart ability, you and your group members gain Minor Brutality for [0-9]+ seconds/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Summon Shade",
-		match: /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) second/i,
+		"id": "Shadow Barrier",
+		"baseSkillId": 18866,
+		"buffId": "Major Resolve",
+		"toggle": true,
+		"enabled": false,
+		"match": /Casting a Shadow ability grants you Major Resolve for [0-9]+ seconds/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Stonefist",
-		display: "%",
-		match: /Increases duration of your Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
+		"id": "Shadow Barrier",
+		"baseSkillId": 18866,
+		"buffId": "Major Ward",
+		"toggle": true,
+		"enabled": false,
+		"match": /Casting a Shadow ability grants you Major Resolve for [0-9]+ seconds/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Magma Armor",
-		display: "%",
-		match: /Increases duration of your Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "AlliancePointsGained",
+		"display": "%",
+		"match": /Increases your Alliance Points gained by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Molten Weapons",
-		display: "%",
-		match: /Increases duration of your Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statRequireId": "WeaponShockStaff",
+		"statRequireValue": 1,
+		"statId": "AOEDamageDone",
+		"display": "%",
+		"match": /Lightning Staff increases your damage done with area of effect abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Obsidian Shield",
-		display: "%",
-		match: /Increases duration of your Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
+		"id": "Medium Armor Bonus: Roll Dodge",
+		"baseSkillId": 150181,
+		"statId": "AOEDamageTaken",
+		"display": "%",
+		"factorStatId": "ArmorMedium",
+		"factorValue": -1,
+		"toggle": true,
+		"enabled": false,
+		"rawInputMatch": /(Reduces damage taken from Area of Effect attacks by [0-9.]+% for [0-9.]+ seconds after you use Roll Dodge)/i,
+		"match": /Reduces damage taken from Area of Effect attacks by ([0-9.]+)% for /i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Petrify",
-		display: "%",
-		match: /Increases duration of your Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
+		"category": "SkillDuration",
+		"statId": "Ash Cloud",
+		"display": "%",
+		"match": /Increases duration of your Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Ash Cloud",
-		display: "%",
-		match: /Increases duration of your Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i,
+		"category": "SkillDuration",
+		"statId": "Aspect of Terror",
+		"match": /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) second/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Sun Fire",
-		display: "%",
-		match: /Increases the duration of your Sun Fire, Eclipse, and Nova abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statRequireId": "Weapon1HShield",
+		"statRequireValue": 1,
+		"statId": "BashCost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Improves your standard bash attacks, causing them to deal [0-9]+ more damage and cost ([0-9.]+)% less Stamina/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Nova",
-		display: "%",
-		match: /Increases the duration of your Sun Fire, Eclipse, and Nova abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "BashCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Eclipse",
-		display: "%",
-		match: /Increases the duration of your Sun Fire, Eclipse, and Nova abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "BashCost",
+		"display": "%",
+		"factorStatId": "ArmorLight",
+		"factorValue": -1,
+		"match": /[\n\r]+Reduces the cost of Bash by ([0-9.]+)%/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Sun Fire",
-		match: /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) second/i,
+		"statId": "BashDamage",
+		"display": "%",
+		"factorStatId": "ArmorLight",
+		"factorValue": -1,
+		"match": /Decreases damage done with Bash by ([0-9.]+)%/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Nova",
-		match: /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) second/i,
+		"category": "SkillCost",
+		"statId": "Berserker_Strike_Cost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Eclipse",
-		match: /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) second/i,
+		"id": "Reusable Parts",
+		"baseSkillId": 116186,
+		"category": "SkillCost",
+		"statId": "Blastbones_Cost",
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"factorValue": -1,
+		"match": /When your Blastbones, Skeletal Mage, or Spirit Mender dies, the cost of your next Blastbones, Skeletal Mage, or Spirit Mender is reduced by ([0-9]+)%/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Solar Flare",
-		match: /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) second/i,
+		"statId": "BleedDamageTaken",
+		"display": "%",
+		"factorStatId": "ArmorLight",
+		"match": /Increases damage taken from Martial attacks by ([0-9.]+)%/i
 	},
-	
 	{
-		category: "SkillDuration",
-		statId: "Magelight",
-		display: "%",
-		match: /Increases the duration of Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "BleedDamageTaken",
+		"display": "%",
+		"factorStatId": "ArmorHeavy",
+		"factorValue": -1,
+		"match": /Reduces damage taken from Martial attacks by ([0-9.]+)%/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Entropy",
-		display: "%",
-		match: /Increases the duration of Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statRequireId": "Weapon1HShield",
+		"statRequireValue": 1,
+		"statId": "BlockCost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /and reduces the cost of blocking by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Fire Rune",
-		display: "%",
-		match: /Increases the duration of Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statRequireId": "WeaponFrostStaff",
+		"statRequireValue": 1,
+		"statId": "BlockCost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Equipping an Ice Staff reduces the cost of blocking by ([0-9]+\.?[0-9]*)% and increases the amount of damage you block by [0-9]+\.?[0-9]*%/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Magelight",
-		display: "%",
-		match: /Increases the duration of your Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "BlockCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Entropy",
-		display: "%",
-		match: /Increases the duration of your Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "BlockCost",
+		"display": "%",
+		"factorStatId": "ArmorLight",
+		"match": /Increases the cost of Block by ([0-9.]+)%/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Fire Rune",
-		display: "%",
-		match: /Increases the duration of your Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "BlockCost",
+		"display": "%",
+		"factorStatId": "ArmorMedium",
+		"factorValue": -1,
+		"match": /[\n\r]+Reduces the cost of Block by ([0-9.]+)%[\n\r]+/i
 	},
 	{
-		category: "SkillDuration",
-		statId: "Restoring Aura",
-		display: "%",
-		match: /Increases the duration of Restoring Aura by ([0-9]+\.?[0-9]*)%/i,
+		"statRequireId": "WeaponFrostStaff",
+		"statRequireValue": 1,
+		"statId": "BlockMitigation",
+		"display": "%",
+		"match": /Equipping an Ice Staff reduces the cost of blocking by [0-9]+\.?[0-9]*% and increases the amount of damage you block by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "ResurrectSpeed",
-		display: "%",
-		match: /Increases Resurrection speed by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "BlockMitigation",
+		"display": "%",
+		"match": /^Increases the amount of damage you block by ([0-9]+)%/i
 	},
 	{
-		statId: "HealthRegen",
-		display: "%",
-		match: /Increases Stamina, Health and Magicka Recovery by ([0-9]+\.?[0-9]*)%/i,
+		"id": "Sacred Ground",
+		"baseSkillId": 31757,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"statId": "BlockMitigation",
+		"display": "%",
+		"match": /Also increases the amount of damage you can block by ([0-9.]+)% for the duration/i
 	},
 	{
-		statId: "MagickaRegen",
-		display: "%",
-		match: /Increases Stamina, Health and Magicka Recovery by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "BlockMitigation",
+		"display": "%",
+		"factorStatId": "ArmorHeavy",
+		"match": /[\n\r]+Increases the amount of damage blocked by ([0-9.]+)%[\n\r]+/i
 	},
 	{
-		statId: "StaminaRegen",
-		display: "%",
-		match: /Increases Stamina, Health and Magicka Recovery by ([0-9]+\.?[0-9]*)%/i,
+		"statRequireId": "Weapon1HShield",
+		"statRequireValue": 1,
+		"statId": "BlockSpeedPenalty",
+		"display": "%",
+		"match": /Reduces the Movement Speed penalty of Bracing[\s\S]+Current penalty: ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "BlockMitigation",
-		display: "%",
-		match: /Block an additional ([0-9]+\.?[0-9]*)% damage/i,
+		"category": "SkillCost",
+		"statId": "Bow_Cost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "BlockMitigation",
-		display: "%",
-		match: /^Increases the amount of damage you block by ([0-9]+)%/i,
+		"statId": "BowExperience",
+		"display": "%",
+		"match": /Increases your experience gain with the Bow skill line by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "SpellResist",
-		match: /Increases Spell Resistance by ([0-9]+)/i,
+		"statId": "BreakFreeCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "SpellResist",
-		match: /Increases your Spell Resistance by ([0-9]+)\./i,
+		"statId": "BreakFreeCost",
+		"display": "%",
+		"factorStatId": "ArmorLight",
+		"factorValue": -1,
+		"match": /[\n\r]+Reduces the cost of Break Free by ([0-9.]+)%[\n\r]+/i
 	},
 	{
-		statRequireId: "ArmorHeavy",
-		statRequireValue: 5,
-		statId: "HAStaRestore",
-		display: "%",
-		match: /WITH 5 OR MORE PIECES OF HEAVY ARMOR EQUIPPED[\s\S]*?increases the Magicka or Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)%/i
+		"statId": "BurningDamage",
+		"display": "%",
+		"match": /Increases the damage of your Burning and Poisoned status effects by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statRequireId: "ArmorHeavy",
-		statRequireValue: 5,
-		statId: "HAMagRestore",
-		display: "%",
-		match: /WITH 5 OR MORE PIECES OF HEAVY ARMOR EQUIPPED[\s\S]*?increases the Magicka or Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)%/i
+		"statId": "Constitution",
+		"factorStatId": "ArmorHeavy",
+		"match": /You restore ([0-9]+) Magicka and Stamina when you take damage/i
 	},
 	{
-		statRequireId: "ArmorHeavy",
-		statRequireValue: 5,
-		statId: "HAStaRestore",
-		display: "%",
-		match: /WHEN 5 OR MORE PIECES OF HEAVY ARMOR ARE EQUIPPED[\s\S]*?increases the Magicka or Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)%/i
+		"category": "SkillDuration",
+		"statId": "Consuming Darkness",
+		"match": /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) second/i
 	},
 	{
-		statRequireId: "ArmorHeavy",
-		statRequireValue: 5,
-		statId: "HAMagRestore",
-		display: "%",
-		match: /WHEN 5 OR MORE PIECES OF HEAVY ARMOR ARE EQUIPPED[\s\S]*?increases the Magicka or Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)%/i
+		"factorStatId": "ArmorMedium",
+		"statId": "CritDamage",
+		"display": "%",
+		"match": /Increases your Critical Damage and Healing done rating by ([0-9]+)% for every piece of Medium Armor equipped/i
 	},
 	{
-		statId: "HAMagRestore",
-		factorStatId: "ArmorHeavy",
-		display: "%",
-		match: /Increases the Magicka or Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)% for each piece of Heavy Armor worn/i
+		"factorStatId": "ArmorMedium",
+		"statId": "CritDamage",
+		"display": "%",
+		"factorValue": 0.5,
+		"match": /Increases your Critical Damage and Healing done rating by ([0-9]+)% for every 2 pieces of Medium Armor equipped/i
 	},
 	{
-		statId: "HAStaRestore",
-		factorStatId: "ArmorHeavy",
-		display: "%",
-		match: /Increases the Magicka or Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)% for each piece of Heavy Armor worn/i
+		"statRequireId": "Weapon1H",
+		"statRequireValue": 2,
+		"factorStatId": "WeaponAxe",
+		"statId": "CritDamage",
+		"display": "%",
+		"rawInputMatch": /(Each axe increases your Critical Damage done by [0-9]+\.?[0-9]*%\.)/i,
+		"match": /Each axe increases your Critical Damage done by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		factorSkillLine: "Draconic Power",
-		statId: "HealthRegen",
-		display: "%",
-		match: /WITH DRACONIC POWER ABILITIES SLOTTED[\s\S]*?Increases Health Recovery by ([0-9]+\.?[0-9]*)% for each Draconic Power ability slotted/i
+		"statRequireId": "Weapon2H",
+		"statRequireValue": 1,
+		"factorStatId": "WeaponAxe",
+		"category": "Skill",
+		"statId": "CritDamage",
+		"display": "%",
+		"match": /Axes increase your Critical Damage done by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		factorSkillLine: "Draconic Power",
-		statId: "HealthRegen",
-		display: "%",
-		match: /Increases your Health Recovery by ([0-9]+\.?[0-9]*)% for each Draconic Power ability slotted/i
+		"statId": "CritDamage",
+		"display": "%",
+		"match": /Increases your Critical Damage and Critical healing by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		requireSkillLine: "Assassination",
-		statId: "CritDamage",
-		display: "%",
-		match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases damage dealt by Critical Strikes by ([0-9]+\.?[0-9]*)%/i
+		"id": "Glacial Presence",
+		"baseSkillId": 86191,
+		"statId": "CritDamage",
+		"toggle": true,
+		"enabled": false,
+		"display": "%",
+		"match": /Enemies and allies who have recently been Chilled take ([0-9.]+)% more Critical Damage and Healing from you/i
 	},
 	{
-		requireSkillLine: "Assassination",
-		statId: "CritDamage",
-		display: "%",
-		match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases your Critical Damage done by ([0-9]+\.?[0-9]*)%/i
+		"factorStatId": "ArmorMedium",
+		"statId": "CritHealing",
+		"display": "%",
+		"match": /Increases your Critical Damage and Healing done rating by ([0-9]+)% for every piece of Medium Armor equipped/i
 	},
 	{
-		requireSkillLine: "Assassination",
-		statId: "CritDamage",
-		display: "%",
-		match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases your Critical Damage by ([0-9]+\.?[0-9]*)%/i
+		"factorStatId": "ArmorMedium",
+		"statId": "CritHealing",
+		"display": "%",
+		"factorValue": 0.5,
+		"match": /Increases your Critical Damage and Healing done rating by ([0-9]+)% for every 2 pieces of Medium Armor equipped/i
 	},
 	{
-		factorSkillLine: "Assassination",
-		category: "Skill2",
-		statId: "WeaponCrit",
-		statValue: 219,
-		skillName: "Pressure Points",
-		skillRank: 1,
-		match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
+		"statId": "CritHealing",
+		"display": "%",
+		"match": /Increases your Critical Damage and Critical healing by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		factorSkillLine: "Assassination",
-		category: "Skill2",
-		statId: "SpellCrit",
-		statValue: 219,
-		skillName: "Pressure Points",
-		skillRank: 1,
-		match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
+		"id": "Glacial Presence",
+		"baseSkillId": 86191,
+		"statId": "CritHealing",
+		"toggle": true,
+		"enabled": false,
+		"display": "%",
+		"match": /Enemies and allies who have recently been Chilled take ([0-9.]+)% more Critical Damage and Healing from you/i
 	},
 	{
-		factorSkillLine: "Assassination",
-		category: "Skill2",
-		statId: "WeaponCrit",
-		statValue: 438,
-		skillName: "Pressure Points",
-		skillRank: 2,
-		match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
+		"factorSkillLine": "ANIMAL COMPANIONS",
+		"statId": "DamageDone",
+		"display": "%",
+		"match": /Increases your damage done by ([0-9]+\.?[0-9]*)% for each Animal Companion ability slotted/i
 	},
 	{
-		factorSkillLine: "Assassination",
-		category: "Skill2",
-		statId: "SpellCrit",
-		statValue: 438,
-		skillName: "Pressure Points",
-		skillRank: 2,
-		match: /WITH AN ASSASSINATION ABILITY SLOTTED[\s\S]*?Increases Critical Strike and Spell Critical ratings for each Assassination ability slotted/i
+		"id": "Amplitude",
+		"baseSkillId": 31422,
+		"statId": "DamageDone",
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"maxTimes": 10,
+		"match": /Increases your damage done against enemies by [0-9]+% for every [0-9]+% current Health they have/i
 	},
 	{
-		factorSkillLine: "Assassination",
-		category: "Skill2",
-		statId: "WeaponCrit",
-		match: /Increases your Weapon and Spell Critical ratings by ([0-9]+) for each Assassination ability slotted/i
+		"id": "Deliberation",
+		"baseSkillId": 103972,
+		"toggle": true,
+		"enabled": false,
+		"statId": "DamageTaken",
+		"factorValue": -1,
+		"display": "%",
+		"match": /While you are casting or channeling a Psijic Order ability you reduce your damage taken by ([0-9]+)%/i
 	},
 	{
-		factorSkillLine: "Assassination",
-		category: "Skill2",
-		statId: "SpellCrit",
-		match: /Increases your Weapon and Spell Critical ratings by ([0-9]+) for each Assassination ability slotted/i
+		"id": "Heavy Armor Bonus: Crowd Control",
+		"baseSkillId": 150184,
+		"statId": "DamageTaken",
+		"display": "%",
+		"factorStatId": "ArmorHeavy",
+		"factorValue": -1,
+		"toggle": true,
+		"enabled": false,
+		"rawInputMatch": /(Reduces your damage taken while immune to crowd control by [0-9.]+%)/i,
+		"match": /Reduces your damage taken while immune to crowd control by ([0-9.]+)%/i
 	},
 	{
-		statRequireId: "Stealthed",
-		statRequireValue: 1,
-		statId: "SpellDamage",
-		display: "%",
-		match: /Increases Weapon and Spell Damage while invisible or stealthed by ([0-9]+\.?[0-9]*)%/i
+		"id": "Undeath",
+		"baseSkillId": 33093,
+		"statRequireId": "VampireStage",
+		"statRequireValue": 3,
+		"category": "Skill",
+		"statId": "DamageTaken",
+		"display": "%",
+		"factorValue": -1,
+		"toggle": true,
+		"enabled": false,
+		"maxTimes": 30,
+		"match": /Reduces your damage taken by up to [0-9]+\.?[0-9]*% based on your missing Health/i
 	},
 	{
-		statRequireId: "Stealthed",
-		statRequireValue: 1,
-		statId: "WeaponDamage",
-		display: "%",
-		match: /Increases Weapon and Spell Damage while invisible or stealthed by ([0-9]+\.?[0-9]*)%/i
+		"id": "Spell Recharge",
+		"baseSkillId": 35993,
+		"statId": "DamageTaken",
+		"display": "%",
+		"factorValue": -1,
+		"toggle": true,
+		"enabled": false,
+		"match": /When you are using an ability with a channel or cast time, you take ([0-9]+\.?[0-9]*)% less damage/i
 	},
 	{
-		statRequireId: "Stealthed",
-		statRequireValue: 1,
-		statId: "SpellDamage",
-		display: "%",
-		match: /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% while you are Sneaking or invisible/i
+		"category": "SkillCost",
+		"statId": "Destruction_Staff_Cost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statRequireId: "Stealthed",
-		statRequireValue: 1,
-		statId: "WeaponDamage",
-		display: "%",
-		match: /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% while you are Sneaking or invisible/i
+		"statId": "DestructionExperience",
+		"display": "%",
+		"match": /Increases your experience gain with the Destruction Staff skill line by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		factorSkillLine: "Shadow",
-		statId: "Health",
-		display: "%",
-		match: /Each Shadow Ability slotted increases your Max Health by ([0-9]+\.?[0-9]*)%/i
+		"category": "Skill",
+		"statId": "DestructionPenetration",
+		"display": "%",
+		"match": /Your Destruction Staff abilities ignore ([0-9]+)% of the enemy's Spell Resistance./i
 	},
 	{
-		factorSkillLine: "Shadow",
-		statId: "Health",
-		display: "%",
-		match: /Increases your Max Health by ([0-9]+\.?[0-9]*)% for each Shadow ability slotted/i
+		"statId": "DiseaseDamageTaken",
+		"display": "%",
+		"factorStatId": "ArmorLight",
+		"match": /Increases damage taken from Martial attacks by ([0-9.]+)%/i
 	},
 	{
-		requireSkillLine: "SIPHONING",
-		statId: "Magicka",
-		display: "%",
-		match: /Increases Max Magicka ([0-9]+\.?[0-9]*)% while a Siphoning ability is slotted/i
+		"statId": "DiseaseDamageTaken",
+		"display": "%",
+		"factorStatId": "ArmorHeavy",
+		"factorValue": -1,
+		"match": /Reduces damage taken from Martial attacks by ([0-9.]+)%/i
 	},
 	{
-		requireSkillLine: "SIPHONING",
-		statId: "Magicka",
-		display: "%",
-		match: /Increases your Max Magicka by ([0-9]+\.?[0-9]*)% while a Siphoning ability is slotted/i
+		"statId": "DiseaseResist",
+		"match": /and your Disease and Poison Resistance by ([0-9]+)/i
 	},
 	{
-		factorSkillLine: "SIPHONING",
-		statId: "HealingDone",
-		display: "%",
-		match: /Increases the effectiveness of your Healing done by ([0-9]+\.?[0-9]*)% for each Siphoning ability slotted/i
+		"statId": "DotDamageDone",
+		"display": "%",
+		"match": /Increases your damage done with damage over time effects by ([0-9]+)%/i
 	},
 	{
-		factorSkillLine: "SIPHONING",
-		statId: "HealingDone",
-		display: "%",
-		match: /Increases your healing done by ([0-9]+\.?[0-9]*)% for each Siphoning ability slotted/i
+		"id": "Disdain Harm",
+		"baseSkillId": 116239,
+		"statId": "DotDamageTaken",
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"factorValue": -1,
+		"match": /Reduce the damage you take from damage over time abilities by ([0-9]+)% while you have a Bone Tyrant ability active/i
 	},
 	{
-		requireSkillLine: "DAEDRIC SUMMONING",
-		statId: "HealthRegen",
-		display: "%",
-		match: /A DAEDRIC SUMMONING ABILITY IS SLOTTED[\s\S]*?Increases your Health and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i
+		"category": "SkillDuration",
+		"statId": "Dragonknight Standard",
+		"match": /Increases the damage over time of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i
 	},
 	{
-		requireSkillLine: "DAEDRIC SUMMONING",
-		statId: "StaminaRegen",
-		display: "%",
-		match: /A DAEDRIC SUMMONING ABILITY IS SLOTTED[\s\S]*?Increases your Health and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i
+		"category": "SkillDotDamage",
+		"statId": "Dragonknight Standard",
+		"display": "%",
+		"match": /Increases the damage over time of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)% and the duration by [0-9]+\.?[0-9]* seconds/i
 	},
 	{
-		requireSkillLine: "DAEDRIC SUMMONING",
-		statId: "HealthRegen",
-		display: "%",
-		match: /Increases your Health and Stamina Recovery by ([0-9]+\.?[0-9]*)% while you have a Daedric Summoning ability slotted./i
+		"category": "SkillDuration",
+		"statId": "Dragonknight Standard",
+		"match": /Increases the duration of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i
 	},
 	{
-		requireSkillLine: "DAEDRIC SUMMONING",
-		statId: "StaminaRegen",
-		display: "%",
-		match: /Increases your Health and Stamina Recovery by ([0-9]+\.?[0-9]*)% while you have a Daedric Summoning ability slotted./i
+		"statId": "DrinkDuration",
+		"match": /Increases the duration of any consumed drink by ([0-9]+\.?[0-9]*) minutes/i
 	},
 	{
-		factorSkillType: "Sorcerer",
-		statId: "SpellDamage",
-		display: "%",
-		match: /Increases Spell Damage and Weapon Damage by ([0-9]+\.?[0-9]*)% for each Sorcerer ability slotted/i
+		"statRequireId": "Weapon1H",
+		"statRequireValue": 2,
+		"category": "SkillCost",
+		"statId": "Dual_Wield_Cost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the Stamina cost of Dual Wield abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		factorSkillType: "Sorcerer",
-		statId: "WeaponDamage",
-		display: "%",
-		match: /Increases Spell Damage and Weapon Damage by ([0-9]+\.?[0-9]*)% for each Sorcerer ability slotted/i
+		"category": "SkillCost",
+		"statId": "Dual_Wield_Cost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		factorSkillType: "Sorcerer",
-		statId: "SpellDamage",
-		display: "%",
-		match: /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% for each Sorcerer ability slotted/i
+		"statId": "DualWieldExperience",
+		"display": "%",
+		"match": /Increases your experience gain with the Dual Wield skill line by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		factorSkillType: "Sorcerer",
-		statId: "WeaponDamage",
-		display: "%",
-		match: /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% for each Sorcerer ability slotted/i
+		"category": "SkillDuration",
+		"statId": "Eclipse",
+		"match": /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) second/i
 	},
 	{
-		requireSkillLine: "AEDRIC SPEAR",
-		statId: "CritDamage",
-		display: "%",
-		match: /WHILE AN AEDRIC SPEAR ABILITY IS SLOTTED[\s]*Increases the damage bonus for your critical strikes by ([0-9]+\.?[0-9]*)%/i
+		"category": "SkillCost",
+		"statId": "Elemental_Storm_Cost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		requireSkillLine: "AEDRIC SPEAR",
-		statId: "CritDamage",
-		display: "%",
-		match: /WITH AN AEDRIC SPEAR ABILITY SLOTTED[\s]*Increases your Critical Damage by ([0-9]+\.?[0-9]*)%/i
+		"category": "SkillDuration",
+		"statId": "Entropy",
+		"display": "%",
+		"match": /Increases the duration of your Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		requireSkillLine: "AEDRIC SPEAR",
-		statId: "CritDamage",
-		display: "%",
-		match: /Increases your Critical Damage done and your damage against blocking targets by ([0-9]+\.?[0-9]*)% while you have an Aedric Spear ability slotted/i
+		"statId": "ExperienceGained",
+		"display": "%",
+		"match": /Increases your experience gained by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		id: "Piercing Spear",
-		requireSkillLine: "AEDRIC SPEAR",
-		baseSkillId: 31698,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		statId: "DamageDone",
-		display: "%",
-		match: /WITH AN AEDRIC SPEAR ABILITY SLOTTED[\s\S]*?Increases your damage done to blocking targets by ([0-9]+\.?[0-9]*)%/i
+		"statRequireId": "Weapon1HShield",
+		"statRequireValue": 1,
+		"statId": "ExtraBashDamage",
+		"match": /Improves your standard bash attacks, causing them to deal ([0-9]+) more damage and/i
 	},
 	{
-		id: "Exploitation",
-		baseSkillId: 31389,
-		toggle: true,
-		enabled: false,
-		buffId: "Minor Prophecy",
-		match: /When you cast a Dark Magic ability you grant Minor Prophecy to you and your group/i, 
+		"statId": "FallDamageTaken",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Decreases your fall damage taken by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		id: "Illuminate",
-		baseSkillId: 31743,
-		toggle: true,
-		enabled: false,
-		buffId: "Minor Sorcery",
-		match: /Casting a Dawn's Wrath ability grants Minor Sorcery to you and your group/i, 
+		"category": "SkillDuration",
+		"statId": "Fiery Breath",
+		"match": /Increases the damage over time of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i
 	},
 	{
-		id: "Might of the Guild",
-		baseSkillId: 43561,
-		toggle: true,
-		enabled: false,
-		buffId: "Empower",
-		match: /Casting a Mages Guild ability has a [0-9]+% chance of granting you Empower/i, 
+		"category": "SkillDotDamage",
+		"statId": "Fiery Breath",
+		"display": "%",
+		"match": /Increases the damage over time of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)% and the duration by [0-9]+\.?[0-9]* seconds/i
 	},
 	{
-		id: "Might of the Guild",
-		baseSkillId: 43561,
-		toggle: true,
-		enabled: false,
-		buffId: "Empower",
-		match: /Casting a Mages Guild ability grants you Empower/i, 
+		"category": "SkillDuration",
+		"statId": "Fiery Breath",
+		"match": /Increases the duration of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i
 	},
 	{
-		id: "Spear Wall",
-		baseSkillId: 31708,
-		toggle: true,
-		enabled: false,
-		buffId: "Minor Protection",
-		match: /WHEN ACTIVATING AN AEDRIC SPEAR ABILITY\s+Gain Minor Protection for/i, 
+		"category": "SkillLineDamage",
+		"statId": "Fighters_Guild",
+		"display": "%",
+		"match": /Your Fighters Guild abilities deal an additional ([0-9]+\.?[0-9]*)% damage/i
 	},
 	{
-		id: "Maturation",
-		baseSkillId: 85880,
-		toggle: true,
-		enabled: false,
-		buffId: "Minor Toughness",
-		match: /When you activate a heal on yourself or an ally you grant the target Minor Toughness/i, 
+		"id": "Skilled Tracker",
+		"baseSkillId": 40393,
+		"category": "SkillLineDamage",
+		"statId": "Fighters_Guild",
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"match": /Your Fighters Guild abilities deal an additional ([0-9]+\.?[0-9]*)% damage. This bonus doubles against player Vampires and Werewolves/i
 	},
 	{
-		id: "Accelerated Growth",
-		baseSkillId: 85882,
-		toggle: true,
-		enabled: false,
-		buffId: "Major Mending",
-		match: /When you heal yourself or an ally under [0-9]+% Health with a Green Balance ability you gain Major Mending/i, 
+		"category": "SkillCost",
+		"statId": "Fighters_Guild_Cost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /reduces the Stamina cost of your Fighters Guild abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		factorSkillLine: "Fighters Guild",
-		statId: "WeaponDamage",
-		display: "%",
-		match: /Increases Weapon Damage by ([0-9]+\.?[0-9]*)% for each Fighters Guild ability slotted/i
+		"category": "SkillDuration",
+		"statId": "Fire Rune",
+		"display": "%",
+		"match": /Increases the duration of your Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		factorSkillLine: "Fighters Guild",
-		statId: "WeaponDamage",
-		display: "%",
-		match: /Increases your Weapon Damage by ([0-9]+\.?[0-9]*)% for each Fighters Guild ability slotted/i
+		"statId": "FlameDamageDone",
+		"display": "%",
+		"match": /Increases the damage of your Flame and Poison attacks by ([0-9.]+)%/i
 	},
 	{
-		factorSkillLine: "Fighters Guild",
-		statId: "WeaponDamage",
-		display: "%",
-		match: /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% for each Fighters Guild ability slotted/i
+		"statId": "FlameDamageTaken",
+		"display": "%",
+		"factorStatId": "ArmorLight",
+		"factorValue": -1,
+		"match": /Reduces damage taken from Magical attacks by ([0-9.]+)%/i
 	},
 	{
-		factorSkillLine: "Fighters Guild",
-		statId: "SpellDamage",
-		display: "%",
-		match: /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% for each Fighters Guild ability slotted/i
+		"statId": "FlameDamageTaken",
+		"display": "%",
+		"factorStatId": "ArmorHeavy",
+		"match": /Increases damage taken from Magical attacks by ([0-9.]+)%[\n\r]+/i
 	},
 	{
-		category: "SkillCost",
-		statId: "Fighters_Guild_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /reduces the Stamina cost of your Fighters Guild abilities by ([0-9]+\.?[0-9]*)%/i
+		"statId": "FlameResist",
+		"match": /Increases your Flame Resistance by ([0-9]+)\./i
 	},
 	{
-		factorSkillLine: "Mages Guild",
-		statId: "Magicka",
-		display: "%",
-		match: /WITH A MAGES GUILD ABILITY SLOTTED[\s]*Increases your Max Magicka and your Magicka Recovery by ([0-9]+\.?[0-9]*)%/i
+		"statId": "FoodDuration",
+		"match": /Increases the duration of any eaten food by ([0-9]+\.?[0-9]*) minutes/i
 	},
 	{
-		factorSkillLine: "Mages Guild",
-		statId: "MagickaRegen",
-		display: "%",
-		match: /WITH A MAGES GUILD ABILITY SLOTTED[\s]*Increases your Max Magicka and your Magicka Recovery by ([0-9]+\.?[0-9]*)%/i
+		"statId": "FrostDamageDone",
+		"display": "%",
+		"match": /Increases your Magic and Frost Damage by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		factorSkillLine: "Mages Guild",
-		statId: "Magicka",
-		display: "%",
-		match: /Increases your Max Magicka and Magicka Recovery by ([0-9]+\.?[0-9]*)% for each Mages Guild ability slotted/i
+		"statId": "FrostDamageTaken",
+		"display": "%",
+		"factorStatId": "ArmorLight",
+		"factorValue": -1,
+		"match": /Reduces damage taken from Magical attacks by ([0-9.]+)%/i
 	},
 	{
-		factorSkillLine: "Mages Guild",
-		statId: "MagickaRegen",
-		display: "%",
-		match: /Increases your Max Magicka and Magicka Recovery by ([0-9]+\.?[0-9]*)% for each Mages Guild ability slotted/i
+		"statId": "FrostDamageTaken",
+		"display": "%",
+		"factorStatId": "ArmorHeavy",
+		"match": /Increases damage taken from Magical attacks by ([0-9.]+)%/i
 	},
 	{
-		category: "SkillCost",
-		statId: "Mages_Guild_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the Magicka and Health cost of your Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i
+		"statId": "GoldGained",
+		"display": "%",
+		"match": /Increases your gold gained by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		factorSkillLine: "Support",
-		statId: "MagickaRegen",
-		display: "%",
-		match: /Increases Magicka Recovery by ([0-9]+\.?[0-9]*)% for each Support ability slotted/i
+		"factorSkillLine": "GREEN BALANCE",
+		"category": "SkillHealing",
+		"statId": "Green_Balance",
+		"display": "%",
+		"match": /Increases your healing done with Green Balance abilities by ([0-9]+\.?[0-9]*)% for each Green Balance ability slotted/i
 	},
 	{
-		factorSkillLine: "Support",
-		statId: "MagickaRegen",
-		display: "%",
-		match: /Increases your Magicka Recovery by ([0-9]+\.?[0-9]*)% for each Support ability slotted/i
+		"factorSkillLine": "GREEN BALANCE",
+		"category": "SkillHealing",
+		"statId": "Green_Balance",
+		"display": "%",
+		"match": /Increase your healing done with Green Balance abilities by ([0-9]+\.?[0-9]*)% for each Green Balance ability slotted/i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "HealthRegen",
-		display: "%",
-		match: /WHILE EMPEROR[\s\S]*?Increases Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"statRequireId": "WeaponFlameStaff",
+		"statRequireValue": 1,
+		"statId": "HADamage",
+		"display": "%",
+		"match": /Fully-charged Inferno Staff Heavy Attacks deal ([0-9]+\.?[0-9]*)% additional damage./i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "MagickaRegen",
-		display: "%",
-		match: /WHILE EMPEROR[\s\S]*?Increases Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"statId": "HAMagRestore",
+		"factorStatId": "ArmorHeavy",
+		"display": "%",
+		"match": /Increases the Magicka or Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)% for each piece of Heavy Armor worn/i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "StaminaRegen",
-		display: "%",
-		match: /WHILE EMPEROR[\s\S]*?Increases Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"statId": "HAStaRestore",
+		"factorStatId": "ArmorHeavy",
+		"display": "%",
+		"match": /Increases the Magicka or Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)% for each piece of Heavy Armor worn/i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "HealthRegen",
-		display: "%",
-		match: /WHILE YOU ARE EMPEROR[\s\S]*?Increases your Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"id": "Near-Death Experience",
+		"baseSkillId": 116273,
+		"requireSkillLine": "LIVING DEATH",
+		"category": "Skill",
+		"statId": "HealCrit",
+		"display": "%",
+		"maxTimes": 20,
+		"statValue": 1,
+		"toggle": true,
+		"enabled": false,
+		"match": /While you have a Living Death ability slotted, your Critical Strike Chance with all healing abilities is increased by up to [0-9]+% in proportion to the severity of the target's wounds/i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "MagickaRegen",
-		display: "%",
-		match: /WHILE YOU ARE EMPEROR[\s\S]*?Increases your Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"factorSkillLine": "SIPHONING",
+		"statId": "HealingDone",
+		"display": "%",
+		"match": /Increases your healing done by ([0-9]+\.?[0-9]*)% for each Siphoning ability slotted/i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "StaminaRegen",
-		display: "%",
-		match: /WHILE YOU ARE EMPEROR[\s\S]*?Increases your Health, Magicka, and Stamina recovery in combat by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"statId": "HealingDone",
+		"display": "%",
+		"match": /Increases your healing done by ([0-9]+\.?[0-9]*)%\./i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "OtherEffect",
-		display: "%",
-		match: /WHILE EMPEROR[\s\S]*?Increases Ultimate gains by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"id": "Curative Curse",
+		"baseSkillId": 116286,
+		"statId": "HealingDone",
+		"toggle": true,
+		"enabled": false,
+		"display": "%",
+		"match": /While you have a negative effect on you, your healing done is increased by ([0-9]+)%/i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "OtherEffect",
-		display: "%",
-		match: /WHILE YOU ARE EMPEROR[\s\S]*?Increases your Ultimate generation by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"id": "Combat Medic",
+		"baseSkillId": 39259,
+		"statRequireId": "Cyrodiil",
+		"statRequireValue": 1,
+		"statId": "HealingDone",
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"match": /Increases your healing done by ([0-9]+\.?[0-9]*)% when you are near a Keep/i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "OtherEffect",
-		display: "%",
-		match: /WHILE EMPEROR[\s\S]*?Increases your Ultimate generation by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"factorStatId": "ArmorHeavy",
+		"statId": "HealingReceived",
+		"factorValue": 0.5,
+		"display": "%",
+		"match": /Increases your healing received by ([0-9]+\.?[0-9]*)% for every 2 pieces of Heavy Armor worn/i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "HealingReceived",
-		display: "%",
-		match: /WHILE EMPEROR[\s\S]*?Increases the magnitude of healing effects on Emperors by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"factorStatId": "ArmorHeavy",
+		"statId": "HealingReceived",
+		"display": "%",
+		"match": /Increases your healing received by ([0-9]+\.?[0-9]*)% for each piece of Heavy Armor worn/i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "HealingReceived",
-		display: "%",
-		match: /WHILE EMPEROR[\s\S]*?Increases your healing received by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"id": "Health Avarice",
+		"baseSkillId": 116269,
+		"statId": "HealingReceived",
+		"factorSkillLine": "BONE TYRANT",
+		"display": "%",
+		"match": /Increase your Healing Received by ([0-9]+)% for each Bone Tyrant ability slotted/i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "HealingReceived",
-		display: "%",
-		match: /WHILE YOU ARE EMPEROR[\s\S]*?Increases your healing received by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"id": "Burning Heart",
+		"baseSkillId": 29457,
+		"statId": "HealingReceived",
+		"toggle": true,
+		"enabled": false,
+		"display": "%",
+		"match": /While a Draconic Power ability is active, your healing received is increased by ([0-9]+\.?[0-9]*)%\./i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "Health",
-		display: "%",
-		match: /WHILE EMPEROR[\s\S]*?Increases Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"factorStatId": "ArmorHeavy",
+		"statId": "Health",
+		"display": "%",
+		"match": /Increases your Max Health by ([0-9]+\.?[0-9]*)% for each piece of Heavy Armor equipped/i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "Magicka",
-		display: "%",
-		match: /WHILE EMPEROR[\s\S]*?Increases Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"factorStatId": "ArmorTypes",
+		"statId": "Health",
+		"display": "%",
+		"match": /Increases your Max Health, Stamina, and Magicka by ([0-9]+\.?[0-9]*)% per type of Armor/i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "Stamina",
-		display: "%",
-		match: /WHILE EMPEROR[\s\S]*?Increases Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"category": "Skill2",
+		"statId": "Health",
+		"match": /^Increase your Max Health by ([0-9]+\.?[0-9]*)/i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "Health",
-		display: "%",
-		match: /WHILE EMPEROR[\s\S]*?Increases your Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"factorSkillLine": "Shadow",
+		"statId": "Health",
+		"display": "%",
+		"match": /Increases your Max Health by ([0-9]+\.?[0-9]*)% for each Shadow ability slotted/i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "Magicka",
-		display: "%",
-		match: /WHILE EMPEROR[\s\S]*?Increases your Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"statId": "Health",
+		"category": "Skill2",
+		"match": /Increases your Max Health by ([0-9]+)\./i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "Stamina",
-		display: "%",
-		match: /WHILE EMPEROR[\s\S]*?Increases your Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"statId": "Health",
+		"category": "Skill2",
+		"match": /Increases your Max Health by ([0-9]+) and/i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "Health",
-		display: "%",
-		match: /WHILE YOU ARE EMPEROR[\s\S]*?Increases your Max Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"statId": "Health",
+		"category": "Skill2",
+		"match": /Increase your Maximum Health, Magicka, and Stamina by ([0-9]+)\./i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "Magicka",
-		display: "%",
-		match: /WHILE YOU ARE EMPEROR[\s\S]*?Increases your Max Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"id": "Expert Summoner",
+		"baseSkillId": 31412,
+		"statId": "Health",
+		"toggle": true,
+		"enabled": false,
+		"display": "%",
+		"match": /Increases your Max Health by ([0-9]+\.?[0-9]*)% while you have a Daedric Summoning ability active/i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "Stamina",
-		display: "%",
-		match: /WHILE YOU ARE EMPEROR[\s\S]*?Increases your Max Health, Magicka, and Stamina by ([0-9]+\.?[0-9]*)% while in your campaign/i
+		"statId": "HealthCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the Health, Magicka, and Stamina costs of your non Core Combat abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statRequireId: "VampireStage",
-		statRequireValue: 2,
-		statId: "StaminaRegen",
-		display: "%",
-		match: /WHILE YOU HAVE VAMPIRISM STAGE 2 OR HIGHER[\s\S]*?Increases your Magicka and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i
+		"statId": "HealthCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the Health, Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statRequireId: "VampireStage",
-		statRequireValue: 4,
-		statId: "SprintCost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the cost of Sprint by ([0-9]+\.?[0-9]*)%\./i,
+		"statId": "HealthCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statRequireId: "VampireStage",
-		statRequireValue: 2,
-		statId: "MagickaRegen",
-		display: "%",
-		match: /WHILE YOU HAVE VAMPIRISM STAGE 2 OR HIGHER[\s\S]*?Increases your Magicka and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i
+		"id": "Persistence",
+		"baseSkillId": 31378,
+		"statId": "HealthCost",
+		"factorValue": -1,
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"combineAs": "*%",
+		"match": /After blocking an attack, your next Health, Magicka, or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i
 	},
 	{
-		statRequireId: "VampireStage",
-		statRequireValue: 2,
-		statId: "HealthRegen",
-		display: "%",
-		statValue: "25",
-		match: /Reduces the severity of the Health Recovery determent in Vampirism stages 2 through 4/i
+		"factorStatId": "ArmorHeavy",
+		"statId": "HealthRegen",
+		"display": "%",
+		"match": /Increases your Health Recovery by ([0-9]+\.?[0-9]*)% for each piece of Heavy Armor equipped/i
 	},
 	{
-		statRequireId: "WerewolfStage",
-		statRequireValue: 2,
-		statId: "HAStaRestoreWerewolf",
-		display: "%",
-		match: /WHILE IN WEREWOLF FORM[\s\S]*?Increases the amount of Stamina your heavy attacks restore by ([0-9]+\.?[0-9]*)%/i
+		"statId": "HealthRegen",
+		"display": "%",
+		"match": /Increases your Health, Stamina, and Magicka Recovery by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statRequireId: "WerewolfStage",
-		statRequireValue: 2,
-		statId: "HAStaRestoreWerewolf",
-		display: "%",
-		match: /WHILE YOU ARE IN WEREWOLF FORM[\s\S]*?Increases the Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)%/i
+		"factorSkillLine": "Draconic Power",
+		"statId": "HealthRegen",
+		"display": "%",
+		"match": /Increases your Health Recovery by ([0-9]+\.?[0-9]*)% for each Draconic Power ability slotted/i
 	},
 	{
-		statRequireId: "WerewolfStage",
-		statRequireValue: 2,
-		statId: "WeaponDamage",
-		display: "%",
-		match: /WHILE IN WEREWOLF FORM[\s\S]*?Increases Weapon Damage by ([0-9]+\.?[0-9]*)%/i
+		"requireSkillLine": "DAEDRIC SUMMONING",
+		"statId": "HealthRegen",
+		"display": "%",
+		"match": /Increases your Health and Stamina Recovery by ([0-9]+\.?[0-9]*)% while you have a Daedric Summoning ability slotted./i
 	},
 	{
-		statRequireId: "WerewolfStage",
-		statRequireValue: 2,
-		statId: "WeaponDamage",
-		display: "%",
-		match: /WHILE YOU ARE IN WEREWOLF FORM[\s\S]*?Increases your Weapon Damage by ([0-9]+\.?[0-9]*)%/i
+		"statId": "HealthRegen",
+		"category": "Food",
+		"match": /Increases your Health Recovery by ([0-9]+) and/i
 	},
 	{
-		statRequireId: "WerewolfStage",
-		statRequireValue: 2,
-		statId: "WeaponDamage",
-		display: "%",
-		match: /WHILE YOU ARE IN WEREWOLF FORM[\s\S]*?Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)%/i
+		"id": "Undead Confederate",
+		"baseSkillId": 116282,
+		"category": "Item",
+		"statId": "HealthRegen",
+		"toggle": true,
+		"enabled": false,
+		"match": /While you have a Blastbones, Skeletal Mage, or Spirit Mender active, your Health, Magicka, and Stamina Recovery is increased by ([0-9]+)/i
 	},
 	{
-		statRequireId: "WerewolfStage",
-		statRequireValue: 2,
-		statId: "SpellDamage",
-		display: "%",
-		match: /WHILE YOU ARE IN WEREWOLF FORM[\s\S]*?Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)%/i
+		"statId": "HeavyArmorExperience",
+		"display": "%",
+		"match": /Increases your experience gain with the Heavy Armor skill line by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statRequireId: "WerewolfStage",
-		statRequireValue: 2,
-		statId: "MovementSpeed",
-		display: "%",
-		match: /WHILE YOU ARE IN WEREWOLF FORM[\s\S]*?Increases your Movement Speed by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "InspirationGained",
+		"display": "%",
+		"match": /Increases your crafting inspiration gained by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statRequireId: "WerewolfStage",
-		statRequireValue: 2,
-		statId: "SpellResist",
-		match: /WHILE YOU ARE IN WEREWOLF FORM[\s\S]*?Increases your Spell and Physical Resistance by ([0-9]+)/i,
+		"category": "SkillCost",
+		"statId": "Lacerate_Cost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statRequireId: "WerewolfStage",
-		statRequireValue: 2,
-		statId: "PhysicalResist",
-		match: /WHILE YOU ARE IN WEREWOLF FORM[\s\S]*?Increases your Spell and Physical Resistance by ([0-9]+)/i,
+		"statId": "LavaDamage",
+		"display": "%",
+		"match": /Reduces your damage taken from environmental lava by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statRequireId: "WerewolfStage",
-		statRequireValue: 2,
-		buffId: "Major Resolve",
-		match: /WHILE YOU ARE IN WEREWOLF FORM[\s\S]*?Grants you Major Resolve/i,
+		"statId": "LightArmorExperience",
+		"display": "%",
+		"match": /Increases your experience gain with the Light Armor skill line by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "PhysicalDamageDone",
-		display: "%",
-		match: /Increases your Physical and Shock Damage by ([0-9]+\.?[0-9]*)%/i
+		"category": "SkillDuration",
+		"statId": "Magelight",
+		"display": "%",
+		"match": /Increases the duration of your Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "ShockDamageDone",
-		display: "%",
-		match: /Increases your Physical and Shock Damage by ([0-9]+\.?[0-9]*)%/i
+		"category": "SkillCost",
+		"statId": "Mages_Guild_Cost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the Magicka and Health cost of your Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statRequireId: "Weapon2H",
-		statRequireValue: 1,
-		factorStatId: "WeaponSword",
-		statId: "DamageDone",
-		display: "%",
-		match: /Swords increase your damage done by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "MagicDamageDone",
+		"display": "%",
+		"match": /Increases your Magic and Frost Damage by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statRequireId: "Weapon2H",
-		statRequireValue: 1,
-		factorStatId: "WeaponSword",
-		category: "Skill2",
-		statId: "WeaponDamage",
-		match: /Swords increase your Weapon and Spell Damage by ([0-9]+)/i,
+		"statId": "MagicDamageTaken",
+		"display": "%",
+		"factorStatId": "ArmorLight",
+		"factorValue": -1,
+		"match": /Reduces damage taken from Magical attacks by ([0-9.]+)%/i
 	},
 	{
-		statRequireId: "Weapon2H",
-		statRequireValue: 1,
-		factorStatId: "WeaponSword",
-		category: "Skill2",
-		statId: "SpellDamage",
-		match: /Swords increase your Weapon and Spell Damage by ([0-9]+)/i,
+		"statId": "MagicDamageTaken",
+		"display": "%",
+		"factorStatId": "ArmorHeavy",
+		"match": /Increases damage taken from Magical attacks by ([0-9.]+)%/i
 	},
 	{
-		statRequireId: "Weapon2H",
-		statRequireValue: 1,
-		factorStatId: "WeaponMace",
-		category: "Skill2",
-		statId: "PhysicalPenetration",
-		display: "%",
-		match: /Maces cause your attacks to ignore ([0-9]+\.?[0-9]*)% of your target's Physical Resistance/i,
+		"factorStatId": "ArmorTypes",
+		"statId": "Magicka",
+		"display": "%",
+		"match": /Increases your Max Health, Stamina, and Magicka by ([0-9]+\.?[0-9]*)% per type of Armor/i
 	},
 	{
-		statRequireId: "Weapon2H",
-		statRequireValue: 1,
-		factorStatId: "WeaponMace",
-		category: "Skill",
-		statId: "PhysicalPenetration",
-		match: /Maces increase your Armor Penetration by ([0-9]+)/i,
+		"requireSkillLine": "SIPHONING",
+		"statId": "Magicka",
+		"display": "%",
+		"match": /Increases your Max Magicka by ([0-9]+\.?[0-9]*)% while a Siphoning ability is slotted/i
 	},
 	{
-		statRequireId: "Weapon2H",
-		statRequireValue: 1,
-		factorStatId: "WeaponAxe",
-		category: "Skill",
-		statId: "CritDamage",
-		display: "%",
-		match: /Axes increase your Critical Damage and Critical Healing done by ([0-9]+\.?[0-9]*)%/i,
+		"factorSkillLine": "Mages Guild",
+		"statId": "Magicka",
+		"display": "%",
+		"match": /Increases your Max Magicka and Magicka Recovery by ([0-9]+\.?[0-9]*)% for each Mages Guild ability slotted/i
 	},
 	{
-		statRequireId: "Weapon2H",
-		statRequireValue: 1,
-		factorStatId: "WeaponAxe",
-		category: "Skill",
-		statId: "CritHealing",
-		display: "%",
-		match: /Axes increase your Critical Damage and Critical Healing done by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "Magicka",
+		"category": "Skill2",
+		"match": /Increases your Max Magicka by ([0-9]+)\./i
 	},
 	{
-		statRequireId: "Weapon2H",
-		statRequireValue: 1,
-		factorStatId: "WeaponAxe",
-		category: "Skill",
-		statId: "CritDamage",
-		display: "%",
-		match: /Axes increase your Critical Damage done by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "Magicka",
+		"category": "Skill2",
+		"match": /Increases your Max Magicka and Max Stamina by ([0-9]+)(?:\.|\s)/i
 	},
 	{
-		statRequireId: "Weapon2H",
-		statRequireValue: 1,
-		factorStatId: "WeaponMace",
-		category: "Skill",
-		statId: "SpellPenetration",
-		match: /Maces increase your Armor Penetration by ([0-9]+)/i,
+		"statId": "Magicka",
+		"category": "Skill2",
+		"match": /Increase your Maximum Health, Magicka, and Stamina by ([0-9]+)\./i
 	},
 	{
-		statRequireId: "Stealthed",
-		statRequireValue: 1,
-		statId: "DamageDone",
-		display: "%",
-		match: /Increases damage done while in stealth by ([0-9]+\.?[0-9]*)%/i,
+		"factorStatId": "ArmorLight",
+		"statId": "MagickaCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the Magicka cost of your abilities by ([0-9]+\.?[0-9]*)% for each piece of Light Armor/i
 	},
 	{
-		statRequireId: "Stealthed",
-		statRequireValue: 1,
-		statId: "DamageDone",
-		display: "%",
-		match: /Increases your damage done while in stealth by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "MagickaCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the Health, Magicka, and Stamina costs of your non Core Combat abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statRequireId: "WeaponRestStaff",
-		statRequireValue: 1,
-		statId: "HAMagRestoreRestStaff",
-		display: "%",
-		match: /WITH RESTORATION STAFF EQUIPPED[\s\S]*?Restores an additional ([0-9]+\.?[0-9]*)% Magicka when you complete a heavy attack/i,
+		"statId": "MagickaCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the Magicka cost of your abilities by ([0-9]+\.?[0-9]*)%\./i
 	},
 	{
-		statRequireId: "WeaponRestStaff",
-		statRequireValue: 1,
-		statId: "HAMagRestoreRestStaff",
-		display: "%",
-		match: /WITH RESTORATION STAFF EQUIPPED[\s\S]*?Your fully-charged Heavy Attacks restore ([0-9]+\.?[0-9]*)% more Magicka/i,
+		"statId": "MagickaCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the Health, Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statRequireId: "WeaponRestStaff",
-		statRequireValue: 1,
-		category: "SkillHealing",
-		statId: "Restoration_Staff",
-		display: "%",
-		match: /WITH RESTORATION STAFF EQUIPPED[\s\S]*?Increases healing with Restoration Staff spells by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "MagickaCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "HealingDone",
-		display: "%",
-		match: /Increases your healing done and healing received by ([0-9]+\.?[0-9]*)%/i,
+		"id": "Persistence",
+		"baseSkillId": 31378,
+		"statId": "MagickaCost",
+		"factorValue": -1,
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"combineAs": "*%",
+		"match": /After blocking an attack, your next Health, Magicka, or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i
 	},
 	{
-		statId: "HealingReceived",
-		display: "%",
-		match: /Increases your healing done and healing received by ([0-9]+\.?[0-9]*)%/i,
+		"factorStatId": "ArmorLight",
+		"statId": "MagickaRegen",
+		"display": "%",
+		"match": /Increases your Magicka Recovery by ([0-9]+\.?[0-9]*)% for each piece of Light Armor/i
 	},
 	{
-		statId: "HealingReceived",
-		display: "%",
-		match: /Increases your healing received by ([0-9]+\.?[0-9]*)% and /i,
+		"statId": "MagickaRegen",
+		"display": "%",
+		"match": /Increases your Magicka Recovery by ([0-9]+\.?[0-9]*)%\./i
 	},
 	{
-		statId: "SwimSpeed",
-		display: "%",
-		match: /Increases your swimming speed by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "MagickaRegen",
+		"display": "%",
+		"match": /Increases your Health, Stamina, and Magicka Recovery by ([0-9]+\.?[0-9]*)%/i
 	},
-	
-		/* Warden */
 	{
-		requireSkillLine: "ANIMAL COMPANIONS",
-		statId: "MagickaRegen",
-		display: "%",
-		match: /Increases your Magicka and Stamina recovery by ([0-9]+\.?[0-9]*)% if an Animal Companion ability is slotted/i,
+		"factorSkillLine": "Mages Guild",
+		"statId": "MagickaRegen",
+		"display": "%",
+		"match": /Increases your Max Magicka and Magicka Recovery by ([0-9]+\.?[0-9]*)% for each Mages Guild ability slotted/i
 	},
 	{
-		requireSkillLine: "ANIMAL COMPANIONS",
-		statId: "StaminaRegen",
-		display: "%",
-		match: /Increases your Magicka and Stamina recovery by ([0-9]+\.?[0-9]*)% if an Animal Companion ability is slotted/i,
+		"factorSkillLine": "Support",
+		"statId": "MagickaRegen",
+		"display": "%",
+		"match": /Increases your Magicka Recovery by ([0-9]+\.?[0-9]*)% for each Support ability slotted/i
 	},
 	{
-		factorSkillLine: "ANIMAL COMPANIONS",
-		statId: "DamageDone",
-		display: "%",
-		match: /Increases your damage done by ([0-9]+\.?[0-9]*)% for each Animal Companion ability slotted/i,
+		"requireSkillLine": "ANIMAL COMPANIONS",
+		"statId": "MagickaRegen",
+		"display": "%",
+		"match": /Increases your Magicka and Stamina recovery by ([0-9]+\.?[0-9]*)% if an Animal Companion ability is slotted/i
 	},
 	{
-		factorSkillLine: "GREEN BALANCE",
-		category: "SkillHealing",
-		statId: "Green_Balance",
-		display: "%",
-		match: /Increase Healing Done for Green Balance abilities by ([0-9]+\.?[0-9]*)% for each Green Balance ability slotted/i,
+		"statId": "MagickaRegen",
+		"category": "Food",
+		"match": /Increases your Magicka Recovery by ([0-9]+)\./i
 	},
 	{
-		factorSkillLine: "GREEN BALANCE",
-		category: "SkillHealing",
-		statId: "Green_Balance",
-		display: "%",
-		match: /Increases your healing done with Green Balance abilities by ([0-9]+\.?[0-9]*)% for each Green Balance ability slotted/i,
+		"statId": "MagickaRegen",
+		"category": "Food",
+		"match": /and your Stamina and Magicka Recovery by ([0-9]+)\./i
 	},
 	{
-		factorSkillLine: "GREEN BALANCE",
-		category: "SkillHealing",
-		statId: "Green_Balance",
-		display: "%",
-		match: /Increase your healing done with Green Balance abilities by ([0-9]+\.?[0-9]*)% for each Green Balance ability slotted/i,
+		"id": "Continuous Attack",
+		"baseSkillId": 39248,
+		"statRequireId": "Cyrodiil",
+		"statRequireValue": 1,
+		"statId": "MagickaRegen",
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"match": /and Magicka and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i
 	},
-
 	{
-		factorSkillLine: "Winter's Embrace",
-		statId: "PhysicalResist",
-		match: /Increases your Physical and Spell Resistance by ([0-9]+) for each Winter's Embrace ability slotted/i,
+		"id": "Undead Confederate",
+		"baseSkillId": 116282,
+		"category": "Item",
+		"statId": "MagickaRegen",
+		"toggle": true,
+		"enabled": false,
+		"match": /While you have a Blastbones, Skeletal Mage, or Spirit Mender active, your Health, Magicka, and Stamina Recovery is increased by ([0-9]+)/i
 	},
 	{
-		factorSkillLine: "Winter's Embrace",
-		statId: "SpellResist",
-		match: /Increases your Physical and Spell Resistance by ([0-9]+) for each Winter's Embrace ability slotted/i,
+		"category": "SkillDuration",
+		"statId": "Magma Armor",
+		"display": "%",
+		"match": /Increases duration of your Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "SnareEffect",
-		factorValue: -1,
-		display: '%',
-		match: /Reduce the effectiveness of snares applied to you by ([0-9]+\.?[0-9]*)%\./i,
+		"statId": "MediumArmorExperience",
+		"display": "%",
+		"match": /Increases your experience gain with the Medium Armor skill line by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "SnareEffect",
-		factorValue: -1,
-		display: '%',
-		match: /Reduces the effectiveness of snares applied to you by ([0-9]+\.?[0-9]*)%\./i,
+		"category": "SkillDuration",
+		"statId": "Molten Weapons",
+		"display": "%",
+		"match": /Increases duration of your Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "MagicDamageDone",
-		display: '%',
-		match: /Increases your Magic and Frost Damage by ([0-9]+\.?[0-9]*)%/i,
+		"id": "Medium Armor Bonus: Crowd Control",
+		"baseSkillId": 150181,
+		"statId": "MovementSpeed",
+		"display": "%",
+		"factorStatId": "ArmorMedium",
+		"toggle": true,
+		"enabled": false,
+		"rawInputMatch": /(Increases Movement Speed by [0-9.]+% while immune to crowd control)/i,
+		"match": /Increases Movement Speed by ([0-9.]+)% while immune to crowd control/i
 	},
 	{
-		statId: "FrostDamageDone",
-		display: '%',
-		match: /Increases your Magic and Frost Damage by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "MovementSpeed",
+		"display": "%",
+		"match": /Increases your movement speed by ([0-9]+\.?[0-9]*)% and your Physical and Spell Penetration by [0-9]+\./i
 	},
 	{
-		statId: "FlameAOEDamageDone",
-		display: '%',
-		match: /Increases the damage of your Flame area of effect abilities by ([0-9]+\.?[0-9]*)%/i,
+		"category": "Skill",
+		"statId": "NormalSneakSpeed",
+		"statRequireId": "VampireStage",
+		"statRequireValue": 1,
+		"value": 1,
+		"match": /Ignore the movement speed penalty of Sneak/i
 	},
 	{
-		statId: "PoisonStaminaCost",
-		display: '%',
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Decreases the cost of your Stamina Poison abilities by ([0-9]+\.?[0-9]*)%/i,
+		"category": "SkillDuration",
+		"statId": "Nova",
+		"match": /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) second/i
 	},
-	
-		/* Minor Passive Effects */
 	{
-		statId: "RestorationExperience",
-		display: '%',
-		match: /Increases your experience gain with the Restoration Staff skill line by ([0-9]+\.?[0-9]*)%/i,
+		"category": "SkillDuration",
+		"statId": "Obsidian Shield",
+		"display": "%",
+		"match": /Increases duration of your Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "DestructionExperience",
-		display: '%',
-		match: /Increases your experience gain with the Destruction Staff skill line by ([0-9]+\.?[0-9]*)%/i,
+		"category": "SkillCost",
+		"statId": "One_Hand_and_Shield_Cost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "OneHandandShieldExperience",
-		display: '%',
-		match: /Increases your experience gain with the One Hand and Shield skill line by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "OneHandandShieldExperience",
+		"display": "%",
+		"match": /Increases your experience gain with the One Hand and Shield skill line by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "DualWieldExperience",
-		display: '%',
-		match: /Increases your experience gain with the Dual Wield skill line by ([0-9]+\.?[0-9]*)%/i,
+		"category": "SkillCost",
+		"statId": "Panacea_Cost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "TwoHandedExperience",
-		display: '%',
-		match: /Increases your experience gain with the Two Handed skill line by ([0-9]+\.?[0-9]*)%/i,
+		"category": "SkillDuration",
+		"statId": "Path of Darkness",
+		"match": /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) second/i
 	},
 	{
-		statId: "BowExperience",
-		display: '%',
-		match: /Increases your experience gain with the Bow skill line by ([0-9]+\.?[0-9]*)%/i,
+		"category": "SkillDuration",
+		"statId": "Petrify",
+		"display": "%",
+		"match": /Increases duration of your Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "LightArmorExperience",
-		display: '%',
-		match: /Increases your experience gain with the Light Armor skill line by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "PhysicalDamageDone",
+		"display": "%",
+		"match": /Increases your Physical and Shock Damage by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "MediumArmorExperience",
-		display: '%',
-		match: /Increases your experience gain with the Medium Armor skill line by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "PhysicalDamageTaken",
+		"display": "%",
+		"factorStatId": "ArmorLight",
+		"match": /Increases damage taken from Martial attacks by ([0-9.]+)%/i
 	},
 	{
-		statId: "HeavyArmorExperience",
-		display: '%',
-		match: /Increases your experience gain with the Heavy Armor skill line by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "PhysicalDamageTaken",
+		"display": "%",
+		"factorStatId": "ArmorHeavy",
+		"factorValue": -1,
+		"match": /Reduces damage taken from Martial attacks by ([0-9.]+)%/i
 	},
 	{
-		statId: "AlliancePointsGained",
-		display: '%',
-		match: /Increases your Alliance Points gained by ([0-9]+\.?[0-9]*)%/i,
+		"statRequireId": "Weapon1H",
+		"statRequireValue": 2,
+		"factorStatId": "WeaponMace",
+		"category": "Skill",
+		"statId": "PhysicalPenetration",
+		"rawInputMatch": /(Each mace increases your Armor Penetration by [0-9]+\.)/i,
+		"match": /Each mace increases your Armor Penetration by ([0-9]+)/i
 	},
 	{
-		statId: "ExperienceGained",
-		display: '%',
-		match: /Increases your experience gained by ([0-9]+\.?[0-9]*)%/i,
+		"statRequireId": "Weapon2H",
+		"statRequireValue": 1,
+		"factorStatId": "WeaponMace",
+		"category": "Skill",
+		"statId": "PhysicalPenetration",
+		"match": /Maces increase your Armor Penetration by ([0-9]+)/i
 	},
 	{
-		statId: "InspirationGained",
-		display: '%',
-		match: /Increases your crafting inspiration gained by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "PhysicalPenetration",
+		"factorStatId": "ArmorLight",
+		"match": /Increases your Physical and Spell Penetration by ([0-9.]+) for each piece of Light Armor worn/i
 	},
 	{
-		statId: "GoldGained",
-		display: '%',
-		match: /Increases your gold gained by ([0-9]+\.?[0-9]*)%/i,
+		"id": "Master Assassin",
+		"statId": "PhysicalPenetration",
+		"baseSkillId": 36616,
+		"toggle": true,
+		"enabled": false,
+		"match": /Increases your Physical and Spell Penetration against enemies you are flanking by ([0-9]+)/i
 	},
 	{
-		statId: "LavaDamage",
-		display: '%',
-		match: /Reduces your damage taken from environmental lava by ([0-9]+\.?[0-9]*)%/i,
+		"id": "Dismember",
+		"baseSkillId": 116192,
+		"statId": "PhysicalPenetration",
+		"toggle": true,
+		"enabled": false,
+		"match": /While a Grave Lord ability is active, your Spell and Physical Penetration are increased by ([0-9]+)/i
 	},
 	{
-		statId: "PickPocketChance",
-		display: '%',
-		match: /Increases your chance to successfully pickpocket by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "PhysicalPenetration",
+		"match": /Increases your movement speed by [0-9]+\.?[0-9]*% and your Physical and Spell Penetration by ([0-9]+)\./i
 	},
 	{
-		statId: "DrinkDuration",
-		match: /Increases the duration of any consumed drink by ([0-9]+\.?[0-9]*) minutes/i,
+		"statId": "PhysicalResist",
+		"factorStatId": "ArmorHeavy",
+		"match": /Increases your Physical and Spell Resistance by ([0-9]+) for each piece of Heavy Armor equipped/i
 	},
 	{
-		statId: "FoodDuration",
-		match: /Increases the duration of any eaten food by ([0-9]+\.?[0-9]*) minutes/i,
+		"statId": "PhysicalResist",
+		"match": /\% and Physical and Spell Resistance by ([0-9]+)\./i
 	},
 	{
-		statId: "FallDamageTaken",
-		display: '%',
-		factorValue: -1,
-		match: /Decreases your fall damage taken by ([0-9]+\.?[0-9]*)%/i,
+		"factorSkillLine": "Winter's Embrace",
+		"statId": "PhysicalResist",
+		"match": /Increases your Physical and Spell Resistance by ([0-9]+) for each Winter's Embrace ability slotted/i
 	},
 	{
-		statId: "DiseaseImmunity",
-		statValue: 1,
-		match: /Gain immunity to the Diseased status effect/i,
+		"statId": "PhysicalResist",
+		"match": /Increases your Physical and Spell Resistance by ([0-9]+)\./i
 	},
 	{
-		statId: "BurningImmunity",
-		statValue: 1,
-		match: /Gain immunity to the Burning status effect/i,
+		"id": "Light Weaver",
+		"baseSkillId": 31760,
+		"toggle": true,
+		"enabled": false,
+		"statId": "PhysicalResist",
+		"match": /While you are channeling Rite of Passage, you gain ([0-9]+) Physical and Spell Resistance/i
 	},
 	{
-		statId: "ChilledImmunity",
-		statValue: 1,
-		match: /Gain immunity to the Chilled status effect/i,
+		"statId": "PickPocketChance",
+		"display": "%",
+		"match": /Increases your chance to successfully pickpocket by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "PoisonImmunity",
-		statValue: 1,
-		match: /Gain immunity to the Poisoned status effect/i,
+		"statId": "PoisonDamageDone",
+		"display": "%",
+		"match": /Increases the damage of your Flame and Poison attacks by ([0-9.]+)%/i
 	},
-	
-		/* Update 21 */
 	{
-		statId: "HealingDone",
-		display: '%',
-		match: /Increases your healing done by ([0-9]+\.?[0-9]*)%\./i,
+		"statId": "PoisonDamageTaken",
+		"display": "%",
+		"factorStatId": "ArmorLight",
+		"match": /Increases damage taken from Martial attacks by ([0-9.]+)%/i
 	},
 	{
-		statId: "HealingReceived",
-		display: '%',
-		match: /^Increases your healing received by ([0-9]+\.?[0-9]*)%\./i,
+		"statId": "PoisonDamageTaken",
+		"display": "%",
+		"factorStatId": "ArmorHeavy",
+		"factorValue": -1,
+		"match": /Reduces damage taken from Martial attacks by ([0-9.]+)%/i
 	},
 	{
-		statId: "Health",
-		category: "Skill2",
-		match: /Increases your Max Health by ([0-9]+)\./i,
+		"statId": "PoisonedDamage",
+		"display": "%",
+		"match": /Increases the damage of your Burning and Poisoned status effects by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "Health",
-		category: "Skill2",
-		match: /Increases your Max Health by ([0-9]+) and/i,
+		"statId": "PoisonResist",
+		"match": /and Poison Resistance by ([0-9]+)/i
 	},
 	{
-		statId: "Magicka",
-		category: "Skill2",
-		match: /Increases your Max Magicka by ([0-9]+)\./i,
+		"category": "SkillCost",
+		"statId": "Psijic_Order_Cost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the cost of your Psijic Order abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "Magicka",
-		category: "Skill2",
-		match: /Increases your Max Magicka by ([0-9]+) /i,
+		"category": "SkillCost",
+		"statId": "Rapid_Fire_Cost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "Stamina",
-		category: "Skill2",
-		match: /Increases your Max Stamina by ([0-9]+)\./i,
+		"category": "SkillCost",
+		"statId": "Restoration_Staff_Cost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "Stamina",
-		category: "Skill2",
-		match: /Increases your Max Stamina by ([0-9]+) and/i,
+		"statId": "RestorationExperience",
+		"display": "%",
+		"match": /Increases your experience gain with the Restoration Staff skill line by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "Magicka",
-		category: "Skill2",
-		match: /Increases your Max Magicka and Max Stamina by ([0-9]+)(?:\.|\s)/i,
+		"id": "Mending",
+		"baseSkillId": 31751,
+		"category": "SkillHealing",
+		"statId": "Restoring_Light",
+		"maxTimes": 12,
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"match": /Increases the healing effects from your Restoring Light abilities by up to [0-9]+\.?[0-9]*%, in proportion to the severity of the target's wounds/i
 	},
 	{
-		statId: "Stamina",
-		category: "Skill2",
-		match: /Increases your Max Magicka and Max Stamina by ([0-9]+)(?:\.|\s)/i,
+		"statRequireId": "Cyrodiil",
+		"statRequireValue": 1,
+		"statId": "ResurrectSpeed",
+		"display": "%",
+		"match": /Reduces the time it takes you to resurrect another player by ([0-9]+\.?[0-9]*)% while you are in a PvP area/i
 	},
 	{
-		statId: "Health",
-		category: "Skill2",
-		match: /Increases your Max Health and Max Stamina by ([0-9]+)\./i,
+		"statId": "ResurrectSpeed",
+		"display": "%",
+		"match": /Increases Resurrection speed by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "Stamina",
-		category: "Skill2",
-		match: /Increases your Max Health and Max Stamina by ([0-9]+)\./i,
+		"factorStatId": "ArmorMedium",
+		"statId": "RollDodgeCost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the cost of Roll Dodge by ([0-9]+\.?[0-9]*)% for each piece of Medium Armor equipped/i
 	},
 	{
-		statId: "Health",
-		category: "Skill2",
-		match: /Increase your Maximum Health, Magicka, and Stamina by ([0-9]+)\./i,
+		"statId": "RollDodgeCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "Magicka",
-		category: "Skill2",
-		match: /Increase your Maximum Health, Magicka, and Stamina by ([0-9]+)\./i,
+		"statId": "RollDodgeCost",
+		"display": "%",
+		"factorStatId": "ArmorLight",
+		"factorValue": -1,
+		"match": /[\n\r]+Reduces the cost of Roll Dodge by ([0-9.]+)%[\n\r]+/i
 	},
 	{
-		statId: "Stamina",
-		category: "Skill2",
-		match: /Increase your Maximum Health, Magicka, and Stamina by ([0-9]+)\./i,
+		"statId": "RollDodgeCost",
+		"display": "%",
+		"factorStatId": "ArmorHeavy",
+		"match": /\s+Increases the cost of Roll Dodge by ([0-9.]+)%[\n\r]+/i
 	},
 	{
-		statId: "DiseaseResist",
-		match: /and Disease Resistance by ([0-9]+)/i,
+		"category": "SkillDuration",
+		"statId": "Searing Strike",
+		"match": /Increases the damage over time of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by [0-9]+\.?[0-9]*% and the duration by ([0-9]+\.?[0-9]*) seconds/i
 	},
 	{
-		statId: "DiseaseResist",
-		match: /and your Disease and Poison Resistance by ([0-9]+)/i,
+		"category": "SkillDotDamage",
+		"statId": "Searing Strike",
+		"display": "%",
+		"match": /Increases the damage over time of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*)% and the duration by [0-9]+\.?[0-9]* seconds/i
 	},
 	{
-		statId: "PoisonResist",
-		match: /and Poison Resistance by ([0-9]+)/i,
+		"category": "SkillDuration",
+		"statId": "Searing Strike",
+		"match": /Increases the duration of your Fiery Breath, Searing Strike, and Dragonknight Standard abilities by ([0-9]+\.?[0-9]*) seconds/i
 	},
 	{
-		statId: "FlameResist",
-		match: /Increases your Flame Resistance by ([0-9]+)\./i,
+		"category": "SkillCost",
+		"statId": "Shield_Wall_Cost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "SpellResist",
-		match: /Increases your Spell Resistance by ([0-9]+) and/i,
+		"statId": "ShockDamageDone",
+		"display": "%",
+		"match": /Increases your Physical and Shock Damage by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "SpellResist",
-		match: /Increases your Physical and Spell Resistance by ([0-9]+)\./i,
+		"statId": "ShockDamageTaken",
+		"display": "%",
+		"factorStatId": "ArmorLight",
+		"factorValue": -1,
+		"match": /Reduces damage taken from Magical attacks by ([0-9.]+)%[\n\r]+/i
 	},
 	{
-		statId: "PhysicalResist",
-		match: /Increases your Physical and Spell Resistance by ([0-9]+)\./i,
+		"statId": "ShockDamageTaken",
+		"display": "%",
+		"factorStatId": "ArmorHeavy",
+		"match": /Increases damage taken from Magical attacks by ([0-9.]+)%/i
 	},
 	{
-		statId: "MagickaRegen",
-		category: "Food",
-		match: /Increases your Magicka Recovery by ([0-9]+)\./i,
+		"statRequireId": "WeaponFlameStaff",
+		"statRequireValue": 1,
+		"statId": "SingleTargetDamageDone",
+		"display": "%",
+		"match": /Equipping an Inferno Staff increases your damage done with single target abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "MagickaRegen",
-		category: "Food",
-		match: /and your Magicka Recovery by ([0-9]+)\./i,
+		"id": "Reusable Parts",
+		"baseSkillId": 116186,
+		"category": "SkillCost",
+		"statId": "Skeletal_Mage_Cost",
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"factorValue": -1,
+		"match": /When your Blastbones, Skeletal Mage, or Spirit Mender dies, the cost of your next Blastbones, Skeletal Mage, or Spirit Mender is reduced by ([0-9]+)%/i
 	},
 	{
-		statId: "HealthRegen",
-		category: "Food",
-		match: /Increases your Health Recovery by ([0-9]+) and/i,
+		"statId": "SnareEffect",
+		"factorValue": -1,
+		"display": "%",
+		"match": /Reduce the effectiveness of snares applied to you by ([0-9]+\.?[0-9]*)%\./i
 	},
 	{
-		statId: "MagickaRegen",
-		category: "Food",
-		match: /and your Stamina and Magicka Recovery by ([0-9]+)\./i,
+		"statId": "SnareEffect",
+		"factorValue": -1,
+		"display": "%",
+		"match": /Reduces the effectiveness of snares applied to you by ([0-9]+\.?[0-9]*)%\./i
 	},
 	{
-		statId: "StaminaRegen",
-		category: "Food",
-		match: /and your Stamina and Magicka Recovery by ([0-9]+)\./i,
+		"statId": "SnareEffect",
+		"factorStatId": "ArmorLight",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the effectiveness of snares applied to you by ([0-9.]+)% for each piece of Light Armor worn/i
 	},
 	{
-		statId: "StaminaRegen",
-		category: "Food",
-		match: /Increases your Stamina Recovery by ([0-9]+)\./i,
+		"statId": "SneakCost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the cost of Sneak by ([0-9]+\.?[0-9]*)%\./i
 	},
 	{
-		statId: "SpellDamage",
-		category: "Skill2",
-		match: /Increases your Spell Damage by ([0-9]+)\./i,
+		"statId": "SneakCost",
+		"display": "%",
+		"factorStatId": "ArmorMedium",
+		"factorValue": -1,
+		"match": /[\n\r]+Reduces the cost of Sneak by ([0-9.]+)%[\n\r]+/i
 	},
 	{
-		statId: "SpellDamage",
-		category: "Skill2",
-		match: /^Increases your Weapon and Spell Damage by ([0-9]+)\./i,
+		"statId": "SneakDetectRange",
+		"category": "Skill2",
+		"match": /Increases your stealth detection radius by ([0-9]+) meters./i
 	},
 	{
-		statId: "WeaponDamage",
-		category: "Skill2",
-		match: /^Increases your Weapon and Spell Damage by ([0-9]+)\./i,
+		"factorStatId": "ArmorMedium",
+		"statId": "SneakRange",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the size of your detection area while Sneaking by ([0-9]+\.?[0-9]*)% for each piece of Medium Armor equipped/i
 	},
 	{
-		statId: "WeaponDamage",
-		category: "Skill2",
-		match: /Increases your Weapon Damage by ([0-9]+)\./i,
+		"statId": "SneakRange",
+		"category": "Skill2",
+		"factorValue": -1,
+		"match": /Decreases your detection radius in Stealth by ([0-9]+) meters./i
 	},
 	{
-		statId: "BashCost",
-		display: '%',
-		factorValue: -1,
-		match: /Reduces the cost of your Block and Bash abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "SneakRange",
+		"display": "%",
+		"factorStatId": "ArmorHeavy",
+		"match": /Increases the size of your detection area while Sneaking by ([0-9.]+)%/i
 	},
 	{
-		statId: "BlockCost",
-		display: '%',
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the cost of your Block and Bash abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "SneakSpeed",
+		"display": "%",
+		"factorStatId": "ArmorLight",
+		"match": /[\n\r]+Reduces the Movement Speed penalty of Sneak by ([0-9.]+)%[\n\r]+/i
 	},
 	{
-		statId: "SneakRange",
-		category: "Skill2",
-		factorValue: -1,
-		match: /Decreases your detection radius in Stealth by ([0-9]+) meters./i,
+		"category": "SkillDuration",
+		"statId": "Solar Flare",
+		"match": /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) second/i
 	},
 	{
-		statId: "SneakDetectRange",
-		category: "Skill2",
-		match: /Increases your stealth detection radius by ([0-9]+) meters./i,
+		"statRequireId": "Weapon1H",
+		"statRequireValue": 2,
+		"factorStatId": "WeaponDagger",
+		"category": "Skill2",
+		"statId": "SpellCrit",
+		"rawInputMatch": /(Each dagger increases your Critical Chance rating by [0-9]+)/i,
+		"match": /Each dagger increases your Critical Chance rating by ([0-9]+)/i
 	},
 	{
-		category: "SkillCost",
-		statId: "Two_Handed_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i,
+		"factorSkillLine": "Assassination",
+		"category": "Skill2",
+		"statId": "SpellCrit",
+		"match": /Increases your Weapon and Spell Critical ratings by ([0-9]+) for each Assassination ability slotted/i
 	},
 	{
-		category: "SkillCost",
-		statId: "One_Hand_and_Shield_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "SpellCrit",
+		"category": "Skill2",
+		"factorStatId": "ArmorLight",
+		"match": /Increases your Weapon and Spell Critical rating by ([0-9.]+) for each piece of Light Armor equipped/i
 	},
 	{
-		category: "SkillCost",
-		statId: "Dual_Wield_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i,
+		"id": "Death Knell",
+		"baseSkillId": 116197,
+		"statId": "SpellCrit",
+		"factorSkillLine": "GRAVE LORD",
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"match": /Increases your Critical Strike Chance against enemies under [0-9]+% Health by ([0-9]+)% for each Grave Lord ability slotted/i
 	},
 	{
-		category: "SkillCost",
-		statId: "Bow_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i,
+		"factorStatId": "ArmorMedium",
+		"statId": "SpellDamage",
+		"display": "%",
+		"match": /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% for each piece of Medium Armor worn/i
 	},
 	{
-		category: "SkillCost",
-		statId: "Destruction_Staff_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statRequireId": "Weapon1H",
+		"statRequireValue": 2,
+		"factorStatId": "WeaponSword",
+		"category": "Skill2",
+		"statId": "SpellDamage",
+		"rawInputMatch": /(Each sword increases your Weapon and Spell Damage by [0-9]+)/i,
+		"match": /Each sword increases your Weapon and Spell Damage by ([0-9]+)/i
 	},
 	{
-		category: "SkillCost",
-		statId: "Restoration_Staff_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "SpellDamage",
+		"display": "%",
+		"match": /^Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% and Physical /i
 	},
 	{
-		category: "SkillCost",
-		statId: "Berserker_Strike_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i,
+		"factorSkillType": "Sorcerer",
+		"statId": "SpellDamage",
+		"display": "%",
+		"match": /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% for each Sorcerer ability slotted/i
 	},
 	{
-		category: "SkillCost",
-		statId: "Shield_Wall_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i,
+		"factorSkillLine": "Fighters Guild",
+		"statId": "SpellDamage",
+		"display": "%",
+		"match": /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% for each Fighters Guild ability slotted/i
 	},
 	{
-		category: "SkillCost",
-		statId: "Lacerate_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statRequireId": "Weapon2H",
+		"statRequireValue": 1,
+		"factorStatId": "WeaponSword",
+		"category": "Skill2",
+		"statId": "SpellDamage",
+		"match": /Swords increase your Weapon and Spell Damage by ([0-9]+)/i
 	},
 	{
-		category: "SkillCost",
-		statId: "Rapid_Fire_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "SpellDamage",
+		"category": "Skill2",
+		"match": /^Increases your Weapon and Spell Damage by ([0-9]+)\./i
 	},
 	{
-		category: "SkillCost",
-		statId: "Elemental_Storm_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i,
+		"id": "Continuous Attack",
+		"baseSkillId": 39248,
+		"statRequireId": "Cyrodiil",
+		"statRequireValue": 1,
+		"statId": "SpellDamage",
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"match": /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% and Magicka and Stamina Recovery /i
 	},
 	{
-		category: "SkillCost",
-		statId: "Panacea_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i,
+		"id": "Strike from the Shadows",
+		"baseSkillId": 33096,
+		"statRequireId": "VampireStage",
+		"statRequireValue": 2,
+		"category": "Skill2",
+		"statId": "SpellDamage",
+		"toggle": true,
+		"enabled": false,
+		"match": /When you leave Sneak, invisibility, or Mist Form your Weapon and Spell Damage is increased by ([0-9]+) for/i
 	},
 	{
-		statId: "MagickaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statRequireId": "Weapon1H",
+		"statRequireValue": 2,
+		"factorStatId": "WeaponMace",
+		"category": "Skill",
+		"statId": "SpellPenetration",
+		"rawInputMatch": /(Each mace increases your Armor Penetration by [0-9]+\.)/i,
+		"match": /Each mace increases your Armor Penetration by ([0-9]+)/i
 	},
 	{
-		statId: "HealthCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statRequireId": "Weapon2H",
+		"statRequireValue": 1,
+		"factorStatId": "WeaponMace",
+		"category": "Skill",
+		"statId": "SpellPenetration",
+		"match": /Maces increase your Armor Penetration by ([0-9]+)/i
 	},
 	{
-		statId: "StaminaCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "SpellPenetration",
+		"factorStatId": "ArmorLight",
+		"match": /Increases your Physical and Spell Penetration by ([0-9.]+) for each piece of Light Armor worn/i
 	},
 	{
-		statId: "UltimateCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
+		"id": "Master Assassin",
+		"statId": "SpellPenetration",
+		"baseSkillId": 36616,
+		"toggle": true,
+		"enabled": false,
+		"match": /Increases your Physical and Spell Penetration against enemies you are flanking by ([0-9]+)/i
 	},
 	{
-		statId: "SprintCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
+		"id": "Dismember",
+		"baseSkillId": 116192,
+		"statId": "SpellPenetration",
+		"toggle": true,
+		"enabled": false,
+		"match": /While a Grave Lord ability is active, your Spell and Physical Penetration are increased by ([0-9]+)/i
 	},
 	{
-		statId: "BlockCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "SpellPenetration",
+		"match": /Increases your movement speed by [0-9]+\.?[0-9]*% and your Physical and Spell Penetration by ([0-9]+)\./i
 	},
 	{
-		statId: "RollDodgeCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "SpellResist",
+		"factorStatId": "ArmorLight",
+		"match": /Increases your Spell Resistance by ([0-9]+) for each piece of Light Armor equipped/i
 	},
 	{
-		statId: "BreakFreeCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "SpellResist",
+		"factorStatId": "ArmorHeavy",
+		"match": /Increases your Physical and Spell Resistance by ([0-9]+) for each piece of Heavy Armor equipped/i
 	},
 	{
-		statId: "BashCost",
-		display: "%",
-		factorValue: -1,
-		combineAs: "*%",
-		match: /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "SpellResist",
+		"match": /\% and Physical and Spell Resistance by ([0-9]+)\./i
 	},
 	{
-		statId: "CritDamage",
-		display: "%",
-		match: /Increases your Critical Damage and Critical healing by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "SpellResist",
+		"match": /Increases your Spell Resistance by ([0-9]+)\./i
 	},
 	{
-		statId: "CritHealing",
-		display: "%",
-		match: /Increases your Critical Damage and Critical healing by ([0-9]+\.?[0-9]*)%/i,
+		"factorSkillLine": "Winter's Embrace",
+		"statId": "SpellResist",
+		"match": /Increases your Physical and Spell Resistance by ([0-9]+) for each Winter's Embrace ability slotted/i
 	},
-	
-		// Necromancer
 	{
-		id: "Health Avarice",
-		baseSkillId: 116269,
-		statId: "HealingReceived",
-		factorSkillLine: "BONE TYRANT",
-		display: "%",
-		match: /Increase your Healing Received by ([0-9]+)% for each Bone Tyrant ability slotted/i,
+		"statId": "SpellResist",
+		"match": /Increases your Physical and Spell Resistance by ([0-9]+)\./i
 	},
 	{
-		statId: "DotDamageDone",
-		display: "%",
-		match: /Increases your damage done with damage over time effects by ([0-9]+)%/i,
+		"id": "Light Weaver",
+		"baseSkillId": 31760,
+		"toggle": true,
+		"enabled": false,
+		"statId": "SpellResist",
+		"match": /While you are channeling Rite of Passage, you gain ([0-9]+) Physical and Spell Resistance/i
 	},
-	
-		// Stonethorn
 	{
-		statRequireId: "Stealthed",
-		statRequireValue: 1,
-		category: "Target",
-		statId: "StunDuration",
-		display: "%",
-		match: /Increases the duration of the stun from Sneak by ([0-9]+)%/i,
+		"id": "Reusable Parts",
+		"baseSkillId": 116186,
+		"category": "SkillCost",
+		"statId": "Spirit_Mender_Cost",
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"factorValue": -1,
+		"match": /When your Blastbones, Skeletal Mage, or Spirit Mender dies, the cost of your next Blastbones, Skeletal Mage, or Spirit Mender is reduced by ([0-9]+)%/i
 	},
 	{
-		id: "Master Assassin",
-		statId: "StunDuration",
-		display: "%",
-		match: /Increases the duration of the stun from Sneak by ([0-9.]+)%/i,
+		"statId": "SprintCost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the cost of Sprint by ([0-9]+\.?[0-9]*)% and/i
 	},
-	
-		/* Update 29 Armor Passives */
 	{
-		statId: "SnareEffect",
-		factorStatId: "ArmorLight",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the effectiveness of snares applied to you by ([0-9.]+)% for each piece of Light Armor worn/i,
+		"statRequireId": "VampireStage",
+		"statRequireValue": 4,
+		"statId": "SprintCost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the cost of Sprint by ([0-9]+\.?[0-9]*)%\./i
 	},
 	{
-		statId: "SpellCrit",
-		category: "Skill2",
-		factorStatId: "ArmorLight",
-		match: /Increases your Spell Critical rating by ([0-9.]+) for each piece of Light Armor equipped/i,
+		"statId": "SprintCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "SpellCrit",
-		category: "Skill2",
-		factorStatId: "ArmorLight",
-		match: /Increases your Weapon and Spell Critical rating by ([0-9.]+) for each piece of Light Armor equipped/i,
+		"statId": "SprintCost",
+		"factorStatId": "ArmorLight",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the cost of Sprint by ([0-9.]+)% for each piece of Light Armor worn/i
 	},
 	{
-		statId: "WeaponCrit",
-		category: "Skill2",
-		factorStatId: "ArmorLight",
-		match: /Increases your Weapon and Spell Critical rating by ([0-9.]+) for each piece of Light Armor equipped/i,
+		"statId": "SprintCost",
+		"display": "%",
+		"factorStatId": "ArmorMedium",
+		"factorValue": -1,
+		"match": /[\n\r]+Reduces the cost of Sprint by ([0-9.]+)%[\n\r]+/i
 	},
 	{
-		statId: "SpellPenetration",
-		factorStatId: "ArmorLight",
-		match: /Increases your Spell Penetration by ([0-9.]+) for each piece of Light Armor worn/i,
+		"factorStatId": "ArmorMedium",
+		"statId": "SprintSpeed",
+		"display": "%",
+		"match": /Increases the movement speed bonus of sprint by ([0-9]+\.?[0-9]*)% for each piece of medium armor/i
 	},
 	{
-		statId: "SpellPenetration",
-		factorStatId: "ArmorLight",
-		match: /Increases your Physical and Spell Penetration by ([0-9.]+) for each piece of Light Armor worn/i,
+		"statId": "SprintSpeed",
+		"display": "%",
+		"match": /and increases the movement speed bonus of sprint by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "PhysicalPenetration",
-		factorStatId: "ArmorLight",
-		match: /Increases your Physical and Spell Penetration by ([0-9.]+) for each piece of Light Armor worn/i,
+		"statId": "SprintSpeed",
+		"display": "%",
+		"factorStatId": "ArmorHeavy",
+		"factorValue": -1,
+		"match": /\s+Reduces the Movement Speed bonus of Sprint by ([0-9.]+)%[\n\r]+/i
 	},
 	{
-		statId: "SprintCost",
-		factorStatId: "ArmorLight",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the cost of Sprint by ([0-9.]+)% for each piece of Light Armor worn/i,
+		"factorStatId": "ArmorTypes",
+		"statId": "Stamina",
+		"display": "%",
+		"match": /Increases your Max Health, Stamina, and Magicka by ([0-9]+\.?[0-9]*)% per type of Armor/i
 	},
 	{
-		statId: "PhysicalDamageTaken",
-		display: "%",
-		factorStatId: "ArmorLight",
-		match: /Increases damage taken from Martial attacks by ([0-9.]+)%/i,
+		"statId": "Stamina",
+		"category": "Skill2",
+		"match": /Increases your Max Stamina by ([0-9]+)\./i
 	},
 	{
-		statId: "PoisonDamageTaken",
-		display: "%",
-		factorStatId: "ArmorLight",
-		match: /Increases damage taken from Martial attacks by ([0-9.]+)%/i,
+		"statId": "Stamina",
+		"category": "Skill2",
+		"match": /Increases your Max Stamina by ([0-9]+) and/i
 	},
 	{
-		statId: "DiseaseDamageTaken",
-		display: "%",
-		factorStatId: "ArmorLight",
-		match: /Increases damage taken from Martial attacks by ([0-9.]+)%/i,
+		"statId": "Stamina",
+		"category": "Skill2",
+		"match": /Increases your Max Magicka and Max Stamina by ([0-9]+)(?:\.|\s)/i
 	},
 	{
-		statId: "BleedDamageTaken",
-		display: "%",
-		factorStatId: "ArmorLight",
-		match: /Increases damage taken from Martial attacks by ([0-9.]+)%/i,
+		"statId": "Stamina",
+		"category": "Skill2",
+		"match": /Increase your Maximum Health, Magicka, and Stamina by ([0-9]+)\./i
 	},
 	{
-		statId: "BlockCost",
-		display: "%",
-		factorStatId: "ArmorLight",
-		match: /Increases the cost of Block by ([0-9.]+)%/i,
+		"factorStatId": "ArmorMedium",
+		"statId": "StaminaCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the Stamina cost of your abilities by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i
 	},
 	{
-		statId: "BashDamage",
-		display: "%",
-		factorStatId: "ArmorLight",
-		factorValue: -1, 
-		match: /Decreases damage done with Bash by ([0-9.]+)%/i,
+		"factorStatId": "ArmorMedium",
+		"statId": "StaminaCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the Stamina cost of your abilities by ([0-9]+\.?[0-9]*)% for each piece of Medium Armor equipped/i
 	},
 	{
-		statId: "MagicDamageTaken",
-		display: "%",
-		factorStatId: "ArmorLight",
-		factorValue: -1, 
-		match: /Reduces damage taken from Magical attacks by ([0-9.]+)%/i,
+		"statId": "StaminaCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the Health, Magicka, and Stamina costs of your non Core Combat abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "FrostDamageTaken",
-		display: "%",
-		factorStatId: "ArmorLight",
-		factorValue: -1, 
-		match: /Reduces damage taken from Magical attacks by ([0-9.]+)%/i,
+		"statId": "StaminaCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the Health, Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "FlameDamageTaken",
-		display: "%",
-		factorStatId: "ArmorLight",
-		factorValue: -1, 
-		match: /Reduces damage taken from Magical attacks by ([0-9.]+)%/i,
+		"statId": "StaminaCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "ShockDamageTaken",
-		display: "%",
-		factorStatId: "ArmorLight",
-		factorValue: -1, 
-		match: /Reduces damage taken from Magical attacks by ([0-9.]+)%[\n\r]+/i,
+		"id": "Persistence",
+		"baseSkillId": 31378,
+		"statId": "StaminaCost",
+		"factorValue": -1,
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"combineAs": "*%",
+		"match": /After blocking an attack, your next Health, Magicka, or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i
 	},
 	{
-		statId: "RollDodgeCost",
-		display: "%",
-		factorStatId: "ArmorLight",
-		factorValue: -1, 
-		match: /[\n\r]+Reduces the cost of Roll Dodge by ([0-9.]+)%[\n\r]+/i,
+		"factorStatId": "ArmorMedium",
+		"statId": "StaminaRegen",
+		"display": "%",
+		"match": /Increases your Stamina Recovery by ([0-9]+\.?[0-9]*)% for each piece of Medium Armor equipped/i
 	},
 	{
-		statId: "SneakSpeed",
-		display: "%",
-		factorStatId: "ArmorLight",
-		match: /[\n\r]+Reduces the Movement Speed penalty of Sneak by ([0-9.]+)%[\n\r]+/i,
+		"factorStatId": "ArmorMedium",
+		"statId": "StaminaRegen",
+		"display": "%",
+		"match": /Increases your Stamina Recovery by ([0-9]+\.?[0-9]*)% per piece of Medium Armor equipped/i
 	},
 	{
-		statId: "BreakFreeCost",
-		display: "%",
-		factorStatId: "ArmorLight",
-		factorValue: -1, 
-		match: /[\n\r]+Reduces the cost of Break Free by ([0-9.]+)%[\n\r]+/i,
+		"statId": "StaminaRegen",
+		"display": "%",
+		"match": /Increases your Health, Stamina, and Magicka Recovery by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "BashCost",
-		display: "%",
-		factorStatId: "ArmorLight",
-		factorValue: -1, 
-		match: /[\n\r]+Reduces the cost of Bash by ([0-9.]+)%/i,
+		"requireSkillLine": "DAEDRIC SUMMONING",
+		"statId": "StaminaRegen",
+		"display": "%",
+		"match": /Increases your Health and Stamina Recovery by ([0-9]+\.?[0-9]*)% while you have a Daedric Summoning ability slotted./i
 	},
 	{
-		statId: "SprintCost",
-		display: "%",
-		factorStatId: "ArmorMedium",
-		factorValue: -1, 
-		match: /[\n\r]+Reduces the cost of Sprint by ([0-9.]+)%[\n\r]+/i,
+		"requireSkillLine": "ANIMAL COMPANIONS",
+		"statId": "StaminaRegen",
+		"display": "%",
+		"match": /Increases your Magicka and Stamina recovery by ([0-9]+\.?[0-9]*)% if an Animal Companion ability is slotted/i
 	},
 	{
-		statId: "SneakCost",
-		display: "%",
-		factorStatId: "ArmorMedium",
-		factorValue: -1, 
-		match: /[\n\r]+Reduces the cost of Sneak by ([0-9.]+)%[\n\r]+/i,
+		"statId": "StaminaRegen",
+		"category": "Food",
+		"match": /and your Stamina and Magicka Recovery by ([0-9]+)\./i
 	},
 	{
-		statId: "BlockCost",
-		display: "%",
-		factorStatId: "ArmorMedium",
-		factorValue: -1, 
-		match: /[\n\r]+Reduces the cost of Block by ([0-9.]+)%[\n\r]+/i,
+		"statId": "StaminaRegen",
+		"category": "Food",
+		"match": /Increases your Stamina Recovery by ([0-9]+)\./i
 	},
 	{
-		id: "Sacred Ground",
-		baseSkillId: 31757,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId: "Minor Mending",
-		match: /While standing in your own Cleansing Ritual, Rune Focus, or Rite of Passage areas of effect and for up to [0-9.]+ seconds after leaving them you gain Minor Mending/i
+		"id": "Continuous Attack",
+		"baseSkillId": 39248,
+		"statRequireId": "Cyrodiil",
+		"statRequireValue": 1,
+		"statId": "StaminaRegen",
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"match": /and Magicka and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		id: "Sacred Ground",
-		baseSkillId: 31757,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		buffId: "Minor Mending",
-		match: /While standing in your own Cleansing Ritual, Rune Focus, or Rite of Passage area effects and for up to [0-9.]+ seconds after leaving them you gain Minor Mending/i
+		"id": "Undead Confederate",
+		"baseSkillId": 116282,
+		"category": "Item",
+		"statId": "StaminaRegen",
+		"toggle": true,
+		"enabled": false,
+		"match": /While you have a Blastbones, Skeletal Mage, or Spirit Mender active, your Health, Magicka, and Stamina Recovery is increased by ([0-9]+)/i
 	},
 	{
-		id: "Sacred Ground",
-		baseSkillId: 31757,
-		toggle: true,
-		enabled: false,
-		enableOffBar: true,
-		statId: "BlockMitigation",
-		display: "%",
-		match: /Also increases the amount of damage you can block by ([0-9.]+)% for the duration/i
+		"statId": "StatusEffectChance",
+		"display": "%",
+		"statRequireId": "WeaponDestStaff",
+		"statRequireValue": 1,
+		"match": /Increases your chance to apply status effects by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		id: "Medium Armor Bonus: Roll Dodge",
-		baseSkillId: 150181,
-		statId: "AOEDamageTaken",
-		display: "%",
-		factorStatId: "ArmorMedium",
-		factorValue: -1, 
-		toggle: true,
-		enabled: false,
-		rawInputMatch: /(Reduces damage taken from Area of Effect attacks by [0-9.]+% for [0-9.]+ seconds after you use Roll Dodge)/i,
-		match: /Reduces damage taken from Area of Effect attacks by ([0-9.]+)% for /i,
+		"category": "SkillDuration",
+		"statId": "Stonefist",
+		"display": "%",
+		"match": /Increases duration of your Earthen Heart abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		id: "Medium Armor Bonus: Crowd Control",
-		baseSkillId: 150181,
-		statId: "MovementSpeed",
-		display: "%",
-		factorStatId: "ArmorMedium",
-		toggle: true,
-		enabled: false,
-		rawInputMatch: /(Increases Movement Speed by [0-9.]+% while immune to crowd control)/i,
-		match: /Increases Movement Speed by ([0-9.]+)% while immune to crowd control/i,
+		"statRequireId": "Stealthed",
+		"statRequireValue": 1,
+		"category": "Target",
+		"statId": "StunDuration",
+		"display": "%",
+		"match": /Increases the duration of the stun from Sneak by ([0-9]+)%/i
 	},
 	{
-		statId: "MagicDamageTaken",
-		display: "%",
-		factorStatId: "ArmorHeavy",
-		match: /Increases damage taken from Magical attacks by ([0-9.]+)%/i,
+		"id": "Master Assassin",
+		"statId": "StunDuration",
+		"display": "%",
+		"match": /Increases the duration of the stun from Sneak by ([0-9.]+)%/i
 	},
 	{
-		statId: "FrostDamageTaken",
-		display: "%",
-		factorStatId: "ArmorHeavy",
-		match: /Increases damage taken from Magical attacks by ([0-9.]+)%/i,
+		"category": "SkillDuration",
+		"statId": "Summon Shade",
+		"match": /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) second/i
 	},
 	{
-		statId: "ShockDamageTaken",
-		display: "%",
-		factorStatId: "ArmorHeavy",
-		match: /Increases damage taken from Magical attacks by ([0-9.]+)%/i,
+		"category": "SkillDuration",
+		"statId": "Sun Fire",
+		"match": /Increases the duration of your Sun Fire, Eclipse, Solar Flare, and Nova abilities by ([0-9]+\.?[0-9]*) second/i
 	},
 	{
-		statId: "FlameDamageTaken",
-		display: "%",
-		factorStatId: "ArmorHeavy",
-		match: /Increases damage taken from Magical attacks by ([0-9.]+)%[\n\r]+/i,
+		"statId": "SwimSpeed",
+		"display": "%",
+		"match": /Increases your swimming speed by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "SprintSpeed",
-		display: "%",
-		factorStatId: "ArmorHeavy",
-		factorValue: -1, 
-		match: /\s+Reduces the Movement Speed bonus of Sprint by ([0-9.]+)%[\n\r]+/i,
+		"category": "SkillCost",
+		"statId": "Two_Handed_Cost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the cost of your weapon abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "RollDodgeCost",
-		display: "%",
-		factorStatId: "ArmorHeavy",
-		match: /\s+Increases the cost of Roll Dodge by ([0-9.]+)%[\n\r]+/i,
+		"statId": "TwoHandedExperience",
+		"display": "%",
+		"match": /Increases your experience gain with the Two Handed skill line by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "SneakRange",
-		display: "%",
-		factorStatId: "ArmorHeavy",
-		match: /Increases the size of your detection area while Sneaking by ([0-9.]+)%/i,
+		"statId": "UltimateCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the Health, Magicka, Stamina, and Ultimate costs of your abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "PhysicalDamageTaken",
-		display: "%",
-		factorStatId: "ArmorHeavy",
-		factorValue: -1,
-		match: /Reduces damage taken from Martial attacks by ([0-9.]+)%/i,
+		"statId": "UltimateCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the cost of your Ultimate abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "PoisonDamageTaken",
-		display: "%",
-		factorStatId: "ArmorHeavy",
-		factorValue: -1,
-		match: /Reduces damage taken from Martial attacks by ([0-9.]+)%/i,
+		"statId": "UltimateCost",
+		"display": "%",
+		"factorValue": -1,
+		"combineAs": "*%",
+		"match": /Reduces the cost of all your abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "DiseaseDamageTaken",
-		display: "%",
-		factorStatId: "ArmorHeavy",
-		factorValue: -1,
-		match: /Reduces damage taken from Martial attacks by ([0-9.]+)%/i,
+		"category": "SkillCost",
+		"statId": "Undo_Cost",
+		"display": "%",
+		"factorValue": -1,
+		"match": /Reduces the cost of your Psijic Order abilities by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
-		statId: "BleedDamageTaken",
-		display: "%",
-		factorStatId: "ArmorHeavy",
-		factorValue: -1,
-		match: /Reduces damage taken from Martial attacks by ([0-9.]+)%/i,
+		"category": "SkillDuration",
+		"statId": "Veiled Strike",
+		"match": /Increases the duration of your non-invisibility based Shadow abilities by ([0-9]+\.?[0-9]*) second/i
 	},
 	{
-		statId: "BlockMitigation",
-		display: "%",
-		factorStatId: "ArmorHeavy",
-		match: /[\n\r]+Increases the amount of damage blocked by ([0-9.]+)%[\n\r]+/i,
+		"statRequireId": "Weapon1H",
+		"statRequireValue": 2,
+		"factorStatId": "WeaponDagger",
+		"category": "Skill2",
+		"statId": "WeaponCrit",
+		"rawInputMatch": /(Each dagger increases your Critical Chance rating by [0-9]+)/i,
+		"match": /Each dagger increases your Critical Chance rating by ([0-9]+)/i
 	},
 	{
-		statId: "BashDamage",
-		display: "%",
-		factorStatId: "ArmorHeavy",
-		match: /[\n\r]+Increases damage done with Bash by ([0-9.]+)%[\n\r]+/i,
+		"factorSkillLine": "Assassination",
+		"category": "Skill2",
+		"statId": "WeaponCrit",
+		"match": /Increases your Weapon and Spell Critical ratings by ([0-9]+) for each Assassination ability slotted/i
 	},
 	{
-		category: "SkillLineDamage",
-		statId: "Fighters_Guild",
-		display: "%",
-		match: /Your Fighters Guild abilities deal an additional ([0-9]+\.?[0-9]*)% damage/i,
+		"statId": "WeaponCrit",
+		"category": "Skill2",
+		"factorStatId": "ArmorLight",
+		"match": /Increases your Weapon and Spell Critical rating by ([0-9.]+) for each piece of Light Armor equipped/i
 	},
 	{
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		buffId: "Major Gallop",
-		match: /Gain Major Gallop at all times/i,
+		"id": "Death Knell",
+		"baseSkillId": 116197,
+		"statId": "WeaponCrit",
+		"factorSkillLine": "GRAVE LORD",
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"match": /Increases your Critical Strike Chance against enemies under [0-9]+% Health by ([0-9]+)% for each Grave Lord ability slotted/i
 	},
-	
-		/* Begin Toggled Passives */
 	{
-		id: "Deliberation",
-		baseSkillId: 103972,
-		toggle: true,
-		enabled: false,
-		statId: "DamageTaken",
-		factorValue: -1.0,
-		display: "%",
-		match: /While you are casting or channeling a Psijic Order ability you reduce your damage taken by ([0-9]+)%/i,
+		"factorStatId": "ArmorMedium",
+		"statId": "WeaponDamage",
+		"display": "%",
+		"match": /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% for each piece of Medium Armor worn/i
 	},
 	{
-		id: "Light Weaver",
-		baseSkillId: 31760,
-		toggle: true,
-		enabled: false,
-		statId: "PhysicalResist",
-		match: /While you are channeling Rite of Passage, you gain ([0-9]+) Physical and Spell Resistance/i,
+		"statRequireId": "Weapon1H",
+		"statRequireValue": 2,
+		"factorStatId": "WeaponSword",
+		"category": "Skill2",
+		"statId": "WeaponDamage",
+		"rawInputMatch": /(Each sword increases your Weapon and Spell Damage by [0-9]+)/i,
+		"match": /Each sword increases your Weapon and Spell Damage by ([0-9]+)/i
 	},
 	{
-		id: "Light Weaver",
-		baseSkillId: 31760,
-		toggle: true,
-		enabled: false,
-		statId: "SpellResist",
-		match: /While you are channeling Rite of Passage, you gain ([0-9]+) Physical and Spell Resistance/i,
+		"statId": "WeaponDamage",
+		"display": "%",
+		"match": /^Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% and Physical /i
 	},
 	{
-		id: "Continuous Attack",
-		baseSkillId: 39248,
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "WeaponDamage",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		match: /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% and Magicka and Stamina Recovery/i,
+		"factorSkillType": "Sorcerer",
+		"statId": "WeaponDamage",
+		"display": "%",
+		"match": /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% for each Sorcerer ability slotted/i
 	},
 	{
-		id: "Continuous Attack",
-		baseSkillId: 39248,
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "SpellDamage",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		match: /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% and Magicka and Stamina Recovery /i,
+		"factorSkillLine": "Fighters Guild",
+		"statId": "WeaponDamage",
+		"display": "%",
+		"match": /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% for each Fighters Guild ability slotted/i
 	},
 	{
-		id: "Continuous Attack",
-		baseSkillId: 39248,
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "MagickaRegen",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		match: /and Magicka and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i,
+		"statRequireId": "Weapon2H",
+		"statRequireValue": 1,
+		"factorStatId": "WeaponSword",
+		"category": "Skill2",
+		"statId": "WeaponDamage",
+		"match": /Swords increase your Weapon and Spell Damage by ([0-9]+)/i
 	},
 	{
-		id: "Continuous Attack",
-		baseSkillId: 39248,
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "StaminaRegen",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		match: /and Magicka and Stamina Recovery by ([0-9]+\.?[0-9]*)%/i,
+		"statId": "WeaponDamage",
+		"category": "Skill2",
+		"match": /^Increases your Weapon and Spell Damage by ([0-9]+)\./i
 	},
 	{
-		id: "Heavy Armor Bonus: Crowd Control",
-		baseSkillId: 150184,
-		statId: "DamageTaken",
-		display: "%",
-		factorStatId: "ArmorHeavy",
-		factorValue: -1,
-		toggle: true,
-		enabled: false,
-		rawInputMatch: /(Reduces your damage taken while immune to crowd control by [0-9.]+%)/i,
-		match: /Reduces your damage taken while immune to crowd control by ([0-9.]+)%/i,
+		"id": "Continuous Attack",
+		"baseSkillId": 39248,
+		"statRequireId": "Cyrodiil",
+		"statRequireValue": 1,
+		"statId": "WeaponDamage",
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"match": /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% and Magicka and Stamina Recovery/i
 	},
 	{
-		id: "Hemorrhage",
-		buffId: "Minor Savagery",
-		baseSkillId: 36641,
-		toggle: true,
-		enabled: false,
-		rawInputMatch: /(Dealing Critical Damage grants you and your group Minor Savagery, increasing your Weapon Critical rating by [0-9]+ for [0-9]+ seconds\.)/i,
-		match: /Dealing Critical Damage grants you and your group Minor Savagery, increasing your Weapon Critical rating by/i,
-	},
-	{
-		id: "Master Assassin",
-		statId: "WeaponDamage",
-		category: "Item",
-		baseSkillId: 36616,
-		toggle: true,
-		enabled: false,
-		match: /Increases your Weapon and Spell Damage against enemies you are flanking by ([0-9]+)/i,
-	},
-	{
-		id: "Master Assassin",
-		statId: "SpellDamage",
-		category: "Item",
-		baseSkillId: 36616,
-		toggle: true,
-		enabled: false,
-		match: /Increases your Weapon and Spell Damage against enemies you are flanking by ([0-9]+)/i,
-	},
-	{
-		id: "Master Assassin",
-		statId: "PhysicalPenetration",
-		baseSkillId: 36616,
-		toggle: true,
-		enabled: false,
-		match: /Increases your Physical and Spell Penetration against enemies you are flanking by ([0-9]+)/i,
-	},
-	{
-		id: "Master Assassin",
-		statId: "SpellPenetration",
-		baseSkillId: 36616,
-		toggle: true,
-		enabled: false,
-		match: /Increases your Physical and Spell Penetration against enemies you are flanking by ([0-9]+)/i,
-	},
-	{
-		id: "Undeath",
-		baseSkillId: 33093,
-		statRequireId: "VampireStage",
-		statRequireValue: 3,
-		category: "Skill",
-		statId: "DamageTaken",
-		display: "%",
-		factorValue: -1,
-		toggle: true,
-		enabled: false,
-		maxTimes: 30,
-		match: /Reduces your damage taken by up to [0-9]+\.?[0-9]*% based on your missing Health/i,
-	},
-	{
-		id: "Strike from the Shadows",
-		baseSkillId: 33096,
-		statRequireId: "VampireStage",
-		statRequireValue: 2,
-		category: "Skill2",
-		statId: "SpellDamage",
-		toggle: true,
-		enabled: false,
-		match: /When you leave Sneak, invisibility, or Mist Form your Weapon and Spell Damage is increased by ([0-9]+) for/i,
-	},
-	{
-		id: "Strike from the Shadows",
-		baseSkillId: 33096,
-		statRequireId: "VampireStage",
-		statRequireValue: 2,
-		category: "Skill2",
-		statId: "WeaponDamage",
-		toggle: true,
-		enabled: false,
-		match: /When you leave Sneak, invisibility, or Mist Form your Weapon and Spell Damage is increased by ([0-9]+) for/i,
-	},
-	{
-		id: "Glacial Presence",
-		baseSkillId: 86191,
-		statId: "CritDamage",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		match: /Enemies and allies who have recently been Chilled take ([0-9.]+)% more Critical Damage and Healing from you/i
-	},
-	{
-		id: "Glacial Presence",
-		baseSkillId: 86191,
-		statId: "CritHealing",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		match: /Enemies and allies who have recently been Chilled take ([0-9.]+)% more Critical Damage and Healing from you/i
-	},
-	{
-		id: "Reusable Parts",
-		baseSkillId: 116186,
-		category: "SkillCost",
-		statId: "Skeletal_Mage_Cost",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		factorValue: -1,
-		match: /When your Blastbones, Skeletal Mage, or Spirit Mender dies, the cost of your next Blastbones, Skeletal Mage, or Spirit Mender is reduced by ([0-9]+)%/i
-	},
-	{
-		id: "Reusable Parts",
-		baseSkillId: 116186,
-		category: "SkillCost",
-		statId: "Spirit_Mender_Cost",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		factorValue: -1,
-		match: /When your Blastbones, Skeletal Mage, or Spirit Mender dies, the cost of your next Blastbones, Skeletal Mage, or Spirit Mender is reduced by ([0-9]+)%/i
-	},
-	{
-		id: "Reusable Parts",
-		baseSkillId: 116186,
-		category: "SkillCost",
-		statId: "Blastbones_Cost",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		factorValue: -1,
-		match: /When your Blastbones, Skeletal Mage, or Spirit Mender dies, the cost of your next Blastbones, Skeletal Mage, or Spirit Mender is reduced by ([0-9]+)%/i
-	},
-
-	{
-		id: "Disdain Harm",
-		baseSkillId: 116239,
-		statId: "DotDamageTaken",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		factorValue: -1,
-		match: /Reduce the damage you take from damage over time abilities by ([0-9]+)% while you have a Bone Tyrant ability active/i,
-	},
-	{
-		id: "Death Knell",
-		baseSkillId: 116197,
-		statId: "SpellCrit",
-		factorSkillLine: "GRAVE LORD",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		match: /Increases your Critical Strike Chance against enemies under [0-9]+% Health by ([0-9]+)% for each Grave Lord ability slotted/i,
-	},
-	{
-		id: "Death Knell",
-		baseSkillId: 116197,
-		statId: "WeaponCrit",
-		factorSkillLine: "GRAVE LORD",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		match: /Increases your Critical Strike Chance against enemies under [0-9]+% Health by ([0-9]+)% for each Grave Lord ability slotted/i,
-	},
-	{
-		id: "Dismember",
-		baseSkillId: 116192,
-		statId: "SpellPenetration",
-		toggle: true,
-		enabled: false,
-		match: /While a Grave Lord ability is active, your Spell and Physical Penetration are increased by ([0-9]+)/i,
-	},
-	{
-		id: "Dismember",
-		baseSkillId: 116192,
-		statId: "PhysicalPenetration",
-		toggle: true,
-		enabled: false,
-		match: /While a Grave Lord ability is active, your Spell and Physical Penetration are increased by ([0-9]+)/i,
-	},
-	{
-		id: "Curative Curse",
-		baseSkillId: 116286,
-		statId: "HealingDone",
-		toggle: true,
-		enabled: false,
-		display: '%',
-		match: /While you have a negative effect on you, your healing done is increased by ([0-9]+)%/i,
-	},
-	{
-		id: "Near-Death Experience",
-		baseSkillId: 116273,
-		requireSkillLine: "LIVING DEATH",
-		category: "Skill",
-		statId: "HealCrit",
-		display: "%",
-		maxTimes: 20,
-		statValue: 1,
-		toggle: true,
-		enabled: false,
-		match: /While you have a Living Death ability slotted, your Critical Strike Chance with all healing abilities is increased by up to [0-9]+% in proportion to the severity of the target's wounds/i,
-	},
-	{
-		id: "Undead Confederate",
-		baseSkillId: 116282,
-		category: "Item",
-		statId: "MagickaRegen",
-		toggle: true,
-		enabled: false,
-		match: /While you have a Necromancer summon active, your Magicka and Stamina Recovery is increased by ([0-9]+)/i,
-	},
-	{
-		id: "Undead Confederate",
-		baseSkillId: 116282,
-		category: "Item",
-		statId: "StaminaRegen",
-		toggle: true,
-		enabled: false,
-		match: /While you have a Necromancer summon active, your Magicka and Stamina Recovery is increased by ([0-9]+)/i,
-	},
-	{
-		id: "Undead Confederate",
-		baseSkillId: 116282,
-		category: "Item",
-		statId: "MagickaRegen",
-		toggle: true,
-		enabled: false,
-		match: /While you have a Blastbones, Skeletal Mage, or Spirit Mender active, your Magicka and Stamina Recovery is increased by ([0-9]+)/i,
-	},
-	{
-		id: "Undead Confederate",
-		baseSkillId: 116282,
-		category: "Item",
-		statId: "StaminaRegen",
-		toggle: true,
-		enabled: false,
-		match: /While you have a Blastbones, Skeletal Mage, or Spirit Mender active, your Magicka and Stamina Recovery is increased by ([0-9]+)/i,
-	},
-	{
-		id: "Undead Confederate",
-		baseSkillId: 116282,
-		category: "Item",
-		statId: "HealthRegen",
-		toggle: true,
-		enabled: false,
-		match: /While you have a Blastbones, Skeletal Mage, or Spirit Mender active, your Health, Magicka, and Stamina Recovery is increased by ([0-9]+)/i,
-	},
-	{
-		id: "Undead Confederate",
-		baseSkillId: 116282,
-		category: "Item",
-		statId: "MagickaRegen",
-		toggle: true,
-		enabled: false,
-		match: /While you have a Blastbones, Skeletal Mage, or Spirit Mender active, your Health, Magicka, and Stamina Recovery is increased by ([0-9]+)/i,
-	},
-	{
-		id: "Undead Confederate",
-		baseSkillId: 116282,
-		category: "Item",
-		statId: "StaminaRegen",
-		toggle: true,
-		enabled: false,
-		match: /While you have a Blastbones, Skeletal Mage, or Spirit Mender active, your Health, Magicka, and Stamina Recovery is increased by ([0-9]+)/i,
-	},
-	{
-		id: "Amplitude",
-		baseSkillId: 31422,
-		statId: "DamageDone",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		maxTimes: 10,
-		match: /Increases your damage done against enemies by [0-9]+% for every [0-9]+% current Health they have/i,
-	},
-	{
-		id: "Combat Medic",
-		baseSkillId: 39259,
-		statRequireId: "Cyrodiil",
-		statRequireValue: 1,
-		statId: "HealingDone",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		match: /Increases your healing done by ([0-9]+\.?[0-9]*)% when you are near a Keep/i,
-	},
-	{
-		id: "Skilled Tracker",
-		baseSkillId: 40393,
-		category: "SkillLineDamage",
-		statId: "Fighters_Guild",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		match: /Your Fighters Guild abilities deal an additional ([0-9]+\.?[0-9]*)% damage to Undead, Daedra and Werewolves/i,
-	},
-	{
-		id: "Skilled Tracker",
-		baseSkillId: 40393,
-		category: "SkillLineDamage",
-		statId: "Fighters_Guild",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		match: /Your Fighters Guild abilities deal an additional ([0-9]+\.?[0-9]*)% damage. This bonus doubles against player Vampires and Werewolves/i,
-	},
-	{
-		id: "Mending",
-		baseSkillId: 31751,
-		category: "SkillHealing",
-		statId: "Restoring_Light",
-		maxTimes: 12,
-		display: "%",
-		toggle: true,
-		enabled: false,
-		match: /Increases the healing effects from your Restoring Light abilities by up to [0-9]+\.?[0-9]*%, in proportion to the severity of the target's wounds/i,
-	},
-	{
-		id: "Persistence",
-		baseSkillId: 31378,
-		statId: "MagickaCost",
-		factorValue: -1,
-		display: "%",
-		toggle: true,
-		enabled: false,
-		combineAs: "*%",
-		match: /After blocking an attack, your next Health, Magicka, or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i,
-	},
-	{
-		id: "Persistence",
-		baseSkillId: 31378,
-		statId: "StaminaCost",
-		factorValue: -1,
-		display: "%",
-		toggle: true,
-		enabled: false,
-		combineAs: "*%",
-		match: /After blocking an attack, your next Health, Magicka, or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i,
-	},
-	{
-		id: "Persistence",
-		baseSkillId: 31378,
-		statId: "HealthCost",
-		factorValue: -1,
-		display: "%",
-		toggle: true,
-		enabled: false,
-		combineAs: "*%",
-		match: /After blocking an attack, your next Health, Magicka, or Stamina ability costs ([0-9]+\.?[0-9]*)% less/i,
-	},
-	{
-		id: "Restoration Expert",
-		baseSkillId: 30980,
-		statRequireId: "WeaponRestStaff",
-		statRequireValue: 1,
-		statId: "HealingDone",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		match: /WITH RESTORATION STAFF EQUIPPED\sIncreases your healing by ([0-9]+\.?[0-9]*)% on allies under [0-9]+\.?[0-9]*% Health/i,
-	},
-	{
-		id: "Essence Drain",
-		baseSkillId: 30973,
-		statRequireId: "WeaponRestStaff",
-		statRequireValue: 1,
-		buffId: "Major Mending",
-		toggle: true,
-		enabled: false,
-		match: /WITH RESTORATION STAFF EQUIPPED\sYou gain Major Mending for [0-9]+\.?[0-9]* seconds after completing a fully-charged Heavy Attack/i,
-	},
-	{
-		id: "Long Shots",
-		baseSkillId: 30937,
-		statRequireId: "WeaponBow",
-		statRequireValue: 1,
-		category: "SkillLineDamage",
-		statId: "Bow",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		maxTimes: 12,
-		match: /WITH BOW ABILITIES\sGives you a damage bonus of up to [0-9]+% against enemies at longer range./i,
-	},
-	{
-		id: "Hasty Retreat",
-		baseSkillId: 30923,
-		statRequireId: "WeaponBow",
-		statRequireValue: 1,
-		buffId: "Major Expedition",
-		toggle: true,
-		enabled: false,
-		match: /WITH BOW EQUIPPED\sGrants you Major Expedition for [0-9]+ seconds after you use Roll Dodge/i,
-	},
-	{
-		id: "Mountain's Blessing",
-		baseSkillId: 29473,
-		buffId: "Minor Brutality",
-		toggle: true,
-		enabled: false,
-		match: /When you cast an Earthen Heart ability, you and your group members gain Minor Brutality for [0-9]+ seconds/i,
-	},
-	{
-		id: "Follow Up",
-		baseSkillId: 29389,
-		statRequireId: "Weapon2H",
-		statRequireValue: 1,
-		category: "Skill",
-		statId: "DirectDamageDone",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		match: /WITH TWO-HANDED WEAPON EQUIPPED\s*When you deal damage with a fully-charged Heavy Attack, your next direct damage attack used within [0-9]+ seconds deals an additional ([0-9]+\.?[0-9]*)% damage/i,
-	},
-	{
-		id: "Follow Up",
-		baseSkillId: 29389,
-		statRequireId: "Weapon2H",
-		statRequireValue: 1,
-		category: "Skill",
-		statId: "DirectDamageDone",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		match: /WITH TWO-HANDED WEAPON EQUIPPED\s*When you complete a fully-charged Heavy Attack, your next direct damage attack used within [0-9]+ seconds deals an additional ([0-9]+\.?[0-9]*)% damage/i,
-	},
-	{
-		id: "Shadow Barrier",
-		baseSkillId: 18866,
-		buffId: "Major Resolve",
-		toggle: true,
-		enabled: false,
-		match: /Casting a Shadow ability grants you Major Resolve for [0-9]+ seconds/i,
-	},
-	{
-		id: "Shadow Barrier",
-		baseSkillId: 18866,
-		buffId: "Major Ward",
-		toggle: true,
-		enabled: false,
-		match: /Casting a Shadow ability grants you Major Resolve for [0-9]+ seconds/i,
-	},
-	{
-		id: "Ruffian",
-		baseSkillId: 21114,
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		category: "SkillLineDamage",
-		statId: "Dual_Wield",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		match: /WHILE USING DUAL WIELD ATTACKS\s*Gives you a(?:n|) ([0-9]+\.?[0-9]*)% damage bonus when attacking stunned, immobilized, disoriented, or silenced enemies/i,
-	},
-	{
-		id: "Slaughter",
-		baseSkillId: 18929,
-		statRequireId: "Weapon1H",
-		statRequireValue: 2,
-		category: "SkillLineDamage",
-		statId: "Dual_Wield",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		match: /WHILE DUAL WIELDING[\s\S]*?Increases damage with Dual Wield abilities by ([0-9]+\.?[0-9]*)% against enemies with under [0-9]+\.?[0-9]*% health/i,
-	},
-	{
-		id: "Wrath",
-		baseSkillId: 29773,
-		statRequireId: "ArmorHeavy",
-		statRequireValue: 5,
-		category: "Item",
-		statId: "WeaponDamage",
-		toggle: true,
-		enabled: false,
-		maxTimes: 20,
-		match: /WHEN 5 OR MORE PIECES OF HEAVY ARMOR ARE EQUIPPED[\s\S]*?Increases your Weapon and Spell Damage by ([0-9]+) for [0-9]+ seconds when you take damage, stacking up to [0-9]+ times/i
-	},
-	{
-		id: "Wrath",
-		baseSkillId: 29773,
-		statRequireId: "ArmorHeavy",
-		statRequireValue: 5,
-		category: "Item",
-		statId: "SpellDamage",
-		toggle: true,
-		enabled: false,
-		maxTimes: 20,
-		match: /WHEN 5 OR MORE PIECES OF HEAVY ARMOR ARE EQUIPPED[\s\S]*?Increases your Weapon and Spell Damage by ([0-9]+) for [0-9]+ seconds when you take damage, stacking up to [0-9]+ times/i
-	},
-{
-		id: "Burning Heart",
-		// requireSkillLine: "DRACONIC POWER",
-		baseSkillId: 29457,
-		statId: "HealingReceived",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		match: /WHILE USING DRACONIC POWER ABILITIES[\s\S]*?Increases healing received by ([0-9]+\.?[0-9]*)% while a Draconic Power ability is active/i
-	},
-	{
-		id: "Burning Heart",
-		baseSkillId: 29457,
-		statId: "HealingReceived",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		match: /Increases your healing received by ([0-9]+\.?[0-9]*)% while a Draconic Power ability is active./i
-	},
-	{
-		id: "Burning Heart",
-		baseSkillId: 29457,
-		statId: "HealingReceived",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		match: /While a Draconic Power ability is active, your healing received is increased by ([0-9]+\.?[0-9]*)%\./i
-	},
-	{
-		id: "Expert Summoner",
-		baseSkillId: 31412,
-		statId: "Health",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		match: /Increases your Max Health by ([0-9]+\.?[0-9]*)% if you have a Daedric Summoning pet active/i
-	},
-	{
-		id: "Expert Summoner",
-		baseSkillId: 31412,
-		statId: "Health",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		match: /Increases your Max Health by ([0-9]+\.?[0-9]*)% while you have a Daedric Summoning pet active/i
-	},
-	{
-		id: "Expert Summoner",
-		baseSkillId: 31412,
-		statId: "Health",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		match: /Increases your Max Health by ([0-9]+\.?[0-9]*)% while you have a Daedric Summoning ability active/i
-	},
-	{
-		statRequireId: "WeaponBow",
-		statRequireValue: 1,
-		id: "Hawk Eye",
-		baseSkillId: 30936,
-		category: "SkillLineDamage",
-		statId: "Bow",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		maxTimes: 5,
-		match: /WITH A BOW EQUIPPED[\s\S]*?Dealing damage with a Light or Heavy Attack increases the damage of your Bow abilities by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds, stacking up to [0-9]+ times/i,
-	},
-	
-		/* Psijic Order */
-	{
-		category: "SkillCost",
-		statId: "Psijic_Order_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the cost of your Psijic Order abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		category: "SkillCost",
-		statId: "Undo_Cost",
-		display: "%",
-		factorValue: -1,
-		match: /Reduces the cost of your Psijic Order abilities by ([0-9]+\.?[0-9]*)%/i,
-	},
-	{
-		statRequireId: "Weapon2H",
-		statRequireValue: 1,
-		id: "Battle Rush",
-		baseSkillId: 29391,
-		statId: "StaminaRegen",
-		toggle: true,
-		enabled: false,
-		display: "%",
-		match: /WITH TWO-HANDED WEAPON EQUIPPED[\s\S]*?Increases your Stamina Recovery by ([0-9]+\.?[0-9]*)% for [0-9]+ seconds after killing a target/i,
-	},
-		// Update 21
-	{	
-		id: "Spell Attunement",
-		baseSkillId: 36266,
-		statId: "SpellResist",
-		toggle: true,
-		enabled: false,
-		match: /Increases your Spell Resistance by ([0-9]+)\.\s*While you are afflicted with Burning, Chilled, or Concussed, this effect is doubled\./i,
-	},
-	{
-		id: "Spell Recharge",
-		baseSkillId: 35993,
-		statId: "DamageTaken",
-		display: "%",
-		factorValue: -1,
-		toggle: true,
-		enabled: false,
-		match: /When you are using an ability with a channel or cast time, you take ([0-9]+\.?[0-9]*)% less damage/i,
-	},
-	{
-		id: "Hunter's Eye",
-		baseSkillId: 36022,
-		statId: "MovementSpeed",
-		display: "%",
-		toggle: true,
-		enabled: false,
-		match: /Increases your movement speed by ([0-9]+\.?[0-9]*)% and your Physical and Spell Penetration by [0-9]+ for [0-9]+ seconds after you use Roll Dodge./i,
-	},
-	{
-		id: "Hunter's Eye",
-		baseSkillId: 36022,
-		statId: "SpellPenetration",
-		toggle: true,
-		enabled: false,
-		match: /Increases your movement speed by [0-9]+\.?[0-9]*% and your Physical and Spell Penetration by ([0-9]+) for [0-9]+ seconds after you use Roll Dodge./i,
-	},
-	{
-		id: "Hunter's Eye",
-		baseSkillId: 36022,
-		statId: "PhysicalPenetration",
-		toggle: true,
-		enabled: false,
-		match: /Increases your movement speed by [0-9]+\.?[0-9]*% and your Physical and Spell Penetration by ([0-9]+) for [0-9]+ seconds after you use Roll Dodge./i,
-	},
-	{
-		statId: "MovementSpeed",
-		display: "%",
-		match: /Increases your movement speed by ([0-9]+\.?[0-9]*)% and your Physical and Spell Penetration by [0-9]+\./i,
-	},
-	{
-		statId: "SpellPenetration",
-		match: /Increases your movement speed by [0-9]+\.?[0-9]*% and your Physical and Spell Penetration by ([0-9]+)\./i,
-	},
-	{
-		statId: "PhysicalPenetration",
-		match: /Increases your movement speed by [0-9]+\.?[0-9]*% and your Physical and Spell Penetration by ([0-9]+)\./i,
-	},
-	
-		/* End Toggled Passives */
-	
-		// Dragonknight
-	// Increases the damage of your Flame and Poison area of effect abilities by 6%.
-	// Increases the damage of your Burning and Poisoned status effects by 66%.
-	
-		// Templar
-	// Gives you a 25% chance to cause an extra 1803 Damage any time you hit
-	// with an Aedric Spear ability. Deals Physical Damage and scales with
-	// Weapon Damage, or deals Magic Damage and scales with Spell Damage, based
-	// on whichever is higher.
-	
-		// Restoration Staff
-	// WITH RESTORATION STAFF EQUIPPED Increases your healing by 15% on allies under 30% Health.
-	// WITH RESTORATION STAFF EQUIPPED Restores 540 Magicka when you block a spell.
-	// WITH RESTORATION STAFF EQUIPPED Increases healing with Restoration Staff spells by 5%.
-	
-		// Destruction Staff
-	// Grants bonus effects based on the element used:
-		// Fully charged heavy fire attacks deal 12% additional damage.
-		// Fully charged heavy frost attacks grant a damage shield that absorbs
-		// 1809 damage.
-		// Fully charged heavy shock attacks damage nearby enemies for 100% of
-		// the damage done.
-	// Increases your chance to apply the Burning, Concussion, and Chilled
-	// status effects by 100% while you have a Destruction Staff equipped.
-	
-		// Bow
-	// WITH BOW ABILITIES Gives you a damage bonus of up to 12% against enemies
-	// at longer range.
-	
-		// Dual Wield
-	// WHILE DUAL WIELDING Increases damage with Dual Wield abilities by 20%
-	// against enemies with under 25% Health.
-	
-		// One Hand and Shield
-	// WITH ONE HAND WEAPON AND SHIELD EQUIPPED Increases your Movement Speed
-	// while blocking by 60%
-	
-		// Two Handed
-	// Grants a bonus based on the type of weapon equipped:
-		// Axes grant your melee attacks 16% chance to apply a bleed dealing
-		// 5635 Physical Damage over 6 seconds.
-	
-		// Racial
-	// Gives your melee attacks a 10% chance to restore 854 Health.
-	// Restores 361 Stamina whenever you damage an enemy with a melee attack.
-	// This can happen no more than once every 3 seconds.
-	
-		// Emperor
-	// WHILE YOU ARE EMPEROR Increases your damage done with Siege Weapons to
-	// keeps and other Siege Weapons by 100% while in your campaign.
+		"id": "Strike from the Shadows",
+		"baseSkillId": 33096,
+		"statRequireId": "VampireStage",
+		"statRequireValue": 2,
+		"category": "Skill2",
+		"statId": "WeaponDamage",
+		"toggle": true,
+		"enabled": false,
+		"match": /When you leave Sneak, invisibility, or Mist Form your Weapon and Spell Damage is increased by ([0-9]+) for/i
+	}
 ];
 
 
@@ -7657,36 +5122,8 @@ window.ESO_CPEFFECT_MATCHES = [
 ];
 
 
-window.ESO_SETEFFECT_MATCHES = [
-
-// The Morag Tong: (5 items) When you deal direct damage, you cause the enemy to
-// take 10% more damage from all Poison Damage abilities for 5 seconds.
-// Alessia's Bulwark: (5 items) When you take damage from a melee attack, you
-// have a 15% chance to reduce the attacker's Weapon Damage by 10% for 5
-// seconds.
-// Grand Rejuvenation: (2 items) The initial heal of Grand Healing restores 258
-// Stamina to each friendly target affected.
-// Vanguard's Challenge: (5 items) When you taunt an enemy Player, they deal 50%
-// less damage to all other Players but 100% more damage to you for 15 seconds.
-// Jorvuld's Guidance: (5 items) Increases the duration of all Major buffs,
-// Minor buffs, and damage shields you apply to yourself and allies by 40%.
-// Piercing Spray (Perfected): (2 items) When you deal damage with Arrow Spray,
-// you cause enemies hit to take 50% more damage from the direct damage portion
-// of your next Snipe, Scatter Shot, or Poison Arrow used within 6 seconds.
-// Varen's Legacy: When you block an attack, your next direct damage area of
-// effect attack used within 5 seconds deals an additional 3290 damage. This
-// bonus does not work with channeled effects. This effect can occur once every
-// 2 seconds.
-// Vykosa: When you Bash an enemy you've taunted, you frighten them with a
-// deafening howl, lowering their Weapon and Spell Damage by 20% for
-// Draugrkin's Grip: Dealing direct damage to an enemy places a ghostly curse on
-// your enemy for 6 seconds. Cursed enemies take 617 extra damage from all of
-// your damage abilities. This effect can occur once every 9 seconds.
-// Dragon's Appetite: (5 items) Increase your damage done to Bleeding enemies by
-// 225. Dealing non-Bleed damage to Bleeding enemies generates a persistent
-// stack of Dragon's Appetite, up to once per second. After 10 stacks you
-// consume Dragon's Appetite and heal for 6415 Health.
-// Increase the duration of Status Effects you apply by 16 seconds.
+window.ESO_SETEFFECT_MATCHES = 
+[
 	{
 		statId: "PhysicalPenetration",
 		match: /Adds ([0-9]+) Offensive Penetration/i,
@@ -23692,7 +21129,7 @@ window.TestEsoSkillBleed = function (abilityId, skillData)
 	{
 		var match = ESO_SKILL_BLEEDMATCHES[i];
 		var desc = skillData.description.replaceAll("  ", " ").replaceAll("  ", " ");
-
+		
 		if (desc.match(match) != null) numMatches++;
 	}
 	
@@ -24469,6 +21906,153 @@ window.EsoBuildUpdateSetAverageDesc = function(setData)
 }
 
 
+window.TestAllEsoSkillMatches = function()
+{
+	var numMatches = [];
+	var noMatchCount = 0;
+	
+	window.g_EsoGoodActiveMatches = [];
+	window.g_EsoGoodPassiveMatches = [];
+	
+	for (var i = 0; i < ESO_ACTIVEEFFECT_MATCHES.length; ++i)
+	{
+		var matchData = ESO_ACTIVEEFFECT_MATCHES[i];
+		
+		var count = TestAllEsoActiveSkillMatch(matchData);
+		
+		numMatches.push(count);
+		
+		if (count == 0)
+		{
+			EsoBuildLog("Active skill match data had no matches in all skill data!", i, matchData.match)
+			++noMatchCount;
+		}
+		else
+		{
+			g_EsoGoodActiveMatches.push(matchData);
+		}
+	}
+	
+	for (var i = 0; i < ESO_PASSIVEEFFECT_MATCHES.length; ++i)
+	{
+		var matchData = ESO_PASSIVEEFFECT_MATCHES[i];
+		
+		var count = TestAllEsoPassiveSkillMatch(matchData);
+		
+		numMatches.push(count);
+		
+		if (count == 0)
+		{
+			EsoBuildLog("Passive skill match data had no matches in all skill data!", i, matchData.match)
+			++noMatchCount;
+		}
+		else
+		{
+			g_EsoGoodPassiveMatches.push(matchData);
+		}
+	}
+	
+	g_EsoGoodPassiveMatches.sort(TestEsoSkillMatchSort);
+	g_EsoGoodActiveMatches.sort(TestEsoSkillMatchSort);
+	
+	window.g_EsoGoodPassiveMatchesString = TestEsoStringify(g_EsoGoodPassiveMatches);
+	window.g_EsoGoodActiveMatchesString = TestEsoStringify(g_EsoGoodActiveMatches);
+	
+	EsoBuildLog("Found " + noMatchCount + " skill match data out of " + (ESO_ACTIVEEFFECT_MATCHES.length + ESO_PASSIVEEFFECT_MATCHES.length) + " that had no matches in all the skill data.");
+}
+
+
+window.TestEsoStringify = function(obj)
+{
+	RegExp.prototype.toJSON = RegExp.prototype.toString;
+	
+	var out = JSON.stringify(obj, null, '\t');
+	
+	out = out.replaceAll('"match": "/', '"match": /');
+	out = out.replaceAll('"rawInputMatch": "/', '"rawInputMatch": /');
+	out = out.replaceAll('/i"', '/i');
+	out = out.replaceAll('\\\\\\\\', '\\');
+	//out = out.replaceAll('\\n', "\n");
+	//out = out.replaceAll('\\t', "\t");
+	out = out.replaceAll("[\n\\r]", "[\\n\\r]");
+	
+	return out;
+}
+
+
+window.TestEsoSkillMatchSort = function(a, b)
+{
+	var aToggle = a.isToggle ? 1 : 0;
+	var bToggle = b.isToggle ? 1 : 0;
+	
+	if (aToggle != bToggle) return bToggle - aToggle;
+	
+	var aStatId = a.statId ? '' + a.statId : "";
+	var bStatId = b.statId ? '' + b.statId : "";
+	
+	return aStatId.localeCompare(bStatId);
+}
+
+
+window.TestEsoSetMatchSort = function(a, b)
+{
+	var aToggle = a.isToggle ? 1 : 0;
+	var bToggle = b.isToggle ? 1 : 0;
+	
+	if (aToggle != bToggle) return bToggle - aToggle;
+	
+	var aStatId = a.id ? '' + a.id : "";
+	var bStatId = b.id ? '' + b.id : "";
+	
+	if (aStatId != bStatId) return aStatId.localeCompare(bStatId);
+	
+	aStatId = a.statId ? '' + a.statId : "";
+	bStatId = b.statId ? '' + b.statId : "";
+	
+	return aStatId.localeCompare(bStatId);
+}
+
+
+window.TestAllEsoPassiveSkillMatch = function (matchData)
+{
+	var numMatches = 0;
+	
+	for (var id in g_SkillsData)
+	{
+		var skill = g_SkillsData[id];
+		
+		if (skill.isCustom == 1) continue;
+		if (skill.isPlayer == 0) continue;
+		if (skill.isPassive == 0) continue;
+		
+		var rawDesc = RemoveEsoDescriptionFormats(skill.description);
+		if (rawDesc.match(matchData.match)) ++numMatches;
+	}
+	
+	return numMatches;
+}
+
+
+window.TestAllEsoActiveSkillMatch = function (matchData)
+{
+	var numMatches = 0;
+	
+	for (var id in g_SkillsData)
+	{
+		var skill = g_SkillsData[id];
+		
+		if (skill.isCustom == 1) continue;
+		if (skill.isPlayer == 0) continue;
+		if (skill.isPassive == 1) continue;
+		
+		var rawDesc = RemoveEsoDescriptionFormats(skill.description);
+		if (rawDesc.match(matchData.match)) ++numMatches;
+	}
+	
+	return numMatches;
+}
+
+
 window.TestAllEsoSetMatches = function()
 {
 	var numMatches = [];
@@ -24481,10 +22065,13 @@ window.TestAllEsoSetMatches = function()
 		return;
 	}
 	
+	window.g_EsoGoodSetMatches = [];
+	
 	for (var i = 0; i < ESO_SETEFFECT_MATCHES.length; ++i)
 	{
 		var matchData = ESO_SETEFFECT_MATCHES[i];
 		var count = TestAllEsoSetMatch(matchData);
+		
 		numMatches.push(count);
 		
 		if (count == 0) 
@@ -24492,7 +22079,14 @@ window.TestAllEsoSetMatches = function()
 			EsoBuildLog("Set match data had no matches in all current set data!", i, matchData.match)
 			++noMatchCount;
 		}
+		else 
+		{
+			g_EsoGoodSetMatches.push(matchData);
+		}
 	}
+	
+	g_EsoGoodActiveMatches.sort(TestEsoSetMatchSort);
+	window.g_EsoGoodSetMatchesString = TestEsoStringify(g_EsoGoodSetMatches);
 	
 	EsoBuildLog("Found " + noMatchCount + " set match data out of " + ESO_SETEFFECT_MATCHES.length + " that had no matches in all the set data.");
 }
