@@ -2755,6 +2755,22 @@ window.ESO_ACTIVEEFFECT_MATCHES =
 window.ESO_PASSIVEEFFECT_MATCHES = 
 [
 	{
+		"requireSkillLine": "AEDRIC SPEAR",
+		"statId": "CritDamage",
+		"display": "%",
+		"match": /WITH AN AEDRIC SPEAR ABILITY SLOTTED\s+Increases your Critical Damage by ([0-9\.]+)%/i
+	},
+	{
+		"id": "Piercing Spear",
+		"baseSkillId": 31698,
+		"requireSkillLine": "AEDRIC SPEAR",
+		"toggle": true,
+		"enabled": false,
+		"statId": "DamageDone",
+		"display": "%",
+		"match": /Increases your damage done to blocking targets by ([0-9\.]+)%/i
+	},
+	{
 		"id": "Exploitation",
 		"baseSkillId": 31389,
 		"toggle": true,
