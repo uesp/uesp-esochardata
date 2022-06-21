@@ -1753,7 +1753,9 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<h3>Recent Work</h3>
 			<b>21 June 2022</b>
 			<ul>
-				<li>Fixed parsing of the Balanced Blade, Long Shots, Improved Sneak, Restoration Expert, Cycle of Life, Restoration Master, Accuracy, Ranger, Hawk Eye, Battle Rush, Slaughter, Ruffian, Dual Wield Expert, Follow Up, Deflect Bolts, Fortress and Sword and Board passives.</li>
+				<li>Fixed parsing of the Balanced Blade, Long Shots, Improved Sneak, Hemorrhage, Disdain Harm, Restoration Expert, Cycle of Life, Restoration Master, Accuracy, Ranger, Hawk Eye, 
+					Battle Rush, Slaughter, Ruffian, Dual Wield Expert, Follow Up, Deflect Bolts, Fortress and Sword and Board passives.</li>
+				<li>Fixed the Crystal Shard skill toggles and its morphs.</li>
 			</ul>
 			<p>
 			<b>20 June 2022</b>

@@ -2063,17 +2063,6 @@ window.ESO_ACTIVEEFFECT_MATCHES =
 		"match": /you gain Minor Resolve/i
 	},
 	{
-		"id": "Crystal Weapon (Debuff)",
-		"matchSkillName": false,
-		"baseSkillId": 47552,
-		"toggle": true,
-		"enabled": false,
-		"enableOffBar": true,
-		"buffId": "Crystal Weapon",
-		"rawInputMatch": /(and reducing the target's Armor by ([0-9]+) for [0-9]+ seconds\.)/i,
-		"match": /and reducing the target's Armor by ([0-9]+) for/i
-	},
-	{
 		"id": "Immovable",
 		"baseSkillId": 41082,
 		"toggle": true,
@@ -2404,18 +2393,6 @@ window.ESO_ACTIVEEFFECT_MATCHES =
 		"match": /Goliath, increasing your Max Health by ([0-9]+) for/i
 	},
 	{
-		"id": "Crystal Weapon (Cost)",
-		"matchSkillName": false,
-		"baseSkillId": 47552,
-		"toggle": true,
-		"enabled": false,
-		"enableOffBar": true,
-		"statId": "HealthCost",
-		"factorValue": -1,
-		"display": "%",
-		"match": /After casting, your next non-Ultimate ability used within [0-9]+ seconds costs ([0-9.]+)% less/i
-	},
-	{
 		"id": "Ferocious Roar",
 		"baseSkillId": 42145,
 		"matchSkillName": true,
@@ -2461,7 +2438,33 @@ window.ESO_ACTIVEEFFECT_MATCHES =
 		"match": /While slotted, the cost of all your abilities are reduced by ([0-9]+)%/i
 	},
 	{
-		"id": "Crystal Weapon (Cost)",
+		"id": "Crystal Weapon",
+		"displayName": "Crystal Weapon",
+		"matchSkillName": true,
+		"baseSkillId": 47552,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"buffId": "Crystal Weapon",
+		"rawInputMatch": /(and reducing the target's Armor by ([0-9]+) for [0-9]+ seconds\.)/i,
+		"match": /and reducing the target's Armor by ([0-9]+) for/i
+	},
+	{
+		"id": "Crystal Shard",
+		"displayName": "Crystal Shard",
+		"matchSkillName": false,
+		"baseSkillId": 47552,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"statId": "HealthCost",
+		"factorValue": -1,
+		"display": "%",
+		"match": /Your next non-Ultimate ability (?:cast|used) within [0-9]+ seconds costs ([0-9.]+)% less/i
+	},
+	{
+		"id": "Crystal Shard",
+		"displayName": "Crystal Shard",
 		"matchSkillName": false,
 		"baseSkillId": 47552,
 		"toggle": true,
@@ -2470,8 +2473,49 @@ window.ESO_ACTIVEEFFECT_MATCHES =
 		"statId": "MagickaCost",
 		"factorValue": -1,
 		"display": "%",
-		"rawInputMatch": /(After casting, your next non-Ultimate ability used within [0-9]+ seconds costs [0-9.]+% less\.)/i,
-		"match": /After casting, your next non-Ultimate ability used within [0-9]+ seconds costs ([0-9.]+)% less/i
+		"match": /Your next non-Ultimate ability (?:cast|used) within [0-9]+ seconds costs ([0-9.]+)% less/i
+	},
+	{
+		"id": "Crystal Shard",
+		"displayName": "Crystal Shard",
+		"matchSkillName": false,
+		"baseSkillId": 47552,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"statId": "StaminaCost",
+		"factorValue": -1,
+		"display": "%",
+		"match": /Your next non-Ultimate ability (?:cast|used) within [0-9]+ seconds costs ([0-9.]+)% less/i
+	},
+	{
+		"id": "Crystal Fragments",
+		"displayName": "Crystal Fragments",
+		"matchSkillName": true,
+		"baseSkillId": 47552,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"category": "SkillDamage",
+		"statId": "Crystal Fragments",
+		"display": "%",
+		"rawInputMatch": /(While slotted casting a Health, Magicka, or Stamina ability has a [0-9]+% chance of causing your next Crystal Fragments to be instant, deal [0-9]+% more damage, and cost [0-9]+% less Magicka\.)/i,
+		"match": /While slotted casting a Health, Magicka, or Stamina ability has a [0-9]+% chance of causing your next Crystal Fragments to be instant, deal ([0-9]+)% more damage, and cost [0-9]+% less Magicka\./i
+	},
+	{
+		"id": "Crystal Fragments",
+		"displayName": "Crystal Fragments",
+		"matchSkillName": true,
+		"baseSkillId": 47552,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"category": "SkillCost",
+		"statId": "Crystal_Fragments_Cost",
+		"factorValue": -1,
+		"display": "%",
+		"rawInputMatch": /(While slotted casting a Health, Magicka, or Stamina ability has a [0-9]+% chance of causing your next Crystal Fragments to be instant, deal [0-9]+% more damage, and cost [0-9]+% less Magicka\.)/i,
+		"match": /While slotted casting a Health, Magicka, or Stamina ability has a [0-9]+% chance of causing your next Crystal Fragments to be instant, deal [0-9]+% more damage, and cost ([0-9]+)% less Magicka\./i
 	},
 	{
 		"id": "Equilibrium",
@@ -2644,18 +2688,6 @@ window.ESO_ACTIVEEFFECT_MATCHES =
 		"match": /While slotted, the cost of all your abilities are reduced by ([0-9]+)%/i
 	},
 	{
-		"id": "Crystal Weapon (Cost)",
-		"matchSkillName": false,
-		"baseSkillId": 47552,
-		"toggle": true,
-		"enabled": false,
-		"enableOffBar": true,
-		"statId": "StaminaCost",
-		"factorValue": -1,
-		"display": "%",
-		"match": /After casting, your next non-Ultimate ability used within [0-9]+ seconds costs ([0-9.]+)% less/i
-	},
-	{
 		"statId": "StaminaRegen",
 		"display": "%",
 		"match": /While slotted, your Stamina Recovery is increased by ([0-9]+\.?[0-9]*)%/i
@@ -2754,6 +2786,22 @@ window.ESO_ACTIVEEFFECT_MATCHES =
 
 window.ESO_PASSIVEEFFECT_MATCHES = 
 [
+	{
+		requireSkillLine: "Assassination",
+		statId: "CritDamage",
+		display: "%",
+		match: /WITH AN ASSASSINATION ABILITY SLOTTED\s+Increases your Critical Damage by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		id: "Disdain Harm",
+		baseSkillId: 116239,
+		statId: "DotDamageTaken",
+		display: "%",
+		toggle: true,
+		enabled: false,
+		factorValue: -1,
+		match: /Reduce the damage you take from damage over time abilities by ([0-9]+)% while you have a Bone Tyrant ability active/i,
+	},
 	{
 		statRequireId: "WeaponRestStaff",
 		statRequireValue: 1,

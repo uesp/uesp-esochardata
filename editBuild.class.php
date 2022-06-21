@@ -170,6 +170,8 @@ class EsoBuildDataEditor
 			"VampireStage",
 			"WerewolfStage",
 			"SkillCost.Simmering_Frenzy_Cost",
+			"SkillCost.Crystal_Fragments_Cost",
+			"SkillDamage.Crystal Fragments",
 			"SkillCost.Regular_Ability_Cost",
 			"SkillCost.Ardent_Flame_Cost",
 			"SkillCost.Draconic_Power_Cost",
@@ -779,6 +781,9 @@ class EsoBuildDataEditor
 			"SkillCost.Regular_Ability_Cost" => array(
 					"display" => "%",
 			),
+			
+			"SkillDamage.Crystal Fragments" => array( "display" => "%" ),
+			"SkillCost.Crystal_Fragments_Cost" => array( "display" => "%" ),
 			
 			"SkillCost.Undaunted_Cost" => array(
 					"display" => "%",
