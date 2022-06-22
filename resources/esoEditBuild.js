@@ -6673,7 +6673,7 @@ window.ESO_SETEFFECT_MATCHES =
 		toggle: true,
 		enabled: false,
 		buffId: "Vastaries Tutelage",
-		match: / When you resurrect an ally, you and your ally gain ([0-9]+) Weapon and Spell Damage and ([0-9]+)% cost reduction/i,
+		match: /When you resurrect an ally, you and your ally gain ([0-9]+) Weapon and Spell Damage and ([0-9]+)% cost reduction/i,
 	},
 	{
 		id: "Spaulder of Ruin",
@@ -22284,7 +22284,10 @@ window.TestAllEsoPassiveSkillMatch = function (matchData)
 		if (skill.isPlayer == 0) continue;
 		if (skill.isPassive == 0) continue;
 		
-		var rawDesc = RemoveEsoDescriptionFormats(skill.description);
+		var desc = skill.description;
+		if (skill.descHeader) desc = skill.descHeader + "\n" + desc;
+		
+		var rawDesc = RemoveEsoDescriptionFormats(desc);
 		if (rawDesc.match(matchData.match)) ++numMatches;
 	}
 	
@@ -22304,7 +22307,10 @@ window.TestAllEsoActiveSkillMatch = function (matchData)
 		if (skill.isPlayer == 0) continue;
 		if (skill.isPassive == 1) continue;
 		
-		var rawDesc = RemoveEsoDescriptionFormats(skill.description);
+		var desc = skill.description;
+		if (skill.descHeader) desc = skill.descHeader + "\n" + desc;
+		
+		var rawDesc = RemoveEsoDescriptionFormats(desc);
 		if (rawDesc.match(matchData.match)) ++numMatches;
 	}
 	
@@ -22333,7 +22339,7 @@ window.TestAllEsoSetMatches = function()
 		
 		numMatches.push(count);
 		
-		if (count == 0) 
+		if (count == 0)
 		{
 			EsoBuildLog("Set match data had no matches in all current set data!", i, matchData.match)
 			++noMatchCount;
@@ -22344,10 +22350,19 @@ window.TestAllEsoSetMatches = function()
 		}
 	}
 	
-	g_EsoGoodActiveMatches.sort(TestEsoSetMatchSort);
-	window.g_EsoGoodSetMatchesString = TestEsoStringify(g_EsoGoodSetMatches);
+	g_EsoGoodSetMatches.sort(TestEsoSetMatchSort);
+	window.g_EsoGoodSetMatches = TestEsoStringify(g_EsoGoodSetMatches);
 	
 	EsoBuildLog("Found " + noMatchCount + " set match data out of " + ESO_SETEFFECT_MATCHES.length + " that had no matches in all the set data.");
+}
+
+
+window.TestAllEsoSetMatchDesc = function (setDesc, match)
+{
+	if (match == null || setDesc == null) return false;
+	
+	var desc = setDesc.replace(/([0-9]+)-([0-9]+)/, '$2');
+	return desc.match(match);
 }
 
 
@@ -22359,11 +22374,18 @@ window.TestAllEsoSetMatch = function (matchData)
 	{
 		var setData = g_EsoBuildAllSetData[i];
 		
-		if (setData.setBonusDesc1.match(matchData.match)) ++numMatches;
-		if (setData.setBonusDesc2.match(matchData.match)) ++numMatches;
-		if (setData.setBonusDesc3.match(matchData.match)) ++numMatches;
-		if (setData.setBonusDesc4.match(matchData.match)) ++numMatches;
-		if (setData.setBonusDesc5.match(matchData.match)) ++numMatches;
+		if (TestAllEsoSetMatchDesc(setData.setBonusDesc1, matchData.match)) ++numMatches;
+		if (TestAllEsoSetMatchDesc(setData.setBonusDesc2, matchData.match)) ++numMatches;
+		if (TestAllEsoSetMatchDesc(setData.setBonusDesc3, matchData.match)) ++numMatches;
+		if (TestAllEsoSetMatchDesc(setData.setBonusDesc4, matchData.match)) ++numMatches;
+		if (TestAllEsoSetMatchDesc(setData.setBonusDesc5, matchData.match)) ++numMatches;
+		if (TestAllEsoSetMatchDesc(setData.setBonusDesc6, matchData.match)) ++numMatches;
+		if (TestAllEsoSetMatchDesc(setData.setBonusDesc7, matchData.match)) ++numMatches;
+		if (TestAllEsoSetMatchDesc(setData.setBonusDesc8, matchData.match)) ++numMatches;
+		if (TestAllEsoSetMatchDesc(setData.setBonusDesc9, matchData.match)) ++numMatches;
+		if (TestAllEsoSetMatchDesc(setData.setBonusDesc10, matchData.match)) ++numMatches;
+		if (TestAllEsoSetMatchDesc(setData.setBonusDesc11, matchData.match)) ++numMatches;
+		if (TestAllEsoSetMatchDesc(setData.setBonusDesc12, matchData.match)) ++numMatches;
 	}
 	
 	return numMatches;
