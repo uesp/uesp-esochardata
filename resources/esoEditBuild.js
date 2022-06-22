@@ -22359,7 +22359,7 @@ window.TestAllEsoSetMatches = function()
 
 window.TestAllEsoSetMatchDesc = function (setDesc, match)
 {
-	if (match == null || setDesc == null) return false;
+	if (match == null || setDesc == null || setDesc == "") return false;
 	
 	var desc = setDesc.replace(/([0-9]+)-([0-9]+)/, '$2');
 	return desc.match(match);
