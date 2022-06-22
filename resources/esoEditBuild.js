@@ -22436,7 +22436,7 @@ window.esotbOnDocReady = function ()
 	$("#esotbStatList").find(".esotbStatDetailsButton").click(OnEsoClickStatDetails);
 	$("#esotbStatList").find(".esotbStatWarningButton").click(OnEsoClickStatWarningButton);
 	$("#esotbStatList").find(".esotbStatNoteButton").click(OnEsoClickStatWarningButton);
-	$("#esotbStealth").click(OnEsoClickStealth);	
+	$("#esotbStealth").click(OnEsoClickStealth);
 	$("#esotbCyrodiil").click(OnEsoClickCyrodiil);
 	$("#esotbMitigationBlock").click(OnEsoClickMitigationBlock);
 	$("#esotbMitigationPVP").click(OnEsoClickMitigationPVP);
@@ -22479,7 +22479,7 @@ window.esotbOnDocReady = function ()
 	$(".esotbItemTransmuteList").change(OnEsoTransmuteListChange);
 	
 	$(".esotbItemButton").click(OnEsoItemButtonClick);
-	$(".esotbItemTransmute").click(OnEsoItemButtonClick);	
+	$(".esotbItemTransmute").click(OnEsoItemButtonClick);
 	
 	if ((window.g_EsoSkillIsMobile == null || !window.g_EsoSkillIsMobile) && window.skin != "minerva")
 	{
