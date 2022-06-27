@@ -14,6 +14,7 @@
  * 		- Minor/Major Magicka
  * 		- Potions/Poison
  * 		- Make Rallying Cry a buff (needs maxTimes capability added to buffs).
+ * 		- Multiple skill tooltips for set tooltip parsing/updating.
  *  
  */
 

@@ -1751,6 +1751,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>27 June 2022</b>
+			<ul>
+				<li>Fixed the Syvarra's Scales set tooltip and possibly a few others.</li>
+			</ul>
+			<p>
 			<b>21 June 2022</b>
 			<ul>
 				<li>Fixed parsing of the Balanced Blade, Long Shots, Improved Sneak, Hemorrhage, Disdain Harm, Restoration Expert, Cycle of Life, Restoration Master, Accuracy, Ranger, Hawk Eye, 

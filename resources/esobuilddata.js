@@ -30,7 +30,7 @@ g_EsoBuildLastInputValues.PetDamageDone = 0;
 g_EsoBuildLastInputValues.CoralRiptide = 0;
 
 
-
+	// TODO: This is unused with the new tooltip system?
 window.ESO_SETPROCDAMAGE_DATA = 
 {
 		"adept rider" : {
@@ -3288,13 +3288,16 @@ window.UpdateEsoBuildSetTooltips = function(setDesc)
 		var tooltip = setSkillsData.tooltips[i];
 		if (tooltip.coefType != -75) continue;
 		
-		var matchDesc = rawDesc.replaceAll("<<" + i + ">>", "(" + valueMatch + ")");
+		var matchDesc = rawDesc.replaceAll(".", '\\.'); 
+		matchDesc = matchDesc.replaceAll("<<" + i + ">>", "(" + valueMatch + ")");
 		matchDesc = matchDesc.replaceAll(/<<[0-9]+>>/g, valueMatch);
 		matchDesc = matchDesc.replaceAll(/[0-9]+/g, valueMatch);
 		matchDesc = matchDesc.replaceAll("\n", '');
+		
 		var matchRegExp = new RegExp(matchDesc, 'i');
 		
-		var replaceDesc = rawDesc.replaceAll("<<" + i + ">>", ")(" + valueMatch + ")(");
+		var replaceDesc = rawDesc.replaceAll(".", '\\.'); 
+		replaceDesc = replaceDesc.replaceAll("<<" + i + ">>", ")(" + valueMatch + ")(");
 		replaceDesc = "(" + replaceDesc.replaceAll(/<<[0-9]+>>/g, valueMatch) + ")";
 		replaceDesc = replaceDesc.replaceAll(/[0-9]+/g, valueMatch);
 		replaceDesc = replaceDesc.replaceAll("\n", "<br />");
@@ -3336,7 +3339,8 @@ window.UpdateEsoBuildSetTooltips = function(setDesc)
 		}
 	}
 	
-	var matchDesc = rawDesc.replaceAll(/<<[0-9]+>>/g, valueMatch);
+	var matchDesc = rawDesc.replaceAll(".", '\\.');
+	matchDesc = matchDesc.replaceAll(/<<[0-9]+>>/g, valueMatch);
 	matchDesc = matchDesc.replaceAll(/[0-9]+/g, valueMatch);
 	matchDesc = matchDesc.replaceAll("\n", "<br>");
 	var matchRegExp = new RegExp(matchDesc, 'i');
