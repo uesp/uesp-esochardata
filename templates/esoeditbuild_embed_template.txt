@@ -1782,6 +1782,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>35pts: Fixed the Crystal Weapon skill toggle.</li>
 				<li>35pts: Concealed Weapon now gives you Minor Expedition when slotted.</li>
 				<li>35pts: Fixed the Warden's Advanced Species passive.</li>
+				<li>Added toggle for the Force of Nature CP.</li>
 			</ul>
 			<p>
 			<b>15 July 2022</b>

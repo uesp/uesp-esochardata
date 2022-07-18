@@ -5451,6 +5451,25 @@ window.ESO_CPEFFECT_MATCHES = [
 		factorValue: -1,
 		match: /Reduces your damage taken by [0-9.]+% per stage while Blocking and under the effects of a Damage Shield.*\s*Current (?:value|bonus): ([0-9\.]+)/i,
 	},
+	{
+		id: "Force of Nature",
+		toggle: true,
+		enable: false,
+		category: "CP",
+		maxTimes: 8,
+		statId: "SpellPenetration",
+		match: /Increases your offensive penetration by ([0-9\.]+) for every status effect/i,
+	},
+	{
+		id: "Force of Nature",
+		toggle: true,
+		enable: false,
+		category: "CP",
+		maxTimes: 8,
+		statId: "PhysicalPenetration",
+		match: /Increases your offensive penetration by ([0-9\.]+) for every status effect/i,
+	},
+	
 
 ];
 
