@@ -1863,7 +1863,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.05,
+			value : 0.10,
 			display: "%",
 			category: "Buff",
 			statId : "DamageDone",
