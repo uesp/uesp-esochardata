@@ -87,6 +87,34 @@ window.g_EsoInputStatSources = {};
 
 window.g_EsoBuildUpdatedOffBarEnchantFactor = false;
 
+window.ESOBUILD_RAWOUTPUT_LABELSUFFIX = 
+{
+	"SkillBonusWeaponDmg" : "WeaponDamage",
+	"SkillBonusSpellDmg" : "SpellDamage",
+	"SkillLineWeaponDmg" : "WeaponDamage",
+	"SkillLineSpellDmg" : "SpellDamage",
+};
+
+window.ESOBUILD_RAWOUTPUT_LABELREPLACEMENT =
+{
+		"CP.Enabled" : "CP Enabled",
+		"Skill.HAStaRestoreWerewolf": "HA Stamina Restore Werewolf",
+		"CP.RollDodgeCost": "Dodge Roll Cost",
+		"Skill.RollDodgeCost": "Dodge Roll Cost",
+		"Set.RollDodgeCost": "Dodge Roll Cost",
+		"Buff.RollDodgeCost": "Dodge Roll Cost",
+		"Skill2.RollDodgeCost": "Dodge Roll Cost",
+		"Item.RollDodgeCost": "Dodge Roll Cost",
+		"SkillLineDamage.Bow" : "Bow Damage",
+		"SkillLineDamage.Duel_Wield" : "Duel Wield Damage",
+		"SkillHealing.Green_Balance" : "Green Balance Healing",
+		"SkillHealing.Restoration_Staff" : "Restoration Staff Healing",
+		"SkillHealing.Restoring_Light" : "Restoring Light Healing",
+		"Skill.HAMagRestore" : "Heavy Attack Magicka Restore",
+		"Skill.HAStaRestore" : "Heavy Attack Stamina Restore",
+		"Skill2.LADamage" : "Light Attack Bonus Damage",
+		"Skill2.HADamage" : "Heavy Attack Bonus Damage",
+};
 
 window.ESO_ITEMQUALITYLEVEL_INTTYPEMAP = 
 {
@@ -325,6 +353,16 @@ window.g_EsoBuildBuffData =
 			category: "Set",
 			statIds : [ "SpellResist", "PhysicalResist"],
 			icon : "/esoui/art/icons/ability_debuff_minor_fracture.png",
+		},
+		"Langour" : {
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : -248,
+			category: "Set",
+			statIds : [ "MagickaRegen", "StaminaRegen"],
+			icon : "/esoui/art/icons/ability_mage_060.png",
 		},
 		"Crimson Oath`s Rive (Target)" : {
 			group: "Target",
@@ -2008,6 +2046,18 @@ window.g_EsoBuildBuffData =
 
 window.g_EsoBuildBuffData_PTS =
 {
+		"Empower" :
+		{
+			group: "Other",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 1800,
+			category: "Skill2",
+			statIds : [ "LADamage", "HADamage" ],
+			statDescs : ["Increases the damage of your Light Attacks by ", "Increases the damage of your Heavy Attacks by", ],
+			icon : "/esoui/art/icons/ability_warrior_012.png",
+		},
 };
 
 
@@ -2351,6 +2401,16 @@ window.ESO_ACTIVEEFFECT_MATCHES =
 		"toggle": true,
 		"enabled": false,
 		"enableOffBar": true,
+		"buffId": "Empower",
+		"match": /You also gain empower for the duration/i
+	},
+	{
+		"id": "Molten Weapons",
+		"displayName": "Molten Armaments",
+		"baseSkillId": 32156,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
 		"statId": "HADamage",
 		"display": "%",
 		"match": /Your own damage with Heavy Attacks is increased by ([0-9]+\.?[0-9]*)% while active/i
@@ -2447,8 +2507,8 @@ window.ESO_ACTIVEEFFECT_MATCHES =
 		"enabled": false,
 		"enableOffBar": true,
 		"buffId": "Crystal Weapon",
-		"rawInputMatch": /(and reducing the target's Armor by ([0-9]+) for [0-9]+ seconds\.)/i,
-		"match": /and reducing the target's Armor by ([0-9]+) for/i
+		"rawInputMatch": /(and reduc(?:e|ing) the target's Armor by ([0-9]+) for [0-9]+ seconds\.)/i,
+		"match": /and reduc(?:e|ing) the target's Armor by ([0-9]+) for/i
 	},
 	{
 		"id": "Crystal Shard",
@@ -2607,8 +2667,11 @@ window.ESO_ACTIVEEFFECT_MATCHES =
 		"statId": "SneakSpeed",
 		"category": "Skill",
 		"display": "%",
-		"rawInputMatch": /(While slotted, your Movement Speed while Sneaking or invisible is increased by [0-9]+\.?[0-9]*%\.)/i,
 		"match": /While slotted, your Movement Speed while Sneaking or invisible is increased by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		"buffId": "Minor Expedition",
+		"match": /While slotted, you gain Minor Expedition/i
 	},
 	{
 		"id": "Flawless Dawnbreaker",
@@ -3403,6 +3466,16 @@ window.ESO_PASSIVEEFFECT_MATCHES =
 		"statId": "DamageDone",
 		"display": "%",
 		"match": /Increases your damage done by ([0-9]+\.?[0-9]*)% for each Animal Companion ability slotted/i
+	},
+	{
+		"factorSkillLine": "ANIMAL COMPANIONS",
+		"statId": "SpellPenetration",
+		"match": /Increases your Armor Penetration by ([0-9]+) for each Animal Companion ability slotted/i
+	},
+	{
+		"factorSkillLine": "ANIMAL COMPANIONS",
+		"statId": "PhysicalPenetration",
+		"match": /Increases your Armor Penetration by ([0-9]+) for each Animal Companion ability slotted/i
 	},
 	{
 		"id": "Amplitude",
@@ -6521,6 +6594,65 @@ window.ESO_SETEFFECT_MATCHES =
 		buffId: "Major Heroism",
 		match: /and gain Major Berserk, Major Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Major Force, Major Protection, Major Resolve, Minor Fortitude, Minor Intellect, Minor Endurance, and Major Heroism/i,
 	},
+
+
+	{
+		buffId: "Major Berserk",
+		match: /and gain Minor Berserk, Minor Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Minor Force, Minor Protection, Major Resolve, Minor Mending, Minor Fortitude, Minor Intellect, Minor Endurance, and Minor Heroism/i,
+	},
+	{
+		buffId: "Minor Courage",
+		match: /and gain Minor Berserk, Minor Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Minor Force, Minor Protection, Major Resolve, Minor Mending, Minor Fortitude, Minor Intellect, Minor Endurance, and Minor Heroism/i,
+	},
+	{
+		buffId: "Major Brutality",
+		match: /and gain Minor Berserk, Minor Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Minor Force, Minor Protection, Major Resolve, Minor Mending, Minor Fortitude, Minor Intellect, Minor Endurance, and Minor Heroism/i,
+	},
+	{
+		buffId: "Major Sorcery",
+		match: /and gain Minor Berserk, Minor Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Minor Force, Minor Protection, Major Resolve, Minor Mending, Minor Fortitude, Minor Intellect, Minor Endurance, and Minor Heroism/i,
+	},
+	{
+		buffId: "Major Prophecy",
+		match: /and gain Minor Berserk, Minor Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Minor Force, Minor Protection, Major Resolve, Minor Mending, Minor Fortitude, Minor Intellect, Minor Endurance, and Minor Heroism/i,
+	},
+	{
+		buffId: "Major Savagery",
+		match: /and gain Minor Berserk, Minor Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Minor Force, Minor Protection, Major Resolve, Minor Mending, Minor Fortitude, Minor Intellect, Minor Endurance, and Minor Heroism/i,
+	},
+	{
+		buffId: "Minor Force",
+		match: /and gain Minor Berserk, Minor Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Minor Force, Minor Protection, Major Resolve, Minor Mending, Minor Fortitude, Minor Intellect, Minor Endurance, and Minor Heroism/i,
+	},
+	{
+		buffId: "Minor Protection",
+		match: /and gain Minor Berserk, Minor Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Minor Force, Minor Protection, Major Resolve, Minor Mending, Minor Fortitude, Minor Intellect, Minor Endurance, and Minor Heroism/i,
+	},
+	{
+		buffId: "Major Resolve",
+		match: /and gain Minor Berserk, Minor Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Minor Force, Minor Protection, Major Resolve, Minor Mending, Minor Fortitude, Minor Intellect, Minor Endurance, and Minor Heroism/i,
+	},
+	{
+		buffId: "Minor Mending",
+		match: /and gain Minor Berserk, Minor Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Minor Force, Minor Protection, Major Resolve, Minor Mending, Minor Fortitude, Minor Intellect, Minor Endurance, and Minor Heroism/i,
+	},
+	{
+		buffId: "Minor Fortitude",
+		match: /and gain Minor Berserk, Minor Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Minor Force, Minor Protection, Major Resolve, Minor Mending, Minor Fortitude, Minor Intellect, Minor Endurance, and Minor Heroism/i,
+	},
+	{
+		buffId: "Minor Intellect",
+		match: /and gain Minor Berserk, Minor Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Minor Force, Minor Protection, Major Resolve, Minor Mending, Minor Fortitude, Minor Intellect, Minor Endurance, and Minor Heroism/i,
+	},
+	{
+		buffId: "Minor Endurance",
+		match: /and gain Minor Berserk, Minor Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Minor Force, Minor Protection, Major Resolve, Minor Mending, Minor Fortitude, Minor Intellect, Minor Endurance, and Minor Heroism/i,
+	},
+	{
+		buffId: "Minor Heroism",
+		match: /and gain Minor Berserk, Minor Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Minor Force, Minor Protection, Major Resolve, Minor Mending, Minor Fortitude, Minor Intellect, Minor Endurance, and Minor Heroism/i,
+	},
+	
 	{
 		statId: "DirectRangeSpellDamage",
 		match: /Adds ([0-9]+) Weapon and Spell Damage to your ranged direct damage abilities./i,
@@ -6668,6 +6800,40 @@ window.ESO_SETEFFECT_MATCHES =
 	
 	
 		// Optionally toggled set effects
+	{
+		id: "Sergeant's Mail",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		maxTimes: 4,
+		category: "Skill2",
+		statId: "HADamage",
+		match: /When you deal damage with a Heavy Attack, you gain a stack of Sergeant's Focus for [0-9]+ seconds, increasing the damage of your Heavy Attacks by ([0-9]+) per stack/i,
+	},
+	{
+		id: "Grave Inevitability",
+		setBonusCount: 4,
+		buffId: "Major Force",
+		toggle: true,
+		enabled: false,
+		match: /While you have [0-9]+ stacks, you generate an aura of focus, granting you Major Force,/i,
+	},
+	{	id: "Pangrit Denmother",
+		setBonusCount: 5,
+		buffId: "Minor Courage",
+		toggle: true,
+		enabled: false,
+		match: /When you Block, you and up to [0-9]+ group members within [0-9]+ meters gain Minor Courage/i,
+	},
+	{
+		id: "Langour of Peryite",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		statId: "DamageDone",
+		display: "%",
+		match: /You deal ([0-9.]+)% increased damage to blocking players/i,
+	},
 	{
 		id: "Vastarie's Tutelage",
 		setBonusCount: 6,
@@ -8081,8 +8247,8 @@ window.ESO_SETEFFECT_MATCHES =
 		toggle: true,
 		enabled: false,
 		buffId: "Empower",
-		rawInputMatch: /(When you use a fully charged Heavy Attack you gain Empower for [0-9]+ seconds, increasing the damage of your Light and Heavy Attacks by [0-9]+%)/i,
-		match: /When you use a fully charged Heavy Attack you gain Empower for [0-9]+ seconds, increasing the damage of your Light and Heavy Attacks by [0-9]+%/i,
+		rawInputMatch: /(When you use a fully charged Heavy Attack you gain Empower for [0-9]+ seconds, increasing the damage of your Light and Heavy Attacks by [0-9%]+)/i,
+		match: /When you use a fully charged Heavy Attack you gain Empower for [0-9]+ seconds, increasing the damage of your Light and Heavy Attacks by/i,
 	},
 	{
 		id: "The Arch-Mage",
@@ -8803,6 +8969,27 @@ window.ESO_SETEFFECT_MATCHES =
 		match: /When you gain [0-9]+ stacks, you become Frenzied for [0-9]+ seconds, increasing your melee Light Attack damage by [0-9]+% and attack speed by ([0-9]+)%/i,
 	},
 	{
+		id: "Blood Moon",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "LAMeleeSpeed",
+		factorValue: -1,
+		display: "%",
+		match: /When you gain [0-9]+ stacks, you become Frenzied for [0-9]+ seconds, increasing your melee Light Attack damage by [0-9]+ and attack speed by ([0-9]+)%/i,
+	},
+	{
+		id: "Blood Moon",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "LADamage",
+		match: /When you gain [0-9]+ stacks, you become Frenzied for [0-9]+ seconds, increasing your melee Light Attack damage by ([0-9]+) and attack speed by [0-9]+%/i,
+	},
+	{
 		id: "Bloodspawn",
 		setBonusCount: 2,
 		toggle: true,
@@ -9145,6 +9332,44 @@ window.ESO_SETEFFECT_MATCHES =
 		match: /When you take damage, you have a(?:n|) [0-9]+% chance to turn your blood into pure iron for [0-9]+ seconds, reducing your damage taken by [0-9\.]+%, but your Movement Speed is reduced by ([0-9]+)%/i,
 	},
 	{
+		id: "Ironblood",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		statId: "MovementSpeed",
+		factorValue: -1,
+		display: '%',
+		match: /When you take damage, you have a [0-9]+% chance to turn your blood into pure iron for [0-9]+ seconds, gaining Major Protection, Major Aegis, and Minor Protection, but also reducing your Movement Speed by ([0-9]+)%/i,
+	},
+	{
+		id: "Ironblood",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		buffId: "Major Protection",
+		match: /When you take damage, you have a [0-9]+% chance to turn your blood into pure iron for [0-9]+ seconds, gaining Major Protection, Major Aegis, and Minor Protection, but also reducing your Movement Speed by ([0-9]+)%/i,
+	},
+	{
+		id: "Ironblood",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		buffId: "Minor Protection",
+		match: /When you take damage, you have a [0-9]+% chance to turn your blood into pure iron for [0-9]+ seconds, gaining Major Protection, Major Aegis, and Minor Protection, but also reducing your Movement Speed by ([0-9]+)%/i,
+	},
+	{
+		id: "Ironblood",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		buffId: "Major Aegis",
+		match: /When you take damage, you have a [0-9]+% chance to turn your blood into pure iron for [0-9]+ seconds, gaining Major Protection, Major Aegis, and Minor Protection, but also reducing your Movement Speed by ([0-9]+)%/i,
+	},
+	{
 		id: "Imperial Physique",
 		setBonusCount: 5,
 		toggle: true,
@@ -9434,6 +9659,26 @@ window.ESO_SETEFFECT_MATCHES =
 		category: "Skill2",
 		statId: "HAWeaponDamage",
 		match: /When you deal damage with a Light or Heavy Attack in melee range, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
+	},
+	{
+		id: "Noble Duelist's Silks",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "LADamage",
+		match: /When you deal damage with a Light or Heavy Attack in melee range, you increase the damage of your Light and Heavy Attacks against monsters by ([0-9]+) for/i,
+	},
+	{
+		id: "Noble Duelist's Silks",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "HADamage",
+		match: /When you deal damage with a Light or Heavy Attack in melee range, you increase the damage of your Light and Heavy Attacks against monsters by ([0-9]+) for/i,
 	},
 	{
 		id: "Orgnum's Scales",
@@ -9911,6 +10156,46 @@ window.ESO_SETEFFECT_MATCHES =
 		category: "SkillSpellDamage",
 		statId: "Overload",
 		match: /When you use an ability that costs Stamina while in combat, you add ([0-9]+) Weapon and Spell Damage to your Light and Heavy Attacks/i,
+	},	
+	{		//TODO: 35pts overload and mend wounds ?
+		id: "Undaunted Infiltrator",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "LADamage",
+		match: /When you use an ability that costs Magicka while in combat, you increase the damage of your Light and Heavy Attacks against monsters by ([0-9]+) for/i,
+	},
+	{
+		id: "Undaunted Infiltrator",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "HADamage",
+		match: /When you use an ability that costs Magicka while in combat, you increase the damage of your Light and Heavy Attacks against monsters by ([0-9]+) for/i,
+	},
+	{
+		id: "Undaunted Unweaver",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "LADamage",
+		match: /When you use an ability that costs Stamina while in combat, you increase the damage of your Light and Heavy Attacks against monsters by ([0-9]+) for/i,
+	},
+	{
+		id: "Undaunted Unweaver",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		enableOffBar : true,
+		category: "Skill2",
+		statId: "HADamage",
+		match: /When you use an ability that costs Stamina while in combat, you increase the damage of your Light and Heavy Attacks against monsters by ([0-9]+) for/i,
 	},
 	{
 		id: "Vestment of Olorime",
@@ -10414,35 +10699,6 @@ window.ESO_ABILITYDESC_MATCHES = [
 		match: /Max Stamina and Magicka by ([0-9]+)/i,
 	},
 ];
-
-
-window.ESOBUILD_RAWOUTPUT_LABELREPLACEMENT =
-{
-		"CP.Enabled" : "CP Enabled",
-		"Skill.HAStaRestoreWerewolf": "HA Stamina Restore Werewolf",
-		"CP.RollDodgeCost": "Dodge Roll Cost",
-		"Skill.RollDodgeCost": "Dodge Roll Cost",
-		"Set.RollDodgeCost": "Dodge Roll Cost",
-		"Buff.RollDodgeCost": "Dodge Roll Cost",
-		"Skill2.RollDodgeCost": "Dodge Roll Cost",
-		"Item.RollDodgeCost": "Dodge Roll Cost",
-		"SkillLineDamage.Bow" : "Bow Damage",
-		"SkillLineDamage.Duel_Wield" : "Duel Wield Damage",
-		"SkillHealing.Green_Balance" : "Green Balance Healing",
-		"SkillHealing.Restoration_Staff" : "Restoration Staff Healing",
-		"SkillHealing.Restoring_Light" : "Restoring Light Healing",
-		"Skill.HAMagRestore" : "Heavy Attack Magicka Restore",
-		"Skill.HAStaRestore" : "Heavy Attack Stamina Restore",
-};
-
-
-window.ESOBUILD_RAWOUTPUT_LABELSUFFIX = 
-{
-	"SkillBonusWeaponDmg" : "WeaponDamage",
-	"SkillBonusSpellDmg" : "SpellDamage",
-	"SkillLineWeaponDmg" : "WeaponDamage",
-	"SkillLineSpellDmg" : "SpellDamage",
-};
 
 
 window.InitializeEsoBuildInputValues = function (inputValues)

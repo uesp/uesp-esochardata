@@ -5,7 +5,8 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #cfc; margin-right: 270px;'>
+<div style='background-color: #ffc; margin-right: 270px;'>
+Warning: Editor is not yet completely working for update 35 pts. Items, skills and CP data have been updated.
 </div>
 
 {saveNote}
@@ -67,7 +68,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			When selected you will automatically purchase all racial passives when changing races.
 			<br/>
 			<div class="esotbStatLabel">Use PTS Rules</div> <input type="checkbox" id="esotbUsePtsRules" name="esotbUsePtsRules" statid="UsePtsRules" {usePtsRulesCheck}>
-			Current version is Update 34 v7.4.0
+			Current version is Update 35 v8.1.0
 			<ul style="margin-left: 170px; margin-top: -5px;">
 				<li>Save and reload build after changing this setting.</li>
 				<li>Uses skill, CP, and item data collected from the PTS server.</li>
@@ -640,6 +641,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 					<div class="esotbItemSetupTitle">Equip Monster Set</div>
 					
 					<select id="esotbItemSetupMonsterSet" style="width: 200px;">
+						<option hidden disabled>Archdruid Devyric</option>
 						<option>Balorgh</option>
 						<option>Bloodspawn</option>
 						<option>Baron Thirsk</option>
@@ -649,6 +651,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Earthgore</option>
 						<option>Encratis's Behemoth</option>
 						<option>Engine Guardian</option>
+						<option hidden disabled>Euphotic Gatekeeper</option>
 						<option>Glorgoloch the Destroyer</option>
 						<option>Grothdarr</option>
 						<option>Grundwulf</option>
@@ -868,6 +871,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Deadlands Demolisher</option>
 						<option>Deadly Strike</option>
 						<option>Death's Wind</option>
+						<option hidden disabled>Deeproot Zeal</option>
 						<option>Defending Warrior</option>
 						<option>Defiler</option>
 						<option>Desert Rose</option>
@@ -925,6 +929,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Grace of Gloom</option>
 						<option>Grace of the Ancients</option>
 						<option>Grave Guardian</option>
+						<option hidden disabled>Grave Inevitability</option>
 						<option>Grave-Stake Collector</option>
 						<option>Green Pact</option>
 						<option>Grisly Gourmet</option>
@@ -979,6 +984,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option value="Perfected Kyne's Wind">Kyne's Wind (Perfect)</option>
 						<option>Kynmarcher's Cruelty</option>
 						<option>Lamia's Song</option>
+						<option hidden disabled>Langour of Peryite</option>
 						<option>Law of Julianos</option>
 						<option>Leeching Plate</option>
 						<option>Legacy of Karth</option>
@@ -997,6 +1003,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Mark of the Pariah</option>
 						<option>Marksman's Crest</option>
 						<option>Master Architect</option>
+						<option hidden disabled>Mara's Balm</option>
 						<option>Marauder's Haste</option>
 						<option>Mechanical Acuity</option>
 						<option>Medusa</option>
@@ -1022,6 +1029,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Noble Duelist's Silks</option>
 						<option>Noble's Conquest</option>
 						<option>Nocturnal's Favor</option>
+						<option hidden disabled>Nocturnal's Ploy</option>
 						<option>Oblivion's Edge</option>
 						<option>Oblivion's Foe</option>
 						<option>Order of Diagna</option>
@@ -1029,6 +1037,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Orgnum's Scales</option>
 						<option>Overland</option>
 						<option>Overwhelming Surge</option>
+						<option hidden disabled>Pangrit Denmother</option>
 						<option>Para Bellum</option>
 						<option>Pearlescent Ward</option>
 						<option value='Perfected Pearlescent Ward'>Pearlescent Ward (Perfect)</option>
@@ -1036,6 +1045,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Permafrost</option>
 						<option>Pestilent Host</option>
 						<option>Phoenix</option>
+						<option hidden disabled>Phylactery's Grasp</option>
 						<option>Pillager's Profit</option>
 						<option>Pillar of Nirn</option>
 						<option>Plague Doctor</option>
@@ -1052,6 +1062,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Radial Uppercut</option>
 						<option value="Perfected Radial Uppercut">Radial Uppercut (Perfect)</option>
 						<option>Radiant Bastion</option>
+						<option hidden disabled>Rage of the Ursauk</option>
 						<option>Rallying Cry</option>
 						<option>Ranger's Gait</option>
 						<option>Rattlecage</option>
@@ -1120,6 +1131,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 						<option>Stendarr's Embrace</option>
 						<option>Stone-Talker's Oath</option>
 						<option value="Perfected Stone-Talker's Oath">Stone-Talker's Oath (Perfect)</option>
+						<option hidden disabled>Stone's Accord</option>
 						<option>Storm-Cursed's Revenge</option>
 						<option>Storm Knight's Plate</option>
 						<option>Storm Master</option>
@@ -1751,6 +1763,37 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>18 July 2022</b>
+			<ul>
+				<li>35pts: Added new sets to the quick item setups.</li>
+				<li>35pts: Added the Langour debuff.</li>
+				<li>35pts: Added the Langour of Peryite set toggle.</li>
+				<li>35pts: Added the Pangrit Denmother set toggle.</li>
+				<li>35pts: Added the Grave Inevitability set toggle.</li>
+				<li>35pts: Fixed the toggle for the Oakensoul set.</li>
+				<li>35pts: Fixed the toggle for the Ironblood set.</li>
+				<li>35pts: Updated the Empower buff with the change in LA/HA attack.</li>
+				<li>35pts: Added the Sergeant's Mail set toggle.</li>
+				<li>35pts: Fixed the Blood Moon set toggle.</li>
+				<li>35pts: Fixed the Noble Duelist's Silks set toggle.</li>
+				<li>35pts: Fixed the Undaunted Unweaver set toggle.</li>
+				<li>35pts: Fixed the Undaunted Infiltrator set toggle.</li>
+				<li>35pts: Fixed the Molten Armaments skill toggle.</li>
+				<li>35pts: Fixed the Crystal Weapon skill toggle.</li>
+				<li>35pts: Concealed Weapon now gives you Minor Expedition when slotted.</li>
+				<li>35pts: Fixed the Warden's Advanced Species passive.</li>
+			</ul>
+			<p>
+			<b>15 July 2022</b>
+			<ul>
+				<li>35pts: Fixed the cost display for the Molten Whip skill (has both Magicka and Stamina costs now).</li>
+			</ul>
+			<p>
+			<b>14 July 2022</b>
+			<ul>
+				<li>35pts: Updated item, skill, and CP data from update 35 on PTS.</li>
+			</ul>
+			<p>
 			<b>27 June 2022</b>
 			<ul>
 				<li>Fixed the Syvarra's Scales set tooltip and possibly a few others.</li>
