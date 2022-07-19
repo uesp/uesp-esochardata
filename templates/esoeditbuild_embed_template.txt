@@ -1766,6 +1766,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>18 July 2022</b>
 			<ul>
 				<li>Added the ability to delete multiple builds at a time from the "View My Builds" display.</li>
+				<li>35pts: Updated Light and Heavy Attack base values.</li>
+				<li>35pts: Updated Heavy Attack Stamina/Magicka restore values.</li>
 			</ul>
 			<p>
 			<b>18 July 2022</b>
