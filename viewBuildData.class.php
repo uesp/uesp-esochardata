@@ -43,7 +43,8 @@ class EsoBuildDataViewer
 	public $enableCaching 		  = false;
 	public $useAsyncLoad		  = true;
 	public $useDivImageTags		  = true;
-	public $viewMyBuilds          = false;
+	public $viewMyBuilds		  = false;
+	public $suppressErrorOutput   = false;
 	
 	public $displayedCharacterCount = 0;
 	public $currentCharacterPage = 0;
@@ -51,10 +52,10 @@ class EsoBuildDataViewer
 	public $totalCharacterPages = 0;
 	
 	public $viewCPs = null;
-		
+	
 	
 	const ESO_ICON_URL = "//esoicons.uesp.net";
-
+	
 	
 	public $ESO_MOTIF_CHAPTERNAMES = array(
 				"Axes",
@@ -89,11 +90,13 @@ class EsoBuildDataViewer
 	public $inputSearchSpecial = "";
 	public $inputSearchDate = -1;
 	public $inputShowSummaryFor = -1;
+	public $inputSelectedBuildIds = [];
 	public $showSummaryForWikiUser = "";
 	public $selectedBackgroundImage = "blank";
 	public $inputOwnedBy = "";
 	
 	public $characterData = array();
+	public $selectedCharacters = array();
 	public $skillData = array();
 	public $skillRanks = array();
 	public $buildData = array();
@@ -187,12 +190,16 @@ class EsoBuildDataViewer
 		error_log("Error: " . $msg);
 		
 		$this->errorMessages[] = $msg;
-		$this->outputHtml .= "Error: " . $msg . "<br />";
 		
-		if ($this->db != null && $this->db->error)
+		if (!$this->suppressErrorOutput)
 		{
-			$this->outputHtml .= "\tDB Error:" . $this->db->error;
-			$this->outputHtml .= "\tLast Query:" . $this->lastQuery;
+			$this->outputHtml .= "Error: " . $msg . "<br />";
+		
+			if ($this->db != null && $this->db->error)
+			{
+				$this->outputHtml .= "\tDB Error:" . $this->db->error;
+				$this->outputHtml .= "\tLast Query:" . $this->lastQuery;
+			}
 		}
 		
 		return false;
@@ -216,7 +223,7 @@ class EsoBuildDataViewer
 	}
 	
 	
-	public function initDatabaseWrite ()
+	public function initDatabaseWrite()
 	{
 		global $uespEsoBuildDataWriteDBHost, $uespEsoBuildDataWriteUser, $uespEsoBuildDataWritePW, $uespEsoBuildDataDatabase;
 	
@@ -359,7 +366,7 @@ class EsoBuildDataViewer
 	
 		$user = $this->wikiContext->getUser();
 		if ($user == null) return false;
-	
+		
 		if (!$user->isLoggedIn()) return false;
 		
 		return true;
@@ -369,13 +376,14 @@ class EsoBuildDataViewer
 	public function canWikiUserEditBuild($buildData)
 	{
 		if ($this->wikiContext == null) return false;
-	
+		
 		$user = $this->wikiContext->getUser();
 		if ($user == null) return false;
-	
+		
 		if (!$user->isLoggedIn()) return false;
 		if (strcasecmp($user->getName(), $buildData['wikiUserName']) == 0) return true;
 		
+			// Allow any user with this permission to edit any build
 		return $user->isAllowedAny('esochardata_edit');
 	}
 	
@@ -383,10 +391,10 @@ class EsoBuildDataViewer
 	public function getWikiUserName()
 	{
 		if ($this->wikiContext == null) return "";
-	
+		
 		$user = $this->wikiContext->getUser();
 		if ($user == null) return "";
-	
+		
 		return $user->getName();
 	}
 	
@@ -394,17 +402,18 @@ class EsoBuildDataViewer
 	public function canWikiUserDeleteBuild($buildData)
 	{
 		if ($this->wikiContext == null) return false;
-	
+		
 		$user = $this->wikiContext->getUser();
 		if ($user == null) return false;
 		
 		$logIn = $user->isLoggedIn();
 		$username1 = $user->getName();
 		$username2 = $buildData['wikiUserName'];
-			
+		
 		if (!$user->isLoggedIn()) return false;
 		if (strcasecmp($user->getName(), $buildData['wikiUserName']) == 0) return true;
 		
+			// Allow any user with this permission to delete any build
 		return $user->isAllowedAny('esochardata_delete');
 	}
 	
@@ -484,18 +493,30 @@ class EsoBuildDataViewer
 		if (array_key_exists('copytobuild', $this->inputParams))
 		{
 			$this->copyCharToNewBuildCharId = intval($this->inputParams['copytobuild']);
-		}		
-	
+		}
+		
+		if (array_key_exists('buildCheck', $this->inputParams))
+		{
+			$type = gettype($this->inputParams['buildCheck']);
+			
+			if ($type == "array")
+				$this->inputSelectedBuildIds = $this->inputParams['buildCheck'];
+			elseif ($type == "string")
+				$this->inputSelectedBuildIds[] = $this->inputParams['buildCheck'];
+			
+			$this->inputSelectedBuildIds = array_map('intval', $this->inputSelectedBuildIds);
+		}
+		
 		return true;
 	}
 	
-		
+	
 	public function loadBuilds()
 	{
 		$page = $this->currentCharacterPage * $this->MAX_BUILD_DISPLAY;
 		$this->totalCharacterCount = 0;
 		$where = array();
-				
+		
 		if ($this->inputSearchClass != "")
 		{
 			$value = $this->db->real_escape_string($this->inputSearchClass);
@@ -542,8 +563,8 @@ class EsoBuildDataViewer
 		{
 			$value = $this->db->real_escape_string($this->inputSearchWikiUser);
 			$where[] = "wikiUserName LIKE '%$value%'";
-		}		
-				
+		}
+		
 		if ($this->viewMyBuilds)
 		{
 			if ($this->inputShowSummaryFor > 0)
@@ -559,7 +580,7 @@ class EsoBuildDataViewer
 				$where[] = "wikiUserName='$wikiName'";
 			}
 			else if ($this->wikiContext != null)
-			{			
+			{
 				$user = $this->wikiContext->getUser();
 				
 				if ($user != null)
@@ -1169,7 +1190,7 @@ class EsoBuildDataViewer
 			}
 			
 			$lastItemLink = $itemLink;
-		}		
+		}
 		
 		return $newItemData;
 	}
@@ -1178,20 +1199,20 @@ class EsoBuildDataViewer
 	public function getEditButtonsHtml()
 	{
 		if (!$this->canWikiUserCreate()) return ""; 
-
+		
 		$buildId = $this->characterId;
 		
 		$output = "";
 		$output .= "<form method='get' id='ecdMenuEditForm' action='/wiki/Special:EsoBuildEditor'>";
 		$output .= "<input type='hidden' name='id' value ='$buildId'>";
-				
+		
 		if ($this->canWikiUserEdit())
 			$output .= "<input type='submit' value='Edit Build'>";
 		else
 			$output .= "<input type='submit' value='Create Copy'>";
-					
+		
 		$output .= "</form>";
-						
+		
 		return $output;
 	}
 	
@@ -1201,7 +1222,7 @@ class EsoBuildDataViewer
 		//if ($this->getCharStatField('SkillPointsUnused') == "" || $this->getCharStatField('SkillPointsTotal') == "") return "none";
 		return "inline-block";
 	}
-
+	
 	
 	public function getSkyshardDisplay()
 	{
@@ -3611,7 +3632,7 @@ class EsoBuildDataViewer
 			{
 				$characterOutput .= $this->getCharacterRawOutput($key, $data);
 			}
-				
+		
 		}
 		
 		$characterOutput .= $this->getCharacterRawOutput('canEdit', $this->canWikiUserEdit() ? 'true' : 'false');
@@ -3874,12 +3895,15 @@ class EsoBuildDataViewer
 		if ($this->canWikiUserCreate())
 		{
 			$editLink = $this->getEditLink();
-				
-			$output .= "<tr class='ecdBuildCreateNewRow'><td colspan='10' align='center'>";
-			$output .= "	<form method='get' action='$editLink'>";
-			//$output .= "		<input type='submit' value='Create New Build'>";
-			$output .= "        <a href='$editLink' class='ecdBuildLinkButton'>Create New Build</a>";
-			$output .= "	</form>";
+			
+			$output .= "<tr class='ecdBuildCreateNewRow'><td colspan='11' align='center'>";
+			$output .= "<a href='$editLink' class='ecdBuildLinkButton'>Create New Build</a>";
+			
+			if ($this->viewMyBuilds)
+			{
+				$output .= "<input type='submit' style='float: right;' value='Delete Selected Builds'>";
+			}
+			
 			$output .= "</td></tr>";
 		}
 		
@@ -3887,7 +3911,7 @@ class EsoBuildDataViewer
 	}
 	
 	
-	public function getPrevBuildTableRowHtml() 
+	public function getPrevBuildTableRowHtml()
 	{
 		$output = "";
 		
@@ -3895,7 +3919,7 @@ class EsoBuildDataViewer
 		{
 			$query = $this->getBuildTableFindQuery();
 			$page = $this->currentCharacterPage - 1 + 1;
-			$output .= "<tr class='ecdBuildNextPrevRow'><td colspan='10' align='center'>";
+			$output .= "<tr class='ecdBuildNextPrevRow'><td colspan='11' align='center'>";
 			$output .= "<a href='?$query&page=$page'><b>Previous Builds...</b></a>";
 			$output .= "</td></tr>";
 		}
@@ -3912,7 +3936,7 @@ class EsoBuildDataViewer
 		{
 			$query = $this->getBuildTableFindQuery();
 			$page = $this->currentCharacterPage + 1 + 1;
-			$output .= "<tr class='ecdBuildNextPrevRow'><td colspan='10' align='center'>";
+			$output .= "<tr class='ecdBuildNextPrevRow'><td colspan='11' align='center'>";
 			$output .= "<a href='?$query&page=$page'><b>More Builds...</b></a> ";
 			$output .= "</td></tr>";
 		}
@@ -3934,8 +3958,11 @@ class EsoBuildDataViewer
 		
 		$this->outputHtml .= $this->getBuildTablePageHtml();
 		
+		$this->outputHtml .= "<form id='ecdBuildTableForm' method='post' action=''>\n";
+		$this->outputHtml .= "<input type='hidden' name='action' value='deleteMultiple'>\n";
 		$this->outputHtml .= "<table id='ecdBuildTable' class='sortable jquery-tablesorter'>\n";
 		$this->outputHtml .= "<thead><tr class='ecdBuildTableHeader'>\n";
+		$this->outputHtml .= "<th class=''></th>\n";
 		$this->outputHtml .= "<th class='headerSort headerSortDown'>Build Name</th>\n";
 		$this->outputHtml .= "<th class='headerSort'>Character</th>\n";
 		$this->outputHtml .= "<th class='headerSort'>Class</th>\n";
@@ -3961,7 +3988,7 @@ class EsoBuildDataViewer
 		$this->outputHtml .= $this->getNextBuildTableRowHtml();
 		$this->outputHtml .= $this->getCreateBuildButtonHtml();
 		
-		$this->outputHtml .= "</tbody></table>\n";
+		$this->outputHtml .= "</tbody></table></form>\n";
 		$this->outputHtml .= $this->getBuildTablePageHtml();
 		
 		return true;
@@ -4014,7 +4041,7 @@ class EsoBuildDataViewer
 			else
 				$query[] = "filter=mine";
 		}
-						
+		
 		return implode("&", $query);
 	}
 	
@@ -4157,11 +4184,78 @@ class EsoBuildDataViewer
 		
 		$this->lastQuery = "DELETE FROM equipSlots WHERE characterId=$id;";
 		$result = $this->db->query($this->lastQuery);
-		if ($result === false) return $this->reportError("Database error trying to delete character equipSlots records!");				
+		if ($result === false) return $this->reportError("Database error trying to delete character equipSlots records!");
 		
 		return true;
 	}
+	
+	
+	public function doBuildDeleteMultiple()
+	{
+		$count = count($this->inputSelectedBuildIds);
 		
+		if ($count <= 0) return $this->reportError("No builds/characters selected!");
+		if (!$this->canWikiUserDelete()) return $this->reportError("You aren't allowed to delete any builds/characters!");
+		
+		$deletedBuildCount = 0;
+		$this->suppressErrorOutput = true;
+		
+		$this->characterId = 1;
+		$this->outputHtml .= $this->getBreadcrumbTrailHtml();
+		$this->characterId = -1;
+		
+		$this->outputHtml .= "<p />\n";
+		$this->outputHtml .= "<ol>\n";
+		
+		foreach ($this->inputSelectedBuildIds as $buildId)
+		{
+			$buildId = intval($buildId);
+			$this->characterId = $buildId;
+			
+			if (!$this->loadSingleCharacter())
+			{
+				$this->outputHtml .= "<li>Failed to load build/character $buildId (it doesn't exist)!</li>\n";
+				continue;
+			}
+			
+			$buildName = $this->escape($this->getFieldStr($this->characterData, 'buildName'));
+			$charName = $this->escape($this->getFieldStr($this->characterData, 'name'));
+			$buildType = $this->escape($this->getFieldStr($this->characterData, 'buildType'));
+			$className = $this->escape($this->getFieldStr($this->characterData, 'class'));
+			$special = $this->escape($this->getFieldStr($this->characterData, 'special'));
+			
+			if ($buildName == "")
+			{
+				$buildName = "(Noname $buildType $className $special)";
+			}
+			
+			if (!$this->canWikiUserDeleteBuild($this->characterData))
+			{
+				$this->outputHtml .= "<li>$buildName (#$buildId) -- You don't have permission to delete this build/character!</li>\n";
+				continue;
+			}
+			
+			$this->selectedCharacters[$buildId] = $this->characterData;
+			
+			if (!$this->deleteBuild())
+			{
+				$this->outputHtml .= "<li>$buildName (#$buildId) -- Failed to delete build!</li>\n";
+				continue;
+			}
+			
+			$this->outputHtml .= "<li>$buildName (#$buildId) -- <b>Deleted!</b></li>\n";
+			
+			++$deletedBuildCount;
+		}
+		
+		$this->outputHtml .= "</ol><br/>\n";
+		$this->outputHtml .= "<b>Successfully deleted $deletedBuildCount builds/characters!</b>";
+		
+		$this->suppressErrorOutput = false;
+		
+		return true;
+	}
+	
 	
 	public function doBuildDelete()
 	{
@@ -4177,7 +4271,7 @@ class EsoBuildDataViewer
 			$this->reportError($this->getDeleteFailureOutput($buildName, $charName, $this->characterId));
 			return false;
 		}
-				
+		
 		$this->outputHtml .= $this->getDeleteSuccessHtmlOutput($buildName, $charName, $this->characterId);
 		
 		return true;
@@ -4199,7 +4293,7 @@ class EsoBuildDataViewer
 		
 		return $output;
 	}
-
+	
 	
 	public function createChangePasswordOutput()
 	{
@@ -4349,6 +4443,74 @@ EOT;
 	}
 	
 	
+	public function createDeleteMultipleOutput()
+	{
+		$count = count($this->inputSelectedBuildIds);
+		
+		if ($count <= 0) return $this->reportError("No characters or builds selected!");
+		if ($this->nonConfirm != '') return $this->createBuildTableHtml();
+		if ($this->confirm != '') return $this->doBuildDeleteMultiple();
+		
+		if (!$this->canWikiUserDelete()) return $this->reportError("You don't have permissioned to delete any builds!");
+		
+		$this->outputHtml .= "You are attempting to delete the following $count builds/characters:<p/>\n";
+		$this->outputHtml .= "<ol>\n";
+		
+		$confirmedBuildIds = [];
+		$this->suppressErrorOutput = true;
+		
+		foreach ($this->inputSelectedBuildIds as $buildId)
+		{
+			$buildId = intval($buildId);
+			$this->characterId = $buildId;
+			
+			if (!$this->loadSingleCharacter())
+			{
+				$this->outputHtml .= "<li>Failed to load build/character #$buildId (it doesn't exist)!</li>\n";
+				continue;
+			}
+			
+			$buildName = $this->escape($this->getFieldStr($this->characterData, 'buildName'));
+			$charName = $this->escape($this->getFieldStr($this->characterData, 'name'));
+			$buildType = $this->escape($this->getFieldStr($this->characterData, 'buildType'));
+			$className = $this->escape($this->getFieldStr($this->characterData, 'class'));
+			$special = $this->escape($this->getFieldStr($this->characterData, 'special'));
+			$buildLink = $this->getCharacterLink($buildId);
+			
+			if ($buildName == "")
+			{
+				$buildName = "(Noname $buildType $className $special)";
+			}
+			
+			if (!$this->canWikiUserDeleteBuild($this->characterData))
+			{
+				$this->outputHtml .= "<li>$buildName (#$buildId) -- You don't have permission to delete this build/character!</li>\n";
+				continue;
+			}
+			
+			$this->selectedCharacters[$buildId] = $this->characterData;
+			
+			$this->outputHtml .= "<li><a href='$buildLink' target='_blank'>$buildName (#$buildId)</a> -- Will be deleted!</li>\n";
+			
+			$confirmedBuildIds[] = $buildId;
+		}
+		
+		$this->outputHtml .= "</ol><br/>\n";
+		
+		if (count($confirmedBuildIds) > 0)
+		{
+			$this->outputHtml .= $this->getDeleteMultipleConfirmOutput($confirmedBuildIds);
+		}
+		else
+		{
+			$this->outputHtml .= "No builds/characters to delete!";
+		}
+		
+		$this->suppressErrorOutput = false;
+		return true;
+	}
+	
+	
 	public function createDeleteOutput()
 	{
 		if ($this->characterId <= 0) return $this->reportError("Missing valid character/build ID!");
@@ -4356,13 +4518,13 @@ EOT;
 		if ($this->confirm != '') return $this->doBuildDelete();
 		
 		if (!$this->loadSingleCharacter()) return false;
-		if (!$this->canWikiUserDelete()) return $this->reportError("Delete character permission denied! BuildId = {$this->characterId}, WikiUser = {$_SESSION['wsUserName']}");
+		if (!$this->canWikiUserDelete()) return $this->reportError("Delete build/character permission denied! BuildId = {$this->characterId}, WikiUser = {$_SESSION['wsUserName']}");
 		
 		$buildName = $this->getCharField('buildName');
 		$charName = $this->getCharField('name');
 		$id = $this->characterId;
 		
-		$this->outputHtml .= $this->getDeleteConfirmOutput($buildName, $charName, $id); 
+		$this->outputHtml .= $this->getDeleteConfirmOutput($buildName, $charName, $id);
 		
 		return true;
 	}
@@ -4398,7 +4560,7 @@ EOT;
 	
 		$output = $this->getBreadcrumbTrailHtml();
 		$output .= "Managing screenshots for {$this->BUILD_TYPE} $charName:<br/><br/>";
-		$output .= "<table class='ecdScreenshotsTable'>";		
+		$output .= "<table class='ecdScreenshotsTable'>";
 		$output .= "<tr>";
 		$output .= "<th>Filename</th>";
 		$output .= "<th>Original Filename</th>";
@@ -4437,7 +4599,7 @@ EOT;
 		$output .= "</tr>";
 		$output .= "</table><br/>";
 		$output .= "<div id='ecdScreenshotStatus'></div>";
-				
+		
 		return $output;
 	}
 	
@@ -4454,7 +4616,31 @@ EOT;
 		$output .= "<input type='hidden' name='id' value='$id'>";
 		$output .= "<input type='hidden' name='action' value='delete'>";
 		$output .= "</form>";
-				
+		
+		return $output;
+	}
+	
+	
+	public function getDeleteMultipleConfirmOutput($buildIds)
+	{
+		$output = "";
+		
+		$buildCount = count($buildIds);
+		
+		$output .= "<form method='post' action=''>";
+		$output .= "<b>Warning:</b> Once a build is deleted it cannot be restored. It can be re-uploaded again if desired.<p />";
+		$output .= "Are you sure you wish to delete these $buildCount builds? <p />";
+		$output .= "<button type='submit' name='confirm' value='1' class='ecdDeleteButton'>Yes, Delete these Builds</button> &nbsp; &nbsp; ";
+		$output .= "<button type='submit' name='nonconfirm' value='1'>Cancel</button>";
+		
+		foreach ($buildIds as $id)
+		{
+			$output .= "<input type='hidden' name='buildCheck[]' value='$id'>";
+		}
+		
+		$output .= "<input type='hidden' name='action' value='deleteMultiple'>";
+		$output .= "</form>";
+		
 		return $output;
 	}
 	
@@ -4475,7 +4661,7 @@ EOT;
 		$linkUrl = $this->getCharacterLink($charId);
 		$special = $this->escape($this->getFieldStr($buildData, 'special'));
 		
-		if ($buildName == "") 
+		if ($buildName == "")
 		{
 			$buildName = "(Noname $buildType $className $special)";
 		}
@@ -4484,13 +4670,16 @@ EOT;
 			$lastUpdate = $this->getBuildEditDate($buildData);
 		else
 			$lastUpdate = $this->getBuildCreateDate($buildData);
-				
+		
 		if ($buildName == "") $buildName = $charName;
 		
 		$rowClass = "ecdBuildRowHover";
 		if ($this->doesOwnBuild($buildData)) $rowClass .= " ecdBuildOwned";
-				
+		
+		$checkBox = "<input type='checkbox' name='buildCheck[]' value='$charId'>";
+		
 		$output .= "<tr class='$rowClass'>\n";
+		$output .= "<td>$checkBox</td>";
 		$output .= "<td class='ecdBuildTableName'><a class='ecdBuildLink' href=\"$linkUrl\">$buildName</a></td>";
 		$output .= "<td>$charName</td>";
 		$output .= "<td>$className</td>";
@@ -4529,14 +4718,14 @@ EOT;
 			}
 			
 			$output .= "</form>\n &nbsp &nbsp";
-							
+			
 			if ($this->canWikiUserDeleteBuild($buildData))
 			{
 				$output .= " &nbsp &nbsp <form method='post' action=''>";
 				$output .= "<input type='hidden' name='id' value ='{$buildData['id']}'>";
 				$output .= "<input type='hidden' name='action' value ='delete'>";
 				$output .= "<input type='submit' value='Delete'>";
-				$output .= "</form>\n";				
+				$output .= "</form>\n";
 			}
 			
 			$output .= "</td>";
@@ -4765,7 +4954,7 @@ EOT;
 		return $cacheData['html'];
 	}
 	
-		
+	
 	public function getOutput()
 	{
 		$this->loadHtmlTemplate();
@@ -4795,6 +4984,8 @@ EOT;
 		
 		if ($this->action == 'delete')
 			$this->createDeleteOutput();
+		if ($this->action == 'deleteMultiple')
+			$this->createDeleteMultipleOutput();
 		elseif ($this->action == 'managescreenshots')
 			$this->createManageScreenshotsOutput();
 		else if ($this->characterId > 0)
@@ -4806,7 +4997,7 @@ EOT;
 	
 		return $this->outputHtml;
 	}
-		
+	
 };
 
 
@@ -4841,7 +5032,7 @@ function CompareEsoSkillTypeName($a, $b)
 			"Light Armor" => 1,
 			"Medium Armor" => 2,
 			"Heavy Armor" => 3,
-				
+			
 			"Two Handed" => 1,
 			"One Hand and Shield" => 2,
 			"Dual Wield" => 3,

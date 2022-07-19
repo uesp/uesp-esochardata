@@ -1282,6 +1282,9 @@ window.OnBuildTableAnchorClick = function(e)
 
 window.OnBuildTableRowClick = function(e)
 {
+		// Do nothing if on the first column (checkbox)
+	if ($(this).index() == 0) return;
+	
 	var anchor = $(this).parent().find(".ecdBuildLink");
 	if (anchor.length == 0) return;
 	

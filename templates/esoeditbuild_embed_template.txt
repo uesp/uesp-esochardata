@@ -1765,6 +1765,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<h3>Recent Work</h3>
 			<b>18 July 2022</b>
 			<ul>
+				<li>Added the ability to delete multiple builds at a time from the "View My Builds" display.</li>
+			</ul>
+			<p>
+			<b>18 July 2022</b>
+			<ul>
 				<li>35pts: Added new sets to the quick item setups.</li>
 				<li>35pts: Added the Langour debuff.</li>
 				<li>35pts: Added the Langour of Peryite set toggle.</li>
