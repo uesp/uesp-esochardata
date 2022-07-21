@@ -4195,7 +4195,7 @@ class EsoBuildDataViewer
 		$count = count($this->inputSelectedBuildIds);
 		
 		if ($count <= 0) return $this->reportError("No builds/characters selected!");
-		if (!$this->canWikiUserDelete()) return $this->reportError("You aren't allowed to delete any builds/characters!");
+		//if (!$this->canWikiUserDelete()) return $this->reportError("You aren't allowed to delete any builds/characters!");
 		
 		$deletedBuildCount = 0;
 		$this->suppressErrorOutput = true;
@@ -4378,7 +4378,7 @@ EOT;
 		if (!$this->loadSingleCharacter()) return false;
 		if (!$this->loadAccount($this->formAccount)) return false;
 		if (!$this->canWikiUserDelete()) return $this->reportError("Change password permission denied! BuildId = {$this->characterId}, WikiUser = {$_SESSION['wsUserName']}");
-			
+		
 		$buildName = $this->getCharField('buildName');
 		$charName = $this->getCharField('name');
 		$id = $this->characterId;
@@ -4451,7 +4451,7 @@ EOT;
 		if ($this->nonConfirm != '') return $this->createBuildTableHtml();
 		if ($this->confirm != '') return $this->doBuildDeleteMultiple();
 		
-		if (!$this->canWikiUserDelete()) return $this->reportError("You don't have permissioned to delete any builds!");
+		//if (!$this->canWikiUserDelete()) return $this->reportError("You don't have permission to delete any builds!");
 		
 		$this->outputHtml .= "You are attempting to delete the following $count builds/characters:<p/>\n";
 		$this->outputHtml .= "<ol>\n";
