@@ -3348,7 +3348,7 @@ window.UpdateEsoBuildSetTooltips = function(setDesc)
 	matchDesc = matchDesc.replaceAll("\n", "<br>");
 	var matchRegExp = new RegExp(matchDesc, 'i');
 	
-	newDesc = newDesc.replace('  ', ' ').replace('  ', ' ');
+	newDesc = newDesc.replaceAll('  ', ' ').replaceAll('  ', ' ');
 	newDesc = newDesc.replace(matchRegExp, newTooltip);
 	
 	return newDesc;
