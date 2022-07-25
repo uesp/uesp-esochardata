@@ -5,8 +5,8 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #ffc; margin-right: 270px;'>
-Warning: Editor is not yet completely working for update 35 pts. Items, skills and CP data have been updated.
+<div style='background-color: #fcc; margin-right: 270px;'>
+Note: Editor is now working for update 35 pts. Items, skills and CP data have been updated.
 </div>
 
 {saveNote}
