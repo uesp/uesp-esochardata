@@ -1763,6 +1763,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>30 July 2022</b>
+			<ul>
+				<li>Fixed the Perfected Coral Riptide set toggle.</li>
+			</ul>
 			<b>18 July 2022</b>
 			<ul>
 				<li>Added the ability to delete multiple builds at a time from the "View My Builds" display.</li>
