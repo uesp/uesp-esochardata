@@ -6833,7 +6833,7 @@ class EsoBuildDataEditor
 		$this->buildDataViewer = new EsoBuildDataViewer(true, true);
 		
 		$this->viewCps = new CEsoViewCP(true, false);
-		$this->viewCps->hideTopBar = true;
+		$this->viewCps->hideTopBar = false;
 		$this->viewCps->shortDiscDisplay = true;
 		$this->viewCps->useVersion2 = true;
 		$this->viewCps->showFlatV2 = false;
@@ -6843,7 +6843,7 @@ class EsoBuildDataEditor
 		$this->viewSkills->showLeftDetails = false;
 		$this->viewSkills->displayClass = "Dragonknight";
 		$this->viewSkills->displayRace = "Argonian";
-		$this->viewSkills->displayMenuBar = false;
+		$this->viewSkills->displayMenuBar = true;
 		$this->viewSkills->displaySkillBar = true;
 		
 		$this->MakeInputStatsList();

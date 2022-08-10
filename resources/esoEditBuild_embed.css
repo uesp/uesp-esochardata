@@ -1580,3 +1580,45 @@ esotbToggledCpSelect {
 	padding: 3px;
 	margin-bottom: 0px;
 }
+
+#esotbRoot #esovcpSkillEquipBar {
+	margin-left: 0;
+	text-align: center;
+}
+
+#esotbRoot .esotbStatBlock {
+	position: relative;
+}
+
+#esotbRoot #esovcpSearchBlockFloat {
+	position: absolute;
+	top: 80px;
+	text-align: right;
+}
+
+#esotbRoot #esovcpSearchText {
+	width: 120px;
+}
+
+#esotbRoot #esovcpSearchResult {
+	font-size: smaller;
+}
+
+#esotbRoot #esovsSearchText {
+	width: 150px;
+}
+
+#esotbRoot #esovsSearchBlockFloat {
+	position: absolute;
+	right: 0px;
+	top: 40px;
+	text-align: right;
+}
+
+#esotbRoot #esovsSearchResult {
+	font-size: smaller;
+}
+
+#esotbRoot #esovsLinkBlock {
+	display: none !important;
+}
