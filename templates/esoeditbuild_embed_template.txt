@@ -1763,6 +1763,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>10 August 2022</b>
+			<ul>
+				<li>Fixed the Exploiter CP.</li>
+			</ul>
+			<p>
 			<b>9 August 2022</b>
 			<ul>
 				<li>Fixed costs for skills Mist Form, Sated Fury, and Ash Cloud.</li>

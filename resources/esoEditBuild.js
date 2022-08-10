@@ -5148,7 +5148,7 @@ window.ESO_CPEFFECT_MATCHES = [
 		category: "CP",
 		statId: "DamageDone",
 		display: "%",
-		match: /Increases your damage done against Off Balance enemies by ([0-9\.]+)%/i,
+		match: /Current bonus: ([0-9\.]+)%/i,
 	},
 	{
 		id: "Foresight",
