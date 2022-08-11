@@ -68,7 +68,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			When selected you will automatically purchase all racial passives when changing races.
 			<br/>
 			<div class="esotbStatLabel">Use PTS Rules</div> <input type="checkbox" id="esotbUsePtsRules" name="esotbUsePtsRules" statid="UsePtsRules" {usePtsRulesCheck}>
-			Current version is Update 35 v8.1.0
+			Current version is Update 35 v8.1.4
 			<ul style="margin-left: 170px; margin-top: -5px;">
 				<li>Save and reload build after changing this setting.</li>
 				<li>Uses skill, CP, and item data collected from the PTS server.</li>
@@ -1763,6 +1763,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>11 August 2022</b>
+			<ul>
+				<li>35pts: Updated Item, Skill, and CP data from PTS patch v8.1.4. Some updated items/skills may not be working yet.</li>
+			</ul>
+			<p>
 			<b>10 August 2022</b>
 			<ul>
 				<li>Fixed the Exploiter CP.</li>
