@@ -1763,6 +1763,13 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>12 August 2022</b>
+			<ul>
+				<li>35pts: Updated all Light and Heavy Attack coefficients in the Computed Stats list.</li>
+				<li>35pts: Fixed parsing of the Oakensoul Ring.</li>
+				<li>35pts: Fixed parsing of the updated sets: Noble Duelist's Silks, Undaunted Infiltrator, Undaunted Unweaver, Mantle of Siroria, Perfected Mantle of Siroria, Crushing Wall, Perfected Crushing Wall, Queen's Elegance</li>
+			</ul>
+			<p>
 			<b>11 August 2022</b>
 			<ul>
 				<li>35pts: Updated Item, Skill, and CP data from PTS patch v8.1.4. Some updated items/skills may not be working yet.</li>

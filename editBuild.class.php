@@ -6195,7 +6195,8 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "LAFlameSpellDamage", "LAFlameWeaponDamage", "SingleTargetDamageDone", "DamageDone", "DirectDamageDone"),
 					"compute" => array(
-							"2025", 	// Update 35
+							"floor(fround(0.030)*max(Magicka, Stamina)) + floor(fround(0.315)*max(LAFlameSpellDamage, LAFlameWeaponDamage))", 	// Update 35 Exact
+							//"2025", 	// Update 35pts
 							//"floor(fround(0.0405)*max(Magicka, Stamina)) + floor(fround(0.4252)*max(LAFlameSpellDamage, LAFlameWeaponDamage))", 	// Update 29 Exact
 							//"round(0.040455*max(Magicka, Stamina) + 0.42489*max(LAFlameSpellDamage, LAFlameWeaponDamage) + 0.55404)", 			// Update 29
 							//"round(0.0404834*max(Magicka, Stamina) + 0.425035*max(LAFlameSpellDamage, LAFlameWeaponDamage) - 0.420652)", 			// Update 28
@@ -6229,7 +6230,8 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "LAFrostSpellDamage", "LAFrostWeaponDamage", "SingleTargetDamageDone", "DamageDone", "DirectDamageDone", "FrostDamageDone"),
 					"compute" => array(
-							"2025", 	// Update 35
+							"floor(fround(0.030)*max(Magicka, Stamina)) + floor(fround(0.315)*max(LAFrostSpellDamage, LAFrostWeaponDamage))", 	// Update 35 Exact
+							//"2025", 	// Update 35
 							//"floor(fround(0.0405)*max(Magicka, Stamina)) + floor(fround(0.4252)*max(LAFrostSpellDamage, LAFrostWeaponDamage))", 	// Update 29 Exact
 							//"round(0.040455*max(Magicka, Stamina) + 0.42489*max(LAFrostSpellDamage, LAFrostWeaponDamage) + 0.55404)", 			// Update 29
 							//"round(0.0404834*max(Magicka, Stamina) + 0.425035*max(LAFrostSpellDamage, LAFrostWeaponDamage) - 0.420652)", 			// Update 28
@@ -6262,7 +6264,8 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "LAShockSpellDamage", "LAShockWeaponDamage", "DamageDone", "AOEDamageDone", "DotDamageDone", "ShockDamageDone"),
 					"compute" => array(
-							"900", 	// Update 35
+							"floor(fround(0.021905)*max(Magicka, Stamina)) + floor(fround(0.2305)*max(LAShockSpellDamage, LAShockWeaponDamage))", 	// Update 35 Exact
+							//"900", 	// Update 35
 							//"floor(fround(0.024)*max(Magicka, Stamina)) + floor(fround(0.252)*max(LAShockSpellDamage, LAShockWeaponDamage))", 		// Update 29 Exact
 							//"round(0.0239542*max(Magicka, Stamina) + 0.251628*max(LAShockSpellDamage, LAShockWeaponDamage) + 0.80486)",			// Update 29
 							//"round(0.0240162*max(Magicka, Stamina) + 0.251633*max(LAShockSpellDamage, LAShockWeaponDamage) - 0.55663)",			// Update 28
@@ -6293,7 +6296,8 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "LAMagicSpellDamage", "LAMagicWeaponDamage", "DamageDone", "SingleTargetDamageDone", "DotDamageDone", "MagicDamageDone"),
 					"compute" => array(
-							"600", 	// Update 35
+							"floor(fround(0.013690)*max(Magicka, Stamina)) + floor(fround(0.14375)*max(LAMagicSpellDamage, LAMagicWeaponDamage))", 	// Update 35 Exact
+							//"600", 	// Update 35
 							//"floor(fround(0.028462)*max(Magicka, Stamina)) + floor(fround(0.298856)*max(LAMagicSpellDamage, LAMagicWeaponDamage))", 	// Update 29 Exact
 							//"(0.0570679*max(Magicka, Stamina) + 0.597695*max(LAMagicSpellDamage, LAMagicWeaponDamage) - 4.48203)/2",					// Update 29
 							//"(0.0568945*max(Magicka, Stamina) + 0.597347*max(LAMagicSpellDamage, LAMagicWeaponDamage) - 0.998668)/2",					// Update 28
@@ -6326,7 +6330,8 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "LAPhysicalWeaponDamage", "LAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"2250", 	// Update 35
+							"floor(fround(0.033333)*max(Magicka, Stamina)) + floor(fround(0.350)*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage))", 	// Update 35 Exact
+							//"2250", 	// Update 35
 							//"floor(fround(0.045)*max(Magicka, Stamina)) + floor(fround(0.4725)*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage))", 	// Update 29 Exact
 							//"round(0.0447787*max(Magicka, Stamina) + 0.472299*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage) - 2.65615)",			// Update 29
 							//"round(0.0404834*max(Magicka, Stamina) + 0.425035*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage) - 0.420652)",		// Update 28
@@ -6343,7 +6348,8 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "LAPhysicalWeaponDamage", "LAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"2250", 	// Update 35
+							"floor(fround(0.033333)*max(Magicka, Stamina)) + floor(fround(0.350)*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage))", 	// Update 35 Exact
+							//"2250", 	// Update 35
 							//"floor(fround(0.045)*max(Magicka, Stamina)) + floor(fround(0.4725)*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage))", 	// Update 29 Exact
 							//"round(0.0447787*max(Magicka, Stamina) + 0.472299*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage) + 2.65615)",			// Update 29
 							//"round(0.0449414*max(Magicka, Stamina) + 0.472081*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage) - 0.0841677)",		// Update 28
@@ -6364,7 +6370,8 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "LAPhysicalWeaponDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"2250", 	// Update 35
+							"floor(fround(0.033333)*max(Magicka, Stamina)) + floor(fround(0.350)*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage))", 	// Update 35 Exact
+							//"2250", 	// Update 35
 							//"floor(fround(0.045)*max(Magicka, Stamina)) + floor(fround(0.4725)*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage))", 	// Update 29 Exact
 							//"round(0.0447787*max(Magicka, Stamina) + 0.472299*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage) + 2.65615)",			// Update 29
 							//"round(0.0449414*max(Magicka, Stamina) + 0.472081*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage) - 0.0841677)",		// Update 28
@@ -6385,7 +6392,8 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "LAPhysicalWeaponDamage", "LAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "BowDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"2250", 	// Update 35
+							"floor(fround(0.0300)*max(Magicka, Stamina)) + floor(fround(0.3150)*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage))", 	// Update 35 Exact
+							//"2250", 	// Update 35
 							//"floor(fround(0.0405)*max(Magicka, Stamina)) + floor(fround(0.42525)*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage))", 	// Update 29 Exact
 							//"round(0.040455*max(Magicka, Stamina) + 0.42489*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage) + 0.55404)",			// Update 29
 							//"round(0.0449414*max(Magicka, Stamina) + 0.472081*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage) - 0.0841677)",		// Update 28
@@ -6407,7 +6415,8 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "LAPhysicalWeaponDamage", "LAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"2250", 	// Update 35
+							"floor(fround(0.033333)*max(Magicka, Stamina)) + floor(fround(0.350)*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage))", 	// Update 35 Exact
+							//"2250", 	// Update 35
 							//"floor(fround(0.045)*max(Magicka, Stamina)) + floor(fround(0.4725)*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage))", 	// Update 29 Exact
 							//"round(0.0447787*max(Magicka, Stamina) + 0.472299*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage) + 2.65615)",			// Update 29
 							//"round(0.0449414*max(Magicka, Stamina) + 0.472081*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage) - 0.0841677)",		// Update 28
@@ -6427,7 +6436,8 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "LAPhysicalWeaponDamage", "LAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"2250", 	// Update 35
+							"floor(fround(0.041667)*max(Magicka, Stamina)) + floor(fround(0.43750)*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage))", 	// Update 35 Exact
+							//"2250", 	// Update 35
 							//"floor(fround(0.045)*max(Magicka, Stamina)) + floor(fround(0.4725)*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage))", 	// Update 29 Exact
 							//"round(0.0447787*max(Magicka, Stamina) + 0.472299*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage) + 2.65615)",			// Update 29
 							//"round(0.0449414*max(Magicka, Stamina) + 0.472081*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage) - 0.0841677)",		// Update 28
@@ -6460,7 +6470,8 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "LAShockSpellDamage", "LAShockWeaponDamage", "DamageDone", "SingleTargetDamageDone", "DirectDamageDone", "ShockDamageDone", "OverloadDamage"),
 					"compute" => array(
-							"2250", 	// Update 35
+							"floor(fround(0.100)*max(Magicka, Stamina)) + floor(fround(1.050)*max(LAPhysicalWeaponDamage, LAPhysicalSpellDamage))", 	// Update 35 Exact
+							//"2250", 	// Update 35
 							//"floor(fround(0.1)*max(Magicka, Stamina)) + floor(fround(1.05)*max(LAShockSpellDamage, LAShockWeaponDamage))", 		// Update 29 Exact
 							//"round(0.100012*max(Magicka, Stamina) + 1.04995*max(LAShockSpellDamage, LAShockWeaponDamage) - 1.02553)",			// Update 29
 							
@@ -6478,7 +6489,8 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "HAFlameSpellDamage", "HAFlameWeaponDamage", "SingleTargetDamageDone", "DamageDone", "DirectDamageDone", "FlameDamageDone"),
 					"compute" => array(
-							"4893",		// Update 35
+							"floor(fround(0.071429)*max(Magicka, Stamina)) + floor(fround(0.750)*max(HAFlameSpellDamage, HAFlameWeaponDamage))", 	// Update 35 Exact
+							//"4893",		// Update 35
 							//"floor(fround(0.096)*max(Magicka, Stamina)) + floor(fround(1.008)*max(HAFlameSpellDamage, HAFlameWeaponDamage))", 	// Update 29 Exact
 							//"round(0.0960392*max(Magicka, Stamina) + 1.00751*max(HAFlameSpellDamage, HAFlameWeaponDamage) - 0.531069)",		// Update 29
 							//"round(0.0959915*max(Magicka, Stamina) + 1.00751*max(HAFlameSpellDamage, HAFlameWeaponDamage) - 0.520289)",		// Update 28
@@ -6510,7 +6522,8 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "HAFrostSpellDamage", "HAFrostWeaponDamage", "DamageDone", "DirectDamageDone", "FrostDamageDone"),
 					"compute" => array(
-							"4893",		// Update 35
+							"floor(fround(0.071429)*max(Magicka, Stamina)) + floor(fround(0.750)*max(HAFrostSpellDamage, HAFrostWeaponDamage))", 	// Update 35 Exact
+							//"4893",		// Update 35
 							//"floor(fround(0.096)*max(Magicka, Stamina)) + floor(fround(1.008)*max(HAFrostSpellDamage, HAFrostWeaponDamage))", 	// Update 29 Exact
 							//"round(0.0960392*max(Magicka, Stamina) + 1.00751*max(HAFrostSpellDamage, HAFrostWeaponDamage) - 0.531069)",		// Update 29
 							//"round(0.0959915*max(Magicka, Stamina) + 1.00751*max(HAFrostSpellDamage, HAFrostWeaponDamage) - 0.520289)",		// Update 28
@@ -6542,7 +6555,8 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "HAShockSpellDamage", "HAShockWeaponDamage", "LAShockStaff", "DamageDone", "AOEDamageDone", "DotDamageDone", "ShockDamageDone"),
 					"compute" => array(
-							"3150",		// Update 35
+							"floor(fround(0.065714)*max(Magicka, Stamina)) + floor(fround(0.690)*max(HAShockSpellDamage, HAShockWeaponDamage))", 	// Update 35 Exact
+							//"3150",		// Update 35
 							//"floor(fround(0.04)*max(Magicka, Stamina)) + floor(fround(0.42)*max(HAShockSpellDamage, HAShockWeaponDamage))", 	// Update 29 Exact
 							//"round(0.039976*max(Magicka, Stamina) + 0.420235*max(HAShockSpellDamage, HAShockWeaponDamage) - 1.34724)",		// Update 29
 							//"round(0.0401116*max(Magicka, Stamina) + 0.4193*max(HAShockSpellDamage, HAShockWeaponDamage) - 1.39152)",			// Update 28
@@ -6587,7 +6601,8 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "LAMagicSpellDamage", "LAMagicWeaponDamage", "DamageDone", "SingleTargetDamageDone", "DirectDamageDone", "MagicDamageDone"),
 					"compute" => array(
-							"3750",		// Update 35
+							"floor(fround(0.082143)*max(Magicka, Stamina)) + floor(fround(0.8625)*max(LAMagicSpellDamage, LAMagicWeaponDamage))", 	// Update 35 Exact
+							//"3750",		// Update 35
 							//"floor(fround(0.046575)*max(Magicka, Stamina)) + floor(fround(0.489038)*max(LAMagicSpellDamage, LAMagicWeaponDamage))", 	// Update 29 Exact
 							//"0.046575*max(Magicka, Stamina) + 0.489038*max(LAMagicSpellDamage, LAMagicWeaponDamage)",									// Update 29
 							//"0.0568945*max(Magicka, Stamina) + 0.597347*max(LAMagicSpellDamage, LAMagicWeaponDamage) - 0.998668",						// Update 28
@@ -6617,8 +6632,9 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "HAPhysicalWeaponDamage", "HAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"3875",		// Update 35
-							//"floor(fround(0.07)*max(Magicka, Stamina)) + floor(fround(0.735)*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage))", 		// Update 29 Exact
+							"floor(fround(0.0700)*max(Magicka, Stamina)) + floor(fround(0.7350)*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage))", 	// Update 35 Exact
+							//"3875",		// Update 35
+							//"floor(fround(0.07)*max(Magicka, Stamina)) + floor(fround(0.735)*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage))", 	// Update 29 Exact
 							//"round(0.06996*max(Magicka, Stamina) + 0.73483*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage) - 0.08754)",			// Update 29
 							//"round(0.0699622*Stamina + 0.734782*HAPhysicalWeaponDamage - 0.178041)",													// Update 28: What it actually is
 							//"round(0.0699622*max(Magicka, Stamina) + 0.734782*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage) - 0.178041)",		// Update 28 What it is supposed to be
@@ -6645,8 +6661,9 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "HAPhysicalWeaponDamage", "HAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"4275",		// Update 35
-							//"floor(fround(0.07)*max(Magicka, Stamina)) + floor(fround(0.735)*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage))", 		// Update 29 Exact
+							"floor(fround(0.066667)*max(Magicka, Stamina)) + floor(fround(0.700)*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage))", 	// Update 35 Exact
+							//"4275",		// Update 35
+							//"floor(fround(0.07)*max(Magicka, Stamina)) + floor(fround(0.735)*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage))", 	// Update 29 Exact
 							//"round(0.0699402*max(Magicka, Stamina) + 0.734554*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage) + 1.10766 )",		// Update 29
 							//"round(0.0699608*max(Magicka, Stamina) + 0.73472*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage) - 0.130863)",			// Update 28
 							//"round(0.0699437*Stamina + 0.73485*HAPhysicalWeaponDamage - 0.27499)",	// Update 21
@@ -6676,8 +6693,9 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "HAPhysicalWeaponDamage", "HAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"4500",		// Update 35
-							//"floor(fround(0.072)*max(Magicka, Stamina)) + floor(fround(0.756)*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage))", 		// Update 29 Exact
+							"floor(fround(0.071429)*max(Magicka, Stamina)) + floor(fround(0.750)*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage))", 	// Update 35 Exact
+							//"4500",		// Update 35
+							//"floor(fround(0.072)*max(Magicka, Stamina)) + floor(fround(0.756)*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage))", 	// Update 29 Exact
 							//"round(0.071964*max(Magicka, Stamina) + 0.756761*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage) - 2.19699)",			// Update 29
 							//"round(0.0718798*max(Magicka, Stamina) + 0.756019*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage) + 0.150727)",		// Update 28
 							//"round(0.0719181*Stamina + 0.755647*HAPhysicalWeaponDamage + 1.35513)",		// Update 21
@@ -6707,7 +6725,8 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "HAPhysicalWeaponDamage", "HAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone", "BowDamageDone"),
 					"compute" => array(
-							"4777",		// Update 35
+							"floor(fround(0.095238)*max(Magicka, Stamina)) + floor(fround(1.000)*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage))", 	// Update 35 Exact
+							//"4777",		// Update 35
 							//"floor(fround(0.094)*max(Magicka, Stamina)) + floor(fround(0.987)*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage))", 	// Update 29 Exact
 							//"round(0.0940508*max(Magicka, Stamina) + 0.987346*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage) - 2.60372)",			// Update 29
 							//"round(0.0939428*max(Magicka, Stamina) + 0.986704*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage) - 0.168718)",		// Update 28
@@ -6739,8 +6758,10 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "HAPhysicalWeaponDamage", "HAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"1938",		// Update 35
-							"1938",
+							"floor(fround(0.023810)*max(Magicka, Stamina)) + floor(fround(0.250)*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage))", 	// Update 35 Exact
+							"floor(fround(0.023810)*max(Magicka, Stamina)) + floor(fround(0.250)*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage))",
+							//"1938",		// Update 35
+							//"1938",
 							//"floor(fround(0.033)*max(Magicka, Stamina)) + floor(fround(0.3465)*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage))", 	// Update 29 Exact
 							//"floor(fround(0.033)*max(Magicka, Stamina)) + floor(fround(0.3465)*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage))", 
 							//"round(0.0328981*max(Magicka, Stamina) + 0.346912*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage) - 0.500839)",		// Update 29
@@ -6779,7 +6800,8 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "HAPhysicalWeaponDamage", "HAPhysicalSpellDamage", "DamageDone", "DirectDamageDone", "PhysicalDamageDone"),
 					"compute" => array(
-							"4500",		// Update 35
+							"floor(fround(0.071429)*max(Magicka, Stamina)) + floor(fround(0.750)*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage))", 	// Update 35 Exact
+							//"4500",		// Update 35
 							//"floor(fround(0.072)*max(Magicka, Stamina)) + floor(fround(0.756)*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage))", 	// Update 29 Exact
 							//"round(0.071964*max(Magicka, Stamina) + 0.756761*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage) - 2.19699)",			// Update 29
 							//"round(0.0718798*max(Magicka, Stamina) + 0.756019*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage) + 0.150727)",		// Update 28
@@ -6810,7 +6832,8 @@ class EsoBuildDataEditor
 					"round" => "round",
 					"depends" => array("Magicka", "Stamina", "HAShockSpellDamage", "HAShockWeaponDamage", "LAShockStaff", "DamageDone", "AOEDamageDone", "SingleTargetDamageDone", "ShockDamageDone", "OverloadDamage"),
 					"compute" => array(
-							"2024",		// Update 35
+							"floor(fround(0.0900)*max(Magicka, Stamina)) + floor(fround(0.945)*max(HAPhysicalWeaponDamage, HAPhysicalSpellDamage))", 	// Update 35 Exact
+							//"2024",		// Update 35
 							//"floor(fround(0.09)*max(Magicka, Stamina)) + floor(fround(0.945)*max(HAShockSpellDamage, HAShockWeaponDamage))", 	// Update 29 Exact
 							//"round(0.0898005*max(Magicka, Stamina) + 0.94525*max(HAShockSpellDamage, HAShockWeaponDamage) + 1.43798)",		// Update 29
  							
