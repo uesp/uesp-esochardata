@@ -1763,6 +1763,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			
+			<b>18 August 2022</b>
+			<ul>
+				<li>Fixed the Exploiter CP from activating with other CPs.</li>
+			</ul>
+			<p>
 			<b>12 August 2022</b>
 			<ul>
 				<li>35pts: Updated all Light and Heavy Attack coefficients in the Computed Stats list.</li>
