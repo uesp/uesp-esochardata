@@ -302,7 +302,8 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			buffIds: [	"War Horn", "Major Force", "Hircines Veneer", "Worms Raiment", "Minor Toughness", "Minor Berserk", "Minor Brutality", "Minor Sorcery", "Minor Savagery", "Major Courage", "Minor Prophecy",
 			          	"Engulfing Flames (Target)", "Major Breach (Target)", "Minor Breach (Target)", "Minor Vulnerability (Target)", "Alkosh (Target)",
-			          	"Major Vulnerability (Target)", "Minor Brittle (Target)", "Old Crusher Enchantment Infused + Torug (Target)"
+			          	"Major Vulnerability (Target)", "Minor Brittle (Target)", "Crusher Enchantment Infused (Target)", "Major Slayer", "Minor Courage",
+			          	"Elemental Catalyst (Combined)",
 			          	],
 			icon : "/esoui/art/icons/crafting_poison_001_blue_005.png",
 		},
@@ -480,6 +481,18 @@ window.g_EsoBuildBuffData =
 			skillEnabled : false,
 			buffEnabled: false,
 			value : 0.05,
+			display: "%",
+			statId : "CritDamage",
+			icon : "/esoui/art/icons/ability_mage_065.png",		// TODO: Placeholder
+		},
+		"Elemental Catalyst (Combined)" :
+		{
+			visible : false,	// Only used by the Target Dummy buffs
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			value : 0.15,
 			display: "%",
 			statId : "CritDamage",
 			icon : "/esoui/art/icons/ability_mage_065.png",		// TODO: Placeholder
@@ -781,17 +794,6 @@ window.g_EsoBuildBuffData =
 			skillEnabled : false,
 			buffEnabled: false,
 			value : 5948,
-			category : "Skill",
-			statIds : [ "PhysicalResist", "SpellResist" ],
-			icon : "/esoui/art/icons/ability_warrior_021.png",
-		},
-		"Major Resolve (Bonus)" : 
-		{
-			group: "Major",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			value : 2974,
 			category : "Skill",
 			statIds : [ "PhysicalResist", "SpellResist" ],
 			icon : "/esoui/art/icons/ability_warrior_021.png",
@@ -1324,20 +1326,6 @@ window.g_EsoBuildBuffData =
 			statIds : [ "MagickaCost", "StaminaCost" ],
 			icon : "/esoui/art/icons/achievement_trial_cr_flavor_2.png",
 		},
-		"Maelstrom Destruction Enchantment" :
-		{
-			group: "Set",
-			enabled: false,
-			skillEnabled : false,
-			buffEnabled: false,
-			//visible : false,
-			//toggleVisible : true,
-			value : 1341,
-			statDescs : ["Increases your Light Attack damage on targets affected by your Wall of Elements by ", "Increases your Heavy Attack damage on targets affected by your Wall of Elements by "],
-			category: "Skill2",
-			statIds : [ "LADamage", "HADamage" ],
-			icon : "/esoui/art/icons/enchantment_weapon_berserking.png",
-		},
 		"Lycanthropy" :
 		{
 			group: "Skill",
@@ -1624,7 +1612,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			values : [ -3010, -3010 ],
+			values : [ -6000, -6000 ],
 			category: "Target",
 			statIds : [ "PhysicalDebuff", "SpellDebuff" ],
 			statDescs : [ "Reduces the target's Physical Resistance by ", "Reduces the target's Spell Resistance by " ],
@@ -1851,7 +1839,7 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 0.10,
+			value : 0.06,
 			display: "%",
 			category: "Buff",
 			statId : "FlameDamageDone",
@@ -2111,13 +2099,33 @@ window.ESO_ACTIVEEFFECT_MATCHES =
 		"match": /to gain Major Resolve/i
 	},
 	{
-		"id": "Northern Storm",
+		"id": "Sleet Storm",
 		"baseSkillId": 86112,
 		"toggle": true,
 		"enabled": false,
 		"enableOffBar": true,
 		"buffId": "Major Protection",
 		"match": /You and nearby allies gain Major Protection, reducing your damage taken/i
+	},
+	{
+		"id": "Sleet Storm",
+		"baseSkillId": 86112,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"category": "Item",
+		"statId": "SpellDamage",
+		"match": /Twist a violent storm around you.*and increasing your Weapon and Spell Damage by ([0-9]+) for/i
+	},
+	{
+		"id": "Sleet Storm",
+		"baseSkillId": 86112,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"category": "Item",
+		"statId": "WeaponDamage",
+		"match": /Twist a violent storm around you.*and increasing your Weapon and Spell Damage by ([0-9]+) for/i
 	},
 	{
 		"id": "Spirit Guardian",
@@ -2827,6 +2835,40 @@ window.ESO_ACTIVEEFFECT_MATCHES =
 window.ESO_PASSIVEEFFECT_MATCHES = 
 [
 	{
+		"statRequireId": "WerewolfStage",
+		"statRequireValue": 2,
+		"statId": "SpellDamage",
+		"display": "%",
+		"match": /WHILE YOU ARE IN WEREWOLF FORM\s+Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)%\./i
+	},
+	{
+		"statRequireId": "WerewolfStage",
+		"statRequireValue": 2,
+		"statId": "WeaponDamage",
+		"display": "%",
+		"match": /WHILE YOU ARE IN WEREWOLF FORM\s+Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)%\./i
+	},
+	{
+		"statRequireId": "WerewolfStage",
+		"statRequireValue": 2,
+		"buffId": "Major Resolve",
+		"match": /WHILE YOU ARE IN WEREWOLF FORM[\s\S]+Grants you Major Resolve,/i
+	},
+	{
+		"statRequireId": "WerewolfStage",
+		"statRequireValue": 2,
+		"statId": "MovementSpeed",
+		"display": "%",
+		"match": /WHILE YOU ARE IN WEREWOLF FORM\s+Increases your Movement Speed by ([0-9]+\.?[0-9]*)%\./i
+	},
+	{
+		"statRequireId": "WerewolfStage",
+		"statRequireValue": 2,
+		"statId": "HAStaRestore",
+		"display": "%",
+		"match": /WHILE YOU ARE IN WEREWOLF FORM[\s\S]+Increases the Stamina your Heavy Attacks restore by ([0-9]+\.?[0-9]*)%\./i
+	},
+	{
 		requireSkillLine: "Assassination",
 		statId: "CritDamage",
 		display: "%",
@@ -3138,14 +3180,6 @@ window.ESO_PASSIVEEFFECT_MATCHES =
 		"id": "Shadow Barrier",
 		"baseSkillId": 18866,
 		"buffId": "Major Resolve",
-		"toggle": true,
-		"enabled": false,
-		"match": /Casting a Shadow ability grants you Major Resolve for [0-9]+ seconds/i
-	},
-	{
-		"id": "Shadow Barrier",
-		"baseSkillId": 18866,
-		"buffId": "Major Ward",
 		"toggle": true,
 		"enabled": false,
 		"match": /Casting a Shadow ability grants you Major Resolve for [0-9]+ seconds/i
@@ -6514,7 +6548,7 @@ window.ESO_SETEFFECT_MATCHES =
 		match: /Increases your Critical Damage and Critical Healing by ([0-9]+)%/i,
 	},
 	{
-		buffId: "Major Berserk",
+		buffId: "Minor Berserk",
 		match: /and gain Minor Berserk, Minor Courage, Major Brutality, Major Sorcery, Major Prophecy, Major Savagery, Minor Force, Minor Protection, Major Resolve, Minor Mending, Minor Fortitude, Minor Intellect, Minor Endurance,/i,
 	},
 	{
@@ -6725,6 +6759,11 @@ window.ESO_SETEFFECT_MATCHES =
 	{
 		statId: "StatusEffectDuration",
 		match: /Increase the duration of Status Effects you apply by ([0-9]+) seconds/i,
+	},
+	{
+		category: "SkillFlatDamage",
+		statId: "Cleave",
+		match: /Increases the direct damage Cleave deals by ([0-9]+) for each enemy in its cone/i,
 	},
 	
 	
@@ -9093,11 +9132,8 @@ window.ESO_SETEFFECT_MATCHES =
 		match: /When you drink a potion during combat you feel a rush of energy, increasing your Weapon and Spell Damage by ([0-9]+)/i,
 	},
 	{
-		//id: "Crushing Wall",
-		setBonusCount: 1,
-		buffId : "Maelstrom Destruction Enchantment",
-		updateBuffValue : true,
-		enableOffBar : true,
+		category: "SkillFlatDamage",
+		statId : "Wall of Elements",
 		match: /Increases the damage Wall of Elements deals by ([0-9]+)/i,
 	},
 	{
@@ -17825,6 +17861,7 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
 	g_LastSkillInputValues.Vulnerability = inputValues.Target.Vulnerability;
 	g_LastSkillInputValues.SkillDuration = inputValues.SkillDuration;
  	g_LastSkillInputValues.SkillDamage = inputValues.SkillDamage;
+ 	g_LastSkillInputValues.SkillFlatDamage = inputValues.SkillFlatDamage;
  	g_LastSkillInputValues.SkillLineDamage = inputValues.SkillLineDamage;
  	g_LastSkillInputValues.SkillHealing = inputValues.SkillHealing;
  	g_LastSkillInputValues.useMaelstromDamage = false;

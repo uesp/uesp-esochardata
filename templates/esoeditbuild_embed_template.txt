@@ -11,7 +11,7 @@ Note: Editor is now mostly working for update 35. Items, skills, and CPs have be
 
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
-inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor"><b>let us know</b></a>. Quickly access the build editor with the short URL 
+inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Editor"><b>let us know</b></a>. Quickly access the build editor with the short URL 
 <b><a href="https://esobuildeditor.uesp.net">https://esobuildeditor.uesp.net</a></b>!
 <div class='esotbBlockClear'></div>
 <div id="esotbRoot">
@@ -1721,8 +1721,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<p>
 			This is a yet another character builder/planner for Elder Scrolls Online. The design goal behind the builder is to be able to see 
 			all the various calculations and stat sources to be able to better understand how one thing or another affects your character's
-			final stats. More help on this editor can be found on its <b><a href="//en.uesp.net/wiki/UESPWiki:EsoBuildEditor">wiki page</a></b>
-			and bug reports/feedback can be made on the editor's <b><a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor">talk page</a></b>.
+			final stats. More help on this editor can be found on its <b><a href="//en.uesp.net/wiki/Online:Build_Editor">wiki page</a></b>
+			and bug reports/feedback can be made on the editor's <b><a href="//en.uesp.net/wiki/Online_talk:Build_Editor">talk page</a></b>.
 			<p>
 			
 			<h3>Basic Usage</h3>
@@ -1763,6 +1763,23 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>24 August 2022</b>
+			<ul>
+				<li>Fixed links to the <a href="/wiki/Online_talk:Build_Editor">Feedback Page</a>.</li>
+				<li>Fixed Oakensoul to give Minor Berserk instead of Major.</li>
+				<li>Fixed Parsing of the Werewolf's Pursuit and Savage Strength passives.</li>
+				<li>Adds the Spell/Weapon damage to the Norther Storm skill toggle.</li>
+				<li>Removed the extra hit shown in the tooltip of the Flurry skill and its morphs.</li>
+				<li>Fixed the Engulfing Flames (Target) buff to be 6%.</li>
+				<li>Added Major Slayer and Minor Courage to the Target Dummy buff.</li>
+				<li>Changed the Target Dummy buff to use the Crusher Enchantment Infused (Target) buff instead of one with Torug's.</li>
+				<li>Added a unique Elemental Catalyst buff (15% Crit Damage Taken) to the Target Dummy buff.</li>
+				<li>Changed the Alkosh buff to be a default value of 6000.</li>
+				<li>Removed the Major resolve (bonus) buff.</li>
+				<li>Removed the Maelstrom Destruction Enchantment buff and made the Crushing Wall set a normal parsed effect. Updated the Wall of Elements skill to show the extra damage in the tooltip.</li>
+				<li>Added the Cleave damage from the Titanic Cleave set and made it show up in the skill tooltip.</li>
+			</ul>
+			<p>
 			<b>23 August 2022</b>
 			<ul>
 				<li>Removed a few dozen old set parsing definitions.</li>
@@ -4162,7 +4179,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 				<li>Change in CP scaling of health/magicka/stamina updated (needs verification).</li>
 				<li>Skill details button now updates the skill data before displaying the popup window to ensure accurate data is displayed.</li>
 				<li>Parsing of updated and new skills/CPs in Morrowind is complete. If you notice a skill that isn't being parsed correctly or
-						a tooltip that is not correct <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor">let us know</a>.</li>
+						a tooltip that is not correct <a href="//en.uesp.net/wiki/Online_talk:Build_Editor">let us know</a>.</li>
 				<li>All bad skill coefficients fixed (mainly for new/updated skills).</li>
 			</ul>
 			<p>
@@ -4470,7 +4487,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBui
 			<b>25 October 2016</b>
 			<ul>
 				<li>Updated the matching effect data for more than 70 sets from the One Tamriel update. This still leaves a few dozen minor set effects left to implement. 
-					If you notice any omission or errors let us know on the <a href="//en.uesp.net/wiki/UESPWiki_talk:EsoBuildEditor">feedback page</a>.<li>
+					If you notice any omission or errors let us know on the <a href="//en.uesp.net/wiki/Online_talk:Build_Editor">feedback page</a>.<li>
 			</ul>
 			<p>
 			<b>24 October 2016</b>

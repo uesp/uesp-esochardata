@@ -214,6 +214,7 @@ class EsoBuildDataEditor
 			"Skill.HAStaRestoreWerewolf",
 			"SkillDuration.Placeholder",
 			"SkillDamage.Placeholder",
+			"SkillFlatDamage.Placeholder",
 			"SkillWeaponDamage.Placeholder",
 			"SkillSpellDamage.Placeholder",
 			"SkillLineDamage.Placeholder",
