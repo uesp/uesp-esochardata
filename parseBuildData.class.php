@@ -272,6 +272,7 @@ class EsoBuildDataParser
 						icon TINYTEXT NOT NULL,
 						description TEXT NOT NULL,
 						enabled TINYINT NOT NULL,
+						count TINYINT NOT NULL,
 						abilityId INTEGER NOT NULL,
 						INDEX index_characterId(characterId)
 					) ENGINE=MYISAM;";

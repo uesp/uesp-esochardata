@@ -6811,18 +6811,25 @@ class EsoBuildDataEditor
 	public function CreateInitialBuffData()
 	{
 		static $IGNORED_BUFFS = array(
-				'ESO Plus Member' => 1,
+				'ESO Plus Member' => [
+					'count' => 0,
+					'enabled' => 1,
+				]
 		);
 		
 		foreach ($this->buildDataViewer->characterData['buffs'] as $buff)
 		{
 			$buffName = $buff['name'];
 			$enabled = $buff['enabled'];
+			$count = $buff['count'];
 			if ($enabled == 0) $enabled = 1;
 			
 			if ($buffName == "Spell Power Cure") $buffName = "Major Courage";
 			
-			$this->initialBuffData[$buffName] = $enabled;	
+			$this->initialBuffData[$buffName] = [
+					'count' => $count,
+					'enabled' => $enabled,
+			];
 		}
 	}
 	

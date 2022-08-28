@@ -929,7 +929,8 @@ esotbToggledCpSelect {
 
 .esotbToggleSkillNumber,
 .esotbToggleSetNumber,
-.esotbToggleCpNumber {
+.esotbToggleCpNumber,
+.esotbToggleBuffNumber {
 	width: 50px;
 	margin-right: 10px;
 }

@@ -74,6 +74,7 @@ class EsoBuildDataSaver
 			"abilityId"			=> "int",
 			"description"		=> "text",
 			"enabled"			=> "int",
+			"count"				=> "int",
 	);
 	
 	

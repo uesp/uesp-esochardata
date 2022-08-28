@@ -345,6 +345,20 @@ window.g_EsoBuildBuffData =
 			statId : "MovementSpeed",
 			icon : "/esoui/art/icons/ability_debuff_minor_cowardice.png",
 		},
+		"Pearlescent Ward" : {
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			maxTimes: 12,
+			count: 0,
+			categories: [ "Set", "Set", "Buff" ],
+			values : [ 15, 15, -0.055],
+			displays: [ '', '', '%' ],
+			rounds: [ '', '', 'floor' ],
+			statIds : [ "WeaponDamage", "SpellDamage", "DamageTaken"],
+			icon : "/esoui/art/icons/treasure_maw_moon_pearl.png",
+		},
 		"Crimson Oath`s Rive" : {
 			group: "Set",
 			enabled: false,
@@ -7019,9 +7033,21 @@ window.ESO_SETEFFECT_MATCHES =
 		enabled: false,
 		statValue: 15,
 		maxTimes: 12, 
-		statId: "WeaponDamage",
+		//statId: "WeaponDamage",
+		buffId: "Pearlescent Ward",
 		match: /Pearlescent Ward increases Weapon and Spell Damage by up to [0-9]+ based on the number of group members that are alive/i,
 	},
+	{
+		id: "Pearlescent Ward",
+		setBonusCount: 4,
+		toggle: true,
+		enabled: false,
+		maxTimes: 12,
+		round: "floor",
+		statId: "PearlescentWard",
+		match: /Pearlescent Ward increases damage reduction from non-player enemies out of [0-9]+% based on the number of group members that are dead/i,
+	},
+	/*
 	{
 		id: "Pearlescent Ward",
 		setBonusCount: 4,
@@ -7043,17 +7069,8 @@ window.ESO_SETEFFECT_MATCHES =
 		round: "floor",
 		statId: "DamageTaken",
 		match: /Pearlescent Ward increases damage reduction from non-player enemies out of [0-9]+% based on the number of group members that are dead/i,
-	},
-	{
-		id: "Pearlescent Ward",
-		setBonusCount: 4,
-		toggle: true,
-		enabled: false,
-		maxTimes: 12,
-		round: "floor",
-		statId: "PearlescentWard",
-		match: /Pearlescent Ward increases damage reduction from non-player enemies out of [0-9]+% based on the number of group members that are dead/i,
-	},
+	}, //*/
+	
 	{
 		id: "Perfected Pearlescent Ward",
 		setBonusCount: 5,
@@ -7061,9 +7078,20 @@ window.ESO_SETEFFECT_MATCHES =
 		enabled: false,
 		statValue: 15,
 		maxTimes: 12, 
-		statId: "WeaponDamage",
+		//statId: "WeaponDamage",
+		buffId: "Pearlescent Ward",
 		match: /Pearlescent Ward increases Weapon and Spell Damage by up to [0-9]+ based on the number of group members that are alive/i,
 	},
+	{
+		id: "Perfected Pearlescent Ward",
+		setBonusCount: 5,
+		toggle: true,
+		enabled: false,
+		maxTimes: 12,
+		round: "floor",
+		statId: "PearlescentWard",
+		match: /Pearlescent Ward increases damage reduction from non-player enemies out of [0-9]+% based on the number of group members that are dead/i,
+	},/*
 	{
 		id: "Perfected Pearlescent Ward",
 		setBonusCount: 5,
@@ -7085,17 +7113,8 @@ window.ESO_SETEFFECT_MATCHES =
 		round: "floor",
 		statId: "DamageTaken",
 		match: /Pearlescent Ward increases damage reduction from non-player enemies out of [0-9]+% based on the number of group members that are dead/i,
-	},
-	{
-		id: "Perfected Pearlescent Ward",
-		setBonusCount: 5,
-		toggle: true,
-		enabled: false,
-		maxTimes: 12,
-		round: "floor",
-		statId: "PearlescentWard",
-		match: /Pearlescent Ward increases damage reduction from non-player enemies out of [0-9]+% based on the number of group members that are dead/i,
-	},
+	}, //*/
+	
 	{
 		id: "Blessing of High Isle",
 		setBonusCount: 4,
@@ -10855,6 +10874,7 @@ window.GetEsoInputBuffValues = function (inputValues)
 		var buffData = g_EsoBuildBuffData[buffName];
 		if (buffData == null) continue;
 		if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled || buffData.combatEnabled)) continue;
+		
 		GetEsoInputBuffValue(inputValues, buffName, buffData);
 	}
 }
@@ -10888,6 +10908,10 @@ window.GetEsoInputBuffValue = function (inputValues, buffName, buffData)
 	var combineAses = buffData.combineAses;
 	var factorValue = buffData.factorValue;
 	var factorValues = buffData.factorValues;
+	var round = buffData.round;
+	var rounds = buffData.rounds;
+	var display = buffData.display;
+	var displays = buffData.displays;
 	
 	if (buffData.category != null) category = buffData.category;
 	if (combineAs == null) combineAs = '';
@@ -10897,6 +10921,8 @@ window.GetEsoInputBuffValue = function (inputValues, buffName, buffData)
 	if (categories == null) categories = [].fill.call({ length: statIds.length }, category);
 	if (combineAses == null) combineAses = [].fill.call({ length: statIds.length }, combineAs);
 	if (factorValues == null) factorValues = [].fill.call({ length: statIds.length }, factorValues);
+	if (rounds == null) rounds = [].fill.call({ length: statIds.length }, round);
+	if (displays == null) displays = [].fill.call({ length: statIds.length }, display);
 	
 	for (var i = 0; i < statIds.length; ++i)
 	{
@@ -10905,6 +10931,8 @@ window.GetEsoInputBuffValue = function (inputValues, buffName, buffData)
 		statId = statIds[i];
 		combineAs = combineAses[i];
 		factorValue = factorValues[i];
+		round = rounds[i];
+		display = displays[i];
 		
 		if (statId == "OtherEffects")
 		{
@@ -10915,7 +10943,35 @@ window.GetEsoInputBuffValue = function (inputValues, buffName, buffData)
 		{
 			if (inputValues[category][statId] == null) inputValues[category][statId] = 0;
 			
+			if (buffData.maxTimes && buffData.count != null)
+			{
+				if (buffData.count == 0) continue;
+				statValue *= buffData.count;
+			}
+			
 			if (factorValue != null && factorValue != 1) statValue *= factorValue;
+			
+			if (round == "floor")
+			{
+				if (display == '%')
+					statValue = Math.floor(statValue*100)/100;
+				else
+					statValue = Math.floor(statValue);
+			}
+			else if (round == "ceil")
+			{
+				if (display == '%')
+					statValue = Math.ceil(statValue*100)/100;
+				else
+					statValue = Math.ceil(statValue);
+			}
+			else if (round == "round")
+			{
+				if (display == '%')
+					statValue = Math.round(statValue*100)/100;
+				else
+					statValue = Math.round(statValue);
+			}
 			
 			if (combineAs == "*%")
 				inputValues[category][statId] = CombineEsoValuesMult(inputValues[category][statId], statValue);
@@ -11231,6 +11287,19 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 			var buffData = g_EsoBuildBuffData[matchData.buffId];
 			if (buffData == null) continue;
 			
+			if (matchData.maxTimes != null && buffData.maxTimes != null)
+			{
+				var toggleData = g_EsoBuildToggledSetData[matchData.id];
+				
+				if (toggleData != null && toggleData.count != null)
+				{
+					buffData.count = toggleData.count;
+					
+					var parentId = matchData.buffId.replace(/\W/g, "_");
+					$("#esotbBuff_" + parentId).find(".esotbToggleBuffNumber").val(buffData.count);
+				}
+			}
+			
 			buffData.skillEnabled = true;
 			buffData.skillAbilities.push(setData);
 			AddEsoItemRawOutputString(setData, "Adds Buff", matchData.buffId);
@@ -11252,7 +11321,7 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 				if (buffData.value != null) buffData.value = parseFloat(matches[1]) * factorValue;
 				
 				if (buffData.values) {
-					for (var j = 0; j < buffData.values.length; j++) 
+					for (var j = 0; j < buffData.values.length; j++)
 					{
 						buffData.values[j] = parseFloat(matches[1]) * factorValue;
 					}
@@ -17280,6 +17349,12 @@ window.UpdateEsoBuildToggledCpData = function ()
 	}
 }
 
+window.OnEsoBuildBuffNumberClick = function (e)
+{
+	e.stopPropagation();
+	return false;
+}
+
 
 window.OnEsoBuildToggleSetNumberClick = function (e)
 {
@@ -17497,6 +17572,34 @@ window.OnEsoBuildToggleSetNumber = function (e)
 	
 	if (value < 0) $(this).val("0");
 	if (toggleData.maxTimes != null && value > toggleData.maxTimes)  $(this).val(toggleData.maxTimes);
+	
+	UpdateEsoComputedStatsList();
+}
+
+
+window.OnEsoBuildBuffNumberInput = function (e)
+{
+	var buffId = $(this).parent().attr("buffid");
+	if (buffId == null || buffId == "") return;
+	
+	var buffData = g_EsoBuildBuffData[buffId];
+	if (buffData == null) return;
+	
+	var value = $(this).val();
+	
+	if (value < 0)
+	{
+		$(this).val("0");
+		value = 0;
+	}
+	
+	if (buffData.maxTimes != null && value > buffData.maxTimes)
+	{
+		$(this).val(buffData.maxTimes);
+		value = buffData.maxTimes;
+	}
+	
+	buffData.count = value;
 	
 	UpdateEsoComputedStatsList();
 }
@@ -18289,13 +18392,18 @@ window.CreateEsoBuildBuffHtml = function (buffName, buffData)
 	elementId = elementId.replace(/\W/g, "_");
 	
 	var output = "<div id='" + elementId + "' class='esotbBuffItem " + extraClass + "' " + extraAttributes + " buffid='" + buffName + "'>";
-	
 	output += "<input class='esotbBuffCheck' type='checkbox' buffid='" + buffName + "' " + checked + "> ";
+	
+	if (buffData.maxTimes)
+	{
+		output += "<input type='number' class='esotbToggleBuffNumber' value='" + buffData.count + "'>";
+	}
+	
 	output += "<img class='esotbBuffIcon' src='" + icon + "'>";
 	output += "<div class='esotbBuffTitle'>" + buffName + "</div>";
 	
 	CreateEsoBuildBuffDescHtml(buffData);
-
+	
 	output += "<div class='esotbBuffDesc'>" + buffData.desc + "</div>";
 	output += "<div class='esotbBuffSkillEnable'></div>";
 	output += "</div>";
@@ -18362,6 +18470,7 @@ window.CreateEsoBuildBuffDescHtml = function (buffData)
 		
 		var prefixDesc = "Increases ";
 		var targetDesc = "your ";
+		var suffixDesc = "";
 		
 			/* Replace some stat abbreviations with nicer descriptions */
 		statId = statIds[i].replace(/([A-Z])/g, ' $1').trim().replace("A O E ", " AOE ");
@@ -18374,6 +18483,8 @@ window.CreateEsoBuildBuffDescHtml = function (buffData)
 		category = categories[i];
 		display = displays[i];
 		factorValue = factorValues[i];
+		
+		if (buffData.maxTimes > 0) suffixDesc = " per stack (up to " + buffData.maxTimes + " stacks)";
 		
 		if (typeof(statValue) != "string")
 		{
@@ -18404,16 +18515,16 @@ window.CreateEsoBuildBuffDescHtml = function (buffData)
 				}
 			}
 			else {
-				buffData.desc += prefixDesc + targetDesc + statId + " by " + statValue + "<br/>";
+				buffData.desc += prefixDesc + targetDesc + statId + " by " + statValue + suffixDesc + "<br/>";
 			}
 		}
 		else
 		{
 			if (statDescs[i] != null && statDescs[i] != "") {
-				buffData.desc += statDescs[i] + statValue + "<br/>";
+				buffData.desc += statDescs[i] + statValue + suffixDesc + "<br/>";
 			}
 			else {
-				buffData.desc += statValue + "<br/>";
+				buffData.desc += statValue + suffixDesc + "<br/>";
 			}
 		}
 	}
@@ -18468,13 +18579,14 @@ window.UpdateEsoBuffItem = function (element)
 	if (checked)
 		element.addClass("esotbBuffItemSelect");
 	else
-		element.removeClass("esotbBuffItemSelect");
+		element.removeClass("esotbBuffItemSelect");	
 }
 
 
 window.OnEsoBuildBuffClick = function (e)
 {
 	var checkElement = $(this).find(".esotbBuffCheck");
+	var numberElement = $(this).find(".esotbToggleBuffNumber");
 	var buffId = $(this).attr("buffid");
 	var buffData = g_EsoBuildBuffData[buffId];
 	
@@ -18483,6 +18595,11 @@ window.OnEsoBuildBuffClick = function (e)
 	if (buffData != null)
 	{
 		buffData.enabled = checkElement.prop("checked");
+		
+		if (numberElement.length)
+		{
+			buffData.count = parseInt(numberElement.text());
+		}
 	}
 	
 	UpdateEsoBuffItem($(this));
@@ -18588,14 +18705,28 @@ window.UpdateEsoInitialBuffData = function ()
 {
 	for (var buffName in g_EsoInitialBuffData)
 	{
-		var enabled = g_EsoInitialBuffData[buffName];
+		var initialData = g_EsoInitialBuffData[buffName];
+		var enabled = false;
+		var count = 0;
+		
+		if (Array.isArray(initialData) || typeof(initialData) == "object")
+		{
+			enabled = initialData['enabled'];
+			count = initialData['count'];
+		}
+		else
+		{
+			enabled = initialData;
+		}
+		
 		var buffData = g_EsoBuildBuffData[buffName];
 		if (buffData == null) continue;
 		
 		buffData.enabled       = ((parseInt(enabled) & 1) != 0); 
 		buffData.skillEnabled  = ((parseInt(enabled) & 2) != 0);
 		buffData.buffEnabled   = ((parseInt(enabled) & 4) != 0);
-		buffData.combatEnabled = false; 
+		buffData.combatEnabled = false;
+		buffData.count         = count;
 	}
 	
 }
@@ -19002,6 +19133,8 @@ window.CreateEsoBuildBuffSaveData = function (saveData, inputValues)
 		data.icon = buffData.icon;
 		data.description = buffData.desc.replaceAll("<br/>", " ");
 		data.abilityId = 0;
+		data.count = 0;
+		if (buffData.count != null) data.count = buffData.count;
 		
 		data.enabled = 0;
 		if (buffData.enabled) data.enabled += 1;
@@ -22476,6 +22609,8 @@ window.esotbOnDocReady = function ()
 	
 	$(".esotbBuffCheck").click(OnEsoBuildBuffCheckClick);
 	$(".esotbBuffItem").click(OnEsoBuildBuffClick);
+	$("#esotbBuffs").find(".esotbToggleBuffNumber").on("input", OnEsoBuildBuffNumberInput);
+	$("#esotbBuffs").find(".esotbToggleBuffNumber").click(OnEsoBuildBuffNumberClick);
 	
 	$(".esotbItemTransmuteList").change(OnEsoTransmuteListChange);
 	

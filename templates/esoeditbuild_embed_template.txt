@@ -1763,6 +1763,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>28 August 2022</b>
+			<ul>
+				<li>Added the Pearlescent Ward effect as a buff effect.</li> 
+				<li>Changed the Pearlescent Ward set toggle to enable the buff (the worn set effect stack count takes precedent over the buff stack count currently).</li>
+			</ul>
+			<p>
 			<b>24 August 2022</b>
 			<ul>
 				<li>Fixed links to the <a href="/wiki/Online_talk:Build_Editor">Feedback Page</a>.</li>
