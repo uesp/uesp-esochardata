@@ -1763,6 +1763,14 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>29 August 2022</b>
+			<ul>
+				<li>Made the Titanic Cleave set effect a toggle which can stack up to 10 times.</li>
+				<li>When wearing a Radial Uppercut set the Uppercut skill and its morphs have an additional line showing the AOE damage in their tooltips.</li>
+				<li>When wearing a Virulent Shot set the Scatter Shot skill and its morphs have an additional line showing the DOT damage in their tooltips.</li>
+				<li>When wearing a Thunderous Volley set the Volley skill and its morphs have an additional line showing the tick damage in their tooltips.</li>
+			</ul>
+			<p>
 			<b>28 August 2022</b>
 			<ul>
 				<li>Added the Pearlescent Ward effect as a buff effect.</li> 

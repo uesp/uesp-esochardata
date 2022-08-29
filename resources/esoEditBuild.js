@@ -6775,13 +6775,51 @@ window.ESO_SETEFFECT_MATCHES =
 		match: /Increase the duration of Status Effects you apply by ([0-9]+) seconds/i,
 	},
 	{
-		category: "SkillFlatDamage",
-		statId: "Cleave",
-		match: /Increases the direct damage Cleave deals by ([0-9]+) for each enemy in its cone/i,
+		category: "SkillDamage",
+		statId: "Cleave_AOE",
+		display: "%",
+		match: /Uppercut deals ([0-9\.]+)% of its damage to all enemies/i,
+	},
+	{
+		category: "SkillDamage",
+		statId: "Scatter_Shot_DOT",
+		display: "%",
+		match: /Scatter Shot applies a damage over time effect that deals ([0-9\.]+)% of your initial attack/i,
+	},
+	{
+		category: "SkillDamage",
+		statId: "Volley_Tick",
+		match: /Increases the damage Volley deals by ([0-9]+) each tick/i,
+	},
+	{
+		category: "SkillDamage",
+		statId: "Volley_DmgTick",
+		match: /This bonus increases by ([0-9]+) every time Volley ticks/i,
 	},
 	
-	
 		// Optionally toggled set effects
+	{
+		id: "Titanic Cleave",
+		setBonusCount: 1,
+		category: "SkillFlatDamage",
+		statId: "Cleave",
+		toggle: true,
+		enabled: false,
+		enableOffBar: false,
+		maxTimes: 10,
+		match: /Increases the direct damage Cleave deals by ([0-9]+) for each enemy in its cone/i,
+	},
+	{
+		id: "Perfected Titanic Cleave",
+		setBonusCount: 2,
+		category: "SkillFlatDamage",
+		statId: "Cleave",
+		toggle: true,
+		enabled: false,
+		enableOffBar: false,
+		maxTimes: 10,
+		match: /Increases the direct damage Cleave deals by ([0-9]+) for each enemy in its cone/i,
+	},
 	{
 		id: "Sergeant's Mail",
 		setBonusCount: 4,

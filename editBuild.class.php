@@ -784,6 +784,8 @@ class EsoBuildDataEditor
 			),
 			
 			"SkillDamage.Crystal Fragments" => array( "display" => "%" ),
+			"SkillDamage.Cleave_AOE" => array( "display" => "%" ),
+			"SkillDamage.Scatter_Shot_DOT" => array( "display" => "%" ),
 			"SkillCost.Crystal_Fragments_Cost" => array( "display" => "%" ),
 			
 			"SkillCost.Undaunted_Cost" => array(
