@@ -11554,7 +11554,7 @@ window.GetEsoInputAbilityDescValues = function (inputValues, outputId, itemData,
 	
 	var rawDesc = RemoveEsoDescriptionFormats(itemData.abilityDesc);
 	if (rawDesc == "") return;
-		
+	
 	for (var i = 0; i < ESO_ABILITYDESC_MATCHES.length; ++i)
 	{
 		var matchData = ESO_ABILITYDESC_MATCHES[i];
