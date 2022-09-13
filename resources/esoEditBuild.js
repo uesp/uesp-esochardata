@@ -3052,7 +3052,8 @@ window.ESO_PASSIVEEFFECT_MATCHES =
 	{
 		"statRequireId": "Weapon2H",
 		"statRequireValue": 1,
-		"statId": "StaminaCost",
+		"category" : "SkillCost",
+		"statId": "Two_Handed_Cost",
 		"display": "%",
 		"factorValue": -1,
 		"match": /WITH TWO-HANDED WEAPON EQUIPPED\s+Reduces the Stamina cost of your Two-Handed abilities by ([0-9\.]+)%/i
@@ -3060,7 +3061,8 @@ window.ESO_PASSIVEEFFECT_MATCHES =
 	{
 		"statRequireId": "Weapon1HShield",
 		"statRequireValue": 1,
-		"statId": "StaminaCost",
+		"category" : "SkillCost",
+		"statId": "One_Hand_and_Shield_Cost",
 		"display": "%",
 		"factorValue": -1,
 		"match": /WITH ONE HAND WEAPON AND SHIELD EQUIPPED\s+Reduces the Stamina cost of your One Hand and Shield abilities by ([0-9\.]+)%/i

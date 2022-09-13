@@ -1763,6 +1763,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>13 September 2022</b>
+			<ul>
+				<li>Fixed the Balanced Blade and Fortress passives from affecting the stamina cost of all abilities instead of just their skill lines.</li>
+			</ul>
+			<p>
 			<b>29 August 2022</b>
 			<ul>
 				<li>Made the Titanic Cleave set effect a toggle which can stack up to 10 times.</li>
