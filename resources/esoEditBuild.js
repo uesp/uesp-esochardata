@@ -6808,7 +6808,7 @@ window.ESO_SETEFFECT_MATCHES =
 		toggle: true,
 		enabled: false,
 		enableOffBar: false,
-		maxTimes: 10,
+		maxTimes: 24,
 		match: /Increases the direct damage Cleave deals by ([0-9]+) for each enemy in its cone/i,
 	},
 	{
@@ -6819,7 +6819,7 @@ window.ESO_SETEFFECT_MATCHES =
 		toggle: true,
 		enabled: false,
 		enableOffBar: false,
-		maxTimes: 10,
+		maxTimes: 24,
 		match: /Increases the direct damage Cleave deals by ([0-9]+) for each enemy in its cone/i,
 	},
 	{

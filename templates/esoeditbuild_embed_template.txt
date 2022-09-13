@@ -1766,6 +1766,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			<b>13 September 2022</b>
 			<ul>
 				<li>Fixed the Balanced Blade and Fortress passives from affecting the stamina cost of all abilities instead of just their skill lines.</li>
+				<li>Titanic Cleave now stacks up to 24 times.</li>
 			</ul>
 			<p>
 			<b>29 August 2022</b>
