@@ -1012,10 +1012,11 @@ window.g_EsoBuildBuffData =
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			value : 1800,
-			category: "Skill2",
+			value : 0.80,
+			category: "Skill",
 			statIds : [ "HADamage" ],
-			statDescs : [ "Increases the damage of your Heavy Attacks by", ],
+			display : "%",
+			statDescs : [ "Increases the damage of your Heavy Attacks by ", ],
 			icon : "/esoui/art/icons/ability_warrior_012.png",
 		},
 		"Major Courage" :			// TODO: Check how its added to other SD/WD stats
@@ -2102,6 +2103,52 @@ window.ESO_ACTIVEEFFECT_MATCHES =
 	{
 		"buffId": "Minor Resolve",
 		"match": /you gain Minor Resolve/i
+	},
+	{
+		"id": "Screaming Cliff Racer",
+		"baseSkillId": 85998,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"category": "Skill2",
+		"statId": "WeaponDamage",
+		"match": /After dealing damage you increase your Weapon and Spell Damage by ([0-9]+) for /i
+	},
+	{
+		"id": "Screaming Cliff Racer",
+		"baseSkillId": 85998,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"category": "Skill2",
+		"statId": "SpellDamage",
+		"match": /After dealing damage you increase your Weapon and Spell Damage by ([0-9]+) for /i
+	},
+	{
+		"id": "Screaming Cliff Racer (Off Balance)",
+		"displayName": "Screaming Cliff Racer (Off Balance)",
+		"baseSkillId": 85998,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"category": "Skill2",
+		"statId": "WeaponDamage",
+		"factorValue": 3,
+		"rawInputMatch": /(which quadruples after damaging Off Balance enemies)/i,
+		"match": /After dealing damage you increase your Weapon and Spell Damage by ([0-9]+) for [0-9]+ seconds, which quadruples after damaging Off Balance enemies/i
+	},
+	{
+		"id": "Screaming Cliff Racer (Off Balance)",
+		"displayName": "Screaming Cliff Racer (Off Balance)",
+		"baseSkillId": 85998,
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"category": "Skill2",
+		"statId": "SpellDamage",
+		"factorValue": 3,
+		"rawInputMatch": /(which quadruples after damaging Off Balance enemies)/i,
+		"match": /After dealing damage you increase your Weapon and Spell Damage by ([0-9]+) for [0-9]+ seconds, which quadruples after damaging Off Balance enemies/i
 	},
 	{
 		"id": "Immovable",

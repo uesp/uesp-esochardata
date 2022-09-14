@@ -1769,6 +1769,13 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 				<li>Titanic Cleave now stacks up to 24 times.</li>
 			</ul>
 			<p>
+			<b>14 September 2022</b>
+			<ul>
+				<li>Increased the stack cap of Titanic Cleave from 10 to 24.</li>
+				<li>Fixed the old definition of the Empower buff.</li>
+				<li>Added 2 skill toggles for the Screaming Cliff Racer Warden skill.</li>
+			</ul>
+			<p>
 			<b>29 August 2022</b>
 			<ul>
 				<li>Made the Titanic Cleave set effect a toggle which can stack up to 10 times.</li>
