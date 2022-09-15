@@ -5203,7 +5203,7 @@ window.ESO_CPEFFECT_MATCHES = [
 	{
 		id: "Exploiter",
 		toggle: true,
-		eanble: false,
+		enable: false,
 		category: "CP",
 		statId: "DamageDone",
 		display: "%",
@@ -5212,7 +5212,7 @@ window.ESO_CPEFFECT_MATCHES = [
 	{
 		id: "Foresight",
 		toggle: true,
-		eanble: false,
+		enable: false,
 		category: "CP",
 		statId: "MagickaCost",
 		combineAs: "*%",
@@ -5299,7 +5299,7 @@ window.ESO_CPEFFECT_MATCHES = [
 	{
 		id: "Peace of Mind",
 		toggle: true,
-		eanble: false,
+		enable: false,
 		category: "Item",
 		statId: "HealthRegen",
 		match: /Increases Magicka and Health Recovery while under the effects of Crowd Control Immunity by [[0-9\.]+ per stage.*\s*Current bonus: ([0-9\.]+)/i,
@@ -5326,7 +5326,7 @@ window.ESO_CPEFFECT_MATCHES = [
 	{
 		id: "Steed's Blessing",
 		toggle: true,
-		eanble: false,
+		enable: false,
 		statId: "MovementSpeed",
 		display: "%",
 		match: /Increases your out of combat movement speed by [0-9\.]+% per stage.*\s*Current (?:value|bonus): ([0-9\.]+)%/i,
@@ -5434,7 +5434,7 @@ window.ESO_CPEFFECT_MATCHES = [
 	{
 		id: "Enlivening Overflow",
 		toggle: true,
-		eanble: false,
+		enable: false,
 		onlyManual: true,
 		category: "Item",
 		statId: "StaminaRegen",
@@ -5443,7 +5443,7 @@ window.ESO_CPEFFECT_MATCHES = [
 	{
 		id: "Enlivening Overflow",
 		toggle: true,
-		eanble: false,
+		enable: false,
 		onlyManual: true,
 		category: "Item",
 		statId: "HealthRegen",
@@ -5454,7 +5454,7 @@ window.ESO_CPEFFECT_MATCHES = [
 	{
 		id: "Refreshing Stride",
 		toggle: true,
-		eanble: false,
+		enable: false,
 		category: "Item",
 		statId: "HealthRegen",
 		match: /While Sprinting you gain [0-9.]+ Health and Magicka Recovery.*\s*Current (?:value|bonus): ([0-9\.]+)/i,
@@ -5462,7 +5462,7 @@ window.ESO_CPEFFECT_MATCHES = [
 	{
 		id: "Refreshing Stride",
 		toggle: true,
-		eanble: false,
+		enable: false,
 		category: "Item",
 		statId: "MagickaRegen",
 		match: /While Sprinting you gain [0-9.]+ Health and Magicka Recovery.*\s*Current (?:value|bonus): ([0-9\.]+)/i,
@@ -5470,7 +5470,7 @@ window.ESO_CPEFFECT_MATCHES = [
 	{
 		id: "Sustained by Suffering",
 		toggle: true,
-		eanble: false,
+		enable: false,
 		category: "Item",
 		statId: "HealthRegen",
 		match: /Increases your Health, Magicka, and Stamina Recovery by [0-9.]+ per stage while under the effects of a negative effect.*\s*Current (?:value|bonus): ([0-9\.]+)/i,
@@ -5478,7 +5478,7 @@ window.ESO_CPEFFECT_MATCHES = [
 	{
 		id: "Sustained by Suffering",
 		toggle: true,
-		eanble: false,
+		enable: false,
 		category: "Item",
 		statId: "MagickaRegen",
 		match: /Increases your Health, Magicka, and Stamina Recovery by [0-9.]+ per stage while under the effects of a negative effect.*\s*Current (?:value|bonus): ([0-9\.]+)/i,
@@ -5486,7 +5486,7 @@ window.ESO_CPEFFECT_MATCHES = [
 	{
 		id: "Sustained by Suffering",
 		toggle: true,
-		eanble: false,
+		enable: false,
 		category: "Item",
 		statId: "StaminaRegen",
 		match: /Increases your Health, Magicka, and Stamina Recovery by [0-9.]+ per stage while under the effects of a negative effect.*\s*Current (?:value|bonus): ([0-9\.]+)/i,
@@ -5494,7 +5494,7 @@ window.ESO_CPEFFECT_MATCHES = [
 	{
 		id: "Pain's Refuge",
 		toggle: true,
-		eanble: false,
+		enable: false,
 		statId: "DamageTaken",
 		maxTimes: 20,
 		display: "%",
@@ -5504,7 +5504,7 @@ window.ESO_CPEFFECT_MATCHES = [
 	{
 		id: "Ward Master",
 		toggle: true,
-		eanble: false,
+		enable: false,
 		statId: "DamageTaken",
 		display: "%",
 		factorValue: -1,
