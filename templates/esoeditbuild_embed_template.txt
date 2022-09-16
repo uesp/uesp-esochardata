@@ -1763,12 +1763,19 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>16 September 2022</b>
+			<ul>
+				<li>Fixed the skill coefficients and tooltips display for the Death Knell passive.</li>
+				<li>The Titanic Cleave set toggle no longer affects the DOT portion of Carve.</li>
+				<li>Invisible/non-selectable buffs should now correctly give stats when enabled.</li>
+				<li>The Tremorscale debuff now has a stack count ranging from 0 to 100 representing the strength of the debuff applied (100 = 100% = 2640).</li>
+			</ul>
+			<p>
 			<b>15 September 2022</b>
 			<ul>
 				<li>Fixed the skill coefficients for the Backlash and Purifying Light skills.</li>
 			</ul>
 			<p>
-			
 			<b>14 September 2022</b>
 			<ul>
 				<li>Fixed the Balanced Blade and Fortress passives from affecting the stamina cost of all abilities instead of just their skill lines.</li>

@@ -502,6 +502,7 @@ window.g_EsoBuildBuffData =
 		"Elemental Catalyst (Combined)" :
 		{
 			visible : false,	// Only used by the Target Dummy buffs
+			toggleVisible : true,
 			group: "Set",
 			enabled: false,
 			skillEnabled : false,
@@ -1633,13 +1634,16 @@ window.g_EsoBuildBuffData =
 			statDescs : [ "Reduces the target's Physical Resistance by ", "Reduces the target's Spell Resistance by " ],
 			icon : "/esoui/art/icons/ability_mage_065.png",
 		},
-		"Tremorscale (Target)" : 
+		"Tremorscale (Target)" :	// TODO: Link to worn set value? 
 		{
 			group: "Target",
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
-			values : [ -2395 ],
+			values : [ -26.4 ],
+			maxTimes: 100,
+			count: 50,
+			round: "floor",
 			category: "Target",
 			statIds : [ "PhysicalDebuff" ],
 			statDescs : [ "Reduces the target's Physical Resistance by " ],
@@ -4671,6 +4675,16 @@ window.ESO_PASSIVEEFFECT_MATCHES =
 		"match": /Increases your Critical Strike Chance against enemies under [0-9]+% Health by ([0-9]+)% for each Grave Lord ability slotted/i
 	},
 	{
+		"id": "Death Knell",
+		"baseSkillId": 116197,
+		"statId": "WeaponCrit",
+		"factorSkillLine": "GRAVE LORD",
+		"display": "%",
+		"toggle": true,
+		"enabled": false,
+		"match": /Increases your Critical Strike Chance against enemies under [0-9]+% Health by ([0-9]+)% for each Grave Lord ability slotted/i
+	},
+	{
 		"factorStatId": "ArmorMedium",
 		"statId": "SpellDamage",
 		"display": "%",
@@ -5118,16 +5132,6 @@ window.ESO_PASSIVEEFFECT_MATCHES =
 		"category": "Skill2",
 		"factorStatId": "ArmorLight",
 		"match": /Increases your Weapon and Spell Critical rating by ([0-9.]+) for each piece of Light Armor equipped/i
-	},
-	{
-		"id": "Death Knell",
-		"baseSkillId": 116197,
-		"statId": "WeaponCrit",
-		"factorSkillLine": "GRAVE LORD",
-		"display": "%",
-		"toggle": true,
-		"enabled": false,
-		"match": /Increases your Critical Strike Chance against enemies under [0-9]+% Health by ([0-9]+)% for each Grave Lord ability slotted/i
 	},
 	{
 		"factorStatId": "ArmorMedium",
@@ -6850,7 +6854,7 @@ window.ESO_SETEFFECT_MATCHES =
 	{
 		id: "Titanic Cleave",
 		setBonusCount: 1,
-		category: "SkillFlatDamage",
+		category: "SkillFlatDamage",		// TODO: Special case of direct damage only
 		statId: "Cleave",
 		toggle: true,
 		enabled: false,
@@ -6861,7 +6865,7 @@ window.ESO_SETEFFECT_MATCHES =
 	{
 		id: "Perfected Titanic Cleave",
 		setBonusCount: 2,
-		category: "SkillFlatDamage",
+		category: "SkillFlatDamage",		// TODO: Special case of direct damage only
 		statId: "Cleave",
 		toggle: true,
 		enabled: false,
@@ -10930,7 +10934,9 @@ window.UpdateEsoInputBuffToggles = function (buffData)
 	{
 		var buffData = g_EsoBuildBuffData[buffName];
 		if (buffData == null) continue;
-		if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled || buffData.combatEnabled)) continue;
+		
+		//if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled || buffData.combatEnabled)) continue;
+		if (!(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled || buffData.combatEnabled)) continue;
 		
 		var buffIds = buffData.buffIds;
 		if (buffIds == null) buffIds = [ buffData.buffIds ];
@@ -10960,7 +10966,9 @@ window.GetEsoInputBuffValues = function (inputValues)
 	{
 		var buffData = g_EsoBuildBuffData[buffName];
 		if (buffData == null) continue;
-		if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled || buffData.combatEnabled)) continue;
+		
+		//if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled || buffData.combatEnabled)) continue;
+		if (!(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled || buffData.combatEnabled)) continue;
 		
 		GetEsoInputBuffValue(inputValues, buffName, buffData);
 	}
@@ -18594,11 +18602,11 @@ window.CreateEsoBuildBuffDescHtml = function (buffData)
 				var replaceIndex = statDescs[i].indexOf("$1");
 				
 				if (replaceIndex < 0) {
-					buffData.desc += statDescs[i] + statValue + "<br/>";
+					buffData.desc += statDescs[i] + statValue + suffixDesc + "<br/>";
 				}
 				else {
 					var output = statDescs[i].replace("$1", statValue);
-					buffData.desc += output + "<br/>";
+					buffData.desc += output + suffixDesc + "<br/>";
 				}
 			}
 			else {
@@ -19212,7 +19220,8 @@ window.CreateEsoBuildBuffSaveData = function (saveData, inputValues)
 	for (var buffName in g_EsoBuildBuffData)
 	{
 		var buffData = g_EsoBuildBuffData[buffName];
-		if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled)) continue;
+		//if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled)) continue;
+		if (!(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled)) continue;
 		
 		data = {};
 		
