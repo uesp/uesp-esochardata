@@ -359,6 +359,17 @@ window.g_EsoBuildBuffData =
 			statIds : [ "WeaponDamage", "SpellDamage", "DamageTaken"],
 			icon : "/esoui/art/icons/treasure_maw_moon_pearl.png",
 		},
+		"Syrabane's Ward" : {
+			group: "Set",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			categories: [ "Set", "Set" ],
+			values : [ 0.30, 950 ],
+			displays: [ '%', '' ],
+			statIds : [ "BlockMitigation", "HealthRegen"],
+			icon : "/esoui/art/icons/ability_healer_024.png",
+		},
 		"Crimson Oath`s Rive" : {
 			group: "Set",
 			enabled: false,
@@ -1539,7 +1550,7 @@ window.g_EsoBuildBuffData =
 		},
 		"Aura of Pride" :		// From Spaulder of Ruin
 		{
-			group: "set",
+			group: "Set",
 			enabled: false,
 			skillEnabled : false,
 			buffEnabled: false,
@@ -3512,7 +3523,7 @@ window.ESO_PASSIVEEFFECT_MATCHES =
 	{
 		"factorStatId": "ArmorMedium",
 		"statId": "CritHealing",
-		"display": "%",
+		"display": "%", 
 		"factorValue": 0.5,
 		"match": /Increases your Critical Damage and Healing done rating by ([0-9]+)% for every 2 pieces of Medium Armor equipped/i
 	},
@@ -3539,6 +3550,12 @@ window.ESO_PASSIVEEFFECT_MATCHES =
 		"factorSkillLine": "ANIMAL COMPANIONS",
 		"statId": "PhysicalPenetration",
 		"match": /Increases your Armor Penetration by ([0-9]+) for each Animal Companion ability slotted/i
+	},
+	{
+		"factorSkillLine": "ANIMAL COMPANIONS",
+		"statId": "CritDamage",
+		"display": "%",
+		"match": /Increases your Critical Damage by ([0-9]+)% for each Animal Companion ability slotted/i
 	},
 	{
 		"id": "Amplitude",
@@ -3799,6 +3816,25 @@ window.ESO_PASSIVEEFFECT_MATCHES =
 		"match": /Increases your Magic and Frost Damage by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
+		"statId": "MagicDamageDone",
+		"display": "%",
+		"match": /Increases your Magic and Frost Damage by ([0-9]+\.?[0-9]*)%/i
+	},
+	{
+		"statRequireId": "WeaponFrostStaff",
+		"statRequireValue": 0,
+		"statId": "DamageDone",
+		"display": "%",
+		"match": /Increases your damage done by ([0-9]+\.?[0-9]*)%, which increases to 10% when wielding an Ice Staff/i
+	},
+	{
+		"statRequireId": "WeaponFrostStaff",
+		"statRequireValue": 1,
+		"statId": "DamageDone",
+		"display": "%",
+		"match": /Increases your damage done by [0-9]+\.?[0-9]*%, which increases to ([0-9]+\.?[0-9]*)% when wielding an Ice Staff/i
+	},
+	{
 		"statId": "FrostDamageTaken",
 		"display": "%",
 		"factorStatId": "ArmorLight",
@@ -4026,11 +4062,6 @@ window.ESO_PASSIVEEFFECT_MATCHES =
 		"match": /Increases your Health and Stamina Recovery by ([0-9]+\.?[0-9]*)% while you have a Daedric Summoning ability slotted./i
 	},
 	{
-		"statId": "HealthRegen",
-		"category": "Food",
-		"match": /Increases your Health Recovery by ([0-9]+) and/i
-	},
-	{
 		"id": "Undead Confederate",
 		"baseSkillId": 116282,
 		"category": "Item",
@@ -4078,11 +4109,6 @@ window.ESO_PASSIVEEFFECT_MATCHES =
 		"display": "%",
 		"factorValue": -1,
 		"match": /Reduces the Magicka and Health cost of your Mages Guild abilities by ([0-9]+\.?[0-9]*)%/i
-	},
-	{
-		"statId": "MagicDamageDone",
-		"display": "%",
-		"match": /Increases your Magic and Frost Damage by ([0-9]+\.?[0-9]*)%/i
 	},
 	{
 		"statId": "MagicDamageTaken",
@@ -4215,11 +4241,6 @@ window.ESO_PASSIVEEFFECT_MATCHES =
 		"statId": "MagickaRegen",
 		"category": "Food",
 		"match": /Increases your Magicka Recovery by ([0-9]+)\./i
-	},
-	{
-		"statId": "MagickaRegen",
-		"category": "Food",
-		"match": /and your Stamina and Magicka Recovery by ([0-9]+)\./i
 	},
 	{
 		"id": "Continuous Attack",
@@ -4996,9 +5017,34 @@ window.ESO_PASSIVEEFFECT_MATCHES =
 		"match": /Increases your Magicka and Stamina recovery by ([0-9]+\.?[0-9]*)% if an Animal Companion ability is slotted/i
 	},
 	{
+		"statId": "HealthRegen",
+		"category": "Food",
+		"match": /Increases your Health Recovery by ([0-9]+) and/i
+	},
+	{
 		"statId": "StaminaRegen",
 		"category": "Food",
 		"match": /and your Stamina and Magicka Recovery by ([0-9]+)\./i
+	},
+	{
+		"statId": "MagickaRegen",
+		"category": "Food",
+		"match": /and your Stamina and Magicka Recovery by ([0-9]+)\./i
+	},
+	{
+		"statId": "HealthRegen",
+		"category": "Food",
+		"match": /Increases your Health, Magicka, and Stamina Recovery by ([0-9]+)/i
+	},
+	{
+		"statId": "MagickaRegen",
+		"category": "Food",
+		"match": /Increases your Health, Magicka, and Stamina Recovery by ([0-9]+)/i
+	},
+	{
+		"statId": "StaminaRegen",
+		"category": "Food",
+		"match": /Increases your Health, Magicka, and Stamina Recovery by ([0-9]+)/i
 	},
 	{
 		"statId": "StaminaRegen",
@@ -5727,6 +5773,20 @@ window.ESO_SETEFFECT_MATCHES =
 		statId: "Health",
 		category: "Skill2", // As of patch 3.1.2 this is calculated differently
 		match: /While you have a food buff active, your Max Health is increased by ([0-9]+)/i,
+	},
+	{
+		statRequireId: "FoodBuff",
+		statRequireValue: 1,
+		statId: "CritDamage",
+		display: "%",
+		match: /While you have a food buff active, your Critical Damage and Critical Healing is increased by ([0-9]+)%/i,
+	},
+	{
+		statRequireId: "FoodBuff",
+		statRequireValue: 1,
+		statId: "CritHealing",
+		display: "%",
+		match: /While you have a food buff active, your Critical Damage and Critical Healing is increased by ([0-9]+)%/i,
 	},
 	{
 		statRequireId: "FoodBuff",
@@ -6460,12 +6520,12 @@ window.ESO_SETEFFECT_MATCHES =
 	{
 		category: "Skill2",
 		statId: "SpellCrit",
-		match: /Adds ([0-9]+) Critical Chance/i,
+		match: /Adds ([0-9]+) Critical Chance(?:$| and )/i,		// Make sure it doesn't match "to your X abilities" type
 	},
 	{
 		category: "Skill2",
 		statId: "WeaponCrit",
-		match: /Adds ([0-9]+) Critical Chance/i,
+		match: /Adds ([0-9]+) Critical Chance(?:$| and )/i,		// Make sure it doesn't match "to your X abilities" type
 	},
 	{
 		statId: "BlockCost",
@@ -6851,6 +6911,92 @@ window.ESO_SETEFFECT_MATCHES =
 	},
 	
 		// Optionally toggled set effects
+	{
+		id: "Eagle Eye",
+		setBonusCount: 2,
+		category: "Skill2",
+		statId: "SpellCrit",
+		toggle: true,
+		enabled: false,
+		match: /Adds ([0-9]+) Critical Chance to your ranged direct damage abilities/i,
+	},
+	{
+		id: "Eagle Eye",
+		setBonusCount: 2,
+		category: "Skill2",
+		statId: "WeaponCrit",
+		toggle: true,
+		enabled: false,
+		match: /Adds ([0-9]+) Critical Chance to your ranged direct damage abilities/i,
+	},
+	{
+		id: "Claw of the Forest Wraith",
+		setBonusCount: 4,
+		category: "Skill2",
+		statId: "SpellCrit",
+		toggle: true,
+		enabled: false,
+		match: /Adds ([0-9]+) Critical Chance to your Class abilities/i,
+	},
+	{
+		id: "Claw of the Forest Wraith",
+		setBonusCount: 4,
+		category: "Skill2",
+		statId: "WeaponCrit",
+		toggle: true,
+		enabled: false,
+		match: /Adds ([0-9]+) Critical Chance to your Class abilities/i,
+	},
+	{
+		id: "Old Growth Brewer",
+		setBonusCount: 4,
+		statId: "HealthRegen",
+		toggle: true,
+		enabled: false,
+		match: /After drinking a potion, gain ([0-9]+) Magicka, Stamina, and Health Recovery for /i,
+	},
+	{
+		id: "Old Growth Brewer",
+		setBonusCount: 4,
+		statId: "MagickaRegen",
+		toggle: true,
+		enabled: false,
+		match: /After drinking a potion, gain ([0-9]+) Magicka, Stamina, and Health Recovery for /i,
+	},
+	{
+		id: "Old Growth Brewer",
+		setBonusCount: 4,
+		statId: "StaminaRegen",
+		toggle: true,
+		enabled: false,
+		match: /After drinking a potion, gain ([0-9]+) Magicka, Stamina, and Health Recovery for /i,
+	},
+	{
+		id: "Bastion of the Draoife",
+		setBonusCount: 4,
+		statId: "MagickaRegen",
+		maxTimes: 3,
+		toggle: true,
+		enabled: false,
+		match: /Increase your Magicka and Stamina Recovery by ([0-9]+) per stack of Inflection/i,
+	},
+	{
+		id: "Bastion of the Draoife",
+		setBonusCount: 4,
+		statId: "StaminaRegen",
+		maxTimes: 3,
+		toggle: true,
+		enabled: false,
+		match: /Increase your Magicka and Stamina Recovery by ([0-9]+) per stack of Inflection/i,
+	},
+	{
+		id: "Syrabane's Ward",
+		setBonusCount: 1,
+		buffId: "Syrabane's Ward",
+		toggle: true,
+		enabled: false,
+		match: /While Bracing, you create a [0-9 ]+m zone of protection/i,
+	},
 	{
 		id: "Titanic Cleave",
 		setBonusCount: 1,
@@ -11325,7 +11471,7 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 		
 		if (matches == null) continue;
 		
-		if (matchData.ignore === true) 
+		if (matchData.ignore === true)
 		{
 			foundMatch = true;
 			continue;
@@ -11346,7 +11492,12 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 		{
 			var requiredStat = inputValues[matchData.statRequireId];
 			if (requiredStat == null) continue;
-			if (parseFloat(requiredStat) < parseFloat(matchData.statRequireValue)) continue;
+			
+			var fRequiredStat = parseFloat(requiredStat);
+			var fRequireValue = parseFloat(matchData.statRequireValue);
+			
+			if (fRequiredStat < fRequireValue) continue;
+			if (fRequireValue == 0 && fRequiredStat > 0) continue;
 		}
 		
 		if (matchData.requireSkillLine != null)
@@ -11759,7 +11910,12 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 	{
 		var requiredStat = inputValues[matchData.statRequireId];
 		if (requiredStat == null) return false;
-		if (parseFloat(requiredStat) < parseFloat(matchData.statRequireValue)) return false;
+		
+		var fRequiredStat = parseFloat(requiredStat);
+		var fRequireValue = parseFloat(matchData.statRequireValue);
+		
+		if (fRequiredStat < fRequireValue) return false;
+		if (fRequireValue == 0 && fRequiredStat > 0) return false;
 	}
 	
 	if (matchData.factorSkillLine != null)
@@ -17190,7 +17346,12 @@ window.UpdateEsoBuildToggledSkillData = function (inputValues)
 		{
 			var requiredStat = inputValues[toggleSkillData.matchData.statRequireId];
 			if (requiredStat == null) continue;
-			if (parseFloat(requiredStat) < parseFloat(toggleSkillData.matchData.statRequireValue)) continue;
+			
+			var fRequiredStat = parseFloat(requiredStat);
+			var fRequireValue = parseFloat(toggleSkillData.matchData.statRequireValue);
+			
+			if (fRequiredStat < fRequireValue) continue;
+			if (fRequireValue == 0 && fRequiredStat > 0) continue;
 		}
 		
 		if (toggleSkillData.matchData.requireSkillLine != null)
@@ -17300,7 +17461,12 @@ window.UpdateEsoBuildToggledSetData = function ()
 		{
 			var requiredStat = inputValues[toggleData.matchData.statRequireId];
 			if (requiredStat == null) continue;
-			if (parseFloat(requiredStat) < parseFloat(toggleData.matchData.statRequireValue)) continue;
+			
+			var fRequiredStat = parseFloat(requiredStat);
+			var fRequireValue = parseFloat(toggleSkillData.matchData.statRequireValue);
+			
+			if (fRequiredStat < fRequireValue) continue;
+			if (fRequireValue == 0 && fRequiredStat > 0) continue;
 		}
 		
 		if (toggleData.matchData.requireSkillLine != null)

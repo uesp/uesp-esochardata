@@ -5,8 +5,8 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #ffc; margin-right: 270px;'>
-Note: Editor is now mostly working for update 35. Items, skills, and CPs have been updated. New or updated sets/skill may not work correctly yet.
+<div style='background-color: #cfc; margin-right: 270px;'>
+Note: Editor should now be mostly working for update 36 PTS. Skills, item, and CP data have been updated. Some new/updated items/skills may not work correctly yet.
 </div>
 
 {saveNote}
@@ -68,7 +68,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			When selected you will automatically purchase all racial passives when changing races.
 			<br/>
 			<div class="esotbStatLabel">Use PTS Rules</div> <input type="checkbox" id="esotbUsePtsRules" name="esotbUsePtsRules" statid="UsePtsRules" {usePtsRulesCheck}>
-			Current version is Update 35 v8.1.4
+			Current version is Update 36 v8.2.0
 			<ul style="margin-left: 170px; margin-top: -5px;">
 				<li>Save and reload build after changing this setting.</li>
 				<li>Uses skill, CP, and item data collected from the PTS server.</li>
@@ -763,6 +763,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option slotid="Chest">Bloodlord's Embrace</option>
 						<option slotid="Ring1">Death Dealer's Fete</option>
 						<option slotid="Legs">Dov-rha Sabatons</option>
+						<option slotid="Chest" hidden disabled>Faun's Lark Cladding</option>
 						<option slotid="Head">Gaze of Sithis</option>
 						<option slotid="Legs">Harpooner's Wading Kilt</option>
 						<option slotid="Waist">Lefthander's War Girdle</option>
@@ -777,6 +778,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option slotid="Neck">Shapeshifter's Chain</option>
 						<option slotid="Feet">Snow Treaders</option>
 						<option slotid="Shoulders">Spaulder of Ruin</option>
+						<option slotid="Legs" hidden disabled>Stormweaver's Cavort</option>
+						<option slotid="Waist" hidden disabled>Syrabane's Ward</option>
 						<option slotid="Hands">Thrassian Stranglers</option>
 						<option slotid="Neck">Torc of Tonal Constancy</option>
 					</select>
@@ -819,11 +822,13 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Auroran's Thunder</option>
 						<option>Automated Defense</option>
 						<option>Azureblight Reaper</option>
+						<option hidden disabled>Back-Alley Gourmand</option>
 						<option>Bahraha's Curse</option>
 						<option>Bahsei's Mania</option>
 						<option value="Perfected Bahsei's Mania">Bahsei's Mania (Perfect)</option>
 						<option>Bani's Torment</option>
 						<option>Barkskin</option>
+						<option hidden disabled>Bastion of the Draoife</option>
 						<option>Bastion of the Heartland</option>
 						<option>Battalion Defender</option>
 						<option>Battlefield Acrobat</option>
@@ -846,6 +851,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Call of the Undertaker</option>
 						<option>Caluurion's Legacy</option>
 						<option>Champion of the Hist</option>
+						<option hidden disabled>Chimera's Rebuke</option>
+						<option hidden disabled>Claw of the Forest Wraith</option>
 						<option>Claw of Yolnahkriin</option>
 						<option value="Perfected Claw of Yolnahkriin">Claw of Yolnahkriin (Perfect)</option>
 						<option>Clever Alchemist</option>
@@ -1032,6 +1039,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Nocturnal's Ploy</option>
 						<option>Oblivion's Edge</option>
 						<option>Oblivion's Foe</option>
+						<option hidden disabled>Old Growth Brewer</option>
 						<option>Order of Diagna</option>
 						<option>Order's Wrath</option>
 						<option>Orgnum's Scales</option>
@@ -1045,6 +1053,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Permafrost</option>
 						<option>Pestilent Host</option>
 						<option>Phoenix</option>
+						<option hidden disabled>Phoenix Moth Theurge</option>
 						<option>Phylactery's Grasp</option>
 						<option>Pillager's Profit</option>
 						<option>Pillar of Nirn</option>
@@ -1763,6 +1772,24 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>21 September 2022</b>
+			<ul>
+				<li>36pts: Fixed the Warden's Advanced Species passive.</li>
+				<li>36pts: Fixed the Warden's Piercing Cold passive.</li>
+				<li>36pts: Fixed the Khajiit's Robustness passive.</li>
+				<li>Fixed some skills not being searched by the find function.</li> 
+			</ul>
+			<p>
+			<b>20 September 2022</b>
+			<ul>
+				<li>36pts: Updated skills, item, and CP data from PTS.</li>
+				<li>36pts: Added new sets to the quick item setup.</li>
+				<li>36pts: Added the Syrabane's Ward buff and set toggle.</li>
+				<li>36pts: Added set effects for the Back-Alley Gourmand, Bastion of the Draoife, Old Growth Brewer, and Claw of the Forest Wraith sets.</li>
+				<li>Added toggle for the Eagle Eye set.</li>
+				<li>36pts: Fixed jewelry items not being gold level 60 when using the quick item setup.</li>
+			</ul>
+			<p>
 			<b>16 September 2022</b>
 			<ul>
 				<li>Fixed the skill coefficients and tooltips display for the Death Knell passive.</li>
