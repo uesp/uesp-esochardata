@@ -1772,6 +1772,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>26 September 2022</b>
+			<ul>
+				<li>Fixed display of skill costs for skills with more than one mechanic.</li>
+				<li>Fixed Molten Whip not working on the off-bar.</li>
+			</ul>
+			<p>
 			<b>21 September 2022</b>
 			<ul>
 				<li>36pts: Fixed the Warden's Advanced Species passive.</li>

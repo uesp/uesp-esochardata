@@ -1623,3 +1623,8 @@ esotbToggledCpSelect {
 #esotbRoot #esovsLinkBlock {
 	display: none !important;
 }
+
+.esovsAbilityBlockCost {
+	float: right;
+	margin-right: 60px !important;
+}
