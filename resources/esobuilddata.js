@@ -3261,7 +3261,7 @@ window.UpdateEsoBuildSetTooltips = function(setDesc)
 {
 	if (window.g_SetSkillsData == null || window.GetEsoSkillDescription2 == null) return setDesc;
 	
-	var newDesc = setDesc;
+	var newDesc = setDesc.replace(".</div>", "</div>.");
 	var matches = newDesc.match("PART OF THE (.*) SET")
 	if (!matches || !matches[1]) return newDesc;
 	var setName = matches[1].toLowerCase().replace("perfected ", "");
@@ -3291,7 +3291,7 @@ window.UpdateEsoBuildSetTooltips = function(setDesc)
 		var tooltip = setSkillsData.tooltips[i];
 		if (tooltip.coefType != -75) continue;
 		
-		var matchDesc = rawDesc.replaceAll(".", '\\.'); 
+		var matchDesc = rawDesc.replaceAll(".", '[.]'); 
 		matchDesc = matchDesc.replaceAll("<<" + i + ">>", "(" + valueMatch + ")");
 		matchDesc = matchDesc.replaceAll(/<<[0-9%]+>>/g, valueMatch);
 		matchDesc = matchDesc.replaceAll(/[0-9%]+/g, valueMatch);
@@ -3299,7 +3299,7 @@ window.UpdateEsoBuildSetTooltips = function(setDesc)
 		
 		var matchRegExp = new RegExp(matchDesc, 'i');
 		
-		var replaceDesc = rawDesc.replaceAll(".", '\\.'); 
+		var replaceDesc = rawDesc.replaceAll(".", '[.]'); 
 		replaceDesc = replaceDesc.replaceAll("<<" + i + ">>", ")(" + valueMatch + ")(");
 		replaceDesc = "(" + replaceDesc.replaceAll(/<<[0-9%]+>>/g, valueMatch) + ")";
 		replaceDesc = replaceDesc.replaceAll(/[0-9%]+/g, valueMatch);
@@ -3342,13 +3342,13 @@ window.UpdateEsoBuildSetTooltips = function(setDesc)
 		}
 	}
 	
-	var matchDesc = rawDesc.replaceAll(".", '\\.');
+	var matchDesc = rawDesc.replaceAll(".", '[.]');
 	matchDesc = matchDesc.replaceAll(/<<[0-9%]+>>/g, valueMatch);
 	matchDesc = matchDesc.replaceAll(/[0-9%]+/g, valueMatch);
 	matchDesc = matchDesc.replaceAll("\n", "<br>");
 	var matchRegExp = new RegExp(matchDesc, 'i');
 	
-	newDesc = newDesc.replaceAll('  ', ' ').replaceAll('  ', ' ');
+	newDesc = newDesc.replaceAll('  ', ' ').replaceAll('  ', ' ').replaceAll('  ', ' ');
 	newDesc = newDesc.replace(matchRegExp, newTooltip);
 	
 	return newDesc;

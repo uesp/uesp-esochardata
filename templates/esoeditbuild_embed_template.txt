@@ -1775,6 +1775,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			<b>3 October 2022</b>
 			<ul>
 				<li>Fixed Destruction skills showing element specific skills in the incorrect order.</li>
+				<li>Fixed set tooltip display for the Sunderflame set (and possibly others).</li>
 			</ul>
 			<p>
 			<b>26 September 2022</b>
@@ -1788,7 +1789,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 				<li>36pts: Fixed the Warden's Advanced Species passive.</li>
 				<li>36pts: Fixed the Warden's Piercing Cold passive.</li>
 				<li>36pts: Fixed the Khajiit's Robustness passive.</li>
-				<li>Fixed some skills not being searched by the find function.</li> 
+				<li>Fixed some skills not being searched by the find function.</li>
 			</ul>
 			<p>
 			<b>20 September 2022</b>
