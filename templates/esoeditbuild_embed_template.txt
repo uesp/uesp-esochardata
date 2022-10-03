@@ -1772,6 +1772,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>3 October 2022</b>
+			<ul>
+				<li>Fixed Destruction skills showing element specific skills in the incorrect order.</li>
+			</ul>
+			<p>
 			<b>26 September 2022</b>
 			<ul>
 				<li>Fixed display of skill costs for skills with more than one mechanic.</li>
