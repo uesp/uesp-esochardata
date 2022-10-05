@@ -79,6 +79,7 @@ class EsoBuildDataViewer
 	
 	public $inputParams = array();
 	public $outputHtml = "";
+	public $outputJson = "";
 	public $htmlTemplate = "";
 	public $inputFilter = "";
 	public $myMyBuilds = false;
@@ -108,6 +109,7 @@ class EsoBuildDataViewer
 	
 	public $characterId = 0;
 	public $viewRawData = false;
+	public $outputFormat = "html";
 	public $useBuildTable = true;
 	public $action = '';
 	public $confirm = '';
@@ -424,6 +426,17 @@ class EsoBuildDataViewer
 		
 		if (array_key_exists('id', $this->inputParams)) $this->characterId = intval($this->inputParams['id']);
 		if (array_key_exists('raw', $this->inputParams)) $this->viewRawData = true;
+		
+		if (array_key_exists('format', $this->inputParams))
+		{
+			$format = strtolower($this->inputParams['format']);
+			
+			if ($format == "html")
+				$this->outputFormat = "html";
+			elseif ($format == "json")
+				$this->outputFormat = "json";
+		}
+		
 		if (array_key_exists('action', $this->inputParams)) $this->action = $this->inputParams['action'];
 		if (array_key_exists('confirm', $this->inputParams)) $this->confirm = $this->inputParams['confirm'];
 		if (array_key_exists('nonconfirm', $this->inputParams)) $this->nonConfirm = $this->inputParams['nonconfirm'];
@@ -1327,32 +1340,42 @@ class EsoBuildDataViewer
 	
 	
 	public function getBuildStatDataJson()
-	{		
+	{
 		$statData = array();
 		
 		foreach ($this->characterData['stats'] as $field => $data)
 		{
 			$value = $data['value'];
 			$statData[$field] = $value;
-		}		
-
-		return json_encode($statData);
-	}	
+		}
 		
+		return json_encode($statData);
+	}
+	
+	
+	public function shouldOutputJson()
+	{
+		return 	$this->viewRawData && $this->outputFormat == "json";
+	}
+	
 	
 	public function createCharacterOutput()
 	{
 		if ($this->viewRawData)
 		{
 			if (!$this->loadCharacter()) return false;
-			return $this->createCharacterOutputRaw();
+			
+			if ($this->outputFormat == "json")
+				return $this->createCharacterOutputRawJson();
+			else
+				return $this->createCharacterOutputRaw();
 		}
 		
 		if (!$this->loadSingleCharacter()) return false;
 		
 		$cacheHtml = $this->LoadCharacterCache();
 		
-		if ($cacheHtml != null) 
+		if ($cacheHtml != null)
 		{
 			$this->outputHtml .= $cacheHtml;
 			return true;
@@ -3611,7 +3634,15 @@ class EsoBuildDataViewer
 		return 'LEVEL';
 	}
 	
-
+	
+	public function createCharacterOutputRawJson()
+	{
+		$this->outputJson = json_encode($this->characterData, JSON_HEX_QUOT);
+		
+		return true;
+	}
+	
+	
 	public function createCharacterOutputRaw()
 	{
 		$this->outputHtml .= $this->getBreadcrumbTrailHtml();
@@ -3632,7 +3663,6 @@ class EsoBuildDataViewer
 			{
 				$characterOutput .= $this->getCharacterRawOutput($key, $data);
 			}
-		
 		}
 		
 		$characterOutput .= $this->getCharacterRawOutput('canEdit', $this->canWikiUserEdit() ? 'true' : 'false');
@@ -3648,6 +3678,9 @@ class EsoBuildDataViewer
 		$this->outputHtml .= "<th colspan='20'>Character Summary</th>\n";
 		$this->outputHtml .= $characterOutput;
 		$this->outputHtml .= "</table> <p />\n";
+		
+		$jsonUrl = $_SERVER['REQUEST_URI'] . "&format=json";
+		$this->outputHtml .= "<a href='$jsonUrl' target='_blank'>View As Json</a><br/>";
 		
 		if ($this->isEditted())
 			$this->outputHtml .= "<small>Character Data Edited on " . $this->getCharEditDate() . "</small>";
@@ -4994,7 +5027,7 @@ EOT;
 			$this->createBuildTableHtml();
 		else
 			$this->createBuildListHtml();
-	
+		
 		return $this->outputHtml;
 	}
 	
