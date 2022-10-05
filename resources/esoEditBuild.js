@@ -9016,6 +9016,7 @@ window.ESO_SETEFFECT_MATCHES =
 		toggle: true,
 		enabled: false,
 		statId: "SpellResist",
+		deferLevel: 1,
 		match: /When you deal damage with Puncture, you heal for ([0-9]+) Health and gain Spell and Physical Resistance equal to the amount of healing/i,
 	},
 	{	
@@ -9024,6 +9025,7 @@ window.ESO_SETEFFECT_MATCHES =
 		toggle: true,
 		enabled: false,
 		statId: "PhysicalResist",
+		deferLevel: 1,
 		match: /When you deal damage with Puncture, you heal for ([0-9]+) Health and gain Spell and Physical Resistance equal to the amount of healing/i,
 	},
 	{	
@@ -9032,6 +9034,7 @@ window.ESO_SETEFFECT_MATCHES =
 		toggle: true,
 		enabled: false,
 		statId: "SpellResist",
+		deferLevel: 1,
 		match: /When you deal damage with Puncture, you heal for ([0-9]+) Health and gain Spell and Physical Resistance equal to the amount of healing/i,
 	},
 	{	
@@ -9040,6 +9043,7 @@ window.ESO_SETEFFECT_MATCHES =
 		toggle: true,
 		enabled: false,
 		statId: "PhysicalResist",
+		deferLevel: 1,
 		match: /When you deal damage with Puncture, you heal for ([0-9]+) Health and gain Spell and Physical Resistance equal to the amount of healing/i,
 	},
 	{
@@ -10767,7 +10771,7 @@ window.GetEsoInputValues = function (mergeComputedStats)
 	
 	inputValues.AutoPurchaseRacialPassives = false;
 	if ($("#esotbEnableRaceAutoPurchase").prop("checked")) inputValues.AutoPurchaseRacialPassives = true;
-			
+	
 	inputValues.Race = $("#esotbRace").val();
 	inputValues.Class = $("#esotbClass").val();
 	
@@ -10780,7 +10784,7 @@ window.GetEsoInputValues = function (mergeComputedStats)
 	
 	inputValues.Level = parseInt($("#esotbLevel").val());
 	if (inputValues.Level > ESO_MAX_LEVEL) inputValues.Level = ESO_MAX_LEVEL;
-
+	
 	inputValues.Attribute.Health = parseInt($("#esotbAttrHea").val());
 	inputValues.Attribute.Magicka = parseInt($("#esotbAttrMag").val());
 	inputValues.Attribute.Stamina = parseInt($("#esotbAttrSta").val());
@@ -11399,18 +11403,18 @@ window.GetEsoInputSpecialValues = function (inputValues)
 }
 
 
-window.GetEsoInputSetValues = function (inputValues)
+window.GetEsoInputSetValues = function (inputValues, deferLevel)
 {
 	for (var setName in g_EsoBuildSetData)
 	{
 		var setData = g_EsoBuildSetData[setName];
-		GetEsoInputSetDataValues(inputValues, setData);
+		GetEsoInputSetDataValues(inputValues, setData, deferLevel);
 	}
 	
 }
 
 
-window.GetEsoInputSetDataValues = function (inputValues, setData)
+window.GetEsoInputSetDataValues = function (inputValues, setData, deferLevel)
 {
 	if (setData == null || (setData.count <= 0 && setData.otherCount <= 0)) return;
 	setData.rawOutput = [];
@@ -11453,17 +11457,19 @@ window.GetEsoInputSetDataValues = function (inputValues, setData)
 			if (setDesc == null || setDesc == "") continue;
 		}
 		
-		GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData, onlyEnableToggles);
+		GetEsoInputSetDescValues(inputValues, setDesc, setBonusCount, setData, onlyEnableToggles, deferLevel);
 	}
 	
 }
 
 
-window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount, setData, onlyEnableToggles)
+window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount, setData, onlyEnableToggles, deferLevel)
 {
 	var foundMatch = false;
 	var addFinalEffect = false;
 	var rawInputDesc = setDesc;
+	
+	if (deferLevel == null) deferLevel = 0;
 	
 	if (setBonusCount < 0 || setDesc == "") return;
 	
@@ -11479,6 +11485,12 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 			foundMatch = true;
 			continue;
 		}
+		
+		var matchDeferLevel = matchData.deferLevel;
+		if (matchDeferLevel == null) matchDeferLevel = 0;
+		
+			// Ignore for now....
+		//if (matchDeferLevel > deferLevel) continue;
 		
 			/* Ignore toggled effects that aren't on */
 		if (matchData.toggle === true)
@@ -14355,7 +14367,7 @@ window.UpdateEsoComputedStatsList_Real = function (keepSaveResults, noUpdate)
 	
 	UpdateEsoBuildSkillInputValues(inputValues);
 	EsoProfile('UpdateEsoComputedStatsList_Real', 'UpdateEsoBuildSkillInputValues');
-		
+	
 	for (var statId in g_EsoComputedStats)
 	{
 		var depends = g_EsoComputedStats[statId].depends;
@@ -16394,6 +16406,31 @@ window.UpdateEsoItemDetails = function (slotId, itemData)
 }
 
 
+window.CreateEsoItemSetDesc = function (slotId)
+{
+	var itemData = g_EsoBuildItemData[slotId];
+	if (itemData == null) return "";
+	
+	var setName = itemData.setName.toLowerCase().replace("perfected ", "");
+	var setDesc = "PART OF THE " + itemData.setName.toUpperCase() + " SET<br />";
+	
+	for (i = 1; i <= 12; ++i)
+	{
+		var setBonusDesc = itemData['setBonusDesc' + i];
+		
+		if (setBonusDesc != null && setBonusDesc != '')
+		{
+			setBonusDesc = setBonusDesc.replaceAll("|cffffff", "").replaceAll("|r", "");
+			setBonusDesc = setBonusDesc.replaceAll("\n", "<br />");
+			setDesc += setBonusDesc + "<br />";
+		}
+	}
+	
+	var newDesc = UpdateEsoBuildSetTooltips(setDesc);
+	return newDesc;
+}
+
+
 window.ShowEsoItemDetailsPopup = function (slotId)
 {
 	var detailsPopup = $("#esotbItemDetailsPopup");
@@ -16432,27 +16469,10 @@ window.ShowEsoItemDetailsPopup = function (slotId)
 	{
 		var setName = itemData.setName.toLowerCase().replace("perfected ", "");
 		var setSkillData = g_SetSkillsData[setName];
-		
-		var setDesc = "PART OF THE " + itemData.setName.toUpperCase() + " SET<br />";
-		
-		for (i = 1; i <= 12; ++i)
-		{
-			var setBonusDesc = itemData['setBonusDesc' + i];
-			
-			if (setBonusDesc != null && setBonusDesc != '')
-			{
-				setBonusDesc = setBonusDesc.replaceAll("|cffffff", "").replaceAll("|r", "");
-				setBonusDesc = setBonusDesc.replaceAll("\n", "<br />");
-				setDesc += setBonusDesc + "<br />";
-			}
-		}
-		
-		var newDesc = UpdateEsoBuildSetTooltips(setDesc);
+		var newDesc = CreateEsoItemSetDesc(slotId);
 		
 		if (setSkillData)
 		{
-			//UpdateEsoBuildSetTooltips(setDesc);
-			
 			var abilityId = parseInt(setSkillData.abilityId);
 			var numTooltips = CountEsoSkillTooltips(abilityId);
 			var skillData = g_SkillsData[abilityId];
@@ -16849,6 +16869,7 @@ window.ComputeEsoBuildSetData = function (setData)
 	
 	ComputeEsoBuildSetDataAverages(setData);
 	UpdateEsoBuildSetDesc(setData);
+	EsoBuildUpdateSetAverageDesc(setData);
 }
 
 
@@ -17144,9 +17165,9 @@ window.CreateEsoBuildToggledSetData = function ()
 		if (setEffectData.setId != null) g_EsoBuildToggledSetData[id].setId = setEffectData.setId;
 		
 		if (g_EsoBuildSetData[id] != null && g_EsoBuildSetData[id].averageDesc != null &&
-				g_EsoBuildSetData[id].averageDesc[setEffectData.setBonusCount] != null)
+				g_EsoBuildSetData[id].averageDesc[setEffectData.setBonusCount - 1] != null)
 		{
-			g_EsoBuildToggledSetData[id].desc = g_EsoBuildSetData[id].averageDesc[setEffectData.setBonusCount];
+			g_EsoBuildToggledSetData[id].desc = g_EsoBuildSetData[id].averageDesc[setEffectData.setBonusCount - 1];
 		}
 		else if (g_EsoBuildSetData[id] != null && g_EsoBuildSetData[id].unequippedItems[0] != null)
 		{
@@ -17487,7 +17508,7 @@ window.UpdateEsoBuildToggledSetData = function ()
 		var setDesc = null;
 		var setCount = null;
 		
-		if (toggleData.matchData.enableOffBar) 
+		if (toggleData.matchData.enableOffBar)
 		{
 			setDesc = RemoveEsoDescriptionFormats(toggleData.desc);
 			if (setData.unequippedItems && setData.unequippedItems[0] != null) setCount = setData.unequippedItems[0]['setBonusCount' + toggleData.setBonusCount];
@@ -17498,7 +17519,7 @@ window.UpdateEsoBuildToggledSetData = function ()
 			}
 		}
 		
-		if (setData.averageDesc[toggleData.setBonusCount - 1] != null) 
+		if (setData.averageDesc[toggleData.setBonusCount - 1] != null)
 		{ 
 			setDesc = setData.averageDesc[toggleData.setBonusCount - 1];
 		}
@@ -17550,6 +17571,8 @@ window.UpdateEsoBuildToggleSets = function ()
 	{
 		var setData = g_EsoBuildToggledSetData[setId];
 		if (!setData.valid) continue;
+		
+		UpdateEsoBuildToggleSetDesc(setData);
 		output += CreateEsoBuildToggleSetHtml(setData);
 	}
 	
@@ -17727,6 +17750,28 @@ window.OnEsoBuildToggleCpChanged = function (checkBox)
 }
 
 
+window.UpdateEsoBuildToggleSetDesc = function (setData)
+{
+	var id = setData.id;
+	
+	if (g_EsoBuildSetData[id] != null && g_EsoBuildSetData[id].averageDesc != null &&
+				g_EsoBuildSetData[id].averageDesc[setData.setBonusCount - 1] != null)
+	{
+		setData.desc = g_EsoBuildSetData[id].averageDesc[setData.setBonusCount - 1];
+	}
+	else if (g_EsoBuildSetData[id] != null && g_EsoBuildSetData[id].unequippedItems[0] != null)
+	{
+		var desc = g_EsoBuildSetData[id].unequippedItems[0]['setBonusDesc' + setData.setBonusCount];
+		if (desc) setData.desc = desc;
+	}
+	else if (g_EsoBuildSetData[id] != null && g_EsoBuildSetData[id].items[0] != null)
+	{
+		var desc = g_EsoBuildSetData[id].items[0]['setBonusDesc' + setData.setBonusCount];
+		if (desc) setData.desc = desc;
+	}
+}
+
+
 window.CreateEsoBuildToggleSetHtml = function (setData)
 {
 	var checked = setData.enabled ? "checked" : "";
@@ -17766,7 +17811,7 @@ window.CreateEsoBuildToggleCpHtml = function (cpData)
 	
 	output += "<input type='checkbox' class='esotbToggleCpCheck'  " + checked + " >";
 	
-	if (cpData.maxTimes != null) 
+	if (cpData.maxTimes != null)
 	{
 		output += "<input type='number' class='esotbToggleCpNumber'  value='" + cpData.count + "' >";
 	}
@@ -22555,9 +22600,12 @@ window.EsoBuildUpdateSetAverageDesc = function(setData)
 {
 	var setDamageData = ESO_SETPROCDAMAGE_DATA[setData.name.toLowerCase()];
 	
+	if (setData.averageDesc == null) return;
+	
 	for (i = 0; i < setData.averageDesc.length; ++i)
 	{
-		var newDesc = UpdateEsoBuildSetAllData(setData.averageDesc[i], setDamageData);
+		var newDesc = UpdateEsoBuildSetAllData(setData.averageDesc[i], setDamageData, setData.name);
+		newDesc = newDesc.replaceAll(/<[^>]*>/g, '');
 		setData.averageDesc[i] = newDesc;
 	}
 	

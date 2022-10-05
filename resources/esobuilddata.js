@@ -3257,14 +3257,20 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 }
 
 
-window.UpdateEsoBuildSetTooltips = function(setDesc)
+window.UpdateEsoBuildSetTooltips = function(setDesc, setName)
 {
 	if (window.g_SetSkillsData == null || window.GetEsoSkillDescription2 == null) return setDesc;
 	
 	var newDesc = setDesc.replace(".</div>", "</div>.");
-	var matches = newDesc.match("PART OF THE (.*) SET")
-	if (!matches || !matches[1]) return newDesc;
-	var setName = matches[1].toLowerCase().replace("perfected ", "");
+	
+	if (setName == null)
+	{
+		var matches = newDesc.match("PART OF THE (.*) SET")
+		if (!matches || !matches[1]) return newDesc;
+		setName = matches[1];
+	}
+	
+	setName = setName.toLowerCase().replace("perfected ", "");
 	
 	var setSkillsData = g_SetSkillsData[setName];
 	if (setSkillsData == null) return newDesc;
@@ -3355,7 +3361,7 @@ window.UpdateEsoBuildSetTooltips = function(setDesc)
 }
 
 
-window.UpdateEsoBuildSetAllData = function (setDesc, setDamageData)
+window.UpdateEsoBuildSetAllData = function (setDesc, setDamageData, setName)
 {
 	var newDesc = setDesc;
 	
@@ -3363,7 +3369,7 @@ window.UpdateEsoBuildSetAllData = function (setDesc, setDamageData)
 	newDesc = UpdateEsoBuildSetDamageShield(newDesc);
 	newDesc = UpdateEsoBuildSetHealing(newDesc);
 	
-	newDesc = UpdateEsoBuildSetTooltips(newDesc);
+	newDesc = UpdateEsoBuildSetTooltips(newDesc, setName);
 	
 	newDesc = UpdateEsoBuildSetOther(newDesc);
 	

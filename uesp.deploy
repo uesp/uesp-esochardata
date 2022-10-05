@@ -21,5 +21,5 @@ dest = files1.uesp.net:/home/uesp/esochardata.static/
 destname = [backup]backup1.uesp.net:/home/uesp/www/esobuilddata/
 destname = [dev]content3.uesp.net:/home/uesp/dev/www/esobuilddata/
 
-chmod_dest = g+rw -R {dest}
-chown_dest = -R apache {dest}screenshots
+# chmod_dest = g+rw -R {dest}
+# chown_dest = -R apache {dest}screenshots

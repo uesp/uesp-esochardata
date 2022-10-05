@@ -1772,6 +1772,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>5 October 2022</b>
+			<ul>
+				<li>Improved the display/handling of toggled set descriptions. They will not always be correct due to a circular dependancy issue. You can toggle the set effect on/off to force a recalculation.</li>
+			</ul>
+			<p>
 			<b>3 October 2022</b>
 			<ul>
 				<li>Fixed Destruction skills showing element specific skills in the incorrect order.</li>
