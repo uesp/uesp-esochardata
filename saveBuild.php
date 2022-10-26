@@ -176,12 +176,12 @@ class EsoBuildDataSaver
 	public function InitDatabaseWrite()
 	{
 		global $uespEsoBuildDataWriteDBHost, $uespEsoBuildDataWriteUser, $uespEsoBuildDataWritePW, $uespEsoBuildDataDatabase;
-	
+		
 		if ($this->dbWriteInitialized) return true;
-	
+		
 		$this->db = new mysqli($uespEsoBuildDataWriteDBHost, $uespEsoBuildDataWriteUser, $uespEsoBuildDataWritePW, $uespEsoBuildDataDatabase);
 		if ($this->db->connect_error) return $this->ReportError("Could not connect to mysql database!");
-	
+		
 		$this->dbWriteInitialized = true;
 		return true;
 	}

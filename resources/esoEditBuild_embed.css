@@ -1628,3 +1628,8 @@ esotbToggledCpSelect {
 	float: right;
 	margin-right: 60px !important;
 }
+
+.esovsAbilityBlockList .esovsAbilityBlockCost {
+	float: right;
+	margin-right: 0px !important;
+}

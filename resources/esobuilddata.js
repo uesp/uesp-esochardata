@@ -3281,6 +3281,7 @@ window.UpdateEsoBuildSetTooltips = function(setDesc, setName)
 	var newTooltip = GetEsoSkillDescription2(setSkillsData.abilityId, null, true);
 	
 	var rawDesc = setSkillsData.rawDescription;
+	rawDesc = rawDesc.replaceAll(/<<([0-9]+)\)>>/g, '<<$1>>');		// Fix strange <<1)>> in some tooltips
 	rawDesc = rawDesc.replaceAll("  ", " ").replaceAll("  ", " ");
 	setDesc = setDesc.replaceAll("  ", " ").replaceAll("  ", " ");
 	newTooltip = newTooltip.replaceAll("  ", " ").replaceAll("  ", " ");

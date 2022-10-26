@@ -1284,6 +1284,7 @@ window.g_EsoBuildBuffData =
 			buffEnabled: false,
 			visible : false,
 			toggleVisible : true,
+			ignoreIfNotVisible: true,
 			value : 348,
 			category: "Item",
 			statIds : [ "WeaponDamage", "SpellDamage" ],
@@ -2080,8 +2081,16 @@ window.ESO_ACTIVEEFFECT_MATCHES =
 		"match": /While slotted, you gain Major Prophecy/i
 	},
 	{
+		"buffId": "Major Prophecy",
+		"match": /While slotted you gain Major Prophecy/i
+	},
+	{
 		"buffId": "Major Savagery",
 		"match": /While slotted, you gain Major Prophecy and Savagery/i
+	},
+	{
+		"buffId": "Major Savagery",
+		"match": /While slotted you gain Major Prophecy and Savagery/i
 	},
 	{
 		"buffId": "Major Savagery",
@@ -2110,6 +2119,10 @@ window.ESO_ACTIVEEFFECT_MATCHES =
 	{
 		"buffId": "Major Sorcery",
 		"match": /While slotted you gain Major Brutality and Sorcery/i
+	},
+	{
+		"buffId": "Major Protection",
+		"match": /While slotted you gain Major Protection/i
 	},
 	{
 		"buffId": "Minor Protection",
@@ -5588,6 +5601,12 @@ window.ESO_CPEFFECT_MATCHES = [
 
 window.ESO_SETEFFECT_MATCHES = 
 [
+	{
+		statId: "HealingTaken",
+		factorValue: -1,
+		display: '%',
+		match: /reduces your healing taken by ([0-9]+\.?[0-9]*)%/i,
+	},
 	{
 		statId: "PhysicalPenetration",
 		match: /Adds ([0-9]+) Offensive Penetration/i,
@@ -9346,7 +9365,7 @@ window.ESO_SETEFFECT_MATCHES =
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "EnemyTargetWeaponDamage",
+		statId: "WeaponDamage",
 		match: /Increases your Weapon and Spell Damage by ([0-9]+) against targets affected by your Poison Arrow/i,
 	},
 	{
@@ -9355,7 +9374,7 @@ window.ESO_SETEFFECT_MATCHES =
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "EnemyTargetSpellDamage",
+		statId: "SpellDamage",
 		match: /Increases your Weapon and Spell Damage by ([0-9]+) against targets affected by your Poison Arrow/i,
 	},
 	{
@@ -9364,7 +9383,7 @@ window.ESO_SETEFFECT_MATCHES =
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "EnemyTargetWeaponDamage",
+		statId: "WeaponDamage",
 		match: /Increases your Weapon and Spell Damage by ([0-9]+) against targets affected by your Poison Arrow/i,
 	},
 	{
@@ -9373,7 +9392,7 @@ window.ESO_SETEFFECT_MATCHES =
 		toggle: true,
 		enabled: false,
 		enableOffBar : true,
-		statId: "EnemyTargetSpellDamage",
+		statId: "SpellDamage",
 		match: /Increases your Weapon and Spell Damage by ([0-9]+) against targets affected by your Poison Arrow/i,
 	},
 	{
@@ -11089,6 +11108,7 @@ window.UpdateEsoInputBuffToggles = function (buffData)
 		if (buffData == null) continue;
 		
 		//if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled || buffData.combatEnabled)) continue;
+		if (!buffData.visible && buffData.ignoreIfNotVisible) continue;
 		if (!(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled || buffData.combatEnabled)) continue;
 		
 		var buffIds = buffData.buffIds;
@@ -11121,6 +11141,7 @@ window.GetEsoInputBuffValues = function (inputValues)
 		if (buffData == null) continue;
 		
 		//if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled || buffData.combatEnabled)) continue;
+		if (!buffData.visible && buffData.ignoreIfNotVisible) continue;
 		if (!(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled || buffData.combatEnabled)) continue;
 		
 		GetEsoInputBuffValue(inputValues, buffName, buffData);
