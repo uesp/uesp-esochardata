@@ -5,8 +5,8 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #cfc; margin-right: 270px;'>
-Note: Editor should now be mostly working for update 36 PTS. Skills, item, and CP data have been updated. Some new/updated items/skills may not work correctly yet.
+<div style='background-color: #ffc; margin-right: 270px;'>
+Note: Editor is partially working for update 36. Skills, CPs, and items have been updated. New or updated items/skills/CPs might not yet work correctly.
 </div>
 
 {saveNote}
@@ -1772,6 +1772,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>1 November</b>
+			<ul>
+				<li>Updated skills, CP, and item data from update 36.</li>
+			</ul>
+			<p>
 			<b>26 October 2022</b>
 			<ul>
 				<li>Fixed the Sergeant's Mail set from crashing and having an incorrect tooltip (a few other sets may be fixed as well).</li>
