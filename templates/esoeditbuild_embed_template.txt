@@ -1772,6 +1772,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>8 November</b>
+			<ul>
+				<li>Added the "Any" checkbox to the popup item search for drinks and food. This lets you find specific foods now that their level has been hardcoded in the game data.</li>
+			</ul>
+			<p>
 			<b>1 November</b>
 			<ul>
 				<li>Updated skills, CP, and item data from update 36.</li>
