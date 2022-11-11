@@ -4754,19 +4754,6 @@ window.ESO_PASSIVEEFFECT_MATCHES =
 		"match": /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% for each Fighters Guild ability slotted/i
 	},
 	{
-		"statRequireId": "Weapon2H",
-		"statRequireValue": 1,
-		"factorStatId": "WeaponSword",
-		"category": "Skill2",
-		"statId": "SpellDamage",
-		"match": /Swords increase your Weapon and Spell Damage by ([0-9]+)/i
-	},
-	{
-		"statId": "SpellDamage",
-		"category": "Skill2",
-		"match": /^Increases your Weapon and Spell Damage by ([0-9]+)\./i
-	},
-	{
 		"id": "Continuous Attack",
 		"baseSkillId": 39248,
 		"statRequireId": "Cyrodiil",
@@ -4776,17 +4763,6 @@ window.ESO_PASSIVEEFFECT_MATCHES =
 		"toggle": true,
 		"enabled": false,
 		"match": /Increases your Weapon and Spell Damage by ([0-9]+\.?[0-9]*)% and Magicka and Stamina Recovery /i
-	},
-	{
-		"id": "Strike from the Shadows",
-		"baseSkillId": 33096,
-		"statRequireId": "VampireStage",
-		"statRequireValue": 2,
-		"category": "Skill2",
-		"statId": "SpellDamage",
-		"toggle": true,
-		"enabled": false,
-		"match": /When you leave Sneak, invisibility, or Mist Form your Weapon and Spell Damage is increased by ([0-9]+) for/i
 	},
 	{
 		"statRequireId": "Weapon1H",
@@ -5236,7 +5212,20 @@ window.ESO_PASSIVEEFFECT_MATCHES =
 		"match": /Swords increase your Weapon and Spell Damage by ([0-9]+)/i
 	},
 	{
+		"statRequireId": "Weapon2H",
+		"statRequireValue": 1,
+		"factorStatId": "WeaponSword",
+		"category": "Skill2",
+		"statId": "SpellDamage",
+		"match": /Swords increase your Weapon and Spell Damage by ([0-9]+)/i
+	},
+	{
 		"statId": "WeaponDamage",
+		"category": "Skill2",
+		"match": /^Increases your Weapon and Spell Damage by ([0-9]+)\./i
+	},
+	{
+		"statId": "SpellDamage",
 		"category": "Skill2",
 		"match": /^Increases your Weapon and Spell Damage by ([0-9]+)\./i
 	},
@@ -5261,7 +5250,18 @@ window.ESO_PASSIVEEFFECT_MATCHES =
 		"toggle": true,
 		"enabled": false,
 		"match": /When you leave Sneak, invisibility, or Mist Form your Weapon and Spell Damage is increased by ([0-9]+) for/i
-	}
+	},
+	{
+		"id": "Strike from the Shadows",
+		"baseSkillId": 33096,
+		"statRequireId": "VampireStage",
+		"statRequireValue": 2,
+		"category": "Skill2",
+		"statId": "SpellDamage",
+		"toggle": true,
+		"enabled": false,
+		"match": /When you leave Sneak, invisibility, or Mist Form your Weapon and Spell Damage is increased by ([0-9]+) for/i
+	},
 ];
 
 
@@ -22857,6 +22857,506 @@ window.TestAllEsoSetMatch = function (matchData)
 	}
 	
 	return numMatches;
+}
+
+//From: https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
+String.prototype.format = String.prototype.format ||
+function () {
+    "use strict";
+    var str = this.toString();
+    if (arguments.length) {
+        var t = typeof arguments[0];
+        var key;
+        var args = ("string" === t || "number" === t) ?
+            Array.prototype.slice.call(arguments)
+            : arguments[0];
+
+        for (key in args) {
+            str = str.replace(new RegExp("\\{" + key + "\\}", "gi"), args[key]);
+        }
+    }
+
+    return str;
+};
+
+
+//From: https://stackoverflow.com/questions/7744912/making-a-javascript-string-sql-friendly
+window.esotbEscapeSqlString = function(str)
+{
+	str = String(str);
+	
+	return str.replace(/[\0\x08\x09\x1a\n\r"'\\\%]/g, function (char) {
+        switch (char) {
+            case "\0":
+                return "\\0";
+            case "\x08":
+                return "\\b";
+            case "\x09":
+                return "\\t";
+            case "\x1a":
+                return "\\z";
+            case "\n":
+                return "\\n";
+            case "\r":
+                return "\\r";
+            case "\"":
+            case "'":
+            case "\\":
+            //case "%":
+                return "\\"+char; // prepends a backslash to backslash, percent, and double/single quotes
+            default:
+                return char;
+        }
+    });
+}
+
+
+window.esotbAddRuleSqlColumn = function(key, defKey, value)
+{
+	var output = {};
+	
+	if (defKey === false) return {};
+	
+	if (typeof(value) == 'boolean')
+	{
+		value = value ? '1' : '0';
+	}
+	
+	output[defKey] = esotbEscapeSqlString(value);
+	
+	return output;
+}
+
+
+window.esotbAddEffectSqlColumn = function(effectCols, key, defKey, value)
+{
+	var output = [];
+	
+	if (defKey === false) return [];
+	
+	if (typeof(value) == "object")
+	{
+		for (var k in value)
+		{
+			var v = value[k];
+			output.push(esotbAddRuleSqlColumn(key, defKey, v));
+			
+			if (effectCols[k] == null) 
+				effectCols.push(output[k]);
+			else
+				jQuery.extend(effectCols[k], output[k]);
+		}
+	}
+	else
+	{
+		output = esotbAddRuleSqlColumn(key, defKey, value);
+		jQuery.extend(effectCols, output);
+	}
+	
+	return output;
+}
+
+
+window.esotbAddCustomSqlColumn = function(customData, key, customKey, value)
+{
+	var output = {};
+	
+	if (customKey === false) return {};
+	
+	if (typeof(value) == "object")
+	{
+		value = value.join(',');
+		customData[customKey] = value;
+	}
+	else
+	{
+		customData[customKey] = value;
+	}
+	
+	return output;
+}
+
+
+
+window.esotbFixupEffectSqlColumns = function(effectCols)
+{
+	var newCols = [];
+	var numKeys = 0;
+	
+	for (var k in effectCols)
+	{
+		var value = effectCols[k];
+		if (typeof(value) == 'object') newCols[k] = value;
+		++numKeys;
+	}
+	
+	if (numKeys == 0) return [];
+	if (newCols.length == 0) newCols.push([]);
+	
+	for (var k in effectCols)
+	{
+		var value = effectCols[k];
+		
+		if (typeof(value) !== 'object')
+		{
+			for (var i = 0; i < newCols.length; ++i)
+			{
+				newCols[i][k] = value;
+			}
+		}
+	}
+	
+	return newCols;
+}
+
+
+window.esotbCreateRuleSql = function(ruleCols)
+{
+	var output = '';
+	var cols = [];
+	var values = [];
+	
+	for (var k in ruleCols)
+	{
+		var v = ruleCols[k];
+		cols.push(k);
+		
+		if (typeof(v) == "object") v = v.join(",");
+		
+		values.push("'" + v + "'");
+	}
+	
+	var colStr = cols.join(',');
+	var valueStr = values.join(',');
+	
+	output = "INSERT INTO rules({0}) VALUES({1});".format(colStr, valueStr);
+	
+	return output;
+}
+
+
+window.esotbCreateEffectSql = function(effects)
+{
+	var output = [];
+	
+	for (var i in effects)
+	{
+		var effect = effects[i];
+		var rowOutput = '';
+		var cols = [];
+		var values = [];
+		
+		for (var k in effect)
+		{
+			var v = effect[k];
+			cols.push(k);
+			values.push("'" + v + "'");
+		}
+		
+		var colStr = cols.join(',');
+		var valueStr = values.join(',');
+		
+		rowOutput = "INSERT INTO effects({0}) VALUES({1});".format(colStr, valueStr);
+		output.push(rowOutput);
+	}
+	
+	return output;
+}
+
+
+window.esotbFindDuplicateRule = function(allRules, ruleCols)
+{
+	for (var ruleId in allRules)
+	{
+		var rule = allRules[ruleId];
+		
+		if (rule['matchRegex'] === null || rule['matchRegex'] === '') continue;
+		
+		if (rule['nameId'] != null && rule['nameId'] !== ruleCols['nameId']) continue;
+		if (rule['matchRegex'] !== ruleCols['matchRegex']) continue;
+		
+		return rule;
+	}
+	
+	return false;
+}
+
+
+
+window.esotbMergeDuplicateRule = function(allRules, ruleCols, effectCols)
+{
+	
+	var dupRule = esotbFindDuplicateRule(allRules, ruleCols);
+	if (dupRule === false) return false;
+	
+	var newRuleId = dupRule['id'];
+	
+	for (var i in effectCols)
+	{
+		effectCols[i]['ruleId'] = newRuleId;
+	}
+	
+	return dupRule;
+}
+
+
+window.esotbExportRuleSql = function(defData, ruleData, version, startAutoId, showDebug)
+{
+	var ruleType = defData['__ruletype'];
+	var autoId = startAutoId;
+	var sqlRows = [];
+	var allRules = {};
+	
+	for (var ruleId in ruleData)
+	{
+		var rule = ruleData[ruleId];
+		var ruleCols = {};
+		var effectCols = [];
+		var customData = {};
+		var numEffectValues = 0;
+		var numCustomValues = 0;
+		
+		ruleCols['id'] = autoId;
+		ruleCols['version'] = version;
+		
+		if (defData['__id']) jQuery.extend(ruleCols, esotbAddRuleSqlColumn('__id', defData['__id'], ruleId));
+		if (defData['__ruletype']) jQuery.extend(ruleCols, esotbAddRuleSqlColumn('__id', 'ruletype', defData['__ruletype']));
+		
+		for (var key in rule)
+		{
+			var value = rule[key];
+			var defKey = defData[key];
+			var effectKey = defData['effects'][key];
+			var customKey = defData['customData'][key];
+			
+			if (defKey !== undefined)
+			{
+				jQuery.extend(ruleCols, esotbAddRuleSqlColumn(key, defKey, value));
+			}
+			else if (effectKey !== undefined)
+			{
+				esotbAddEffectSqlColumn(effectCols, key, effectKey, value);
+				++numEffectValues;
+			}
+			else if (customKey !== undefined)
+			{
+				esotbAddCustomSqlColumn(customData, key, customKey, value);
+				++numCustomValues;
+			}
+			else
+			{
+				console.log("Error: Missing definition for '{0}' in {1}[{2}] data".format(key, ruleType, ruleId));
+				continue;
+			}
+			
+		}
+		
+		ruleCols['customData'] = esotbEscapeSqlString(JSON.stringify(customData));
+		
+		if (numEffectValues > 0)
+		{
+			effectCols['ruleId'] = autoId;
+			effectCols['version'] = version;
+			effectCols = esotbFixupEffectSqlColumns(effectCols);
+		}
+		
+		var dupRule = esotbMergeDuplicateRule(allRules, ruleCols, effectCols);
+		
+		if (dupRule !== false)
+		{
+			if (showDebug) queueMicrotask(console.log.bind(console, "Duplicate Rule Found", ruleType, ruleId, dupRule, effectCols));
+			sqlRows.push(...esotbCreateEffectSql(effectCols));
+		}
+		else
+		{
+			if (showDebug) queueMicrotask(console.log.bind(console, ruleType, ruleId, ruleCols, effectCols));
+			
+			allRules[autoId] = ruleCols;
+			
+			sqlRows.push(esotbCreateRuleSql(ruleCols));
+			sqlRows.push(...esotbCreateEffectSql(effectCols));
+			
+			++autoId;
+		}
+	}
+	
+	for (var i in sqlRows)
+	{
+		var sql = sqlRows[i];
+		queueMicrotask (console.log.bind(console, sql));
+	}
+	
+	return autoId;
+}
+
+
+window.ExportAllRulesSql = function(showDebug)
+{
+	var BUFF_DEF = {
+			'__id'			 : 'nameId',
+			'__ruletype'	 : 'buff',
+			'group'			 : 'groupName',
+			'icon'			 : 'icon',
+			'enabled'		 : 'isEnabled',
+			'buffEnabled'	 : false,
+			'skillEnabled'	 : false,
+			'rawOutput'		 : false,
+			'combatEnable'	 : false,
+			'desc'			 : 'description',
+			'name'			 : 'displayName',
+			'skillAbilities' : false,
+			'toggleVisible'	 : 'toggleVisible',
+			'visible'		 : 'isVisible',
+			'count'			 : false,
+			'maxTimes'		 : 'maxTimes',
+			'description'	 : 'comment',
+			
+			'customData' 	: {
+				'ignoreIfNotVisible' : 'ignoreIfNotVisible',
+			},
+			
+			'effects' 	: {
+					'value'			 : 'value',
+					'display'		 : 'display',
+					'category'		 : 'category',
+					'statId'		 : 'statId',
+					'combineAs'		 : 'combineAs',
+					'category'		 : 'category',
+					'factorValue'	 : 'factorValue',
+					'round'			 : 'roundNum',
+					'statDesc'	 	 : 'statDesc',
+					'buffId'		 : 'buffId',
+					
+					'categories'	 : 'category',
+					'values'		 : 'value',
+					'displays'		 : 'display',
+					'statIds'		 : 'statId',
+					'buffAbilities'  : 'buffId',
+					'skillAbilities' : 'buffId',
+					'combineAses'	 : 'combineAs',
+					'statDescs'	 	 : 'statDesc',
+					'factorValues'	 : 'factorValue',
+					'rounds'		 : 'roundNum',
+					'buffIds'		 : 'buffId',
+			},
+	};
+	
+	var ACTIVESKILL_DEF = {
+			'__ruletype'		: 'active',
+			'id'				: 'nameId',
+			'displayName'		: 'displayName',
+			'group'				: 'groupName',
+			'icon'				: 'icon',
+			'enabled'			: 'isEnabled',
+			'enable'			: 'isEnabled',
+			'enableOffBar'		: 'enableOffBar',
+			'buffEnabled'		: false,
+			'skillEnabled'		: false,
+			'rawOutput'			: false,
+			'combatEnable'		: false,
+			'skillAbilities'	: false,
+			'count'				: false,
+			'desc'				: 'description',
+			'name'				: 'displayName',
+			'visible'			: 'isVisible',
+			'toggle'			: 'isToggle',
+			'maxTimes'			: 'maxTimes',
+			'description'		: 'comment',
+			'match'				: 'matchRegex',
+			'rawInputMatch'		: 'displayRegex',
+			'statRequireId'		: 'statRequireId',
+			'statRequireValue'	: 'statRequireValue',
+			'baseSkillId'		: 'originalId',
+			'factorStatId'		: 'factorStatId',
+			'setId'				: 'originalId',
+			
+			'customData' : {
+				'matchSkillName'	: 'matchSkillName',
+				'disableSetIds'		: 'disableIds',
+				'disableSetId'		: 'disableIds',
+				'updateBuffValue'	: 'updateBuffValue',
+				'toggleVisible'		: 'toggleVisible',
+				'requireSkillLine'	: 'requireSkillLine',
+				
+				'factorSkillLine'	: 'factorSkillLine',
+				'factorSkillType'	: 'factorSkillType',
+				'statValue'			: 'statValue',
+				'onlyManual'		: 'onlyManual',
+				'requireSkillType'	: 'requireSkillType',
+				'factorOffset'		: 'factorOffset',
+				'minTimes'			: 'minTimes',
+				'deferLevel'		: 'deferLevel',
+				'enableBuffAtMax'	: 'enableBuffAtMax',
+				'duration'			: 'duration',
+				'cooldown'			: 'cooldown',
+				'isHealing'			: 'isHealing',
+				'isDamageShield'	: 'isDamageShield',
+				'damageType'		: 'damageType',
+			},
+			
+				// No longer required
+			'setBonusCount'		: false,
+			
+			'effects' 	: {
+					'value'			 : 'value',
+					'display'		 : 'display',
+					'category'		 : 'category',
+					'statId'		 : 'statId',
+					'combineAs'		 : 'combineAs',
+					'category'		 : 'category',
+					'factorValue'	 : 'factorValue',
+					'round'			 : 'roundNum',
+					'statDesc'	 	 : 'statDesc',
+					'buffId'		 : 'buffId',
+					
+					'categories'	 : 'category',
+					'values'		 : 'value',
+					'displays'		 : 'display',
+					'statIds'		 : 'statId',
+					'buffAbilities'  : 'buffId',
+					'skillAbilities' : 'buffId',
+					'combineAses'	 : 'combineAs',
+					'statDescs'	 	 : 'statDesc',
+					'factorValues'	 : 'factorValue',
+					'rounds'		 : 'roundNum',
+					'buffIds'		 : 'buffId',
+			},
+	};
+	
+	var PASSIVESKILL_DEF = jQuery.extend(true, {}, ACTIVESKILL_DEF);
+	PASSIVESKILL_DEF['__ruletype'] = 'passive';
+	
+	var CPSKILL_DEF = jQuery.extend(true, {}, ACTIVESKILL_DEF);
+	CPSKILL_DEF['__ruletype'] = 'cp';
+	
+	var SET_DEF = jQuery.extend(true, {}, ACTIVESKILL_DEF);
+	SET_DEF['__ruletype'] = 'set';
+	
+	var ARMOR_ENCHANT_DEF = jQuery.extend(true, {}, ACTIVESKILL_DEF);
+	ARMOR_ENCHANT_DEF['__ruletype'] = 'armorenchant';
+	
+	var WEAPON_ENCHANT_DEF = jQuery.extend(true, {}, ACTIVESKILL_DEF);
+	WEAPON_ENCHANT_DEF['__ruletype'] = 'weaponenchant';
+	
+	var OFFHANDWEAPON_ENCHANT_DEF = jQuery.extend(true, {}, ACTIVESKILL_DEF);
+	OFFHANDWEAPON_ENCHANT_DEF['__ruletype'] = 'offhandweaponenchant';
+	
+	var ABILITYDESC_DEF = jQuery.extend(true, {}, ACTIVESKILL_DEF);
+	ABILITYDESC_DEF['__ruletype'] = 'abilitydesc';
+	
+	var ruleAutoId = 1000;
+	
+	ruleAutoId = esotbExportRuleSql(BUFF_DEF, g_EsoBuildBuffData, '36', 1000, showDebug);
+	ruleAutoId = esotbExportRuleSql(ACTIVESKILL_DEF, ESO_ACTIVEEFFECT_MATCHES, '36', 2000, showDebug);
+	ruleAutoId = esotbExportRuleSql(PASSIVESKILL_DEF, ESO_PASSIVEEFFECT_MATCHES, '36', 3000, showDebug);
+	ruleAutoId = esotbExportRuleSql(CPSKILL_DEF, ESO_CPEFFECT_MATCHES, '36', 4000, showDebug);
+	ruleAutoId = esotbExportRuleSql(SET_DEF, ESO_SETEFFECT_MATCHES, '36', 5000, showDebug);
+	
+	ruleAutoId = esotbExportRuleSql(ARMOR_ENCHANT_DEF, ESO_ENCHANT_ARMOR_MATCHES, '36', 6000, showDebug);
+	ruleAutoId = esotbExportRuleSql(WEAPON_ENCHANT_DEF, ESO_ENCHANT_WEAPON_MATCHES, '36', ruleAutoId, showDebug);
+	ruleAutoId = esotbExportRuleSql(OFFHANDWEAPON_ENCHANT_DEF, ESO_ENCHANT_OTHERHAND_WEAPON_MATCHES, '36', ruleAutoId, showDebug);
+	
+	ruleAutoId = esotbExportRuleSql(ABILITYDESC_DEF, ESO_ABILITYDESC_MATCHES, '36', 7000, showDebug);
 }
 
 
