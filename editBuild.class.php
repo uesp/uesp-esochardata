@@ -7743,7 +7743,7 @@ class EsoBuildDataEditor
 		$this->DebugSessionData();
 	}
 	
-		
+	
 	public function GetOutputHtml()
 	{
 		
