@@ -7177,6 +7177,7 @@ window.ESO_SETEFFECT_MATCHES =
 		factorValue: 0.01,
 		round: "floor",
 		maxTimes: 100,
+		toggleSuffix: '%',
 		match: /Gain up to ([0-9]+) Critical Chance and/i,
 	},
 	{
@@ -17180,6 +17181,8 @@ window.CreateEsoBuildToggledSetData = function ()
 		g_EsoBuildToggledSetData[id].combatEnabled = false;
 		g_EsoBuildToggledSetData[id].statIds.push(setEffectData.statId);
 		g_EsoBuildToggledSetData[id].maxTimes = setEffectData.maxTimes;
+		if (setEffectData.minTimes) g_EsoBuildToggledSetData[id].minTimes = setEffectData.minTimes;
+		if (setEffectData.toggleSuffix) g_EsoBuildToggledSetData[id].toggleSuffix = setEffectData.toggleSuffix;
 		g_EsoBuildToggledSetData[id].count = 0;		
 		g_EsoBuildToggledSetData[id].otherCount = 0;
 		
@@ -17806,9 +17809,13 @@ window.CreateEsoBuildToggleSetHtml = function (setData)
 	
 	output += "<input type='checkbox' class='esotbToggleSetCheck'  " + checked + " >";
 	
-	if (setData.maxTimes != null) 
+	if (setData.maxTimes != null)
 	{
-		output += "<input type='number' class='esotbToggleSetNumber'  value='" + setData.count + "' >";
+		var minTimes = setData.minTimes || 0;
+		var title = '' + minTimes + '-' + setData.maxTimes;
+		if (setData.toggleSuffix) title += setData.toggleSuffix;
+		
+		output += "<input type='number' class='esotbToggleSetNumber'  title='" + title + "' value='" + setData.count + "' >";
 	}
 	
 	output += "<div class='esotbToggleSetTitle'>" + displayName + ":</div> ";
@@ -23035,6 +23042,31 @@ window.esotbCreateRuleSql = function(ruleCols)
 }
 
 
+window.esotbCreateStatSql = function(statCols)
+{
+	var output = '';
+	var cols = [];
+	var values = [];
+	
+	for (var k in statCols)
+	{
+		var v = statCols[k];
+		cols.push(k);
+		
+		if (typeof(v) == "object") v = esotbEscapeSqlString(JSON.stringify(v));
+		
+		values.push("'" + v + "'");
+	}
+	
+	var colStr = cols.join(',');
+	var valueStr = values.join(',');
+	
+	output = "INSERT INTO computedStats({0}) VALUES({1});".format(colStr, valueStr);
+	
+	return output;
+}
+
+
 window.esotbCreateEffectSql = function(effects)
 {
 	var output = [];
@@ -23145,7 +23177,7 @@ window.esotbExportRuleSql = function(defData, ruleData, version, startAutoId, sh
 			}
 			else
 			{
-				console.log("Error: Missing definition for '{0}' in {1}[{2}] data".format(key, ruleType, ruleId));
+				console.log("Error: Missing definition for '{0}' in {1}[{2}] data!".format(key, ruleType, ruleId));
 				continue;
 			}
 			
@@ -23190,8 +23222,78 @@ window.esotbExportRuleSql = function(defData, ruleData, version, startAutoId, sh
 }
 
 
+window.esotbExportComputedStatSql = function(defData, statData, version, showDebug)
+{
+	var sqlRows = [];
+	var currentCategory = '';
+	var currentIndex = 0;
+	
+	for (var statId in statData)
+	{
+		var statCols = {};
+		var stat = statData[statId];
+		
+		if (typeof(stat) == "string" && stat == "StartSection")
+		{
+			currentCategory = statId;
+			currentIndex = 0;
+			continue;
+		}
+		
+		statCols['statId'] = esotbEscapeSqlString(statId);
+		statCols['category'] = esotbEscapeSqlString(currentCategory);
+		statCols['idx'] = esotbEscapeSqlString(currentIndex);
+		
+		++currentIndex;
+		
+		for (var key in stat)
+		{
+			var value = stat[key];
+			var defKey = defData[key];
+			
+			if (defKey === false)
+			{
+				continue;
+			}
+			else if (defKey !== undefined)
+			{
+				if (typeof(value) == "object")
+					statCols[defKey] = esotbEscapeSqlString(JSON.stringify(value));
+				else
+					statCols[defKey] = esotbEscapeSqlString(value);
+			}
+			else
+			{
+				console.log("Error: Missing definition for '{0}' in {1}::{2} computed stat!".format(key, currentCategory, statId));
+				continue;
+			}
+		}
+		
+		if (showDebug) queueMicrotask(console.log.bind(console, currentCategory, statId, statCols));
+		sqlRows.push(esotbCreateStatSql(statCols));
+	}
+	
+	for (var i in sqlRows)
+	{
+		var sql = sqlRows[i];
+		queueMicrotask (console.log.bind(console, sql));
+	}
+}
+
+
 window.ExportAllRulesSql = function(showDebug)
 {
+	var MUNDUS_DEF = {
+			'__id'			 : 'nameId',
+			'__ruletype'	 : 'mundus',
+			'abilityId'		 : 'originaId',
+			'icon'			 : 'icon',
+			'description'	 : 'description',
+			
+			'effects' 		 : {},
+			'customData'	 : {},
+	};
+	
 	var BUFF_DEF = {
 			'__id'			 : 'nameId',
 			'__ruletype'	 : 'buff',
@@ -23292,6 +23394,7 @@ window.ExportAllRulesSql = function(showDebug)
 				'isHealing'			: 'isHealing',
 				'isDamageShield'	: 'isDamageShield',
 				'damageType'		: 'damageType',
+				'toggleSuffix'		: 'toggleSuffix',
 			},
 			
 				// No longer required
@@ -23323,6 +23426,26 @@ window.ExportAllRulesSql = function(showDebug)
 			},
 	};
 	
+	
+	var COMPUTEDSTAT_DEF = {
+			'__table' 	  : 'computedStats',
+			'__id'		  : 'statId',
+			'title'		  : 'title',
+			'round'		  : 'roundNum',
+			'display'	  : 'display',
+			'addClass'	  : 'addClass',
+			'min'		  : 'minimumValue',
+			'max'		  : 'maximumValue',
+			'deferLevel'  : 'deferLevel',
+			'note'		  : 'compute',
+			'depends'	  : 'dependsOn',
+			'suffix'	  : 'suffix',
+			'compute'	  : 'compute',
+			
+			'value'		  : false,
+			'preCapValue' : false,
+	}
+	
 	var PASSIVESKILL_DEF = jQuery.extend(true, {}, ACTIVESKILL_DEF);
 	PASSIVESKILL_DEF['__ruletype'] = 'passive';
 	
@@ -23345,7 +23468,7 @@ window.ExportAllRulesSql = function(showDebug)
 	ABILITYDESC_DEF['__ruletype'] = 'abilitydesc';
 	
 	var ruleAutoId = 1000;
-	
+	/*
 	ruleAutoId = esotbExportRuleSql(BUFF_DEF, g_EsoBuildBuffData, '36', 1000, showDebug);
 	ruleAutoId = esotbExportRuleSql(ACTIVESKILL_DEF, ESO_ACTIVEEFFECT_MATCHES, '36', 2000, showDebug);
 	ruleAutoId = esotbExportRuleSql(PASSIVESKILL_DEF, ESO_PASSIVEEFFECT_MATCHES, '36', 3000, showDebug);
@@ -23356,7 +23479,11 @@ window.ExportAllRulesSql = function(showDebug)
 	ruleAutoId = esotbExportRuleSql(WEAPON_ENCHANT_DEF, ESO_ENCHANT_WEAPON_MATCHES, '36', ruleAutoId, showDebug);
 	ruleAutoId = esotbExportRuleSql(OFFHANDWEAPON_ENCHANT_DEF, ESO_ENCHANT_OTHERHAND_WEAPON_MATCHES, '36', ruleAutoId, showDebug);
 	
-	ruleAutoId = esotbExportRuleSql(ABILITYDESC_DEF, ESO_ABILITYDESC_MATCHES, '36', 7000, showDebug);
+	ruleAutoId = esotbExportRuleSql(ABILITYDESC_DEF, ESO_ABILITYDESC_MATCHES, '36', 7000, showDebug); */
+	
+	ruleAutoId = esotbExportRuleSql(MUNDUS_DEF, ESO_MUNDUS_BUFF_DATA, '36', 8000, showDebug);
+	
+	//esotbExportComputedStatSql(COMPUTEDSTAT_DEF, g_EsoComputedStats, '36', showDebug);
 }
 
 

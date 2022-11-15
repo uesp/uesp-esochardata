@@ -2370,6 +2370,28 @@ class EsoBuildDataEditor
 	);
 	
 	
+		/* Note: Order is how they'll appear in the computed stats list */
+	public $COMPUTED_STAT_CATEGORIES = array(
+			"basic" => "Basic Stats",
+			"elementresist" => "Elemental Resistances",
+			"healing" => "Healing",
+			"statrestore" => "Stat Restoration",
+			"movement" => "Movement",
+			"combat" => "Bash / Block / Dodge / Break Free / Fear",
+			"damageshield" => "Damage Shield",
+			"damagetaken" => "Damage Taken",
+			"damagedone" => "Damage Done",
+			"harestore" => "Heavy Attack Restoration",
+			"statuseffect" => "Status Effects",
+			"lightattack" => "Light Attacks",
+			"heavyattack" => "Heavy Attacks",
+			"mitigation" => "Mitigation",
+			"abilitycost" => "Ability Costs",
+			"trait" => "Traits",
+			"other" => "Other",
+	);
+	
+	
 	public $COMPUTED_STATS_LIST = array(
 			
 			"Basic Stats" => "StartSection",
