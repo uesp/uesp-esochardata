@@ -359,6 +359,20 @@ window.g_EsoBuildBuffData =
 			statIds : [ "WeaponDamage", "SpellDamage", "DamageTaken"],
 			icon : "/esoui/art/icons/treasure_maw_moon_pearl.png",
 		},
+		/*
+		"Grim Focus" : {
+			group: "Skill",
+			enabled: false,
+			skillEnabled : false,
+			buffEnabled: false,
+			maxTimes: 5,
+			count: 0,
+			categories: [ "Skill2", "Skill2" ],
+			values : [ 60, 60 ],
+			displays: [ '', '' ],
+			statIds : [ "WeaponDamage", "SpellDamage" ],
+			icon : "/esoui/art/icons/ability_nightblade_005.png",
+		}, */
 		"Syrabane's Ward" : {
 			group: "Set",
 			enabled: false,
@@ -2780,7 +2794,19 @@ window.ESO_ACTIVEEFFECT_MATCHES =
 		"enabled": false,
 		"enableOffBar": true,
 		"match": /After activating, your Weapon and Spell Damage is increased by ([0-9]+) for /i
-	},
+	},/*
+	{
+		"id": "Grim Focus",
+		"baseSkillId": 62096,
+		"category": "Skill2",
+		"buffId": "Grim Focus",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"maxTimes": 5,
+		updateBuffValue: true,
+		"match": /Focus your senses for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+) with every Light or Heavy Attack/i
+	},*/
 	{
 		"id": "Grim Focus",
 		"baseSkillId": 62096,
@@ -2802,7 +2828,29 @@ window.ESO_ACTIVEEFFECT_MATCHES =
 		"enableOffBar": true,
 		"maxTimes": 5,
 		"match": /Focus your senses for [0-9]+ minute, increasing your Weapon and Spell Damage by ([0-9]+) with every Light or Heavy Attack/i
+	}, 
+	{
+		"id": "Grim Focus",
+		"baseSkillId": 62096,
+		"category": "Skill2",
+		"statId": "WeaponDamage",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"maxTimes": 5,
+		"match": /Focus your senses for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+) with every Light or Heavy Attack/i
 	},
+	{
+		"id": "Grim Focus",
+		"baseSkillId": 62096,
+		"category": "Skill2",
+		"statId": "WeaponDamage",
+		"toggle": true,
+		"enabled": false,
+		"enableOffBar": true,
+		"maxTimes": 5,
+		"match": /Focus your senses for [0-9]+ minute, increasing your Weapon and Spell Damage by ([0-9]+) with every Light or Heavy Attack/i
+	}, //*/
 	{
 		"id": "Summoner's Armor",
 		"baseSkillId": 40115206,
@@ -2899,28 +2947,6 @@ window.ESO_ACTIVEEFFECT_MATCHES =
 		"enableOffBar": true,
 		"match": /After activating, your Weapon and Spell Damage is increased by ([0-9]+) for /i
 	},
-	{
-		"id": "Grim Focus",
-		"baseSkillId": 62096,
-		"category": "Skill2",
-		"statId": "WeaponDamage",
-		"toggle": true,
-		"enabled": false,
-		"enableOffBar": true,
-		"maxTimes": 5,
-		"match": /Focus your senses for [0-9]+ seconds, increasing your Weapon and Spell Damage by ([0-9]+) with every Light or Heavy Attack/i
-	},
-	{
-		"id": "Grim Focus",
-		"baseSkillId": 62096,
-		"category": "Skill2",
-		"statId": "WeaponDamage",
-		"toggle": true,
-		"enabled": false,
-		"enableOffBar": true,
-		"maxTimes": 5,
-		"match": /Focus your senses for [0-9]+ minute, increasing your Weapon and Spell Damage by ([0-9]+) with every Light or Heavy Attack/i
-	}
 ];
 
 
@@ -12007,6 +12033,13 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 		{
 			buffData.skillEnabled = true;
 			buffData.skillAbilities.push(abilityData);
+			
+			if (matchData.maxTimes) 
+			{
+				var toggleData = g_EsoBuildToggledSkillData[matchData.id];
+				if (toggleData != null && toggleData.count != null) buffData.count = toggleData.count;
+			}
+			
 			AddEsoItemRawOutputString(buffData, (isPassive ? "Passive Skill" : "Active Skill"), abilityData.name);
 		}
 		
@@ -12033,7 +12066,7 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 				AddEsoInputStatSource("OtherEffects", { other: true, active: abilityData, value: rawInputDesc, rawInputMatch: matchData.rawInputMatch });
 		}
 	}
-	else 
+	else
 	{
 		if (inputValues[category][matchData.statId] == null) inputValues[category][matchData.statId] = 0;
 		
@@ -23468,7 +23501,7 @@ window.ExportAllRulesSql = function(showDebug)
 	ABILITYDESC_DEF['__ruletype'] = 'abilitydesc';
 	
 	var ruleAutoId = 1000;
-	/*
+	
 	ruleAutoId = esotbExportRuleSql(BUFF_DEF, g_EsoBuildBuffData, '36', 1000, showDebug);
 	ruleAutoId = esotbExportRuleSql(ACTIVESKILL_DEF, ESO_ACTIVEEFFECT_MATCHES, '36', 2000, showDebug);
 	ruleAutoId = esotbExportRuleSql(PASSIVESKILL_DEF, ESO_PASSIVEEFFECT_MATCHES, '36', 3000, showDebug);
@@ -23479,11 +23512,11 @@ window.ExportAllRulesSql = function(showDebug)
 	ruleAutoId = esotbExportRuleSql(WEAPON_ENCHANT_DEF, ESO_ENCHANT_WEAPON_MATCHES, '36', ruleAutoId, showDebug);
 	ruleAutoId = esotbExportRuleSql(OFFHANDWEAPON_ENCHANT_DEF, ESO_ENCHANT_OTHERHAND_WEAPON_MATCHES, '36', ruleAutoId, showDebug);
 	
-	ruleAutoId = esotbExportRuleSql(ABILITYDESC_DEF, ESO_ABILITYDESC_MATCHES, '36', 7000, showDebug); */
+	ruleAutoId = esotbExportRuleSql(ABILITYDESC_DEF, ESO_ABILITYDESC_MATCHES, '36', 7000, showDebug);
 	
 	ruleAutoId = esotbExportRuleSql(MUNDUS_DEF, ESO_MUNDUS_BUFF_DATA, '36', 8000, showDebug);
 	
-	//esotbExportComputedStatSql(COMPUTEDSTAT_DEF, g_EsoComputedStats, '36', showDebug);
+	esotbExportComputedStatSql(COMPUTEDSTAT_DEF, g_EsoComputedStats, '36', showDebug);
 }
 
 
