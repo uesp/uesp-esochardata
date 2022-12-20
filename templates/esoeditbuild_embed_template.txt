@@ -1788,7 +1788,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			<p>
 			<b>11 November</b>
 			<ul>
-				<li>Fixed the damage cap of Enguling Flames to 6%.</li>
+				<li>Fixed the damage cap of Engulfing Flames to 6%.</li>
 			</ul>
 			<p>
 			<b>8 November</b>
