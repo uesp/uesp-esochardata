@@ -21,6 +21,7 @@
 window.TestCache = 789;
 
 window.ESO_TESTBUILD_SHOWALLRAWINPUTS = false;
+window.ESO_BUILD_CREATERULECACHE = false;	// Doesn't speed up things much
 
 window.ESO_ICON_URL = "//esoicons.uesp.net";
 
@@ -165,6 +166,7 @@ window.ESO_ITEMQUALITYLEVEL_INTTYPEMAP_JEWELRY =
 };
 
 
+//TODO: Empty once rules are permanent
 window.ESO_MUNDUS_BUFF_DATA = 
 {
 	"The Apprentice" : {
@@ -292,6 +294,7 @@ window.ESOBUILD_SKILLTYPES =
 };
 
 
+//TODO: Empty once rules are done 
 window.g_EsoBuildBuffData =
 {
 		"Raid Dummy Buffs & Debuffs" :
@@ -2082,6 +2085,7 @@ window.g_EsoBuildBuffData_PTS =
 };
 
 
+//TODO: Remove once rules are permanent
 window.ESO_ACTIVEEFFECT_MATCHES = 
 [
 	{
@@ -2950,6 +2954,7 @@ window.ESO_ACTIVEEFFECT_MATCHES =
 ];
 
 
+//TODO: Remove once rules are permanent
 window.ESO_PASSIVEEFFECT_MATCHES = 
 [
 	{
@@ -5291,6 +5296,7 @@ window.ESO_PASSIVEEFFECT_MATCHES =
 ];
 
 
+//TODO: Empty once rules are permanent
 window.ESO_CPEFFECT_MATCHES = [
 	{
 		id: "Exploiter",
@@ -5625,6 +5631,7 @@ window.ESO_CPEFFECT_MATCHES = [
 ];
 
 
+//TODO: Remove once rules are permenant
 window.ESO_SETEFFECT_MATCHES = 
 [
 	{
@@ -10375,7 +10382,8 @@ window.ESO_SETEFFECT_MATCHES =
 	},
 ];		// End of Toggled Sets
 
-	
+
+//TOOD: Remove once rules are permanent
 window.ESO_ENCHANT_ARMOR_MATCHES = [
 	{
 		statId: "Health",
@@ -10556,6 +10564,7 @@ window.ESO_ENCHANT_OTHER_COOLDOWN = 10;
 window.ESO_ENCHANT_OTHER_DURATION = 5;
 
 
+//TODO: Remove once rules are permanent
 window.ESO_ENCHANT_WEAPON_MATCHES = [
 	{
 		statId: "OtherEffects",
@@ -11081,7 +11090,7 @@ window.UpdateEsoCp2SpecialDescriptions = function(inputValues)
 		var toggleData = g_EsoBuildToggledCpData[cpData.name];
 		if (toggleData) toggleData.desc = cpData.description;
 		
-		GetEsoInputCpToggleValues(inputValues, cpData, true);
+		GetEsoBuildCpRuleValues(inputValues, cpData, true);
 	}
 	
 }
@@ -11127,6 +11136,33 @@ window.GetEsoInputFoodValues = function (inputValues)
 }
 
 
+window.GetEsoBuffIdsFromBuff = function(buffData)
+{
+	if (buffData.buffIds) return buffData.buffIds;
+	if (buffData.buffId) return [ buffData.buffId ];
+	
+	if (buffData.effects == null) return [];
+	
+	var buffIds = [];
+	
+	for (var i in buffData.effects)
+	{
+		var effect = buffData.effects[i];
+		if (effect.buffId != '') buffIds.push(effect.buffId);
+	}
+	
+	return buffIds;
+}
+
+
+window.IsEsoBuffEnabled = function(buffData)
+{
+	if (!buffData.visible && buffData.ignoreIfNotVisible) return false;
+	if (!(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled || buffData.combatEnabled)) return false;
+	return true;
+}
+
+
 window.UpdateEsoInputBuffToggles = function (buffData)
 {
 	for (var buffName in g_EsoBuildBuffData)
@@ -11134,12 +11170,9 @@ window.UpdateEsoInputBuffToggles = function (buffData)
 		var buffData = g_EsoBuildBuffData[buffName];
 		if (buffData == null) continue;
 		
-		//if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled || buffData.combatEnabled)) continue;
-		if (!buffData.visible && buffData.ignoreIfNotVisible) continue;
-		if (!(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled || buffData.combatEnabled)) continue;
+		if (!IsEsoBuffEnabled(buffData)) continue;
 		
-		var buffIds = buffData.buffIds;
-		if (buffIds == null) buffIds = [ buffData.buffIds ];
+		var buffIds = GetEsoBuffIdsFromBuff(buffData);
 		
 		for (var i in buffIds)
 		{
@@ -11167,9 +11200,7 @@ window.GetEsoInputBuffValues = function (inputValues)
 		var buffData = g_EsoBuildBuffData[buffName];
 		if (buffData == null) continue;
 		
-		//if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled || buffData.combatEnabled)) continue;
-		if (!buffData.visible && buffData.ignoreIfNotVisible) continue;
-		if (!(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled || buffData.combatEnabled)) continue;
+		if (!IsEsoBuffEnabled(buffData)) continue;
 		
 		GetEsoInputBuffValue(inputValues, buffName, buffData);
 	}
@@ -11192,8 +11223,11 @@ window.AddEsoStatValueHistory = function(category, statId, value)
 }
 
 
+//TODO: Remove once moved to rules DB
 window.GetEsoInputBuffValue = function (inputValues, buffName, buffData)
 {
+	if (buffData.effects) return ApplyEsoBuildRuleEffects(inputValues, buffData, null, "Buff", { toggleData: buffData }); 
+	
 	var statId = buffData.statId;
 	var statIds = buffData.statIds;
 	var category = "Buff";
@@ -11511,21 +11545,53 @@ window.GetEsoInputSetDataValues = function (inputValues, setData, deferLevel)
 }
 
 
+window.UpdateEsoBuildToggleSetBonusCount = function(toggleData)
+{
+	toggleData.setBonusCount = -1;
+	
+	var matchData = toggleData.matchData;
+	if (matchData.match == null) return;
+	
+	for (var setId in g_EsoBuildSetData)
+	{
+		var setData = g_EsoBuildSetData[setId];
+		
+		for (var i = 0; i < setData.averageDesc.length; ++i)
+		{
+			var setDesc = setData.averageDesc[i];
+			var matches = setDesc.match(matchData.match);
+			
+			if (matches != null) 
+			{
+				toggleData.setBonusCount = i + 1;
+				return true;
+			}
+		}
+	}
+	
+	return false;
+}
+
+
 window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount, setData, onlyEnableToggles, deferLevel)
 {
+	if (setBonusCount < 0 || setDesc == "") return;
+	
 	var foundMatch = false;
 	var addFinalEffect = false;
 	var rawInputDesc = setDesc;
 	
 	if (deferLevel == null) deferLevel = 0;
 	
-	if (setBonusCount < 0 || setDesc == "") return;
+	var rules = GetEsoBuildSetRuleCache(setData.name);
+	if (rules == null) rules = ESO_SETEFFECT_MATCHES;
 	
-	for (var i = 0; i < ESO_SETEFFECT_MATCHES.length; ++i)
+	for (var i = 0; i < rules.length; ++i)
 	{
-		var matchData = ESO_SETEFFECT_MATCHES[i];
-		var matches = setDesc.match(matchData.match);
+		var matchData = rules[i];
+		if (matchData.match == null) continue;
 		
+		var matches = setDesc.match(matchData.match);
 		if (matches == null) continue;
 		
 		if (matchData.ignore === true)
@@ -11540,18 +11606,7 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 			// Ignore for now....
 		//if (matchDeferLevel > deferLevel) continue;
 		
-			/* Ignore toggled effects that aren't on */
-		if (matchData.toggle === true)
-		{
-			if (!IsEsoBuildToggledSetEnabled(matchData.id)) continue;
-			if (setBonusCount > setData.count && matchData.enableOffBar === false) continue;
-		}
-		else if (onlyEnableToggles)
-		{
-			continue;
-		}
-		
-		if (matchData.statRequireId != null)
+		if (matchData.statRequireId)
 		{
 			var requiredStat = inputValues[matchData.statRequireId];
 			if (requiredStat == null) continue;
@@ -11575,8 +11630,23 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 			if (count == 0) continue;
 		}
 		
+			/* Ignore toggled effects that aren't on */
+		if (matchData.toggle === true)
+		{
+			var toggleData = g_EsoBuildToggledSetData[matchData.id];
+			//if (toggleData) toggleData.setBonusCount = setBonusCount;
+			
+			if (!IsEsoBuildToggledSetEnabled(matchData.id)) continue;
+			if (setBonusCount > setData.count && matchData.enableOffBar === false) continue;
+		}
+		else if (onlyEnableToggles)
+		{
+			continue;
+		}
+		
 		foundMatch = true;
 		
+		/* TODO: Remove?
 		if (matchData.damageType)
 		{
 			var setId = matchData.id;
@@ -11589,8 +11659,16 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 				procData.damageType = matchData.damageType;
 				AddEsoItemRawOutputString(setData, "Using Damage Type", matchData.damageType);
 			}
+		} //*/
+		
+		if (matchData.effects)
+		{
+			var result = ApplyEsoBuildRuleEffects(inputValues, matchData, matches, 'Set', { setData: setData, toggleData: g_EsoBuildToggledSetData[matchData.id], rawDesc: setDesc, setBonusCount: setBonusCount });
+			if (result) addFinalEffect = true;
+			continue;
 		}
 		
+		//TODO: Remove below section when rules are permanent
 		if (matchData.buffId != null)
 		{
 			var buffData = g_EsoBuildBuffData[matchData.buffId];
@@ -11832,6 +11910,13 @@ window.GetEsoInputAbilityDescValues = function (inputValues, outputId, itemData,
 		var matches = rawDesc.match(matchData.match);
 		if (matches == null) continue;
 		
+		if (matchData.effects)
+		{
+			ApplyEsoBuildRuleEffects(inputValues, matchData, matches, outputId, { itemData: itemData, slotId: slotId });
+			continue;
+		}
+		
+			//TODO: Remove once rules are permanent
 		var statValue = Math.floor(parseFloat(matches[1]));
 		
 		if (inputValues[outputId][matchData.statId] == null) inputValues[outputId][matchData.statId] = 0;
@@ -11910,6 +11995,7 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 	var statValue = 0;
 	var statFactor = 1;
 	var matches = null;
+	var foundMatch = false;
 	
 	rawDesc = rawDesc.replaceAll("  ", " ");
 	rawDesc = rawDesc.replaceAll("  ", " ");
@@ -11921,6 +12007,7 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 		matches = rawDesc.match(matchData.match);
 		if (matches == null) return false;
 		
+		//TODO: Remove when making rules permanent
 		var newStatValue = parseFloat(matches[1]);
 		
 		if (isNaN(newStatValue) && matchData.statValue === undefined) 
@@ -11944,7 +12031,7 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 		if (matchData.ignoreSkills[abilityData.name] != null) return false;
 		if (matchData.ignoreSkills[abilityData.id] != null) return false;
 	}
-			
+	
 	if (matchData.toggle === true && matchData.id != null)
 	{
 		if (!IsEsoBuildToggledSkillEnabled(matchData.id)) return false;
@@ -11957,19 +12044,19 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 		return false;
 	}
 	
-	if (matchData.requireSkillLine != null)
+	if (matchData.requireSkillLine)
 	{
 		var count = CountEsoBarSkillsWithSkillLine(matchData.requireSkillLine);
 		if (count == 0) return false;
 	}
 	
-	if (matchData.requireSkillType != null)
+	if (matchData.requireSkillType)
 	{
 		var count = CountEsoBarSkillsWithSkillType(matchData.requireSkillType);
 		if (count == 0) return false;
 	}
 	
-	if (matchData.statRequireId != null)
+	if (matchData.statRequireId)
 	{
 		var requiredStat = inputValues[matchData.statRequireId];
 		if (requiredStat == null) return false;
@@ -11981,6 +12068,15 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 		if (fRequireValue == 0 && fRequiredStat > 0) return false;
 	}
 	
+	foundMatch = true;
+	
+	if (matchData.effects)
+	{
+		ApplyEsoBuildRuleEffects(inputValues, matchData, matches, "Skill", { toggleData: g_EsoBuildToggledSkillData[matchData.id], abilityData: abilityData, testMatch: testMatch, isOffBar: isOffBar, isPassive: isPassive });
+		return true;
+	}
+	
+		//TODO: Delete once rules are permanent
 	if (matchData.factorSkillLine != null)
 	{
 		var count = CountEsoBarSkillsWithSkillLine(matchData.factorSkillLine);
@@ -12013,7 +12109,7 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 		statFactor = statFactor * matchData.factorValue;
 	}
 	
-	if (matchData.baseValue != null) 
+	if (matchData.baseValue != null)
 		statValue = statValue * matchData.baseValue + statValue * statFactor;
 	else
 		statValue = statValue * statFactor;	
@@ -12034,7 +12130,7 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 			buffData.skillEnabled = true;
 			buffData.skillAbilities.push(abilityData);
 			
-			if (matchData.maxTimes) 
+			if (matchData.maxTimes)
 			{
 				var toggleData = g_EsoBuildToggledSkillData[matchData.id];
 				if (toggleData != null && toggleData.count != null) buffData.count = toggleData.count;
@@ -12218,9 +12314,12 @@ window.GetEsoInputSkillPassiveValues = function (inputValues, skillInputValues, 
 	
 	abilityData.rawOutput = {};
 	
-	for (var i = 0; i < ESO_PASSIVEEFFECT_MATCHES.length; ++i)
+	var rules = ESO_PASSIVEEFFECT_MATCHES
+	if (abilityData.cachedRules) rules = abilityData.cachedRules;
+	
+	for (var i = 0; i < rules.length; ++i)
 	{
-		var matchData = ESO_PASSIVEEFFECT_MATCHES[i];
+		var matchData = rules[i];
 		ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData, true);
 	}
 	
@@ -12240,9 +12339,12 @@ window.GetEsoInputSkillActiveValues = function (inputValues, skillInputValues, s
 	// abilityData.rawOutput = {};
 	g_EsoToggleSkillUsedBuffer = {};
 	
-	for (var i = 0; i < ESO_ACTIVEEFFECT_MATCHES.length; ++i)
+	var rules = ESO_ACTIVEEFFECT_MATCHES
+	if (abilityData.cachedRules) rules = abilityData.cachedRules;
+	
+	for (var i = 0; i < rules.length; ++i)
 	{
-		var matchData = ESO_ACTIVEEFFECT_MATCHES[i];
+		var matchData = rules[i];
 		ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData, false, false, isOffBar);
 	}
 	
@@ -13026,6 +13128,13 @@ window.GetEsoInputItemEnchantArmorValues = function (inputValues, slotId, itemDa
 		var matches = rawDesc.match(matchData.match);
 		if (matches == null) continue;
 		
+		if (matchData.effects)
+		{
+			ApplyEsoBuildRuleEffects(inputValues, matchData, matches, "Item", { itemData: itemData, enchantData: enchantData, slotId: slotId, transmuteFactor: transmuteFactor, enchantFactor: enchantFactor, isTransmuted: isTransmuted })
+			continue;
+		}
+		
+			//TODO: Remove once rules are permanent
 		var statValue = parseFloat(matches[1]);
 		
 		statValue /= transmuteFactor;
@@ -13219,16 +13328,33 @@ window.GetEsoInputItemEnchantWeaponValues = function (inputValues, slotId, itemD
 		var matches = rawDesc.match(matchData.match);
 		if (matches == null) continue;
 		
-		if (matchData.damageType != null || matchData.isHealing || matchData.isDamageShield) {
+		if (matchData.damageType != null || matchData.isHealing || matchData.isDamageShield)
+		{
 			// Do nothing...is updated later
+			continue;
 		}
-		else if (matchData.statId  == null || matchData.statId == "")
+		
+		if (matchData.effects)
+		{
+			if (matchData.effects.length == 0 || matchData.effects[0].statId == '')
+			{
+				rawDesc = rawDesc.replace(matchData.match, function(match, p1, offset, string) { return ReplaceEsoWeaponMatch(match, p1, offset, string, enchantFactor, transmuteFactor); });
+				matches = rawDesc.match(matchData.match);
+			}
+			
+			ApplyEsoBuildRuleEffects(inputValues, matchData, matches, "Item", { itemData: itemData, enchantData: enchantData, slotId: slotId, transmuteFactor: transmuteFactor, enchantFactor: enchantFactor, isTransmuted: isTransmuted })
+			continue;
+		}
+		
+			//TODO: Remove once rules are permanent
+		if (matchData.statId == null || matchData.statId == "")
 		{
 			rawDesc = rawDesc.replace(matchData.match, function(match, p1, offset, string) { return ReplaceEsoWeaponMatch(match, p1, offset, string, enchantFactor, transmuteFactor); });
 		}
 		else if (matchData.statId == "OtherEffects")
 		{
 			rawDesc = rawDesc.replace(matchData.match, function(match, p1, offset, string) { return ReplaceEsoWeaponMatch(match, p1, offset, string, enchantFactor, transmuteFactor); });
+			matches = rawDesc.match(matchData.match);
 			addFinalEffect = true;
 			
 			if (matchData.buffId != null && matchData.updateBuffValue === true)
@@ -13237,13 +13363,12 @@ window.GetEsoInputItemEnchantWeaponValues = function (inputValues, slotId, itemD
 				
 				if (buffData != null) 
 				{
-					var matches = rawDesc.match(matchData.match);
-					
 					if (matches != null && matches[1] != null) 
 					{
 						if (buffData.value != null) buffData.value = parseFloat(matches[1]);
 						
-						if (buffData.values) {
+						if (buffData.values)
+						{
 							for (var j = 0; j < buffData.values.length; j++)
 							{
 								buffData.values[j] = parseFloat(matches[1]);
@@ -13283,7 +13408,6 @@ window.GetEsoInputItemEnchantWeaponValues = function (inputValues, slotId, itemD
 window.GetEsoInputItemEnchantOtherHandWeaponValues = function (inputValues, slotId, itemData, enchantData, enchantFactor, transmuteFactor)
 {
 	var rawDesc = RemoveEsoDescriptionFormats(enchantData.enchantDesc);
-	var addFinalEffect = false;
 	var isTransmuted = (itemData.transmuteTrait > 0 && itemData.transmuteTrait != itemData.origTrait)
 	
 	if (enchantData.isDefaultEnchant && !isTransmuted) enchantFactor = 1;
@@ -13311,8 +13435,16 @@ window.GetEsoInputItemEnchantOtherHandWeaponValues = function (inputValues, slot
 		if (matches == null) continue;
 		
 		rawDesc = rawDesc.replace(matchData.match, function(match, p1, offset, string) { return ReplaceEsoWeaponMatch(match, p1, offset, string, enchantFactor, transmuteFactor); });
-		addFinalEffect = true;
 		
+		if (matchData.effects)
+		{
+			matches = rawDesc.match(matchData.match);
+			
+			ApplyEsoBuildRuleEffects(inputValues, matchData, matches, "Item", { itemData: itemData, enchantData: enchantData, slotId: slotId, transmuteFactor: transmuteFactor, enchantFactor: enchantFactor, isTransmuted: isTransmuted })
+			continue;
+		}
+		
+			//TODO: Remove once rules are permanent
 		if (matchData.buffId != null && matchData.updateBuffValue === true)
 		{
 			var buffData = g_EsoBuildBuffData[matchData.buffId];
@@ -13544,8 +13676,28 @@ window.GetEsoInputMundusValues = function (inputValues)
 }
 
 
+window.GetEsoInputMundusRuleValues = function(inputValues, mundusName)
+{
+	var divines = inputValues.Item.Divines;
+	
+	var mundusData = ESO_MUNDUS_BUFF_DATA[mundusName];
+	if (mundusData == null) return false;
+	if (mundusData.match == null) return false;
+	
+	var matchResult = mundusData.description.match(mundusData.match);
+	if (!matchResult) return false;
+	
+	ApplyEsoBuildRuleEffects(inputValues, mundusData, matchResult, "Mundus", { divines: divines, mundusName: mundusName })
+	
+	return true;
+}
+
+
 window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 {
+	if (g_EsoBuildRules['mundus']) return GetEsoInputMundusRuleValues(inputValues, mundusName);
+	
+	//TODO: Remove once rules are permanent
 	var divines = inputValues.Item.Divines;
 	
 	if (mundusName == "The Lady")
@@ -13872,7 +14024,7 @@ window.GetEsoInputCPValues = function (inputValues)
 	inputValues.CP.Enabled = true;
 	if (!$("#esotbEnableCP").prop("checked")) inputValues.CP.Enabled = false;
 	AddEsoInputStatSource("CP.Enabled", { source: "Character State", value: inputValues.CP.Enabled });
-		
+	
 	inputValues.CP.TotalPoints = parseInt($("#esotbCPTotalPoints").val());
 	
 	inputValues.CPLevel = Math.floor(inputValues.CP.TotalPoints/10);
@@ -13885,7 +14037,7 @@ window.GetEsoInputCPValues = function (inputValues)
 		
 	if (inputValues.EffectiveLevel > ESO_MAX_EFFECTIVELEVEL) inputValues.EffectiveLevel = ESO_MAX_EFFECTIVELEVEL;
 	
-	if (!inputValues.CP.Enabled) 
+	if (!inputValues.CP.Enabled)
 	{
 		// if (inputValues.EffectiveLevel > 50) inputValues.EffectiveLevel = 50;
 		return;
@@ -13905,29 +14057,31 @@ window.GetEsoInputCPValues = function (inputValues)
 		inputValues.CP.Stamina = g_EsoCpData.attribute3.points;
 		inputValues.CP.UsedPoints = inputValues.CP.Health + inputValues.CP.Magicka + inputValues.CP.Stamina;
 	}
-		
-		/* Tower (1) */
-	ParseEsoCPValue(inputValues, "BashCost", 58899, null, null, -1);
-	ParseEsoCPValue(inputValues, "SprintCost", 64077, null, null, -1);
-	// ParseEsoCPValue(inputValues, "MagickaCost", 63861, null, null, -1); //
-	// Pre Update 14
-	// ParseEsoCPValue(inputValues, "StaminaCost", 63862, null, null, -1); //
-	// Pre Update 14
-	ParseEsoCPValue(inputValues, "TargetRecovery", 92425, null, null, -1);
-	ParseEsoCPValue(inputValues, "BreakFreeCost", 92431, null, null, -1);
-	ParseEsoCPValue(inputValues, "InspirationGained", 60494, "the_tower", 30);
-		
-		/* Lord (2) */
-	if (inputValues.ArmorHeavy >= 5) ParseEsoCPValue(inputValues, "PhysicalResist", 60624);
-	ParseEsoCPValue(inputValues, "DamageShield", 59948);
-	ParseEsoCPValue(inputValues, ["HADamageTaken", "LADamageTaken"], 59953, null, null, -1);
-	ParseEsoCPValue(inputValues, "HealingReceived", 63851);
 	
-		/* Lady (3) */
-	if (inputValues.ArmorLight >= 5) ParseEsoCPValue(inputValues, "PhysicalResist", 60502);
-	ParseEsoCPValue(inputValues, "DotDamageTaken", 63850, null, null, -1);
-	ParseEsoCPValue(inputValues, ["PhysicalDamageTaken", "PoisonDamageTaken", "DiseaseDamageTaken"], 63844, null, null, -1);
-	ParseEsoCPValue(inputValues, ["MagicDamageTaken", "FlameDamageTaken", "FrostDamageTaken", "ShockDamageTaken"], 63843, null, null, -1);
+	/* Old CP system
+			// Tower (1)
+		ParseEsoCPValue(inputValues, "BashCost", 58899, null, null, -1);
+		ParseEsoCPValue(inputValues, "SprintCost", 64077, null, null, -1);
+		// ParseEsoCPValue(inputValues, "MagickaCost", 63861, null, null, -1); //
+		// Pre Update 14
+		// ParseEsoCPValue(inputValues, "StaminaCost", 63862, null, null, -1); //
+		// Pre Update 14
+		ParseEsoCPValue(inputValues, "TargetRecovery", 92425, null, null, -1);
+		ParseEsoCPValue(inputValues, "BreakFreeCost", 92431, null, null, -1);
+		ParseEsoCPValue(inputValues, "InspirationGained", 60494, "the_tower", 30);
+			
+			// Lord (2)
+		if (inputValues.ArmorHeavy >= 5) ParseEsoCPValue(inputValues, "PhysicalResist", 60624);
+		ParseEsoCPValue(inputValues, "DamageShield", 59948);
+		ParseEsoCPValue(inputValues, ["HADamageTaken", "LADamageTaken"], 59953, null, null, -1);
+		ParseEsoCPValue(inputValues, "HealingReceived", 63851);
+		
+			// Lady (3)
+		if (inputValues.ArmorLight >= 5) ParseEsoCPValue(inputValues, "PhysicalResist", 60502);
+		ParseEsoCPValue(inputValues, "DotDamageTaken", 63850, null, null, -1);
+		ParseEsoCPValue(inputValues, ["PhysicalDamageTaken", "PoisonDamageTaken", "DiseaseDamageTaken"], 63844, null, null, -1);
+		ParseEsoCPValue(inputValues, ["MagicDamageTaken", "FlameDamageTaken", "FrostDamageTaken", "ShockDamageTaken"], 63843, null, null, -1);
+	*/
 	
 	var itemData = g_EsoBuildItemData.OffHand1;
 	var weaponData = g_EsoBuildItemData.MainHand1;
@@ -13954,6 +14108,27 @@ window.GetEsoInputCPValues = function (inputValues)
 		}
 	}
 	
+	if (inputValues.Weapon1H >= 1 || inputValues.Weapon2H >= 1) 
+	{
+		inputValues.CP.HAActiveDamage = inputValues.CP.HAWeaponDamage;
+		inputValues.CP.LAActiveDamage = inputValues.CP.LAWeaponDamage;
+	}
+	else if (inputValues.WeaponBow >= 1) 
+	{
+		inputValues.CP.HAActiveDamage = inputValues.CP.HABowDamage;
+		inputValues.CP.LAActiveDamage = inputValues.CP.LABowDamage;
+	}
+	else if (inputValues.WeaponRestStaff >= 1 || inputValues.WeaponDestStaff >= 1) 
+	{
+		inputValues.CP.HAActiveDamage = inputValues.CP.HAStaffDamage;
+		inputValues.CP.LAActiveDamage = inputValues.CP.LAStaffDamage;
+	}
+	else
+	{
+		inputValues.CP.HAActiveDamage = 0;
+		inputValues.CP.LAActiveDamage = 0;
+	}
+	
 	if ((itemData.weaponType == 13 || itemData.weaponType == 14) && g_EsoCpData['Bulwark'] != null && g_EsoCpData['Bulwark'].isUnlocked)
 	{
 		var extraBonus = 1900;
@@ -13974,25 +14149,21 @@ window.GetEsoInputCPValues = function (inputValues)
 		AddEsoItemRawOutputString(itemData, "PhysicalResist from Bulwark", extraBonus);
 	}
 	
-	if (inputValues.Weapon1H >= 1 || inputValues.Weapon2H >= 1) 
+	if (g_EsoBuildRules['cp'])
 	{
-		inputValues.CP.HAActiveDamage = inputValues.CP.HAWeaponDamage;
-		inputValues.CP.LAActiveDamage = inputValues.CP.LAWeaponDamage;
-	}
-	else if (inputValues.WeaponBow >= 1) 
-	{
-		inputValues.CP.HAActiveDamage = inputValues.CP.HABowDamage;
-		inputValues.CP.LAActiveDamage = inputValues.CP.LABowDamage;
-	}
-	else if (inputValues.WeaponRestStaff >= 1 || inputValues.WeaponDestStaff >= 1) 
-	{
-		inputValues.CP.HAActiveDamage = inputValues.CP.HAStaffDamage;
-		inputValues.CP.LAActiveDamage = inputValues.CP.LAStaffDamage;
-	}
-	else
-	{
-		inputValues.CP.HAActiveDamage = 0;
-		inputValues.CP.LAActiveDamage = 0;
+		UpdateEsoBuildToggledCpData();
+		
+		for (var id in g_EsoCpData) 
+		{
+			var cpData = g_EsoCpData[id];
+			
+			if (cpData.type != "skill") continue;
+			if (isNaN(id)) continue;
+			
+			GetEsoBuildCpRuleValues(inputValues, cpData);
+		}
+		
+		return;
 	}
 	
 		/* CP2 parsing */
@@ -14107,6 +14278,37 @@ window.GetEsoInputCPValues = function (inputValues)
 }
 
 
+window.GetEsoBuildCpRuleValues = function(inputValues, cpData, isManual)
+{
+	var desc = cpData.description;
+	
+	if (desc == null || desc == "") return;
+	if (cpData.isUnlocked !== true) return;
+	
+	var rules = ESO_CPEFFECT_MATCHES;
+	if (cpData.cachedRules) rules = cpData.cachedRules;
+	
+	for (var i = 0; i < rules.length; ++i)
+	{
+		var matchData = rules[i];
+		if (matchData.onlyManual === true && !isManual) continue;
+		
+		var matchResult = desc.match(matchData.match);
+		if (!matchResult) continue;
+		
+		var toggleData = g_EsoBuildToggledCpData[cpData.name];
+		if (matchData.toggle && toggleData == null) continue;
+		if (matchData.toggle && !(toggleData.enabled || toggleData.combatEnabled)) continue;
+		
+		if (matchData.effects)
+		{
+			ApplyEsoBuildRuleEffects(inputValues, matchData, matchResult, "CP", { toggleData: toggleData, cpData: cpData })
+			continue;
+		}
+	}
+}
+
+
 window.GetEsoInputCpToggleValues = function (inputValues, cpData, isManual)
 {
 	var desc = cpData.description;
@@ -14114,9 +14316,12 @@ window.GetEsoInputCpToggleValues = function (inputValues, cpData, isManual)
 	if (desc == null || desc == "") return;
 	if (cpData.isUnlocked !== true) return;
 	
-	for (var i = 0; i < ESO_CPEFFECT_MATCHES.length; ++i)
+	var rules = ESO_CPEFFECT_MATCHES;
+	if (cpData.cachedRules) rules = cpData.cachedRules;
+	
+	for (var i = 0; i < rules.length; ++i)
 	{
-		var matchData = ESO_CPEFFECT_MATCHES[i];
+		var matchData = rules[i];
 		if (!matchData.toggle) continue;
 		if (matchData.onlyManual === true && !isManual) continue;
 		
@@ -14128,6 +14333,13 @@ window.GetEsoInputCpToggleValues = function (inputValues, cpData, isManual)
 		var matchResult = desc.match(matchData.match);
 		if (!matchResult) continue;
 		
+		if (matchData.effects)
+		{
+			ApplyEsoBuildRuleEffects(inputValues, matchData, matchResult, "CP", { toggleData: toggleData, cpData: cpData })
+			continue;
+		}
+		
+			//TODO: Delete following once rules are permanent
 		var statValue = 1;
 		if (!isNaN(matchResult[1])) statValue = parseFloat(matchResult[1]);
 		
@@ -14184,7 +14396,7 @@ window.ParseEsoCPValue = function (inputValues, statIds, abilityId, discId, unlo
 	if (cpDesc.length == 0) return false;
 	
 	if (category == null) category = "CP";
-
+	
 	var cpName = cpDesc.prev().text();
 	
 	var text = RemoveEsoDescriptionFormats(cpDesc.text());
@@ -14228,18 +14440,94 @@ window.ParseEsoCPValue = function (inputValues, statIds, abilityId, discId, unlo
 }
 
 
+//TODO: Remove once rules are permanent
+var g_EsoBuildCp2NextRuleId = 9000;
+var g_EsoBuildCp2RuleVersion = '36';
+
+window.DumpEsoCP2SqlRule = function(cpName, cpDesc, statIds, statFactor, category, statValue, abilityId)
+{
+	var ruleCols = {};
+	var effectCols = {};
+	var sqlRows = [];
+	
+		//Don't output rules already in data
+	for (var i in ESO_CPEFFECT_MATCHES)
+	{
+		var cpEffect = ESO_CPEFFECT_MATCHES[i];
+		
+		if (cpEffect['id'] == cpName) {
+			console.log("Ignoring duplicate CP for SQL export!", cpName);
+			return;
+		}
+	}
+	
+	if (typeof(statIds) == "string") statIds = [ statIds ];
+	if (category == null) category = "CP";
+	cpDesc = RemoveEsoDescriptionFormats(cpDesc);
+	
+	ruleCols['id'] = g_EsoBuildCp2NextRuleId;
+	ruleCols['version'] = g_EsoBuildCp2RuleVersion;
+	ruleCols['ruleType'] = 'cp';
+	ruleCols['isToggle'] = '0';
+	ruleCols['originalId'] = abilityId;
+	
+	var matchRegex = cpDesc;
+	matchRegex = matchRegex.replace(/(Current (?:bonus|value)(?::|)) ([0-9]+\.?[0-9]*).*/i, '$1(\\d+\\.?\\d*)');
+	matchRegex = matchRegex.replaceAll(/[0-9]+/g, '[0-9]+');
+	matchRegex = matchRegex.replaceAll(/\n.*\n/g, '.*');
+	matchRegex = matchRegex.replaceAll(/\.\n/g, '.*');
+	matchRegex = matchRegex.replaceAll(/\n/g, '.*');
+	matchRegex = '/' + matchRegex + '/i';
+	
+	ruleCols['matchRegex'] = esotbEscapeSqlString(matchRegex);
+	
+	sqlRows.push(esotbCreateRuleSql(ruleCols));
+	
+	for (var i in statIds)
+	{
+		var statId = statIds[i];
+		
+		effectCols = {};
+		
+		effectCols['ruleId'] = g_EsoBuildCp2NextRuleId;
+		effectCols['version'] = g_EsoBuildCp2RuleVersion;
+		effectCols['category'] = category;
+		effectCols['statId'] = esotbEscapeSqlString(statId);
+		
+		if (statValue) effectCols['value'] = esotbEscapeSqlString(statValue);
+		if (statFactor && statFactor !== 1) effectCols['factorValue'] = statFactor;
+		
+		sqlRows.push(...esotbCreateEffectSql([ effectCols ]));
+	}
+	
+	for (var i in sqlRows)
+	{
+		var sql = sqlRows[i];
+		queueMicrotask (console.log.bind(console, sql));
+	}
+	
+	++g_EsoBuildCp2NextRuleId;
+}
+
+
 window.ParseEsoCP2Value = function (inputValues, statIds, abilityId, statFactor, category, statValue)
 {
 	var $skill = $("#skill_" + abilityId);
 	var cpDesc = $("#descskill_" + abilityId);
+	
 	if ($skill.length == 0 || cpDesc.length == 0) return false;
+	
+	var cpName = cpDesc.prev().text();
+	
+	//TODO: Remove once rules are permanent
+	DumpEsoCP2SqlRule(cpName, cpDesc.text(), statIds, statFactor, category, statValue, abilityId);
 	
 	var isUnlocked = $skill.attr("unlocked");
 	if (isUnlocked <= 0) return false;
 	
 	if (category == null) category = "CP";
 	
-	var cpName = cpDesc.prev().text();
+	
 	var value = 1;
 	
 	if (statValue == null)
@@ -14629,9 +14917,10 @@ window.UpdateEsoComputedStat = function (statId, stat, inputValues, saveResult, 
 		with(inputValues)
 		{
 			try {
-				itemValue = eval(computeItem); 
+				itemValue = eval(computeItem);
 			} catch (e) {
-			    itemValue = "ERR";
+			    //itemValue = "ERR";
+				itemValue = 0;
 			}
 			
 			stack.push(itemValue);
@@ -14848,7 +15137,7 @@ window.CreateEsoComputedStat = function (statId, stat)
 		appendTo(g_EsoBuildComputedStatParent);
 	
 	if (stat.addClass != null) element.addClass(stat.addClass);
-
+	
 	$("<div/>").addClass("esotbStatName").
 		text(stat.title).
 		appendTo(element);
@@ -14875,7 +15164,6 @@ window.CreateEsoComputedStat = function (statId, stat)
 		html("?").
 		attr("style", warningDisplay).
 		appendTo(element);
-
 	
 	$("<div/>").addClass("esotbStatDetailsButton").
 		html("...").
@@ -17183,8 +17471,57 @@ window.CreateEsoBuildToggledSkillData = function ()
 }
 
 
+window.CreateEsoBuildToggledSetDataInstance = function (setEffectData, id)
+{
+	if (g_EsoBuildToggledSetData[id] == null) 
+	{
+		g_EsoBuildToggledSetData[id] = {};
+		g_EsoBuildToggledSetData[id].statIds = [];
+		g_EsoBuildToggledSetData[id].matchData = setEffectData;
+		g_EsoBuildToggledSetData[id].setId = id;
+		g_EsoBuildToggledSetData[id].displayName = setEffectData.displayName;
+		g_EsoBuildToggledSetData[id].disableSetId = setEffectData.disableSetId;
+		g_EsoBuildToggledSetData[id].disableSetIds = setEffectData.disableSetIds;
+		g_EsoBuildToggledSetData[id].damageType = setEffectData.damageType;
+	}
+	
+	g_EsoBuildToggledSetData[id].id = id;
+	g_EsoBuildToggledSetData[id].setBonusCount = setEffectData.setBonusCount;
+	g_EsoBuildToggledSetData[id].desc = "";
+	g_EsoBuildToggledSetData[id].valid = false;
+	g_EsoBuildToggledSetData[id].enabled = setEffectData.enabled;
+	g_EsoBuildToggledSetData[id].combatEnabled = false;
+	g_EsoBuildToggledSetData[id].statIds.push(setEffectData.statId);
+	g_EsoBuildToggledSetData[id].maxTimes = setEffectData.maxTimes;
+	if (setEffectData.minTimes) g_EsoBuildToggledSetData[id].minTimes = setEffectData.minTimes;
+	if (setEffectData.toggleSuffix) g_EsoBuildToggledSetData[id].toggleSuffix = setEffectData.toggleSuffix;
+	g_EsoBuildToggledSetData[id].count = 0;		
+	g_EsoBuildToggledSetData[id].otherCount = 0;
+	
+	if (setEffectData.setId != null) g_EsoBuildToggledSetData[id].setId = setEffectData.setId;
+	
+	if (g_EsoBuildSetData[id] != null && g_EsoBuildSetData[id].averageDesc != null &&
+			g_EsoBuildSetData[id].averageDesc[setEffectData.setBonusCount - 1] != null)
+	{
+		g_EsoBuildToggledSetData[id].desc = g_EsoBuildSetData[id].averageDesc[setEffectData.setBonusCount - 1];
+	}
+	else if (g_EsoBuildSetData[id] != null && g_EsoBuildSetData[id].unequippedItems[0] != null)
+	{
+		var desc = g_EsoBuildSetData[id].unequippedItems[0]['setBonusDesc' + setEffectData.setBonusCount];
+		if (desc) g_EsoBuildToggledSetData[id].desc = desc;
+	}
+	else if (g_EsoBuildSetData[id] != null && g_EsoBuildSetData[id].items[0] != null)
+	{
+		var desc = g_EsoBuildSetData[id].items[0]['setBonusDesc' + setEffectData.setBonusCount];
+		if (desc) g_EsoBuildToggledSetData[id].desc = desc;
+	}
+}
+
+
 window.CreateEsoBuildToggledSetData = function ()
 {
+	var newSetDatas = [];
+	
 	g_EsoBuildToggledSetData = {};
 	
 	for (var i = 0; i < ESO_SETEFFECT_MATCHES.length; ++i)
@@ -17194,50 +17531,23 @@ window.CreateEsoBuildToggledSetData = function ()
 		
 		var id = setEffectData.id;
 		
-		if (g_EsoBuildToggledSetData[id] == null) 
-		{
-			g_EsoBuildToggledSetData[id] = {};
-			g_EsoBuildToggledSetData[id].statIds = [];
-			g_EsoBuildToggledSetData[id].matchData = setEffectData;
-			g_EsoBuildToggledSetData[id].setId = id;
-			g_EsoBuildToggledSetData[id].displayName = setEffectData.displayName;
-			g_EsoBuildToggledSetData[id].disableSetId = setEffectData.disableSetId;
-			g_EsoBuildToggledSetData[id].disableSetIds = setEffectData.disableSetIds;
-			g_EsoBuildToggledSetData[id].damageType = setEffectData.damageType;
-		}
+		CreateEsoBuildToggledSetDataInstance(setEffectData, id);
 		
-		g_EsoBuildToggledSetData[id].id = id;
-		g_EsoBuildToggledSetData[id].setBonusCount = setEffectData.setBonusCount;
-		g_EsoBuildToggledSetData[id].desc = "";
-		g_EsoBuildToggledSetData[id].valid = false;
-		g_EsoBuildToggledSetData[id].enabled = setEffectData.enabled;
-		g_EsoBuildToggledSetData[id].combatEnabled = false;
-		g_EsoBuildToggledSetData[id].statIds.push(setEffectData.statId);
-		g_EsoBuildToggledSetData[id].maxTimes = setEffectData.maxTimes;
-		if (setEffectData.minTimes) g_EsoBuildToggledSetData[id].minTimes = setEffectData.minTimes;
-		if (setEffectData.toggleSuffix) g_EsoBuildToggledSetData[id].toggleSuffix = setEffectData.toggleSuffix;
-		g_EsoBuildToggledSetData[id].count = 0;		
-		g_EsoBuildToggledSetData[id].otherCount = 0;
-		
-		if (setEffectData.setId != null) g_EsoBuildToggledSetData[id].setId = setEffectData.setId;
-		
-		if (g_EsoBuildSetData[id] != null && g_EsoBuildSetData[id].averageDesc != null &&
-				g_EsoBuildSetData[id].averageDesc[setEffectData.setBonusCount - 1] != null)
+		if (setEffectData['addPerfected'] === true)
 		{
-			g_EsoBuildToggledSetData[id].desc = g_EsoBuildSetData[id].averageDesc[setEffectData.setBonusCount - 1];
-		}
-		else if (g_EsoBuildSetData[id] != null && g_EsoBuildSetData[id].unequippedItems[0] != null)
-		{
-			var desc = g_EsoBuildSetData[id].unequippedItems[0]['setBonusDesc' + setEffectData.setBonusCount];
-			if (desc) g_EsoBuildToggledSetData[id].desc = desc;
-		}
-		else if (g_EsoBuildSetData[id] != null && g_EsoBuildSetData[id].items[0] != null)
-		{
-			var desc = g_EsoBuildSetData[id].items[0]['setBonusDesc' + setEffectData.setBonusCount];
-			if (desc) g_EsoBuildToggledSetData[id].desc = desc;
+			var newEffectData = jQuery.extend(true, {}, setEffectData);
+			
+			id = "Perfected " + id;
+			newEffectData.id = id;
+			newEffectData.addPerfected = false;
+			
+			CreateEsoBuildToggledSetDataInstance(newEffectData, id);
+			
+			newSetDatas.push(newEffectData);
 		}
 	}
 	
+	ESO_SETEFFECT_MATCHES.push(...newSetDatas)
 }
 
 
@@ -17423,7 +17733,17 @@ window.UpdateEsoBuildToggledSkillData = function (inputValues)
 			if (toggleSkillData.matchData.id.toUpperCase() != data.name.toUpperCase()) continue;
 		}
 		
-		if (toggleSkillData.matchData.statRequireId != null)
+		if (toggleSkillData.matchData.matchSkillDesc === true)
+		{
+			if (abilityData == null) continue;
+			if (abilityData.skillDesc == null) continue;
+			if (toggleSkillData.matchData.match == null) continue;
+			
+			var desc = abilityData.skillDesc;
+			if (!desc.match(toggleSkillData.matchData.match)) continue;
+		}
+		
+		if (toggleSkillData.matchData.statRequireId)
 		{
 			var requiredStat = inputValues[toggleSkillData.matchData.statRequireId];
 			if (requiredStat == null) continue;
@@ -17435,7 +17755,7 @@ window.UpdateEsoBuildToggledSkillData = function (inputValues)
 			if (fRequireValue == 0 && fRequiredStat > 0) continue;
 		}
 		
-		if (toggleSkillData.matchData.requireSkillLine != null)
+		if (toggleSkillData.matchData.requireSkillLine)
 		{
 			var count = CountEsoBarSkillsWithSkillLine(toggleSkillData.matchData.requireSkillLine);
 			if (count == 0) continue;
@@ -17538,7 +17858,7 @@ window.UpdateEsoBuildToggledSetData = function ()
 		// if (setData.averageDesc == null || setData.items[0] == null)
 		// continue;
 		
-		if (toggleData.matchData.statRequireId != null)
+		if (toggleData.matchData.statRequireId)
 		{
 			var requiredStat = inputValues[toggleData.matchData.statRequireId];
 			if (requiredStat == null) continue;
@@ -17550,16 +17870,21 @@ window.UpdateEsoBuildToggledSetData = function ()
 			if (fRequireValue == 0 && fRequiredStat > 0) continue;
 		}
 		
-		if (toggleData.matchData.requireSkillLine != null)
+		if (toggleData.matchData.requireSkillLine)
 		{
 			var count = CountEsoBarSkillsWithSkillLine(toggleData.matchData.requireSkillLine);
 			if (count == 0) continue;
 		}
 		
-		if (toggleData.matchData.requireSkillType != null)
+		if (toggleData.matchData.requireSkillType)
 		{
 			var count = CountEsoBarSkillsWithSkillType(toggleData.matchData.requireSkillType);
 			if (count == 0) continue;
+		}
+		
+		if (toggleData.setBonusCount == null || toggleData.setBonusCount <= 0)
+		{
+			UpdateEsoBuildToggleSetBonusCount(toggleData);
 		}
 		
 		var setDesc = null;
@@ -17836,7 +18161,7 @@ window.CreateEsoBuildToggleSetHtml = function (setData)
 	if (checked) extraClass = 'esotbToggledSetSelect';
 	
 	var displayName = setData.id;
-	if (setData.displayName != null) displayName = setData.displayName;
+	if (setData.displayName) displayName = setData.displayName;
 	
 	var output = "<div class='esotbToggledSetItem " + extraClass + "' setid=\"" + setData.id + "\">";
 	
@@ -17866,7 +18191,7 @@ window.CreateEsoBuildToggleCpHtml = function (cpData)
 	if (checked) extraClass = 'esotbToggledCpSelect';
 	
 	var displayName = cpData.id;
-	if (cpData.displayName != null) displayName = cpData.displayName;
+	if (cpData.displayName) displayName = cpData.displayName;
 	
 	var output = "<div class='esotbToggledCpItem " + extraClass + "' cpid=\"" + cpData.id + "\">";
 	
@@ -18036,7 +18361,7 @@ window.CreateEsoBuildToggleSkillHtml = function (skillData)
 		if (abilityData != null && abilityData.name != null) displayName = abilityData.name;
 	}
 	
-	if (skillData.displayName != null) displayName = skillData.displayName;
+	if (skillData.displayName) displayName = skillData.displayName;
 	
 	output += "<input type='checkbox' class='esotbToggleSkillCheck'  " + checked + " >";
 	
@@ -18047,7 +18372,7 @@ window.CreateEsoBuildToggleSkillHtml = function (skillData)
 	
 	var skillDesc = skillData.desc;
 	
-	if (skillData.rawInputMatch != null)
+	if (skillData.rawInputMatch)
 	{
 		var rawInputMatches = skillDesc.match(skillData.rawInputMatch);
 		if (rawInputMatches != null) skillDesc = rawInputMatches[1];
@@ -18766,6 +19091,7 @@ window.CreateEsoBuildBuffHtml = function (buffName, buffData)
 	
 	if (buffData.maxTimes)
 	{
+		if (buffData.count == '' || buffData.count == null) buffData.count = 0;
 		output += "<input type='number' class='esotbToggleBuffNumber' value='" + buffData.count + "'>";
 	}
 	
@@ -18800,8 +19126,115 @@ if (Array.prototype.fill == null)
 }
 
 
+window.CreateEsoBuildBuffEffectsDescHtml = function (buffData)
+{
+	var buffIds = []; 
+	
+	buffData.desc = "";
+	
+	for (var i = 0; i < buffData.effects.length; ++i)
+	{
+		var effect = buffData.effects[i];
+		var statId = effect['statId'];
+		var buffId = effect['buffId'];
+		var statDesc = effect['statDesc'];
+		var statValue = effect['value'];
+		var category = effect['category'];
+		var display = effect['display'];
+		var factorValue = effect['factorValue'];
+		var round = effect['round'];
+		
+		var prefixDesc = "Increases ";
+		var targetDesc = "your ";
+		var suffixDesc = "";
+		
+		if (buffId != '')
+		{
+			buffIds.push(buffId);
+			continue;
+		}
+		
+			/* Replace some stat abbreviations with nicer descriptions */
+		statId = statId.replace(/([A-Z])/g, ' $1').trim().replace("A O E ", " AOE ");
+		statId = statId.replace("H A ", "Heavy Attack ");
+		statId = statId.replace("L A ", "Light Attack ");
+		statId = statId.replace("Sta Restore ", "Stamina Restoration ");
+		statId = statId.replace("Mag Restore ", "Mag Restoration ");
+		
+		if (statId == '') continue;
+		
+		if (buffData.maxTimes > 0) suffixDesc = " per stack (up to " + buffData.maxTimes + " stacks)";
+		
+		var floatValue = parseFloat(statValue);
+		
+		if (!isNaN(floatValue))
+		{
+			statValue = floatValue;
+			
+			if (factorValue != null && factorValue != 1) statValue *= factorValue;
+			
+			if (statValue < 0)
+			{
+				prefixDesc = "Decreases ";
+				statValue *= -1;
+			}
+			
+			if (category == "Target") targetDesc = "the target's ";
+			
+			if (display == "%")
+			{
+				statValue = "" + (Math.floor(statValue*1000)/10) + "%";
+			}
+			
+			if (statDesc != null && statDesc != "")
+			{
+				var replaceIndex = statDesc.indexOf("$1");
+				
+				if (replaceIndex < 0)
+				{
+					buffData.desc += statDesc + statValue + suffixDesc + "<br/>";
+				}
+				else
+				{
+					var output = statDesc.replace("$1", statValue);
+					buffData.desc += output + suffixDesc + "<br/>";
+				}
+			}
+			else
+			{
+				buffData.desc += prefixDesc + targetDesc + statId + " by " + statValue + suffixDesc + "<br/>";
+			}
+		}
+		else
+		{
+			if (statDesc != null && statDesc != "")
+			{
+				buffData.desc += statDesc + statValue + suffixDesc + "<br/>";
+			}
+			else
+			{
+				buffData.desc += statValue + suffixDesc + "<br/>";
+			}
+		}
+	}
+	
+	var buffDesc = buffIds.filter(Boolean).join(", ");
+	
+	if (buffDesc != "")
+	{
+		if (buffData.desc != "") buffData.desc += "<br/>";
+		buffData.desc += "Adds Buffs: " + buffDesc;
+	}
+	
+	return buffData.desc;
+}
+
+
+//TODO: Remove once switch over to rules DB
 window.CreateEsoBuildBuffDescHtml = function (buffData)
 {
+	if (buffData.effects) return CreateEsoBuildBuffEffectsDescHtml(buffData);
+	
 	var statId = buffData.statId;
 	var statIds = buffData.statIds;
 	var buffId = buffData.buffId;
@@ -18833,7 +19266,7 @@ window.CreateEsoBuildBuffDescHtml = function (buffData)
 	if (displays == null) displays = [].fill.call({ length: statIds.length }, display);
 	if (statDescs == null) statDescs = [].fill.call({ length: statIds.length }, statDesc);
 	if (factorValues == null) factorValues = [].fill.call({ length: statIds.length }, factorValue);
-			
+	
 	for (var i = 0; i < statIds.length; ++i)
 	{
 		if (statIds[i] == null) continue;
@@ -18969,6 +19402,7 @@ window.OnEsoBuildBuffClick = function (e)
 		if (numberElement.length)
 		{
 			buffData.count = parseInt(numberElement.text());
+			if (isNaN(buffData.count)) buffData.count = 0;
 		}
 	}
 	
@@ -18982,17 +19416,24 @@ window.OnEsoBuildBuffClick = function (e)
 window.OnEsoBuildBuffCheckClick = function (e)
 {
 	var parent = $(this).parent();
+	var numberElement = parent.find(".esotbToggleBuffNumber");
 	var buffId = parent.attr("buffid");
 	var buffData = g_EsoBuildBuffData[buffId];
 	
 	if (buffData != null)
 	{
 		buffData.enabled = $(this).prop("checked");
+		
+		if (numberElement.length)
+		{
+			buffData.count = parseInt(numberElement.text());
+			if (isNaN(buffData.count)) buffData.count = 0;
+		}
 	}
 	
 	UpdateEsoBuffItem(parent);
 	UpdateEsoComputedStatsList("async");
-
+	
 	e.stopPropagation();
 	return true;
 }
@@ -19495,8 +19936,8 @@ window.CreateEsoBuildBuffSaveData = function (saveData, inputValues)
 	for (var buffName in g_EsoBuildBuffData)
 	{
 		var buffData = g_EsoBuildBuffData[buffName];
-		//if (!buffData.visible || !(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled)) continue;
-		if (!(buffData.enabled || buffData.skillEnabled || buffData.buffEnabled)) continue;
+		
+		if (!IsEsoBuffEnabled(buffData)) continue;
 		
 		data = {};
 		
@@ -21583,10 +22024,13 @@ window.UpdateEsoMitigationCell = function(element, elementType, damageType1, dam
 	rawData.damageType1 = damageType1;
 	rawData.damageType2 = damageType2;
 	
-	rawData.baseResistance = g_EsoComputedStats[resistType].value;
+	var resistTypeValue = 0;
+	if (g_EsoComputedStats[resistType]) resistTypeValue = g_EsoComputedStats[resistType].value;
+	
+	rawData.baseResistance = resistTypeValue;
 	rawData.extraResist = extraResist;
 	
-	resistance = g_EsoComputedStats[resistType].value + extraResist;
+	resistance = resistTypeValue + extraResist;
 	if (resistance > ESO_RESIST_CAP) resistance = ESO_RESIST_CAP;
 	if (resistance < 0) resistance = 0;
 	
@@ -23261,6 +23705,26 @@ window.esotbExportComputedStatSql = function(defData, statData, version, showDeb
 	var currentCategory = '';
 	var currentIndex = 0;
 	
+	var CATEGORY_DEF = {
+			"Basic Stats" : "basic",
+			"Elemental Resistances" : "elementresist",
+			"Healing" : "healing",
+			"Stat Restoration" : "statrestore",
+			"Movement" : "movement",
+			"Bash / Block / Dodge / Break Free / Fear" : "combat",
+			"Damage Shield" : "damageshield",
+			"Damage Taken" : "damagetaken",
+			"Damage Done" : "damagedone",
+			"Heavy Attack Restoration" : "harestore",
+			"Status Effects" : "statuseffect",
+			"Light Attacks" : "lightattack",
+			"Heavy Attacks" : "heavyattack",
+			"Mitigation" : "mitigation",
+			"Ability Costs" : "abilitycost",
+			"Traits" : "trait",
+			"Other" : "other", 
+	};
+	
 	for (var statId in statData)
 	{
 		var statCols = {};
@@ -23268,7 +23732,16 @@ window.esotbExportComputedStatSql = function(defData, statData, version, showDeb
 		
 		if (typeof(stat) == "string" && stat == "StartSection")
 		{
-			currentCategory = statId;
+			if (CATEGORY_DEF[statId])
+			{
+				currentCategory = CATEGORY_DEF[statId];
+			}
+			else
+			{
+				currentCategory = statId;
+				console.log("Warning: Missing definition for stat category '{0}'!".format(currentCategory));
+			}
+			
 			currentIndex = 0;
 			continue;
 		}
@@ -23276,6 +23749,7 @@ window.esotbExportComputedStatSql = function(defData, statData, version, showDeb
 		statCols['statId'] = esotbEscapeSqlString(statId);
 		statCols['category'] = esotbEscapeSqlString(currentCategory);
 		statCols['idx'] = esotbEscapeSqlString(currentIndex);
+		statCols['version'] = esotbEscapeSqlString(version);
 		
 		++currentIndex;
 		
@@ -23316,10 +23790,11 @@ window.esotbExportComputedStatSql = function(defData, statData, version, showDeb
 
 window.ExportAllRulesSql = function(showDebug)
 {
+	
 	var MUNDUS_DEF = {
 			'__id'			 : 'nameId',
 			'__ruletype'	 : 'mundus',
-			'abilityId'		 : 'originaId',
+			'abilityId'		 : 'originalId',
 			'icon'			 : 'icon',
 			'description'	 : 'description',
 			
@@ -23337,10 +23812,10 @@ window.ExportAllRulesSql = function(showDebug)
 			'skillEnabled'	 : false,
 			'rawOutput'		 : false,
 			'combatEnable'	 : false,
-			'desc'			 : 'description',
+			//'desc'			 : 'description',	//Don't want auto-generated descriptions in database
+			'desc'			 : false,
 			'name'			 : 'displayName',
 			'skillAbilities' : false,
-			'toggleVisible'	 : 'toggleVisible',
 			'visible'		 : 'isVisible',
 			'count'			 : false,
 			'maxTimes'		 : 'maxTimes',
@@ -23348,6 +23823,7 @@ window.ExportAllRulesSql = function(showDebug)
 			
 			'customData' 	: {
 				'ignoreIfNotVisible' : 'ignoreIfNotVisible',
+				'toggleVisible'		 : 'toggleVisible',
 			},
 			
 			'effects' 	: {
@@ -23501,22 +23977,861 @@ window.ExportAllRulesSql = function(showDebug)
 	ABILITYDESC_DEF['__ruletype'] = 'abilitydesc';
 	
 	var ruleAutoId = 1000;
+	var version = '36';
 	
-	ruleAutoId = esotbExportRuleSql(BUFF_DEF, g_EsoBuildBuffData, '36', 1000, showDebug);
-	ruleAutoId = esotbExportRuleSql(ACTIVESKILL_DEF, ESO_ACTIVEEFFECT_MATCHES, '36', 2000, showDebug);
-	ruleAutoId = esotbExportRuleSql(PASSIVESKILL_DEF, ESO_PASSIVEEFFECT_MATCHES, '36', 3000, showDebug);
-	ruleAutoId = esotbExportRuleSql(CPSKILL_DEF, ESO_CPEFFECT_MATCHES, '36', 4000, showDebug);
-	ruleAutoId = esotbExportRuleSql(SET_DEF, ESO_SETEFFECT_MATCHES, '36', 5000, showDebug);
+	ruleAutoId = esotbExportRuleSql(BUFF_DEF, g_EsoBuildBuffData, version, 1000, showDebug);
+	ruleAutoId = esotbExportRuleSql(ACTIVESKILL_DEF, ESO_ACTIVEEFFECT_MATCHES, version, 2000, showDebug);
+	ruleAutoId = esotbExportRuleSql(PASSIVESKILL_DEF, ESO_PASSIVEEFFECT_MATCHES, version, 3000, showDebug);
+	ruleAutoId = esotbExportRuleSql(CPSKILL_DEF, ESO_CPEFFECT_MATCHES, version, 4000, showDebug);
+	ruleAutoId = esotbExportRuleSql(SET_DEF, ESO_SETEFFECT_MATCHES, version, 5000, showDebug);
 	
-	ruleAutoId = esotbExportRuleSql(ARMOR_ENCHANT_DEF, ESO_ENCHANT_ARMOR_MATCHES, '36', 6000, showDebug);
-	ruleAutoId = esotbExportRuleSql(WEAPON_ENCHANT_DEF, ESO_ENCHANT_WEAPON_MATCHES, '36', ruleAutoId, showDebug);
-	ruleAutoId = esotbExportRuleSql(OFFHANDWEAPON_ENCHANT_DEF, ESO_ENCHANT_OTHERHAND_WEAPON_MATCHES, '36', ruleAutoId, showDebug);
+	ruleAutoId = esotbExportRuleSql(ARMOR_ENCHANT_DEF, ESO_ENCHANT_ARMOR_MATCHES, version, 6000, showDebug);
+	ruleAutoId = esotbExportRuleSql(WEAPON_ENCHANT_DEF, ESO_ENCHANT_WEAPON_MATCHES, version, ruleAutoId, showDebug);
+	ruleAutoId = esotbExportRuleSql(OFFHANDWEAPON_ENCHANT_DEF, ESO_ENCHANT_OTHERHAND_WEAPON_MATCHES, version, ruleAutoId, showDebug);
 	
-	ruleAutoId = esotbExportRuleSql(ABILITYDESC_DEF, ESO_ABILITYDESC_MATCHES, '36', 7000, showDebug);
+	ruleAutoId = esotbExportRuleSql(ABILITYDESC_DEF, ESO_ABILITYDESC_MATCHES, version, 7000, showDebug);
 	
-	ruleAutoId = esotbExportRuleSql(MUNDUS_DEF, ESO_MUNDUS_BUFF_DATA, '36', 8000, showDebug);
+	ruleAutoId = esotbExportRuleSql(MUNDUS_DEF, ESO_MUNDUS_BUFF_DATA, version, 8000, showDebug);
 	
-	esotbExportComputedStatSql(COMPUTEDSTAT_DEF, g_EsoComputedStats, '36', showDebug);
+	esotbExportComputedStatSql(COMPUTEDSTAT_DEF, g_EsoComputedStats, version, showDebug);
+}
+
+
+window.EsoBuildRuleParseRawRegex = function(rawRegex)
+{
+	if (rawRegex == null || rawRegex == '') return null;
+	
+	var regexMatch = rawRegex.trim().match(/^([/~@;%#'])(.*?)\1([gimsuy]*)$/);
+	if (regexMatch === false || regexMatch === null) return null;
+	
+	return new RegExp(regexMatch[2], regexMatch[3]);
+}
+
+
+window.EsoBuildCreateOffHandWeaponEnchantDataFromRules = function()
+{
+	var rules = g_EsoBuildRules['offhandweaponenchant'];
+	
+	if (rules == null) return false;
+	
+	ESO_ENCHANT_OTHERHAND_WEAPON_MATCHES = [];
+	
+	for (var ruleId in rules)
+	{
+		var rule = jQuery.extend(true, {}, rules[ruleId]);
+		
+		rule.match = EsoBuildRuleParseRawRegex(rule.matchRegex);
+		rule.rawInputMatch = EsoBuildRuleParseRawRegex(rule.displayRegex);
+		
+		rule.id = rule.nameId;
+		delete rule['nameId'];
+		
+		rule.baseSkillId = rule.originalId;
+		delete rule['originalId'];
+		
+		rule.visible = rule.isVisible;
+		delete rule['isVisible'];
+		
+		rule.toggle = rule.isToggle;
+		delete rule['isToggle'];
+		
+		rule.enabled = rule.isEnabled;
+		delete rule['isEnabled'];
+		
+		ESO_ENCHANT_OTHERHAND_WEAPON_MATCHES.push(rule);
+	}
+}
+
+
+window.EsoBuildCreateWeaponEnchantDataFromRules = function()
+{
+	var rules = g_EsoBuildRules['weaponenchant'];
+	
+	if (rules == null) return false;
+	
+	ESO_ENCHANT_WEAPON_MATCHES = [];
+	
+	for (var ruleId in rules)
+	{
+		var rule = jQuery.extend(true, {}, rules[ruleId]);
+		
+		rule.match = EsoBuildRuleParseRawRegex(rule.matchRegex);
+		rule.rawInputMatch = EsoBuildRuleParseRawRegex(rule.displayRegex);
+		
+		rule.id = rule.nameId;
+		delete rule['nameId'];
+		
+		rule.baseSkillId = rule.originalId;
+		delete rule['originalId'];
+		
+		rule.visible = rule.isVisible;
+		delete rule['isVisible'];
+		
+		rule.toggle = rule.isToggle;
+		delete rule['isToggle'];
+		
+		rule.enabled = rule.isEnabled;
+		delete rule['isEnabled'];
+		
+		ESO_ENCHANT_WEAPON_MATCHES.push(rule);
+	}
+}
+
+
+window.EsoBuildCreateArmorEnchantDataFromRules = function()
+{
+	var rules = g_EsoBuildRules['armorenchant'];
+	
+	if (rules == null) return false;
+	
+	ESO_ENCHANT_ARMOR_MATCHES = [];
+	
+	for (var ruleId in rules)
+	{
+		var rule = jQuery.extend(true, {}, rules[ruleId]);
+		
+		rule.match = EsoBuildRuleParseRawRegex(rule.matchRegex);
+		rule.rawInputMatch = EsoBuildRuleParseRawRegex(rule.displayRegex);
+		
+		rule.id = rule.nameId;
+		delete rule['nameId'];
+		
+		rule.baseSkillId = rule.originalId;
+		delete rule['originalId'];
+		
+		rule.visible = rule.isVisible;
+		delete rule['isVisible'];
+		
+		rule.toggle = rule.isToggle;
+		delete rule['isToggle'];
+		
+		rule.enabled = rule.isEnabled;
+		delete rule['isEnabled'];
+		
+		ESO_ENCHANT_ARMOR_MATCHES.push(rule);
+	}
+}
+
+
+window.EsoBuildCreateAbilityDescDataFromRules = function()
+{
+	var rules = g_EsoBuildRules['abilitydesc'];
+	
+	if (rules == null) return false;
+	
+	ESO_ABILITYDESC_MATCHES = [];
+	
+	for (var ruleId in rules)
+	{
+		var rule = jQuery.extend(true, {}, rules[ruleId]);
+		
+		rule.match = EsoBuildRuleParseRawRegex(rule.matchRegex);
+		rule.rawInputMatch = EsoBuildRuleParseRawRegex(rule.displayRegex);
+		
+		rule.id = rule.nameId;
+		delete rule['nameId'];
+		
+		rule.baseSkillId = rule.originalId;
+		delete rule['originalId'];
+		
+		rule.visible = rule.isVisible;
+		delete rule['isVisible'];
+		
+		rule.toggle = rule.isToggle;
+		delete rule['isToggle'];
+		
+		rule.enabled = rule.isEnabled;
+		delete rule['isEnabled'];
+		
+		ESO_ABILITYDESC_MATCHES.push(rule);
+	}
+}
+
+
+window.EsoBuildCreateCPDataFromRules = function()
+{
+	var cpRules = g_EsoBuildRules['cp'];
+	
+	if (cpRules == null) return false;
+	
+	ESO_CPEFFECT_MATCHES = [];
+	
+	for (var ruleId in cpRules)
+	{
+		var rule = jQuery.extend(true, {}, cpRules[ruleId]);
+		
+		rule.match = EsoBuildRuleParseRawRegex(rule.matchRegex);
+		rule.rawInputMatch = EsoBuildRuleParseRawRegex(rule.displayRegex);
+		
+		rule.id = rule.nameId;
+		delete rule['nameId'];
+		
+		rule.baseSkillId = rule.originalId;
+		delete rule['originalId'];
+		
+		rule.visible = rule.isVisible;
+		delete rule['isVisible'];
+		
+		rule.toggle = rule.isToggle;
+		delete rule['isToggle'];
+		
+		rule.enabled = rule.isEnabled;
+		delete rule['isEnabled'];
+		
+		ESO_CPEFFECT_MATCHES.push(rule);
+	}
+	
+	return true;
+}
+
+
+window.EsoBuildCreatePassiveDataFromRules = function()
+{
+	var passiveRules = g_EsoBuildRules['passive'];
+	
+	if (passiveRules == null) return false;
+	
+	ESO_PASSIVEEFFECT_MATCHES = [];
+	
+	for (var ruleId in passiveRules)
+	{
+		var rule = jQuery.extend(true, {}, passiveRules[ruleId]);
+		
+		rule.match = EsoBuildRuleParseRawRegex(rule.matchRegex);
+		rule.rawInputMatch = EsoBuildRuleParseRawRegex(rule.displayRegex);
+		
+		rule.id = rule.nameId;
+		delete rule['nameId'];
+		
+		rule.baseSkillId = rule.originalId;
+		delete rule['originalId'];
+		
+		rule.visible = rule.isVisible;
+		delete rule['isVisible'];
+		
+		rule.toggle = rule.isToggle;
+		delete rule['isToggle'];
+		
+		rule.enabled = rule.isEnabled;
+		delete rule['isEnabled'];
+		
+		ESO_PASSIVEEFFECT_MATCHES.push(rule);
+	}
+	
+	return true;
+}
+
+
+window.EsoBuildCreateActiveDataFromRules = function()
+{
+	var activeRules = g_EsoBuildRules['active'];
+	
+	if (activeRules == null) return false;
+	
+	ESO_ACTIVEEFFECT_MATCHES = [];
+	
+	for (var ruleId in activeRules)
+	{
+		var rule = jQuery.extend(true, {}, activeRules[ruleId]);
+		
+		rule.match = EsoBuildRuleParseRawRegex(rule.matchRegex);
+		rule.rawInputMatch = EsoBuildRuleParseRawRegex(rule.displayRegex);
+		
+		rule.id = rule.nameId;
+		delete rule['nameId'];
+		
+		rule.baseSkillId = rule.originalId;
+		delete rule['originalId'];
+		
+		rule.visible = rule.isVisible;
+		delete rule['isVisible'];
+		
+		rule.toggle = rule.isToggle;
+		delete rule['isToggle'];
+		
+		rule.enabled = rule.isEnabled;
+		delete rule['isEnabled'];
+		
+		ESO_ACTIVEEFFECT_MATCHES.push(rule);
+	}
+	
+	return true;
+}
+
+
+window.EsoBuildCreateSetDataFromRules = function()
+{
+	var setRules = g_EsoBuildRules['set'];
+	
+	if (setRules == null) return false;
+	
+	ESO_SETEFFECT_MATCHES = [];
+	
+	for (var ruleId in setRules)
+	{
+		var rule = jQuery.extend(true, {}, setRules[ruleId]);
+		
+		rule.match = EsoBuildRuleParseRawRegex(rule.matchRegex);
+		rule.rawInputMatch = EsoBuildRuleParseRawRegex(rule.displayRegex);
+		
+		rule.id = rule.nameId;
+		delete rule['nameId'];
+		
+		rule.visible = rule.isVisible;
+		delete rule['isVisible'];
+		
+		rule.toggle = rule.isToggle;
+		delete rule['isToggle'];
+		
+		rule.enabled = rule.isEnabled;
+		delete rule['isEnabled'];
+		
+		ESO_SETEFFECT_MATCHES.push(rule);
+	}
+	
+	return true;
+}
+
+
+window.EsoBuildCreateMundusDataFromRules = function()
+{
+	var rules = g_EsoBuildRules['mundus'];
+	
+	if (rules == null) return false;
+	
+	ESO_MUNDUS_BUFF_DATA = {};
+	
+	for (var ruleId in rules)
+	{
+		var rule = jQuery.extend(true, {}, rules[ruleId]);
+		
+		rule.match = EsoBuildRuleParseRawRegex(rule.matchRegex);
+		rule.rawInputMatch = EsoBuildRuleParseRawRegex(rule.displayRegex);
+		
+		rule.id = rule.nameId;
+		delete rule['nameId'];
+		
+		rule.abilityId = parseInt(rule.originalId);
+		delete rule['originalId'];
+		
+		rule.visible = rule.isVisible;
+		delete rule['isVisible'];
+		
+		rule.toggle = rule.isToggle;
+		delete rule['isToggle'];
+		
+		rule.enabled = rule.isEnabled;
+		delete rule['isEnabled'];
+		
+		ESO_MUNDUS_BUFF_DATA[rule.id] = rule;
+	}
+}
+
+
+window.EsoBuildCreateBuffDataFromRules = function()
+{
+	var buffRules = g_EsoBuildRules['buff'];
+	
+	if (buffRules == null) return false;
+	
+	g_EsoBuildBuffData = {};
+	
+	for (var ruleId in buffRules)
+	{
+		var rule = jQuery.extend(true, {}, buffRules[ruleId]);
+		
+		var nameId = rule['nameId'];
+		
+		rule['group'] = rule['groupName'];
+		delete rule['groupName'];
+		
+		rule['enabled'] = false;
+		rule['skillEnabled'] = false;
+		rule['buffEnabled'] = false;
+		
+		g_EsoBuildBuffData[nameId] = rule;
+	}
+	
+	return true;
+}
+
+
+window.EsoBuildRunRules = function(rules, ruleType)
+{
+	for (var i in rules)
+	{
+		var rule = rules[i];
+	}
+}
+
+
+window.CombineEsoStatValues = function(source, statValue, combineAs)
+{
+	if (combineAs == "*%")
+		source = CombineEsoValuesMult(source, statValue);
+	else
+		source += statValue;
+	
+	return source;
+}
+
+
+window.RoundEsoStatValue = function(statValue, round, display)
+{
+	if (display == '%') statValue = statValue / 100;
+	
+	if (round == "floor")
+	{
+		if (display == '%')
+			statValue = Math.floor(statValue*100)/100;
+		else
+			statValue = Math.floor(statValue);
+	}
+	else if (round == "ceil")
+	{
+		if (display == '%')
+			statValue = Math.ceil(statValue*100)/100;
+		else
+			statValue = Math.ceil(statValue);
+	}
+	else if (round == "round")
+	{
+		if (display == '%')
+			statValue = Math.round(statValue*100)/100;
+		else
+			statValue = Math.round(statValue);
+	}
+	else if (round == "floor2")
+	{
+		if (display == '%')
+			statValue = Math.floor(statValue*100*2)/100/2;
+		else
+			statValue = Math.floor(statValue*2)/2;
+	}
+	else if (round == "floor10")
+	{
+		if (display == '%')
+			statValue = Math.round(statValue*100*10)/100/10;
+		else
+			statValue = Math.round(statValue*10)/10;
+	}
+	
+	return statValue;
+}
+
+
+window.CreateEsoBuildStatSourceData = function(rule, effect)
+{
+	var statData = {};
+	
+	statData.value = effect.value;
+	
+	if (rule.ruleType == 'buff')
+	{
+		 statData.buff = rule;
+		 statData.buffName = rule.nameId;
+	}
+	
+	return statData;
+}
+
+
+window.ApplyEsoBuildRuleEffects = function(inputValues, ruleData, matchResults, defaultCategory, otherData)
+{
+	var addFinalEffect = false;
+	var rawInputDesc = null;
+	
+	if (otherData) rawInputDesc = otherData.rawDesc;
+	
+	for (var i = 0; i < ruleData.effects.length; ++i)
+	{
+		var effect = ruleData.effects[i];
+		var category = defaultCategory;
+		
+		if (effect.category) category = effect.category;
+		
+		var statValue = parseFloat(effect.value);
+		var statId = effect.statId;
+		var combineAs = effect.combineAs;
+		var factorValue = effect.factorValue;
+		var factorOffset = ruleData.factorOffset;
+		var round = effect.round;
+		var display = effect.display;
+		var regexVar = effect.regexVar;
+		
+		if (regexVar == null || regexVar == '')
+		{
+			regexVar = 1;
+		}
+		else if (regexVar.match(/[0-9]+/))
+		{
+			regexVar = parseInt(regexVar);
+		}
+		
+		var statData = CreateEsoBuildStatSourceData(ruleData, effect);
+		
+		if (effect.buffId)
+		{
+			var buffData = g_EsoBuildBuffData[effect.buffId];
+			if (buffData == null) continue;
+			
+			if (otherData.testMatch !== true && ruleData.maxTimes != null && buffData.maxTimes != null)
+			{
+				var toggleData = otherData.toggleData;
+				
+				if (toggleData != null && toggleData.count != null)
+				{
+					buffData.count = toggleData.count;
+					
+					var parentId = effect.buffId.replace(/\W/g, "_");
+					$("#esotbBuff_" + parentId).find(".esotbToggleBuffNumber").val(buffData.count);
+				}
+			}
+			
+			if (otherData.setData)
+			{
+				AddEsoItemRawOutputString(otherData.setData, "Adds Buff", effect.buffId);
+				
+				buffData.skillEnabled = true;
+				buffData.skillAbilities.push(otherData.setData);
+				AddEsoItemRawOutputString(buffData, "Set Effect", otherData.setData.name + " set");
+			}
+			else if (otherData.abilityData)
+			{
+				AddEsoItemRawOutputString(otherData.abilityData, "Adds Buff", effect.buffId);
+				
+				buffData.skillEnabled = true;
+				buffData.skillAbilities.push(otherData.abilityData);
+				AddEsoItemRawOutputString(buffData, (otherData.isPassive ? "Passive Skill" : "Active Skill"), otherData.abilityData.name);
+			}
+			else if (otherData.cpData)
+			{
+				AddEsoItemRawOutputString(otherData.cpData, "Adds Buff", effect.buffId);
+				
+				buffData.skillEnabled = true;
+				buffData.skillAbilities.push(otherData.cpData);
+				AddEsoItemRawOutputString(buffData, "CP", otherData.cpData.name);
+			}
+			else if (otherData.itemData)
+			{
+				AddEsoItemRawOutputString(otherData.itemData, "Adds Buff", effect.buffId);
+				
+				buffData.skillEnabled = true;
+				buffData.skillAbilities.push(otherData.itemData);
+				AddEsoItemRawOutputString(buffData, "Item", otherData.itemData.name);
+			}
+			
+			if (ruleData.updateBuffValue === true && matchResults != null && matchResults[regexVar] != null)
+			{
+				var factorValue = 1;
+				var buffValue = parseFloat(matchResults[regexVar]);
+				
+				if (effect.display == "%") factorValue *= 0.01;
+				if (effect.factorValue) factorValue *= effect.factorValue;
+				
+				if (ruleData.maxTimes != null)
+				{
+					var toggleData = otherData.toggleData;
+					if (toggleData != null && toggleData.count != null) factorValue *= toggleData.count;
+				}
+				
+					//TODO: Remove these 2 once rules are permanent
+				if (buffData.value != null) buffData.value = buffValue * factorValue;
+				
+				if (buffData.values)
+				{
+					for (var j = 0; j < buffData.values.length; j++)
+					{
+						buffData.values[j] = buffValue * factorValue;
+					}
+				}
+				
+				if (buffData.effects)
+				{
+					for (var j = 0; j < buffData.effects.length; j++)
+					{
+						if (buffData.effects[j].value != '') buffData.effects[j].value = buffValue * factorValue;
+					}
+				}
+				
+				buffData.visible = true;
+				buffData.forceUpdate = true;
+			}
+			
+			continue;
+		}
+		
+		if (statId == "OtherEffects" || statId == "OtherEffect" || (isNaN(statValue) && ruleData.ruleType == 'buff'))
+		{
+			statData.other = true;
+			
+			if (ruleData.rawInputMatch != null && otherData.rawDesc)
+			{
+				var rawInputMatches = otherData.rawDesc.match(ruleData.rawInputMatch);
+				if (rawInputMatches != null) rawInputDesc = rawInputMatches[1];
+				if (rawInputDesc == null) rawInputDesc = otherData.rawDesc;
+			}
+			
+			if (ruleData.ruleType == 'set')
+			{
+				addFinalEffect = true;
+			}
+			else if (otherData.testMatch === true)
+			{
+				//Do Nothing
+			}
+			else if (otherData.abilityData)
+			{
+				if (otherData.isPassive)
+					AddEsoInputStatSource("OtherEffects", { other: true, passive: otherData.abilityData, value: rawInputDesc, rawInputMatch: ruleData.rawInputMatch });
+				else
+					AddEsoInputStatSource("OtherEffects", { other: true, active: otherData.abilityData, value: rawInputDesc, rawInputMatch: ruleData.rawInputMatch });
+			}
+			else
+			{
+				AddEsoItemRawOutputString(ruleData, "OtherEffects", statValue);
+				AddEsoInputStatSource("OtherEffects", statData);
+			}
+			
+			continue;
+		}
+		
+		if (inputValues[category][statId] == null) inputValues[category][statId] = 0;
+		
+		var statFactor = 1;
+		var newStatValue = NaN;
+		if (matchResults && matchResults[regexVar]) newStatValue = parseFloat(matchResults[regexVar]);
+		if (isNaN(statValue)) statValue = 1;
+		
+		if (effect.statValue !== undefined) statValue = parseFloat(effect.statValue);
+		if (!isNaN(newStatValue)) statValue = newStatValue;
+		if (isNaN(statValue)) statValue = 1;
+		
+		if (ruleData.factorSkillLine)
+		{
+			var count = CountEsoBarSkillsWithSkillLine(ruleData.factorSkillLine);
+			statFactor = count;
+		}
+		else if (ruleData.factorSkillType)
+		{
+			var count = CountEsoBarSkillsWithSkillType(ruleData.factorSkillType);
+			statFactor = count;
+		}
+		else if (ruleData.factorStatId)
+		{
+			var factorStat = inputValues[ruleData.factorStatId];
+			
+			if (factorStat == null)
+				statFactor = 0;
+			else
+				statFactor = parseFloat(factorStat);
+		}
+		
+		if (ruleData.maxTimes != null)
+		{
+			var toggleData = otherData.toggleData;
+			
+			if (toggleData != null && toggleData.count != null)
+			{
+				if (statFactor == 0)
+					statFactor = toggleData.count;
+				else
+					statFactor *= toggleData.count;
+				
+				if (ruleData.enableBuffAtMax && toggleData.count >= ruleData.maxTimes)
+				{
+					var buffData = g_EsoBuildBuffData[ruleData.enableBuffAtMax];
+					
+					if (buffData)
+					{
+						buffData.skillEnabled = true;
+						
+						if (otherData.setData)
+						{
+							AddEsoItemRawOutputString(otherData.setData, "Adds Buff", ruleData.enableBuffAtMax);
+							buffData.skillAbilities.push(otherData.setData);
+							AddEsoItemRawOutputString(buffData, "Set Effect", otherData.setData.name + " set");
+						}
+					}
+				}
+			}
+		}
+		
+		if (factorOffset != null)
+		{
+			statFactor = statFactor + factorOffset;
+		}
+		
+		if (factorValue != null)
+		{
+			statFactor = statFactor * factorValue;
+		}
+		
+		if (otherData.transmuteFactor != null)
+		{
+			statValue /= otherData.transmuteFactor;
+			if (!otherData.enchantData.isDefaultEnchant || otherData.isTransmuted) statValue *= otherData.enchantFactor;
+		}
+		
+		if (statFactor == 0) continue;
+		statValue = statValue * statFactor;
+		
+		statValue = RoundEsoStatValue(statValue, round, display)
+		
+		inputValues[category][statId] = CombineEsoStatValues(inputValues[category][statId], statValue, combineAs)
+		
+		statData.value = statValue;
+		
+		if (statId)
+		{
+			AddEsoStatValueHistory(category, statId, statValue);
+			
+			if (otherData.setData)
+			{
+				AddEsoItemRawOutput(otherData.setData, category + "." + statId, statValue);
+				AddEsoInputStatSource(category + "." + statId, { set: otherData.setData, setBonusCount: otherData.setBonusCount, value: statValue });
+			}
+			else if (otherData.abilityData)
+			{
+				AddEsoItemRawOutput(otherData.abilityData, category + "." + statId, statValue);
+				
+				if (!otherData.testMatch)
+				{
+					if (otherData.isPassive)
+						AddEsoInputStatSource(category + "." + statId, { passive: otherData.abilityData, value: statValue, rawInputMatch: ruleData.rawInputMatch });
+					else
+						AddEsoInputStatSource(category + "." + statId, { active: otherData.abilityData, value: statValue, rawInputMatch: ruleData.rawInputMatch });
+				}
+			}
+			else if (otherData.cpData)
+			{
+				AddEsoItemRawOutput(otherData.cpData, category + "." + statId, statValue);
+				AddEsoInputStatSource(category + "." + statId, { cp: otherData.cpData.name, abilityId: otherData.cpData.id, value: statValue });
+			}
+			else if (otherData.itemData)
+			{
+				AddEsoItemRawOutput(otherData.itemData, category + "." + statId, statValue);
+				AddEsoInputStatSource(category + "." + statId, { item: otherData.itemData, enchant: otherData.enchantData, value: statValue, slotId: otherData.slotId });
+			}
+			else if (otherData.mundusName)
+			{
+				AddEsoItemRawOutput(ruleData, category + "." + statId, statValue);
+				AddEsoInputStatSource(category + "." + statId, { source: otherData.mundusName, value: statValue });
+			}
+			else
+			{
+				AddEsoItemRawOutput(ruleData, category + "." + statId, statValue);
+				AddEsoInputStatSource(category + "." + statId, statData);
+			}
+		}
+		
+		if (otherData.divines)
+		{
+			var extraStat = Math.floor(statValue * otherData.divines);
+			if (display == '%') extraStat = Math.floor(statValue * 1000 * otherData.divines) / 1000;
+			
+			inputValues[category][statId] += extraStat;
+			
+			AddEsoStatValueHistory(category, statId, extraStat);
+			AddEsoInputStatSource(category + "." + statId, { source: otherData.mundusName + " Divines bonus", value: extraStat });
+		}
+	}
+	
+	return addFinalEffect;
+}
+
+
+window.CreateEsoBuildRuleCacheSkills = function()
+{
+	
+	for (var id in g_SkillsData)
+	{
+		var abilityData = g_SkillsData[id];
+		if (abilityData.isCustom === true) continue;
+		
+		var skillDesc = abilityData.description;
+		var rawDesc = RemoveEsoDescriptionFormats(skillDesc);
+		if (rawDesc == "") continue;
+		
+		var effectMatches = ESO_ACTIVEEFFECT_MATCHES;
+		if (abilityData.isPassive) effectMatches = ESO_PASSIVEEFFECT_MATCHES
+		
+		abilityData.cachedRules = [];
+		
+		for (var i = 0; i < effectMatches.length; ++i)
+		{
+			var matchData = effectMatches[i];
+			if (matchData.match == null || matchData.match == '') continue;
+			
+			if (rawDesc.match(matchData.match)) abilityData.cachedRules.push(matchData);
+		}
+	}
+	
+}
+
+
+window.g_EsoBuildSetCachedRules = {};
+
+
+window.GetEsoBuildSetRuleCache = function(setName)
+{
+	if (!ESO_BUILD_CREATERULECACHE) return null;
+	if (g_EsoBuildSetCachedRules[setName] == null) return CreateEsoBuildRuleCacheSet(setName);
+	return g_EsoBuildSetCachedRules[setName];
+}
+
+
+window.CreateEsoBuildRuleCacheSet = function(setName)
+{
+	var setData = g_EsoBuildSetData[setName];
+	if (setData == null) return null;
+	
+	g_EsoBuildSetCachedRules[setName] = [];
+	
+	for (var i = 0; i < ESO_SETEFFECT_MATCHES.length; ++i)
+	{
+		var matchData = ESO_SETEFFECT_MATCHES[i];
+		if (matchData.match == null || matchData.match == '') continue;
+		
+		for (var j = 0; j < 12; j++)
+		{
+			var setBonusDesc = setData['averageDesc'][j];
+			if (setBonusDesc == null || setBonusDesc == '') continue;
+			
+			if (setBonusDesc.match(matchData.match))
+			{
+				g_EsoBuildSetCachedRules[setName].push(matchData);
+				break;
+			}
+		}
+	}
+	
+	return g_EsoBuildSetCachedRules[setName];
+}
+
+
+window.CreateEsoBuildRuleCacheCps = function()
+{
+	
+	for (var id in g_EsoCpData)
+	{
+		var cpData = g_EsoCpData[id];
+		
+		cpData.cachedRules = [];
+		
+		if (cpData.type != "skill") continue;
+		if (isNaN(id)) continue;
+		
+		var rawDesc = RemoveEsoDescriptionFormats(cpData.description);
+		
+		for (var i = 0; i < ESO_CPEFFECT_MATCHES.length; ++i)
+		{
+			var matchData = ESO_CPEFFECT_MATCHES[i];
+			if (matchData.match == null || matchData.match == '') continue;
+			
+			if (rawDesc.match(matchData.match)) cpData.cachedRules.push(matchData);
+		}
+	}
 }
 
 
@@ -23524,7 +24839,24 @@ window.esotbOnDocReady = function ()
 {
 	clearInterval(g_EsoCharDataTimeUpdateId);
 	
+	EsoBuildCreateMundusDataFromRules();
+	EsoBuildCreateBuffDataFromRules();
+	EsoBuildCreateSetDataFromRules();
+	EsoBuildCreateActiveDataFromRules();
+	EsoBuildCreatePassiveDataFromRules();
+	EsoBuildCreateCPDataFromRules();
+	EsoBuildCreateAbilityDescDataFromRules();
+	EsoBuildCreateArmorEnchantDataFromRules();
+	EsoBuildCreateWeaponEnchantDataFromRules();
+	EsoBuildCreateOffHandWeaponEnchantDataFromRules();
+	
 	UpdateEsoPts();
+	
+	if (ESO_BUILD_CREATERULECACHE)
+	{
+		CreateEsoBuildRuleCacheSkills();
+		CreateEsoBuildRuleCacheCps();
+	}
 	
 	GetEsoSkillInputValues = GetEsoTestBuildSkillInputValues;
 	

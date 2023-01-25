@@ -30,6 +30,10 @@ class EsoBuildDataEditor
 {
 	public $PTS_VERSION = "36pts";
 	
+	public $LOAD_RULES_FROM_DB = false;
+	public $LIVE_RULES_VERSION = "36";
+	public $PTS_RULES_VERSION  = "36pts";
+	
 	public $SESSION_DEBUG_FILENAME = "/var/log/httpd/esoeditbuild_sessions.log";
 	
 	public $TEMPLATE_FILE = "";
@@ -67,10 +71,36 @@ class EsoBuildDataEditor
 	public $initialToggleCpData = array();
 	public $initialCombatActionsData = array();
 	
+	public $buildRules = [];
+	public $buildRuleEffects = [];
+	public $buildComputedStats = [];
+	
 	public $wikiContext = null;
 	
 	public $ITEM_TABLE_SUFFIX = "";
 	
+	
+		// This controls the order of categories when output
+	public $COMPUTED_STAT_CATEGORIES_OUTPUT = [
+			"basic" => "Basic Stats",
+			"elementresist" => "Elemental Resistances",
+			"healing" => "Healing",
+			"statrestore" => "Stat Restoration",
+			"movement" => "Movement",
+			"combat" => "Bash / Block / Dodge / Break Free / Fear",
+			"damageshield" => "Damage Shield",
+			"damagetaken" => "Damage Taken",
+			"damagedone" => "Damage Done",
+			"harestore" => "Heavy Attack Restoration",
+			"statuseffect" => "Status Effects",
+			"lightattack" => "Light Attacks",
+			"heavyattack" => "Heavy Attacks",
+			"mitigation" => "Mitigation",
+			"abilitycost" => "Ability Costs",
+			"trait" => "Traits",
+			"other" => "Other",
+			// Categories not listed above will be shown at the bottom of the list
+	];
 	
 	public $GEARSLOT_BASEICONS = array(
 			"Head" 		=> "//esobuilds.uesp.net/resources/gearslot_head.png",
@@ -2371,6 +2401,7 @@ class EsoBuildDataEditor
 	
 	
 		/* Note: Order is how they'll appear in the computed stats list */
+	/* TODO: Not used?
 	public $COMPUTED_STAT_CATEGORIES = array(
 			"basic" => "Basic Stats",
 			"elementresist" => "Elemental Resistances",
@@ -2389,7 +2420,7 @@ class EsoBuildDataEditor
 			"abilitycost" => "Ability Costs",
 			"trait" => "Traits",
 			"other" => "Other",
-	);
+	); */
 	
 	
 	public $COMPUTED_STATS_LIST = array(
@@ -6282,7 +6313,7 @@ class EsoBuildDataEditor
 				$statBase = $statList[0];
 				if (!array_key_exists($statBase, $this->INPUT_STATS_LIST) || $this->INPUT_STATS_LIST[$statBase] === null) $this->INPUT_STATS_LIST[$statBase] = array();
 				$this->INPUT_STATS_LIST[$statBase][$statList[1]] = 0;
-			}			
+			}
 		}
 		
 		foreach ($this->STATS_BASE_LIST as $stat)
@@ -6310,7 +6341,68 @@ class EsoBuildDataEditor
 	
 	public function GetComputedStatsJson()
 	{
-		return json_encode($this->COMPUTED_STATS_LIST);
+			//TODO: Remove this once fully moved to DB rules
+		if (!$this->LOAD_RULES_FROM_DB) return json_encode($this->COMPUTED_STATS_LIST);
+		
+		$statCategories = [];
+		
+		foreach ($this->COMPUTED_STAT_CATEGORIES_OUTPUT as $catId => $category)
+		{
+			$statCategories[$category] = [];
+		}
+		
+		foreach ($this->buildComputedStats as $id => $stat)
+		{
+			$category = $stat['category'];
+			$statId = $stat['statId'];
+			
+			$longCat = $this->COMPUTED_STAT_CATEGORIES_OUTPUT[$category];
+			if ($longCat) $category = $longCat;
+			
+			$statCategories[$category][$statId] = $stat;
+		}
+		
+		foreach ($statCategories as $statCat => $stats)
+		{
+			uasort($statCategories[$statCat], ['EsoBuildDataEditor', 'SortStatsByIndex']);
+		}
+		
+		$json = [];
+		
+		foreach ($statCategories as $statCat => $stats)
+		{
+			$json[$statCat] = 'StartSection';
+			
+			foreach ($stats as $statId => $stat)
+			{
+				$stat['round'] = $stat['roundNum'];
+				unset($stat['roundNum']);
+				
+				$dependsOn = $stat['dependsOn'];
+				$stat['depends'] = [];
+				
+				if ($dependsOn !== '')
+				{
+					$statJson = json_decode($dependsOn, true);
+					if ($statJson !== null) $stat['depends'] = $statJson;
+				}
+				
+				$stat['compute'] = json_decode($stat['compute'], true);
+				$stat['value'] = 0;
+				
+				$json[$statId] = $stat;
+			}
+		}
+		
+		return json_encode($json);
+	}
+	
+	
+	public static function SortStatsByIndex($a, $b)
+	{
+		$idx1 = intval($a['idx']);
+		$idx2 = intval($b['idx']);
+		return $idx1 - $idx2;
 	}
 	
 	
@@ -7198,9 +7290,108 @@ class EsoBuildDataEditor
 	}
 	
 	
+	public function GetBuildRulesJson()
+	{
+		if (!$this->LOAD_RULES_FROM_DB) return [];
+		
+		$json = [];
+		$rulesByType = [];
+		
+		foreach ($this->buildRules as $ruleId => &$rule)
+		{
+			$ruleType = $rule['ruleType'];
+			
+			if ($rule['customData'] != '')
+			{
+				$json = json_decode($rule['customData'], true);
+				
+				if ($json)
+				{
+					foreach ($json as $key => $value)
+					{
+						if (!array_key_exists($key, $rule)) $rule[$key] = $value;
+					}
+				}
+			}
+			
+			$rule['enableOffBar'] = $rule['enableOffBar'] == 1 ? true : false;
+			$rule['isToggle'] = $rule['isToggle'] == 1 ? true : false;
+			$rule['isEnabled'] = $rule['isEnabled'] == 1 ? true : false;
+			$rule['isVisible'] = $rule['isVisible'] == 1 ? true : false;
+			
+			if ($rule['maxTimes']) $rule['maxTimes'] = intval($rule['maxTimes']);
+			$rule['id'] = intval($rule['id']);
+			
+			$rulesByType[$ruleType][$ruleId] = &$rule;
+		}
+		
+		$json = $rulesByType;
+		
+			// TODO: For debugging only
+		$json['effects'] = $this->buildRuleEffects;
+		$json['stats'] = $this->buildComputedStats;
+		
+		return json_encode($json);
+	}
+	
+	
+	public function LoadRulesFromDb()
+	{
+		$db = $this->buildDataViewer->db;
+		$safeVersion = $db->real_escape_string($this->LIVE_RULES_VERSION);
+		$query = "SELECT * FROM rules WHERE version='$safeVersion';";
+		
+		$this->buildRules = [];
+		$this->buildRuleEffects = [];
+		$this->buildComputedStats = [];
+		
+		$result = $db->query($query);
+		if ($result === false) return $this->reportError("Error: Failed to load rules for version $safeVersion! " . $db->error);
+		
+		while ($row = $result->fetch_assoc())
+		{
+			$ruleId = intval($row['id']);
+			
+			$this->buildRules[$ruleId] = $row;
+		}
+		
+		$query = "SELECT * FROM effects WHERE version='$safeVersion';";
+		$result = $db->query($query);
+		if ($result === false) return $this->reportError("Error: Failed to load rule effects for version $safeVersion! " . $db->error);
+		
+		while ($row = $result->fetch_assoc())
+		{
+			$ruleId = intval($row['ruleId']);
+			
+			$row['round'] = $row['roundNum'];
+			unset($row['roundNum']);
+			
+			$this->buildRules[$ruleId]['effects'][] = $row;
+			$this->buildRuleEffects[] = $row;
+		}
+		
+		$query = "SELECT * FROM computedStats WHERE version='$safeVersion';";
+		$result = $db->query($query);
+		if ($result === false) return $this->reportError("Error: Failed to load computedStats for version $safeVersion! " . $db->error);
+		
+		while ($row = $result->fetch_assoc())
+		{
+			$id = intval($row['id']);
+			$this->buildComputedStats[$id] = $row;
+		}
+		
+		return true;
+	}
+	
+	
 	public function LoadBuild()
 	{
-		if ($this->buildId === null) 
+		if ($this->LOAD_RULES_FROM_DB)
+		{
+			$this->LoadRulesFromDb();
+		}
+		
+		if ($this->buildId === null)
 		{
 			$this->CreateInitialSkillData();
 			return true;
@@ -7210,7 +7401,7 @@ class EsoBuildDataEditor
 		
 		if (!$this->buildDataViewer->loadCharacter()) return false;
 		
-		if ($this->getCharStatField("UsePtsRules", 0)) 
+		if ($this->getCharStatField("UsePtsRules", 0))
 		{
 			$this->viewSkills->version = $this->PTS_VERSION;
 			$this->viewCps->version = $this->PTS_VERSION;
@@ -7221,7 +7412,7 @@ class EsoBuildDataEditor
 		
 		$this->FixupBuildForPts();
 		$this->FixupUpdate21RacialSkills();
-	
+		
 		$this->CreateInitialItemData();
 		$this->CreateInitialBuffData();
 		$this->CreateInitialCPData();
@@ -7581,7 +7772,7 @@ class EsoBuildDataEditor
 				'{werewolfList}' => $this->GetWerewolfListHtml(),
 				'{allianceList}' => $this->GetAllianceListHtml(),
 				'{cpHtml}' => $this->GetCPHtml(),
-				'{skillHtml}' => $this->GetSkillHtml(), 
+				'{skillHtml}' => $this->GetSkillHtml(),
 				'{gearIconHead}' => $this->GEARSLOT_BASEICONS['Head'],
 				'{gearIconShoulders}' => $this->GEARSLOT_BASEICONS['Shoulders'],
 				'{gearIconChest}' => $this->GEARSLOT_BASEICONS['Chest'],
@@ -7699,6 +7890,7 @@ class EsoBuildDataEditor
 				'{showRestore}' => $this->GetCharStatCheckState("showRestore", "1"),
 				'{showBarSwaps}' => $this->GetCharStatCheckState("showBarSwaps", "1"),
 				'{showRollDodge}' => $this->GetCharStatCheckState("showRollDodge", "1"),
+				'{buildRulesJson}' => $this->GetBuildRulesJson(),
 		);
 		
 		$output = strtr($this->htmlTemplate, $replacePairs);

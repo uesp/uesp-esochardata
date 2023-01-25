@@ -4882,6 +4882,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 	g_EsoBuildActiveAbilityBar = {activeSkillBar};
 	g_EsoBuildSetNames = {setNamesJson};
 	g_EsoBuildPtsVersion = "{ptsVersion}";
+	g_EsoBuildRules = {buildRulesJson};
 </script>
 
 

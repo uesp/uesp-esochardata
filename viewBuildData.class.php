@@ -146,7 +146,7 @@ class EsoBuildDataViewer
 	public $isExternal = false;
 	public $showBreadcrumbTrail = true;
 	public $showBuildMenu = true;
-			
+	
 	public $errorMessages = array();
 	
 	
