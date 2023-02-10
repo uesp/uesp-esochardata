@@ -153,6 +153,9 @@ class EsoBuildDataSaver
 			"craftType"			=> "int",
 			"stolen"			=> "int",
 			"style"				=> "int",
+			"trait"				=> "int",
+			"setName"			=> "text",
+			"enchant"			=> "text",
 	);
 	
 	

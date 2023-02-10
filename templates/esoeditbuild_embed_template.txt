@@ -6,7 +6,10 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #cfc; margin-right: 270px;'>
-Note: Editor is now mostly working for update 36. Skills, CPs, and items have been updated. Some new or updated items/skills/CPs might not yet work correctly.
+Note: Editor is now somewhat working for update 37pts. Data has been updated but new/updated skills/items/CP might not yet be working correctly.
+</div>
+<div style='background-color: #cfc; margin-right: 270px;'>
+<b>Important Note:</b> We've enabled a new rules system for builds. If there are any build or stat issues please <a href="//en.uesp.net/wiki/Online_talk:Build_Editor"><b>let us know</b></a>!
 </div>
 
 {saveNote}
@@ -67,13 +70,28 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			<div class="esotbStatLabel">Auto-Purchase<br/>Race Passives</div> <input type="checkbox" id="esotbEnableRaceAutoPurchase" name="esotbEnableRaceAutoPurchase" statid="EnableRaceAutoPurchase" {enableRaceAutoPurchase}>
 			When selected you will automatically purchase all racial passives when changing races.
 			<br/>
-			<div class="esotbStatLabel">Use PTS Rules</div> <input type="checkbox" id="esotbUsePtsRules" name="esotbUsePtsRules" statid="UsePtsRules" {usePtsRulesCheck}>
-			Current version is Update 36 v8.2.0
-			<ul style="margin-left: 170px; margin-top: -5px;">
-				<li>Save and reload build after changing this setting.</li>
-				<li>Uses skill, CP, and item data collected from the PTS server.</li>
-				<li>Only CP160 item data is available (lower level items upgrade to CP160 automatically).</li>
-			</ul>
+			<div style="display: {oldVersionDisplay};">
+				<div class="esotbStatLabel">Use PTS Rules</div> <input type="checkbox" id="esotbUsePtsRules" name="esotbUsePtsRules" statid="UsePtsRules" {usePtsRulesCheck}>
+				Current version is Update 36 v8.2.0
+				<ul style="margin-left: 170px; margin-top: -5px;">
+					<li>Save and reload build after changing this setting.</li>
+					<li>Uses skill, CP, and item data collected from the PTS server.</li>
+					<li>Only CP160 item data is available (lower level items upgrade to CP160 automatically).</li>
+				</ul>
+			</div>
+			<div style="display: {newVersionDisplay}; background-color: #ffc;">
+				<div class="esotbStatLabel">Rules Version</div>
+				<select title="Select which set of rules to use for this build." id="esotbRulesVersion" name="esotbRulesVersion" statid="RulesVersion"> 
+					{rulesVersionOptions}
+				</select>
+				<ul style="margin-left: 170px; margin-top: -5px;">
+					<li>Using Rules Version for Update {realRulesVersion}</li>
+					<li>Save and reload build after changing this setting.</li>
+					<li>"Live" and "PTS" settings will always use the latest available rules.</li>
+					<li>All PTS rules uses skill, CP, and item data collected from the PTS server.</li>
+					<li>For all non-Live versions only CP160 item data is available (lower level items upgrade to CP160 automatically).</li>
+				</ul>
+			</div>
 			<p>
 			<div id="esotbAttributes">
 				<div class="esotbAttrTitle">Attributes <div id="esotbAttrTotal" statid="AttributeTotal" class="esotbAttributeInput">{attributeTotal} / 64</div></div>
@@ -662,7 +680,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Kargaeda</option>
 						<option>Kjalnar's Nightmare</option>
 						<option>Kra'gh</option>
-						<option>Lady Malydga</option>
+						<option>Lady Malygda</option>
 						<option>Lady Thorn</option>
 						<option>Lord Warden</option>
 						<option>Maarselok</option>
@@ -675,8 +693,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Nerien'eth</option>
 						<option>Nightflame</option>
 						<option>Nunatak</option>
+						<option hidden disabled>Ozezan the Inferno</option>
 						<option>Pirate Skeleton</option>
 						<option>Prior Thierric</option>
+						<option hidden disabled>Roksa the Warped</option>
 						<option>Scourge Harvester</option>
 						<option>Selene</option>
 						<option>Sellistrix</option>
@@ -763,7 +783,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option slotid="Chest">Bloodlord's Embrace</option>
 						<option slotid="Ring1">Death Dealer's Fete</option>
 						<option slotid="Legs">Dov-rha Sabatons</option>
-						<option slotid="Chest" hidden disabled>Faun's Lark Cladding</option>
+						<option slotid="Chest">Faun's Lark Cladding</option>
 						<option slotid="Head">Gaze of Sithis</option>
 						<option slotid="Legs">Harpooner's Wading Kilt</option>
 						<option slotid="Waist">Lefthander's War Girdle</option>
@@ -778,8 +798,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option slotid="Neck">Shapeshifter's Chain</option>
 						<option slotid="Feet">Snow Treaders</option>
 						<option slotid="Shoulders">Spaulder of Ruin</option>
-						<option slotid="Legs" hidden disabled>Stormweaver's Cavort</option>
-						<option slotid="Waist" hidden disabled>Syrabane's Ward</option>
+						<option slotid="Legs">Stormweaver's Cavort</option>
+						<option slotid="Waist">Syrabane's Ward</option>
 						<option slotid="Hands">Thrassian Stranglers</option>
 						<option slotid="Neck">Torc of Tonal Constancy</option>
 					</select>
@@ -792,6 +812,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 					
 					<input type="text" id="esotbItemSetupEquipSet" list="esotbItemSetupEquipSetList" style="width: 200px;">
 					<datalist id="esotbItemSetupEquipSetList" style="width: 200px;">
+						<option hidden disabled>Abyssal Brace</option>
 						<option>Adept Rider</option>
 						<option>Aegis Caller</option>
 						<option>Aegis of Galenwe</option>
@@ -805,6 +826,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Almalexia's Mercy</option>
 						<option>Amber Plasm</option>
 						<option>Ancient Dragonguard</option>
+						<option hidden disabled>Apocryphal Inspiration</option>
 						<option>Archer's Mind</option>
 						<option>Arkasis's Genius</option>
 						<option>Armor Master</option>
@@ -822,13 +844,13 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Auroran's Thunder</option>
 						<option>Automated Defense</option>
 						<option>Azureblight Reaper</option>
-						<option hidden disabled>Back-Alley Gourmand</option>
+						<option>Back-Alley Gourmand</option>
 						<option>Bahraha's Curse</option>
 						<option>Bahsei's Mania</option>
 						<option value="Perfected Bahsei's Mania">Bahsei's Mania (Perfect)</option>
 						<option>Bani's Torment</option>
 						<option>Barkskin</option>
-						<option hidden disabled>Bastion of the Draoife</option>
+						<option>Bastion of the Draoife</option>
 						<option>Bastion of the Heartland</option>
 						<option>Battalion Defender</option>
 						<option>Battlefield Acrobat</option>
@@ -851,8 +873,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Call of the Undertaker</option>
 						<option>Caluurion's Legacy</option>
 						<option>Champion of the Hist</option>
-						<option hidden disabled>Chimera's Rebuke</option>
-						<option hidden disabled>Claw of the Forest Wraith</option>
+						<option>Chimera's Rebuke</option>
+						<option>Claw of the Forest Wraith</option>
 						<option>Claw of Yolnahkriin</option>
 						<option value="Perfected Claw of Yolnahkriin">Claw of Yolnahkriin (Perfect)</option>
 						<option>Clever Alchemist</option>
@@ -979,6 +1001,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Jailer's Tenacity</option>
 						<option>Jolting Arms</option>
 						<option>Jorvuld's Guidance</option>
+						<option hidden disabled>Judgement of Akatosh</option>
 						<option>Kagrenac's Hope</option>
 						<option>Kinras's Wrath</option>
 						<option>Knight Slayer</option>
@@ -1037,9 +1060,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Noble's Conquest</option>
 						<option>Nocturnal's Favor</option>
 						<option>Nocturnal's Ploy</option>
+						<option hidden disabled>Nix-Hound's Howl</option>
 						<option>Oblivion's Edge</option>
 						<option>Oblivion's Foe</option>
-						<option hidden disabled>Old Growth Brewer</option>
+						<option>Old Growth Brewer</option>
 						<option>Order of Diagna</option>
 						<option>Order's Wrath</option>
 						<option>Orgnum's Scales</option>
@@ -1053,7 +1077,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Permafrost</option>
 						<option>Pestilent Host</option>
 						<option>Phoenix</option>
-						<option hidden disabled>Phoenix Moth Theurge</option>
+						<option>Phoenix Moth Theurge</option>
 						<option>Phylactery's Grasp</option>
 						<option>Pillager's Profit</option>
 						<option>Pillar of Nirn</option>
@@ -1082,6 +1106,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Relics of the Physician, Ansur</option>
 						<option>Relics of the Rebellion</option>
 						<option>Renald's Resolve</option>
+						<option hidden disabled>Ritemaster's Bond</option>
 						<option>Roar of Alkosh</option>
 						<option>Roaring Opportunist</option>
 						<option value="Perfected Roaring Opportunist">Roaring Opportunist (Perfect)</option>
@@ -1090,6 +1115,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Robes of the Hist</option>
 						<option>Robes of the Withered Hand</option>
 						<option>Robes of Transmutation</option>
+						<option hidden disabled>Runecarver's Blaze</option>
 						<option>Rush of Agony</option>
 						<option>Salvation</option>
 						<option>Sanctuary</option>
@@ -1113,6 +1139,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Shalidor's Curse</option>
 						<option>Shalk Exoskeleton</option>
 						<option>Sheer Venom</option>
+						<option hidden disabled>Shell Splitter</option>
 						<option>Shield Breaker</option>
 						<option>Shield of the Valiant</option>
 						<option>Shroud of the Lich</option>
@@ -1121,6 +1148,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Sithis' Touch</option>
 						<option>Skooma Smuggler</option>
 						<option>Sload's Semblance</option>
+						<option hidden disabled>Snake in the Stars</option>
 						<option>Soldier of Anguish</option>
 						<option>Song of Lamae</option>
 						<option>Soulshine</option>
@@ -1158,6 +1186,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Syvarra's Scales</option>
 						<option>Talfyg's Treachery</option>
 						<option>Tava's Favor</option>
+						<option hidden disabled>Telvanni Enforcer</option>
 						<option>The Arch-Mage</option>
 						<option>The Destruction Suite</option>
 						<option>The Ice Furnace</option>
@@ -1772,7 +1801,53 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
-			<b>7 December</b>
+			<b>9 February 2023</b>
+			<ul>
+				<li>Fixed the Molag Kena set toggle (and likely a few others).</li>
+				<li>Fixed the Bright-Throat's Boast set toggle.</li>
+				<li>Added a toggle for the Healing Springs skill.</li>
+			</ul>
+			<p>
+			<b>7 February 2023</b>
+			<ul>
+				<li>Added the Effective Power stat which tries to take the maximum power stats among Magicka and Stamina.</li>
+				<li>Fixed the tooltip scaling of the Lady Thorn set (and a couple others).</li>
+				<li>Fixed the Sword Dancer's set tooltip scaling.</li>
+				<li>Fixed issue scaling on the Immovable skill tooltip.</li>
+			</ul>
+			<b>2 February 2023</b>
+			<ul>
+				<li>Fixed saving of equipped items trait and set names (mainly for raw data display).</li>
+				<li>Changed the Wretched Vitality set to work on the off-bar.</li>
+				<li>Fixed all the Emperor passives by adding toggles for them with counters adjustable from 1-6.</li>
+			</ul>
+			<p>
+			<b>2 February 2023</b>
+			<ul>
+				<li>Fixed all rule effects that had a negative value and displayed in % (values were off by a factor of 100 too small).</li>
+				<li>Fixed the Light of Cyrodiil set from having an incorrect Damage Taken modifier.</li>
+			</ul>
+			<p>
+			<b>31 January 2023</b>
+			<ul>
+				<li>37pts: Fixed the new jewelry enchants that give both Weapon and Spell Damage.</li>
+				<li>Fixed set toggle that have different names than the set name.</li>
+				<li>37pts: Added 11 new sets to the quick item setup.</li>
+				<li>37pts: Added toggles for the Ozezan the Inferno, Shell Splitter, and Roksa the Warped sets.</li>
+				<li>37pts: Added parsing for the Apocryphal Inspiration 5 piece set bonus.</li>
+				<li>Fixed set toggles sometimes not showing.</li>
+				<li>Fixed the Sea-Serpent's Coil set damage reduction bonus.</li>
+				<li>Turned the Resolving Vigor skill into a toggle which gives you Minor Resolve.</li>
+			</ul>
+			<li>
+			<b>30 January 2023</b>
+			<ul>
+				<li>Enabled the new rules system for all stats.</li>
+				<li>Changed the calculation order for the Elf Bane effect so that skill duration modifiers affect it.</li>
+				<li>37pts: Updated skill, item and CP data.</li>
+			</ul>
+			<p>
+			<b>7 December 2022</b>
 			<ul>
 				<li>Increased the item search limit from 150 to 300.</li>
 				<li>Added search type options for text (see the drop-down arrow just to the right of the text search field in the item search popup window). Current search types are:
@@ -1786,17 +1861,17 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 				</li>
 			</ul>
 			<p>
-			<b>11 November</b>
+			<b>11 November 2022</b>
 			<ul>
 				<li>Fixed the damage cap of Engulfing Flames to 6%.</li>
 			</ul>
 			<p>
-			<b>8 November</b>
+			<b>8 November 2022</b>
 			<ul>
 				<li>Added the "Any" checkbox to the popup item search for drinks and food. This lets you find specific foods now that their level has been hardcoded in the game data.</li>
 			</ul>
 			<p>
-			<b>1 November</b>
+			<b>1 November 2022</b>
 			<ul>
 				<li>Updated skills, CP, and item data from update 36.</li>
 			</ul>
@@ -4881,7 +4956,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 	g_EsoBuildActiveWeapon = {activeWeaponBar};
 	g_EsoBuildActiveAbilityBar = {activeSkillBar};
 	g_EsoBuildSetNames = {setNamesJson};
-	g_EsoBuildPtsVersion = "{ptsVersion}";
+	g_EsoBuildPtsVersion = "{ptsRulesVersion}";
+	g_EsoBuildAlternateVersion = "{realRulesVersion}"; 
+	g_EsoBuildLiveVersion = "{liveRulesVersion}";
+	g_EsoBuildRulesVersion = "{rulesVersion}";
+	g_EsoBuildRealRulesVersion = "{realRulesVersion}";
 	g_EsoBuildRules = {buildRulesJson};
 </script>
 

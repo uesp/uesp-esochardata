@@ -220,6 +220,7 @@ class EsoBuildDataParser
 						trait TINYINT NOT NULL,
 						style TINYINT NOT NULL,
 						setName TINYTEXT NOT NULL,
+						enchant TINYTEXT NOT NULL,
 						INDEX index_characterId(characterId),
 						INDEX index_account(account(48))
 					) ENGINE=MYISAM;";

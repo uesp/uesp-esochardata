@@ -28,11 +28,11 @@ require_once(__DIR__."/viewBuildData.class.php");
 
 class EsoBuildDataEditor 
 {
-	public $PTS_VERSION = "36pts";
+	public $PTS_VERSION = "37pts";	//TODO: Remove?
 	
-	public $LOAD_RULES_FROM_DB = false;
+	public $LOAD_RULES_FROM_DB = true;
 	public $LIVE_RULES_VERSION = "36";
-	public $PTS_RULES_VERSION  = "36pts";
+	public $PTS_RULES_VERSION  = "37pts";
 	
 	public $SESSION_DEBUG_FILENAME = "/var/log/httpd/esoeditbuild_sessions.log";
 	
@@ -74,6 +74,9 @@ class EsoBuildDataEditor
 	public $buildRules = [];
 	public $buildRuleEffects = [];
 	public $buildComputedStats = [];
+	public $ruleVersions = [];
+	
+	public $transformItemData = false; 
 	
 	public $wikiContext = null;
 	
@@ -304,6 +307,8 @@ class EsoBuildDataEditor
 			"Set.PlayerDamageTaken",
 			"Set.PlayerAOEDamageTaken",
 			"Set.SiegeDamageTaken",
+			"Skill.SiegeDamage",
+			"Skill.UltimateRegen",
 			"Set.TrapDamageTaken",
 			"Buff.DungeonDamageTaken",
 			"Skill.RangedDamageTaken",
@@ -927,18 +932,14 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
-			"Mundus.WeaponCrit" => array(
-					"display" => "%",
-			),
-			
 			"Buff.MagickaCost" => array(
 					"display" => "%",
 			),
-						
+			
 			"Buff.StaminaRegen" => array(
 					"display" => "%",
 			),
-						
+			
 			"Skill.WeaponCrit" => array(
 					"display" => "%",
 			),
@@ -948,7 +949,7 @@ class EsoBuildDataEditor
 			),
 				
 			"Mundus.SpellCrit" => array(
-					"display" => "%",
+					"display" => "flatcrit",
 			),
 				
 			"Skill.SpellCrit" => array(
@@ -1071,12 +1072,8 @@ class EsoBuildDataEditor
 					"display" => "%",
 			),
 			
-			"Mundus.SpellCrit" => array(
-					"display" => "%",
-			),
-			
 			"Mundus.WeaponCrit" => array(
-					"display" => "%",
+					"display" => "flatcrit",
 			),
 				
 			"CP.WeaponCrit" => array(
@@ -2310,8 +2307,10 @@ class EsoBuildDataEditor
 			"Set.PlayerDamageTaken" => array( "display" => "%" ),
 			"Set.PlayerAOEDamageTaken" => array( "display" => "%" ),
 			"Set.SiegeDamageTaken" => array( "display" => "%" ),
+			"Skill.SiegeDamage" => array( "display" => "%" ),
+			"Skill.UltimateRegen" => array( "display" => "%" ),
 			"Set.TrapDamageTaken" => array( "display" => "%" ),
-			"Set.AOEDamageTaken" => array( "display" => "%" ),		
+			"Set.AOEDamageTaken" => array( "display" => "%" ),
 			"Set.AOEDamageDone" => array( "display" => "%" ),
 			"CP.AOEDamageDone" => array( "display" => "%" ),
 			"Set.AOEHealingDone" => array( "display" => "%" ),
@@ -2670,13 +2669,13 @@ class EsoBuildDataEditor
 							"+",
 							"CP.SpellCrit",
 							"+",
+							"Mundus.SpellCrit",
+							"+",
 							"1/(2*EffectiveLevel*(100 + EffectiveLevel))",
 							"*",
 							"0.10",
 							"+",
 							"Item.SpellCrit",
-							"+",
-							"Mundus.SpellCrit",
 							"+",
 							"Skill.SpellCrit",
 							"+",
@@ -2699,13 +2698,13 @@ class EsoBuildDataEditor
 							"+",
 							"CP.WeaponCrit",
 							"+",
+							"Mundus.WeaponCrit",
+							"+",
 							"1/(2*EffectiveLevel*(100 + EffectiveLevel))",
 							"*",
 							"0.10",
 							"+",
 							"Item.WeaponCrit",
-							"+",
-							"Mundus.WeaponCrit",
 							"+",
 							"Skill.WeaponCrit",
 							"+",
@@ -6654,7 +6653,8 @@ class EsoBuildDataEditor
 	{
 		global $ESO_ITEMINTTYPE_QUALITYMAP;
 		
-		if (!$this->getCharStatField("UsePtsRules", 0)) return false;
+		//if (!$this->getCharStatField("UsePtsRules", 0)) return false;
+		if (!$this->transformItemData) return false;
 		
 		if ($intLevel == 1)
 		{
@@ -6905,6 +6905,12 @@ class EsoBuildDataEditor
 	public function GetSkillHtml()
 	{
 		return $this->viewSkills->GetOutputHtml();
+	}
+	
+	
+	public static function escapeHtml($html)
+	{
+		return htmlspecialchars( $html,  ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 );
 	}
 	
 	
@@ -7335,10 +7341,57 @@ class EsoBuildDataEditor
 	}
 	
 	
+	public function SetCharStatField($statId, $value)
+	{
+		if ($this->buildDataViewer->characterData === null) return false;
+		if (!array_key_exists('stats', $this->buildDataViewer->characterData) || $this->buildDataViewer->characterData['stats'] === null) return false;
+		
+		$charId = $this->buildId;
+		if ($charId == null) $charId = -1;
+		
+		$this->buildDataViewer->characterData['stats'][$statId] = [];
+		$this->buildDataViewer->characterData['stats'][$statId]['characterId'] = $charId;
+		$this->buildDataViewer->characterData['stats'][$statId]['name']= $statId;
+		$this->buildDataViewer->characterData['stats'][$statId]['value']= $value;
+		
+		return true;
+	}
+	
+	
 	public function LoadRulesFromDb()
 	{
 		$db = $this->buildDataViewer->db;
-		$safeVersion = $db->real_escape_string($this->LIVE_RULES_VERSION);
+		
+		$usePtsRules = $this->getCharStatField("UsePtsRules", "");
+		$currentVersion = $this->getCharStatField("RulesVersion", "");
+		
+		if ($currentVersion == "")
+		{
+			$currentVersion = "Live";
+			if ($usePtsRules > 0) $currentVersion = "PTS";
+			$this->SetCharStatField("RulesVersion", $currentVersion);
+		}
+		
+		$this->rulesVersion = $currentVersion;
+		
+		if ($currentVersion == "Live")
+		{
+			$currentVersion = $this->LIVE_RULES_VERSION;
+		}
+		else if ($currentVersion == "PTS")
+		{
+			$currentVersion = $this->PTS_RULES_VERSION;
+		}
+		
+		if ($usePtsRules)
+		{
+			$this->SetCharStatField("UsePtsRules", 0);
+		}
+		
+		$this->realRulesVersion = $currentVersion;
+		$this->SetCharStatField("RealRulesVersion", $currentVersion);
+		
+		$safeVersion = $db->real_escape_string($currentVersion);
 		$query = "SELECT * FROM rules WHERE version='$safeVersion';";
 		
 		$this->buildRules = [];
@@ -7380,20 +7433,39 @@ class EsoBuildDataEditor
 			$this->buildComputedStats[$id] = $row;
 		}
 		
+		$this->ruleVersions = [];
+		$this->ruleVersions[] = "Live";
+		$this->ruleVersions[] = "PTS";
+		
+		$query = "SELECT * FROM versions ORDER BY version";
+		$result = $db->query($query);
+		if ($result === false) return $this->reportError("Error: Failed to load rule versions! " . $db->error);
+		
+		while ($row = $result->fetch_assoc())
+		{
+			$this->ruleVersions[] = $row['version'];
+		}
+		
 		return true;
 	}
 	
 	
 	public function LoadBuild()
 	{
-		if ($this->LOAD_RULES_FROM_DB)
-		{
-			$this->LoadRulesFromDb();
-		}
-		
 		if ($this->buildId === null)
 		{
 			$this->CreateInitialSkillData();
+			
+			if ($this->LOAD_RULES_FROM_DB)
+			{
+				$this->LoadRulesFromDb();
+			}
+			else
+			{
+				$this->rulesVersion = "";
+				$this->realRulesVersion = "";
+			}
+			
 			return true;
 		}
 		
@@ -7401,11 +7473,31 @@ class EsoBuildDataEditor
 		
 		if (!$this->buildDataViewer->loadCharacter()) return false;
 		
-		if ($this->getCharStatField("UsePtsRules", 0))
+		if ($this->LOAD_RULES_FROM_DB)
 		{
+			$this->LoadRulesFromDb();
+			
+			if ($this->realRulesVersion != $this->LIVE_RULES_VERSION)
+			{
+				$this->transformItemData = true;
+				$this->viewSkills->version = $this->realRulesVersion;
+				$this->viewCps->version = $this->realRulesVersion;
+				$this->ITEM_TABLE_SUFFIX = $this->realRulesVersion;
+			}
+		}
+		else if ($this->getCharStatField("UsePtsRules", 0))
+		{
+			$this->transformItemData = true;
+			$this->rulesVersion = $this->PTS_VERSION;
+			$this->realRulesVersion = $this->PTS_VERSION;
 			$this->viewSkills->version = $this->PTS_VERSION;
 			$this->viewCps->version = $this->PTS_VERSION;
 			$this->ITEM_TABLE_SUFFIX = $this->PTS_VERSION;
+		}
+		else
+		{
+			$this->rulesVersion = "";
+			$this->realRulesVersion = "";
 		}
 		
 		$this->viewSkills->LoadData();
@@ -7685,6 +7777,7 @@ class EsoBuildDataEditor
 	}
 	
 	
+	//TODO: Remove?
 	public function FixupBuildForPts()
 	{
 		if (!$this->getCharStatField("UsePtsRules", 0)) return false;
@@ -7695,7 +7788,8 @@ class EsoBuildDataEditor
 	}
 	
 	
-	public function FixupBuildForPtsPost() 
+	//TODO: Remove?
+	public function FixupBuildForPtsPost()
 	{
 		if (!$this->getCharStatField("UsePtsRules", 0)) return false;
 		
@@ -7745,6 +7839,32 @@ class EsoBuildDataEditor
 		
 		$dbLog->close();
 		return true;
+	}
+	
+	
+	public function GetRulesVersionOptions()
+	{
+		$usePtsRules = $this->getCharStatField("UsePtsRules", "");
+		$currentVersion = $this->getCharStatField("RulesVersion", "");
+		
+		if ($currentVersion == "")
+		{
+			$currentVersion = "Live";
+			if ($usePtsRules > 0) $currentVersion = "PTS"; 
+		}
+		
+		$output = "";
+		
+		foreach ($this->ruleVersions as $version)
+		{
+			$selected = "";
+			if ($currentVersion == $version) $selected = "selected";
+			
+			$safeVersion = $this->escapeHtml($version);
+			$output .= "<option $selected>$safeVersion</option>\n";
+		}
+		
+		return $output;
 	}
 	
 	
@@ -7891,6 +8011,13 @@ class EsoBuildDataEditor
 				'{showBarSwaps}' => $this->GetCharStatCheckState("showBarSwaps", "1"),
 				'{showRollDodge}' => $this->GetCharStatCheckState("showRollDodge", "1"),
 				'{buildRulesJson}' => $this->GetBuildRulesJson(),
+				'{oldVersionDisplay}' => $this->LOAD_RULES_FROM_DB ? "none" : "block",
+				'{newVersionDisplay}' => $this->LOAD_RULES_FROM_DB ? "block" : "none",
+				'{rulesVersionOptions}' => $this->GetRulesVersionOptions(),
+				'{rulesVersion}' => $this->escapeHtml($this->rulesVersion),
+				'{realRulesVersion}' => $this->escapeHtml($this->realRulesVersion),
+				'{liveRulesVersion}' => $this->escapeHtml($this->LIVE_RULES_VERSION),
+				'{ptsRulesVersion}' => $this->escapeHtml($this->PTS_RULES_VERSION),
 		);
 		
 		$output = strtr($this->htmlTemplate, $replacePairs);

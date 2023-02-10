@@ -10794,6 +10794,7 @@ window.InitializeEsoBuildInputValues = function (inputValues)
 	inputValues.min = Math.min;
 	
 	inputValues.UsePtsRules = false;
+	inputValues.RulesVersion = g_EsoBuildRulesVersion;
 }
 
 
@@ -10823,6 +10824,22 @@ window.GetEsoInputValues = function (mergeComputedStats)
 	InitializeEsoBuildInputValues(inputValues);
 	
 	if ($("#esotbUsePtsRules").prop("checked")) inputValues.UsePtsRules = true;
+	inputValues.RulesVersion = $("#esotbRulesVersion").val();
+	inputValues.UseAlternateVersion = false;
+	g_EsoBuildAlternateVersion = "";
+	
+	if (inputValues.UsePtsRules)
+	{
+		inputValues.UseAlternateVersion = true;
+		g_EsoBuildAlternateVersion = g_EsoBuildPtsVersion;
+	}
+	
+	if (inputValues.RulesVersion != "Live" && inputValues.RulesVersion != g_EsoBuildLiveVersion) 
+	{
+		inputValues.UseAlternateVersion = true;
+		g_EsoBuildAlternateVersion = inputValues.RulesVersion;
+		if (g_EsoBuildAlternateVersion == "PTS") g_EsoBuildAlternateVersion = g_EsoBuildPtsVersion;
+	}
 	
 	inputValues.AutoPurchaseRacialPassives = false;
 	if ($("#esotbEnableRaceAutoPurchase").prop("checked")) inputValues.AutoPurchaseRacialPassives = true;
@@ -11066,9 +11083,9 @@ window.GetEsoInputValues = function (mergeComputedStats)
 		}
 	}
 	
-	if (inputValues.UsePtsRules != g_EsoBuildLastInputValues.UsePtsRules) 
+	if (inputValues.UseAlternateVersion != g_EsoBuildLastInputValues.UseAlternateVersion)
 	{
-		UpdateEsoItemLinkVersion(inputValues.UsePtsRules ? g_EsoBuildPtsVersion : "");
+		UpdateEsoItemLinkVersion(inputValues.UseAlternateVersion ? g_EsoBuildAlternateVersion : "");
 	}
 	
 	g_EsoBuildLastInputValues = inputValues;
@@ -11997,6 +12014,8 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 	var matches = null;
 	var foundMatch = false;
 	
+	rawDesc = rawDesc.replaceAll("\n", " ");
+	rawDesc = rawDesc.replaceAll("\r", " ");
 	rawDesc = rawDesc.replaceAll("  ", " ");
 	rawDesc = rawDesc.replaceAll("  ", " ");
 	
@@ -13615,7 +13634,7 @@ window.UpdateEsoItemSets = function (inputValues)
 	}
 	
 	ComputeEsoBuildAllSetData();
-	UpdateEsoBuildToggledSetData();
+	UpdateEsoBuildToggledSetData(inputValues);
 }
 
 
@@ -13937,8 +13956,12 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 		//inputValues.Mundus.WeaponCrit = 0.07;
 		
 			// Update 6.1.6
-		inputValues.Mundus.SpellCrit = 0.0608;	// 1333
-		inputValues.Mundus.WeaponCrit = 0.0608;
+		//inputValues.Mundus.SpellCrit = 0.0608;	// 1333
+		//inputValues.Mundus.WeaponCrit = 0.0608;
+		
+			// Change to explicit values (update 36)
+		inputValues.Mundus.SpellCrit = 1333;
+		inputValues.Mundus.WeaponCrit = 1333;
 		
 		AddEsoStatValueHistory("Mundus", "SpellCrit", inputValues.Mundus.SpellCrit);
 		AddEsoStatValueHistory("Mundus", "WeaponCrit", inputValues.Mundus.WeaponCrit);
@@ -13948,8 +13971,8 @@ window.GetEsoInputMundusNameValues = function (inputValues, mundusName)
 		
 		if (divines > 0)
 		{
-			var extraSpell    = Math.floor(inputValues.Mundus.SpellCrit * 1000  * divines)/1000;
-			var extraPhysical = Math.floor(inputValues.Mundus.WeaponCrit * 1000 * divines)/1000;
+			var extraSpell    = Math.floor(inputValues.Mundus.SpellCrit * 10 * divines)/10;
+			var extraPhysical = Math.floor(inputValues.Mundus.WeaponCrit *10 * divines)/10;
 			inputValues.Mundus.WeaponCrit += extraPhysical;
 			inputValues.Mundus.SpellCrit += extraSpell;
 			
@@ -14285,6 +14308,8 @@ window.GetEsoBuildCpRuleValues = function(inputValues, cpData, isManual)
 	if (desc == null || desc == "") return;
 	if (cpData.isUnlocked !== true) return;
 	
+	desc = desc.replaceAll(/[\n\r]/g, ' ');
+	
 	var rules = ESO_CPEFFECT_MATCHES;
 	if (cpData.cachedRules) rules = cpData.cachedRules;
 	
@@ -14315,6 +14340,8 @@ window.GetEsoInputCpToggleValues = function (inputValues, cpData, isManual)
 	
 	if (desc == null || desc == "") return;
 	if (cpData.isUnlocked !== true) return;
+	
+	desc = desc.replaceAll(/[\n\r]/g, ' ');
 	
 	var rules = ESO_CPEFFECT_MATCHES;
 	if (cpData.cachedRules) rules = cpData.cachedRules;
@@ -14715,7 +14742,7 @@ window.UpdateEsoComputedStatsList_Real = function (keepSaveResults, noUpdate)
 	{
 		var depends = g_EsoComputedStats[statId].depends;
 		
-		if (depends != null)
+		if (depends != null && depends.length > 0)
 			deferredStats.push(statId);
 		else
 			UpdateEsoComputedStat(statId, g_EsoComputedStats[statId], inputValues);
@@ -15752,7 +15779,7 @@ window.RequestEsoChangeArmorTypeData = function (itemData, armorType, slotId)
 			"trait" : itemData.trait,
 	};
 	
-	if (g_EsoBuildLastInputValues.UsePtsRules) queryParams.version = g_EsoBuildPtsVersion;
+	if (g_EsoBuildLastInputValues.UseAlternateVersion) queryParams.version = g_EsoBuildAlternateVersion;
 
 	$.ajax("//esolog.uesp.net/esoItemSearchPopup.php", {
 			data: queryParams,
@@ -15777,7 +15804,7 @@ window.RequestEsoFindSetItemData = function (slotId, monsterSet, equipType, armo
 			"trait" : trait,
 	};
 	
-	if (g_EsoBuildLastInputValues.UsePtsRules) queryParams.version = g_EsoBuildPtsVersion;
+	if (g_EsoBuildLastInputValues.UseAlternateVersion) queryParams.version = g_EsoBuildAlternateVersion;
 
 	$.ajax("//esolog.uesp.net/esoItemSearchPopup.php", {
 			data: queryParams,
@@ -15823,7 +15850,7 @@ window.RequestEsoChangeTraitData = function (itemData, newTrait, slotId, msgElem
 			"trait" : newTrait,
 	};
 	
-	if (g_EsoBuildLastInputValues.UsePtsRules) queryParams.version = g_EsoBuildPtsVersion;
+	if (g_EsoBuildLastInputValues.UseAlternateVersion) queryParams.version = g_EsoBuildAlternateVersion;
 
 	$.ajax("//esolog.uesp.net/esoItemSearchPopup.php", {
 			data: queryParams,
@@ -15992,7 +16019,7 @@ window.RequestEsoItemData = function (itemData, element)
 			"limit" : 1,
 	};
 	
-	if (g_EsoBuildLastInputValues.UsePtsRules) queryParams.version = g_EsoBuildPtsVersion;
+	if (g_EsoBuildLastInputValues.UseAlternateVersion) queryParams.version = g_EsoBuildAlternateVersion;
 	
 	if (itemData.type == 4 || itemData.type == 12)
 	{
@@ -16061,7 +16088,7 @@ window.GetEsoSetMaxData = function (itemData)
 			"limit" : 1,
 	};
 	
-	if (g_EsoBuildLastInputValues.UsePtsRules) queryParams.version = g_EsoBuildPtsVersion;
+	if (g_EsoBuildLastInputValues.UseAlternateVersion) queryParams.version = g_EsoBuildAlternateVersion;
 	
 	$.ajax("//esolog.uesp.net/exportJson.php", {
 			data: queryParams,
@@ -16107,7 +16134,7 @@ window.SelectEsoItem = function (element)
 		xoffset: -190,
 	};
 	
-	if (g_EsoBuildLastInputValues.UsePtsRules) data.version = g_EsoBuildPtsVersion;
+	if (g_EsoBuildLastInputValues.UseAlternateVersion) data.version = g_EsoBuildAlternateVersion;
 	
 	if (equipType  != null) data.equipType  = equipType;
 	if (weaponType != null) data.weaponType = weaponType;
@@ -16915,7 +16942,7 @@ window.SelectEsoItemEnchant = function (element)
 		xoffset: -190,
 	};
 	
-	if (g_EsoBuildLastInputValues.UsePtsRules) data.version = g_EsoBuildPtsVersion;
+	if (g_EsoBuildLastInputValues.UseAlternateVersion) data.version = g_EsoBuildAlternateVersion;
 	
 	var rootSearchPopup = UESP.showEsoItemSearchPopup(element, data);
 	ShowEsoBuildClickWall(rootSearchPopup);
@@ -16966,7 +16993,7 @@ window.RequestEsoEnchantData = function (itemData, element)
 			"limit" : 1,
 	};
 	
-	if (g_EsoBuildLastInputValues.UsePtsRules) queryParams.version = g_EsoBuildPtsVersion;
+	if (g_EsoBuildLastInputValues.UseAlternateVersion) queryParams.version = g_EsoBuildAlternateVersion;
 	
 	$.ajax("//esolog.uesp.net/exportJson.php", {
 			data: queryParams,
@@ -17473,7 +17500,7 @@ window.CreateEsoBuildToggledSkillData = function ()
 
 window.CreateEsoBuildToggledSetDataInstance = function (setEffectData, id)
 {
-	if (g_EsoBuildToggledSetData[id] == null) 
+	if (g_EsoBuildToggledSetData[id] == null)
 	{
 		g_EsoBuildToggledSetData[id] = {};
 		g_EsoBuildToggledSetData[id].statIds = [];
@@ -17498,7 +17525,7 @@ window.CreateEsoBuildToggledSetDataInstance = function (setEffectData, id)
 	g_EsoBuildToggledSetData[id].count = 0;		
 	g_EsoBuildToggledSetData[id].otherCount = 0;
 	
-	if (setEffectData.setId != null) g_EsoBuildToggledSetData[id].setId = setEffectData.setId;
+	if (setEffectData.setId != null && setEffectData.setId != "") g_EsoBuildToggledSetData[id].setId = setEffectData.setId;
 	
 	if (g_EsoBuildSetData[id] != null && g_EsoBuildSetData[id].averageDesc != null &&
 			g_EsoBuildSetData[id].averageDesc[setEffectData.setBonusCount - 1] != null)
@@ -17839,7 +17866,7 @@ window.FindMatchingEsoPassiveSkillDescription = function (matchData)
 }
 
 
-window.UpdateEsoBuildToggledSetData = function ()
+window.UpdateEsoBuildToggledSetData = function (inputValues)
 {
 	
 	for (var setId in g_EsoBuildToggledSetData)
@@ -17850,7 +17877,7 @@ window.UpdateEsoBuildToggledSetData = function ()
 		SetEsoBuildToggledSetValid(setId, false);
 		
 		var setName = setId;
-		if (toggleData.setId != null) setName = toggleData.setId;
+		if (toggleData.setId != null && toggleData.setId != "") setName = toggleData.setId;
 		
 		var setData = g_EsoBuildSetData[setName];
 		if (setData == null) continue;
@@ -17864,7 +17891,7 @@ window.UpdateEsoBuildToggledSetData = function ()
 			if (requiredStat == null) continue;
 			
 			var fRequiredStat = parseFloat(requiredStat);
-			var fRequireValue = parseFloat(toggleSkillData.matchData.statRequireValue);
+			var fRequireValue = parseFloat(toggleData.matchData.statRequireValue);
 			
 			if (fRequiredStat < fRequireValue) continue;
 			if (fRequireValue == 0 && fRequiredStat > 0) continue;
@@ -19183,7 +19210,7 @@ window.CreateEsoBuildBuffEffectsDescHtml = function (buffData)
 			
 			if (display == "%")
 			{
-				statValue = "" + (Math.floor(statValue*1000)/10) + "%";
+				statValue = "" + (Math.floor(statValue*10)/10) + "%";
 			}
 			
 			if (statDesc != null && statDesc != "")
@@ -20124,6 +20151,8 @@ window.CreateEsoBuildItemSaveData = function (saveData, inputValues)
 		var itemData = g_EsoBuildItemData[slotId];
 		if (itemData.itemId == null) continue;
 		
+		var enchantData = g_EsoBuildEnchantData[slotId];
+		
 		var data = {};
 		
 		data.index = ESOBUILD_SLOTID_TO_EQUIPSLOT[slotId];
@@ -20146,6 +20175,17 @@ window.CreateEsoBuildItemSaveData = function (saveData, inputValues)
 		data.stolen = itemData.stolen;
 		data.style = itemData.style;
 		data.trait = itemData.trait;
+		data.enchant = '';
+		
+		if (enchantData)
+		{
+			//enchantDesc
+			//enchantName
+			//name
+			//itemId
+			//isDefaultEnchant
+			data.enchant = '' + enchantData.name + ': ' + enchantData.enchantDesc;
+		}
 		
 		saveData.EquipSlots[slotId] = data;
 	}
@@ -20228,6 +20268,7 @@ window.CreateEsoBuildGeneralSaveData = function (saveData, inputValues)
 	saveData.Stats['CP:Enabled'] = inputValues.CP.Enabled;
 	saveData.Stats['UsesChampionPoints2'] = 1;
 	saveData.Stats['UsePtsRules'] = inputValues.UsePtsRules;
+	saveData.Stats['RulesVersion'] = inputValues.RulesVersion;
 	saveData.Stats['AutoPurchaseRacialPassives'] = inputValues.AutoPurchaseRacialPassives;
 	
 	inputValues.CPLevel = Math.floor(inputValues.CP.TotalPoints/10);
@@ -20632,8 +20673,8 @@ window.EquipSetItem = function (setName, slotId, level, quality)
 			"setname" : setName,
 	};
 	
-	if (g_EsoBuildLastInputValues.UsePtsRules) queryParams.version = g_EsoBuildPtsVersion;
-		
+	if (g_EsoBuildLastInputValues.UseAlternateVersion) queryParams.version = g_EsoBuildAlternateVersion;
+	
 	$.ajax("//esolog.uesp.net/getSetItemData.php", {
 			data: queryParams,
 		}).
@@ -20676,7 +20717,7 @@ window.OnEsoSetItemDataReceive = function (data, status, xhr, slotId)
 	UpdateWeaponEquipSlots(itemData, slotId);
 	
 	g_EsoBuildItemData[slotId] = itemData; 
-		
+	
 	GetEsoSetMaxData(g_EsoBuildItemData[slotId]);
 	UpdateEsoComputedStatsList(false);
 }
@@ -21843,7 +21884,7 @@ window.RequestEsoTransmuteTraitData = function (itemData, newTrait, element)
 		queryParams.inttype = 370;
 	}
 	
-	if (g_EsoBuildLastInputValues.UsePtsRules) queryParams.version = g_EsoBuildPtsVersion;
+	if (g_EsoBuildLastInputValues.UseAlternateVersion) queryParams.version = g_EsoBuildAlternateVersion;
 	
 	$.ajax("//esolog.uesp.net/exportJson.php", {
 			data: queryParams,
@@ -22693,7 +22734,7 @@ window.RequestEsoAllSetData = function ()
 			"table" : "setSummary",
 	};
 	
-	if (g_EsoBuildLastInputValues.UsePtsRules) queryParams.version = g_EsoBuildPtsVersion;
+	if (g_EsoBuildLastInputValues.UseAlternateVersion) queryParams.version = g_EsoBuildAlternateVersion;
 	
 	g_EsoLoadedAllSetData = false;
 	
@@ -22763,6 +22804,42 @@ window.TestAllEsoSets = function()
 	}
 
 	CheckEsoSetTestResults();
+}
+
+
+window.TestEsoSetQuickEquip = function()
+{
+	if (!g_EsoLoadedAllSetData)
+	{
+		EsoBuildLog("Loading all set data first...");
+		RequestEsoAllSetData();
+		return;
+	}
+	
+	var setOptions = $("#esotbItemSetupMonsterSet option, #esotbItemSetupMythicSet option, #esotbItemSetupEquipSetList option");
+	
+	EsoBuildLog("Found set options: ", setOptions.length);
+	
+	var foundSets = {};
+	
+	setOptions.each(function() {
+		var $this = $(this);
+		var text = $this.text();
+		var value = $this.attr("value");
+		if (value == null || value == "") value = text;
+		
+		foundSets[value] = 1;
+	});
+	
+	for (var i = 0; i < g_EsoBuildAllSetData.length; ++i)
+	{
+		var setData = g_EsoBuildAllSetData[i];
+		
+		if (foundSets[setData['setName']] == null)
+		{
+			EsoBuildLog("Missing set in quick equip:", setData['setName']);
+		}
+	}
 }
 
 
@@ -23059,9 +23136,19 @@ window.CheckEsoSetTestResults = function()
 }
 
 
+window.IsEsoBuildPts = function()
+{
+	var rulesVersion = $("#esotbRulesVersion").val().toLowerCase();
+	var usePtsRules = $("#esotbUsePtsRules").prop("checked");
+	var isPts = (usePtsRules === true) || (rulesVersion.indexOf('pts') >= 0);
+	return isPts;
+}
+
+
+//TODO: Modify once rules are permanent?
 window.UpdateEsoPts = function() 
 {
-	if (!$("#esotbUsePtsRules").prop("checked")) return;
+	if (!IsEsoBuildPts()) return;
 	
 	$("#esotbQuickItemSetups").find(".esotbSetPts").removeAttr("disabled").removeAttr("hidden");
 	$("#esotbItemSetupMythicSet").children().removeAttr("disabled").removeAttr("hidden");
@@ -23086,6 +23173,7 @@ window.UpdateEsoPts = function()
 }
 
 
+//TODO: Remove once rules are permanent?
 window.UpdateEsoPtsToggleData = function()
 {
 	if (!$("#esotbUsePtsRules").prop("checked")) return;
@@ -23132,7 +23220,6 @@ window.TestAllEsoSkillMatches = function()
 		var count = TestAllEsoActiveSkillMatch(matchData);
 		
 		numMatches.push(count);
-		
 		if (count == 0)
 		{
 			EsoBuildLog("Active skill match data had no matches in all skill data!", i, matchData.match)
@@ -24277,6 +24364,9 @@ window.EsoBuildCreateSetDataFromRules = function()
 		rule.id = rule.nameId;
 		delete rule['nameId'];
 		
+		rule.setId = rule.originalId;
+		delete rule['originalId'];
+		
 		rule.visible = rule.isVisible;
 		delete rule['isVisible'];
 		
@@ -24414,6 +24504,13 @@ window.RoundEsoStatValue = function(statValue, round, display)
 			statValue = Math.round(statValue*100*10)/100/10;
 		else
 			statValue = Math.round(statValue*10)/10;
+	}
+	else
+	{
+		if (display == '%')
+			statValue = Math.floor(statValue*100)/100;
+		else
+			statValue = Math.floor(statValue);
 	}
 	
 	return statValue;
@@ -24607,6 +24704,19 @@ window.ApplyEsoBuildRuleEffects = function(inputValues, ruleData, matchResults, 
 		if (!isNaN(newStatValue)) statValue = newStatValue;
 		if (isNaN(statValue)) statValue = 1;
 		
+		if (ruleData.useCountForRegexVar === 1 && ruleData.maxTimes != null && otherData.toggleData != null && otherData.toggleData.count != null)
+		{
+			regexVar = otherData.toggleData.count;
+			
+			if (regexVar == 0)
+				newStatValue = 0;
+			else
+				newStatValue = parseFloat(matchResults[regexVar]);
+			
+			if (!isNaN(newStatValue)) statValue = newStatValue;
+			if (statValue == 0) continue;
+		}
+		
 		if (ruleData.factorSkillLine)
 		{
 			var count = CountEsoBarSkillsWithSkillLine(ruleData.factorSkillLine);
@@ -24633,10 +24743,13 @@ window.ApplyEsoBuildRuleEffects = function(inputValues, ruleData, matchResults, 
 			
 			if (toggleData != null && toggleData.count != null)
 			{
-				if (statFactor == 0)
-					statFactor = toggleData.count;
-				else
-					statFactor *= toggleData.count;
+				if (ruleData.useCountForRegexVar !== 1)
+				{
+					if (statFactor == 0)
+						statFactor = toggleData.count;
+					else
+						statFactor *= toggleData.count;
+				}
 				
 				if (ruleData.enableBuffAtMax && toggleData.count >= ruleData.maxTimes)
 				{

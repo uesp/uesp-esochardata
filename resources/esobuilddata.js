@@ -3285,8 +3285,9 @@ window.UpdateEsoBuildSetTooltips = function(setDesc, setName)
 	rawDesc = rawDesc.replaceAll("  ", " ").replaceAll("  ", " ");
 	setDesc = setDesc.replaceAll("  ", " ").replaceAll("  ", " ");
 	newTooltip = newTooltip.replaceAll("  ", " ").replaceAll("  ", " ");
-	rawDesc = rawDesc.replaceAll("|cffffff", "").replaceAll("|r", "");
-	setDesc = setDesc.replaceAll("|cffffff", "").replaceAll("|r", "");
+	
+	//rawDesc = rawDesc.replaceAll("|cffffff", "").replaceAll("|r", "");
+	//setDesc = setDesc.replaceAll("|cffffff", "").replaceAll("|r", "");
 	
 	var textDesc = $('<div>').html(setDesc).text();
 	var valueMatch = "[A-Za-z0-9\-%\.\"\'#=\<\>;: ]*?";
@@ -3304,6 +3305,10 @@ window.UpdateEsoBuildSetTooltips = function(setDesc, setName)
 		matchDesc = matchDesc.replaceAll(/[0-9%]+/g, valueMatch);
 		matchDesc = matchDesc.replaceAll("\n", '');
 		
+		matchDesc = matchDesc.replaceAll("|cffffff", ".*?");
+		matchDesc = matchDesc.replaceAll("|r", ".*?");
+		matchDesc = matchDesc.replaceAll(".*?" + valueMatch + ".*?", valueMatch);
+		
 		var matchRegExp = new RegExp(matchDesc, 'i');
 		
 		var replaceDesc = rawDesc.replaceAll(".", '[.]'); 
@@ -3311,6 +3316,10 @@ window.UpdateEsoBuildSetTooltips = function(setDesc, setName)
 		replaceDesc = "(" + replaceDesc.replaceAll(/<<[0-9%]+>>/g, valueMatch) + ")";
 		replaceDesc = replaceDesc.replaceAll(/[0-9%]+/g, valueMatch);
 		replaceDesc = replaceDesc.replaceAll("\n", "<br />");
+		
+		replaceDesc = replaceDesc.replaceAll("|cffffff", ".*?");
+		replaceDesc = replaceDesc.replaceAll("|r", ".*?");
+		replaceDesc = replaceDesc.replaceAll(".*?" + valueMatch + ".*?", valueMatch);
 		
 		var matches = textDesc.match(matchRegExp);
 		var tooltipMatches = newTooltip.match(matchRegExp);
@@ -3353,6 +3362,11 @@ window.UpdateEsoBuildSetTooltips = function(setDesc, setName)
 	matchDesc = matchDesc.replaceAll(/<<[0-9%]+>>/g, valueMatch);
 	matchDesc = matchDesc.replaceAll(/[0-9%]+/g, valueMatch);
 	matchDesc = matchDesc.replaceAll("\n", "<br>");
+	
+	matchDesc = matchDesc.replaceAll("|cffffff", ".*?");
+	matchDesc = matchDesc.replaceAll("|r", ".*?");
+	matchDesc = matchDesc.replaceAll(".*?" + valueMatch + ".*?", valueMatch);
+	
 	var matchRegExp = new RegExp(matchDesc, 'i');
 	
 	newDesc = newDesc.replaceAll('  ', ' ').replaceAll('  ', ' ').replaceAll('  ', ' ');
@@ -3365,6 +3379,7 @@ window.UpdateEsoBuildSetTooltips = function(setDesc, setName)
 window.UpdateEsoBuildSetAllData = function (setDesc, setDamageData, setName)
 {
 	var newDesc = setDesc;
+	if (newDesc == "") return newDesc;
 	
 	newDesc = UpdateEsoBuildSetDamageData(newDesc, setDamageData);
 	newDesc = UpdateEsoBuildSetDamageShield(newDesc);
