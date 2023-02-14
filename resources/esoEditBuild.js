@@ -15,6 +15,10 @@
  * 		- Potions/Poison
  * 		- Make Rallying Cry a buff (needs maxTimes capability added to buffs).
  * 		- Multiple skill tooltips for set tooltip parsing/updating.
+ * 
+ *  Pirate Skeleton: no checkbox to "enable" set bonuses (Major Protection, Minor Defile).
+	Scourge Harvester: no checkbox to "enable" set bonuses (Major Vitality).
+	The cost of the Twilight's special ability isn't decreasing with reduce spell cost glyphs.
  *  
  */
 
@@ -12014,10 +12018,10 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 	var matches = null;
 	var foundMatch = false;
 	
+	rawDesc = rawDesc.replaceAll("  ", " ");
+	rawDesc = rawDesc.replaceAll("  ", " ");
 	rawDesc = rawDesc.replaceAll("\n", " ");
 	rawDesc = rawDesc.replaceAll("\r", " ");
-	rawDesc = rawDesc.replaceAll("  ", " ");
-	rawDesc = rawDesc.replaceAll("  ", " ");
 	
 	if (matchData.statValue !== undefined) statValue = matchData.statValue;
 	

@@ -15,7 +15,7 @@
  *  	- Increases healing with Restoration Staff spells by 5%
  *  	- Overall "X damage taken" type state (Flame damage for vampires).
  *  	- Quick Item Setup: Nirnhoned items that don't exist?
- *  	- Swift Warrior melee attack for class abilities. 
+ *  	- Swift Warrior melee attack for class abilities.
  */
 
 require_once("/home/uesp/secrets/esolog.secrets");
@@ -7404,6 +7404,7 @@ class EsoBuildDataEditor
 		while ($row = $result->fetch_assoc())
 		{
 			$ruleId = intval($row['id']);
+			$row['ruleId'] = $ruleId;
 			
 			$this->buildRules[$ruleId] = $row;
 		}
@@ -7414,6 +7415,9 @@ class EsoBuildDataEditor
 		
 		while ($row = $result->fetch_assoc())
 		{
+			$effectId = intval($row['id']);
+			$row['effectId'] = $effectId;
+			
 			$ruleId = intval($row['ruleId']);
 			
 			$row['round'] = $row['roundNum'];
