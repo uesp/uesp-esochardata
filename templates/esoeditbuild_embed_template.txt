@@ -5,13 +5,9 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #cfc; margin-right: 270px;'>
-Note: Editor is now somewhat working for update 37pts. Data has been updated but new/updated skills/items/CP might not yet be working correctly.
+<div style='background-color: #ffc; margin-right: 270px;'>
+Note: Editor is partially working for update 37. Item/skill/CP data have been updated. New or updated items/skills may not be working yet.
 </div>
-<div style='background-color: #cfc; margin-right: 270px;'>
-<b>Important Note:</b> We've enabled a new rules system for builds. If there are any build or stat issues please <a href="//en.uesp.net/wiki/Online_talk:Build_Editor"><b>let us know</b></a>!
-</div>
-
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
 inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Editor"><b>let us know</b></a>. Quickly access the build editor with the short URL 

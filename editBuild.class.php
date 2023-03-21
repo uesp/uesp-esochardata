@@ -31,7 +31,7 @@ class EsoBuildDataEditor
 	public $PTS_VERSION = "37pts";	//TODO: Remove?
 	
 	public $LOAD_RULES_FROM_DB = true;
-	public $LIVE_RULES_VERSION = "36";
+	public $LIVE_RULES_VERSION = "37";
 	public $PTS_RULES_VERSION  = "37pts";
 	
 	public $SESSION_DEBUG_FILENAME = "/var/log/httpd/esoeditbuild_sessions.log";
