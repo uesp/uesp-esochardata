@@ -24389,6 +24389,8 @@ window.EsoBuildCreateSetDataFromRules = function()
 
 window.EsoBuildCreateMundusDataFromRules = function()
 {
+	if (window.g_EsoBuildRules == null) return;
+	
 	var rules = g_EsoBuildRules['mundus'];
 	
 	if (rules == null) return false;
@@ -24424,6 +24426,8 @@ window.EsoBuildCreateMundusDataFromRules = function()
 
 window.EsoBuildCreateBuffDataFromRules = function()
 {
+	if (window.g_EsoBuildRules == null) return;
+	
 	var buffRules = g_EsoBuildRules['buff'];
 	
 	if (buffRules == null) return false;
@@ -24955,6 +24959,9 @@ window.CreateEsoBuildRuleCacheCps = function()
 window.esotbOnDocReady = function ()
 {
 	clearInterval(g_EsoCharDataTimeUpdateId);
+	
+	if (window.g_EsoBuildRules == null) return;
+	if (window.g_EsoInitialItemData == null) return;
 	
 	EsoBuildCreateMundusDataFromRules();
 	EsoBuildCreateBuffDataFromRules();

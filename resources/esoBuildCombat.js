@@ -5692,6 +5692,8 @@ Object.defineProperty(String.prototype, 'hashCode', {
 
 window.EsoBuildCombatMergeUniqueSkills = function()
 {
+	if (window.g_SkillsData == null) return;
+	
 	for (var i = 0; i < ESOBUILD_COMBAT_UNIQUE_SKILLS.length; ++i)
 	{
 		var uniqueSkill = ESOBUILD_COMBAT_UNIQUE_SKILLS[i];
@@ -11018,7 +11020,8 @@ window.UpdateEsoInitialCombatActionsData = function()
 	var hasResetOriginal = false;
 	var lastName = null;
 	
-	if (g_EsoBuildInitialCombatActions == null) return;
+	if (window.g_EsoBuildInitialCombatActions == null) return;
+	if (window.g_SkillsData == null) return;
 	
 	for (var rotationName in g_EsoBuildInitialCombatActions)
 	{
