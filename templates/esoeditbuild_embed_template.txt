@@ -1800,6 +1800,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			<b>29 March 2023</b>
 			<ul>
 				<li>Fixed the Crystal Fragment skill toggle not appearing when it should (and probably a few other toggles as well).</li>
+				<li>Fixed weapon enchants being a factor of 2 too large (and other discrepancies).</li>
 			</ul>
 			<p>
 			<b>14 February 2023</b>

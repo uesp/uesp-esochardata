@@ -24631,6 +24631,8 @@ window.ApplyEsoBuildRuleEffects = function(inputValues, ruleData, matchResults, 
 				var factorValue = 1;
 				var buffValue = parseFloat(matchResults[regexVar]);
 				
+				if (otherData.enchantFactor) factorValue = otherData.enchantFactor;
+				
 				if (effect.display == "%") factorValue *= 0.01;
 				if (effect.factorValue) factorValue *= effect.factorValue;
 				
