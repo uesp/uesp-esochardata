@@ -17770,7 +17770,7 @@ window.UpdateEsoBuildToggledSkillData = function (inputValues)
 			if (abilityData.skillDesc == null) continue;
 			if (toggleSkillData.matchData.match == null) continue;
 			
-			var desc = abilityData.skillDesc;
+			var desc = RemoveEsoDescriptionFormats(abilityData.skillDesc);
 			if (!desc.match(toggleSkillData.matchData.match)) continue;
 		}
 		
