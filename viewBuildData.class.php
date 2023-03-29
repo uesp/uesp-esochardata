@@ -30,6 +30,10 @@ class EsoBuildDataViewer
 	public $BUILD_TYPE = "build";
 	public $BUILD_TYPE_SHORT = "build";
 	
+		/* Share with builder? */
+	public $LIVE_RULES_VERSION = "37";
+	public $PTS_RULES_VERSION  = "37pts";
+	
 	public $hasCharacterInventory = false;
 	public $hasCharacterBank      = false;
 	public $hasCharacterCraftBag  = false;
@@ -45,6 +49,7 @@ class EsoBuildDataViewer
 	public $useDivImageTags		  = true;
 	public $viewMyBuilds		  = false;
 	public $suppressErrorOutput   = false;
+	public $includeSetSkillData	  = false;
 	
 	public $displayedCharacterCount = 0;
 	public $currentCharacterPage = 0;
@@ -1359,6 +1364,81 @@ class EsoBuildDataViewer
 	}
 	
 	
+	public function getSetSkillDataJS()
+	{
+		error_log("getSetSkillDataJS: {$this->includeSetSkillData}");
+		
+		if (!$this->includeSetSkillData) return "";
+		$output = "";
+		
+		$usePtsRules = $this->getCharStatField("UsePtsRules", "");
+		$currentVersion = $this->getCharStatField("RulesVersion", "");
+		
+		if ($currentVersion == "")
+		{
+			$currentVersion = "Live";
+			if ($usePtsRules > 0) $currentVersion = "PTS";
+		}
+		
+		$this->rulesVersion = $currentVersion;
+		
+		if ($currentVersion == "Live")
+		{
+			$currentVersion = $this->LIVE_RULES_VERSION;
+		}
+		else if ($currentVersion == "PTS")
+		{
+			$currentVersion = $this->PTS_RULES_VERSION;
+		}
+		
+		$this->realRulesVersion = $currentVersion;
+		$tableSuffix = GetEsoItemTableSuffix($this->realRulesVersion);
+		error_log("Loading setSkillData for table $currentVersion/$tableSuffix");
+		
+		$query = "SELECT * FROM uesp_esolog.minedSkills$tableSuffix WHERE setName!='';";
+		$result = $this->db->query($query);
+		if (!$result) return "/* Failed to load set skill data from table! */";
+		
+		$skillData = [];
+		$setSkillData = [];
+		
+		while ($row = $result->fetch_assoc())
+		{
+			$id = intval($row['id']);
+			$setName = strtolower($row['setName']);
+			
+			$row['abilityId'] = $row['id'];
+			$row['__isOutput'] = false;
+			$row['__index'] = $index;
+			$row['skillTypeName'] = "";
+			$row['baseName'] = $row['name'];
+			$row['maxRank'] = -1;
+			
+			$tooltipResult = $this->db->query("SELECT * FROM uesp_esolog.skillTooltips$tableSuffix WHERE abilityId='$id';");
+			$tooltips = [];
+			
+			while ($tooltipRow = $tooltipResult->fetch_assoc())
+			{
+				$tooltipIndex = intval($tooltipRow['idx']);
+				$tooltips[$tooltipIndex] = $tooltipRow;
+			}
+			
+			$row['tooltips'] = $tooltips;
+			
+			$skillData[$id] = $row;
+			$setSkillData[$setName] = $row;
+		}
+		
+		$jsonSkills = json_encode($skillData);
+		$jsonSetSkills = json_encode($setSkillData);
+		
+		$output = "var g_SetSkillsData = $jsonSetSkills;\n";
+		$output .= "var g_SkillsData = $jsonSkills;\n";
+		
+		return $output;
+	}
+	
+	
 	public function createCharacterOutput()
 	{
 		if ($this->viewRawData)
@@ -1390,7 +1470,7 @@ class EsoBuildDataViewer
 					'{characterId}' => $this->characterId,
 					'{race}' => $this->getCharField('race'),
 					'{class}' => $this->getCharField('class'),
-					'{special}' => $this->getCharField('special'),				
+					'{special}' => $this->getCharField('special'),
 					'{level}' => $this->formatCharacterLevel($this->getCharRawLevel()),
 					'{alliance}' => strtoupper($this->getCharStatField('Alliance')),
 					'{allianceRank}' => $this->getCharStatField('AllianceRank'),
@@ -1512,12 +1592,13 @@ class EsoBuildDataViewer
 					'{BuildDescription}' => $this->getCharStatField('BuildDescription', ''),
 					'{buildStatDataJson}' => $this->getBuildStatDataJson(),
 					'{extraCPClass}' => $this->getExtraCpClass(),
+					'{setSkillData}' => $this->getSetSkillDataJS(),
 			);
 		
 		$this->outputHtml .= strtr($this->htmlTemplate, $replacePairs);
 		
 		$this->CreateCharacterCache($this->outputHtml);
-			
+		
 		return true;
 	}
 	

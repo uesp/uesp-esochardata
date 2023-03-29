@@ -20179,6 +20179,7 @@ window.CreateEsoBuildItemSaveData = function (saveData, inputValues)
 		data.stolen = itemData.stolen;
 		data.style = itemData.style;
 		data.trait = itemData.trait;
+		data.traitDesc = itemData.traitDesc;
 		data.enchant = '';
 		
 		if (enchantData)

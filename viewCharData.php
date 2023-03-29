@@ -25,6 +25,8 @@
 require_once("viewCharData.class.php");
 
 $charDataViewer = new EsoCharDataViewer();
+$charDataViewer->includeSetSkillData = true;
+
 print($charDataViewer->getOutput());
 
 ?>

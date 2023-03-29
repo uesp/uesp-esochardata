@@ -24,6 +24,8 @@
 require_once("viewBuildData.class.php");
 
 $buildDataViewer = new EsoBuildDataViewer();
+$buildDataViewer->includeSetSkillData = true;
+
 print($buildDataViewer->getOutput());
 
 ?>

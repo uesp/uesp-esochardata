@@ -207,4 +207,5 @@
 	var ecdCharacterNames = {characterNamesJS};
 	var ecdCharacterId = {characterId};
 	var g_EsoBuildStatData = {buildStatDataJson};
+	{setSkillData}
 </script>

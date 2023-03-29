@@ -138,5 +138,6 @@
 
 <script type="text/javascript">
 	var g_EsoBuildStatData = {buildStatDataJson};
+	{setSkillData}
 </script>
 
