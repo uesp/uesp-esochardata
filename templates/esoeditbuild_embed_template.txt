@@ -1797,6 +1797,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>10 April 2023</b>
+			<ul>
+				<li>Added a 200% cap to the Sprint Speed computed stat.</li>
+			</ul>
+			<p>
 			<b>29 March 2023</b>
 			<ul>
 				<li>Fixed the Crystal Fragment skill toggle not appearing when it should (and probably a few other toggles as well).</li>
