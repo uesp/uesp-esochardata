@@ -11503,6 +11503,19 @@ window.GetEsoInputSpecialValues = function (inputValues)
 		g_EsoBuildBuffData['Lycanthropy'].skillEnabled = false;
 	}
 	
+		//Arcanist Crux
+	if (g_EsoBuildBuffData['Arcanist Crux'])
+	{
+		g_EsoBuildBuffData['Arcanist Crux'].ignore = false;
+		GetEsoInputBuffValue(inputValues, "Arcanist Crux", g_EsoBuildBuffData['Arcanist Crux']);
+		g_EsoBuildBuffData['Arcanist Crux'].ignore = true;
+		inputValues.Crux = inputValues.Skill.Crux;
+	}
+	else
+	{
+		inputValues.Crux = 0;
+	}
+	
 }
 
 
@@ -17471,7 +17484,8 @@ window.AddEsoBuildToggledSkillData = function (skillEffectData, isPassive)
 	g_EsoBuildToggledSkillData[id].enabled = skillEffectData.enabled;
 	g_EsoBuildToggledSkillData[id].combatEnabled = false;
 	g_EsoBuildToggledSkillData[id].count = 0;
-	g_EsoBuildToggledSkillData[id].maxTimes = skillEffectData.maxTimes;	
+	g_EsoBuildToggledSkillData[id].maxTimes = skillEffectData.maxTimes;
+	if (skillEffectData.minTimes) g_EsoBuildToggledSkillData[id].minTimes = skillEffectData.minTimes;
 	
 	if (skillEffectData.statId != null)
 		g_EsoBuildToggledSkillData[id].statIds.push(skillEffectData.statId);
@@ -17513,6 +17527,7 @@ window.CreateEsoBuildToggledSetDataInstance = function (setEffectData, id)
 		g_EsoBuildToggledSetData[id].displayName = setEffectData.displayName;
 		g_EsoBuildToggledSetData[id].disableSetId = setEffectData.disableSetId;
 		g_EsoBuildToggledSetData[id].disableSetIds = setEffectData.disableSetIds;
+		if (setEffectData.disableIds) g_EsoBuildToggledSetData[id].disableSetIds = setEffectData.disableIds.split(",");
 		g_EsoBuildToggledSetData[id].damageType = setEffectData.damageType;
 	}
 	
@@ -17571,6 +17586,8 @@ window.CreateEsoBuildToggledSetData = function ()
 			id = "Perfected " + id;
 			newEffectData.id = id;
 			newEffectData.addPerfected = false;
+			
+			if (newEffectData.setId) newEffectData.setId = "Perfected " + newEffectData.setId;
 			
 			CreateEsoBuildToggledSetDataInstance(newEffectData, id);
 			
@@ -18281,6 +18298,7 @@ window.OnEsoBuildToggleSkillNumber = function (e)
 	
 	if (value < 0) $(this).val("0");
 	if (toggleData.maxTimes != null && value > toggleData.maxTimes)  $(this).val(toggleData.maxTimes);
+	if (toggleData.minTimes != null && value < toggleData.minTimes)  $(this).val(toggleData.minTimes);
 	
 	UpdateEsoComputedStatsList();
 }
@@ -18298,6 +18316,7 @@ window.OnEsoBuildToggleSetNumber = function (e)
 	
 	if (value < 0) $(this).val("0");
 	if (toggleData.maxTimes != null && value > toggleData.maxTimes)  $(this).val(toggleData.maxTimes);
+	if (toggleData.minTimes != null && value < toggleData.minTimes)  $(this).val(toggleData.minTimes);
 	
 	UpdateEsoComputedStatsList();
 }
@@ -18324,6 +18343,11 @@ window.OnEsoBuildBuffNumberInput = function (e)
 		$(this).val(buffData.maxTimes);
 		value = buffData.maxTimes;
 	}
+	else if (buffData.minTimes != null && value < buffData.minTimes)
+	{
+		$(this).val(buffData.minTimes);
+		value = buffData.minTimes;
+	}
 	
 	buffData.count = value;
 	
@@ -18343,6 +18367,7 @@ window.OnEsoBuildToggleCpNumber = function (e)
 	
 	if (value < 0) $(this).val("0");
 	if (toggleData.maxTimes != null && value > toggleData.maxTimes)  $(this).val(toggleData.maxTimes);
+	if (toggleData.minTimes != null && value < toggleData.minTimes)  $(this).val(toggleData.minTimes);
 	
 	UpdateEsoComputedStatsList();
 }
@@ -18398,7 +18423,11 @@ window.CreateEsoBuildToggleSkillHtml = function (skillData)
 	
 	if (skillData.maxTimes != null) 
 	{
-		output += "<input type='number' class='esotbToggleSkillNumber'  value='" + skillData.count + "' >";
+		var minTimes = skillData.minTimes || 0;
+		var title = '' + minTimes + '-' + skillData.maxTimes;
+		if (skillData.toggleSuffix) title += skillData.toggleSuffix;
+		
+		output += "<input type='number' class='esotbToggleSkillNumber' title='" + title + "' value='" + skillData.count + "' >";
 	}
 	
 	var skillDesc = skillData.desc;
@@ -21614,7 +21643,7 @@ window.OnEsoEditBuildSetupEquipSet = function (element)
 		if (RequestEsoFindSetItemData('Ring2',     setName,    12, null, null, 66, qualityVal, traits[2], msgElement)) ++count;
 		if (RequestEsoFindSetItemData(weaponSlot1, setName,     weaponEquipTypes[0], null, weaponTypes[0], 66, qualityVal, traits[3], msgElement)) ++count;
 		
-		if (weaponTypes[1] > 0) {
+		if (weaponTypes[1] > 0 || weaponTypes[1] == null) {
 			if (RequestEsoFindSetItemData(weaponSlot2,  setName, weaponEquipTypes[1], null, weaponTypes[1], 66, qualityVal, traits[4], msgElement, onUespSetNoItemsFoundCallback)) ++count;
 		}
 		else {
@@ -24546,6 +24575,8 @@ window.ApplyEsoBuildRuleEffects = function(inputValues, ruleData, matchResults, 
 {
 	var addFinalEffect = false;
 	var rawInputDesc = null;
+	
+	if (ruleData.ignore === true) return false; 
 	
 	if (otherData) rawInputDesc = otherData.rawDesc;
 	

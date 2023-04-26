@@ -6,7 +6,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #ffc; margin-right: 270px;'>
-Note: Editor is partially working for update 37. Item/skill/CP data have been updated. New or updated items/skills may not be working yet.
+Note:Editor is not yet completely working for update 38pts. Skills, item, and CP data have been updated (including the Arcanist class). New/updated skills/items may not yet work correctly.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -777,8 +777,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 					<select id="esotbItemSetupMythicSet" style="width: 200px;">
 						<option slotid="Ring2">Belharza's Band</option>
 						<option slotid="Chest">Bloodlord's Embrace</option>
+						<option slotid="Chest" hidden disabled>Cryptcanon Vestments</option>
 						<option slotid="Ring1">Death Dealer's Fete</option>
-						<option slotid="Legs">Dov-rha Sabatons</option>
+						<option slotid="Feet">Dov-rha Sabatons</option>
+						<option slotid="Legs" hidden disabled>Esoteric Environment Greaves</option>
 						<option slotid="Chest">Faun's Lark Cladding</option>
 						<option slotid="Head">Gaze of Sithis</option>
 						<option slotid="Legs">Harpooner's Wading Kilt</option>
@@ -798,6 +800,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option slotid="Waist">Syrabane's Ward</option>
 						<option slotid="Hands">Thrassian Stranglers</option>
 						<option slotid="Neck">Torc of Tonal Constancy</option>
+						<option slotid="Neck" hidden disabled>Velothi Ur-Mage's Amulet</option>
 					</select>
 					
 					<button id="esotbItemSetupMonsterSetButton" onclick="OnEsoEditBuildSetupMythicSet(this);">Change</button>
@@ -809,6 +812,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 					<input type="text" id="esotbItemSetupEquipSet" list="esotbItemSetupEquipSetList" style="width: 200px;">
 					<datalist id="esotbItemSetupEquipSetList" style="width: 200px;">
 						<option hidden disabled>Abyssal Brace</option>
+						<option hidden disabled>Adamant Lurker</option>
 						<option>Adept Rider</option>
 						<option>Aegis Caller</option>
 						<option>Aegis of Galenwe</option>
@@ -822,6 +826,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Almalexia's Mercy</option>
 						<option>Amber Plasm</option>
 						<option>Ancient Dragonguard</option>
+						<option hidden disabled>Ansuul's Torment</option>
+						<option hidden disabled value='Perfected Ansuul\'s Torment'>Ansuul's Torment (Perfected)</option>
 						<option hidden disabled>Apocryphal Inspiration</option>
 						<option>Archer's Mind</option>
 						<option>Arkasis's Genius</option>
@@ -868,6 +874,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Burning Spellweave</option>
 						<option>Call of the Undertaker</option>
 						<option>Caluurion's Legacy</option>
+						<option hidden disabled>Camonna Tong</option>
 						<option>Champion of the Hist</option>
 						<option>Chimera's Rebuke</option>
 						<option>Claw of the Forest Wraith</option>
@@ -997,7 +1004,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Jailer's Tenacity</option>
 						<option>Jolting Arms</option>
 						<option>Jorvuld's Guidance</option>
-						<option hidden disabled>Judgement of Akatosh</option>
+						<option>Judgement of Akatosh</option>
+						<option hidden disabled>Judgment of Akatosh</option>
 						<option>Kagrenac's Hope</option>
 						<option>Kinras's Wrath</option>
 						<option>Knight Slayer</option>
@@ -1011,6 +1019,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Kynmarcher's Cruelty</option>
 						<option>Lamia's Song</option>
 						<option>Langour of Peryite</option>
+						<option hidden disable>Languor of Peryite</option>
 						<option>Law of Julianos</option>
 						<option>Leeching Plate</option>
 						<option>Legacy of Karth</option>
@@ -1067,6 +1076,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Overwhelming Surge</option>
 						<option>Pangrit Denmother</option>
 						<option>Para Bellum</option>
+						<option hidden disabled>Peace and Serenity</option>
+						<option hidden disabled value='Perfected Peace and Serenity'>Peace and Serenity (Perfect)</option>
 						<option>Pearlescent Ward</option>
 						<option value='Perfected Pearlescent Ward'>Pearlescent Ward (Perfect)</option>
 						<option>Pelinal's Wrath</option>
@@ -1121,6 +1132,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Scathing Mage</option>
 						<option>Scavenging Demise</option>
 						<option>Scorion's Feast</option>
+						<option hidden disabled>Seeker Synthesis</option>
 						<option>Senchal Defender</option>
 						<option>Senche's Bite</option>
 						<option>Senche-Raht's Grit</option>
@@ -1134,6 +1146,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Shadow Walker</option>
 						<option>Shalidor's Curse</option>
 						<option>Shalk Exoskeleton</option>
+						<option hidden disabled>Shattered Fate</option>
 						<option>Sheer Venom</option>
 						<option hidden disabled>Shell Splitter</option>
 						<option>Shield Breaker</option>
@@ -1182,7 +1195,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Syvarra's Scales</option>
 						<option>Talfyg's Treachery</option>
 						<option>Tava's Favor</option>
+						<option hidden disabled>Telvanni Efficiency</option>
 						<option hidden disabled>Telvanni Enforcer</option>
+						<option hidden disabled>Test of Resolve</option>
+						<option hidden disabled value='Perfected Test of Resolve'>Test of Resolve (Perfect)</option>
 						<option>The Arch-Mage</option>
 						<option>The Destruction Suite</option>
 						<option>The Ice Furnace</option>
@@ -1198,6 +1214,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Toothrow</option>
 						<option>Tormentor</option>
 						<option>Torug's Pact</option>
+						<option hidden disabled>Transformative Hope</option>
+						<option hidden disabled value='Perfected Transformative Hope'>Transformative Hope (Perfect)</option>
 						<option>Trappings of Invigoration</option>
 						<option>Treasure Hunter</option>
 						<option>Treasures of the Earthforge</option>
@@ -1237,6 +1255,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Viper's Sting</option>
 						<option>Virulent Shot</option>
 						<option value="Perfected Virulent Shot">Virulent Shot (Perfect)</option>
+						<option hidden disabled>Vivec's Duality</option>
 						<option>Voidcaller</option>
 						<option>Vrol's Command</option>
 						<option value="Perfected Vrol's Command">Vrol's Command (Perfect)</option>
@@ -1797,6 +1816,62 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>26 April 2023</b>
+			<ul>
+				<li>38pts: Fixed remaining Arcanist skill coefficients that were incorrect.</li>
+			</ul>
+			<p>
+			<b>25 April 2023</b>
+			<ul>
+				<li>38pts: Added all new sets to the quick item setup.</li>
+				<li>38pts: Added toggle for the Camonna Tong, Telvanni Efficiency, Esoteric Environment Greaves, Ansuul's Torment, Peace and Serenity, Seeker Synthesis, and Adamant Lurker sets.</li>
+				<li>38pts: Added parsing for the Velothi Ur-Mage's Amulet set.</li>
+				<li>Quick item setup now tries to equip two 1-hand weapons (instead of just 1) with the weapon types set to "Any".</li>
+				<li>Fixed set toggles that disable other set toggles.</li>
+				<li>Fixed formatting of skill tooltips for numbers with decimals.</li>
+				<li>Toggled sets with Perfected versions won't have both versions show up at the same time.</li>
+				<li>38pts: Fixed a bunch of skills that had incorrect skill coefficients (there's 2 new Arcanist skills that still need to be fixed).</li>
+			</ul>
+			<p>
+			<b>20 April 2023</b>
+			<ul>
+				<li>38pts: Fixed the Concealed Weapon skill parsing.</li>
+				<li>38pts: Fixed the Grim Focus skill toggle.</li>
+				<li>38pts: Fixed the Sacred Ground, Long Shots, Savage Strength, Battlefield Mobility, and Pursuits passives (and probably a few others).</li>
+				<li>38pts: Fixed the Old Growth Brewer, Crusader, Spectral Cloak, and Languor of Peryite sets.</li>
+				<li>38pts: Added new sets to the quick item setup.</li>
+				<li>38pts: Changed Empower to 70% from 80%.</li>
+			</ul>
+			<p>
+			<b>19 April 2023</b>
+			<ul>
+				<li>38pts: Added toggle for the Arcanist's Vitalizing Glyphic skill.</li>
+				<li>Toggled skills/sets with counts now can have a minimum value.</li>
+				<li>38pts: Added the Arcanist Crux buff to set the number of active Crux for various Arcanist skills (in the Skill section on the Buff tab).</li>
+				<li>38pts: Added parsing for the Arcanist's  Healing Tides passive.</li>
+				<li>38pts: Added parsing for the Arcanist's Erudition passive.</li>
+				<li>38pts: Added parsing for the Arcanists's Intricate Runeforms passive.</li>
+				<li>38pts: Added parsing for the Arcanists's Harnessed Quintessence passive.</li>
+				<li>38pts: Added parsing for the Arcanists's Psychic Lesion passive (currently has no effect as status effect damage is not shown anywhere).</li>
+				<li>38pts: Added parsing for the Arcanists's Splintered Secrets passive.</li>
+				<li>38pts: Added a toggle for the Arcanists's Aegis of the Unseen passive.</li>
+				<li>38pts: Added parsing for the Arcanists's Wellspring of the Abyss passive.</li>
+				<li>38pts: Added cost adjustment with Crux for the Arcanist's Runemend skill.</li>
+				<li>38pts: Added a toggle for the Arcanists's Arcanist's Domain skill.</li>
+				<li>38pts: Added damage adjustment with Crux for the Arcanist's Runeblades skill.</li>
+				<li>38pts: Added a toggle for the Arcanists's Abyssal Impact skill.</li>
+				<li>38pts: Added parsing for the Arcanists's Tome-Bearer's Inspiration skill.</li>
+				<li>38pts: Added damage taken adjustment with Crux for the Arcanist's Runic Jolt skill.</li>
+				<li>38pts: Added a toggle for the Arcanists's Runic Sunder skill.</li>
+			</ul>
+			<p> 
+			<b>17 April 2023</b>
+			<ul>
+				<li>38pts: Updated skill, item and CP data from PTS.</li>
+				<li>38pts: Added the Arcanist class.</li>
+				<li>Fixed the slot of the Dov-Rha Sabatons to be the Feet.</li>
+			</ul>
+			<p>
 			<b>10 April 2023</b>
 			<ul>
 				<li>Added a 200% cap to the Sprint Speed computed stat.</li>

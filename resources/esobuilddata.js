@@ -3334,7 +3334,7 @@ window.UpdateEsoBuildSetTooltips = function(setDesc, setName)
 			var constValue = matches[1];
 			
 			newTooltip = newTooltip.replaceAll(new RegExp(replaceDesc, "g"), function(match, p1, p2, p3, p4, p5, p6, p7, p8, p9) {
-				var fmtValue = constValue.replace(/([0-9]+)/, "<div style=\"color:#ffffff;display:inline;\">$1</div>");
+				var fmtValue = constValue.replace(/([0-9]+(?:[.][0-9]+|))/, "<div style=\"color:#ffffff;display:inline;\">$1</div>");
 				var result = p1 + fmtValue + p3;
 				if (p4) result += fmtValue + p5;
 				if (p6) result += fmtValue + p7;

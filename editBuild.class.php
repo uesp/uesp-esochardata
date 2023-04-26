@@ -16,6 +16,7 @@
  *  	- Overall "X damage taken" type state (Flame damage for vampires).
  *  	- Quick Item Setup: Nirnhoned items that don't exist?
  *  	- Swift Warrior melee attack for class abilities.
+ *  	- Status effect damage 
  */
 
 require_once("/home/uesp/secrets/esolog.secrets");
@@ -28,11 +29,11 @@ require_once(__DIR__."/viewBuildData.class.php");
 
 class EsoBuildDataEditor 
 {
-	public $PTS_VERSION = "37pts";	//TODO: Remove?
+	public $PTS_VERSION = "38pts";	//TODO: Remove?
 	
 	public $LOAD_RULES_FROM_DB = true;
 	public $LIVE_RULES_VERSION = "37";
-	public $PTS_RULES_VERSION  = "37pts";
+	public $PTS_RULES_VERSION  = "38pts";
 	
 	public $SESSION_DEBUG_FILENAME = "/var/log/httpd/esoeditbuild_sessions.log";
 	
@@ -128,6 +129,7 @@ class EsoBuildDataEditor
 	
 	public $STATS_UNIQUE_LIST = array(
 			"Skill.EnableFrostTaunt",
+			"Set.CompanionSkillCooldown",
 			"Item.Divines",
 			"Item.Bloodthirsty",
 			"Item.Sturdy",
@@ -202,6 +204,7 @@ class EsoBuildDataEditor
 			"Misc.SpellCost",
 			"VampireStage",
 			"WerewolfStage",
+			"SkillCost.Runemend_Cost",
 			"SkillCost.Simmering_Frenzy_Cost",
 			"SkillCost.Crystal_Fragments_Cost",
 			"SkillDamage.Crystal Fragments",
@@ -247,6 +250,7 @@ class EsoBuildDataEditor
 			"Skill.HAStaRestoreWerewolf",
 			"SkillDuration.Placeholder",
 			"SkillDamage.Placeholder",
+			"SkillDamage.Runeblades",
 			"SkillFlatDamage.Placeholder",
 			"SkillWeaponDamage.Placeholder",
 			"SkillSpellDamage.Placeholder",
@@ -554,6 +558,7 @@ class EsoBuildDataEditor
 			"MartialStatusEffectChance",
 			"MagicalStatusEffectChance",
 			"StatusEffectDuration",
+			"StatusEffectDamage",
 			"FallDamageTaken",
 			"SingleTargetDamageTaken",
 			"SingleTargetHealingDone",
@@ -657,6 +662,7 @@ class EsoBuildDataEditor
 	
 	
 	public $CLASS_TYPES = array(
+			"Arcanist",
 			"Dragonknight",
 			"Necromancer",
 			"Nightblade",
@@ -819,9 +825,11 @@ class EsoBuildDataEditor
 			),
 			
 			"SkillDamage.Crystal Fragments" => array( "display" => "%" ),
+			"SkillDamage.Runeblades" => array( "display" => "%" ),
 			"SkillDamage.Cleave_AOE" => array( "display" => "%" ),
 			"SkillDamage.Scatter_Shot_DOT" => array( "display" => "%" ),
 			"SkillCost.Crystal_Fragments_Cost" => array( "display" => "%" ),
+			"SkillCost.Runemend_Cost" => array( "display" => "%" ),
 			
 			"SkillCost.Undaunted_Cost" => array(
 					"display" => "%",
@@ -927,6 +935,7 @@ class EsoBuildDataEditor
 			"Enchant Potency Torug" => array( "display" => "%" ),
 			"Enchant Cooldown Infused" => array( "display" => "%" ),
 			"Enchant Cooldown Torug" => array( "display" => "%" ),
+			"Set.CompanionSkillCooldown"  => array( "display" => "%" ),
 			
 			"Set.EnchantCooldown" => array(
 					"display" => "%",
@@ -2331,7 +2340,8 @@ class EsoBuildDataEditor
 			"SkillCost.Shield_Wall_Cost" => array( "display" => "%" ),
 			"Skill.BurningDamage" => array( "display" => "%" ),
 			"Skill.PoisonedDamage" => array( "display" => "%" ),
-			"Skill.StatusEffectChance" => array( "display" => "%" ), 
+			"Skill.StatusEffectChance" => array( "display" => "%" ),
+			"Skill.StatusEffectDamage" => array( "display" => "%" ),
 			"Skill.BurningChance" => array( "display" => "%" ),
 			"Skill.ChilledChance" => array( "display" => "%" ),
 			"Skill.ConcussionChance" => array( "display" => "%" ),
@@ -2390,6 +2400,7 @@ class EsoBuildDataEditor
 			"CP.DoubleHarvestChance" => array( "display" => "%" ),
 			"CP.RepairArmorCost" => array( "display" => "%" ),
 			"CP.DamageShieldCost" => array( "display" => "%" ),
+			"Skill.DamageShieldCost" => array( "display" => "%" ),
 			"CP.DotHealingDone" => array( "display" => "%" ),
 			"CP.WayshrineCost" => array( "display" => "%" ),
 			"CP.StatusEffectDurationTaken" => array( "display" => "%" ),
@@ -6148,6 +6159,8 @@ class EsoBuildDataEditor
 							"Item.PotionDuration",
 							"Skill.PotionDuration",
 							"+",
+							"Set.PotionDuration",
+							"+",
 					),
 			),
 			
@@ -6524,12 +6537,12 @@ class EsoBuildDataEditor
 	{
 		$output = "";
 		$currentAlliance = $this->getCharField("alliance");
-	
+		
 		foreach ($this->ALLIANCE_TYPES as $name)
 		{
 			$selected = ($name == $currentAlliance) ? "selected" : "";
 			$output .= "<option value='$name' $selected>$name</option>";
-		}	
+		}
 		
 		return $output;
 	}
@@ -6541,13 +6554,14 @@ class EsoBuildDataEditor
 		
 		$currentClass = $this->getCharField('class');
 		if ($currentClass == "") $currentClass = "Dragonknight";
-	
+		
 		foreach ($this->CLASS_TYPES as $class)
 		{
+			if ($class == "Arcanist" && !IsEsoVersionAtLeast($this->realRulesVersion, "38")) continue;
 			$selected = ($currentClass == $class) ? "selected" : "";
 			$output .= "<option value='$class' $selected>$class</option>";
 		}
-	
+		
 		return $output;
 	}
 	
@@ -6558,7 +6572,7 @@ class EsoBuildDataEditor
 		
 		$currentRace = $this->getCharField('race');
 		if ($currentRace == "") $currentRace = "Argonian";
-	
+		
 		foreach ($this->RACE_TYPES as $name => $extra)
 		{
 			$extraDesc = "";
@@ -6566,7 +6580,7 @@ class EsoBuildDataEditor
 			$selected = ($currentRace == $name) ? "selected" : "";
 			$output .= "<option value='$name' $selected>$name$extraDesc</option>";
 		}
-	
+		
 		return $output;
 	}
 	
@@ -6574,15 +6588,15 @@ class EsoBuildDataEditor
 	public function GetVampireListHtml()
 	{
 		$output = "";
-	
+		
 		$currentStage = $this->GetCharVampireStage();
-	
+		
 		foreach ($this->VAMPIRESTAGE_TYPES as $stage => $display)
 		{
 			$selected = ($currentStage == $stage) ? "selected" : "";
 			$output .= "<option value='$stage' $selected>$display</option>";
 		}
-	
+		
 		return $output;
 	}
 	
@@ -6590,7 +6604,7 @@ class EsoBuildDataEditor
 	public function GetWerewolfListHtml()
 	{
 		$output = "";
-	
+		
 		$currentStage = $this->GetCharWerewolfStage();
 	
 		foreach ($this->WEREWOLFSTAGE_TYPES as $stage => $display)
@@ -7143,6 +7157,8 @@ class EsoBuildDataEditor
 		$this->viewSkills->displayClass = $this->getCharField('class', 'Dragonknight');
 		$this->viewSkills->displayRace = $this->getCharField('race', 'Argonian');
 		
+		if ($this->viewSkills->displayClass == "Arcanist")
+			$this->viewSkills->highlightSkillId = 183709;
 		if ($this->viewSkills->displayClass == "Dragonknight")
 			$this->viewSkills->highlightSkillId = 33963;
 		else if ($this->viewSkills->displayClass == "Nightblade")
@@ -7150,7 +7166,7 @@ class EsoBuildDataEditor
 		else if ($this->viewSkills->displayClass == "Sorcerer")
 			$this->viewSkills->highlightSkillId = 30538;
 		else if ($this->viewSkills->displayClass == "Templar")
-			$this->viewSkills->highlightSkillId = 23784;		
+			$this->viewSkills->highlightSkillId = 23784;
 		else if ($this->viewSkills->displayClass == "Warden")
 			$this->viewSkills->highlightSkillId = 85985;
 		else if ($this->viewSkills->displayClass == "Necromancer")
