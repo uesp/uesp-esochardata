@@ -1816,6 +1816,26 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>3 May 2023</b>
+			<ul>
+				<li>38pts: Added parsing for buffs when slotted for Deceptive Predator and Bird of Prey.</li>
+				<li>The Hawk's Eye set now modifies the Bow skill line damage.</li>
+				<li>Added a toggle for the player damage effect on the Markman's Crest set.</li>
+				<li>Added the Group Finder Bonus buff (in the Other section at the bottom of the buff tab).</li>
+			</ul>
+			<p>
+			<b>3 May 2023</b>
+			<ul>
+				<li>38pts: Fixed the Shapeshifter's Chain mythic.</li>
+				<li>The Pack Leader's Bone Broth consumable now modifies the Werewolf Transformation cost.</li>
+				<li>Added a toggle to the Riposte CP.</li>
+			</ul>
+			<p>
+			<b>1 May 2023</b>
+			<ul>
+				<li>38pts: Fixed the skill coefficients for the Sergeant's Mail set.</li>
+			</ul>
+			<p>
 			<b>26 April 2023</b>
 			<ul>
 				<li>38pts: Fixed remaining Arcanist skill coefficients that were incorrect.</li>
