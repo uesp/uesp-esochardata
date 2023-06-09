@@ -6,7 +6,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #ffc; margin-right: 270px;'>
-Note:Editor is not yet completely working for update 38pts. Skills, item, and CP data have been updated (including the Arcanist class). New/updated skills/items may not yet work correctly.
+Note: The editor is mostly working for Update 38 (Necrom). Item, skill and CP data have been updated. Some new/updated sets/skills/CPs might not work yet.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -1816,6 +1816,22 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>9 June 2023</b>
+			<ul>
+				<li>Fixed the Runic Sunder toggle to apply Minor Maim instead of Major Maim.</li>
+				<li>Updated the live ruleset from update 38 (Necrom). Updated all item, skill, and CP data.</li>
+			</ul>
+			<p>
+			<b>17 May 2023</b>
+			<ul>
+				<li>38pts: Updated all skill, CP, and item data from the latest PTS.</li>
+			</ul>
+			<p>
+			<b>12 May 2023</b>
+			<ul>
+				<li>Fixed the Perfected Cruel Flurry set toggle.</li>
+			</ul>
+			<p>
 			<b>3 May 2023</b>
 			<ul>
 				<li>38pts: Added parsing for buffs when slotted for Deceptive Predator and Bird of Prey.</li>
