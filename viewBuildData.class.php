@@ -1366,7 +1366,7 @@ class EsoBuildDataViewer
 	
 	public function getSetSkillDataJS()
 	{
-		error_log("getSetSkillDataJS: {$this->includeSetSkillData}");
+		//error_log("getSetSkillDataJS: {$this->includeSetSkillData}");
 		
 		if (!$this->includeSetSkillData) return "";
 		$output = "";
@@ -1393,7 +1393,7 @@ class EsoBuildDataViewer
 		
 		$this->realRulesVersion = $currentVersion;
 		$tableSuffix = GetEsoItemTableSuffix($this->realRulesVersion);
-		error_log("Loading setSkillData for table $currentVersion/$tableSuffix");
+		//error_log("Loading setSkillData for table $currentVersion/$tableSuffix");
 		
 		$query = "SELECT * FROM uesp_esolog.minedSkills$tableSuffix WHERE setName!='';";
 		$result = $this->db->query($query);
@@ -5026,16 +5026,16 @@ EOT;
 		
 		$query = "REPLACE into cache(characterId, html, createTimestamp) values($characterId, '$safeOutput', $charTimestamp);";
 		
-		error_log("CreateCharacterCache, $characterId, $charTimestamp, $size");
+		//error_log("CreateCharacterCache, $characterId, $charTimestamp, $size");
 		
 		$result = $this->db->query($query);
 		
 		if ($result === false) {
-			error_log("CreateCharacterCache Failed! ".$this->db->error);
+			//error_log("CreateCharacterCache Failed! ".$this->db->error);
 			return false;
 		}
 		
-		error_log("CreateCharacterCache Success!");
+		//error_log("CreateCharacterCache Success!");
 		
 		return true;
 	}	
@@ -5051,7 +5051,7 @@ EOT;
 		$result = $this->db->query($query);
 		if ($result === false || $result->num_rows == 0) return null;
 		
-		error_log("LoadCharacterCache Loaded!");
+		//error_log("LoadCharacterCache Loaded!");
 		
 		$cacheData = $result->fetch_assoc();
 		
@@ -5060,11 +5060,11 @@ EOT;
 		
 		if ($charTimestamp > $createTimestamp) 
 		{
-			error_log("LoadCharacterCache Cache too Old: $charTimestamp > $createTimestamp!");
+			//error_log("LoadCharacterCache Cache too Old: $charTimestamp > $createTimestamp!");
 			return null;
 		}
 		
-		error_log("LoadCharacterCache Success:  $charTimestamp <= $createTimestamp! ".strlen($cacheData['html']));
+		//error_log("LoadCharacterCache Success:  $charTimestamp <= $createTimestamp! ".strlen($cacheData['html']));
 		
 		return $cacheData['html'];
 	}
