@@ -6,7 +6,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #ffc; margin-right: 270px;'>
-Note: The editor is mostly working for Update 38 (Necrom). Item, skill and CP data have been updated. Some new/updated sets/skills/CPs might not work yet.
+Note: The editor should be mostly working for Update 39.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -661,6 +661,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Baron Thirsk</option>
 						<option>Baron Zaudrus</option>
 						<option>Chokethorn</option>
+						<option disabled hidden>Colovian Highlands General</option>
 						<option>Domihaus</option>
 						<option>Earthgore</option>
 						<option>Encratis's Behemoth</option>
@@ -673,6 +674,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Ilambris</option>
 						<option>Immolator Charr</option>
 						<option>Infernal Guardian</option>
+						<option disabled hidden>Jerall Mountains Warchief</option>
 						<option>Kargaeda</option>
 						<option>Kjalnar's Nightmare</option>
 						<option>Kra'gh</option>
@@ -687,6 +689,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Mother Ciannait</option>
 						<option>Nazaray</option>
 						<option>Nerien'eth</option>
+						<option disabled hidden>Nibenay Bay Battlereeve</option>
 						<option>Nightflame</option>
 						<option>Nunatak</option>
 						<option hidden disabled>Ozezan the Inferno</option>
@@ -1816,6 +1819,33 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>28 August 2023</b>
+			<ul>
+				<li>Updated items, skills, and CP data from Live update 39.</li>
+			</ul>
+			<p>
+			<b>14 July 2023</b>
+			<ul>
+				<li>39pts: Fixed the Camonna Tong and Velothi Ur-Mage's Amule sets.</li>
+				<li>Fixed the Stuhn's Favor, Esoteric Environment Greaves and Seeker Synthesis sets.</li>
+				<li>39pts: Fixed the Arcane Alacrity CP.</li>
+				<li>39pts: Fixed the Hawk Eye, Penetrating Magic, Twin Blade and Blunt, Ancient Knowledge, and Follow Up passives.</li>
+				<li>39pts: Added toggles for the Vinedusk Training passive.</li>
+				<li>Fixed the Aegis of the Unseen passive.</li>
+			</ul>
+			<p>
+			<b>12 July 2023</b>
+			<ul>
+				<li>39pts: Added 3 new monster mask sets to the quick item setup.</li>
+				<li>39pts: Fixed CP data.</li>
+				<li>39pts: Added a toggle for the Jerall Mountains Warchief and Nibenay Bay Battlereeve sets.</li>
+			</ul>
+			<p>
+			<b>11 July 2023</b>
+			<ul>
+				<li>39pts: Added ruleset and data from update 39 PTS.</li>
+			</ul>
+			<p>
 			<b>9 June 2023</b>
 			<ul>
 				<li>Fixed the Runic Sunder toggle to apply Minor Maim instead of Major Maim.</li>

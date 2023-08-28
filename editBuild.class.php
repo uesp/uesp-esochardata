@@ -32,8 +32,8 @@ class EsoBuildDataEditor
 	public $PTS_VERSION = "38pts";	//TODO: Remove?
 	
 	public $LOAD_RULES_FROM_DB = true;
-	public $LIVE_RULES_VERSION = "38";
-	public $PTS_RULES_VERSION  = "38pts";
+	public $LIVE_RULES_VERSION = "39";
+	public $PTS_RULES_VERSION  = "39pts";
 	
 	public $SESSION_DEBUG_FILENAME = "/var/log/httpd/esoeditbuild_sessions.log";
 	
@@ -196,6 +196,7 @@ class EsoBuildDataEditor
 			"Target.CritChance",
 			"Target.CritResistFactor",
 			"Target.HealingReceived",
+			"Target.HealingTaken",
 			"Target.HealingReduction",
 			"Target.DamageTaken",
 			"Target.SpellDebuff",
@@ -279,6 +280,7 @@ class EsoBuildDataEditor
 			"CP.TargetRecovery",
 			"CP.InspirationGained",
 			"Skill.DestructionPenetration",
+			"Skill2.DestructionPenetration",
 			"EnchantPotencyMainHand1",
 			"EnchantCooldownMainHand1",
 			"EnchantPotencyMainHand2",
@@ -1166,6 +1168,10 @@ class EsoBuildDataEditor
 			),
 			
 			"Target.HealingReceived" => array(
+					"display" => "%",
+			),
+			
+			"Target.HealingTaken" => array(
 					"display" => "%",
 			),
 			
