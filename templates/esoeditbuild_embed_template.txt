@@ -6,7 +6,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #ffc; margin-right: 270px;'>
-Note: The editor should be mostly working for Update 39.
+Note: The editor should be mostly working for Update 40PTS.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -1819,6 +1819,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>25 September 2023</b>
+			<ul>
+				<li>40pts: Updated items, skills, and CP data from PTS update 40.</li>
+			</ul>
+			<p>
 			<b>28 August 2023</b>
 			<ul>
 				<li>Updated items, skills, and CP data from Live update 39.</li>
