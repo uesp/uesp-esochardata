@@ -32,8 +32,10 @@ class EsoBuildDataEditor
 	public $PTS_VERSION = "38pts";	//TODO: Remove?
 	
 	public $LOAD_RULES_FROM_DB = true;
-	public $LIVE_RULES_VERSION = "39";
+	public $LIVE_RULES_VERSION = "40";
 	public $PTS_RULES_VERSION  = "40pts";
+	
+	public $READONLY = false;
 	
 	public $SESSION_DEBUG_FILENAME = "/var/log/httpd/esoeditbuild_sessions.log";
 	
@@ -7579,6 +7581,8 @@ class EsoBuildDataEditor
 	
 	public function GetSaveButtonDisabled()
 	{
+		if ($this->READONLY) return "disabled";
+		
 		if ($this->buildId <= 0)
 			$canEdit = $this->buildDataViewer->canWikiUserCreate();
 		else
@@ -7591,6 +7595,8 @@ class EsoBuildDataEditor
 	
 	public function GetCreateCopyButtonDisabled()
 	{
+		if ($this->READONLY) return "disabled";
+		
 		if ($this->buildId < 0)
 			$canCreate = false;
 		else
@@ -7603,6 +7609,8 @@ class EsoBuildDataEditor
 	
 	public function GetDeleteButtonDisabled()
 	{
+		if ($this->READONLY) return "disabled";
+		
 		if ($this->buildId < 0)
 			$canDelete = false;
 		else
@@ -7615,6 +7623,8 @@ class EsoBuildDataEditor
 	
 	public function GetSaveNote()
 	{
+		if ($this->READONLY) return "Builds have been set to read-only for maintenance.";
+		
 		$isNew = ($this->buildId <= 0);
 		
 		$canDelete = $this->buildDataViewer->canWikiUserDelete();

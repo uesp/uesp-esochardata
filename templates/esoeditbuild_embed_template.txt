@@ -6,7 +6,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #ffc; margin-right: 270px;'>
-Note: The editor should be mostly working for Update 40PTS.
+NOTE: The build editor is mostly working for update 40! Some new skills/items may not be correctly parsing yet. 
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -692,10 +692,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option disabled hidden>Nibenay Bay Battlereeve</option>
 						<option>Nightflame</option>
 						<option>Nunatak</option>
-						<option hidden disabled>Ozezan the Inferno</option>
+						<option>Ozezan the Inferno</option>
 						<option>Pirate Skeleton</option>
 						<option>Prior Thierric</option>
-						<option hidden disabled>Roksa the Warped</option>
+						<option>Roksa the Warped</option>
 						<option>Scourge Harvester</option>
 						<option>Selene</option>
 						<option>Sellistrix</option>
@@ -780,10 +780,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 					<select id="esotbItemSetupMythicSet" style="width: 200px;">
 						<option slotid="Ring2">Belharza's Band</option>
 						<option slotid="Chest">Bloodlord's Embrace</option>
-						<option slotid="Chest" hidden disabled>Cryptcanon Vestments</option>
+						<option slotid="Chest">Cryptcanon Vestments</option>
 						<option slotid="Ring1">Death Dealer's Fete</option>
 						<option slotid="Feet">Dov-rha Sabatons</option>
-						<option slotid="Legs" hidden disabled>Esoteric Environment Greaves</option>
+						<option slotid="Legs">Esoteric Environment Greaves</option>
 						<option slotid="Chest">Faun's Lark Cladding</option>
 						<option slotid="Head">Gaze of Sithis</option>
 						<option slotid="Legs">Harpooner's Wading Kilt</option>
@@ -803,7 +803,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option slotid="Waist">Syrabane's Ward</option>
 						<option slotid="Hands">Thrassian Stranglers</option>
 						<option slotid="Neck">Torc of Tonal Constancy</option>
-						<option slotid="Neck" hidden disabled>Velothi Ur-Mage's Amulet</option>
+						<option slotid="Neck">Velothi Ur-Mage's Amulet</option>
 					</select>
 					
 					<button id="esotbItemSetupMonsterSetButton" onclick="OnEsoEditBuildSetupMythicSet(this);">Change</button>
@@ -814,8 +814,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 					
 					<input type="text" id="esotbItemSetupEquipSet" list="esotbItemSetupEquipSetList" style="width: 200px;">
 					<datalist id="esotbItemSetupEquipSetList" style="width: 200px;">
-						<option hidden disabled>Abyssal Brace</option>
-						<option hidden disabled>Adamant Lurker</option>
+						<option>Abyssal Brace</option>
+						<option>Adamant Lurker</option>
 						<option>Adept Rider</option>
 						<option>Aegis Caller</option>
 						<option>Aegis of Galenwe</option>
@@ -829,9 +829,9 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Almalexia's Mercy</option>
 						<option>Amber Plasm</option>
 						<option>Ancient Dragonguard</option>
-						<option hidden disabled>Ansuul's Torment</option>
-						<option hidden disabled value='Perfected Ansuul\'s Torment'>Ansuul's Torment (Perfected)</option>
-						<option hidden disabled>Apocryphal Inspiration</option>
+						<option>Ansuul's Torment</option>
+						<option value='Perfected Ansuul\'s Torment'>Ansuul's Torment (Perfected)</option>
+						<option>Apocryphal Inspiration</option>
 						<option>Archer's Mind</option>
 						<option>Arkasis's Genius</option>
 						<option>Armor Master</option>
@@ -855,6 +855,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option value="Perfected Bahsei's Mania">Bahsei's Mania (Perfect)</option>
 						<option>Bani's Torment</option>
 						<option>Barkskin</option>
+						<option>Basalt-Blooded Warrior</option>
 						<option>Bastion of the Draoife</option>
 						<option>Bastion of the Heartland</option>
 						<option>Battalion Defender</option>
@@ -877,7 +878,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Burning Spellweave</option>
 						<option>Call of the Undertaker</option>
 						<option>Caluurion's Legacy</option>
-						<option hidden disabled>Camonna Tong</option>
+						<option>Camonna Tong</option>
 						<option>Champion of the Hist</option>
 						<option>Chimera's Rebuke</option>
 						<option>Claw of the Forest Wraith</option>
@@ -885,6 +886,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option value="Perfected Claw of Yolnahkriin">Claw of Yolnahkriin (Perfect)</option>
 						<option>Clever Alchemist</option>
 						<option>Coldharbour's Favorite</option>
+						<option>Colovian Highlands General</option>
 						<option>Combat Physician</option>
 						<option>Coral Riptide</option>
 						<option>Coward's Gear</option>
@@ -958,6 +960,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Galerion's Revenge</option>
 						<option>Gallant Charge</option>
 						<option value="Perfected Gallant Charge">Gallant Charge (Perfect)</option>
+						<option>Gardener of Seasons</option>
 						<option>Glacial Guardian</option>
 						<option>Glorious Defender</option>
 						<option>Gossamer</option>
@@ -1005,10 +1008,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Ironblood</option>
 						<option>Jailbreaker</option>
 						<option>Jailer's Tenacity</option>
+						<option>Jerall Mountains Warchief</option>
 						<option>Jolting Arms</option>
 						<option>Jorvuld's Guidance</option>
 						<option>Judgement of Akatosh</option>
-						<option hidden disabled>Judgment of Akatosh</option>
+						<option>Judgment of Akatosh</option>
 						<option>Kagrenac's Hope</option>
 						<option>Kinras's Wrath</option>
 						<option>Knight Slayer</option>
@@ -1051,6 +1055,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Meritorious Service</option>
 						<option>Might of the Lost Legion</option>
 						<option>Mighty Glacier</option>
+						<option>Monolith of Storms</option>
 						<option>Moondancer</option>
 						<option>Moon Hunter</option>
 						<option>Morkuldin</option>
@@ -1059,6 +1064,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Necropotence</option>
 						<option>Netch's Touch</option>
 						<option>New Moon Acolyte</option>
+						<option>Nibenay Bay Battlereeve</option>
 						<option>Night Mother's Embrace</option>
 						<option>Night Mother's Gaze</option>
 						<option>Night Terror</option>
@@ -1066,9 +1072,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Nikulas' Heavy Armor</option>
 						<option>Noble Duelist's Silks</option>
 						<option>Noble's Conquest</option>
+						<option>Nobility in Decay</option>
 						<option>Nocturnal's Favor</option>
 						<option>Nocturnal's Ploy</option>
-						<option hidden disabled>Nix-Hound's Howl</option>
+						<option>Nix-Hound's Howl</option>
 						<option>Oblivion's Edge</option>
 						<option>Oblivion's Foe</option>
 						<option>Old Growth Brewer</option>
@@ -1079,8 +1086,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Overwhelming Surge</option>
 						<option>Pangrit Denmother</option>
 						<option>Para Bellum</option>
-						<option hidden disabled>Peace and Serenity</option>
-						<option hidden disabled value='Perfected Peace and Serenity'>Peace and Serenity (Perfect)</option>
+						<option>Peace and Serenity</option>
+						<option value='Perfected Peace and Serenity'>Peace and Serenity (Perfect)</option>
 						<option>Pearlescent Ward</option>
 						<option value='Perfected Pearlescent Ward'>Pearlescent Ward (Perfect)</option>
 						<option>Pelinal's Wrath</option>
@@ -1111,12 +1118,13 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Rattlecage</option>
 						<option>Ravager</option>
 						<option>Reactive Armor</option>
+						<option>Reawakened Hierophant</option>
 						<option>Red Eagle's Fury</option>
 						<option>Redistributor</option>
 						<option>Relics of the Physician, Ansur</option>
 						<option>Relics of the Rebellion</option>
 						<option>Renald's Resolve</option>
-						<option hidden disabled>Ritemaster's Bond</option>
+						<option>Ritemaster's Bond</option>
 						<option>Roar of Alkosh</option>
 						<option>Roaring Opportunist</option>
 						<option value="Perfected Roaring Opportunist">Roaring Opportunist (Perfect)</option>
@@ -1125,7 +1133,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Robes of the Hist</option>
 						<option>Robes of the Withered Hand</option>
 						<option>Robes of Transmutation</option>
-						<option hidden disabled>Runecarver's Blaze</option>
+						<option>Runecarver's Blaze</option>
 						<option>Rush of Agony</option>
 						<option>Salvation</option>
 						<option>Sanctuary</option>
@@ -1135,7 +1143,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Scathing Mage</option>
 						<option>Scavenging Demise</option>
 						<option>Scorion's Feast</option>
-						<option hidden disabled>Seeker Synthesis</option>
+						<option>Seeker Synthesis</option>
 						<option>Senchal Defender</option>
 						<option>Senche's Bite</option>
 						<option>Senche-Raht's Grit</option>
@@ -1149,9 +1157,9 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Shadow Walker</option>
 						<option>Shalidor's Curse</option>
 						<option>Shalk Exoskeleton</option>
-						<option hidden disabled>Shattered Fate</option>
+						<option>Shattered Fate</option>
 						<option>Sheer Venom</option>
-						<option hidden disabled>Shell Splitter</option>
+						<option>Shell Splitter</option>
 						<option>Shield Breaker</option>
 						<option>Shield of the Valiant</option>
 						<option>Shroud of the Lich</option>
@@ -1160,9 +1168,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Sithis' Touch</option>
 						<option>Skooma Smuggler</option>
 						<option>Sload's Semblance</option>
-						<option hidden disabled>Snake in the Stars</option>
+						<option>Snake in the Stars</option>
 						<option>Soldier of Anguish</option>
 						<option>Song of Lamae</option>
+						<option>Soulcleaver</option>
 						<option>Soulshine</option>
 						<option>Spectral Cloak</option>
 						<option value="Perfected Spectral Cloak">Spectral Cloak (Perfect)</option>
@@ -1198,10 +1207,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Syvarra's Scales</option>
 						<option>Talfyg's Treachery</option>
 						<option>Tava's Favor</option>
-						<option hidden disabled>Telvanni Efficiency</option>
-						<option hidden disabled>Telvanni Enforcer</option>
-						<option hidden disabled>Test of Resolve</option>
-						<option hidden disabled value='Perfected Test of Resolve'>Test of Resolve (Perfect)</option>
+						<option>Telvanni Efficiency</option>
+						<option>Telvanni Enforcer</option>
+						<option>Test of Resolve</option>
+						<option value='Perfected Test of Resolve'>Test of Resolve (Perfect)</option>
 						<option>The Arch-Mage</option>
 						<option>The Destruction Suite</option>
 						<option>The Ice Furnace</option>
@@ -1217,8 +1226,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Toothrow</option>
 						<option>Tormentor</option>
 						<option>Torug's Pact</option>
-						<option hidden disabled>Transformative Hope</option>
-						<option hidden disabled value='Perfected Transformative Hope'>Transformative Hope (Perfect)</option>
+						<option>Transformative Hope</option>
+						<option value='Perfected Transformative Hope'>Transformative Hope (Perfect)</option>
 						<option>Trappings of Invigoration</option>
 						<option>Treasure Hunter</option>
 						<option>Treasures of the Earthforge</option>
@@ -1258,7 +1267,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Viper's Sting</option>
 						<option>Virulent Shot</option>
 						<option value="Perfected Virulent Shot">Virulent Shot (Perfect)</option>
-						<option hidden disabled>Vivec's Duality</option>
+						<option>Vivec's Duality</option>
 						<option>Voidcaller</option>
 						<option>Vrol's Command</option>
 						<option value="Perfected Vrol's Command">Vrol's Command (Perfect)</option>
@@ -1287,6 +1296,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Witchman Armor</option>
 						<option>Wizard's Riposte</option>
 						<option>Wrath of the Imperium</option>
+						<option>Wrathsun</option>
 						<option>Wretched Vitality</option>
 						<option>Wyrd Tree's Blessing</option>
 						<option>Yandir's Might</option>
@@ -1819,6 +1829,21 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>9 November 2023</b>
+			<ul>
+				<li>Updated skills, items and CP from update 40.</li>
+				<li>Fixed the active skills: Crystal Fragments, Bound Armor, Molten Whip, Concealed Weapon, and Vitalizing Glyphic</li>
+				<li>Fixed the passive skills: Ancient Knowledge, Heavy Weapons</li>
+				<li>Fixed 2 foods that weren't parsing their stat effects: Consummate Fried Guar Eggs and Consummate Sweet Roll.</li>
+				<li>Fixed the Pain's Refuge CP.</li>
+				<li>Added 10 new sets to the quick item setup and enabled some that were disabled.</li>
+			</ul>
+			<p>
+			<b>12 October 2023</b>
+			<ul>
+				<li>Fixed a save corruption issue due to a database upgrade from yesterday. Restored builds from the day before.</li>
+			</ul>
+			<p>
 			<b>25 September 2023</b>
 			<ul>
 				<li>40pts: Updated items, skills, and CP data from PTS update 40.</li>
