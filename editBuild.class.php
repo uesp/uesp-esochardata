@@ -292,8 +292,6 @@ class EsoBuildDataEditor
 			"EnchantPotencyOffHand2",
 			"EnchantCooldownOffHand2",
 			"Item.EnchantCooldown",
-			"Set.ClassSpellDamage",
-			"Set.ClassWeaponDamage",
 			"Item.SynergyBonus",
 			"BuildDescription",
 			"Skill.PoisonStaminaCost",
@@ -584,6 +582,10 @@ class EsoBuildDataEditor
 			"WayshrineCost",
 			"SingleTargetDamageDone",
 			"Set.BahseiMania",
+			"ClassSpellDamage",
+			"ClassWeaponDamage",
+			"StatusDamageDone",
+			"FlatDamageDone",
 	);
 	
 	
@@ -834,6 +836,9 @@ class EsoBuildDataEditor
 			"SkillDamage.Scatter_Shot_DOT" => array( "display" => "%" ),
 			"SkillCost.Crystal_Fragments_Cost" => array( "display" => "%" ),
 			"SkillCost.Runemend_Cost" => array( "display" => "%" ),
+			"SkillLineDamage.Siphoning" => array( "display" => "%" ),
+			"SkillHealing.Siphoning" => array( "display" => "%" ),
+			"SkillCost.Siphoning_Cost" => array( "display" => "%" ),
 			
 			"SkillCost.Undaunted_Cost" => array(
 					"display" => "%",
@@ -922,6 +927,11 @@ class EsoBuildDataEditor
 			"Skill2.CritDamage" => array(
 					"display" => "%",
 			),
+			
+			"Skill.ClassSpellDamage"  => array("display" => "%"),
+			"Skill.ClassWeaponDamage" => array("display" => "%"),
+			"Skill.ChannelDamageDone" => array("display" => "%"),
+			"Skill.StatusDamageDone" => array("display" => "%"),
 			
 			"Item.WeaponCrit" => array(
 					"display" => "%",

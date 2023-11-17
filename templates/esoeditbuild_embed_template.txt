@@ -5,7 +5,7 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #ffc; margin-right: 270px;'>
+<div style='background-color: #cfc; margin-right: 270px;'>
 NOTE: The build editor is mostly working for update 40! Some new skills/items may not be correctly parsing yet. 
 </div>
 {saveNote}
@@ -830,7 +830,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Amber Plasm</option>
 						<option>Ancient Dragonguard</option>
 						<option>Ansuul's Torment</option>
-						<option value='Perfected Ansuul\'s Torment'>Ansuul's Torment (Perfected)</option>
+						<option value="Perfected Ansuul's Torment">Ansuul's Torment (Perfected)</option>
 						<option>Apocryphal Inspiration</option>
 						<option>Archer's Mind</option>
 						<option>Arkasis's Genius</option>
@@ -1829,6 +1829,42 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>17 November 2023</b>
+			<ul>
+				<li>Flat damage from Dragon's Appetite and Draugrkin's Grip is now added to the base damage of the skill tooltip.</li>
+				<li>Fixed the 5 piece bonus of the Deadly Strike set.</li>
+				<li>Added an Enable/Disable button to the item search popup. For items this works the same as the little "-" button next to each item slot. It can also enable/disable enchantments.
+						Item tooltips won't show enchantments when they are disabled. Note that the enable state of an item/enchant is not saved.</li>
+			</ul>
+			<p>
+			<b>15 November 2023</b>
+			<ul>
+				<li>Perfect and non-perfect sets should can now be combined and set bonuses for perfect sets parsed as expected./li>
+				<li>Fixed some item data that was causing issues with quick item setups.</li>
+				<li>Added toggles for the Dragon's Appetite and Draugrkin's Grip 5 piece set bonus. This modifies the flat damage done for all damage tooltips.</li>
+			</ul>
+			<p>
+			<b>14 November 2023</b>
+			<ul>
+				<li>Added effect for the 5 piece bonus of the Soulcleaver set.</li>
+				<li>Fixed the Heavy Weapons passive having a double effect with Maces.</li>
+				<li>Fixed the display of set bonuses for perfected items in item tooltips.</li>
+			</ul>
+			<p>
+			<b>13 November 2023</b>
+			<ul>
+				<li>Perfected items and non-perfect items are counted as the same set now. Note that the tooltip for Perfect set items is currently applying to non-perfect sets.</li>
+			</ul>
+			<p>
+			<b>10 November 2023</b>
+			<ul>
+				<li>Added toggled for the Solar Flare class spell/weapon damage effect.</li>
+				<li>Fixed Ancient Knowledge when using a Fire Staff.</li>
+				<li>Off-bar abilities like Bound Armor should now work when in the non-active skillbar.</li>
+				<li>Fixed the CP "Purchase All" button which would cause some purchased CPs to not have the correct values.</li>
+				<li>Adjusted how the Health Regen portion of Battle Spirit affects the stat to match that in-game.</li>
+			</ul>
+			<p>
 			<b>9 November 2023</b>
 			<ul>
 				<li>Updated skills, items and CP from update 40.</li>
