@@ -201,7 +201,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		if ($result === False) return $this->reportError("Failed to load account record for '$account'!");
-		if ($result->num_rows == 0) return $this->reportError("Failed to load account record '$account'!");;
+		if ($result->num_rows == 0) return $this->reportError("No account record '$account' found!");;
 		
 		$result->data_seek(0);
 		$this->accountData = array_merge($this->accountData, $result->fetch_assoc());
