@@ -130,6 +130,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		$account = $this->getSafeFieldStr($this->accountData, 'account');
 		$wikiUserName = $this->getSafeFieldStr($this->accountData, 'wikiUserName');
 		$salt = $this->getSafeFieldStr($this->accountData, 'salt');
+		$salt = substr($salt, 0, 16);
 		$passwordHash = $this->getSafeFieldStr($this->accountData, 'passwordHash');
 		
 		$query  = "UPDATE account SET passwordHash=\"$passwordHash\", salt=\"$salt\", wikiUserName=\"$wikiUserName\" ";
@@ -155,7 +156,8 @@ class EsoCharDataParser extends EsoBuildDataParser
 	public function updateAccountPassword($newPassword)
 	{
 		$salt = $this->accountData['salt'];
-		$newSalt = uniqid('', true);
+		$salt = substr($salt, 0, 16);
+		$newSalt = substr(uniqid('', true), 0, 16);
 		$passwordHash = "0";
 		if ($newPassword == null) $newPassword = "";
 		if ($newPassword != "")	$passwordHash = crypt($newPassword, '$5$'.$salt);
@@ -178,6 +180,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 		$account = $this->getSafeFieldStr($this->accountData, 'account');
 		$wikiUserName = $this->getSafeFieldStr($this->accountData, 'wikiUserName'); 
 		$salt = $this->accountData['salt'];
+		$salt = substr($salt, 0, 16);
 		$passwordHash = $this->accountData['passwordHash'];
 
 		$query  = "INSERT INTO account(account, passwordHash, salt, wikiUserName)";
@@ -193,7 +196,7 @@ class EsoCharDataParser extends EsoBuildDataParser
 	public function loadAccount($account)
 	{
 		$safeAccount = $this->db->real_escape_string($account);
-			
+		
 		$query  = "SELECT * FROM account WHERE account=\"$safeAccount\" LIMIT 1;";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);

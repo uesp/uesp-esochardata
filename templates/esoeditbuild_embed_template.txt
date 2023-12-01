@@ -1829,6 +1829,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>20 November 2023</b>
+			<ul>
+				<li>Fixed the Markyn Ring of Majesty, Pearlescent Ward, Coral Riptide, Mora's Whispers and Bahsei's Mania sets that were causing errors after loading.</li>
+			</ul>
+			<p>
 			<b>17 November 2023</b>
 			<ul>
 				<li>Flat damage from Dragon's Appetite and Draugrkin's Grip is now added to the base damage of the skill tooltip.</li>

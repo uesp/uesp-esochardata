@@ -3160,6 +3160,7 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 	{
 		var matchResult = newDesc.match(/Gain (?:\<div[^>]*\>|)([0-9]+)(?:\<\/div\>|) Weapon and Spell Damage and (?:\<div[^>]*\>|)([0-9]+)(?:\<\/div\>|) Armor /);
 		if (!matchResult) return p1 + weaponDamage + p2 + armor + p3;
+		if (!g_EsoBuildLastInputValues) return p1 + value + p2;
 		
 		var damageAmt = parseInt(matchResult[1]);
 		var armorAmt = parseInt(matchResult[2]);
@@ -3179,6 +3180,7 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 	{
 		var matchResult = newDesc.match(/by up to (?:\<div[^>]*\>|)([0-9%]+)(?:\<\/div\>|)(?:%|) based on your missing magicka/i);
 		if (!matchResult || !matchResult[1]) return p1 + value + p2;
+		if (!g_EsoBuildLastInputValues ||!g_EsoBuildLastInputValues.Set) return p1 + value + p2;
 		
 		if (g_EsoBuildLastInputValues.Set.BahseiMania == null || g_EsoBuildLastInputValues.Set.BahseiMania == 0) return p1 + value + p2;
 		
@@ -3195,6 +3197,7 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 	{
 		var matchResult = newDesc.match(/Increase your Weapon and Spell Damage by up to (?:\<div[^>]*\>|)([0-9]+)(?:\<\/div\>|) based on your missing Stamina,/i);
 		if (!matchResult || !matchResult[1]) return p1 + value + p2;
+		if (!g_EsoBuildLastInputValues ||!g_EsoBuildLastInputValues.Set) return p1 + value + p2;
 		
 		if (g_EsoBuildLastInputValues.Set.CoralRiptide == null || g_EsoBuildLastInputValues.Set.CoralRiptide == 0) return p1 + value + p2;
 		
@@ -3207,6 +3210,7 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 		// Current Bonus: 0 Critical Chance 0% Inspiration, Alliance Rank, and Alliance skill 0% monster kill experience.
 	newDesc = newDesc.replace(/(Current bonus:.*?(?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|) Critical Chance.*?(?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|)% Inspiration, Alliance Rank, and Alliance skill.*?(?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|)% monster kill experience)/i, function(match, p1, critValue, p2, inspValue, p3, killValue, p4)
 	{
+		if (!g_EsoBuildLastInputValues) return p1 + critValue + p2 + inspValue + p3 + killValue + p4;
 		if (g_EsoBuildLastInputValues.Set.MorasWhispers == null || g_EsoBuildLastInputValues.Set.MorasWhispers == 0) return p1 + critValue + p2 + inspValue + p3 + killValue + p4;
 		
 		var maxCrit = 1528;
@@ -3234,6 +3238,7 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 		// Current 180 Weapon and Spell Damage. Pearlescent Ward increases damage reduction from non-player enemies out of 66% based on the number of group members that are dead. Current 0% damage reduction.
 	newDesc = newDesc.replace(/(Current (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|) Weapon and Spell Damage.*?Current (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|)% damage reduction)/i, function(match, p1, damageValue, p2, reductValue, p3)
 	{
+		if (!g_EsoBuildLastInputValues) return p1 + damageValue + p2 + reductValue + p3;
 		if (g_EsoBuildLastInputValues.Set.PearlescentWard == null || g_EsoBuildLastInputValues.Set.PearlescentWard == 0) return p1 + damageValue + p2 + reductValue + p3;
 		
 		var maxDamage = 180;
