@@ -208,7 +208,7 @@ class EsoBuildDataParser
 						icon TINYTEXT NOT NULL DEFAULT '',
 						`index` INTEGER NOT NULL DEFAULT '0',
 						setCount INTEGER NOT NULL DEFAULT '0',
-						value INTEGER NOT NULL DEFAULT 0'',
+						value INTEGER NOT NULL DEFAULT '0',
 						level TINYINT NOT NULL DEFAULT '0',
 						quality TINYINT NOT NULL DEFAULT '0',
 						type TINYINT NOT NULL DEFAULT '0',
@@ -1151,6 +1151,12 @@ class EsoBuildDataParser
 		$safeLink = $this->db->real_escape_string($itemLink);
 		$safeName = $this->db->real_escape_string($itemName);
 		
+		if ($type == '' || $type == null) $type = 0;
+		if ($equipType == '' || $equipType == null) $equipType = 0;
+		if ($weaponType == '' || $weaponType == null) $weaponType = 0;
+		if ($armorType == '' || $armorType == null) $armorType = 0;
+		if ($craftType == '' || $craftType == null) $craftType = 0;
+		
 		$query  = "INSERT INTO inventory(characterId, account, name, itemLink, qnt, style, stolen, value, quality, level, type, equipType, weaponType, armorType, craftType, icon, consumable, junk, setName, trait) ";
 		$query .= "VALUES($charId, \"$accountName\", \"$safeName\", \"$safeLink\", $qnt, $style, $stolen, $value, $quality, $level, $type, $equipType, $weaponType, $armorType, $craftType, \"$icon\", $consumable, $isJunk, \"$setName\", $trait);";
 		$this->lastQuery = $query;
@@ -1734,7 +1740,7 @@ class EsoBuildDataParser
 			}
 		}
 	
-		if (!array_key_exists('chardata', $this->inputParams)) 
+		if (!array_key_exists('chardata', $this->inputParams))
 		{
 			$this->formResponseErrorMsg = "Failed to find any character data form input to parse!"; 
 			header('X-PHP-Response-Code: 500', true, 500);

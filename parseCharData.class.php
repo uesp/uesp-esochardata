@@ -466,7 +466,9 @@ class EsoCharDataParser extends EsoBuildDataParser
 		
 		if ($charData['CharId'] != $oldCharData['charId']) 
 		{
-			$this->log("Character access Denied...character IDs do not match! {$charData['CharId']} != {$oldCharData['charId']}");
+			$msg = "Character access Denied...character IDs do not match! {$charData['CharId']} != {$oldCharData['charId']}";
+			$this->log($msg);
+			$this->formResponseErrorMsg .= $msg;
 			return false;
 		}
 		
