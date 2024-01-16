@@ -1,47 +1,47 @@
 @font-face {
 	font-family: 'EsoFontStyle';
-	src: url('esofontregular-webfont.eot');
-	src: url('esofontregular-webfont.eot?#iefix') format('embedded-opentype'),
-		url('esofontregular-webfont.woff2') format('woff2'),
-		url('esofontregular-webfont.woff') format('woff'),
-		url('esofontregular-webfont.ttf') format('truetype'),
-		url('esofontregular-webfont.svg#esofontregular') format('svg');
+	src: url('//esobuilds-static.uesp.net/resources/esofontregular-webfont.eot');
+	src: url('//esobuilds-static.uesp.net/resources/esofontregular-webfont.eot?#iefix') format('embedded-opentype'),
+		url('//esobuilds-static.uesp.net/resources/esofontregular-webfont.woff2') format('woff2'),
+		url('//esobuilds-static.uesp.net/resources/esofontregular-webfont.woff') format('woff'),
+		url('//esobuilds-static.uesp.net/resources/esofontregular-webfont.ttf') format('truetype'),
+		url('//esobuilds-static.uesp.net/resources/esofontregular-webfont.svg#esofontregular') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'EsoFontStyle';
-	src: url('esofontbold-webfont.eot');
-	src: url('esofontbold-webfont.eot?#iefix') format('embedded-opentype'),
-		url('esofontbold-webfont.woff2') format('woff2'),
-		url('esofontbold-webfont.woff') format('woff'),
-		url('esofontbold-webfont.ttf') format('truetype'),
-		url('esofontbold-webfont.svg#esofontbold') format('svg');
+	src: url('//esobuilds-static.uesp.net/resources/esofontbold-webfont.eot');
+	src: url('//esobuilds-static.uesp.net/resources/esofontbold-webfont.eot?#iefix') format('embedded-opentype'),
+		url('//esobuilds-static.uesp.net/resources/esofontbold-webfont.woff2') format('woff2'),
+		url('//esobuilds-static.uesp.net/resources/esofontbold-webfont.woff') format('woff'),
+		url('//esobuilds-static.uesp.net/resources/esofontbold-webfont.ttf') format('truetype'),
+		url('//esobuilds-static.uesp.net/resources/esofontbold-webfont.svg#esofontbold') format('svg');
 	font-weight: bold;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'EsoFontStyleAlt';
-	src: url('esofontregular-webfont.eot');
-	src: url('esofontregular-webfont.eot?#iefix') format('embedded-opentype'),
-		url('esofontregular-webfont.woff2') format('woff2'),
-		url('esofontregular-webfont.woff') format('woff'),
-		url('esofontregular-webfont.ttf') format('truetype'),
-		url('esofontregular-webfont.svg#esofontregular') format('svg');
+	src: url('//esobuilds-static.uesp.net/resources/esofontregular-webfont.eot');
+	src: url('//esobuilds-static.uesp.net/resources/esofontregular-webfont.eot?#iefix') format('embedded-opentype'),
+		url('//esobuilds-static.uesp.net/resources/esofontregular-webfont.woff2') format('woff2'),
+		url('//esobuilds-static.uesp.net/resources/esofontregular-webfont.woff') format('woff'),
+		url('//esobuilds-static.uesp.net/resources/esofontregular-webfont.ttf') format('truetype'),
+		url('//esobuilds-static.uesp.net/resources/esofontregular-webfont.svg#esofontregular') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'EsoFontStyleAlt';
-	src: url('esofontbold-webfont.eot');
-	src: url('esofontbold-webfont.eot?#iefix') format('embedded-opentype'),
-		url('esofontbold-webfont.woff2') format('woff2'),
-		url('esofontbold-webfont.woff') format('woff'),
-		url('esofontbold-webfont.ttf') format('truetype'),
-		url('esofontbold-webfont.svg#esofontbold') format('svg');
+	src: url('//esobuilds-static.uesp.net/resources/esofontbold-webfont.eot');
+	src: url('//esobuilds-static.uesp.net/resources/esofontbold-webfont.eot?#iefix') format('embedded-opentype'),
+		url('//esobuilds-static.uesp.net/resources/esofontbold-webfont.woff2') format('woff2'),
+		url('//esobuilds-static.uesp.net/resources/esofontbold-webfont.woff') format('woff'),
+		url('//esobuilds-static.uesp.net/resources/esofontbold-webfont.ttf') format('truetype'),
+		url('//esobuilds-static.uesp.net/resources/esofontbold-webfont.svg#esofontbold') format('svg');
 	font-weight: bold;
 	font-style: normal;
 }

@@ -127,7 +127,7 @@ class EsoBuildDataViewer
 	public $lastQuery = "";
 	
 	public $baseUrl = "viewBuildData.php";
-	public $baseResourceUrl = "//esobuilds.uesp.net/";
+	public $baseResourceUrl = "//esobuilds-static.uesp.net/";
 	
 	public $skillDataDisplay = 'block';
 	public $skillTreeFirstName = '';

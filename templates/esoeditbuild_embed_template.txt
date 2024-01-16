@@ -142,7 +142,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 					<div class="esotbItemDetailsButton esotbItemButton">...</div>
 					<div class="esotbItemEnchantButton esotbItemButton">*</div>
 					<div class="esotbItemTransmute">
-						<!-- <img src="//esoitem.uesp.net/resources/transmute_icon.png" class="esotbItemTransmuteIcon"> -->
+						<!-- <img src="//esolog-static.uesp.net/resources/transmute_icon.png" class="esotbItemTransmuteIcon"> -->
 						<select id="esotbItemTransmuteHead" slotid="Head" class="esotbItemTransmuteList">
 							<option value="0" hidden>No Trait</option>
 							<option value="18">Divines</option>
@@ -1627,7 +1627,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 				<div id="esotbCombatTopArea">
 					<div id="esotbCombatPlayerActions">
 						<div class="esotbCombatAddSlot ui-droppable" id="esotbCombatAddSlot">
-							<img alt="[Add Combat Slot]" src="//esolog.uesp.net/resources/pointsplus_up.png">
+							<img alt="[Add Combat Slot]" src="//esolog-static.uesp.net/resources/pointsplus_up.png">
 							<div class="esovsCombatSkillName">Add Slot</div>
 						</div>
 					</div>
