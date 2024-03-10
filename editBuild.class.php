@@ -33,7 +33,7 @@ class EsoBuildDataEditor
 	
 	public $LOAD_RULES_FROM_DB = true;
 	public $LIVE_RULES_VERSION = "40";
-	public $PTS_RULES_VERSION  = "40pts";
+	public $PTS_RULES_VERSION  = "41pts";
 	
 	public $READONLY = false;
 	
@@ -201,6 +201,7 @@ class EsoBuildDataEditor
 			"Target.HealingTaken",
 			"Target.HealingReduction",
 			"Target.DamageTaken",
+			"Target.DamageDone",
 			"Target.SpellDebuff",
 			"Target.PhysicalDebuff",
 			"Target.EffectiveLevel",
@@ -476,6 +477,7 @@ class EsoBuildDataEditor
 			"SneakCost",
 			"BreakFreeCost",
 			"BreakFreeDuration",
+			"CrowdControlDuration",
 			"Constitution",
 			"DamageShield",
 			"DotDamageDone",
@@ -1372,6 +1374,10 @@ class EsoBuildDataEditor
 			),
 			
 			"Target.DamageTaken" => array(
+					"display" => "%",
+			),
+			
+			"Target.DamageDone" => array(
 					"display" => "%",
 			),
 			
@@ -2423,6 +2429,8 @@ class EsoBuildDataEditor
 			"CP.WayshrineCost" => array( "display" => "%" ),
 			"CP.StatusEffectDurationTaken" => array( "display" => "%" ),
 			"CP.BreakFreeDuration" => array( "display" => "%" ),
+			"Set.CrowdControlDuration" => array( "display" => "%" ),
+			"Target.CrowdControlDuration" => array( "display" => "%" ),
 			"Set.WeaponTraitEffect" => array( "display" => "%" ),
 			"Set.BahseiMania" => array( "display" => "%" ),
 	);

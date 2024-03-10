@@ -5,8 +5,8 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #cfc; margin-right: 270px;'>
-NOTE: The build editor is mostly working for update 40! Some new skills/items may not be correctly parsing yet. 
+<div style='background-color: #ffc; margin-right: 270px;'>
+NOTE: The build editor is mostly working for update 41pts! Some new skills/items may not be correctly parsing yet. 
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -655,11 +655,13 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 					<div class="esotbItemSetupTitle">Equip Monster Set</div>
 					
 					<select id="esotbItemSetupMonsterSet" style="width: 200px;">
+						<option hidden disabled>Anthelmir's Construct</option>
 						<option>Archdruid Devyric</option>
 						<option>Balorgh</option>
 						<option>Bloodspawn</option>
 						<option>Baron Thirsk</option>
 						<option>Baron Zaudrus</option>
+						<option hidden disabled>The Blind</option>
 						<option>Chokethorn</option>
 						<option disabled hidden>Colovian Highlands General</option>
 						<option>Domihaus</option>
@@ -849,6 +851,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Auroran's Thunder</option>
 						<option>Automated Defense</option>
 						<option>Azureblight Reaper</option>
+						<option hidden disabled>Baan Dar's Blessing</option>
 						<option>Back-Alley Gourmand</option>
 						<option>Bahraha's Curse</option>
 						<option>Bahsei's Mania</option>
@@ -863,12 +866,15 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Beckoning Steel</option>
 						<option>Beekeeper's Gear</option>
 						<option>Berserking Warrior</option>
+						<option hidden disabled>Black-Glove Grounding</option>
 						<option>Black Rose</option>
 						<option>Blessing of High Isle</option>
 						<option>Blessing of the Potentates</option>
+						<option hidden disabled>Blind Path Induction</option>
 						<option>Blood Moon</option>
 						<option>Blooddrinker</option>
 						<option>Bloodthorn's Touch</option>
+						<option hidden disabled>Blunted Blades</option>
 						<option>Bog Raider</option>
 						<option>Bone Pirate's Tatters</option>
 						<option>Brands of Imperium</option>
@@ -881,6 +887,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Camonna Tong</option>
 						<option>Champion of the Hist</option>
 						<option>Chimera's Rebuke</option>
+						<option hidden disabled>Cinders of Anthelmir</option>
 						<option>Claw of the Forest Wraith</option>
 						<option>Claw of Yolnahkriin</option>
 						<option value="Perfected Claw of Yolnahkriin">Claw of Yolnahkriin (Perfect)</option>
@@ -1076,6 +1083,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Nocturnal's Favor</option>
 						<option>Nocturnal's Ploy</option>
 						<option>Nix-Hound's Howl</option>
+						<option hidden disabled>Oakfather's Retribution</option>
 						<option>Oblivion's Edge</option>
 						<option>Oblivion's Foe</option>
 						<option>Old Growth Brewer</option>
@@ -1121,6 +1129,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Reawakened Hierophant</option>
 						<option>Red Eagle's Fury</option>
 						<option>Redistributor</option>
+						<option hidden disabled>Reflected Fury</option>
 						<option>Relics of the Physician, Ansur</option>
 						<option>Relics of the Rebellion</option>
 						<option>Renald's Resolve</option>
@@ -1168,6 +1177,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Sithis' Touch</option>
 						<option>Skooma Smuggler</option>
 						<option>Sload's Semblance</option>
+						<option hidden disabled>Sluthrug's Hunger</option>
 						<option>Snake in the Stars</option>
 						<option>Soldier of Anguish</option>
 						<option>Song of Lamae</option>
@@ -1206,6 +1216,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Systres' Scowl</option>
 						<option>Syvarra's Scales</option>
 						<option>Talfyg's Treachery</option>
+						<option hidden disabled>Tarnished Nightmare</option>
 						<option>Tava's Favor</option>
 						<option>Telvanni Efficiency</option>
 						<option>Telvanni Enforcer</option>
@@ -1829,6 +1840,22 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>14 February 2024</b>
+			<ul>
+				<li>Updated Light Attack coefficients and max damage.</li>
+			</ul>
+			<p>
+			<b>12 February 2024</b>
+			<ul>
+				<li>41pts: Added 11 new sets to the quick item setup.</li>
+				<li>41pts: Added a toggle for the Sluthrug's Hunger, Blind Path Induction, Blunted Blades, Baan Dar's Blessing, Oakfather's Retribution, and Black-Glove Grounding sets.</li>
+			</ul>
+			<p>
+			<b>7 February 2024</b>
+			<ul>
+				<li>41pts: Added 41pts ruleset and data.</li>
+			</ul>
+			<p>
 			<b>20 November 2023</b>
 			<ul>
 				<li>Fixed the Markyn Ring of Majesty, Pearlescent Ward, Coral Riptide, Mora's Whispers and Bahsei's Mania sets that were causing errors after loading.</li>
