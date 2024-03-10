@@ -575,14 +575,14 @@ class EsoBuildDataSaver
 			if (!$this->canCreateBuilds) return $this->ReportError("Create Build: Permission Denied! WikiUser = {$this->wikiUserName}");
 			
 			$this->parsedBuildData['Build']['createTime'] = time();
-			$this->parsedBuildData['Build']['uploadTimestamp'] = date('Y-m-d G:i:s');
+			$this->parsedBuildData['Build']['uploadTimestamp'] = date('Y-m-d H:i:s');
 		}
 		else
 		{
 			if (!$this->canEditBuilds) return $this->ReportError("Edit Build: Permission Denied! BuildId = {$this->buildId}, WikiUser = {$this->wikiUserName}");
 		}
 		
-		$this->parsedBuildData['Build']['editTimestamp'] = date('Y-m-d G:i:s');
+		$this->parsedBuildData['Build']['editTimestamp'] = date('Y-m-d H:i:s');
 		
 		$query = $this->CreateQuery("characters", $this->parsedBuildData['Build'], $this->BUILD_FIELDS,  $this->BUILD_UPDATE_FIELDS);
 		if ($query === false || $query == "") return $this->ReportError("Failed to create query for build data!");

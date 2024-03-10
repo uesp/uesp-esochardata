@@ -2968,13 +2968,13 @@ EOT;
 		$championPoints = $this->characterData['cp'];
 		$special = $this->db->real_escape_string($this->characterData['special']);
 		$uploadTimestamp = $this->db->real_escape_string($this->characterData['uploadTimestamp']);
-		$editTimestamp = $this->db->real_escape_string(date('Y-m-d G:i:s'));
+		$editTimestamp = $this->db->real_escape_string(date('Y-m-d H:i:s'));
 		
 		$query  = "INSERT INTO characters(name, buildName, accountName, uniqueAccountName, wikiUserName, class, race, buildType, level, createTime, championPoints, special, alliance, uploadTimestamp, editTimestamp) ";
 		$query .= "VALUES(\"$name\", \"$buildName\", \"$accountName\", \"$uniqueAccountName\", \"$wikiUserName\", \"$class\", \"$race\", \"$buildType\", $level, $createTime, $championPoints, \"$special\", \"$alliance\", '$uploadTimestamp', '$editTimestamp');";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
-	
+		
 		if ($result === FALSE)
 		{
 			$this->reportError("Failed to create new build record from character data!");

@@ -656,7 +656,7 @@ class EsoBuildDataParser
 		
 		if ($this->checkBuffWerewolf($buildData)) $special = "Werewolf";
 		if ($this->checkBuffVampire($buildData)) $special = "Vampire";
-				
+		
 		$query  = "INSERT INTO characters(name, buildName, accountName, uniqueAccountName, wikiUserName, class, race, buildType, level, createTime, championPoints, special, alliance, charIndex, charId) ";
 		$query .= "VALUES('$name', '$buildName', '$accountName', '$uniqueAccountName', '$wikiUserName', '$class', '$race', '$buildType', $level, $createTime, $championPoints, '$special', '$alliance', '$charIndex', '$gameCharId');";
 		$this->lastQuery = $query;
