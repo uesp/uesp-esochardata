@@ -621,7 +621,7 @@ class EsoBuildDataSaver
 		$result &= $this->SaveTable("skills", $this->parsedBuildData['Skills'], $this->SKILL_FIELDS);
 		$result &= $this->SaveTable("equipSlots", $this->parsedBuildData['EquipSlots'], $this->EQUIPSLOT_FIELDS);
 		$result &= $this->SaveCombatActions();
-				
+		
 		if (!$result) return $this->OutputErrorJson();
 		
 		$this->OutputSuccessJson();
