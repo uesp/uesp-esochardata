@@ -5712,7 +5712,10 @@ window.SelectEsoItem = function (element)
 		isEnabled: itemData ? !(itemData.enabled === false) : true,
 		itemType: itemType,
 		xoffset: -190,
+		onlyMaxLevel: true,
 	};
+	
+	if (slotId == "Food") data.onlyMaxLevel = false;
 	
 	if (g_EsoBuildLastInputValues.UseAlternateVersion) data.version = g_EsoBuildAlternateVersion;
 	
@@ -6523,6 +6526,7 @@ window.SelectEsoItemEnchant = function (element)
 		isEnabled: enchantData ? !(enchantData.enabled === false) : true,
 		itemType: enchantType,
 		xoffset: -190,
+		onlyMaxLevel: true,
 	};
 	
 	if (g_EsoBuildLastInputValues.UseAlternateVersion) data.version = g_EsoBuildAlternateVersion;

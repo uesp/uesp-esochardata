@@ -16,7 +16,7 @@
  *  	- Overall "X damage taken" type state (Flame damage for vampires).
  *  	- Quick Item Setup: Nirnhoned items that don't exist?
  *  	- Swift Warrior melee attack for class abilities.
- *  	- Status effect damage 
+ *  	- Status effect damage
  */
 
 require_once("/home/uesp/secrets/esolog.secrets");
@@ -32,7 +32,7 @@ class EsoBuildDataEditor
 	public $PTS_VERSION = "38pts";	//TODO: Remove?
 	
 	public $LOAD_RULES_FROM_DB = true;
-	public $LIVE_RULES_VERSION = "40";
+	public $LIVE_RULES_VERSION = "41";
 	public $PTS_RULES_VERSION  = "41pts";
 	
 	public $READONLY = false;

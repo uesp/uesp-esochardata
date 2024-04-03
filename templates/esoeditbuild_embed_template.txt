@@ -6,7 +6,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #ffc; margin-right: 270px;'>
-NOTE: The build editor is mostly working for update 41pts! Some new skills/items may not be correctly parsing yet. 
+NOTE: The build editor is partically working for update 41! Item, skill and CP data have been updated. New/updated sets/skills may not work correctly yet.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -47,11 +47,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 				<div class="esotbStatLabel">Mundus #2</div> <select id="esotbMundus2" name="esotbMundus2"  class="esotbInputSize1" statid="Mundus.Name2" disabled>{mundusList2}</select>
 			</div>
 			<p>
-			<div class="esotbStatLabel">Level</div> <input id="esotbLevel" class="esotbLevelInput esotbInputValue esotbInputSize3" statid="Level" type="number" size="2" value="{level}">
-			<div class="esotbStatLabel">Total CPs</div> <input id="esotbCPTotalPoints" class="esotbLevelInput esotbInputValue esotbInputSize3" statid="CP.TotalPoints" type="number" size="2" value="{CPTotalPoints}">
+			<div class="esotbStatLabel">Level</div> <input id="esotbLevel" class="esotbLevelInput esotbInputValue esotbInputSize3" statid="Level" type="number" size="2" value="50" readonly>
+			<div class="esotbStatLabel">Total CPs</div> <input id="esotbCPTotalPoints" class="esotbLevelInput esotbInputValue esotbInputSize3" statid="CP.TotalPoints" type="number" size="2" value="160" readonly>
 			<div class="esotbStatLabel">Effective Level</div> <div id="esotbEffectiveLevel" class="esotbInputValueRO esotbInputSize3" statid="EffectiveLevel">{effectiveLevel}</div>
 			<br/>
-			<div class="esotbStatLabel">&nbsp;</div>Note: This editor is only accurate for max level (CP160) builds since One Tamriel introduced level scaling.
+			<div class="esotbStatLabel">&nbsp;</div>Note: This editor is only functional for max level (CP160) builds since One Tamriel introduced level scaling.
 			<p/>
 			<div class="esotbStatLabel">Vampire Stage</div> <select id="esotbVampireStage" class="esotbInputSize1" name="esotbVampireStage" statid="VampireStage">{vampireList}</select>
 			<div class="esotbStatLabel">Werewolf Stage</div> <select id="esotbWerewolfStage" class="esotbInputSize1" name="esotbWerewolfStage" statid="Werewolf">{werewolfList}</select>
@@ -68,7 +68,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			<br/>
 			<div style="display: {oldVersionDisplay};">
 				<div class="esotbStatLabel">Use PTS Rules</div> <input type="checkbox" id="esotbUsePtsRules" name="esotbUsePtsRules" statid="UsePtsRules" {usePtsRulesCheck}>
-				Current version is Update 36 v8.2.0
+				Current version is Update 41 v9.3.0
 				<ul style="margin-left: 170px; margin-top: -5px;">
 					<li>Save and reload build after changing this setting.</li>
 					<li>Uses skill, CP, and item data collected from the PTS server.</li>
@@ -636,7 +636,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 					<button id="esotbItemSetupWeaponTraitButton" onclick="OnEsoEditBuildSetupWeaponTrait(this);">Change</button>
 					<div id="esotbItemSetupWeaponTraitMsg" class="esotbItemSetupMsg"></div>
 				</div>
-				<div class="esptbItemSetup">
+				<div class="esptbItemSetup" style="display:none;">
 					<div class="esotbItemSetupTitle">All Item/Enchant Level</div>
 					<select id="esotbItemSetupAllLevel">
 						<option value="66">CP160</option>
@@ -655,15 +655,15 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 					<div class="esotbItemSetupTitle">Equip Monster Set</div>
 					
 					<select id="esotbItemSetupMonsterSet" style="width: 200px;">
-						<option hidden disabled>Anthelmir's Construct</option>
+						<option>Anthelmir's Construct</option>
 						<option>Archdruid Devyric</option>
 						<option>Balorgh</option>
 						<option>Bloodspawn</option>
 						<option>Baron Thirsk</option>
 						<option>Baron Zaudrus</option>
-						<option hidden disabled>The Blind</option>
+						<option>The Blind</option>
 						<option>Chokethorn</option>
-						<option disabled hidden>Colovian Highlands General</option>
+						<option>Colovian Highlands General</option>
 						<option>Domihaus</option>
 						<option>Earthgore</option>
 						<option>Encratis's Behemoth</option>
@@ -676,7 +676,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Ilambris</option>
 						<option>Immolator Charr</option>
 						<option>Infernal Guardian</option>
-						<option disabled hidden>Jerall Mountains Warchief</option>
+						<option>Jerall Mountains Warchief</option>
 						<option>Kargaeda</option>
 						<option>Kjalnar's Nightmare</option>
 						<option>Kra'gh</option>
@@ -691,7 +691,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Mother Ciannait</option>
 						<option>Nazaray</option>
 						<option>Nerien'eth</option>
-						<option disabled hidden>Nibenay Bay Battlereeve</option>
+						<option>Nibenay Bay Battlereeve</option>
 						<option>Nightflame</option>
 						<option>Nunatak</option>
 						<option>Ozezan the Inferno</option>
@@ -851,7 +851,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Auroran's Thunder</option>
 						<option>Automated Defense</option>
 						<option>Azureblight Reaper</option>
-						<option hidden disabled>Baan Dar's Blessing</option>
+						<option>Baan Dar's Blessing</option>
 						<option>Back-Alley Gourmand</option>
 						<option>Bahraha's Curse</option>
 						<option>Bahsei's Mania</option>
@@ -866,15 +866,15 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Beckoning Steel</option>
 						<option>Beekeeper's Gear</option>
 						<option>Berserking Warrior</option>
-						<option hidden disabled>Black-Glove Grounding</option>
+						<option>Black-Glove Grounding</option>
 						<option>Black Rose</option>
 						<option>Blessing of High Isle</option>
 						<option>Blessing of the Potentates</option>
-						<option hidden disabled>Blind Path Induction</option>
+						<option>Blind Path Induction</option>
 						<option>Blood Moon</option>
 						<option>Blooddrinker</option>
 						<option>Bloodthorn's Touch</option>
-						<option hidden disabled>Blunted Blades</option>
+						<option>Blunted Blades</option>
 						<option>Bog Raider</option>
 						<option>Bone Pirate's Tatters</option>
 						<option>Brands of Imperium</option>
@@ -887,7 +887,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Camonna Tong</option>
 						<option>Champion of the Hist</option>
 						<option>Chimera's Rebuke</option>
-						<option hidden disabled>Cinders of Anthelmir</option>
+						<option>Cinders of Anthelmir</option>
 						<option>Claw of the Forest Wraith</option>
 						<option>Claw of Yolnahkriin</option>
 						<option value="Perfected Claw of Yolnahkriin">Claw of Yolnahkriin (Perfect)</option>
@@ -1083,7 +1083,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Nocturnal's Favor</option>
 						<option>Nocturnal's Ploy</option>
 						<option>Nix-Hound's Howl</option>
-						<option hidden disabled>Oakfather's Retribution</option>
+						<option>Oakfather's Retribution</option>
 						<option>Oblivion's Edge</option>
 						<option>Oblivion's Foe</option>
 						<option>Old Growth Brewer</option>
@@ -1129,7 +1129,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Reawakened Hierophant</option>
 						<option>Red Eagle's Fury</option>
 						<option>Redistributor</option>
-						<option hidden disabled>Reflected Fury</option>
+						<option>Reflected Fury</option>
 						<option>Relics of the Physician, Ansur</option>
 						<option>Relics of the Rebellion</option>
 						<option>Renald's Resolve</option>
@@ -1177,7 +1177,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Sithis' Touch</option>
 						<option>Skooma Smuggler</option>
 						<option>Sload's Semblance</option>
-						<option hidden disabled>Sluthrug's Hunger</option>
+						<option>Sluthrug's Hunger</option>
 						<option>Snake in the Stars</option>
 						<option>Soldier of Anguish</option>
 						<option>Song of Lamae</option>
@@ -1216,7 +1216,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Systres' Scowl</option>
 						<option>Syvarra's Scales</option>
 						<option>Talfyg's Treachery</option>
-						<option hidden disabled>Tarnished Nightmare</option>
+						<option>Tarnished Nightmare</option>
 						<option>Tava's Favor</option>
 						<option>Telvanni Efficiency</option>
 						<option>Telvanni Enforcer</option>
@@ -1840,6 +1840,22 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>13 March 2024</b>
+			<ul>
+				<li>Enabled net sets in the quick item setup.</li>
+			</ul>
+			<p>
+			<b>12 March 2024</b>
+			<ul>
+				<li>Forced item search popup to only use level/CP 50/160.</li>
+			</ul>
+			<p>
+			<b>11 March 2024</b>
+			<ul>
+				<li>Updated item, skill, and CP data from Live update 40.</li>
+				<li>Fixed character level/CP to 50/160.</li>
+			</ul>
+			<p>
 			<b>14 February 2024</b>
 			<ul>
 				<li>Updated Light Attack coefficients and max damage.</li>
