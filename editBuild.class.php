@@ -32,7 +32,7 @@ class EsoBuildDataEditor
 	public $PTS_VERSION = "38pts";	//TODO: Remove?
 	
 	public $LOAD_RULES_FROM_DB = true;
-	public $LIVE_RULES_VERSION = "41";
+	public $LIVE_RULES_VERSION = "42";
 	public $PTS_RULES_VERSION  = "42pts";
 	
 	public $READONLY = false;
