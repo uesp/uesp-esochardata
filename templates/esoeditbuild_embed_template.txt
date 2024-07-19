@@ -6,7 +6,7 @@
 	<div id="esotbSaveResults"></div>
 </div>
 <div style='background-color: #fcc; margin-right: 270px;'>
-NOTE: The build editor is partially working for update 42! Item, skill and CP data have been updated. New/updated sets/skills may not work correctly yet.
+NOTE: The build editor is partially working for update 43pts! Item, skill and CP data have been updated. New/updated sets/skills may not work correctly yet.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -1840,6 +1840,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>17 July 2024</b>
+			<ul>
+				<li>43pts: New items, skills and CP data updated from PTS.</li>
+			</ul>
+			<p>
 			<b>18 April 2024</b>
 			<ul>
 				<li>42pts: New items, skills and CP data updated from PTS.</li>

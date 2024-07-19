@@ -33,7 +33,7 @@ class EsoBuildDataEditor
 	
 	public $LOAD_RULES_FROM_DB = true;
 	public $LIVE_RULES_VERSION = "42";
-	public $PTS_RULES_VERSION  = "42pts";
+	public $PTS_RULES_VERSION  = "43pts";
 	
 	public $READONLY = false;
 	
