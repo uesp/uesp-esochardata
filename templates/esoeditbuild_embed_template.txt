@@ -5,8 +5,8 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #fcc; margin-right: 270px;'>
-NOTE: The build editor is partially working for update 43pts! Item, skill and CP data have been updated. New/updated sets/skills may not work correctly yet.
+<div style='background-color: #ffc; margin-right: 270px;'>
+NOTE: The build editor is partially working for update 43! Item, skill and CP data have been updated. New/updated sets/skills may not work correctly yet.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
