@@ -7416,7 +7416,7 @@ class EsoBuildDataEditor
 		
 		$this->rulesVersion = $currentVersion;
 		
-		if ($currentVersion == "Live")
+		if ($currentVersion == "Live" || $currentVersion == "test")
 		{
 			$currentVersion = $this->LIVE_RULES_VERSION;
 		}

@@ -3056,7 +3056,7 @@ thead.ecdFixedHeader tr {
     margin-top: 12px;
 }
 
-#ecdCollectContents {	
+#ecdCollectContents {
 }
 
 .ecdCollectibleDetails {
@@ -3081,7 +3081,9 @@ thead.ecdFixedHeader tr {
 	border-radius: 10px;
 	height: 26px;
 	margin-top: 5px;
-    margin-bottom: -5px;
+	margin-bottom: -5px;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 .ecdCollectibleCategorySelected {

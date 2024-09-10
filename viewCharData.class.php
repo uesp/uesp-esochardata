@@ -3382,7 +3382,7 @@ EOT;
 		$output = "";
 		$knownCount = 0;
 		$totalCount = 0;
-				
+		
 		foreach ($collectibles as $collectIndex => $collectible)
 		{
 			++$totalCount;
@@ -3395,7 +3395,7 @@ EOT;
 			$type = $collectible['type'];
 			$image = $collectible['image'];
 			
-			$knownClass = "";			
+			$knownClass = "";
 			$isKnown = $this->getCharStatField("Collectible:$collectibleId", 0);
 			
 			if ($isKnown)
@@ -3412,7 +3412,7 @@ EOT;
 			}
 			
 			$output .= "$name";
-			$output .= "</div>";			
+			$output .= "</div>";
 		}
 		
 		$output .= "</div>";
@@ -3426,9 +3426,9 @@ EOT;
 	
 	public function getCollectibleCollectibleContentsHtml()
 	{
-		global $ESO_COLLECTIBLE_DATA; // 2, 3, 5, 6, 7, 8, 9, 10, 11
+		global $ESO_COLLECTIBLE_DATA; // 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 in update 43, TODO: Dynamic?
 		
-		$categories = array(2, 3, 5, 6, 7, 8, 9, 10, 11);
+		$categories = array(2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
 		
 		$output = "<div id='ecdCollectContents_Collectibles' collectid='Collectibles' class='ecdCollectContents' style='display: block;'>";
 		$leftOutput = "";
@@ -3475,18 +3475,18 @@ EOT;
 		$output .= "<div class='ecdCollectibleDetails'>$rightOutput</div>";
 		$output .= "<div class='ecdCollectibleTree ecdScrollContent'>$leftOutput</div>";
 		$output .= "</div>";
-		return $output;				
+		return $output;
 	}
 	
 	
 	public function getCollectibleHousingContentsHtml()
 	{
-		global $ESO_COLLECTIBLE_DATA; // 4
+		global $ESO_COLLECTIBLE_DATA; // 5 in update 43, TODO: Dynamic find
 		
 		$totalCount = 0;
 		$knownCount = 0;
 		
-		$housingData = $ESO_COLLECTIBLE_DATA[4];
+		$housingData = $ESO_COLLECTIBLE_DATA[5];
 		if ($housingData == null || $housingData[0] == null) return "";
 
 		$output = "";
@@ -3553,14 +3553,14 @@ EOT;
 		$output = "<div class='ecdCollectHouseCount'>You own $knownCount / $totalCount homes</div>" . $output;
 		$output = "<div id='ecdCollectContents_Housing' collectid='Housing' class='ecdCollectContents ecdScrollContent' style='display: none;'>" . $output;
 		
-		return $output;				
+		return $output;
 	}
 	
 	
 	public function getCollectibleDLCContentsHtml()
 	{
-		global $ESO_COLLECTIBLE_DATA; // 1
-				
+		global $ESO_COLLECTIBLE_DATA; // 1, TODO: Dynamic find
+		
 		$storyData = $ESO_COLLECTIBLE_DATA[1];
 		if ($storyData == null || $storyData[0] == null) return "";
 		
@@ -3605,7 +3605,7 @@ EOT;
 				
 				$image = $dlc['image'];
 				
-				$knownClass = "";			
+				$knownClass = "";
 				$isKnown = $this->getCharStatField("Collectible:$collectibleId", 0);
 				
 				if ($isKnown)
@@ -3631,13 +3631,13 @@ EOT;
 		$output = "<div class='ecdCollectDlcCount'>You own $knownCount / $totalCount stories</div>" . $output;
 		$output = "<div id='ecdCollectContents_DLC' collectid='DLC' class='ecdCollectContents' style='display: none;'>" . $output;
 		
-		return $output;				
+		return $output;
 	}
 	
 	
 	public function getCollectibleOutfitStylesContentsHtml()
 	{
-		global $ESO_COLLECTIBLE_DATA; // 12, 13
+		global $ESO_COLLECTIBLE_DATA; // 16,17 in update 43, TODO: Dynamic find
 		
 		$OUTFIT_TYPE_STRINGS = array(
 				"Head" => array(
@@ -3700,7 +3700,7 @@ EOT;
 		$rightOutput = "";
 		$leftOutput = "";
 				
-		foreach (array(12, 13) as $styleIndex)
+		foreach (array(16, 17) as $styleIndex)
 		{
 			$styleData = $ESO_COLLECTIBLE_DATA[$styleIndex];
 			if ($styleData == null || $styleData[0] == null) continue;
@@ -3818,20 +3818,20 @@ EOT;
 			
 			$totalCount += $knownCatCount;
 			$knownCount += $totalCatCount;
-						
-			$leftOutput .= "</div>";				
-		}				
+		
+			$leftOutput .= "</div>";
+		}
 		
 		$output .= "<div class='ecdOutfitDetails'>$rightOutput</div>";
 		$output .= "<div class='ecdOutfitTree ecdScrollContent'>$leftOutput</div>";
 		$output .= "</div>";
 		$output = "<div id='ecdCollectContents_OutfitStyles' collectid='OutfitStyles' class='ecdCollectContents' style='display: none;'>" . $output;
 		
-		return $output;				
+		return $output;
 	}
 	
 	
-	public function getCollectibleContentsHtml() 
+	public function getCollectibleContentsHtml()
 	{
 		if ($this->useAsyncLoad) return $this->GetAsyncLoadContentsHtml();
 		
@@ -3852,7 +3852,7 @@ EOT;
 		return $output; 
 	}
 	
-
+	
 	public function getCharSkillRecipeContentHtml()
 	{
 		global $ESO_RECIPELIST_INFO;
@@ -3929,7 +3929,7 @@ EOT;
 		$enchantHireling = intval($this->getCharStatField('HirelingMailTime:Enchanting', 0));
 		$provHireling = intval($this->getCharStatField('HirelingMailTime:Provisioning', 0));
 		$woodHireling = intval($this->getCharStatField('HirelingMailTime:Woodworking', 0));
-			
+		
 		$blackSkill = intval($this->getCharStatField('HirelingSkill:Blacksmithing', 0));
 		$clothSkill = intval($this->getCharStatField('HirelingSkill:Clothier', 0));
 		$enchantSkill = intval($this->getCharStatField('HirelingSkill:Enchanting', 0));
@@ -4023,7 +4023,7 @@ EOT;
 			$matches = array();
 			$result = preg_match("/Crafting:(.*)/", $key, $matches);
 			if ($result == 0) continue; 
-
+			
 			$styleName = $matches[1];
 			$rawData = $value['value'];
 			$rawValues = explode(',', $rawData);

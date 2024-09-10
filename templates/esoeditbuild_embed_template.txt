@@ -5,8 +5,11 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #ffc; margin-right: 270px;'>
-NOTE: The build editor is partially working for update 43! Item, skill and CP data have been updated. New/updated sets/skills may not work correctly yet.
+<div style='background-color: #ffc; border: 1px solid gray; margin-right: 270px; padding: 5px;'>
+We're looking for experts in the build editor and the game itself to help manage and improve this build editor. If interested contact <a href="/wiki/User_talk:Daveh"><b>Daveh</b></a>.
+</div>
+<div style='background-color: #cfc; margin-right: 270px;'>
+NOTE: The build editor is mostly working for update 43! Item, skill and CP data have been updated. New/updated sets/skills may not work correctly yet.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -797,6 +800,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option slotid="Neck">Pearls of Ehlnofey</option>
 						<option slotid="Ring1">Ring of the Pale Order</option>
 						<option slotid="Ring1">Ring of the Wild Hunt</option>
+						<option slotid="Arms">Rourken Steamguards</option>
 						<option slotid="Neck">Sea-Serpent's Coil</option>
 						<option slotid="Neck">Shapeshifter's Chain</option>
 						<option slotid="Feet">Snow Treaders</option>
@@ -804,6 +808,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option slotid="Legs">Stormweaver's Cavort</option>
 						<option slotid="Waist">Syrabane's Ward</option>
 						<option slotid="Hands">Thrassian Stranglers</option>
+						<option slotid="Neck">The Saint and the Seducer</option>
+						<option slotid="Head">The Shadow Queen's Cowl</option>
 						<option slotid="Neck">Torc of Tonal Constancy</option>
 						<option slotid="Neck">Velothi Ur-Mage's Amulet</option>
 					</select>
@@ -820,7 +826,9 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Adamant Lurker</option>
 						<option>Adept Rider</option>
 						<option>Aegis Caller</option>
-						<option>Aegis of Galenwe</option>
+						<option>Aerie's Cry</option>
+						<option>Aetheric Lancer</option>
+						<option>Abyssal Brace</option>
 						<option value="Perfected Aegis of Galenwe">Aegis of Galenwe (Perfect)</option>
 						<option>Aetherial Ascension</option>
 						<option>Affliction</option>
@@ -850,6 +858,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Assassin's Guile</option>
 						<option>Auroran's Thunder</option>
 						<option>Automated Defense</option>
+						<option>Ayleid Refuge</option>
 						<option>Azureblight Reaper</option>
 						<option>Baan Dar's Blessing</option>
 						<option>Back-Alley Gourmand</option>
@@ -863,6 +872,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Bastion of the Heartland</option>
 						<option>Battalion Defender</option>
 						<option>Battlefield Acrobat</option>
+						<option>Beacon of Oblivion</option>
 						<option>Beckoning Steel</option>
 						<option>Beekeeper's Gear</option>
 						<option>Berserking Warrior</option>
@@ -893,9 +903,9 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option value="Perfected Claw of Yolnahkriin">Claw of Yolnahkriin (Perfect)</option>
 						<option>Clever Alchemist</option>
 						<option>Coldharbour's Favorite</option>
-						<option>Colovian Highlands General</option>
 						<option>Combat Physician</option>
 						<option>Coral Riptide</option>
+						<option>Corpseburster</option>
 						<option>Coward's Gear</option>
 						<option>Crafty Alfiq</option>
 						<option>Crest of Cyrodiil</option>
@@ -995,6 +1005,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Hexos' Ward</option>
 						<option>Hide of Morihaus</option>
 						<option>Hide of the Werewolf</option>
+						<option>Highland Sentinel</option>
 						<option>Hiti's Hearth</option>
 						<option>Hircine's Veneer</option>
 						<option>Hist Bark</option>
@@ -1033,7 +1044,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Kynmarcher's Cruelty</option>
 						<option>Lamia's Song</option>
 						<option>Langour of Peryite</option>
-						<option hidden disable>Languor of Peryite</option>
+						<option>Languor of Peryite</option>
 						<option>Law of Julianos</option>
 						<option>Leeching Plate</option>
 						<option>Legacy of Karth</option>
@@ -1042,7 +1053,10 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Light of Cyrodiil</option>
 						<option>Light Speaker</option>
 						<option>Livewire</option>
+						<option>Lucent Echoes</option>
+						<option value="Perfected Lucent Echoes">Lucent Echoes (Perfect)</option>
 						<option>Lunar Bastion</option>
+						<option>Macabre Vintage</option>
 						<option>Mad Tinkerer</option>
 						<option>Magicka Furnace</option>
 						<option>Magnus' Gift</option>
@@ -1065,6 +1079,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Monolith of Storms</option>
 						<option>Moondancer</option>
 						<option>Moon Hunter</option>
+						<option>Mora Scribe's Thesis</option>
+						<option value="Perfected Mora Scribe's Thesis">Mora Scribe's Thesis (Perfect)</option>
 						<option>Morkuldin</option>
 						<option>Mother's Sorrow</option>
 						<option>Naga Shaman</option>
@@ -1115,6 +1131,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Powerful Assault</option>
 						<option>Prayer Shawl</option>
 						<option>Prisoner's Rags</option>
+						<option>Pyrebrand</option>
 						<option>Queen's Elegance</option>
 						<option>Quick Serpent</option>
 						<option>Radial Uppercut</option>
@@ -1175,6 +1192,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Silks of the Sun</option>
 						<option>Silver Rose Vigil</option>
 						<option>Sithis' Touch</option>
+						<option>Slivers of the Null Arca</option>
+						<option value="Perfected Slivers of the Null Arca">Slivers of the Null Arca (Perfect)</option>
 						<option>Skooma Smuggler</option>
 						<option>Sload's Semblance</option>
 						<option>Sluthrug's Hunger</option>
@@ -1183,6 +1202,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Song of Lamae</option>
 						<option>Soulcleaver</option>
 						<option>Soulshine</option>
+						<option>Spattering Disjunction</option>
 						<option>Spectral Cloak</option>
 						<option value="Perfected Spectral Cloak">Spectral Cloak (Perfect)</option>
 						<option>Spectre's Eye</option>
@@ -1212,6 +1232,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Swamp Raider</option>
 						<option>Sword Dancer</option>
 						<option>Sword-Singer</option>
+						<option>Symmetry of the Weald</option>
 						<option>Syrabane's Grip</option>
 						<option>Systres' Scowl</option>
 						<option>Syvarra's Scales</option>
@@ -1222,6 +1243,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Telvanni Enforcer</option>
 						<option>Test of Resolve</option>
 						<option value='Perfected Test of Resolve'>Test of Resolve (Perfect)</option>
+						<option>Tharriker's Strike</option>
 						<option>The Arch-Mage</option>
 						<option>The Destruction Suite</option>
 						<option>The Ice Furnace</option>
@@ -1229,6 +1251,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>The Morag Tong</option>
 						<option>The Worm's Raiment</option>
 						<option>Thews of the Harbinger</option>
+						<option>Threads of War</option>
 						<option>Thunder Caller</option>
 						<option>Thunderbug's Carapace</option>
 						<option>Titanborn Strength</option>
@@ -1253,6 +1276,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Twin Sisters</option>
 						<option>Tzogvin's Warband</option>
 						<option>Ulfnor's Favor</option>
+						<option>Umbral Edge</option>
 						<option>Unchained Aggressor</option>
 						<option>Undaunted Bastion</option>
 						<option>Undaunted Infiltrator</option>
@@ -1310,6 +1334,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Wrathsun</option>
 						<option>Wretched Vitality</option>
 						<option>Wyrd Tree's Blessing</option>
+						<option>Xoryn's Masterpiece</option>
+						<option value="Perfected Xoryn's Masterpiece">Xoryn's Masterpiece (Perfect)</option>
 						<option>Yandir's Might</option>
 						<option value="Perfected Yandir's Might">Yandir's Might (Perfect)</option>
 						<option>Ysgramor's Birthright</option>
@@ -1840,6 +1866,45 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>9 September 2024</b>
+			<ul>
+				<li>Added a toggle for the Ayleid Refuge 5 piece set bonus.</li>
+				<li>Added a toggle and a buff for the Lucent Echoes 5 piece set bonus.</li>
+				<li>Added 2 toggles for the Mora Scribe's Thesis 5 piece set bonus.</li>
+			</ul>
+			<li>
+			<b>6 September 2024</b>
+			<ul>
+				<li>Added the following sets to the quick item setup: Ayleid Refuge, Lucent Echoes, Macabre Vintage, Mora Scribe's Thesis, Slivers of the Null Arca, Symmetry of the Weald, Tharriker's Strike, Threads of War, Xoryn's Masterpiece, and Highland Sentinel.</li>
+				<li>Added the following mythics to the quick item setup: Rourken Steamguards, The Saint and the Seducer, and The Shadow Queen's Cowl</li>
+				<li>Added toggle for the Highland Sentinel set.</li>
+			</ul>
+			<p>
+			<b>5 September 2024</b>
+			<ul>
+				<li>Fixed destruction skills not being slottable or adjusting to the currently equipped Destruction staff in updates 41/42.</li>
+				<li>Fixed the Markyn Ring of Majesty set in updates 40 and up.</li>
+				<li>Enabled automatic disabling of skill toggles for opposing toggles.</li>
+				<li>Fixed the Expert Summoner passive toggle going back to update 40.</li>
+				<li>Added the Sundered Status Effect buff under Sets.</li>
+				<li>Fixed Shadowy Disguise not applying the buffs when equipped to either skill bar.</li>
+			</ul>
+			<p>
+			<b>3 September 2024</b>
+			<ul>
+				<li>Fixed scribing skills showing up in the weapon skill lines.</li>
+			</ul>
+			<p>
+			<b>29 August 2024</b>
+			<ul>
+				<li>Added 7 new sets to the quick item setup.</li>
+			</ul>
+			<p>
+			<b>28 August 2024</b>
+			<ul>
+				<li>New items, skills and CP data updated from Live.</li>
+			</ul>
+			<p>
 			<b>17 July 2024</b>
 			<ul>
 				<li>43pts: New items, skills and CP data updated from PTS.</li>

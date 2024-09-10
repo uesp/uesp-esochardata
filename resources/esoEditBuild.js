@@ -7055,7 +7055,7 @@ window.AddEsoBuildToggledSkillData = function (skillEffectData, isPassive)
 {
 	var id = skillEffectData.id;
 	
-	if (g_EsoBuildToggledSkillData[id] == null) 
+	if (g_EsoBuildToggledSkillData[id] == null)
 	{
 		g_EsoBuildToggledSkillData[id] = {};
 		g_EsoBuildToggledSkillData[id].isPassive = isPassive;
@@ -7064,6 +7064,8 @@ window.AddEsoBuildToggledSkillData = function (skillEffectData, isPassive)
 		g_EsoBuildToggledSkillData[id].statIds = [];
 		g_EsoBuildToggledSkillData[id].rawInputMatch = skillEffectData.rawInputMatch; 
 		g_EsoBuildToggledSkillData[id].displayName = skillEffectData.displayName;
+		if (skillEffectData.disableIds) g_EsoBuildToggledSkillData[id].disableIds = skillEffectData.disableIds.split(",");
+		
 	}
 	
 	g_EsoBuildToggledSkillData[id].id = id;
@@ -7074,6 +7076,7 @@ window.AddEsoBuildToggledSkillData = function (skillEffectData, isPassive)
 	g_EsoBuildToggledSkillData[id].combatEnabled = false;
 	g_EsoBuildToggledSkillData[id].count = 0;
 	g_EsoBuildToggledSkillData[id].maxTimes = skillEffectData.maxTimes;
+	
 	if (skillEffectData.minTimes) g_EsoBuildToggledSkillData[id].minTimes = skillEffectData.minTimes;
 	
 	if (skillEffectData.statId != null)
@@ -7734,6 +7737,25 @@ window.OnEsoBuildToggleCpClick = function (e)
 
 
 
+window.OnEsoBuildToggleSkillChanged = function (checkBox)
+{
+	var parent = checkBox.parent();
+	var skillId = parent.attr("skillid");
+	var toggleData = g_EsoBuildToggledSkillData[skillId];
+	
+	if (toggleData == null) return;
+	
+	if (toggleData.disableIds != null)
+	{
+		for (var i in toggleData.disableIds)
+		{
+			var disableId = toggleData.disableIds[i];
+			$("#esotbToggledSkillInfo").find(".esotbToggledSkillItem[skillid=\"" + disableId + "\"]").find(".esotbToggleSkillCheck").prop("checked", false);
+		}
+	}
+}
+
+
 window.OnEsoBuildToggleSetChanged = function (checkBox)
 {
 	var parent = checkBox.parent();
@@ -7866,6 +7888,8 @@ window.OnEsoBuildToggleSkill = function (e)
 	var skillId = $(this).parent().attr("skillId");
 	if (skillId == null || skillId == "") return;
 	
+	OnEsoBuildToggleSkillChanged($(this));
+	
 	UpdateEsoComputedStatsList("async");
 	
 	e.stopPropagation();
@@ -7882,6 +7906,8 @@ window.OnEsoBuildToggleSkillClick = function (e)
 		$(this).addClass("esotbToggledSkillSelect");
 	else
 		$(this).removeClass("esotbToggledSkillSelect");
+	
+	OnEsoBuildToggleSkillChanged(checkbox);
 	
 	UpdateEsoComputedStatsList("async");
 	
@@ -8902,8 +8928,12 @@ window.CreateEsoBuildBuffEffectsDescHtml = function (buffData)
 	
 	if (buffDesc != "")
 	{
-		if (buffData.desc != "") buffData.desc += "<br/>";
-		buffData.desc += "Adds Buffs: " + buffDesc;
+		//if (buffData.desc != "") buffData.desc += "<br/>";
+		
+		if (buffIds.length == 1)
+			buffData.desc += "Adds Buff: " + buffDesc;
+		else
+			buffData.desc += "Adds Buffs: " + buffDesc;
 	}
 	
 	return buffData.desc;
