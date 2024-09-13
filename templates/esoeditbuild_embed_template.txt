@@ -800,7 +800,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option slotid="Neck">Pearls of Ehlnofey</option>
 						<option slotid="Ring1">Ring of the Pale Order</option>
 						<option slotid="Ring1">Ring of the Wild Hunt</option>
-						<option slotid="Arms">Rourken Steamguards</option>
+						<option slotid="Hands">Rourken Steamguards</option>
 						<option slotid="Neck">Sea-Serpent's Coil</option>
 						<option slotid="Neck">Shapeshifter's Chain</option>
 						<option slotid="Feet">Snow Treaders</option>
@@ -810,6 +810,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option slotid="Hands">Thrassian Stranglers</option>
 						<option slotid="Neck">The Saint and the Seducer</option>
 						<option slotid="Head">The Shadow Queen's Cowl</option>
+						<option slotid="Neck">Torc of the Last Ayleid King</option>
 						<option slotid="Neck">Torc of Tonal Constancy</option>
 						<option slotid="Neck">Velothi Ur-Mage's Amulet</option>
 					</select>
@@ -1866,6 +1867,37 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>13 September 2024</b>
+			<ul>
+				<li>Fixed issue with set effects being doubled in many cases. Builds saved within the last day will have to be re-saved to fix.</li>
+				<li>Fixed the Seventh Legion Brute set toggle.</li>
+			</ul>
+			<p>
+			<b>12 September 2024</b>
+			<ul>
+				<li>Fixed the Physical Resistance on the Orgnum's Scales set toggle (all updates).</li>
+				<li>Fixed the Undead Confederate Necromancer passive toggle.</li>
+				<li>Fixed the penetration from 2H Maces from the Heavy Weapon passive in multiple updates.</li>
+				<li>Fixed the Continuous Attack passive toggle.</li>
+				<li>Made the Mora Scribe's Thesis set toggles automatic based on how many Major/Minor sets you currently have enabled.</li>
+				<li>Fixed the Runic Sunder active skill buff to correctly apply Minor Maim to the target instead of the player.</li>
+				<li>Fixed the Splintered Secrets and Wellspring of the Abyss Arcanist passive scaling.</li>
+				<li>Fixed Flames of Oblivion and other similar skills that give Major Brutality and Major Savagery when slotted on either skill bar.</li>
+			</ul>
+			<p>
+			<b>10 September 2024</b>
+			<ul>
+				<li>Added 2 toggles for the Symmetry of the Weald 5 piece set bonus.</li>
+				<li>Added toggle for the Tharriker's Strike 5 piece set bonus.</li>
+				<li>Added parsing for the Threads of War 5 piece set bonus.</li>
+				<li>Added a buff and a toggle for the Xoryn's Masterpiece 5 piece set bonus.</li>
+				<li>Added toggle for the Highland Sentinel 5 piece set bonus.</li>
+				<li>Fixed the slot for the Rourken Steamguards mythic item from the quick item setup.</li>
+				<li>Added toggle for the Rourken Steamguards mythic set.</li>
+				<li>Changed Major/Minor Vitality buff to 12/6% values.</li>
+				<li>Added the Torc of the Last Ayleid King to the quick item setup and made all effects parsed correctly.</li>
+			</ul>
+			<p>
 			<b>9 September 2024</b>
 			<ul>
 				<li>Added a toggle for the Ayleid Refuge 5 piece set bonus.</li>

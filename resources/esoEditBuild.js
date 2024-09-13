@@ -560,6 +560,7 @@ window.GetEsoInputValues = function (mergeComputedStats)
 	GetEsoInputBuffValues(inputValues);
 	
 	GetEsoInputMiscValues(inputValues);
+	GetEsoInputSetValues(inputValues, 1);		//deferLevel
 	
 	if (mergeComputedStats === true) 
 	{
@@ -1015,9 +1016,13 @@ window.GetEsoInputSetValues = function (inputValues, deferLevel)
 window.GetEsoInputSetDataValues = function (inputValues, setData, deferLevel)
 {
 	if (setData == null || (setData.count <= 0 && setData.otherCount <= 0)) return;
-	setData.rawOutput = [];
-	setData.isDescValid = [ false, false, false, false, false ];
-	setData.isOffhandDescValid = [ false, false, false, false, false ];
+	
+	if (deferLevel == 0 || deferLevel == null)
+	{
+		setData.rawOutput = [];
+		setData.isDescValid = [ false, false, false, false, false ];
+		setData.isOffhandDescValid = [ false, false, false, false, false ];
+	}
 	
 	for (var i = 0; i < 12; ++i)
 	{
@@ -1113,6 +1118,11 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 	
 	if (deferLevel == null) deferLevel = 0;
 	
+	if (inputValues['DisableSetBonus'] > 0)
+	{
+		if (setData.name != "Torc of the Last Ayleid King") return;
+	}
+	
 	var rules = GetEsoBuildSetRuleCache(setData.name);
 	if (rules == null) rules = ESO_SETEFFECT_MATCHES;
 	
@@ -1132,9 +1142,6 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 		
 		var matchDeferLevel = matchData.deferLevel;
 		if (matchDeferLevel == null) matchDeferLevel = 0;
-		
-			// Ignore for now....
-		//if (matchDeferLevel > deferLevel) continue;
 		
 		if (matchData.statRequireId)
 		{
@@ -1175,6 +1182,9 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 		}
 		
 		foundMatch = true;
+		
+			// Ignore for now....
+		if (matchDeferLevel != deferLevel) continue;
 		
 		/* TODO: Remove?
 		if (matchData.damageType)
@@ -3195,6 +3205,12 @@ window.UpdateEsoItemSets = function (inputValues)
 	
 	ComputeEsoBuildAllSetData();
 	UpdateEsoBuildToggledSetData(inputValues);
+	
+		/* Special case for the Torc of the Ayleid King */
+	if (g_EsoBuildSetData['Torc of the Last Ayleid King'] && g_EsoBuildSetData['Torc of the Last Ayleid King'].count > 0)
+	{
+		inputValues['DisableSetBonus'] = 1;
+	}
 }
 
 
@@ -3234,6 +3250,41 @@ window.GetEsoInputMiscValues = function (inputValues)
 	inputValues.Misc.SpellCost = parseFloat($("#esotbMiscSpellCost").val());
 	
 	if (inputValues.Skill.BlockSpeedPenalty == 0) inputValues.Skill.BlockSpeedPenalty = 0.60;
+	
+	CountEsoMajorMinorBuffs(inputValues);
+}
+
+
+window.CountEsoMajorMinorBuffs = function(inputValues)
+{
+	if (inputValues.Buff.MajorCount == null) inputValues.Buff.MajorCount = 0;
+	if (inputValues.Buff.MinorCount == null) inputValues.Buff.MinorCount = 0;
+	
+	for (var buffName in g_EsoBuildBuffData)
+	{
+		var buffData = g_EsoBuildBuffData[buffName];
+		if (buffData == null) continue;
+		
+		if (!IsEsoBuffEnabled(buffData)) continue;
+		
+		if (buffData.name.startsWith("Major ") && buffData.group != "Target")
+		{
+			inputValues.Buff.MajorCount++;
+			
+			AddEsoStatValueHistory("Buff", "MajorCount", 1);
+			AddEsoItemRawOutput(buffData, "Buff.MajorCount", 1);
+			AddEsoInputStatSource("Buff.MajorCount", { buff: buffData, value: 1 });
+		}
+		
+		if (buffData.name.startsWith("Minor ") && buffData.group != "Target")
+		{
+			inputValues.Buff.MinorCount++;
+			
+			AddEsoStatValueHistory("Buff", "MinorCount", 1);
+			AddEsoItemRawOutput(buffData, "Buff.MinorCount", 1);
+			AddEsoInputStatSource("Buff.MinorCount", { buff: buffData, value: 1 });
+		}
+	}
 }
 
 
@@ -3249,7 +3300,7 @@ window.GetEsoInputMundusValues = function (inputValues)
 	}
 	else
 	{
-		inputValues.Mundus.Name2 = ""; 
+		inputValues.Mundus.Name2 = "";
 	}
 	
 }
@@ -8262,6 +8313,8 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
 			BoneTyrantSkills : CountEsoBarSkillsWithSkillLine("Bone Tyrant"),
 			GraveLordSkills : CountEsoBarSkillsWithSkillLine("Grave Lord"),
 			CoralRiptide : inputValues.Set.CoralRiptide,
+			HeraldoftheTomeSkills : CountEsoBarSkillsWithSkillLine("Herald of the Tome"),
+			SoldierofApocryphaSkills : CountEsoBarSkillsWithSkillLine("Soldier of Apocrypha"),
 	};
 	
 	g_LastSkillInputValues.SkillLineCost = inputValues.SkillCost;
@@ -14422,7 +14475,8 @@ window.ApplyEsoBuildRuleEffects = function(inputValues, ruleData, matchResults, 
 		}
 		else if (ruleData.factorStatId)
 		{
-			var factorStat = inputValues[ruleData.factorStatId];
+			//var factorStat = inputValues[ruleData.factorStatId];
+			var factorStat = GetEsoInputValue(ruleData.factorStatId, inputValues);
 			
 			if (factorStat == null)
 				statFactor = 0;

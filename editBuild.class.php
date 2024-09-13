@@ -338,6 +338,7 @@ class EsoBuildDataEditor
 			"Skill.ChilledChance",
 			"Skill.ConcussionChance",
 			"Item.StatusEffectChance",
+			"Set.StatusEffectChance",
 			"CP.WeaponCritHealing",
 			"CP.SpellCritHealing",
 			"Set.TwinSlashInitialDamage",
@@ -406,6 +407,9 @@ class EsoBuildDataEditor
 			"Set.CorelRiptide",
 			"Set.MorasWhispers",
 			"Set.PearlescentWard",
+			"Set.DisableSetBonus",
+			"Buff.MinorCount",
+			"Buff.MajorCount",
 	);
 	
 	
@@ -998,6 +1002,10 @@ class EsoBuildDataEditor
 			),
 			
 			"Skill.AOEHealingDone" => array(
+					"display" => "%",
+			),
+			
+			"Set.HealingDone" => array(
 					"display" => "%",
 			),
 			
@@ -2365,6 +2373,7 @@ class EsoBuildDataEditor
 			"Skill.BurningDamage" => array( "display" => "%" ),
 			"Skill.PoisonedDamage" => array( "display" => "%" ),
 			"Skill.StatusEffectChance" => array( "display" => "%" ),
+			"Set.StatusEffectChance" => array( "display" => "%" ),
 			"Skill.StatusEffectDamage" => array( "display" => "%" ),
 			"Skill.BurningChance" => array( "display" => "%" ),
 			"Skill.ChilledChance" => array( "display" => "%" ),
@@ -2398,6 +2407,7 @@ class EsoBuildDataEditor
 			"Target.StunDuration" => array( "display" => "%" ),
 			"Skill.StunDuration" => array( "display" => "%" ),
 			"Set.FlameCritDamageTaken" => array( "display" => "%" ),
+			"Buff.CritDamageTaken" => array( "display" => "%" ),
 			"Set.ShockCritDamageTaken" => array( "display" => "%" ),
 			"Set.FrostCritDamageTaken" => array( "display" => "%" ),
 			"Target.PercentHealth" => array( "display" => "%" ),
