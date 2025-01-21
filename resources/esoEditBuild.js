@@ -1351,7 +1351,7 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 		}
 	}
 	
-	if ((!foundMatch && !onlyEnableToggles) || addFinalEffect)
+	if (deferLevel == 0 &&((!foundMatch && !onlyEnableToggles) || addFinalEffect))
 	{
 		AddEsoInputStatSource("OtherEffects", { other: true, set: setData, setBonusCount: setBonusCount, value: setDesc });
 		AddEsoItemRawOutputString(setData, "OtherEffects", rawInputDesc);

@@ -859,7 +859,7 @@ class EsoBuildDataParser
 		$charId = $buildData['id'];
 		$name = preg_replace("#\^[a-zA-Z]*#", "", $name);
 		$safeName = $this->db->real_escape_string($name);
-		$safeData = $this->db->real_escape_string($data);
+		$safeData = $this->db->real_escape_string(substr($data, 0, 250));
 		
 		//if (is_array($data)) error_log("$charId:$name stat is an array!");
 		

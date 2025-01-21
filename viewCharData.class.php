@@ -3026,7 +3026,7 @@ EOT;
 			$result = $this->db->query($query);
 			if ($result === FALSE) $this->reportError("Failed to save new build record buffs data!");
 		}
-	
+		
 		return true;
 	}
 	
@@ -3051,26 +3051,26 @@ EOT;
 			$channelTime = $data['channelTime'];
 			$duration = $data['duration'];
 			$target = $this->db->real_escape_string($data['target']);			
-	
+			
 			$query = "INSERT INTO skills(characterId, name, type, description, icon, abilityId, `index`, `rank`, area, cost, `range`, radius, castTime, channelTime, duration, target) ";
 			$query .= "VALUES($buildId, '$name', '$type', '$desc', '$icon', $abilityId, $index, $rank, '$area', '$cost', '$range', $radius, $castTime, $channelTime, $duration, '$target');";
 			$this->lastQuery = $query;
-	
+			
 			$result = $this->db->query($query);
 			if ($result === FALSE) $this->reportError("Failed to save new build record skills data!");
 		}
-	
+		
 		return true;
 	}
 	
 	
 	public function createNewBuildStats($buildId)
 	{
-	
+		
 		foreach ($this->characterData['stats'] as $data)
 		{
 			$name = $this->db->real_escape_string($data['name']);
-			$value = $this->db->real_escape_string($data['value']);
+			$value = $this->db->real_escape_string(substr($data['value'], 0, 250));
 			
 			$result = preg_match("#([^:]+):(.*)#", $name, $matches);
 			
@@ -3088,11 +3088,11 @@ EOT;
 			$query = "INSERT INTO stats(characterId, name, value) ";
 			$query .= "VALUES($buildId, '$name', '$value');";
 			$this->lastQuery = $query;
-	
+			
 			$result = $this->db->query($query);
 			if ($result === FALSE) $this->reportError("Failed to save new build record stats data!");
 		}
-	
+		
 		return true;
 	}
 	

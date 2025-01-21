@@ -5,11 +5,11 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #ffc; border: 1px solid gray; margin-right: 270px; padding: 5px;'>
+<div style='background-color: #cfc; border: 1px solid gray; margin-right: 270px; padding: 5px;'>
 We're looking for experts in the build editor and the game itself to help manage and improve this build editor. If interested contact <a href="/wiki/User_talk:Daveh"><b>Daveh</b></a>.
 </div>
-<div style='background-color: #cfc; margin-right: 270px;'>
-NOTE: The build editor is mostly working for update 43! Item, skill and CP data have been updated. New/updated sets/skills may not work correctly yet.
+<div style='background-color: #ffc; margin-right: 270px;'>
+NOTE: The build editor is partially working for PTS update 45. Item, skill, and CP data has been updated. New/updated items/skills may not work yet.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -892,6 +892,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Briarheart</option>
 						<option>Bright-Throat's Boast</option>
 						<option>Buffer of the Swift</option>
+						<option hidden disabled>Bulwark Ruination</option>
 						<option>Burning Spellweave</option>
 						<option>Call of the Undertaker</option>
 						<option>Caluurion's Legacy</option>
@@ -966,6 +967,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Eye of the Grasp</option>
 						<option>False God's Devotion</option>
 						<option value="Perfected False God's Devotion">False God's Devotion (Perfect)</option>
+						<option hidden disabled>Farstrider</option>
 						<option>Fasalla's Guile</option>
 						<option>Fiord's Legacy</option>
 						<option>Flame Blossom</option>
@@ -1087,6 +1089,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Naga Shaman</option>
 						<option>Necropotence</option>
 						<option>Netch's Touch</option>
+						<option hidden disabled>Netch Oil</option>
 						<option>New Moon Acolyte</option>
 						<option>Nibenay Bay Battlereeve</option>
 						<option>Night Mother's Embrace</option>
@@ -1183,10 +1186,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Shadow of the Red Mountain</option>
 						<option>Shadow Walker</option>
 						<option>Shalidor's Curse</option>
+						<option hidden disabled>Shared Pain</option>
 						<option>Shalk Exoskeleton</option>
 						<option>Shattered Fate</option>
 						<option>Sheer Venom</option>
 						<option>Shell Splitter</option>
+						<option hidden disabled>Siegemaster's Focus</option>
 						<option>Shield Breaker</option>
 						<option>Shield of the Valiant</option>
 						<option>Shroud of the Lich</option>
@@ -1261,6 +1266,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Toothrow</option>
 						<option>Tormentor</option>
 						<option>Torug's Pact</option>
+						<option hidden disabled>Tracker's Lash</option>
 						<option>Transformative Hope</option>
 						<option value='Perfected Transformative Hope'>Transformative Hope (Perfect)</option>
 						<option>Trappings of Invigoration</option>
@@ -1867,6 +1873,27 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>5 November 2024</b>
+			<ul>
+				<li>Updated data from live update 44.</li>
+			</ul>
+			<p>
+			<b>26 September 2024</b>
+			<ul>
+				<li>Fixed the page links when searching for a specific wiki user's build.</li>
+				<li>Fixed Shadowy Disguise from applying Major Brutality instead of Major Prophecy (all versions).</li>
+				<li>44pts: Fixed the Rallying Cry set toggle.</li>
+			</ul>
+			<p>
+			<b>17 September 2024</b>
+			<ul>
+				<li>44pts: Added skills, CP, and item data from PTS.</li>
+				<li>44pts: Added 6 new sets to the quick item setup.</li>
+				<li>44pts: Added toggle for the new Tracker's Lash set.</li>
+				<li>44pts: Added toggle for the new Farstrider set.</li>
+				<li>44pts: Added toggle for the new Siegemaster's Focus set.</li>
+				<li>44pts: Added parsing for the new Shared Pain 5 piece set bonus.</li>
+			</ul>
 			<b>13 September 2024</b>
 			<ul>
 				<li>Fixed issue with set effects being doubled in many cases. Builds saved within the last day will have to be re-saved to fix.</li>

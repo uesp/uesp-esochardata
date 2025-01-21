@@ -29,11 +29,11 @@ require_once(__DIR__."/viewBuildData.class.php");
 
 class EsoBuildDataEditor 
 {
-	public $PTS_VERSION = "38pts";	//TODO: Remove?
+	public $PTS_VERSION = "45pts";	//TODO: Remove?
 	
 	public $LOAD_RULES_FROM_DB = true;
-	public $LIVE_RULES_VERSION = "43";
-	public $PTS_RULES_VERSION  = "43pts";
+	public $LIVE_RULES_VERSION = "44";
+	public $PTS_RULES_VERSION  = "45pts";
 	
 	public $READONLY = false;
 	
@@ -1954,6 +1954,14 @@ class EsoBuildDataEditor
 			),
 			
 			"Target.CritResistFactor" => array(
+					"display" => "%",
+			),
+			
+			"Skill2.CritResist" => array(
+					"display" => "%",
+			),
+			
+			"Set.DotDamageTaken" => array(
 					"display" => "%",
 			),
 			

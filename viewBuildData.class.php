@@ -763,15 +763,15 @@ class EsoBuildDataViewer
 	public function loadCharacterCraftBagData()
 	{
 		$accountName = $this->db->real_escape_string($this->characterData['uniqueAccountName']);
-			
+		
 		$query = "SELECT * FROM inventory WHERE characterId=-2 AND account=\"$accountName\";";
 		$this->lastQuery = $query;
 		$result = $this->db->query($query);
 		if ($result === FALSE) return $this->reportError("Failed to load craft bag data for account $accountName!");
-	
+		
 		$result->data_seek(0);
 		$arrayData = array();
-	
+		
 		while (($row = $result->fetch_assoc()))
 		{
 			if ($row['itemLink'] == "")
@@ -4155,6 +4155,11 @@ class EsoBuildDataViewer
 				$query[] = "summaryfor=" . $this->inputShowSummaryFor;
 			else
 				$query[] = "filter=mine";
+		}
+		
+		if ($this->inputSearchWikiUser != "")
+		{
+			$query[] = "wikiuser={$this->inputSearchWikiUser}";
 		}
 		
 		return implode("&", $query);
