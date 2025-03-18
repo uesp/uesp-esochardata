@@ -3185,7 +3185,7 @@ EOT;
 			$query = "INSERT INTO screenshots(characterId, filename, origFilename, caption, uploadTimestamp) ";
 			$query .= "VALUES($buildId, '$filename', '$origFilename', '$caption', '$uploadTimestamp');";
 			$this->lastQuery = $query;
-	
+			
 			$result = $this->db->query($query);
 			if ($result === FALSE) $this->reportError("Failed to save new build record actionBars data!");
 		}
@@ -3205,8 +3205,14 @@ EOT;
 	{
 		if ($this->copyCharToNewBuildCharId <= 0) return false;
 		
+		if (!$this->canWikiUserCreate())
+		{
+			$this->outputHtml = "Permission Denied!";
+			return false;
+		}
+		
 		$this->characterId = $this->copyCharToNewBuildCharId;
-				
+		
 		if (!$this->loadCharacter()) return true;
 		if (!parent::initDatabaseWrite()) return true;
 		
@@ -3223,7 +3229,7 @@ EOT;
 		
 		$this->redirectToNewBuild($buildId);
 		$this->outputHtml .= "<p/>Created <a href='//esobuilds.uesp.net/b/$buildId'><b>New Build!</b></a>";
-				
+		
 		return true;
 	}
 	

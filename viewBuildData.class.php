@@ -329,13 +329,13 @@ class EsoBuildDataViewer
 	public function canWikiUserEdit()
 	{
 		if ($this->wikiContext == null) return false;
-	
+		
 		$user = $this->wikiContext->getUser();
 		if ($user == null) return false;
 		
 		if (!$user->isLoggedIn()) return false;
 		if (strcasecmp($user->getName(), $this->characterData['wikiUserName']) == 0) return true;
-	
+		
 		return $user->isAllowedAny('esochardata_edit');
 	}
 	
@@ -343,7 +343,7 @@ class EsoBuildDataViewer
 	public function canWikiUserDelete()
 	{
 		if ($this->wikiContext == null) return false;
-	
+		
 		$user = $this->wikiContext->getUser();
 		if ($user == null) return false;
 		
@@ -511,6 +511,7 @@ class EsoBuildDataViewer
 		if (array_key_exists('copytobuild', $this->inputParams))
 		{
 			$this->copyCharToNewBuildCharId = intval($this->inputParams['copytobuild']);
+			//return false;
 		}
 		
 		if (array_key_exists('buildCheck', $this->inputParams))
@@ -5091,7 +5092,7 @@ EOT;
 			return $this->outputHtml;
 		}
 		
-		if (!$this->parseFormInput()) 
+		if (!$this->parseFormInput())
 		{
 			$this->reportError("Error parsing input data!");
 			return $this->outputHtml;
@@ -5100,6 +5101,7 @@ EOT;
 		if ($this->copyCharToNewBuildCharId > 0)
 		{
 			if ($this->copyCharToNewBuild()) return $this->outputHtml;
+			return $this->outputHtml;
 		}
 		
 		if ($this->action == 'delete')

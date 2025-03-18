@@ -9,7 +9,7 @@
 We're looking for experts in the build editor and the game itself to help manage and improve this build editor. If interested contact <a href="/wiki/User_talk:Daveh"><b>Daveh</b></a>.
 </div>
 <div style='background-color: #ffc; margin-right: 270px;'>
-NOTE: The build editor is partially working for PTS update 45. Item, skill, and CP data has been updated. New/updated items/skills may not work yet.
+NOTE: The build editor is partially working for update 45. Item, skill, and CP data has been updated. New/updated items/skills may not work yet.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
