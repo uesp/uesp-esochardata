@@ -1873,6 +1873,16 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>26 March 2025</b>
+			<ul>
+				<li>Fixed the skill coefficients for the Conjured Ward skill and morphs doing back to update 37.</li>
+			</ul>
+			<p>
+			<b>10 March 2025</b>
+			<ul>
+				<li>Updated data from live update 45.</li>
+			</ul>
+			<p>
 			<b>5 November 2024</b>
 			<ul>
 				<li>Updated data from live update 44.</li>

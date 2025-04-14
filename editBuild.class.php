@@ -6249,6 +6249,7 @@ class EsoBuildDataEditor
 		$this->viewSkills->displayRace = "Argonian";
 		$this->viewSkills->displayMenuBar = true;
 		$this->viewSkills->displaySkillBar = true;
+		$this->viewSkills->LOAD_CRAFTED_SKILLS = false;
 		
 		$this->MakeInputStatsList();
 		$this->SetInputParams();
