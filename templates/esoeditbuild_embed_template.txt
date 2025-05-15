@@ -5,11 +5,11 @@
 	<button id="esotbDeleteButton" {deleteButtonDisabled}>Delete</button>
 	<div id="esotbSaveResults"></div>
 </div>
-<div style='background-color: #cfc; border: 1px solid gray; margin-right: 270px; padding: 5px;'>
+<div class="esotbHeaderNote">
 We're looking for experts in the build editor and the game itself to help manage and improve this build editor. If interested contact <a href="/wiki/User_talk:Daveh"><b>Daveh</b></a>.
 </div>
-<div style='background-color: #ffc; margin-right: 270px;'>
-NOTE: The build editor is partially working for update 45. Item, skill, and CP data has been updated. New/updated items/skills may not work yet.
+<div class="esotbBuildNote">
+NOTE: The build editor is mostly working for update 46pts. Item, skill, and CP data have been updated. New/updated skills/sets may not worked correctly yet.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -69,7 +69,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			<div class="esotbStatLabel">Auto-Purchase<br/>Race Passives</div> <input type="checkbox" id="esotbEnableRaceAutoPurchase" name="esotbEnableRaceAutoPurchase" statid="EnableRaceAutoPurchase" {enableRaceAutoPurchase}>
 			When selected you will automatically purchase all racial passives when changing races.
 			<br/>
-			<div style="display: {oldVersionDisplay};">
+			<div class="esotbOldVersion" style="display: {oldVersionDisplay};">
 				<div class="esotbStatLabel">Use PTS Rules</div> <input type="checkbox" id="esotbUsePtsRules" name="esotbUsePtsRules" statid="UsePtsRules" {usePtsRulesCheck}>
 				Current version is Update 41 v9.3.0
 				<ul style="margin-left: 170px; margin-top: -5px;">
@@ -78,7 +78,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 					<li>Only CP160 item data is available (lower level items upgrade to CP160 automatically).</li>
 				</ul>
 			</div>
-			<div style="display: {newVersionDisplay}; background-color: #ffc;">
+			<div class="esotbNewVersion" style="display: {newVersionDisplay};">
 				<div class="esotbStatLabel">Rules Version</div>
 				<select title="Select which set of rules to use for this build." id="esotbRulesVersion" name="esotbRulesVersion" statid="RulesVersion"> 
 					{rulesVersionOptions}

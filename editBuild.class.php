@@ -29,11 +29,11 @@ require_once(__DIR__."/viewBuildData.class.php");
 
 class EsoBuildDataEditor 
 {
-	public $PTS_VERSION = "45pts";	//TODO: Remove?
+	public $PTS_VERSION = "46pts";	//TODO: Remove?
 	
 	public $LOAD_RULES_FROM_DB = true;
 	public $LIVE_RULES_VERSION = "45";
-	public $PTS_RULES_VERSION  = "45pts";
+	public $PTS_RULES_VERSION  = "46pts";
 	
 	public $READONLY = false;
 	

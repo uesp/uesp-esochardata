@@ -1633,3 +1633,19 @@ esotbToggledCpSelect {
 	float: right;
 	margin-right: 0px !important;
 }
+
+.esotbHeaderNote {
+	background-color: #cfc; 
+	border: 1px solid gray; 
+	margin-right: 270px; 
+	padding: 5px;
+}
+
+.esotbBuildNote {
+	background-color: #ffc;
+	margin-right: 270px;
+}
+
+.esotbNewVersion {
+	 background-color: #ffc;
+}
