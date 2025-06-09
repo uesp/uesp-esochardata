@@ -3,6 +3,7 @@
 require_once("/home/uesp/secrets/esobuilddata.secrets");
 require_once("/home/uesp/esolog.static/esoCommon.php");
 require_once("/home/uesp/esolog.static/UespMemcachedSession.php");
+require_once("/home/uesp/esolog.static/UespMysqlSession.php");
 
 
 class EsoBuildDataSaver 
@@ -161,7 +162,7 @@ class EsoBuildDataSaver
 	
 	public function __construct()
 	{
-		UespMemcachedSession::install();
+		UespMysqlSession::install();
 		
 		session_name('uesp_net_wiki5_session');
 		session_start();
@@ -198,9 +199,9 @@ class EsoBuildDataSaver
 		$canDeleteBuilds = $_SESSION['UESP_ESO_canDeleteBuild'];
 		$canCreateBuilds = $_SESSION['UESP_ESO_canCreateBuild'];
 		
-		$canEditBuilds    = UespMemcachedSession::readKey('UESP_ESO_canCreateBuild');
-		$canDeleteBuilds  = UespMemcachedSession::readKey('UESP_ESO_canDeleteBuild');
-		$canCreateBuilds  = UespMemcachedSession::readKey('UESP_ESO_canCreateBuild');
+		$canEditBuilds    = UespMysqlSession::readKey('UESP_ESO_canCreateBuild');
+		$canDeleteBuilds  = UespMysqlSession::readKey('UESP_ESO_canDeleteBuild');
+		$canCreateBuilds  = UespMysqlSession::readKey('UESP_ESO_canCreateBuild');
 		
 		$wikiUser = $_SESSION['wsUserName'];
 		$sessionId = session_id();
@@ -219,7 +220,8 @@ class EsoBuildDataSaver
 		$output .= "\tcanDeleteBuilds = {$canDeleteBuilds}\n";
 		$output .= "\tcanCreateBuilds = {$canCreateBuilds}\n";
 		
-		$sessionData = UespMemcachedSession::read($sessionId);
+		/*
+		$sessionData = UespMysqlSession::read($sessionId);
 		
 		if ($sessionData ) {
 			$output .= "\tNew canCreateBuilds = {$sessionData['UESP_ESO_canEditBuild']}\n";
@@ -234,7 +236,7 @@ class EsoBuildDataSaver
 		foreach ($_SESSION as $name => $val)
 		{
 			$output .= "\t$name = '$val'\n";
-		}
+		}*/
 		
 		file_put_contents($this->SESSION_DEBUG_FILENAME, $output, FILE_APPEND | LOCK_EX);
 	}
@@ -242,17 +244,17 @@ class EsoBuildDataSaver
 	
 	public function GetSessionData()
 	{
-		$this->canEditBuilds   = UespMemcachedSession::readKey('UESP_ESO_canEditBuild');
-		$this->canDeleteBuilds = UespMemcachedSession::readKey('UESP_ESO_canDeleteBuild');
-		$this->canCreateBuilds = UespMemcachedSession::readKey('UESP_ESO_canCreateBuild');
+		$this->canEditBuilds   = UespMysqlSession::readKey('UESP_ESO_canEditBuild');
+		$this->canDeleteBuilds = UespMysqlSession::readKey('UESP_ESO_canDeleteBuild');
+		$this->canCreateBuilds = UespMysqlSession::readKey('UESP_ESO_canCreateBuild');
 		
-		$this->wikiUserName = UespMemcachedSession::readKey('wsUserName');
+		$this->wikiUserName = UespMysqlSession::readKey('wsUserName');
 		
 		if ($this->canEditBuilds   === null) $this->canEditBuilds   = false;
 		if ($this->canDeleteBuilds === null) $this->canDeleteBuilds = false;
 		if ($this->canCreateBuilds === null) $this->canCreateBuilds = false;
 		
-		$this->DebugSessionData();
+		//$this->DebugSessionData();
 		
 		return true;
 	}

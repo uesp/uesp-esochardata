@@ -1873,6 +1873,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>6 June 2025</b>
+			<ul>
+				<li>Fixed saving builds after wiki sessions moved to database.</li>
+			</ul>
+			<p>
 			<b>2 June 2025</b>
 			<ul>
 				<li>Updated data from Live update 46.</li>

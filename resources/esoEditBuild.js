@@ -52,6 +52,7 @@ window.g_EsoBuildToggledCpData = {};
 window.g_EsoBuildToggledSkillData = {};
 window.g_EsoBuildLastInputValues = {};
 window.g_EsoBuildLastInputHistory = {};
+window.g_EsoBuildSubclassData = { Subclass1 : "", Subclass2: "", Subclass3: "" };
 
 g_EsoBuildItemData.Head = {};
 g_EsoBuildItemData.Shoulders = {};
@@ -999,6 +1000,10 @@ window.GetEsoInputSpecialValues = function (inputValues)
 		inputValues.Crux = 0;
 	}
 	
+	
+	inputValues.Subclass1 = g_EsoBuildSubclassData.Subclass1;
+	inputValues.Subclass2 = g_EsoBuildSubclassData.Subclass2;
+	inputValues.Subclass3 = g_EsoBuildSubclassData.Subclass3;
 }
 
 
@@ -5781,6 +5786,7 @@ window.SelectEsoItem = function (element)
 window.ShowEsoBuildClickWall = function (parentElement)
 {
 	$(".eso_item_link_popup").hide();
+	$("#esovsSubclassPopupRoot").hide();
 	$("#esotbClickWall").show();
 	g_EsoBuildClickWallLinkElement = parentElement;
 }
@@ -14695,6 +14701,84 @@ window.CreateEsoBuildRuleCacheCps = function()
 }
 
 
+window.OnEsoSubclassSkill = function(e)
+{
+	var $this = $(this);
+	var currentClass = g_EsoBuildLastInputValues.Class;
+	
+	g_EsoBuildSubclassCurrentClass = currentClass;
+	g_EsoBuildSubclassCurrentSkillLine = $this.attr("skilllineid");
+	g_EsoBuildSubclassCurrentElement = $this;
+	
+	$("#esovsSubclassPopupRoot .esovsSubclassPopupClass").show();
+	$("#esovsSubclassPopupRoot .esovsSubclassPopupClass[classid='" + currentClass + "']").hide();
+	
+	ShowEsoBuildClickWall($("#esovsSubclassPopupRoot"));
+	$("#esovsSubclassPopupRoot").show();
+}
+
+
+window.OnEsoSubclassReset = function(e)
+{
+	var $this = $(this);
+	var currentClass = g_EsoBuildLastInputValues.Class;
+	var currentSkillLine = g_EsoBuildSubclassCurrentElement.attr("skilllineid");
+	var origSkillLine = g_EsoBuildSubclassCurrentElement.attr("origskilllineid");
+	var $skillLine = g_EsoBuildSubclassCurrentElement.parent().next();
+	var subclassedLine = $skillLine.attr("skilllineid");
+	var skillLineIndex =  $skillLine.attr("skilllineindex");
+	
+	if (origSkillLine)
+	{
+		if (skillLineIndex == 1) g_EsoBuildSubclassData.Subclass1 = "";
+		if (skillLineIndex == 2) g_EsoBuildSubclassData.Subclass2 = "";
+		if (skillLineIndex == 3) g_EsoBuildSubclassData.Subclass3 = "";
+		
+		$skillLine.attr("subclassid", "");
+		$skillLine.attr("subclass", "");
+		$skillLine.text(origSkillLine);
+	}
+	
+	HideEsoBuildClickWall();
+	
+	EsoResetSkillLine(currentSkillLine, true);
+	//Update skill line
+	//Select skill line
+}
+
+
+window.OnEsoSubclassCancel = function(e)
+{
+	HideEsoBuildClickWall();
+}
+
+
+window.OnEsoSubclassChoiceClick = function(e)
+{
+	var $this = $(this);
+	var classChoosen = $this.attr("classid");
+	var skillLineChoosen = $this.attr("skilllineid");
+	var $skillLine = g_EsoBuildSubclassCurrentElement.parent().next();
+	var subclassedLine = $skillLine.attr("skilllineid");
+	var skillLineIndex =  $skillLine.attr("skilllineindex");
+	
+	$skillLine.attr("subclassid", "skillLineChoosen");
+	$skillLine.attr("subclass", "classChoosen");
+	$skillLine.text(skillLineChoosen);
+	
+	if (skillLineIndex == 1) g_EsoBuildSubclassData.Subclass1 = skillLineChoosen;
+	if (skillLineIndex == 2) g_EsoBuildSubclassData.Subclass2 = skillLineChoosen;
+	if (skillLineIndex == 3) g_EsoBuildSubclassData.Subclass3 = skillLineChoosen;
+	
+	HideEsoBuildClickWall();
+	
+	EsoResetSkillLine(subclassedLine, true);
+	
+	//Update skill line
+	//Select skill line
+}
+
+
 window.esotbOnDocReady = function ()
 {
 	clearInterval(g_EsoCharDataTimeUpdateId);
@@ -14831,6 +14915,12 @@ window.esotbOnDocReady = function ()
 	$(".esotbMitigationTable td").click(OnEsoMitigationTableClick);
 	
 	$(".esotbStatSectionTitle").click(OnEsoStatSectionTitleClick);
+	
+	$(document.body).append( $('#esovsSubclassPopupRoot').detach() );
+	$(".esovsSubclassImage").click(OnEsoSubclassSkill);
+	$("#esovsSubclassPopupRoot .esovsSubclassResetButton").click(OnEsoSubclassReset);
+	$("#esovsSubclassPopupRoot .esovsSubclassCancelButton").click(OnEsoSubclassCancel);
+	$("#esovsSubclassPopupRoot .esovsSubclassPopupChoice").click(OnEsoSubclassChoiceClick);
 	
 	g_EsoBuildEnableUpdates = false;
 	

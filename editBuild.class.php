@@ -6250,6 +6250,7 @@ class EsoBuildDataEditor
 		$this->viewSkills->displayMenuBar = true;
 		$this->viewSkills->displaySkillBar = true;
 		$this->viewSkills->LOAD_CRAFTED_SKILLS = false;
+		$this->viewSkills->PERMIT_SUBCLASSING = true;
 		
 		$this->MakeInputStatsList();
 		$this->SetInputParams();
