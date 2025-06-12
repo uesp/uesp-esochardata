@@ -7285,6 +7285,7 @@ class EsoBuildDataEditor
 		$this->viewSkills->initialData = $this->initialSkillData;
 		$this->viewSkills->activeData = $this->initialActiveSkillData;
 		$this->viewSkills->passiveData = $this->initialPassiveSkillData;
+		$this->viewSkills->charStats = $this->buildDataViewer->characterData['stats'];
 	}
 	
 	

@@ -9,7 +9,8 @@
 We're looking for experts in the build editor and the game itself to help manage and improve this build editor. If interested contact <a href="/wiki/User_talk:Daveh"><b>Daveh</b></a>.
 </div>
 <div class="esotbBuildNote">
-NOTE: The build editor is mostly working for update 46. Item, skill, and CP data have been updated. New/updated skills/sets may not worked correctly yet.
+NOTE: The build editor is mostly working for update 46. Item, skill, and CP data have been updated. New/updated skills/sets may not worked correctly yet. Subclass has been added (check the + to the left of the class skill
+lines) but needs to be tested.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -1873,6 +1874,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>12 June 2025</b>
+			<ul>
+				<li>Added initial version of subclassing (click the + button to the left of the class skill lines).</li>
+			</ul>
+			<p>
 			<b>6 June 2025</b>
 			<ul>
 				<li>Fixed saving builds after wiki sessions moved to database.</li>

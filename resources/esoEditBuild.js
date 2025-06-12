@@ -52,7 +52,15 @@ window.g_EsoBuildToggledCpData = {};
 window.g_EsoBuildToggledSkillData = {};
 window.g_EsoBuildLastInputValues = {};
 window.g_EsoBuildLastInputHistory = {};
-window.g_EsoBuildSubclassData = { Subclass1 : "", Subclass2: "", Subclass3: "" };
+
+window.g_EsoBuildSubclassData = { 
+		Subclass1 : "",
+		SubclassSkillLine1 : "",
+		Subclass2: "",
+		SubclassSkillLine2 : "",
+		Subclass3: "" ,
+		SubclassSkillLine3 : "",
+	};
 
 g_EsoBuildItemData.Head = {};
 g_EsoBuildItemData.Shoulders = {};
@@ -1004,6 +1012,9 @@ window.GetEsoInputSpecialValues = function (inputValues)
 	inputValues.Subclass1 = g_EsoBuildSubclassData.Subclass1;
 	inputValues.Subclass2 = g_EsoBuildSubclassData.Subclass2;
 	inputValues.Subclass3 = g_EsoBuildSubclassData.Subclass3;
+	inputValues.SubclassSkillLine1 = g_EsoBuildSubclassData.SubclassSkillLine1;
+	inputValues.SubclassSkillLine2 = g_EsoBuildSubclassData.SubclassSkillLine2;
+	inputValues.SubclassSkillLine3 = g_EsoBuildSubclassData.SubclassSkillLine3;
 }
 
 
@@ -9484,7 +9495,7 @@ window.UpdateEsoBuildNewId = function (newId)
 window.CreateEsoBuildSaveData = function ()
 {
 	var saveData = {};
-
+	
 	UpdateEsoComputedStatsList_Real(true);
 	
 	var inputValues = g_EsoBuildLastInputValues;
@@ -10067,6 +10078,13 @@ window.CreateEsoBuildGeneralSaveData = function (saveData, inputValues)
 	saveData.Stats['UseZeroBaseCrit'] = 1;
 	
 	saveData.Stats['BuildDescription'] = inputValues.BuildDescription;
+	
+	saveData.Stats['Subclass1'] = inputValues.Subclass1;
+	saveData.Stats['Subclass2'] = inputValues.Subclass2;
+	saveData.Stats['Subclass3'] = inputValues.Subclass3;
+	saveData.Stats['SubclassSkillLine1'] = inputValues.SubclassSkillLine1;
+	saveData.Stats['SubclassSkillLine2'] = inputValues.SubclassSkillLine2;
+	saveData.Stats['SubclassSkillLine3'] = inputValues.SubclassSkillLine3;
 	
 	return saveData;
 }
@@ -14701,6 +14719,12 @@ window.CreateEsoBuildRuleCacheCps = function()
 }
 
 
+window.g_EsoBuildSubclassCurrentClass = "";
+window.g_EsoBuildSubclassCurrentSkillLine = "";
+window.g_EsoBuildSubclassCurrentSkillIndex = 0;
+window.g_EsoBuildSubclassCurrentElement = null;
+
+
 window.OnEsoSubclassSkill = function(e)
 {
 	var $this = $(this);
@@ -14708,10 +14732,27 @@ window.OnEsoSubclassSkill = function(e)
 	
 	g_EsoBuildSubclassCurrentClass = currentClass;
 	g_EsoBuildSubclassCurrentSkillLine = $this.attr("skilllineid");
+	g_EsoBuildSubclassCurrentSkillIndex = $this.attr("skilllineindex");
 	g_EsoBuildSubclassCurrentElement = $this;
 	
 	$("#esovsSubclassPopupRoot .esovsSubclassPopupClass").show();
 	$("#esovsSubclassPopupRoot .esovsSubclassPopupClass[classid='" + currentClass + "']").hide();
+	
+	if (g_EsoBuildSubclassCurrentSkillIndex == 1)
+	{
+		if (g_EsoBuildSubclassData.Subclass2 != "") $("#esovsSubclassPopupRoot .esovsSubclassPopupClass[classid='" + g_EsoBuildSubclassData.Subclass2 + "']").hide();
+		if (g_EsoBuildSubclassData.Subclass3 != "") $("#esovsSubclassPopupRoot .esovsSubclassPopupClass[classid='" + g_EsoBuildSubclassData.Subclass3 + "']").hide();
+	}
+	else if (g_EsoBuildSubclassCurrentSkillIndex == 2)
+	{
+		if (g_EsoBuildSubclassData.Subclass1 != "") $("#esovsSubclassPopupRoot .esovsSubclassPopupClass[classid='" + g_EsoBuildSubclassData.Subclass1 + "']").hide();
+		if (g_EsoBuildSubclassData.Subclass3 != "") $("#esovsSubclassPopupRoot .esovsSubclassPopupClass[classid='" + g_EsoBuildSubclassData.Subclass3 + "']").hide();
+	}
+	else if (g_EsoBuildSubclassCurrentSkillIndex == 3)
+	{
+		if (g_EsoBuildSubclassData.Subclass1 != "") $("#esovsSubclassPopupRoot .esovsSubclassPopupClass[classid='" + g_EsoBuildSubclassData.Subclass1 + "']").hide();
+		if (g_EsoBuildSubclassData.Subclass2 != "") $("#esovsSubclassPopupRoot .esovsSubclassPopupClass[classid='" + g_EsoBuildSubclassData.Subclass2 + "']").hide();
+	}
 	
 	ShowEsoBuildClickWall($("#esovsSubclassPopupRoot"));
 	$("#esovsSubclassPopupRoot").show();
@@ -14730,20 +14771,40 @@ window.OnEsoSubclassReset = function(e)
 	
 	if (origSkillLine)
 	{
-		if (skillLineIndex == 1) g_EsoBuildSubclassData.Subclass1 = "";
-		if (skillLineIndex == 2) g_EsoBuildSubclassData.Subclass2 = "";
-		if (skillLineIndex == 3) g_EsoBuildSubclassData.Subclass3 = "";
+		if (skillLineIndex == 1) {
+			g_EsoBuildSubclassData.Subclass1 = "";
+			g_EsoBuildSubclassData.SubclassSkillLine1 = "";
+		}
+		else if (skillLineIndex == 2) { 
+			g_EsoBuildSubclassData.Subclass2 = "";
+			g_EsoBuildSubclassData.SubclassSkillLine2 = "";
+		}
+		else if (skillLineIndex == 3) {
+			g_EsoBuildSubclassData.Subclass3 = "";
+			g_EsoBuildSubclassData.SubclassSkillLine3 = "";
+		}
 		
 		$skillLine.attr("subclassid", "");
 		$skillLine.attr("subclass", "");
+		$skillLine.attr("skilllineid", origSkillLine);
 		$skillLine.text(origSkillLine);
 	}
 	
 	HideEsoBuildClickWall();
 	
-	EsoResetSkillLine(currentSkillLine, true);
-	//Update skill line
-	//Select skill line
+	EsoResetSkillLine(subclassedLine, true);
+	
+	$(".esovsSkillLineTitleHighlight").removeClass("esovsSkillLineTitleHighlight");
+	$skillLine.addClass("esovsSkillLineTitleHighlight");
+	
+	EsoSkillShowSkillLine(origSkillLine);
+	UpdateEsoAllSkillDescription();
+	UpdateEsoAllSkillCost();
+	UpdateEsoSkillRawData();
+	UpdateEsoSkillCoefData();
+	UpdateSkillLink();
+	
+	UpdateEsoComputedStatsList();
 }
 
 
@@ -14762,20 +14823,53 @@ window.OnEsoSubclassChoiceClick = function(e)
 	var subclassedLine = $skillLine.attr("skilllineid");
 	var skillLineIndex =  $skillLine.attr("skilllineindex");
 	
-	$skillLine.attr("subclassid", "skillLineChoosen");
-	$skillLine.attr("subclass", "classChoosen");
+	$skillLine.attr("subclassid", skillLineChoosen);
+	$skillLine.attr("subclass", classChoosen);
+	$skillLine.attr("skilllineid", skillLineChoosen);
 	$skillLine.text(skillLineChoosen);
 	
-	if (skillLineIndex == 1) g_EsoBuildSubclassData.Subclass1 = skillLineChoosen;
-	if (skillLineIndex == 2) g_EsoBuildSubclassData.Subclass2 = skillLineChoosen;
-	if (skillLineIndex == 3) g_EsoBuildSubclassData.Subclass3 = skillLineChoosen;
+	if (skillLineIndex == 1) {
+		g_EsoBuildSubclassData.Subclass1 = classChoosen;
+		g_EsoBuildSubclassData.SubclassSkillLine1 = skillLineChoosen;
+	}
+	else if (skillLineIndex == 2) { 
+		g_EsoBuildSubclassData.Subclass2 = classChoosen;
+		g_EsoBuildSubclassData.SubclassSkillLine2 = skillLineChoosen;
+	}
+	else if (skillLineIndex == 3) {
+		g_EsoBuildSubclassData.Subclass3 = classChoosen;
+		g_EsoBuildSubclassData.SubclassSkillLine3 = skillLineChoosen;
+	}
 	
 	HideEsoBuildClickWall();
 	
 	EsoResetSkillLine(subclassedLine, true);
 	
-	//Update skill line
-	//Select skill line
+	$(".esovsSkillLineTitleHighlight").removeClass("esovsSkillLineTitleHighlight");
+	$skillLine.addClass("esovsSkillLineTitleHighlight");
+	
+	EsoSkillShowSkillLine(skillLineChoosen);
+	UpdateEsoAllSkillDescription();
+	UpdateEsoAllSkillCost();
+	UpdateEsoSkillRawData();
+	UpdateEsoSkillCoefData();
+	UpdateSkillLink();
+	
+	UpdateEsoComputedStatsList();
+}
+
+
+window.UpdateEsoSubclassData = function()
+{
+	var skillLine1 = $("#esovsSkillTree .esovsSkillLineTitle[skilllineindex=1]:visible");
+	var skillLine2 = $("#esovsSkillTree .esovsSkillLineTitle[skilllineindex=2]:visible");
+	var skillLine3 = $("#esovsSkillTree .esovsSkillLineTitle[skilllineindex=3]:visible");
+	g_EsoBuildSubclassData.Subclass1 = skillLine1.attr("subclass");
+	g_EsoBuildSubclassData.Subclass2 = skillLine1.attr("subclass");
+	g_EsoBuildSubclassData.Subclass3 = skillLine1.attr("subclass");
+	g_EsoBuildSubclassData.SubclassSkillLine1 = skillLine1.attr("subclassid");
+	g_EsoBuildSubclassData.SubclassSkillLine2 = skillLine2.attr("subclassid");
+	g_EsoBuildSubclassData.SubclassSkillLine3 = skillLine3.attr("subclassid");
 }
 
 
@@ -14924,6 +15018,7 @@ window.esotbOnDocReady = function ()
 	
 	g_EsoBuildEnableUpdates = false;
 	
+	UpdateEsoSubclassData();
 	CopyEsoSkillsToItemTab();
 	UpdateEsoCpData();
 	UpdateAllEsoItemTraitLists();
