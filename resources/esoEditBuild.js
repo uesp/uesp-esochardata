@@ -566,10 +566,11 @@ window.GetEsoInputValues = function (mergeComputedStats)
 	GetEsoInputSkillPassives(inputValues);
 	GetEsoInputSkillActiveBar(inputValues);
 	GetEsoInputSkillOffBars(inputValues);
-	GetEsoInputBuffValues(inputValues);
+	GetEsoInputBuffValues(inputValues, 0);
 	
 	GetEsoInputMiscValues(inputValues);
 	GetEsoInputSetValues(inputValues, 1);		//deferLevel
+	GetEsoInputBuffValues(inputValues, 1);
 	
 	if (mergeComputedStats === true) 
 	{
@@ -704,9 +705,11 @@ window.UpdateEsoInputBuffToggles = function (buffData)
 }
 
 
-window.GetEsoInputBuffValues = function (inputValues)
+window.GetEsoInputBuffValues = function (inputValues, deferLevel)
 {
 	UpdateEsoInputBuffToggles();
+	
+	if (deferLevel == null) deferLevel = 0;
 	
 	for (var buffName in g_EsoBuildBuffData)
 	{
@@ -714,6 +717,11 @@ window.GetEsoInputBuffValues = function (inputValues)
 		if (buffData == null) continue;
 		
 		if (!IsEsoBuffEnabled(buffData)) continue;
+		
+		var buffDeferLevel = buffData.deferLevel;
+		if (buffDeferLevel == null) buffDeferLevel = 0;
+		
+		if (deferLevel != buffDeferLevel) continue;
 		
 		GetEsoInputBuffValue(inputValues, buffName, buffData);
 	}
@@ -4377,7 +4385,7 @@ window.UpdateEsoComputedStatsList_Real = function (keepSaveResults, noUpdate)
 	
 	EsoProfile('UpdateEsoComputedStatsList_Real', 'UpdateEsoComputedStat');
 	
-	UpdateEsoComputedStatsSpecial(inputValues);
+	UpdateEsoComputedStatsSpecial(inputValues, 0);
 	
 	EsoProfile('UpdateEsoComputedStatsList_Real', 'UpdateEsoComputedStatsSpecial');
 	
@@ -4399,7 +4407,7 @@ window.UpdateEsoComputedStatsList_Real = function (keepSaveResults, noUpdate)
 	}
 	
 		// Recompute
-	UpdateEsoComputedStatsSpecial(inputValues);
+	UpdateEsoComputedStatsSpecial(inputValues, 1);
 	UpdateEsoCp2SpecialDescriptions(inputValues);
 	
 	EsoProfile('UpdateEsoComputedStatsList_Real', 'UpdateEsoComputedStat - Deferred');
@@ -4458,7 +4466,7 @@ window.UpdateEsoComputedStatsList_Real = function (keepSaveResults, noUpdate)
 }
 
 
-window.UpdateEsoComputedStatsSpecial = function (inputValues)
+window.UpdateEsoComputedStatsSpecial = function (inputValues, computeIndex)
 {
 	var pelinalSetCount = 0;
 	var pelinalSetName = "";
@@ -4492,6 +4500,19 @@ window.UpdateEsoComputedStatsSpecial = function (inputValues)
 		
 		DisplayEsoComputedStat("WeaponDamage");
 		DisplayEsoComputedStat("SpellDamage");
+	}
+	
+		//Force update for the Tremorscale buff value
+	var buffData = g_EsoBuildBuffData['Tremorscale (Target)'];
+	var setData = g_EsoBuildSetData['Tremorscale'];
+	
+	if (computeIndex == 0 && buffData && setData)
+	{
+		UpdateEsoBuildSkillInputValues(inputValues);
+		ComputeEsoBuildSetData(setData);
+		GetEsoInputSetDataValues(inputValues, setData, 1);
+		
+		if (IsEsoBuffEnabled(buffData)) GetEsoInputBuffValue(inputValues, 'Tremorscale (Target)', buffData);
 	}
 	
 }
@@ -4985,10 +5006,17 @@ window.OnEsoClassChange = function (e)
 	
 	g_EsoBuildEnableUpdates = false;
 	EnableEsoClassSkills(newClass);
+	
+	$("#esovsSkillTree .esovsSkillLineTitle").attr("subclass", "").attr("subclassid", "").each(function() {
+		var $this = $(this);
+		$this.text($this.attr("origskilllineid"));
+	});
+	
+	UpdateEsoSubclassData();
 	g_EsoBuildEnableUpdates = true;
 	
 	UpdateEsoSkillBarDisplay();
-		
+	
 	UpdateEsoComputedStatsList("async");
 }
 
@@ -14477,6 +14505,7 @@ window.ApplyEsoBuildRuleEffects = function(inputValues, ruleData, matchResults, 
 		if (ruleData.useCountForRegexVar === 1 && ruleData.maxTimes != null && otherData.toggleData != null && otherData.toggleData.count != null)
 		{
 			regexVar = otherData.toggleData.count;
+			if (ruleData.minCount > 0) regexVar = Math.max(regexVar, ruleData.minCount);
 			
 			if (regexVar == 0)
 				newStatValue = 0;
@@ -14735,6 +14764,7 @@ window.OnEsoSubclassSkill = function(e)
 	g_EsoBuildSubclassCurrentSkillIndex = $this.attr("skilllineindex");
 	g_EsoBuildSubclassCurrentElement = $this;
 	
+	$("#esovsSubclassPopupRoot .esovsSubclassWarning").hide();
 	$("#esovsSubclassPopupRoot .esovsSubclassPopupClass").show();
 	$("#esovsSubclassPopupRoot .esovsSubclassPopupClass[classid='" + currentClass + "']").hide();
 	
@@ -14742,16 +14772,34 @@ window.OnEsoSubclassSkill = function(e)
 	{
 		if (g_EsoBuildSubclassData.Subclass2 != "") $("#esovsSubclassPopupRoot .esovsSubclassPopupClass[classid='" + g_EsoBuildSubclassData.Subclass2 + "']").hide();
 		if (g_EsoBuildSubclassData.Subclass3 != "") $("#esovsSubclassPopupRoot .esovsSubclassPopupClass[classid='" + g_EsoBuildSubclassData.Subclass3 + "']").hide();
+		
+		if (g_EsoBuildSubclassData.Subclass2 != "" && g_EsoBuildSubclassData.Subclass3 != "")
+		{
+			$("#esovsSubclassPopupRoot .esovsSubclassWarning").show();
+			$("#esovsSubclassPopupRoot .esovsSubclassPopupClass").hide();
+		}
 	}
 	else if (g_EsoBuildSubclassCurrentSkillIndex == 2)
 	{
 		if (g_EsoBuildSubclassData.Subclass1 != "") $("#esovsSubclassPopupRoot .esovsSubclassPopupClass[classid='" + g_EsoBuildSubclassData.Subclass1 + "']").hide();
 		if (g_EsoBuildSubclassData.Subclass3 != "") $("#esovsSubclassPopupRoot .esovsSubclassPopupClass[classid='" + g_EsoBuildSubclassData.Subclass3 + "']").hide();
+		
+		if (g_EsoBuildSubclassData.Subclass1 != "" && g_EsoBuildSubclassData.Subclass3 != "")
+		{
+			$("#esovsSubclassPopupRoot .esovsSubclassWarning").show();
+			$("#esovsSubclassPopupRoot .esovsSubclassPopupClass").hide();
+		}
 	}
 	else if (g_EsoBuildSubclassCurrentSkillIndex == 3)
 	{
 		if (g_EsoBuildSubclassData.Subclass1 != "") $("#esovsSubclassPopupRoot .esovsSubclassPopupClass[classid='" + g_EsoBuildSubclassData.Subclass1 + "']").hide();
 		if (g_EsoBuildSubclassData.Subclass2 != "") $("#esovsSubclassPopupRoot .esovsSubclassPopupClass[classid='" + g_EsoBuildSubclassData.Subclass2 + "']").hide();
+		
+		if (g_EsoBuildSubclassData.Subclass1 != "" && g_EsoBuildSubclassData.Subclass2 != "")
+		{
+			$("#esovsSubclassPopupRoot .esovsSubclassWarning").show();
+			$("#esovsSubclassPopupRoot .esovsSubclassPopupClass").hide();
+		}
 	}
 	
 	ShowEsoBuildClickWall($("#esovsSubclassPopupRoot"));
@@ -14861,12 +14909,12 @@ window.OnEsoSubclassChoiceClick = function(e)
 
 window.UpdateEsoSubclassData = function()
 {
-	var skillLine1 = $("#esovsSkillTree .esovsSkillLineTitle[skilllineindex=1]:visible");
-	var skillLine2 = $("#esovsSkillTree .esovsSkillLineTitle[skilllineindex=2]:visible");
-	var skillLine3 = $("#esovsSkillTree .esovsSkillLineTitle[skilllineindex=3]:visible");
+	var skillLine1 = $("#esovsSkillTree .esovsSkillTypeActiveClass .esovsSkillLineTitle[skilllineindex=1]");
+	var skillLine2 = $("#esovsSkillTree .esovsSkillTypeActiveClass .esovsSkillLineTitle[skilllineindex=2]");
+	var skillLine3 = $("#esovsSkillTree .esovsSkillTypeActiveClass .esovsSkillLineTitle[skilllineindex=3]");
 	g_EsoBuildSubclassData.Subclass1 = skillLine1.attr("subclass");
-	g_EsoBuildSubclassData.Subclass2 = skillLine1.attr("subclass");
-	g_EsoBuildSubclassData.Subclass3 = skillLine1.attr("subclass");
+	g_EsoBuildSubclassData.Subclass2 = skillLine2.attr("subclass");
+	g_EsoBuildSubclassData.Subclass3 = skillLine3.attr("subclass");
 	g_EsoBuildSubclassData.SubclassSkillLine1 = skillLine1.attr("subclassid");
 	g_EsoBuildSubclassData.SubclassSkillLine2 = skillLine2.attr("subclassid");
 	g_EsoBuildSubclassData.SubclassSkillLine3 = skillLine3.attr("subclassid");

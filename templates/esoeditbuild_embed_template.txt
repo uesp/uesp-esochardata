@@ -1874,6 +1874,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>17 June 2025</b>
+			<ul>
+				<li>Fixed an issue with the Tremorscale set/buff not using the correct resistances.</li>
+				<li>Permitted the Emperor passives to work with a count of 0 and be initially enabled.</li>
+			</ul>
+			<p>
 			<b>12 June 2025</b>
 			<ul>
 				<li>Added initial version of subclassing (click the + button to the left of the class skill lines).</li>
