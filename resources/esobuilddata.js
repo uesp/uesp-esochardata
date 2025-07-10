@@ -3210,7 +3210,7 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 		// Current Bonus: 0 Critical Chance 0% Inspiration, Alliance Rank, and Alliance skill 0% monster kill experience.
 	newDesc = newDesc.replace(/(Current bonus:.*?(?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|) Critical Chance.*?(?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|)% Inspiration, Alliance Rank, and Alliance skill.*?(?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|)% monster kill experience)/i, function(match, p1, critValue, p2, inspValue, p3, killValue, p4)
 	{
-		if (!g_EsoBuildLastInputValues) return p1 + critValue + p2 + inspValue + p3 + killValue + p4;
+		if (!g_EsoBuildLastInputValues || !g_EsoBuildLastInputValues.Set) return p1 + critValue + p2 + inspValue + p3 + killValue + p4;
 		if (g_EsoBuildLastInputValues.Set.MorasWhispers == null || g_EsoBuildLastInputValues.Set.MorasWhispers == 0) return p1 + critValue + p2 + inspValue + p3 + killValue + p4;
 		
 		var maxCrit = 1528;
@@ -3238,7 +3238,7 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 		// Current 180 Weapon and Spell Damage. Pearlescent Ward increases damage reduction from non-player enemies out of 66% based on the number of group members that are dead. Current 0% damage reduction.
 	newDesc = newDesc.replace(/(Current (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|) Weapon and Spell Damage.*?Current (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|)% damage reduction)/i, function(match, p1, damageValue, p2, reductValue, p3)
 	{
-		if (!g_EsoBuildLastInputValues) return p1 + damageValue + p2 + reductValue + p3;
+		if (!g_EsoBuildLastInputValues || !g_EsoBuildLastInputValues.Set) return p1 + damageValue + p2 + reductValue + p3;
 		if (g_EsoBuildLastInputValues.Set.PearlescentWard == null || g_EsoBuildLastInputValues.Set.PearlescentWard == 0) return p1 + damageValue + p2 + reductValue + p3;
 		
 		var maxDamage = 180;
@@ -3258,6 +3258,17 @@ window.UpdateEsoBuildSetOther = function (setDesc)
 		return p1 + newDamageValue + p2 + newReductValue + p3;
 	});	
 	
+		// Mark of the Pariah
+		// Increases your Physical and Spell Resistance by up to 10206 based on your missing Health. Current value: 2373
+	newDesc = newDesc.replace(/(based on your missing Health.*\s*Current value: (?:\<div[^>]*\>|))([0-9]+)((?:\<\/div\>|))/i, function(match, p1, currentValue, p2)
+	{
+		if (!g_EsoBuildLastInputValues || !g_EsoBuildLastInputValues.Set) return p1 + currentValue + p2;
+		if (g_EsoBuildLastInputValues.Set.MarkPariah == null || g_EsoBuildLastInputValues.Set.MarkPariah == 0) return p1 + currentValue + p2;
+		
+		var newValue = Math.round(g_EsoBuildLastInputValues.Set.MarkPariah);
+		return p1 + newValue + p2;
+	});
+	
 	return newDesc;
 }
 
@@ -3266,6 +3277,7 @@ window.UpdateEsoBuildSetTooltips = function(setDesc, setName)
 {
 	if (window.g_SetSkillsData == null || window.GetEsoSkillDescription2 == null) return setDesc;
 	
+		// Unsure why needed this and if its important or just cosmetic (need to refix at the end)
 	var newDesc = setDesc.replace(".</div>", "</div>.");
 	
 	if (setName == null)
@@ -3373,6 +3385,9 @@ window.UpdateEsoBuildSetTooltips = function(setDesc, setName)
 	matchDesc = matchDesc.replaceAll(".*?" + valueMatch + ".*?", valueMatch);
 	
 	var matchRegExp = new RegExp(matchDesc, 'i');
+	
+		//Fix parsing of disabled last set 
+	newDesc = newDesc.replace(/<\/div>.$/, ".</div>");
 	
 	newDesc = newDesc.replaceAll('  ', ' ').replaceAll('  ', ' ').replaceAll('  ', ' ');
 	newDesc = newDesc.replace(matchRegExp, newTooltip);

@@ -9,7 +9,7 @@
 We're looking for experts in the build editor and the game itself to help manage and improve this build editor. If interested contact <a href="/wiki/User_talk:Daveh"><b>Daveh</b></a>.
 </div>
 <div class="esotbBuildNote">
-NOTE: The build editor is mostly working for update 46. Item, skill, and CP data have been updated. New/updated skills/sets may not worked correctly yet. Subclass has been added (check the + to the left of the class skill
+NOTE: The build editor is mostly working for update 47pts. Item, skill, and CP data have been updated. New/updated skills/sets may not worked correctly yet. Subclass has been added (check the + to the left of the class skill
 lines) but needs to be tested.
 </div>
 {saveNote}
@@ -1874,6 +1874,24 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>10 July 2025</b>
+			<ul>
+				<li>47pts: Updated data from PTS update 47.</li>
+			</ul>
+			<p>
+			<b>19 June 2025</b>
+			<ul>
+				<li>Fixed issue with Subclassing overwriting non-class skill lines.</li>
+			</ul>
+			<p>
+			<b>18 June 2025</b>
+			<ul>
+				<li>Fixed the Pearlescent Ward set by splitting its buff into two.</li>
+				<li>While you are a Werewolf with the Ultimate slotted your stamina is appropriately increased.</li>
+				<li>Fixed the Maelstrom Cruel Flurry set/buff.</li>
+				<li>Removed the Blade Cloak buff. Added toggle to Blade Cloak skill which enables Major Evasion.</li>
+			</ul>
+			<p>
 			<b>17 June 2025</b>
 			<ul>
 				<li>Fixed an issue with the Tremorscale set/buff not using the correct resistances.</li>

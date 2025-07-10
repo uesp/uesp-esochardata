@@ -446,11 +446,13 @@ class EsoBuildDataSaver
 			if ($fieldType == "id")
 			{
 				if ($table == "characters") continue;
-				$value = $this->buildId;	
+				$value = $this->buildId;
 			}
 			
 			if ($value === null) continue;
 			$value = $this->db->real_escape_string($value);
+			
+			if ($table == "stats" && $field == "value") $value = substr($value, 0, 250);
 			
 			$queryColumns[] = "`$field`";
 			$queryValues[] = "'$value'";

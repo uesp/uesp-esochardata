@@ -1352,8 +1352,9 @@ window.GetEsoInputSetDescValues = function (inputValues, setDesc, setBonusCount,
 			statFactor = statFactor * matchData.factorValue;
 		}
 		
-		if (statFactor == 0) continue;
+		//if (statFactor == 0) continue;
 		statValue = statValue * statFactor;
+		if (statValue == 0) continue;
 		
 		if (matchData.round == "floor") statValue = Math.floor(statValue);
 		if (matchData.display == "%") statValue = statValue/100;
@@ -4506,11 +4507,15 @@ window.UpdateEsoComputedStatsSpecial = function (inputValues, computeIndex)
 	var buffData = g_EsoBuildBuffData['Tremorscale (Target)'];
 	var setData = g_EsoBuildSetData['Tremorscale'];
 	
-	if (computeIndex == 0 && buffData && setData)
+	if (computeIndex == 0 && buffData)
 	{
 		UpdateEsoBuildSkillInputValues(inputValues);
-		ComputeEsoBuildSetData(setData);
-		GetEsoInputSetDataValues(inputValues, setData, 1);
+		
+		if (setData)
+		{
+			GetEsoInputSetDataValues(inputValues, setData, 2);
+			ComputeEsoBuildSetData(setData);
+		}
 		
 		if (IsEsoBuffEnabled(buffData)) GetEsoInputBuffValue(inputValues, 'Tremorscale (Target)', buffData);
 	}
@@ -8380,6 +8385,7 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
 			Skill2	: inputValues.Skill2.MagickaCost,
 			Buff	: inputValues.Buff.MagickaCost,
 			All     : inputValues.MagickaCost,
+			Healing : parseFloat(inputValues.CP.MagickaHealingCost),
 	};
 	
 	g_LastSkillInputValues.StaminaCost = 
@@ -8391,6 +8397,7 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
 			Skill2	: inputValues.Skill2.StaminaCost,
 			Buff	: inputValues.Buff.StaminaCost,
 			All     : inputValues.StaminaCost,
+			Healing : parseFloat(inputValues.CP.StaminaHealingCost),
 	};
 	
 	g_LastSkillInputValues.UltimateCost = 
@@ -14348,6 +14355,7 @@ window.ApplyEsoBuildRuleEffects = function(inputValues, ruleData, matchResults, 
 		var combineAs = effect.combineAs;
 		var factorValue = effect.factorValue;
 		var factorOffset = ruleData.factorOffset;
+		var flatOffset = ruleData.flatOffset;
 		var round = effect.round;
 		var display = effect.display;
 		var regexVar = effect.regexVar;
@@ -14586,9 +14594,15 @@ window.ApplyEsoBuildRuleEffects = function(inputValues, ruleData, matchResults, 
 			if (!otherData.enchantData.isDefaultEnchant || otherData.isTransmuted) statValue *= otherData.enchantFactor;
 		}
 		
-		if (statFactor == 0) continue;
+		//if (statFactor == 0) continue;
 		statValue = statValue * statFactor;
 		
+		if (flatOffset != null)
+		{
+			statValue += flatOffset;
+		}
+		
+		if (statValue == 0) continue;
 		statValue = RoundEsoStatValue(statValue, round, display)
 		
 		inputValues[category][statId] = CombineEsoStatValues(inputValues[category][statId], statValue, combineAs)

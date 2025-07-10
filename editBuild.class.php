@@ -29,11 +29,11 @@ require_once(__DIR__."/viewBuildData.class.php");
 
 class EsoBuildDataEditor 
 {
-	public $PTS_VERSION = "46pts";	//TODO: Remove?
+	public $PTS_VERSION = "47pts";	//TODO: Remove?
 	
 	public $LOAD_RULES_FROM_DB = true;
 	public $LIVE_RULES_VERSION = "46";
-	public $PTS_RULES_VERSION  = "46pts";
+	public $PTS_RULES_VERSION  = "47pts";
 	
 	public $READONLY = false;
 	
@@ -747,6 +747,9 @@ class EsoBuildDataEditor
 			"CP.HealingReduction" => array(
 					"display" => "%",
 			),
+			
+			"CP.MagickaHealingCost" => array( "display" => "%" ),
+			"CP.StaminaHealingCost" => array( "display" => "%" ),
 			
 			"Buff.Magicka" => array(
 					"display" => "%",
@@ -1586,6 +1589,14 @@ class EsoBuildDataEditor
 			),
 			
 			"SkillCost.Werewolf_Cost" => array(
+					"display" => "%",
+			),
+			
+			"SkillCost.Bone_Goliath_Cost" => array(
+					"display" => "%",
+			),
+			
+			"SkillCost.Bone_Goliath_Transformation_Cost" => array(
 					"display" => "%",
 			),
 			
