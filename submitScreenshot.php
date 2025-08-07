@@ -352,6 +352,9 @@ class EsoCharScreenshotSubmitter
 			$outputError = true;
 			print("<b>ERROR:</b> You do not have permission to upload screenshots for this build/character! ");
 			print(" Make sure you are logged into the <a href='//en.uesp.net' target='_blank'>UESP Wiki</a> in another tab in this browser and that you own this build/character.<br /><br/>");
+			
+			//$charName = $this->characterData['wikiUserName'];
+			//print("<!-= $wikiUserName / $charName -->");
 		}
 
 		if ($this->inputCharacterId > 0)
