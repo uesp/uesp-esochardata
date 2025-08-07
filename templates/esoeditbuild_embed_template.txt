@@ -1878,6 +1878,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			<ul>
 				<li>Fixed subclassed skills not costing 2 skills points each.</li>
 				<li>Fixed the first subclassed skill line not showing the correct skills on initial load.</li>
+				<li>Total skill points used are recomputed on build load to fix some prior issues with skill totals.</li>
 			</ul>
 			<p>
 			<b>10 July 2025</b>
