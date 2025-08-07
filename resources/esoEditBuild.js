@@ -15087,6 +15087,17 @@ window.esotbOnDocReady = function ()
 	
 	UpdateEsoSkillGroupDisplay();
 	
+	var skillSubClassId = $(".esovsSkillLineTitleHighlight").attr("subclassid");
+	
+	if (skillSubClassId)
+	{
+		var skillBlockId = "#" + CreateEsoSkillLineId(skillSubClassId);
+		$(".esovsSkillContentBlock").hide();
+		$(skillBlockId).show();
+	}
+	
+	UpdateAllEsoSkillPoints(false);
+	
 	g_EsoBuildEnableUpdates = true;
 	
 	UpdateEsoComputedStatsList(true);

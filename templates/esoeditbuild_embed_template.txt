@@ -1874,6 +1874,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>7 August 2025</b>
+			<ul>
+				<li>Fixed subclassed skills not costing 2 skills points each.</li>
+				<li>Fixed the first subclassed skill line not showing the correct skills on initial load.</li>
+			</ul>
+			<p>
 			<b>10 July 2025</b>
 			<ul>
 				<li>47pts: Updated data from PTS update 47.</li>
