@@ -27,13 +27,13 @@ require_once(__DIR__."/viewBuildData.class.php");
 //require_once("/home/uesp/www/esomap/UespMemcachedSession.php");
 
 
-class EsoBuildDataEditor 
+class EsoBuildDataEditor
 {
-	public $PTS_VERSION = "47pts";	//TODO: Remove?
+	public $PTS_VERSION = "48pts";	//TODO: Remove?
 	
 	public $LOAD_RULES_FROM_DB = true;
-	public $LIVE_RULES_VERSION = "47";
-	public $PTS_RULES_VERSION  = "47pts";
+	public $LIVE_RULES_VERSION = "48";
+	public $PTS_RULES_VERSION  = "48pts";
 	
 	public $READONLY = false;
 	
@@ -1733,6 +1733,26 @@ class EsoBuildDataEditor
 			),
 			
 			"Set.FrostDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"Set.FlameDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"Set.ShockDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"Set.BurningDamage" => array(
+					"display" => "%",
+			),
+			
+			"Set.ChilledDamage" => array(
+					"display" => "%",
+			),
+			
+			"Set.ConcussionDamage" => array(
 					"display" => "%",
 			),
 			
