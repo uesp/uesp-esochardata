@@ -661,6 +661,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Anthelmir's Construct</option>
 						<option>Archdruid Devyric</option>
 						<option>Balorgh</option>
+						<option>Bar-Sakka</option>
+						<option>Black Gem Monstrosity</option>
 						<option>Bloodspawn</option>
 						<option>Baron Thirsk</option>
 						<option>Baron Zaudrus</option>
@@ -697,6 +699,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Nibenay Bay Battlereeve</option>
 						<option>Nightflame</option>
 						<option>Nunatak</option>
+						<option>Orpheon the Tactician</option>
 						<option>Ozezan the Inferno</option>
 						<option>Pirate Skeleton</option>
 						<option>Prior Thierric</option>
@@ -707,7 +710,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Sentinel of Rkugamz</option>
 						<option>Shadowrend</option>
 						<option>Slimecraw</option>
-						<option>Spawn of Mephala</option>
+						<option>Squall of Retribution</option>
 						<option>Stone Husk</option>
 						<option>Stonekeeper</option>
 						<option>Stormfist</option>
@@ -792,12 +795,16 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option slotid="Chest">Faun's Lark Cladding</option>
 						<option slotid="Head">Gaze of Sithis</option>
 						<option slotid="Legs">Harpooner's Wading Kilt</option>
+						<option slotid="Head">Huntsman's Warmask</option>
 						<option slotid="Waist">Lefthander's War Girdle</option>
+						<option slotid="Feet">Mad God's Dancing Shoes</option>
 						<option slotid="Ring2">Malacath's Band of Brutality</option>
 						<option slotid="Ring1">Markyn Ring of Majesty</option>
+						<option slotid="Ring1">Monomyth Reforged</option>
 						<option slotid="Shoulders">Mora's Whispers</option>
 						<option slotid="Ring2">Oakensoul Ring</option>
 						<option slotid="Neck">Pearls of Ehlnofey</option>
+						<option slotid="Shoulders">Rakkhat's Voidmantle</option>
 						<option slotid="Ring1">Ring of the Pale Order</option>
 						<option slotid="Ring1">Ring of the Wild Hunt</option>
 						<option slotid="Hands">Rourken Steamguards</option>
@@ -877,6 +884,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Beckoning Steel</option>
 						<option>Beekeeper's Gear</option>
 						<option>Berserking Warrior</option>
+						<option>Black Foundry Steel</option>
 						<option>Black-Glove Grounding</option>
 						<option>Black Rose</option>
 						<option>Blessing of High Isle</option>
@@ -908,6 +916,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Combat Physician</option>
 						<option>Coral Riptide</option>
 						<option>Corpseburster</option>
+						<option>Coup De Grâce</option>
 						<option>Coward's Gear</option>
 						<option>Crafty Alfiq</option>
 						<option>Crest of Cyrodiil</option>
@@ -927,12 +936,14 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Deadlands Demolisher</option>
 						<option>Deadly Strike</option>
 						<option>Death's Wind</option>
+						<option>Death-Dancer</option>
 						<option>Deeproot Zeal</option>
 						<option>Defending Warrior</option>
 						<option>Defiler</option>
 						<option>Desert Rose</option>
 						<option>Destructive Mage</option>
 						<option>Diamond's Victory</option>
+						<option>Dolorous Arena</option>
 						<option>Dragon's Appetite</option>
 						<option>Dragon's Defilement</option>
 						<option>Dagon's Dominion</option>
@@ -969,14 +980,17 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option value="Perfected False God's Devotion">False God's Devotion (Perfect)</option>
 						<option hidden disabled>Farstrider</option>
 						<option>Fasalla's Guile</option>
+						<option>Fellowship's Fortitude</option>
 						<option>Fiord's Legacy</option>
 						<option>Flame Blossom</option>
 						<option>Flanking Strategist</option>
+						<option>Fledgling's Nest</option>
 						<option>Foolkiller's Ward</option>
 						<option>Footman's Fortune</option>
 						<option>Fortified Brass</option>
 						<option>Frostbite</option>
 						<option>Frozen Watcher</option>
+						<option>Full Belly Barricade</option>
 						<option>Galerion's Revenge</option>
 						<option>Gallant Charge</option>
 						<option value="Perfected Gallant Charge">Gallant Charge (Perfect)</option>
@@ -996,6 +1010,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Hagraven's Garden</option>
 						<option>Hand of Mephala</option>
 						<option>Hanu's Compassion</option>
+						<option>Harmony in Chaos</option>
 						<option>Hatchling's Shell</option>
 						<option>Haven of Ursus</option>
 						<option>Hawk's Eye</option>
@@ -1003,6 +1018,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Healing Mage</option>
 						<option>Heartland Conqueror</option>
 						<option>Heem-Jas' Retribution</option>
+						<option>Heroic Unity</option>
 						<option>Hew and Sunder</option>
 						<option>Hex Siphon</option>
 						<option>Hexos' Ward</option>
@@ -1030,11 +1046,13 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Jailbreaker</option>
 						<option>Jailer's Tenacity</option>
 						<option>Jerall Mountains Warchief</option>
+						<option>Jerensi's Bladestorm</option>
 						<option>Jolting Arms</option>
 						<option>Jorvuld's Guidance</option>
 						<option>Judgement of Akatosh</option>
 						<option>Judgment of Akatosh</option>
 						<option>Kagrenac's Hope</option>
+						<option>Kazpian's Cruel Signet</option>
 						<option>Kinras's Wrath</option>
 						<option>Knight Slayer</option>
 						<option>Knight-Errant's Mail</option>
@@ -1046,6 +1064,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option value="Perfected Kyne's Wind">Kyne's Wind (Perfect)</option>
 						<option>Kynmarcher's Cruelty</option>
 						<option>Lamia's Song</option>
+						<option>Lamp Knight's Art</option>
 						<option>Langour of Peryite</option>
 						<option>Languor of Peryite</option>
 						<option>Law of Julianos</option>
@@ -1058,6 +1077,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Livewire</option>
 						<option>Lucent Echoes</option>
 						<option value="Perfected Lucent Echoes">Lucent Echoes (Perfect)</option>
+						<option>Lucilla's Windshield</option>
+						<option>Lustrous Soulwell</option>
 						<option>Lunar Bastion</option>
 						<option>Macabre Vintage</option>
 						<option>Mad Tinkerer</option>
@@ -1102,6 +1123,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Nobility in Decay</option>
 						<option>Nocturnal's Favor</option>
 						<option>Nocturnal's Ploy</option>
+						<option>Noxious Boulder</option>
 						<option>Nix-Hound's Howl</option>
 						<option>Oakfather's Retribution</option>
 						<option>Oblivion's Edge</option>
@@ -1148,6 +1170,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Ravager</option>
 						<option>Reactive Armor</option>
 						<option>Reawakened Hierophant</option>
+						<option>Recovery Convergence</option>
 						<option>Red Eagle's Fury</option>
 						<option>Redistributor</option>
 						<option>Reflected Fury</option>
@@ -1188,6 +1211,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Shalidor's Curse</option>
 						<option hidden disabled>Shared Pain</option>
 						<option>Shalk Exoskeleton</option>
+						<option>Shared Burden</option>
 						<option>Shattered Fate</option>
 						<option>Sheer Venom</option>
 						<option>Shell Splitter</option>
@@ -1214,6 +1238,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Spectre's Eye</option>
 						<option>Spell Parasite</option>
 						<option>Spell Power Cure</option>
+						<option>Spell Shredder</option>
 						<option>Spell Strategist</option>
 						<option>Spelunker</option>
 						<option>Spider Cultist Cowl</option>
@@ -1226,6 +1251,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Stone-Talker's Oath</option>
 						<option value="Perfected Stone-Talker's Oath">Stone-Talker's Oath (Perfect)</option>
 						<option>Stone's Accord</option>
+						<option>Stonehulk Domination</option>
 						<option>Storm-Cursed's Revenge</option>
 						<option>Storm Knight's Plate</option>
 						<option>Storm Master</option>
@@ -1258,9 +1284,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>The Worm's Raiment</option>
 						<option>Thews of the Harbinger</option>
 						<option>Threads of War</option>
+						<option>Three Queens Wellspring</option>
 						<option>Thunder Caller</option>
 						<option>Thunderbug's Carapace</option>
+						<option>Tide-Born Wildstalker</option>
 						<option>Titanborn Strength</option>
+						<option>Tools of the Trapmaster</option>
 						<option>Tooth of Lokkestiiz</option>
 						<option value="Perfected Tooth of Lokkestiiz">Tooth of Lokkestiiz (Perfect)</option>
 						<option>Toothrow</option>
@@ -1289,11 +1318,13 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Undaunted Infiltrator</option>
 						<option>Undaunted Unweaver</option>
 						<option>Unfathomable Darkness</option>
+						<option>Unflinching Ultimate</option>
 						<option>Unleashed Ritualist</option>
 						<option>Unleashed Terror</option>
 						<option>Vampire Cloak</option>
 						<option>Vampire Lord</option>
 						<option>Vampire's Kiss</option>
+						<option>Vandorallen's Resonance</option>
 						<option>Vanguard's Challenge</option>
 						<option>Varen's Legacy</option>
 						<option>Vastarie's Tutelage</option>
@@ -1306,6 +1337,7 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Vicecanon of Venom</option>
 						<option>Vicious Death</option>
 						<option>Vicious Serpent</option>
+						<option>Vykand's Soulfury</option>
 						<option>Viper's Sting</option>
 						<option>Virulent Shot</option>
 						<option value="Perfected Virulent Shot">Virulent Shot (Perfect)</option>
@@ -1341,6 +1373,8 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 						<option>Wrathsun</option>
 						<option>Wretched Vitality</option>
 						<option>Wyrd Tree's Blessing</option>
+						<option>Xanmeer Genesis</option>
+						<option>Xanmeer Spellweaver</option>
 						<option>Xoryn's Masterpiece</option>
 						<option value="Perfected Xoryn's Masterpiece">Xoryn's Masterpiece (Perfect)</option>
 						<option>Yandir's Might</option>
@@ -1873,6 +1907,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>9 December 2025</b>
+			<ul>
+				<li>Added sets from update 45-48 to the quick item setup.</li>
+			</ul>
+			<p>
 			<b>4 November 2025</b>
 			<ul>
 				<li>Updated data for update 48.</li>

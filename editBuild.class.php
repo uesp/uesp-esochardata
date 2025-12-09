@@ -6360,7 +6360,7 @@ class EsoBuildDataEditor
 	
 	public function LoadTemplate()
 	{
-		$this->htmlTemplate = file_get_contents($this->TEMPLATE_FILE);
+		$this->htmlTemplate = utf8_encode(file_get_contents($this->TEMPLATE_FILE));
 		
 		if (!$this->htmlTemplate)
 		{
