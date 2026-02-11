@@ -29,11 +29,11 @@ require_once(__DIR__."/viewBuildData.class.php");
 
 class EsoBuildDataEditor
 {
-	public $PTS_VERSION = "48pts";	//TODO: Remove?
+	public $PTS_VERSION = "49pts";	//TODO: Remove?
 	
 	public $LOAD_RULES_FROM_DB = true;
 	public $LIVE_RULES_VERSION = "48";
-	public $PTS_RULES_VERSION  = "48pts";
+	public $PTS_RULES_VERSION  = "49pts";
 	
 	public $READONLY = false;
 	
@@ -47,6 +47,7 @@ class EsoBuildDataEditor
 	public $db = null;
 	public $htmlTemplate = "";
 	public $version = "";
+	public $debug = false;
 	
 	public $viewCps = null;
 	public $viewSkills = null;
@@ -2428,8 +2429,10 @@ class EsoBuildDataEditor
 			"Set.MagickaAbilityDamageDone" => array( "display" => "%" ),
 			"Set.HealingAbilityCost" => array( "display" => "%" ),
 			"Set.BleedDamageDone" => array( "display" => "%" ),
+			"Skill.BleedDamageDone" => array( "display" => "%" ),
 			"Set.PhysicalDotDamageDone" => array( "display" => "%" ),
 			"Set.DiseaseDotDamageDone" => array( "display" => "%" ),
+			"Skill.DiseaseDamageDone" => array( "display" => "%" ),
 			"Set.PoisonDotDamageDone" => array( "display" => "%" ),
 			"Set.BleedDotDamageDone" => array( "display" => "%" ),
 			"Set.PhysicalChannelDamageDone" => array( "display" => "%" ),
@@ -6280,7 +6283,7 @@ class EsoBuildDataEditor
 		$this->viewSkills->displayRace = "Argonian";
 		$this->viewSkills->displayMenuBar = true;
 		$this->viewSkills->displaySkillBar = true;
-		$this->viewSkills->LOAD_CRAFTED_SKILLS = false;
+		$this->viewSkills->LOAD_CRAFTED_SKILLS = true;
 		$this->viewSkills->PERMIT_SUBCLASSING = true;
 		
 		$this->MakeInputStatsList();
@@ -6313,6 +6316,11 @@ class EsoBuildDataEditor
 			else
 				$this->loadSetNames = ($value != 0);
 		}
+		
+		if (array_key_exists('dev', $this->inputParams) || array_key_exists('debug', $this->inputParams))
+		{
+			$this->debug = true;
+		}
 	}
 	
 	
@@ -6320,18 +6328,18 @@ class EsoBuildDataEditor
 	{
 		global $argv;
 		$this->inputParams = $_REQUEST;
-	
+		
 			// Add command line arguments to input parameters for testing
 		if ($argv !== null)
 		{
 			$argIndex = 0;
-	
+			
 			foreach ($argv as $arg)
 			{
 				$argIndex += 1;
 				if ($argIndex <= 1) continue;
 				$e = explode("=", $arg);
-	
+				
 				if(count($e) == 2)
 				{
 					$this->inputParams[$e[0]] = $e[1];
@@ -6348,15 +6356,15 @@ class EsoBuildDataEditor
 	public function InitDatabase()
 	{
 		global $uespEsoLogReadDBHost, $uespEsoLogReadUser, $uespEsoLogReadPW, $uespEsoLogDatabase;
-	
+		
 		$this->db = new mysqli($uespEsoLogReadDBHost, $uespEsoLogReadUser, $uespEsoLogReadPW, $uespEsoLogDatabase);
 		if ($this->db->connect_error) return $this->ReportError("ERROR: Could not connect to mysql database!");
 		
 		UpdateEsoPageViews("buildEditorViews");
-	
+		
 		return true;
 	}
-		
+	
 	
 	public function LoadTemplate()
 	{
@@ -7224,6 +7232,8 @@ class EsoBuildDataEditor
 		$this->viewSkills->initialData = $this->initialSkillData;
 		$this->viewSkills->activeData = $this->initialActiveSkillData;
 		$this->viewSkills->passiveData = $this->initialPassiveSkillData;
+		
+		//error_log("CreateNewInitialSkillData Finished");
 	}
 	
 	
@@ -7292,7 +7302,7 @@ class EsoBuildDataEditor
 			
 			$data = array();
 			$baseAbilityId = $this->viewSkills->FindBaseAbilityForActiveData($abilityId);
-			//error_log("{$this->buildId}: BaseAbility for $abilityId = $baseAbilityId");
+			error_log("{$this->buildId}: BaseAbility for $abilityId = $baseAbilityId");
 			
 			$data['abilityId'] = $abilityId;
 			$data['baseAbilityId'] = $baseAbilityId;
@@ -7307,6 +7317,15 @@ class EsoBuildDataEditor
 			else if ($type == "ultimate")
 				$data['abilityType'] = "Ultimate";
 			
+			if ($skillData['craftData'])
+			{
+				$scriptIds = explode(",", $skillData['craftData']);
+				$data['craftData'] = $skillData['craftData'];
+				if ($scriptIds[0]) $data['scriptId1'] = $scriptIds[0];
+				if ($scriptIds[1]) $data['scriptId2'] = $scriptIds[1];
+				if ($scriptIds[2]) $data['scriptId3'] = $scriptIds[2];
+			}
+			
 			if ($type == "passive")
 				$this->initialPassiveSkillData[$baseAbilityId] = $data;
 			else
@@ -7317,6 +7336,8 @@ class EsoBuildDataEditor
 		$this->viewSkills->activeData = $this->initialActiveSkillData;
 		$this->viewSkills->passiveData = $this->initialPassiveSkillData;
 		$this->viewSkills->charStats = $this->buildDataViewer->characterData['stats'];
+		
+		//error_log("CreateInitialSkillData Finished");
 	}
 	
 	
@@ -7599,6 +7620,8 @@ class EsoBuildDataEditor
 		}
 		
 		$this->viewSkills->LoadData();
+		$this->CreateInitialSkillData();
+		$this->viewSkills->UpdateCraftedSkillData();
 		
 		$this->FixupBuildForPts();
 		$this->FixupUpdate21RacialSkills();
@@ -7606,7 +7629,6 @@ class EsoBuildDataEditor
 		$this->CreateInitialItemData();
 		$this->CreateInitialBuffData();
 		$this->CreateInitialCPData();
-		$this->CreateInitialSkillData();
 		$this->CreateInitialSkillBarData();
 		$this->CreateInitialToggleSkillData();
 		$this->CreateInitialToggleSetData();

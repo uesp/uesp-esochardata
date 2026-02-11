@@ -246,6 +246,7 @@ class EsoBuildDataParser
 						channelTime TINYTEXT NOT NULL DEFAULT '',
 						duration TINYTEXT NOT NULL DEFAULT '',
 						target TINYTEXT NOT NULL DEFAULT '',
+						craftData TINYTEXT NOT NULL DEFAULT '',
 						INDEX index_characterId(characterId)
 					) ENGINE=MYISAM;";
 		

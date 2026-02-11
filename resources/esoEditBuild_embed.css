@@ -859,7 +859,7 @@ esotbToggledCpSelect {
 }
 
 #esotbRoot .esovsSkillContentBlock {
-	height: 640px;
+	height: 700px;
 	overflow: auto;
 	padding-left: 20px;
 	position: relative;
@@ -1626,7 +1626,7 @@ esotbToggledCpSelect {
 
 .esovsAbilityBlockCost {
 	float: right;
-	margin-right: 60px !important;
+	margin-right: 50px !important;
 }
 
 .esovsAbilityBlockList .esovsAbilityBlockCost {
@@ -1648,4 +1648,21 @@ esotbToggledCpSelect {
 
 .esotbNewVersion {
 	 background-color: #ffc;
+}
+
+.esovsAbilityScriptClassList {
+	background: #ddd;
+	cursor:no-drop;
+	pointer-events: none;
+	appearance: none;
+	width: 100px;
+}
+
+.esovsAbilityScript {
+	/* padding-left: 15px !important; */
+	width: 95% !important;
+}
+
+.esovsAbilityScriptSelected::before {
+	/* left: -10px !important; */
 }

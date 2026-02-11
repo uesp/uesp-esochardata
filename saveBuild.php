@@ -126,6 +126,7 @@ class EsoBuildDataSaver
 			"channelTime"		=> "int",
 			"duration"			=> "int",
 			"target"			=> "text",
+			"craftData"			=> "text",
 	);
 	
 	
@@ -424,6 +425,14 @@ class EsoBuildDataSaver
 			if (!array_key_exists($name, $this->parsedBuildData['Stats']))
 			{
 				$this->parsedBuildData['Stats'][$name] = $value;
+			}
+		}
+		
+		foreach ($this->parsedBuildData['Skills'] as $id => &$skill)
+		{
+			if ($skill['scriptId1'] || $skill['scriptId2'] || $skill['scriptId3'])
+			{
+				$this->parsedBuildData['Skills'][$id]['craftData'] = $skill['scriptId1'] . "," . $skill['scriptId2'] . "," . $skill['scriptId3'];
 			}
 		}
 		

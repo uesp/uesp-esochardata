@@ -9,7 +9,7 @@
 We're looking for experts in the build editor and the game itself to help manage and improve this build editor. If interested contact <a href="/wiki/User_talk:Daveh"><b>Daveh</b></a>.
 </div>
 <div class="esotbBuildNote">
-NOTE: The build editor should now be mostly working for update 48.
+NOTE: The build editor should now be mostly working for update 49pts. Scribing skills are now enabled for testing and should be parsing correctly now.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -1907,6 +1907,21 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>10 February 2026</b>
+			<ul>
+				<li>Scribing skills should be now working correctly for versions 48 and 49pts.</li>
+			</ul>
+			<p>
+			<b>2 February 2026</b>
+			<ul>
+				<li>Enabled Scribing skills for testing.</li>
+			</ul>
+			<p>
+			<b>21 January 2026</b>
+			<ul>
+				<li>49pts: Updated item, skill, and CP data for update 49pts.</li>
+			</ul>
+			<p>
 			<b>9 December 2025</b>
 			<ul>
 				<li>Added sets from update 45-48 to the quick item setup.</li>

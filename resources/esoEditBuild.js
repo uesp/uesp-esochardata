@@ -179,10 +179,6 @@ window.ESO_ITEMQUALITYLEVEL_INTTYPEMAP_JEWELRY =
 };
 
 
-//TODO: Empty once rules are permanent
-window.ESO_MUNDUS_BUFF_DATA = {}; 
-
-
 window.ESOBUILD_SLOTID_TO_EQUIPSLOT = 
 {
 		"Head" : 0,
@@ -242,6 +238,7 @@ window.ESOBUILD_SKILLTYPES =
 
 window.g_EsoBuildBuffData = {};
 window.g_EsoBuildBuffData_PTS = {};
+window.ESO_MUNDUS_BUFF_DATA = {};
 window.ESO_ACTIVEEFFECT_MATCHES = [];
 window.ESO_PASSIVEEFFECT_MATCHES = [];
 window.ESO_CPEFFECT_MATCHES = [];
@@ -1015,7 +1012,6 @@ window.GetEsoInputSpecialValues = function (inputValues)
 	{
 		inputValues.Crux = 0;
 	}
-	
 	
 	inputValues.Subclass1 = g_EsoBuildSubclassData.Subclass1;
 	inputValues.Subclass2 = g_EsoBuildSubclassData.Subclass2;
@@ -5017,6 +5013,22 @@ window.OnEsoClassChange = function (e)
 		$this.text($this.attr("origskilllineid"));
 	});
 	
+	var classId = parseInt($(".esovsAbilityScriptClassList option:contains('" + newClass + "')").val());
+	$(".esovsAbilityScriptClassList option:contains('" + newClass + "')").prop("selected", true);
+	
+	for (var id in g_EsoCraftedSkills)
+	{
+		var craftedSkill = g_EsoCraftedSkills[id];
+		var abilityId = craftedSkill['abilityId'];
+		var skillData = g_SkillsData[abilityId];
+		
+		craftedSkill['classId'] = classId;
+		if (skillData) skillData['craftClassId'] = classId;
+		UpdateEsoCraftedSkillData(craftedSkill);
+	}
+	
+	//$(".esovsAbilityScriptClassList option:contains('" + newClass + "')").prop("selected", true).filter("esovsAbilityScriptSelected").change();
+	
 	UpdateEsoSubclassData();
 	g_EsoBuildEnableUpdates = true;
 	
@@ -5985,7 +5997,7 @@ window.OnEsoFormulaInputChange = function (e)
 	$("#esotbFormInputResultSuffix").text(suffix);
 	$("#esotbFormInputResultCapValue").text();
 	
-	if (stat.preCapValue != newValue)
+	if (stat.preCapValue != newValue && !isNaN(stat.preCapValue) && !isNaN(newValue))
 	{
 		var preCapValue = stat.preCapValue;
 		suffix = "";
@@ -6328,6 +6340,28 @@ window.MakeEsoBuildItemLink = function (slotId)
 }
 
 
+window.GetEsoCraftedSkillRawCoefScriptHtml = function(skillData, desc)
+{
+	var output = "<b>" + desc + "</b> -- ";
+	if (skillData == null) return output + "No known skill coefficients.";
+	
+	var rawDesc = ConvertEsoSkillRawDescToHtml(skillData.rawDescription);
+	var numTooltips = CountEsoSkillTooltips(skillData.id);
+	
+	if (numTooltips == 0) return output + "No known skill coefficients."
+	
+	output += "Showing " + numTooltips + " skill coefficients:<p/>";
+	
+	for (var tooltipIndex = 1; tooltipIndex <= numTooltips; ++tooltipIndex)
+	{
+		output += CreateEsoSkillCoefContentForIndexHtml(skillData, tooltipIndex, true);
+	}
+	
+	output += "<div class='esovsSkillCoefDesc'>" + rawDesc + "</div>";
+	return output;
+}
+
+
 window.ShowEsoSkillDetailsPopup = function (abilityId)
 {
 	var detailsPopup = $("#esotbItemDetailsPopup");
@@ -6390,20 +6424,56 @@ window.ShowEsoSkillDetailsPopup = function (abilityId)
 	
 	if (USE_V2_TOOLTIPS && window.CreateEsoSkillCoefContentForIndexHtml)
 	{
-		var numTooltips = CountEsoSkillTooltips(abilityId);
-		
-		detailsHtml += "<h4>Skill Coefficients</h4>";
-		detailsHtml += "<div class='esotbSkillDetailsCoef'>";
-		
-		var skillDesc = ConvertEsoSkillRawDescToHtml(skillData.rawDescription);
-		detailsHtml += "<div class='esotbSkillDetailsDesc'>" + skillDesc + "</div>";
-		
-		for (var tooltipIndex = 1; tooltipIndex <= numTooltips; ++tooltipIndex)
+		if (skillData.isCrafted == 1)
 		{
-			detailsHtml += CreateEsoSkillCoefContentForIndexHtml(skillData, tooltipIndex, true);
+			var craftedId = parseInt(skillData['craftedId']);
+			var scriptId1 = parseInt(skillData['scriptId1']);
+			var scriptId2 = parseInt(skillData['scriptId2']);
+			var scriptId3 = parseInt(skillData['scriptId3']);
+			var classId = parseInt(skillData['craftClassId']);
+			
+			var id1 = 50000000 + scriptId1*1000 + craftedId;
+			var id2 = 50000000 + scriptId2*1000 + craftedId;
+			var id3 = 50000000 + scriptId3*1000 + craftedId;
+			
+			if (scriptId2 == 31 && classId > 0) id2 += classId * 1000000;
+			if (scriptId2 == 24) ModifyEsoCraftedScriptDamageTypes(id1, id2, false);
+			
+			detailsHtml += "<h4>Skill Coefficients</h4>";
+			detailsHtml += "<div class='esotbSkillDetailsCoef'>";
+			var skillDesc = ConvertEsoSkillRawDescToHtml(skillData.lastDesc);
+			detailsHtml += "<div class='esotbSkillDetailsDesc'>" + skillDesc + "</div>";
+			
+			detailsHtml += GetEsoCraftedSkillRawCoefScriptHtml(skillData, "Base Skill");
+			detailsHtml += "<hr/>";
+			detailsHtml += GetEsoCraftedSkillRawCoefScriptHtml(g_SkillsData[id1], "Focus Script");
+			detailsHtml += "<hr/>";
+			detailsHtml += GetEsoCraftedSkillRawCoefScriptHtml(g_SkillsData[id2], "Signature Script");
+			detailsHtml += "<hr/>";
+			detailsHtml += GetEsoCraftedSkillRawCoefScriptHtml(g_SkillsData[id3], "Affix Script");
+			detailsHtml += "<p/>";
+			
+			detailsHtml += "</div>";
+			
+			if (scriptId2 == 24) ModifyEsoCraftedScriptDamageTypes(id1, id2, true);
 		}
-		
-		detailsHtml += "</div>";
+		else
+		{
+			var numTooltips = CountEsoSkillTooltips(abilityId);
+			
+			detailsHtml += "<h4>Skill Coefficients</h4>";
+			detailsHtml += "<div class='esotbSkillDetailsCoef'>";
+			
+			var skillDesc = ConvertEsoSkillRawDescToHtml(skillData.rawDescription);
+			detailsHtml += "<div class='esotbSkillDetailsDesc'>" + skillDesc + "</div>";
+			
+			for (var tooltipIndex = 1; tooltipIndex <= numTooltips; ++tooltipIndex)
+			{
+				detailsHtml += CreateEsoSkillCoefContentForIndexHtml(skillData, tooltipIndex, true);
+			}
+			
+			detailsHtml += "</div>";
+		}
 	}
 	else if (skillData.numCoefVars > 0)
 	{
@@ -9922,6 +9992,11 @@ window.CreateEsoBuildSaveDataForSkill = function (saveData, abilityData, skillDa
 	data.channelTime = abilityData.channelTime;
 	data.duration = abilityData.duration;
 	data.target = abilityData.target;
+	
+		// Crafted data
+	data.scriptId1 = abilityData.scriptId1;
+	data.scriptId2 = abilityData.scriptId2;
+	data.scriptId3 = abilityData.scriptId3;
 	
 	data.description = GetEsoSkillDescription(abilityId, null, false, true, true);
 	data.cost = GetEsoSkillCost(abilityId);
@@ -14106,6 +14181,27 @@ window.EsoBuildCreatePassiveDataFromRules = function()
 }
 
 
+window.EsoBuildCreateCraftedSkillDataFromRule = function(baseRule)
+{
+
+	for (var id in g_EsoCraftedSkills)
+	{
+		var craftedSkill = g_EsoCraftedSkills[id];
+		var abilityId = craftedSkill['abilityId'];
+		
+		if (abilityId == baseRule.baseSkillId) continue;
+		
+		var rule = jQuery.extend(true, {}, baseRule);
+		
+		rule.baseSkillId = abilityId;
+		rule.id = rule.id.replace(/(.*) Class Mastery (.*)/, craftedSkill.name + " Class Mastery $2");
+		rule.displayName = rule.displayName.replace(/(.*) Class Mastery (.*)/, craftedSkill.name + " Class Mastery $2");
+		
+		ESO_ACTIVEEFFECT_MATCHES.push(rule);
+	}
+}
+
+
 window.EsoBuildCreateActiveDataFromRules = function()
 {
 	var activeRules = g_EsoBuildRules['active'];
@@ -14137,6 +14233,11 @@ window.EsoBuildCreateActiveDataFromRules = function()
 		delete rule['isEnabled'];
 		
 		ESO_ACTIVEEFFECT_MATCHES.push(rule);
+		
+		if (rule.addCrafted == true)
+		{
+			EsoBuildCreateCraftedSkillDataFromRule(rule);
+		}
 	}
 	
 	return true;
@@ -14938,6 +15039,8 @@ window.UpdateEsoSubclassData = function()
 window.esotbOnDocReady = function ()
 {
 	clearInterval(g_EsoCharDataTimeUpdateId);
+	
+	console.log("Passive Data", g_EsoSkillPassiveData);
 	
 	if (window.g_EsoBuildRules == null) return;
 	if (window.g_EsoInitialItemData == null) return;

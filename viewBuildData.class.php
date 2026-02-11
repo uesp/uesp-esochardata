@@ -181,6 +181,13 @@ class EsoBuildDataViewer
 	
 	public function escape($input)
 	{
+		if (is_array($input))
+		{
+			//$callStack = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2);
+			//return print_r($callStack, true);
+			return "";
+		}
+		
 		return htmlspecialchars($input, ENT_COMPAT, 'UTF-8');
 	}
 	
@@ -1259,7 +1266,7 @@ class EsoBuildDataViewer
 		
 		if ($level2 != "")
 		{
-			if ($level2 == 50) 
+			if ($level2 == 50)
 			{
 				$level2 = 50 + intval($cp/100);
 				if ($level2 > 66) $level2 = 66;
