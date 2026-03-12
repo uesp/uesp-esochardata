@@ -9,7 +9,7 @@
 We're looking for experts in the build editor and the game itself to help manage and improve this build editor. If interested contact <a href="/wiki/User_talk:Daveh"><b>Daveh</b></a>.
 </div>
 <div class="esotbBuildNote">
-NOTE: The build editor should now be mostly working for update 49pts. Scribing skills are now enabled for testing and should be parsing correctly now.
+NOTE: The build editor should now be mostly working for update 49. Scribing skills are now enabled for testing and should be parsing correctly now.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -1907,6 +1907,23 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>11 March 2026</b>
+			<ul>
+				<li>Fixed data issue with the Life Mender I passive causing duplicated healing done after reloading a build.</li>
+			</ul>
+			<p>
+			<b>10 March 2026</b>
+			<ul>
+				<li>Updated data for update 49.</li>
+			</ul>
+			<p>
+			<b>24 February 2026</b>
+			<ul>
+				<li>Fixed the DirectDamageDone stat to include set effects.</li>
+				<li>Buff effects will round down to the nearest integer for integer values.</li>
+				<li>Fixed double infused effect on an offhand weapon.</li>
+			</ul>
+			<p>
 			<b>10 February 2026</b>
 			<ul>
 				<li>Scribing skills should be now working correctly for versions 48 and 49pts.</li>

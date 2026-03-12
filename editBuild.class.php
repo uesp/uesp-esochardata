@@ -32,7 +32,7 @@ class EsoBuildDataEditor
 	public $PTS_VERSION = "49pts";	//TODO: Remove?
 	
 	public $LOAD_RULES_FROM_DB = true;
-	public $LIVE_RULES_VERSION = "48";
+	public $LIVE_RULES_VERSION = "49";
 	public $PTS_RULES_VERSION  = "49pts";
 	
 	public $READONLY = false;
@@ -262,6 +262,7 @@ class EsoBuildDataEditor
 			"SkillLineDamage.Placeholder",
 			"SkillLineDamage.Bow",
 			"SkillLineDamage.Dual_Wield",
+			"SkillLineDamage.Two_Handed",
 			"SkillHealing.Placeholder",
 			"SkillLineWeaponDmg.base",
 			"SkillLineSpellDmg.base",
@@ -847,6 +848,7 @@ class EsoBuildDataEditor
 			"SkillCost.Crystal_Fragments_Cost" => array( "display" => "%" ),
 			"SkillCost.Runemend_Cost" => array( "display" => "%" ),
 			"SkillLineDamage.Siphoning" => array( "display" => "%" ),
+			"SkillLineDamage.Two_Handed" => array( "display" => "%" ),
 			"SkillHealing.Siphoning" => array( "display" => "%" ),
 			"SkillCost.Siphoning_Cost" => array( "display" => "%" ),
 			
@@ -1082,6 +1084,10 @@ class EsoBuildDataEditor
 			),
 			
 			"CP.DirectDamageDone" => array(
+					"display" => "%",
+			),
+			
+			"Set.DirectDamageDone" => array(
 					"display" => "%",
 			),
 			

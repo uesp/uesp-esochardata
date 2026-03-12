@@ -2998,14 +2998,18 @@ window.GetEsoInputItemEnchantOtherHandWeaponValues = function (inputValues, slot
 		var matches = rawDesc.match(matchData.match);
 		if (matches == null) continue;
 		
-		rawDesc = rawDesc.replace(matchData.match, function(match, p1, offset, string) { return ReplaceEsoWeaponMatch(match, p1, offset, string, enchantFactor, transmuteFactor); });
-		
 		if (matchData.effects)
 		{
 			matches = rawDesc.match(matchData.match);
-			
 			ApplyEsoBuildRuleEffects(inputValues, matchData, matches, "Item", { itemData: itemData, enchantData: enchantData, slotId: slotId, transmuteFactor: transmuteFactor, enchantFactor: enchantFactor, isTransmuted: isTransmuted })
+			
+				// Update description after effect parsing to prevent offhand weapons from applying infused effect twice
+			rawDesc = rawDesc.replace(matchData.match, function(match, p1, offset, string) { return ReplaceEsoWeaponMatch(match, p1, offset, string, enchantFactor, transmuteFactor); });
 			continue;
+		}
+		else
+		{
+			rawDesc = rawDesc.replace(matchData.match, function(match, p1, offset, string) { return ReplaceEsoWeaponMatch(match, p1, offset, string, enchantFactor, transmuteFactor); });
 		}
 		
 			//TODO: Remove once rules are permanent
@@ -9065,6 +9069,10 @@ window.CreateEsoBuildBuffEffectsDescHtml = function (buffData)
 			if (display == "%")
 			{
 				statValue = "" + (Math.floor(statValue*10)/10) + "%";
+			}
+			else
+			{
+				statValue = "" + Math.floor(statValue) + "";
 			}
 			
 			if (statDesc != null && statDesc != "")
