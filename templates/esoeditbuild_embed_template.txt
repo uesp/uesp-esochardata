@@ -1907,6 +1907,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>13 March 2026</b>
+			<ul>
+				<li>Fixed issue with the Undaunted Command passive.</li>
+				<li>Fixed issue with the item data still being from update 48.</li>
+			</ul>
+			<p>
 			<b>11 March 2026</b>
 			<ul>
 				<li>Fixed data issue with the Life Mender I passive causing duplicated healing done after reloading a build.</li>
