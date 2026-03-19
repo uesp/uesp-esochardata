@@ -1907,6 +1907,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>19 March 2026</b>
+			<ul>
+				<li>Fixed a character encoding issue with some items that would crash JS due to empty JSON objects.</li>
+				<li>Removed some old computed stat definitions to reduce PHP file size significantly.</li>
+			</ul>
+			<p>
 			<b>13 March 2026</b>
 			<ul>
 				<li>Fixed issue with the Undaunted Command passive.</li>
