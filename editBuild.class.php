@@ -3540,7 +3540,7 @@ class EsoBuildDataEditor
 			
 			$data = array();
 			$baseAbilityId = $this->viewSkills->FindBaseAbilityForActiveData($abilityId);
-			error_log("{$this->buildId}: BaseAbility for $abilityId = $baseAbilityId");
+			//error_log("{$this->buildId}: BaseAbility for $abilityId = $baseAbilityId");
 			
 			$data['abilityId'] = $abilityId;
 			$data['baseAbilityId'] = $baseAbilityId;
