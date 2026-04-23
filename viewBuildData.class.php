@@ -1262,7 +1262,7 @@ class EsoBuildDataViewer
 		$level1 = $this->getCharField('level');
 		
 		$level2 = $this->getCharStatField('Level');
-		$cp = $this->getCharField('Level');
+		$cp = $this->getCharField('Level', 0);
 		
 		if ($level2 != "")
 		{
