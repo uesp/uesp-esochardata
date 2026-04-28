@@ -1,6 +1,7 @@
 <?php
 
-require_once("/home/uesp/www/esomap/UespMemcachedSession.php");
+require_once("/home/uesp/esolog.static/UespMemcachedSession.php");
+require_once("/home/uesp/esolog.static/UespMysqlSession.php");
 require_once("viewBuildData.class.php");
 require_once("viewCharData.class.php");
 
@@ -32,7 +33,7 @@ class CEsoCharManageScreenshots
 	
 	public function __construct()
 	{
-		UespMemcachedSession::install();
+		UespMysqlSession::install();
 		
 		session_name('uesp_net_wiki5_session');
 		session_start();
@@ -101,18 +102,18 @@ class CEsoCharManageScreenshots
 		global $_SESSION;
 		
 		//$wikiUser = $_SESSION['wsUserName'];
-		$this->wikiUserId = UespMemcachedSession::readKey('wsUserID');
-		$this->wikiUserName = UespMemcachedSession::readKey('wsUserName');
+		$this->wikiUserId = UespMysqlSession::readKey('wsUserID');
+		$this->wikiUserName = UespMysqlSession::readKey('wsUserName');
 		error_log("wsUserName: {$this->wikiUserName}");
 		
 		//$this->canEditScreenshots = $_SESSION['UESP_ESO_canEditScreenshots'];
-		$this->canEditScreenshots = UespMemcachedSession::readKey('UESP_ESO_canEditScreenshots');
+		$this->canEditScreenshots = UespMysqlSession::readKey('UESP_ESO_canEditScreenshots');
 		if ($this->canEditScreenshots === null) $this->canEditScreenshots = 0;
 		
 		error_log("canEditScreenshots: {$this->canEditScreenshots}");
 		
 		//$this->canEditScreenshotsCharId = $_SESSION['UESP_ESO_canEditScreenshotsCharId'];
-		$this->canEditScreenshotsCharId = UespMemcachedSession::readKey('UESP_ESO_canEditScreenshotsCharId');
+		$this->canEditScreenshotsCharId = UespMysqlSession::readKey('UESP_ESO_canEditScreenshotsCharId');
 		if ($this->canEditScreenshotsCharId === null) $this->canEditScreenshotsCharId = 0;
 		
 		error_log("canEditScreenshotsCharId: {$this->canEditScreenshotsCharId}, {$this->inputBuildId}, {$this->inputCharacterId}");
