@@ -198,16 +198,20 @@ class EsoBuildDataViewer
 		return str_replace('"', '\"', $output);
 	}
 	
-	
-	public function reportError($msg)
+	public function ReportError($errorMsg)
 	{
-		error_log("Error: " . $msg);
+		$bt = debug_backtrace();
+		$caller = array_shift($bt);
+		$file = $caller['file'];
+		$line = $caller['line'];
+		$fullErrorMsg =  "($file on line $line): $errorMsg";
+		error_log("Error: " . $fullErrorMsg);
 		
-		$this->errorMessages[] = $msg;
+		$this->errorMessages[] = $errorMsg;
 		
 		if (!$this->suppressErrorOutput)
 		{
-			$this->outputHtml .= "Error: " . $msg . "<br />";
+			$this->outputHtml .= "Error: " . $errorMsg . "<br />";
 		
 			if ($this->db != null && $this->db->error)
 			{

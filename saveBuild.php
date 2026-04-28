@@ -170,10 +170,15 @@ class EsoBuildDataSaver
 	}
 	
 	
-	public function ReportError($msg)
+	public function ReportError($errorMsg)
 	{
-		$this->errorMessages[] = $msg;
-		error_log($msg);
+		$bt = debug_backtrace();
+		$caller = array_shift($bt);
+		$file = $caller['file'];
+		$line = $caller['line'];
+		$fullErrorMsg =  "($file on line $line): $errorMsg";
+		$this->errorMessages[] = $errorMsg;
+		error_log($fullErrorMsg);
 		return false;
 	}
 	

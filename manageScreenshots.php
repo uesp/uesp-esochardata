@@ -43,13 +43,18 @@ class CEsoCharManageScreenshots
 	}
 	
 	
-	public function ReportError ($errorMsg)
+	public function ReportError($errorMsg)
 	{
+		$bt = debug_backtrace();
+		$caller = array_shift($bt);
+		$file = $caller['file'];
+		$line = $caller['line'];
+		
 		if ($this->outputData['error'] == null) $this->outputData['error'] = array();
 		$this->outputData['error'][] = $errorMsg;
 		$this->outputData['result'] = -1;
-		
-		error_log("ManageEsoCharScreenshots: $errorMsg");
+		$fullErrorMsg =  "($file on line $line): $errorMsg";
+		error_log("ManageEsoCharScreenshots: $fullErrorMsg");
 		//header("X-PHP-Response-Code: " . 400, true, 400);
 		
 		return false;
@@ -116,7 +121,7 @@ class CEsoCharManageScreenshots
 		$this->canEditScreenshotsCharId = UespMysqlSession::readKey('UESP_ESO_canEditScreenshotsCharId');
 		if ($this->canEditScreenshotsCharId === null) $this->canEditScreenshotsCharId = 0;
 		
-		error_log("canEditScreenshotsCharId: {$this->canEditScreenshotsCharId}, {$this->inputBuildId}, {$this->inputCharacterId}");
+		error_log("(".__FILE__." on line ".__LINE__."): canEditScreenshotsCharId: {$this->canEditScreenshotsCharId}, {$this->inputBuildId}, {$this->inputCharacterId}");
 		
 		if (!$this->canEditScreenshots) return false;
 		
