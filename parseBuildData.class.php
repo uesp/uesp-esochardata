@@ -76,9 +76,15 @@ class EsoBuildDataParser
 	}
 	
 	
-	public function reportError ($errorMsg)
+	public function ReportError($errorMsg)
 	{
-		$this->log("Error: " . $errorMsg);
+		$bt = debug_backtrace();
+		$caller = array_shift($bt);
+		$file = $caller['file'];
+		$line = $caller['line'];
+
+		$fullErrorMsg =  "($file on line $line): $errorMsg";
+		$this->log("Error: " . $fullErrorMsg);
 		
 		if ($this->db != null && $this->db->error)
 		{
@@ -860,6 +866,9 @@ class EsoBuildDataParser
 		$charId = $buildData['id'];
 		$name = preg_replace("#\^[a-zA-Z]*#", "", $name);
 		$safeName = $this->db->real_escape_string($name);
+		if (!is_string($data)) {
+			error_log(__FILE__." ".__METHOD__." Line 866: Data passed in is not a string. Name: $name, Data: ".var_export($data, true));
+		}
 		$safeData = $this->db->real_escape_string(substr($data, 0, 250));
 		
 		//if (is_array($data)) error_log("$charId:$name stat is an array!");

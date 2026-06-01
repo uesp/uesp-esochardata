@@ -254,7 +254,7 @@ Uploading Data...
 	{
 		if ($this->fileError != 0)
 		{
-			error_log("upload error:" . $this->fileError);
+			error_log("(".__FILE__." on line ".__LINE__."): upload error:" . $this->fileError);
 			return false;
 		}
 		

@@ -137,7 +137,7 @@ class EsoCharScreenshotSubmitter
 		
 		if ($result->num_rows > 0)
 		{
-			error_log("SaveCharacterData {$result->num_rows}");
+			error_log("(".__FILE__." on line ".__LINE__."): SaveCharacterData {$result->num_rows}");
 			$this->ReportWarning("Updating existing screenshot data!");
 			
 			$query = "UPDATE screenshots SET caption='$caption' WHERE characterId='{$this->inputCharacterId}' AND origFilename='$origFilename';";
@@ -425,7 +425,7 @@ Uploading Data...
 	{
 		if ($this->fileError != 0)
 		{
-			error_log("upload error:" . $this->fileError);
+			error_log("(".__FILE__." on line ".__LINE__."): upload error:" . $this->fileError);
 			return false;
 		}
 		

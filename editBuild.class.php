@@ -2534,8 +2534,13 @@ class EsoBuildDataEditor
 	
 	public function ReportError($errorMsg)
 	{
+		$bt = debug_backtrace();
+		$caller = array_shift($bt);
+		$file = $caller['file'];
+		$line = $caller['line'];
+		$fullErrorMsg =  "($file on line $line): $errorMsg";
 		$this->errorMessages[] = $errorMsg;
-		error_log($errorMsg);
+		error_log($fullErrorMsg);
 		return false;
 	}
 	
