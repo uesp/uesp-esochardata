@@ -3711,9 +3711,9 @@ window.GetEsoInputCPValues = function (inputValues)
 	}
 	else
 	{
-		inputValues.CP.Health = g_EsoCpData.attribute1.points;
-		inputValues.CP.Magicka = g_EsoCpData.attribute2.points;
-		inputValues.CP.Stamina = g_EsoCpData.attribute3.points;
+		if (g_EsoCpData.attribute1) inputValues.CP.Health = g_EsoCpData.attribute1.points;
+		if (g_EsoCpData.attribute2) inputValues.CP.Magicka = g_EsoCpData.attribute2.points;
+		if (g_EsoCpData.attribute3) inputValues.CP.Stamina = g_EsoCpData.attribute3.points;
 		inputValues.CP.UsedPoints = inputValues.CP.Health + inputValues.CP.Magicka + inputValues.CP.Stamina;
 	}
 	

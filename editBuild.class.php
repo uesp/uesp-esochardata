@@ -29,11 +29,11 @@ require_once(__DIR__."/viewBuildData.class.php");
 
 class EsoBuildDataEditor
 {
-	public $PTS_VERSION = "49pts";	//TODO: Remove?
-	
 	public $LOAD_RULES_FROM_DB = true;
 	public $LIVE_RULES_VERSION = "49";
-	public $PTS_RULES_VERSION  = "49pts";
+	public $PTS_RULES_VERSION  = "50pts";
+	
+	public $PTS_VERSION = "";	//Set in constructor to match $PTS_RULES_VERSION
 	
 	public $READONLY = false;
 	
@@ -2501,6 +2501,8 @@ class EsoBuildDataEditor
 	public function __construct()
 	{
 		//UespMemcachedSession::install();
+		
+		$this->PTS_VERSION = $this->PTS_RULES_VERSION;
 		
 		$this->TEMPLATE_FILE = __DIR__."/templates/esoeditbuild_embed_template.txt";
 		

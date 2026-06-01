@@ -1666,3 +1666,7 @@ esotbToggledCpSelect {
 .esovsAbilityScriptSelected::before {
 	/* left: -10px !important; */
 }
+
+.esovsSubclassButton {
+	display: block !important;
+}
