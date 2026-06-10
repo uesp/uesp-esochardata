@@ -1907,9 +1907,14 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>10 June 2026</b>
+			<ul>
+				<li>Updated data from Live for update 50.</li>
+			</ul>
+			<p>
 			<b>28 May 2026</b>
 			<ul>
-				<li>50pts: Updated data from PTS (first patch only).
+				<li>50pts: Updated data from PTS (first patch only).</li>
 			</ul>
 			<p>
 			<b>19 March 2026</b>
