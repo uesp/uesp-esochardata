@@ -1907,6 +1907,16 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>22 June 2026</b>
+			<ul>
+				<li>Fixed the Font of Power class mastery passive.</li>
+			</ul>
+			<p>
+			<b>22 June 2026</b>
+			<ul>
+				<li>Added parsing for all class mastery passives. Note that the Sorcerer's Font of Power passive is not currently working (incorrectly parses the tooltip as 0%).</li>
+			</ul>
+			<p>
 			<b>10 June 2026</b>
 			<ul>
 				<li>Updated data from Live for update 50.</li>

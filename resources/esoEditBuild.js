@@ -107,6 +107,7 @@ window.ESOBUILD_RAWOUTPUT_LABELSUFFIX =
 	"SkillBonusSpellDmg" : "SpellDamage",
 	"SkillLineWeaponDmg" : "WeaponDamage",
 	"SkillLineSpellDmg" : "SpellDamage",
+	"SkillLineFlatDamage" : "Damage",
 };
 
 window.ESOBUILD_RAWOUTPUT_LABELREPLACEMENT =
@@ -314,6 +315,14 @@ window.GetEsoInputValues = function (mergeComputedStats)
 	g_EsoInputStatSources = {};
 	
 	InitializeEsoBuildInputValues(inputValues);
+	
+	if (mergeComputedStats === true)
+	{
+		for (var name in g_EsoComputedStats)
+		{
+			inputValues[name] = g_EsoComputedStats[name].value;
+		}
+	}
 	
 	if ($("#esotbUsePtsRules").prop("checked")) inputValues.UsePtsRules = true;
 	inputValues.RulesVersion = $("#esotbRulesVersion").val();
@@ -569,7 +578,7 @@ window.GetEsoInputValues = function (mergeComputedStats)
 	GetEsoInputSetValues(inputValues, 1);		//deferLevel
 	GetEsoInputBuffValues(inputValues, 1);
 	
-	if (mergeComputedStats === true) 
+	if (mergeComputedStats === true)
 	{
 		for (var name in g_EsoComputedStats)
 		{
@@ -1551,7 +1560,7 @@ window.GetEsoInputSkillOffBars = function (inputValues)
 }
 
 
-window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, abilityData, isPassive, testMatch, isOffBar)
+window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, abilityData, isPassive, testMatch, isOffBar, deferLevel)
 {
 	var statValue = 0;
 	var statFactor = 1;
@@ -1578,6 +1587,11 @@ window.ComputeEsoInputSkillValue = function (matchData, inputValues, rawDesc, ab
 		else if (!isNaN(newStatValue))
 			statValue = newStatValue;
 	}
+	
+	var matchDeferLevel = matchData.deferLevel;
+	if (matchDeferLevel == null) matchDeferLevel = 0;
+	if (deferLevel == null) deferLevel = 0;
+	if (deferLevel != matchDeferLevel) return false;
 	
 	if (matchData.skillName != null)
 	{
@@ -1868,7 +1882,7 @@ window.UpdateEsoBuffBuffEnabled = function ()
 }
 
 
-window.GetEsoInputSkillPassiveValues = function (inputValues, skillInputValues, skillData)
+window.GetEsoInputSkillPassiveValues = function (inputValues, skillInputValues, skillData, deferLevel)
 {
 	var abilityData = g_SkillsData[skillData.abilityId];
 	var skillDesc = GetEsoSkillDescription(skillData.abilityId, skillInputValues, false, true);
@@ -1879,11 +1893,12 @@ window.GetEsoInputSkillPassiveValues = function (inputValues, skillInputValues, 
 	
 	var rules = ESO_PASSIVEEFFECT_MATCHES
 	if (abilityData.cachedRules) rules = abilityData.cachedRules;
+	if (deferLevel == null) deferLevel = 0;
 	
 	for (var i = 0; i < rules.length; ++i)
 	{
 		var matchData = rules[i];
-		ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData, true);
+		ComputeEsoInputSkillValue(matchData, inputValues, rawDesc, abilityData, true, false, false, deferLevel);
 	}
 	
 }
@@ -4366,7 +4381,7 @@ window.UpdateEsoComputedStatsList_Real = function (keepSaveResults, noUpdate)
 	g_EsoBuildRebuildStatFlag = false;
 	if (keepSaveResults !== true) SetEsoBuildSaveResults("");
 	
-	var inputValues = GetEsoInputValues();
+	var inputValues = GetEsoInputValues(true);
 	var deferredStats = [];
 	
 	EsoProfile('UpdateEsoComputedStatsList_Real', 'GetEsoInputValues');
@@ -4518,6 +4533,13 @@ window.UpdateEsoComputedStatsSpecial = function (inputValues, computeIndex)
 		}
 		
 		if (IsEsoBuffEnabled(buffData)) GetEsoInputBuffValue(inputValues, 'Tremorscale (Target)', buffData);
+	}
+	
+		//Force update for the Font of Power passive
+	if (computeIndex == 0 && g_EsoBuildToggledSkillData['Font of Power'] && g_EsoBuildToggledSkillData['Font of Power'].enabled)
+	{
+		UpdateEsoBuildSkillInputValues(inputValues);
+		GetEsoInputSkillPassiveValues(inputValues, GetEsoTestBuildSkillInputValues(), g_SkillsData[263871], 1);
 	}
 	
 }
@@ -5014,7 +5036,9 @@ window.OnEsoClassChange = function (e)
 	
 	$("#esovsSkillTree .esovsSkillLineTitle").attr("subclass", "").attr("subclassid", "").each(function() {
 		var $this = $(this);
-		$this.text($this.attr("origskilllineid"));
+		var skillLine = $this.attr("origskilllineid");
+		skillLine = skillLine.replace(/Class Mastery .*/, "Class Mastery")
+		$this.text(skillLine);
 	});
 	
 	var classId = parseInt($(".esovsAbilityScriptClassList option:contains('" + newClass + "')").val());
@@ -8534,6 +8558,7 @@ window.UpdateEsoBuildSkillInputValues = function (inputValues)
  	g_LastSkillInputValues.SkillDamage = inputValues.SkillDamage;
  	g_LastSkillInputValues.SkillFlatDamage = inputValues.SkillFlatDamage;
  	g_LastSkillInputValues.SkillLineDamage = inputValues.SkillLineDamage;
+ 	g_LastSkillInputValues.SkillLineFlatDamage = inputValues.SkillLineFlatDamage;
  	g_LastSkillInputValues.SkillHealing = inputValues.SkillHealing;
  	g_LastSkillInputValues.useMaelstromDamage = false;
  	g_LastSkillInputValues.PoisonStaminaCost = inputValues.Skill.PoisonStaminaCost;

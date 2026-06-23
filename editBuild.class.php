@@ -266,6 +266,7 @@ class EsoBuildDataEditor
 			"SkillHealing.Placeholder",
 			"SkillLineWeaponDmg.base",
 			"SkillLineSpellDmg.base",
+			"SkillLineFlatDamage.Placeholder",
 			"SkillBonusWeaponDmg.base",
 			"SkillBonusSpellDmg.base",
 			"SkillDirectDamage.Placeholder",
@@ -1628,6 +1629,15 @@ class EsoBuildDataEditor
 			),
 			
 			"Skill.BlockMitigation" => array(
+					"display" => "%",
+			),
+			
+			"
+			Item.BlockMitigation" => array(
+					"display" => "%",
+			),
+			
+			"Buff.BlockMitigation" => array(
 					"display" => "%",
 			),
 			
