@@ -1907,6 +1907,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>6 August 2026</b>
+			<ul>
+				<li>51pts: Updated data from PTS.</li>
+			</ul>
+			<p>
 			<b>17 July 2026</b>
 			<ul>
 				<li>Fixed subclassed skill lines that wouldn't appear after being purchased.</li>
