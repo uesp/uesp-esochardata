@@ -9,7 +9,7 @@
 We're looking for experts in the build editor and the game itself to help manage and improve this build editor. If interested contact <a href="/wiki/User_talk:Daveh"><b>Daveh</b></a>.
 </div>
 <div class="esotbBuildNote">
-NOTE: The build editor should now be somewhat working for update 50pts but needs more testing due to difficulty in parsing skill coefficient data.
+NOTE: The build editor should now be working for update 51 but some item data still needs to be updated.
 </div>
 {saveNote}
 This character builder is for test purposes and accuracy of the displayed statistics may not be perfect in all cases. If you happen to experience any bugs or notice
@@ -1907,6 +1907,11 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>1 October 2026</b>
+			<ul>
+				<li>Updated data from Live update 51.</li>
+			</ul>
+			<p>
 			<b>6 August 2026</b>
 			<ul>
 				<li>51pts: Updated data from PTS.</li>

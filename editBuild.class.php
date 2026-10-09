@@ -30,7 +30,7 @@ require_once(__DIR__."/viewBuildData.class.php");
 class EsoBuildDataEditor
 {
 	public $LOAD_RULES_FROM_DB = true;
-	public $LIVE_RULES_VERSION = "50";
+	public $LIVE_RULES_VERSION = "51";
 	public $PTS_RULES_VERSION  = "51pts";
 	
 	public $PTS_VERSION = "";	//Set in constructor to match $PTS_RULES_VERSION
