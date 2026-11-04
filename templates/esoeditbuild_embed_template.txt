@@ -1907,6 +1907,12 @@ inaccurate computed values just <a href="//en.uesp.net/wiki/Online_talk:Build_Ed
 			</ul>
 			<p>
 			<h3>Recent Work</h3>
+			<b>4 November 2026</b>
+			<ul>
+				<li>52pts: Updated data from PTS.</li>
+				<li>Fixed the missing scribing/crafted skill for update 51.</li>
+			</ul>
+			<p>
 			<b>1 October 2026</b>
 			<ul>
 				<li>Updated data from Live update 51.</li>
